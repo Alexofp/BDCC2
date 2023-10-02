@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0y3fopt887v"]
+
+[ext_resource type="PackedScene" uid="uid://cx1pxyktpm3be" path="res://Mesh/my_body.tscn" id="1_1a24p"]
+[ext_resource type="PackedScene" uid="uid://4tktfooqoc1x" path="res://Mesh/my_body_head.tscn" id="2_qqabs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4pja8"]
+radius = 0.280005
+height = 1.6123
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xpskf"]
+
+[sub_resource type="Sky" id="Sky_4n81y"]
+sky_material = SubResource("ProceduralSkyMaterial_xpskf")
+
+[sub_resource type="Environment" id="Environment_o6ifn"]
+background_mode = 2
+sky = SubResource("Sky_4n81y")
+
+[node name="PlayerExample" type="CharacterBody3D"]
+
+[node name="MyBody" parent="." instance=ExtResource("1_1a24p")]
+
+[node name="Skeleton3D" parent="MyBody/rig" index="0"]
+bones/11/rotation = Quaternion(-0.0882296, 0.0322413, 0.247639, 0.964288)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.415355, -0.501023, -0.313171, 0.69165)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(0.352956, 0.582663, -0.0780187, 0.727901)
+bones/14/position = Vector3(-1.9651e-08, 0.107842, 2.36998e-09)
+bones/14/rotation = Quaternion(-1.09032e-07, -0.139468, -4.91319e-07, 0.990227)
+bones/15/position = Vector3(-1.18735e-07, 0.107842, -7.68929e-08)
+bones/15/rotation = Quaternion(0.747295, -0.139469, 0.165924, 0.628147)
+bones/16/position = Vector3(1.28765e-07, 0.111409, -4.36353e-08)
+bones/16/rotation = Quaternion(2.28448e-07, -0.0666197, -3.71283e-07, 0.997778)
+bones/17/position = Vector3(-3.46748e-08, 0.111409, -2.80489e-08)
+bones/17/rotation = Quaternion(-0.254536, -0.0666225, 0.586048, 0.766369)
+
+[node name="AnimationPlayer" parent="MyBody" index="1"]
+autoplay = "TestAnim"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.319879, 0.896948, 1.48251)
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.820977, 0)
+shape = SubResource("CapsuleShape3D_4pja8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o6ifn")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.87527, -0.483281, 0.0184818, 0.483634, 0.874631, -0.0334473, -2.5332e-07, 0.0382139, 0.999269, -8.21281e-15, 1.54699, -0.0132736)
+bone_name = "DEF-head"
+bone_idx = 11
+use_external_skeleton = true
+external_skeleton = NodePath("../MyBody/rig/Skeleton3D")
+
+[node name="MyBodyHead" parent="BoneAttachment3D" instance=ExtResource("2_qqabs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07586e-08, -1.55105, -0.0451252)
+
+[node name="Skeleton3D" parent="BoneAttachment3D/MyBodyHead/Armature_002" index="0"]
+bones/1/rotation = Quaternion(1.76948, 0.000474975, 0.000474975, 0.426475)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/position = Vector3(0.000474975, 0.188475, 0.073475)
+bones/5/rotation = Quaternion(-0.234525, 0.000474975, 0.000474975, 1.00048)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.854023, 0.24296, 0.460016, -0.520235, 0.398846, 0.755168, 0, -0.884247, 0.46702, 0, 0, 0)
+
+[editable path="MyBody"]
+[editable path="BoneAttachment3D/MyBodyHead"]

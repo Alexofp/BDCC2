@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://4tktfooqoc1x"]
+
+[ext_resource type="PackedScene" uid="uid://bum3npdfev75s" path="res://Mesh/MyBodyHead.glb" id="1_okimi"]
+
+[node name="MyBodyHead" instance=ExtResource("1_okimi")]
