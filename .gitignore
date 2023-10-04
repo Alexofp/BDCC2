@@ -11,3 +11,6 @@ export.cfg
 # Mono-specific ignores
 .mono/
 data_*/
+
+# Substaince painter files are too big
+*.spp
