@@ -1,19 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0y3fopt887v"]
+[gd_scene load_steps=13 format=3 uid="uid://d0y3fopt887v"]
 
 [ext_resource type="PackedScene" uid="uid://cx1pxyktpm3be" path="res://Mesh/my_body.tscn" id="1_1a24p"]
+[ext_resource type="Script" path="res://Player/player_example.gd" id="1_hqtiu"]
 [ext_resource type="Texture2D" uid="uid://c020ewgvu4r47" path="res://Mesh/BodyColor.png" id="2_0mkgd"]
+[ext_resource type="Material" uid="uid://bp7fy7vvl0obt" path="res://Mesh/BodyMaterialNotConverted.tres" id="2_gwe0b"]
 [ext_resource type="PackedScene" uid="uid://4tktfooqoc1x" path="res://Mesh/my_body_head.tscn" id="2_qqabs"]
-[ext_resource type="Texture2D" uid="uid://bxmqh2b4evakj" path="res://Mesh/BodyNormal.png" id="3_r34hi"]
 [ext_resource type="Texture2D" uid="uid://c04cetcdd0x2t" path="res://Mesh/mynipple.png" id="4_ecte7"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80pwt"]
-resource_name = "Body"
-diffuse_mode = 3
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_0mkgd")
-normal_enabled = true
-normal_scale = 0.2
-normal_texture = ExtResource("3_r34hi")
+[ext_resource type="Material" uid="uid://c84o57lodfwbq" path="res://Mesh/BodyMaterial.tres" id="5_gvr6t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vm5p"]
 resource_name = "Nipples"
@@ -36,6 +29,8 @@ background_mode = 2
 sky = SubResource("Sky_4n81y")
 
 [node name="PlayerExample" type="CharacterBody3D"]
+script = ExtResource("1_hqtiu")
+mat = ExtResource("2_gwe0b")
 
 [node name="MyBody" parent="." instance=ExtResource("1_1a24p")]
 
@@ -53,7 +48,6 @@ bones/7/scale = Vector3(1, 0.999999, 1)
 bones/9/rotation = Quaternion(0.191148, 2.34022e-07, -9.04863e-15, 0.981561)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/rotation = Quaternion(0.00348556, -3.13084e-14, 8.31032e-10, 0.999994)
-bones/10/scale = Vector3(1, 1, 1)
 bones/11/rotation = Quaternion(-0.0911165, 8.027e-15, -2.17239e-08, 0.99584)
 bones/12/rotation = Quaternion(-0.526603, -0.371283, -0.441197, 0.624647)
 bones/12/scale = Vector3(1, 1, 1)
@@ -62,9 +56,7 @@ bones/13/scale = Vector3(1, 1, 1)
 bones/15/rotation = Quaternion(0.277591, -1.8419e-06, 4.77273e-07, 0.960699)
 bones/16/rotation = Quaternion(-4.47035e-08, 4.37722e-08, 2.32831e-08, 1)
 bones/17/rotation = Quaternion(-0.000396092, -2.86848e-07, -0.000804453, 1)
-bones/17/scale = Vector3(1, 1, 1)
 bones/18/rotation = Quaternion(0.0454877, 0.845862, 0.0425702, 0.529751)
-bones/18/scale = Vector3(1, 1, 1)
 bones/19/rotation = Quaternion(0.0941694, 0.0561271, 0.0476062, 0.992832)
 bones/19/scale = Vector3(1, 1, 1)
 bones/20/rotation = Quaternion(0.145989, 0.00105533, -0.00717317, 0.98926)
@@ -85,7 +77,6 @@ bones/28/scale = Vector3(1, 1, 1)
 bones/29/rotation = Quaternion(-0.0470633, 0.837815, -0.00909528, 0.543845)
 bones/29/scale = Vector3(1, 1, 1)
 bones/31/rotation = Quaternion(0.150685, -0.000242043, 0.00155674, 0.988581)
-bones/31/scale = Vector3(1, 1, 1)
 bones/32/rotation = Quaternion(0.0849623, 2.72529e-05, -0.00346093, 0.996378)
 bones/32/scale = Vector3(1, 1, 1)
 bones/33/rotation = Quaternion(-0.0951522, 0.841017, -0.0416861, 0.530942)
@@ -96,10 +87,8 @@ bones/35/rotation = Quaternion(0.220413, -0.0016009, 0.00714735, 0.975379)
 bones/36/rotation = Quaternion(0.033868, 1.46362e-05, -0.0154695, 0.999307)
 bones/36/scale = Vector3(1, 1, 1)
 bones/37/rotation = Quaternion(-0.526603, 0.371283, 0.441197, 0.624647)
-bones/37/scale = Vector3(1, 1, 1)
 bones/38/rotation = Quaternion(-0.147495, -0.68398, 0.34735, 0.624311)
 bones/40/rotation = Quaternion(0.27759, 1.75465e-06, -5.34923e-07, 0.9607)
-bones/40/scale = Vector3(1, 1, 1)
 bones/41/rotation = Quaternion(-7.45058e-09, -2.6077e-08, 1.30385e-08, 1)
 bones/42/rotation = Quaternion(-0.000396107, 2.71946e-07, 0.000804443, 1)
 bones/42/scale = Vector3(1, 1, 1)
@@ -120,7 +109,6 @@ bones/51/rotation = Quaternion(0.0751607, 0.033586, 0.00998403, 0.996556)
 bones/51/scale = Vector3(1, 1, 1)
 bones/52/rotation = Quaternion(0.170855, 0.000868621, -0.00509029, 0.985283)
 bones/53/rotation = Quaternion(0.0213532, -1.46717e-05, 0.0115258, 0.999706)
-bones/53/scale = Vector3(1, 1, 1)
 bones/54/rotation = Quaternion(-0.0470633, -0.837815, 0.00909527, 0.543845)
 bones/56/rotation = Quaternion(0.150685, 0.00024185, -0.00155674, 0.988581)
 bones/57/rotation = Quaternion(0.0849623, -2.72054e-05, 0.0034609, 0.996378)
@@ -130,13 +118,11 @@ bones/58/scale = Vector3(1, 1, 1)
 bones/59/rotation = Quaternion(0.0262664, -0.00177513, -0.0269081, 0.999291)
 bones/59/scale = Vector3(1, 1, 1)
 bones/60/rotation = Quaternion(0.220413, 0.00160081, -0.00714732, 0.975379)
-bones/60/scale = Vector3(1, 1, 1)
 bones/61/rotation = Quaternion(0.0338679, -1.461e-05, 0.0154695, 0.999307)
 bones/61/scale = Vector3(1, 1, 1)
 bones/62/rotation = Quaternion(-0.793663, -5.61773e-08, -8.20835e-08, 0.608358)
 bones/62/scale = Vector3(1, 1, 1)
 bones/63/rotation = Quaternion(-0.793663, -5.61773e-08, -8.20835e-08, 0.608358)
-bones/63/scale = Vector3(1, 1, 1)
 bones/64/rotation = Quaternion(0.986338, -0.0543938, 0.0382162, 0.150723)
 bones/64/scale = Vector3(1, 1, 0.999997)
 bones/66/rotation = Quaternion(0.0644994, -0.036857, -0.0577271, 0.995565)
@@ -151,23 +137,23 @@ bones/72/rotation = Quaternion(0.0644994, 0.036857, 0.0577271, 0.995565)
 bones/72/scale = Vector3(1, 1, 1)
 bones/74/scale = Vector3(1, 1, 1)
 bones/75/rotation = Quaternion(-1.30547e-07, 0.973571, -0.228383, 5.87644e-06)
-bones/75/scale = Vector3(1, 1, 1)
 
 [node name="Body" parent="MyBody/rig/Skeleton3D" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_80pwt")
+surface_material_override/0 = ExtResource("5_gvr6t")
 
 [node name="CrotchSFW" parent="MyBody/rig/Skeleton3D" index="1"]
 visible = false
 
 [node name="Digilegs" parent="MyBody/rig/Skeleton3D" index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_80pwt")
+visible = false
+surface_material_override/0 = ExtResource("5_gvr6t")
 
 [node name="Nipples" parent="MyBody/rig/Skeleton3D" index="3"]
 lod_bias = 50.0
 surface_material_override/0 = SubResource("StandardMaterial3D_4vm5p")
 
 [node name="PlantiLegs" parent="MyBody/rig/Skeleton3D" index="4"]
-visible = false
+surface_material_override/0 = ExtResource("5_gvr6t")
 
 [node name="SkeletonIK3D" type="SkeletonIK3D" parent="MyBody/rig/Skeleton3D" index="5"]
 root_bone = &"DEF-shoulder.R"
@@ -176,18 +162,20 @@ target_node = NodePath("../../../../Marker3D")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.252, 1.062, 1.136)
+visible = false
 current = true
 fov = 42.9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.820977, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_4pja8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o6ifn")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
-transform = Transform3D(1, 4.61853e-14, 2.38418e-07, 9.11093e-09, 0.999269, -0.0382138, -2.38244e-07, 0.0382138, 0.999269, 1.80049e-14, 1.54699, -0.0132736)
+transform = Transform3D(1, 8.52651e-14, 2.38418e-07, 9.11085e-09, 0.99927, -0.0382143, -2.38244e-07, 0.0382143, 0.999269, -1.89636e-14, 1.54699, -0.0132739)
 bone_name = "DEF-head"
 bone_idx = 11
 use_external_skeleton = true
@@ -207,9 +195,19 @@ transform = Transform3D(0.854023, 0.24296, 0.460016, -0.520235, 0.398846, 0.7551
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(-0.343947, -0.368788, 0.863537, 0.834055, 0.302464, 0.461376, -0.431339, 0.878926, 0.203558, -0.269963, 1.4255, 0.197744)
+visible = false
 
 [node name="Marker3D2" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.357788, 1.12376, -0.381314)
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_right = 401.0
+offset_bottom = 401.0
+texture = ExtResource("2_0mkgd")
+expand_mode = 4
+stretch_mode = 5
 
 [editable path="MyBody"]
 [editable path="BoneAttachment3D/MyBodyHead"]
