@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nw37y7s14to0"
-path="res://.godot/imported/MyBody substance painter_Body_Metallic.png-7baa964b70ee6cad1557e6e211a67a23.ctex"
+uid="uid://be0gevlnqdtr4"
+path="res://.godot/imported/MyBody substance painter Together_Body_Normal.png-df1e343e6b1f9cfbe1546ababa25dc81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/textures/MyBody substance painter_Body_Metallic.png"
-dest_files=["res://.godot/imported/MyBody substance painter_Body_Metallic.png-7baa964b70ee6cad1557e6e211a67a23.ctex"]
+source_file="res://AssetsSource/Bodies/textures/MyBody substance painter Together_Body_Normal.png"
+dest_files=["res://.godot/imported/MyBody substance painter Together_Body_Normal.png-df1e343e6b1f9cfbe1546ababa25dc81.ctex"]
 
 [params]
 

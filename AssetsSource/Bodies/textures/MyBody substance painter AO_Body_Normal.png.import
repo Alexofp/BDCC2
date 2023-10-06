@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://56krts1lykoq"
-path="res://.godot/imported/MyBody substance painter_Body_Roughness.png-046fb0ec7784f7082f826b658a3155f7.ctex"
+uid="uid://bugvpd2swjhcj"
+path="res://.godot/imported/MyBody substance painter AO_Body_Normal.png-9953796ebc83c5412bb4f9fc0ccef12b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/textures/MyBody substance painter_Body_Roughness.png"
-dest_files=["res://.godot/imported/MyBody substance painter_Body_Roughness.png-046fb0ec7784f7082f826b658a3155f7.ctex"]
+source_file="res://AssetsSource/Bodies/textures/MyBody substance painter AO_Body_Normal.png"
+dest_files=["res://.godot/imported/MyBody substance painter AO_Body_Normal.png-9953796ebc83c5412bb4f9fc0ccef12b.ctex"]
 
 [params]
 

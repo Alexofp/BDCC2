@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ryxk1brvi2rs"
-path="res://.godot/imported/MyBody substance painter_Body_Emissive.png-f074660e10aabb00be2026277bbfa12d.ctex"
+uid="uid://bibxerotfnkm4"
+path="res://.godot/imported/MyBody substance painter Together_Body_BaseColor.png-72794802d543f1ee89735a324c2c24bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/textures/MyBody substance painter_Body_Emissive.png"
-dest_files=["res://.godot/imported/MyBody substance painter_Body_Emissive.png-f074660e10aabb00be2026277bbfa12d.ctex"]
+source_file="res://AssetsSource/Bodies/textures/MyBody substance painter Together_Body_BaseColor.png"
+dest_files=["res://.godot/imported/MyBody substance painter Together_Body_BaseColor.png-72794802d543f1ee89735a324c2c24bb.ctex"]
 
 [params]
 

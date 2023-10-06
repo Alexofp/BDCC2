@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bp7fy7vvl0obt"]
+
+[ext_resource type="Texture2D" uid="uid://c020ewgvu4r47" path="res://Mesh/BodyColor.png" id="1_vp2v8"]
+[ext_resource type="Texture2D" uid="uid://bxmqh2b4evakj" path="res://Mesh/BodyNormal.png" id="2_vbdy7"]
+
+[resource]
+resource_name = "Body"
+diffuse_mode = 3
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_vp2v8")
+normal_enabled = true
+normal_texture = ExtResource("2_vbdy7")
