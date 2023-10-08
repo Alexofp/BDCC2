@@ -2,17 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bibxerotfnkm4"
-path.s3tc="res://.godot/imported/MyBody substance painter Together_Body_BaseColor.png-72794802d543f1ee89735a324c2c24bb.s3tc.ctex"
+uid="uid://ynmksq0ddwgn"
+path.s3tc="res://.godot/imported/MyBody_MyBody substance painter Together_Body_BaseColor.png-de2c12ec9c2549652ea9610cd85f3beb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/textures/MyBody substance painter Together_Body_BaseColor.png"
-dest_files=["res://.godot/imported/MyBody substance painter Together_Body_BaseColor.png-72794802d543f1ee89735a324c2c24bb.s3tc.ctex"]
+source_file="res://AssetsSource/Bodies/MyBody_MyBody substance painter Together_Body_BaseColor.png"
+dest_files=["res://.godot/imported/MyBody_MyBody substance painter Together_Body_BaseColor.png-de2c12ec9c2549652ea9610cd85f3beb.s3tc.ctex"]
 
 [params]
 
