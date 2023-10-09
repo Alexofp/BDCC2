@@ -1,7 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=8 format=3 uid="uid://bm1mm46ypljc1"]
 
-[ext_resource type="PackedScene" uid="uid://d0y3fopt887v" path="res://Player/player_example.tscn" id="1_prm1p"]
+[ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
+[ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
+[ext_resource type="PackedScene" uid="uid://d08txhenreptl" path="res://Player/Doll/doll.tscn" id="2_e8f0d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fomb8"]
+
+[sub_resource type="Sky" id="Sky_4n81y"]
+sky_material = SubResource("ProceduralSkyMaterial_fomb8")
+
+[sub_resource type="Environment" id="Environment_wvnis"]
+background_mode = 2
+sky = SubResource("Sky_4n81y")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nbuoh"]
+size = Vector3(10, 0.2, 10)
 
 [node name="LevelExample" type="Node3D"]
+script = ExtResource("1_djto6")
 
-[node name="PlayerExample" parent="." instance=ExtResource("1_prm1p")]
+[node name="BaseCharacter" type="Node" parent="."]
+script = ExtResource("1_ddbjx")
+
+[node name="Doll" parent="." instance=ExtResource("2_e8f0d")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.252, 1.062, 1.136)
+visible = false
+current = true
+fov = 42.9
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wvnis")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.854023, 0.24296, 0.460016, -0.520235, 0.398846, 0.755167, 0, -0.884247, 0.46702, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_nbuoh")

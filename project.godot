@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BDCC2"
-run/main_scene="res://Player/player_example.tscn"
+run/main_scene="res://Player/level_example.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
