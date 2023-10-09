@@ -6,7 +6,7 @@ func _ready():
 	resetOptionsToDefault()
 	#applyOption("thickbutt", 1.0)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func resetOptionsToDefault():

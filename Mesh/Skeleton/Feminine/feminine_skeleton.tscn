@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://bac817sywgcyf"]
+
+[ext_resource type="PackedScene" uid="uid://70dge2hgm6mw" path="res://Mesh/Skeleton/Feminine/FeminineSkeleton.glb" id="1_n1msn"]
+[ext_resource type="Script" path="res://Mesh/Skeleton/Feminine/feminine_skeleton.gd" id="2_bfjmm"]
+
+[node name="FeminineSkeleton" instance=ExtResource("1_n1msn")]
+script = ExtResource("2_bfjmm")
+
+[node name="Skeleton3D" parent="rig" index="0"]
+bones/1/position = Vector3(-0.0348412, 0.0441036, 0.928482)
+bones/1/rotation = Quaternion(0.784151, 0.133271, 0.0312828, 0.605283)
+bones/2/rotation = Quaternion(-0.0810222, 0.0027765, 0.0342944, 0.996118)
+bones/3/position = Vector3(-9.14105e-09, 0.142637, 6.52245e-09)
+bones/3/rotation = Quaternion(-0.0903689, -0.0863533, 0.0631516, 0.990146)
+bones/4/position = Vector3(-1.21945e-08, 0.136918, -2.75887e-08)
+bones/4/rotation = Quaternion(-0.0567138, -0.0365044, 0.0400932, 0.996917)
+bones/9/rotation = Quaternion(0.192446, -0.00212544, -0.0420457, 0.980404)
+bones/11/rotation = Quaternion(-0.0895459, -0.00664788, -0.0415712, 0.995093)
+bones/12/rotation = Quaternion(-0.555395, -0.327362, -0.475984, 0.598172)
+bones/13/rotation = Quaternion(-0.431246, 0.623612, -0.470291, 0.451622)
+bones/14/position = Vector3(2.52747e-12, 0.109932, -1.16427e-08)
+bones/14/rotation = Quaternion(2.92535e-08, 0.0524431, 2.75149e-08, 0.998624)
+bones/15/position = Vector3(-1.55938e-08, 0.109932, 3.03497e-08)
+bones/15/rotation = Quaternion(0.263693, 0.0524428, -0.0143586, 0.963073)
+bones/16/position = Vector3(9.59973e-09, 0.113763, 3.07303e-08)
+bones/16/rotation = Quaternion(2.32702e-08, -0.0262312, 2.25775e-09, 0.999656)
+bones/17/position = Vector3(-5.82417e-09, 0.113763, -3.60902e-08)
+bones/17/rotation = Quaternion(-0.151435, -0.0262343, 0.0137833, 0.988023)
+bones/37/rotation = Quaternion(-0.463805, 0.449816, 0.369445, 0.667877)
+bones/38/rotation = Quaternion(-0.250157, -0.722694, 0.261283, 0.588953)
+bones/39/position = Vector3(-8.41186e-08, 0.10803, 1.35162e-08)
+bones/39/rotation = Quaternion(2.81995e-07, -0.280124, 3.55653e-07, 0.959964)
+bones/40/position = Vector3(2.69199e-08, 0.108031, -7.42151e-08)
+bones/40/rotation = Quaternion(0.66348, -0.280123, 0.29626, 0.62734)
+bones/41/position = Vector3(5.33945e-09, 0.111605, -7.72371e-08)
+bones/41/rotation = Quaternion(5.26035e-08, 0.222005, 7.44286e-08, 0.975045)
+bones/42/position = Vector3(-1.39356e-08, 0.111604, 1.19142e-07)
+bones/42/rotation = Quaternion(0.109301, 0.222009, -0.392506, 0.885835)
+bones/67/rotation = Quaternion(0.982636, 0.0613839, 0.0190944, 0.174052)
+bones/68/position = Vector3(-1.50009e-08, 0.216109, -1.98315e-08)
+bones/68/rotation = Quaternion(-5.88788e-08, -0.185702, 6.75378e-08, 0.982606)
+bones/69/position = Vector3(1.11777e-08, 0.216109, 1.2933e-08)
+bones/69/rotation = Quaternion(0.14331, -0.221656, -0.0291286, 0.964097)
+bones/70/position = Vector3(3.38763e-09, 0.220743, 6.3866e-09)
+bones/70/rotation = Quaternion(-4.83465e-08, 0.102336, -3.57155e-08, 0.99475)
+bones/71/position = Vector3(-2.38026e-08, 0.220743, 2.96043e-08)
+bones/71/rotation = Quaternion(-0.612101, 0.105098, 0.062063, 0.781303)
+bones/72/position = Vector3(1.45431e-09, 0.130901, -7.79151e-09)
+bones/72/rotation = Quaternion(-2.20347e-05, 0.973728, -0.227716, -1.37856e-06)
+bones/73/rotation = Quaternion(0.976062, 0.126705, -0.0477939, 0.170189)
+bones/74/position = Vector3(2.83815e-09, 0.223002, 1.60971e-09)
+bones/74/rotation = Quaternion(-4.63685e-08, 0.0944881, 1.55084e-09, 0.995526)
+bones/75/position = Vector3(-4.83851e-09, 0.223002, 1.1154e-08)
+bones/75/rotation = Quaternion(0.0136642, 0.131151, 0.0586705, 0.98953)
+bones/76/position = Vector3(6.94512e-09, 0.227646, -2.75783e-08)
+bones/76/rotation = Quaternion(-4.20693e-08, 0.0374978, 3.93635e-09, 0.999297)
+bones/77/position = Vector3(-4.62326e-09, 0.227646, 1.77858e-09)
+bones/77/rotation = Quaternion(-0.531929, 0.0345648, 0.0486729, 0.844682)
+bones/78/position = Vector3(-2.96896e-09, 0.131055, 4.46144e-09)
+bones/78/rotation = Quaternion(-7.23671e-05, 0.973423, -0.229015, 2.35157e-05)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "SexyIdle"
