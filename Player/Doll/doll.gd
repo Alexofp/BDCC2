@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Doll
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -8,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var character:BaseCharacter
 var dollSkeleton:DollSkeleton
+var bodypartToDollPart:Dictionary = {}
 
 func getCharacter() -> BaseCharacter:
 	return character
@@ -15,6 +17,8 @@ func getCharacter() -> BaseCharacter:
 func setCharacter(newChar:BaseCharacter):
 	character = newChar
 	updateFromCharacter()
+	# Add support for bodyparts being removed
+	newChar.connect("onBodypartChanged", onBodypartChanged)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -66,3 +70,45 @@ func updateFromCharacter():
 		dollSkeleton.getSkeleton().add_child(mesh)
 		
 		mesh.setSkeleton(dollSkeleton.getSkeleton())
+		
+		bodypartToDollPart[root] = mesh
+	
+	var childParts = root.getBodyparts()
+	for bodypartSlot in childParts:
+		if(childParts[bodypartSlot] == null):
+			continue
+		var childPart:BaseBodypart = childParts[bodypartSlot]
+		
+		updateBodypartRecursive(root, bodypartSlot, childPart)
+
+func onBodypartChanged(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
+	updateBodypartRecursive(whatpart, slot, newpart)
+
+func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBodypart):
+	print(slot+" Working")
+	var meshScene = part.getMeshScene()
+	if(meshScene != null):
+		var mesh = meshScene.instantiate()
+		
+		var dollPart: DollPart = bodypartToDollPart[parentPart]
+		var attachObject:Node
+		
+		# Better check if we should attach to the doll skeleton?
+		if(parentPart is BaseBodyBodypart):
+			attachObject = dollSkeleton.getBodypartSlotObject(slot)
+		else:
+			attachObject = dollPart.getBodypartSlotObject(slot)
+		
+		print(slot+" Attached to ",attachObject)
+		attachObject.add_child(mesh)
+		#mesh.setSkeleton(dollSkeleton.getSkeleton())
+		
+		bodypartToDollPart[part] = mesh
+
+		var childParts = part.getBodyparts()
+		for bodypartSlot in childParts:
+			if(childParts[bodypartSlot] == null):
+				continue
+			var childPart:BaseBodypart = childParts[bodypartSlot]
+			
+			updateBodypartRecursive(part, bodypartSlot, childPart)

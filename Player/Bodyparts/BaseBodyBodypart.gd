@@ -22,3 +22,8 @@ func getSkeletonScene() -> PackedScene:
 
 func getMeshScene() -> PackedScene:
 	return preload("res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn")
+
+func getBodypartSlots():
+	return {
+		BodypartSlot.Head: true,
+	}
