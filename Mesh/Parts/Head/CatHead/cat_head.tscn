@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dswroh18b2as1"]
+
+[ext_resource type="PackedScene" uid="uid://cw3lja8nvor65" path="res://Mesh/Parts/Head/CatHead/CatHead.glb" id="1_tposj"]
+[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_8ihij"]
+[ext_resource type="PackedScene" uid="uid://ci71ce8ctr4jm" path="res://Mesh/Parts/Ear/CatEar/cat_ear.tscn" id="3_33sk0"]
+
+[node name="CatHead" instance=ExtResource("1_tposj")]
+script = ExtResource("2_8ihij")
+attachmentPoints = {
+"LeftEar": NodePath("Armature_002/Skeleton3D/LeftEarAttach"),
+"RightEar": NodePath("Armature_002/Skeleton3D/RightEarAttach/Marker3D")
+}
+
+[node name="LeftEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582904, 0.152422, 0.0033248)
+bone_name = "Ear.L"
+bone_idx = 14
+
+[node name="CatEar2" parent="Armature_002/Skeleton3D/LeftEarAttach" index="0" instance=ExtResource("3_33sk0")]
+visible = false
+
+[node name="RightEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0582904, 0.152422, 0.0033248)
+bone_name = "Ear.R"
+bone_idx = 15
+
+[node name="Marker3D" type="Marker3D" parent="Armature_002/Skeleton3D/RightEarAttach" index="0"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CatEar" parent="Armature_002/Skeleton3D/RightEarAttach/Marker3D" index="0" instance=ExtResource("3_33sk0")]
+visible = false

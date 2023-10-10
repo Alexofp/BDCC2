@@ -1,8 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://drbc3iu2kd5kb"]
 
-[ext_resource type="PackedScene" uid="uid://dtsbsmnsfmlc2" path="res://AssetsSource/Bodies/FeminineBody.glb" id="1_miprs"]
+[ext_resource type="PackedScene" uid="uid://dhhmxkx0todmr" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_op47h"]
 [ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_e6hne"]
 
-[node name="FeminineBody" node_paths=PackedStringArray("skeleton") instance=ExtResource("1_miprs")]
+[node name="FeminineBody" node_paths=PackedStringArray("skeleton") instance=ExtResource("1_op47h")]
 script = ExtResource("2_e6hne")
 skeleton = NodePath("rig/Skeleton3D")
+bindToMainSkeleton = true
