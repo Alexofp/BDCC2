@@ -20,3 +20,16 @@ static func getAllMeshInstancesOfANode(node: Node) -> Array[MeshInstance3D]:
 				tocheck.append(n)
 	
 	return result
+
+static func getFirstSkeleton3DOfANode(node: Node) -> Skeleton3D:
+	var tocheck = [node]
+	
+	while(!tocheck.is_empty()):
+		var thenode:Node = tocheck.pop_back()
+		
+		if(thenode is Skeleton3D):
+			return thenode
+		
+		tocheck.append_array(thenode.get_children())
+	
+	return null

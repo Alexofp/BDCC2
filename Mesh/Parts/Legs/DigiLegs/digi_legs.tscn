@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0x5a0k8xa1tb"]
+
+[ext_resource type="PackedScene" uid="uid://od5y4ivseng2" path="res://Mesh/Parts/Legs/DigiLegs/DigiLegs.glb" id="1_7ntgb"]
+[ext_resource type="Script" path="res://Mesh/Parts/Legs/DigiLegs/digi_legs.gd" id="2_ljua3"]
+
+[node name="DigiLegs" instance=ExtResource("1_7ntgb")]
+script = ExtResource("2_ljua3")
+bindToParentSkeleton = true

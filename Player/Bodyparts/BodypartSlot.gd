@@ -5,6 +5,7 @@ const Body = "Body"
 const Head = "Head"
 const LeftEar = "LeftEar"
 const RightEar = "RightEar"
+const Legs = "Legs"
 
 static func getAll() -> Array:
-	return [Body, Head, LeftEar, RightEar]
+	return [Body, Head, LeftEar, RightEar, Legs]

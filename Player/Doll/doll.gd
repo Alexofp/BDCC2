@@ -8,7 +8,7 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var character:BaseCharacter
-var dollSkeleton:DollSkeleton
+#var dollSkeleton:DollSkeleton
 var bodypartToDollPart:Dictionary = {}
 
 func getCharacter() -> BaseCharacter:
@@ -18,7 +18,8 @@ func setCharacter(newChar:BaseCharacter):
 	character = newChar
 	updateFromCharacter()
 	# Add support for bodyparts being removed
-	newChar.connect("onBodypartChanged", onBodypartChanged)
+	newChar.connect("onBodypartAdded", onBodypartChanged)
+	newChar.connect("onBodypartRemoved", onBodypartRemoved)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -43,21 +44,22 @@ func _physics_process(delta):
 	move_and_slide()
 
 func clear():
-	if(dollSkeleton != null):
-		dollSkeleton.queue_free()
-		dollSkeleton = null
+	pass
+	#if(dollSkeleton != null):
+	#	dollSkeleton.queue_free()
+	#	dollSkeleton = null
 
 func updateSkeleton():
 	var root = character.getRootBodypart()
 	
-	var skeletonScene = root.getSkeletonScene()
+	#var skeletonScene = root.getSkeletonScene()
 	
-	if(dollSkeleton != null):
-		dollSkeleton.queue_free()
-		dollSkeleton = null
+	#if(dollSkeleton != null):
+	#	dollSkeleton.queue_free()
+	#	dollSkeleton = null
 	
-	dollSkeleton = skeletonScene.instantiate()
-	add_child(dollSkeleton)
+	#dollSkeleton = skeletonScene.instantiate()
+	#add_child(dollSkeleton)
 
 func updateFromCharacter():
 	updateSkeleton()
@@ -65,13 +67,17 @@ func updateFromCharacter():
 	var root = character.getRootBodypart()
 	var meshScene = root.getMeshScene()
 	if(meshScene != null):
-		var mesh = meshScene.instantiate()
+		var newDollPart = meshScene.instantiate()
 		
-		dollSkeleton.getSkeleton().add_child(mesh)
+		add_child(newDollPart)
 		
-		mesh.setSkeleton(dollSkeleton.getSkeleton())
+		root.applyOptionsToDollPart(newDollPart)
+		root.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
+		#dollSkeleton.getSkeleton().add_child(newDollPart)
 		
-		bodypartToDollPart[root] = mesh
+		#newDollPart.setSkeleton(dollSkeleton.getSkeleton())
+		
+		bodypartToDollPart[root] = newDollPart
 	
 	var childParts = root.getBodyparts()
 	for bodypartSlot in childParts:
@@ -84,26 +90,34 @@ func updateFromCharacter():
 func onBodypartChanged(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	updateBodypartRecursive(whatpart, slot, newpart)
 
+func onBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
+	if(bodypartToDollPart.has(removedpart)):
+		var dollPartToRemove = bodypartToDollPart[removedpart]
+		print(slot+" Removed ",dollPartToRemove)
+		bodypartToDollPart.erase(removedpart)
+		dollPartToRemove.queue_free()
+	
 func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBodypart):
-	print(slot+" Working")
 	var meshScene = part.getMeshScene()
 	if(meshScene != null):
-		var mesh = meshScene.instantiate()
+		var newDollPart:DollPart = meshScene.instantiate()
 		
-		var dollPart: DollPart = bodypartToDollPart[parentPart]
-		var attachObject:Node
-		
-		# Better check if we should attach to the doll skeleton?
-		if(parentPart is BaseBodyBodypart):
-			attachObject = dollSkeleton.getBodypartSlotObject(slot)
-		else:
-			attachObject = dollPart.getBodypartSlotObject(slot)
+		var parentDollPart: DollPart = bodypartToDollPart[parentPart]
+		parentDollPart.dollRef = weakref(self)
+		var attachObject:Node = parentDollPart.getBodypartSlotObject(slot)
 		
 		print(slot+" Attached to ",attachObject)
-		attachObject.add_child(mesh)
+		attachObject.add_child(newDollPart)
+		
+		part.applyOptionsToDollPart(newDollPart)
+		part.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
+		parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
+		
+		if(newDollPart.shouldBindToParentSkeleton()):
+			newDollPart.setSkeleton(parentDollPart.getSkeleton())
 		#mesh.setSkeleton(dollSkeleton.getSkeleton())
 		
-		bodypartToDollPart[part] = mesh
+		bodypartToDollPart[part] = newDollPart
 
 		var childParts = part.getBodyparts()
 		for bodypartSlot in childParts:
