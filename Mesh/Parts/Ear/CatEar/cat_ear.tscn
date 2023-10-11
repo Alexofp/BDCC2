@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci71ce8ctr4jm"]
 
 [ext_resource type="PackedScene" uid="uid://br2hgxbkoryus" path="res://Mesh/Parts/Ear/CatEar/CatEar.glb" id="1_qu1a0"]
-[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_ccgxt"]
+[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_oop11"]
 
 [node name="CatEar" instance=ExtResource("1_qu1a0")]
-script = ExtResource("2_ccgxt")
+script = ExtResource("2_oop11")

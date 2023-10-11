@@ -9,6 +9,13 @@ func _ready():
 	var silly:BaseBodypart = baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).setBodypart(BodypartSlot.RightEar, BaseHeadBodypart.new())
 	silly.setBodypart(BodypartSlot.LeftEar, BaseEarBodypart.new())
 	silly.setBodypart(BodypartSlot.RightEar, BaseEarBodypart.new())
+	
+	baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).removeBodypart(BodypartSlot.RightEar)
+	baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).setBodypart(BodypartSlot.RightEar, BaseEarBodypart.new())
+
+	$Doll2.setCharacter(baseCharacter)
+	
+	baseCharacter.getRootBodypart().setOptionValue("thickbutt", 3.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

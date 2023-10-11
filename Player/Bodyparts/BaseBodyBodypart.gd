@@ -1,6 +1,10 @@
 extends BaseBodypart
 class_name BaseBodyBodypart
 
+func _init():
+	super._init()
+	bodypartType = BodypartType.Body
+
 func getOptions() -> Dictionary:
 	return {
 		"breastsize": {
@@ -26,4 +30,5 @@ func getMeshScene() -> PackedScene:
 func getBodypartSlots():
 	return {
 		BodypartSlot.Head: true,
+		BodypartSlot.Legs: true,
 	}
