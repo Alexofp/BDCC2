@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1316rk38fagu"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/Elements/bodypart_panel.gd" id="1_lm75h"]
+[ext_resource type="PackedScene" uid="uid://xhwqdh77p3ft" path="res://Game/CharacterCreator/OptionTypes/number_slider.tscn" id="1_w6xax"]
+
+[node name="BodypartPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lm75h")
+
+[node name="PartVBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PartVBox"]
+layout_mode = 2
+text = "Body"
+
+[node name="PartOptions" type="VBoxContainer" parent="PartVBox"]
+layout_mode = 2
+
+[node name="HBoxContainer" parent="PartVBox/PartOptions" instance=ExtResource("1_w6xax")]
+layout_mode = 2
+
+[node name="ChildPartsList" type="VBoxContainer" parent="PartVBox"]
+layout_mode = 2

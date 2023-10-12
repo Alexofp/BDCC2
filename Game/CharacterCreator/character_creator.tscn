@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddpn3gykscjr8"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/character_creator.gd" id="1_8fgsh"]
+[ext_resource type="PackedScene" uid="uid://d1316rk38fagu" path="res://Game/CharacterCreator/Elements/bodypart_panel.tscn" id="2_x4j1w"]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8fgsh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpaceTaker" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BodypartsList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BodypartPanel" parent="HBoxContainer/VBoxContainer/ScrollContainer/BodypartsList" instance=ExtResource("2_x4j1w")]
+layout_mode = 2

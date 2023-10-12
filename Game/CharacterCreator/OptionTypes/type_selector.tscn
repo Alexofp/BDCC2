@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhdkibl0ipw88"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/type_selector.gd" id="1_hfltj"]
+
+[node name="TypeSelectorHBox" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+script = ExtResource("1_hfltj")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
