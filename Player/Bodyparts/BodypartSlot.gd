@@ -9,3 +9,11 @@ const Legs = "Legs"
 
 static func getAll() -> Array:
 	return [Body, Head, LeftEar, RightEar, Legs]
+
+static func getVisibleName(slot):
+	if(slot == LeftEar):
+		return "Left ear"
+	if(slot == RightEar):
+		return "Right ear"
+	
+	return str(slot)

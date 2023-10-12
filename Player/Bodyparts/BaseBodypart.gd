@@ -18,6 +18,9 @@ signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
 func _init():
 	cachedOptions = getOptions()
 
+func getVisibleName():
+	return "ERROR"
+
 func resetOptionsToDefault():
 	var theOptions = getOptions()
 	
@@ -94,6 +97,12 @@ func removeBodypart(slot:String) -> bool:
 	bodyparts.erase(slot)
 	getCharacter().tellBodypartRemoved(self, slot, removedBodypart)
 	return true
+
+func getSlotOfPart(childpart: BaseBodypart):
+	for slot in bodyparts:
+		if(bodyparts[slot] == childpart):
+			return slot
+	return null
 
 func getBodypartType() -> String:
 	return bodypartType

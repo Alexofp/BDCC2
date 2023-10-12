@@ -12,7 +12,7 @@ func getOptions() -> Dictionary:
 	}
 
 func getMeshScene() -> PackedScene:
-	return preload("res://Mesh/Parts/Head/CatHead/cat_head.tscn")
+	return load("res://Mesh/Parts/Head/CatHead/cat_head.tscn")
 
 func getBodypartSlots():
 	return {

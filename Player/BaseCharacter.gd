@@ -7,13 +7,13 @@ signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
 
 func _init():
-	setRoot(BaseBodyBodypart.new())
+	setRoot(GlobalRegistry.createBodypart("FeminineBody"))
 	
-	var head = getRootBodypart().setBodypart(BodypartSlot.Head, BaseHeadBodypart.new())
-	head.setBodypart(BodypartSlot.LeftEar, BaseEarBodypart.new())
+	#var head = getRootBodypart().setBodypart(BodypartSlot.Head, BaseHeadBodypart.new())
+	#head.setBodypart(BodypartSlot.LeftEar, BaseEarBodypart.new())
 	#head.setBodypart(BodypartSlot.RightEar, BaseEarBodypart.new())
 
-	getRootBodypart().setBodypart(BodypartSlot.Legs, BaseLegsBodypart.new())
+	#getRootBodypart().setBodypart(BodypartSlot.Legs, BaseLegsBodypart.new())
 
 func getID() -> String:
 	return id

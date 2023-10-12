@@ -33,3 +33,24 @@ static func getFirstSkeleton3DOfANode(node: Node) -> Skeleton3D:
 		tocheck.append_array(thenode.get_children())
 	
 	return null
+
+static func getScriptsInFolder(folder: String):
+	var result = []
+	
+	var dir = DirAccess.open(folder)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				pass
+				#print("Found directory: " + file_name)
+			else:
+				if(file_name.get_extension() == "gd"):
+					var full_path = folder.path_join(file_name)
+					result.append(full_path)
+			file_name = dir.get_next()
+	else:
+		Log.printerr("An error occurred when trying to access the path "+folder)
+	
+	return result

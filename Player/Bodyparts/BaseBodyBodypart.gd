@@ -22,10 +22,10 @@ func getOptions() -> Dictionary:
 	}
 
 func getSkeletonScene() -> PackedScene:
-	return preload("res://Mesh/Skeleton/Feminine/feminine_skeleton.tscn")
+	return load("res://Mesh/Skeleton/Feminine/feminine_skeleton.tscn")
 
 func getMeshScene() -> PackedScene:
-	return preload("res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn")
+	return load("res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn")
 
 func getBodypartSlots():
 	return {
