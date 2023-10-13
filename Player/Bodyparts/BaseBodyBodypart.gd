@@ -8,14 +8,9 @@ func _init():
 func getOptions() -> Dictionary:
 	return {
 		"breastsize": {
+			"name": "Breast size",
 			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 1.0,
-			"default": 0.5,
-		},
-		"thickbutt": {
-			"type": "slider",
-			"minvalue": 0.0,
+			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},

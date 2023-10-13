@@ -7,3 +7,35 @@ func _init():
 
 func getVisibleName():
 	return "Feminine body"
+
+func getOptions() -> Dictionary:
+	return {
+		"breastsize": {
+			"name": "Breast size",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"thickbutt": {
+			"name": "Butt thickness",
+			"type": "slider",
+			"minvalue": -0.2,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"height": {
+			"name": "Height",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"headsize": {
+			"name": "Head size",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+	}
