@@ -58,6 +58,7 @@ func updateOptions():
 		partOptionsList.add_child(newOptionScene)
 		
 		newOptionScene.id = optionID
+		newOptionScene.setLabel(optionInfo["name"] if optionInfo.has("name") else optionID)
 		newOptionScene.setData(optionInfo)
 		newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
 		newOptionScene.onValueChange.connect(onOptionSceneValueChanged)
