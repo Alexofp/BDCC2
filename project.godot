@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GlobalRegistry="*res://GlobalRegistry.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/wigglebone/plugin.cfg")
+
 [filesystem]
 
 import/blender/enabled=false
