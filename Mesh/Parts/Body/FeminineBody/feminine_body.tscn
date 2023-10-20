@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://drbc3iu2kd5kb"]
+[gd_scene load_steps=31 format=3 uid="uid://drbc3iu2kd5kb"]
 
 [ext_resource type="PackedScene" uid="uid://dhhmxkx0todmr" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_op47h"]
 [ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_4cn61"]
@@ -36,6 +36,14 @@ gravity = Vector3(0, 0, 0)
 length = 0.1
 max_degrees = 60.0
 max_distance = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xnh6f"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8y1ur"]
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_q2b4j"]
 
@@ -325,6 +333,11 @@ bone_idx = 7
 override_pose = true
 use_external_skeleton = true
 external_skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rig/Skeleton3D" index="13"]
+visible = false
+mesh = SubResource("CylinderMesh_xnh6f")
+surface_material_override/0 = SubResource("StandardMaterial3D_8y1ur")
 
 [node name="MyAnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 autoplay = "IdleAnimations/SexyIdle"
