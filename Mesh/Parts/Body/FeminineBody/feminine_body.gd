@@ -42,13 +42,18 @@ func applyOption(_optionID: String, _value):
 		setBoneRestScale("DEF-head", max(0.1, _value*0.1+1.0))
 	if(_optionID == "height"):
 		animTree["parameters/HeightTall/add_amount"] = _value
-		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.05*_value, 0.0))
-		setBoneOffset("DEF-spine.002", Vector3(0.0, 0.05*_value, 0.0))
-		setBoneOffset("DEF-spine.003", Vector3(0.0, 0.05*_value, 0.0))
-		setBoneOffset("DEF-upper_arm.L.001", Vector3(0.0, 0.023*_value, 0.0))
-		setBoneOffset("DEF-upper_arm.R.001", Vector3(0.0, 0.023*_value, 0.0))
-		setBoneOffset("DEF-forearm.L.001", Vector3(0.0, 0.153*_value, 0.0))
-		setBoneOffset("DEF-forearm.R.001", Vector3(0.0, 0.153*_value, 0.0))
+		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.04*_value, 0.0)) #0.12
+		setBoneOffset("DEF-spine.002", Vector3(0.0, 0.04*_value, 0.0)) #0.03
+		setBoneOffset("DEF-spine.003", Vector3(0.0, 0.04*_value, 0.0))
+		setBoneOffset("DEF-upper_arm.L.001", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-forearm.L", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-forearm.L.001", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-hand.L", Vector3(0.0, 0.03*_value, 0.0))
+		
+		setBoneOffset("DEF-upper_arm.R.001", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-forearm.R", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-forearm.R.001", Vector3(0.0, 0.03*_value, 0.0))
+		setBoneOffset("DEF-hand.R", Vector3(0.0, 0.03*_value, 0.0))
 	if(_optionID == "legstype"):
 		if(_value == "digi"):
 			$rig/Skeleton3D/Digilegs.visible = true
@@ -87,7 +92,7 @@ func setBoneScale(boneName: String, boneScale: float):
 		var newTransform:Transform3D = Transform3D.IDENTITY#getBoneExtraTransform(boneId)#theskeleton.get_bone_global_pose_no_override(boneId)#Transform3D.IDENTITY
 		newTransform = newTransform.scaled(Vector3(boneScale,boneScale,boneScale))
 		
-		extraTransformsPerBone[boneId] = newTransform
+		extraTransformsPerBone[str(boneId)] = newTransform
 		
 	#if(true):
 	#	var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
@@ -120,14 +125,14 @@ func setBoneOffset(boneName: String, offset: Vector3):
 		var newTransform:Transform3D = Transform3D.IDENTITY#getBoneExtraTransform(boneId)#theskeleton.get_bone_global_pose_no_override(boneId)#Transform3D.IDENTITY
 		newTransform = newTransform.translated(offset)
 		
-		extraTransformsPerBone[boneId] = newTransform
+		extraTransformsPerBone[str(boneId)] = newTransform
 		
-	if(true):
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		var newTransform:Transform3D = Transform3D.IDENTITY#theskeleton.get_bone_global_pose_no_override(boneId)
-		newTransform = newTransform.translated(offset)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
-	
+#	if(true):
+#		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
+#		var newTransform:Transform3D = Transform3D.IDENTITY#theskeleton.get_bone_global_pose_no_override(boneId)
+#		newTransform = newTransform.translated(offset)
+#		theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
+#
 	#theskeleton.set_bone_pose_position(boneId, offset)
 	#theskeleton.get_bone_global_pose(_parent_bone_idx)
 
@@ -147,14 +152,7 @@ func setBoneScaleAndOffset(boneName: String, boneScale: float, offset: Vector3):
 		newTransform = newTransform.scaled(Vector3(boneScale,boneScale,boneScale))
 		newTransform = newTransform.translated(offset)
 		
-		extraTransformsPerBone[boneId] = newTransform
-		
-	if(true):
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		var newTransform:Transform3D = Transform3D.IDENTITY#theskeleton.get_bone_global_pose_no_override(boneId)
-		newTransform = newTransform.scaled(Vector3(boneScale,boneScale,boneScale))
-		newTransform = newTransform.translated(offset)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
+		extraTransformsPerBone[str(boneId)] = newTransform
 
 func setBoneTransformFrom2Lerp(boneName: String, zeroTransform: Transform3D, oneTransform: Transform3D, value):
 	var theskeleton:Skeleton3D = getSkeleton()
@@ -162,10 +160,7 @@ func setBoneTransformFrom2Lerp(boneName: String, zeroTransform: Transform3D, one
 	if(boneId < 0):
 		return
 	if(true):
-		extraTransformsPerBone[boneId] = zeroTransform.interpolate_with(oneTransform, value)
-	if(true):
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * zeroTransform.interpolate_with(oneTransform, value), 1.0, true)
+		extraTransformsPerBone[str(boneId)] = zeroTransform.interpolate_with(oneTransform, value)
 
 func setBonePosScalerom2Lerp(boneName: String, zeroPos: Vector3, zeroScale: Vector3, onePos: Vector3, oneScale: Vector3, value):
 	var theskeleton:Skeleton3D = getSkeleton()
@@ -178,10 +173,7 @@ func setBonePosScalerom2Lerp(boneName: String, zeroPos: Vector3, zeroScale: Vect
 	newTransform = newTransform.translated(zeroPos * max(0.0, 1.0 - value) + onePos * value)
 	
 	if(true):
-		extraTransformsPerBone[boneId] = newTransform
-	if(true):
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
+		extraTransformsPerBone[str(boneId)] = newTransform
 
 func setBonePosScalerom3Lerp(boneName: String, minusOnePose: Vector3, minusOneScale: Vector3, zeroPos: Vector3, zeroScale: Vector3, onePos: Vector3, oneScale: Vector3, value):
 	var theskeleton:Skeleton3D = getSkeleton()
@@ -199,32 +191,44 @@ func setBonePosScalerom3Lerp(boneName: String, minusOnePose: Vector3, minusOneSc
 		newTransform = newTransform.translated(zeroPos * max(0.0, 1.0 - value) + onePos * value)
 	
 	if(true):
-		extraTransformsPerBone[boneId] = newTransform
-	if(true):
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
+		extraTransformsPerBone[str(boneId)] = newTransform
 
 func getBoneExtraTransform(boneId: int) -> Transform3D:
-	if(extraTransformsPerBone.has(boneId)):
-		return extraTransformsPerBone[boneId]
+	if(extraTransformsPerBone.has(str(boneId))):
+		return extraTransformsPerBone[str(boneId)]
 	
 	return Transform3D.IDENTITY
 
 func _process(_delta):
 	var theskeleton:Skeleton3D = getSkeleton()
 	
-	for boneId in extraTransformsPerBone:
+	var dakeys = extraTransformsPerBone.keys()
+	#dakeys.sort()
+	for boneIdstr in dakeys:
+		var boneId = int(boneIdstr)
 		#var boneId = theskeleton.find_bone(boneName)
 		#if(boneId < 0):
 		#	return
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose_no_override(boneId)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * extraTransformsPerBone[boneId], 1.0, true)
+		var currentTrans:Transform3D = getBetterGlobalPose(theskeleton, boneId)#theskeleton.get_bone_global_pose_no_override(boneId)
+		theskeleton.set_bone_global_pose_override(boneId, currentTrans * extraTransformsPerBone[str(boneId)], 1.0, true)
 	
 	if(true):
 		#var theskeleton:Skeleton3D = getSkeleton()
-		var boneId = theskeleton.find_bone("DEF-forearm.L.001")
+		var boneId = theskeleton.find_bone("DEF-upper_arm.L.001")
 		
-		var currentTrans:Transform3D = theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneId))
+		var currentTrans:Transform3D = getBetterGlobalPose(theskeleton, boneId)#theskeleton.get_bone_global_pose_no_override(boneId)#theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneId))
 		
-		print("DEF-forearm.L.001"," ", currentTrans.origin)
+		var newTransform:Transform3D = Transform3D.IDENTITY
+		newTransform = newTransform.translated(Vector3(0.0, 0.5, 0.0))
+		#newTransform = newTransform.rotated(Vector3(0.0, 1.0, 0.0), 90.0)
+		
+		#$rig/Skeleton3D/MeshInstance3D.transform = currentTrans * newTransform
+		#theskeleton.set_bone_global_pose_override(boneId, currentTrans * newTransform, 1.0, true)
+		#theskeleton.force_update_bone_child_transform(boneId)
+		#theskeleton.set_bone_pose_scale(boneId, Vector3(2.0, 2.0, 2.0))
+		#print("DEF-forearm.L.001"," ", currentTrans.origin)
 		#theskeleton.set_bone_pose_position(boneId, Vector3(0.0, 0.3, 0.0))
+
+func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int):
+	#return theskeleton.get_bone_global_pose_no_override(boneID)
+	return theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * skeleton.get_bone_pose(boneID)
