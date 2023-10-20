@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://drbc3iu2kd5kb"]
+[gd_scene load_steps=29 format=3 uid="uid://drbc3iu2kd5kb"]
 
 [ext_resource type="PackedScene" uid="uid://dhhmxkx0todmr" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_op47h"]
 [ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_4cn61"]
@@ -25,6 +25,16 @@ damping = 0.7
 gravity = Vector3(0, 0, 0)
 length = 0.3
 max_degrees = 90.0
+max_distance = 0.1
+
+[sub_resource type="Resource" id="Resource_70v6g"]
+script = ExtResource("4_uydlj")
+mode = 1
+stiffness = 0.3
+damping = 0.4
+gravity = Vector3(0, 0, 0)
+length = 0.1
+max_degrees = 60.0
 max_distance = 0.1
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_q2b4j"]
@@ -129,6 +139,7 @@ bones/3/rotation = Quaternion(-0.0874444, -0.086537, 0.0634407, 0.990374)
 bones/4/position = Vector3(2.96859e-09, 0.144332, 1.16002e-08)
 bones/4/rotation = Quaternion(-0.0583257, -0.0363264, 0.0400522, 0.996832)
 bones/5/rotation = Quaternion(0.130053, 0.695622, 0.675036, -0.208621)
+bones/5/scale = Vector3(1, 1, 1)
 bones/6/rotation = Quaternion(-5.06621e-05, -0.0113863, 0.00445563, 0.999925)
 bones/7/rotation = Quaternion(-0.130052, 0.695622, 0.675036, 0.208621)
 bones/7/scale = Vector3(1, 1, 1)
@@ -220,11 +231,13 @@ bones/59/scale = Vector3(1, 1, 1)
 bones/60/rotation = Quaternion(0.220413, 0.00160088, -0.00714734, 0.975379)
 bones/60/scale = Vector3(1, 1, 1)
 bones/61/rotation = Quaternion(0.0338679, -1.46674e-05, 0.0154695, 0.999307)
+bones/61/scale = Vector3(1, 1, 1)
 bones/62/rotation = Quaternion(0.604438, -3.48228e-08, 1.17688e-07, 0.796652)
 bones/62/scale = Vector3(1, 1, 1)
 bones/64/rotation = Quaternion(-0.796652, -5.58961e-08, -8.27086e-08, 0.604438)
 bones/64/scale = Vector3(1, 1, 1)
 bones/65/rotation = Quaternion(-0.796652, -5.58961e-08, -8.27086e-08, 0.604438)
+bones/65/scale = Vector3(1, 1, 1)
 bones/66/rotation = Quaternion(-0.796652, -4.70217e-14, -1.89937e-07, 0.604438)
 bones/66/scale = Vector3(1, 1, 1)
 bones/67/rotation = Quaternion(0.981799, 0.0609005, 0.0188831, 0.1789)
@@ -254,7 +267,7 @@ bones/78/position = Vector3(4.72414e-09, 0.131054, 1.43916e-08)
 bones/78/rotation = Quaternion(-7.10666e-05, 0.973424, -0.22901, 2.31896e-05)
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="1"]
-transform = Transform3D(1, -2.47732e-07, 1.32248e-07, 2.6077e-07, 0.999269, -0.0382132, -6.33299e-08, 0.0382131, 0.99927, -0.0400313, 1.54425, -0.0146169)
+transform = Transform3D(1, -2.40048e-07, 1.30385e-07, 2.69152e-07, 0.999269, -0.0382132, -6.51926e-08, 0.0382131, 0.99927, -0.0400313, 1.54425, -0.0146169)
 bone_name = "DEF-head"
 bone_idx = 11
 
@@ -265,7 +278,7 @@ visible = false
 visible = false
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7" node_paths=PackedStringArray("additionalEditsNode")]
-transform = Transform3D(-0.861246, 0.425537, -0.277802, -0.164012, 0.28465, 0.944497, 0.480995, 0.859007, -0.17536, 0.0559874, 1.3132, 0.0493613)
+transform = Transform3D(-0.861245, 0.425537, -0.277803, -0.164012, 0.284651, 0.944497, 0.480995, 0.859006, -0.175361, 0.0559874, 1.3132, 0.0493613)
 bone_name = "DEF-breast.L"
 bone_idx = 5
 script = ExtResource("3_efnv8")
@@ -273,7 +286,7 @@ additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_2fjop")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8" node_paths=PackedStringArray("additionalEditsNode")]
-transform = Transform3D(-0.872123, -0.486545, -0.051723, -0.130609, 0.129623, 0.982924, -0.471532, 0.863986, -0.176594, -0.0647908, 1.29267, 0.0500207)
+transform = Transform3D(-0.872123, -0.486545, -0.0517229, -0.130609, 0.129624, 0.982923, -0.471532, 0.863986, -0.176595, -0.0647908, 1.29267, 0.0500207)
 bone_name = "DEF-breast.R"
 bone_idx = 7
 script = ExtResource("3_efnv8")
@@ -281,12 +294,37 @@ additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_2fjop")
 
 [node name="WiggleBone3" type="BoneAttachment3D" parent="rig/Skeleton3D" index="9" node_paths=PackedStringArray("additionalEditsNode")]
-transform = Transform3D(0.96252, 0.247632, -0.110602, -0.112273, -0.00741005, -0.99365, -0.246879, 0.968826, 0.0206699, -0.0153193, 1.0838, -0.0428912)
+transform = Transform3D(0.96252, 0.247632, -0.110602, -0.112273, -0.0074091, -0.99365, -0.246879, 0.968826, 0.0206708, -0.0153193, 1.0838, -0.0428912)
 bone_name = "DEF-belly"
 bone_idx = 62
 script = ExtResource("3_efnv8")
 additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_owf7y")
+
+[node name="WiggleBone4" type="BoneAttachment3D" parent="rig/Skeleton3D" index="10"]
+transform = Transform3D(0.96252, -0.247632, 0.110602, -0.112273, 0.00740874, 0.99365, -0.246879, -0.968826, -0.0206712, 0.045687, 0.934417, -0.109367)
+bone_name = "DEF-butt.L"
+bone_idx = 64
+script = ExtResource("3_efnv8")
+properties = SubResource("Resource_70v6g")
+
+[node name="WiggleBone5" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11"]
+transform = Transform3D(0.96252, -0.247632, 0.110602, -0.112273, 0.00740874, 0.99365, -0.246879, -0.968826, -0.0206712, -0.131229, 0.955053, -0.0639893)
+bone_name = "DEF-butt.R"
+bone_idx = 65
+script = ExtResource("3_efnv8")
+properties = SubResource("Resource_70v6g")
+
+[node name="BoneAttachment3D" type="Node3D" parent="rig/Skeleton3D" index="12"]
+transform = Transform3D(-0.879127, -0.462589, 0.114663, 0.020018, 0.204539, 0.978654, -0.476167, 0.862656, -0.170555, -0.0612561, 1.30249, 0.0498606)
+
+[node name="BoneAttachment3D2" type="BoneAttachment3D" parent="rig/Skeleton3D/BoneAttachment3D" index="0"]
+transform = Transform3D(1, -2.08616e-07, -2.23517e-08, 0, 1, -2.98023e-08, 2.23517e-08, 2.98023e-08, 1, 0, 0, 0)
+bone_name = "DEF-breast.R"
+bone_idx = 7
+override_pose = true
+use_external_skeleton = true
+external_skeleton = NodePath("")
 
 [node name="MyAnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 autoplay = "IdleAnimations/SexyIdle"
