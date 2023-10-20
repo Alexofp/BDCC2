@@ -25,5 +25,5 @@ func getMeshScene() -> PackedScene:
 func getBodypartSlots():
 	return {
 		BodypartSlot.Head: true,
-		BodypartSlot.Legs: true,
+		#BodypartSlot.Legs: true,
 	}

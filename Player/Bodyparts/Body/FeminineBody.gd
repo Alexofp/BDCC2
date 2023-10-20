@@ -38,4 +38,13 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"legstype": {
+			"name": "Legs type",
+			"type": "list",
+			"default": "digi",
+			"values": [
+				["digi", "Digi-grade"],
+				["planti", "Planti-grade"],
+			],
+		},
 	}
