@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyyx8g7mbkvog"]
+
+[ext_resource type="Script" path="res://Player/Doll/advanced_controller_doll.gd" id="1_fhv3i"]
+[ext_resource type="PackedScene" uid="uid://d08txhenreptl" path="res://Player/Doll/doll.tscn" id="2_0a6vw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_egb3h"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wih5a"]
+
+[node name="advanced_controller_doll" type="CharacterBody3D"]
+script = ExtResource("1_fhv3i")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_egb3h")
+
+[node name="ModelRoot" type="Node3D" parent="."]
+
+[node name="Doll" parent="ModelRoot" instance=ExtResource("2_0a6vw")]
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.544, 0)
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("SeparationRayShape3D_wih5a")
+spring_length = 2.1
+
+[node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm"]
+current = true

@@ -4,7 +4,8 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Doll.setCharacter(baseCharacter)
+	$Doll.getDoll().setCharacter(baseCharacter)
+	$Doll3.getDoll().setCharacter(baseCharacter)
 
 	#var silly:BaseBodypart = baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).setBodypart(BodypartSlot.RightEar, BaseHeadBodypart.new())
 	#silly.setBodypart(BodypartSlot.LeftEar, BaseEarBodypart.new())
@@ -13,7 +14,7 @@ func _ready():
 	#baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).removeBodypart(BodypartSlot.RightEar)
 	#baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).setBodypart(BodypartSlot.RightEar, BaseEarBodypart.new())
 
-	$Doll2.setCharacter(baseCharacter)
+	$Doll2.getDoll().setCharacter(baseCharacter)
 	
 	#baseCharacter.getRootBodypart().setOptionValue("thickbutt", 1.0)
 	
@@ -21,4 +22,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if Input.is_action_just_pressed("debug_showcharactercreator"):
+		$CanvasLayer.visible = !$CanvasLayer.visible

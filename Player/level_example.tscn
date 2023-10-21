@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=11 format=3 uid="uid://bm1mm46ypljc1"]
 
 [ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
 [ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
-[ext_resource type="PackedScene" uid="uid://d08txhenreptl" path="res://Player/Doll/doll.tscn" id="2_e8f0d"]
+[ext_resource type="PackedScene" uid="uid://kca1ww4xq0ui" path="res://Player/Doll/simple_controller_doll.tscn" id="3_jcfi3"]
+[ext_resource type="PackedScene" uid="uid://dyyx8g7mbkvog" path="res://Player/Doll/advanced_controller_doll.tscn" id="4_dhxec"]
 [ext_resource type="PackedScene" uid="uid://ddpn3gykscjr8" path="res://Game/CharacterCreator/character_creator.tscn" id="4_hueel"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fomb8"]
@@ -17,21 +18,25 @@ sky = SubResource("Sky_4n81y")
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbuoh"]
 size = Vector3(10, 0.2, 10)
 
+[sub_resource type="BoxMesh" id="BoxMesh_w5x5q"]
+size = Vector3(10, 0.2, 10)
+
 [node name="LevelExample" type="Node3D"]
 script = ExtResource("1_djto6")
 
 [node name="BaseCharacter" type="Node" parent="."]
 script = ExtResource("1_ddbjx")
 
-[node name="Doll" parent="." instance=ExtResource("2_e8f0d")]
+[node name="Doll" parent="." instance=ExtResource("3_jcfi3")]
 
-[node name="Doll2" parent="." instance=ExtResource("2_e8f0d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.57534, 0, -0.638545)
+[node name="Doll2" parent="." instance=ExtResource("3_jcfi3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0, -0.639)
+
+[node name="Doll3" parent="." instance=ExtResource("4_dhxec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.71202)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.252, 1.062, 1.136)
-visible = false
-current = true
 fov = 42.9
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -47,5 +52,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_nbuoh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="CharacterCreator" parent="CanvasLayer" instance=ExtResource("4_hueel")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_w5x5q")
