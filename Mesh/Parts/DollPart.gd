@@ -61,3 +61,6 @@ func applyParentOption(_optionID: String, _value):
 
 func onParentPartOptionChanged(_optionID, _value):
 	applyParentOption(_optionID, _value)
+
+func playAnim(_dollAnim:String, _howFast:float = 1.0):
+	pass
