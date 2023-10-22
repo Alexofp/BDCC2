@@ -2,6 +2,7 @@ extends DollPart
 
 @onready var body = $rig/Skeleton3D/Body
 @onready var animTree = $SkeletonAnimTree
+@onready var animPlayer = $MyAnimationPlayer
 
 var extraTransformsPerBone = {}
 
@@ -40,6 +41,8 @@ func applyOption(_optionID: String, _value):
 	if(_optionID == "headsize"):
 		animTree["parameters/HeadSize/add_amount"] = _value * 0.1
 		setBoneRestScale("DEF-head", max(0.1, _value*0.1+1.0))
+	if(_optionID == "tailsize"):
+		setBoneRestScale("DEF-tail_base", max(0.1, _value+1.0))
 	if(_optionID == "height"):
 		animTree["parameters/HeightTall/add_amount"] = _value
 		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.04*_value, 0.0)) #0.12
@@ -232,3 +235,9 @@ func _process(_delta):
 func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int):
 	#return theskeleton.get_bone_global_pose_no_override(boneID)
 	return theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * skeleton.get_bone_pose(boneID)
+
+func playAnim(dollAnim:String, howFast:float = 1.0):
+	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
+		animPlayer.play("IdleAnimations/FemWalkCycle")
+	else:
+		animPlayer.play("IdleAnimations/SexyIdle")

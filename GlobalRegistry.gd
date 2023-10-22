@@ -10,6 +10,7 @@ func _init():
 	registerBodypartsFolder("res://Player/Bodyparts/Head/")
 	registerBodypartsFolder("res://Player/Bodyparts/Ear/")
 	registerBodypartsFolder("res://Player/Bodyparts/Legs/")
+	registerBodypartsFolder("res://Player/Bodyparts/Tail/")
 	print("GlobalRegistry: Registered everything")
 
 func registerBodypart(path: String):

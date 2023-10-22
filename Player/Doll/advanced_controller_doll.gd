@@ -38,6 +38,8 @@ var mousecapture_isdown = false
 
 func getDoll() -> Doll:
 	return $ModelRoot/Doll.getDoll()
+func playDollAnim(dollAnim:String, howFast:float = 1.0):
+	getDoll().playAnim(dollAnim, howFast)
 
 func _ready():
 	basis = Basis.IDENTITY
@@ -138,16 +140,16 @@ func process_movement():
 	move_direction_no_y = move_direction_no_y.normalized()
 
 func process_animation(delta):
-	if(anim_player != null):
+	if(getDoll() != null):
 		if !is_on_floor():
-			anim_player.play("Fall")
+			playDollAnim(DollAnim.Fall)
 		elif move_direction != Vector3.ZERO:
 			if sprint_isdown:
-				anim_player.play("Run", -1, RUN_MULT)
+				playDollAnim(DollAnim.Run)
 			else:
-				anim_player.play("Jog", -1, MOVE_MULT)
+				playDollAnim(DollAnim.Walk)
 		else:
-			anim_player.play("Idle")
+			playDollAnim(DollAnim.Idle)
 	
 	if move_direction != Vector3.ZERO:
 		$ModelRoot.basis = basis_rotate_toward($ModelRoot.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)

@@ -101,3 +101,9 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 
 func getDoll() -> Doll:
 	return self
+
+func playAnim(dollAnim:String, howFast:float = 1.0):
+	for dollPart in bodypartToDollPart.values():
+		if(dollPart == null):
+			continue
+		dollPart.playAnim(dollAnim, howFast)

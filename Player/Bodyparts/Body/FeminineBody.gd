@@ -38,6 +38,13 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"tailsize": {
+			"name": "Tail size",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
 		"legstype": {
 			"name": "Legs type",
 			"type": "list",

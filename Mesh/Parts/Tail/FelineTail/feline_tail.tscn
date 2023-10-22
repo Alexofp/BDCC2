@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnvv1smrpr336"]
+
+[ext_resource type="PackedScene" uid="uid://cggt01jytel28" path="res://Mesh/Parts/Tail/FelineTail/FelineTail.glb" id="1_6j8pr"]
+[ext_resource type="Script" path="res://Mesh/Parts/Tail/FelineTail/feline_tail.gd" id="2_b0j0g"]
+[ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="3_mvrqi"]
+[ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="4_oxran"]
+
+[sub_resource type="Resource" id="Resource_1eem6"]
+script = ExtResource("4_oxran")
+mode = 0
+stiffness = 0.1
+damping = 0.2
+gravity = Vector3(0, 0, 0)
+length = 2.0
+max_degrees = 60.0
+max_distance = 0.1
+
+[sub_resource type="Resource" id="Resource_ulxhx"]
+script = ExtResource("4_oxran")
+mode = 0
+stiffness = 0.1
+damping = 0.2
+gravity = Vector3(0, 0, 0)
+length = 2.0
+max_degrees = 60.0
+max_distance = 0.1
+
+[node name="FelineTail" instance=ExtResource("1_6j8pr")]
+script = ExtResource("2_b0j0g")
+
+[node name="Skeleton3D" parent="RIG-TailRig" index="0"]
+bones/1/position = Vector3(-5.02528e-10, 0.0450889, 0.00210776)
+bones/1/rotation = Quaternion(-0.394395, -4.63931e-14, -9.4031e-08, 0.918941)
+bones/2/rotation = Quaternion(-0.0808889, -1.69309e-14, -1.92854e-08, 0.996723)
+bones/3/rotation = Quaternion(0.111911, -4.11145e-14, 2.66816e-08, 0.993718)
+bones/4/rotation = Quaternion(0.111911, -3.61986e-14, 2.66816e-08, 0.993718)
+bones/5/rotation = Quaternion(0.111911, -3.57517e-14, 2.66816e-08, 0.993718)
+bones/6/rotation = Quaternion(0.111911, -3.47462e-14, 2.66816e-08, 0.993718)
+
+[node name="WiggleBone" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="1"]
+transform = Transform3D(1, 1.72818e-07, 7.41705e-08, 7.41707e-08, -0.724851, 0.688906, 1.72818e-07, -0.688906, -0.724851, -5.02528e-10, 0.00210776, 0.00491108)
+bone_name = "DEF-tail"
+bone_idx = 1
+script = ExtResource("3_mvrqi")
+properties = SubResource("Resource_1eem6")
+
+[node name="WiggleBone2" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="2"]
+transform = Transform3D(1, 1.6225e-07, 6.37234e-08, 6.37238e-08, -0.680526, 0.732723, 1.6225e-07, -0.732723, -0.680526, 6.00122e-08, -0.25171, -0.199922)
+bone_name = "DEF-tail.004"
+bone_idx = 3
+script = ExtResource("3_mvrqi")
+properties = SubResource("Resource_ulxhx")
+
+[node name="WiggleBone3" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="3"]
+transform = Transform3D(1, 7.04341e-08, 1.06411e-08, 1.06417e-08, -0.295423, 0.955367, 7.0434e-08, -0.955367, -0.295423, 1.06083e-07, -0.444946, -0.461455)
+bone_name = "DEF-tail.002"
+bone_idx = 5
+script = ExtResource("3_mvrqi")
+properties = SubResource("Resource_ulxhx")
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "TailIdle"
+playback_default_blend_time = 0.5
