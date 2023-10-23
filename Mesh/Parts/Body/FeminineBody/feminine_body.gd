@@ -4,6 +4,9 @@ extends DollPart
 @onready var animTree = $SkeletonAnimTree
 @onready var animPlayer = $MyAnimationPlayer
 
+@export var bodyMat:StandardMaterial3D
+@export var layeredBodyMat:ShaderMaterial
+
 var extraTransformsPerBone = {}
 
 func _ready():
@@ -13,6 +16,7 @@ func _ready():
 
 func applyOption(_optionID: String, _value):
 	if(_optionID == "thickbutt"):
+		bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
 		setBlendshape(body, "ThickButt", _value)
 		setBlendshape($rig/Skeleton3D/Digilegs, "ThickButt", _value)
 		setBlendshape($rig/Skeleton3D/PlantiLegs, "ThickButt", _value)
@@ -241,3 +245,9 @@ func playAnim(dollAnim:String, howFast:float = 1.0):
 		animPlayer.play("IdleAnimations/FemWalkCycle")
 	else:
 		animPlayer.play("IdleAnimations/SexyIdle")
+
+func applyBaseSkinData(_data : BaseSkinData):
+	if(bodyMat != null):
+		bodyMat.albedo_color = _data.skinColor
+	#if(layeredBodyMat != null):
+	#	layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)

@@ -11,9 +11,12 @@ var bodyparts:Dictionary = {}
 var rootRef: WeakRef
 var parentPart: WeakRef
 
+var baseSkinDataOverride:BaseSkinData = null
+
 signal onOptionChanged(optionID, newValue)
 signal onBodypartChanged(ourBodypart, slot, newBodypart)
 signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
+signal onBaseSkinDataOverrideChanged(part, newSkinData)
 
 func _init():
 	cachedOptions = getOptions()
@@ -111,8 +114,29 @@ func getBodypartSlots():
 	return {
 	}
 
+func applyEverythingToDollPart(dollPart:DollPart):
+	applyOptionsToDollPart(dollPart)
+	dollPart.applyBaseSkinData(getBaseSkinData())
+
 func applyOptionsToDollPart(dollPart:DollPart):
 	var theOptions = getOptions()
 	
 	for optionID in theOptions:
 		dollPart.applyOption(optionID, getOptionValue(optionID))
+
+func supportsUniqueBaseSkinData() -> bool:
+	return true
+
+func getBaseSkinData() -> BaseSkinData:
+	if(baseSkinDataOverride != null):
+		return baseSkinDataOverride
+	
+	var char = getCharacter()
+	if(char == null):
+		return null
+	
+	return char.getBaseSkinData()
+
+func setBaseSkinDataOverride(newData:BaseSkinData):
+	baseSkinDataOverride = newData
+	emit_signal("onBaseSkinDataOverrideChanged", self, getBaseSkinData())

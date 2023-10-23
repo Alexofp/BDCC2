@@ -1,0 +1,5 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://da2p03ldafsjw"]
+
+[resource]
+resource_local_to_scene = true
+diffuse_mode = 3

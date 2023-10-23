@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dtkx3j5r2gbwu"]
+
+[ext_resource type="Shader" uid="uid://t40qt6anke36" path="res://Mesh/Parts/Body/FeminineBody/layeredBodyShader.tres" id="1_rsjhs"]
+[ext_resource type="Texture2D" uid="uid://ck8atp62iv6pe" path="res://Mesh/DecalTest.png" id="2_6hnya"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_rsjhs")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/layerColors = PackedColorArray(1, 1, 1, 1)
+shader_parameter/layerAmount = 1
+shader_parameter/layers = Array[Texture2D]([ExtResource("2_6hnya")])

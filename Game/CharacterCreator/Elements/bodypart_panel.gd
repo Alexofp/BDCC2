@@ -10,6 +10,8 @@ var parentPartSlot
 var editingBodypart: BaseBodypart
 var numberSliderScene = preload("res://Game/CharacterCreator/OptionTypes/number_slider.tscn")
 var typeSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/type_selector.tscn")
+var colorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/color.tscn")
+var baseSkinDataScene = preload("res://Game/CharacterCreator/OptionTypes/base_skin_data.tscn")
 
 signal onChildBodypartChangeType(part, slot, newtype)
 
@@ -18,6 +20,10 @@ func createOptionScene(type:String) -> Control:
 		return numberSliderScene.instantiate()
 	if(type == "list"):
 		return typeSelectorScene.instantiate()
+	if(type == "color"):
+		return colorSelectorScene.instantiate()
+	if(type == "baseSkinData"):
+		return baseSkinDataScene.instantiate()
 	
 	return null
 
