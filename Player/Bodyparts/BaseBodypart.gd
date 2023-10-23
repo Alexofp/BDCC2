@@ -5,7 +5,9 @@ var id:String = "error"
 var bodypartType = BodypartType.Generic
 
 var savedOptions:Dictionary = {}
+var savedSkinOptions:Dictionary = {}
 var cachedOptions:Dictionary = {}
+var cachedSkinOptions:Dictionary = {}
 var bodyparts:Dictionary = {}
 
 var rootRef: WeakRef
@@ -14,12 +16,14 @@ var parentPart: WeakRef
 var baseSkinDataOverride:BaseSkinData = null
 
 signal onOptionChanged(optionID, newValue)
+signal onSkinOptionChanged(optionID, newValue)
 signal onBodypartChanged(ourBodypart, slot, newBodypart)
 signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
 signal onBaseSkinDataOverrideChanged(part, newSkinData)
 
 func _init():
 	cachedOptions = getOptions()
+	cachedSkinOptions = getSkinOptions()
 
 func getVisibleName():
 	return "ERROR"
@@ -43,6 +47,10 @@ func getParentBodypart() -> BaseBodypart:
 func getOptions() -> Dictionary:
 	return {
 	}
+
+func recalculateOptionsCache():
+	cachedOptions = getOptions()
+	cachedSkinOptions = getSkinOptions()
 
 func getOptionValue(valueID: String, defaultValue = null):
 	if(savedOptions.has(valueID)):
@@ -131,12 +139,35 @@ func getBaseSkinData() -> BaseSkinData:
 	if(baseSkinDataOverride != null):
 		return baseSkinDataOverride
 	
-	var char = getCharacter()
-	if(char == null):
+	var theChar = getCharacter()
+	if(theChar == null):
 		return null
 	
-	return char.getBaseSkinData()
+	return theChar.getBaseSkinData()
 
 func setBaseSkinDataOverride(newData:BaseSkinData):
 	baseSkinDataOverride = newData
 	emit_signal("onBaseSkinDataOverrideChanged", self, getBaseSkinData())
+
+func getSkinOptions() -> Dictionary:
+	return {
+		
+	}
+
+func getSkinOptionValue(valueID: String, defaultValue = null):
+	if(savedSkinOptions.has(valueID)):
+		return savedSkinOptions[valueID]
+	
+	if(cachedSkinOptions.has(valueID) && cachedSkinOptions[valueID].has("default")):
+		return cachedSkinOptions[valueID]["default"]
+	
+	return defaultValue
+
+func setSkinOptionValue(valueID: String, value):
+	if(!cachedSkinOptions.has(valueID)):
+		return
+	
+	if(savedSkinOptions.has(valueID) && savedSkinOptions[valueID] == value):
+		return
+	savedSkinOptions[valueID] = value
+	emit_signal("onSkinOptionChanged", valueID, value)

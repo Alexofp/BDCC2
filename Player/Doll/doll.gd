@@ -46,6 +46,8 @@ func updateFromCharacter():
 		
 		root.applyEverythingToDollPart(newDollPart)
 		root.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
+		root.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
+		root.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
 		#dollSkeleton.getSkeleton().add_child(newDollPart)
 		#newDollPart.applyBaseSkinData(root.getBaseSkinData())
 		
@@ -85,7 +87,9 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		
 		part.applyEverythingToDollPart(newDollPart)
 		part.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
+		part.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
 		parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
+		part.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
 		#newDollPart.applyBaseSkinData(part.getBaseSkinData()) # Everything does it
 		
 		if(newDollPart.shouldBindToParentSkeleton()):

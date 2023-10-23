@@ -2,6 +2,7 @@ extends DollPart
 
 @onready var tail = $"RIG-TailRig/Skeleton3D/FelineTail2"
 @onready var animPlayer = $AnimationPlayer
+@export var tailMat:StandardMaterial3D
 
 func _ready():
 	super._ready()
@@ -24,3 +25,7 @@ func playAnim(dollAnim:String, howFast:float = 1.0):
 		if(curAnim != "TailWag"):
 			curAnim = "TailWag"
 			animPlayer.play("TailWag")
+
+func applyBaseSkinData(_data : BaseSkinData):
+	if(tailMat != null):
+		tailMat.albedo_color = _data.skinColor
