@@ -5,6 +5,9 @@ var id:String = "error"
 var rootBodypart:BaseBodyBodypart
 signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
+signal onBaseSkinDataChanged(newdata)
+
+var baseSkinData:BaseSkinData = BaseSkinData.new()
 
 func _init():
 	setRoot(GlobalRegistry.createBodypart("FeminineBody"))
@@ -33,3 +36,29 @@ func tellBodypartAdded(whatpart: BaseBodypart, slot: String, newpart: BaseBodypa
 
 func tellBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
 	emit_signal("onBodypartRemoved", whatpart, slot, removedpart)
+
+func getBaseSkinData() -> BaseSkinData:
+	return baseSkinData
+
+func setBaseSkinData(newData: BaseSkinData):
+	if(baseSkinData == newData):
+		return
+	baseSkinData = newData
+	emit_signal("onBaseSkinDataChanged", baseSkinData)
+
+func getAllBodyparts() -> Array[BaseBodypart]:
+	if(rootBodypart == null):
+		return []
+	var result = [rootBodypart]
+	
+	var toCheck = [rootBodypart]
+	while(!toCheck.is_empty()):
+		var theBodypart:BaseBodypart = toCheck.pop_back()
+		
+		for childBodypart in theBodypart.getBodyparts().values():
+			if(childBodypart == null):
+				continue
+			result.append(childBodypart)
+			toCheck.append(childBodypart)
+	
+	return result

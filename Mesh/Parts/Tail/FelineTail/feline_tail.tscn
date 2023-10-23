@@ -38,21 +38,21 @@ bones/5/rotation = Quaternion(0.111911, -3.57517e-14, 2.66816e-08, 0.993718)
 bones/6/rotation = Quaternion(0.111911, -3.47462e-14, 2.66816e-08, 0.993718)
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="1"]
-transform = Transform3D(1, 1.72818e-07, 7.41705e-08, 7.41707e-08, -0.724851, 0.688906, 1.72818e-07, -0.688906, -0.724851, -5.02528e-10, 0.00210776, 0.00491108)
+transform = Transform3D(1, 1.72818e-07, 7.41706e-08, 7.41708e-08, -0.724851, 0.688905, 1.72818e-07, -0.688905, -0.724851, -5.02528e-10, 0.00210776, 0.0049111)
 bone_name = "DEF-tail"
 bone_idx = 1
 script = ExtResource("3_mvrqi")
 properties = SubResource("Resource_1eem6")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="2"]
-transform = Transform3D(1, 1.6225e-07, 6.37234e-08, 6.37238e-08, -0.680526, 0.732723, 1.6225e-07, -0.732723, -0.680526, 6.00122e-08, -0.25171, -0.199922)
+transform = Transform3D(1, 1.6225e-07, 6.37235e-08, 6.3724e-08, -0.680527, 0.732723, 1.6225e-07, -0.732723, -0.680527, 6.00123e-08, -0.25171, -0.199922)
 bone_name = "DEF-tail.004"
 bone_idx = 3
 script = ExtResource("3_mvrqi")
 properties = SubResource("Resource_ulxhx")
 
 [node name="WiggleBone3" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="3"]
-transform = Transform3D(1, 7.04341e-08, 1.06411e-08, 1.06417e-08, -0.295423, 0.955367, 7.0434e-08, -0.955367, -0.295423, 1.06083e-07, -0.444946, -0.461455)
+transform = Transform3D(1, 7.04343e-08, 1.0641e-08, 1.06418e-08, -0.295423, 0.955367, 7.04341e-08, -0.955367, -0.295423, 1.06083e-07, -0.444947, -0.461454)
 bone_name = "DEF-tail.002"
 bone_idx = 5
 script = ExtResource("3_mvrqi")

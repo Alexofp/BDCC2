@@ -14,6 +14,7 @@ func setCharacter(newChar:BaseCharacter):
 	# Add support for bodyparts being removed
 	newChar.connect("onBodypartAdded", onBodypartChanged)
 	newChar.connect("onBodypartRemoved", onBodypartRemoved)
+	newChar.connect("onBaseSkinDataChanged", onBaseCharacterBaseSkinDataChanged)
 
 func clear():
 	pass
@@ -43,9 +44,10 @@ func updateFromCharacter():
 		
 		add_child(newDollPart)
 		
-		root.applyOptionsToDollPart(newDollPart)
+		root.applyEverythingToDollPart(newDollPart)
 		root.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
 		#dollSkeleton.getSkeleton().add_child(newDollPart)
+		#newDollPart.applyBaseSkinData(root.getBaseSkinData())
 		
 		#newDollPart.setSkeleton(dollSkeleton.getSkeleton())
 		
@@ -81,9 +83,10 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		print(slot+" Attached to ",attachObject)
 		attachObject.add_child(newDollPart)
 		
-		part.applyOptionsToDollPart(newDollPart)
+		part.applyEverythingToDollPart(newDollPart)
 		part.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
 		parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
+		#newDollPart.applyBaseSkinData(part.getBaseSkinData()) # Everything does it
 		
 		if(newDollPart.shouldBindToParentSkeleton()):
 			newDollPart.setSkeleton(parentDollPart.getSkeleton())
@@ -107,3 +110,13 @@ func playAnim(dollAnim:String, howFast:float = 1.0):
 		if(dollPart == null):
 			continue
 		dollPart.playAnim(dollAnim, howFast)
+
+func onBaseCharacterBaseSkinDataChanged(newData : BaseSkinData):
+	for bodypart in getCharacter().getAllBodyparts():
+		if(!bodypartToDollPart.has(bodypart)):
+			continue
+		if(bodypart.baseSkinDataOverride != null):
+			continue
+		var dollPart:DollPart = bodypartToDollPart[bodypart]
+		
+		dollPart.applyBaseSkinData(bodypart.getBaseSkinData())

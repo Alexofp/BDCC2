@@ -64,3 +64,6 @@ func onParentPartOptionChanged(_optionID, _value):
 
 func playAnim(_dollAnim:String, _howFast:float = 1.0):
 	pass
+
+func applyBaseSkinData(_data : BaseSkinData):
+	pass

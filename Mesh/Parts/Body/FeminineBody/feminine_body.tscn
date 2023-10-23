@@ -1,11 +1,26 @@
-[gd_scene load_steps=32 format=3 uid="uid://drbc3iu2kd5kb"]
+[gd_scene load_steps=37 format=3 uid="uid://drbc3iu2kd5kb"]
 
 [ext_resource type="PackedScene" uid="uid://dhhmxkx0todmr" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_op47h"]
 [ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_4cn61"]
+[ext_resource type="Material" uid="uid://da2p03ldafsjw" path="res://Mesh/Parts/Body/FeminineBody/bodyMat.tres" id="3_2v34h"]
 [ext_resource type="AnimationLibrary" uid="uid://dt5r781t8f0sf" path="res://Mesh/Skeleton/Feminine/SkeletonModificationsAnimLib.res" id="3_6us57"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="3_efnv8"]
+[ext_resource type="Texture2D" uid="uid://yrjqka0ed4th" path="res://Mesh/Textures/Nipples/nippleDefault.png" id="3_eiog4"]
 [ext_resource type="AnimationLibrary" uid="uid://c85yarjgyo5lk" path="res://Mesh/Skeleton/Feminine/IdleAnimations.glb" id="3_x1a36"]
+[ext_resource type="Material" uid="uid://dtkx3j5r2gbwu" path="res://Mesh/Parts/Body/FeminineBody/layeredBodyMat.tres" id="4_ap2a5"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="4_uydlj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pix6e"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdwr6"]
+transparency = 1
+diffuse_mode = 3
+albedo_texture = ExtResource("3_eiog4")
+roughness = 0.34
 
 [sub_resource type="Resource" id="Resource_2fjop"]
 script = ExtResource("4_uydlj")
@@ -143,6 +158,8 @@ node_connections = [&"output", 0, &"Add2", &"Add2", 0, &"Animation 10", &"Add2",
 
 [node name="FeminineBody" instance=ExtResource("1_op47h")]
 script = ExtResource("2_4cn61")
+bodyMat = ExtResource("3_2v34h")
+layeredBodyMat = ExtResource("4_ap2a5")
 attachmentPoints = {
 "Head": NodePath("rig/Skeleton3D/HeadAttach"),
 "Tail": NodePath("rig/Skeleton3D/TailAttach/TailMarker")
@@ -232,22 +249,36 @@ bones/72/rotation = Quaternion(1.30703e-07, 0.973571, -0.228384, -5.87644e-06)
 bones/72/scale = Vector3(1, 1, 1)
 bones/77/scale = Vector3(1, 1, 1)
 
+[node name="Body" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_ap2a5")
+
 [node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="1"]
 transform = Transform3D(1, 3.55271e-15, 2.38419e-07, 9.11088e-09, 0.99927, -0.038214, -2.38244e-07, 0.038214, 0.99927, -7.65335e-15, 1.54699, -0.0132736)
 bone_name = "DEF-head"
 bone_idx = 11
 
+[node name="CrotchFemale" parent="rig/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("3_2v34h")
+
 [node name="CrotchMale" parent="rig/Skeleton3D" index="3"]
 visible = false
+
+[node name="Digilegs" parent="rig/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("3_2v34h")
+surface_material_override/3 = SubResource("StandardMaterial3D_pix6e")
+
+[node name="Nipples" parent="rig/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wdwr6")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="6"]
 visible = false
 
-[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7"]
+[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7" node_paths=PackedStringArray("additionalEditsNode")]
 transform = Transform3D(-0.879127, 0.462589, -0.114662, -0.020017, 0.204538, 0.978654, 0.476167, 0.862657, -0.170555, 0.0612561, 1.30249, 0.0498606)
 bone_name = "DEF-breast.L"
 bone_idx = 5
 script = ExtResource("3_efnv8")
+additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_2fjop")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8" node_paths=PackedStringArray("additionalEditsNode")]
