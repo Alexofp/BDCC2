@@ -46,7 +46,7 @@ func setBaseSkinData(newData: BaseSkinData):
 	baseSkinData = newData
 	emit_signal("onBaseSkinDataChanged", baseSkinData)
 
-func getAllBodyparts() -> Array[BaseBodypart]:
+func getAllBodyparts() -> Array:
 	if(rootBodypart == null):
 		return []
 	var result = [rootBodypart]

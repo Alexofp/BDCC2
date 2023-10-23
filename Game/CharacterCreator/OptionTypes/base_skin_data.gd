@@ -8,11 +8,21 @@ var id:String = ""
 
 signal onValueChange(id, newValue)
 
+func _ready():
+	typeSelector.setData({
+		"values": [
+			["skin", "Skin"],
+			["fur", "Fur"],
+			["scales", "Scales"],
+		]
+	})
+
 func setLabel(newLabel:String):
 	typeSelector.setLabel(newLabel)
 	#label.text = newLabel
 
 func setData(data:Dictionary):
+
 #	if(data.has("minvalue")):
 #		spinbox.min_value = data["minvalue"]
 #		hslider.min_value = data["minvalue"]
@@ -33,11 +43,11 @@ func setValue(newValue):
 func _on_type_selector_h_box_on_value_change(_id, newValue):
 	currentValue.skinType = newValue
 	
-	emit_signal("onValueChange", id, currentValue)
+	emit_signal("onValueChange", id, currentValue.makeCopy())
 
 
 func _on_color_on_value_change(_id, newValue):
 	currentValue.skinColor = newValue
 	
-	emit_signal("onValueChange", id, currentValue)
+	emit_signal("onValueChange", id, currentValue.makeCopy())
 	

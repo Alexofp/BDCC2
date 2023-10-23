@@ -16,7 +16,7 @@ func _ready():
 
 func applyOption(_optionID: String, _value):
 	if(_optionID == "thickbutt"):
-		bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
+		#bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
 		setBlendshape(body, "ThickButt", _value)
 		setBlendshape($rig/Skeleton3D/Digilegs, "ThickButt", _value)
 		setBlendshape($rig/Skeleton3D/PlantiLegs, "ThickButt", _value)
@@ -249,5 +249,12 @@ func playAnim(dollAnim:String, howFast:float = 1.0):
 func applyBaseSkinData(_data : BaseSkinData):
 	if(bodyMat != null):
 		bodyMat.albedo_color = _data.skinColor
-	#if(layeredBodyMat != null):
-	#	layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)
+	if(layeredBodyMat != null):
+		layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)
+		
+		if(_data.skinType == "fur"):
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Body/BodyColor.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Textures/Body/BodyNormal.png"))
+		else:
+			layeredBodyMat.set_shader_parameter("texture_albedo", null)
+			layeredBodyMat.set_shader_parameter("texture_normal", null)

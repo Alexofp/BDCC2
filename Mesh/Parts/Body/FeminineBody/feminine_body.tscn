@@ -258,13 +258,14 @@ bone_name = "DEF-head"
 bone_idx = 11
 
 [node name="CrotchFemale" parent="rig/Skeleton3D" index="2"]
-surface_material_override/0 = ExtResource("3_2v34h")
+surface_material_override/0 = ExtResource("4_ap2a5")
 
 [node name="CrotchMale" parent="rig/Skeleton3D" index="3"]
 visible = false
+surface_material_override/0 = ExtResource("4_ap2a5")
 
 [node name="Digilegs" parent="rig/Skeleton3D" index="4"]
-surface_material_override/0 = ExtResource("3_2v34h")
+surface_material_override/0 = ExtResource("4_ap2a5")
 surface_material_override/3 = SubResource("StandardMaterial3D_pix6e")
 
 [node name="Nipples" parent="rig/Skeleton3D" index="5"]
@@ -272,6 +273,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wdwr6")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="6"]
 visible = false
+surface_material_override/0 = ExtResource("4_ap2a5")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7" node_paths=PackedStringArray("additionalEditsNode")]
 transform = Transform3D(-0.879127, 0.462589, -0.114662, -0.020017, 0.204538, 0.978654, 0.476167, 0.862657, -0.170555, 0.0612561, 1.30249, 0.0498606)

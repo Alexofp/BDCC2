@@ -12,8 +12,11 @@ var numberSliderScene = preload("res://Game/CharacterCreator/OptionTypes/number_
 var typeSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/type_selector.tscn")
 var colorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/color.tscn")
 var baseSkinDataScene = preload("res://Game/CharacterCreator/OptionTypes/base_skin_data.tscn")
+var checkboxScene = preload("res://Game/CharacterCreator/OptionTypes/checkbox.tscn")
 
 signal onChildBodypartChangeType(part, slot, newtype)
+
+var isSkinOptions = false
 
 func createOptionScene(type:String) -> Control:
 	if(type == "slider"):
@@ -24,6 +27,8 @@ func createOptionScene(type:String) -> Control:
 		return colorSelectorScene.instantiate()
 	if(type == "baseSkinData"):
 		return baseSkinDataScene.instantiate()
+	if(type == "checkbox"):
+		return checkboxScene.instantiate()
 	
 	return null
 
@@ -52,7 +57,28 @@ func updateOptions():
 	if(editingBodypart == null):
 		return
 	
-	var options = editingBodypart.getOptions()
+	var options = []
+	if(!isSkinOptions):
+		options = editingBodypart.getOptions()
+	else:
+		# Skin
+		options = editingBodypart.getSkinOptions()
+		
+		if(editingBodypart.supportsUniqueBaseSkinData()):
+			var skinCheckboxScene = createOptionScene("checkbox")
+			partOptionsList.add_child(skinCheckboxScene)
+			skinCheckboxScene.setLabel("Override base skin")
+			skinCheckboxScene.onValueChange.connect(onOverrideBaseSkinChanged)
+			
+			if(editingBodypart.baseSkinDataOverride != null):
+				skinCheckboxScene.setValue(true)
+				
+				var skinScene = createOptionScene("baseSkinData")
+				partOptionsList.add_child(skinScene)
+				skinScene.setValue(editingBodypart.baseSkinDataOverride)
+				skinScene.onValueChange.connect(onBaseSkinDataChanged)
+			else:
+				skinCheckboxScene.setValue(false)
 	
 	for optionID in options:
 		var optionInfo = options[optionID]
@@ -69,6 +95,8 @@ func updateOptions():
 		newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
 		newOptionScene.onValueChange.connect(onOptionSceneValueChanged)
 	
+	if(isSkinOptions):
+		return
 	for bodypartSlot in editingBodypart.getBodypartSlots():
 		var newSlotSelectScene = typeSelectorScene.instantiate()
 		childPartsList.add_child(newSlotSelectScene)
@@ -96,7 +124,25 @@ func updateOptions():
 func onOptionSceneValueChanged(id, newValue):
 	if(editingBodypart == null):
 		return
-	editingBodypart.setOptionValue(id, newValue)
+	if(!isSkinOptions):
+		editingBodypart.setOptionValue(id, newValue)
+	else:
+		editingBodypart.setSkinOptionValue(id, newValue)
 	
 func onChildPartSlotSceneChangeType(id, newType):
 	emit_signal("onChildBodypartChangeType", editingBodypart, id, newType)
+
+func onOverrideBaseSkinChanged(_id, newValue):
+	if(editingBodypart == null):
+		return
+	if(newValue):
+		editingBodypart.setBaseSkinDataOverride(BaseSkinData.new())
+	else:
+		editingBodypart.setBaseSkinDataOverride(null)
+	
+	updateOptions()
+
+func onBaseSkinDataChanged(_id, newValue):
+	if(editingBodypart == null):
+		return
+	editingBodypart.setBaseSkinDataOverride(newValue)

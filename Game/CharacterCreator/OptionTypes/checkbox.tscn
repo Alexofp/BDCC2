@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://uh60q8v34vt7"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/checkbox.gd" id="1_lk8t6"]
+
+[node name="Checkbox" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = ExtResource("1_lk8t6")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Check"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
