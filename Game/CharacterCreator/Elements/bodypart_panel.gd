@@ -92,7 +92,10 @@ func updateOptions():
 		newOptionScene.id = optionID
 		newOptionScene.setLabel(optionInfo["name"] if optionInfo.has("name") else optionID)
 		newOptionScene.setData(optionInfo)
-		newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
+		if(!isSkinOptions):
+			newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
+		else:
+			newOptionScene.setValue(editingBodypart.getSkinOptionValue(optionID))
 		newOptionScene.onValueChange.connect(onOptionSceneValueChanged)
 	
 	if(isSkinOptions):
