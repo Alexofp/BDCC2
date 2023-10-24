@@ -121,6 +121,15 @@ func process_camera():
 	camera_rotation_no_y = Basis($CameraPivot.basis.x, Vector3.UP, $CameraPivot.basis.z).get_rotation_quaternion()
 	
 	mouse_movement = Vector2.ZERO
+	
+	if(Input.is_action_just_pressed("camera_zoomin")):
+		$CameraPivot/SpringArm.spring_length -= 0.1
+	if(Input.is_action_just_pressed("camera_zoomout")):
+		$CameraPivot/SpringArm.spring_length += 0.1
+	if($CameraPivot/SpringArm.spring_length <= 1.0):
+		$CameraPivot/SpringArm.position.x = 0.2
+	else:
+		$CameraPivot/SpringArm.position.x = 0.5
 
 func process_movement():
 	var input_direction = Vector3.ZERO

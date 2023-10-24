@@ -1,10 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dswroh18b2as1"]
+[gd_scene load_steps=12 format=3 uid="uid://dswroh18b2as1"]
 
 [ext_resource type="PackedScene" uid="uid://cw3lja8nvor65" path="res://Mesh/Parts/Head/CatHead/CatHead.glb" id="1_tposj"]
-[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_8ihij"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/CatHead/cat_head.gd" id="2_858la"]
 [ext_resource type="PackedScene" uid="uid://ci71ce8ctr4jm" path="res://Mesh/Parts/Ear/CatEar/cat_ear.tscn" id="3_33sk0"]
+[ext_resource type="Texture2D" uid="uid://bjuyo5b5x2x5d" path="res://Mesh/Textures/Brows/brow1.png" id="3_ec0nt"]
+[ext_resource type="Texture2D" uid="uid://p01nh6ry5ec6" path="res://Mesh/Textures/Eyelashes/eyelash2.png" id="4_mxvtu"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="4_wnyqu"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="5_leerd"]
+[ext_resource type="Material" uid="uid://bk032svtfbwsq" path="res://Mesh/Parts/Head/CatHead/eyeMat.tres" id="5_q1u5u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swgu8"]
+transparency = 1
+diffuse_mode = 3
+albedo_texture = ExtResource("3_ec0nt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdurk"]
+transparency = 1
+diffuse_mode = 3
+albedo_texture = ExtResource("4_mxvtu")
 
 [sub_resource type="Resource" id="Resource_mrgct"]
 script = ExtResource("5_leerd")
@@ -17,13 +30,30 @@ max_degrees = 60.0
 max_distance = 0.1
 
 [node name="CatHead" instance=ExtResource("1_tposj")]
-script = ExtResource("2_8ihij")
+script = ExtResource("2_858la")
+eyeMat = ExtResource("5_q1u5u")
 attachmentPoints = {
 "LeftEar": NodePath("Armature_002/Skeleton3D/LeftEarAttach"),
 "RightEar": NodePath("Armature_002/Skeleton3D/RightEarAttach/Marker3D")
 }
 
-[node name="LeftEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="9"]
+[node name="Skeleton3D" parent="Armature_002" index="0"]
+bones/1/rotation = Quaternion(0.954579, 3.55192e-07, 1.13795e-06, 0.297957)
+bones/2/rotation = Quaternion(8.79067e-07, 0.924672, -0.380765, 6.98108e-08)
+bones/3/position = Vector3(-9.93211e-09, 0.0454049, 0.0044475)
+bones/4/position = Vector3(-4.66349e-09, 0.0323378, 0.00200959)
+bones/5/rotation = Quaternion(-0.242083, 2.12374e-13, -5.61781e-07, 0.970256)
+
+[node name="EyeBrows" parent="Armature_002/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_swgu8")
+
+[node name="Eyelashes" parent="Armature_002/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fdurk")
+
+[node name="EYES" parent="Armature_002/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("5_q1u5u")
+
+[node name="LeftEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582904, 0.152422, 0.0033248)
 bone_name = "Ear.L"
 bone_idx = 14
@@ -31,7 +61,7 @@ bone_idx = 14
 [node name="CatEar2" parent="Armature_002/Skeleton3D/LeftEarAttach" index="0" instance=ExtResource("3_33sk0")]
 visible = false
 
-[node name="RightEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="10"]
+[node name="RightEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0582904, 0.152422, 0.0033248)
 bone_name = "Ear.R"
 bone_idx = 15
@@ -42,16 +72,19 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 [node name="CatEar" parent="Armature_002/Skeleton3D/RightEarAttach/Marker3D" index="0" instance=ExtResource("3_33sk0")]
 visible = false
 
-[node name="WiggleBone" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="11"]
+[node name="WiggleBone" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582904, 0.152422, 0.0033248)
 bone_name = "Ear.L"
 bone_idx = 14
 script = ExtResource("4_wnyqu")
 properties = SubResource("Resource_mrgct")
 
-[node name="WiggleBone2" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="12"]
+[node name="WiggleBone2" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0582904, 0.152422, 0.0033248)
 bone_name = "Ear.R"
 bone_idx = 15
 script = ExtResource("4_wnyqu")
 properties = SubResource("Resource_mrgct")
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "CatHeadBlep"
