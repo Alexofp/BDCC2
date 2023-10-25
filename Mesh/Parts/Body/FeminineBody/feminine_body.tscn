@@ -160,6 +160,7 @@ node_connections = [&"output", 0, &"Add2", &"Add2", 0, &"Animation 10", &"Add2",
 script = ExtResource("2_4cn61")
 bodyMat = ExtResource("3_2v34h")
 layeredBodyMat = ExtResource("4_ap2a5")
+bindToParentSkeleton = null
 attachmentPoints = {
 "Head": NodePath("rig/Skeleton3D/HeadAttach"),
 "Tail": NodePath("rig/Skeleton3D/TailAttach/TailMarker")

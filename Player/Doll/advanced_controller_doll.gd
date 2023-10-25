@@ -126,7 +126,10 @@ func process_camera():
 		$CameraPivot/SpringArm.spring_length -= 0.1
 	if(Input.is_action_just_pressed("camera_zoomout")):
 		$CameraPivot/SpringArm.spring_length += 0.1
-	if($CameraPivot/SpringArm.spring_length <= 1.0):
+	if($CameraPivot/SpringArm.spring_length <= 0.0):
+		$CameraPivot/SpringArm.spring_length = 0.0
+		$CameraPivot/SpringArm.position.x = 0.0
+	elif($CameraPivot/SpringArm.spring_length <= 1.0):
 		$CameraPivot/SpringArm.position.x = 0.2
 	else:
 		$CameraPivot/SpringArm.position.x = 0.5

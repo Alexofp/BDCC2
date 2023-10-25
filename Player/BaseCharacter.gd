@@ -6,6 +6,7 @@ var rootBodypart:BaseBodyBodypart
 signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
 signal onBaseSkinDataChanged(newdata)
+signal onBodypartOptionsRecalculated(part)
 
 var baseSkinData:BaseSkinData = BaseSkinData.new()
 
@@ -62,3 +63,6 @@ func getAllBodyparts() -> Array:
 			toCheck.append(childBodypart)
 	
 	return result
+
+func onPartOptionsRecalculated(part: BaseBodypart):
+	emit_signal("onBodypartOptionsRecalculated", part)
