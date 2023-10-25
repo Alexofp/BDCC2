@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c2j3annds0cwc"]
+
+[ext_resource type="Texture2D" uid="uid://ccql4qe44hlr5" path="res://Mesh/Parts/Head/CatHead/textures/tonguecolor.png" id="1_kyi7r"]
+
+[resource]
+resource_local_to_scene = true
+diffuse_mode = 3
+albedo_texture = ExtResource("1_kyi7r")

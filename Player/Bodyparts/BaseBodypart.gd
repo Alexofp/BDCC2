@@ -20,6 +20,7 @@ signal onSkinOptionChanged(optionID, newValue)
 signal onBodypartChanged(ourBodypart, slot, newBodypart)
 signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
 signal onBaseSkinDataOverrideChanged(part, newSkinData)
+signal onOptionsCacheRecalculated(part)
 
 func _init():
 	cachedOptions = getOptions()
@@ -51,6 +52,9 @@ func getOptions() -> Dictionary:
 func recalculateOptionsCache():
 	cachedOptions = getOptions()
 	cachedSkinOptions = getSkinOptions()
+	emit_signal("onOptionsCacheRecalculated", self)
+	if(getCharacter() != null):
+		getCharacter().onPartOptionsRecalculated(self)
 
 func getOptionValue(valueID: String, defaultValue = null):
 	if(savedOptions.has(valueID)):
@@ -67,8 +71,13 @@ func setOptionValue(valueID: String, value):
 	
 	if(savedOptions.has(valueID) && savedOptions[valueID] == value):
 		return
+	var currentValue = getOptionValue(valueID)
 	savedOptions[valueID] = value
 	emit_signal("onOptionChanged", valueID, value)
+	checkOptionChanged(valueID, currentValue, value)
+
+func checkOptionChanged(_valueID, _oldValue, _newValue):
+	pass
 
 func getMeshScene() -> PackedScene:
 	return null
@@ -125,12 +134,19 @@ func getBodypartSlots():
 func applyEverythingToDollPart(dollPart:DollPart):
 	applyOptionsToDollPart(dollPart)
 	dollPart.applyBaseSkinData(getBaseSkinData())
+	applySkinOptionsToDollPart(dollPart)
 
 func applyOptionsToDollPart(dollPart:DollPart):
 	var theOptions = getOptions()
 	
 	for optionID in theOptions:
 		dollPart.applyOption(optionID, getOptionValue(optionID))
+
+func applySkinOptionsToDollPart(dollPart:DollPart):
+	var theOptions = getSkinOptions()
+	
+	for optionID in theOptions:
+		dollPart.applySkinOption(optionID, getSkinOptionValue(optionID))
 
 func supportsUniqueBaseSkinData() -> bool:
 	return true
@@ -169,5 +185,10 @@ func setSkinOptionValue(valueID: String, value):
 	
 	if(savedSkinOptions.has(valueID) && savedSkinOptions[valueID] == value):
 		return
+	var currentValue = getSkinOptionValue(valueID)
 	savedSkinOptions[valueID] = value
 	emit_signal("onSkinOptionChanged", valueID, value)
+	checkSkinOptionChanged(valueID, currentValue, value)
+
+func checkSkinOptionChanged(_valueID, _oldValue, _newValue):
+	pass

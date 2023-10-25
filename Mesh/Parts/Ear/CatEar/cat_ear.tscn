@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci71ce8ctr4jm"]
+[gd_scene load_steps=4 format=3 uid="uid://ci71ce8ctr4jm"]
 
 [ext_resource type="PackedScene" uid="uid://br2hgxbkoryus" path="res://Mesh/Parts/Ear/CatEar/CatEar.glb" id="1_qu1a0"]
-[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_oop11"]
+[ext_resource type="Script" path="res://Mesh/Parts/Ear/CatEar/cat_ear.gd" id="2_t5p4q"]
+[ext_resource type="Material" uid="uid://ciymr87l44t66" path="res://Mesh/Parts/Ear/CatEar/earMat.tres" id="3_a3nd4"]
 
 [node name="CatEar" instance=ExtResource("1_qu1a0")]
-script = ExtResource("2_oop11")
+script = ExtResource("2_t5p4q")
+earMat = ExtResource("3_a3nd4")
+
+[node name="Retopo_EARS_001" parent="." index="0"]
+surface_material_override/0 = ExtResource("3_a3nd4")

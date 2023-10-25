@@ -19,6 +19,7 @@ func _ready():
 
 func setCharacter(newChar: BaseCharacter):
 	character = newChar
+	character.onBodypartOptionsRecalculated.connect(onCharacterBodypartOptionsRecalculated)
 	
 	updateCharacter()
 
@@ -56,6 +57,9 @@ func updateCharacter():
 		for bodypartSlot in part.getBodypartSlots():
 			if(part.hasBodypart(bodypartSlot)):
 				partsToCheck.append(part.getBodypart(bodypartSlot))
+
+func onCharacterBodypartOptionsRecalculated(_part):
+	updateCharacter()
 
 func onChildBodypartChangeType(part:BaseBodypart, slot, newtype):
 	if(part.hasBodypart(slot)):
