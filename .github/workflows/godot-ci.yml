@@ -23,12 +23,12 @@ jobs:
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
-          godot --headless -v --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+          godot -v --headless --quit --export-release "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: build/windows
+          path: ./build/windows
 
   export-linux:
     name: Linux Export
@@ -47,12 +47,12 @@ jobs:
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
-          godot --headless -v --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
+          godot -v --headless --quit --export-release "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: linux
-          path: build/linux
+          path: ./build/linux
 
   export-web:
     name: Web Export
@@ -71,7 +71,7 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot --headless -v --export-release "HTML5" ../build/web/index.html
+          godot -v --headless --quit --export-release "HTML5" ./build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
@@ -84,7 +84,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build/web # The folder the action should deploy.
+          folder: ./build/web # The folder the action should deploy.
 
   export-mac:
     name: Mac Export
@@ -103,9 +103,9 @@ jobs:
       - name: Mac Build
         run: |
           mkdir -v -p build/mac
-          godot --headless -v --export-release "Mac OSX" ../build/mac/$EXPORT_NAME.zip
+          godot -v --headless --quit --export-release "Mac OSX" ./build/mac/$EXPORT_NAME.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: mac
-          path: build/mac
+          path: ./build/mac
