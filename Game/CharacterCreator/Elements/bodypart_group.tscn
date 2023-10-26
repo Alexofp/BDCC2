@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8awcg817aokt"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/Elements/bodypart_group.gd" id="1_iy0gr"]
+
+[node name="bodypart_group" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iy0gr")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="Label2" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+text = "Test"
+
+[node name="OpenGroupButton" type="TextureButton" parent="Panel"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Panel/OpenGroupButton" to="." method="_on_open_group_button_pressed"]

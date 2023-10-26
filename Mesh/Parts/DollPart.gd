@@ -6,6 +6,7 @@ var meshes:Array[MeshInstance3D] = []
 @export var attachmentPoints:Dictionary = {}
 var skeleton: Skeleton3D
 var dollRef:WeakRef
+var partRef:WeakRef
 
 var extraTransformsPerBone = {}
 
@@ -16,6 +17,24 @@ func getDoll() -> Doll:
 	if(dollRef == null):
 		return null
 	return dollRef.get_ref()
+
+func getBodypart() -> BaseBodypart:
+	if(partRef == null):
+		return null
+	return partRef.get_ref()
+
+func getOptionValue(valueID: String, defaultValue = null):
+	var thePart = getBodypart()
+	if(thePart == null):
+		return defaultValue
+	return thePart.getOptionValue(valueID, defaultValue)
+
+func getSkinOptionValue(valueID: String, defaultValue = null):
+	var thePart = getBodypart()
+	if(thePart == null):
+		return defaultValue
+	return thePart.getSkinOptionValue(valueID, defaultValue)
+
 
 func deleteSkeleton():
 	for node in skeleton.get_children():

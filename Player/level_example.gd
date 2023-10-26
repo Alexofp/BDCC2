@@ -2,6 +2,9 @@ extends Node3D
 
 @onready var baseCharacter: BaseCharacter = $BaseCharacter
 
+func _init():
+	GlobalRegistry.doInit()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Doll.getDoll().setCharacter(baseCharacter)

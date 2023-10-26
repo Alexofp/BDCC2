@@ -1,39 +1,29 @@
-[gd_scene load_steps=21 format=3 uid="uid://dswroh18b2as1"]
+[gd_scene load_steps=19 format=3 uid="uid://dswroh18b2as1"]
 
 [ext_resource type="PackedScene" uid="uid://cw3lja8nvor65" path="res://Mesh/Parts/Head/CatHead/CatHead.glb" id="1_tposj"]
 [ext_resource type="Script" path="res://Mesh/Parts/Head/CatHead/cat_head.gd" id="2_858la"]
 [ext_resource type="PackedScene" uid="uid://ci71ce8ctr4jm" path="res://Mesh/Parts/Ear/CatEar/cat_ear.tscn" id="3_33sk0"]
-[ext_resource type="Texture2D" uid="uid://bjuyo5b5x2x5d" path="res://Mesh/Textures/Brows/brow1.png" id="3_ec0nt"]
 [ext_resource type="Material" uid="uid://cq4pnv1wvj670" path="res://Mesh/Parts/Head/CatHead/eyeRightMat.tres" id="4_2iulm"]
 [ext_resource type="Material" uid="uid://db1wemdfpiemd" path="res://Mesh/Parts/Head/CatHead/layeredHeadMat.tres" id="4_857eu"]
-[ext_resource type="Texture2D" uid="uid://p01nh6ry5ec6" path="res://Mesh/Textures/Eyelashes/eyelash2.png" id="4_mxvtu"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="4_wnyqu"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="5_leerd"]
 [ext_resource type="Texture2D" uid="uid://vc28lx2j34k1" path="res://Mesh/Parts/Head/CatHead/textures/mouthcolor.png" id="5_nw6ux"]
 [ext_resource type="Material" uid="uid://bk032svtfbwsq" path="res://Mesh/Parts/Head/CatHead/eyeMat.tres" id="5_q1u5u"]
 [ext_resource type="Material" uid="uid://cye2c3msmq0d5" path="res://Mesh/Parts/Head/CatHead/mouthMat.tres" id="6_uisqs"]
 [ext_resource type="Material" uid="uid://c2j3annds0cwc" path="res://Mesh/Parts/Head/CatHead/tongueMat.tres" id="7_unjgn"]
+[ext_resource type="Material" uid="uid://c0goxmhd7237w" path="res://Mesh/Parts/Head/CatHead/browsMat.tres" id="9_pqb7u"]
+[ext_resource type="Material" uid="uid://dtjvg7s74yxrl" path="res://Mesh/Parts/Head/CatHead/eyelashesMat.tres" id="10_hv6hm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wt16"]
 resource_local_to_scene = true
 diffuse_mode = 3
 albedo_texture = ExtResource("5_nw6ux")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swgu8"]
-transparency = 1
-diffuse_mode = 3
-albedo_texture = ExtResource("3_ec0nt")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdurk"]
-transparency = 1
-diffuse_mode = 3
-albedo_texture = ExtResource("4_mxvtu")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17jxm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mmkj3"]
 resource_local_to_scene = true
 diffuse_mode = 3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v70rt"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvu6q"]
 resource_local_to_scene = true
 diffuse_mode = 3
 
@@ -64,6 +54,8 @@ eyeRightMat = ExtResource("4_2iulm")
 headMat = ExtResource("4_857eu")
 mouthMat = ExtResource("6_uisqs")
 tongueMat = ExtResource("7_unjgn")
+browsMat = ExtResource("9_pqb7u")
+eyelashesMat = ExtResource("10_hv6hm")
 attachmentPoints = {
 "LeftEar": NodePath("Armature_002/Skeleton3D/LeftEarAttach"),
 "RightEar": NodePath("Armature_002/Skeleton3D/RightEarAttach/Marker3D")
@@ -102,10 +94,10 @@ surface_material_override/2 = ExtResource("7_unjgn")
 surface_material_override/3 = SubResource("StandardMaterial3D_4wt16")
 
 [node name="EyeBrows" parent="Armature_002/Skeleton3D" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_swgu8")
+surface_material_override/0 = ExtResource("9_pqb7u")
 
 [node name="Eyelashes" parent="Armature_002/Skeleton3D" index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_fdurk")
+surface_material_override/0 = ExtResource("10_hv6hm")
 
 [node name="EYES" parent="Armature_002/Skeleton3D" index="3"]
 surface_material_override/0 = ExtResource("5_q1u5u")
@@ -118,7 +110,7 @@ bone_idx = 7
 
 [node name="CatEar2" parent="Armature_002/Skeleton3D/LeftEarAttach" index="0" instance=ExtResource("3_33sk0")]
 visible = false
-earMat = SubResource("StandardMaterial3D_17jxm")
+earMat = SubResource("StandardMaterial3D_mmkj3")
 
 [node name="RightEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0582904, 0.152422, 0.0033248)
@@ -130,7 +122,7 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CatEar" parent="Armature_002/Skeleton3D/RightEarAttach/Marker3D" index="0" instance=ExtResource("3_33sk0")]
 visible = false
-earMat = SubResource("StandardMaterial3D_v70rt")
+earMat = SubResource("StandardMaterial3D_lvu6q")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582904, 0.152422, 0.0033248)
