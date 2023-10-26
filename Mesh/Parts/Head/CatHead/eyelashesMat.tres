@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dtjvg7s74yxrl"]
+
+[ext_resource type="Texture2D" uid="uid://p01nh6ry5ec6" path="res://Mesh/Textures/Eyelashes/eyelash2.png" id="1_lf3ca"]
+
+[resource]
+resource_local_to_scene = true
+transparency = 1
+diffuse_mode = 3
+albedo_texture = ExtResource("1_lf3ca")

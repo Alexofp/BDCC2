@@ -17,6 +17,13 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"muzzlelen": {
+			"name": "Muzzle length",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
 		"nosebridge": {
 			"name": "Nose bridge",
 			"type": "slider",
@@ -42,6 +49,20 @@ func getSkinOptions() -> Dictionary:
 			"type": "color",
 			"default": Color.WHITE,
 		},
+		"brows": {
+			"name": "Brows",
+			"type": "texture",
+			"values": getTextureVariantsByTypeAndSubType(TextureType.Brows, TextureSubType.Generic),
+			"default": "brow1",
+			"group": "Brows/lashes",
+		},
+		"eyelashes": {
+			"name": "Eyelashes",
+			"type": "texture",
+			"values": getTextureVariantsByTypeAndSubType(TextureType.Eyelashes, TextureSubType.Generic),
+			"default": "eyelash1",
+			"group": "Brows/lashes",
+		},
 		"sameeyes": {
 			"name": "Same eyes",
 			"type": "checkbox",
@@ -65,6 +86,7 @@ func getSkinOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": eyeStuff[1],
 		}
 		result["eyesaturation"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" saturation",
@@ -72,14 +94,13 @@ func getSkinOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": eyeStuff[1],
 		}
 		result["eyetype"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" type",
-			"type": "list",
+			"type": "texture",
 			"default": "normal",
-			"values": [
-				["normal", "Normal"],
-				["robot", "Robot"],
-			]
+			"values": getTextureVariantsByTypeAndSubType(TextureType.Eyes, TextureSubType.Generic),
+			"group": eyeStuff[1],
 		}
 	return result

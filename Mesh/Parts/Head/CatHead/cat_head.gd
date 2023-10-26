@@ -5,11 +5,20 @@ extends DollPart
 @export var headMat:ShaderMaterial
 @export var mouthMat:StandardMaterial3D
 @export var tongueMat:StandardMaterial3D
+@export var browsMat:StandardMaterial3D
+@export var eyelashesMat:StandardMaterial3D
 @onready var eyes = $Armature_002/Skeleton3D/EYES
+
+func updateMuzzleSizeAndLength():
+	var muzzlesize = getOptionValue("muzzlesize", 0.0)
+	var muzzlelen = getOptionValue("muzzlelen", 0.0)
+	setBoneScaleAndOffset("MuzzleRoot", max(0.1, muzzlesize*0.2+1.0), Vector3(0.0, muzzlelen/40.0, 0.0))
 
 func applyOption(_optionID: String, _value):
 	if(_optionID == "muzzlesize"):
-		setBoneScale("MuzzleRoot", max(0.1, _value*0.2+1.0))
+		updateMuzzleSizeAndLength()
+	if(_optionID == "muzzlelen"):
+		updateMuzzleSizeAndLength()
 	if(_optionID == "nosebridge"):
 		setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
 
@@ -20,6 +29,18 @@ func applySkinOption(_optionID: String, _value):
 	if(_optionID == "tonguecolor"):
 		if(tongueMat != null):
 			tongueMat.albedo_color = _value
+	
+	if(_optionID == "brows"):
+		if(browsMat != null):
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(TextureType.Brows, TextureSubType.Generic, _value)
+			if(textureVariant != null):
+				browsMat.albedo_texture = textureVariant.getTexture()
+	if(_optionID == "eyelashes"):
+		if(eyelashesMat != null):
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(TextureType.Eyelashes, TextureSubType.Generic, _value)
+			if(textureVariant != null):
+				eyelashesMat.albedo_texture = textureVariant.getTexture()
+
 	
 	if(_optionID == "sameeyes"):
 		if(_value):
@@ -35,10 +56,9 @@ func applySkinOption(_optionID: String, _value):
 			eyeMat.set_shader_parameter("Shift_Saturation", _value)
 	if(_optionID == "eyetype"):
 		if(eyeMat != null):
-			if(_value == "robot"):
-				eyeMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Eyes/roboteye.png"))
-			else:
-				eyeMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Eyes/eye.png"))
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(TextureType.Eyes, TextureSubType.Generic, _value)
+			if(textureVariant != null):
+				eyeMat.set_shader_parameter("texture_albedo", textureVariant.getTexture())
 
 	if(_optionID == "eyehue_right"):
 		if(eyeRightMat != null):
@@ -48,10 +68,9 @@ func applySkinOption(_optionID: String, _value):
 			eyeRightMat.set_shader_parameter("Shift_Saturation", _value)
 	if(_optionID == "eyetype_right"):
 		if(eyeRightMat != null):
-			if(_value == "robot"):
-				eyeRightMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Eyes/roboteye.png"))
-			else:
-				eyeRightMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Eyes/eye.png"))
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(TextureType.Eyes, TextureSubType.Generic, _value)
+			if(textureVariant != null):
+				eyeRightMat.set_shader_parameter("texture_albedo", textureVariant.getTexture())
 
 func applyBaseSkinData(_data : BaseSkinData):
 	if(headMat != null):

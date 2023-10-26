@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c0goxmhd7237w"]
+
+[ext_resource type="Texture2D" uid="uid://bjuyo5b5x2x5d" path="res://Mesh/Textures/Brows/brow1.png" id="1_832s1"]
+
+[resource]
+resource_local_to_scene = true
+transparency = 1
+diffuse_mode = 3
+albedo_texture = ExtResource("1_832s1")

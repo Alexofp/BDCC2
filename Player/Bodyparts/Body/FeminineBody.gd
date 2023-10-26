@@ -23,6 +23,7 @@ func getOptions() -> Dictionary:
 			"minvalue": -0.2,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": "Some sliders",
 		},
 		"height": {
 			"name": "Height",
@@ -30,6 +31,7 @@ func getOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": "Some sliders",
 		},
 		"headsize": {
 			"name": "Head size",

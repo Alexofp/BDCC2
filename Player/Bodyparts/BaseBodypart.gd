@@ -132,6 +132,7 @@ func getBodypartSlots():
 	}
 
 func applyEverythingToDollPart(dollPart:DollPart):
+	dollPart.partRef = weakref(self)
 	applyOptionsToDollPart(dollPart)
 	dollPart.applyBaseSkinData(getBaseSkinData())
 	applySkinOptionsToDollPart(dollPart)
@@ -192,3 +193,19 @@ func setSkinOptionValue(valueID: String, value):
 
 func checkSkinOptionChanged(_valueID, _oldValue, _newValue):
 	pass
+
+func getTextureVariantsByTypeAndSubType(textureType:String, textureSubType:String, includeTexturePaths:bool=true) -> Array:
+	var result = []
+	
+	var textureVariantIDs = GlobalRegistry.getTextureVariants(textureType, textureSubType).keys()
+	for textureVariantID in textureVariantIDs:
+		var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(textureType, textureSubType, textureVariantID)
+		if(includeTexturePaths):
+			result.append([textureVariantID, textureVariant.getVisibleName(), textureVariant.getTexturePath()])
+		else:
+			result.append([textureVariantID, textureVariant.getVisibleName()])
+		
+	return result
+
+func getGroupInfo(_groupID:String) -> Dictionary:
+	return {name = _groupID}

@@ -54,3 +54,30 @@ static func getScriptsInFolder(folder: String):
 		Log.printerr("An error occurred when trying to access the path "+folder)
 	
 	return result
+
+static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, includeSubFolders = true, reqursive = true):
+	var result = []
+	
+	var dir = DirAccess.open(folder)
+	if dir:
+		dir.include_navigational = false
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				if(includeSubFolders):
+					var full_path = folder.path_join(file_name)
+					result.append_array(getScriptsInFolderSmart(full_path, true, reqursive))
+				#print("Found directory: " + file_name)
+			else:
+				if(!includeThisFolder):
+					file_name = dir.get_next()
+					continue
+				if(file_name.get_extension() == "gd"):
+					var full_path = folder.path_join(file_name)
+					result.append(full_path)
+			file_name = dir.get_next()
+	else:
+		Log.printerr("An error occurred when trying to access the path "+folder)
+	
+	return result

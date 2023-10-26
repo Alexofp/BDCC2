@@ -1,43 +1,104 @@
-extends Node
+extends Object
+class_name GlobalRegistry
 
 # And so we meet again, GlobalRegistry..
 
-var bodyparts: Dictionary = {}
-var bodypartRefs: Dictionary = {}
+static var wasInit = false
+static var bodyparts: Dictionary = {}
+static var bodypartRefs: Dictionary = {}
+static var textureVariants: Dictionary = {}
 
-func _init():
+static func doInit():
+	if(wasInit):
+		return
+	wasInit = true
+	registerTextureVariantFolderOnlySubFolders("res://Mesh/Textures/")
+	
 	registerBodypartsFolder("res://Player/Bodyparts/Body/")
 	registerBodypartsFolder("res://Player/Bodyparts/Head/")
 	registerBodypartsFolder("res://Player/Bodyparts/Ear/")
 	registerBodypartsFolder("res://Player/Bodyparts/Legs/")
 	registerBodypartsFolder("res://Player/Bodyparts/Tail/")
+	
 	print("GlobalRegistry: Registered everything")
 
-func registerBodypart(path: String):
+static func registerBodypart(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()
 	
 	bodyparts[object.id] = loadedClass
 	bodypartRefs[object.id] = object
 
-func registerBodypartsFolder(folder: String):
+static func registerBodypartsFolder(folder: String):
 	var scripts = Util.getScriptsInFolder(folder)
 	for scriptPath in scripts:
 		registerBodypart(scriptPath)
 
-func createBodypart(id: String) -> BaseBodypart:
+static func createBodypart(id: String) -> BaseBodypart:
 	if(bodyparts.has(id)):
 		return bodyparts[id].new()
 	else:
 		Log.printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
 
-func getBodyparts():
+static func getBodyparts():
 	return bodypartRefs
 
-func getBodypartRef(id: String) -> BaseBodypart:
+static func getBodypartRef(id: String) -> BaseBodypart:
 	if(bodypartRefs.has(id)):
 		return bodypartRefs[id]
 	else:
 		Log.printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+static func registerTextureVariant(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	if(object is TextureVariant):
+		if(!textureVariants.has(object.textureType)):
+			textureVariants[object.textureType] = {}
+		if(!textureVariants[object.textureType].has(object.textureSubType)):
+			textureVariants[object.textureType][object.textureSubType] = {}
+		textureVariants[object.textureType][object.textureSubType][object.id] = object
+	elif(object is TextureVariantMany):
+		if(!textureVariants.has(object.textureType)):
+			textureVariants[object.textureType] = {}
+		if(!textureVariants[object.textureType].has(object.textureSubType)):
+			textureVariants[object.textureType][object.textureSubType] = {}
+		for into in object.textures:
+			var textureID = into["id"]
+			var textureName = into["name"]
+			var texturePath = into["path"]
+			var newTextureVariant = TextureVariant.new()
+			newTextureVariant.id = textureID
+			newTextureVariant.textureName = textureName
+			newTextureVariant.texturePath = texturePath
+			newTextureVariant.textureType = object.textureType
+			newTextureVariant.textureSubType = object.textureSubType
+			textureVariants[object.textureType][object.textureSubType][textureID] = newTextureVariant
+
+static func registerTextureVariantFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder, true, true, true)
+	for scriptPath in scripts:
+		registerTextureVariant(scriptPath)
+
+static func registerTextureVariantFolderOnlySubFolders(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder, false, true, true)
+	for scriptPath in scripts:
+		registerTextureVariant(scriptPath)
+
+static func getTextureVariant(textureType, textureSubType, id) -> TextureVariant:
+	if(!textureVariants.has(textureType) || !textureVariants[textureType].has(textureSubType) || !textureVariants[textureType][textureSubType].has(id)):
+		Log.printerr("ERROR: texture variant with the id "+str(id)+" wasn't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
+		return null
+	
+	return textureVariants[textureType][textureSubType][id]
+	
+static func getTextureVariants(textureType, textureSubType) -> Dictionary:
+	if(!textureVariants.has(textureType) || !textureVariants[textureType].has(textureSubType)):
+		Log.printerr("ERROR: texture variants with the weren't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
+		return {}
+		
+	return textureVariants[textureType][textureSubType]

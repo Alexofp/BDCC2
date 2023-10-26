@@ -7,12 +7,16 @@ extends PanelContainer
 var parentPart: BaseBodypart
 var parentPartSlot
 
+var bodypartGroup = preload("res://Game/CharacterCreator/Elements/bodypart_group.tscn")
+var groups = {}
+
 var editingBodypart: BaseBodypart
 var numberSliderScene = preload("res://Game/CharacterCreator/OptionTypes/number_slider.tscn")
 var typeSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/type_selector.tscn")
 var colorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/color.tscn")
 var baseSkinDataScene = preload("res://Game/CharacterCreator/OptionTypes/base_skin_data.tscn")
 var checkboxScene = preload("res://Game/CharacterCreator/OptionTypes/checkbox.tscn")
+var textureSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/texture_selector.tscn")
 
 signal onChildBodypartChangeType(part, slot, newtype)
 
@@ -29,6 +33,8 @@ func createOptionScene(type:String) -> Control:
 		return baseSkinDataScene.instantiate()
 	if(type == "checkbox"):
 		return checkboxScene.instantiate()
+	if(type in ["biglist", "textures", "texture"]):
+		return textureSelectorScene.instantiate()
 	
 	return null
 
@@ -53,6 +59,7 @@ func setBodypart(newBodypart:BaseBodypart):
 func updateOptions():
 	Util.delete_children(partOptionsList)
 	Util.delete_children(childPartsList)
+	groups = {}
 	
 	if(editingBodypart == null):
 		return
@@ -87,7 +94,17 @@ func updateOptions():
 		if(newOptionScene == null):
 			Log.printerr("Couldn't create an option for type "+str(optionInfo["type"]))
 			continue
-		partOptionsList.add_child(newOptionScene)
+		
+		if(optionInfo.has("group") && optionInfo["group"]!=""):
+			var groupID = optionInfo["group"]
+			if(!groups.has(groupID)):
+				var newGroupScene = bodypartGroup.instantiate()
+				partOptionsList.add_child(newGroupScene)
+				newGroupScene.setLabel(editingBodypart.getGroupInfo(groupID)["name"])
+				groups[groupID] = newGroupScene
+			groups[groupID].addNewElement(newOptionScene)
+		else:
+			partOptionsList.add_child(newOptionScene)
 		
 		newOptionScene.id = optionID
 		newOptionScene.setLabel(optionInfo["name"] if optionInfo.has("name") else optionID)
