@@ -21,20 +21,17 @@ var move_direction_no_y = Vector3.ZERO
 var camera_rotation = Quaternion.IDENTITY
 var camera_rotation_no_y = Quaternion.IDENTITY
 var noclip_on = false
-var mousecapture_on = false
+var mousecapture_on = true
 var rigidbody_collisions = []
 var input_velocity = Vector3.ZERO
 var anim_player
 
 var mouse_movement = Vector2.ZERO
-var forward_isdown = false
-var backward_isdown = false
-var left_isdown = false
-var right_isdown = false
 var sprint_isdown = false
 var jump_isdown = false
 var noclip_isdown = false
 var mousecapture_isdown = false
+var input_dir = Vector2.ZERO
 
 func getDoll() -> Doll:
 	return $ModelRoot/Doll.getDoll()
@@ -46,11 +43,15 @@ func _ready():
 	#anim_player = $"ModelRoot/mannequiny-0_3_0/AnimationPlayer"
 	#anim_player.playback_default_blend_time = 0.75
 
+func reset_input():
+	input_dir = Vector2.ZERO
+	jump_isdown = false
+	sprint_isdown = false
+	noclip_isdown = false
+	mousecapture_isdown = false
+
 func process_input_human():
-	forward_isdown = Input.is_action_pressed("move_forward")
-	backward_isdown = Input.is_action_pressed("move_back")
-	left_isdown = Input.is_action_pressed("move_left")
-	right_isdown = Input.is_action_pressed("move_right")
+	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	jump_isdown = Input.is_action_pressed("move_jump")
 	sprint_isdown = Input.is_action_pressed("move_sprint")
 	
@@ -58,7 +59,9 @@ func process_input_human():
 	mousecapture_isdown = Input.is_action_just_pressed("debug_mousecapture")
 
 func _process(delta):
-	process_input_human()
+	reset_input()
+	if(!UiHandler.hasAnyUIVisible()):
+		process_input_human()
 	process_mousecapture(delta)
 	process_camera()
 	process_movement()
@@ -104,7 +107,7 @@ func process_mousecapture(delta):
 	if(mousecapture_isdown):
 		mousecapture_on = !mousecapture_on
 	
-	if mousecapture_on:
+	if mousecapture_on && !UiHandler.hasAnyUIVisible():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -122,10 +125,11 @@ func process_camera():
 	
 	mouse_movement = Vector2.ZERO
 	
-	if(Input.is_action_just_pressed("camera_zoomin")):
-		$CameraPivot/SpringArm.spring_length -= 0.1
-	if(Input.is_action_just_pressed("camera_zoomout")):
-		$CameraPivot/SpringArm.spring_length += 0.1
+	if(!UiHandler.hasAnyUIVisible()):
+		if(Input.is_action_just_pressed("camera_zoomin")):
+			$CameraPivot/SpringArm.spring_length -= 0.1
+		if(Input.is_action_just_pressed("camera_zoomout")):
+			$CameraPivot/SpringArm.spring_length += 0.1
 	if($CameraPivot/SpringArm.spring_length <= 0.0):
 		$CameraPivot/SpringArm.spring_length = 0.0
 		$CameraPivot/SpringArm.position.x = 0.0
@@ -137,14 +141,8 @@ func process_camera():
 func process_movement():
 	var input_direction = Vector3.ZERO
 	
-	if forward_isdown:
-		input_direction.z -= 1.0
-	if backward_isdown:
-		input_direction.z += 1.0
-	if left_isdown:
-		input_direction.x -= 1.0
-	if right_isdown:
-		input_direction.x += 1.0
+	input_direction.z = input_dir.y
+	input_direction.x = input_dir.x
 	
 	move_direction = camera_rotation * input_direction
 	move_direction_no_y = camera_rotation_no_y * input_direction

@@ -7,6 +7,8 @@ func _init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	UiHandler.addUI($CanvasLayer)
+	
 	$Doll.getDoll().setCharacter(baseCharacter)
 	$Doll3.getDoll().setCharacter(baseCharacter)
 

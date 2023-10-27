@@ -11,6 +11,8 @@ var partRef:WeakRef
 var extraTransformsPerBone = {}
 
 func shouldBindToParentSkeleton() -> bool:
+	if(bindToParentSkeleton == null):
+		bindToParentSkeleton = false
 	return bindToParentSkeleton
 
 func getDoll() -> Doll:
