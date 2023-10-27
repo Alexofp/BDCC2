@@ -9,7 +9,7 @@ var _gizmo_plugin: EditorNode3DGizmoPlugin = GIZMO_SCRIPT.new()
 
 
 func _enter_tree() -> void:
-	add_custom_type("WiggleBone", "BoneAttachment3D", WIGGLEBONE, load("icon.svg"))
+	add_custom_type("WiggleBone", "BoneAttachment3D", WIGGLEBONE, preload("icon.svg"))
 	add_node_3d_gizmo_plugin(_gizmo_plugin)
 
 

@@ -7,6 +7,7 @@ extends DollPart
 @export var tongueMat:StandardMaterial3D
 @export var browsMat:StandardMaterial3D
 @export var eyelashesMat:StandardMaterial3D
+@export var noseMat:StandardMaterial3D
 @onready var eyes = $Armature_002/Skeleton3D/EYES
 
 func updateMuzzleSizeAndLength():
@@ -29,6 +30,9 @@ func applySkinOption(_optionID: String, _value):
 	if(_optionID == "tonguecolor"):
 		if(tongueMat != null):
 			tongueMat.albedo_color = _value
+	if(_optionID == "nosecolor"):
+		if(noseMat != null):
+			noseMat.albedo_color = _value
 	
 	if(_optionID == "brows"):
 		if(browsMat != null):
