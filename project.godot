@@ -15,6 +15,10 @@ run/main_scene="res://Player/level_example.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UiHandler="*res://Game/UIHandler.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/wigglebone/plugin.cfg")
