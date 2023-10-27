@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dswroh18b2as1"]
+[gd_scene load_steps=20 format=3 uid="uid://dswroh18b2as1"]
 
 [ext_resource type="PackedScene" uid="uid://cw3lja8nvor65" path="res://Mesh/Parts/Head/CatHead/CatHead.glb" id="1_tposj"]
 [ext_resource type="Script" path="res://Mesh/Parts/Head/CatHead/cat_head.gd" id="2_858la"]
@@ -13,17 +13,18 @@
 [ext_resource type="Material" uid="uid://c2j3annds0cwc" path="res://Mesh/Parts/Head/CatHead/tongueMat.tres" id="7_unjgn"]
 [ext_resource type="Material" uid="uid://c0goxmhd7237w" path="res://Mesh/Parts/Head/CatHead/browsMat.tres" id="9_pqb7u"]
 [ext_resource type="Material" uid="uid://dtjvg7s74yxrl" path="res://Mesh/Parts/Head/CatHead/eyelashesMat.tres" id="10_hv6hm"]
+[ext_resource type="Material" uid="uid://b0bvk22aw8ypj" path="res://Mesh/Parts/Head/CatHead/noseMat.tres" id="14_owv1t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wt16"]
 resource_local_to_scene = true
 diffuse_mode = 3
 albedo_texture = ExtResource("5_nw6ux")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fvsi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50v84"]
 resource_local_to_scene = true
 diffuse_mode = 3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nk2tk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0cat"]
 resource_local_to_scene = true
 diffuse_mode = 3
 
@@ -56,12 +57,15 @@ mouthMat = ExtResource("6_uisqs")
 tongueMat = ExtResource("7_unjgn")
 browsMat = ExtResource("9_pqb7u")
 eyelashesMat = ExtResource("10_hv6hm")
+noseMat = ExtResource("14_owv1t")
 attachmentPoints = {
 "LeftEar": NodePath("Armature_002/Skeleton3D/LeftEarAttach"),
 "RightEar": NodePath("Armature_002/Skeleton3D/RightEarAttach/Marker3D")
 }
 
 [node name="Skeleton3D" parent="Armature_002" index="0"]
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/scale = Vector3(1, 1, 1)
 bones/3/rotation = Quaternion(0.759303, 0.0482153, -0.232499, 0.60587)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/rotation = Quaternion(0.759303, -0.0482153, 0.232499, 0.60587)
@@ -76,12 +80,8 @@ bones/12/rotation = Quaternion(0.861371, 0.343606, -0.366149, 0.07687)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/rotation = Quaternion(0.861369, -0.343607, 0.366153, 0.0768682)
 bones/13/scale = Vector3(1, 1, 1)
-bones/14/rotation = Quaternion(0.431677, -1.18285e-06, 1.59526e-06, 0.902028)
-bones/15/rotation = Quaternion(8.79067e-07, 0.924672, -0.380765, 6.9811e-08)
+bones/15/rotation = Quaternion(7.81004e-07, 0.941042, -0.338289, 7.10467e-08)
 bones/15/scale = Vector3(1, 1, 1)
-bones/16/position = Vector3(-9.9321e-09, 0.0454049, 0.0044475)
-bones/17/position = Vector3(-4.66349e-09, 0.0323378, 0.00200959)
-bones/18/rotation = Quaternion(-0.242083, 5.12628e-14, -5.61781e-07, 0.970256)
 bones/19/rotation = Quaternion(0.842273, 0.313304, -0.31102, 0.309326)
 bones/19/scale = Vector3(1, 1, 1)
 bones/20/rotation = Quaternion(0.842273, -0.313305, 0.311022, 0.309325)
@@ -110,7 +110,7 @@ bone_idx = 7
 
 [node name="CatEar2" parent="Armature_002/Skeleton3D/LeftEarAttach" index="0" instance=ExtResource("3_33sk0")]
 visible = false
-earMat = SubResource("StandardMaterial3D_7fvsi")
+earMat = SubResource("StandardMaterial3D_50v84")
 
 [node name="RightEarAttach" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0582904, 0.152422, 0.0033248)
@@ -122,7 +122,7 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CatEar" parent="Armature_002/Skeleton3D/RightEarAttach/Marker3D" index="0" instance=ExtResource("3_33sk0")]
 visible = false
-earMat = SubResource("StandardMaterial3D_nk2tk")
+earMat = SubResource("StandardMaterial3D_f0cat")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="Armature_002/Skeleton3D" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582904, 0.152422, 0.0033248)
@@ -137,6 +137,9 @@ bone_name = "Ear.R"
 bone_idx = 8
 script = ExtResource("4_wnyqu")
 properties = SubResource("Resource_pk5e0")
+
+[node name="Nose" parent="Armature_002/Skeleton3D" index="8"]
+surface_material_override/0 = ExtResource("14_owv1t")
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "CatHeadBlep"

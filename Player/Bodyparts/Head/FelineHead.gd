@@ -49,6 +49,11 @@ func getSkinOptions() -> Dictionary:
 			"type": "color",
 			"default": Color.WHITE,
 		},
+		"nosecolor": {
+			"name": "Nose",
+			"type": "color",
+			"default": Color.WHITE,
+		},
 		"brows": {
 			"name": "Brows",
 			"type": "texture",
