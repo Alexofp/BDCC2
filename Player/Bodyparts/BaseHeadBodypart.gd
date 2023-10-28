@@ -10,9 +10,9 @@ func getOptions() -> Dictionary:
 			"default": 0.5,
 		},
 	}
-
-func getMeshScene() -> PackedScene:
-	return load("res://Mesh/Parts/Head/CatHead/cat_head.tscn")
+	
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Head/CatHead/cat_head.tscn"
 
 func getBodypartSlots():
 	return {

@@ -4,6 +4,9 @@ class_name GlobalRegistry
 # And so we meet again, GlobalRegistry..
 
 static var wasInit = false
+
+static var sceneCache: Dictionary = {}
+
 static var bodyparts: Dictionary = {}
 static var bodypartRefs: Dictionary = {}
 static var textureVariants: Dictionary = {}
@@ -21,6 +24,16 @@ static func doInit():
 	registerBodypartsFolder("res://Player/Bodyparts/Tail/")
 	
 	print("GlobalRegistry: Registered everything")
+
+static func loadSceneCached(path: String) -> PackedScene:
+	if(!sceneCache.has(path)):
+		var theScene = load(path)
+		if(!(theScene is PackedScene)):
+			Log.printerr("Tried to load a non-scene scene from path "+str(path))
+			return null
+		sceneCache[path] = theScene
+		return theScene
+	return sceneCache[path]
 
 static func registerBodypart(path: String):
 	var loadedClass = load(path)
