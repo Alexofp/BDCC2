@@ -33,8 +33,8 @@ func getOptions() -> Dictionary:
 		},
 	}
 
-func getMeshScene() -> PackedScene:
-	return load("res://Mesh/Parts/Tail/FelineTail/feline_tail.tscn")
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Tail/FelineTail/feline_tail.tscn"
 
 func getBodypartSlots():
 	return {

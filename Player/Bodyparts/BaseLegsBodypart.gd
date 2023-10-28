@@ -12,8 +12,8 @@ func getOptions() -> Dictionary:
 		},
 	}
 
-func getMeshScene() -> PackedScene:
-	return load("res://Mesh/Parts/Legs/DigiLegs/digi_legs.tscn")
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Legs/DigiLegs/digi_legs.tscn"
 
 func getBodypartSlots():
 	return {

@@ -25,6 +25,7 @@ signal onOptionsCacheRecalculated(part)
 func _init():
 	cachedOptions = getOptions()
 	cachedSkinOptions = getSkinOptions()
+	var _justForCache = getMeshScene()
 
 func getVisibleName():
 	return "ERROR"
@@ -79,8 +80,11 @@ func setOptionValue(valueID: String, value):
 func checkOptionChanged(_valueID, _oldValue, _newValue):
 	pass
 
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"
+
 func getMeshScene() -> PackedScene:
-	return null
+	return GlobalRegistry.loadSceneCached(getMeshPath())
 
 func getBodypart(slot:String) -> BaseBodypart:
 	if(!bodyparts.has(slot)):

@@ -74,6 +74,7 @@ func onBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBo
 		dollPartToRemove.queue_free()
 	
 func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBodypart):
+	var start = Time.get_ticks_usec()
 	var meshScene = part.getMeshScene()
 	if(meshScene != null):
 		var newDollPart:DollPart = meshScene.instantiate()
@@ -82,7 +83,7 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		parentDollPart.dollRef = weakref(self)
 		var attachObject:Node = parentDollPart.getBodypartSlotObject(slot)
 		
-		print(slot+" Attached to ",attachObject)
+		#print(slot+" Attached to ",attachObject)
 		attachObject.add_child(newDollPart)
 		
 		part.applyEverythingToDollPart(newDollPart)
@@ -97,6 +98,10 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		#mesh.setSkeleton(dollSkeleton.getSkeleton())
 		
 		bodypartToDollPart[part] = newDollPart
+		
+		var end = Time.get_ticks_usec()
+		var worker_time = (end-start)/1000000.0
+		print(slot+" Attached to ",attachObject," Took: ",worker_time," seconds")
 
 		var childParts = part.getBodyparts()
 		for bodypartSlot in childParts:

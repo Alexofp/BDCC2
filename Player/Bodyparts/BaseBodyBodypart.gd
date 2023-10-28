@@ -19,8 +19,8 @@ func getOptions() -> Dictionary:
 func getSkeletonScene() -> PackedScene:
 	return load("res://Mesh/Skeleton/Feminine/feminine_skeleton.tscn")
 
-func getMeshScene() -> PackedScene:
-	return load("res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn")
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"
 
 func getBodypartSlots():
 	return {
