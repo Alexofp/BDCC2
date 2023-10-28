@@ -244,17 +244,23 @@ func getBoneExtraTransform(boneId: int) -> Transform3D:
 func _process(_delta):
 	var theskeleton:Skeleton3D = getSkeleton()
 	
+	var transCache = {}
+	
 	var dakeys = extraTransformsPerBone.keys()
 	#dakeys.sort()
 	for boneIdstr in dakeys:
-		var boneId = int(boneIdstr)
+		var boneId = (boneIdstr)
 		#var boneId = theskeleton.find_bone(boneName)
 		#if(boneId < 0):
 		#	return
 		var currentTrans:Transform3D = getBetterGlobalPose(theskeleton, boneId)#theskeleton.get_bone_global_pose_no_override(boneId)
-		theskeleton.set_bone_global_pose_override(boneId, currentTrans * extraTransformsPerBone[boneId], 1.0, true)
-
-
-func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int):
+		#theskeleton.set_bone_global_pose_override(boneId, currentTrans * extraTransformsPerBone[boneId], 1.0, true)
+		transCache[boneId] = currentTrans
+	# Delaying the set_pose so the skeleton doesn't have to recompute itself many times
+	for boneIdstr in dakeys:
+		var boneId = (boneIdstr)
+		theskeleton.set_bone_global_pose_override(boneId, transCache[boneId] * extraTransformsPerBone[boneId], 1.0, true)
+		
+func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int) -> Transform3D:
 	#return theskeleton.get_bone_global_pose_no_override(boneID)
 	return theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * skeleton.get_bone_pose(boneID)
