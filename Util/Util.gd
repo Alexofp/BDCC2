@@ -81,3 +81,19 @@ static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, in
 		Log.printerr("An error occurred when trying to access the path "+folder)
 	
 	return result
+
+static func moveValueUp(theArray, theIndex):
+	var thingie = theArray[theIndex]
+	theArray.remove_at(theIndex)
+	theIndex -= 1
+	if(theIndex < 0):
+		theIndex = 0
+	theArray.insert(theIndex, thingie)
+
+static func moveValueDown(theArray, theIndex):
+	var thingie = theArray[theIndex]
+	theArray.remove_at(theIndex)
+	theIndex += 1
+	if(theIndex > theArray.size()):
+		theIndex = theArray.size()
+	theArray.insert(theIndex, thingie)

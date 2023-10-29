@@ -17,6 +17,7 @@ var colorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/color.
 var baseSkinDataScene = preload("res://Game/CharacterCreator/OptionTypes/base_skin_data.tscn")
 var checkboxScene = preload("res://Game/CharacterCreator/OptionTypes/checkbox.tscn")
 var textureSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/texture_selector.tscn")
+var skinLayersScene = preload("res://Game/CharacterCreator/OptionTypes/skin_layers.tscn")
 
 signal onChildBodypartChangeType(part, slot, newtype)
 
@@ -35,6 +36,8 @@ func createOptionScene(type:String) -> Control:
 		return checkboxScene.instantiate()
 	if(type in ["biglist", "textures", "texture"]):
 		return textureSelectorScene.instantiate()
+	if(type == "layers"):
+		return skinLayersScene.instantiate()
 	
 	return null
 

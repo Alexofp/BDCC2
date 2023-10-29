@@ -70,7 +70,7 @@ func setOptionValue(valueID: String, value):
 	if(!cachedOptions.has(valueID)):
 		return
 	
-	if(savedOptions.has(valueID) && savedOptions[valueID] == value):
+	if(savedOptions.has(valueID) && !((value is Array) || value is Dictionary) && savedOptions[valueID] == value):
 		return
 	var currentValue = getOptionValue(valueID)
 	savedOptions[valueID] = value
@@ -205,7 +205,7 @@ func getTextureVariantsByTypeAndSubType(textureType:String, textureSubType:Strin
 	for textureVariantID in textureVariantIDs:
 		var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(textureType, textureSubType, textureVariantID)
 		if(includeTexturePaths):
-			result.append([textureVariantID, textureVariant.getVisibleName(), textureVariant.getTexturePath()])
+			result.append([textureVariantID, textureVariant.getVisibleName(), textureVariant.getPreviewTexturePath()])
 		else:
 			result.append([textureVariantID, textureVariant.getVisibleName()])
 		

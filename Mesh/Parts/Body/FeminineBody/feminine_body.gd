@@ -7,14 +7,30 @@ extends DollPart
 @export var bodyMat:StandardMaterial3D
 @export var layeredBodyMat:ShaderMaterial
 
-
-
 func _ready():
 	super._ready()
 	#process_priority = 1
 	#animTree.active = true
 
+func findSkeleton() -> Skeleton3D:
+	return $rig/Skeleton3D
+
+func getSubSkeleton() -> Skeleton3D:
+	return $FeminineSkeleton.getSkeleton()
+
 func applyOption(_optionID: String, _value):
+	if(_optionID == "skinlayers"):
+		if(layeredBodyMat != null):
+			var theColors = []
+			#theColors.resize(_value.size())
+			var theTextures = []
+			for layerInfo in _value:
+				theColors.append(layerInfo["color"])
+				theTextures.append(GlobalRegistry.getTextureVariant(TextureType.PartSkin, TextureSubType.Generic, layerInfo["id"]).getTexture())
+			layeredBodyMat.set_shader_parameter("layerAmount", _value.size())
+			layeredBodyMat.set_shader_parameter("layers", theTextures)
+			layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
+		
 	if(_optionID == "thickbutt"):
 		#bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
 		setBlendshape(body, "ThickButt", _value)
@@ -44,9 +60,9 @@ func applyOption(_optionID: String, _value):
 			_value)
 	if(_optionID == "headsize"):
 		animTree["parameters/HeadSize/add_amount"] = _value * 0.1
-		setBoneRestScale("DEF-head", max(0.1, _value*0.1+1.0))
+		setBoneScale("DEF-head", max(0.1, _value*0.1+1.0))
 	if(_optionID == "tailsize"):
-		setBoneRestScale("DEF-tail_base", max(0.1, _value+1.0))
+		setBoneScale("DEF-tail_base", max(0.1, _value+1.0))
 	if(_optionID == "height"):
 		animTree["parameters/HeightTall/add_amount"] = _value
 		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.04*_value, 0.0)) #0.12
@@ -71,9 +87,12 @@ func applyOption(_optionID: String, _value):
 
 func playAnim(dollAnim:String, howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
-		animPlayer.play("IdleAnimations/FemWalkCycle")
+		$FeminineSkeleton.getAnimPlayer().play("FemWalkCycle")
+		#animPlayer.play("IdleAnimations/FemWalkCycle")
 	else:
-		animPlayer.play("IdleAnimations/SexyIdle")
+		$FeminineSkeleton.getAnimPlayer().play("SexyIdle")
+		#animPlayer.play("IdleAnimations/SexyIdle")
+	pass
 
 func applyBaseSkinData(_data : BaseSkinData):
 	if(bodyMat != null):
@@ -87,3 +106,4 @@ func applyBaseSkinData(_data : BaseSkinData):
 		else:
 			layeredBodyMat.set_shader_parameter("texture_albedo", null)
 			layeredBodyMat.set_shader_parameter("texture_normal", null)
+
