@@ -88,6 +88,8 @@ static func registerTextureVariant(path: String):
 			newTextureVariant.id = textureID
 			newTextureVariant.textureName = textureName
 			newTextureVariant.texturePath = texturePath
+			if(into.has("preview")):
+				newTextureVariant.previewTexturePath = into["preview"]
 			newTextureVariant.textureType = object.textureType
 			newTextureVariant.textureSubType = object.textureSubType
 			textureVariants[object.textureType][object.textureSubType][textureID] = newTextureVariant

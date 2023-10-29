@@ -10,6 +10,11 @@ func getVisibleName():
 
 func getOptions() -> Dictionary:
 	return {
+		"skinlayers": {
+			"name": "Skin layers",
+			"type": "layers",
+			"default": [],
+		},
 		"breastsize": {
 			"name": "Breast size",
 			"type": "slider",

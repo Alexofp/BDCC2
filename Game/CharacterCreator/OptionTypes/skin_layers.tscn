@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdqq2opmpnm2e"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/skin_layers.gd" id="1_gydkl"]
+[ext_resource type="Texture2D" uid="uid://nhlpj3q8ft1" path="res://icon.svg" id="1_s3ou6"]
+[ext_resource type="PackedScene" uid="uid://d2553hwpg1woy" path="res://Game/CharacterCreator/OptionTypes/SubElements/skin_layer.tscn" id="2_wq4co"]
+
+[node name="SkinLayers" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+script = ExtResource("1_gydkl")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Layers"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SkinLayer" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_wq4co")]
+layout_mode = 2
+
+[node name="SkinLayer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+texture = ExtResource("1_s3ou6")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+layout_mode = 2
+text = "v"
+
+[node name="Button2" type="Button" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+layout_mode = 2
+text = "^"
+
+[node name="Button3" type="Button" parent="VBoxContainer/VBoxContainer/SkinLayer2"]
+layout_mode = 2
+text = "Del"
+
+[node name="AddLayerButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Add layer"
+
+[connection signal="pressed" from="VBoxContainer/AddLayerButton" to="." method="_on_add_layer_button_pressed"]

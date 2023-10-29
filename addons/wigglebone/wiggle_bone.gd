@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 	if delta == 0.0:
 		delta = 1.0 / float(60.0)
 
-	var bone_pose := _skeleton.get_bone_pose(_bone_idx)
+	var bone_pose:Transform3D = _skeleton.get_bone_pose(_bone_idx)
 	if _parent_bone_idx >= 0:
 		bone_pose = _skeleton.get_bone_global_pose(_parent_bone_idx) * bone_pose
 
@@ -101,13 +101,15 @@ func _process(delta: float) -> void:
 
 	var pose := bone_pose * _pose()
 	# BDCC EDIT START
-	if(!Engine.is_editor_hint() && additionalEditsNode != null):
-		pose = pose * additionalEditsNode.getBoneExtraTransform(_bone_idx)
+	#if(!Engine.is_editor_hint() && additionalEditsNode != null):
+	#	pose = pose * additionalEditsNode.getBoneExtraTransform(_bone_idx)
 	# BDCC EDIT END
 
 	if not override_pose:
-		_skeleton.set_bone_global_pose_override(_bone_idx, pose, 1.0, true)
-
+		# BDCC EDIT START
+		_skeleton.call_deferred("set_bone_global_pose_override", _bone_idx, pose, 1.0, true)
+		#_skeleton.set_bone_global_pose_override(_bone_idx, pose, 1.0, true)
+		# BDCC EDIT END
 	else:
 		# TODO: fix when using external skeleton
 		global_transform = _skeleton.global_transform * pose
