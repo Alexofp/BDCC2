@@ -8,13 +8,17 @@ func _init():
 func getVisibleName():
 	return "Feminine body"
 
-func getOptions() -> Dictionary:
+func getSkinOptions() -> Dictionary:
 	return {
 		"skinlayers": {
 			"name": "Skin layers",
 			"type": "layers",
 			"default": [],
 		},
+	}
+
+func getOptions() -> Dictionary:
+	return {
 		"breastsize": {
 			"name": "Breast size",
 			"type": "slider",
@@ -28,7 +32,6 @@ func getOptions() -> Dictionary:
 			"minvalue": -0.2,
 			"maxvalue": 1.0,
 			"default": 0.0,
-			"group": "Some sliders",
 		},
 		"height": {
 			"name": "Height",
@@ -36,7 +39,7 @@ func getOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
-			"group": "Some sliders",
+			"group": "Scaling parts",
 		},
 		"headsize": {
 			"name": "Head size",
@@ -44,6 +47,7 @@ func getOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": "Scaling parts",
 		},
 		"tailsize": {
 			"name": "Tail size",
@@ -51,6 +55,7 @@ func getOptions() -> Dictionary:
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
+			"group": "Scaling parts",
 		},
 		"legstype": {
 			"name": "Legs type",

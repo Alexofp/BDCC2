@@ -33,6 +33,22 @@ func getOptions() -> Dictionary:
 		},
 	}
 
+func getSkinOptions() -> Dictionary:
+	return {
+		"tailpattern": {
+			"name": "Tail pattern",
+			"type": "patternAndColors",
+			"default": ["nopattern", Color.RED, Color.GREEN, Color.BLUE],
+		},
+		"patternscale": {
+			"name": "Pattern scale",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+	}
+
 func getMeshPath() -> String:
 	return "res://Mesh/Parts/Tail/FelineTail/feline_tail.tscn"
 

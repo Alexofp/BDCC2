@@ -38,12 +38,15 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	
+	vec4 layersCombined = vec4(0.0);
 	for(int i = 0;i<layerAmount;++i) {
 		vec4 nextLayer = texture(layers[i], base_uv) * layerColors[i];
-		albedo_tex = mix(albedo_tex, nextLayer, nextLayer.a);
+		
+		layersCombined = mix(layersCombined, nextLayer, nextLayer.a);
 	}
+	albedo_tex = mix(albedo_tex * albedo, layersCombined, layersCombined.a);
+	ALBEDO = albedo_tex.rgb;
 	
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
 	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);

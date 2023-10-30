@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnvv1smrpr336"]
+[gd_scene load_steps=9 format=3 uid="uid://bnvv1smrpr336"]
 
 [ext_resource type="PackedScene" uid="uid://cggt01jytel28" path="res://Mesh/Parts/Tail/FelineTail/FelineTail.glb" id="1_6j8pr"]
 [ext_resource type="Script" path="res://Mesh/Parts/Tail/FelineTail/feline_tail.gd" id="2_b0j0g"]
 [ext_resource type="Material" uid="uid://cl6q3gb1fmpqp" path="res://Mesh/Parts/Tail/FelineTail/feline_tail.tres" id="3_c5osm"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="3_mvrqi"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="4_oxran"]
+[ext_resource type="Material" uid="uid://cxra7nudap7r5" path="res://Mesh/Parts/Tail/FelineTail/feline_tail_mix.tres" id="4_t7n0s"]
 
 [sub_resource type="Resource" id="Resource_1eem6"]
 script = ExtResource("4_oxran")
@@ -29,6 +30,7 @@ max_distance = 0.1
 [node name="FelineTail" instance=ExtResource("1_6j8pr")]
 script = ExtResource("2_b0j0g")
 tailMat = ExtResource("3_c5osm")
+tailPatternMat = ExtResource("4_t7n0s")
 
 [node name="Skeleton3D" parent="RIG-TailRig" index="0"]
 bones/1/position = Vector3(-5.02528e-10, 0.0450889, 0.00210776)
@@ -40,7 +42,7 @@ bones/5/rotation = Quaternion(0.111911, -3.57517e-14, 2.66816e-08, 0.993718)
 bones/6/rotation = Quaternion(0.111911, -3.47462e-14, 2.66816e-08, 0.993718)
 
 [node name="FelineTail2" parent="RIG-TailRig/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("3_c5osm")
+surface_material_override/0 = ExtResource("4_t7n0s")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="RIG-TailRig/Skeleton3D" index="1"]
 transform = Transform3D(1, 1.72818e-07, 7.41706e-08, 7.41708e-08, -0.724851, 0.688905, 1.72818e-07, -0.688905, -0.724851, -5.02528e-10, 0.00210776, 0.0049111)

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u35tco2ivfe5"
-path.s3tc="res://.godot/imported/eyelash1.png-5c0d79180f62a7c61cd4d22ef32168bc.s3tc.ctex"
+uid="uid://c0vwfy5yn4yai"
+path.s3tc="res://.godot/imported/jaguar.png-4a768a8f2a47de15b53355edb63d5291.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Textures/Eyelashes/eyelash1.png"
-dest_files=["res://.godot/imported/eyelash1.png-5c0d79180f62a7c61cd4d22ef32168bc.s3tc.ctex"]
+source_file="res://Mesh/Textures/PartSkin/jaguar.png"
+dest_files=["res://.godot/imported/jaguar.png-4a768a8f2a47de15b53355edb63d5291.s3tc.ctex"]
 
 [params]
 

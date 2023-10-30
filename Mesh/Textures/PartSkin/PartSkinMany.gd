@@ -7,5 +7,6 @@ func _init():
 	textureSubType = TextureSubType.Generic
 	textures = [
 		{id="some", name="Some decal", path="res://Mesh/Textures/PartSkin/DecalTest.png"},
-		{id="some2", name="Some decal2", path="res://Mesh/Textures/PartSkin/nippleDefault2.png"},
+		{id="bodyshape", name="Body shape", path="res://Mesh/Textures/PartSkin/bodyshape.png"},
+		{id="jaguar", name="Jaguar", path="res://Mesh/Textures/PartSkin/jaguar.png"},
 	]
