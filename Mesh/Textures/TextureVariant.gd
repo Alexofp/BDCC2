@@ -7,6 +7,9 @@ var textureType:String = TextureType.None
 var textureSubType:String = TextureSubType.Generic
 var texturePath:String = "res://icon.svg"
 var previewTexturePath:String
+var hasR:bool = true
+var hasG:bool = true
+var hasB:bool = true
 
 func getVisibleName() -> String:
 	return textureName

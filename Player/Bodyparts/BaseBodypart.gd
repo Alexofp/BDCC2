@@ -188,7 +188,7 @@ func setSkinOptionValue(valueID: String, value):
 	if(!cachedSkinOptions.has(valueID)):
 		return
 	
-	if(savedSkinOptions.has(valueID) && savedSkinOptions[valueID] == value):
+	if(savedSkinOptions.has(valueID) && !((value is Array) || value is Dictionary) && savedSkinOptions[valueID] == value):
 		return
 	var currentValue = getSkinOptionValue(valueID)
 	savedSkinOptions[valueID] = value

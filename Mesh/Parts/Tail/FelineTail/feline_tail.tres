@@ -1,5 +1,8 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://cl6q3gb1fmpqp"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cl6q3gb1fmpqp"]
+
+[ext_resource type="Texture2D" uid="uid://bo76u35lkuunt" path="res://Mesh/Textures/Patterns/dottedfurpattern.png" id="1_83pmm"]
 
 [resource]
 resource_local_to_scene = true
 specular_mode = 1
+albedo_texture = ExtResource("1_83pmm")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://orlp1f2mydye"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/pattern_and_colors_selector.gd" id="1_i3w71"]
+
+[node name="PatternAndColorSelector" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+script = ExtResource("1_i3w71")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Colors:"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="HBoxContainer2/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="color_changed" from="HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
+[connection signal="color_changed" from="HBoxContainer/ColorPickerButton2" to="." method="_on_color_picker_button_color_changed"]
+[connection signal="color_changed" from="HBoxContainer/ColorPickerButton3" to="." method="_on_color_picker_button_color_changed"]

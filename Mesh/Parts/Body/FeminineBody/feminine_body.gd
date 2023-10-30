@@ -18,7 +18,7 @@ func findSkeleton() -> Skeleton3D:
 func getSubSkeleton() -> Skeleton3D:
 	return $FeminineSkeleton.getSkeleton()
 
-func applyOption(_optionID: String, _value):
+func applySkinOption(_optionID: String, _value):
 	if(_optionID == "skinlayers"):
 		if(layeredBodyMat != null):
 			var theColors = []
@@ -31,6 +31,7 @@ func applyOption(_optionID: String, _value):
 			layeredBodyMat.set_shader_parameter("layers", theTextures)
 			layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
 		
+func applyOption(_optionID: String, _value):
 	if(_optionID == "thickbutt"):
 		#bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
 		setBlendshape(body, "ThickButt", _value)
