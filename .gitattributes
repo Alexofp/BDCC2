@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Treat all .fbx/.obj/.mtl files (even ASCII) as binary
+*.fbx binary
+*.obj binary
+*.mtl binary
