@@ -23,7 +23,7 @@ func clear():
 	#	dollSkeleton = null
 
 func updateSkeleton():
-	var root = character.getRootBodypart()
+	var _root = character.getRootBodypart()
 	
 	#var skeletonScene = root.getSkeletonScene()
 	
@@ -66,7 +66,7 @@ func updateFromCharacter():
 func onBodypartChanged(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	updateBodypartRecursive(whatpart, slot, newpart)
 
-func onBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
+func onBodypartRemoved(_whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
 	if(bodypartToDollPart.has(removedpart)):
 		var dollPartToRemove = bodypartToDollPart[removedpart]
 		print(slot+" Removed ",dollPartToRemove)
@@ -120,7 +120,7 @@ func playAnim(dollAnim:String, howFast:float = 1.0):
 			continue
 		dollPart.playAnim(dollAnim, howFast)
 
-func onBaseCharacterBaseSkinDataChanged(newData : BaseSkinData):
+func onBaseCharacterBaseSkinDataChanged(_newData : BaseSkinData):
 	for bodypart in getCharacter().getAllBodyparts():
 		if(!bodypartToDollPart.has(bodypart)):
 			continue

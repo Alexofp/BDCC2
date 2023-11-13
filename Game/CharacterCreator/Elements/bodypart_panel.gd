@@ -98,7 +98,7 @@ func updateOptions():
 		
 		var newOptionScene = createOptionScene(optionInfo["type"])
 		if(newOptionScene == null):
-			Log.printerr("Couldn't create an option for type "+str(optionInfo["type"]))
+			Log.Printerr("Couldn't create an option for type "+str(optionInfo["type"]))
 			continue
 		
 		if(optionInfo.has("group") && optionInfo["group"]!=""):

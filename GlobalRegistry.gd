@@ -29,7 +29,7 @@ static func loadSceneCached(path: String) -> PackedScene:
 	if(!sceneCache.has(path)):
 		var theScene = load(path)
 		if(!(theScene is PackedScene)):
-			Log.printerr("Tried to load a non-scene scene from path "+str(path))
+			Log.Printerr("Tried to load a non-scene scene from path "+str(path))
 			return null
 		sceneCache[path] = theScene
 		return theScene
@@ -51,7 +51,7 @@ static func createBodypart(id: String) -> BaseBodypart:
 	if(bodyparts.has(id)):
 		return bodyparts[id].new()
 	else:
-		Log.printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
+		Log.Printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
 
 static func getBodyparts():
@@ -61,7 +61,7 @@ static func getBodypartRef(id: String) -> BaseBodypart:
 	if(bodypartRefs.has(id)):
 		return bodypartRefs[id]
 	else:
-		Log.printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
+		Log.Printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
 
 
@@ -106,14 +106,14 @@ static func registerTextureVariantFolderOnlySubFolders(folder: String):
 
 static func getTextureVariant(textureType, textureSubType, id) -> TextureVariant:
 	if(!textureVariants.has(textureType) || !textureVariants[textureType].has(textureSubType) || !textureVariants[textureType][textureSubType].has(id)):
-		Log.printerr("ERROR: texture variant with the id "+str(id)+" wasn't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
+		Log.Printerr("ERROR: texture variant with the id "+str(id)+" wasn't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
 		return null
 	
 	return textureVariants[textureType][textureSubType][id]
 	
 static func getTextureVariants(textureType, textureSubType) -> Dictionary:
 	if(!textureVariants.has(textureType) || !textureVariants[textureType].has(textureSubType)):
-		Log.printerr("ERROR: texture variants with the weren't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
+		Log.Printerr("ERROR: texture variants with the weren't found for type '"+str(textureType)+"' and subtype '"+str(textureSubType)+"'")
 		return {}
 		
 	return textureVariants[textureType][textureSubType]
