@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dnno0ls4coqtv"
+path="res://.godot/imported/MyHumanHead substance painter HIGHPOLY.obj-743c2eb975ca85029da88fa4ae82707b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MyHumanHead substance painter HIGHPOLY.obj-743c2eb975ca85029da88fa4ae82707b.mesh"]
+
+source_file="res://AssetsSource/Heads/MyHumanHead substance painter HIGHPOLY.obj"
+dest_files=["res://.godot/imported/MyHumanHead substance painter HIGHPOLY.obj-743c2eb975ca85029da88fa4ae82707b.mesh", "res://.godot/imported/MyHumanHead substance painter HIGHPOLY.obj-743c2eb975ca85029da88fa4ae82707b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

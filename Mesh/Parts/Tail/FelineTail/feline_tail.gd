@@ -28,7 +28,7 @@ func applySkinOption(_optionID: String, _value):
 			tailPatternMat.set_shader_parameter("uv1_scale", Vector3(_value+1.0,_value+1.0,_value+1.0))
 
 var curAnim = ""
-func playAnim(dollAnim:String, howFast:float = 1.0):
+func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
 		if(curAnim != "TailIdle"):
 			curAnim = "TailIdle"

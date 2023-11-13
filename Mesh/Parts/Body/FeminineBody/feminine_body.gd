@@ -86,7 +86,7 @@ func applyOption(_optionID: String, _value):
 			$rig/Skeleton3D/Digilegs.visible = false
 			$rig/Skeleton3D/PlantiLegs.visible = true
 
-func playAnim(dollAnim:String, howFast:float = 1.0):
+func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
 		$FeminineSkeleton.getAnimPlayer().play("FemWalkCycle")
 		#animPlayer.play("IdleAnimations/FemWalkCycle")

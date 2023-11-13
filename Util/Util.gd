@@ -51,7 +51,7 @@ static func getScriptsInFolder(folder: String):
 					result.append(full_path)
 			file_name = dir.get_next()
 	else:
-		Log.printerr("An error occurred when trying to access the path "+folder)
+		Log.Printerr("An error occurred when trying to access the path "+folder)
 	
 	return result
 
@@ -78,7 +78,7 @@ static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, in
 					result.append(full_path)
 			file_name = dir.get_next()
 	else:
-		Log.printerr("An error occurred when trying to access the path "+folder)
+		Log.Printerr("An error occurred when trying to access the path "+folder)
 	
 	return result
 

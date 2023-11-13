@@ -5,13 +5,13 @@ static func error(text: String):
 	printerr(text)
 	#Console.printLine("[color=red]"+text+"[/color]")
 
-static func printerr(text: String):
+static func Printerr(text: String):
 	error(text)
 
 static func warning(text: String):
 	print(text)
 	#Console.printLine("[color=yellow]"+text+"[/color]")
 
-static func print(text: String):
+static func Print(text: String):
 	print(text)
 	#Console.printLine(text)

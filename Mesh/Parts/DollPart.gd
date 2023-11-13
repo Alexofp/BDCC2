@@ -97,7 +97,7 @@ func playAnim(_dollAnim:String, _howFast:float = 1.0):
 func applyBaseSkinData(_data : BaseSkinData):
 	pass
 
-func onPartSkinDataChanged(part, newSkinData):
+func onPartSkinDataChanged(_part, newSkinData):
 	applyBaseSkinData(newSkinData)
 
 func applySkinOption(_optionID: String, _value):

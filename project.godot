@@ -23,6 +23,13 @@ UiHandler="*res://Game/UIHandler.gd"
 [debug]
 
 settings/stdout/print_fps=true
+gdscript/warnings/unused_variable=2
+gdscript/warnings/unused_local_constant=2
+gdscript/warnings/unused_parameter=2
+gdscript/warnings/unreachable_code=2
+gdscript/warnings/unreachable_pattern=2
+gdscript/warnings/standalone_expression=2
+gdscript/warnings/standalone_ternary=2
 
 [display]
 
@@ -30,7 +37,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [filesystem]
 
