@@ -93,7 +93,7 @@ func _process(delta):
 		if collision.get_collider() is RigidBody3D:
 			rigidbody_collisions.append(collision)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var central_multiplier = input_velocity.length() * COLLIDE_FORCE
 	var directional_multiplier = input_velocity.length() * (COLLIDE_FORCE/DIRECTIONAL_FORCE_DIV)
 	
@@ -103,7 +103,7 @@ func _physics_process(delta):
 		collision.get_collider().apply_central_impulse(direction * central_multiplier)
 		collision.get_collider().apply_impulse(direction * directional_multiplier, location)
 
-func process_mousecapture(delta):
+func process_mousecapture(_delta):
 	if(mousecapture_isdown):
 		mousecapture_on = !mousecapture_on
 	
@@ -164,7 +164,7 @@ func process_animation(delta):
 	if move_direction != Vector3.ZERO:
 		$ModelRoot.basis = basis_rotate_toward($ModelRoot.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)
 
-func process_noclip(delta):
+func process_noclip(_delta):
 	if(noclip_isdown):
 		noclip_on = !noclip_on
 		$CollisionShape.disabled = !$CollisionShape.disabled

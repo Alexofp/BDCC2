@@ -1,5 +1,5 @@
 extends BaseBodypart
-class_name BaseHeadBodypart
+class_name BaseHairBodypart
 
 func getOptions() -> Dictionary:
 	return {
@@ -10,13 +10,10 @@ func getOptions() -> Dictionary:
 			"default": 0.5,
 		},
 	}
-	
+
 func getMeshPath() -> String:
-	return "res://Mesh/Parts/Head/CatHead/cat_head.tscn"
+	return "res://Mesh/Parts/Hair/Ponytail/ponytail.tscn"
 
 func getBodypartSlots():
 	return {
-		BodypartSlot.LeftEar: true,
-		BodypartSlot.RightEar: true,
-		BodypartSlot.Hair: true,
 	}
