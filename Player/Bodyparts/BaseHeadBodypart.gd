@@ -18,4 +18,5 @@ func getBodypartSlots():
 	return {
 		BodypartSlot.LeftEar: true,
 		BodypartSlot.RightEar: true,
+		BodypartSlot.Hair: true,
 	}

@@ -21,7 +21,7 @@ shape = SubResource("CapsuleShape3D_egb3h")
 [node name="Doll" parent="ModelRoot" instance=ExtResource("2_0a6vw")]
 
 [node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12515, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
 
 [node name="SpringArm" type="SpringArm3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)

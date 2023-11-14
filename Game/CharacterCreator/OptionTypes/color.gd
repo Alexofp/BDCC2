@@ -10,7 +10,7 @@ signal onValueChange(id, newValue)
 func setLabel(newLabel:String):
 	label.text = newLabel
 
-func setData(data:Dictionary):
+func setData(_data:Dictionary):
 #	if(data.has("minvalue")):
 #		spinbox.min_value = data["minvalue"]
 #		hslider.min_value = data["minvalue"]

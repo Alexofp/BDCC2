@@ -21,7 +21,7 @@ func setLabel(newLabel:String):
 	typeSelector.setLabel(newLabel)
 	#label.text = newLabel
 
-func setData(data:Dictionary):
+func setData(_data:Dictionary):
 
 #	if(data.has("minvalue")):
 #		spinbox.min_value = data["minvalue"]

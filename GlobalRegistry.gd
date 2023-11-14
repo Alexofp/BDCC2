@@ -22,6 +22,7 @@ static func doInit():
 	registerBodypartsFolder("res://Player/Bodyparts/Ear/")
 	registerBodypartsFolder("res://Player/Bodyparts/Legs/")
 	registerBodypartsFolder("res://Player/Bodyparts/Tail/")
+	registerBodypartsFolder("res://Player/Bodyparts/Hair/")
 	
 	print("GlobalRegistry: Registered everything")
 
