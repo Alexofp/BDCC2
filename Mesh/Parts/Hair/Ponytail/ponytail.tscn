@@ -1,25 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpultsjartnkp"]
+[gd_scene load_steps=5 format=3 uid="uid://bpultsjartnkp"]
 
 [ext_resource type="PackedScene" uid="uid://dsynnvj30iepa" path="res://Mesh/Parts/Hair/Ponytail/Ponytail.glb" id="1_gmfex"]
-[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_7o3k5"]
-[ext_resource type="Texture2D" uid="uid://c31jse44afp2l" path="res://Mesh/Parts/Hair/Ponytail/SomeHairTexture.png" id="2_qmoou"]
-[ext_resource type="Texture2D" uid="uid://b0cfvdm387w5c" path="res://Mesh/Parts/Hair/Ponytail/hairNormal.png" id="3_c355y"]
+[ext_resource type="Script" path="res://Mesh/Parts/Hair/Ponytail/ponytail.gd" id="2_16kdy"]
+[ext_resource type="Material" uid="uid://unyxxqq3q17y" path="res://Mesh/Parts/Hair/Ponytail/ponytail.tres" id="3_5xcl8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6pkq"]
 diffuse_mode = 3
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n50re"]
-diffuse_mode = 3
-albedo_texture = ExtResource("2_qmoou")
-normal_enabled = true
-normal_texture = ExtResource("3_c355y")
-
 [node name="Ponytail" instance=ExtResource("1_gmfex")]
-script = ExtResource("2_7o3k5")
+script = ExtResource("2_16kdy")
+hairMat = ExtResource("3_5xcl8")
 
 [node name="Torus" parent="." index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_y6pkq")
 
 [node name="Ponytail2" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_n50re")
+surface_material_override/0 = ExtResource("3_5xcl8")

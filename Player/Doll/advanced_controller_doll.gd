@@ -40,6 +40,7 @@ func playDollAnim(dollAnim:String, howFast:float = 1.0):
 
 func _ready():
 	basis = Basis.IDENTITY
+	$CameraPivot/SpringArm.add_excluded_object(self.get_rid())
 	#anim_player = $"ModelRoot/mannequiny-0_3_0/AnimationPlayer"
 	#anim_player.playback_default_blend_time = 0.75
 
@@ -134,9 +135,9 @@ func process_camera():
 		$CameraPivot/SpringArm.spring_length = 0.0
 		$CameraPivot/SpringArm.position.x = 0.0
 	elif($CameraPivot/SpringArm.spring_length <= 1.0):
-		$CameraPivot/SpringArm.position.x = 0.2
+		$CameraPivot/SpringArm.position.x = 0.1
 	else:
-		$CameraPivot/SpringArm.position.x = 0.5
+		$CameraPivot/SpringArm.position.x = 0.3
 
 func process_movement():
 	var input_direction = Vector3.ZERO

@@ -6,6 +6,8 @@ extends DollPart
 
 @export var bodyMat:StandardMaterial3D
 @export var layeredBodyMat:ShaderMaterial
+@export var nipplesMat:ShaderMaterial
+@export var genitalsMat:ShaderMaterial
 
 func _ready():
 	super._ready()
@@ -30,6 +32,25 @@ func applySkinOption(_optionID: String, _value):
 			layeredBodyMat.set_shader_parameter("layerAmount", _value.size())
 			layeredBodyMat.set_shader_parameter("layers", theTextures)
 			layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
+		
+	if(_optionID == "nipplehue"):
+		if(nipplesMat != null):
+			nipplesMat.set_shader_parameter("hueShift", _value)
+	if(_optionID == "nipplesat"):
+		if(nipplesMat != null):
+			nipplesMat.set_shader_parameter("saturationMult", _value)
+	if(_optionID == "nipplevalue"):
+		if(nipplesMat != null):
+			nipplesMat.set_shader_parameter("valueMult", _value)
+	if(_optionID == "genhue"):
+		if(genitalsMat != null):
+			genitalsMat.set_shader_parameter("hueShift", _value)
+	if(_optionID == "gensat"):
+		if(genitalsMat != null):
+			genitalsMat.set_shader_parameter("saturationMult", _value)
+	if(_optionID == "genvalue"):
+		if(genitalsMat != null):
+			genitalsMat.set_shader_parameter("valueMult", _value)
 		
 func applyOption(_optionID: String, _value):
 	if(_optionID == "thickbutt"):
@@ -102,9 +123,15 @@ func applyBaseSkinData(_data : BaseSkinData):
 		layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)
 		
 		if(_data.skinType == "fur"):
-			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Textures/Body/BodyColor.png"))
-			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Textures/Body/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_roughness", null)
+		elif(_data.skinType == "skin"):
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyColor.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyRough.png"))
 		else:
 			layeredBodyMat.set_shader_parameter("texture_albedo", null)
 			layeredBodyMat.set_shader_parameter("texture_normal", null)
+			layeredBodyMat.set_shader_parameter("texture_roughness", null)
 
