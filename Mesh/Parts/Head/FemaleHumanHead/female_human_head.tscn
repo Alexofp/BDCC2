@@ -25,9 +25,6 @@ attachmentPoints = {
 "RightEar": NodePath("RightEar")
 }
 
-[node name="RIG-Armature" parent="." index="0"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
-
 [node name="Skeleton3D" parent="RIG-Armature" index="0"]
 bones/88/rotation = Quaternion(0.15573, 0.753077, 0.573486, -0.282376)
 
@@ -48,10 +45,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_07dj5")
 autoplay = "APose"
 
 [node name="RightEar" type="Marker3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0567484, 0.152725, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491367, 0.134922, 0)
 
 [node name="LeftEar" type="Marker3D" parent="." index="3"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057, 0.153071, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049, 0.135, 0)
 
 [node name="Hair" type="Marker3D" parent="." index="4"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)

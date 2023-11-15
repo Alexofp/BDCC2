@@ -5,10 +5,11 @@
 [ext_resource type="Material" uid="uid://da2p03ldafsjw" path="res://Mesh/Parts/Body/FeminineBody/bodyMat.tres" id="3_2v34h"]
 [ext_resource type="AnimationLibrary" uid="uid://dt5r781t8f0sf" path="res://Mesh/Skeleton/Feminine/SkeletonModificationsAnimLib.res" id="3_6us57"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="3_efnv8"]
-[ext_resource type="Texture2D" uid="uid://yrjqka0ed4th" path="res://Mesh/Textures/Nipples/nippleDefault.png" id="3_eiog4"]
 [ext_resource type="AnimationLibrary" uid="uid://c85yarjgyo5lk" path="res://Mesh/Skeleton/Feminine/IdleAnimations.glb" id="3_x1a36"]
 [ext_resource type="Material" uid="uid://dtkx3j5r2gbwu" path="res://Mesh/Parts/Body/FeminineBody/layeredBodyMat.tres" id="4_ap2a5"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="4_uydlj"]
+[ext_resource type="Material" uid="uid://cygilcsndbvy6" path="res://Mesh/Parts/Body/FeminineBody/nippleMat.tres" id="5_i44vp"]
+[ext_resource type="Material" uid="uid://crqe1sayby6v5" path="res://Mesh/Parts/Body/FeminineBody/genitalsMat.tres" id="6_1vwt7"]
 [ext_resource type="PackedScene" uid="uid://bac817sywgcyf" path="res://Mesh/Skeleton/Feminine/feminine_skeleton.tscn" id="10_u1nya"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pix6e"]
@@ -16,12 +17,6 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 albedo_color = Color(1, 1, 1, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdwr6"]
-transparency = 1
-diffuse_mode = 3
-albedo_texture = ExtResource("3_eiog4")
-roughness = 0.34
 
 [sub_resource type="Resource" id="Resource_2fjop"]
 script = ExtResource("4_uydlj")
@@ -161,6 +156,8 @@ node_connections = [&"output", 0, &"Add2", &"Add2", 0, &"Animation 10", &"Add2",
 script = ExtResource("2_4cn61")
 bodyMat = ExtResource("3_2v34h")
 layeredBodyMat = ExtResource("4_ap2a5")
+nipplesMat = ExtResource("5_i44vp")
+genitalsMat = ExtResource("6_1vwt7")
 attachmentPoints = {
 "Head": NodePath("rig/Skeleton3D/HeadAttach"),
 "Tail": NodePath("rig/Skeleton3D/TailAttach/TailMarker")
@@ -281,6 +278,7 @@ bone_idx = 11
 
 [node name="CrotchFemale" parent="rig/Skeleton3D" index="2"]
 surface_material_override/0 = ExtResource("4_ap2a5")
+surface_material_override/1 = ExtResource("6_1vwt7")
 
 [node name="CrotchMale" parent="rig/Skeleton3D" index="3"]
 visible = false
@@ -291,7 +289,7 @@ surface_material_override/0 = ExtResource("4_ap2a5")
 surface_material_override/3 = SubResource("StandardMaterial3D_pix6e")
 
 [node name="Nipples" parent="rig/Skeleton3D" index="5"]
-surface_material_override/0 = SubResource("StandardMaterial3D_wdwr6")
+surface_material_override/0 = ExtResource("5_i44vp")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="6"]
 visible = false

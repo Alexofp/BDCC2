@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ls2qx0ylkou8"
-path="res://.godot/imported/BodyColor.png-8c2dc75d2faa08540a0060ff31a78c23.ctex"
+path="res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/Textures/Body/BodyColor.png"
-dest_files=["res://.godot/imported/BodyColor.png-8c2dc75d2faa08540a0060ff31a78c23.ctex"]
+source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png"
+dest_files=["res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.ctex"]
 
 [params]
 
