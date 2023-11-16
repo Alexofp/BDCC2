@@ -30,3 +30,4 @@ spring_length = 2.1
 
 [node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm"]
 current = true
+fov = 60.0
