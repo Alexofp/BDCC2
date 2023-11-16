@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://coamlw56r54ex" path="res://Mesh/Parts/Head/FemaleHumanHead/textures/FaceRough.png" id="5_eslcy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07dj5"]
-diffuse_mode = 3
 albedo_texture = ExtResource("3_cnaqf")
+roughness = 0.75
 roughness_texture = ExtResource("5_eslcy")
 normal_enabled = true
 normal_texture = ExtResource("4_u1ar6")

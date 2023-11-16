@@ -295,12 +295,11 @@ surface_material_override/0 = ExtResource("5_i44vp")
 visible = false
 surface_material_override/0 = ExtResource("4_ap2a5")
 
-[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7" node_paths=PackedStringArray("additionalEditsNode")]
+[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7"]
 transform = Transform3D(-0.879127, 0.462589, -0.114662, -0.0200164, 0.204539, 0.978654, 0.476167, 0.862656, -0.170556, 0.0612561, 1.30249, 0.0498601)
 bone_name = "DEF-breast.L"
 bone_idx = 5
 script = ExtResource("3_efnv8")
-additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_2fjop")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8" node_paths=PackedStringArray("additionalEditsNode")]
