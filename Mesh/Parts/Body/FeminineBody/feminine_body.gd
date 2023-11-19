@@ -73,12 +73,12 @@ func applyOption(_optionID: String, _value):
 		setBonePosScalerom3Lerp("DEF-breast.R",\
 			Vector3(-0.001, 0.023, -0.005), Vector3(0.4, 0.4, 0.4),\
 			Vector3(), Vector3(1.0, 1.0, 1.0),\
-			Vector3(0.009, -0.002, -0.035), Vector3(2.0, 2.0, 2.0),\
+			Vector3(0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
 			_value)
 		setBonePosScalerom3Lerp("DEF-breast.L",\
 			Vector3(0.001, 0.023, -0.005), Vector3(0.4, 0.4, 0.4),\
 			Vector3(), Vector3(1.0, 1.0, 1.0),\
-			Vector3(-0.009, -0.002, -0.035), Vector3(2.0, 2.0, 2.0),\
+			Vector3(-0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
 			_value)
 	if(_optionID == "headsize"):
 		animTree["parameters/HeadSize/add_amount"] = _value * 0.1
@@ -87,9 +87,9 @@ func applyOption(_optionID: String, _value):
 		setBoneScale("DEF-tail_base", max(0.1, _value+1.0))
 	if(_optionID == "height"):
 		animTree["parameters/HeightTall/add_amount"] = _value
-		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.04*_value, 0.0)) #0.12
-		setBoneOffset("DEF-spine.002", Vector3(0.0, 0.04*_value, 0.0)) #0.03
-		setBoneOffset("DEF-spine.003", Vector3(0.0, 0.04*_value, 0.0))
+		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.06*_value, 0.0)) #0.12
+		setBoneOffset("DEF-spine.002", Vector3(0.0, 0.06*_value, 0.0)) #0.03
+		setBoneOffset("DEF-spine.003", Vector3(0.0, 0.00*_value, 0.0))
 		setBoneOffset("DEF-upper_arm.L.001", Vector3(0.0, 0.03*_value, 0.0))
 		setBoneOffset("DEF-forearm.L", Vector3(0.0, 0.03*_value, 0.0))
 		setBoneOffset("DEF-forearm.L.001", Vector3(0.0, 0.03*_value, 0.0))
