@@ -5,6 +5,8 @@ var character:BaseCharacter
 #var dollSkeleton:DollSkeleton
 var bodypartToDollPart:Dictionary = {}
 
+var firstPerson:bool = false
+
 func getCharacter() -> BaseCharacter:
 	return character
 
@@ -48,6 +50,7 @@ func updateFromCharacter():
 		root.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
 		root.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
 		root.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
+		applyEverythingFromDollToDollPart(newDollPart)
 		#dollSkeleton.getSkeleton().add_child(newDollPart)
 		#newDollPart.applyBaseSkinData(root.getBaseSkinData())
 		
@@ -91,6 +94,7 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		part.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
 		parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
 		part.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
+		applyEverythingFromDollToDollPart(newDollPart)
 		#newDollPart.applyBaseSkinData(part.getBaseSkinData()) # Everything does it
 		
 		if(newDollPart.shouldBindToParentSkeleton()):
@@ -111,6 +115,9 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 			
 			updateBodypartRecursive(part, bodypartSlot, childPart)
 
+func applyEverythingFromDollToDollPart(theDollPart:DollPart):
+	theDollPart.setFirstPerson(firstPerson)
+
 func getDoll() -> Doll:
 	return self
 
@@ -129,3 +136,13 @@ func onBaseCharacterBaseSkinDataChanged(_newData : BaseSkinData):
 		var dollPart:DollPart = bodypartToDollPart[bodypart]
 		
 		dollPart.applyBaseSkinData(bodypart.getBaseSkinData())
+		
+func setFirstPerson(newFirstPerson:bool) -> void:
+	if(firstPerson != newFirstPerson):
+		firstPerson = newFirstPerson
+		
+		for dollPart in bodypartToDollPart.values():
+			dollPart.setFirstPerson(firstPerson)
+
+func isFirstPerson() -> bool:
+	return firstPerson

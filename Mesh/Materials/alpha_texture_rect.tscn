@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxfobgyuifbry"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q73hd"]
+blend_mode = 3
+
+[node name="AlphaTextureRect" type="TextureRect"]
+material = SubResource("CanvasItemMaterial_q73hd")
+offset_right = 40.0
+offset_bottom = 40.0

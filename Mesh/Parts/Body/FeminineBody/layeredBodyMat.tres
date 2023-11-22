@@ -1,6 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dtkx3j5r2gbwu"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dtkx3j5r2gbwu"]
 
 [ext_resource type="Shader" uid="uid://t40qt6anke36" path="res://Mesh/Parts/Body/FeminineBody/layeredBodyShader.tres" id="1_rsjhs"]
+[ext_resource type="Texture2D" uid="uid://ls2qx0ylkou8" path="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png" id="2_8urw5"]
+[ext_resource type="Texture2D" uid="uid://ccyvwxfasqjnl" path="res://Mesh/Textures/PartSkin/DecalTest.png" id="3_fx6p4"]
 
 [resource]
 resource_local_to_scene = true
@@ -19,4 +21,7 @@ shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/layerColors = PackedColorArray()
 shader_parameter/layerAmount = 0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/texture_albedo = ExtResource("2_8urw5")
+shader_parameter/texture_layers = ExtResource("3_fx6p4")
 shader_parameter/layers = Array[Texture2D]([])

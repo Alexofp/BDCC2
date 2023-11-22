@@ -7,7 +7,7 @@ var skinLayerScene = preload("res://Game/CharacterCreator/OptionTypes/SubElement
 
 var values = [
 ]
-var maxLayers = 4
+var maxLayers = 99
 # { id="", color=Color.WHITE}
 #var possibleSkins = []
 var skinType = TextureType.PartSkin
@@ -29,6 +29,8 @@ func setData(data:Dictionary):
 		skinType = data["skinType"]
 	if(data.has("skinSubType")):
 		skinSubType = data["skinSubType"]
+	if(data.has("maxLayers")):
+		maxLayers = data["maxLayers"]
 	updateValues()
 
 func getValue():

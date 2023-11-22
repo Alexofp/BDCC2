@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://crhnn7boxev3y"
+path="res://.godot/imported/MyBody Marv.obj-b42f81ced954b51610a71bcb72fff80c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MyBody Marv.obj-b42f81ced954b51610a71bcb72fff80c.mesh"]
+
+source_file="res://AssetsSource/Bodies/MyBody Marv.obj"
+dest_files=["res://.godot/imported/MyBody Marv.obj-b42f81ced954b51610a71bcb72fff80c.mesh", "res://.godot/imported/MyBody Marv.obj-b42f81ced954b51610a71bcb72fff80c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

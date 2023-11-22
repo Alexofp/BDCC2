@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://yt7divub8yfy"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dl802"]
+blend_mode = 4
+
+[node name="SimpleTextureRect" type="TextureRect"]
+material = SubResource("CanvasItemMaterial_dl802")
+offset_right = 40.0
+offset_bottom = 40.0

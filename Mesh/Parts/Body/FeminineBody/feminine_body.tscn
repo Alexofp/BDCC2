@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://drbc3iu2kd5kb"]
+[gd_scene load_steps=40 format=3 uid="uid://drbc3iu2kd5kb"]
 
 [ext_resource type="PackedScene" uid="uid://dhhmxkx0todmr" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_op47h"]
 [ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_4cn61"]
@@ -11,6 +11,7 @@
 [ext_resource type="Material" uid="uid://cygilcsndbvy6" path="res://Mesh/Parts/Body/FeminineBody/nippleMat.tres" id="5_i44vp"]
 [ext_resource type="Material" uid="uid://crqe1sayby6v5" path="res://Mesh/Parts/Body/FeminineBody/genitalsMat.tres" id="6_1vwt7"]
 [ext_resource type="PackedScene" uid="uid://bac817sywgcyf" path="res://Mesh/Skeleton/Feminine/feminine_skeleton.tscn" id="10_u1nya"]
+[ext_resource type="PackedScene" uid="uid://ccyavstjwqov6" path="res://Mesh/Materials/smart_layered_texture.tscn" id="12_hquws"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hxs5"]
 transparency = 2
@@ -200,7 +201,6 @@ bones/21/scale = Vector3(1, 1, 1)
 bones/22/scale = Vector3(1, 1, 1)
 bones/23/rotation = Quaternion(0.213875, 0.00661451, -0.0302017, 0.976372)
 bones/24/rotation = Quaternion(0.228646, -0.00309501, 0.0733147, 0.97074)
-bones/24/scale = Vector3(1, 1, 1)
 bones/26/rotation = Quaternion(0.0729448, 0.010543, 0.00164882, 0.997279)
 bones/26/scale = Vector3(1, 1, 1)
 bones/27/rotation = Quaternion(0.172202, -0.00221047, 0.0126426, 0.984978)
@@ -227,7 +227,6 @@ bones/38/scale = Vector3(1, 1, 1)
 bones/40/rotation = Quaternion(0.270593, -1.21797e-06, -2.04054e-07, 0.962694)
 bones/42/rotation = Quaternion(-0.0183325, -0.000101285, -0.00556021, 0.999816)
 bones/43/rotation = Quaternion(0.0464354, -0.684329, -0.057262, 0.725437)
-bones/43/scale = Vector3(1, 1, 1)
 bones/44/rotation = Quaternion(0.0789478, 0.0113789, 0.000163241, 0.996814)
 bones/45/rotation = Quaternion(0.153737, 0.00391912, -0.0251815, 0.987783)
 bones/46/rotation = Quaternion(0.241093, -0.00116241, 0.0541221, 0.968991)
@@ -241,7 +240,6 @@ bones/51/rotation = Quaternion(0.0729448, -0.010543, -0.00164881, 0.997279)
 bones/52/rotation = Quaternion(0.172203, 0.0022105, -0.0126427, 0.984978)
 bones/52/scale = Vector3(1, 1, 1)
 bones/53/rotation = Quaternion(0.239133, -0.000493363, 0.0269279, 0.970613)
-bones/53/scale = Vector3(1, 1, 1)
 bones/54/rotation = Quaternion(-0.0445456, -0.674123, 0.0177028, 0.737062)
 bones/54/scale = Vector3(1, 1, 1)
 bones/55/rotation = Quaternion(0.0577748, -0.0711645, -0.0224607, 0.995537)
@@ -260,9 +258,7 @@ bones/62/scale = Vector3(1, 1, 1)
 bones/64/rotation = Quaternion(-0.796652, -5.58961e-08, -8.27086e-08, 0.604438)
 bones/64/scale = Vector3(1, 1, 1)
 bones/65/rotation = Quaternion(-0.796652, -5.58961e-08, -8.27086e-08, 0.604438)
-bones/65/scale = Vector3(1, 1, 1)
 bones/66/rotation = Quaternion(-0.796652, 0, -1.89937e-07, 0.604438)
-bones/66/scale = Vector3(1, 1, 1)
 bones/67/rotation = Quaternion(0.98983, -0.0522668, 0.0403063, 0.126015)
 bones/67/scale = Vector3(1, 1, 0.999998)
 bones/69/rotation = Quaternion(0.0362099, -0.0389402, -0.0558102, 0.997024)
@@ -283,7 +279,7 @@ surface_material_override/0 = ExtResource("4_ap2a5")
 surface_material_override/2 = SubResource("StandardMaterial3D_2hxs5")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="1"]
-transform = Transform3D(1, 5.32907e-14, 2.38419e-07, 9.11088e-09, 0.999269, -0.0382141, -2.38244e-07, 0.0382141, 0.99927, 2.71624e-14, 1.54699, -0.0132736)
+transform = Transform3D(1, -1.42109e-14, 2.38417e-07, 9.11042e-09, 0.99927, -0.038212, -2.38243e-07, 0.038212, 0.99927, -3.9895e-14, 1.54699, -0.0132744)
 bone_name = "DEF-head"
 bone_idx = 11
 
@@ -309,14 +305,14 @@ visible = false
 surface_material_override/0 = ExtResource("4_ap2a5")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7"]
-transform = Transform3D(-0.879127, 0.462589, -0.114663, -0.020018, 0.204538, 0.978654, 0.476167, 0.862656, -0.170555, 0.0612561, 1.30249, 0.0498606)
+transform = Transform3D(-0.879126, 0.462588, -0.114664, -0.0200185, 0.20454, 0.978653, 0.476167, 0.862656, -0.170556, 0.0612561, 1.30249, 0.0498601)
 bone_name = "DEF-breast.L"
 bone_idx = 5
 script = ExtResource("3_efnv8")
 properties = SubResource("Resource_2fjop")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8" node_paths=PackedStringArray("additionalEditsNode")]
-transform = Transform3D(-0.879127, -0.462589, 0.114663, 0.0200182, 0.204538, 0.978654, -0.476167, 0.862656, -0.170555, -0.0612561, 1.30249, 0.0498606)
+transform = Transform3D(-0.879128, -0.462588, 0.114663, 0.0200173, 0.20454, 0.978654, -0.476166, 0.862656, -0.170557, -0.0612561, 1.30249, 0.0498601)
 bone_name = "DEF-breast.R"
 bone_idx = 7
 script = ExtResource("3_efnv8")
@@ -324,7 +320,7 @@ additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_tpjny")
 
 [node name="WiggleBone3" type="BoneAttachment3D" parent="rig/Skeleton3D" index="9" node_paths=PackedStringArray("additionalEditsNode")]
-transform = Transform3D(1, -2.84217e-14, 1.50996e-07, 1.50996e-07, -1.19209e-07, -1, 4.26326e-14, 1, -1.19209e-07, 4.44368e-15, 1.08348, -0.044503)
+transform = Transform3D(1, 6.39488e-13, 1.50995e-07, 1.50995e-07, 0, -1, -6.39488e-13, 1, 0, -2.75307e-14, 1.08348, -0.0445032)
 bone_name = "DEF-belly"
 bone_idx = 62
 script = ExtResource("3_efnv8")
@@ -332,14 +328,14 @@ additionalEditsNode = NodePath("../../..")
 properties = SubResource("Resource_owf7y")
 
 [node name="WiggleBone4" type="BoneAttachment3D" parent="rig/Skeleton3D" index="10"]
-transform = Transform3D(1, -4.05659e-08, 5.50671e-14, -4.79616e-14, 1.78814e-07, 1, -4.05659e-08, -1, 1.78814e-07, 0.0919026, 0.929242, -0.0926925)
+transform = Transform3D(1, -4.05659e-08, 3.01981e-14, -3.01981e-14, 0, 1, -4.05659e-08, -1, 0, 0.0919026, 0.929242, -0.0926926)
 bone_name = "DEF-butt.L"
 bone_idx = 64
 script = ExtResource("3_efnv8")
 properties = SubResource("Resource_70v6g")
 
 [node name="WiggleBone5" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11"]
-transform = Transform3D(1, -4.05659e-08, 7.10543e-14, -7.10543e-14, 0, 1, -4.05659e-08, -1, 0, -0.0919026, 0.929242, -0.0926925)
+transform = Transform3D(1, -4.05659e-08, 3.01981e-14, -3.01981e-14, 0, 1, -4.05659e-08, -1, 0, -0.0919026, 0.929242, -0.0926926)
 bone_name = "DEF-butt.R"
 bone_idx = 65
 script = ExtResource("3_efnv8")
@@ -351,7 +347,7 @@ mesh = SubResource("CylinderMesh_xnh6f")
 surface_material_override/0 = SubResource("StandardMaterial3D_8y1ur")
 
 [node name="TailAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="13"]
-transform = Transform3D(1, -7.10543e-14, 2.38419e-07, -2.38419e-07, 0, 1, 2.84217e-14, -1, -5.96046e-08, 5.48663e-09, 1.04825, -0.0790459)
+transform = Transform3D(1, 3.55271e-13, 2.38419e-07, -2.38419e-07, 2.98023e-08, 1, 4.26326e-13, -1, -2.98023e-08, 5.4866e-09, 1.04825, -0.0790461)
 bone_name = "DEF-tail_base"
 bone_idx = 66
 
@@ -388,15 +384,10 @@ libraries = {
 [node name="FeminineSkeleton" parent="." index="4" instance=ExtResource("10_u1nya")]
 
 [node name="Skeleton3D" parent="FeminineSkeleton/rig" index="0"]
-bones/1/rotation = Quaternion(0.796652, 7.20546e-08, 9.49684e-08, 0.604438)
-bones/2/rotation = Quaternion(-0.0869511, -2.37516e-07, -5.34933e-15, 0.996213)
-bones/3/rotation = Quaternion(-0.0790912, -4.33234e-14, 1.88568e-08, 0.996867)
 bones/4/rotation = Quaternion(-0.0343507, 4.3602e-15, 8.18985e-09, 0.99941)
 bones/5/rotation = Quaternion(0.134447, 0.709781, 0.660132, -0.205817)
-bones/5/scale = Vector3(1, 1, 1)
 bones/6/rotation = Quaternion(-5.05522e-05, -0.0113863, 0.00445564, 0.999925)
 bones/7/rotation = Quaternion(-0.134447, 0.709781, 0.660132, 0.205816)
-bones/7/scale = Vector3(1, 1, 1)
 bones/8/rotation = Quaternion(-5.05606e-05, 0.0113864, -0.00445563, 0.999925)
 bones/9/rotation = Quaternion(0.157984, 2.35424e-07, -1.07937e-14, 0.987442)
 bones/9/scale = Vector3(1, 1, 1)
@@ -412,7 +403,7 @@ bones/15/scale = Vector3(1, 1, 1)
 bones/16/position = Vector3(5.89644e-08, 0.119522, 2.04891e-08)
 bones/16/rotation = Quaternion(2.23517e-08, -3.25963e-09, 4.65661e-09, 1)
 bones/17/position = Vector3(-3.09665e-08, 0.119522, 5.96046e-08)
-bones/17/rotation = Quaternion(-0.0183325, 0.000101179, 0.0055602, 0.999816)
+bones/17/rotation = Quaternion(-0.0183325, 0.000101179, 0.0055602, 0.999817)
 bones/18/rotation = Quaternion(0.0464355, 0.684329, 0.057262, 0.725437)
 bones/18/scale = Vector3(1, 1, 1)
 bones/19/rotation = Quaternion(0.0789477, -0.0113788, -0.000163211, 0.996814)
@@ -452,25 +443,14 @@ bones/43/rotation = Quaternion(0.0464354, -0.684329, -0.057262, 0.725437)
 bones/44/rotation = Quaternion(0.0789478, 0.0113789, 0.000163241, 0.996814)
 bones/45/rotation = Quaternion(0.153737, 0.00391912, -0.0251815, 0.987783)
 bones/46/rotation = Quaternion(0.241093, -0.00116241, 0.0541221, 0.968991)
-bones/47/rotation = Quaternion(-0.143753, -0.641983, -0.319227, 0.682119)
-bones/48/rotation = Quaternion(0.213875, -0.00661445, 0.0302017, 0.976372)
-bones/49/rotation = Quaternion(0.228646, 0.00309503, -0.0733147, 0.97074)
-bones/50/rotation = Quaternion(0.0101475, -0.683133, -0.0288558, 0.729653)
 bones/51/rotation = Quaternion(0.0729448, -0.010543, -0.00164881, 0.997279)
 bones/52/rotation = Quaternion(0.172203, 0.0022105, -0.0126427, 0.984978)
 bones/52/scale = Vector3(1, 1, 1)
 bones/53/rotation = Quaternion(0.239133, -0.000493363, 0.0269279, 0.970613)
-bones/54/rotation = Quaternion(-0.0445456, -0.674123, 0.0177028, 0.737062)
 bones/54/scale = Vector3(1, 1, 1)
-bones/55/rotation = Quaternion(0.0577748, -0.0711645, -0.0224607, 0.995537)
-bones/56/rotation = Quaternion(0.185749, 0.000210186, -0.00140335, 0.982596)
 bones/56/scale = Vector3(1, 1, 1)
-bones/57/rotation = Quaternion(0.241132, -8.97827e-05, 0.00315381, 0.970487)
-bones/58/rotation = Quaternion(-0.0858856, -0.678407, 0.058439, 0.727305)
-bones/59/rotation = Quaternion(0.0275222, -0.0326397, -0.0298432, 0.998642)
-bones/60/rotation = Quaternion(0.229296, 0.00101693, -0.0043191, 0.973347)
 bones/60/scale = Vector3(1, 1, 1)
-bones/61/rotation = Quaternion(0.198539, -0.000131551, 0.0093455, 0.980048)
+bones/61/rotation = Quaternion(0.198539, -0.000131551, 0.0093455, 0.980049)
 bones/62/rotation = Quaternion(0.604438, -3.48228e-08, 1.17688e-07, 0.796652)
 bones/62/scale = Vector3(1, 1, 1)
 bones/64/rotation = Quaternion(-0.796652, -5.58961e-08, -8.27086e-08, 0.604438)
@@ -487,13 +467,13 @@ bones/70/rotation = Quaternion(2.08781e-09, 5.41622e-08, -3.99038e-09, 1)
 bones/71/position = Vector3(-4.42378e-09, 0.225636, 3.05008e-08)
 bones/71/rotation = Quaternion(-0.565617, 0.00289246, 0.00199098, 0.824661)
 bones/72/position = Vector3(5.51196e-09, 0.130976, -2.56227e-09)
-bones/72/rotation = Quaternion(1.306e-07, 0.973571, -0.228383, -5.87644e-06)
+bones/72/rotation = Quaternion(1.30601e-07, 0.973571, -0.228383, -5.87644e-06)
 bones/73/rotation = Quaternion(0.98983, 0.0522668, -0.0403059, 0.126015)
 bones/73/scale = Vector3(0.999999, 1, 0.999997)
 bones/74/position = Vector3(1.13505e-08, 0.203693, -8.3819e-09)
 bones/74/rotation = Quaternion(-2.32831e-09, 5.0175e-08, -1.22527e-08, 1)
 bones/75/position = Vector3(1.76369e-08, 0.203693, -8.84756e-09)
-bones/75/rotation = Quaternion(0.0362099, 0.0389401, 0.0558102, 0.997024)
+bones/75/rotation = Quaternion(0.0362099, 0.0389402, 0.0558102, 0.997024)
 bones/76/position = Vector3(-6.9922e-09, 0.225636, 4.65661e-10)
 bones/76/rotation = Quaternion(5.97681e-09, -8.31424e-08, 3.73417e-09, 1)
 bones/77/position = Vector3(-3.04499e-09, 0.225636, 2.2701e-08)
@@ -503,10 +483,17 @@ bones/78/rotation = Quaternion(-1.30871e-07, 0.973571, -0.228383, 5.87644e-06)
 bones/78/scale = Vector3(1, 1, 1)
 
 [node name="HeadAttach" parent="FeminineSkeleton/rig/Skeleton3D" index="0"]
-transform = Transform3D(1, -8.52651e-14, 2.38417e-07, 9.1105e-09, 0.99927, -0.038212, -2.38243e-07, 0.0382121, 0.99927, -3.5491e-14, 1.54699, -0.0132744)
+transform = Transform3D(1, 3.90799e-14, 2.38419e-07, 9.11085e-09, 0.99927, -0.038214, -2.38244e-07, 0.038214, 0.99927, 6.48921e-15, 1.54699, -0.0132737)
 
 [node name="AnimationPlayer" parent="FeminineSkeleton" index="1"]
 autoplay = "FemWalkCycle"
 playback_default_blend_time = 0.5
+
+[node name="AlphaTexture" parent="." index="5" instance=ExtResource("12_hquws")]
+textureSize = Vector2i(512, 512)
+defaultColor = Color(1, 1, 1, 1)
+
+[node name="PatternTexture" parent="." index="6" instance=ExtResource("12_hquws")]
+textureSize = Vector2i(2048, 2048)
 
 [editable path="FeminineSkeleton"]

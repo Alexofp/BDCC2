@@ -5,7 +5,6 @@
 [ext_resource type="Material" uid="uid://unyxxqq3q17y" path="res://Mesh/Parts/Hair/Ponytail/ponytail.tres" id="3_5xcl8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6pkq"]
-diffuse_mode = 3
 albedo_color = Color(0, 0, 0, 1)
 
 [node name="Ponytail" instance=ExtResource("1_gmfex")]
