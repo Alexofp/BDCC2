@@ -21,9 +21,13 @@ uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
+uniform sampler2D texture_layers : source_color,hint_default_transparent,filter_linear_mipmap,repeat_enable;
 uniform sampler2D layers[4] : source_color;
 uniform vec4 layerColors[4] : source_color;
 uniform int layerAmount = 0;
+
+uniform sampler2D alpha_mask : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform float alpha_scissor_threshold;
 
 void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
@@ -37,6 +41,7 @@ void vertex() {
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	vec4 layers_tex = texture(texture_layers,base_uv);
 	
 	vec4 layersCombined = vec4(0.0);
 	for(int i = 0;i<layerAmount;++i) {
@@ -45,6 +50,7 @@ void fragment() {
 		layersCombined = mix(layersCombined, nextLayer, nextLayer.a);
 	}
 	albedo_tex = mix(albedo_tex * albedo, layersCombined, layersCombined.a);
+	albedo_tex = mix(albedo_tex, layers_tex, layers_tex.a);
 	ALBEDO = albedo_tex.rgb;
 	
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
@@ -55,5 +61,7 @@ void fragment() {
 	SPECULAR = specular;
 	NORMAL_MAP = texture(texture_normal,base_uv).rgb;
 	NORMAL_MAP_DEPTH = normal_scale;
+	ALPHA *= albedo.a * albedo_tex.a * texture(alpha_mask,base_uv).r;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
 }
 "

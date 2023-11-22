@@ -31,16 +31,22 @@ var sprint_isdown = false
 var jump_isdown = false
 var noclip_isdown = false
 var mousecapture_isdown = false
+var firstperson_isdown = false
 var input_dir = Vector2.ZERO
+
+@onready var SpringArm = $CameraPivot/SpringArm
+@onready var CameraPivot = $CameraPivot
+
 
 func getDoll() -> Doll:
 	return $ModelRoot/Doll.getDoll()
+	
 func playDollAnim(dollAnim:String, howFast:float = 1.0):
 	getDoll().playAnim(dollAnim, howFast)
 
 func _ready():
 	basis = Basis.IDENTITY
-	$CameraPivot/SpringArm.add_excluded_object(self.get_rid())
+	SpringArm.add_excluded_object(self.get_rid())
 	#anim_player = $"ModelRoot/mannequiny-0_3_0/AnimationPlayer"
 	#anim_player.playback_default_blend_time = 0.75
 
@@ -58,6 +64,7 @@ func process_input_human():
 	
 	noclip_isdown = Input.is_action_just_pressed("debug_noclip")
 	mousecapture_isdown = Input.is_action_just_pressed("debug_mousecapture")
+	firstperson_isdown = Input.is_action_just_pressed("camera_firstperson")
 
 func _process(delta):
 	reset_input()
@@ -121,23 +128,39 @@ func process_camera():
 		camera_rotation_euler.x = clamp(camera_rotation_euler.x, LOOK_LIMIT_LOWER, LOOK_LIMIT_UPPER)
 	
 	camera_rotation = Quaternion.from_euler(camera_rotation_euler)
-	$CameraPivot.basis = Basis(camera_rotation)
-	camera_rotation_no_y = Basis($CameraPivot.basis.x, Vector3.UP, $CameraPivot.basis.z).get_rotation_quaternion()
+	CameraPivot.basis = Basis(camera_rotation)
+	camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
 	
 	mouse_movement = Vector2.ZERO
 	
 	if(!UiHandler.hasAnyUIVisible()):
 		if(Input.is_action_just_pressed("camera_zoomin")):
-			$CameraPivot/SpringArm.spring_length -= 0.1
+			SpringArm.spring_length -= 0.1
 		if(Input.is_action_just_pressed("camera_zoomout")):
-			$CameraPivot/SpringArm.spring_length += 0.1
-	if($CameraPivot/SpringArm.spring_length <= 0.0):
-		$CameraPivot/SpringArm.spring_length = 0.0
-		$CameraPivot/SpringArm.position.x = 0.0
-	elif($CameraPivot/SpringArm.spring_length <= 1.0):
-		$CameraPivot/SpringArm.position.x = 0.1
+			SpringArm.spring_length += 0.1
+	if(SpringArm.spring_length <= 0.0):
+		SpringArm.spring_length = 0.0
+		SpringArm.position.x = 0.0
+	elif(SpringArm.spring_length <= 1.0):
+		SpringArm.position.x = 0.1
 	else:
-		$CameraPivot/SpringArm.position.x = 0.3
+		SpringArm.position.x = 0.3
+	
+	if(firstperson_isdown):
+		var isFirstPerson = getDoll().isFirstPerson()
+		
+		var newFirstPerson = !isFirstPerson
+		
+		getDoll().setFirstPerson(newFirstPerson)
+		if(newFirstPerson):
+			CameraPivot.position = Vector3(0.0, 1.625, 0.0)
+			SpringArm.spring_length = 0.0
+		else:
+			CameraPivot.position = Vector3(0.0, 1.125, 0.0)
+			SpringArm.spring_length = 1.5
+	
+	if(getDoll().isFirstPerson()):
+		CameraPivot.position = $ModelRoot.basis * Vector3(0.0, 1.625, 0.1)
 
 func process_movement():
 	var input_direction = Vector3.ZERO
@@ -174,8 +197,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		mouse_movement -= event.relative
 
-static func rotate_toward(from: Quaternion, to: Quaternion, delta: float) -> Quaternion:
+func rotate_toward(from: Quaternion, to: Quaternion, delta: float) -> Quaternion:
 	return from.slerp(to, clamp(delta / from.angle_to(to), 0.0, 1.0)).normalized()
 
-static func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
+func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
 	return Basis(rotate_toward(from.get_rotation_quaternion(), to.get_rotation_quaternion(), delta)).orthonormalized()

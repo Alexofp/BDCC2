@@ -13,6 +13,8 @@ var extraBoneOffset = {}
 var extraBoneRotation = {}
 var extraBoneScale = {}
 
+var firstPerson:bool = false
+
 func shouldBindToParentSkeleton() -> bool:
 	if(bindToParentSkeleton == null):
 		bindToParentSkeleton = false
@@ -224,3 +226,11 @@ func _process(_delta):
 func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int) -> Transform3D:
 	#return theskeleton.get_bone_global_pose_no_override(boneID)
 	return theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * skeleton.get_bone_pose(boneID)
+
+func setFirstPerson(newFirstPerson:bool) -> void:
+	if(firstPerson != newFirstPerson):
+		firstPerson = newFirstPerson
+		onFirstPersonChange(firstPerson)
+		
+func onFirstPersonChange(_newFirstPerson:bool) -> void:
+	pass

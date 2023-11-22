@@ -9,10 +9,18 @@ extends DollPart
 @export var nipplesMat:ShaderMaterial
 @export var genitalsMat:ShaderMaterial
 
+@onready var patternTexture = $PatternTexture
+@onready var alphaTexture = $AlphaTexture
+
 func _ready():
 	super._ready()
 	#process_priority = 1
 	#animTree.active = true
+	if(layeredBodyMat != null):
+		layeredBodyMat.set_shader_parameter("texture_layers", patternTexture.getTexture())
+		layeredBodyMat.set_shader_parameter("alpha_mask", alphaTexture.getTexture())
+	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest.png"))
+	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest2.png"))
 
 func findSkeleton() -> Skeleton3D:
 	return $rig/Skeleton3D
@@ -23,15 +31,19 @@ func getSubSkeleton() -> Skeleton3D:
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "skinlayers"):
 		if(layeredBodyMat != null):
+			patternTexture.clear()
 			var theColors = []
 			#theColors.resize(_value.size())
 			var theTextures = []
 			for layerInfo in _value:
+				var theTexture = GlobalRegistry.getTextureVariant(TextureType.PartSkin, TextureSubType.Generic, layerInfo["id"]).getTexture()
+				
 				theColors.append(layerInfo["color"])
-				theTextures.append(GlobalRegistry.getTextureVariant(TextureType.PartSkin, TextureSubType.Generic, layerInfo["id"]).getTexture())
-			layeredBodyMat.set_shader_parameter("layerAmount", _value.size())
-			layeredBodyMat.set_shader_parameter("layers", theTextures)
-			layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
+				theTextures.append(theTexture)
+				patternTexture.addSimpleLayer(theTexture, layerInfo["color"])
+			#layeredBodyMat.set_shader_parameter("layerAmount", _value.size())
+			#layeredBodyMat.set_shader_parameter("layers", theTextures)
+			#layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
 		
 	if(_optionID == "nipplehue"):
 		if(nipplesMat != null):
@@ -135,3 +147,8 @@ func applyBaseSkinData(_data : BaseSkinData):
 			layeredBodyMat.set_shader_parameter("texture_normal", null)
 			layeredBodyMat.set_shader_parameter("texture_roughness", null)
 
+func onFirstPersonChange(newFirstPerson:bool) -> void:
+	if(newFirstPerson):
+		setBoneScale("DEF-neck.001", 0.001)
+	else:
+		setBoneScale("DEF-neck.001", 1.0)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://3bohwy07os8k"
+path="res://.godot/imported/MyBody substance painter NEW.obj-e7271338bcde9a0f21a2dd5cae86c9d7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MyBody substance painter NEW.obj-e7271338bcde9a0f21a2dd5cae86c9d7.mesh"]
+
+source_file="res://AssetsSource/Bodies/MyBody substance painter NEW.obj"
+dest_files=["res://.godot/imported/MyBody substance painter NEW.obj-e7271338bcde9a0f21a2dd5cae86c9d7.mesh", "res://.godot/imported/MyBody substance painter NEW.obj-e7271338bcde9a0f21a2dd5cae86c9d7.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
