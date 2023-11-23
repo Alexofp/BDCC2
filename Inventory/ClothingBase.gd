@@ -1,0 +1,2 @@
+extends ItemBase
+class_name ClothingBase

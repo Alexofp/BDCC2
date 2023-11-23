@@ -10,7 +10,11 @@ signal onBodypartOptionsRecalculated(part)
 
 var baseSkinData:BaseSkinData = BaseSkinData.new()
 
+var inventory:Inventory = Inventory.new()
+
 func _init():
+	inventory.setCharacter(self)
+	inventory.connect("inventoryChanged", onInventoryChanged)
 	setRoot(GlobalRegistry.createBodypart("FeminineBody"))
 	
 	#var head = getRootBodypart().setBodypart(BodypartSlot.Head, BaseHeadBodypart.new())
@@ -18,6 +22,11 @@ func _init():
 	#head.setBodypart(BodypartSlot.RightEar, BaseEarBodypart.new())
 
 	#getRootBodypart().setBodypart(BodypartSlot.Legs, BaseLegsBodypart.new())
+	
+	inventory.equipItem(GlobalRegistry.createItem("TestTShirt"))
+
+func onInventoryChanged(event: InventoryChangedEvent):
+	print("INVENTORY EVENT: "+event.getReadableInfo())
 
 func getID() -> String:
 	return id
