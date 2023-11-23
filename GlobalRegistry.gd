@@ -10,6 +10,8 @@ static var sceneCache: Dictionary = {}
 static var bodyparts: Dictionary = {}
 static var bodypartRefs: Dictionary = {}
 static var textureVariants: Dictionary = {}
+static var itemRefs: Dictionary = {}
+static var items: Dictionary = {}
 
 static func doInit():
 	if(wasInit):
@@ -23,6 +25,9 @@ static func doInit():
 	registerBodypartsFolder("res://Player/Bodyparts/Legs/")
 	registerBodypartsFolder("res://Player/Bodyparts/Tail/")
 	registerBodypartsFolder("res://Player/Bodyparts/Hair/")
+	
+	registerItemFolder("res://Inventory/Items/")
+	registerItemFolder("res://Inventory/Items/Clothing/")
 	
 	print("GlobalRegistry: Registered everything")
 
@@ -118,3 +123,34 @@ static func getTextureVariants(textureType, textureSubType) -> Dictionary:
 		return {}
 		
 	return textureVariants[textureType][textureSubType]
+
+
+
+static func registerItem(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	items[object.id] = loadedClass
+	itemRefs[object.id] = object
+
+static func registerItemFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerItem(scriptPath)
+
+static func createItem(id: String) -> ItemBase:
+	if(items.has(id)):
+		return items[id].new()
+	else:
+		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
+		return null
+
+static func getItems():
+	return items
+
+static func getItemRef(id: String) -> ItemBase:
+	if(itemRefs.has(id)):
+		return itemRefs[id]
+	else:
+		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
+		return null
