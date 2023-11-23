@@ -19,10 +19,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 UiHandler="*res://Game/UIHandler.gd"
+Panku="*res://addons/panku_console/console.tscn"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [debug]
 
-settings/stdout/print_fps=true
 gdscript/warnings/unused_variable=2
 gdscript/warnings/unused_local_constant=2
 gdscript/warnings/unused_parameter=2
@@ -37,7 +38,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [filesystem]
 
