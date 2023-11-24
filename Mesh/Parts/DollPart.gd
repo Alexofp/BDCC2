@@ -234,3 +234,6 @@ func setFirstPerson(newFirstPerson:bool) -> void:
 		
 func onFirstPersonChange(_newFirstPerson:bool) -> void:
 	pass
+
+func updateAlphas(_alphaTextures:Array):
+	pass

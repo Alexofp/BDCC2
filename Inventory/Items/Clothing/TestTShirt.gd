@@ -7,3 +7,6 @@ func _init():
 
 func getItemSlots() -> Array:
 	return [InventorySlot.Chest]
+
+func getMeshPath() -> String:
+	return "res://Mesh/Clothing/SimpleTshirt/t_shirt.tscn"

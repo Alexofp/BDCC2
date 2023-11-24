@@ -152,3 +152,8 @@ func onFirstPersonChange(newFirstPerson:bool) -> void:
 		setBoneScale("DEF-neck.001", 0.001)
 	else:
 		setBoneScale("DEF-neck.001", 1.0)
+
+func updateAlphas(_alphaTextures:Array):
+	alphaTexture.clear()
+	for theAlphaTexture in _alphaTextures:
+		alphaTexture.addSimpleAlphaLayer(theAlphaTexture)

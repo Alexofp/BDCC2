@@ -4,6 +4,7 @@ class_name Doll
 var character:BaseCharacter
 #var dollSkeleton:DollSkeleton
 var bodypartToDollPart:Dictionary = {}
+var itemToClothingPart:Dictionary = {}
 
 var firstPerson:bool = false
 
@@ -17,6 +18,7 @@ func setCharacter(newChar:BaseCharacter):
 	newChar.connect("onBodypartAdded", onBodypartChanged)
 	newChar.connect("onBodypartRemoved", onBodypartRemoved)
 	newChar.connect("onBaseSkinDataChanged", onBaseCharacterBaseSkinDataChanged)
+	newChar.connect("onInventoryChanged", onInventoryChangedCallback)
 
 func clear():
 	pass
@@ -35,6 +37,7 @@ func updateSkeleton():
 	
 	#dollSkeleton = skeletonScene.instantiate()
 	#add_child(dollSkeleton)
+
 
 func updateFromCharacter():
 	updateSkeleton()
@@ -65,9 +68,13 @@ func updateFromCharacter():
 		var childPart:BaseBodypart = childParts[bodypartSlot]
 		
 		updateBodypartRecursive(root, bodypartSlot, childPart)
+		
+	updateEquippedItemsFromCharacter()
 
 func onBodypartChanged(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	updateBodypartRecursive(whatpart, slot, newpart)
+	
+	updateEquippedItemsFromCharacter()
 
 func onBodypartRemoved(_whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
 	if(bodypartToDollPart.has(removedpart)):
@@ -75,6 +82,8 @@ func onBodypartRemoved(_whatpart: BaseBodypart, slot: String, removedpart: BaseB
 		print(slot+" Removed ",dollPartToRemove)
 		bodypartToDollPart.erase(removedpart)
 		dollPartToRemove.queue_free()
+	
+	updateEquippedItemsFromCharacter()
 	
 func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBodypart):
 	var start = Time.get_ticks_usec()
@@ -146,3 +155,75 @@ func setFirstPerson(newFirstPerson:bool) -> void:
 
 func isFirstPerson() -> bool:
 	return firstPerson
+
+func addItemToDoll(item:ItemBase):
+	# Probably better to pass the character into the mesh scene?
+	var itemMeshScene:PackedScene = item.getMeshScene()
+	
+	if(itemMeshScene == null):
+		return false
+	
+	var itemMesh:ClothingPart = itemMeshScene.instantiate()
+	itemMesh.itemRef = weakref(item)
+	itemMesh.dollRef = weakref(self)
+	add_child(itemMesh)
+	itemToClothingPart[item] = itemMesh
+	itemMesh.connectSignals()
+	itemMesh.applyToDoll(self)
+	
+	updateEquippedItemsAlpha()
+	
+	return true
+
+func updateEquippedItemsAlpha():
+	var root:DollPart = getDollpartByPath([])
+	if(root != null):
+		var allAlphas = []
+		for clothingPart in itemToClothingPart.values():
+			var alphaTexture = clothingPart.getBodyAlphaTexture()
+			if(alphaTexture != null):
+				allAlphas.append(alphaTexture)
+		root.updateAlphas(allAlphas)
+
+func updateEquippedItemsFromCharacter():
+	for clothingPart in itemToClothingPart.values():
+		clothingPart.queue_free()
+	itemToClothingPart = {}
+	
+	var inventory:Inventory = character.getInventory()
+	var equippedItems:Dictionary = inventory.getEquippedItems()
+	for inventorySlot in equippedItems:
+		var item:ItemBase = equippedItems[inventorySlot]
+		addItemToDoll(item)
+
+
+func onInventoryChangedCallback(event: InventoryChangedEvent):
+	print("INVENTORY DOLL EVENT: "+event.getReadableInfo())
+	#emit_signal("onInventoryChanged", event)
+	
+	if(event.eventType == InventoryChangedEvent.ItemUnequipped):
+		var theItem:ItemBase = event.item
+		
+		if(itemToClothingPart.has(theItem)):
+			itemToClothingPart[theItem].queue_free()
+			itemToClothingPart.erase(theItem)
+			updateEquippedItemsAlpha()
+	elif(event.eventType == InventoryChangedEvent.ItemEquipped):
+		var item:ItemBase = event.item
+		addItemToDoll(item)
+
+func getBodypartByPath(path:Array) -> BaseBodypart:
+	var theCharacter:BaseCharacter = getCharacter()
+	if(theCharacter == null):
+		return null
+
+	return theCharacter.getBodypartByPath(path)
+
+func getDollpartByPath(path:Array) -> DollPart:
+	var bodypart:BaseBodypart = getBodypartByPath(path)
+	if(bodypart == null):
+		return null
+	
+	if(!bodypartToDollPart.has(bodypart)):
+		return null
+	return bodypartToDollPart[bodypart]
