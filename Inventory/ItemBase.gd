@@ -19,3 +19,9 @@ func isEquipped() -> bool:
 	if(currentInventory == null):
 		return false
 	return currentInventory.isItemEquipped(self)
+
+func getMeshPath() -> String:
+	return "res://Mesh/Clothing/SimpleTshirt/t_shirt.tscn"
+
+func getMeshScene() -> PackedScene:
+	return GlobalRegistry.loadSceneCached(getMeshPath())

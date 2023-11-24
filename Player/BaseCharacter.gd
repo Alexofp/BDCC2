@@ -7,6 +7,7 @@ signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
 signal onBaseSkinDataChanged(newdata)
 signal onBodypartOptionsRecalculated(part)
+signal onInventoryChanged(event)
 
 var baseSkinData:BaseSkinData = BaseSkinData.new()
 
@@ -14,7 +15,7 @@ var inventory:Inventory = Inventory.new()
 
 func _init():
 	inventory.setCharacter(self)
-	inventory.connect("inventoryChanged", onInventoryChanged)
+	inventory.connect("inventoryChanged", onInventoryChangedCallback)
 	setRoot(GlobalRegistry.createBodypart("FeminineBody"))
 	
 	#var head = getRootBodypart().setBodypart(BodypartSlot.Head, BaseHeadBodypart.new())
@@ -25,8 +26,9 @@ func _init():
 	
 	inventory.equipItem(GlobalRegistry.createItem("TestTShirt"))
 
-func onInventoryChanged(event: InventoryChangedEvent):
+func onInventoryChangedCallback(event: InventoryChangedEvent):
 	print("INVENTORY EVENT: "+event.getReadableInfo())
+	emit_signal("onInventoryChanged", event)
 
 func getID() -> String:
 	return id
@@ -75,3 +77,17 @@ func getAllBodyparts() -> Array:
 
 func onPartOptionsRecalculated(part: BaseBodypart):
 	emit_signal("onBodypartOptionsRecalculated", part)
+
+func getBodypartByPath(path:Array) -> BaseBodypart:
+	var currentPart:BaseBodypart = rootBodypart
+	
+	for bodypartSlot in path:
+		if(!currentPart.hasBodypart(bodypartSlot)):
+			return null
+		
+		currentPart = currentPart.getBodypart(bodypartSlot)
+	
+	return currentPart
+
+func getInventory() -> Inventory:
+	return inventory

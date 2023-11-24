@@ -82,3 +82,11 @@ func removeEquippedItem(theItem:ItemBase) -> bool:
 			return true
 	
 	return false
+
+func clearSlot(inventorySlot):
+	if(!isSlotEquipped(inventorySlot)):
+		return false
+	return removeEquippedItem(equippedItems[inventorySlot])
+
+func getEquippedItems() -> Dictionary:
+	return equippedItems

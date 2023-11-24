@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4drmtarfbwnp"]
+
+[ext_resource type="PackedScene" uid="uid://ki27fbhmqfyi" path="res://Mesh/Clothing/SimpleTshirt/TShirt.glb" id="1_so80g"]
+[ext_resource type="Script" path="res://Mesh/Clothing/SimpleTshirt/t_shirt.gd" id="2_455cs"]
+
+[node name="TShirt" instance=ExtResource("1_so80g")]
+script = ExtResource("2_455cs")

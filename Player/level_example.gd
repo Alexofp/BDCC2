@@ -29,3 +29,9 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("debug_showcharactercreator"):
 		$CanvasLayer.visible = !$CanvasLayer.visible
+
+func removeShirt():
+	baseCharacter.getInventory().clearSlot(InventorySlot.Chest)
+
+func addShirt():
+	baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestTShirt"))
