@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm0rv3lfsup41"]
+
+[ext_resource type="Script" path="res://Game/UI/control_touch_screen_button.gd" id="1_ksij2"]
+[ext_resource type="Texture2D" uid="uid://cfjfnb1y76gg4" path="res://Game/UI/DummyTexture.png" id="2_l3dtr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwmk2"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="ControlTouchScreenButton" type="PanelContainer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pwmk2")
+script = ExtResource("1_ksij2")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+texture_normal = ExtResource("2_l3dtr")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Hello world"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true

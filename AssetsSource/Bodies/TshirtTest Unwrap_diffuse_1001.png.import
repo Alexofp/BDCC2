@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c58oth62gphcd"
 path.s3tc="res://.godot/imported/TshirtTest Unwrap_diffuse_1001.png-d62e042406ff8b3ae0618ab2bd0b5845.s3tc.ctex"
+path.etc2="res://.godot/imported/TshirtTest Unwrap_diffuse_1001.png-d62e042406ff8b3ae0618ab2bd0b5845.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://AssetsSource/Bodies/TshirtTest Unwrap_diffuse_1001.png"
-dest_files=["res://.godot/imported/TshirtTest Unwrap_diffuse_1001.png-d62e042406ff8b3ae0618ab2bd0b5845.s3tc.ctex"]
+dest_files=["res://.godot/imported/TshirtTest Unwrap_diffuse_1001.png-d62e042406ff8b3ae0618ab2bd0b5845.s3tc.ctex", "res://.godot/imported/TshirtTest Unwrap_diffuse_1001.png-d62e042406ff8b3ae0618ab2bd0b5845.etc2.ctex"]
 
 [params]
 

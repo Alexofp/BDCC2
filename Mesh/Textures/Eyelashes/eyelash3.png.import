@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cao4kcuq76tj1"
 path.s3tc="res://.godot/imported/eyelash3.png-8d74b3e3ebac8112e3d819bdcc8ba7f5.s3tc.ctex"
+path.etc2="res://.godot/imported/eyelash3.png-8d74b3e3ebac8112e3d819bdcc8ba7f5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Eyelashes/eyelash3.png"
-dest_files=["res://.godot/imported/eyelash3.png-8d74b3e3ebac8112e3d819bdcc8ba7f5.s3tc.ctex"]
+dest_files=["res://.godot/imported/eyelash3.png-8d74b3e3ebac8112e3d819bdcc8ba7f5.s3tc.ctex", "res://.godot/imported/eyelash3.png-8d74b3e3ebac8112e3d819bdcc8ba7f5.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c31jse44afp2l"
 path.s3tc="res://.godot/imported/SomeHairTexture.png-d03a373e7ef7c2fa7bcbebe93ca4198e.s3tc.ctex"
+path.etc2="res://.godot/imported/SomeHairTexture.png-d03a373e7ef7c2fa7bcbebe93ca4198e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Hair/Ponytail/SomeHairTexture.png"
-dest_files=["res://.godot/imported/SomeHairTexture.png-d03a373e7ef7c2fa7bcbebe93ca4198e.s3tc.ctex"]
+dest_files=["res://.godot/imported/SomeHairTexture.png-d03a373e7ef7c2fa7bcbebe93ca4198e.s3tc.ctex", "res://.godot/imported/SomeHairTexture.png-d03a373e7ef7c2fa7bcbebe93ca4198e.etc2.ctex"]
 
 [params]
 

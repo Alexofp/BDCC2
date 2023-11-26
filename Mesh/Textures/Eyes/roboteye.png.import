@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmgk0sshqc50w"
 path.s3tc="res://.godot/imported/roboteye.png-9da6b84177eca5bd105e8f75cb80b29b.s3tc.ctex"
+path.etc2="res://.godot/imported/roboteye.png-9da6b84177eca5bd105e8f75cb80b29b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Eyes/roboteye.png"
-dest_files=["res://.godot/imported/roboteye.png-9da6b84177eca5bd105e8f75cb80b29b.s3tc.ctex"]
+dest_files=["res://.godot/imported/roboteye.png-9da6b84177eca5bd105e8f75cb80b29b.s3tc.ctex", "res://.godot/imported/roboteye.png-9da6b84177eca5bd105e8f75cb80b29b.etc2.ctex"]
 
 [params]
 

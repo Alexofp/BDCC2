@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjuyo5b5x2x5d"
 path.s3tc="res://.godot/imported/brow1.png-ac5f82d86be4ea6dcd6d3244df86ef55.s3tc.ctex"
+path.etc2="res://.godot/imported/brow1.png-ac5f82d86be4ea6dcd6d3244df86ef55.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Brows/brow1.png"
-dest_files=["res://.godot/imported/brow1.png-ac5f82d86be4ea6dcd6d3244df86ef55.s3tc.ctex"]
+dest_files=["res://.godot/imported/brow1.png-ac5f82d86be4ea6dcd6d3244df86ef55.s3tc.ctex", "res://.godot/imported/brow1.png-ac5f82d86be4ea6dcd6d3244df86ef55.etc2.ctex"]
 
 [params]
 

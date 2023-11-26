@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfdut74wtul74"
 path.s3tc="res://.godot/imported/MyHumanHead substance painter_Face_BaseColor.png-0d96aa8c5bfdeceb0ca711ea9210c642.s3tc.ctex"
+path.etc2="res://.godot/imported/MyHumanHead substance painter_Face_BaseColor.png-0d96aa8c5bfdeceb0ca711ea9210c642.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://AssetsSource/Bodies/headtextures/human/MyHumanHead substance painter_Face_BaseColor.png"
-dest_files=["res://.godot/imported/MyHumanHead substance painter_Face_BaseColor.png-0d96aa8c5bfdeceb0ca711ea9210c642.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyHumanHead substance painter_Face_BaseColor.png-0d96aa8c5bfdeceb0ca711ea9210c642.s3tc.ctex", "res://.godot/imported/MyHumanHead substance painter_Face_BaseColor.png-0d96aa8c5bfdeceb0ca711ea9210c642.etc2.ctex"]
 
 [params]
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=14 format=3 uid="uid://bm1mm46ypljc1"]
 
 [ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
 [ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
 [ext_resource type="PackedScene" uid="uid://kca1ww4xq0ui" path="res://Player/Doll/simple_controller_doll.tscn" id="3_jcfi3"]
 [ext_resource type="PackedScene" uid="uid://dyyx8g7mbkvog" path="res://Player/Doll/advanced_controller_doll.tscn" id="4_dhxec"]
 [ext_resource type="PackedScene" uid="uid://ddpn3gykscjr8" path="res://Game/CharacterCreator/character_creator.tscn" id="4_hueel"]
+[ext_resource type="PackedScene" uid="uid://cef84i2h820u5" path="res://Game/UI/touch_controls_ui.tscn" id="6_b5per"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x6gb"]
 sky_top_color = Color(0.266667, 0.313726, 0.54902, 1)
@@ -103,3 +104,7 @@ light_color = Color(0.48, 0.48, 1, 1)
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45921, 0.979957)
 light_color = Color(0.678431, 0.537255, 0, 1)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="TouchControlsUI" parent="CanvasLayer2" instance=ExtResource("6_b5per")]

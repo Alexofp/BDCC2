@@ -9,6 +9,8 @@ func _init():
 func _ready():
 	UiHandler.addUI($CanvasLayer)
 	
+	baseCharacter.getRootBodypart().setBodypart(BodypartSlot.Head, GlobalRegistry.createBodypart("FelineHead"))
+	
 	$Doll.getDoll().setCharacter(baseCharacter)
 	$Doll3.getDoll().setCharacter(baseCharacter)
 

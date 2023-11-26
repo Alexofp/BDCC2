@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmik18hio5jry"
 path.s3tc="res://.godot/imported/BodyRough.png-ba9431dfacd62a6fbfa38dcabd30700c.s3tc.ctex"
+path.etc2="res://.godot/imported/BodyRough.png-ba9431dfacd62a6fbfa38dcabd30700c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyRough.png"
-dest_files=["res://.godot/imported/BodyRough.png-ba9431dfacd62a6fbfa38dcabd30700c.s3tc.ctex"]
+dest_files=["res://.godot/imported/BodyRough.png-ba9431dfacd62a6fbfa38dcabd30700c.s3tc.ctex", "res://.godot/imported/BodyRough.png-ba9431dfacd62a6fbfa38dcabd30700c.etc2.ctex"]
 
 [params]
 

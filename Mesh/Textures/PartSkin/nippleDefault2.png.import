@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgex8micoxmeo"
 path.s3tc="res://.godot/imported/nippleDefault2.png-5dec09fead08d16032e2acf80cebb480.s3tc.ctex"
+path.etc2="res://.godot/imported/nippleDefault2.png-5dec09fead08d16032e2acf80cebb480.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/PartSkin/nippleDefault2.png"
-dest_files=["res://.godot/imported/nippleDefault2.png-5dec09fead08d16032e2acf80cebb480.s3tc.ctex"]
+dest_files=["res://.godot/imported/nippleDefault2.png-5dec09fead08d16032e2acf80cebb480.s3tc.ctex", "res://.godot/imported/nippleDefault2.png-5dec09fead08d16032e2acf80cebb480.etc2.ctex"]
 
 [params]
 

@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://cef84i2h820u5"]
+
+[ext_resource type="Script" path="res://Game/UI/touch_controls_ui.gd" id="1_onf7h"]
+[ext_resource type="PackedScene" uid="uid://cm0rv3lfsup41" path="res://Game/UI/control_touch_screen_button.tscn" id="2_5no57"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://Game/UI/Joystick/virtual_joystick.tscn" id="2_hnguy"]
+
+[node name="TouchControlsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_onf7h")
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("2_hnguy")]
+layout_mode = 1
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_forward"
+action_down = "move_back"
+
+[node name="Virtual Joystick2" parent="." instance=ExtResource("2_hnguy")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+action_left = "camera_left"
+action_right = "camera_right"
+action_up = "camera_up"
+action_down = "camera_down"
+
+[node name="ControlTouchScreenButton" parent="." instance=ExtResource("2_5no57")]
+layout_mode = 1
+offset_left = -366.0
+offset_top = -132.0
+offset_right = -266.0
+offset_bottom = -32.0
+
+[node name="TouchScreenButton" parent="ControlTouchScreenButton" index="0"]
+action = "move_jump"
+
+[node name="Label" parent="ControlTouchScreenButton" index="1"]
+text = "Jump"
+
+[node name="ControlTouchScreenButton3" parent="." instance=ExtResource("2_5no57")]
+layout_mode = 1
+offset_left = -177.0
+offset_top = -433.0
+offset_right = -77.0
+offset_bottom = -333.0
+
+[node name="TouchScreenButton" parent="ControlTouchScreenButton3" index="0"]
+action = "camera_firstperson"
+
+[node name="Label" parent="ControlTouchScreenButton3" index="1"]
+text = "First person"
+
+[node name="ControlTouchScreenButton2" parent="." instance=ExtResource("2_5no57")]
+layout_mode = 1
+offset_left = -1121.0
+offset_top = -388.0
+offset_right = -1021.0
+offset_bottom = -288.0
+
+[node name="TouchScreenButton" parent="ControlTouchScreenButton2" index="0"]
+action = "debug_showcharactercreator"
+
+[node name="Label" parent="ControlTouchScreenButton2" index="1"]
+text = "Character Creator"
+
+[editable path="ControlTouchScreenButton"]
+[editable path="ControlTouchScreenButton3"]
+[editable path="ControlTouchScreenButton2"]

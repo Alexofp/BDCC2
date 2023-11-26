@@ -24,7 +24,7 @@ func _init():
 
 	#getRootBodypart().setBodypart(BodypartSlot.Legs, BaseLegsBodypart.new())
 	
-	inventory.equipItem(GlobalRegistry.createItem("TestTShirt"))
+	#inventory.equipItem(GlobalRegistry.createItem("TestTShirt"))
 
 func onInventoryChangedCallback(event: InventoryChangedEvent):
 	print("INVENTORY EVENT: "+event.getReadableInfo())

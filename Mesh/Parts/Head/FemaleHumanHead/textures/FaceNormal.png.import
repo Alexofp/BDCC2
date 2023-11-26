@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgcn2kp0ijsfa"
 path.s3tc="res://.godot/imported/FaceNormal.png-4995ad5405d4921ea4939195eb7ee98f.s3tc.ctex"
+path.etc2="res://.godot/imported/FaceNormal.png-4995ad5405d4921ea4939195eb7ee98f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/FemaleHumanHead/textures/FaceNormal.png"
-dest_files=["res://.godot/imported/FaceNormal.png-4995ad5405d4921ea4939195eb7ee98f.s3tc.ctex"]
+dest_files=["res://.godot/imported/FaceNormal.png-4995ad5405d4921ea4939195eb7ee98f.s3tc.ctex", "res://.godot/imported/FaceNormal.png-4995ad5405d4921ea4939195eb7ee98f.etc2.ctex"]
 
 [params]
 
