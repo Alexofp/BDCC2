@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6ydkokb2chu8"
 path.s3tc="res://.godot/imported/nosecolor.png-6972be395ac38acad69878e48b86c9dc.s3tc.ctex"
+path.etc2="res://.godot/imported/nosecolor.png-6972be395ac38acad69878e48b86c9dc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/CatHead/textures/nosecolor.png"
-dest_files=["res://.godot/imported/nosecolor.png-6972be395ac38acad69878e48b86c9dc.s3tc.ctex"]
+dest_files=["res://.godot/imported/nosecolor.png-6972be395ac38acad69878e48b86c9dc.s3tc.ctex", "res://.godot/imported/nosecolor.png-6972be395ac38acad69878e48b86c9dc.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://djnl4llq15hls"
 path.s3tc="res://.godot/imported/AllSkyFree_Sky_ClearBlueSky_Equirect.png-762bfc6d3e65b8259d78e3a7093d7d0d.s3tc.ctex"
+path.etc2="res://.godot/imported/AllSkyFree_Sky_ClearBlueSky_Equirect.png-762bfc6d3e65b8259d78e3a7093d7d0d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Sky/AllSkyFree_Sky_ClearBlueSky_Equirect.png"
-dest_files=["res://.godot/imported/AllSkyFree_Sky_ClearBlueSky_Equirect.png-762bfc6d3e65b8259d78e3a7093d7d0d.s3tc.ctex"]
+dest_files=["res://.godot/imported/AllSkyFree_Sky_ClearBlueSky_Equirect.png-762bfc6d3e65b8259d78e3a7093d7d0d.s3tc.ctex", "res://.godot/imported/AllSkyFree_Sky_ClearBlueSky_Equirect.png-762bfc6d3e65b8259d78e3a7093d7d0d.etc2.ctex"]
 
 [params]
 

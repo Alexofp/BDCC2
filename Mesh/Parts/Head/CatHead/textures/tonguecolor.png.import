@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccql4qe44hlr5"
 path.s3tc="res://.godot/imported/tonguecolor.png-238b4070745f2636e8123be8204aa27e.s3tc.ctex"
+path.etc2="res://.godot/imported/tonguecolor.png-238b4070745f2636e8123be8204aa27e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/CatHead/textures/tonguecolor.png"
-dest_files=["res://.godot/imported/tonguecolor.png-238b4070745f2636e8123be8204aa27e.s3tc.ctex"]
+dest_files=["res://.godot/imported/tonguecolor.png-238b4070745f2636e8123be8204aa27e.s3tc.ctex", "res://.godot/imported/tonguecolor.png-238b4070745f2636e8123be8204aa27e.etc2.ctex"]
 
 [params]
 

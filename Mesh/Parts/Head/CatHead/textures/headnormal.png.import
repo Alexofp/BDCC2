@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bm885a2w8d8qq"
 path.s3tc="res://.godot/imported/headnormal.png-bae6829765005eba9cdf466417409af5.s3tc.ctex"
+path.etc2="res://.godot/imported/headnormal.png-bae6829765005eba9cdf466417409af5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/CatHead/textures/headnormal.png"
-dest_files=["res://.godot/imported/headnormal.png-bae6829765005eba9cdf466417409af5.s3tc.ctex"]
+dest_files=["res://.godot/imported/headnormal.png-bae6829765005eba9cdf466417409af5.s3tc.ctex", "res://.godot/imported/headnormal.png-bae6829765005eba9cdf466417409af5.etc2.ctex"]
 
 [params]
 

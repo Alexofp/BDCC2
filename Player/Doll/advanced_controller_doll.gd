@@ -2,6 +2,7 @@ extends CharacterBody3D
 # https://github.com/Jamsers/Godot-Human-For-Scale
 
 const LOOK_SENSITIVITY = 0.0025
+const LOOK_SENSITIVITY_TOUCH = 0.05
 const LOOK_LIMIT_UPPER = 1.15
 const LOOK_LIMIT_LOWER = -1.15
 const ANIM_MOVE_SPEED = 3
@@ -33,6 +34,7 @@ var noclip_isdown = false
 var mousecapture_isdown = false
 var firstperson_isdown = false
 var input_dir = Vector2.ZERO
+var camera_dir = Vector2.ZERO
 
 @onready var SpringArm = $CameraPivot/SpringArm
 @onready var CameraPivot = $CameraPivot
@@ -51,6 +53,7 @@ func _ready():
 	#anim_player.playback_default_blend_time = 0.75
 
 func reset_input():
+	camera_dir = Vector2.ZERO
 	input_dir = Vector2.ZERO
 	jump_isdown = false
 	sprint_isdown = false
@@ -58,7 +61,12 @@ func reset_input():
 	mousecapture_isdown = false
 
 func process_input_human():
-	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	input_dir = Vector2.ZERO
+	input_dir.x = Input.get_axis("move_left", "move_right")
+	input_dir.y = Input.get_axis("move_forward", "move_back")
+	camera_dir = Vector2.ZERO
+	camera_dir.x = Input.get_axis("camera_left", "camera_right")
+	camera_dir.y = Input.get_axis("camera_up", "camera_down")
 	jump_isdown = Input.is_action_pressed("move_jump")
 	sprint_isdown = Input.is_action_pressed("move_sprint")
 	
@@ -123,9 +131,10 @@ func process_mousecapture(_delta):
 func process_camera():
 	var camera_rotation_euler = camera_rotation.get_euler()
 	
+	camera_rotation_euler += Vector3(camera_dir.y, camera_dir.x, 0.0) * LOOK_SENSITIVITY_TOUCH * (-1.0 if getDoll().isFirstPerson() else 1.0)
 	if mousecapture_on:
 		camera_rotation_euler += Vector3(mouse_movement.y, mouse_movement.x, 0) * LOOK_SENSITIVITY
-		camera_rotation_euler.x = clamp(camera_rotation_euler.x, LOOK_LIMIT_LOWER, LOOK_LIMIT_UPPER)
+	camera_rotation_euler.x = clamp(camera_rotation_euler.x, LOOK_LIMIT_LOWER, LOOK_LIMIT_UPPER)
 	
 	camera_rotation = Quaternion.from_euler(camera_rotation_euler)
 	CameraPivot.basis = Basis(camera_rotation)
@@ -194,6 +203,9 @@ func process_noclip(_delta):
 		$CollisionShape.disabled = !$CollisionShape.disabled
 
 func _unhandled_input(event):
+	if(UiHandler.hasAnyUIVisible()):
+		return
+	
 	if event is InputEventMouseMotion:
 		mouse_movement -= event.relative
 

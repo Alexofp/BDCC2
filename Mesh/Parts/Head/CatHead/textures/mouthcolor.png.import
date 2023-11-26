@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://vc28lx2j34k1"
 path.s3tc="res://.godot/imported/mouthcolor.png-7797da3443a68721d3aa2989abab1c88.s3tc.ctex"
+path.etc2="res://.godot/imported/mouthcolor.png-7797da3443a68721d3aa2989abab1c88.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/CatHead/textures/mouthcolor.png"
-dest_files=["res://.godot/imported/mouthcolor.png-7797da3443a68721d3aa2989abab1c88.s3tc.ctex"]
+dest_files=["res://.godot/imported/mouthcolor.png-7797da3443a68721d3aa2989abab1c88.s3tc.ctex", "res://.godot/imported/mouthcolor.png-7797da3443a68721d3aa2989abab1c88.etc2.ctex"]
 
 [params]
 

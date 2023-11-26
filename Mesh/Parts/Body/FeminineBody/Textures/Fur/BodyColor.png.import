@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ls2qx0ylkou8"
 path.s3tc="res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.s3tc.ctex"
+path.etc2="res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png"
-dest_files=["res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.s3tc.ctex"]
+dest_files=["res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.s3tc.ctex", "res://.godot/imported/BodyColor.png-332658a176cfbe0c3509016f91cffa9b.etc2.ctex"]
 
 [params]
 
