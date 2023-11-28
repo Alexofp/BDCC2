@@ -80,3 +80,9 @@ func getBodyAlphaTexture() -> Texture2D:
 	if(thePath == ""):
 		return null
 	return load(thePath)
+
+func getPartsToHide() -> Dictionary:
+	return {}
+
+func updateHiddenParts(_hiddenParts:Dictionary):
+	pass

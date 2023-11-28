@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4drmtarfbwnp"]
+[gd_scene load_steps=4 format=3 uid="uid://d4drmtarfbwnp"]
 
 [ext_resource type="PackedScene" uid="uid://ki27fbhmqfyi" path="res://Mesh/Clothing/SimpleTshirt/TShirt.glb" id="1_so80g"]
 [ext_resource type="Script" path="res://Mesh/Clothing/SimpleTshirt/t_shirt.gd" id="2_455cs"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6dx1"]
+resource_name = "FABRIC_1_FRONT_454085"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.509804, 0.368627, 0.8, 1)
+roughness = 0.830403
+
 [node name="TShirt" instance=ExtResource("1_so80g")]
 script = ExtResource("2_455cs")
+
+[node name="Retopo_TshirtTest_001" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_d6dx1")

@@ -126,6 +126,7 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 
 func applyEverythingFromDollToDollPart(theDollPart:DollPart):
 	theDollPart.setFirstPerson(firstPerson)
+	theDollPart.updateHiddenParts(getAllHiddenParts())
 
 func getDoll() -> Doll:
 	return self
@@ -175,15 +176,33 @@ func addItemToDoll(item:ItemBase):
 	
 	return true
 
+func getAllHiddenParts() -> Dictionary:
+	var hiddenBodyParts = {}
+	for clothingPart in itemToClothingPart.values():
+		var hiddenParts = clothingPart.getPartsToHide()
+		for thePart in hiddenParts:
+			if(hiddenParts[thePart]):
+				hiddenBodyParts[thePart] = true
+	return hiddenBodyParts
+
 func updateEquippedItemsAlpha():
+	var allClothingItems = itemToClothingPart.values()
+	
 	var root:DollPart = getDollpartByPath([])
 	if(root != null):
 		var allAlphas = []
-		for clothingPart in itemToClothingPart.values():
+		for clothingPart in allClothingItems:
 			var alphaTexture = clothingPart.getBodyAlphaTexture()
 			if(alphaTexture != null):
 				allAlphas.append(alphaTexture)
 		root.updateAlphas(allAlphas)
+	
+	var hiddenBodyParts = getAllHiddenParts()
+	
+	for clothingPart in allClothingItems:
+		clothingPart.updateHiddenParts(hiddenBodyParts)
+	for dollPart in bodypartToDollPart.values():
+		dollPart.updateHiddenParts(hiddenBodyParts)
 
 func updateEquippedItemsFromCharacter():
 	for clothingPart in itemToClothingPart.values():
