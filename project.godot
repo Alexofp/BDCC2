@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 UiHandler="*res://Game/UIHandler.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+Panku="*res://addons/panku_console/console.tscn"
 
 [debug]
 
@@ -39,7 +40,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [filesystem]
 
@@ -129,10 +130,6 @@ camera_down={
 "deadzone": 0.5,
 "events": []
 }
-
-[input_devices]
-
-pointing/emulate_touch_from_mouse=true
 
 [rendering]
 

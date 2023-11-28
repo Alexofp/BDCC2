@@ -9,7 +9,7 @@ func _ready():
 	UiHandler.onAnyUIVisibleChanged.connect(onUIsVisiblityChanged)
 	onUIsVisiblityChanged(UiHandler.hasAnyUIVisible())
 	
-	if(DisplayServer.is_touchscreen_available()): #  && false
+	if(!DisplayServer.is_touchscreen_available()): #  && false
 		visible = false
 
 func onUIsVisiblityChanged(newVis):

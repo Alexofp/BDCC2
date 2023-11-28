@@ -24,13 +24,11 @@ background_mode = 2
 sky = SubResource("Sky_2xklu")
 tonemap_mode = 2
 tonemap_exposure = 0.2
-ssao_enabled = true
 ssao_intensity = 4.69
 sdfgi_cascades = 1
 sdfgi_min_cell_size = 0.01
 sdfgi_cascade0_distance = 0.64
 sdfgi_max_distance = 1.28
-glow_enabled = true
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
 glow_levels/4 = 1.0
@@ -45,6 +43,8 @@ size = Vector3(10, 0.2, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_ev78f"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q3b6y"]
+radial_segments = 16
+rings = 8
 
 [node name="LevelExample" type="Node3D"]
 script = ExtResource("1_djto6")
@@ -54,7 +54,6 @@ environment = SubResource("Environment_4ultq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.676528, -0.541268, -0.499338, 0.127659, -0.753998, 0.644353, -0.725267, 0.372178, 0.579199, 0, 0, 0)
-shadow_enabled = true
 
 [node name="BaseCharacter" type="Node" parent="."]
 script = ExtResource("1_ddbjx")
