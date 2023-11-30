@@ -213,4 +213,5 @@ func rotate_toward(from: Quaternion, to: Quaternion, delta: float) -> Quaternion
 	return from.slerp(to, clamp(delta / from.angle_to(to), 0.0, 1.0)).normalized()
 
 func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
-	return Basis(rotate_toward(from.get_rotation_quaternion(), to.get_rotation_quaternion(), delta)).orthonormalized()
+	return from.slerp(to, delta)
+	#return Basis(rotate_toward(from.get_rotation_quaternion(), to.get_rotation_quaternion(), delta)).orthonormalized()

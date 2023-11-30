@@ -26,6 +26,10 @@ func _ready():
 	#baseCharacter.getRootBodypart().setOptionValue("thickbutt", 1.0)
 	
 	$CanvasLayer/CharacterCreator.setCharacter(baseCharacter)
+	
+	#$Doll.queue_free()
+	#$Doll2.queue_free()
+	#$Doll3.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

@@ -12,15 +12,13 @@ config_version=5
 
 config/name="BDCC2"
 run/main_scene="res://Player/level_example.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
-run/max_fps=60
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 UiHandler="*res://Game/UIHandler.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
-Panku="*res://addons/panku_console/console.tscn"
 
 [debug]
 
@@ -40,7 +38,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [filesystem]
 
