@@ -4,6 +4,9 @@ class_name ItemBase
 var id:String = "error"
 var currentInventory:Inventory = null
 
+func _init():
+	pass
+
 func getVisibleName() -> String:
 	return "(ERROR ITEM)"
 

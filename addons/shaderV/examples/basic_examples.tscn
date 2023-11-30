@@ -116,6 +116,8 @@ constant = 5.0
 
 [sub_resource type="VisualShader" id="7"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // DistortionUV
@@ -203,6 +205,8 @@ constant = true
 
 [sub_resource type="VisualShader" id="14"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -274,6 +278,8 @@ constant = 1.3
 
 [sub_resource type="VisualShader" id="18"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -345,6 +351,8 @@ constant = Vector3(16, 16, 0)
 
 [sub_resource type="VisualShader" id="23"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -417,6 +425,8 @@ constant = Vector3(0.5, 0.5, 0)
 
 [sub_resource type="VisualShader" id="28"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -495,6 +505,8 @@ script = ExtResource("7")
 
 [sub_resource type="VisualShader" id="33"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -565,6 +577,8 @@ constant = Vector3(0.5, 0.5, 0)
 
 [sub_resource type="VisualShader" id="40"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -649,6 +663,8 @@ constant = 2.0
 
 [sub_resource type="VisualShader" id="46"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -728,6 +744,8 @@ constant = 0.2
 
 [sub_resource type="VisualShader" id="50"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -804,6 +822,8 @@ constant = Vector3(0.5, 0.5, 0)
 
 [sub_resource type="VisualShader" id="58"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -899,6 +919,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="63"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -987,6 +1009,8 @@ constant = 5.0
 
 [sub_resource type="VisualShader" id="72"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -1094,6 +1118,8 @@ constant = 4.0
 
 [sub_resource type="VisualShader" id="80"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -1200,6 +1226,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="85"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -1292,6 +1320,8 @@ script = ExtResource("19")
 
 [sub_resource type="VisualShader" id="92"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_5;
 
 
@@ -1394,6 +1424,8 @@ input_name = "texture"
 
 [sub_resource type="VisualShader" id="97"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // TilingAndOffsetUVAnimated
@@ -1462,6 +1494,8 @@ script = ExtResource("18")
 
 [sub_resource type="VisualShader" id="100"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -1504,6 +1538,8 @@ default_input_values = [0, 0.0, 1, 0.0, 2, 1.0]
 
 [sub_resource type="VisualShader" id="103"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -1557,6 +1593,8 @@ default_input_values = [0, 0.0, 1, 0.0, 2, 1.0]
 
 [sub_resource type="VisualShader" id="106"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // HashRandom2dVec
@@ -1616,6 +1654,8 @@ script = ExtResource("22")
 
 [sub_resource type="VisualShader" id="109"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -1659,6 +1699,8 @@ script = ExtResource("24")
 
 [sub_resource type="VisualShader" id="118"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // RandomGoldRatio
@@ -1733,6 +1775,8 @@ constant = -1.0
 
 [sub_resource type="VisualShader" id="126"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Remap
@@ -1815,6 +1859,8 @@ script = ExtResource("16")
 
 [sub_resource type="VisualShader" id="VisualShader_gq6wd"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -1868,6 +1914,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="131"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -1928,6 +1976,8 @@ default_input_values = [0, 0.0, 1, 0.0, 2, 1.0]
 
 [sub_resource type="VisualShader" id="136"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // vec2Compose
@@ -2006,6 +2056,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="143"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // BlurBasic
@@ -2101,6 +2153,8 @@ script = ExtResource("28")
 
 [sub_resource type="VisualShader" id="149"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // BlurCustom
@@ -2201,6 +2255,8 @@ script = ExtResource("16")
 
 [sub_resource type="VisualShader" id="157"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ZoomBlur
@@ -2317,6 +2373,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="165"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // GlowEmpty
@@ -2443,6 +2501,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="171"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // InnerGlow
@@ -2565,6 +2625,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="180"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // InnerGlowEmpty
@@ -2681,6 +2743,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="187"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // OuterGlow
@@ -2798,6 +2862,8 @@ constant = Color(1, 0, 0, 1)
 
 [sub_resource type="VisualShader" id="194"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // OuterGlowEmpty
@@ -2909,6 +2975,8 @@ script = ExtResource("35")
 
 [sub_resource type="VisualShader" id="199"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // CheckerboardShape
@@ -2989,6 +3057,8 @@ constant = Vector3(1, 1, 0)
 
 [sub_resource type="VisualShader" id="217"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // CircleShape
@@ -3100,6 +3170,8 @@ constant = Vector3(0.5, 0.5, 0)
 
 [sub_resource type="VisualShader" id="208"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // CircleShape2
@@ -3208,6 +3280,8 @@ constant = 0.05
 
 [sub_resource type="VisualShader" id="232"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // RegularPolygonShape
@@ -3320,6 +3394,8 @@ input_name = "time"
 
 [sub_resource type="VisualShader" id="242"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // SpiralShape
@@ -3435,6 +3511,8 @@ script = ExtResource("41")
 
 [sub_resource type="VisualShader" id="251"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ScanLinesSharpShape
@@ -3473,7 +3551,7 @@ void fragment() {
 	float n_in53p6 = 1.00000;
 	{
 		n_out53p0 = vec3(n_out52p0.xyz);
-		n_out53p1 = _scanLinesSharpFunc(vec3(n_out47p0, 0.0).xy, n_out48p0, n_out49p0, n_out50p0, n_out51p0) * n_in53p6;
+		n_out53p1 = _scanLinesSharpFunc(vec3(n_out47p0, 0.0).xy, n_out48p0, n_out49p0, n_out50p0, n_out51p0) * float(n_in53p6);
 	}
 
 
@@ -3523,6 +3601,8 @@ constant = 15.0
 
 [sub_resource type="VisualShader" id="257"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // RandomStripesShape
@@ -3553,7 +3633,7 @@ void fragment() {
 	float n_in54p4 = 1.00000;
 	{
 		n_out54p0 = vec3(n_out53p0.xyz);
-		n_out54p1 = _generateRandomStripesFunc(vec3(n_out47p0, 0.0).xy, n_out55p0, n_out56p0) * n_in54p4;
+		n_out54p1 = _generateRandomStripesFunc(vec3(n_out47p0, 0.0).xy, n_out55p0, n_out56p0) * float(n_in54p4);
 	}
 
 
@@ -3596,6 +3676,8 @@ constant = 10.0
 
 [sub_resource type="VisualShader" id="262"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // GenericNoise2D
@@ -3675,6 +3757,8 @@ constant = 10.0
 
 [sub_resource type="VisualShader" id="268"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // PerlinNoise2D
@@ -3787,6 +3871,8 @@ input_name = "time"
 
 [sub_resource type="VisualShader" id="274"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // PerlinNoise3D
@@ -3925,6 +4011,8 @@ constant = Vector3(1, 10, 0)
 
 [sub_resource type="VisualShader" id="280"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // PerlinPeriodicNoise3D
@@ -4069,6 +4157,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="286"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // PerlinNoise4D
@@ -4278,6 +4368,8 @@ script = ExtResource("48")
 
 [sub_resource type="VisualShader" id="292"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // SimplexNoise2D
@@ -4377,6 +4469,8 @@ input_name = "time"
 
 [sub_resource type="VisualShader" id="298"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // SimplexNoise3D
@@ -4507,6 +4601,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="304"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // SimplexNoise4D
@@ -4654,6 +4750,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="310"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // WorleyNoise2D
@@ -4764,6 +4862,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="316"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // WorleyNoise2x2
@@ -4854,6 +4954,8 @@ input_name = "time"
 
 [sub_resource type="VisualShader" id="323"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // WorleyNoise2x2x2
@@ -4962,6 +5064,8 @@ constant = 10.0
 
 [sub_resource type="VisualShader" id="329"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // WorleyNoise3D
@@ -5188,6 +5292,8 @@ script = ExtResource("23")
 
 [sub_resource type="VisualShader" id="336"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // BCSAdjustment
@@ -5260,6 +5366,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="340"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // BlackAndWhite
@@ -5320,6 +5428,8 @@ script = ExtResource("58")
 
 [sub_resource type="VisualShader" id="345"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_10;
 
 
@@ -5389,6 +5499,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="349"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Bloom
@@ -5462,6 +5574,8 @@ constant = -1.0
 
 [sub_resource type="VisualShader" id="357"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ChromaticAberration
@@ -5570,6 +5684,8 @@ node to see the difference."
 
 [sub_resource type="VisualShader" id="366"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ScaleUV
@@ -5670,6 +5786,8 @@ parameter_name = "Texture2DParameter"
 
 [sub_resource type="VisualShader" id="371"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D Texture2DParameter;
 
 
@@ -5745,6 +5863,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="378"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Emboss
@@ -5857,6 +5977,8 @@ constant = 0.2
 
 [sub_resource type="VisualShader" id="392"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // vec2Compose
@@ -6092,6 +6214,8 @@ constant = Color(0.0990133, 1, 0, 1)
 
 [sub_resource type="VisualShader" id="399"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Gradient4Corners
@@ -6189,6 +6313,8 @@ constant = 0.3
 
 [sub_resource type="VisualShader" id="407"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D gradient;
 
 
@@ -6284,6 +6410,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="414"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // GrayscalePlus
@@ -6337,6 +6465,8 @@ script = ExtResource("68")
 
 [sub_resource type="VisualShader" id="417"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Hue
@@ -6388,6 +6518,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="421"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // InverseColor
@@ -6448,6 +6580,8 @@ texture = ExtResource("57")
 
 [sub_resource type="VisualShader" id="425"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform sampler2D tex_frg_9;
 
 
@@ -6509,6 +6643,8 @@ constant = 3.0
 
 [sub_resource type="VisualShader" id="429"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Posterize
@@ -6572,6 +6708,8 @@ constant = 1.2
 
 [sub_resource type="VisualShader" id="435"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ShiftHSV
@@ -6599,7 +6737,7 @@ vec3 _rgb2hvsHSVChangeFunc(vec3 _rgb_color_HSVChange){
 
 vec3 _hsvChangeHSVChangeFunc(vec3 _color_HSVChange, float _h_HSVChange, float _s_HSVChange, float _v_HSVChange){
 	_color_HSVChange = _rgb2hvsHSVChangeFunc(_color_HSVChange);
-	_color_HSVChange.r *= _h_HSVChange;
+	_color_HSVChange.r += _h_HSVChange;
 	_color_HSVChange.g *= _s_HSVChange;
 	_color_HSVChange.b *= _v_HSVChange;
 	return _hsv2rgbHSVChangeFunc(_color_HSVChange);
@@ -6688,6 +6826,8 @@ constant = 1.0
 
 [sub_resource type="VisualShader" id="446"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // ShineFX
@@ -6796,6 +6936,8 @@ constant = Color(0.46875, 0.0585938, 0.337372, 1)
 
 [sub_resource type="VisualShader" id="450"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 
@@ -6855,6 +6997,8 @@ constant = 2.0
 
 [sub_resource type="VisualShader" id="455"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // Tonemap
@@ -6920,6 +7064,8 @@ constant = 1.5
 
 [sub_resource type="VisualShader" id="459"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // TurnCGA4Palette
@@ -6990,6 +7136,8 @@ script = ExtResource("77")
 
 [sub_resource type="VisualShader" id="463"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // TurnGameBoyPalette
@@ -7082,6 +7230,8 @@ constant = Vector3(0.5, 0.5, 0)
 [sub_resource type="VisualShader" id="474"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalGenericNoise2D
@@ -7217,6 +7367,8 @@ constant = 0.6
 [sub_resource type="VisualShader" id="484"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalPerlinNoise2D
@@ -7383,6 +7535,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="497"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalWorleyNoise2D
@@ -7559,6 +7713,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="508"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalSimplexNoise2D
@@ -7724,6 +7880,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="522"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalWorleyNoise3D
@@ -8014,6 +8172,8 @@ constant = 0.5
 
 [sub_resource type="VisualShader" id="534"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalPerlinNoise3D
@@ -8213,6 +8373,8 @@ constant = 0.8
 
 [sub_resource type="VisualShader" id="546"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalSimplexNoise3D
@@ -8407,6 +8569,8 @@ constant = Vector3(2, 2, 0)
 
 [sub_resource type="VisualShader" id="559"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalPerlinNoise4D
@@ -8680,6 +8844,8 @@ constant = Vector3(0.5, 0.5, 0)
 
 [sub_resource type="VisualShader" id="572"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // FractalSimplexNoise4D
@@ -8879,6 +9045,8 @@ constant = 10.0
 
 [sub_resource type="VisualShader" id="582"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // NormalFromHeightmap
@@ -8996,6 +9164,8 @@ input_name = "uv"
 
 [sub_resource type="VisualShader" id="589"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // CartesianToSpherical
@@ -9068,6 +9238,8 @@ constant = Vector3(8, 8, 0)
 
 [sub_resource type="VisualShader" id="598"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // GridShape
@@ -9171,6 +9343,8 @@ constant = 0.005
 
 [sub_resource type="VisualShader" id="607"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 
 
 // SobelEdge
