@@ -154,6 +154,8 @@ func setBonePosScalerom2Lerp(boneName: String, zeroPos: Vector3, zeroScale: Vect
 		
 	var newTransform:Transform3D = Transform3D.IDENTITY#theskeleton.get_bone_global_pose_no_override(boneId)
 	var newScale = zeroScale * max(0.0, 1.0 - value) + oneScale * value
+	if(zeroScale == oneScale):
+		newScale = zeroScale
 	var newPose = zeroPos * max(0.0, 1.0 - value) + onePos * value
 	newTransform = newTransform.scaled(newScale)
 	newTransform = newTransform.translated(newPose)

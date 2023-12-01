@@ -65,6 +65,14 @@ func applySkinOption(_optionID: String, _value):
 			genitalsMat.set_shader_parameter("valueMult", _value)
 		
 func applyOption(_optionID: String, _value):
+	if(_optionID == "shoulderswidth"):
+		#(0.034039, 0.149208, -0.024705)
+		#(0.016787, 0.118755, -0.024731)
+		var diff = Vector3(0.034039, 0.149208, -0.024705) - Vector3(0.016787, 0.118755, -0.024731)
+		setBonePosScalerom2Lerp("DEF-upper_arm.L", Vector3(0.0, 0.0, 0.0), Vector3(1.0, 1.0, 1.0), diff, Vector3(1.0, 1.0, 1.0), _value)
+		var diff2 = diff
+		diff2.x *= -1.0
+		setBonePosScalerom2Lerp("DEF-upper_arm.R", Vector3(0.0, 0.0, 0.0), Vector3(1.0, 1.0, 1.0), diff2, Vector3(1.0, 1.0, 1.0), _value)
 	if(_optionID == "thickbutt"):
 		#bodyMat.albedo_color = RNG.pick([Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.PURPLE])
 		setBlendshape(body, "ThickButt", _value)

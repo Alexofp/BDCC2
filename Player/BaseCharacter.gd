@@ -3,6 +3,7 @@ class_name BaseCharacter
 
 var id:String = "error"
 var rootBodypart:BaseBodyBodypart
+signal onRootChanged(newroot)
 signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
 signal onBaseSkinDataChanged(newdata)
@@ -42,6 +43,25 @@ func getRootBodypart() -> BaseBodyBodypart:
 func setRoot(newroot: BaseBodyBodypart):
 	rootBodypart = newroot
 	rootBodypart.rootRef = weakref(self)
+
+func replaceRoot(newroot: BaseBodyBodypart):
+	var currentRoot = rootBodypart
+	
+	var toAddLater = {}
+	
+	for bodypartSlot in currentRoot.getBodyparts().keys():
+		toAddLater[bodypartSlot] = currentRoot.getBodyparts()[bodypartSlot]
+		currentRoot.removeBodypart(bodypartSlot)
+	
+	rootBodypart.rootRef = null
+	rootBodypart = null
+	setRoot(newroot)
+	emit_signal("onRootChanged", newroot)
+	
+	for partSlot in toAddLater:
+		newroot.setBodypart(partSlot, toAddLater[partSlot])
+	
+	
 
 func tellBodypartAdded(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	emit_signal("onBodypartAdded", whatpart, slot, newpart)

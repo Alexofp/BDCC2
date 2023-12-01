@@ -74,6 +74,13 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"shoulderswidth": {
+			"name": "Shoulders width",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
 		"thickbutt": {
 			"name": "Butt thickness",
 			"type": "slider",
@@ -115,3 +122,6 @@ func getOptions() -> Dictionary:
 			],
 		},
 	}
+
+#func getMeshPath() -> String:
+#	return "res://Mesh/Parts/Body/MasculineBody/masculine_body.tscn"

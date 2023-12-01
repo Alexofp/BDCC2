@@ -1,10 +1,11 @@
 extends Control
 
 @onready var partsPanel = $HBoxContainer/VBoxContainer/PartsPanel
-@onready var bodypartsList = $HBoxContainer/VBoxContainer/PartsPanel/BodypartsList
+@onready var bodypartsList = $HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList/BodypartsList
 @onready var skinPanel = $HBoxContainer/VBoxContainer/SkinPanel
 @onready var skinpartsList = $HBoxContainer/VBoxContainer/SkinPanel/SkinOptionsList/BodypartsList
 @onready var baseSkinDataPanel = $HBoxContainer/VBoxContainer/SkinPanel/SkinOptionsList/BaseSkinData
+@onready var bodyTypeSelector = $HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList/BodyTypeSelector
 
 var bodypartPanelScene = preload("res://Game/CharacterCreator/Elements/bodypart_panel.tscn")
 
@@ -15,6 +16,12 @@ func hideAllPanels():
 	skinPanel.visible = false
 
 func _ready():
+	bodyTypeSelector.setValues([
+		["fem", "Feminine body"],
+		["masc", "Masculine body"],
+	])
+	bodyTypeSelector.setValue("fem")
+	
 	_on_parts_menu_button_pressed()
 
 func setCharacter(newChar: BaseCharacter):
@@ -84,3 +91,13 @@ func _on_base_skin_data_on_value_change(_id, newValue):
 	if(character == null):
 		return
 	character.setBaseSkinData(newValue)
+
+
+func _on_body_type_selector_on_value_change(_id, _newValue):
+	if(_newValue == "fem"):
+		var newRoot = GlobalRegistry.createBodypart("FeminineBody")
+		character.replaceRoot(newRoot)
+	if(_newValue == "masc"):
+		var newRoot = GlobalRegistry.createBodypart("MasculineBody")
+		character.replaceRoot(newRoot)
+	updateCharacter()
