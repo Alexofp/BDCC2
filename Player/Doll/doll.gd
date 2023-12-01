@@ -15,6 +15,7 @@ func setCharacter(newChar:BaseCharacter):
 	character = newChar
 	updateFromCharacter()
 	# Add support for bodyparts being removed
+	newChar.connect("onRootChanged", onRootChanged)
 	newChar.connect("onBodypartAdded", onBodypartChanged)
 	newChar.connect("onBodypartRemoved", onBodypartRemoved)
 	newChar.connect("onBaseSkinDataChanged", onBaseCharacterBaseSkinDataChanged)
@@ -40,6 +41,10 @@ func updateSkeleton():
 
 
 func updateFromCharacter():
+	for dollpart in bodypartToDollPart.values():
+		dollpart.queue_free()
+	bodypartToDollPart.clear()
+	
 	updateSkeleton()
 
 	var root = character.getRootBodypart()
@@ -70,6 +75,9 @@ func updateFromCharacter():
 		updateBodypartRecursive(root, bodypartSlot, childPart)
 		
 	updateEquippedItemsFromCharacter()
+
+func onRootChanged(_newroot: BaseBodyBodypart):
+	updateFromCharacter()
 
 func onBodypartChanged(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	updateBodypartRecursive(whatpart, slot, newpart)

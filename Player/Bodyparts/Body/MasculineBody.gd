@@ -3,10 +3,10 @@ extends BaseBodyBodypart
 func _init():
 	super._init()
 	
-	id = "FeminineBody"
+	id = "MasculineBody"
 
 func getVisibleName():
-	return "Feminine body"
+	return "Masculine body"
 
 func getSkinOptions() -> Dictionary:
 	return {
@@ -79,7 +79,7 @@ func getOptions() -> Dictionary:
 			"type": "slider",
 			"minvalue": 0.0,
 			"maxvalue": 1.0,
-			"default": 0.0,
+			"default": 1.0,
 		},
 		"thickbutt": {
 			"name": "Butt thickness",
@@ -123,5 +123,5 @@ func getOptions() -> Dictionary:
 		},
 	}
 
-#func getMeshPath() -> String:
-#	return "res://Mesh/Parts/Body/MasculineBody/masculine_body.tscn"
+func getMeshPath() -> String:
+	return "res://Mesh/Parts/Body/MasculineBody/masculine_body.tscn"

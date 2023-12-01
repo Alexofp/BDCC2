@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddpn3gykscjr8"]
+[gd_scene load_steps=5 format=3 uid="uid://ddpn3gykscjr8"]
 
 [ext_resource type="Script" path="res://Game/CharacterCreator/character_creator.gd" id="1_8fgsh"]
+[ext_resource type="PackedScene" uid="uid://bhdkibl0ipw88" path="res://Game/CharacterCreator/OptionTypes/type_selector.tscn" id="2_5muo4"]
 [ext_resource type="PackedScene" uid="uid://d1316rk38fagu" path="res://Game/CharacterCreator/Elements/bodypart_panel.tscn" id="2_x4j1w"]
 [ext_resource type="PackedScene" uid="uid://dcxsbslfud0n2" path="res://Game/CharacterCreator/OptionTypes/base_skin_data.tscn" id="3_m2stj"]
 
@@ -46,11 +47,19 @@ text = "Skin"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BodypartsList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PartsPanel"]
+[node name="BodyOptionsList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PartsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BodyTypeSelector" parent="HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList" instance=ExtResource("2_5muo4")]
+layout_mode = 2
+
+[node name="BodypartsList" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BodypartPanel" parent="HBoxContainer/VBoxContainer/PartsPanel/BodypartsList" instance=ExtResource("2_x4j1w")]
+[node name="BodypartPanel" parent="HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList/BodypartsList" instance=ExtResource("2_x4j1w")]
 layout_mode = 2
 
 [node name="SkinPanel" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
@@ -73,4 +82,5 @@ layout_mode = 2
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/PartsMenuButton" to="." method="_on_parts_menu_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/SkinMenuButton" to="." method="_on_skin_menu_button_pressed"]
+[connection signal="onValueChange" from="HBoxContainer/VBoxContainer/PartsPanel/BodyOptionsList/BodyTypeSelector" to="." method="_on_body_type_selector_on_value_change"]
 [connection signal="onValueChange" from="HBoxContainer/VBoxContainer/SkinPanel/SkinOptionsList/BaseSkinData" to="." method="_on_base_skin_data_on_value_change"]

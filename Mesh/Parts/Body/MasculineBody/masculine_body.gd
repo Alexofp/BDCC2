@@ -1,7 +1,7 @@
 extends DollPart
 
 @onready var body = $rig/Skeleton3D/Body
-@onready var animTree = $SkeletonAnimTree
+#@onready var animTree = $SkeletonAnimTree
 @onready var animPlayer = $MyAnimationPlayer
 
 @export var bodyMat:StandardMaterial3D
@@ -65,6 +65,9 @@ func applySkinOption(_optionID: String, _value):
 			genitalsMat.set_shader_parameter("valueMult", _value)
 		
 func applyOption(_optionID: String, _value):
+	#var theskeleton:Skeleton3D = getSkeleton()
+	#var boneId = theskeleton.find_bone("DEF-upper_arm.L")
+	#print(theskeleton.get_bone_pose_position(boneId))
 	if(_optionID == "shoulderswidth"):
 		#(0.034039, 0.149208, -0.024705)
 		#(0.016787, 0.118755, -0.024731)
@@ -81,7 +84,7 @@ func applyOption(_optionID: String, _value):
 		setBlendshape($rig/Skeleton3D/CrotchFemale, "ThickButt", _value)
 		setBlendshape($rig/Skeleton3D/CrotchMale, "ThickButt", _value)
 	if(_optionID == "breastsize"):
-		animTree["parameters/BreastsSize/add_amount"] = _value
+		#animTree["parameters/BreastsSize/add_amount"] = _value
 		#setBoneScale("DEF-breast.L", max(0.1, _value))
 		#setBoneScale("DEF-breast.R", max(0.1, _value))
 		#setBoneScale("DEF-foot.R", max(0.1, _value))
@@ -101,12 +104,12 @@ func applyOption(_optionID: String, _value):
 			Vector3(-0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
 			_value)
 	if(_optionID == "headsize"):
-		animTree["parameters/HeadSize/add_amount"] = _value * 0.1
+		#animTree["parameters/HeadSize/add_amount"] = _value * 0.1
 		setBoneScale("DEF-head", max(0.1, _value*0.1+1.0))
 	if(_optionID == "tailsize"):
 		setBoneScale("DEF-tail_base", max(0.1, _value+1.0))
 	if(_optionID == "height"):
-		animTree["parameters/HeightTall/add_amount"] = _value
+		#animTree["parameters/HeightTall/add_amount"] = _value
 		setBoneOffset("DEF-spine.001", Vector3(0.0, 0.06*_value, 0.0)) #0.12
 		setBoneOffset("DEF-spine.002", Vector3(0.0, 0.06*_value, 0.0)) #0.03
 		setBoneOffset("DEF-spine.003", Vector3(0.0, 0.00*_value, 0.0))
@@ -167,6 +170,8 @@ func updateAlphas(_alphaTextures:Array):
 		alphaTexture.addSimpleAlphaLayer(theAlphaTexture)
 
 func updateCrotchVisibility():
+	if(true):
+		return
 	if(rememberedHiddenParts.has(ClothingHidePart.Crotch) && rememberedHiddenParts[ClothingHidePart.Crotch]):
 		$rig/Skeleton3D/CrotchFemale.visible = false
 		$rig/Skeleton3D/CrotchMale.visible = false
@@ -179,9 +184,9 @@ func updateHiddenParts(_hiddenParts:Dictionary):
 	rememberedHiddenParts = _hiddenParts
 	
 	if(_hiddenParts.has(ClothingHidePart.Nipples) && _hiddenParts[ClothingHidePart.Nipples]):
-		$rig/Skeleton3D/Nipples.visible = false
+		$rig/Skeleton3D/MaleNipples.visible = false
 	else:
-		$rig/Skeleton3D/Nipples.visible = true
+		$rig/Skeleton3D/MaleNipples.visible = true
 	
 	if(_hiddenParts.has(ClothingHidePart.Body) && _hiddenParts[ClothingHidePart.Body]):
 		$rig/Skeleton3D/Body.visible = false
