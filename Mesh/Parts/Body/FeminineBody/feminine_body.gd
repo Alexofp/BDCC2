@@ -126,6 +126,8 @@ func applyOption(_optionID: String, _value):
 		if(_value == "planti"):
 			$rig/Skeleton3D/Digilegs.visible = false
 			$rig/Skeleton3D/PlantiLegs.visible = true
+	if(_optionID == "pussy"):
+		updateCrotchVisibility()
 
 func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
@@ -171,8 +173,13 @@ func updateCrotchVisibility():
 		$rig/Skeleton3D/CrotchFemale.visible = false
 		$rig/Skeleton3D/CrotchMale.visible = false
 	else:
-		$rig/Skeleton3D/CrotchFemale.visible = true
-		$rig/Skeleton3D/CrotchMale.visible = false
+		var pussyType = getOptionValue("pussy", "nopussy")
+		if(pussyType == "pussy"):
+			$rig/Skeleton3D/CrotchMale.visible = false
+			$rig/Skeleton3D/CrotchFemale.visible = true
+		if(pussyType == "nopussy"):
+			$rig/Skeleton3D/CrotchMale.visible = true
+			$rig/Skeleton3D/CrotchFemale.visible = false
 
 var rememberedHiddenParts:Dictionary = {}
 func updateHiddenParts(_hiddenParts:Dictionary):

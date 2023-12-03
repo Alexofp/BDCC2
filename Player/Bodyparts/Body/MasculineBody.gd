@@ -121,6 +121,15 @@ func getOptions() -> Dictionary:
 				["planti", "Planti-grade"],
 			],
 		},
+		"pussy": {
+			"name": "Vagina",
+			"type": "list",
+			"default": "nopussy",
+			"values": [
+				["pussy", "Normal vagina"],
+				["nopussy", "No vagina"],
+			],
+		},
 	}
 
 func getMeshPath() -> String:
