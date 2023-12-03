@@ -2,7 +2,7 @@ extends DollPart
 
 @onready var body = $rig/Skeleton3D/Body
 #@onready var animTree = $SkeletonAnimTree
-@onready var animPlayer = $MyAnimationPlayer
+#@onready var animPlayer = $MyAnimationPlayer
 
 @export var bodyMat:StandardMaterial3D
 @export var layeredBodyMat:ShaderMaterial
@@ -129,6 +129,8 @@ func applyOption(_optionID: String, _value):
 		if(_value == "planti"):
 			$rig/Skeleton3D/Digilegs.visible = false
 			$rig/Skeleton3D/PlantiLegs.visible = true
+	if(_optionID == "pussy"):
+		updateCrotchVisibility()
 
 func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
@@ -146,13 +148,13 @@ func applyBaseSkinData(_data : BaseSkinData):
 		layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)
 		
 		if(_data.skinType == "fur"):
-			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png"))
-			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Fur/BodyColor.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Fur/BodyNormal.png"))
 			layeredBodyMat.set_shader_parameter("texture_roughness", null)
 		elif(_data.skinType == "skin"):
-			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyColor.png"))
-			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyNormal.png"))
-			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BodyRough.png"))
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyColor.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyRough.png"))
 		else:
 			layeredBodyMat.set_shader_parameter("texture_albedo", null)
 			layeredBodyMat.set_shader_parameter("texture_normal", null)
@@ -170,14 +172,17 @@ func updateAlphas(_alphaTextures:Array):
 		alphaTexture.addSimpleAlphaLayer(theAlphaTexture)
 
 func updateCrotchVisibility():
-	if(true):
-		return
 	if(rememberedHiddenParts.has(ClothingHidePart.Crotch) && rememberedHiddenParts[ClothingHidePart.Crotch]):
 		$rig/Skeleton3D/CrotchFemale.visible = false
 		$rig/Skeleton3D/CrotchMale.visible = false
 	else:
-		$rig/Skeleton3D/CrotchFemale.visible = true
-		$rig/Skeleton3D/CrotchMale.visible = false
+		var pussyType = getOptionValue("pussy", "nopussy")
+		if(pussyType == "pussy"):
+			$rig/Skeleton3D/CrotchMale.visible = false
+			$rig/Skeleton3D/CrotchFemale.visible = true
+		if(pussyType == "nopussy"):
+			$rig/Skeleton3D/CrotchMale.visible = true
+			$rig/Skeleton3D/CrotchFemale.visible = false
 
 var rememberedHiddenParts:Dictionary = {}
 func updateHiddenParts(_hiddenParts:Dictionary):
