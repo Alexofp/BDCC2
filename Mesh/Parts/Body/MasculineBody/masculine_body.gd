@@ -149,11 +149,13 @@ func applyBaseSkinData(_data : BaseSkinData):
 		
 		if(_data.skinType == "fur"):
 			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Fur/BodyColor.png"))
-			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Fur/BodyNormal.png"))
+			#layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Fur/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/NormalMaps/MaleMuscleNormalMap.png"))
 			layeredBodyMat.set_shader_parameter("texture_roughness", null)
 		elif(_data.skinType == "skin"):
 			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyColor.png"))
-			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyNormal.png"))
+			#layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyNormal.png"))
+			layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/MasculineBody/Textures/NormalMaps/MaleMuscleNormalMap.png"))
 			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/MasculineBody/Textures/Skin/BodyRough.png"))
 		else:
 			layeredBodyMat.set_shader_parameter("texture_albedo", null)
