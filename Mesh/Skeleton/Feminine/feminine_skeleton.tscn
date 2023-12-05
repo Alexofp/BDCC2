@@ -89,7 +89,7 @@ bones/77/scale = Vector3(1, 1, 1)
 bones/78/rotation = Quaternion(-1.30871e-07, 0.973572, -0.228383, 5.87644e-06)
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="0"]
-transform = Transform3D(1, 2.84217e-14, 2.38418e-07, 3.02707e-10, 0.999999, -0.00126989, -2.38418e-07, 0.00126997, 0.999999, 6.56414e-15, 1.54721, -0.0142458)
+transform = Transform3D(1, 1.84741e-13, 2.38417e-07, 3.02367e-10, 0.999999, -0.001269, -2.38417e-07, 0.00126903, 0.999999, 5.3648e-14, 1.54721, -0.0142458)
 bone_name = "DEF-head"
 bone_idx = 11
 
