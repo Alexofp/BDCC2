@@ -54,6 +54,7 @@ environment = SubResource("Environment_4ultq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.676528, -0.541268, -0.499338, 0.127659, -0.753998, 0.644353, -0.725267, 0.372178, 0.579199, 0, 0, 0)
+shadow_enabled = true
 
 [node name="BaseCharacter" type="Node" parent="."]
 script = ExtResource("1_ddbjx")

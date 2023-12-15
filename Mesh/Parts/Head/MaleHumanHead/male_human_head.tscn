@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4uruwibw2t1p"]
+
+[ext_resource type="PackedScene" uid="uid://d2jqdtwg2yfcl" path="res://Mesh/Parts/Head/MaleHumanHead/MaleHumanHead.glb" id="1_1cv65"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/MaleHumanHead/male_human_head.gd" id="2_13fkn"]
+[ext_resource type="Material" uid="uid://c0goxmhd7237w" path="res://Mesh/Parts/Head/CatHead/browsMat.tres" id="2_siogf"]
+[ext_resource type="Material" uid="uid://cq4pnv1wvj670" path="res://Mesh/Parts/Head/CatHead/eyeRightMat.tres" id="4_hyiin"]
+[ext_resource type="Material" uid="uid://bk032svtfbwsq" path="res://Mesh/Parts/Head/CatHead/eyeMat.tres" id="4_w5hy7"]
+[ext_resource type="Material" uid="uid://7b5klg38jkw3" path="res://Mesh/Parts/Head/MaleHumanHead/maleHeadMat.tres" id="6_fv145"]
+[ext_resource type="Material" uid="uid://dtjvg7s74yxrl" path="res://Mesh/Parts/Head/CatHead/eyelashesMat.tres" id="7_br0ut"]
+
+[node name="MaleHumanHead" instance=ExtResource("1_1cv65")]
+script = ExtResource("2_13fkn")
+eyeMat = ExtResource("4_w5hy7")
+eyeRightMat = ExtResource("4_hyiin")
+headMat = ExtResource("6_fv145")
+browsMat = ExtResource("2_siogf")
+eyelashesMat = ExtResource("7_br0ut")
+attachmentPoints = {
+"Hair": NodePath("Hair"),
+"LeftEar": NodePath("LeftEar"),
+"RightEar": NodePath("RightEar")
+}
+
+[node name="EyeBrows_001" parent="RIG-MaleArmature/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_siogf")
+
+[node name="Eyelashes_001" parent="RIG-MaleArmature/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("7_br0ut")
+
+[node name="Eyes_001" parent="RIG-MaleArmature/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("4_w5hy7")
+surface_material_override/1 = ExtResource("4_w5hy7")
+
+[node name="MaleHead" parent="RIG-MaleArmature/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("6_fv145")
+
+[node name="RightEar" type="Marker3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491367, 0.134922, 0)
+
+[node name="LeftEar" type="Marker3D" parent="." index="2"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049, 0.135, 0)
+
+[node name="Hair" type="Marker3D" parent="." index="3"]
