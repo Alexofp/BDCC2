@@ -134,7 +134,8 @@ func playAnim(dollAnim:String, _howFast:float = 1.0):
 		$FeminineSkeleton.getAnimPlayer().play("FemWalkCycle")
 		#animPlayer.play("IdleAnimations/FemWalkCycle")
 	else:
-		$FeminineSkeleton.getAnimPlayer().play("SexyIdle")
+		#$FeminineSkeleton.getAnimPlayer().play("SexyIdle")
+		$FeminineSkeleton.getAnimPlayer().play("APose")
 		#animPlayer.play("IdleAnimations/SexyIdle")
 	pass
 
