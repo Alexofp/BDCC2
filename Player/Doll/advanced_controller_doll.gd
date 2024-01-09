@@ -87,9 +87,11 @@ func _process(delta):
 	var move_speed = ANIM_MOVE_SPEED * MOVE_MULT
 	if sprint_isdown:
 		move_speed = ANIM_RUN_SPEED * RUN_MULT
+		if(noclip_on):
+			move_speed *= NOCLIP_MULT
 	
 	if noclip_on:
-		velocity = move_direction * (move_speed * NOCLIP_MULT)
+		velocity = move_direction * move_speed
 	else:
 		velocity.x = move_direction_no_y.x * move_speed 
 		velocity.z = move_direction_no_y.z * move_speed
