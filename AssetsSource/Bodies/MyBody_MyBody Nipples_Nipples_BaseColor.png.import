@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rcvhmy2hg4dh"
-path="res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"
+uid="uid://c7y04n4x8qv0r"
+path="res://.godot/imported/MyBody_MyBody Nipples_Nipples_BaseColor.png-d9bc39d9978ea3a058e7d364a51024e8.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,8 +11,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_Roughness.png"
-dest_files=["res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"]
+source_file="res://AssetsSource/Bodies/MyBody_MyBody Nipples_Nipples_BaseColor.png"
+dest_files=["res://.godot/imported/MyBody_MyBody Nipples_Nipples_BaseColor.png-d9bc39d9978ea3a058e7d364a51024e8.ctex"]
 
 [params]
 

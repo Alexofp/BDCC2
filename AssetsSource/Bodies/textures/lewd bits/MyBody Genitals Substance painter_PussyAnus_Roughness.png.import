@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rcvhmy2hg4dh"
-path="res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"
+uid="uid://dinsfr2t0i6uk"
+path="res://.godot/imported/MyBody Genitals Substance painter_PussyAnus_Roughness.png-dd70099781f52dbf21d21d48959e327d.ctex"
 metadata={
 "vram_texture": false
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_Roughness.png"
-dest_files=["res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"]
+source_file="res://AssetsSource/Bodies/textures/lewd bits/MyBody Genitals Substance painter_PussyAnus_Roughness.png"
+dest_files=["res://.godot/imported/MyBody Genitals Substance painter_PussyAnus_Roughness.png-dd70099781f52dbf21d21d48959e327d.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

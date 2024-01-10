@@ -2,23 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i1yjjnt64w60"
-path.s3tc="res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.s3tc.ctex"
-path.etc2="res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.etc2.ctex"
+uid="uid://c238fpa18c4xc"
+path="res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={}
 
 [deps]
 
 source_file="res://AssetsSource/Bodies/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png"
-dest_files=["res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.s3tc.ctex", "res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.etc2.ctex"]
+dest_files=["res://.godot/imported/MyBody_MyBody Genitals Substance painter_PussyAnus_BaseColor.png-a775ec94b0450ab1c02232f671bc0cbe.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
