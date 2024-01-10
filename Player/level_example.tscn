@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=20 format=3 uid="uid://bm1mm46ypljc1"]
 
 [ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
 [ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ddpn3gykscjr8" path="res://Game/CharacterCreator/character_creator.tscn" id="4_hueel"]
 [ext_resource type="PackedScene" uid="uid://cef84i2h820u5" path="res://Game/UI/touch_controls_ui.tscn" id="6_b5per"]
 [ext_resource type="PackedScene" uid="uid://k13p4m7vu0j8" path="res://AssetsSource/Bodies/MyBody.glb" id="7_rkxi7"]
+[ext_resource type="Texture2D" uid="uid://c4twy58d4jnyf" path="res://AssetsSource/Bodies/MyBodyMusclesNormalMap.png" id="10_qkotf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x6gb"]
 sky_top_color = Color(0.266667, 0.313726, 0.54902, 1)
@@ -25,15 +26,9 @@ background_mode = 2
 sky = SubResource("Sky_2xklu")
 tonemap_mode = 2
 tonemap_exposure = 0.2
-ssao_intensity = 4.69
-sdfgi_cascades = 1
-sdfgi_min_cell_size = 0.01
-sdfgi_cascade0_distance = 0.64
-sdfgi_max_distance = 1.28
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
+ssao_intensity = 1.0
+adjustment_contrast = 1.38
+adjustment_saturation = 0.85
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbuoh"]
 size = Vector3(10, 0.2, 10)
@@ -46,6 +41,36 @@ size = Vector3(10, 0.2, 10)
 [sub_resource type="SphereMesh" id="SphereMesh_q3b6y"]
 radial_segments = 16
 rings = 8
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iv76g"]
+load_path = "res://.godot/imported/MyBody_MyBody Substance Painter_Body_BaseColor.png-223c04a270542dbec8e3cf398b4e7fdd.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a06ea"]
+load_path = "res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa467"]
+resource_name = "Body"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_iv76g")
+metallic_texture = SubResource("CompressedTexture2D_a06ea")
+metallic_texture_channel = 2
+roughness_texture = SubResource("CompressedTexture2D_a06ea")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("10_qkotf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ff2g"]
+resource_name = "Body"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_iv76g")
+metallic_texture = SubResource("CompressedTexture2D_a06ea")
+metallic_texture_channel = 2
+roughness_texture = SubResource("CompressedTexture2D_a06ea")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("10_qkotf")
 
 [node name="LevelExample" type="Node3D"]
 script = ExtResource("1_djto6")
@@ -128,22 +153,26 @@ blend_shapes/Thickness = 1.0
 [node name="MyBody2" parent="." instance=ExtResource("7_rkxi7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.516646, 2.23517e-08, -4.1128)
 
+[node name="Body" parent="MyBody2" index="0"]
+blend_shapes/AnusOpened = 1.0
+blend_shapes/Muscles = 1.0
+blend_shapes/PussyOpened = 1.0
+blend_shapes/Thickness = 1.0
+surface_material_override/0 = SubResource("StandardMaterial3D_oa467")
+
 [node name="Nipples" parent="MyBody2" index="1"]
 blend_shapes/NippleBig = 1.0
+
+[node name="PlantiLegs" parent="MyBody2" index="2"]
+blend_shapes/Muscles = 1.0
+blend_shapes/Thickness = 1.0
+surface_material_override/0 = SubResource("StandardMaterial3D_5ff2g")
 
 [node name="MyBody3" parent="." instance=ExtResource("7_rkxi7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.310765, 2.23517e-08, -4.23398)
 
-[node name="Body" parent="MyBody3" index="0"]
-blend_shapes/Muscles = 0.2
-blend_shapes/Thickness = -0.7
-
 [node name="Nipples" parent="MyBody3" index="1"]
 blend_shapes/NippleSmall = 1.0
-
-[node name="PlantiLegs" parent="MyBody3" index="2"]
-blend_shapes/Muscles = 0.2
-blend_shapes/Thickness = -0.7
 
 [editable path="MyBody"]
 [editable path="MyBody2"]
