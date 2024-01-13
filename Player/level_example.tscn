@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=22 format=3 uid="uid://bm1mm46ypljc1"]
 
 [ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
 [ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://ddpn3gykscjr8" path="res://Game/CharacterCreator/character_creator.tscn" id="4_hueel"]
 [ext_resource type="PackedScene" uid="uid://cef84i2h820u5" path="res://Game/UI/touch_controls_ui.tscn" id="6_b5per"]
 [ext_resource type="PackedScene" uid="uid://k13p4m7vu0j8" path="res://AssetsSource/Bodies/MyBody.glb" id="7_rkxi7"]
-[ext_resource type="Texture2D" uid="uid://b8lrf68n4v77f" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_BaseColor.png" id="8_6fbyk"]
-[ext_resource type="Texture2D" uid="uid://b27euycngfp64" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_Roughness.png" id="9_swwqk"]
+[ext_resource type="Texture2D" uid="uid://dxsh2q7s2j6r2" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_BaseColor.png" id="8_6fbyk"]
+[ext_resource type="Texture2D" uid="uid://deovam5cl1bqp" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_Roughness.png" id="9_swwqk"]
 [ext_resource type="Texture2D" uid="uid://c4twy58d4jnyf" path="res://AssetsSource/Bodies/MyBodyMusclesNormalMap.png" id="10_qkotf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x6gb"]
@@ -44,7 +44,7 @@ size = Vector3(10, 0.2, 10)
 radial_segments = 16
 rings = 8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xrykg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46l40"]
 resource_name = "Body"
 cull_mode = 2
 vertex_color_use_as_albedo = true
@@ -56,14 +56,20 @@ roughness_texture_channel = 1
 normal_enabled = true
 normal_texture = ExtResource("10_qkotf")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7y7x1"]
+load_path = "res://.godot/imported/MyBody_MyBody Substance Painter_Body_BaseColor.png-223c04a270542dbec8e3cf398b4e7fdd.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bcohc"]
+load_path = "res://.godot/imported/MyBody_MyBody Substance Painter_Body_Roughness.png-ca8ee4baac83c4f1b16ab69a17dfc86c.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73ylb"]
 resource_name = "Body"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("8_6fbyk")
-metallic_texture = ExtResource("9_swwqk")
+albedo_texture = SubResource("CompressedTexture2D_7y7x1")
+metallic_texture = SubResource("CompressedTexture2D_bcohc")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("9_swwqk")
+roughness_texture = SubResource("CompressedTexture2D_bcohc")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_texture = ExtResource("10_qkotf")
@@ -135,7 +141,6 @@ light_color = Color(0.678431, 0.537255, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38345, 2.23517e-08, -4.05099)
 
 [node name="Body" parent="MyBody" index="0"]
-blend_shapes/Muscles = 1.0
 blend_shapes/Thickness = 1.0
 
 [node name="Nipples" parent="MyBody" index="1"]
@@ -143,7 +148,6 @@ blend_shapes/NippleBig = 1.0
 blend_shapes/NippleBump = 1.0
 
 [node name="PlantiLegs" parent="MyBody" index="2"]
-blend_shapes/Muscles = 1.0
 blend_shapes/Thickness = 1.0
 
 [node name="PubicHair" parent="MyBody" index="3"]
@@ -158,7 +162,7 @@ blend_shapes/Muscles = 1.0
 blend_shapes/PussyClosedPuffy = 1.0
 blend_shapes/PussyPuffy = 1.0
 blend_shapes/Thickness = 1.0
-surface_material_override/0 = SubResource("StandardMaterial3D_xrykg")
+surface_material_override/0 = SubResource("StandardMaterial3D_46l40")
 
 [node name="Nipples" parent="MyBody2" index="1"]
 blend_shapes/NippleBig = 1.0
