@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cisbrnxfael6a"]
+
+[ext_resource type="Script" path="res://Mesh/Skeleton/skeleton_drivers.gd" id="1_convl"]
+
+[node name="SkeletonDrivers" type="Node"]
+script = ExtResource("1_convl")
