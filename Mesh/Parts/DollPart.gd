@@ -201,6 +201,15 @@ func getSubSkeleton() -> Skeleton3D:
 func getFollowSkeleton() -> Skeleton3D:
 	return getSubSkeleton()
 
+func doFollowSkeleton(theskeleton:Skeleton3D, followSkeleton:Skeleton3D):
+	if(theskeleton != null && followSkeleton != null):
+		for _i in range(followSkeleton.get_bone_count()):
+			var boneID = _i
+			
+			theskeleton.set_bone_pose_position(boneID, followSkeleton.get_bone_pose_position(boneID) + (extraBoneOffset[boneID] if extraBoneOffset.has(boneID) else Vector3.ZERO))
+			theskeleton.set_bone_pose_rotation(boneID, followSkeleton.get_bone_pose_rotation(boneID) * (extraBoneRotation[boneID] if extraBoneRotation.has(boneID) else Quaternion.IDENTITY))
+			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
+
 func _process(_delta):
 	var theskeleton:Skeleton3D = getSkeleton()
 	var followSkeleton:Skeleton3D = getFollowSkeleton()

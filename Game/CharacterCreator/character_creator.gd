@@ -19,6 +19,7 @@ func _ready():
 	bodyTypeSelector.setValues([
 		["fem", "Feminine body"],
 		["masc", "Masculine body"],
+		["femnew", "Feminine body NEW"],
 	])
 	bodyTypeSelector.setValue("fem")
 	
@@ -99,5 +100,8 @@ func _on_body_type_selector_on_value_change(_id, _newValue):
 		character.replaceRoot(newRoot)
 	if(_newValue == "masc"):
 		var newRoot = GlobalRegistry.createBodypart("MasculineBody")
+		character.replaceRoot(newRoot)
+	if(_newValue == "femnew"):
+		var newRoot = GlobalRegistry.createBodypart("FeminineBodyNew")
 		character.replaceRoot(newRoot)
 	updateCharacter()

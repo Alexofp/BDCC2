@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://canao7bnvwft8"]
+
+[ext_resource type="Shader" uid="uid://t40qt6anke36" path="res://Mesh/Parts/Body/FeminineBody/layeredBodyShader.tres" id="1_vs3qs"]
+[ext_resource type="Texture2D" uid="uid://eywdfbdw826j" path="res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_BaseColor.png" id="2_063t1"]
+[ext_resource type="Texture2D" uid="uid://ccyvwxfasqjnl" path="res://Mesh/Textures/PartSkin/DecalTest.png" id="3_ie7hx"]
+[ext_resource type="Texture2D" uid="uid://uvc5s4hbkulp" path="res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Normal.png" id="4_jouir"]
+[ext_resource type="Texture2D" uid="uid://dsk40ny5iq3w1" path="res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Roughness.png" id="5_ubwk3"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_vs3qs")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/layerColors = PackedColorArray()
+shader_parameter/layerAmount = 0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/texture_albedo = ExtResource("2_063t1")
+shader_parameter/texture_roughness = ExtResource("5_ubwk3")
+shader_parameter/texture_normal = ExtResource("4_jouir")
+shader_parameter/texture_layers = ExtResource("3_ie7hx")
+shader_parameter/layers = Array[Texture2D]([])
