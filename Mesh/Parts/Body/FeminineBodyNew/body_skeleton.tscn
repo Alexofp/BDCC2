@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://brjdv3jgdc3bj"]
+
+[ext_resource type="PackedScene" uid="uid://cjmmlt1lyajyl" path="res://Mesh/Parts/Body/FeminineBodyNew/FeminineBodySkeleton.glb" id="1_xrjcn"]
+[ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBodyNew/body_skeleton.gd" id="2_11c5c"]
+
+[node name="BodySkeleton" instance=ExtResource("1_xrjcn")]
+script = ExtResource("2_11c5c")
+
+[node name="Skeleton3D" parent="rig" index="0"]
+bones/1/rotation = Quaternion(0.76936, 1.52306e-07, 1.8343e-07, 0.638816)
+bones/2/rotation = Quaternion(-0.0818825, -4.34841e-14, -3.90446e-08, 0.996642)
+bones/4/rotation = Quaternion(0.0502888, -7.153e-15, 1.19898e-08, 0.998735)
+bones/5/rotation = Quaternion(0.244949, 3.01759e-14, 5.84005e-08, 0.969536)
+bones/7/rotation = Quaternion(-0.487105, -0.424392, -0.50185, 0.575123)
+bones/8/rotation = Quaternion(-0.237231, 0.668063, -0.291601, 0.64217)
+bones/15/rotation = Quaternion(0.0505197, 0.383459, 0.345011, 0.855204)
+bones/16/rotation = Quaternion(0.108441, -0.0281403, -0.00282437, 0.993701)
+bones/18/rotation = Quaternion(0.0257431, 6.73857e-06, 0.00733581, 0.999642)
+bones/22/rotation = Quaternion(-0.0105838, -0.021059, -0.0173918, 0.999571)
+bones/33/rotation = Quaternion(-0.237231, -0.668063, 0.291601, 0.64217)
+bones/35/rotation = Quaternion(-0.0813073, -0.701615, 0.0552751, 0.705741)
+bones/40/rotation = Quaternion(0.0505197, -0.383459, -0.345011, 0.855204)
+bones/43/rotation = Quaternion(0.0257431, -6.73027e-06, -0.0073358, 0.999642)
+bones/47/rotation = Quaternion(-0.0105838, 0.021059, 0.0173918, 0.999571)
+bones/51/rotation = Quaternion(0.0117716, 0.0082733, 0.086554, 0.996143)
+bones/68/rotation = Quaternion(-0.588065, -0.00444406, 0.0581424, 0.806709)
+bones/69/rotation = Quaternion(-0.209175, -5.01489e-07, 1.04785e-07, 0.977878)
+bones/73/rotation = Quaternion(-0.588065, 0.00444406, -0.0581423, 0.806709)
+bones/74/rotation = Quaternion(-0.209175, 5.06953e-07, -1.03616e-07, 0.977878)
+
+[node name="AnimationPlayer" parent="." index="1"]
+playback_default_blend_time = 0.5

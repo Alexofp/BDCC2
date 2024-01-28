@@ -118,15 +118,12 @@ shadow_enabled = true
 script = ExtResource("1_ddbjx")
 
 [node name="Doll" parent="." instance=ExtResource("3_jcfi3")]
-visible = false
 
 [node name="Doll2" parent="." instance=ExtResource("3_jcfi3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0, -0.639)
-visible = false
 
 [node name="Doll3" parent="." instance=ExtResource("4_dhxec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.71202)
-visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.252, 1.062, 1.136)
@@ -438,35 +435,35 @@ bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
 blend_shapes/NippleSmall = 1.0
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="4"]
-transform = Transform3D(-0.9426, 0.33076, -0.0458502, -0.0624977, -0.0398666, 0.997249, 0.328022, 0.942872, 0.0582502, 0.0758684, 1.26217, 0.0825979)
+transform = Transform3D(-0.9426, 0.33076, -0.0458502, -0.0624976, -0.0398662, 0.997249, 0.328022, 0.942872, 0.0582498, 0.0758684, 1.26217, 0.0825979)
 bone_name = "DEF-breast.L"
 bone_idx = 57
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="5"]
-transform = Transform3D(-0.899293, -0.434936, -0.0458485, -0.0158158, -0.0724229, 0.997249, -0.43706, 0.897544, 0.0582506, -0.0774358, 1.25565, 0.0735225)
+transform = Transform3D(-0.899293, -0.434936, -0.0458485, -0.015816, -0.0724225, 0.997249, -0.43706, 0.897544, 0.0582501, -0.0774357, 1.25565, 0.0735226)
 bone_name = "DEF-breast.R"
 bone_idx = 58
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone3" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="6"]
-transform = Transform3D(0.996021, -0.0885896, 0.00967344, -0.00776882, 0.0218188, 0.999732, -0.0887769, -0.995829, 0.0210438, 0.0914498, 0.868783, -0.102132)
+transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.021044, 0.0914498, 0.868783, -0.102132)
 bone_name = "DEF-butt.L"
 bone_idx = 61
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone4" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="7"]
-transform = Transform3D(0.996021, -0.0885896, 0.00967344, -0.00776882, 0.0218188, 0.999732, -0.0887769, -0.995829, 0.0210438, -0.0938018, 0.870228, -0.08562)
+transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.021044, -0.0938018, 0.870228, -0.0856199)
 bone_name = "DEF-butt.R"
 bone_idx = 62
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone5" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="8"]
-transform = Transform3D(0.997896, 0.0599593, 0.0246749, 0.0276746, -0.0497241, -0.99838, -0.0586352, 0.996962, -0.0512788, 0.00663337, 1.02645, -0.0418568)
+transform = Transform3D(0.997896, 0.0599593, 0.0246749, 0.0276746, -0.0497242, -0.99838, -0.0586352, 0.996961, -0.051279, 0.00663338, 1.02645, -0.0418567)
 bone_name = "DEF-belly"
 bone_idx = 59
 script = ExtResource("8_ef37v")
@@ -525,7 +522,7 @@ bones/28/scale = Vector3(1, 1, 1)
 bones/29/rotation = Quaternion(0.121013, 0.0133493, 0.0154491, 0.992441)
 bones/30/rotation = Quaternion(0.678717, -0.66143, 0.231348, 0.219844)
 bones/30/scale = Vector3(1, 1, 1)
-bones/31/rotation = Quaternion(0.972164, 0, 0.2343, 0)
+bones/31/rotation = Quaternion(0.972164, 0, 0.234301, 0)
 bones/32/scale = Vector3(1, 1, 1)
 bones/33/rotation = Quaternion(-0.23723, -0.668062, 0.291602, 0.64217)
 bones/33/scale = Vector3(1, 1, 1)
@@ -555,7 +552,7 @@ bones/52/rotation = Quaternion(0.0569023, -0.000496396, -0.0703493, 0.995898)
 bones/53/rotation = Quaternion(0.207896, -0.0197041, -0.0153258, 0.977832)
 bones/54/rotation = Quaternion(0.121013, -0.0133493, -0.0154491, 0.992441)
 bones/55/rotation = Quaternion(0.678717, 0.66143, -0.231348, 0.219844)
-bones/56/rotation = Quaternion(-0.972164, 0, 0.2343, 0)
+bones/56/rotation = Quaternion(-0.972164, 0, 0.234301, 0)
 bones/57/rotation = Quaternion(0.118744, 0.594981, 0.779546, -0.155579)
 bones/58/rotation = Quaternion(-0.118744, 0.594981, 0.779546, 0.15558)
 bones/58/scale = Vector3(1, 1, 1)
