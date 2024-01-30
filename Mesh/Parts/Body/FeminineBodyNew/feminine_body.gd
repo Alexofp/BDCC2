@@ -122,14 +122,14 @@ func applyOption(_optionID: String, _value):
 		#setBoneScaleAndOffset("DEF-breast.L", max(0.1, _value+1.0), Vector3(0.0, 0.0, -_value/20.0))
 		#setBoneScaleAndOffset("DEF-breast.R", max(0.1, _value+1.0), Vector3(0.0, 0.0, -_value/20.0))
 		setBonePosScalerom3Lerp("DEF-breast.R",\
-			Vector3(-0.001, 0.023, -0.005), Vector3(0.4, 0.4, 0.4),\
-			Vector3(), Vector3(1.0, 1.0, 1.0),\
-			Vector3(0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
-			_value)
-		setBonePosScalerom3Lerp("DEF-breast.L",\
-			Vector3(0.001, 0.023, -0.005), Vector3(0.4, 0.4, 0.4),\
+			Vector3(-0.001, 0.003, 0.015), Vector3(0.4, 0.4, 0.4),\
 			Vector3(), Vector3(1.0, 1.0, 1.0),\
 			Vector3(-0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
+			_value)
+		setBonePosScalerom3Lerp("DEF-breast.L",\
+			Vector3(0.001, 0.003, 0.015), Vector3(0.4, 0.4, 0.4),\
+			Vector3(), Vector3(1.0, 1.0, 1.0),\
+			Vector3(0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
 			_value)
 	if(_optionID == "headsize"):
 		setBoneScale("DEF-head", max(0.1, _value*0.1+1.0))
