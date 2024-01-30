@@ -1,24 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://qpb73cq7skjj"]
+[gd_scene load_steps=8 format=3 uid="uid://qpb73cq7skjj"]
 
 [ext_resource type="PackedScene" uid="uid://c7fqfui24imno" path="res://Mesh/Parts/Head/FemaleHumanHead/FemaleHumanHead.glb" id="1_w7f6p"]
-[ext_resource type="Script" path="res://Mesh/Parts/DollPart.gd" id="2_4p4p1"]
-[ext_resource type="Texture2D" uid="uid://drrvkd7xiqil1" path="res://Mesh/Parts/Head/FemaleHumanHead/textures/FaceColor.png" id="3_cnaqf"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/FemaleHumanHead/female_human_head.gd" id="2_aqud6"]
 [ext_resource type="Material" uid="uid://c0goxmhd7237w" path="res://Mesh/Parts/Head/CatHead/browsMat.tres" id="3_lkey3"]
 [ext_resource type="Material" uid="uid://bk032svtfbwsq" path="res://Mesh/Parts/Head/CatHead/eyeMat.tres" id="3_u0khf"]
 [ext_resource type="Material" uid="uid://dtjvg7s74yxrl" path="res://Mesh/Parts/Head/CatHead/eyelashesMat.tres" id="4_k2ixt"]
-[ext_resource type="Texture2D" uid="uid://dgcn2kp0ijsfa" path="res://Mesh/Parts/Head/FemaleHumanHead/textures/FaceNormal.png" id="4_u1ar6"]
 [ext_resource type="Material" uid="uid://cq4pnv1wvj670" path="res://Mesh/Parts/Head/CatHead/eyeRightMat.tres" id="4_vbxby"]
-[ext_resource type="Texture2D" uid="uid://coamlw56r54ex" path="res://Mesh/Parts/Head/FemaleHumanHead/textures/FaceRough.png" id="5_eslcy"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07dj5"]
-albedo_texture = ExtResource("3_cnaqf")
-roughness = 0.75
-roughness_texture = ExtResource("5_eslcy")
-normal_enabled = true
-normal_texture = ExtResource("4_u1ar6")
+[ext_resource type="Material" uid="uid://bt5oys2qn5ksu" path="res://Mesh/Parts/Head/FemaleHumanHead/materials/headMat.tres" id="7_e2ojc"]
 
 [node name="FemaleHumanHead" instance=ExtResource("1_w7f6p")]
-script = ExtResource("2_4p4p1")
+script = ExtResource("2_aqud6")
+eyeMat = ExtResource("3_u0khf")
+eyeRightMat = ExtResource("4_vbxby")
+headMat = ExtResource("7_e2ojc")
+browsMat = ExtResource("3_lkey3")
+eyelashesMat = ExtResource("4_k2ixt")
 attachmentPoints = {
 "Hair": NodePath("Hair"),
 "LeftEar": NodePath("LeftEar"),
@@ -39,7 +35,7 @@ surface_material_override/0 = ExtResource("3_u0khf")
 surface_material_override/1 = ExtResource("4_vbxby")
 
 [node name="MyHumanHead" parent="RIG-Armature/Skeleton3D" index="4"]
-surface_material_override/0 = SubResource("StandardMaterial3D_07dj5")
+surface_material_override/0 = ExtResource("7_e2ojc")
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "APose"
