@@ -85,7 +85,7 @@ func applySkinOption(_optionID: String, _value):
 				layeredBodyMat.set_shader_parameter("normal_scale", 1.0)
 		else:
 			if(layeredBodyMat != null):
-				layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBodyMusclesNormalMap.png"))
+				layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/Normal Map from Mesh Body.png"))
 				layeredBodyMat.set_shader_parameter("normal_scale", _value)
 				
 func applyOption(_optionID: String, _value):
@@ -161,7 +161,7 @@ func applyOption(_optionID: String, _value):
 func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
 		#$FeminineSkeleton.getAnimPlayer().play("FemWalkCycle")
-		$BodySkeleton.getAnimPlayer().play("WalkSimple", -1.0, 1.5)
+		$BodySkeleton.getAnimPlayer().play("WalkSimple", -1.0, 1.7)
 		#animPlayer.play("IdleAnimations/FemWalkCycle")
 	else:
 		#$FeminineSkeleton.getAnimPlayer().play("SexyIdle")

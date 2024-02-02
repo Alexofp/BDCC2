@@ -1,18 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpultsjartnkp"]
+[gd_scene load_steps=7 format=3 uid="uid://bpultsjartnkp"]
 
 [ext_resource type="PackedScene" uid="uid://dsynnvj30iepa" path="res://Mesh/Parts/Hair/Ponytail/Ponytail.glb" id="1_gmfex"]
 [ext_resource type="Script" path="res://Mesh/Parts/Hair/Ponytail/ponytail.gd" id="2_16kdy"]
 [ext_resource type="Material" uid="uid://unyxxqq3q17y" path="res://Mesh/Parts/Hair/Ponytail/ponytail.tres" id="3_5xcl8"]
+[ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="4_j8erx"]
+[ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="5_k2k61"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6pkq"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="Resource" id="Resource_x2eba"]
+script = ExtResource("5_k2k61")
+mode = 0
+stiffness = 0.045
+damping = 0.133
+gravity = Vector3(0, 0, 0)
+length = 0.405
+max_degrees = 90.0
+max_distance = 0.1
 
 [node name="Ponytail" instance=ExtResource("1_gmfex")]
 script = ExtResource("2_16kdy")
 hairMat = ExtResource("3_5xcl8")
 
-[node name="Torus" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_y6pkq")
-
-[node name="Ponytail2" parent="." index="1"]
+[node name="Ponytail2" parent="PonytailRig/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("3_5xcl8")
+
+[node name="WiggleBone" type="BoneAttachment3D" parent="PonytailRig/Skeleton3D" index="2"]
+transform = Transform3D(-1.19209e-07, -5.96046e-08, -1, 0.990737, 0.135793, -1.78814e-07, 0.135793, -0.990737, 1.19209e-07, 3.89352e-18, 0.16275, -0.114198)
+bone_name = "tail"
+bone_idx = 1
+script = ExtResource("4_j8erx")
+properties = SubResource("Resource_x2eba")
+
+[node name="WiggleBone2" type="BoneAttachment3D" parent="PonytailRig/Skeleton3D" index="3"]
+transform = Transform3D(-2.38418e-07, -1.59256e-07, -1, 0.0220233, -0.999757, 1.50874e-07, -0.999757, -0.0220233, 3.57628e-07, -2.2376e-09, 0.172945, -0.188583)
+bone_name = "tail.001"
+bone_idx = 2
+script = ExtResource("4_j8erx")
+properties = SubResource("Resource_x2eba")

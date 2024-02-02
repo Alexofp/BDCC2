@@ -32,6 +32,13 @@ background_mode = 2
 sky = SubResource("Sky_2xklu")
 tonemap_mode = 2
 tonemap_exposure = 0.2
+ssao_enabled = true
+ssao_radius = 0.16
+ssao_intensity = 1.28
+ssao_power = 8.7845
+ssao_detail = 5.0
+ssao_horizon = 0.44
+ssil_enabled = true
 adjustment_contrast = 1.38
 adjustment_saturation = 0.85
 
@@ -432,35 +439,35 @@ bones/74/rotation = Quaternion(-0.192303, 5.56999e-07, -8.65435e-08, 0.981336)
 bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="4"]
-transform = Transform3D(-0.9426, 0.33076, -0.0458502, -0.0624976, -0.0398663, 0.997249, 0.328022, 0.942872, 0.0582498, 0.0758684, 1.26217, 0.0825979)
+transform = Transform3D(-0.9426, 0.33076, -0.0458502, -0.0624976, -0.0398662, 0.997249, 0.328022, 0.942872, 0.0582498, 0.0758684, 1.26217, 0.0825979)
 bone_name = "DEF-breast.L"
 bone_idx = 57
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="5"]
-transform = Transform3D(-0.899293, -0.434936, -0.0458485, -0.0158159, -0.0724226, 0.997249, -0.43706, 0.897544, 0.0582501, -0.0774357, 1.25565, 0.0735226)
+transform = Transform3D(-0.899293, -0.434936, -0.0458485, -0.015816, -0.0724225, 0.997249, -0.43706, 0.897544, 0.0582501, -0.0774357, 1.25565, 0.0735226)
 bone_name = "DEF-breast.R"
 bone_idx = 58
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone3" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="6"]
-transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.0210439, 0.0914498, 0.868783, -0.102132)
+transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.021044, 0.0914498, 0.868783, -0.102132)
 bone_name = "DEF-butt.L"
 bone_idx = 61
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone4" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="7"]
-transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.0210439, -0.0938018, 0.870228, -0.0856199)
+transform = Transform3D(0.996021, -0.0885897, 0.00967343, -0.00776881, 0.021819, 0.999732, -0.088777, -0.995829, 0.021044, -0.0938018, 0.870228, -0.0856199)
 bone_name = "DEF-butt.R"
 bone_idx = 62
 script = ExtResource("8_ef37v")
 properties = SubResource("Resource_oes8t")
 
 [node name="WiggleBone5" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="8"]
-transform = Transform3D(0.997896, 0.0599593, 0.0246749, 0.0276746, -0.0497243, -0.99838, -0.0586352, 0.996962, -0.051279, 0.00663338, 1.02645, -0.0418567)
+transform = Transform3D(0.997896, 0.0599593, 0.0246749, 0.0276746, -0.0497242, -0.99838, -0.0586352, 0.996961, -0.051279, 0.00663338, 1.02645, -0.0418567)
 bone_name = "DEF-belly"
 bone_idx = 59
 script = ExtResource("8_ef37v")
