@@ -154,8 +154,10 @@ func process_camera():
 		SpringArm.position.x = 0.0
 	elif(SpringArm.spring_length <= 1.0):
 		SpringArm.position.x = 0.1
+		$CameraPivot.position.y = 1.525
 	else:
 		SpringArm.position.x = 0.3
+		$CameraPivot.position.y = 1.125
 	
 	if(firstperson_isdown):
 		var isFirstPerson = getDoll().isFirstPerson()
