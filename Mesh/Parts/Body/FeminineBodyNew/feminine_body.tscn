@@ -53,7 +53,7 @@ length = 0.3
 max_degrees = 90.0
 max_distance = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_un2c5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycspr"]
 resource_local_to_scene = true
 resource_name = "PubicHair"
 transparency = 4
@@ -257,7 +257,7 @@ script = ExtResource("8_2qg61")
 properties = SubResource("Resource_wbhfs")
 
 [node name="PubicHair" parent="rig/Skeleton3D" index="14"]
-surface_material_override/0 = SubResource("StandardMaterial3D_un2c5")
+surface_material_override/0 = SubResource("StandardMaterial3D_ycspr")
 
 [node name="BodySkeleton" parent="." index="2" instance=ExtResource("3_s5yeg")]
 
