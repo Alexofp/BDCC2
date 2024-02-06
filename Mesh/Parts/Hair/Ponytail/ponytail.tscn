@@ -24,14 +24,14 @@ hairMat = ExtResource("3_5xcl8")
 surface_material_override/0 = ExtResource("3_5xcl8")
 
 [node name="WiggleBone" type="BoneAttachment3D" parent="PonytailRig/Skeleton3D" index="2"]
-transform = Transform3D(-7.15256e-07, -2.98023e-08, -1, 0.855591, 0.517652, -5.66244e-07, 0.517652, -0.855591, -3.57628e-07, 3.89352e-18, 0.16275, -0.114198)
+transform = Transform3D(-7.15256e-07, -1.19209e-07, -1, 0.855591, 0.517652, -7.15256e-07, 0.517652, -0.855591, -2.38419e-07, 3.89352e-18, 0.16275, -0.114198)
 bone_name = "tail"
 bone_idx = 1
 script = ExtResource("4_j8erx")
 properties = SubResource("Resource_x2eba")
 
 [node name="WiggleBone2" type="BoneAttachment3D" parent="PonytailRig/Skeleton3D" index="3"]
-transform = Transform3D(-4.23173e-07, 7.65101e-08, -1, 0.48689, -0.873464, -2.11718e-07, -0.873463, -0.48689, 3.19502e-07, -1.76124e-09, 0.193341, -0.164761)
+transform = Transform3D(-7.15256e-07, 7.45058e-08, -1, 0.48689, -0.873464, -3.72529e-07, -0.873463, -0.48689, 4.76837e-07, -7.04494e-09, 0.193341, -0.164761)
 bone_name = "tail.001"
 bone_idx = 2
 script = ExtResource("4_j8erx")

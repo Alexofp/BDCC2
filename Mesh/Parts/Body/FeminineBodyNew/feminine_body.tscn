@@ -53,7 +53,7 @@ length = 0.3
 max_degrees = 90.0
 max_distance = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycspr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_byvw2"]
 resource_local_to_scene = true
 resource_name = "PubicHair"
 transparency = 4
@@ -180,6 +180,7 @@ bones/74/rotation = Quaternion(-0.209175, 5.06954e-07, -1.03616e-07, 0.977878)
 bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
 
 [node name="Body" parent="rig/Skeleton3D" index="0"]
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_dsnso")
 surface_material_override/2 = ExtResource("7_d1pta")
 
@@ -187,23 +188,28 @@ surface_material_override/2 = ExtResource("7_d1pta")
 surface_material_override/0 = ExtResource("3_dsnso")
 
 [node name="FemaleCrotch" parent="rig/Skeleton3D" index="2"]
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_dsnso")
 surface_material_override/1 = ExtResource("4_rx3h0")
 surface_material_override/2 = ExtResource("7_d1pta")
 
 [node name="MaleCrotch" parent="rig/Skeleton3D" index="3"]
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_dsnso")
 surface_material_override/1 = ExtResource("4_rx3h0")
 surface_material_override/2 = ExtResource("7_d1pta")
 
 [node name="NeckConnector" parent="rig/Skeleton3D" index="4"]
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_dsnso")
 
 [node name="Nipples" parent="rig/Skeleton3D" index="5"]
+gi_mode = 2
 blend_shapes/NippleBig = 1.0
 surface_material_override/0 = ExtResource("3_up31v")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="6"]
+gi_mode = 2
 surface_material_override/0 = ExtResource("3_dsnso")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7"]
@@ -257,7 +263,8 @@ script = ExtResource("8_2qg61")
 properties = SubResource("Resource_wbhfs")
 
 [node name="PubicHair" parent="rig/Skeleton3D" index="14"]
-surface_material_override/0 = SubResource("StandardMaterial3D_ycspr")
+gi_mode = 2
+surface_material_override/0 = SubResource("StandardMaterial3D_byvw2")
 
 [node name="BodySkeleton" parent="." index="2" instance=ExtResource("3_s5yeg")]
 
