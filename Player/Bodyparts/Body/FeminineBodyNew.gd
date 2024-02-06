@@ -84,6 +84,20 @@ func getSkinOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"skinroughness": {
+			"name": "Skin roughness",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 1.0,
+		},
+		"skinspecular": {
+			"name": "Skin specular",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.5,
+		},
 	}
 
 func getOptions() -> Dictionary:
@@ -97,6 +111,13 @@ func getOptions() -> Dictionary:
 		},
 		"muscles": {
 			"name": "Muscles",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"crotchwidth": {
+			"name": "Crotch width",
 			"type": "slider",
 			"minvalue": 0.0,
 			"maxvalue": 1.0,

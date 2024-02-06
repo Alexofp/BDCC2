@@ -19,7 +19,7 @@ func _ready():
 		layeredBodyMat.set_shader_parameter("alpha_mask", alphaTexture.getTexture())
 	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest.png"))
 	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest2.png"))
-
+	
 func findSkeleton() -> Skeleton3D:
 	return $rig/Skeleton3D
 
@@ -87,6 +87,12 @@ func applySkinOption(_optionID: String, _value):
 			if(layeredBodyMat != null):
 				layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/Normal Map from Mesh Body.png"))
 				layeredBodyMat.set_shader_parameter("normal_scale", _value)
+	if(_optionID == "skinroughness"):
+		if(layeredBodyMat != null):
+			layeredBodyMat.set_shader_parameter("roughness", _value)
+	if(_optionID == "skinspecular"):
+		if(layeredBodyMat != null):
+			layeredBodyMat.set_shader_parameter("specular", _value)
 				
 func applyOption(_optionID: String, _value):
 	if(_optionID == "shoulderswidth"):
@@ -112,6 +118,13 @@ func applyOption(_optionID: String, _value):
 		setBlendshape($rig/Skeleton3D/FemaleCrotch, "Muscles", _value)
 		setBlendshape($rig/Skeleton3D/MaleCrotch, "Muscles", _value)
 		setBlendshape($rig/Skeleton3D/PubicHair, "Muscles", _value)
+	if(_optionID == "crotchwidth"):
+		setBlendshape(body, "PussyWide", _value)
+		#setBlendshape($rig/Skeleton3D/DigiLegs, "Muscles", _value)
+		#setBlendshape($rig/Skeleton3D/PlantiLegs, "Muscles", _value)
+		setBlendshape($rig/Skeleton3D/FemaleCrotch, "PussyWide", _value)
+		setBlendshape($rig/Skeleton3D/MaleCrotch, "PussyWide", _value)
+		setBlendshape($rig/Skeleton3D/PubicHair, "PussyWide", _value)
 	if(_optionID == "breastsize"):
 		#setBoneScale("DEF-breast.L", max(0.1, _value))
 		#setBoneScale("DEF-breast.R", max(0.1, _value))
@@ -124,12 +137,12 @@ func applyOption(_optionID: String, _value):
 		setBonePosScalerom3Lerp("DEF-breast.R",\
 			Vector3(-0.001, 0.003, 0.015), Vector3(0.4, 0.4, 0.4),\
 			Vector3(), Vector3(1.0, 1.0, 1.0),\
-			Vector3(-0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
+			Vector3(-0.009, -0.012, -0.015), Vector3(2.0, 2.0, 2.0),\
 			_value)
 		setBonePosScalerom3Lerp("DEF-breast.L",\
 			Vector3(0.001, 0.003, 0.015), Vector3(0.4, 0.4, 0.4),\
 			Vector3(), Vector3(1.0, 1.0, 1.0),\
-			Vector3(0.009, -0.042, -0.035), Vector3(2.0, 2.0, 2.0),\
+			Vector3(0.009, -0.012, -0.015), Vector3(2.0, 2.0, 2.0),\
 			_value)
 	if(_optionID == "headsize"):
 		setBoneScale("DEF-head", max(0.1, _value*0.1+1.0))
