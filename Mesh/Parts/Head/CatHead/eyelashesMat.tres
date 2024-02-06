@@ -4,6 +4,8 @@
 
 [resource]
 resource_local_to_scene = true
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.8
+alpha_antialiasing_mode = 0
 diffuse_mode = 3
 albedo_texture = ExtResource("1_lf3ca")
