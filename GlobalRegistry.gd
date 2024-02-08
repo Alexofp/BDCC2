@@ -32,6 +32,9 @@ static func doInit():
 	print("GlobalRegistry: Registered everything")
 
 static func loadSceneCached(path: String) -> PackedScene:
+	if(true): # Disabling cache
+		return load(path)
+	
 	if(!sceneCache.has(path)):
 		var theScene = load(path)
 		if(!(theScene is PackedScene)):

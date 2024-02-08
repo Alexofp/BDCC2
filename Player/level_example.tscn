@@ -37,6 +37,10 @@ ssao_intensity = 1.28
 ssao_power = 8.7845
 ssao_detail = 5.0
 ssao_horizon = 0.44
+ssil_enabled = true
+ssil_radius = 0.47
+ssil_intensity = 2.0
+ssil_normal_rejection = 0.05
 adjustment_contrast = 1.38
 adjustment_saturation = 0.85
 
