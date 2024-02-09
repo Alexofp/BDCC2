@@ -95,6 +95,12 @@ func _process(delta):
 	else:
 		velocity.x = move_direction_no_y.x * move_speed 
 		velocity.z = move_direction_no_y.z * move_speed
+		
+		# Uncomment for root motion
+		var rootPos = $BodySkeleton.getRootPos()
+		velocity.x = move_direction_no_y.x * rootPos.z / delta * 2.0
+		velocity.z = move_direction_no_y.z * rootPos.z / delta * 2.0
+		
 		if not is_on_floor():
 			velocity.y -= GRAVITY_FORCE * delta
 		if jump_isdown and is_on_floor():
@@ -193,10 +199,13 @@ func process_animation(delta):
 		elif move_direction != Vector3.ZERO:
 			if sprint_isdown:
 				playDollAnim(DollAnim.Run)
+				$BodySkeleton.walk()
 			else:
 				playDollAnim(DollAnim.Walk)
+				$BodySkeleton.walk()
 		else:
 			playDollAnim(DollAnim.Idle)
+			$BodySkeleton.stand()
 	
 	if move_direction != Vector3.ZERO:
 		$ModelRoot.basis = basis_rotate_toward($ModelRoot.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)
