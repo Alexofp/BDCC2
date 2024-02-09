@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyyx8g7mbkvog"]
+[gd_scene load_steps=6 format=3 uid="uid://dyyx8g7mbkvog"]
 
 [ext_resource type="Script" path="res://Player/Doll/advanced_controller_doll.gd" id="1_fhv3i"]
 [ext_resource type="PackedScene" uid="uid://d08txhenreptl" path="res://Player/Doll/doll.tscn" id="2_0a6vw"]
+[ext_resource type="PackedScene" uid="uid://brjdv3jgdc3bj" path="res://Mesh/Parts/Body/FeminineBodyNew/body_skeleton.tscn" id="3_k0esb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_egb3h"]
 radius = 0.3
@@ -31,3 +32,5 @@ spring_length = 2.1
 [node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm"]
 current = true
 fov = 60.0
+
+[node name="BodySkeleton" parent="." instance=ExtResource("3_k0esb")]

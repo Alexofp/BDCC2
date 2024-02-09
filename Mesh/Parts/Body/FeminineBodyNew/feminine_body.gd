@@ -174,12 +174,14 @@ func applyOption(_optionID: String, _value):
 func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):
 		#$FeminineSkeleton.getAnimPlayer().play("FemWalkCycle")
-		$BodySkeleton.getAnimPlayer().play("WalkSimple", -1.0, 1.7)
+		#$BodySkeleton.getAnimPlayer().play("WalkSimple", -1.0, 1.7)
+		$BodySkeleton.walk()
 		#animPlayer.play("IdleAnimations/FemWalkCycle")
 	else:
 		#$FeminineSkeleton.getAnimPlayer().play("SexyIdle")
 		#$FeminineSkeleton.getAnimPlayer().play("APose")
-		$BodySkeleton.getAnimPlayer().play("IdleSimple")
+		#$BodySkeleton.getAnimPlayer().play("IdleSimple")
+		$BodySkeleton.stand()
 		#animPlayer.play("IdleAnimations/SexyIdle")
 	pass
 
