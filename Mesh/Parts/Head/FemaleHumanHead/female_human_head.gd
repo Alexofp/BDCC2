@@ -8,7 +8,7 @@ extends DollPart
 @export var browsMat:StandardMaterial3D
 @export var eyelashesMat:StandardMaterial3D
 @export var noseMat:StandardMaterial3D
-@onready var eyes = $"RIG-Armature/Skeleton3D/Eyes"
+@onready var eyes = $Headrig/Skeleton3D/Eyes
 
 func updateMuzzleSizeAndLength():
 	var muzzlesize = getOptionValue("muzzlesize", 0.0)
@@ -87,3 +87,31 @@ func applyBaseSkinData(_data : BaseSkinData):
 		#else:
 		#	headMat.set_shader_parameter("texture_albedo", null)
 		#	headMat.set_shader_parameter("texture_normal", null)
+@onready var animation_tree = $AnimationTree
+@onready var look_direction_timer = $LookDirectionTimer
+var eyesTween:Tween
+var eyesDirection:Vector2
+func _on_look_direction_timer_timeout():
+	look_direction_timer.wait_time = RNG.randf_range(1.0, 3.0)
+	if(RNG.chance(10)):
+		look_direction_timer.wait_time = 0.3
+	
+	#var eyesDirection = animation_tree["parameters/EyesDirection/blend_position"]
+	if(eyesTween):
+		eyesTween.kill()
+	eyesTween = create_tween()
+	eyesTween.tween_property(animation_tree, "parameters/EyesDirection/blend_position", Vector2(RNG.randf_rangeX2(-0.3, 0.3), RNG.randf_rangeX2(-0.3, 0.3)), 0.05).set_trans(Tween.TRANS_BOUNCE)
+	if(RNG.chance(50)):
+		eyesTween.tween_property(animation_tree, "parameters/EyesDirection/blend_position", Vector2(RNG.randf_rangeX2(-0.5, 0.5), RNG.randf_rangeX2(-0.5, 0.5)), 0.5).set_trans(Tween.TRANS_BOUNCE)
+	#animation_tree["parameters/EyesDirection/blend_position"] = Vector2(RNG.randf_rangeX2(-0.3, 0.3), RNG.randf_rangeX2(-0.3, 0.3))
+
+func _process(_delta):
+	super._process(_delta)
+	
+	if(Input.is_action_just_pressed("debug_randomkey")):
+		if(animation_tree["parameters/FullFace/current_state"] == "state_0"):
+			animation_tree["parameters/FullFace/transition_request"] = "state_2"
+		elif(animation_tree["parameters/FullFace/current_state"] == "state_2"):
+			animation_tree["parameters/FullFace/transition_request"] = "state_1"
+		else:
+			animation_tree["parameters/FullFace/transition_request"] = "state_0"
