@@ -112,10 +112,10 @@ static func grabWeighted(ar, weights: Array):
 	for i in range(weights.size()):
 		r -= weights[i]
 		if r <= 0.0:
-			var result = ar[i]
+			var result2 = ar[i]
 			ar.remove_at(i)
 			weights.remove_at(i)
-			return result
+			return result2
 			
 	var result = ar[0]
 	ar.remove_at(0)
@@ -135,9 +135,9 @@ static func grabWeightedPairs(ar: Array):
 	for i in range(ar.size()):
 		r -= ar[i][1]
 		if r <= 0.0:
-			var result = ar[i][0]
+			var result2 = ar[i][0]
 			ar.remove_at(i)
-			return result
+			return result2
 			
 	var result = ar[0][0]
 	ar.remove_at(0)
