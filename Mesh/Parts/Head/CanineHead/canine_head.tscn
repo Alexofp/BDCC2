@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7tm2g0n8wkqn"]
+
+[ext_resource type="PackedScene" uid="uid://cpiq268qex2fx" path="res://Mesh/Parts/Head/CanineHead/CanineHead.glb" id="1_vgroj"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/CanineHead/canine_head.gd" id="2_4mx2g"]
+[ext_resource type="Texture2D" uid="uid://bt0pklnbp04e7" path="res://Mesh/Parts/Head/CanineHead/textures/MyFoxHead LowPoly_CanineHead_BaseColor.png" id="2_e2kly"]
+[ext_resource type="Texture2D" uid="uid://de2r12mfcuo75" path="res://Mesh/Parts/Head/CanineHead/textures/MyFoxHead LowPoly_CanineHead_Normal.png" id="3_hd1v5"]
+[ext_resource type="Texture2D" uid="uid://dyt4o8p2nh35d" path="res://Mesh/Parts/Head/CanineHead/textures/MyFoxHead LowPoly_CanineHead_Roughness.png" id="4_cslyp"]
+[ext_resource type="Material" uid="uid://c0goxmhd7237w" path="res://Mesh/Parts/Head/CatHead/browsMat.tres" id="5_escc2"]
+[ext_resource type="Material" uid="uid://dtjvg7s74yxrl" path="res://Mesh/Parts/Head/CatHead/eyelashesMat.tres" id="6_kshor"]
+[ext_resource type="Material" uid="uid://bk032svtfbwsq" path="res://Mesh/Parts/Head/CatHead/eyeMat.tres" id="7_khegd"]
+[ext_resource type="Material" uid="uid://cq4pnv1wvj670" path="res://Mesh/Parts/Head/CatHead/eyeRightMat.tres" id="8_wtm8y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hxo2"]
+albedo_texture = ExtResource("2_e2kly")
+roughness_texture = ExtResource("4_cslyp")
+normal_enabled = true
+normal_texture = ExtResource("3_hd1v5")
+
+[node name="CanineHead" instance=ExtResource("1_vgroj")]
+script = ExtResource("2_4mx2g")
+eyeMat = ExtResource("7_khegd")
+eyeRightMat = ExtResource("8_wtm8y")
+browsMat = ExtResource("5_escc2")
+eyelashesMat = ExtResource("6_kshor")
+attachmentPoints = {
+"Hair": NodePath("Hair"),
+"LeftEar": NodePath("LeftEar"),
+"RightEar": NodePath("RightEar")
+}
+
+[node name="CanineRig" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0145713, 0)
+
+[node name="CanineHead" parent="CanineRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6hxo2")
+
+[node name="EyeBrows" parent="CanineRig/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("5_escc2")
+
+[node name="Eyelashes" parent="CanineRig/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("6_kshor")
+
+[node name="Eyes" parent="CanineRig/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("7_khegd")
+surface_material_override/1 = ExtResource("8_wtm8y")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="1"]
+
+[node name="LookDirectionTimer" type="Timer" parent="." index="2"]
+
+[node name="RightEar" type="Marker3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491367, 0.120351, 0)
+
+[node name="LeftEar" type="Marker3D" parent="." index="4"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049, 0.120429, 0)
+
+[node name="Hair" type="Marker3D" parent="." index="5"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.0244259, -0.00717073)

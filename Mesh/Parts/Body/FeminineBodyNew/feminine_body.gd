@@ -81,7 +81,7 @@ func applySkinOption(_optionID: String, _value):
 	if(_optionID == "muscletan"):
 		if(_value <= 0.0):
 			if(layeredBodyMat != null):
-				layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Normal.png"))
+				layeredBodyMat.set_shader_parameter("texture_normal", theNormalNormalMap)
 				layeredBodyMat.set_shader_parameter("normal_scale", 1.0)
 		else:
 			if(layeredBodyMat != null):
@@ -185,19 +185,22 @@ func playAnim(dollAnim:String, _howFast:float = 1.0):
 		#animPlayer.play("IdleAnimations/SexyIdle")
 	pass
 
+var theNormalNormalMap = null
 func applyBaseSkinData(_data : BaseSkinData):
 	#if(bodyMat != null):
 	#	bodyMat.albedo_color = _data.skinColor
 	if(layeredBodyMat != null):
 		layeredBodyMat.set_shader_parameter("albedo", _data.skinColor)
 		
-		#if(_data.skinType == "fur"):
-			#layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyColor.png"))
+		if(_data.skinType == "fur"):
+			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Fur/MyBody Substance Painter_Body_BaseColor.png"))
+			theNormalNormalMap = preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Fur/MyBody Substance Painter_Body_Normal.png")
 			#layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/BodyNormal.png"))
-			#layeredBodyMat.set_shader_parameter("texture_roughness", null)
+			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Fur/MyBody Substance Painter_Body_Roughness.png"))
 		#elif(_data.skinType == "skin"):
-		if(_data.skinType == "skin" || true):
+		elif(_data.skinType == "skin"):
 			layeredBodyMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_BaseColor.png"))
+			theNormalNormalMap = preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Normal.png")
 			#layeredBodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Normal.png"))
 			layeredBodyMat.set_shader_parameter("texture_roughness", preload("res://Mesh/Parts/Body/FeminineBodyNew/Textures/Skin/MyBody Substance Painter_Body_Roughness.png"))
 		else:
