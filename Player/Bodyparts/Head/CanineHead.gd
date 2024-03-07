@@ -13,26 +13,31 @@ func getMeshPath() -> String:
 
 func getOptions() -> Dictionary:
 	return {
-		"muzzlesize": {
-			"name": "Muzzle size",
-			"type": "slider",
-			"minvalue": -1.0,
-			"maxvalue": 1.0,
-			"default": 0.0,
-		},
-		"muzzlelen": {
-			"name": "Muzzle length",
-			"type": "slider",
-			"minvalue": -1.0,
-			"maxvalue": 1.0,
-			"default": 0.0,
-		},
-		"nosebridge": {
-			"name": "Nose bridge",
-			"type": "slider",
-			"minvalue": -1.0,
-			"maxvalue": 1.0,
-			"default": 0.0,
+		#"muzzlesize": {
+			#"name": "Muzzle size",
+			#"type": "slider",
+			#"minvalue": -1.0,
+			#"maxvalue": 1.0,
+			#"default": 0.0,
+		#},
+		#"muzzlelen": {
+			#"name": "Muzzle length",
+			#"type": "slider",
+			#"minvalue": -1.0,
+			#"maxvalue": 1.0,
+			#"default": 0.0,
+		#},
+		#"nosebridge": {
+			#"name": "Nose bridge",
+			#"type": "slider",
+			#"minvalue": -1.0,
+			#"maxvalue": 1.0,
+			#"default": 0.0,
+		#},
+		"cheekfluff": {
+			"name": "Cheek fluff",
+			"type": "checkbox",
+			"default": false,
 		},
 	}
 

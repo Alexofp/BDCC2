@@ -34,13 +34,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0145713, 0)
 [node name="CanineHead" parent="CanineRig/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_6hxo2")
 
-[node name="EyeBrows" parent="CanineRig/Skeleton3D" index="2"]
+[node name="CanineHeadFluff" parent="CanineRig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6hxo2")
+
+[node name="EyeBrows" parent="CanineRig/Skeleton3D" index="3"]
 surface_material_override/0 = ExtResource("5_escc2")
 
-[node name="Eyelashes" parent="CanineRig/Skeleton3D" index="3"]
+[node name="Eyelashes" parent="CanineRig/Skeleton3D" index="4"]
 surface_material_override/0 = ExtResource("6_kshor")
 
-[node name="Eyes" parent="CanineRig/Skeleton3D" index="4"]
+[node name="Eyes" parent="CanineRig/Skeleton3D" index="5"]
 surface_material_override/0 = ExtResource("7_khegd")
 surface_material_override/1 = ExtResource("8_wtm8y")
 
@@ -55,4 +58,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491367, 0.120351, 0)
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049, 0.120429, 0)
 
 [node name="Hair" type="Marker3D" parent="." index="5"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.0244259, -0.00717073)
+transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, -0.0105361, -0.00529871)
