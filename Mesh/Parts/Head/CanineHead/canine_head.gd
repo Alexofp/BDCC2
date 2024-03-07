@@ -9,6 +9,8 @@ extends DollPart
 @export var eyelashesMat:StandardMaterial3D
 @export var noseMat:StandardMaterial3D
 @onready var eyes = $CanineRig/Skeleton3D/Eyes
+@onready var canine_head_fluff = $CanineRig/Skeleton3D/CanineHeadFluff
+
 
 func updateMuzzleSizeAndLength():
 	var muzzlesize = getOptionValue("muzzlesize", 0.0)
@@ -22,6 +24,12 @@ func applyOption(_optionID: String, _value):
 		updateMuzzleSizeAndLength()
 	if(_optionID == "nosebridge"):
 		setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
+	if(_optionID == "cheekfluff"):
+		if(_value):
+			canine_head_fluff.visible = true
+		else:
+			canine_head_fluff.visible = false
+		
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "mouthcolor"):
