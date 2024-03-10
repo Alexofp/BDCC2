@@ -13,31 +13,45 @@ func getMeshPath() -> String:
 
 func getOptions() -> Dictionary:
 	return {
-		#"muzzlesize": {
-			#"name": "Muzzle size",
-			#"type": "slider",
-			#"minvalue": -1.0,
-			#"maxvalue": 1.0,
-			#"default": 0.0,
-		#},
-		#"muzzlelen": {
-			#"name": "Muzzle length",
-			#"type": "slider",
-			#"minvalue": -1.0,
-			#"maxvalue": 1.0,
-			#"default": 0.0,
-		#},
-		#"nosebridge": {
-			#"name": "Nose bridge",
-			#"type": "slider",
-			#"minvalue": -1.0,
-			#"maxvalue": 1.0,
-			#"default": 0.0,
-		#},
 		"cheekfluff": {
 			"name": "Cheek fluff",
 			"type": "checkbox",
 			"default": false,
+		},
+		"muzzlesize": {
+			"name": "Muzzle size",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"muzzlelen": {
+			"name": "Muzzle length",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"nosebridge": {
+			"name": "Nose bridge",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"eyessize": {
+			"name": "Eyes size",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"eyesspacing": {
+			"name": "Eyes spacing",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
 		},
 	}
 
