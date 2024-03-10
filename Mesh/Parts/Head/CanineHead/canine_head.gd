@@ -15,7 +15,7 @@ extends DollPart
 func updateMuzzleSizeAndLength():
 	var muzzlesize = getOptionValue("muzzlesize", 0.0)
 	var muzzlelen = getOptionValue("muzzlelen", 0.0)
-	setBoneScaleAndOffset("MuzzleRoot", max(0.1, muzzlesize*0.2+1.0), Vector3(0.0, muzzlelen/40.0, 0.0))
+	setBoneScaleAndOffset("muzzle", max(0.1, muzzlesize*0.1+1.0), Vector3(0.0, muzzlelen/50.0, 0.0))
 
 func applyOption(_optionID: String, _value):
 	if(_optionID == "muzzlesize"):
@@ -23,13 +23,17 @@ func applyOption(_optionID: String, _value):
 	if(_optionID == "muzzlelen"):
 		updateMuzzleSizeAndLength()
 	if(_optionID == "nosebridge"):
-		setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
+		#setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
+		animation_tree["parameters/NodeBridge/add_amount"] = _value
 	if(_optionID == "cheekfluff"):
 		if(_value):
 			canine_head_fluff.visible = true
 		else:
 			canine_head_fluff.visible = false
-		
+	if(_optionID == "eyessize"):
+		animation_tree["parameters/EyesSize/add_amount"] = -_value
+	if(_optionID == "eyesspacing"):
+		animation_tree["parameters/EyesSpacing/add_amount"] = -_value
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "mouthcolor"):
@@ -98,12 +102,17 @@ func applyBaseSkinData(_data : BaseSkinData):
 @onready var animation_tree = $AnimationTree
 @onready var look_direction_timer = $LookDirectionTimer
 var eyesTween:Tween
+var eyesDownTween:Tween
 var eyesDirection:Vector2
 func _on_look_direction_timer_timeout():
 	look_direction_timer.wait_time = RNG.randf_range(1.0, 3.0)
 	if(RNG.chance(10)):
 		look_direction_timer.wait_time = 0.3
-	
+	if(eyesDownTween):
+		eyesDownTween.kill()
+	eyesDownTween = create_tween()
+	eyesDownTween.tween_property(animation_tree, "parameters/ClosedEyes/blend_amount", RNG.randf_range(0.0, 0.2), 0.5).set_trans(Tween.TRANS_CUBIC)
+	#animation_tree["parameters/ClosedEyes/blend_amount"] = RNG.randf_range(0.0, 0.2)
 	#var eyesDirection = animation_tree["parameters/EyesDirection/blend_position"]
 	if(eyesTween):
 		eyesTween.kill()
@@ -117,9 +126,11 @@ func _process(_delta):
 	super._process(_delta)
 	
 	if(Input.is_action_just_pressed("debug_randomkey")):
-		if(animation_tree["parameters/FullFace/current_state"] == "state_0"):
-			animation_tree["parameters/FullFace/transition_request"] = "state_2"
-		elif(animation_tree["parameters/FullFace/current_state"] == "state_2"):
-			animation_tree["parameters/FullFace/transition_request"] = "state_1"
+		if(animation_tree["parameters/Mouth/current_state"] == "state_0"):
+			animation_tree["parameters/Mouth/transition_request"] = "state_1"
+		elif(animation_tree["parameters/Mouth/current_state"] == "state_1"):
+			animation_tree["parameters/Mouth/transition_request"] = "state_2"
+		elif(animation_tree["parameters/Mouth/current_state"] == "state_2"):
+			animation_tree["parameters/Mouth/transition_request"] = "state_3"
 		else:
-			animation_tree["parameters/FullFace/transition_request"] = "state_0"
+			animation_tree["parameters/Mouth/transition_request"] = "state_0"

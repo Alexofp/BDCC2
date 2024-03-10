@@ -246,4 +246,10 @@ func updateHiddenParts(_hiddenParts:Dictionary):
 	else:
 		$rig/Skeleton3D/Body.visible = true
 	
+		
+	#if(_hiddenParts.has(ClothingHidePart.HumanNeckConnector) && _hiddenParts[ClothingHidePart.HumanNeckConnector]):
+		#$rig/Skeleton3D/NeckConnector.visible = false
+	#else:
+		#$rig/Skeleton3D/NeckConnector.visible = true
+	
 	updateCrotchVisibility()
