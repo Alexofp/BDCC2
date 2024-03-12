@@ -18,6 +18,13 @@ func getOptions() -> Dictionary:
 			"type": "checkbox",
 			"default": false,
 		},
+		"fluffpointy": {
+			"name": "Cheek fluff form",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
 		"muzzlesize": {
 			"name": "Muzzle size",
 			"type": "slider",
@@ -32,10 +39,24 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
+		"muzzlewidth": {
+			"name": "Muzzle width",
+			"type": "slider",
+			"minvalue": -1.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
 		"nosebridge": {
 			"name": "Nose bridge",
 			"type": "slider",
 			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+		},
+		"nosebig": {
+			"name": "Nose size",
+			"type": "slider",
+			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
@@ -61,20 +82,49 @@ func checkSkinOptionChanged(_valueID, _oldValue, _newValue):
 
 func getSkinOptions() -> Dictionary:
 	var result = {
+		"skinlayers": {
+			"name": "Skin layers",
+			"type": "layers",
+			"default": [{id="res://Mesh/Parts/Head/CanineHead/skinlayers/nose.png",color=Color.LIGHT_GRAY}],
+			"customPossibleValues": {
+				"res://Mesh/Parts/Head/CanineHead/skinlayers/nose.png": {name="Nose"},
+				"res://Mesh/Parts/Head/CanineHead/skinlayers/foxmark.png": {name="Fox mark"},
+				"res://Mesh/Parts/Head/CanineHead/skinlayers/tophead.png": {name="Shape 1"},
+			}
+		},
 		"mouthcolor": {
 			"name": "Mouth",
 			"type": "color",
-			"default": Color.WHITE,
+			"default": Color.LIGHT_PINK,
+			"group": "Mouth",
 		},
 		"tonguecolor": {
 			"name": "Tongue",
 			"type": "color",
-			"default": Color.WHITE,
+			"default": Color.LIGHT_PINK,
+			"group": "Mouth",
 		},
-		"nosecolor": {
-			"name": "Nose",
+		"teethcolor": {
+			"name": "Teeth",
 			"type": "color",
 			"default": Color.WHITE,
+			"group": "Mouth",
+		},
+		"mouthrough": {
+			"name": "Mouth roughness",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 1.0,
+			"group": "Mouth",
+		},
+		"mouthspec": {
+			"name": "Mouth specular",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.1,
+			"group": "Mouth",
 		},
 		"brows": {
 			"name": "Brows",
@@ -110,6 +160,7 @@ func getSkinOptions() -> Dictionary:
 		result["eyehue"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" hue",
 			"type": "slider",
+			"step": 0.01,
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,

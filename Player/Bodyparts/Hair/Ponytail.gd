@@ -15,6 +15,7 @@ func getSkinOptions() -> Dictionary:
 			"type": "slider",
 			"minvalue": 0.0,
 			"maxvalue": 1.0,
+			"step": 0.01,
 			"default": 0.0,
 		},
 		"sat": {

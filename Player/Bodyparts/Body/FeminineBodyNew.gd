@@ -18,6 +18,7 @@ func getSkinOptions() -> Dictionary:
 		"nipplehue": {
 			"name": "Nipple hue",
 			"type": "slider",
+			"step": 0.01,
 			"minvalue": 0.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
@@ -49,6 +50,7 @@ func getSkinOptions() -> Dictionary:
 		"genhue": {
 			"name": "Genitals hue",
 			"type": "slider",
+			"step": 0.01,
 			"minvalue": 0.0,
 			"maxvalue": 1.0,
 			"default": 0.0,
