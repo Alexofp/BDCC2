@@ -5,6 +5,7 @@ var id:String = ""
 @onready var layerList = $VBoxContainer/VBoxContainer
 var skinLayerScene = preload("res://Game/CharacterCreator/OptionTypes/SubElements/skin_layer.tscn")
 
+var customPossibleValues = {}
 var values = [
 ]
 var maxLayers = 99
@@ -23,14 +24,16 @@ func setValues(_newVals):
 	#possibleSkins = _newVals
 
 func setData(data:Dictionary):
-	if(data.has("values")):
-		setValues(data["values"])
 	if(data.has("skinType")):
 		skinType = data["skinType"]
 	if(data.has("skinSubType")):
 		skinSubType = data["skinSubType"]
 	if(data.has("maxLayers")):
 		maxLayers = data["maxLayers"]
+	if(data.has("customPossibleValues")):
+		customPossibleValues = data["customPossibleValues"]
+	if(data.has("values")):
+		setValues(data["values"])
 	updateValues()
 
 func getValue():
@@ -48,6 +51,29 @@ func _on_item_list_item_selected(index):
 
 func updateValues():
 	Util.delete_children(layerList)
+	
+	if(!customPossibleValues.is_empty()):
+		var possibleSkinValues = []
+		for texture_path in customPossibleValues:
+			var textureData = customPossibleValues[texture_path]
+			#{name="asd"}
+			possibleSkinValues.append([texture_path, textureData["name"]])
+		
+		var _i = 0
+		for layerInfo in values:
+			var newSkinlayer = skinLayerScene.instantiate()
+			layerList.add_child(newSkinlayer)
+			
+			newSkinlayer.id = _i
+			newSkinlayer.setValues(possibleSkinValues)
+			newSkinlayer.setItemListValue(layerInfo["id"])
+			newSkinlayer.setColor(layerInfo["color"])
+			newSkinlayer.onDataChanged.connect(onSkinlayerDataChanged)
+			newSkinlayer.onDelButton.connect(onSkinlayerDelPressed)
+			newSkinlayer.onDownButton.connect(onSkinDownButton)
+			newSkinlayer.onUpButton.connect(onSkinUpButton)
+			_i += 1
+		return
 	
 	var possibleSkinValues = []
 	for texID in GlobalRegistry.getTextureVariants(skinType, skinSubType):
@@ -92,10 +118,16 @@ func onSkinlayerDataChanged(index, newItemID, newColor):
 	emit_signal("onValueChange", id, values.duplicate())
 
 func _on_add_layer_button_pressed():
-	values.append({
-		id = GlobalRegistry.getTextureVariants(skinType, skinSubType).keys()[0],
-		color = Color.WHITE,
-	})
+	if(!customPossibleValues.is_empty()):
+		values.append({
+			id = customPossibleValues.keys()[0],
+			color = Color.WHITE,
+		})
+	else:
+		values.append({
+			id = GlobalRegistry.getTextureVariants(skinType, skinSubType).keys()[0],
+			color = Color.WHITE,
+		})
 	updateValues()
 	checkCanAdd()
 	emit_signal("onValueChange", id, values.duplicate())

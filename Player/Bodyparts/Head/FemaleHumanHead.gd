@@ -91,6 +91,7 @@ func getSkinOptions() -> Dictionary:
 		result["eyehue"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" hue",
 			"type": "slider",
+			"step": 0.01,
 			"minvalue": -1.0,
 			"maxvalue": 1.0,
 			"default": 0.0,

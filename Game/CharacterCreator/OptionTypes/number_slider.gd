@@ -18,6 +18,9 @@ func setData(data:Dictionary):
 	if(data.has("maxvalue")):
 		spinbox.max_value = data["maxvalue"]
 		hslider.max_value = data["maxvalue"]
+	if(data.has("step")):
+		spinbox.step = data["step"]
+		hslider.step = data["step"] / 5.0
 
 func getValue():
 	return currentValue
