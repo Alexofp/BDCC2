@@ -6,8 +6,8 @@ extends DollPart
 @export var mouthMat:ShaderMaterial
 @export var browsMat:StandardMaterial3D
 @export var eyelashesMat:StandardMaterial3D
-@onready var eyes = $CanineRig/Skeleton3D/Eyes
-@onready var canine_head_fluff = $CanineRig/Skeleton3D/CanineHeadFluff
+@onready var eyes = $FelineRig/Skeleton3D/Eyes
+@onready var canine_head_fluff #= $CanineRig/Skeleton3D/CanineHeadFluff
 @onready var pattern_texture = $PatternTexture
 
 func _ready():
@@ -35,12 +35,14 @@ func applyOption(_optionID: String, _value):
 		#setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
 		animation_tree["parameters/NodeBridge/add_amount"] = _value
 	if(_optionID == "fluffpointy"):
-		setBlendshape(canine_head_fluff, "Pointy", _value)
+		if(canine_head_fluff != null):
+			setBlendshape(canine_head_fluff, "Pointy", _value)
 	if(_optionID == "cheekfluff"):
-		if(_value):
-			canine_head_fluff.visible = true
-		else:
-			canine_head_fluff.visible = false
+		if(canine_head_fluff != null):
+			if(_value):
+				canine_head_fluff.visible = true
+			else:
+				canine_head_fluff.visible = false
 	if(_optionID == "eyessize"):
 		animation_tree["parameters/EyesSize/add_amount"] = -_value
 	if(_optionID == "eyesspacing"):
@@ -158,7 +160,7 @@ func _on_look_direction_timer_timeout():
 func _process(_delta):
 	super._process(_delta)
 	
-	if(Input.is_action_just_pressed("debug_randomkey")):
+	if(Input.is_action_just_pressed("debug_randomkey") && animation_tree != null):
 		if(animation_tree["parameters/Mouth/current_state"] == "state_0"):
 			animation_tree["parameters/Mouth/transition_request"] = "state_1"
 		elif(animation_tree["parameters/Mouth/current_state"] == "state_1"):
