@@ -51,6 +51,13 @@ _subresources={
 "save_to_file/make_streamable": "",
 "save_to_file/path": ""
 }
+},
+"nodes": {
+"PATH:rig/Skeleton3D": {
+"retarget/bone_map": null,
+"retarget/bone_renamer/unique_node/skeleton_name": "Skeleton3D",
+"retarget/rest_fixer/overwrite_axis": false
+}
 }
 }
 gltf/naming_version=1

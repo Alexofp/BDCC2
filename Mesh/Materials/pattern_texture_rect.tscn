@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1pktywdqgd6n"]
+
+[ext_resource type="Texture2D" uid="uid://casp04kbrcrg0" path="res://Mesh/Parts/Body/FeminineBodyNew/Layers/fur1.png" id="1_31elc"]
+[ext_resource type="Script" path="res://Mesh/Materials/pattern_texture_rect.gd" id="2_eq2hk"]
+
+[sub_resource type="Shader" id="Shader_wllrb"]
+code = "shader_type canvas_item;
+//render_mode blend_premul_alpha;
+render_mode blend_mix;
+
+uniform sampler2D pattern_texture : source_color,hint_default_transparent,filter_linear_mipmap,repeat_enable;
+uniform vec4 colorR : source_color;
+uniform vec4 colorG : source_color;
+uniform vec4 colorB : source_color;
+
+void fragment(){
+	vec4 patternColor = texture(pattern_texture, UV);
+	
+	//float totalColor = patternColor.r + patternColor.g + patternColor.b;
+	//totalColor = max(1.0, totalColor);
+	vec4 patternColorFinal = patternColor.r * colorR + patternColor.g * colorG + patternColor.b * colorB;
+	//patternColorFinal /= totalColor;
+	patternColorFinal.a *= patternColor.a;
+	COLOR = patternColorFinal;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnad6"]
+resource_local_to_scene = true
+shader = SubResource("Shader_wllrb")
+shader_parameter/colorR = Color(0.270588, 0.501961, 1, 1)
+shader_parameter/colorG = Color(1, 1, 1, 1)
+shader_parameter/colorB = Color(0, 0.470588, 0.647059, 1)
+shader_parameter/pattern_texture = ExtResource("1_31elc")
+
+[node name="PatternTextureRect" type="ColorRect"]
+material = SubResource("ShaderMaterial_gnad6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_eq2hk")

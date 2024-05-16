@@ -38,8 +38,11 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	vec4 layers_tex = texture(texture_layers,base_uv);
+	//layers_tex.rgb /= max(layers_tex.a, 0.0001);
 	
+	//vec4 finalColor = mix(albedo_tex * albedo, layers_tex/max(layers_tex.a, 0.00001), layers_tex.a);
 	albedo_tex.rgb = mix(albedo_tex.rgb * albedo.rgb, layers_tex.rgb, layers_tex.a);
+	//albedo_tex.rgb = albedo_tex.rgb * albedo.rgb * (1.0 - layers_tex.a) + layers_tex.rgb;//*layers_tex.a;
 	ALBEDO = albedo_tex.rgb;
 	
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);

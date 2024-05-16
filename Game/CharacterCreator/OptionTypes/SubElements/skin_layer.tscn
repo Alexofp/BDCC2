@@ -22,9 +22,20 @@ stretch_mode = 5
 [node name="ItemList" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-expand_icon = true
+text_overrun_behavior = 1
+clip_text = true
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="."]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="."]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 color = Color(1, 1, 1, 1)
@@ -43,6 +54,8 @@ text = "Del"
 
 [connection signal="item_selected" from="ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
+[connection signal="color_changed" from="ColorPickerButton2" to="." method="_on_color_picker_button_2_color_changed"]
+[connection signal="color_changed" from="ColorPickerButton3" to="." method="_on_color_picker_button_3_color_changed"]
 [connection signal="pressed" from="DownButton" to="." method="_on_down_button_pressed"]
 [connection signal="pressed" from="UpButton" to="." method="_on_up_button_pressed"]
 [connection signal="pressed" from="DelButton" to="." method="_on_del_button_pressed"]

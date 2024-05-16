@@ -22,6 +22,7 @@ func applyOption(_optionID: String, _value):
 		updateMuzzleSizeAndLength()
 	if(_optionID == "nosebridge"):
 		setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
+	applySkinOption(_optionID, _value)
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "mouthcolor"):
@@ -79,7 +80,8 @@ func applySkinOption(_optionID: String, _value):
 func applyBaseSkinData(_data : BaseSkinData):
 	if(headMat != null):
 		#headMat.set_shader_parameter("albedo", _data.skinColor)
-		headMat.albedo_color = _data.skinColor
+		applyBaseSkinDataToStandardMaterial(_data, headMat)
+		#headMat.albedo_color = _data.skinColor
 		
 		#if(_data.skinType == "fur"):
 		#	headMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Head/CatHead/textures/headcolor.png"))

@@ -6,6 +6,21 @@ static func delete_children(node: Node):
 		node.remove_child(n)
 		n.queue_free()
 
+static func remove_all_signals(node: Node):
+	var signals = node.get_signal_list()
+	for cur_signal in signals:
+		var conns = node.get_signal_connection_list(cur_signal.name)
+		for cur_conn in conns:
+			node.disconnect(cur_conn.signal, cur_conn.target)
+
+static func remove_all_signals_with_target(node: Node, targetNode):
+	var signals = node.get_signal_list()
+	for cur_signal in signals:
+		var conns = node.get_signal_connection_list(cur_signal.name)
+		for cur_conn in conns:
+			if(targetNode == cur_conn.target):
+				node.disconnect(cur_conn.signal, cur_conn.target)
+
 static func getAllMeshInstancesOfANode(node: Node) -> Array[MeshInstance3D]:
 	var result: Array[MeshInstance3D] = []
 	

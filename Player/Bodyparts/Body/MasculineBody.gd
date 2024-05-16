@@ -8,63 +8,6 @@ func _init():
 func getVisibleName():
 	return "Masculine body"
 
-func getSkinOptions() -> Dictionary:
-	return {
-		"skinlayers": {
-			"name": "Skin layers",
-			"type": "layers",
-			"default": [],
-		},
-		"nipplehue": {
-			"name": "Nipple hue",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 1.0,
-			"default": 0.0,
-			"group": "Breasts",
-		},
-		"nipplesat": {
-			"name": "Nipple saturation",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 2.0,
-			"default": 1.0,
-			"group": "Breasts",
-		},
-		"nipplevalue": {
-			"name": "Nipple value",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 2.0,
-			"default": 1.0,
-			"group": "Breasts",
-		},
-		"genhue": {
-			"name": "Genitals hue",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 1.0,
-			"default": 0.0,
-			"group": "Genitals",
-		},
-		"gensat": {
-			"name": "Genitals saturation",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 2.0,
-			"default": 1.0,
-			"group": "Genitals",
-		},
-		"genvalue": {
-			"name": "Genitals value",
-			"type": "slider",
-			"minvalue": 0.0,
-			"maxvalue": 2.0,
-			"default": 1.0,
-			"group": "Genitals",
-		},
-	}
-
 func getOptions() -> Dictionary:
 	return {
 		"breastsize": {
@@ -129,6 +72,68 @@ func getOptions() -> Dictionary:
 				["pussy", "Normal vagina"],
 				["nopussy", "No vagina"],
 			],
+		},
+		
+# Skin options
+		"skinlayers": {
+			"name": "Skin layers",
+			"type": "layers",
+			"default": [],
+			"menu": ["skin"],
+		},
+		"nipplehue": {
+			"name": "Nipple hue",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+			"group": "Breasts",
+			"menu": ["skin"],
+		},
+		"nipplesat": {
+			"name": "Nipple saturation",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 2.0,
+			"default": 1.0,
+			"group": "Breasts",
+			"menu": ["skin"],
+		},
+		"nipplevalue": {
+			"name": "Nipple value",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 2.0,
+			"default": 1.0,
+			"group": "Breasts",
+			"menu": ["skin"],
+		},
+		"genhue": {
+			"name": "Genitals hue",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 1.0,
+			"default": 0.0,
+			"group": "Genitals",
+			"menu": ["skin"],
+		},
+		"gensat": {
+			"name": "Genitals saturation",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 2.0,
+			"default": 1.0,
+			"group": "Genitals",
+			"menu": ["skin"],
+		},
+		"genvalue": {
+			"name": "Genitals value",
+			"type": "slider",
+			"minvalue": 0.0,
+			"maxvalue": 2.0,
+			"default": 1.0,
+			"group": "Genitals",
+			"menu": ["skin"],
 		},
 	}
 

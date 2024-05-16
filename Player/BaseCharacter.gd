@@ -6,6 +6,7 @@ var rootBodypart:BaseBodyBodypart
 signal onRootChanged(newroot)
 signal onBodypartAdded(whatpart, slot, newbodypart)
 signal onBodypartRemoved(whatpart, slot, removedbodypart)
+signal onBodypartChanged
 signal onBaseSkinDataChanged(newdata)
 signal onBodypartOptionsRecalculated(part)
 signal onInventoryChanged(event)
@@ -17,7 +18,7 @@ var inventory:Inventory = Inventory.new()
 func _init():
 	inventory.setCharacter(self)
 	inventory.connect("inventoryChanged", onInventoryChangedCallback)
-	setRoot(GlobalRegistry.createBodypart("FeminineBody"))
+	setRoot(GlobalRegistry.createBodypart("FeminineBodyNew"))
 	
 	#var head = getRootBodypart().setBodypart(BodypartSlot.Head, BaseHeadBodypart.new())
 	#head.setBodypart(BodypartSlot.LeftEar, BaseEarBodypart.new())
@@ -57,6 +58,7 @@ func replaceRoot(newroot: BaseBodyBodypart):
 	rootBodypart = null
 	setRoot(newroot)
 	emit_signal("onRootChanged", newroot)
+	emit_signal("onBodypartChanged")
 	
 	for partSlot in toAddLater:
 		newroot.setBodypart(partSlot, toAddLater[partSlot])
@@ -65,9 +67,11 @@ func replaceRoot(newroot: BaseBodyBodypart):
 
 func tellBodypartAdded(whatpart: BaseBodypart, slot: String, newpart: BaseBodypart):
 	emit_signal("onBodypartAdded", whatpart, slot, newpart)
+	emit_signal("onBodypartChanged")
 
 func tellBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
 	emit_signal("onBodypartRemoved", whatpart, slot, removedpart)
+	emit_signal("onBodypartChanged")
 
 func getBaseSkinData() -> BaseSkinData:
 	return baseSkinData

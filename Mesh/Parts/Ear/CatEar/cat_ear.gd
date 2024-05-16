@@ -4,4 +4,4 @@ extends DollPart
 
 func applyBaseSkinData(_data : BaseSkinData):
 	if(earMat != null):
-		earMat.albedo_color = _data.skinColor
+		applyBaseSkinDataToStandardMaterial(_data, earMat)

@@ -8,7 +8,7 @@ func _init():
 func getVisibleName():
 	return "Ponytail"
 
-func getSkinOptions() -> Dictionary:
+func getOptions() -> Dictionary:
 	return {
 		"hue": {
 			"name": "Hair hue",
@@ -17,6 +17,7 @@ func getSkinOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"step": 0.01,
 			"default": 0.0,
+			"menu": ["skin"],
 		},
 		"sat": {
 			"name": "Hair saturation",
@@ -24,6 +25,7 @@ func getSkinOptions() -> Dictionary:
 			"minvalue": 0.0,
 			"maxvalue": 2.0,
 			"default": 1.0,
+			"menu": ["skin"],
 		},
 		"value": {
 			"name": "Hair value",
@@ -31,5 +33,6 @@ func getSkinOptions() -> Dictionary:
 			"minvalue": 0.0,
 			"maxvalue": 2.0,
 			"default": 1.0,
+			"menu": ["skin"],
 		},
 	}

@@ -1,7 +1,6 @@
 extends Node3D
 class_name DollPart
 
-@export var bindToParentSkeleton = false
 var meshes:Array[MeshInstance3D] = []
 @export var attachmentPoints:Dictionary = {}
 var skeleton: Skeleton3D
@@ -14,11 +13,6 @@ var extraBoneRotation = {}
 var extraBoneScale = {}
 
 var firstPerson:bool = false
-
-func shouldBindToParentSkeleton() -> bool:
-	if(bindToParentSkeleton == null):
-		bindToParentSkeleton = false
-	return bindToParentSkeleton
 
 func getDoll() -> Doll:
 	if(dollRef == null):
@@ -36,13 +30,6 @@ func getOptionValue(valueID: String, defaultValue = null):
 		return defaultValue
 	return thePart.getOptionValue(valueID, defaultValue)
 
-func getSkinOptionValue(valueID: String, defaultValue = null):
-	var thePart = getBodypart()
-	if(thePart == null):
-		return defaultValue
-	return thePart.getSkinOptionValue(valueID, defaultValue)
-
-
 func deleteSkeleton():
 	for node in skeleton.get_children():
 		skeleton.remove_child(node)
@@ -55,8 +42,6 @@ func findSkeleton() -> Skeleton3D:
 
 func _ready():
 	skeleton = findSkeleton()
-	if(bindToParentSkeleton):
-		deleteSkeleton()
 	meshes = Util.getAllMeshInstancesOfANode(self)
 
 func setSkeletonForAllMeshes(newSkeleton:Skeleton3D):
@@ -70,9 +55,18 @@ func hasSkeleton() -> bool:
 	return skeleton != null
 
 func getBodypartSlotObject(bodypartSlot: String):
+	if(bodypartSlot == ""):
+		return self
 	if(attachmentPoints.has(bodypartSlot)):
 		return get_node(attachmentPoints[bodypartSlot])
 	return self
+
+func getBodypartSlotObjectOrNull(bodypartSlot: String):
+	if(bodypartSlot == ""):
+		return self
+	if(attachmentPoints.has(bodypartSlot)):
+		return get_node(attachmentPoints[bodypartSlot])
+	return null
 
 func setBlendshape(mesh: MeshInstance3D, blendShapeID: String, val: float):
 	if(mesh == null):
@@ -99,14 +93,14 @@ func playAnim(_dollAnim:String, _howFast:float = 1.0):
 func applyBaseSkinData(_data : BaseSkinData):
 	pass
 
+func applyBaseSkinDataToStandardMaterial(_data: BaseSkinData, _mat:StandardMaterial3D):
+	_data.applyToStandardMaterial(_mat)
+	
+func applyBaseSkinDataToShaderMaterial(_data: BaseSkinData, _mat:ShaderMaterial):
+	_data.applyToShaderMaterial(_mat)
+
 func onPartSkinDataChanged(_part, newSkinData):
 	applyBaseSkinData(newSkinData)
-
-func applySkinOption(_optionID: String, _value):
-	pass
-
-func onPartSkinOptionChanged(_optionID, _value):
-	applySkinOption(_optionID, _value)
 
 func setBoneScale(boneName: String, boneScale: float):
 	var theskeleton:Skeleton3D = getSkeleton()
@@ -211,6 +205,8 @@ func doFollowSkeleton(theskeleton:Skeleton3D, followSkeleton:Skeleton3D):
 			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
 
 func _process(_delta):
+	if(true):
+		return
 	var theskeleton:Skeleton3D = getSkeleton()
 	var followSkeleton:Skeleton3D = getFollowSkeleton()
 	
@@ -251,3 +247,17 @@ func updateAlphas(_alphaTextures:Array):
 
 func updateHiddenParts(_hiddenParts:Dictionary):
 	pass
+
+func followMainSkeleton(theskeleton:Skeleton3D):
+	var followSkeleton:Skeleton3D = getMainDollSkeleton()
+	
+	if(theskeleton != null && followSkeleton != null):
+		for _i in range(followSkeleton.get_bone_count()):
+			var boneID = _i
+			
+			theskeleton.set_bone_pose_position(boneID, followSkeleton.get_bone_pose_position(boneID) + (extraBoneOffset[boneID] if extraBoneOffset.has(boneID) else Vector3.ZERO))
+			theskeleton.set_bone_pose_rotation(boneID, followSkeleton.get_bone_pose_rotation(boneID) * (extraBoneRotation[boneID] if extraBoneRotation.has(boneID) else Quaternion.IDENTITY))
+			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
+	
+func getMainDollSkeleton() -> Skeleton3D:
+	return getDoll().getMainSkeleton()

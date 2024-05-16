@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c7kcktvvaov3n"]
+
+[ext_resource type="Shader" uid="uid://silqj6cp6jv6" path="res://Mesh/Materials/SinglePatternShader.tres" id="1_gv37c"]
+[ext_resource type="Texture2D" uid="uid://c213amp03im7h" path="res://Mesh/Parts/Head/FelineHead/Textures/MyFelineMouth Lowpoly_FelineMouth_BaseColor.png" id="2_krlcj"]
+[ext_resource type="Texture2D" uid="uid://72uvffcpwqwo" path="res://Mesh/Parts/Head/FelineHead/Textures/MyFelineMouth Lowpoly_FelineMouth_Normal.png" id="3_wu1ql"]
+[ext_resource type="Texture2D" uid="uid://bo4jkelbww8nx" path="res://Mesh/Parts/Head/FelineHead/Textures/MouthMap.png" id="4_goob7"]
+[ext_resource type="Texture2D" uid="uid://d16w4c735ox2l" path="res://Mesh/Parts/Head/FelineHead/Textures/MyFelineMouth Lowpoly_FelineMouth_Roughness.png" id="5_qyc86"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_gv37c")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/r_pattern = Color(1, 1, 1, 1)
+shader_parameter/g_pattern = Color(1, 1, 1, 1)
+shader_parameter/b_pattern = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_krlcj")
+shader_parameter/texture_roughness = ExtResource("5_qyc86")
+shader_parameter/texture_normal = ExtResource("3_wu1ql")
+shader_parameter/texture_pattern = ExtResource("4_goob7")

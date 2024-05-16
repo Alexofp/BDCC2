@@ -45,6 +45,7 @@ func applyOption(_optionID: String, _value):
 		animation_tree["parameters/EyesSize/add_amount"] = -_value
 	if(_optionID == "eyesspacing"):
 		animation_tree["parameters/EyesSpacing/add_amount"] = -_value
+	applySkinOption(_optionID, _value)
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "skinlayers"):

@@ -10,7 +10,7 @@ disable_3d = true
 transparent_bg = true
 gui_disable_input = true
 size = Vector2i(1024, 1024)
-render_target_update_mode = 1
+render_target_update_mode = 4
 
 [node name="Control" type="MarginContainer" parent="SubViewport"]
 anchors_preset = 15

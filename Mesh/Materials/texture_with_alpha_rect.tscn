@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4a5ucnlopitn"]
+
+[ext_resource type="Shader" path="res://Mesh/Materials/texture_with_alpha_rect.gdshader" id="1_2rch7"]
+[ext_resource type="Script" path="res://Mesh/Materials/texture_with_alpha_rect.gd" id="2_bdnl6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxwe0"]
+shader = ExtResource("1_2rch7")
+
+[node name="TextureWithAlphaRect" type="ColorRect"]
+material = SubResource("ShaderMaterial_mxwe0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_bdnl6")

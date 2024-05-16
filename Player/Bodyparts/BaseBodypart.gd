@@ -5,9 +5,7 @@ var id:String = "error"
 var bodypartType = BodypartType.Generic
 
 var savedOptions:Dictionary = {}
-var savedSkinOptions:Dictionary = {}
 var cachedOptions:Dictionary = {}
-var cachedSkinOptions:Dictionary = {}
 var bodyparts:Dictionary = {}
 
 var rootRef: WeakRef
@@ -16,7 +14,6 @@ var parentPart: WeakRef
 var baseSkinDataOverride:BaseSkinData = null
 
 signal onOptionChanged(optionID, newValue)
-signal onSkinOptionChanged(optionID, newValue)
 signal onBodypartChanged(ourBodypart, slot, newBodypart)
 signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
 signal onBaseSkinDataOverrideChanged(part, newSkinData)
@@ -24,7 +21,6 @@ signal onOptionsCacheRecalculated(part)
 
 func _init():
 	cachedOptions = getOptions()
-	cachedSkinOptions = getSkinOptions()
 	var _justForCache = getMeshScene()
 
 func getVisibleName():
@@ -52,7 +48,6 @@ func getOptions() -> Dictionary:
 
 func recalculateOptionsCache():
 	cachedOptions = getOptions()
-	cachedSkinOptions = getSkinOptions()
 	emit_signal("onOptionsCacheRecalculated", self)
 	if(getCharacter() != null):
 		getCharacter().onPartOptionsRecalculated(self)
@@ -139,19 +134,12 @@ func applyEverythingToDollPart(dollPart:DollPart):
 	dollPart.partRef = weakref(self)
 	applyOptionsToDollPart(dollPart)
 	dollPart.applyBaseSkinData(getBaseSkinData())
-	applySkinOptionsToDollPart(dollPart)
 
 func applyOptionsToDollPart(dollPart:DollPart):
 	var theOptions = getOptions()
 	
 	for optionID in theOptions:
 		dollPart.applyOption(optionID, getOptionValue(optionID))
-
-func applySkinOptionsToDollPart(dollPart:DollPart):
-	var theOptions = getSkinOptions()
-	
-	for optionID in theOptions:
-		dollPart.applySkinOption(optionID, getSkinOptionValue(optionID))
 
 func supportsUniqueBaseSkinData() -> bool:
 	return true
@@ -169,34 +157,6 @@ func getBaseSkinData() -> BaseSkinData:
 func setBaseSkinDataOverride(newData:BaseSkinData):
 	baseSkinDataOverride = newData
 	emit_signal("onBaseSkinDataOverrideChanged", self, getBaseSkinData())
-
-func getSkinOptions() -> Dictionary:
-	return {
-		
-	}
-
-func getSkinOptionValue(valueID: String, defaultValue = null):
-	if(savedSkinOptions.has(valueID)):
-		return savedSkinOptions[valueID]
-	
-	if(cachedSkinOptions.has(valueID) && cachedSkinOptions[valueID].has("default")):
-		return cachedSkinOptions[valueID]["default"]
-	
-	return defaultValue
-
-func setSkinOptionValue(valueID: String, value):
-	if(!cachedSkinOptions.has(valueID)):
-		return
-	
-	if(savedSkinOptions.has(valueID) && !((value is Array) || value is Dictionary) && savedSkinOptions[valueID] == value):
-		return
-	var currentValue = getSkinOptionValue(valueID)
-	savedSkinOptions[valueID] = value
-	emit_signal("onSkinOptionChanged", valueID, value)
-	checkSkinOptionChanged(valueID, currentValue, value)
-
-func checkSkinOptionChanged(_valueID, _oldValue, _newValue):
-	pass
 
 func getTextureVariantsByTypeAndSubType(textureType:String, textureSubType:String, includeTexturePaths:bool=true) -> Array:
 	var result = []

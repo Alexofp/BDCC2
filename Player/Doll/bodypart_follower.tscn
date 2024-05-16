@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu460wjeh48i0"]
+
+[ext_resource type="Script" path="res://Player/Doll/BodypartFollower.gd" id="1_lpepj"]
+
+[node name="BodypartFollower" type="Node3D"]
+script = ExtResource("1_lpepj")

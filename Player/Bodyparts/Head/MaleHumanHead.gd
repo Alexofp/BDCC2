@@ -12,7 +12,7 @@ func getMeshPath() -> String:
 	return "res://Mesh/Parts/Head/MaleHumanHead/male_human_head.tscn"
 
 func getOptions() -> Dictionary:
-	return {
+	var result = {
 		"muzzlesize": {
 			"name": "Muzzle size",
 			"type": "slider",
@@ -34,35 +34,33 @@ func getOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 		},
-	}
-
-func checkSkinOptionChanged(_valueID, _oldValue, _newValue):
-	if(_valueID == "sameeyes" && _oldValue != _newValue):
-		recalculateOptionsCache()
-
-func getSkinOptions() -> Dictionary:
-	var result = {
+		
+# Skin options
 		"age": {
 			"name": "Age",
 			"type": "slider",
 			"minvalue": 0.0,
 			"maxvalue": 1.0,
 			"default": 0.5,
+			"menu": ["skin"],
 		},
 		"mouthcolor": {
 			"name": "Mouth",
 			"type": "color",
 			"default": Color.WHITE,
+			"menu": ["skin"],
 		},
 		"tonguecolor": {
 			"name": "Tongue",
 			"type": "color",
 			"default": Color.WHITE,
+			"menu": ["skin"],
 		},
 		"nosecolor": {
 			"name": "Nose",
 			"type": "color",
 			"default": Color.WHITE,
+			"menu": ["skin"],
 		},
 		"brows": {
 			"name": "Brows",
@@ -70,6 +68,7 @@ func getSkinOptions() -> Dictionary:
 			"values": getTextureVariantsByTypeAndSubType(TextureType.Brows, TextureSubType.Generic),
 			"default": "brow1",
 			"group": "Brows/lashes",
+			"menu": ["skin"],
 		},
 		"eyelashes": {
 			"name": "Eyelashes",
@@ -77,18 +76,21 @@ func getSkinOptions() -> Dictionary:
 			"values": getTextureVariantsByTypeAndSubType(TextureType.Eyelashes, TextureSubType.Generic),
 			"default": "eyelash1",
 			"group": "Brows/lashes",
+			"menu": ["skin"],
 		},
 		"sameeyes": {
 			"name": "Same eyes",
 			"type": "checkbox",
 			"default": true,
+			"menu": ["skin"],
 		},
 	}
 	
+
 	var eyesStuff = [
 		["", "Eye"]
 	]
-	if(!getSkinOptionValue("sameeyes", true)):
+	if(!getOptionValue("sameeyes", true)):
 		eyesStuff = [
 			["", "Left eye"],
 			["_right", "Right eye"],
@@ -102,6 +104,7 @@ func getSkinOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 			"group": eyeStuff[1],
+			"menu": ["skin"],
 		}
 		result["eyesaturation"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" saturation",
@@ -110,6 +113,7 @@ func getSkinOptions() -> Dictionary:
 			"maxvalue": 1.0,
 			"default": 0.0,
 			"group": eyeStuff[1],
+			"menu": ["skin"],
 		}
 		result["eyetype"+eyeStuff[0]] = {
 			"name": eyeStuff[1]+" type",
@@ -117,5 +121,10 @@ func getSkinOptions() -> Dictionary:
 			"default": "normal",
 			"values": getTextureVariantsByTypeAndSubType(TextureType.Eyes, TextureSubType.Generic),
 			"group": eyeStuff[1],
+			"menu": ["skin"],
 		}
 	return result
+
+func checkOptionChanged(_valueID, _oldValue, _newValue):
+	if(_valueID == "sameeyes" && _oldValue != _newValue):
+		recalculateOptionsCache()

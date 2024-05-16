@@ -3,7 +3,7 @@ extends HBoxContainer
 @onready var itemList = $ItemList
 var id
 var values = []
-signal onDataChanged(id, newItemID, newColor)
+signal onDataChanged(id, newItemID, newColor, newColor2, newColor3)
 signal onDownButton(id)
 signal onUpButton(id)
 signal onDelButton(id)
@@ -38,17 +38,34 @@ func getItemListValue():
 	
 	return values[selectedIndex]
 
+func setColorsAmount(howMany = 1):
+	$ColorPickerButton.visible = (howMany >= 1)
+	$ColorPickerButton2.visible = (howMany >= 2)
+	$ColorPickerButton3.visible = (howMany >= 3)
+
 func getColor() -> Color:
 	return $ColorPickerButton.color
 
 func setColor(newCol:Color):
 	$ColorPickerButton.color = newCol
 
+func getColor2() -> Color:
+	return $ColorPickerButton2.color
+
+func setColor2(newCol:Color):
+	$ColorPickerButton2.color = newCol
+
+func getColor3() -> Color:
+	return $ColorPickerButton3.color
+
+func setColor3(newCol:Color):
+	$ColorPickerButton3.color = newCol
+
 func _on_color_picker_button_color_changed(_color):
-	emit_signal("onDataChanged", id, getItemListValue(), getColor())
+	emit_signal("onDataChanged", id, getItemListValue(), getColor(), getColor2(), getColor3())
 
 func _on_item_list_item_selected(_index):
-	emit_signal("onDataChanged", id, getItemListValue(), getColor())
+	emit_signal("onDataChanged", id, getItemListValue(), getColor(), getColor2(), getColor3())
 
 func _on_down_button_pressed():
 	emit_signal("onDownButton", id)
@@ -58,3 +75,9 @@ func _on_up_button_pressed():
 
 func _on_del_button_pressed():
 	emit_signal("onDelButton", id)
+
+func _on_color_picker_button_2_color_changed(_color):
+	emit_signal("onDataChanged", id, getItemListValue(), getColor(), getColor2(), getColor3())
+
+func _on_color_picker_button_3_color_changed(_color):
+	emit_signal("onDataChanged", id, getItemListValue(), getColor(), getColor2(), getColor3())

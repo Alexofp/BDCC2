@@ -22,7 +22,7 @@ var patternAndColorSelectorScene = preload("res://Game/CharacterCreator/OptionTy
 
 signal onChildBodypartChangeType(part, slot, newtype)
 
-var isSkinOptions = false
+var editType = "part"
 
 func createOptionScene(type:String) -> Control:
 	if(type == "slider"):
@@ -70,13 +70,22 @@ func updateOptions():
 	if(editingBodypart == null):
 		return
 	
-	var options = []
-	if(!isSkinOptions):
-		options = editingBodypart.getOptions()
-	else:
-		# Skin
-		options = editingBodypart.getSkinOptions()
-		
+	var options = {}
+	
+	var rawOptions = editingBodypart.getOptions()
+	for optionID in rawOptions:
+		var theOption = rawOptions[optionID]
+		var optionKind = ["part"]
+		if(theOption.has("menu")):
+			if(theOption["menu"] is String):
+				optionKind = [theOption["menu"]]
+			else:
+				optionKind = theOption["menu"]
+		if(editType in optionKind):
+			options[optionID] = theOption
+	
+	# Adding an extra widget for the skin menu
+	if(editType == "skin"):
 		if(editingBodypart.supportsUniqueBaseSkinData()):
 			var skinCheckboxScene = createOptionScene("checkbox")
 			partOptionsList.add_child(skinCheckboxScene)
@@ -115,13 +124,11 @@ func updateOptions():
 		newOptionScene.id = optionID
 		newOptionScene.setLabel(optionInfo["name"] if optionInfo.has("name") else optionID)
 		newOptionScene.setData(optionInfo)
-		if(!isSkinOptions):
-			newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
-		else:
-			newOptionScene.setValue(editingBodypart.getSkinOptionValue(optionID))
+		newOptionScene.setValue(editingBodypart.getOptionValue(optionID))
 		newOptionScene.onValueChange.connect(onOptionSceneValueChanged)
 	
-	if(isSkinOptions):
+	# Adding an extra widgets for picking parts
+	if(editType != "part"):
 		return
 	for bodypartSlot in editingBodypart.getBodypartSlots():
 		var newSlotSelectScene = typeSelectorScene.instantiate()
@@ -150,10 +157,7 @@ func updateOptions():
 func onOptionSceneValueChanged(id, newValue):
 	if(editingBodypart == null):
 		return
-	if(!isSkinOptions):
-		editingBodypart.setOptionValue(id, newValue)
-	else:
-		editingBodypart.setSkinOptionValue(id, newValue)
+	editingBodypart.setOptionValue(id, newValue)
 	
 func onChildPartSlotSceneChangeType(id, newType):
 	emit_signal("onChildBodypartChangeType", editingBodypart, id, newType)

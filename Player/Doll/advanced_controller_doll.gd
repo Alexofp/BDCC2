@@ -39,6 +39,8 @@ var camera_dir = Vector2.ZERO
 @onready var SpringArm = $CameraPivot/SpringArm
 @onready var CameraPivot = $CameraPivot
 
+func getBodySkeleton():
+	return getDoll().getBodySkeleton()
 
 func getDoll() -> Doll:
 	return $ModelRoot/Doll.getDoll()
@@ -93,13 +95,22 @@ func _process(delta):
 	if noclip_on:
 		velocity = move_direction * move_speed
 	else:
-		velocity.x = move_direction_no_y.x * move_speed 
-		velocity.z = move_direction_no_y.z * move_speed
+		var isOnFloor = is_on_floor()
+		
+		#velocity.x = move_direction_no_y.x * move_speed 
+		#velocity.z = move_direction_no_y.z * move_speed
 		
 		# Uncomment for root motion
-		var rootPos = $BodySkeleton.getRootPos()
-		velocity.x = move_direction_no_y.x * rootPos.z / delta * 2.0
-		velocity.z = move_direction_no_y.z * rootPos.z / delta * 2.0
+		if(isOnFloor):
+			var current_dir_no_y = $ModelRoot.basis * Vector3.BACK
+			
+			var rootPos = getBodySkeleton().getRootPos()
+			velocity.x = current_dir_no_y.x * rootPos.z / delta * 2.0
+			velocity.z = current_dir_no_y.z * rootPos.z / delta * 2.0
+		else:
+			# In air
+			velocity.x = move_direction_no_y.x * move_speed 
+			velocity.z = move_direction_no_y.z * move_speed
 		
 		if not is_on_floor():
 			velocity.y -= GRAVITY_FORCE * delta
@@ -165,7 +176,7 @@ func process_camera():
 		SpringArm.position.x = 0.3
 		$CameraPivot.position.y = 1.125
 	
-	if(firstperson_isdown):
+	if(firstperson_isdown && false):
 		var isFirstPerson = getDoll().isFirstPerson()
 		
 		var newFirstPerson = !isFirstPerson
@@ -192,20 +203,27 @@ func process_movement():
 	move_direction = move_direction.normalized()
 	move_direction_no_y = move_direction_no_y.normalized()
 
+var recordedVelocity:Vector3
 func process_animation(delta):
 	if(getDoll() != null):
+		var bodySkeleton = getBodySkeleton()
+		bodySkeleton.rollOnLand = (recordedVelocity.y < -10.0)
+		recordedVelocity = velocity
 		if !is_on_floor():
 			playDollAnim(DollAnim.Fall)
+			bodySkeleton.jump()
 		elif move_direction != Vector3.ZERO:
 			if sprint_isdown:
 				playDollAnim(DollAnim.Run)
-				$BodySkeleton.walk()
+				bodySkeleton.run()
 			else:
 				playDollAnim(DollAnim.Walk)
-				$BodySkeleton.walk()
+				bodySkeleton.walk()
+			if firstperson_isdown:
+				bodySkeleton.roll()
 		else:
 			playDollAnim(DollAnim.Idle)
-			$BodySkeleton.stand()
+			bodySkeleton.stand()
 	
 	if move_direction != Vector3.ZERO:
 		$ModelRoot.basis = basis_rotate_toward($ModelRoot.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)

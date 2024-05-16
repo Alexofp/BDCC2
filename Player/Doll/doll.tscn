@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://d08txhenreptl"]
+[gd_scene load_steps=5 format=3 uid="uid://d08txhenreptl"]
 
 [ext_resource type="Script" path="res://Player/Doll/doll.gd" id="1_wtymv"]
+[ext_resource type="PackedScene" uid="uid://brjdv3jgdc3bj" path="res://Mesh/Parts/Body/FeminineBodyNew/body_skeleton.tscn" id="2_foo83"]
+[ext_resource type="PackedScene" uid="uid://bu460wjeh48i0" path="res://Player/Doll/bodypart_follower.tscn" id="3_mjkfp"]
+[ext_resource type="PackedScene" uid="uid://dltwp53uewous" path="res://Mesh/Clothing/TestHat/TestHat.tscn" id="4_6l3aw"]
 
 [node name="Doll" type="Node3D"]
 script = ExtResource("1_wtymv")
+
+[node name="BodySkeleton" parent="." instance=ExtResource("2_foo83")]
+
+[node name="Bodyparts" type="Node3D" parent="."]
+
+[node name="Clothing" type="Node3D" parent="."]
+
+[node name="BodypartFollower" parent="Clothing" node_paths=PackedStringArray("doll") instance=ExtResource("3_mjkfp")]
+visible = false
+doll = NodePath("../..")
+
+[node name="MeshInstance3D2" parent="Clothing/BodypartFollower" instance=ExtResource("4_6l3aw")]
+visible = false

@@ -29,6 +29,14 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:rig/Skeleton3D": {
+"retarget/bone_map": null,
+"retarget/bone_renamer/unique_node/skeleton_name": "Skeleton3D",
+"retarget/rest_fixer/overwrite_axis": false
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

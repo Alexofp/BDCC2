@@ -21,7 +21,7 @@ func _ready():
 		["masc", "Masculine body"],
 		["femnew", "Feminine body NEW"],
 	])
-	bodyTypeSelector.setValue("fem")
+	bodyTypeSelector.setValue("femnew")
 	
 	_on_parts_menu_button_pressed()
 
@@ -44,6 +44,7 @@ func updateCharacter():
 		
 		if(true):
 			var newBodypartScene = bodypartPanelScene.instantiate()
+			newBodypartScene.editType = "part"
 			bodypartsList.add_child(newBodypartScene)
 			newBodypartScene.setLabel(part.getVisibleName())
 			newBodypartScene.setBodypart(part)
@@ -53,7 +54,7 @@ func updateCharacter():
 			newBodypartScene.onChildBodypartChangeType.connect(onChildBodypartChangeType)
 		if(true):
 			var newBodypartScene = bodypartPanelScene.instantiate()
-			newBodypartScene.isSkinOptions = true
+			newBodypartScene.editType = "skin"
 			skinpartsList.add_child(newBodypartScene)
 			newBodypartScene.setLabel(part.getVisibleName())
 			newBodypartScene.setBodypart(part)

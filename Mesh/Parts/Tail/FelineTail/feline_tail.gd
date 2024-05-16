@@ -15,6 +15,7 @@ func applyOption(_optionID: String, _value):
 		setBlendshape(tail, "SpiralTail", _value)
 	if(_optionID == "tailbat"):
 		setBlendshape(tail, "BatTail", _value)
+	applySkinOption(_optionID, _value)
 		
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "tailpattern"):
@@ -41,5 +42,7 @@ func playAnim(dollAnim:String, _howFast:float = 1.0):
 func applyBaseSkinData(_data : BaseSkinData):
 	if(tailMat != null):
 		tailMat.albedo_color = _data.skinColor
+		applyBaseSkinDataToStandardMaterial(_data, tailMat)
 	if(tailPatternMat != null):
 		tailPatternMat.set_shader_parameter("albedo", _data.skinColor)
+		applyBaseSkinDataToShaderMaterial(_data, tailPatternMat)

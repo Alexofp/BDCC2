@@ -2,6 +2,9 @@ extends DollPart
 
 @export var hairMat:ShaderMaterial
 
+func applyOption(_optionID: String, _value):
+	applySkinOption(_optionID, _value)
+
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "hue"):
 		if(hairMat != null):

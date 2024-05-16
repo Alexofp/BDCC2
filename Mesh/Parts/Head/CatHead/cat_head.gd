@@ -22,6 +22,7 @@ func applyOption(_optionID: String, _value):
 		updateMuzzleSizeAndLength()
 	if(_optionID == "nosebridge"):
 		setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
+	applySkinOption(_optionID, _value)
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "mouthcolor"):

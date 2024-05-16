@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcxsbslfud0n2"]
+[gd_scene load_steps=5 format=3 uid="uid://dcxsbslfud0n2"]
 
 [ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/base_skin_data.gd" id="1_luio0"]
 [ext_resource type="PackedScene" uid="uid://bhdkibl0ipw88" path="res://Game/CharacterCreator/OptionTypes/type_selector.tscn" id="2_qjmpo"]
 [ext_resource type="PackedScene" uid="uid://dtv2s2vqv6xdb" path="res://Game/CharacterCreator/OptionTypes/color.tscn" id="3_e1q63"]
+[ext_resource type="PackedScene" uid="uid://xhwqdh77p3ft" path="res://Game/CharacterCreator/OptionTypes/number_slider.tscn" id="4_0eh5c"]
 
 [node name="BaseSkinData" type="VBoxContainer"]
 anchors_preset = 10
@@ -17,5 +18,21 @@ layout_mode = 2
 [node name="Color" parent="." instance=ExtResource("3_e1q63")]
 layout_mode = 2
 
+[node name="RoughnessSlider" parent="." instance=ExtResource("4_0eh5c")]
+layout_mode = 2
+
+[node name="SpecularSlider" parent="." instance=ExtResource("4_0eh5c")]
+layout_mode = 2
+
+[node name="RimSlider" parent="." instance=ExtResource("4_0eh5c")]
+layout_mode = 2
+
+[node name="RimTintSlider" parent="." instance=ExtResource("4_0eh5c")]
+layout_mode = 2
+
 [connection signal="onValueChange" from="TypeSelectorHBox" to="." method="_on_type_selector_h_box_on_value_change"]
 [connection signal="onValueChange" from="Color" to="." method="_on_color_on_value_change"]
+[connection signal="onValueChange" from="RoughnessSlider" to="." method="_on_roughness_slider_on_value_change"]
+[connection signal="onValueChange" from="SpecularSlider" to="." method="_on_specular_slider_on_value_change"]
+[connection signal="onValueChange" from="RimSlider" to="." method="_on_rim_slider_on_value_change"]
+[connection signal="onValueChange" from="RimTintSlider" to="." method="_on_rim_tint_slider_on_value_change"]

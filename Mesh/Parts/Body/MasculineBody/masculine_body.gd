@@ -131,6 +131,7 @@ func applyOption(_optionID: String, _value):
 			$rig/Skeleton3D/PlantiLegs.visible = true
 	if(_optionID == "pussy"):
 		updateCrotchVisibility()
+	applySkinOption(_optionID, _value)
 
 func playAnim(dollAnim:String, _howFast:float = 1.0):
 	if(dollAnim in [DollAnim.Walk, DollAnim.Run, DollAnim.Fall]):

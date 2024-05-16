@@ -9,7 +9,7 @@ func _init():
 func _ready():
 	UiHandler.addUI($CanvasLayer)
 	
-	baseCharacter.getRootBodypart().setBodypart(BodypartSlot.Head, GlobalRegistry.createBodypart("FelineHead"))
+	baseCharacter.getRootBodypart().setBodypart(BodypartSlot.Head, GlobalRegistry.createBodypart("FelineHeadNew"))
 	
 	$Doll.getDoll().setCharacter(baseCharacter)
 	$Doll3.getDoll().setCharacter(baseCharacter)
@@ -35,6 +35,11 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("debug_showcharactercreator"):
 		$CanvasLayer.visible = !$CanvasLayer.visible
+		
+	if(Input.is_action_just_pressed("debug_F1")):
+		baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestHat"))
+	if(Input.is_action_just_pressed("debug_F2")):
+		baseCharacter.getInventory().clearSlot(InventorySlot.Hat)
 
 func removeShirt():
 	baseCharacter.getInventory().clearSlot(InventorySlot.Chest)

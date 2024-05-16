@@ -23,6 +23,9 @@ func isEquipped() -> bool:
 		return false
 	return currentInventory.isItemEquipped(self)
 
+func getMeshStructure(_baseCharacter:BaseCharacter) -> Dictionary:
+	return {}
+
 func getMeshPath() -> String:
 	return "res://Mesh/Clothing/SimpleTshirt/t_shirt.tscn"
 

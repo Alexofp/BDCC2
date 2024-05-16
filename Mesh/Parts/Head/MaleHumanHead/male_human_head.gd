@@ -11,7 +11,7 @@ extends DollPart
 @onready var eyes = $"RIG-MaleArmature/Skeleton3D/Eyes_001"
 
 func applyOption(_optionID: String, _value):
-	pass
+	applySkinOption(_optionID, _value)
 	
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "mouthcolor"):

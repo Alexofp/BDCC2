@@ -5,6 +5,10 @@ var character:BaseCharacter
 #var dollSkeleton:DollSkeleton
 var bodypartToDollPart:Dictionary = {}
 var itemToClothingPart:Dictionary = {}
+@onready var bodyparts = $Bodyparts
+@onready var clothing = $Clothing
+
+signal selectedCharacterChanged(oldChar, newChar)
 
 var firstPerson:bool = false
 
@@ -12,6 +16,9 @@ func getCharacter() -> BaseCharacter:
 	return character
 
 func setCharacter(newChar:BaseCharacter):
+	if(character != null && is_instance_valid(character)):
+		Util.remove_all_signals_with_target(character, self)
+	var oldChar = character
 	character = newChar
 	updateFromCharacter()
 	# Add support for bodyparts being removed
@@ -20,59 +27,21 @@ func setCharacter(newChar:BaseCharacter):
 	newChar.connect("onBodypartRemoved", onBodypartRemoved)
 	newChar.connect("onBaseSkinDataChanged", onBaseCharacterBaseSkinDataChanged)
 	newChar.connect("onInventoryChanged", onInventoryChangedCallback)
+	emit_signal("selectedCharacterChanged", oldChar, character)
 
 func clear():
-	pass
-	#if(dollSkeleton != null):
-	#	dollSkeleton.queue_free()
-	#	dollSkeleton = null
-
-func updateSkeleton():
-	var _root = character.getRootBodypart()
-	
-	#var skeletonScene = root.getSkeletonScene()
-	
-	#if(dollSkeleton != null):
-	#	dollSkeleton.queue_free()
-	#	dollSkeleton = null
-	
-	#dollSkeleton = skeletonScene.instantiate()
-	#add_child(dollSkeleton)
-
-
-func updateFromCharacter():
+	for clothingPart in itemToClothingPart.values():
+		clothingPart.queue_free()
+	itemToClothingPart = {}
 	for dollpart in bodypartToDollPart.values():
 		dollpart.queue_free()
 	bodypartToDollPart.clear()
-	
-	updateSkeleton()
 
-	var root = character.getRootBodypart()
-	var meshScene = root.getMeshScene()
-	if(meshScene != null):
-		var newDollPart = meshScene.instantiate()
-		
-		add_child(newDollPart)
-		
-		root.applyEverythingToDollPart(newDollPart)
-		root.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
-		root.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
-		root.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
-		applyEverythingFromDollToDollPart(newDollPart)
-		#dollSkeleton.getSkeleton().add_child(newDollPart)
-		#newDollPart.applyBaseSkinData(root.getBaseSkinData())
-		
-		#newDollPart.setSkeleton(dollSkeleton.getSkeleton())
-		
-		bodypartToDollPart[root] = newDollPart
+func updateFromCharacter():
+	clear()
 	
-	var childParts = root.getBodyparts()
-	for bodypartSlot in childParts:
-		if(childParts[bodypartSlot] == null):
-			continue
-		var childPart:BaseBodypart = childParts[bodypartSlot]
-		
-		updateBodypartRecursive(root, bodypartSlot, childPart)
+	var root = character.getRootBodypart()
+	updateBodypartRecursive(null, "root", root)
 		
 	updateEquippedItemsFromCharacter()
 
@@ -99,30 +68,33 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 	if(meshScene != null):
 		var newDollPart:DollPart = meshScene.instantiate()
 		
-		var parentDollPart: DollPart = bodypartToDollPart[parentPart]
-		parentDollPart.dollRef = weakref(self)
-		var attachObject:Node = parentDollPart.getBodypartSlotObject(slot)
-		
-		#print(slot+" Attached to ",attachObject)
-		attachObject.add_child(newDollPart)
+		if(parentPart != null):
+			var parentDollPart: DollPart = bodypartToDollPart[parentPart]
+			parentDollPart.dollRef = weakref(self)
+			var attachObject:Node = parentDollPart.getBodypartSlotObject(slot)
+			
+			#print(slot+" Attached to ",attachObject)
+			attachObject.add_child(newDollPart)
+		else:
+			bodyparts.add_child(newDollPart)
 		
 		part.applyEverythingToDollPart(newDollPart)
 		part.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
-		part.onSkinOptionChanged.connect(Callable(newDollPart, "onPartSkinOptionChanged"))
-		parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
+		if(parentPart != null):
+			parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
 		part.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
 		applyEverythingFromDollToDollPart(newDollPart)
 		#newDollPart.applyBaseSkinData(part.getBaseSkinData()) # Everything does it
 		
-		if(newDollPart.shouldBindToParentSkeleton()):
-			newDollPart.setSkeleton(parentDollPart.getSkeleton())
+		#if(newDollPart.shouldBindToParentSkeleton()):
+		#	newDollPart.setSkeleton(parentDollPart.getSkeleton())
 		#mesh.setSkeleton(dollSkeleton.getSkeleton())
 		
 		bodypartToDollPart[part] = newDollPart
 		
 		var end = Time.get_ticks_usec()
 		var worker_time = (end-start)/1000000.0
-		print(slot+" Attached to ",attachObject," Took: ",worker_time," seconds")
+		print(slot+" Attached, Took: ",worker_time," seconds")
 
 		var childParts = part.getBodyparts()
 		for bodypartSlot in childParts:
@@ -138,6 +110,12 @@ func applyEverythingFromDollToDollPart(theDollPart:DollPart):
 
 func getDoll() -> Doll:
 	return self
+
+func getMainSkeleton() -> Skeleton3D:
+	return $BodySkeleton.getSkeleton()
+	
+func getBodySkeleton():
+	return $BodySkeleton
 
 func playAnim(dollAnim:String, howFast:float = 1.0):
 	for dollPart in bodypartToDollPart.values():
@@ -165,7 +143,42 @@ func setFirstPerson(newFirstPerson:bool) -> void:
 func isFirstPerson() -> bool:
 	return firstPerson
 
+func removeItemFromDoll(item:ItemBase):
+	if(!itemToClothingPart.has(item)):
+		return false
+	var clothingPartsWithIds = itemToClothingPart[item]
+	for meshID in clothingPartsWithIds:
+		removeNodeFromFollowingBody(clothingPartsWithIds[meshID])
+	updateEquippedItemsAlpha()
+	itemToClothingPart.erase(item)
+	return true
+
 func addItemToDoll(item:ItemBase):
+	var itemMeshStructure:Dictionary = item.getMeshStructure(getCharacter())
+	
+		#"hat": {
+			#"attachTo": [BodypartSlot.Head],
+			#"attachSlot": "Hat",
+			#"path": "res://Mesh/Clothing/TestHat/TestHat.tscn",
+		#}
+	if(itemToClothingPart.has(item)):
+		removeItemFromDoll(item)
+	itemToClothingPart[item] = {}
+	for meshID in itemMeshStructure:
+		var meshData = itemMeshStructure[meshID]
+		
+		var itemMesh:ClothingPart = load(meshData["path"]).instantiate()
+		itemMesh.itemRef = weakref(item)
+		itemMesh.dollRef = weakref(self)
+		addNodeToFollowBody(itemMesh, meshData["attachTo"], meshData["attachSlot"])
+		itemToClothingPart[item][meshID] = itemMesh
+		itemMesh.connectSignals()
+		itemMesh.applyToDoll(self)
+		
+	updateEquippedItemsAlpha()
+	return true
+
+func addItemToDoll_OLD(item:ItemBase):
 	# Probably better to pass the character into the mesh scene?
 	var itemMeshScene:PackedScene = item.getMeshScene()
 	
@@ -185,6 +198,8 @@ func addItemToDoll(item:ItemBase):
 	return true
 
 func getAllHiddenParts() -> Dictionary:
+	if(true):
+		return {} # Do this in items somehow?
 	var hiddenBodyParts = {}
 	for clothingPart in itemToClothingPart.values():
 		var hiddenParts = clothingPart.getPartsToHide()
@@ -194,6 +209,8 @@ func getAllHiddenParts() -> Dictionary:
 	return hiddenBodyParts
 
 func updateEquippedItemsAlpha():
+	if(true):
+		return # Check items themselves for alpha?
 	var allClothingItems = itemToClothingPart.values()
 	
 	var root:DollPart = getDollpartByPath([])
@@ -213,8 +230,8 @@ func updateEquippedItemsAlpha():
 		dollPart.updateHiddenParts(hiddenBodyParts)
 
 func updateEquippedItemsFromCharacter():
-	for clothingPart in itemToClothingPart.values():
-		clothingPart.queue_free()
+	for clothingItem in itemToClothingPart.keys():
+		removeItemFromDoll(clothingItem)
 	itemToClothingPart = {}
 	
 	var inventory:Inventory = character.getInventory()
@@ -230,14 +247,21 @@ func onInventoryChangedCallback(event: InventoryChangedEvent):
 	
 	if(event.eventType == InventoryChangedEvent.ItemUnequipped):
 		var theItem:ItemBase = event.item
-		
-		if(itemToClothingPart.has(theItem)):
-			itemToClothingPart[theItem].queue_free()
-			itemToClothingPart.erase(theItem)
-			updateEquippedItemsAlpha()
+		removeItemFromDoll(theItem)
 	elif(event.eventType == InventoryChangedEvent.ItemEquipped):
 		var item:ItemBase = event.item
 		addItemToDoll(item)
+
+#var allFollowers = []
+var bodypartFollowerScene = preload("res://Player/Doll/bodypart_follower.tscn")
+func addNodeToFollowBody(theNode:Node3D, bodypartPath:Array, bodypartSlot:String):
+	var newFollower = bodypartFollowerScene.instantiate()
+	clothing.add_child(newFollower)
+	newFollower.setToFollow(self, bodypartPath, bodypartSlot)
+	newFollower.add_child(theNode)
+
+func removeNodeFromFollowingBody(theNode:Node3D):
+	theNode.get_parent().queue_free()
 
 func getBodypartByPath(path:Array) -> BaseBodypart:
 	var theCharacter:BaseCharacter = getCharacter()

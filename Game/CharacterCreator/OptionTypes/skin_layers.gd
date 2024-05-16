@@ -4,12 +4,13 @@ var id:String = ""
 @onready var label = $Label
 @onready var layerList = $VBoxContainer/VBoxContainer
 var skinLayerScene = preload("res://Game/CharacterCreator/OptionTypes/SubElements/skin_layer.tscn")
+var idToLayer = {}
 
 var customPossibleValues = {}
 var values = [
 ]
 var maxLayers = 99
-# { id="", color=Color.WHITE}
+# { id="", color=Color.WHITE, color2, color3}
 #var possibleSkins = []
 var skinType = TextureType.PartSkin
 var skinSubType = TextureSubType.Generic
@@ -51,6 +52,7 @@ func _on_item_list_item_selected(index):
 
 func updateValues():
 	Util.delete_children(layerList)
+	idToLayer.clear()
 	
 	if(!customPossibleValues.is_empty()):
 		var possibleSkinValues = []
@@ -65,9 +67,18 @@ func updateValues():
 			layerList.add_child(newSkinlayer)
 			
 			newSkinlayer.id = _i
+			idToLayer[_i] = newSkinlayer
 			newSkinlayer.setValues(possibleSkinValues)
 			newSkinlayer.setItemListValue(layerInfo["id"])
 			newSkinlayer.setColor(layerInfo["color"])
+			newSkinlayer.setColor2(layerInfo["color2"] if layerInfo.has("color2") else Color.WHITE)
+			newSkinlayer.setColor3(layerInfo["color3"] if layerInfo.has("color3") else Color.WHITE)
+			newSkinlayer.setColorsAmount(1)
+			if(customPossibleValues[layerInfo["id"]].has("pattern") && customPossibleValues[layerInfo["id"]]["pattern"]):
+				layerInfo["isPattern"] = true
+				newSkinlayer.setColorsAmount(3)
+			else:
+				layerInfo["isPattern"] = false
 			newSkinlayer.onDataChanged.connect(onSkinlayerDataChanged)
 			newSkinlayer.onDelButton.connect(onSkinlayerDelPressed)
 			newSkinlayer.onDownButton.connect(onSkinDownButton)
@@ -86,9 +97,18 @@ func updateValues():
 		layerList.add_child(newSkinlayer)
 		
 		newSkinlayer.id = _i
+		idToLayer[_i] = newSkinlayer
 		newSkinlayer.setValues(possibleSkinValues)
 		newSkinlayer.setItemListValue(layerInfo["id"])
 		newSkinlayer.setColor(layerInfo["color"])
+		newSkinlayer.setColor2(layerInfo["color2"] if layerInfo.has("color2") else Color.WHITE)
+		newSkinlayer.setColor3(layerInfo["color3"] if layerInfo.has("color3") else Color.WHITE)
+		newSkinlayer.setColorsAmount(1)
+		if(false):
+			layerInfo["isPattern"] = true
+			newSkinlayer.setColorsAmount(3)
+		else:
+			layerInfo["isPattern"] = false
 		newSkinlayer.onDataChanged.connect(onSkinlayerDataChanged)
 		newSkinlayer.onDelButton.connect(onSkinlayerDelPressed)
 		newSkinlayer.onDownButton.connect(onSkinDownButton)
@@ -111,22 +131,40 @@ func onSkinUpButton(index):
 	updateValues()
 	emit_signal("onValueChange", id, values.duplicate())
 
-func onSkinlayerDataChanged(index, newItemID, newColor):
+func onSkinlayerDataChanged(index, newItemID, newColor, newColor2, newColor3):
 	values[index]["id"] = newItemID
 	values[index]["color"] = newColor
+	values[index]["color2"] = newColor2
+	values[index]["color3"] = newColor3
+	if(!customPossibleValues.is_empty()):
+		values[index]["isPattern"] = (customPossibleValues[newItemID].has("pattern") && customPossibleValues[newItemID]["pattern"])
+	else:
+		values[index]["isPattern"] = false
+	
+	if(values[index]["isPattern"]):
+		idToLayer[index].setColorsAmount(3)
+	else:
+		idToLayer[index].setColorsAmount(1)
 	#print(values)
 	emit_signal("onValueChange", id, values.duplicate())
 
 func _on_add_layer_button_pressed():
 	if(!customPossibleValues.is_empty()):
+		var newId = customPossibleValues.keys()[0]
 		values.append({
-			id = customPossibleValues.keys()[0],
+			id = newId,
 			color = Color.WHITE,
+			color2 = Color.WHITE,
+			color3 = Color.WHITE,
+			isPattern=(customPossibleValues[newId].has("pattern") && customPossibleValues[newId]["pattern"]),
 		})
 	else:
 		values.append({
 			id = GlobalRegistry.getTextureVariants(skinType, skinSubType).keys()[0],
 			color = Color.WHITE,
+			color2 = Color.WHITE,
+			color3 = Color.WHITE,
+			isPattern=false,
 		})
 	updateValues()
 	checkCanAdd()

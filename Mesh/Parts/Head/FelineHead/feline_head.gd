@@ -2,24 +2,25 @@ extends DollPart
 
 @export var eyeMat:ShaderMaterial
 @export var eyeRightMat:ShaderMaterial
-@export var headMat:ShaderMaterial
+@export var headMat:StandardMaterial3D
 @export var mouthMat:ShaderMaterial
 @export var browsMat:StandardMaterial3D
 @export var eyelashesMat:StandardMaterial3D
 @onready var eyes = $FelineRig/Skeleton3D/Eyes
-@onready var canine_head_fluff #= $CanineRig/Skeleton3D/CanineHeadFluff
+@onready var cheek_fluff = $FelineRig/Skeleton3D/CheekFluff
 @onready var pattern_texture = $PatternTexture
 
 func _ready():
 	super._ready()
 	if(headMat != null):
-		headMat.set_shader_parameter("texture_layers", pattern_texture.getTexture())
+		headMat.albedo_texture = pattern_texture.getTexture()
+		#headMat.set_shader_parameter("texture_layers", pattern_texture.getTexture())
 		#headMat.set_shader_parameter("alpha_mask", alphaTexture.getTexture())
 
 func updateMuzzleSizeAndLength():
 	var muzzlesize = getOptionValue("muzzlesize", 0.0)
 	var muzzlelen = getOptionValue("muzzlelen", 0.0)
-	setBoneScaleAndOffset("muzzle", max(0.1, muzzlesize*0.1+1.0), Vector3(0.0, muzzlelen/50.0, 0.0))
+	setBoneScaleAndOffset("DEF-muzzle", max(0.1, muzzlesize*0.1+1.0), Vector3(0.0, muzzlelen/50.0, 0.0))
 	animation_tree["parameters/NeckBulge/add_amount"] = clamp(-muzzlelen, 0.0, 0.8)
 	
 func applyOption(_optionID: String, _value):
@@ -34,37 +35,51 @@ func applyOption(_optionID: String, _value):
 	if(_optionID == "nosebridge"):
 		#setBoneOffset("NoseBridge", Vector3(0.0, _value/20.0, -_value/20.0))
 		animation_tree["parameters/NodeBridge/add_amount"] = _value
-	if(_optionID == "fluffpointy"):
-		if(canine_head_fluff != null):
-			setBlendshape(canine_head_fluff, "Pointy", _value)
+	if(_optionID == "fluffdown"):
+		if(cheek_fluff != null):
+			setBlendshape(cheek_fluff, "FluffDown", _value)
+	if(_optionID == "fluffshort"):
+		if(cheek_fluff != null):
+			setBlendshape(cheek_fluff, "FluffShort", _value)
+	if(_optionID == "fluffwide"):
+		if(cheek_fluff != null):
+			setBlendshape(cheek_fluff, "FluffWide", _value)
 	if(_optionID == "cheekfluff"):
-		if(canine_head_fluff != null):
+		if(cheek_fluff != null):
 			if(_value):
-				canine_head_fluff.visible = true
+				cheek_fluff.visible = true
 			else:
-				canine_head_fluff.visible = false
+				cheek_fluff.visible = false
 	if(_optionID == "eyessize"):
 		animation_tree["parameters/EyesSize/add_amount"] = -_value
 	if(_optionID == "eyesspacing"):
 		animation_tree["parameters/EyesSpacing/add_amount"] = -_value
+	applySkinOption(_optionID, _value)
+
+func updatePatternTexture():
+	pattern_texture.clear()
+	var baseInfo:BaseSkinData = getBodypart().getBaseSkinData()
+	if(baseInfo != null):
+		pattern_texture.addSimpleLayer(preload("res://Mesh/Parts/Head/FelineHead/Textures/MyFelineHead LowPoly_FelineHead_BaseColor.png"), baseInfo.skinColor)
+	
+	var _value = getOptionValue("skinlayers", [])
+	pattern_texture.addLayers(_value)
 
 func applySkinOption(_optionID: String, _value):
 	if(_optionID == "skinlayers"):
 		if(headMat != null):
+			if(true):
+				updatePatternTexture()
+				return
 			pattern_texture.clear()
-			var theColors = []
-			#theColors.resize(_value.size())
-			var theTextures = []
 			for layerInfo in _value:
 				var theTexture = load(layerInfo["id"])
 				#var theTexture = GlobalRegistry.getTextureVariant(TextureType.PartSkin, TextureSubType.Generic, layerInfo["id"]).getTexture()
 				
-				theColors.append(layerInfo["color"])
-				theTextures.append(theTexture)
-				pattern_texture.addSimpleLayer(theTexture, layerInfo["color"])
-			#layeredBodyMat.set_shader_parameter("layerAmount", _value.size())
-			#layeredBodyMat.set_shader_parameter("layers", theTextures)
-			#layeredBodyMat.set_shader_parameter("layerColors", PackedColorArray(theColors))
+				if(layerInfo.has("isPattern") && layerInfo["isPattern"]):
+					pattern_texture.addPatternLayer(theTexture, layerInfo["color"], layerInfo["color2"], layerInfo["color3"])
+				else:
+					pattern_texture.addSimpleLayer(theTexture, layerInfo["color"])
 	if(_optionID == "mouthcolor"):
 		if(mouthMat != null):
 			mouthMat.set_shader_parameter("r_pattern", _value)
@@ -125,7 +140,13 @@ func applySkinOption(_optionID: String, _value):
 
 func applyBaseSkinData(_data : BaseSkinData):
 	if(headMat != null):
-		headMat.set_shader_parameter("albedo", _data.skinColor)
+		applyBaseSkinDataToStandardMaterial(_data, headMat)
+		headMat.albedo_color = Color.WHITE
+		if(true):
+			updatePatternTexture()
+			return
+		
+		#headMat.set_shader_parameter("albedo", _data.skinColor)
 		#headMat.albedo_color = _data.skinColor
 		
 		#if(_data.skinType == "fur"):
@@ -167,5 +188,7 @@ func _process(_delta):
 			animation_tree["parameters/Mouth/transition_request"] = "state_2"
 		elif(animation_tree["parameters/Mouth/current_state"] == "state_2"):
 			animation_tree["parameters/Mouth/transition_request"] = "state_3"
+		elif(animation_tree["parameters/Mouth/current_state"] == "state_3"):
+			animation_tree["parameters/Mouth/transition_request"] = "state_4"
 		else:
 			animation_tree["parameters/Mouth/transition_request"] = "state_0"
