@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk72sjko1db6h"]
+
+[ext_resource type="PackedScene" uid="uid://ddxyc5ieb5uvi" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1.tscn" id="1_e6a3s"]
+[ext_resource type="PackedScene" uid="uid://d00xcvur8deg0" path="res://Mesh/Walls/MyWallModules/Modules/wall_2_door.tscn" id="2_udks0"]
+[ext_resource type="PackedScene" uid="uid://bch0tv36bk8gm" path="res://Mesh/Walls/MyWallModules/Modules/wall_2_alt.tscn" id="3_fktr0"]
+[ext_resource type="PackedScene" uid="uid://pdiggvmioluv" path="res://Mesh/Walls/MyWallModules/Modules/wall_top_4_pipes.tscn" id="4_bbvsi"]
+[ext_resource type="Texture2D" uid="uid://fun8xft4rea5" path="res://Mesh/Decals/TestDecals/24.png" id="4_phrgx"]
+
+[node name="Corridor1DoorLeft" instance=ExtResource("1_e6a3s")]
+
+[node name="Wall2Door" parent="." index="55" instance=ExtResource("2_udks0")]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.39962, 0, -1)
+
+[node name="Wall2Alt" parent="." index="56" instance=ExtResource("3_fktr0")]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.39962, 0, 1)
+
+[node name="Sprite3D" type="Sprite3D" parent="Wall2Alt" index="1"]
+transform = Transform3D(0.15, -2.97911e-09, 1.82261e-10, 2.97911e-09, 0.148881, -0.0182856, 1.82263e-10, 0.0182856, 0.148881, 0, 2, -0.232524)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("4_phrgx")
+
+[node name="Wall8" parent="." index="57"]
+visible = false
+
+[node name="CollisionShape3D" parent="Wall8/Wall4/StaticBody3D" index="0"]
+disabled = true
+
+[node name="WallTop4Pipes" parent="." index="58" instance=ExtResource("4_bbvsi")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.39962, 2.5, -5.12266e-08)
+
+[node name="WallTop5" parent="." index="59"]
+visible = false
+
+[editable path="Wall8"]

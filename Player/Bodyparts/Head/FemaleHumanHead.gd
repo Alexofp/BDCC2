@@ -120,3 +120,8 @@ func getOptions() -> Dictionary:
 func checkOptionChanged(_valueID, _oldValue, _newValue):
 	if(_valueID == "sameeyes" && _oldValue != _newValue):
 		recalculateOptionsCache()
+
+func getPartTags() -> Dictionary:
+	return {
+		PartTag.Head_HumanNeck: true,
+	}

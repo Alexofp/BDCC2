@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvqps1cdd56s1"]
+
+[ext_resource type="PackedScene" uid="uid://c0jjicnxmgjkv" path="res://Mesh/Clothing/TestShorts/TestShorts.glb" id="1_wi6rr"]
+[ext_resource type="Script" path="res://Mesh/Clothing/TestShorts/test_shorts.gd" id="2_ti86p"]
+[ext_resource type="Texture2D" uid="uid://u1bv07dm2sh8" path="res://Mesh/Clothing/TestShorts/Textures/TestShorts lowpoly_DebugFacesMaterial_BaseColor.png" id="3_pn5ml"]
+[ext_resource type="Texture2D" uid="uid://b8lbl8ajxjyqr" path="res://Mesh/Clothing/TestShorts/Textures/TestShorts lowpoly_DebugFacesMaterial_ORM.png" id="4_jeq7v"]
+[ext_resource type="Texture2D" uid="uid://dyc4ii4g3gv6u" path="res://Mesh/Clothing/TestShorts/Textures/TestShorts lowpoly_DebugFacesMaterial_Normal.png" id="5_i3rdy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekmk0"]
+cull_mode = 2
+albedo_texture = ExtResource("3_pn5ml")
+metallic_texture = ExtResource("4_jeq7v")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_jeq7v")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_i3rdy")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_jeq7v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ide65"]
+cull_mode = 2
+albedo_color = Color(0.831373, 0.294118, 0.12549, 1)
+albedo_texture = ExtResource("3_pn5ml")
+metallic_texture = ExtResource("4_jeq7v")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_jeq7v")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_i3rdy")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_jeq7v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0igpm"]
+cull_mode = 2
+albedo_color = Color(0.831373, 0.294118, 0.12549, 1)
+albedo_texture = ExtResource("3_pn5ml")
+metallic_texture = ExtResource("4_jeq7v")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_jeq7v")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_i3rdy")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_jeq7v")
+
+[node name="TestShorts" instance=ExtResource("1_wi6rr")]
+script = ExtResource("2_ti86p")
+
+[node name="TestShorts" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ekmk0")
+surface_material_override/1 = SubResource("StandardMaterial3D_ide65")
+
+[node name="TestShortsPulledDown" parent="rig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ekmk0")
+surface_material_override/1 = SubResource("StandardMaterial3D_0igpm")

@@ -87,3 +87,8 @@ func applyBaseSkinData(_data : BaseSkinData):
 		else:
 			headMat.set_shader_parameter("texture_albedo", null)
 			headMat.set_shader_parameter("texture_normal", null)
+
+func _process(_delta):
+	super._process(_delta)
+	
+	applyPoseToSkeletonDeffered()

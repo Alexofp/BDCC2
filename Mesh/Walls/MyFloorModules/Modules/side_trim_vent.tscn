@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceit7cfde8nn6"]
+
+[ext_resource type="PackedScene" uid="uid://75vfbme10lf2" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/SideTrimVent.glb" id="1_ua3y2"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_u2yhh"]
+
+[node name="SideTrimVent" instance=ExtResource("1_ua3y2")]
+
+[node name="SideTrimVent" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_u2yhh")

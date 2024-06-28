@@ -57,6 +57,9 @@ func _ready():
 	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest.png"))
 	#alphaTexture.addSimpleAlphaLayer(preload("res://Mesh/Parts/Body/FeminineBody/Textures/BodyAlphaTest2.png"))
 	
+func getSkeleton() -> Skeleton3D:
+	return $rig/Skeleton3D
+	
 func findSkeleton() -> Skeleton3D:
 	return $rig/Skeleton3D
 
@@ -285,7 +288,7 @@ func updateAlphas(_alphaTextures:Array):
 	final_texture.queueUpdateDelayed()
 
 func updateCrotchVisibility():
-	if(rememberedHiddenParts.has(ClothingHidePart.Crotch) && rememberedHiddenParts[ClothingHidePart.Crotch]):
+	if(getDoll().hasPartTag(PartTag.Body_HideCrotch)):
 		$rig/Skeleton3D/FemaleCrotch.visible = false
 		$rig/Skeleton3D/MaleCrotch.visible = false
 	else:
@@ -297,24 +300,24 @@ func updateCrotchVisibility():
 			$rig/Skeleton3D/MaleCrotch.visible = true
 			$rig/Skeleton3D/FemaleCrotch.visible = false
 
-var rememberedHiddenParts:Dictionary = {}
-func updateHiddenParts(_hiddenParts:Dictionary):
-	rememberedHiddenParts = _hiddenParts
-	
-	if(_hiddenParts.has(ClothingHidePart.Nipples) && _hiddenParts[ClothingHidePart.Nipples]):
+func applyPartTags(_hiddenParts:Dictionary):
+	if(_hiddenParts.has(PartTag.Body_HideNipples)):
 		$rig/Skeleton3D/Nipples.visible = false
 	else:
 		$rig/Skeleton3D/Nipples.visible = true
-	
-	if(_hiddenParts.has(ClothingHidePart.Body) && _hiddenParts[ClothingHidePart.Body]):
-		$rig/Skeleton3D/Body.visible = false
+
+	if(_hiddenParts.has(PartTag.Head_HumanNeck)):
+		$rig/Skeleton3D/NeckConnector.visible = true
+		$rig/Skeleton3D/NeckConnectorFurry.visible = false
 	else:
-		$rig/Skeleton3D/Body.visible = true
+		$rig/Skeleton3D/NeckConnector.visible = false
+		$rig/Skeleton3D/NeckConnectorFurry.visible = true
 	
-		
-	#if(_hiddenParts.has(ClothingHidePart.HumanNeckConnector) && _hiddenParts[ClothingHidePart.HumanNeckConnector]):
-		#$rig/Skeleton3D/NeckConnector.visible = false
-	#else:
-		#$rig/Skeleton3D/NeckConnector.visible = true
+	if(_hiddenParts.has(PartTag.Body_MinimalBreastJiggle)):
+		$rig/Skeleton3D/WiggleBone.properties = preload("res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsMinimal.tres")
+		$rig/Skeleton3D/WiggleBone2.properties = preload("res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsMinimal.tres")
+	else:
+		$rig/Skeleton3D/WiggleBone.properties = preload("res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsRotation.tres")
+		$rig/Skeleton3D/WiggleBone2.properties = preload("res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsRotation.tres")
 	
 	updateCrotchVisibility()

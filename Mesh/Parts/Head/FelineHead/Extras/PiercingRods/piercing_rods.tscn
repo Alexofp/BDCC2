@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://borakfnl6sybj"]
+
+[ext_resource type="PackedScene" uid="uid://cdefr24h68dxr" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingRods/PiercingRods.glb" id="1_jlgjt"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingRods/piercing_rods.gd" id="2_rb6oc"]
+[ext_resource type="Material" uid="uid://di0kwpuf2mds0" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingChain/piercing_chain.tres" id="3_dep5o"]
+
+[node name="PiercingRods" instance=ExtResource("1_jlgjt")]
+script = ExtResource("2_rb6oc")
+metalMat = ExtResource("3_dep5o")
+
+[node name="PiercingRods_001" parent="FelineRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_dep5o")
+
+[node name="PiercingRods_002" parent="FelineRig/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("3_dep5o")
+
+[node name="PiercingRods_003" parent="FelineRig/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("3_dep5o")
+
+[node name="PiercingRods_004" parent="FelineRig/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("3_dep5o")
+
+[node name="PiercingRods_005" parent="FelineRig/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("3_dep5o")

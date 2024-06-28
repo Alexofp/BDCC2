@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsq2j0668ylnk"]
+
+[ext_resource type="PackedScene" uid="uid://dcpe1bqg20ee1" path="res://Mesh/Clothing/TestBra/TestBra.glb" id="1_6n434"]
+[ext_resource type="Script" path="res://Mesh/Clothing/TestBra/test_bra.gd" id="2_vspes"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5hwo"]
+cull_mode = 2
+albedo_color = Color(0.411765, 0.482353, 0.937255, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e6475"]
+cull_mode = 2
+albedo_color = Color(0.411765, 0.482353, 0.937255, 1)
+
+[node name="TestBra" instance=ExtResource("1_6n434")]
+script = ExtResource("2_vspes")
+
+[node name="TestBra" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_o5hwo")
+
+[node name="TestBraRaised" parent="rig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_e6475")

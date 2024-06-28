@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds801l0h088kw"]
+
+[ext_resource type="PackedScene" uid="uid://7r5vr34ehowj" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/Stairs4x2.glb" id="1_wny8f"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_vengf"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cbc6u"]
+points = PackedVector3Array(-0.8, -0.0217919, -1.11661e-07, -0.8, -0.173805, 0.359922, -0.8, -2.32458e-06, -1.11661e-07, 0.799829, -0.0217919, -1.11661e-07, -0.8, -0.325819, 0.71994, 0.799829, -0.173805, 0.359922, -0.8, -2.32458e-06, 0.178138, 0.799829, -2.32458e-06, -1.11661e-07, -0.776038, -0.404, 0.939999, -0.8, -0.325819, 0.898174, 0.799829, -0.325819, 0.71994, -0.8, -0.076009, 0.358195, 0.799829, -2.32458e-06, 0.178138, -0.776038, -0.404, 0.980001, 0.775867, -0.404, 0.939999, -0.8, -0.304029, 0.898174, 0.799829, -0.325819, 0.898174, 0.799829, -0.076009, 0.358195, -0.736727, -0.404, 0.980001, 0.775867, -0.404, 0.979905, 0.799829, -0.304029, 0.898174)
+
+[node name="Stairs4x2" instance=ExtResource("1_wny8f")]
+
+[node name="Stairs4x2" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_vengf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stairs4x2" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs4x2/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_cbc6u")

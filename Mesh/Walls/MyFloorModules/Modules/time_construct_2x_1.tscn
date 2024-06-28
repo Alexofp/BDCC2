@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://di56nnvjdhgwt"]
+
+[ext_resource type="PackedScene" uid="uid://g78tgmpxujh8" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/TimeConstruct2x1.glb" id="1_odrlm"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_4smr4"]
+
+[node name="TimeConstruct2x1" instance=ExtResource("1_odrlm")]
+
+[node name="TimeConstruct2x1" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_4smr4")

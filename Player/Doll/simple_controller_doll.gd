@@ -15,6 +15,9 @@ func getDoll() -> Doll:
 	return $Doll.getDoll()
 
 func _physics_process(delta):
+	if(true):
+		return
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

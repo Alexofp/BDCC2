@@ -10,6 +10,9 @@ signal onBodypartChanged
 signal onBaseSkinDataChanged(newdata)
 signal onBodypartOptionsRecalculated(part)
 signal onInventoryChanged(event)
+signal onExtraPartAdded(bodypart, newextra)
+signal onExtraPartRemoved(bodypart, removedextra)
+signal onPartTagsNeedUpdate
 
 var baseSkinData:BaseSkinData = BaseSkinData.new()
 
@@ -28,8 +31,11 @@ func _init():
 	
 	#inventory.equipItem(GlobalRegistry.createItem("TestTShirt"))
 
+func tellOnPartTagsNeedUpdate():
+	emit_signal("onPartTagsNeedUpdate")
+
 func onInventoryChangedCallback(event: InventoryChangedEvent):
-	print("INVENTORY EVENT: "+event.getReadableInfo())
+	#print("INVENTORY EVENT: "+event.getReadableInfo())
 	emit_signal("onInventoryChanged", event)
 
 func getID() -> String:
@@ -71,6 +77,14 @@ func tellBodypartAdded(whatpart: BaseBodypart, slot: String, newpart: BaseBodypa
 
 func tellBodypartRemoved(whatpart: BaseBodypart, slot: String, removedpart: BaseBodypart):
 	emit_signal("onBodypartRemoved", whatpart, slot, removedpart)
+	emit_signal("onBodypartChanged")
+
+func tellExtraAdded(bodypart: BaseBodypart, newextra: BodypartExtra):
+	emit_signal("onExtraPartAdded", bodypart, newextra)
+	emit_signal("onBodypartChanged")
+
+func tellExtraRemoved(bodypart: BaseBodypart, extraremoved: BodypartExtra):
+	emit_signal("onExtraPartRemoved", bodypart, extraremoved)
 	emit_signal("onBodypartChanged")
 
 func getBaseSkinData() -> BaseSkinData:

@@ -69,5 +69,4 @@ bones/74/rotation = Quaternion(-0.588065, 0.00444389, -0.0581421, 0.806709)
 bones/75/rotation = Quaternion(-0.13105, 0.0137972, -0.0018242, 0.991278)
 
 [node name="AnimationPlayer" parent="." index="1"]
-root_motion_track = NodePath("rig/Skeleton3D:DEF-char_root")
 playback_default_blend_time = 0.3

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://fkfp2g3fi7qf"]
+
+[ext_resource type="PackedScene" uid="uid://bg28n7lxxxscp" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/VentCurvedFancy3x05.glb" id="1_jcy0j"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_h77e1"]
+
+[node name="VentCurvedFancy3x05" instance=ExtResource("1_jcy0j")]
+
+[node name="VentCurvedFancy3x05" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_h77e1")

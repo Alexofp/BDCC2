@@ -28,7 +28,11 @@ func _ready():
 func setCharacter(newChar: BaseCharacter):
 	character = newChar
 	character.onBodypartOptionsRecalculated.connect(onCharacterBodypartOptionsRecalculated)
+	character.onInventoryChanged.connect(onCharacterInventoryChanged) # This line causes lag cause we're rebuilding the UI a lot
 	
+	updateCharacter()
+
+func onCharacterInventoryChanged(_event):
 	updateCharacter()
 
 func updateCharacter():
@@ -48,24 +52,57 @@ func updateCharacter():
 			bodypartsList.add_child(newBodypartScene)
 			newBodypartScene.setLabel(part.getVisibleName())
 			newBodypartScene.setBodypart(part)
-			newBodypartScene.parentPart = part.getParentBodypart()
-			if(newBodypartScene.parentPart != null):
-				newBodypartScene.parentPartSlot = newBodypartScene.parentPart.getSlotOfPart(part)
+			#newBodypartScene.parentPart = part.getParentBodypart()
+			#if(newBodypartScene.parentPart != null):
+			#	newBodypartScene.parentPartSlot = newBodypartScene.parentPart.getSlotOfPart(part)
 			newBodypartScene.onChildBodypartChangeType.connect(onChildBodypartChangeType)
+			newBodypartScene.onAddingExtraButtonPressed.connect(onAddingExtraPartToBodypart)
 		if(true):
 			var newBodypartScene = bodypartPanelScene.instantiate()
 			newBodypartScene.editType = "skin"
 			skinpartsList.add_child(newBodypartScene)
 			newBodypartScene.setLabel(part.getVisibleName())
 			newBodypartScene.setBodypart(part)
-			newBodypartScene.parentPart = part.getParentBodypart()
-			if(newBodypartScene.parentPart != null):
-				newBodypartScene.parentPartSlot = newBodypartScene.parentPart.getSlotOfPart(part)
+			#newBodypartScene.parentPart = part.getParentBodypart()
+			#if(newBodypartScene.parentPart != null):
+			#	newBodypartScene.parentPartSlot = newBodypartScene.parentPart.getSlotOfPart(part)
 			#newBodypartScene.onChildBodypartChangeType.connect(onChildBodypartChangeType)
 		
 		for bodypartSlot in part.getBodypartSlots():
 			if(part.hasBodypart(bodypartSlot)):
 				partsToCheck.append(part.getBodypart(bodypartSlot))
+		
+		for extra in part.getExtraParts():
+			var newBodypartScene = bodypartPanelScene.instantiate()
+			newBodypartScene.editType = "part"
+			bodypartsList.add_child(newBodypartScene)
+			newBodypartScene.setLabel(extra.getVisibleName())
+			newBodypartScene.setBodypart(extra)
+			newBodypartScene.setShowDeleteButton(true)
+			newBodypartScene.onDeleteButtonPressed.connect(onDeleteExtraButtonPressed)
+			#newBodypartScene.onChildBodypartChangeType.connect(onChildBodypartChangeType)
+	
+	var equippedItems = character.getInventory().getEquippedItems()
+	for itemSlot in equippedItems:
+		var theItem = equippedItems[itemSlot]
+		
+		if(!theItem.getOptions().is_empty()):
+			var newBodypartScene = bodypartPanelScene.instantiate()
+			newBodypartScene.editType = "part"
+			bodypartsList.add_child(newBodypartScene)
+			newBodypartScene.setLabel(theItem.id)
+			newBodypartScene.setBodypart(theItem)
+
+func onAddingExtraPartToBodypart(part:BaseBodypart, newExtraID):
+	var newExtra:BodypartExtra = GlobalRegistry.createExtraPart(newExtraID)
+	if(newExtra == null):
+		return
+	part.addExtraPart(newExtra)
+	updateCharacter()
+
+func onDeleteExtraButtonPressed(extraBodypart:BodypartExtra):
+	extraBodypart.getParentBodypart().removeExtraPart(extraBodypart)
+	updateCharacter()
 
 func onCharacterBodypartOptionsRecalculated(_part):
 	updateCharacter()

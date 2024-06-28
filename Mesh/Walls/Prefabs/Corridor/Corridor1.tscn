@@ -1,0 +1,243 @@
+[gd_scene load_steps=16 format=3 uid="uid://ddxyc5ieb5uvi"]
+
+[ext_resource type="PackedScene" uid="uid://cxjx3d58sd01l" path="res://Mesh/Walls/MyFloorModules/Modules/big_floor_technical.tscn" id="1_ldy5w"]
+[ext_resource type="PackedScene" uid="uid://da1p4ie8x4i5u" path="res://Mesh/Walls/MyFloorModules/Modules/middle_piece.tscn" id="2_a671b"]
+[ext_resource type="PackedScene" uid="uid://dr05p85pojh0c" path="res://Mesh/Walls/MyFloorModules/Modules/side_trim.tscn" id="3_hoegl"]
+[ext_resource type="PackedScene" uid="uid://dqqk1jdn7iviy" path="res://Mesh/Walls/MyWallModules/Modules/wall_4.tscn" id="4_0t6ee"]
+[ext_resource type="PackedScene" uid="uid://bofqde1g4ud5m" path="res://Mesh/Walls/MyWallModules/Modules/wall_top_4.tscn" id="5_48rp1"]
+[ext_resource type="PackedScene" uid="uid://b3eh6cik22eou" path="res://Mesh/Walls/MyFloorModules/Modules/vent_trim_1x_1.tscn" id="6_aittr"]
+[ext_resource type="PackedScene" uid="uid://b2y3a3746qxkj" path="res://Mesh/Walls/MyFloorModules/Modules/vent_2x_1.tscn" id="7_yg4e8"]
+[ext_resource type="PackedScene" uid="uid://ce0mdjw5s27as" path="res://Mesh/Walls/MyFloorModules/Modules/tile_dark_1x_1.tscn" id="8_c361y"]
+[ext_resource type="PackedScene" uid="uid://b5ogi120nx0o2" path="res://Mesh/Walls/MyFloorModules/Modules/vent_2x_05.tscn" id="9_er5ew"]
+[ext_resource type="PackedScene" uid="uid://g32sh6p5uhaq" path="res://Mesh/Walls/MyFloorModules/Modules/stairs_tile_no_light_4x_05.tscn" id="10_wj4g8"]
+[ext_resource type="PackedScene" uid="uid://3vd67ea5gkiy" path="res://Mesh/Walls/MyFloorModules/Modules/side_trim_angled.tscn" id="11_o6kxb"]
+[ext_resource type="PackedScene" uid="uid://bw1pick7jg5j7" path="res://Mesh/Walls/MyFloorModules/Modules/tile_fan_1x_1.tscn" id="12_niauo"]
+[ext_resource type="PackedScene" uid="uid://ddtw68v74s61i" path="res://Mesh/Walls/MyFloorModules/Modules/tile_trim_construct_2x_1.tscn" id="13_2w0hq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n0l17"]
+size = Vector3(6, 0.2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybmb1"]
+size = Vector3(6, 0.2, 4)
+
+[node name="Corridor1" type="Node3D"]
+
+[node name="BigFloorTechnical7" parent="." instance=ExtResource("1_ldy5w")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1, 0, 0)
+
+[node name="BigFloorTechnical8" parent="." instance=ExtResource("1_ldy5w")]
+transform = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, -1, 0, 0)
+
+[node name="MiddlePiece9" parent="." instance=ExtResource("2_a671b")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 7.45058e-08, 0, 0)
+
+[node name="_Node3D_84464" parent="." instance=ExtResource("3_hoegl")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2.2, 0, 0)
+
+[node name="_Node3D_84465" parent="." instance=ExtResource("3_hoegl")]
+transform = Transform3D(1, -1.50996e-07, -1.50996e-07, -1.50996e-07, -1, 0, -1.50996e-07, 2.27997e-14, -1, 1, 3.2, 0)
+
+[node name="Wall7" parent="." instance=ExtResource("4_0t6ee")]
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 2.4, 0, 0)
+
+[node name="WallTop4" parent="." instance=ExtResource("5_48rp1")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.4, 2.5, 0)
+
+[node name="VentTrim1x1" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.4)
+
+[node name="VentTrim1x2" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.4)
+
+[node name="Vent2x1" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, -0.8)
+
+[node name="Vent2x2" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, 0.8)
+
+[node name="TileDark1x1" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.8)
+
+[node name="TileDark1x2" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.8)
+
+[node name="TileDark1x3" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.2)
+
+[node name="TileDark1x4" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.2)
+
+[node name="VentTrim1x3" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.4)
+
+[node name="VentTrim1x4" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.4)
+
+[node name="Vent2x3" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, -0.8)
+
+[node name="Vent2x4" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, 0.8)
+
+[node name="TileDark1x10" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.8)
+
+[node name="TileDark1x11" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.8)
+
+[node name="TileDark1x12" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.2)
+
+[node name="TileDark1x13" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.2)
+
+[node name="VentTrim1x5" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.4)
+
+[node name="VentTrim1x6" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.4)
+
+[node name="Vent2x5" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, -0.8)
+
+[node name="Vent2x6" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.8, 0, 0.8)
+
+[node name="TileDark1x14" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1.8)
+
+[node name="VentTrim1x7" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1.4)
+
+[node name="Vent2x7" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.8, 0, -0.8)
+
+[node name="Vent2x8" parent="." instance=ExtResource("7_yg4e8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.8, 0, 0.8)
+
+[node name="TileDark1x18" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1.8)
+
+[node name="TileDark1x19" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, -0.2)
+
+[node name="TileDark1x20" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 0.2)
+
+[node name="VentTrim1x8" parent="." instance=ExtResource("6_aittr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, -1.4)
+
+[node name="TileDark1x21" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, -1.8)
+
+[node name="TileDark1x15" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 1.8)
+
+[node name="TileDark1x16" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.2)
+
+[node name="TileDark1x17" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.2)
+
+[node name="Vent2x05" parent="." instance=ExtResource("9_er5ew")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4, 0, 0)
+
+[node name="StairsTileNoLight4x05" parent="." instance=ExtResource("10_wj4g8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.2, 0, -1.2)
+
+[node name="StairsTileNoLight4x06" parent="." instance=ExtResource("10_wj4g8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.2, 0, 1.2)
+
+[node name="Vent2x06" parent="." instance=ExtResource("9_er5ew")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.2, 0, 0)
+
+[node name="StairsTileNoLight4x07" parent="." instance=ExtResource("10_wj4g8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.4, 0, -1.2)
+
+[node name="StairsTileNoLight4x08" parent="." instance=ExtResource("10_wj4g8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.4, 0, 1.2)
+
+[node name="SideTrimAngled" parent="." instance=ExtResource("11_o6kxb")]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.2, 3.2, 0)
+
+[node name="TileDark1x5" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 0.4, 3.2, -1.6)
+
+[node name="TileDark1x6" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 0.4, 3.2, -0.8)
+
+[node name="TileDark1x8" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 1.6, 3.2, -1.19209e-07)
+
+[node name="TileDark1x7" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 0.4, 3.2, 1.6)
+
+[node name="TileDark1x9" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 0.4, 3.2, 0.8)
+
+[node name="TileTrimConstruct2x1" parent="." instance=ExtResource("13_2w0hq")]
+transform = Transform3D(-8.74228e-08, -1.74846e-07, -2, 0, -2, 1.74846e-07, -2, 7.64274e-15, 8.74228e-08, 1.6, 3.2, -1.2)
+
+[node name="TileTrimConstruct2x2" parent="." instance=ExtResource("13_2w0hq")]
+transform = Transform3D(-8.74228e-08, -1.74846e-07, -2, 0, -2, 1.74846e-07, -2, 7.64274e-15, 8.74228e-08, 1.6, 3.2, 1.2)
+
+[node name="_Node3D_84466" parent="." instance=ExtResource("3_hoegl")]
+transform = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, -2.19962, 0, -6.87111e-08)
+
+[node name="_Node3D_84467" parent="." instance=ExtResource("3_hoegl")]
+transform = Transform3D(-1, 1.50996e-07, 2.38419e-07, -1.50996e-07, -1, 0, 2.38419e-07, -3.60002e-14, 1, -0.999615, 3.2, -1.73618e-07)
+
+[node name="Wall8" parent="." instance=ExtResource("4_0t6ee")]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.39962, 0, -5.12266e-08)
+
+[node name="WallTop5" parent="." instance=ExtResource("5_48rp1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.39962, 2.5, -5.12266e-08)
+
+[node name="SideTrimAngled2" parent="." instance=ExtResource("11_o6kxb")]
+transform = Transform3D(1, 8.74228e-08, -8.74228e-08, 8.74228e-08, -1, 0, -8.74228e-08, -7.64274e-15, -1, -2.19962, 3.2, -6.87111e-08)
+
+[node name="TileDark1x22" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, -0.399615, 3.2, 1.6)
+
+[node name="TileDark1x23" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, -0.399615, 3.2, 0.8)
+
+[node name="TileDark1x24" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, -1.59962, 3.2, -1.9555e-09)
+
+[node name="TileDark1x25" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, -0.399615, 3.2, -1.6)
+
+[node name="TileDark1x26" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, -0.399615, 3.2, -0.8)
+
+[node name="TileFan1x2" parent="." instance=ExtResource("12_niauo")]
+transform = Transform3D(-2, 1.52855e-14, 1.74846e-07, 0, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, 0.000384599, 3.2, -2.85677e-07)
+
+[node name="TileTrimConstruct2x3" parent="." instance=ExtResource("13_2w0hq")]
+transform = Transform3D(2.62268e-07, 1.74846e-07, 2, 0, -2, 1.74846e-07, 2, -2.29282e-14, -2.62268e-07, -1.59962, 3.2, 1.2)
+
+[node name="TileTrimConstruct2x4" parent="." instance=ExtResource("13_2w0hq")]
+transform = Transform3D(2.62268e-07, 1.74846e-07, 2, 0, -2, 1.74846e-07, 2, -2.29282e-14, -2.62268e-07, -1.59962, 3.2, -1.2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_n0l17")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+shape = SubResource("BoxShape3D_ybmb1")
+
+[node name="TileDark1x27" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 3.2, 0.2)
+
+[node name="TileDark1x28" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 3.2, -0.2)
+
+[node name="TileDark1x29" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 3.2, 0.2)
+
+[node name="TileDark1x30" parent="." instance=ExtResource("8_c361y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 3.2, -0.2)

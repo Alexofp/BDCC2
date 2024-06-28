@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionNames" load_steps=2 format=3 uid="uid://dja6c0gjhqkks"]
+
+[ext_resource type="Script" path="res://addons/SceneBuilder/scene_builder_collections.gd" id="1_oct2s"]
+
+[resource]
+script = ExtResource("1_oct2s")
+collection_name_01 = ""
+collection_name_02 = ""
+collection_name_03 = ""
+collection_name_04 = ""
+collection_name_05 = ""
+collection_name_06 = ""
+collection_name_07 = ""
+collection_name_08 = ""
+collection_name_09 = ""
+collection_name_10 = ""
+collection_name_11 = ""
+collection_name_12 = ""

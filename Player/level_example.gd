@@ -23,6 +23,8 @@ func _ready():
 
 	$Doll2.getDoll().setCharacter(baseCharacter)
 	
+	baseCharacter.getRootBodypart().getBodypart(BodypartSlot.Head).addExtraPart(GlobalRegistry.createExtraPart("FelineHeadWhiskers"))
+	
 	#baseCharacter.getRootBodypart().setOptionValue("thickbutt", 1.0)
 	
 	$CanvasLayer/CharacterCreator.setCharacter(baseCharacter)
@@ -37,9 +39,17 @@ func _process(_delta):
 		$CanvasLayer.visible = !$CanvasLayer.visible
 		
 	if(Input.is_action_just_pressed("debug_F1")):
-		baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestHat"))
+		#baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestHat"))
+		#baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestPanties"))
+		#baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestBra"))
+		baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestShirt"))
+		baseCharacter.getInventory().equipItem(GlobalRegistry.createItem("TestShorts"))
 	if(Input.is_action_just_pressed("debug_F2")):
-		baseCharacter.getInventory().clearSlot(InventorySlot.Hat)
+		#baseCharacter.getInventory().clearSlot(InventorySlot.Hat)
+		baseCharacter.getInventory().clearSlot(InventorySlot.UnderwearBottom)
+		baseCharacter.getInventory().clearSlot(InventorySlot.UnderwearTop)
+		baseCharacter.getInventory().clearSlot(InventorySlot.Legs)
+		baseCharacter.getInventory().clearSlot(InventorySlot.Chest)
 
 func removeShirt():
 	baseCharacter.getInventory().clearSlot(InventorySlot.Chest)

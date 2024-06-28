@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://4usweqlwtpri"]
+
+[ext_resource type="PackedScene" uid="uid://cy16y2f3wyllf" path="res://Mesh/Walls/MyWallModules/Modules/Raw/Separator.glb" id="1_3hbly"]
+[ext_resource type="Material" uid="uid://cajm7lxpb5dft" path="res://Mesh/Walls/MyWallModules/wall_piece.tres" id="2_1aqhh"]
+[ext_resource type="Material" uid="uid://dk3p0cc3amlae" path="res://Mesh/Walls/MyWallModules/big_trim.tres" id="3_2vxaw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbwj8"]
+size = Vector3(0.549072, 2.83716, 0.48877)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_86qlk"]
+size = Vector3(0.549072, 0.394302, 1.21768)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_00js0"]
+size = Vector3(0.549072, 1.44769, 0.444901)
+
+[node name="Separator" instance=ExtResource("1_3hbly")]
+
+[node name="Separator" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_1aqhh")
+surface_material_override/1 = ExtResource("3_2vxaw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Separator" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Separator/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40491, -0.142822)
+shape = SubResource("BoxShape3D_gbwj8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Separator/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.78397, 0.236679)
+shape = SubResource("BoxShape3D_86qlk")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Separator/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.02074, 0.295025)
+shape = SubResource("BoxShape3D_00js0")

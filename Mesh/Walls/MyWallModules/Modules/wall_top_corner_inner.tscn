@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm01andmcfw68"]
+
+[ext_resource type="PackedScene" uid="uid://budhqmknnfuag" path="res://Mesh/Walls/MyWallModules/Modules/Raw/WallTopCornerInner.glb" id="1_fq2ge"]
+[ext_resource type="Material" uid="uid://cajm7lxpb5dft" path="res://Mesh/Walls/MyWallModules/wall_piece.tres" id="2_lxymb"]
+[ext_resource type="Material" uid="uid://dk3p0cc3amlae" path="res://Mesh/Walls/MyWallModules/big_trim.tres" id="3_dpv0y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqxdt"]
+size = Vector3(1.6, 0.5, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5hwod"]
+size = Vector3(0.6, 0.5, 1.6)
+
+[node name="WallTopCornerInner" instance=ExtResource("1_fq2ge")]
+
+[node name="WallTopCornerInner" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_lxymb")
+surface_material_override/1 = ExtResource("3_dpv0y")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallTopCornerInner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallTopCornerInner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.25, -0.3)
+shape = SubResource("BoxShape3D_eqxdt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WallTopCornerInner/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.25, 0.2)
+shape = SubResource("BoxShape3D_5hwod")

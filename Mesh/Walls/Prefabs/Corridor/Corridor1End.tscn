@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1b8stbi6x1vu"]
+
+[ext_resource type="PackedScene" uid="uid://dr05p85pojh0c" path="res://Mesh/Walls/MyFloorModules/Modules/side_trim.tscn" id="3_7ejwm"]
+[ext_resource type="PackedScene" uid="uid://cmmo782xh8pys" path="res://Mesh/Walls/MyFloorModules/Modules/trim_lights_4x_05.tscn" id="6_nr0wi"]
+[ext_resource type="PackedScene" uid="uid://ce0mdjw5s27as" path="res://Mesh/Walls/MyFloorModules/Modules/tile_dark_1x_1.tscn" id="8_f4eex"]
+[ext_resource type="PackedScene" uid="uid://drx0wmk8adh1m" path="res://Mesh/Walls/MyFloorModules/Modules/tile_trim_2x_1.tscn" id="8_jtc77"]
+[ext_resource type="PackedScene" uid="uid://b5ogi120nx0o2" path="res://Mesh/Walls/MyFloorModules/Modules/vent_2x_05.tscn" id="9_dgpst"]
+[ext_resource type="PackedScene" uid="uid://bw1pick7jg5j7" path="res://Mesh/Walls/MyFloorModules/Modules/tile_fan_1x_1.tscn" id="12_x0ydq"]
+[ext_resource type="PackedScene" uid="uid://5lul6gqoga7d" path="res://Mesh/Walls/MyWallModules/Modules/wall_top_3.tscn" id="14_gpv1d"]
+[ext_resource type="PackedScene" uid="uid://baioi2fvjs7uj" path="res://Mesh/Walls/MyWallModules/Modules/wall_corner_inner.tscn" id="15_kuvas"]
+[ext_resource type="PackedScene" uid="uid://cm01andmcfw68" path="res://Mesh/Walls/MyWallModules/Modules/wall_top_corner_inner.tscn" id="16_k7eml"]
+[ext_resource type="PackedScene" uid="uid://cfanpjkbnrecw" path="res://Mesh/Walls/MyWallModules/Modules/wall_3_fancy.tscn" id="17_dfgfo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k524c"]
+size = Vector3(6, 0.2, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6ybs"]
+size = Vector3(6, 0.2, 1.6)
+
+[node name="Corridor1End" type="Node3D"]
+
+[node name="WallTop3" parent="." instance=ExtResource("14_gpv1d")]
+transform = Transform3D(0.933, 0, 1.06581e-14, 0, 1, 0, -9.94405e-15, 0, 1, 0.000379898, 2.5, -1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, -0.8)
+shape = SubResource("BoxShape3D_k524c")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.8)
+shape = SubResource("BoxShape3D_i6ybs")
+
+[node name="WallCornerInner" parent="." instance=ExtResource("15_kuvas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, -1)
+
+[node name="WallCornerInner2" parent="." instance=ExtResource("15_kuvas")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.4, 0, -1)
+
+[node name="WallTopCornerInner" parent="." instance=ExtResource("16_k7eml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 2.5, -1)
+
+[node name="WallTopCornerInner2" parent="." instance=ExtResource("16_k7eml")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.4, 2.5, -1)
+
+[node name="Wall3Fancy" parent="." instance=ExtResource("17_dfgfo")]
+transform = Transform3D(0.933, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="SideTrim" parent="." instance=ExtResource("3_7ejwm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.8)
+
+[node name="TrimLights4x05" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, -0.2)
+
+[node name="TrimLights4x07" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0, -0.2)
+
+[node name="Vent2x07" parent="." instance=ExtResource("9_dgpst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 4.47035e-08)
+
+[node name="Vent2x08" parent="." instance=ExtResource("9_dgpst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 4.47035e-08)
+
+[node name="Vent2x09" parent="." instance=ExtResource("9_dgpst")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.4, 3.2, 4.47035e-08)
+
+[node name="Vent2x10" parent="." instance=ExtResource("9_dgpst")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.4, 3.2, 4.47035e-08)
+
+[node name="TileTrim2x1" parent="." instance=ExtResource("8_jtc77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -0.4)
+
+[node name="TileTrim2x2" parent="." instance=ExtResource("8_jtc77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, -0.4)
+
+[node name="TileTrim2x3" parent="." instance=ExtResource("8_jtc77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4)
+
+[node name="TileTrim2x4" parent="." instance=ExtResource("8_jtc77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4)
+
+[node name="TileDark1x27" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, -0.8)
+
+[node name="TileDark1x28" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, -0.8)
+
+[node name="TileDark1x29" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, -0.4)
+
+[node name="TileDark1x30" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, -0.4)
+
+[node name="TileDark1x31" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.4)
+
+[node name="TileDark1x32" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, -0.4)
+
+[node name="TileFan1x3" parent="." instance=ExtResource("12_x0ydq")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, 1.2, 3, -0.4)
+
+[node name="TileFan1x4" parent="." instance=ExtResource("12_x0ydq")]
+transform = Transform3D(2, 0, 0, 0, -2, 1.74846e-07, 0, -1.74846e-07, -2, -1.2, 3, -0.4)
+
+[node name="TrimLights4x06" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(-1, 0, -8.74228e-08, -8.74228e-08, -4.37114e-08, 1, -3.82137e-15, 1, 4.37114e-08, 1.6, 3, 4.47035e-08)
+
+[node name="TrimLights4x09" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 1.6, 3, -1)
+
+[node name="TrimLights4x10" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -1.6, 3, -1)
+
+[node name="TrimLights4x11" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 1.19209e-07, 3, -1)
+
+[node name="TrimLights4x08" parent="." instance=ExtResource("6_nr0wi")]
+transform = Transform3D(-1, 0, -8.74228e-08, -8.74228e-08, -4.37114e-08, 1, -3.82137e-15, 1, 4.37114e-08, -1.6, 3, 4.47035e-08)
+
+[node name="TileDark1x33" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.4, 3, -0.4)
+
+[node name="TileDark1x34" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.4, 3, -0.4)
+
+[node name="TileDark1x35" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2, 3, -0.4)
+
+[node name="TileDark1x36" parent="." instance=ExtResource("8_f4eex")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2, 3, -0.4)

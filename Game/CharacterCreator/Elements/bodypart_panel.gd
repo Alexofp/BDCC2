@@ -1,16 +1,13 @@
 extends PanelContainer
 
-@onready var label = $PartVBox/Label
+@onready var label = $PartVBox/HBoxContainer/Label
 @onready var partOptionsList = $PartVBox/PartOptions
 @onready var childPartsList = $PartVBox/ChildPartsList
-
-var parentPart: BaseBodypart
-var parentPartSlot
 
 var bodypartGroup = preload("res://Game/CharacterCreator/Elements/bodypart_group.tscn")
 var groups = {}
 
-var editingBodypart: BaseBodypart
+var editingBodypart
 var numberSliderScene = preload("res://Game/CharacterCreator/OptionTypes/number_slider.tscn")
 var typeSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/type_selector.tscn")
 var colorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/color.tscn")
@@ -19,8 +16,11 @@ var checkboxScene = preload("res://Game/CharacterCreator/OptionTypes/checkbox.ts
 var textureSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/texture_selector.tscn")
 var skinLayersScene = preload("res://Game/CharacterCreator/OptionTypes/skin_layers.tscn")
 var patternAndColorSelectorScene = preload("res://Game/CharacterCreator/OptionTypes/pattern_and_colors_selector.tscn")
+var extraAdderScene = preload("res://Game/CharacterCreator/OptionTypes/extra_adder.tscn")
 
 signal onChildBodypartChangeType(part, slot, newtype)
+signal onDeleteButtonPressed(part)
+signal onAddingExtraButtonPressed(part, newextraid)
 
 var editType = "part"
 
@@ -45,19 +45,18 @@ func createOptionScene(type:String) -> Control:
 	return null
 
 func _ready():
-	pass
+	setShowDeleteButton(false)
 
 func setLabel(newLabel:String):
 	label.text = newLabel
 
-func _on_type_selector_h_box_on_value_change(_id, newValue):
-	if(editingBodypart == null):
-		emit_signal("onNullBodypartChangeType", parentPart, parentPartSlot, newValue)
-		return
-	
-	emit_signal("onBodypartChangeType", parentPart, parentPartSlot, editingBodypart, newValue)
+func setShowDeleteButton(theShouldShow):
+	if(theShouldShow):
+		$PartVBox/HBoxContainer/DeleteButton.visible = true
+	else:
+		$PartVBox/HBoxContainer/DeleteButton.visible = false
 
-func setBodypart(newBodypart:BaseBodypart):
+func setBodypart(newBodypart):
 	editingBodypart = newBodypart
 	
 	updateOptions()
@@ -128,7 +127,7 @@ func updateOptions():
 		newOptionScene.onValueChange.connect(onOptionSceneValueChanged)
 	
 	# Adding an extra widgets for picking parts
-	if(editType != "part"):
+	if(editType != "part" || !(editingBodypart is BaseBodypart)):
 		return
 	for bodypartSlot in editingBodypart.getBodypartSlots():
 		var newSlotSelectScene = typeSelectorScene.instantiate()
@@ -153,6 +152,30 @@ func updateOptions():
 		else:
 			newSlotSelectScene.setValue(null)
 		newSlotSelectScene.onValueChange.connect(onChildPartSlotSceneChangeType)
+	
+	# Also adding an extra picking widget for the parts one
+	var extrasIDs = GlobalRegistry.getExtraPartIDsForBodypartID(editingBodypart.id)
+	if(extrasIDs.size() > 0):
+		var extraAdder = extraAdderScene.instantiate()
+		childPartsList.add_child(extraAdder)
+		extraAdder.id = "extraAdder"
+		
+		extraAdder.setLabel("Extras:")
+		
+		var extraValues = []
+		for possiblePartID in extrasIDs:
+			var otherPart:BodypartExtra = GlobalRegistry.getExtraPartRef(possiblePartID)
+			if(otherPart == null):
+				continue
+			extraValues.append([otherPart.id, otherPart.getVisibleName()])
+		
+		extraAdder.setValues(extraValues)
+
+		#extraAdder.onValueChange.connect(onChildPartSlotSceneChangeType)
+		extraAdder.onAddButton.connect(onExtraAdderAdded)
+
+func onExtraAdderAdded(_id, newExtraID):
+	emit_signal("onAddingExtraButtonPressed", editingBodypart, newExtraID)
 
 func onOptionSceneValueChanged(id, newValue):
 	if(editingBodypart == null):
@@ -176,3 +199,6 @@ func onBaseSkinDataChanged(_id, newValue):
 	if(editingBodypart == null):
 		return
 	editingBodypart.setBaseSkinDataOverride(newValue)
+
+func _on_delete_button_pressed():
+	emit_signal("onDeleteButtonPressed", editingBodypart)

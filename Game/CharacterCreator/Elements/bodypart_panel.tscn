@@ -14,9 +14,16 @@ script = ExtResource("1_lm75h")
 [node name="PartVBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PartVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PartVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PartVBox/HBoxContainer"]
 layout_mode = 2
 text = "Body"
+
+[node name="DeleteButton" type="Button" parent="PartVBox/HBoxContainer"]
+layout_mode = 2
+text = "Delete"
 
 [node name="PartOptions" type="VBoxContainer" parent="PartVBox"]
 layout_mode = 2
@@ -26,3 +33,5 @@ layout_mode = 2
 
 [node name="ChildPartsList" type="VBoxContainer" parent="PartVBox"]
 layout_mode = 2
+
+[connection signal="pressed" from="PartVBox/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]

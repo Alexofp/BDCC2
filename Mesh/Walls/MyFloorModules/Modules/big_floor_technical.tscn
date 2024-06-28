@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxjx3d58sd01l"]
+
+[ext_resource type="PackedScene" uid="uid://c34to8d7idlia" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/BigFloorTechnical.glb" id="1_5ty8w"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_nky3p"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_24sne"]
+points = PackedVector3Array(-0.631497, -0.0317452, -2.03175, 0.637816, 0.0317452, 2.03165, 0.637816, -0.0317452, 2.03165, 0.637816, 0.0317452, -2.03175, -0.631497, 0.0317452, 2.03165, -0.631497, -0.0317452, 2.03165, 0.637816, -0.0317452, -2.03175, -0.631497, 0.0317452, -2.03175)
+
+[node name="BigFloorTechnical" instance=ExtResource("1_5ty8w")]
+
+[node name="BigFloorTechnical" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_nky3p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BigFloorTechnical" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigFloorTechnical/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_24sne")

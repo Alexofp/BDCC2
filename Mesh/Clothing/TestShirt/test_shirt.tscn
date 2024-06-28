@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://biuw3bwsy3oke"]
+
+[ext_resource type="PackedScene" uid="uid://wlwex13s0hct" path="res://Mesh/Clothing/TestShirt/TestShirt.glb" id="1_vvfhm"]
+[ext_resource type="Script" path="res://Mesh/Clothing/TestShirt/test_shirt.gd" id="2_rsxhn"]
+[ext_resource type="Texture2D" uid="uid://bd5nk3wc5xv1a" path="res://Mesh/Clothing/TestShirt/Textures/TestShirt Lowpoly_DebugFacesMaterial.001_BaseColor.png" id="3_f170h"]
+[ext_resource type="Texture2D" uid="uid://dcuwqhfqg2v8d" path="res://Mesh/Clothing/TestShirt/Textures/TestShirt Lowpoly_DebugFacesMaterial.001_ORM.png" id="4_wsul4"]
+[ext_resource type="Texture2D" uid="uid://dl23ygwumh2eh" path="res://Mesh/Clothing/TestShirt/Textures/TestShirt Lowpoly_DebugFacesMaterial.001_Normal.png" id="5_8t283"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsif3"]
+cull_mode = 2
+albedo_texture = ExtResource("3_f170h")
+metallic = 1.0
+metallic_texture = ExtResource("4_wsul4")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_wsul4")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_8t283")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_wsul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yaj1w"]
+albedo_color = Color(0.333333, 0.333333, 0.333333, 1)
+roughness = 0.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5esdp"]
+cull_mode = 2
+albedo_color = Color(0.831373, 0.294118, 0.12549, 1)
+albedo_texture = ExtResource("3_f170h")
+metallic = 1.0
+metallic_texture = ExtResource("4_wsul4")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_wsul4")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_8t283")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_wsul4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gywaj"]
+cull_mode = 2
+albedo_color = Color(0.831373, 0.294118, 0.12549, 1)
+albedo_texture = ExtResource("3_f170h")
+metallic = 1.0
+metallic_texture = ExtResource("4_wsul4")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_wsul4")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_8t283")
+rim_enabled = true
+ao_enabled = true
+ao_texture = ExtResource("4_wsul4")
+
+[node name="TestShirt" instance=ExtResource("1_vvfhm")]
+script = ExtResource("2_rsxhn")
+
+[node name="TestShirt" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fsif3")
+surface_material_override/1 = SubResource("StandardMaterial3D_yaj1w")
+surface_material_override/2 = SubResource("StandardMaterial3D_5esdp")
+
+[node name="TestShirtOpened" parent="rig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fsif3")
+surface_material_override/1 = SubResource("StandardMaterial3D_yaj1w")
+surface_material_override/2 = SubResource("StandardMaterial3D_gywaj")

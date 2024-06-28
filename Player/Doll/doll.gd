@@ -8,6 +8,10 @@ var itemToClothingPart:Dictionary = {}
 @onready var bodyparts = $Bodyparts
 @onready var clothing = $Clothing
 
+var partTagsDirtyFlag:bool = false
+var cachedPartTags:Dictionary = {}
+signal onPartTagsUpdated
+
 signal selectedCharacterChanged(oldChar, newChar)
 
 var firstPerson:bool = false
@@ -27,11 +31,16 @@ func setCharacter(newChar:BaseCharacter):
 	newChar.connect("onBodypartRemoved", onBodypartRemoved)
 	newChar.connect("onBaseSkinDataChanged", onBaseCharacterBaseSkinDataChanged)
 	newChar.connect("onInventoryChanged", onInventoryChangedCallback)
+	
+	newChar.connect("onExtraPartAdded", onExtraPartAdded)
+	newChar.connect("onExtraPartRemoved", onExtraPartRemoved)
+	newChar.connect("onPartTagsNeedUpdate", markPartTagsToUpdate)
 	emit_signal("selectedCharacterChanged", oldChar, character)
 
 func clear():
 	for clothingPart in itemToClothingPart.values():
-		clothingPart.queue_free()
+		for thingToQueue in clothingPart.values():
+			thingToQueue.queue_free()
 	itemToClothingPart = {}
 	for dollpart in bodypartToDollPart.values():
 		dollpart.queue_free()
@@ -67,10 +76,10 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 	var meshScene = part.getMeshScene()
 	if(meshScene != null):
 		var newDollPart:DollPart = meshScene.instantiate()
+		newDollPart.dollRef = weakref(self)
 		
 		if(parentPart != null):
 			var parentDollPart: DollPart = bodypartToDollPart[parentPart]
-			parentDollPart.dollRef = weakref(self)
 			var attachObject:Node = parentDollPart.getBodypartSlotObject(slot)
 			
 			#print(slot+" Attached to ",attachObject)
@@ -78,12 +87,14 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		else:
 			bodyparts.add_child(newDollPart)
 		
-		part.applyEverythingToDollPart(newDollPart)
+		part.applyEverythingToPart(newDollPart)
 		part.onOptionChanged.connect(Callable(newDollPart, "onPartOptionChanged"))
+		if(!part.onOptionChanged.is_connected(onPartOptionChanged.bind(part))):
+			part.onOptionChanged.connect(onPartOptionChanged.bind(part))
 		if(parentPart != null):
 			parentPart.onOptionChanged.connect(Callable(newDollPart, "onParentPartOptionChanged"))
 		part.onBaseSkinDataOverrideChanged.connect(Callable(newDollPart, "onPartSkinDataChanged"))
-		applyEverythingFromDollToDollPart(newDollPart)
+		applyEverythingFromDollToPart(newDollPart)
 		#newDollPart.applyBaseSkinData(part.getBaseSkinData()) # Everything does it
 		
 		#if(newDollPart.shouldBindToParentSkeleton()):
@@ -91,6 +102,12 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 		#mesh.setSkeleton(dollSkeleton.getSkeleton())
 		
 		bodypartToDollPart[part] = newDollPart
+		
+		var extraParts = part.getExtraParts()
+		for extraPartA in extraParts:
+			var extraPart:BodypartExtra = extraPartA
+			
+			addExtraToDollpart(extraPart, newDollPart)
 		
 		var end = Time.get_ticks_usec()
 		var worker_time = (end-start)/1000000.0
@@ -104,9 +121,39 @@ func updateBodypartRecursive(parentPart:BaseBodypart, slot:String, part:BaseBody
 			
 			updateBodypartRecursive(part, bodypartSlot, childPart)
 
-func applyEverythingFromDollToDollPart(theDollPart:DollPart):
-	theDollPart.setFirstPerson(firstPerson)
-	theDollPart.updateHiddenParts(getAllHiddenParts())
+func onExtraPartAdded(bodypart: BaseBodypart, newextra: BodypartExtra):
+	addExtraToDollpart(newextra, bodypartToDollPart[bodypart])
+
+func onExtraPartRemoved(bodypart: BaseBodypart, extraremoved: BodypartExtra):
+	bodypartToDollPart[bodypart].extraToExtraPart[extraremoved].queue_free()
+
+func addExtraToDollpart(extraPart:BodypartExtra, newDollPart:DollPart):
+	var extraMeshPath:String = extraPart.getMeshPath()
+	var extraMesh:ExtraPart = load(extraMeshPath).instantiate()
+	extraMesh.dollRef = weakref(self)
+	
+	var attachObject:Node = newDollPart.getBodypartSlotObject(extraPart.attachToSlot)
+	attachObject.add_child(extraMesh)
+	extraPart.applyEverythingToPart(extraMesh)
+	extraPart.onOptionChanged.connect(Callable(extraMesh, "onPartOptionChanged"))
+	extraMesh.applyToDoll(self, newDollPart)
+	applyEverythingFromDollToPart(extraMesh)
+	newDollPart.extraToExtraPart[extraPart] = extraMesh
+
+func onPartOptionChanged(optionID, newValue, bodypart:BaseBodypart):
+	for meshes in itemToClothingPart.values():
+		for clothingpart in meshes.values():
+			for watchID in clothingpart.watchesBodyparts:
+				var bodyparthPath = clothingpart.watchesBodyparts[watchID]
+				
+				if(getBodypartByPath(bodyparthPath) == bodypart):
+					#for optionID in bodypart.getOptions():
+					clothingpart.onBodypartOptionChanged(optionID, newValue, watchID, bodypart)
+
+func applyEverythingFromDollToPart(thePart:GenericPart):
+	thePart.setFirstPerson(firstPerson)
+	#thePart.updateHiddenParts(getAllHiddenParts())
+	markPartTagsToUpdate()
 
 func getDoll() -> Doll:
 	return self
@@ -168,45 +215,67 @@ func addItemToDoll(item:ItemBase):
 		var meshData = itemMeshStructure[meshID]
 		
 		var itemMesh:ClothingPart = load(meshData["path"]).instantiate()
-		itemMesh.itemRef = weakref(item)
 		itemMesh.dollRef = weakref(self)
+		item.applyEverythingToPart(itemMesh)
+		item.onOptionChanged.connect(Callable(itemMesh, "onPartOptionChanged"))
 		addNodeToFollowBody(itemMesh, meshData["attachTo"], meshData["attachSlot"])
 		itemToClothingPart[item][meshID] = itemMesh
-		itemMesh.connectSignals()
-		itemMesh.applyToDoll(self)
+		#itemMesh.connectSignals()
+		itemMesh.applyToDoll(self, getDollpartByPath(meshData["attachTo"]))
+		applyEverythingFromDollToPart(itemMesh)
+		
+		# Applying all of the watched options of this item
+		for bodypartWatchName in itemMesh.watchesBodyparts:
+			var bodypartPath = itemMesh.watchesBodyparts[bodypartWatchName]
+			var theBodypart:BaseBodypart = getBodypartByPath(bodypartPath)
+			if(theBodypart == null):
+				continue
+			for optionID in theBodypart.getOptions():
+				itemMesh.onBodypartOptionChanged(optionID, theBodypart.getOptionValue(optionID), bodypartWatchName, theBodypart)
 		
 	updateEquippedItemsAlpha()
 	return true
 
-func addItemToDoll_OLD(item:ItemBase):
-	# Probably better to pass the character into the mesh scene?
-	var itemMeshScene:PackedScene = item.getMeshScene()
-	
-	if(itemMeshScene == null):
-		return false
-	
-	var itemMesh:ClothingPart = itemMeshScene.instantiate()
-	itemMesh.itemRef = weakref(item)
-	itemMesh.dollRef = weakref(self)
-	add_child(itemMesh)
-	itemToClothingPart[item] = itemMesh
-	itemMesh.connectSignals()
-	itemMesh.applyToDoll(self)
-	
-	updateEquippedItemsAlpha()
-	
-	return true
+#func reapplyAllClothingToDoll():
+	#pass
 
-func getAllHiddenParts() -> Dictionary:
-	if(true):
-		return {} # Do this in items somehow?
-	var hiddenBodyParts = {}
-	for clothingPart in itemToClothingPart.values():
-		var hiddenParts = clothingPart.getPartsToHide()
+func markPartTagsToUpdate():
+	partTagsDirtyFlag = true
+
+func updateAllPartTags():
+	partTagsDirtyFlag = false
+	var newCache = {}
+	
+	var allBodyparts = getCharacter().getAllBodyparts()
+	for part in allBodyparts:
+		var hiddenParts = part.getPartTags()
 		for thePart in hiddenParts:
 			if(hiddenParts[thePart]):
-				hiddenBodyParts[thePart] = true
-	return hiddenBodyParts
+				newCache[thePart] = true
+	
+	var allItems = getCharacter().getInventory().getEquippedItems().values()
+	for theItem in allItems:
+		var hiddenParts = theItem.getPartTags()
+		for thePart in hiddenParts:
+			if(hiddenParts[thePart]):
+				newCache[thePart] = true
+	
+	cachedPartTags = newCache
+	
+	emit_signal("onPartTagsUpdated")
+	
+	for dollPart in bodypartToDollPart.values():
+		if(dollPart == null):
+			continue
+		dollPart.applyPartTags(cachedPartTags)
+	for meshes in itemToClothingPart.values():
+		for clothingpart in meshes.values():
+			clothingpart.applyPartTags(cachedPartTags)
+
+func hasPartTag(partTag:String) -> bool:
+	if(cachedPartTags.has(partTag)):
+		return true
+	return false
 
 func updateEquippedItemsAlpha():
 	if(true):
@@ -222,12 +291,12 @@ func updateEquippedItemsAlpha():
 				allAlphas.append(alphaTexture)
 		root.updateAlphas(allAlphas)
 	
-	var hiddenBodyParts = getAllHiddenParts()
+	#var hiddenBodyParts = getAllHiddenParts()
 	
-	for clothingPart in allClothingItems:
-		clothingPart.updateHiddenParts(hiddenBodyParts)
-	for dollPart in bodypartToDollPart.values():
-		dollPart.updateHiddenParts(hiddenBodyParts)
+	#for clothingPart in allClothingItems:
+	#	clothingPart.updateHiddenParts(hiddenBodyParts)
+	#for dollPart in bodypartToDollPart.values():
+	#	dollPart.updateHiddenParts(hiddenBodyParts)
 
 func updateEquippedItemsFromCharacter():
 	for clothingItem in itemToClothingPart.keys():
@@ -242,7 +311,7 @@ func updateEquippedItemsFromCharacter():
 
 
 func onInventoryChangedCallback(event: InventoryChangedEvent):
-	print("INVENTORY DOLL EVENT: "+event.getReadableInfo())
+	#print("INVENTORY DOLL EVENT: "+event.getReadableInfo())
 	#emit_signal("onInventoryChanged", event)
 	
 	if(event.eventType == InventoryChangedEvent.ItemUnequipped):
@@ -278,3 +347,8 @@ func getDollpartByPath(path:Array) -> DollPart:
 	if(!bodypartToDollPart.has(bodypart)):
 		return null
 	return bodypartToDollPart[bodypart]
+
+func _process(_delta):
+	if(partTagsDirtyFlag):
+		partTagsDirtyFlag = false
+		updateAllPartTags()

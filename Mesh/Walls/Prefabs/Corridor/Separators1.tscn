@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbel4q0wifkka"]
+
+[ext_resource type="PackedScene" uid="uid://4usweqlwtpri" path="res://Mesh/Walls/MyWallModules/Modules/separator.tscn" id="1_tft5w"]
+
+[node name="Separators1" type="Node3D"]
+
+[node name="Separator" parent="." instance=ExtResource("1_tft5w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.4, 0, 0)
+
+[node name="Separator2" parent="." instance=ExtResource("1_tft5w")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2.4, 0, 0)

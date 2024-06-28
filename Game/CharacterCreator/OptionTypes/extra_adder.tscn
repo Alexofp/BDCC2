@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://yt3kwn1jt5gu"]
+
+[ext_resource type="Script" path="res://Game/CharacterCreator/OptionTypes/extra_adder.gd" id="1_emu1c"]
+
+[node name="ExtraAdder" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+script = ExtResource("1_emu1c")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddButton" type="Button" parent="."]
+layout_mode = 2
+text = "Add"
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="AddButton" to="." method="_on_add_button_pressed"]

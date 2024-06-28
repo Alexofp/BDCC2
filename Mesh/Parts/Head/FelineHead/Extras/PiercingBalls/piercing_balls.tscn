@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqqluytemhac"]
+
+[ext_resource type="PackedScene" uid="uid://cmwyo73e28crb" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingBalls/PiercingBalls.glb" id="1_u553p"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingBalls/piercing_balls.gd" id="2_huwmi"]
+[ext_resource type="Material" uid="uid://di0kwpuf2mds0" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingChain/piercing_chain.tres" id="3_8acgk"]
+
+[node name="PiercingBalls" instance=ExtResource("1_u553p")]
+script = ExtResource("2_huwmi")
+metalMat = ExtResource("3_8acgk")
+
+[node name="PiercingBalls_001" parent="FelineRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_8acgk")
+
+[node name="PiercingBalls_002" parent="FelineRig/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("3_8acgk")
+
+[node name="PiercingBalls_003" parent="FelineRig/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("3_8acgk")
+
+[node name="PiercingBalls_004" parent="FelineRig/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("3_8acgk")
+
+[node name="PiercingBalls_005" parent="FelineRig/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("3_8acgk")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://pq27ynirjjas"]
+
+[ext_resource type="PackedScene" uid="uid://c02jb2ecy405j" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingChain/PiercingChain.glb" id="1_5lsku"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingChain/piercing_chain.gd" id="2_lskjs"]
+[ext_resource type="Material" uid="uid://di0kwpuf2mds0" path="res://Mesh/Parts/Head/FelineHead/Extras/PiercingChain/piercing_chain.tres" id="3_w5xry"]
+
+[node name="PiercingChain" instance=ExtResource("1_5lsku")]
+script = ExtResource("2_lskjs")
+metalMat = ExtResource("3_w5xry")
+
+[node name="PiercingChainLeft" parent="FelineRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_w5xry")
+
+[node name="PiercingChainRight" parent="FelineRig/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("3_w5xry")

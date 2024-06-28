@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddtw68v74s61i"]
+
+[ext_resource type="PackedScene" uid="uid://c4agdjnpuc2tt" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/TileTrimConstruct2x1.glb" id="1_4as2e"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_yxe5m"]
+
+[node name="TileTrimConstruct2x1" instance=ExtResource("1_4as2e")]
+
+[node name="TileTrimConstruct2x1" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_yxe5m")

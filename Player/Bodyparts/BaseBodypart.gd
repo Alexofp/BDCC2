@@ -1,36 +1,29 @@
-extends RefCounted
+extends RefWithOptions
 class_name BaseBodypart
 
 var id:String = "error"
 var bodypartType = BodypartType.Generic
 
-var savedOptions:Dictionary = {}
-var cachedOptions:Dictionary = {}
 var bodyparts:Dictionary = {}
+var extraParts:Array = []
 
 var rootRef: WeakRef
 var parentPart: WeakRef
 
 var baseSkinDataOverride:BaseSkinData = null
 
-signal onOptionChanged(optionID, newValue)
 signal onBodypartChanged(ourBodypart, slot, newBodypart)
-signal onBodypartRemoved(ourBodypart, slot, removedBodypart)
+signal onBodypartRemoved(ourBodypart, slot, newBodypart)
 signal onBaseSkinDataOverrideChanged(part, newSkinData)
-signal onOptionsCacheRecalculated(part)
+signal onExtraPartAdded(ourBodypart, extraPart)
+signal onExtraPartRemoved(ourBodypart, extraPart)
 
 func _init():
-	cachedOptions = getOptions()
+	super._init()
 	var _justForCache = getMeshScene()
 
 func getVisibleName():
 	return "ERROR"
-
-func resetOptionsToDefault():
-	var theOptions = getOptions()
-	
-	for optionKey in theOptions:
-		savedOptions[optionKey] = theOptions[optionKey]["default"]
 
 func getCharacter() -> BaseCharacter:
 	if(rootRef == null):
@@ -42,38 +35,50 @@ func getParentBodypart() -> BaseBodypart:
 		return null
 	return parentPart.get_ref()
 
-func getOptions() -> Dictionary:
-	return {
-	}
+
+
+
+func addExtraPart(extraPart: BodypartExtra) -> BodypartExtra:
+	assert(extraPart.parentPart == null)
+	assert(extraPart.rootRef == null)
+	
+	extraParts.append(extraPart)
+	extraPart.rootRef = rootRef
+	extraPart.parentPart = weakref(self)
+	getCharacter().tellExtraAdded(self, extraPart)
+	emit_signal("onExtraPartAdded", self, extraPart)
+	return extraPart
+
+func removeExtraPart(extraPart: BodypartExtra) -> bool:
+	assert(extraPart.getParentBodypart() == self)
+	if(extraPart.getParentBodypart() != self):
+		return false
+	
+	extraParts.erase(extraPart)
+	getCharacter().tellExtraRemoved(self, extraPart)
+	emit_signal("onExtraPartRemoved", self, extraPart)
+	return true
+
+func getExtraParts() -> Array:
+	return extraParts
+
+# Cache this somehow?
+func getBodypartPath() -> Array:
+	var result = []
+	
+	var theParent:BaseBodypart = getParentBodypart()
+	var currentPart = self
+	while(theParent != null):
+		result.insert(0, theParent.getSlotOfPart(currentPart))
+		currentPart = theParent
+		theParent = theParent.getParentBodypart()
+		
+	return result
 
 func recalculateOptionsCache():
-	cachedOptions = getOptions()
-	emit_signal("onOptionsCacheRecalculated", self)
+	super.recalculateOptionsCache()
 	if(getCharacter() != null):
 		getCharacter().onPartOptionsRecalculated(self)
-
-func getOptionValue(valueID: String, defaultValue = null):
-	if(savedOptions.has(valueID)):
-		return savedOptions[valueID]
-	
-	if(cachedOptions.has(valueID) && cachedOptions[valueID].has("default")):
-		return cachedOptions[valueID]["default"]
-	
-	return defaultValue
-
-func setOptionValue(valueID: String, value):
-	if(!cachedOptions.has(valueID)):
-		return
-	
-	if(savedOptions.has(valueID) && !((value is Array) || value is Dictionary) && savedOptions[valueID] == value):
-		return
-	var currentValue = getOptionValue(valueID)
-	savedOptions[valueID] = value
-	emit_signal("onOptionChanged", valueID, value)
-	checkOptionChanged(valueID, currentValue, value)
-
-func checkOptionChanged(_valueID, _oldValue, _newValue):
-	pass
 
 func getMeshPath() -> String:
 	return "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"
@@ -115,6 +120,7 @@ func removeBodypart(slot:String) -> bool:
 	
 	bodyparts.erase(slot)
 	getCharacter().tellBodypartRemoved(self, slot, removedBodypart)
+	emit_signal("onBodypartRemoved", self, slot, removedBodypart)
 	return true
 
 func getSlotOfPart(childpart: BaseBodypart):
@@ -129,17 +135,11 @@ func getBodypartType() -> String:
 func getBodypartSlots():
 	return {
 	}
-
-func applyEverythingToDollPart(dollPart:DollPart):
-	dollPart.partRef = weakref(self)
-	applyOptionsToDollPart(dollPart)
-	dollPart.applyBaseSkinData(getBaseSkinData())
-
-func applyOptionsToDollPart(dollPart:DollPart):
-	var theOptions = getOptions()
 	
-	for optionID in theOptions:
-		dollPart.applyOption(optionID, getOptionValue(optionID))
+func applyEverythingToPart(dollPart:GenericPart):
+	super.applyEverythingToPart(dollPart)
+	if(dollPart is DollPart):
+		dollPart.applyBaseSkinData(getBaseSkinData())
 
 func supportsUniqueBaseSkinData() -> bool:
 	return true
@@ -170,6 +170,3 @@ func getTextureVariantsByTypeAndSubType(textureType:String, textureSubType:Strin
 			result.append([textureVariantID, textureVariant.getVisibleName()])
 		
 	return result
-
-func getGroupInfo(_groupID:String) -> Dictionary:
-	return {name = _groupID}

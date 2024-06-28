@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://vub46772qw22"]
+
+[ext_resource type="PackedScene" uid="uid://cw0mh7cd1kr1s" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/ThickTrim1x2.glb" id="1_m3vpc"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_oihio"]
+
+[node name="ThickTrim1x2" instance=ExtResource("1_m3vpc")]
+
+[node name="ThickTrim1x2" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_oihio")

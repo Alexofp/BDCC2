@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bda2n63seapv4"]
+
+[ext_resource type="PackedScene" uid="uid://5r0rt1mh6dxk" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/StairsTile4x05.glb" id="1_61s68"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_mgr7h"]
+
+[node name="StairsTile4x05" instance=ExtResource("1_61s68")]
+
+[node name="StairsTile4x05" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_mgr7h")

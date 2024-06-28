@@ -1,0 +1,30 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://djr586mpd20am"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x6gb"]
+sky_top_color = Color(0.266667, 0.313726, 0.54902, 1)
+sky_horizon_color = Color(0.545098, 0.341176, 0.388235, 1)
+sky_energy_multiplier = 10.0
+ground_bottom_color = Color(0.286275, 0.254902, 0.105882, 1)
+ground_horizon_color = Color(0.572549, 0.352941, 0.364706, 1)
+ground_curve = 0.190274
+ground_energy_multiplier = 10.0
+
+[sub_resource type="Sky" id="Sky_2xklu"]
+sky_material = SubResource("ProceduralSkyMaterial_3x6gb")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_2xklu")
+tonemap_mode = 2
+tonemap_exposure = 0.2
+ssao_radius = 0.16
+ssao_intensity = 1.28
+ssao_power = 8.7845
+ssao_detail = 5.0
+ssao_horizon = 0.44
+ssil_enabled = true
+ssil_radius = 0.47
+ssil_intensity = 2.0
+ssil_normal_rejection = 0.05
+adjustment_contrast = 1.38
+adjustment_saturation = 0.85

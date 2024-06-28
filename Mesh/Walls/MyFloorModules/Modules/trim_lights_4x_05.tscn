@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmmo782xh8pys"]
+
+[ext_resource type="PackedScene" uid="uid://45g0njadgafp" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/TrimLights4x05.glb" id="1_m3h3b"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_4ppki"]
+
+[node name="TrimLights4x05" instance=ExtResource("1_m3h3b")]
+
+[node name="TrimLights4x05" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_4ppki")

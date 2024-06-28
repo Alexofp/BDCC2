@@ -10,6 +10,7 @@ height = 1.8
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wih5a"]
 
 [node name="advanced_controller_doll" type="CharacterBody3D"]
+safe_margin = 0.01
 script = ExtResource("1_fhv3i")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]

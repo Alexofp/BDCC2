@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmx3g72eyqxlb"]
+
+[ext_resource type="PackedScene" uid="uid://chuqk0regtitu" path="res://Mesh/Parts/Head/FelineHead/Extras/Whiskers/FelineWhiskers.glb" id="1_22fi7"]
+[ext_resource type="Script" path="res://Mesh/Parts/Head/FelineHead/Extras/Whiskers/feline_whiskers.gd" id="2_6idgq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iou6t"]
+resource_local_to_scene = true
+transparency = 1
+
+[node name="FelineWhiskers" instance=ExtResource("1_22fi7")]
+script = ExtResource("2_6idgq")
+whiskersMat = SubResource("StandardMaterial3D_iou6t")
+
+[node name="Whiskers" parent="FelineRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_iou6t")

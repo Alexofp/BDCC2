@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2k53okf3wynp"]
+
+[ext_resource type="PackedScene" uid="uid://cfac6vkkb7xw6" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/BigFloorTechnicalHalf.glb" id="1_6o2xo"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_bew7x"]
+
+[node name="BigFloorTechnicalHalf" instance=ExtResource("1_6o2xo")]
+
+[node name="BigFloorTechnicalHalf" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_bew7x")

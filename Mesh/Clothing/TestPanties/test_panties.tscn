@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c20dter3qbnd0"]
+
+[ext_resource type="PackedScene" uid="uid://c7vtu0xaakau3" path="res://Mesh/Clothing/TestPanties/TestPanties.glb" id="1_ehyut"]
+[ext_resource type="Script" path="res://Mesh/Clothing/TestPanties/test_panties.gd" id="2_gil6j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0j7x8"]
+cull_mode = 2
+albedo_color = Color(0.411765, 0.482353, 0.937255, 1)
+
+[node name="TestPanties2" instance=ExtResource("1_ehyut")]
+script = ExtResource("2_gil6j")
+
+[node name="TestPanties" parent="rig/Skeleton3D" index="0"]
+lod_bias = 3.0
+surface_material_override/0 = SubResource("StandardMaterial3D_0j7x8")
+
+[node name="TestPantiesShifted" parent="rig/Skeleton3D" index="1"]
+lod_bias = 3.0
+surface_material_override/0 = SubResource("StandardMaterial3D_0j7x8")

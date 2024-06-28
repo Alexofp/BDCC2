@@ -1,17 +1,17 @@
-extends Node3D
+extends GenericPart
 class_name ClothingPart
-
-var dollRef:WeakRef
-var itemRef:WeakRef
 
 var watchesBodyparts:Dictionary = {
 	"root" = [],
 	"head" = [BodypartSlot.Head],
 }
 
+func _init():
+	super._init()
+
+# Unused, can be deleted
 func connectSignals():
 	#var theDoll = getDoll()
-	
 	
 	for watchID in watchesBodyparts:
 		var watchPath = watchesBodyparts[watchID]
@@ -25,21 +25,15 @@ func connectSignals():
 func onBodypartOptionChanged(_optionID: String, _value, watchID:String, _bodypart:BaseBodypart):
 	onWatchedBodypartOptionChanges(watchID, _optionID, _value)
 
-func applyToDoll(_theDoll:Doll):
+func applyToDoll(_theDoll:Doll, _dollPart:DollPart):
 	pass
 
 func onWatchedBodypartOptionChanges(_partID: String, _optionID: String, _value):
-	print("I SEE IT ",_partID," ",_optionID)
-
-func getDoll() -> Doll:
-	if(dollRef == null):
-		return null
-	return dollRef.get_ref()
+	#print("I SEE IT ",_partID," ",_optionID)
+	pass
 
 func getItem() -> ItemBase:
-	if(itemRef == null):
-		return null
-	return itemRef.get_ref()
+	return getPart()
 
 func getBodypartByPath(path:Array) -> BaseBodypart:
 	var theDoll:Doll = getDoll()
@@ -81,8 +75,6 @@ func getBodyAlphaTexture() -> Texture2D:
 		return null
 	return load(thePath)
 
-func getPartsToHide() -> Dictionary:
-	return {}
-
-func updateHiddenParts(_hiddenParts:Dictionary):
+func applyPartTags(_partTags:Dictionary):
 	pass
+

@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://d00xcvur8deg0"]
+
+[ext_resource type="PackedScene" uid="uid://dvr5ql4tj34v7" path="res://Mesh/Walls/MyWallModules/Modules/Raw/Wall2Door.glb" id="1_uc0ee"]
+[ext_resource type="Material" uid="uid://cajm7lxpb5dft" path="res://Mesh/Walls/MyWallModules/wall_piece.tres" id="2_wsvgi"]
+[ext_resource type="Material" uid="uid://dk3p0cc3amlae" path="res://Mesh/Walls/MyWallModules/big_trim.tres" id="3_xuubm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kuxom"]
+size = Vector3(2, 0.0563965, 0.646179)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_odnat"]
+size = Vector3(2, 0.1, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ly77x"]
+size = Vector3(2, 0.267188, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5wam"]
+size = Vector3(0.3, 2.5, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nsfir"]
+size = Vector3(0.3, 2.5, 0.9)
+
+[node name="Wall2Door" instance=ExtResource("1_uc0ee")]
+
+[node name="Wall2Door" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_wsvgi")
+surface_material_override/1 = ExtResource("3_xuubm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2Door" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2Door/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0306396, -0.321259)
+shape = SubResource("BoxShape3D_kuxom")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Wall2Door/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0524414, -0.648169)
+shape = SubResource("BoxShape3D_odnat")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Wall2Door/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36533, -0.648169)
+shape = SubResource("BoxShape3D_ly77x")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Wall2Door/StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.25244, -0.548169)
+shape = SubResource("BoxShape3D_j5wam")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Wall2Door/StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 1.25244, -0.548169)
+shape = SubResource("BoxShape3D_nsfir")

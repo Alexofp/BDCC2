@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr05p85pojh0c"]
+
+[ext_resource type="PackedScene" uid="uid://b2j6anj4jdg3n" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/SideTrim.glb" id="1_kdwul"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_wjcjy"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pcvnw"]
+points = PackedVector3Array(-0.211299, 0.0112992, -2.01091, 0.218069, 0.0112992, 2.01081, 0.218069, 0.0112992, -2.01091, -0.211299, 0.0112992, 2.01081)
+
+[node name="SideTrim" instance=ExtResource("1_kdwul")]
+
+[node name="SideTrim" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_wjcjy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SideTrim" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SideTrim/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_pcvnw")

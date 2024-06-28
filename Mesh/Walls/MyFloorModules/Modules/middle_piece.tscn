@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://da1p4ie8x4i5u"]
+
+[ext_resource type="PackedScene" uid="uid://d2ghv4xs753tc" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/MiddlePiece.glb" id="1_8q224"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_pf4qj"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sslec"]
+points = PackedVector3Array(-0.211299, 0.0112992, -2.01091, 0.218069, 0.0112992, 2.01081, 0.218069, 0.0112992, -2.01091, -0.211299, 0.0112992, 2.01081)
+
+[node name="MiddlePiece" instance=ExtResource("1_8q224")]
+
+[node name="MiddlePiece" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_pf4qj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MiddlePiece" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiddlePiece/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_sslec")

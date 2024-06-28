@@ -175,7 +175,7 @@ func updateAlphas(_alphaTextures:Array):
 		alphaTexture.addSimpleAlphaLayer(theAlphaTexture)
 
 func updateCrotchVisibility():
-	if(rememberedHiddenParts.has(ClothingHidePart.Crotch) && rememberedHiddenParts[ClothingHidePart.Crotch]):
+	if(getDoll().hasPartTag(PartTag.Body_HideCrotch)):
 		$rig/Skeleton3D/CrotchFemale.visible = false
 		$rig/Skeleton3D/CrotchMale.visible = false
 	else:
@@ -187,18 +187,10 @@ func updateCrotchVisibility():
 			$rig/Skeleton3D/CrotchMale.visible = true
 			$rig/Skeleton3D/CrotchFemale.visible = false
 
-var rememberedHiddenParts:Dictionary = {}
-func updateHiddenParts(_hiddenParts:Dictionary):
-	rememberedHiddenParts = _hiddenParts
-	
-	if(_hiddenParts.has(ClothingHidePart.Nipples) && _hiddenParts[ClothingHidePart.Nipples]):
+func applyPartTags(_hiddenParts:Dictionary):
+	if(_hiddenParts.has(PartTag.Body_HideNipples)):
 		$rig/Skeleton3D/MaleNipples.visible = false
 	else:
 		$rig/Skeleton3D/MaleNipples.visible = true
-	
-	if(_hiddenParts.has(ClothingHidePart.Body) && _hiddenParts[ClothingHidePart.Body]):
-		$rig/Skeleton3D/Body.visible = false
-	else:
-		$rig/Skeleton3D/Body.visible = true
 	
 	updateCrotchVisibility()

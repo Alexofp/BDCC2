@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://l0op1jqqwvnl"]
+
+[ext_resource type="PackedScene" uid="uid://d3ii8o2xu10su" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/BigFloorMetalThird.glb" id="1_xk0rg"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_0a31p"]
+
+[node name="BigFloorMetalThird" instance=ExtResource("1_xk0rg")]
+
+[node name="BigFloorMetalThird" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_0a31p")

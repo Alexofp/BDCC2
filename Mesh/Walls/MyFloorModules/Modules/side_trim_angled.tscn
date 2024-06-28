@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://3vd67ea5gkiy"]
+
+[ext_resource type="PackedScene" uid="uid://w5033y663dqc" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/SideTrimAngled.glb" id="1_q5ljq"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_pi5r0"]
+
+[node name="SideTrimAngled" instance=ExtResource("1_q5ljq")]
+
+[node name="SideTrimAngled" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_pi5r0")

@@ -1,48 +1,66 @@
-[gd_scene load_steps=27 format=3 uid="uid://bm1mm46ypljc1"]
+[gd_scene load_steps=51 format=3 uid="uid://bm1mm46ypljc1"]
 
 [ext_resource type="Script" path="res://Player/BaseCharacter.gd" id="1_ddbjx"]
 [ext_resource type="Script" path="res://Player/level_example.gd" id="1_djto6"]
+[ext_resource type="Texture2D" uid="uid://canq6oawo81de" path="res://Mesh/Enviroment/HDR_silver_and_gold_nebulae.png" id="2_p14su"]
 [ext_resource type="PackedScene" uid="uid://kca1ww4xq0ui" path="res://Player/Doll/simple_controller_doll.tscn" id="3_jcfi3"]
 [ext_resource type="PackedScene" uid="uid://dyyx8g7mbkvog" path="res://Player/Doll/advanced_controller_doll.tscn" id="4_dhxec"]
 [ext_resource type="PackedScene" uid="uid://ddpn3gykscjr8" path="res://Game/CharacterCreator/character_creator.tscn" id="4_hueel"]
 [ext_resource type="PackedScene" uid="uid://cef84i2h820u5" path="res://Game/UI/touch_controls_ui.tscn" id="6_b5per"]
-[ext_resource type="PackedScene" uid="uid://k13p4m7vu0j8" path="res://AssetsSource/Bodies/MyBody.glb" id="7_rkxi7"]
-[ext_resource type="PackedScene" uid="uid://cisbrnxfael6a" path="res://Mesh/Skeleton/skeleton_drivers.tscn" id="8_3db3s"]
-[ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="8_ef37v"]
-[ext_resource type="Texture2D" uid="uid://wjsu8rgswifj" path="res://AssetsSource/Bodies/MyBody_MyBody Nipples_SMALL.png" id="8_ueumu"]
-[ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="9_me260"]
-[ext_resource type="Texture2D" uid="uid://ojpp2kudqkl5" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_BaseColor.png" id="10_si3rc"]
-[ext_resource type="Texture2D" uid="uid://dupayq2dx5q13" path="res://AssetsSource/Bodies/MyBody_MyBody Substance Painter_Body_Roughness.png" id="11_6i0lc"]
-[ext_resource type="Texture2D" uid="uid://c4twy58d4jnyf" path="res://AssetsSource/Bodies/MyBodyMusclesNormalMap.png" id="12_ekrdh"]
+[ext_resource type="PackedScene" uid="uid://uoarxn35vphj" path="res://Mesh/Props/Trashcan/trashcan.tscn" id="15_2ex27"]
+[ext_resource type="Texture2D" uid="uid://cugxq5g7r7vj6" path="res://Mesh/Decals/Round1/color.png" id="16_jeqhm"]
+[ext_resource type="Texture2D" uid="uid://blnria1vfldab" path="res://Mesh/Decals/Round1/normal.png" id="17_cbkfd"]
+[ext_resource type="Texture2D" uid="uid://by1lpood2qlpx" path="res://Mesh/Decals/Round1/orm.png" id="18_sjfbk"]
+[ext_resource type="Texture2D" uid="uid://c8mhj2kweumr2" path="res://Mesh/Decals/Round1/emission.png" id="19_7vtkh"]
+[ext_resource type="MeshLibrary" uid="uid://csi4sjhhvin0d" path="res://Mesh/Walls/MyTrimLibrary.tres" id="21_y1p2d"]
+[ext_resource type="PackedScene" uid="uid://cxjx3d58sd01l" path="res://Mesh/Walls/MyFloorModules/Modules/big_floor_technical.tscn" id="22_ok1e1"]
+[ext_resource type="PackedScene" uid="uid://da1p4ie8x4i5u" path="res://Mesh/Walls/MyFloorModules/Modules/middle_piece.tscn" id="23_5d103"]
+[ext_resource type="PackedScene" uid="uid://dr05p85pojh0c" path="res://Mesh/Walls/MyFloorModules/Modules/side_trim.tscn" id="24_13630"]
+[ext_resource type="PackedScene" uid="uid://ceit7cfde8nn6" path="res://Mesh/Walls/MyFloorModules/Modules/side_trim_vent.tscn" id="25_j0wgn"]
+[ext_resource type="PackedScene" uid="uid://ds801l0h088kw" path="res://Mesh/Walls/MyFloorModules/Modules/stairs_4x_2.tscn" id="26_hn5kb"]
+[ext_resource type="PackedScene" uid="uid://qg6j6wgswwvp" path="res://Mesh/Walls/MyFloorModules/Modules/tile_light_1x_1.tscn" id="27_n2uov"]
+[ext_resource type="PackedScene" uid="uid://b3eh6cik22eou" path="res://Mesh/Walls/MyFloorModules/Modules/vent_trim_1x_1.tscn" id="28_6m5ev"]
+[ext_resource type="PackedScene" uid="uid://di56nnvjdhgwt" path="res://Mesh/Walls/MyFloorModules/Modules/time_construct_2x_1.tscn" id="29_gqcqi"]
+[ext_resource type="PackedScene" uid="uid://ddtw68v74s61i" path="res://Mesh/Walls/MyFloorModules/Modules/tile_trim_construct_2x_1.tscn" id="30_ppbh4"]
+[ext_resource type="PackedScene" uid="uid://l3ffp8wpcgpx" path="res://Mesh/Walls/MyFloorModules/Modules/trim_lights_solid_4x_05.tscn" id="31_h2r0x"]
+[ext_resource type="PackedScene" uid="uid://b34bdeahwqvlj" path="res://Mesh/Walls/MyFloorModules/Modules/vent_curved_3x_05.tscn" id="32_vgo6a"]
+[ext_resource type="PackedScene" uid="uid://djdopx0tdc11k" path="res://Mesh/Walls/MyFloorModules/Modules/vent_curved_05x_05.tscn" id="33_mbaxt"]
+[ext_resource type="Texture2D" uid="uid://fun8xft4rea5" path="res://Mesh/Decals/TestDecals/24.png" id="34_1dkov"]
+[ext_resource type="Texture2D" uid="uid://7w1a21fyqr05" path="res://Mesh/Decals/TestDecals/27.png" id="35_2qtjn"]
+[ext_resource type="Texture2D" uid="uid://bju4xkg2qgevy" path="res://Mesh/Decals/TestDecals/28.png" id="36_ecytx"]
+[ext_resource type="Texture2D" uid="uid://b2oyf0enlwyp4" path="res://Mesh/Decals/TestDecals/aligntoyellowsquare.png" id="37_hfg38"]
+[ext_resource type="PackedScene" uid="uid://bgfkdrr3m80q2" path="res://Mesh/Walls/MyWallModules/Modules/wall_piece.tscn" id="38_08sw5"]
+[ext_resource type="PackedScene" uid="uid://fkfp2g3fi7qf" path="res://Mesh/Walls/MyFloorModules/Modules/vent_curved_fancy_3x_05.tscn" id="39_cijeo"]
+[ext_resource type="PackedScene" uid="uid://dqqk1jdn7iviy" path="res://Mesh/Walls/MyWallModules/Modules/wall_4.tscn" id="39_st6ek"]
+[ext_resource type="PackedScene" uid="uid://4usweqlwtpri" path="res://Mesh/Walls/MyWallModules/Modules/separator.tscn" id="40_h2a2p"]
+[ext_resource type="PackedScene" uid="uid://b5ogi120nx0o2" path="res://Mesh/Walls/MyFloorModules/Modules/vent_2x_05.tscn" id="40_pxeth"]
+[ext_resource type="PackedScene" uid="uid://bfi4sp6yhn2l0" path="res://Mesh/Walls/MyFloorModules/Modules/stairs_tile_alt_4x_05.tscn" id="41_alb36"]
+[ext_resource type="PackedScene" uid="uid://ddxyc5ieb5uvi" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1.tscn" id="41_fh648"]
+[ext_resource type="PackedScene" uid="uid://cknnita684glo" path="res://Mesh/Walls/MyFloorModules/Modules/thick_trim_fancy_1x_2.tscn" id="42_g6u4c"]
+[ext_resource type="PackedScene" uid="uid://bbel4q0wifkka" path="res://Mesh/Walls/Prefabs/Corridor/Separators1.tscn" id="46_j1ygv"]
+[ext_resource type="PackedScene" uid="uid://b1b8stbi6x1vu" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1End.tscn" id="47_hnj6t"]
+[ext_resource type="PackedScene" uid="uid://bk72sjko1db6h" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1DoorLeft.tscn" id="48_fgb2o"]
+[ext_resource type="PackedScene" uid="uid://bwf2b5i2mc367" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1Fancy.tscn" id="49_ys5xu"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x6gb"]
-sky_top_color = Color(0.266667, 0.313726, 0.54902, 1)
-sky_horizon_color = Color(0.545098, 0.341176, 0.388235, 1)
-sky_energy_multiplier = 10.0
-ground_bottom_color = Color(0.286275, 0.254902, 0.105882, 1)
-ground_horizon_color = Color(0.572549, 0.352941, 0.364706, 1)
-ground_curve = 0.190274
-ground_energy_multiplier = 10.0
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_r8g5j"]
+panorama = ExtResource("2_p14su")
 
-[sub_resource type="Sky" id="Sky_2xklu"]
-sky_material = SubResource("ProceduralSkyMaterial_3x6gb")
+[sub_resource type="Sky" id="Sky_qq2ut"]
+sky_material = SubResource("PanoramaSkyMaterial_r8g5j")
 
-[sub_resource type="Environment" id="Environment_4ultq"]
+[sub_resource type="Environment" id="Environment_pd1mn"]
 background_mode = 2
-sky = SubResource("Sky_2xklu")
+sky = SubResource("Sky_qq2ut")
+ambient_light_source = 2
+ambient_light_color = Color(0.52549, 0.52549, 0.635294, 1)
 tonemap_mode = 2
-tonemap_exposure = 0.2
-ssao_radius = 0.16
-ssao_intensity = 1.28
-ssao_power = 8.7845
-ssao_detail = 5.0
-ssao_horizon = 0.44
+ssr_enabled = true
+ssr_depth_tolerance = 0.01
+ssao_enabled = true
 ssil_enabled = true
-ssil_radius = 0.47
-ssil_intensity = 2.0
-ssil_normal_rejection = 0.05
-adjustment_contrast = 1.38
-adjustment_saturation = 0.85
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_sky_affect = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbuoh"]
 size = Vector3(10, 0.2, 10)
@@ -56,74 +74,23 @@ size = Vector3(10, 0.2, 10)
 radial_segments = 16
 rings = 8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yutak"]
-resource_name = "Nipples"
-transparency = 4
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("8_ueumu")
-roughness = 0.5
+[sub_resource type="BoxShape3D" id="BoxShape3D_k5slf"]
+size = Vector3(4, 0.5, 9)
 
-[sub_resource type="Resource" id="Resource_oes8t"]
-script = ExtResource("9_me260")
-mode = 0
-stiffness = 0.1
-damping = 0.05
-gravity = Vector3(0, 0, 0)
-length = 0.1
-max_degrees = 60.0
-max_distance = 0.1
-
-[sub_resource type="Resource" id="Resource_whuao"]
-script = ExtResource("9_me260")
-mode = 0
-stiffness = 0.333
-damping = 0.435
-gravity = Vector3(0, 0, 0)
-length = 0.27
-max_degrees = 60.0
-max_distance = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqojc"]
-resource_name = "Body"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("10_si3rc")
-metallic_texture = ExtResource("11_6i0lc")
-metallic_texture_channel = 2
-roughness_texture = ExtResource("11_6i0lc")
-roughness_texture_channel = 1
-normal_enabled = true
-normal_texture = ExtResource("12_ekrdh")
-rim_enabled = true
-rim_tint = 1.0
-clearcoat = 0.77
-clearcoat_roughness = 1.0
-anisotropy = -1.0
-backlight = Color(1, 1, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rs7g"]
-resource_name = "Body"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("10_si3rc")
-metallic_texture = ExtResource("11_6i0lc")
-metallic_texture_channel = 2
-roughness_texture = ExtResource("11_6i0lc")
-roughness_texture_channel = 1
-normal_enabled = true
-normal_texture = ExtResource("12_ekrdh")
-rim_enabled = true
-rim = 0.59
-rim_tint = 1.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_xhwno"]
+size = Vector3(4, 0.5, 4)
 
 [node name="LevelExample" type="Node3D"]
 script = ExtResource("1_djto6")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_4ultq")
+environment = SubResource("Environment_pd1mn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.676528, -0.541268, -0.499338, 0.127659, -0.753998, 0.644353, -0.725267, 0.372178, 0.579199, 0, 0, 0)
+visible = false
+shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.712157, -0.653941, 0.255329, -0.518066, 0.244111, -0.819767, 0.47375, -0.71608, -0.51263, 0, 1.47837, -1.30135)
@@ -142,6 +109,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 0, -0.639)
 
 [node name="Doll3" parent="." instance=ExtResource("4_dhxec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.71202)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Doll3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305195, 2.11398, 0)
+visible = false
+light_color = Color(0.701961, 0.678431, 1, 1)
+light_energy = 2.0
+shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.970021, 0, -0.243023, 0, 1, 0, 0.243023, 0, 0.970021, -0.252, 1.062, 1.136)
@@ -220,475 +194,529 @@ light_color = Color(0.678431, 0.537255, 0, 1)
 
 [node name="TouchControlsUI" parent="CanvasLayer2" instance=ExtResource("6_b5per")]
 
-[node name="MyBody" parent="." instance=ExtResource("7_rkxi7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38345, 2.23517e-08, -4.05099)
+[node name="trashcan" parent="." instance=ExtResource("15_2ex27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49944, 0, 0)
 
-[node name="Skeleton3D" parent="MyBody/rig" index="0"]
-bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/1/rotation = Quaternion(0.76936, 1.52306e-07, 1.8343e-07, 0.638816)
-bones/2/rotation = Quaternion(-0.0818825, -4.33332e-14, -3.90446e-08, 0.996642)
-bones/3/rotation = Quaternion(-0.143446, -1.17976e-07, -5.13003e-08, 0.989658)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.0502888, -7.14222e-15, 1.19898e-08, 0.998735)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(0.244949, 3.02308e-14, 5.84005e-08, 0.969536)
-bones/6/rotation = Quaternion(-0.163563, -1.17604e-07, -1.94982e-08, 0.986533)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.487105, -0.424392, -0.50185, 0.575123)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(-0.237231, 0.668063, -0.291601, 0.64217)
-bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.102591, 0.0265648, 0.0392886, 0.993592)
-bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.0813074, 0.701615, -0.0552751, 0.705741)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.000390184, 0.00946252, 0.0914519, 0.995764)
-bones/12/rotation = Quaternion(0.0351727, 0.00650593, -0.0527402, 0.997967)
-bones/12/scale = Vector3(1, 1, 1)
-bones/13/rotation = Quaternion(0.265847, -0.00621419, -0.0108684, 0.963934)
-bones/14/rotation = Quaternion(0.121615, 0.0120512, 0.00600326, 0.992486)
-bones/14/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(0.0505197, 0.383459, 0.345011, 0.855204)
-bones/16/rotation = Quaternion(0.10844, -0.0281403, -0.00282437, 0.993701)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(0.0485427, 0.00867162, -0.0126217, 0.998704)
-bones/17/scale = Vector3(1, 1, 1)
-bones/18/rotation = Quaternion(0.0257431, 6.73854e-06, 0.00733581, 0.999642)
-bones/19/rotation = Quaternion(0.0242285, -0.0266025, -0.000911668, 0.999352)
-bones/20/rotation = Quaternion(0.21556, 0.0200127, -0.00804373, 0.976252)
-bones/21/rotation = Quaternion(0.148662, -0.00640883, -0.007651, 0.988838)
-bones/21/scale = Vector3(1, 1, 1)
-bones/22/rotation = Quaternion(-0.0105838, -0.021059, -0.0173918, 0.999571)
-bones/23/rotation = Quaternion(0.0973369, 0.0237095, 0.00447509, 0.994959)
-bones/24/rotation = Quaternion(0.197367, 0.00627281, 0.023464, 0.980029)
-bones/24/scale = Vector3(1, 1, 1)
-bones/25/rotation = Quaternion(0.158036, -0.00899183, 0.0033359, 0.987387)
-bones/26/rotation = Quaternion(0.0117716, -0.0082733, -0.086554, 0.996143)
-bones/26/scale = Vector3(1, 1, 1)
-bones/27/rotation = Quaternion(0.0569023, 0.000496394, 0.0703493, 0.995898)
-bones/27/scale = Vector3(1, 1, 1)
-bones/28/rotation = Quaternion(0.207895, 0.0197041, 0.0153258, 0.977832)
-bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(0.121013, 0.0133493, 0.0154491, 0.992441)
-bones/30/rotation = Quaternion(0.678717, -0.66143, 0.231348, 0.219844)
-bones/30/scale = Vector3(1, 1, 1)
-bones/31/rotation = Quaternion(0.999869, 2.88981e-07, 0.0161658, -4.93665e-08)
-bones/32/rotation = Quaternion(-0.487105, 0.424392, 0.50185, 0.575123)
-bones/32/scale = Vector3(1, 1, 1)
-bones/33/rotation = Quaternion(-0.237231, -0.668063, 0.291601, 0.64217)
-bones/33/scale = Vector3(1, 1, 1)
-bones/34/rotation = Quaternion(0.102591, -0.0265648, -0.0392886, 0.993592)
-bones/34/scale = Vector3(1, 1, 1)
-bones/35/rotation = Quaternion(-0.0813073, -0.701615, 0.0552751, 0.705741)
-bones/35/scale = Vector3(1, 1, 1)
-bones/36/rotation = Quaternion(-0.000390169, -0.00946251, -0.0914519, 0.995764)
-bones/37/rotation = Quaternion(0.0351727, -0.00650593, 0.0527402, 0.997967)
-bones/37/scale = Vector3(1, 1, 1)
-bones/38/rotation = Quaternion(0.265847, 0.00621419, 0.0108684, 0.963934)
-bones/39/rotation = Quaternion(0.121615, -0.0120512, -0.00600326, 0.992486)
-bones/40/rotation = Quaternion(0.0505197, -0.383459, -0.345011, 0.855204)
-bones/41/rotation = Quaternion(0.108441, 0.0281403, 0.00282431, 0.993701)
-bones/41/scale = Vector3(1, 1, 1)
-bones/42/scale = Vector3(1, 1, 1)
-bones/43/rotation = Quaternion(0.0257431, -6.73027e-06, -0.0073358, 0.999642)
-bones/43/scale = Vector3(1, 1, 1)
-bones/44/rotation = Quaternion(0.0242285, 0.0266025, 0.000911675, 0.999352)
-bones/46/rotation = Quaternion(0.148662, 0.00640884, 0.007651, 0.988838)
-bones/47/rotation = Quaternion(-0.0105838, 0.021059, 0.0173918, 0.999571)
-bones/48/rotation = Quaternion(0.0973369, -0.0237095, -0.00447508, 0.994959)
-bones/49/rotation = Quaternion(0.197367, -0.00627281, -0.023464, 0.980029)
-bones/49/scale = Vector3(1, 1, 1)
-bones/50/rotation = Quaternion(0.158036, 0.00899183, -0.00333589, 0.987387)
-bones/50/scale = Vector3(1, 1, 1)
-bones/51/rotation = Quaternion(0.0117716, 0.0082733, 0.086554, 0.996143)
-bones/52/rotation = Quaternion(0.0569023, -0.000496396, -0.0703493, 0.995898)
-bones/53/rotation = Quaternion(0.207896, -0.0197041, -0.0153258, 0.977832)
-bones/54/rotation = Quaternion(0.121013, -0.0133493, -0.0154491, 0.992441)
-bones/55/rotation = Quaternion(0.678717, 0.66143, -0.231348, 0.219844)
-bones/56/rotation = Quaternion(0.999869, -3.10171e-07, -0.0161658, -9.50073e-08)
-bones/57/rotation = Quaternion(0.118744, 0.594981, 0.779546, -0.155579)
-bones/58/rotation = Quaternion(-0.118744, 0.594981, 0.779546, 0.15558)
-bones/58/scale = Vector3(1, 1, 1)
-bones/59/rotation = Quaternion(0.699668, -1.16402e-07, 2.19637e-07, 0.714468)
-bones/60/rotation = Quaternion(-7.45058e-09, -3.55271e-14, -1.12501e-15, 1)
-bones/61/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/61/scale = Vector3(1, 1, 1)
-bones/62/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/62/scale = Vector3(1, 1, 1)
-bones/63/rotation = Quaternion(-0.76936, -7.61528e-08, -2.75145e-07, 0.638816)
-bones/63/scale = Vector3(1, 1, 1)
-bones/64/scale = Vector3(1, 1, 1.00001)
-bones/65/rotation = Quaternion(0.995731, -1.10039e-08, 3.56103e-07, 0.0923082)
-bones/65/scale = Vector3(1, 1, 1.00001)
-bones/66/rotation = Quaternion(0.992139, 0.0455909, -0.0410216, 0.109078)
-bones/66/scale = Vector3(1, 1, 0.999999)
-bones/68/rotation = Quaternion(-0.588065, -0.00444405, 0.0581423, 0.806709)
-bones/68/scale = Vector3(1, 1, 1)
-bones/69/rotation = Quaternion(-0.209175, -5.01489e-07, 1.04785e-07, 0.977878)
-bones/70/rotation = Quaternion(0.717715, 0.0606849, 0.00887037, 0.693631)
-bones/70/scale = Vector3(1, 1, 1)
-bones/71/rotation = Quaternion(0.992139, -0.045591, 0.041022, 0.109078)
-bones/71/scale = Vector3(1, 1, 0.999999)
-bones/73/rotation = Quaternion(-0.588065, 0.00444406, -0.0581423, 0.806709)
-bones/74/rotation = Quaternion(-0.209175, 5.06954e-07, -1.03616e-07, 0.977878)
-bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.606187, 1.42472, 1.84317)
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("16_jeqhm")
+texture_normal = ExtResource("17_cbkfd")
+texture_orm = ExtResource("18_sjfbk")
+texture_emission = ExtResource("19_7vtkh")
+normal_fade = 0.999
+upper_fade = 7.58251e-05
+lower_fade = 2.58951e-05
 
-[node name="Body" parent="MyBody/rig/Skeleton3D" index="0"]
-gi_mode = 2
-blend_shapes/Thickness = 1.0
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("21_y1p2d")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65528, 65535, 0, 65528, 1, 655360, 65524, 1, 655360, 65520, 1, 655363, 65517, 0, 1048578, 65524, 65535, 0, 65521, 65535, 1, 65517, 3, 1048577, 65519, 6, 1441792, 65517, 6, 1048576, 65519, 10, 1441795, 65520, 13, 655363, 65517, 10, 1048576, 65517, 14, 1048576, 65517, 18, 1048576, 65519, 18, 1441792, 65524, 13, 655360, 65524, 11, 0)
+}
 
-[node name="DigiLegs" parent="MyBody/rig/Skeleton3D" index="1"]
-gi_mode = 2
+[node name="OmniLight3D" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2252, 2.03441, 2.98047)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
 
-[node name="FemaleCrotch" parent="MyBody/rig/Skeleton3D" index="2"]
-gi_mode = 2
+[node name="OmniLight3D10" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.98128, 3.70008, 0.489268)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
 
-[node name="MaleCrotch" parent="MyBody/rig/Skeleton3D" index="3"]
-gi_mode = 2
+[node name="OmniLight3D11" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98128, 1.70008, 7.1893)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
 
-[node name="Nipples" parent="MyBody/rig/Skeleton3D" index="4"]
-gi_mode = 2
-blend_shapes/NippleBig = 1.0
-surface_material_override/0 = SubResource("StandardMaterial3D_yutak")
+[node name="OmniLight3D12" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88128, 2.50008, 17.6893)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
 
-[node name="PlantiLegs" parent="MyBody/rig/Skeleton3D" index="5"]
-gi_mode = 2
-blend_shapes/Thickness = 1.0
+[node name="OmniLight3D2" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.735, 2.03441, 12.4002)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
 
-[node name="PubicHair" parent="MyBody/rig/Skeleton3D" index="6"]
-gi_mode = 2
+[node name="OmniLight3D4" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7399, 0.870965, -0.967597)
+light_color = Color(1, 0.862745, 0.658824, 1)
 
-[node name="AnimationPlayer" parent="MyBody" index="1"]
-autoplay = "IdleSimple"
+[node name="OmniLight3D5" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7399, 3.62111, -0.967597)
+light_color = Color(1, 0.862745, 0.658824, 1)
 
-[node name="MyBody2" parent="." instance=ExtResource("7_rkxi7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.516646, 2.23517e-08, -4.1128)
+[node name="OmniLight3D13" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.339901, 3.32111, 13.3324)
+light_color = Color(1, 0.862745, 0.658824, 1)
+light_energy = 2.507
+omni_range = 8.3
 
-[node name="Skeleton3D" parent="MyBody2/rig" index="0"]
-bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/1/rotation = Quaternion(0.76936, 1.52306e-07, 1.8343e-07, 0.638816)
-bones/2/rotation = Quaternion(-0.0818825, -4.33332e-14, -3.90446e-08, 0.996642)
-bones/3/rotation = Quaternion(-0.143446, -1.17976e-07, -5.13003e-08, 0.989658)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.0502888, -7.14222e-15, 1.19898e-08, 0.998735)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(0.244949, 3.02308e-14, 5.84005e-08, 0.969536)
-bones/6/rotation = Quaternion(-0.163563, -1.17604e-07, -1.94982e-08, 0.986533)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.487105, -0.424392, -0.50185, 0.575123)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(-0.237231, 0.668063, -0.291601, 0.64217)
-bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.102591, 0.0265648, 0.0392886, 0.993592)
-bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.0813074, 0.701615, -0.0552751, 0.705741)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.000390184, 0.00946252, 0.0914519, 0.995764)
-bones/12/rotation = Quaternion(0.0351727, 0.00650593, -0.0527402, 0.997967)
-bones/12/scale = Vector3(1, 1, 1)
-bones/13/rotation = Quaternion(0.265847, -0.00621419, -0.0108684, 0.963934)
-bones/14/rotation = Quaternion(0.121615, 0.0120512, 0.00600326, 0.992486)
-bones/14/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(0.0505197, 0.383459, 0.345011, 0.855204)
-bones/16/rotation = Quaternion(0.10844, -0.0281403, -0.00282437, 0.993701)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(0.0485427, 0.00867162, -0.0126217, 0.998704)
-bones/17/scale = Vector3(1, 1, 1)
-bones/18/rotation = Quaternion(0.0257431, 6.73854e-06, 0.00733581, 0.999642)
-bones/19/rotation = Quaternion(0.0242285, -0.0266025, -0.000911668, 0.999352)
-bones/20/rotation = Quaternion(0.21556, 0.0200127, -0.00804373, 0.976252)
-bones/21/rotation = Quaternion(0.148662, -0.00640883, -0.007651, 0.988838)
-bones/21/scale = Vector3(1, 1, 1)
-bones/22/rotation = Quaternion(-0.0105838, -0.021059, -0.0173918, 0.999571)
-bones/23/rotation = Quaternion(0.0973369, 0.0237095, 0.00447509, 0.994959)
-bones/24/rotation = Quaternion(0.197367, 0.00627281, 0.023464, 0.980029)
-bones/24/scale = Vector3(1, 1, 1)
-bones/25/rotation = Quaternion(0.158036, -0.00899183, 0.0033359, 0.987387)
-bones/26/rotation = Quaternion(0.0117716, -0.0082733, -0.086554, 0.996143)
-bones/26/scale = Vector3(1, 1, 1)
-bones/27/rotation = Quaternion(0.0569023, 0.000496394, 0.0703493, 0.995898)
-bones/27/scale = Vector3(1, 1, 1)
-bones/28/rotation = Quaternion(0.207895, 0.0197041, 0.0153258, 0.977832)
-bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(0.121013, 0.0133493, 0.0154491, 0.992441)
-bones/30/rotation = Quaternion(0.678717, -0.66143, 0.231348, 0.219844)
-bones/30/scale = Vector3(1, 1, 1)
-bones/31/rotation = Quaternion(0.999869, 2.88981e-07, 0.0161658, -4.93665e-08)
-bones/32/rotation = Quaternion(-0.487105, 0.424392, 0.50185, 0.575123)
-bones/32/scale = Vector3(1, 1, 1)
-bones/33/rotation = Quaternion(-0.237231, -0.668063, 0.291601, 0.64217)
-bones/33/scale = Vector3(1, 1, 1)
-bones/34/rotation = Quaternion(0.102591, -0.0265648, -0.0392886, 0.993592)
-bones/34/scale = Vector3(1, 1, 1)
-bones/35/rotation = Quaternion(-0.0813073, -0.701615, 0.0552751, 0.705741)
-bones/35/scale = Vector3(1, 1, 1)
-bones/36/rotation = Quaternion(-0.000390169, -0.00946251, -0.0914519, 0.995764)
-bones/37/rotation = Quaternion(0.0351727, -0.00650593, 0.0527402, 0.997967)
-bones/37/scale = Vector3(1, 1, 1)
-bones/38/rotation = Quaternion(0.265847, 0.00621419, 0.0108684, 0.963934)
-bones/39/rotation = Quaternion(0.121615, -0.0120512, -0.00600326, 0.992486)
-bones/40/rotation = Quaternion(0.0505197, -0.383459, -0.345011, 0.855204)
-bones/41/rotation = Quaternion(0.108441, 0.0281403, 0.00282431, 0.993701)
-bones/41/scale = Vector3(1, 1, 1)
-bones/42/scale = Vector3(1, 1, 1)
-bones/43/rotation = Quaternion(0.0257431, -6.73027e-06, -0.0073358, 0.999642)
-bones/43/scale = Vector3(1, 1, 1)
-bones/44/rotation = Quaternion(0.0242285, 0.0266025, 0.000911675, 0.999352)
-bones/46/rotation = Quaternion(0.148662, 0.00640884, 0.007651, 0.988838)
-bones/47/rotation = Quaternion(-0.0105838, 0.021059, 0.0173918, 0.999571)
-bones/48/rotation = Quaternion(0.0973369, -0.0237095, -0.00447508, 0.994959)
-bones/49/rotation = Quaternion(0.197367, -0.00627281, -0.023464, 0.980029)
-bones/49/scale = Vector3(1, 1, 1)
-bones/50/rotation = Quaternion(0.158036, 0.00899183, -0.00333589, 0.987387)
-bones/50/scale = Vector3(1, 1, 1)
-bones/51/rotation = Quaternion(0.0117716, 0.0082733, 0.086554, 0.996143)
-bones/52/rotation = Quaternion(0.0569023, -0.000496396, -0.0703493, 0.995898)
-bones/53/rotation = Quaternion(0.207896, -0.0197041, -0.0153258, 0.977832)
-bones/54/rotation = Quaternion(0.121013, -0.0133493, -0.0154491, 0.992441)
-bones/55/rotation = Quaternion(0.678717, 0.66143, -0.231348, 0.219844)
-bones/56/rotation = Quaternion(0.999869, -3.10171e-07, -0.0161658, -9.50073e-08)
-bones/57/rotation = Quaternion(0.118744, 0.594981, 0.779546, -0.155579)
-bones/58/rotation = Quaternion(-0.118744, 0.594981, 0.779546, 0.15558)
-bones/58/scale = Vector3(1, 1, 1)
-bones/59/rotation = Quaternion(0.699668, -1.16402e-07, 2.19637e-07, 0.714468)
-bones/60/rotation = Quaternion(-7.45058e-09, -3.55271e-14, -1.12501e-15, 1)
-bones/61/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/61/scale = Vector3(1, 1, 1)
-bones/62/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/62/scale = Vector3(1, 1, 1)
-bones/63/rotation = Quaternion(-0.76936, -7.61528e-08, -2.75145e-07, 0.638816)
-bones/63/scale = Vector3(1, 1, 1)
-bones/64/scale = Vector3(1, 1, 1.00001)
-bones/65/rotation = Quaternion(0.995731, -1.10039e-08, 3.56103e-07, 0.0923082)
-bones/65/scale = Vector3(1, 1, 1.00001)
-bones/66/rotation = Quaternion(0.992139, 0.0455909, -0.0410216, 0.109078)
-bones/66/scale = Vector3(1, 1, 0.999999)
-bones/68/rotation = Quaternion(-0.588065, -0.00444405, 0.0581423, 0.806709)
-bones/68/scale = Vector3(1, 1, 1)
-bones/69/rotation = Quaternion(-0.209175, -5.01489e-07, 1.04785e-07, 0.977878)
-bones/70/rotation = Quaternion(0.717715, 0.0606849, 0.00887037, 0.693631)
-bones/70/scale = Vector3(1, 1, 1)
-bones/71/rotation = Quaternion(0.992139, -0.045591, 0.041022, 0.109078)
-bones/71/scale = Vector3(1, 1, 0.999999)
-bones/73/rotation = Quaternion(-0.588065, 0.00444406, -0.0581423, 0.806709)
-bones/74/rotation = Quaternion(-0.209175, 5.06954e-07, -1.03616e-07, 0.977878)
-bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
+[node name="OmniLight3D15" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9399, 3.32111, 8.7324)
+light_color = Color(1, 0.862745, 0.658824, 1)
+light_energy = 2.507
+omni_range = 8.3
 
-[node name="Body" parent="MyBody2/rig/Skeleton3D" index="0"]
-gi_mode = 2
+[node name="OmniLight3D14" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.339901, 3.32111, 6.9324)
+light_color = Color(0.635294, 0.945098, 1, 1)
+light_energy = 2.507
+omni_range = 4.825
 
-[node name="DigiLegs" parent="MyBody2/rig/Skeleton3D" index="1"]
-gi_mode = 2
+[node name="OmniLight3D16" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -1.04544, 1.02111, -11.4606)
+light_color = Color(1, 0.862745, 0.658824, 1)
+light_energy = 2.507
+omni_range = 8.3
 
-[node name="FemaleCrotch" parent="MyBody2/rig/Skeleton3D" index="2"]
-gi_mode = 2
+[node name="OmniLight3D17" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -2.03437, 2.42111, -17.4746)
+light_color = Color(0.635294, 0.945098, 1, 1)
+light_energy = 2.507
+omni_range = 4.825
 
-[node name="MaleCrotch" parent="MyBody2/rig/Skeleton3D" index="3"]
-gi_mode = 2
+[node name="OmniLight3D20" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -2.03437, 2.12111, -23.4746)
+light_color = Color(0.635294, 0.945098, 1, 1)
+light_energy = 2.507
+omni_range = 4.825
 
-[node name="WiggleBone" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="4"]
-transform = Transform3D(-0.92339, 0.383863, -2.20228e-07, -3.72529e-07, -2.5332e-07, 1, 0.383863, 0.92339, 4.76837e-07, 0.0768554, 1.33793, 0.062048)
-bone_name = "DEF-breast.L"
-bone_idx = 57
-script = ExtResource("8_ef37v")
-properties = SubResource("Resource_oes8t")
+[node name="OmniLight3D18" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.834365, 1.12111, -21.6746)
+light_energy = 0.768
+omni_range = 2.805
 
-[node name="WiggleBone2" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="5"]
-transform = Transform3D(-0.92339, -0.383864, 1.53811e-06, 1.66893e-06, -5.96046e-08, 1, -0.383864, 0.92339, 6.25849e-07, -0.0768554, 1.33793, 0.062048)
-bone_name = "DEF-breast.R"
-bone_idx = 58
-script = ExtResource("8_ef37v")
-properties = SubResource("Resource_oes8t")
+[node name="OmniLight3D19" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.16564, 2.62111, -18.3746)
+light_energy = 3.435
+omni_range = 14.977
 
-[node name="WiggleBone3" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="6"]
-transform = Transform3D(1, -1.76228e-08, -4.26326e-13, 3.97904e-13, 0, 1, -1.76227e-08, -1, 0, 0.0929958, 0.9427, -0.0943327)
-bone_name = "DEF-butt.L"
-bone_idx = 61
-script = ExtResource("8_ef37v")
-properties = SubResource("Resource_oes8t")
+[node name="OmniLight3D7" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.30039, 3.98044, 11.3611)
+light_color = Color(1, 0, 0, 1)
 
-[node name="WiggleBone4" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="7"]
-transform = Transform3D(1, -1.76228e-08, -4.26326e-13, 3.97904e-13, 0, 1, -1.76227e-08, -1, 0, -0.0929958, 0.9427, -0.0943327)
-bone_name = "DEF-butt.R"
-bone_idx = 62
-script = ExtResource("8_ef37v")
-properties = SubResource("Resource_oes8t")
+[node name="OmniLight3D8" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.30039, 3.98044, 13.8774)
+light_color = Color(1, 0, 0, 1)
 
-[node name="WiggleBone5" type="BoneAttachment3D" parent="MyBody2/rig/Skeleton3D" index="8"]
-transform = Transform3D(1, 7.95808e-13, 1.50995e-07, 1.50995e-07, -8.28877e-07, -1, -6.25278e-13, 1, -8.45641e-07, -1.03642e-14, 1.09911, -0.0451125)
-bone_name = "DEF-belly"
-bone_idx = 59
-script = ExtResource("8_ef37v")
-properties = SubResource("Resource_whuao")
+[node name="OmniLight3D9" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95277, 3.98044, 1.66658)
+light_color = Color(1, 0, 0, 1)
 
-[node name="Nipples" parent="MyBody2/rig/Skeleton3D" index="9"]
-gi_mode = 2
-blend_shapes/NippleSmall = 1.0
+[node name="OmniLight3D6" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3254, 3.62111, -0.967597)
+light_color = Color(1, 0.862745, 0.658824, 1)
 
-[node name="PlantiLegs" parent="MyBody2/rig/Skeleton3D" index="10"]
-gi_mode = 2
+[node name="OmniLight3D3" type="OmniLight3D" parent="GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3995, 3.4722, 18.046)
 
-[node name="PubicHair" parent="MyBody2/rig/Skeleton3D" index="11"]
-gi_mode = 2
+[node name="Station" type="Node3D" parent="."]
 
-[node name="AnimationPlayer" parent="MyBody2" index="1"]
-autoplay = "WalkSimple"
+[node name="BigFloorTechnical" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.49012e-09, 7)
 
-[node name="MyBody3" parent="." instance=ExtResource("7_rkxi7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.814348, 2.23517e-08, -4.23398)
+[node name="BigFloorTechnical3" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, -3.4, 2.5, 7)
 
-[node name="Skeleton3D" parent="MyBody3/rig" index="0"]
-bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/1/rotation = Quaternion(0.76936, 1.52306e-07, 1.8343e-07, 0.638816)
-bones/2/rotation = Quaternion(-0.0818825, -4.33332e-14, -3.90446e-08, 0.996642)
-bones/3/rotation = Quaternion(-0.143446, -1.17976e-07, -5.13003e-08, 0.989658)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.0502888, -7.14222e-15, 1.19898e-08, 0.998735)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(0.244949, 3.02308e-14, 5.84005e-08, 0.969536)
-bones/6/rotation = Quaternion(-0.163563, -1.17604e-07, -1.94982e-08, 0.986533)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.487105, -0.424392, -0.50185, 0.575123)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(-0.237231, 0.668063, -0.291601, 0.64217)
-bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.102591, 0.0265648, 0.0392886, 0.993592)
-bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.0813074, 0.701615, -0.0552751, 0.705741)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.000390184, 0.00946252, 0.0914519, 0.995764)
-bones/12/rotation = Quaternion(0.0351727, 0.00650593, -0.0527402, 0.997967)
-bones/12/scale = Vector3(1, 1, 1)
-bones/13/rotation = Quaternion(0.265847, -0.00621419, -0.0108684, 0.963934)
-bones/14/rotation = Quaternion(0.121615, 0.0120512, 0.00600326, 0.992486)
-bones/14/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(0.0505197, 0.383459, 0.345011, 0.855204)
-bones/16/rotation = Quaternion(0.10844, -0.0281403, -0.00282437, 0.993701)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(0.0485427, 0.00867162, -0.0126217, 0.998704)
-bones/17/scale = Vector3(1, 1, 1)
-bones/18/rotation = Quaternion(0.0257431, 6.73854e-06, 0.00733581, 0.999642)
-bones/19/rotation = Quaternion(0.0242285, -0.0266025, -0.000911668, 0.999352)
-bones/20/rotation = Quaternion(0.21556, 0.0200127, -0.00804373, 0.976252)
-bones/21/rotation = Quaternion(0.148662, -0.00640883, -0.007651, 0.988838)
-bones/21/scale = Vector3(1, 1, 1)
-bones/22/rotation = Quaternion(-0.0105838, -0.021059, -0.0173918, 0.999571)
-bones/23/rotation = Quaternion(0.0973369, 0.0237095, 0.00447509, 0.994959)
-bones/24/rotation = Quaternion(0.197367, 0.00627281, 0.023464, 0.980029)
-bones/24/scale = Vector3(1, 1, 1)
-bones/25/rotation = Quaternion(0.158036, -0.00899183, 0.0033359, 0.987387)
-bones/26/rotation = Quaternion(0.0117716, -0.0082733, -0.086554, 0.996143)
-bones/26/scale = Vector3(1, 1, 1)
-bones/27/rotation = Quaternion(0.0569023, 0.000496394, 0.0703493, 0.995898)
-bones/27/scale = Vector3(1, 1, 1)
-bones/28/rotation = Quaternion(0.207895, 0.0197041, 0.0153258, 0.977832)
-bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(0.121013, 0.0133493, 0.0154491, 0.992441)
-bones/30/rotation = Quaternion(0.678717, -0.66143, 0.231348, 0.219844)
-bones/30/scale = Vector3(1, 1, 1)
-bones/31/rotation = Quaternion(0.972164, 0, 0.234301, 0)
-bones/32/rotation = Quaternion(-0.487105, 0.424392, 0.50185, 0.575123)
-bones/32/scale = Vector3(1, 1, 1)
-bones/33/rotation = Quaternion(-0.237231, -0.668063, 0.291601, 0.64217)
-bones/33/scale = Vector3(1, 1, 1)
-bones/34/rotation = Quaternion(0.102591, -0.0265648, -0.0392886, 0.993592)
-bones/34/scale = Vector3(1, 1, 1)
-bones/35/rotation = Quaternion(-0.0813073, -0.701615, 0.0552751, 0.705741)
-bones/35/scale = Vector3(1, 1, 1)
-bones/36/rotation = Quaternion(-0.000390169, -0.00946251, -0.0914519, 0.995764)
-bones/37/rotation = Quaternion(0.0351727, -0.00650593, 0.0527402, 0.997967)
-bones/37/scale = Vector3(1, 1, 1)
-bones/38/rotation = Quaternion(0.265847, 0.00621419, 0.0108684, 0.963934)
-bones/39/rotation = Quaternion(0.121615, -0.0120512, -0.00600326, 0.992486)
-bones/40/rotation = Quaternion(0.0505197, -0.383459, -0.345011, 0.855204)
-bones/41/rotation = Quaternion(0.108441, 0.0281403, 0.00282431, 0.993701)
-bones/41/scale = Vector3(1, 1, 1)
-bones/42/scale = Vector3(1, 1, 1)
-bones/43/rotation = Quaternion(0.0257431, -6.73027e-06, -0.0073358, 0.999642)
-bones/43/scale = Vector3(1, 1, 1)
-bones/44/rotation = Quaternion(0.0242285, 0.0266025, 0.000911675, 0.999352)
-bones/46/rotation = Quaternion(0.148662, 0.00640884, 0.007651, 0.988838)
-bones/47/rotation = Quaternion(-0.0105838, 0.021059, 0.0173918, 0.999571)
-bones/48/rotation = Quaternion(0.0973369, -0.0237095, -0.00447508, 0.994959)
-bones/49/rotation = Quaternion(0.197367, -0.00627281, -0.023464, 0.980029)
-bones/49/scale = Vector3(1, 1, 1)
-bones/50/rotation = Quaternion(0.158036, 0.00899183, -0.00333589, 0.987387)
-bones/50/scale = Vector3(1, 1, 1)
-bones/51/rotation = Quaternion(0.0117716, 0.0082733, 0.086554, 0.996143)
-bones/52/rotation = Quaternion(0.0569023, -0.000496396, -0.0703493, 0.995898)
-bones/53/rotation = Quaternion(0.207896, -0.0197041, -0.0153258, 0.977832)
-bones/54/rotation = Quaternion(0.121013, -0.0133493, -0.0154491, 0.992441)
-bones/55/rotation = Quaternion(0.678717, 0.66143, -0.231348, 0.219844)
-bones/56/rotation = Quaternion(-0.972164, 0, 0.234301, 0)
-bones/57/rotation = Quaternion(0.118744, 0.594981, 0.779546, -0.155579)
-bones/58/rotation = Quaternion(-0.118744, 0.594981, 0.779546, 0.15558)
-bones/58/scale = Vector3(1, 1, 1)
-bones/59/rotation = Quaternion(0.699668, -1.16402e-07, 2.19637e-07, 0.714468)
-bones/60/rotation = Quaternion(-7.45058e-09, -3.55271e-14, -1.12501e-15, 1)
-bones/61/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/61/scale = Vector3(1, 1, 1)
-bones/62/rotation = Quaternion(-0.76936, -1.45527e-07, -1.77801e-07, 0.638816)
-bones/62/scale = Vector3(1, 1, 1)
-bones/63/rotation = Quaternion(-0.76936, -7.61528e-08, -2.75145e-07, 0.638816)
-bones/63/scale = Vector3(1, 1, 1)
-bones/64/scale = Vector3(1, 1, 1.00001)
-bones/65/rotation = Quaternion(0.995731, -1.10039e-08, 3.56103e-07, 0.0923082)
-bones/65/scale = Vector3(1, 1, 1.00001)
-bones/66/rotation = Quaternion(0.992139, 0.0455909, -0.0410216, 0.109078)
-bones/66/scale = Vector3(1, 1, 0.999999)
-bones/68/rotation = Quaternion(-0.588065, -0.00444405, 0.0581423, 0.806709)
-bones/68/scale = Vector3(1, 1, 1)
-bones/69/rotation = Quaternion(-0.209175, -5.01489e-07, 1.04785e-07, 0.977878)
-bones/70/rotation = Quaternion(0.717715, 0.0606849, 0.00887037, 0.693631)
-bones/70/scale = Vector3(1, 1, 1)
-bones/71/rotation = Quaternion(0.992139, -0.045591, 0.041022, 0.109078)
-bones/71/scale = Vector3(1, 1, 0.999999)
-bones/73/rotation = Quaternion(-0.588065, 0.00444406, -0.0581423, 0.806709)
-bones/74/rotation = Quaternion(-0.209175, 5.06954e-07, -1.03616e-07, 0.977878)
-bones/75/rotation = Quaternion(0.717715, -0.0606848, -0.00887032, 0.693631)
+[node name="BigFloorTechnical4" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, -3.4, 2.5, 11.2)
 
-[node name="Body" parent="MyBody3/rig/Skeleton3D" index="0"]
-gi_mode = 2
-blend_shapes/Muscles = 1.0
-blend_shapes/Thickness = 1.0
-surface_material_override/0 = SubResource("StandardMaterial3D_vqojc")
+[node name="MiddlePiece" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.2, 1.49012e-09, 7)
 
-[node name="DigiLegs" parent="MyBody3/rig/Skeleton3D" index="1"]
-gi_mode = 2
+[node name="MiddlePiece5" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 7.64274e-15, 8.74228e-08, 0, -1, -2.6, 2.5, 7)
 
-[node name="FemaleCrotch" parent="MyBody3/rig/Skeleton3D" index="2"]
-gi_mode = 2
+[node name="MiddlePiece2" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.8, 1.49012e-09, 7)
 
-[node name="MaleCrotch" parent="MyBody3/rig/Skeleton3D" index="3"]
-gi_mode = 2
+[node name="SideTrim" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.2, 1.49012e-09, 7)
 
-[node name="SkeletonIK3D" type="SkeletonIK3D" parent="MyBody3/rig/Skeleton3D" index="4"]
-process_priority = 1
-root_bone = &"DEF-upper_arm.L"
-tip_bone = &"DEF-hand.L"
-target_node = NodePath("../../../Marker3D")
+[node name="@Node3D@84459" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 1.49012e-09, 7)
 
-[node name="Nipples" parent="MyBody3/rig/Skeleton3D" index="5"]
-gi_mode = 2
+[node name="_Node3D_84460" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2.2, 2.5, 7)
 
-[node name="PlantiLegs" parent="MyBody3/rig/Skeleton3D" index="6"]
-gi_mode = 2
-blend_shapes/Muscles = 1.0
-blend_shapes/Thickness = 1.0
-surface_material_override/0 = SubResource("StandardMaterial3D_3rs7g")
+[node name="MiddlePiece6" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 7.64274e-15, 8.74228e-08, 0, -1, -2.6, 2.5, 11.2)
 
-[node name="PubicHair" parent="MyBody3/rig/Skeleton3D" index="7"]
-gi_mode = 2
+[node name="_Node3D_84461" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2.2, 2.5, 11.2)
 
-[node name="AnimationPlayer" parent="MyBody3" index="1"]
-autoplay = "TestWiggle"
+[node name="@Node3D@83927" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.49012e-09, 7)
 
-[node name="Marker3D" type="Marker3D" parent="MyBody3"]
-transform = Transform3D(-0.964726, -0.144722, -0.219909, 0.0610997, -0.935617, 0.347688, -0.25607, 0.321987, 0.911457, 0.333356, 1.07016, 0.185059)
+[node name="BigFloorTechnical2" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.49012e-09, 11.2)
 
-[node name="SkeletonDrivers" parent="MyBody3" instance=ExtResource("8_3db3s")]
-skeletonPath = NodePath("../rig/Skeleton3D")
+[node name="MiddlePiece3" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.2, 1.49012e-09, 11.2)
 
-[editable path="MyBody"]
-[editable path="MyBody2"]
-[editable path="MyBody3"]
+[node name="MiddlePiece4" parent="Station" instance=ExtResource("23_5d103")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.8, 1.49012e-09, 11.2)
+
+[node name="_Node3D_84459" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 1.49012e-09, 11.2)
+
+[node name="SideTrimVent" parent="Station" instance=ExtResource("25_j0wgn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.49012e-09, 9)
+
+[node name="SideTrimVent2" parent="Station" instance=ExtResource("25_j0wgn")]
+transform = Transform3D(4.37114e-08, -8.74228e-08, -1, -3.82137e-15, -1, 8.74228e-08, -1, 0, -4.37114e-08, -2, 2.5, 9)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Station"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Station/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.25, 9.5)
+shape = SubResource("BoxShape3D_k5slf")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Station"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Station/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, 15.6)
+shape = SubResource("BoxShape3D_xhwno")
+
+[node name="SideTrim2" parent="Station" instance=ExtResource("24_13630")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.2, 1.49012e-09, 11.2)
+
+[node name="_Node3D_83927" parent="Station" instance=ExtResource("22_ok1e1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.49012e-09, 11.2)
+
+[node name="Stairs4x2" parent="Station" instance=ExtResource("26_hn5kb")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0.4, 13.6)
+
+[node name="TileLight1x1" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.6, 0.4, 13.8)
+
+[node name="@Node3D@24842" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.2, 0.4, 13.8)
+
+[node name="@Node3D@24843" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.8, 0.4, 13.8)
+
+[node name="@Node3D@24844" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4, 0.4, 13.8)
+
+[node name="VentTrim1x1" parent="Station" instance=ExtResource("28_6m5ev")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -2, 0.4, 14.4)
+
+[node name="TimeConstruct2x1" parent="Station" instance=ExtResource("29_gqcqi")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -2.8, 3.27826e-08, 13.6)
+
+[node name="@Node3D@25861" parent="Station" instance=ExtResource("29_gqcqi")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -1.2, 3.27826e-08, 13.6)
+
+[node name="TileTrimConstruct2x1" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.2, 3.27826e-08, 13.6)
+
+[node name="@Node3D@25862" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -3.8, 3.27826e-08, 13.6)
+
+[node name="@Node3D@25863" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.4, 0.4, 14.4)
+
+[node name="@Node3D@25864" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.6, 0.4, 14.4)
+
+[node name="@Node3D@25865" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.6, 0.4, 15)
+
+[node name="@Node3D@25866" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.2, 0.4, 15)
+
+[node name="@Node3D@25867" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.8, 0.4, 15)
+
+[node name="@Node3D@25868" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.4, 0.4, 15)
+
+[node name="_Node3D_25869" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.4, 0.4, 15.6)
+
+[node name="_Node3D_25870" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.8, 0.4, 15.6)
+
+[node name="_Node3D_25871" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.2, 0.4, 15.6)
+
+[node name="_Node3D_25872" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.6, 0.4, 15.6)
+
+[node name="TileLight1x2" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.6, 0.4, 16.2)
+
+[node name="_Node3D_24842" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.2, 0.4, 16.2)
+
+[node name="_Node3D_24843" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.8, 0.4, 16.2)
+
+[node name="_Node3D_24844" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.4, 0.4, 16.2)
+
+[node name="VentTrim1x2" parent="Station" instance=ExtResource("28_6m5ev")]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -2, 0.4, 16.8)
+
+[node name="_Node3D_25863" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.4, 0.4, 16.8)
+
+[node name="_Node3D_25864" parent="Station" instance=ExtResource("30_ppbh4")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.6, 0.4, 16.8)
+
+[node name="_Node3D_25865" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.6, 0.4, 17.4)
+
+[node name="_Node3D_25866" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.2, 0.4, 17.4)
+
+[node name="_Node3D_25867" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.8, 0.4, 17.4)
+
+[node name="_Node3D_25868" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1.4, 0.4, 17.4)
+
+[node name="@Node3D@25875" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.8, 0.4, 14)
+
+[node name="@Node3D@25876" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.8, 0.4, 14.8)
+
+[node name="@Node3D@25879" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -3.2, 0.4, 14.8)
+
+[node name="_Node3D_25879" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -3.2, 0.4, 15.6)
+
+[node name="_Node3D_25880" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -3.2, 0.4, 16.4)
+
+[node name="_Node3D_25881" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -3.2, 0.4, 17.2)
+
+[node name="_Node3D_25885" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -2.8, 0.4, 18.4)
+
+[node name="_Node3D_25886" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -1.2, 0.4, 18.4)
+
+[node name="_Node3D_25882" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.8, 0.4, 15.6)
+
+[node name="_Node3D_25883" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.8, 0.4, 16.4)
+
+[node name="_Node3D_25884" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.8, 0.4, 17.2)
+
+[node name="@Node3D@25880" parent="Station" instance=ExtResource("27_n2uov")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -3.2, 0.4, 14)
+
+[node name="TrimLightsSolid4x05" parent="Station" instance=ExtResource("31_h2r0x")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0.4, 14.4)
+
+[node name="TrimLightsSolid4x06" parent="Station" instance=ExtResource("31_h2r0x")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0.4, 16.8)
+
+[node name="@Node3D@25881" parent="Station" instance=ExtResource("31_h2r0x")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 0.4, 14.4)
+
+[node name="VentCurved3x05" parent="Station" instance=ExtResource("32_vgo6a")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.4, 0.4, 14.4)
+
+[node name="@Node3D@25882" parent="Station" instance=ExtResource("32_vgo6a")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -3.8, 0.4, 14.4)
+
+[node name="VentCurved05x05" parent="Station" instance=ExtResource("33_mbaxt")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -3.8, 0.4, 13.6)
+
+[node name="@Node3D@25883" parent="Station" instance=ExtResource("33_mbaxt")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -3.8, 0.4, 15)
+
+[node name="@Node3D@25884" parent="Station" instance=ExtResource("33_mbaxt")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.4, 0.4, 15)
+
+[node name="@Node3D@25885" parent="Station" instance=ExtResource("33_mbaxt")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.4, 0.4, 13.6)
+
+[node name="Decal" type="Decal" parent="Station"]
+transform = Transform3D(-1.5299e-08, 0, 0.35, 0, 0.35, 0, -0.35, 0, -1.5299e-08, -2.8, -0.1, 7.4)
+texture_albedo = ExtResource("34_1dkov")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal2" type="Decal" parent="Station"]
+transform = Transform3D(-1.98887e-08, 0, 0.455, 0, 0.455, 0, -0.455, 0, -1.98887e-08, -3.5, 0.5, 14.4)
+size = Vector3(4, 2, 2)
+texture_albedo = ExtResource("35_2qtjn")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal3" type="Decal" parent="Station"]
+transform = Transform3D(-3.74031e-08, 0, 0.855684, 0, 0.855684, 0, -0.855684, 0, -3.74031e-08, -0.971136, -0.0999999, 11.1)
+visible = false
+size = Vector3(4, 2, 3.1)
+texture_albedo = ExtResource("36_ecytx")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal4" type="Decal" parent="Station"]
+transform = Transform3D(6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, -0.971136, -0.0999999, 8.3)
+visible = false
+texture_albedo = ExtResource("37_hfg38")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal5" type="Decal" parent="Station"]
+transform = Transform3D(6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, -0.971136, -0.0999999, 7.4)
+visible = false
+texture_albedo = ExtResource("37_hfg38")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal6" type="Decal" parent="Station"]
+transform = Transform3D(6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, -0.971136, -0.0999999, 6.6)
+visible = false
+texture_albedo = ExtResource("37_hfg38")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="Decal7" type="Decal" parent="Station"]
+transform = Transform3D(6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, -0.971136, -0.0999999, 5.7)
+visible = false
+texture_albedo = ExtResource("37_hfg38")
+upper_fade = 1e-05
+lower_fade = 1e-05
+
+[node name="WallPiece" parent="Station" instance=ExtResource("38_08sw5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 7)
+
+[node name="WallPiece2" parent="Station" instance=ExtResource("38_08sw5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 11)
+
+[node name="WallPiece3" parent="Station" instance=ExtResource("38_08sw5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 15)
+
+[node name="Wall4" parent="Station" instance=ExtResource("39_st6ek")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 7)
+
+[node name="Wall5" parent="Station" instance=ExtResource("39_st6ek")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 11.2)
+
+[node name="Separator" parent="Station" instance=ExtResource("40_h2a2p")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.1, 0, 9.1)
+
+[node name="Separator2" parent="Station" instance=ExtResource("40_h2a2p")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.1, 0, 5)
+
+[node name="Separator3" parent="Station" instance=ExtResource("40_h2a2p")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.1, 0, 13.2)
+
+[node name="VentCurvedFancy3x05" parent="." instance=ExtResource("39_cijeo")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.8, 0.4, 15.8)
+
+[node name="VentCurvedFancy3x06" parent="." instance=ExtResource("39_cijeo")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.8, 0.4, 17)
+
+[node name="Vent2x05" parent="." instance=ExtResource("40_pxeth")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.8, 0.4, 15.6)
+
+[node name="StairsTileAlt4x05" parent="." instance=ExtResource("41_alb36")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0.4, 16)
+
+[node name="StairsTileAlt4x06" parent="." instance=ExtResource("41_alb36")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -2, 0.4, 15.2)
+
+[node name="ThickTrimFancy1x2" parent="." instance=ExtResource("42_g6u4c")]
+transform = Transform3D(1.50996e-07, 0, -2, 0, 2, 0, 2, 0, 1.50996e-07, -2, 0.4, 15.6)
+
+[node name="Corridor" type="Node3D" parent="."]
+
+[node name="Corridor1" parent="Corridor" instance=ExtResource("41_fh648")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -7)
+
+[node name="Corridor2" parent="Corridor" instance=ExtResource("41_fh648")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -11)
+
+[node name="Separators1" parent="Corridor" instance=ExtResource("46_j1ygv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -5)
+
+[node name="Separators2" parent="Corridor" instance=ExtResource("46_j1ygv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -9)
+
+[node name="Separators3" parent="Corridor" instance=ExtResource("46_j1ygv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -13)
+
+[node name="Separators4" parent="Corridor" instance=ExtResource("46_j1ygv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0, -19)
+
+[node name="Corridor1End" parent="Corridor" instance=ExtResource("47_hnj6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -25)
+
+[node name="Corridor1End4" parent="Corridor" instance=ExtResource("47_hnj6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0, -23)
+
+[node name="Corridor1End5" parent="Corridor" instance=ExtResource("47_hnj6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.7, 0, -15)
+
+[node name="Corridor1End2" parent="Corridor" instance=ExtResource("47_hnj6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9, 7.45058e-09, -19)
+
+[node name="Corridor1End3" parent="Corridor" instance=ExtResource("47_hnj6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.9, 7.45058e-09, -15)
+
+[node name="Corridor1DoorLeft" parent="Corridor" instance=ExtResource("48_fgb2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -15)
+
+[node name="Corridor1DoorLeft3" parent="Corridor" instance=ExtResource("48_fgb2o")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.1, 0, -23)
+
+[node name="Sprite3D" parent="Corridor/Corridor1DoorLeft3/Wall2Alt" index="1"]
+visible = false
+
+[node name="Corridor1DoorLeft4" parent="Corridor" instance=ExtResource("48_fgb2o")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4.7, 0, -21)
+
+[node name="Corridor1Fancy" parent="Corridor" instance=ExtResource("49_ys5xu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, -19)
+
+[node name="Sprite3D" type="Sprite3D" parent="Corridor/Corridor1Fancy"]
+transform = Transform3D(9.02799e-16, -0.4725, -2.06536e-08, -2.06536e-08, -2.06536e-08, 0.4725, -0.4725, 0, -2.06536e-08, -2, 0.001, 3.5)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("35_2qtjn")
+
+[node name="Corridor1Fancy2" parent="Corridor" instance=ExtResource("49_ys5xu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0, -17)
+
+[node name="Corridor1DoorLeft2" parent="Corridor" instance=ExtResource("48_fgb2o")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.9, 0, -17)
+
+[node name="Sprite3D" parent="Corridor/Corridor1DoorLeft2/Wall2Alt" index="1"]
+visible = false
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="Corridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1813, 2.20008, -15.1107)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
+
+[node name="OmniLight3D20" type="OmniLight3D" parent="Corridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1813, 2.20008, -19.4107)
+light_color = Color(0.658824, 0.733333, 1, 1)
+light_energy = 2.0
+omni_range = 10.3929
+
+[editable path="Corridor/Corridor1DoorLeft3"]
+[editable path="Corridor/Corridor1DoorLeft3/Wall8"]
+[editable path="Corridor/Corridor1DoorLeft2"]
+[editable path="Corridor/Corridor1DoorLeft2/Wall8"]

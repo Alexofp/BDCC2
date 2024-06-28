@@ -1,58 +1,31 @@
-extends Node3D
+extends GenericPart
 class_name DollPart
 
-var meshes:Array[MeshInstance3D] = []
 @export var attachmentPoints:Dictionary = {}
-var skeleton: Skeleton3D
-var dollRef:WeakRef
-var partRef:WeakRef
 
 var extraTransformsPerBone = {}
 var extraBoneOffset = {}
 var extraBoneRotation = {}
 var extraBoneScale = {}
 
-var firstPerson:bool = false
-
-func getDoll() -> Doll:
-	if(dollRef == null):
-		return null
-	return dollRef.get_ref()
+var extraToExtraPart = {}
 
 func getBodypart() -> BaseBodypart:
-	if(partRef == null):
-		return null
-	return partRef.get_ref()
-
-func getOptionValue(valueID: String, defaultValue = null):
-	var thePart = getBodypart()
-	if(thePart == null):
-		return defaultValue
-	return thePart.getOptionValue(valueID, defaultValue)
-
-func deleteSkeleton():
-	for node in skeleton.get_children():
-		skeleton.remove_child(node)
-		add_child(node)
-	skeleton.queue_free()
-	skeleton = null
-
-func findSkeleton() -> Skeleton3D:
-	return Util.getFirstSkeleton3DOfANode(self)
+	return getPart()
 
 func _ready():
-	skeleton = findSkeleton()
-	meshes = Util.getAllMeshInstancesOfANode(self)
+	pass
 
-func setSkeletonForAllMeshes(newSkeleton:Skeleton3D):
-	for mesh in meshes:
-		mesh.skeleton = mesh.get_path_to(newSkeleton)
-
+var triedToFindSkeleton3d = false
+var cachedSkeleton3d:Skeleton3D
 func getSkeleton() -> Skeleton3D:
-	return skeleton
+	if(cachedSkeleton3d == null && !triedToFindSkeleton3d):
+		cachedSkeleton3d = Util.getFirstSkeleton3DOfANode(self)
+		triedToFindSkeleton3d = true
+	return cachedSkeleton3d
 
 func hasSkeleton() -> bool:
-	return skeleton != null
+	return getSkeleton() != null
 
 func getBodypartSlotObject(bodypartSlot: String):
 	if(bodypartSlot == ""):
@@ -68,27 +41,11 @@ func getBodypartSlotObjectOrNull(bodypartSlot: String):
 		return get_node(attachmentPoints[bodypartSlot])
 	return null
 
-func setBlendshape(mesh: MeshInstance3D, blendShapeID: String, val: float):
-	if(mesh == null):
-		return
-	var blendShapeIndex = mesh.find_blend_shape_by_name(blendShapeID)
-	if(blendShapeIndex >= 0):
-		mesh.set_blend_shape_value(blendShapeIndex, val)
-
-func applyOption(_optionID: String, _value):
-	pass
-
-func onPartOptionChanged(_optionID, _value):
-	applyOption(_optionID, _value)
-
 func applyParentOption(_optionID: String, _value):
 	pass
 
 func onParentPartOptionChanged(_optionID, _value):
 	applyParentOption(_optionID, _value)
-
-func playAnim(_dollAnim:String, _howFast:float = 1.0):
-	pass
 
 func applyBaseSkinData(_data : BaseSkinData):
 	pass
@@ -205,47 +162,9 @@ func doFollowSkeleton(theskeleton:Skeleton3D, followSkeleton:Skeleton3D):
 			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
 
 func _process(_delta):
-	if(true):
-		return
-	var theskeleton:Skeleton3D = getSkeleton()
-	var followSkeleton:Skeleton3D = getFollowSkeleton()
-	
-	if(theskeleton != null && followSkeleton != null):
-		for _i in range(followSkeleton.get_bone_count()):
-			var boneID = _i
-			
-			theskeleton.set_bone_pose_position(boneID, followSkeleton.get_bone_pose_position(boneID) + (extraBoneOffset[boneID] if extraBoneOffset.has(boneID) else Vector3.ZERO))
-			theskeleton.set_bone_pose_rotation(boneID, followSkeleton.get_bone_pose_rotation(boneID) * (extraBoneRotation[boneID] if extraBoneRotation.has(boneID) else Quaternion.IDENTITY))
-			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
-	elif(theskeleton != null):
-		var dakeys = extraTransformsPerBone.keys()
-		#dakeys.sort()
-		for boneIdstr in dakeys:
-			var boneId = boneIdstr
-			#var boneId = theskeleton.find_bone(boneName)
-			#if(boneId < 0):
-			#	return
-			var currentTrans:Transform3D = getBetterGlobalPose(theskeleton, boneId)#theskeleton.get_bone_global_pose_no_override(boneId)
-			theskeleton.call_deferred("set_bone_global_pose_override", boneId, currentTrans * extraTransformsPerBone[boneId], 1.0, true)
-			
-			#theskeleton.set_bone_global_pose_override(boneId, currentTrans * extraTransformsPerBone[boneId], 1.0, true)
-			
-func getBetterGlobalPose(theskeleton:Skeleton3D, boneID:int) -> Transform3D:
-	#return theskeleton.get_bone_global_pose_no_override(boneID)
-	return theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * skeleton.get_bone_pose(boneID)
-
-func setFirstPerson(newFirstPerson:bool) -> void:
-	if(firstPerson != newFirstPerson):
-		firstPerson = newFirstPerson
-		onFirstPersonChange(firstPerson)
-		
-func onFirstPersonChange(_newFirstPerson:bool) -> void:
 	pass
 
 func updateAlphas(_alphaTextures:Array):
-	pass
-
-func updateHiddenParts(_hiddenParts:Dictionary):
 	pass
 
 func followMainSkeleton(theskeleton:Skeleton3D):
@@ -258,6 +177,16 @@ func followMainSkeleton(theskeleton:Skeleton3D):
 			theskeleton.set_bone_pose_position(boneID, followSkeleton.get_bone_pose_position(boneID) + (extraBoneOffset[boneID] if extraBoneOffset.has(boneID) else Vector3.ZERO))
 			theskeleton.set_bone_pose_rotation(boneID, followSkeleton.get_bone_pose_rotation(boneID) * (extraBoneRotation[boneID] if extraBoneRotation.has(boneID) else Quaternion.IDENTITY))
 			theskeleton.set_bone_pose_scale(boneID, followSkeleton.get_bone_pose_scale(boneID) * (extraBoneScale[boneID] if extraBoneScale.has(boneID) else Vector3.ONE))
-	
+
+func applyPoseToSkeletonDeffered():
+	var theskeleton:Skeleton3D = getSkeleton()
+	if(theskeleton == null):
+		return
+	var dakeys = extraTransformsPerBone.keys()
+	for boneIdstr in dakeys:
+		var boneID = boneIdstr
+		var currentTrans:Transform3D = theskeleton.get_bone_global_pose(theskeleton.get_bone_parent(boneID)) * theskeleton.get_bone_pose(boneID)#getBetterGlobalPose(theskeleton, boneId)#theskeleton.get_bone_global_pose_no_override(boneId)
+		theskeleton.call_deferred("set_bone_global_pose_override", boneID, currentTrans * extraTransformsPerBone[boneID], 1.0, true)
+
 func getMainDollSkeleton() -> Skeleton3D:
 	return getDoll().getMainSkeleton()

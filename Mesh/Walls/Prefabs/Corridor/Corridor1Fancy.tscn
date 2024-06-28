@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwf2b5i2mc367"]
+
+[ext_resource type="PackedScene" uid="uid://ddxyc5ieb5uvi" path="res://Mesh/Walls/Prefabs/Corridor/Corridor1.tscn" id="1_xs35h"]
+[ext_resource type="PackedScene" uid="uid://dp47hkt1kg6nb" path="res://Mesh/Walls/MyWallModules/Modules/wall_4_fancy.tscn" id="2_q5olr"]
+
+[node name="Corridor1Fancy" instance=ExtResource("1_xs35h")]
+
+[node name="Wall4Fancy" parent="." index="5" instance=ExtResource("2_q5olr")]
+transform = Transform3D(7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 2.4, 0, 0)
+
+[node name="Wall7" parent="." index="6"]
+visible = false
+
+[node name="Wall4Fancy2" parent="." index="56" instance=ExtResource("2_q5olr")]
+transform = Transform3D(-1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.39962, 0, -5.12266e-08)
+
+[node name="Wall8" parent="." index="57"]
+visible = false

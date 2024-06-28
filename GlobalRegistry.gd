@@ -12,6 +12,9 @@ static var bodypartRefs: Dictionary = {}
 static var textureVariants: Dictionary = {}
 static var itemRefs: Dictionary = {}
 static var items: Dictionary = {}
+static var extraParts: Dictionary = {}
+static var extraPartRefs: Dictionary = {}
+static var extraPartsIDsByBodypartID:Dictionary = {}
 
 static func doInit():
 	if(wasInit):
@@ -28,6 +31,8 @@ static func doInit():
 	
 	registerItemFolder("res://Inventory/Items/")
 	registerItemFolder("res://Inventory/Items/Clothing/")
+	
+	registerExtraPartsFolder("res://Player/Extras/")
 	
 	print("GlobalRegistry: Registered everything")
 
@@ -157,3 +162,46 @@ static func getItemRef(id: String) -> ItemBase:
 	else:
 		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+
+
+static func registerExtraPart(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	extraParts[object.id] = loadedClass
+	extraPartRefs[object.id] = object
+	for partID in object.supportedBodypartIDs:
+		if(!extraPartsIDsByBodypartID.has(partID)):
+			extraPartsIDsByBodypartID[partID] = []
+		extraPartsIDsByBodypartID[partID].append(object.id)
+
+static func registerExtraPartsFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder, false, true, false)
+	for scriptPath in scripts:
+		registerExtraPart(scriptPath)
+
+static func createExtraPart(id: String) -> BodypartExtra:
+	if(extraParts.has(id)):
+		return extraParts[id].new()
+	else:
+		Log.Printerr("ERROR: extra part with the id "+str(id)+" wasn't found")
+		return null
+
+static func getExtraParts():
+	return extraPartRefs
+
+static func getExtraPartRef(id: String) -> BodypartExtra:
+	if(extraPartRefs.has(id)):
+		return extraPartRefs[id]
+	else:
+		Log.Printerr("ERROR: extra part with the id "+str(id)+" wasn't found")
+		return null
+
+static func getExtraPartIDsForBodypartID(id: String) -> Array:
+	if(extraPartsIDsByBodypartID.has(id)):
+		return extraPartsIDsByBodypartID[id]
+	else:
+		return []

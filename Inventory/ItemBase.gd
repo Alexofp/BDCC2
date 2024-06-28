@@ -1,11 +1,11 @@
-extends RefCounted
+extends RefWithOptions
 class_name ItemBase
 
 var id:String = "error"
 var currentInventory:Inventory = null
 
 func _init():
-	pass
+	super._init()
 
 func getVisibleName() -> String:
 	return "(ERROR ITEM)"
@@ -31,3 +31,13 @@ func getMeshPath() -> String:
 
 func getMeshScene() -> PackedScene:
 	return GlobalRegistry.loadSceneCached(getMeshPath())
+
+func getCharacter() -> BaseCharacter:
+	if(currentInventory == null):
+		return null
+	return currentInventory.getCharacter()
+
+func updateCharacterPartTags():
+	var theChar = getCharacter()
+	if(theChar != null):
+		theChar.tellOnPartTagsNeedUpdate()

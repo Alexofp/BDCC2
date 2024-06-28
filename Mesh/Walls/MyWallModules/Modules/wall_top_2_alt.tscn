@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dav7h8fn47in8"]
+
+[ext_resource type="PackedScene" uid="uid://ddh0r1fp7y3k1" path="res://Mesh/Walls/MyWallModules/Modules/Raw/WallTop2Alt.glb" id="1_u710y"]
+[ext_resource type="Material" uid="uid://cajm7lxpb5dft" path="res://Mesh/Walls/MyWallModules/wall_piece.tres" id="2_l4fuy"]
+[ext_resource type="Material" uid="uid://dk3p0cc3amlae" path="res://Mesh/Walls/MyWallModules/big_trim.tres" id="3_8715k"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_thpu7"]
+points = PackedVector3Array(0.926237, 0.5, -0.0090175, -0.956116, 0, -0.59708, -0.926237, 0.5, -0.587746, 0.956116, 0, -0.59708, -0.955102, 0.000269407, 0, 0.955102, 0.000269407, 0, -0.926237, 0.5, -0.0090175, 0.926237, 0.5, -0.587746)
+
+[node name="WallTop2Alt" instance=ExtResource("1_u710y")]
+
+[node name="WallTop2Alt" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_l4fuy")
+surface_material_override/1 = ExtResource("3_8715k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallTop2Alt" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallTop2Alt/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_thpu7")

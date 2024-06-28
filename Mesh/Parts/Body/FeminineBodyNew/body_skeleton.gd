@@ -3,6 +3,9 @@ extends Node3D
 @onready var skeleton = $rig/Skeleton3D
 @onready var animPlayer = $AnimationPlayer
 
+func _ready():
+	animPlayer.root_motion_track = NodePath("rig/Skeleton3D:DEF-char_root")
+
 func getSkeleton() -> Skeleton3D:
 	return skeleton
 

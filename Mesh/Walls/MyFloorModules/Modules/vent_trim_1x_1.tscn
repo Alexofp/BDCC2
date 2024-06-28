@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3eh6cik22eou"]
+
+[ext_resource type="PackedScene" uid="uid://dxwx8o4k424vv" path="res://Mesh/Walls/MyFloorModules/Modules/Raw/VentTrim1x1.glb" id="1_n1ubm"]
+[ext_resource type="Material" uid="uid://4s8hcwxh0pfx" path="res://Mesh/Walls/MyFloorModules/FloorMat.tres" id="2_6a8o4"]
+
+[node name="VentTrim1x1" instance=ExtResource("1_n1ubm")]
+
+[node name="VentTrim1x1" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_6a8o4")

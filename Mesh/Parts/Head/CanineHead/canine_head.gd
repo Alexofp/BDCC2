@@ -159,6 +159,8 @@ func _on_look_direction_timer_timeout():
 func _process(_delta):
 	super._process(_delta)
 	
+	applyPoseToSkeletonDeffered()
+	
 	if(Input.is_action_just_pressed("debug_randomkey")):
 		if(animation_tree["parameters/Mouth/current_state"] == "state_0"):
 			animation_tree["parameters/Mouth/transition_request"] = "state_1"

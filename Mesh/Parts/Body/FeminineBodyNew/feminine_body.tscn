@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://blnw00p8oynrr"]
+[gd_scene load_steps=19 format=3 uid="uid://blnw00p8oynrr"]
 
 [ext_resource type="PackedScene" uid="uid://c1ok7ofe58sud" path="res://Mesh/Parts/Body/FeminineBodyNew/FeminineBody.glb" id="1_yu0we"]
 [ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBodyNew/feminine_body.gd" id="2_km8w1"]
@@ -10,27 +10,10 @@
 [ext_resource type="Material" uid="uid://dbe6de7b8pa01" path="res://Mesh/Parts/Body/FeminineBodyNew/Materials/BodyMat.tres" id="7_yml2i"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_bone.gd" id="8_2qg61"]
 [ext_resource type="PackedScene" uid="uid://ccyavstjwqov6" path="res://Mesh/Materials/smart_layered_texture.tscn" id="8_uri4q"]
+[ext_resource type="Resource" uid="uid://c5o1827tqagmr" path="res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsMinimal.tres" id="9_0mm7w"]
 [ext_resource type="Script" path="res://addons/wigglebone/wiggle_properties.gd" id="9_651fd"]
-
-[sub_resource type="Resource" id="Resource_mn3t3"]
-script = ExtResource("9_651fd")
-mode = 0
-stiffness = 0.1
-damping = 0.2
-gravity = Vector3(0, 0, 0)
-length = 0.3
-max_degrees = 90.0
-max_distance = 0.1
-
-[sub_resource type="Resource" id="Resource_py1a7"]
-script = ExtResource("9_651fd")
-mode = 0
-stiffness = 0.1
-damping = 0.2
-gravity = Vector3(0, 0, 0)
-length = 0.3
-max_degrees = 90.0
-max_distance = 0.1
+[ext_resource type="Resource" uid="uid://b5sgh0ge1w56y" path="res://Mesh/Parts/Body/FeminineBodyNew/BoobWiggleSettingsRotation.tres" id="9_flsuc"]
+[ext_resource type="PackedScene" uid="uid://c7vtu0xaakau3" path="res://Mesh/Clothing/TestPanties/TestPanties.glb" id="12_1sgb5"]
 
 [sub_resource type="Resource" id="Resource_vhx61"]
 script = ExtResource("9_651fd")
@@ -51,6 +34,13 @@ gravity = Vector3(0, 0, 0)
 length = 0.3
 max_degrees = 90.0
 max_distance = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvqnr"]
+albedo_color = Color(0.411765, 0.482353, 0.937255, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14g06"]
+cull_mode = 2
+albedo_color = Color(0.411765, 0.482353, 0.937255, 1)
 
 [node name="FeminineBody" instance=ExtResource("1_yu0we")]
 script = ExtResource("2_km8w1")
@@ -181,14 +171,28 @@ surface_material_override/0 = ExtResource("7_yml2i")
 [node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="6"]
 surface_material_override/0 = ExtResource("7_yml2i")
 
-[node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7"]
+[node name="Nipples" parent="rig/Skeleton3D" index="7"]
+gi_mode = 2
+blend_shapes/NippleBig = 1.0
+surface_material_override/0 = ExtResource("3_up31v")
+
+[node name="PlantiLegs" parent="rig/Skeleton3D" index="8"]
+gi_mode = 2
+surface_material_override/0 = ExtResource("7_yml2i")
+surface_material_override/1 = ExtResource("7_d1pta")
+
+[node name="PubicHair" parent="rig/Skeleton3D" index="9"]
+gi_mode = 2
+surface_material_override/0 = ExtResource("6_e77y3")
+
+[node name="HeadAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="10"]
 transform = Transform3D(1, -4.40536e-13, -4.9738e-13, 4.33431e-13, 1, -1.63913e-07, 5.11591e-13, 1.49012e-07, 1, -1.23699e-13, 1.60356, -0.021929)
 bone_name = "DEF-head"
 bone_idx = 6
 
 [node name="HeadMarker" type="Node3D" parent="rig/Skeleton3D/HeadAttach" index="0"]
 
-[node name="TailAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8"]
+[node name="TailAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11"]
 transform = Transform3D(1, -6.25278e-13, 2.38419e-07, -2.38419e-07, 1.49012e-08, 1, -5.68434e-13, -1, -1.49012e-08, -5.47285e-14, 1.06341, -0.080174)
 bone_name = "DEF-tail_base"
 bone_idx = 66
@@ -196,70 +200,72 @@ bone_idx = 66
 [node name="TailMarker" type="Node3D" parent="rig/Skeleton3D/TailAttach" index="0"]
 transform = Transform3D(1, -2.38419e-07, 2.3842e-07, 2.3842e-07, -4.37113e-08, -1, 2.38419e-07, 1, -4.37113e-08, 0, 0, 0)
 
-[node name="LeftWristAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="9"]
+[node name="LeftWristAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="12"]
 transform = Transform3D(-0.655737, 0.728623, -0.197781, -0.747991, -0.662557, 0.0390862, -0.102562, 0.173569, 0.979467, 0.452044, 1.14352, -0.0278221)
 bone_name = "DEF-forearmTwist.L"
 bone_idx = 10
 
 [node name="LeftWristMarker" type="Node3D" parent="rig/Skeleton3D/LeftWristAttach" index="0"]
 
-[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="10"]
-transform = Transform3D(-0.92339, 0.383863, -2.23517e-07, -3.57628e-07, -3.57628e-07, 1, 0.383863, 0.92339, 3.57628e-07, 0.0768554, 1.33793, 0.062048)
+[node name="WiggleBone" type="BoneAttachment3D" parent="rig/Skeleton3D" index="13"]
+transform = Transform3D(-0.92339, 0.383863, -2.20229e-07, -3.65078e-07, -2.38419e-07, 1, 0.383863, 0.92339, 4.17233e-07, 0.0768554, 1.33793, 0.062048)
 bone_name = "DEF-breast.L"
 bone_idx = 57
 script = ExtResource("8_2qg61")
-properties = SubResource("Resource_mn3t3")
+properties = ExtResource("9_0mm7w")
 
-[node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11"]
-transform = Transform3D(-0.92339, -0.383864, -8.9407e-07, -1.38581e-06, 1.01328e-06, 1, -0.383864, 0.92339, -1.54972e-06, -0.0768554, 1.33793, 0.062048)
+[node name="WiggleBone2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="14"]
+transform = Transform3D(-0.92339, -0.383864, -9.05683e-07, -1.41561e-06, 1.07288e-06, 1, -0.383864, 0.92339, -1.54972e-06, -0.0768554, 1.33793, 0.062048)
 bone_name = "DEF-breast.R"
 bone_idx = 59
 script = ExtResource("8_2qg61")
-properties = SubResource("Resource_py1a7")
+properties = ExtResource("9_flsuc")
 
-[node name="WiggleBone3" type="BoneAttachment3D" parent="rig/Skeleton3D" index="12"]
-transform = Transform3D(1, -1.76227e-08, -3.97016e-13, 3.97016e-13, 0, 1, -1.76227e-08, -1, 0, 0.0929958, 0.9427, -0.0943327)
+[node name="WiggleBone3" type="BoneAttachment3D" parent="rig/Skeleton3D" index="15"]
+transform = Transform3D(1, -1.76228e-08, -4.26326e-13, 3.97904e-13, 1.49012e-08, 1, -1.76227e-08, -1, -1.49012e-08, 0.0929958, 0.9427, -0.0943327)
 bone_name = "DEF-butt.L"
 bone_idx = 64
 script = ExtResource("8_2qg61")
 properties = SubResource("Resource_vhx61")
 
-[node name="WiggleBone4" type="BoneAttachment3D" parent="rig/Skeleton3D" index="13"]
-transform = Transform3D(1, -1.76227e-08, -3.97016e-13, 3.97016e-13, 0, 1, -1.76227e-08, -1, 0, -0.0929958, 0.9427, -0.0943326)
+[node name="WiggleBone4" type="BoneAttachment3D" parent="rig/Skeleton3D" index="16"]
+transform = Transform3D(1, -1.76228e-08, -4.26326e-13, 3.97904e-13, 1.49012e-08, 1, -1.76227e-08, -1, -1.49012e-08, -0.0929958, 0.9427, -0.0943326)
 bone_name = "DEF-butt.R"
 bone_idx = 65
 script = ExtResource("8_2qg61")
 properties = SubResource("Resource_vhx61")
 
-[node name="WiggleBone5" type="BoneAttachment3D" parent="rig/Skeleton3D" index="14"]
-transform = Transform3D(1, 1.0445e-12, 1.50995e-07, 1.50995e-07, -8.34465e-07, -1, -9.166e-13, 1, -8.34465e-07, -4.67293e-14, 1.09911, -0.0451125)
+[node name="WiggleBone5" type="BoneAttachment3D" parent="rig/Skeleton3D" index="17"]
+transform = Transform3D(1, 1.02318e-12, 1.50995e-07, 1.50995e-07, -8.47504e-07, -1, -9.09495e-13, 1, -8.17701e-07, -4.67293e-14, 1.09911, -0.0451125)
 bone_name = "DEF-belly"
 bone_idx = 61
 script = ExtResource("8_2qg61")
 properties = SubResource("Resource_wbhfs")
 
-[node name="Nipples" parent="rig/Skeleton3D" index="15"]
-gi_mode = 2
-blend_shapes/NippleBig = 1.0
-surface_material_override/0 = ExtResource("3_up31v")
+[node name="BodySkeleton" parent="." index="1" instance=ExtResource("3_s5yeg")]
 
-[node name="PlantiLegs" parent="rig/Skeleton3D" index="16"]
-gi_mode = 2
-surface_material_override/0 = ExtResource("7_yml2i")
-surface_material_override/1 = ExtResource("7_d1pta")
-
-[node name="PubicHair" parent="rig/Skeleton3D" index="17"]
-gi_mode = 2
-surface_material_override/0 = ExtResource("6_e77y3")
-
-[node name="BodySkeleton" parent="." index="2" instance=ExtResource("3_s5yeg")]
-
-[node name="AlphaTexture" parent="." index="3" instance=ExtResource("8_uri4q")]
+[node name="AlphaTexture" parent="." index="2" instance=ExtResource("8_uri4q")]
 textureSize = Vector2i(512, 512)
 defaultColor = Color(1, 1, 1, 1)
 
-[node name="PatternTexture" parent="." index="4" instance=ExtResource("8_uri4q")]
+[node name="PatternTexture" parent="." index="3" instance=ExtResource("8_uri4q")]
 textureSize = Vector2i(2048, 2048)
 
-[node name="FinalTexture" parent="." index="5" instance=ExtResource("8_uri4q")]
+[node name="FinalTexture" parent="." index="4" instance=ExtResource("8_uri4q")]
 textureSize = Vector2i(2048, 2048)
+
+[node name="TestPanties2" parent="." index="5" instance=ExtResource("12_1sgb5")]
+visible = false
+
+[node name="TestPanties" parent="TestPanties2/rig/Skeleton3D" index="0"]
+visible = false
+lod_bias = 3.0
+skeleton = NodePath("../../../../rig/Skeleton3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_qvqnr")
+
+[node name="TestPantiesShifted" parent="TestPanties2/rig/Skeleton3D" index="1"]
+lod_bias = 3.0
+skeleton = NodePath("../../../../rig/Skeleton3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_14g06")
+
+[editable path="TestPanties2"]
