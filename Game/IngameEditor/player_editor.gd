@@ -77,7 +77,8 @@ func _ready():
 	assetStash.messenger = self
 	updateTemplateList()
 	
-	_on_open_file_dialog_file_selected.call_deferred("res://Game/IngameEditor/Templates/genblock.res", true)
+	## Uncomment to auto-load the cellblock template
+	#_on_open_file_dialog_file_selected.call_deferred("res://Game/IngameEditor/Templates/genblock.res", true)
 
 var savedEscapePressed:bool = false
 func updateMouseLock() -> void:
