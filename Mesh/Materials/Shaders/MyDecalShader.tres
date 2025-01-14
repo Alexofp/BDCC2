@@ -1,0 +1,138 @@
+[gd_resource type="Shader" format=3 uid="uid://dukv02kbpglel"]
+
+[resource]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, depth_prepass_alpha;
+
+//#include \"res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc\"
+
+//uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+//uniform float point_size : hint_range(0.1, 128.0, 0.1);
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+//uniform vec4 emission : source_color;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+//uniform float normal_scale : hint_range(-16.0, 16.0);
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01);
+
+instance uniform float roughness_mult : hint_range(0.0, 1.0, 0.01) = 0.5;
+instance uniform vec3 trim_color_main : source_color = vec3(1.0);
+instance uniform vec3 trim_color_second : source_color = vec3(1.0);
+instance uniform vec3 trim_color_third : source_color = vec3(1.0);
+instance uniform vec3 trim_color_base : source_color = vec3(1.0);
+
+uniform sampler2D texture_heightmap : hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float heightmap_scale : hint_range(-16.0, 16.0, 0.001);
+uniform int heightmap_min_layers : hint_range(1, 64);
+uniform int heightmap_max_layers : hint_range(1, 64);
+uniform vec2 heightmap_flip;
+
+//uniform vec3 uv1_scale;
+//uniform vec3 uv1_offset;
+//uniform vec3 uv2_scale;
+//uniform vec3 uv2_offset;
+
+void vertex() {
+	//UV = UV;// * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	// FROM SHADERS WEBSITE https://godotshaders.com/shader/iterative-parallax-mapping/
+	//{
+		//vec3 view_dir = normalize(normalize(-VERTEX)*mat3(TANGENT*heightmap_flip.x,-BINORMAL*heightmap_flip.y,NORMAL));
+		//
+		//float num_layers = mix(float(heightmap_max_layers), float(heightmap_min_layers), abs(dot(vec3(0.0, 0.0, 1.0), view_dir))/2. ); //Distance lod
+		//num_layers = round(num_layers/3.)*3.; //Layers stepped every 3
+		//
+		//for (float i = 0.; i < num_layers; i++){
+			//float h = (texture(texture_heightmap, base_uv).r - 0.5); //Uses alpha channel of ORM texture
+			//h *= heightmap_scale/num_layers;
+			//h -= (1./(i+1.))*(1./num_layers);
+			//h = clamp(h, -0.5, 0.5);
+			//h -= 0.5/num_layers;
+			//
+			//vec2 view = view_dir.xy;
+			//view *= 0.01;
+			//view *= h;
+			//
+			//base_uv += view;
+		//}
+	//}
+
+	// FROM THE SHADER ADDON
+	//base_uv = parallax_mapping_uv(texture_heightmap, heightmap_scale, base_uv, TANGENT, NORMAL, BINORMAL, VIEW);
+
+	// DEFAULT GODOT HEIGHT
+	{
+		// Height: Enabled
+		vec3 view_dir = normalize(normalize(-VERTEX + EYE_OFFSET) * mat3(TANGENT * heightmap_flip.x, -BINORMAL * heightmap_flip.y, NORMAL));
+
+		// Height Deep Parallax: Enabled
+		float num_layers = mix(float(heightmap_max_layers), float(heightmap_min_layers), abs(dot(vec3(0.0, 0.0, 1.0), view_dir)));
+		float layer_depth = 1.0 / num_layers;
+		//float current_layer_depth = 0.0;
+		vec2 p = view_dir.xy * heightmap_scale * 0.01;
+		vec2 delta = p / num_layers;
+		vec2 ofs = base_uv;
+		float depth = 1.0 - texture(texture_heightmap, ofs).r;
+
+		float current_depth = 0.0;
+		while (current_depth < depth) {
+			ofs -= delta;
+			depth = 1.0 - texture(texture_heightmap, ofs).r;
+
+			current_depth += layer_depth;
+		}
+
+		vec2 prev_ofs = ofs + delta;
+		float after_depth = depth - current_depth;
+		float before_depth = (1.0 - texture(texture_heightmap, prev_ofs).r) - current_depth + layer_depth;
+
+		float weight = after_depth / (after_depth - before_depth);
+		ofs = mix(ofs, prev_ofs, weight);
+		base_uv = ofs;
+	}
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+
+	// Coloring based on UV position
+	float yUV = -base_uv.y+1.0;
+	vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
+	float layer = clamp(floor(yUV), 0.0, 3.0);
+	float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
+	albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
+
+	ALBEDO = albedo_tex.rgb; //albedo.rgb *
+
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+	float roughnessRemapped = (roughness_mult - 0.5)*2.0; // -1.0, 1.0
+	ROUGHNESS = (orm_tex.g * (0.5 - abs(roughness_mult-0.5))*2.0) + max(0.0, roughnessRemapped);
+ 	METALLIC = orm_tex.b;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = 1.0;//normal_scale;
+
+	// Emission: Enabled
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	// Emission Operator: Add
+	emission_tex.rgb = mix(emission_tex.rgb, emission_tex.rgb * colors[int(layer)], mixFactor);
+
+	EMISSION = (emission_tex) * emission_energy; //emission.rgb +
+	ALPHA *= albedo_tex.a; // albedo.a *
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r;
+	AO_LIGHT_AFFECT = ao_light_affect;
+}
+"

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cypxga6k8w334"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/string_var.gd" id="1_7nxm8"]
+
+[node name="StringVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_7nxm8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]

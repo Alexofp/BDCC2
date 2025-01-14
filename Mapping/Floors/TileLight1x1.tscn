@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://3x1liyfdppam"]
+
+[ext_resource type="PackedScene" uid="uid://djc3d6klj8xfh" path="res://Mapping/Floors/Raw/TileLight1x1.glb" id="1_i6njr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bily0"]
+size = Vector3(1, 0.01, 1)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_iyo3v"]
+
+[node name="TileLight1x1" instance=ExtResource("1_i6njr")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileLight1x1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.005, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileLight1x1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_bily0")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileLight1x1" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, -0.005, -0.5)
+occluder = SubResource("QuadOccluder3D_iyo3v")

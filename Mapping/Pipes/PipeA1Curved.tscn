@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpg4uslifiuuw"]
+
+[ext_resource type="PackedScene" uid="uid://be488fkq4il26" path="res://Mapping/Pipes/Raw/PipeA1Curved.glb" id="1_n08ho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1h0dt"]
+size = Vector3(0.4, 0.4, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qutnw"]
+size = Vector3(0.4, 0.4, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6elob"]
+size = Vector3(0.4, 0.4, 0.9)
+
+[node name="PipeA1Curved" instance=ExtResource("1_n08ho")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Curved" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249984, -2.98023e-08, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Curved/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.249984, 0, -0.35)
+shape = SubResource("BoxShape3D_1h0dt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1Curved/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.250016, 0, 0.35)
+shape = SubResource("BoxShape3D_qutnw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PipeA1Curved/StaticBody3D" index="2"]
+transform = Transform3D(0.745534, 0, -0.666467, 0, 1, 0, 0.666467, 0, 0.745534, 0, 0, 0)
+shape = SubResource("BoxShape3D_6elob")

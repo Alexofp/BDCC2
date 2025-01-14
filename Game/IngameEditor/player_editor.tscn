@@ -1,0 +1,342 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0bx3obfy2vk4"]
+
+[ext_resource type="Script" path="res://Game/IngameEditor/player_editor.gd" id="1_hrol8"]
+[ext_resource type="PackedScene" uid="uid://bo1445eamj5w6" path="res://Game/IngameEditor/pc_editor_asset_stash.tscn" id="2_mo0es"]
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_xl10o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_edok2"]
+radius = 0.4
+height = 1.78
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xp027"]
+radius = 0.4
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_7180x"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mk3i1"]
+metallic = 1.0
+roughness = 0.0
+clearcoat_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nmtm"]
+bg_color = Color(1, 1, 1, 0.117647)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ns5e5"]
+size = Vector3(0.01, 0.01, 0.01)
+
+[node name="PlayerEditor" type="CharacterBody3D"]
+script = ExtResource("1_hrol8")
+
+[node name="StandCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_edok2")
+
+[node name="CrotchCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("CapsuleShape3D_xp027")
+disabled = true
+
+[node name="HeadPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="HeadPivot"]
+unique_name_in_owner = true
+current = true
+
+[node name="FlashlightLight" type="SpotLight3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+visible = false
+light_energy = 3.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+spot_range = 15.0
+
+[node name="OmniFlashlight" type="OmniLight3D" parent="HeadPivot/Camera3D"]
+unique_name_in_owner = true
+visible = false
+light_energy = 7.871
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228998, 0, -1.02298)
+visible = false
+mesh = SubResource("SphereMesh_7180x")
+surface_material_override/0 = SubResource("StandardMaterial3D_mk3i1")
+
+[node name="UncrouchArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 255
+input_ray_pickable = false
+
+[node name="StandCollisionShape3D" type="CollisionShape3D" parent="UncrouchArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
+shape = SubResource("CapsuleShape3D_edok2")
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="EditorUI" type="Control" parent="UICanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ToolRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 29.0
+offset_top = 39.0
+offset_right = 377.0
+offset_bottom = 108.0
+bbcode_enabled = true
+fit_content = true
+
+[node name="MessagesRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -398.0
+offset_top = -189.0
+offset_right = -50.0
+offset_bottom = -69.0
+grow_horizontal = 0
+grow_vertical = 0
+bbcode_enabled = true
+text = "asd
+asd
+asd
+asd
+asd"
+scroll_active = false
+
+[node name="EditorCanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="EditorUI" type="Control" parent="EditorCanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = 25.0
+offset_right = -45.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer"]
+layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="File" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+item_count = 7
+item_0/text = "Clear map"
+item_1/text = "Open (F2 or F9)"
+item_1/id = 2
+item_2/id = 9999
+item_2/separator = true
+item_3/text = "Save (F1 or F5)"
+item_3/id = 1
+item_4/text = "Save As"
+item_4/id = 4
+item_5/id = 6
+item_5/separator = true
+item_6/text = "Open Template"
+item_6/id = 5
+
+[node name="View" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+auto_translate_mode = 1
+item_count = 6
+item_0/text = "Regenerate icons"
+item_1/text = "Toggle flashlight (F)"
+item_1/id = 1
+item_2/text = "Wireframe"
+item_2/id = 2
+item_3/text = "Overdraw"
+item_3/id = 3
+item_4/text = "Reset Global Illumination"
+item_4/id = 4
+item_5/text = "Toggle Global Illumination"
+item_5/id = 5
+
+[node name="Editor" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+auto_translate_mode = 1
+item_count = 3
+item_0/text = "Toggle platform"
+item_1/text = "Tp to 0,0,0"
+item_1/id = 1
+item_2/text = "Open maps folder"
+item_2/id = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Label" type="Label" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tools"
+
+[node name="ToolItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PropBrowser" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CategoryButtonsList" type="HFlowContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PropItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+max_columns = 0
+same_column_width = true
+fixed_column_width = 128
+icon_mode = 0
+fixed_icon_size = Vector2i(128, 128)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3nmtm")
+
+[node name="PropVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer2" instance=ExtResource("2_xl10o")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ResetPropSettingsButton" type="Button" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset prop settings"
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3nmtm")
+
+[node name="ToolVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer" instance=ExtResource("2_xl10o")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SaveFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+unique_name_in_owner = true
+size = Vector2i(567, 430)
+ok_button_text = "Save"
+access = 2
+filters = PackedStringArray("*.res")
+
+[node name="OpenFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Open a File"
+size = Vector2i(567, 430)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.res")
+
+[node name="OpenTemplateDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Open a File"
+size = Vector2i(567, 430)
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "res://Game/IngameEditor/Templates"
+filters = PackedStringArray("*.res")
+
+[node name="MyTemplateDialog" type="ConfirmationDialog" parent="EditorCanvasLayer/EditorUI"]
+unique_name_in_owner = true
+title = "Select template"
+size = Vector2i(400, 300)
+ok_button_text = "Load"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 251.0
+size_flags_vertical = 3
+
+[node name="TemplateItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CursorTarget" type="Node3D" parent="."]
+top_level = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CursorTarget"]
+gi_mode = 2
+mesh = SubResource("BoxMesh_ns5e5")
+skeleton = NodePath("../..")
+
+[node name="PCEditorAssetStash" parent="." instance=ExtResource("2_mo0es")]
+
+[connection signal="id_pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar/File" to="." method="_on_file_id_pressed"]
+[connection signal="id_pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar/View" to="." method="_on_view_id_pressed"]
+[connection signal="id_pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar/Editor" to="." method="_on_editor_id_pressed"]
+[connection signal="item_selected" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ToolItemList" to="." method="_on_tool_item_list_item_selected"]
+[connection signal="item_selected" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser/PropItemList" to="." method="_on_prop_item_list_item_selected"]
+[connection signal="onVarChange" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer2/PropVarList" to="." method="_on_prop_var_list_on_var_change"]
+[connection signal="pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer/ResetPropSettingsButton" to="." method="_on_reset_prop_settings_button_pressed"]
+[connection signal="onVarChange" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer/ToolVarList" to="." method="_on_tool_var_list_on_var_change"]
+[connection signal="file_selected" from="EditorCanvasLayer/EditorUI/SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="file_selected" from="EditorCanvasLayer/EditorUI/OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
+[connection signal="file_selected" from="EditorCanvasLayer/EditorUI/OpenTemplateDialog" to="." method="_on_open_template_dialog_file_selected"]
+[connection signal="confirmed" from="EditorCanvasLayer/EditorUI/MyTemplateDialog" to="." method="_on_my_template_dialog_confirmed"]
+[connection signal="IconsUpdated" from="PCEditorAssetStash" to="." method="_on_pc_editor_asset_stash_icons_updated"]

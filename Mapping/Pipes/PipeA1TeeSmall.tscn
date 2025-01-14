@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0hswrrc5sq4x"]
+
+[ext_resource type="PackedScene" uid="uid://ct1w3oa2wt7l7" path="res://Mapping/Pipes/Raw/PipeA1TeeSmall.glb" id="1_lxbsf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bmehh"]
+size = Vector3(0.4, 0.4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epqky"]
+size = Vector3(0.2, 0.5, 0.2)
+
+[node name="PipeA1TeeSmall" instance=ExtResource("1_lxbsf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1TeeSmall" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0.15, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+shape = SubResource("BoxShape3D_bmehh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_epqky")

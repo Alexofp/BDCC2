@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ol5t7lbo3gu"]
+
+[ext_resource type="PackedScene" uid="uid://dbi0qnifq02n8" path="res://Mapping/Railings/Raw/FancyRailing1.glb" id="1_boptc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u7w27"]
+size = Vector3(0.911578, 1.10679, 0.120384)
+
+[node name="FancyRailing1" instance=ExtResource("1_boptc")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.502406, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_u7w27")

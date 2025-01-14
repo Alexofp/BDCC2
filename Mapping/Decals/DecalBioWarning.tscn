@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://qrdc2vy3f1ww"]
+
+[ext_resource type="PackedScene" uid="uid://bgdhmqjgbrm0h" path="res://Mapping/Decals/Raw/DecalBioWarning.glb" id="1_64hmg"]
+
+[node name="DecalBioWarning" instance=ExtResource("1_64hmg")]

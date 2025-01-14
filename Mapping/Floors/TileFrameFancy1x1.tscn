@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dym8sh52t257e"]
+
+[ext_resource type="PackedScene" uid="uid://ckeg6k2n0ayot" path="res://Mapping/Floors/Raw/TileFrameFancy1x1.glb" id="1_4tmgu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deghl"]
+size = Vector3(1, 0.01, 0.999999)
+
+[node name="TileFrameFancy1x1" instance=ExtResource("1_4tmgu")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileFrameFancy1x1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.00663722, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileFrameFancy1x1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_deghl")

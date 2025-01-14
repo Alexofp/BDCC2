@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://035q0s4dwyxs"]
+
+[ext_resource type="PackedScene" uid="uid://djw70yiin3kku" path="res://Mapping/Floors/Raw/TileTrimConstruct2x1.glb" id="1_lbk4u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2wa6p"]
+size = Vector3(2, 0.01, 0.999999)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_nwnhm"]
+size = Vector2(2, 0.999999)
+
+[node name="TileTrimConstruct2x1" instance=ExtResource("1_lbk4u")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileTrimConstruct2x1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.005, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileTrimConstruct2x1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_2wa6p")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileTrimConstruct2x1" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -0.005, -0.5)
+occluder = SubResource("QuadOccluder3D_nwnhm")

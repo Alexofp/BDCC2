@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp3u6geologhq"]
+
+[ext_resource type="PackedScene" uid="uid://cv1i4shfjropo" path="res://Mapping/Columns/Raw/ColumnB2TriCorner.glb" id="1_libyc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tcdif"]
+size = Vector3(0.4, 1.44156, 1.1)
+
+[node name="ColumnB2TriCorner" instance=ExtResource("1_libyc")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnB2TriCorner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.698, 0)
+shape = SubResource("BoxShape3D_tcdif")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.698, 0)
+shape = SubResource("BoxShape3D_tcdif")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.198, 1, 0)
+shape = SubResource("BoxShape3D_tcdif")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="3"]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 0.198, 1, 0)
+shape = SubResource("BoxShape3D_tcdif")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.198, 1, 0)
+shape = SubResource("BoxShape3D_tcdif")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="ColumnB2TriCorner/StaticBody3D" index="5"]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, -0.198, 1, 0)
+shape = SubResource("BoxShape3D_tcdif")

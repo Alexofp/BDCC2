@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwsvvbh8vjrd3"]
+
+[ext_resource type="Script" path="res://Mesh/Test/drag_test.gd" id="1_4p5cd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3fenv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_g1d3h"]
+sky_material = SubResource("ProceduralSkyMaterial_3fenv")
+
+[sub_resource type="Environment" id="Environment_njajt"]
+background_mode = 2
+sky = SubResource("Sky_g1d3h")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvkdc"]
+
+[node name="DragTest" type="Node3D"]
+script = ExtResource("1_4p5cd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_njajt")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.760406, -0.562439, 0.324724, 0, 0.5, 0.866025, -0.649448, -0.658531, 0.380203, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wvkdc")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.868034, -0.106008, 0.485056, 4.44089e-16, 0.976941, 0.213508, -0.496504, -0.185332, 0.848019, 1.50846, 0.88632, 2.29846)

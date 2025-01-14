@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="AssetTest"
+run/main_scene="res://Game/IngameEditor/build_test.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+run/max_fps=120
+config/icon="res://icon.svg"
+
+[autoload]
+
+DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
+[display]
+
+window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/myeasycollisionmakerbutton/plugin.cfg")
+
+[rendering]
+
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
+global_illumination/sdfgi/probe_ray_count=5
+global_illumination/sdfgi/frames_to_update_lights=4
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/screen_space_aa=1
+anti_aliasing/quality/use_debanding=true
+occlusion_culling/use_occlusion_culling=true

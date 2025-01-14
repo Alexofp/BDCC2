@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d10511vx4f7ky"]
+
+[resource]
+resource_name = "Glass"
+transparency = 1
+albedo_color = Color(0.4752, 0.67104, 0.72, 0.0509804)
+roughness = 0.2
+backlight_enabled = true
+backlight = Color(0.57, 0.57, 0.57, 1)

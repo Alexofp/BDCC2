@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5qw6lii6gf8a"]
+
+[ext_resource type="PackedScene" uid="uid://bm244sbhga8xs" path="res://Mapping/Floors/Raw/FloorTile4x4.glb" id="1_lyiaw"]
+[ext_resource type="Script" path="res://Mapping/Floors/FloorTile.gd" id="2_8vfk6"]
+[ext_resource type="Material" uid="uid://1a1yc4lq7ow0" path="res://Mesh/Materials/Floors/HexFloor.tres" id="3_v0hkl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_88vpa"]
+size = Vector3(4, 0.1, 4)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_p30qp"]
+size = Vector2(4.1, 4.1)
+
+[node name="FloorTile4x4" node_paths=PackedStringArray("floorMesh") instance=ExtResource("1_lyiaw")]
+script = ExtResource("2_8vfk6")
+floorMesh = NodePath("Cube_084")
+editorOptionsID = "floortileworld"
+
+[node name="Cube_084" parent="." index="0"]
+surface_material_override/0 = ExtResource("3_v0hkl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_084" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_084/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_88vpa")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Cube_084" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.05, 0)
+occluder = SubResource("QuadOccluder3D_p30qp")

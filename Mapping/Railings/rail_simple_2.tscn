@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb6biwoux17b4"]
+
+[ext_resource type="PackedScene" uid="uid://cqvnb6ortt8i" path="res://Mapping/Railings/Raw/RailSimple2.glb" id="1_7ws7p"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_kljj8"]
+[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_vgot7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aka43"]
+size = Vector3(1.84, 1.01983, 0.0400003)
+
+[node name="RailSimple2" instance=ExtResource("1_7ws7p")]
+script = ExtResource("2_vgot7")
+
+[node name="RailSimple2" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_kljj8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RailSimple2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509914, 1.49012e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailSimple2/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_aka43")

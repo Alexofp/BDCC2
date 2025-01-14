@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://stsnv5vidmwm"]
+
+[ext_resource type="PackedScene" uid="uid://op805fcket7f" path="res://Mapping/Floors/Raw/Foundation2CornerOuter.glb" id="1_anml6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3v867"]
+size = Vector3(1.137, 0.95, 1.137)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_yha8h"]
+size = Vector3(0.6, 0.953059, 0.6)
+
+[node name="Foundation2CornerOuter" instance=ExtResource("1_anml6")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Foundation2CornerOuter" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.431616, 0.530519, -0.431617)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation2CornerOuter/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0317527, 0)
+shape = SubResource("BoxShape3D_3v867")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation2CornerOuter" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.699685, 0.498587, -0.69388)
+occluder = SubResource("BoxOccluder3D_yha8h")

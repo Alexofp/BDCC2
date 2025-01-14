@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://68wuin51s6mw"]
+
+[ext_resource type="PackedScene" uid="uid://bwroqtoa7q3co" path="res://Mapping/Walls/Raw/BackWallA1x4CornerOuter.glb" id="1_3lgdb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pn23h"]
+size = Vector3(0.4, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0syn"]
+size = Vector3(0.9, 4, 0.2)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_dnbqy"]
+size = Vector2(0.4, 4)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_0besl"]
+size = Vector2(0.8, 4)
+
+[node name="BackWallA1x4CornerOuter" instance=ExtResource("1_3lgdb")]
+
+[node name="BackWallA1x4CornerOuter" parent="." index="0"]
+instance_shader_parameters/trim_color_base = Color(0.341176, 0.341176, 0.341176, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA1x4CornerOuter" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA1x4CornerOuter/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.4)
+shape = SubResource("BoxShape3D_pn23h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BackWallA1x4CornerOuter/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4, 0, -0.3)
+shape = SubResource("BoxShape3D_pn23h")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BackWallA1x4CornerOuter/StaticBody3D" index="2"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.1, 0, 0.1)
+shape = SubResource("BoxShape3D_u0syn")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA1x4CornerOuter" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 2, 0)
+occluder = SubResource("QuadOccluder3D_dnbqy")
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="BackWallA1x4CornerOuter" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, -0.8)
+occluder = SubResource("QuadOccluder3D_dnbqy")
+
+[node name="OccluderInstance3D3" type="OccluderInstance3D" parent="BackWallA1x4CornerOuter" index="3"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.3, 2, -0.3)
+occluder = SubResource("QuadOccluder3D_0besl")

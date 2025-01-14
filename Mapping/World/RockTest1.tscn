@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxwidk66svbvu"]
+
+[ext_resource type="PackedScene" uid="uid://csnoiieke2oej" path="res://Mapping/World/Raw/RockTest1.glb" id="1_pr7w5"]
+[ext_resource type="Texture2D" uid="uid://k3fqn8gimg6h" path="res://Mesh/Textures/Tileable/rock35/rock35_color.png" id="2_cd7p5"]
+[ext_resource type="Texture2D" uid="uid://b1ogd70f5bxor" path="res://Mesh/Textures/Tileable/rock35/rock35_normal.png" id="3_x840d"]
+[ext_resource type="Texture2D" uid="uid://jp18v6311y2c" path="res://Mesh/Textures/Tileable/rock35/rock35_ORM.png" id="4_hfvt8"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_60q0b"]
+albedo_texture = ExtResource("2_cd7p5")
+orm_texture = ExtResource("4_hfvt8")
+normal_enabled = true
+normal_texture = ExtResource("3_x840d")
+ao_enabled = true
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 150.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bgvoy"]
+points = PackedVector3Array(-0.119434, -0.530042, 1.69385, 0.525297, -1.06708, -1.31664, -1.75159, -0.914337, -0.355371, -0.544099, 0.910025, -0.823314, 1.5938, 0.00651247, 0.08107, 1.3662, -1.10824, 0.293654, -0.744367, 0.316206, 1.07718, 0.998505, 0.576855, 0.636575, -1.57322, -0.746021, 1.04923, -1.40022, 0.166067, -0.933183, 1.54256, -0.743453, -0.937534, 0.306214, 0.80076, -0.926271, -0.644145, -1.15534, 0.556472, 1.16477, -0.528188, 1.20432, 0.843939, -1.33083, -1.0422, -0.848253, 0.786344, 0.187885, -1.6131, -0.153996, 0.721309, -1.4154, -0.747409, -0.999597, -1.19336, 0.221913, -1.10083, -0.11633, 0.942227, 0.187885, 0.510001, 0.053936, 1.38831, 0.997633, -1.00424, 0.931711, -0.999192, -0.258396, 1.48677, 1.65462, -0.906249, -0.0806008, -0.592881, -0.840442, 1.40222, -0.168752, 0.524397, 1.0237, 1.22289, -1.33129, -0.654102, 1.31101, 0.269045, -0.341009, -1.55096, -1.05635, 0.0819698, 1.37178, -0.207392, 0.986112, 0.200228, 0.694942, -1.03284, -1.23644, 0.484644, -0.876536)
+
+[node name="RockTest1" instance=ExtResource("1_pr7w5")]
+
+[node name="RockTest1" parent="." index="0"]
+visibility_range_end = 20.0
+surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RockTest1" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RockTest1/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_bgvoy")
+
+[node name="RockTest1_lod2" parent="." index="1"]
+visibility_range_begin = 40.0
+visibility_range_end = 60.0
+surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
+
+[node name="RockTest1_lod3" parent="." index="2"]
+visibility_range_begin = 60.0
+surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
+
+[node name="RockTest1_lod1" parent="." index="3"]
+visibility_range_begin = 20.0
+visibility_range_end = 40.0
+surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")

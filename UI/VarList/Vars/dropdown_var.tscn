@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfyh8pivegiu0"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/dropdown_var.gd" id="1_pvjin"]
+
+[node name="DropdownVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_pvjin")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

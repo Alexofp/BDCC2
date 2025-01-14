@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://j3e10d4s7cfd"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/bool_var.gd" id="1_arbfc"]
+
+[node name="BoolVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_arbfc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="toggled" from="HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

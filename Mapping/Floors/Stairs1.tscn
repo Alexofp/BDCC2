@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7s83hbs24gov"]
+
+[ext_resource type="PackedScene" uid="uid://bxaar1ceeakd0" path="res://Mapping/Floors/Raw/Stairs1.glb" id="1_qy1ui"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4pc4e"]
+size = Vector3(0.99915, 0.238267, 0.222192)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s10kp"]
+size = Vector3(0.99915, 0.244622, 1.47831)
+
+[node name="Stairs1" instance=ExtResource("1_qy1ui")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stairs1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.500502, 0.604433)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs1/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.380364, -0.493337)
+shape = SubResource("BoxShape3D_4pc4e")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Stairs1/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.737053, -0.675835, 0, 0.675835, 0.737053, 0, -0.0852883, 0.0841014)
+shape = SubResource("BoxShape3D_s10kp")

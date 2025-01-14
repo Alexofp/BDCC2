@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpvuxg50dy154"]
+
+[ext_resource type="Environment" uid="uid://cfeg5fu5v0p4o" path="res://Mesh/Enviroment/GameEnv.tres" id="1_vayfv"]
+[ext_resource type="PackedScene" uid="uid://b0bx3obfy2vk4" path="res://Game/IngameEditor/player_editor.tscn" id="2_3bktr"]
+
+[node name="build_test" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
+light_energy = 0.2
+light_indirect_energy = 0.2
+light_volumetric_fog_energy = 0.0
+shadow_bias = 0.025
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_vayfv")
+
+[node name="PlayerEditor" parent="." instance=ExtResource("2_3bktr")]

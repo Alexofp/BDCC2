@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cddoh6iqtwq7u"]
+
+[ext_resource type="PackedScene" uid="uid://bychy0qy5syl0" path="res://Mapping/Decals/Raw/DecalPushGently.glb" id="1_qtk4d"]
+
+[node name="DecalPushGently" instance=ExtResource("1_qtk4d")]

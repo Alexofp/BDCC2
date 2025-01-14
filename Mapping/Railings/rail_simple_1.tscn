@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqyufadum13io"]
+
+[ext_resource type="PackedScene" uid="uid://cnhx1hiobjrmr" path="res://Mapping/Railings/Raw/RailSimple1.glb" id="1_qw16x"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_6qkla"]
+[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_msdb2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n753n"]
+size = Vector3(0.84, 1.01983, 0.0400003)
+
+[node name="RailSimple1" instance=ExtResource("1_qw16x")]
+script = ExtResource("2_msdb2")
+
+[node name="RailSimple1" parent="." index="0"]
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
+surface_material_override/0 = ExtResource("2_6qkla")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RailSimple1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.509914, 1.49012e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailSimple1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_n753n")

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cc5cujgom31u5"]
+
+[ext_resource type="Shader" uid="uid://b8i0m1onn4ykw" path="res://Mesh/Materials/Shaders/MyFloorTileNoParallax.tres" id="1_ejye8"]
+[ext_resource type="Texture2D" uid="uid://cv78nkabv21kl" path="res://Mesh/Textures/Tileable/concrete_tiles2/1K-tiling_26_basecolor.jpg" id="2_0qbo2"]
+[ext_resource type="Texture2D" uid="uid://84cyy5bs2op3" path="res://Mesh/Textures/Tileable/concrete_tiles2/1K-tiling_26_normal.jpg" id="3_h1dxm"]
+[ext_resource type="Texture2D" uid="uid://gloy87luxt1u" path="res://Mesh/Textures/Tileable/concrete_tiles2/1K-tiling_26_orm.png" id="4_j1fxb"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ejye8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/uv1_scale_final = 0.25
+shader_parameter/texture_albedo = ExtResource("2_0qbo2")
+shader_parameter/texture_orm = ExtResource("4_j1fxb")
+shader_parameter/texture_normal = ExtResource("3_h1dxm")

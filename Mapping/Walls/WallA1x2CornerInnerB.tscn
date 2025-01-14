@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcrk7s2pogxto"]
+
+[ext_resource type="PackedScene" uid="uid://bf2kxc1l8fsyl" path="res://Mapping/Walls/Raw/WallA1x2CornerInnerB.glb" id="1_phbms"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6ks2q"]
+points = PackedVector3Array(-0.190576, 1.76176, -0.603122, -1.01587, -0.0154753, -0.476271, -0.476271, -0.0154753, -1.01587, -1.01587, 2.01548, -0.476271, -0.888817, -0.0154753, 0.031746, 0.031746, -0.0154753, -0.888817, -0.476271, 2.01548, -1.01587, -0.888817, 2.01548, 0.031746, -2.77556e-16, 1.95393, -0.984127, -0.984127, 0.0460687, 1.11022e-16, -0.603122, 0.238443, -0.190576, -4.35114e-05, 2.01548, -0.825341, 0, 0.0460687, -0.984127, -0.984127, 1.95393, -5.55112e-17, -4.35114e-05, -0.0154753, -0.825341, -0.825341, 2.01548, -0.000146061, -0.603122, 1.76176, -0.190576, -0.190576, 0.238443, -0.603122, -0.825341, -0.0154753, -0.000146061, 0.031746, 2.01548, -0.888817)
+
+[node name="WallA1x2CornerInnerB" instance=ExtResource("1_phbms")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallA1x2CornerInnerB" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x2CornerInnerB/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_6ks2q")

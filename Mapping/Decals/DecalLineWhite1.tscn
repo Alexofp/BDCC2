@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bplmmb0gal1cb"]
+
+[ext_resource type="PackedScene" uid="uid://qkyndq7q6rx6" path="res://Mapping/Decals/Raw/DecalLineWhite1.glb" id="1_4ekke"]
+
+[node name="DecalLineWhite1" instance=ExtResource("1_4ekke")]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbh2u6di1xoaa"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/float_preset_var.gd" id="1_mkkbd"]
+
+[node name="FloatPresetsVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_mkkbd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[connection signal="value_changed" from="HBoxContainer/HFlowContainer/SpinBox" to="." method="_on_spin_box_value_changed"]

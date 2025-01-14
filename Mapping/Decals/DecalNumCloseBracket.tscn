@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://co2hkdi8vs10t"]
+
+[ext_resource type="PackedScene" uid="uid://dltpikhphc6kd" path="res://Mapping/Decals/Raw/DecalNumCloseBracket.glb" id="1_056dv"]
+
+[node name="DecalNumCloseBracket" instance=ExtResource("1_056dv")]

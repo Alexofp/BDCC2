@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://divi2kam35t8"]
+
+[ext_resource type="PackedScene" uid="uid://dem66bp7q1afm" path="res://Mapping/Railings/Raw/RailStand2.glb" id="1_inmm2"]
+[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_716vs"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_ry7ff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jmwfl"]
+size = Vector3(1.84, 1.02, 0.0818561)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jjg8i"]
+size = Vector3(0.053689, 1.02, 0.697832)
+
+[node name="RailStand2" instance=ExtResource("1_inmm2")]
+script = ExtResource("2_716vs")
+
+[node name="Tube_Tube_029" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_ry7ff")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tube_Tube_029" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0.346158)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.32523)
+shape = SubResource("BoxShape3D_jmwfl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.893156, 0, 0.00533786)
+shape = SubResource("BoxShape3D_jjg8i")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.893, 0, 0.005)
+shape = SubResource("BoxShape3D_jjg8i")

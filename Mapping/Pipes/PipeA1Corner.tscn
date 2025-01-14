@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3gims6ibsfj4"]
+
+[ext_resource type="PackedScene" uid="uid://dum8vf811jtyf" path="res://Mapping/Pipes/Raw/PipeA1Corner.glb" id="1_dhjox"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ltynk"]
+size = Vector3(0.4, 0.4, 0.7)
+
+[node name="PipeA1Corner" instance=ExtResource("1_dhjox")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Corner" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0.35)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Corner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 0)
+shape = SubResource("BoxShape3D_ltynk")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1Corner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.15)
+shape = SubResource("BoxShape3D_ltynk")

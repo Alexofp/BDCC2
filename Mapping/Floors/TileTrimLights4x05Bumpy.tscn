@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5v31otqkbji8"]
+
+[ext_resource type="PackedScene" uid="uid://dffktwgb0ag70" path="res://Mapping/Floors/Raw/TileTrimLights4x05Bumpy.glb" id="1_lk4vc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bshxs"]
+size = Vector3(4, 0.10704, 0.500001)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_7kyk7"]
+size = Vector2(4, 0.500001)
+
+[node name="TileTrimLights4x05Bumpy" instance=ExtResource("1_lk4vc")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileTrimLights4x05Bumpy" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0338814, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileTrimLights4x05Bumpy/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0201947, 0)
+shape = SubResource("BoxShape3D_bshxs")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileTrimLights4x05Bumpy" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0338814, 0.25)
+occluder = SubResource("QuadOccluder3D_7kyk7")

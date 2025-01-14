@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://406htnuxy7r8"]
+
+[ext_resource type="PackedScene" uid="uid://bl0uxdsnyqyt7" path="res://Mapping/Walls/Raw/BackWallA1x1TriCornerInner.glb" id="1_robet"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8garx"]
+size = Vector3(1.2, 1.2, 0.2)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_3ibxx"]
+size = Vector2(1.2, 1.2)
+
+[node name="BackWallA1x1TriCornerInner" instance=ExtResource("1_robet")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA1x1TriCornerInner" index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.6, 0.600001, -0.599999)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA1x1TriCornerInner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_8garx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BackWallA1x1TriCornerInner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0, 0)
+shape = SubResource("BoxShape3D_8garx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BackWallA1x1TriCornerInner/StaticBody3D" index="2"]
+transform = Transform3D(1.91069e-15, -1, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, -1, 0, -4.37114e-08, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_8garx")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA1x1TriCornerInner" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0.6, -0.6)
+occluder = SubResource("QuadOccluder3D_3ibxx")
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="BackWallA1x1TriCornerInner" index="2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.6, 0.6, -1)
+occluder = SubResource("QuadOccluder3D_3ibxx")
+
+[node name="OccluderInstance3D3" type="OccluderInstance3D" parent="BackWallA1x1TriCornerInner" index="3"]
+transform = Transform3D(-1, 4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, 1, 4.37114e-08, -0.6, 1, -0.6)
+occluder = SubResource("QuadOccluder3D_3ibxx")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://78d0hf7i65vs"]
+
+[ext_resource type="PackedScene" uid="uid://c4vpuulscfyrq" path="res://Mapping/Walls/Raw/WallA1x1TriCornerInner.glb" id="1_aje5x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lsqoq"]
+size = Vector3(0.2, 1, 1)
+
+[node name="WallA1x1TriCornerInner" instance=ExtResource("1_aje5x")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallA1x1TriCornerInner" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x1TriCornerInner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+shape = SubResource("BoxShape3D_lsqoq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WallA1x1TriCornerInner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.98023e-08, 0, -0.4)
+shape = SubResource("BoxShape3D_lsqoq")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="WallA1x1TriCornerInner/StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.91069e-15, -2.98023e-08, 0.4, -2.98023e-08)
+shape = SubResource("BoxShape3D_lsqoq")

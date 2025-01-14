@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cdh2f40jlasny"]
+
+[ext_resource type="Shader" path="res://Mesh/Materials/Shaders/MyPipeShader.gdshader" id="1_7txar"]
+[ext_resource type="Texture2D" uid="uid://bgoqh0en2n5cj" path="res://Mesh/Textures/Tileable/hexatris/HexaTris_normals.png" id="2_vvf66"]
+[ext_resource type="Texture2D" uid="uid://smit14gauqxo" path="res://Mesh/Textures/Tileable/hexatris/HexaTris_OCH.png" id="3_rn2eo"]
+
+[sub_resource type="Gradient" id="Gradient_pm0t3"]
+offsets = PackedFloat32Array(0.142857, 0.261084)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1tmex"]
+gradient = SubResource("Gradient_pm0t3")
+width = 128
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7txar")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo2 = Color(0.48, 0.4188, 0.2352, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_och = ExtResource("3_rn2eo")
+shader_parameter/texture_normal = ExtResource("2_vvf66")
+shader_parameter/gradient_texture = SubResource("GradientTexture1D_1tmex")

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuha0l7qw30nt"]
+
+[ext_resource type="PackedScene" uid="uid://dnlvj4afuu36f" path="res://Mapping/Decals/Raw/DecalBiotech.glb" id="1_ny2rv"]
+
+[node name="DecalBiotech" instance=ExtResource("1_ny2rv")]

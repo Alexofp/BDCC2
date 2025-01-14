@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcvxp3pw4amde"]
+
+[ext_resource type="PackedScene" uid="uid://c63vfdlai1fxu" path="res://Mapping/Decals/Raw/DecalVisionCaution.glb" id="1_58y4i"]
+
+[node name="DecalVisionCaution" instance=ExtResource("1_58y4i")]

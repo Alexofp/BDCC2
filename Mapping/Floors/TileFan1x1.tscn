@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://pc2c6o8rlv6n"]
+
+[ext_resource type="PackedScene" uid="uid://krja5ycjb6wd" path="res://Mapping/Floors/Raw/TileFan1x1.glb" id="1_8hajw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n0kjk"]
+size = Vector3(1, 0.01, 0.999999)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_5oab4"]
+size = Vector2(1, 0.999999)
+
+[node name="TileFan1x1" instance=ExtResource("1_8hajw")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileFan1x1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.005, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileFan1x1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_n0kjk")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileFan1x1" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, -0.005, -0.5)
+occluder = SubResource("QuadOccluder3D_5oab4")

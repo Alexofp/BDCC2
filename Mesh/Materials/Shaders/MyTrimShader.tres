@@ -1,0 +1,94 @@
+[gd_resource type="Shader" format=3 uid="uid://c2oij1xjnd8o1"]
+
+[resource]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+//uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+//uniform float normal_scale : hint_range(-16.0, 16.0);
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01);
+
+instance uniform float roughness_mult : hint_range(0.0, 1.0, 0.01) = 0.5;
+instance uniform vec3 trim_color_main : source_color = vec3(1.0);
+instance uniform vec3 trim_color_second : source_color = vec3(1.0);
+instance uniform vec3 trim_color_third : source_color = vec3(1.0);
+instance uniform vec3 trim_color_base : source_color = vec3(1.0);
+
+//uniform vec3 uv1_scale;
+//uniform vec3 uv1_offset;
+//uniform vec3 uv2_scale;
+//uniform vec3 uv2_offset;
+
+void vertex() {
+	//UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+
+	//albedo_tex *= COLOR;
+
+	// Color map begins
+	float yUV = -base_uv.y+1.0;
+	vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
+	//int layer = int(clamp(yUV, 0.0, 3.0));
+	float layer = clamp(floor(yUV), 0.0, 3.0);
+	float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
+	albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
+
+	//float layer0 = (1.0 - step(1.0, yUV));
+	//float layer1 = step(1.0, yUV) * (1.0 - step(2.0, yUV));
+	//float layer2 = step(2.0, yUV) * (1.0 - step(3.0, yUV));
+	//float layer3 = step(3.0, yUV) * (1.0 - step(4.0, yUV));
+	////if(yUV > 1.0 && yUV < 2.0)
+	////	layer1 = 1.0;
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, layer0);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, layer1);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_second, layer2);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_third, layer3);
+
+	//albedo_tex.rgb = trim_color_main;
+	//albedo_tex.r = yUV;
+	//albedo_tex.g = 0.0;
+	//albedo_tex.b = 0.0;
+	//vec4 color_map = texture(texture_color_map, base_uv);
+
+
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, COLOR.r);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_second, COLOR.g);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_third, COLOR.b);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, 1.0 - max(COLOR.r, max(COLOR.g, COLOR.b)));
+
+
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, color_map.r);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_second, color_map.g);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_third, color_map.b);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, 1.0 - max(color_map.r, max(color_map.g, color_map.b)));
+	// Color map ends
+
+	ALBEDO = albedo_tex.rgb; // albedo.rgb *
+
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+	float roughnessRemapped = (roughness_mult - 0.5)*2.0; // -1.0, 1.0
+	ROUGHNESS = (orm_tex.g * (0.5 - abs(roughness_mult-0.5))*2.0) + max(0.0, roughnessRemapped);
+ 	METALLIC = orm_tex.b;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = 1.0;//normal_scale;
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r;
+	AO_LIGHT_AFFECT = ao_light_affect;
+}
+"

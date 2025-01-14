@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8x0sw38d4gyi"]
+
+[ext_resource type="PackedScene" uid="uid://dh0ligkcfscst" path="res://Mapping/Columns/Raw/ColumnB1.glb" id="1_ajmss"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_snlml"]
+size = Vector3(0.4, 1.04513, 1.03329)
+
+[node name="ColumnB1" instance=ExtResource("1_ajmss")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnB1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnB1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_snlml")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnB1/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_snlml")

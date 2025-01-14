@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://dibm1drcuq4yi"]
+
+[ext_resource type="PackedScene" uid="uid://c8jkbvto4fi4l" path="res://Mesh/Test/TestWall.glb" id="1_581p3"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_qwdnl"]
+[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_wix3n"]
+[ext_resource type="Material" uid="uid://bujf7ilpnya1s" path="res://Mesh/Materials/MyDecalTrimSmart.tres" id="3_5cgxr"]
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_4ball"]
+size = Vector2(2.02003, 2.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d2fdl"]
+size = Vector3(2, 2, 0.2)
+
+[node name="TestWall" instance=ExtResource("1_581p3")]
+script = ExtResource("2_wix3n")
+
+[node name="Panel2x2Det2" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
+surface_material_override/0 = ExtResource("2_qwdnl")
+surface_material_override/1 = ExtResource("3_5cgxr")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Panel2x2Det2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70469e-05, 1, -0.0975003)
+occluder = SubResource("QuadOccluder3D_4ball")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.1)
+shape = SubResource("BoxShape3D_d2fdl")

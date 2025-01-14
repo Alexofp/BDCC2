@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://qxwecga23xvt"]
+
+[ext_resource type="PackedScene" uid="uid://c3chb27hiw2da" path="res://Mapping/Floors/Raw/Foundation1.glb" id="1_o3xgf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3350c"]
+size = Vector3(1, 0.95, 0.674)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_btxhh"]
+size = Vector3(1, 0.955935, 0.272789)
+
+[node name="Foundation1" instance=ExtResource("1_o3xgf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Foundation1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.530519, -0.20016)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation1/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0417553, 0)
+shape = SubResource("BoxShape3D_3350c")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation1" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.483127, -0.40016)
+occluder = SubResource("BoxOccluder3D_btxhh")

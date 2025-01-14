@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bivh2deviym4v"]
+
+[ext_resource type="PackedScene" uid="uid://bppi5tg8qrglt" path="res://Mapping/Floors/Raw/TileVented2x1.glb" id="1_dtnb1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xmfyu"]
+size = Vector3(2, 0.01, 1)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_y1ny1"]
+size = Vector2(2, 1)
+
+[node name="TileVented2x1" instance=ExtResource("1_dtnb1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TileVented2x1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.005, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileVented2x1/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_xmfyu")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileVented2x1" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -0.005, -0.5)
+occluder = SubResource("QuadOccluder3D_y1ny1")

@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bujf7ilpnya1s"]
+
+[ext_resource type="Texture2D" uid="uid://lurqdnu5uqwi" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_BaseColor.png" id="1_1tj3m"]
+[ext_resource type="Shader" uid="uid://dukv02kbpglel" path="res://Mesh/Materials/Shaders/MyDecalShader.tres" id="1_gxk7o"]
+[ext_resource type="Texture2D" uid="uid://cm67xnsxvsthb" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Emit.png" id="2_6nhin"]
+[ext_resource type="Texture2D" uid="uid://csn355fwuuxlc" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Height.png" id="3_gt8tq"]
+[ext_resource type="Texture2D" uid="uid://b6bunks6pg07e" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Normal.png" id="4_ugvnt"]
+[ext_resource type="Texture2D" uid="uid://cfoev7b3khec" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_ORM.png" id="5_11tfg"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gxk7o")
+shader_parameter/emission_energy = 10.0
+shader_parameter/ao_light_affect = null
+shader_parameter/heightmap_scale = 4.0
+shader_parameter/heightmap_min_layers = 4
+shader_parameter/heightmap_max_layers = 4
+shader_parameter/heightmap_flip = Vector2(-1, -1)
+shader_parameter/texture_albedo = ExtResource("1_1tj3m")
+shader_parameter/texture_orm = ExtResource("5_11tfg")
+shader_parameter/texture_emission = ExtResource("2_6nhin")
+shader_parameter/texture_normal = ExtResource("4_ugvnt")
+shader_parameter/texture_heightmap = ExtResource("3_gt8tq")

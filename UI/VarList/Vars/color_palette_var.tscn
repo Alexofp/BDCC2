@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5sgjmx5cu77t"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/color_palette_var.gd" id="1_n3ar2"]
+[ext_resource type="Texture2D" uid="uid://ycqbdkfwp0ns" path="res://UI/VarList/Images/white20.png" id="2_6808c"]
+
+[node name="ColorPaletteVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_n3ar2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+size_flags_vertical = 3
+edit_alpha = false
+
+[node name="PaletteBox" type="HFlowContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/PaletteBox"]
+layout_mode = 2
+icon = ExtResource("2_6808c")
+flat = true
+
+[connection signal="color_changed" from="HBoxContainer/VBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]

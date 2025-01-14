@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://1yg72aupmiqd"]
+
+[ext_resource type="PackedScene" uid="uid://bhwh4mststd5c" path="res://Mapping/Walls/Raw/SlopedWindowWallA8Left.glb" id="1_4b5sq"]
+
+[node name="SlopedWindowWallA8Left" instance=ExtResource("1_4b5sq")]
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"color2": {
+"type": "color",
+"value": Color(1, 1, 1, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+editorOptionsID = "slopedwindowbigside"
+
+[node name="@StaticBody3D@23472" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

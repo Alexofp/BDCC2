@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://2qjuesygwem0"]
+
+[ext_resource type="PackedScene" uid="uid://cfpsq5m7nb0of" path="res://Mapping/Pipes/Raw/PipeASupport.glb" id="1_p42bv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k73wf"]
+size = Vector3(0.473063, 0.469727, 0.267403)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6car3"]
+size = Vector3(0.28125, 0.756152, 0.03125)
+
+[node name="PipeASupport" instance=ExtResource("1_p42bv")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeASupport" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.404128, 1.49012e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeASupport/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.405796, 0)
+shape = SubResource("BoxShape3D_k73wf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeASupport/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.218764, 0)
+shape = SubResource("BoxShape3D_6car3")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://onwwe6fbejqa"]
+
+[ext_resource type="PackedScene" uid="uid://d1n6wrenneyuy" path="res://Mapping/BigFloors/Raw/BigFloorSci3x6End.glb" id="1_lj6e2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fmjh"]
+size = Vector3(5.99999, 0.165968, 2.99999)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_qa036"]
+size = Vector2(5.99999, 2.99999)
+
+[node name="BigFloorSci3x6End" instance=ExtResource("1_lj6e2")]
+editorOptionsID = "BigFloorSci"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BigFloorSci3x6End" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, -0.0307377, -1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigFloorSci3x6End/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.067, 0)
+shape = SubResource("BoxShape3D_1fmjh")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BigFloorSci3x6End" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.38419e-07, -0.0518219, -1.5)
+occluder = SubResource("QuadOccluder3D_qa036")

@@ -1,0 +1,35 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://cfeg5fu5v0p4o"]
+
+[ext_resource type="Texture2D" uid="uid://bq007at2vij1i" path="res://Mesh/Enviroment/HDR_silver_and_gold_nebulae.png" id="1_4ddbf"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wohoj"]
+panorama = ExtResource("1_4ddbf")
+
+[sub_resource type="Sky" id="Sky_iiin2"]
+sky_material = SubResource("PanoramaSkyMaterial_wohoj")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_iiin2")
+tonemap_mode = 3
+ssao_enabled = true
+ssao_intensity = 3.0
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_cascades = 1
+sdfgi_energy = 10.0
+glow_enabled = true
+glow_normalized = true
+glow_strength = 0.58
+glow_blend_mode = 1
+fog_mode = 1
+fog_light_color = Color(0.1224, 0.1714, 0.24, 1)
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_begin = 5.0
+fog_depth_end = 30.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_anisotropy = 0.31
+volumetric_fog_length = 32.0
+volumetric_fog_sky_affect = 0.4

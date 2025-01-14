@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfj0c6ccdmexi"]
+
+[ext_resource type="PackedScene" uid="uid://raavtabm5ojn" path="res://Mapping/Pipes/Raw/PipeA1Squeeze.glb" id="1_y5ltt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jlc4n"]
+size = Vector3(0.4, 0.4, 1)
+
+[node name="PipeA1Squeeze" instance=ExtResource("1_y5ltt")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Squeeze" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49012e-08, -2.98023e-08, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Squeeze/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_jlc4n")

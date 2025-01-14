@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bsqhv6roqc022"]
+
+[ext_resource type="Shader" uid="uid://cy0arr1s2kb6f" path="res://Mesh/Materials/Shaders/MyFloorTileParallax.tres" id="1_nqdf3"]
+[ext_resource type="Texture2D" uid="uid://218aqkkwibt1" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_basecolor.png" id="2_wjygl"]
+[ext_resource type="Texture2D" uid="uid://suiq8uohaqa2" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_height.png" id="3_0847s"]
+[ext_resource type="Texture2D" uid="uid://6a6pch7l4yw2" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_normal.png" id="4_n35hk"]
+[ext_resource type="Texture2D" uid="uid://sx5swb4n4pim" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_orm.png" id="5_rn88s"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_nqdf3")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/heightmap_scale = 4.0
+shader_parameter/heightmap_min_layers = 4
+shader_parameter/heightmap_max_layers = 8
+shader_parameter/heightmap_flip = Vector2(1, 1)
+shader_parameter/uv1_scale_final = 1.0
+shader_parameter/texture_albedo = ExtResource("2_wjygl")
+shader_parameter/texture_orm = ExtResource("5_rn88s")
+shader_parameter/texture_normal = ExtResource("4_n35hk")
+shader_parameter/texture_heightmap = ExtResource("3_0847s")

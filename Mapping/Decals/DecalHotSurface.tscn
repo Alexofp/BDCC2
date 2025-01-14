@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://rrngm34mcgis"]
+
+[ext_resource type="PackedScene" uid="uid://dvo4j6vnhefe0" path="res://Mapping/Decals/Raw/DecalHotSurface.glb" id="1_gejt0"]
+
+[node name="DecalHotSurface" instance=ExtResource("1_gejt0")]

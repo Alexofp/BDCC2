@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl8p4web46ijs"]
+
+[ext_resource type="PackedScene" uid="uid://blm7o8ycctmrj" path="res://Mapping/Floors/Raw/Stairs2CornerOuter.glb" id="1_pvndw"]
+
+[node name="Stairs2CornerOuter" instance=ExtResource("1_pvndw")]
+
+[node name="@StaticBody3D@37082" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

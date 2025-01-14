@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3bwrh344rby2"]
+
+[ext_resource type="PackedScene" uid="uid://7h7r67l527dc" path="res://Mapping/Props/Raw/SkylinerShip.glb" id="1_gdd3b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pxwdu"]
+size = Vector3(2.69846, 0.110954, 2.26202)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_odutw"]
+size = Vector3(2.69238, 0.191491, 6.39343)
+
+[node name="SkylinerShip" instance=ExtResource("1_gdd3b")]
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"color2": {
+"type": "color",
+"value": Color(1, 1, 1, 1)
+},
+"color3": {
+"type": "colorLight",
+"value": Color(0, 0.878431, 1, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+editorOptionsID = "skyliner"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SkylinerShip/SkylinerDoor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, -0.0674205, -0.944378)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SkylinerShip/SkylinerDoor/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187416, -0.17905)
+shape = SubResource("BoxShape3D_pxwdu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SkylinerShip" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76553, -0.774262)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SkylinerShip/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.14197, 1.40728)
+shape = SubResource("BoxShape3D_odutw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53652, 0)
+omni_range = 1.491

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3swcpf6et1hf"]
+
+[ext_resource type="PackedScene" uid="uid://idnrrx4uvj5e" path="res://Mapping/Pipes/Raw/PipeA2ProtectedUnion.glb" id="1_tgld1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ae16r"]
+size = Vector3(0.6, 0.6, 2.2)
+
+[node name="PipeA2ProtectedUnion" instance=ExtResource("1_tgld1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA2ProtectedUnion" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08616e-07, -3.8445e-06, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA2ProtectedUnion/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ae16r")

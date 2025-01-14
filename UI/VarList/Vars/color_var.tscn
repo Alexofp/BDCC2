@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh6qfclg1711q"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/color_var.gd" id="1_oi5om"]
+
+[node name="ColorVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_oi5om")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+
+[connection signal="color_changed" from="HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]

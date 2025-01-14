@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqwg7n6bvhac2"]
+
+[ext_resource type="PackedScene" uid="uid://enmqprn2wiwp" path="res://Mapping/Props/Raw/DoorBProp.glb" id="1_x1hkc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eeikh"]
+size = Vector3(1.99623, 2.71826, 0.592479)
+
+[node name="DoorBProp" instance=ExtResource("1_x1hkc")]
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"color3": {
+"type": "colorLight",
+"value": Color(0, 0.878431, 1, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+editorOptionsID = "doorb"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorBProp" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35516, 0.200542)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBProp/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_eeikh")

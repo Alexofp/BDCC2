@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://d7mipnfi550m"]
+
+[ext_resource type="PackedScene" uid="uid://xvb10xxj06yk" path="res://Mapping/Props/Raw/Chair3.glb" id="1_ilbbn"]
+[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_kfdeh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxogw"]
+size = Vector3(0.694336, 0.708737, 0.753798)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mb52"]
+size = Vector3(0.717041, 0.708737, 0.0685967)
+
+[node name="Chair3" instance=ExtResource("1_ilbbn")]
+script = ExtResource("2_kfdeh")
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+editorOptionsID = "chair"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Chair3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.653241, -0.011886)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chair3/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.302486, 0.0391168)
+shape = SubResource("BoxShape3D_cxogw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Chair3/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.962682, 0.270634, 0, -0.270634, 0.962682, 0, 0.315541, -0.383831)
+shape = SubResource("BoxShape3D_8mb52")

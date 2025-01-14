@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://chundn1b0ky2p"]
+
+[ext_resource type="PackedScene" uid="uid://dueoy7tgadjkr" path="res://Mapping/Walls/Raw/BackWallA2x4.glb" id="1_0l0oh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_okevg"]
+size = Vector3(2, 4, 0.2)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_2r074"]
+size = Vector2(4.02, 2.02)
+
+[node name="BackWallA2x4" instance=ExtResource("1_0l0oh")]
+
+[node name="BackWallA2x4" parent="." index="0"]
+instance_shader_parameters/trim_color_base = Color(0.341176, 0.341176, 0.341176, 1)
+instance_shader_parameters/trim_color_main = Color(0.341176, 0.341176, 0.341176, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA2x4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, 2, -0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA2x4/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_okevg")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA2x4" index="1"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.19209e-07, 2, -0.1)
+occluder = SubResource("QuadOccluder3D_2r074")

@@ -1,0 +1,26 @@
+[gd_resource type="ORMMaterial3D" load_steps=6 format=3 uid="uid://dium1tlk7o612"]
+
+[ext_resource type="Texture2D" uid="uid://lurqdnu5uqwi" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_BaseColor.png" id="1_ap6so"]
+[ext_resource type="Texture2D" uid="uid://cm67xnsxvsthb" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Emit.png" id="2_smc0q"]
+[ext_resource type="Texture2D" uid="uid://csn355fwuuxlc" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Height.png" id="3_gcnvd"]
+[ext_resource type="Texture2D" uid="uid://b6bunks6pg07e" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Normal.png" id="3_rgadv"]
+[ext_resource type="Texture2D" uid="uid://cfoev7b3khec" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_ORM.png" id="4_meyh8"]
+
+[resource]
+transparency = 4
+albedo_texture = ExtResource("1_ap6so")
+orm_texture = ExtResource("4_meyh8")
+emission_enabled = true
+emission_texture = ExtResource("2_smc0q")
+normal_enabled = true
+normal_texture = ExtResource("3_rgadv")
+ao_enabled = true
+ao_light_affect = 1.0
+heightmap_enabled = true
+heightmap_scale = 4.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_flip_tangent = true
+heightmap_flip_binormal = true
+heightmap_texture = ExtResource("3_gcnvd")

@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://oum7tpus40ll"]
+
+[ext_resource type="PackedScene" uid="uid://0jydy5ja4kf4" path="res://Mapping/Walls/Raw/DoorA6x4.glb" id="1_4lnll"]
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_ts3gs"]
+size = Vector3(0.564369, 4, 0.678541)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_m4iqk"]
+size = Vector3(0.939887, 6, 0.679)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_av7rc"]
+size = Vector3(5, 4, 0.409701)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_nuuvg"]
+size = Vector3(5, 4, 0.409701)
+
+[node name="DoorA6x4" instance=ExtResource("1_4lnll")]
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"color2": {
+"type": "color",
+"value": Color(1, 1, 1, 1)
+},
+"color3": {
+"type": "colorLight",
+"value": Color(0, 0.878431, 1, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="DoorFrameA6x4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70746, 2, -2.38419e-07)
+occluder = SubResource("BoxOccluder3D_ts3gs")
+
+[node name="OccluderInstance3D3" type="OccluderInstance3D" parent="DoorFrameA6x4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.707, 2, 0)
+occluder = SubResource("BoxOccluder3D_ts3gs")
+
+[node name="OccluderInstance3D4" type="OccluderInstance3D" parent="DoorFrameA6x4" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 3.51732, 0)
+occluder = SubResource("BoxOccluder3D_m4iqk")
+
+[node name="DoorA6x4" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorA6x4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.38419e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorA6x4/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_av7rc")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="DoorA6x4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.38419e-07)
+occluder = SubResource("BoxOccluder3D_nuuvg")
+
+[node name="DoorA6x4_lod1" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+
+[node name="DoorA6x4_lod2" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+
+[node name="DoorA6x4_lod3" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)

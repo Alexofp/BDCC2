@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://r2upk7vpgdgp"]
+
+[ext_resource type="PackedScene" uid="uid://cu87pfr64no2f" path="res://Mapping/Walls/Raw/DoorA2x3.glb" id="1_5jiml"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cga5k"]
+size = Vector3(2, 0.101058, 1.0191)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bxfxl"]
+size = Vector3(2, 0.714307, 0.802734)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bivom"]
+size = Vector3(0.346924, 2.99485, 0.802734)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4tsq"]
+size = Vector3(1.37962, 2.31301, 0.236612)
+
+[node name="DoorA2x3" instance=ExtResource("1_5jiml")]
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.207843, 0.207843, 0.207843, 1)
+},
+"color2": {
+"type": "color",
+"value": Color(0.133333, 0.133333, 0.133333, 1)
+},
+"color3": {
+"type": "colorLight",
+"value": Color(0, 0.878431, 1, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorFrameA2x3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48343, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.46604, 0)
+shape = SubResource("BoxShape3D_cga5k")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17337, 0)
+shape = SubResource("BoxShape3D_bxfxl")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.826538, 0.0330968, 0)
+shape = SubResource("BoxShape3D_bivom")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.827, 0.033, 0)
+shape = SubResource("BoxShape3D_bivom")
+
+[node name="DoorCollision" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="4"]
+shape = SubResource("BoxShape3D_y4tsq")
+disabled = true
+
+[node name="DoorA2x3" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31696, 0)
+gi_mode = 2
+
+[node name="DoorA2x3_lod1" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)
+
+[node name="DoorA2x3_lod2" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)
+
+[node name="DoorA2x3_lod3" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)

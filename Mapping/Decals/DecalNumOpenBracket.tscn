@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bom05wjp2jhyl"]
+
+[ext_resource type="PackedScene" uid="uid://d4n3l2rtm43kc" path="res://Mapping/Decals/Raw/DecalNumOpenBracket.glb" id="1_jqrqs"]
+
+[node name="DecalNumOpenBracket" instance=ExtResource("1_jqrqs")]

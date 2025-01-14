@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvntqp6scp6l5"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/int_var.gd" id="1_pb4ju"]
+
+[node name="IntVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_pb4ju")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[connection signal="value_changed" from="HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]

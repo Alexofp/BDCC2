@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://5mcg1vu4nwx7"]
+
+[ext_resource type="PackedScene" uid="uid://bv8el3m41pi0t" path="res://Mapping/Pipes/Raw/PipeUnion.glb" id="1_nyn8q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sfmay"]
+size = Vector3(0.6, 0.6, 0.294463)
+
+[node name="PipeUnion" instance=ExtResource("1_nyn8q")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeUnion" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49012e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeUnion/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_sfmay")

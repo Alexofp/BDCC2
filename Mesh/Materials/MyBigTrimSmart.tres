@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cw7kwaxpnktw"]
+
+[ext_resource type="Texture2D" uid="uid://7ki312hibc53" path="res://Mesh/Textures/TrimSheets/MyBigTrim/MyTrim Lowpoly_DefaultMaterial_BaseColor.png" id="1_df56x"]
+[ext_resource type="Shader" uid="uid://c2oij1xjnd8o1" path="res://Mesh/Materials/Shaders/MyTrimShader.tres" id="1_k3w62"]
+[ext_resource type="Texture2D" uid="uid://ebnnebw321ic" path="res://Mesh/Textures/TrimSheets/MyBigTrim/MyTrim Lowpoly_DefaultMaterial_Normal.png" id="2_25bcn"]
+[ext_resource type="Texture2D" uid="uid://dx8yhw555kp4m" path="res://Mesh/Textures/TrimSheets/MyBigTrim/MyTrim Lowpoly_DefaultMaterial_ORM.png" id="3_ygsyr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_k3w62")
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/texture_albedo = ExtResource("1_df56x")
+shader_parameter/texture_orm = ExtResource("3_ygsyr")
+shader_parameter/texture_normal = ExtResource("2_25bcn")

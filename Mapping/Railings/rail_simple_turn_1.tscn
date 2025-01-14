@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bny4vxwjq08fr"]
+
+[ext_resource type="PackedScene" uid="uid://cj1dylrjo2l26" path="res://Mapping/Railings/Raw/RailSimpleTurn1.glb" id="1_e41pw"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_jbvc2"]
+[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_trl6k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ndv53"]
+size = Vector3(0.032378, 1.02, 0.94)
+
+[node name="RailSimpleTurn1" instance=ExtResource("1_e41pw")]
+script = ExtResource("2_trl6k")
+
+[node name="RailSimpleTurn1" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_jbvc2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RailSimpleTurn1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.51, 0.45)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailSimpleTurn1/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.453811, 0, 0)
+shape = SubResource("BoxShape3D_ndv53")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RailSimpleTurn1/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.454)
+shape = SubResource("BoxShape3D_ndv53")

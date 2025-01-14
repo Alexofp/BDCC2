@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf5hr37wkj4ke"]
+
+[ext_resource type="PackedScene" uid="uid://vac03nh5arue" path="res://Mapping/Walls/Raw/WindowA4x3.glb" id="1_gnrob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecsl0"]
+size = Vector3(4, 3, 0.310723)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_havk4"]
+size = Vector3(4, 0.8, 0.0580209)
+
+[node name="WindowA4x3" instance=ExtResource("1_gnrob")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WindowA4x3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.131057)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WindowA4x3/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ecsl0")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="WindowA4x3" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59892, 0.0310572)
+occluder = SubResource("BoxOccluder3D_havk4")

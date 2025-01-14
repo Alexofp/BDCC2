@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk2i2vw2ekvb1"]
+
+[ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="1_eqqia"]
+[ext_resource type="Texture2D" uid="uid://c3nhvgim0nv4c" path="res://addons/kenney_prototype_textures/dark/texture_13.png" id="2_21e6j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0atf"]
+albedo_texture = ExtResource("2_21e6j")
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_qo4gf"]
+size = Vector2(8, 8)
+
+[node name="BuildingPlatform8x8Gray" instance=ExtResource("1_eqqia")]
+
+[node name="BuildingPlatform8x8" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_f0atf")
+
+[node name="OccluderInstance3D" parent="BuildingPlatform8x8" index="1"]
+occluder = SubResource("QuadOccluder3D_qo4gf")

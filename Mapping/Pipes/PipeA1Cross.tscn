@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6gcwy2480ax3"]
+
+[ext_resource type="PackedScene" uid="uid://55uhqr1cndp3" path="res://Mapping/Pipes/Raw/PipeA1Cross.glb" id="1_skoi2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ubptb"]
+size = Vector3(0.4, 0.4, 1)
+
+[node name="PipeA1Cross" instance=ExtResource("1_skoi2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Cross" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.98023e-08, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ubptb")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_ubptb")

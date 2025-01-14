@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8bqvyibtvkvs"]
+
+[ext_resource type="PackedScene" uid="uid://dpqpg3yr00ims" path="res://Mapping/Walls/Raw/WallA1x1TriCornerOuter.glb" id="1_nhxnh"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_pcm63"]
+points = PackedVector3Array(-0.0316398, 0.428727, -1.01587, 0.954257, 1, 0.417363, 0.417337, 1, 0.954293, 0.138995, 0.049304, -0.389175, -1.01587, 1.03175, 0.571379, 0.954257, 1, -0.954293, -1.01587, -0.015668, -0.0316217, 0.380827, 0.77766, 0.952232, -0.922969, 0.810668, 0.922968, -0.0316398, -0.015668, -1.01587, 0.57135, 1.03175, -1.01587, 0.952196, 0.777762, 0.380853, 0.920575, 0.745976, -0.793527, -0.389182, 0.0493096, 0.139014, -1.01587, 0.492197, 0, -0.954294, 1, 0.954293, -0.923469, 0.0319692, 0.144269, 0.144253, 0.0319529, -0.923499, -0.793531, 0.745873, 0.92061, 0.507909, 0.999857, -1.01587, -1.01587, 0.999857, 0.507937, 0.923123, 0.810824, -0.923159, -1.86563e-05, 0.492197, -1.01587, -1.01587, 0.428727, -0.0316217, 0.349007, 0.745873, 0.92061, 0.920575, 0.745976, 0.349032, 0.191402, 0.111454, -0.30076, -0.732201, 0.112609, 0.234339, -0.30077, 0.111459, 0.191422, 0.168428, 0.0730264, -0.364857)
+
+[node name="WallA1x1TriCornerOuter" instance=ExtResource("1_nhxnh")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallA1x1TriCornerOuter" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x1TriCornerOuter/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_pcm63")

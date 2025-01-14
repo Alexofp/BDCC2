@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctf4lu5s7e7ee"]
+
+[ext_resource type="PackedScene" uid="uid://4ri2is2s11l7" path="res://Mapping/Floors/Raw/Foundation2CornerInner.glb" id="1_o4yyv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2at84"]
+size = Vector3(1.5, 0.95, 0.674)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_5vai6"]
+size = Vector3(1.51505, 0.955935, 0.272789)
+
+[node name="Foundation2CornerInner" instance=ExtResource("1_o4yyv")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Foundation2CornerInner" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.530519, -0.20016)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.0417553, 0)
+shape = SubResource("BoxShape3D_2at84")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.696, -0.042, 0.45)
+shape = SubResource("BoxShape3D_2at84")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation2CornerInner" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.230322, 0.483, -0.4)
+occluder = SubResource("BoxOccluder3D_5vai6")
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="Foundation2CornerInner" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.391548, 0.483, 0.236852)
+occluder = SubResource("BoxOccluder3D_5vai6")

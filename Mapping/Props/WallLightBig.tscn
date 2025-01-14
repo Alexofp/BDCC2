@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://botekdip48xy4"]
+
+[ext_resource type="PackedScene" uid="uid://bb5365y05rhpl" path="res://Mapping/Props/Raw/WallLightBig.glb" id="1_vdphg"]
+[ext_resource type="Script" path="res://Mapping/Props/WallLightBig.gd" id="2_dpfm8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0gs2k"]
+size = Vector3(1.55161, 0.350314, 0.319992)
+
+[node name="WallLightBig" instance=ExtResource("1_vdphg")]
+script = ExtResource("2_dpfm8")
+editorOptionsID = "walllight"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallLightBig" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00830714, 0.181899)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLightBig/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0262311, -0.0208356)
+shape = SubResource("BoxShape3D_0gs2k")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="WallLightBig" index="1"]
+transform = Transform3D(-1, -5.32558e-14, 8.74228e-08, 4.31313e-08, 0.869822, 0.493365, -7.60423e-08, 0.493365, -0.869822, 0, -0.101759, 0.275208)
+light_color = Color(0.51, 0.755, 1, 1)
+light_energy = 4.0
+light_indirect_energy = 5.0
+spot_range = 15.0
+spot_angle = 100.52

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwfivwshfw1rs"]
+
+[ext_resource type="PackedScene" uid="uid://wdkef05200qw" path="res://Mapping/Columns/Raw/ColumnA2TriCorner.glb" id="1_nr4iw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8srx"]
+size = Vector3(1.00879, 1.52257, 0.999756)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_dhweo"]
+size = Vector3(0.955033, 1.52257, 0.908588)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_kf82n"]
+size = Vector3(0.955, 2.001, 0.909)
+
+[node name="ColumnA2TriCorner" instance=ExtResource("1_nr4iw")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnA2TriCorner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnA2TriCorner/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739, 0)
+shape = SubResource("BoxShape3D_u8srx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnA2TriCorner/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.239, 1, 0)
+shape = SubResource("BoxShape3D_u8srx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ColumnA2TriCorner/StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.239, 1, 0)
+shape = SubResource("BoxShape3D_u8srx")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="ColumnA2TriCorner" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.738717, 0)
+occluder = SubResource("BoxOccluder3D_dhweo")
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="ColumnA2TriCorner" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1, 0)
+occluder = SubResource("BoxOccluder3D_kf82n")

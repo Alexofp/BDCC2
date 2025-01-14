@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dajfel2kds44u"]
+
+[ext_resource type="PackedScene" uid="uid://bk7xyyti6btf3" path="res://Mapping/Railings/Raw/RailWallTurnOut1.glb" id="1_6i6sc"]
+[ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_mpm0h"]
+[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_qyy7r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_76eyu"]
+size = Vector3(1.23983, 1.21657, 0.337688)
+
+[node name="RailWallTurnOut1" instance=ExtResource("1_6i6sc")]
+script = ExtResource("2_qyy7r")
+
+[node name="RailWallTurnOut1" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_mpm0h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RailWallTurnOut1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300085, 0.608284, -0.300085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailWallTurnOut1/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.451071)
+shape = SubResource("BoxShape3D_76eyu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RailWallTurnOut1/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.451, 0, 0)
+shape = SubResource("BoxShape3D_76eyu")

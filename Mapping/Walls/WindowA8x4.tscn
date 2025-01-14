@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjc02adv4rin8"]
+
+[ext_resource type="PackedScene" uid="uid://ccytxu1qoknop" path="res://Mapping/Walls/Raw/WindowA8x4.glb" id="1_bt3jn"]
+[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_cqlcm"]
+[ext_resource type="Material" uid="uid://d10511vx4f7ky" path="res://Mesh/Materials/GlassMat.tres" id="3_0wi4e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqd4p"]
+size = Vector3(8, 4, 0.337884)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_wnyj3"]
+size = Vector3(8, 1, 0.07)
+
+[node name="WindowA8x4" instance=ExtResource("1_bt3jn")]
+script = ExtResource("2_cqlcm")
+editorOptionsEasy = {
+"color1": {
+"type": "color",
+"value": Color(0.431373, 0.431373, 0.431373, 1)
+},
+"color2": {
+"type": "color",
+"value": Color(0.133333, 0.133333, 0.133333, 1)
+},
+"colorbase": {
+"type": "color",
+"value": Color(0.52549, 0.52549, 0.52549, 1)
+},
+"roughness": {
+"type": "roughness"
+}
+}
+
+[node name="WindowA8x4" parent="." index="0"]
+instance_shader_parameters/trim_color_base = Color(0.321728, 0.321728, 0.321728, 1)
+instance_shader_parameters/trim_color_main = Color(0.431373, 0.431373, 0.431373, 1)
+instance_shader_parameters/trim_color_second = Color(0.306923, 0.306923, 0.306923, 1)
+surface_material_override/2 = ExtResource("3_0wi4e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WindowA8x4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.141751)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WindowA8x4/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_qqd4p")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="WindowA8x4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0.0417512)
+occluder = SubResource("BoxOccluder3D_wnyj3")

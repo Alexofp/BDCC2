@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://nadv2o81wdim"]
+
+[ext_resource type="PackedScene" uid="uid://d8mkmd7b6yv5" path="res://Mapping/Walls/Raw/WallA1x2CornerOuter.glb" id="1_aepv4"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7bomi"]
+points = PackedVector3Array(-0.894943, 1.75572, 0.223856, -0.0318006, 2.01567, -1.01575, -1.01587, -0.0156741, -0.0317958, -0.351356, 0.0515203, 0.182256, 0.17732, 1.99254, -0.350104, -0.0318006, -0.0156741, -1.01575, -1.01587, 2.01567, -0.0317958, -0.351356, 1.94849, 0.182256, 0.214126, 0.434988, -0.291826, 0.224114, 1.75606, -0.895167, -0.922032, 0.0380245, 0.190268, -0.291833, 1.56502, 0.214133, 0.190266, 0.0380133, -0.922034, 0.182359, 0.0513303, -0.351459, -0.291833, 0.43499, 0.214133, 0.214126, 1.56521, -0.291826, 0.130106, 1.962, -0.982194, -0.982245, 1.96188, 0.130055, -0.894943, 0.244285, 0.223856, 0.223853, 0.244277, -0.894945, 0.130106, 0.0380135, -0.982194, -0.982245, 0.0381261, 0.130055, 0.175195, 1.98876, -0.937104, -0.922032, 1.96199, 0.190268, -0.591455, 1.72188, 0.220749, 0.220725, 0.27815, -0.591444, 0.190205, 1.96208, -0.922095, 0.182359, 1.94887, -0.351459)
+
+[node name="WallA1x2CornerOuter" instance=ExtResource("1_aepv4")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallA1x2CornerOuter" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x2CornerOuter/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_7bomi")

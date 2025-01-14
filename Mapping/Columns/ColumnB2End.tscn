@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dowcc8slv4jua"]
+
+[ext_resource type="PackedScene" uid="uid://btk8d0kyohx6p" path="res://Mapping/Columns/Raw/ColumnB2End.glb" id="1_ybjwe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qvp7r"]
+size = Vector3(0.4, 1.44156, 1.1)
+
+[node name="ColumnB2End" instance=ExtResource("1_ybjwe")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnB2End" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.698214, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnB2End/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_qvp7r")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnB2End/StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_qvp7r")

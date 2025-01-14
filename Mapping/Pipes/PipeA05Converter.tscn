@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpp48s45j2fa0"]
+
+[ext_resource type="PackedScene" uid="uid://dt5mjxjopkwoi" path="res://Mapping/Pipes/Raw/PipeA05Converter.glb" id="1_7eqm4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_olmr8"]
+size = Vector3(0.4, 0.4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5jj8"]
+size = Vector3(0.2, 0.2, 0.3)
+
+[node name="PipeA05Converter" instance=ExtResource("1_7eqm4")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA05Converter" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA05Converter/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
+shape = SubResource("BoxShape3D_olmr8")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA05Converter/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+shape = SubResource("BoxShape3D_j5jj8")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://c010jg28no6wu"]
+
+[ext_resource type="PackedScene" uid="uid://cf0hnmn4nnbuy" path="res://Mapping/Props/Raw/ConstructionLightBoth.glb" id="1_eedrb"]
+[ext_resource type="Script" path="res://Mapping/Props/construction_light_both.gd" id="2_7ursy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ta3ub"]
+size = Vector3(1.10869, 1.96713, 0.99803)
+
+[node name="ConstructionLightBoth" instance=ExtResource("1_eedrb")]
+script = ExtResource("2_7ursy")
+
+[node name="ConstructionLightBoth" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.69
+instance_shader_parameters/trim_color_base = Color(0.845507, 0.640021, 0, 1)
+instance_shader_parameters/trim_color_main = Color(0.187176, 0.187176, 0.187176, 1)
+instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.988704, -3.27826e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConstructionLightBoth/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ta3ub")
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -0.906448, 0.422318, 0, -0.422318, -0.906448, 0, 1.793, 0.126)
+light_color = Color(1, 0.996, 0.76, 1)
+light_energy = 10.0
+light_volumetric_fog_energy = 3.0
+shadow_enabled = true
+spot_range = 15.0
+spot_angle = 53.69
