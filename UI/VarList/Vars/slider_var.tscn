@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3hv65j5t6274"]
+
+[ext_resource type="Script" path="res://UI/VarList/Vars/slider_var.gd" id="1_actpp"]
+
+[node name="SliderVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_actpp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -100.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+scrollable = false
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+min_value = -100.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+
+[connection signal="value_changed" from="HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]

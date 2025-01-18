@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c56fqxox0e0ia"]
+
+[ext_resource type="PackedScene" uid="uid://dhympd3rdrxia" path="res://Mesh/Skeleton/BodySkeleton.glb" id="1_v7x4s"]
+[ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="2_8r017"]
+
+[node name="BodySkeleton" instance=ExtResource("1_v7x4s")]
+
+[node name="DollAttachPoint" parent="rig/Skeleton3D" index="0" node_paths=PackedStringArray("skeleton") instance=ExtResource("2_8r017")]
+pointName = "body"
+skeleton = NodePath("..")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="rig/Skeleton3D" index="1"]
+transform = Transform3D(1, 2.13163e-14, -1.42109e-13, -1.42109e-14, 1, -2.98023e-08, 1.27898e-13, 2.98023e-08, 1, 4.10362e-16, 1.5978, -0.0219289)
+bone_name = "DEF-head"
+bone_idx = 56
+
+[node name="DollAttachPoint" parent="rig/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_8r017")]
+pointName = "head"

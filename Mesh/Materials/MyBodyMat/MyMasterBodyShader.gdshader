@@ -1,0 +1,118 @@
+shader_type spatial;
+
+//{{DEFINES_PLACEHOLDER}}
+
+render_mode
+blend_mix,
+depth_draw_opaque,
+#ifdef MY_TOONSHADING
+diffuse_toon,
+#else
+diffuse_burley,
+#endif
+specular_schlick_ggx,
+#ifdef MY_SUBSURFACESCATTER
+sss_mode_skin,
+#endif
+cull_back;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0) = 1.0;
+
+#ifdef MY_RIMLIGHT
+uniform float rim : hint_range(0.0, 3.0, 0.01) = 1.0;
+uniform float rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_rim : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float ao_mult : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+#ifdef MY_SUBSURFACESCATTER
+uniform float subsurface_scattering_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_subsurface_scattering : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+#ifdef MY_BACKLIGHT
+uniform vec4 backlight : source_color = vec4(0.3, 0.0, 0.0, 1.0);
+//uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
+uniform vec3 uv1_offset = vec3(0.0);
+uniform vec3 uv2_scale = vec3(1.0, 1.0, 1.0);
+uniform vec3 uv2_offset = vec3(0.0);
+
+#ifdef MY_FRESHNEL
+uniform float freshnel_width : hint_range(0.0, 30.0, 0.1) = 5.0;
+uniform float freshnel_mod : hint_range(0.0, 0.3, 0.01) = 0.1;
+uniform vec3 freshnel_color : source_color = vec3(0.05,0.02,0.02);
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view))-freshnel_mod, 0.0, 1.0 )), amount);
+}
+#endif
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+#ifdef MY_FRESHNEL
+	// Freshnel: Enabled
+	float basic_fresnel = fresnel(freshnel_width, NORMAL, VIEW);
+	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
+	ALBEDO = mix(albedo.rgb * albedo_tex.rgb, freshnel_color, basic_fresnel);// - basic_fresnel;
+#else
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+#endif
+	
+	METALLIC = orm_tex.b * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	ROUGHNESS = orm_tex.g * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+#ifdef MY_RIMLIGHT
+	// Rim: Enabled
+	//vec2 rim_tex = texture(texture_rim, base_uv).xy;
+	RIM = rim;// * rim_tex.x;// - basic_fresnel*2.5;
+	RIM_TINT = rim_tint;// * rim_tex.y;
+#endif
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r * ao_mult;
+	AO_LIGHT_AFFECT = ao_light_affect;
+
+#ifdef MY_SUBSURFACESCATTER
+	// Subsurface Scattering: Enabled
+	//float sss_tex = texture(texture_subsurface_scattering, base_uv).r;
+	SSS_STRENGTH = subsurface_scattering_strength;// * sss_tex;
+#endif
+
+#ifdef MY_BACKLIGHT
+	// Backlight: Enabled
+	//vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
+	BACKLIGHT = (backlight.rgb);// + backlight_tex);
+#endif
+
+}

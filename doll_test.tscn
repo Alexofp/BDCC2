@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://d22nb5qh4tlor"]
+
+[ext_resource type="Script" path="res://doll_test.gd" id="1_n6qcd"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_uejsk"]
+[ext_resource type="PackedScene" uid="uid://cy3s2sf36wvtd" path="res://Game/CharacterCreator/character_creator.tscn" id="3_f2yfk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mbmng"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_vlr75"]
+sky_material = SubResource("ProceduralSkyMaterial_mbmng")
+
+[sub_resource type="Environment" id="Environment_jbfiy"]
+background_mode = 2
+sky = SubResource("Sky_vlr75")
+tonemap_mode = 3
+
+[node name="DollTest" type="Node3D"]
+script = ExtResource("1_n6qcd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jbfiy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.760406, -0.219992, 0.611053, 0, 0.940881, 0.338738, -0.649448, -0.257578, 0.715452, 0, 0, 0)
+
+[node name="Doll" parent="." instance=ExtResource("1_uejsk")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.969312, -0.0715542, 0.235188, 0, 0.956702, 0.291069, -0.245832, -0.282137, 0.927343, 0.71621, 1.55816, 1.32155)
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CharacterCreator" parent="CanvasLayer" instance=ExtResource("3_f2yfk")]

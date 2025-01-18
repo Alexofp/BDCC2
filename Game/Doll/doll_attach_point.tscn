@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://3omr6ntpyb48"]
+
+[ext_resource type="Script" path="res://Game/Doll/doll_attach_point.gd" id="1_kry0d"]
+
+[node name="DollAttachPoint" type="Node3D"]
+process_priority = 9999
+script = ExtResource("1_kry0d")

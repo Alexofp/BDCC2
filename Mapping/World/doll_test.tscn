@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://jnn5wng7mhrd"]
+
+[ext_resource type="Script" path="res://Mapping/World/doll_test.gd" id="1_xux33"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="2_5rl85"]
+
+[node name="DollTest" type="Node3D"]
+script = ExtResource("1_xux33")
+
+[node name="Doll" parent="." instance=ExtResource("2_5rl85")]

@@ -550,7 +550,7 @@ func setPreviewNode(newNode:Node3D, assignMat:bool = true):
 func getPreviewNode() -> Node3D:
 	return previewNode
 
-func makeNodePreviewInstant(theNode:Node3D):
+func makeNodePreviewInstant(theNode:Node):
 	if(theNode is CollisionShape3D):
 		theNode.disabled = true
 	if(theNode is Light3D):
@@ -561,7 +561,7 @@ func makeNodePreviewInstant(theNode:Node3D):
 	for childNode in theNode.get_children():
 		makeNodePreviewInstant(childNode)
 
-func makeNodePreview(theNode:Node3D):
+func makeNodePreview(theNode:Node):
 	if(theNode is MeshInstance3D):
 		for _i in range(theNode.get_surface_override_material_count()):
 			theNode.set_surface_override_material(_i, preload("res://Mesh/Materials/PreviewMat.tres"))
@@ -961,15 +961,15 @@ func addChildFromChildInfo(_theInfo):
 	addEditorChild(_theInfo["prop"], _theInfo["settings"], _theInfo["transform"], _theInfo["id"], true)
 
 # https://www.reddit.com/r/godot/comments/18bfn0n/how_to_calculate_node3d_bounding_box/
-static func calculateSpatialBounds(parent : Node3D, exclude_top_level_transform: bool) -> AABB:
+static func calculateSpatialBounds(parent : Node, exclude_top_level_transform: bool) -> AABB:
 	var bounds : AABB = AABB()
 	#if parent is VisualInstance3D:
 	if parent is GeometryInstance3D:
 		bounds = parent.get_aabb();
 
 	for i in range(parent.get_child_count()):
-		var child : Node3D = parent.get_child(i)
-		if child:
+		var child : Node = parent.get_child(i)
+		if child && child is Node3D:
 			var child_bounds : AABB = calculateSpatialBounds(child, false)
 			if bounds.size == Vector3.ZERO && parent:
 				bounds = child_bounds

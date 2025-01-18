@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bwnjoxwnfjbim"]
+
+[resource]
+albedo_color = Color(0.69, 0.54993, 0.4899, 1)
+roughness = 0.57
+normal_enabled = true
+rim_enabled = true
+rim = 0.34
+rim_tint = 1.0
+ao_enabled = true
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.19
+subsurf_scatter_skin_mode = true
+backlight_enabled = true
+backlight = Color(0.32, 0, 0, 1)

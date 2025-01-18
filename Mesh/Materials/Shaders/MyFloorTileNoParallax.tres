@@ -32,7 +32,7 @@ void fragment() {
 	vec2 base_uv = UV;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo_tex.rgb * trim_color_base.rgb; //albedo.rgb * 
+	ALBEDO = albedo_tex.rgb * trim_color_base.rgb; //albedo.rgb *
 
 	vec4 orm_tex = texture(texture_orm, base_uv);
 	float roughnessRemapped = (roughness_mult - 0.5)*2.0; // -1.0, 1.0

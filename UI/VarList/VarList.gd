@@ -34,6 +34,8 @@ func setVars(_vars:Dictionary):
 			newWidget = preload("res://UI/VarList/Vars/color_palette_var.tscn").instantiate()
 		elif(theType in "selector"):
 			newWidget = preload("res://UI/VarList/Vars/dropdown_var.tscn").instantiate()
+		elif(theType in "slider"):
+			newWidget = preload("res://UI/VarList/Vars/slider_var.tscn").instantiate()
 		
 		if(newWidget == null):
 			printerr("Uknown property type found: "+theType)
