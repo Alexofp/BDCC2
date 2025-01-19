@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://br61otcq86wpv"]
 
-[ext_resource type="Script" path="res://Game/Doll/doll_attach_to.gd" id="1_h454m"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="1_h454m"]
 
 [node name="DollAttachTo" type="Node3D"]
 script = ExtResource("1_h454m")

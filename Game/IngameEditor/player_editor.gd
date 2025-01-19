@@ -79,7 +79,8 @@ func _ready():
 	
 	## Uncomment to auto-load the cellblock template
 	#_on_open_file_dialog_file_selected.call_deferred("res://Game/IngameEditor/Templates/genblock.res", true)
-
+	pass
+	
 var savedEscapePressed:bool = false
 func updateMouseLock() -> void:
 	var isEscapePressed:bool = Input.is_physical_key_pressed(KEY_ESCAPE) || Input.is_physical_key_pressed(KEY_Q)
@@ -332,7 +333,10 @@ func updateCommandsDict():
 			if dir.current_is_dir():
 				pass
 			else:
-				var final_path = thePath.path_join(file_name)
+				var final_path:String = thePath.path_join(file_name)
+				if(final_path.get_extension() != "gd"):
+					file_name = dir.get_next()
+					continue
 				
 				var theScript = load(final_path)
 				var theCommand = theScript.new()
@@ -417,7 +421,10 @@ func updateToolsDict():
 			if dir.current_is_dir():
 				pass
 			else:
-				var final_path = thePath.path_join(file_name)
+				var final_path:String = thePath.path_join(file_name)
+				if(final_path.get_extension() != "gd"):
+					file_name = dir.get_next()
+					continue
 				
 				var theScript = load(final_path)
 				var theTool = theScript.new()

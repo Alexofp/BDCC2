@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8jkbvto4fi4l" path="res://Mesh/Test/TestWall.glb" id="1_581p3"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_qwdnl"]
-[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_wix3n"]
+[ext_resource type="Script" uid="uid://y8y8q68ta03p" path="res://Mapping/PropBasic.gd" id="2_wix3n"]
 [ext_resource type="Material" uid="uid://bujf7ilpnya1s" path="res://Mesh/Materials/MyDecalTrimSmart.tres" id="3_5cgxr"]
 
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_4ball"]

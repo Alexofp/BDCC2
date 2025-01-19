@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b0bx3obfy2vk4"]
 
-[ext_resource type="Script" path="res://Game/IngameEditor/player_editor.gd" id="1_hrol8"]
+[ext_resource type="Script" uid="uid://do7g8q3upkb6k" path="res://Game/IngameEditor/player_editor.gd" id="1_hrol8"]
 [ext_resource type="PackedScene" uid="uid://bo1445eamj5w6" path="res://Game/IngameEditor/pc_editor_asset_stash.tscn" id="2_mo0es"]
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_xl10o"]
 
@@ -153,6 +153,7 @@ layout_mode = 2
 [node name="File" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
 item_count = 7
 item_0/text = "Clear map"
+item_0/id = 0
 item_1/text = "Open (F2 or F9)"
 item_1/id = 2
 item_2/id = 9999
@@ -170,6 +171,7 @@ item_6/id = 5
 auto_translate_mode = 1
 item_count = 6
 item_0/text = "Regenerate icons"
+item_0/id = 0
 item_1/text = "Toggle flashlight (F)"
 item_1/id = 1
 item_2/text = "Wireframe"
@@ -185,6 +187,7 @@ item_5/id = 5
 auto_translate_mode = 1
 item_count = 3
 item_0/text = "Toggle platform"
+item_0/id = 0
 item_1/text = "Tp to 0,0,0"
 item_1/id = 1
 item_2/text = "Open maps folder"

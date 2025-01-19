@@ -10,14 +10,14 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_gxk7o")
+shader_parameter/texture_albedo = ExtResource("1_1tj3m")
+shader_parameter/texture_orm = ExtResource("5_11tfg")
+shader_parameter/texture_emission = ExtResource("2_6nhin")
 shader_parameter/emission_energy = 10.0
+shader_parameter/texture_normal = ExtResource("4_ugvnt")
 shader_parameter/ao_light_affect = null
+shader_parameter/texture_heightmap = ExtResource("3_gt8tq")
 shader_parameter/heightmap_scale = 4.0
 shader_parameter/heightmap_min_layers = 4
 shader_parameter/heightmap_max_layers = 4
 shader_parameter/heightmap_flip = Vector2(-1, -1)
-shader_parameter/texture_albedo = ExtResource("1_1tj3m")
-shader_parameter/texture_orm = ExtResource("5_11tfg")
-shader_parameter/texture_emission = ExtResource("2_6nhin")
-shader_parameter/texture_normal = ExtResource("4_ugvnt")
-shader_parameter/texture_heightmap = ExtResource("3_gt8tq")

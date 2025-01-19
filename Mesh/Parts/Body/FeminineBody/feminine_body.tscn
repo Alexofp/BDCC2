@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctlxdll74pd6e"]
 
 [ext_resource type="PackedScene" uid="uid://bvc2tbhju26hj" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_y7j6w"]
-[ext_resource type="Script" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_3rtfg"]
-[ext_resource type="Script" path="res://Game/Doll/doll_attach_to.gd" id="2_i5sai"]
+[ext_resource type="Script" uid="uid://ctusa2pckufj3" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_3rtfg"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_i5sai"]
 [ext_resource type="Material" uid="uid://c8vrimhqhhto8" path="res://Mesh/Parts/Body/FeminineBody/BodySmartMatTest.tres" id="4_f00mj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvjus"]
@@ -159,8 +159,8 @@ surface_material_override/0 = ExtResource("4_f00mj")
 [node name="Nipples" parent="rig/Skeleton3D" index="6"]
 visible = false
 lod_bias = 100.0
-blend_shapes/NipplesAreolas = 0.77698
 blend_shapes/NipplesNormal = 1.0
+blend_shapes/NipplesAreolas = 0.77698
 surface_material_override/0 = SubResource("StandardMaterial3D_w8uwr")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="7"]

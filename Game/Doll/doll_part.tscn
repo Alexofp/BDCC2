@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://1374ob78ucv7"]
 
-[ext_resource type="Script" path="res://Game/Doll/doll_part.gd" id="1_528to"]
+[ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_528to"]
 
 [node name="DollPart" type="Node3D"]
 script = ExtResource("1_528to")

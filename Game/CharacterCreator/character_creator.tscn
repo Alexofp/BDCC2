@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy3s2sf36wvtd"]
 
-[ext_resource type="Script" path="res://Game/CharacterCreator/character_creator.gd" id="1_8ciux"]
+[ext_resource type="Script" uid="uid://624tlim4w1cd" path="res://Game/CharacterCreator/character_creator.gd" id="1_8ciux"]
 [ext_resource type="PackedScene" uid="uid://dfyh8pivegiu0" path="res://UI/VarList/Vars/dropdown_var.tscn" id="2_n4n5s"]
 
 [node name="CharacterCreator" type="Control"]

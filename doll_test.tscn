@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d22nb5qh4tlor"]
 
-[ext_resource type="Script" path="res://doll_test.gd" id="1_n6qcd"]
+[ext_resource type="Script" uid="uid://bg6c7oprbl6l" path="res://doll_test.gd" id="1_n6qcd"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_uejsk"]
 [ext_resource type="PackedScene" uid="uid://cy3s2sf36wvtd" path="res://Game/CharacterCreator/character_creator.tscn" id="3_f2yfk"]
 
@@ -15,6 +15,9 @@ sky_material = SubResource("ProceduralSkyMaterial_mbmng")
 background_mode = 2
 sky = SubResource("Sky_vlr75")
 tonemap_mode = 3
+sdfgi_use_occlusion = true
+sdfgi_cascades = 1
+sdfgi_max_distance = 25.6
 
 [node name="DollTest" type="Node3D"]
 script = ExtResource("1_n6qcd")
