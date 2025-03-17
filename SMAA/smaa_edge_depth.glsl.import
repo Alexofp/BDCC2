@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://p5bgw3ayr515"
+path="res://.godot/imported/smaa_edge_depth.glsl-c6f64eae22c90dab046093dc2d138a00.res"
+
+[deps]
+
+source_file="res://SMAA/smaa_edge_depth.glsl"
+dest_files=["res://.godot/imported/smaa_edge_depth.glsl-c6f64eae22c90dab046093dc2d138a00.res"]
+
+[params]
+

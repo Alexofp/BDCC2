@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6s2blxqp3ylj"]
+
+[ext_resource type="Script" uid="uid://dccakrhf8cyjo" path="res://Game/DollController/doll_controls.gd" id="1_llr63"]
+[ext_resource type="Script" uid="uid://dr4dupimdv0pw" path="res://Game/Multiplayer/safe_client_multiplayer_synchronizer.gd" id="2_uhpff"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_llr63"]
+properties/0/path = NodePath(".:sprint_isdown")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:jump_isdown")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:noclip_isdown")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:move_direction")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:move_direction_no_y")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[node name="DollControls" type="Node"]
+script = ExtResource("1_llr63")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_llr63")
+public_visibility = false
+script = ExtResource("2_uhpff")

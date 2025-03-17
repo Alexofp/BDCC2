@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d7mipnfi550m"]
 
 [ext_resource type="PackedScene" uid="uid://xvb10xxj06yk" path="res://Mapping/Props/Raw/Chair3.glb" id="1_ilbbn"]
-[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_kfdeh"]
+[ext_resource type="Script" uid="uid://y8y8q68ta03p" path="res://Mapping/PropBasic.gd" id="2_kfdeh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cxogw"]
 size = Vector3(0.694336, 0.708737, 0.753798)

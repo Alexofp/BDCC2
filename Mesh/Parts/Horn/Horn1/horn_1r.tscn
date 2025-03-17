@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdj7r5t7gvkwk"]
+
+[ext_resource type="PackedScene" uid="uid://dkvfphn15jtlx" path="res://Mesh/Parts/Horn/Horn1/Horn1R.glb" id="1_n8bxl"]
+[ext_resource type="Script" uid="uid://km478dwj2c27" path="res://Mesh/Parts/Horn/Horn1/horn1.gd" id="2_n8bxl"]
+[ext_resource type="Material" uid="uid://f308xgf67sd7" path="res://Mesh/Parts/Horn/Horn1/HornMat.tres" id="3_1mly8"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="4_43nay"]
+
+[node name="Horn1R" type="Node3D" node_paths=PackedStringArray("hornMesh")]
+script = ExtResource("2_n8bxl")
+hornMat = ExtResource("3_1mly8")
+hornMesh = NodePath("Horn1R2/Horn1R")
+
+[node name="Horn1R2" parent="." instance=ExtResource("1_n8bxl")]
+script = ExtResource("4_43nay")
+attachPoint = "horn.R"
+
+[node name="Horn1R" parent="Horn1R2" index="0"]
+surface_material_override/0 = ExtResource("3_1mly8")
+
+[editable path="Horn1R2"]

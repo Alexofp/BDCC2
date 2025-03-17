@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://7o7xfhhrhotd"]
+
+[ext_resource type="PackedScene" uid="uid://bqoo34hnqa1sr" path="res://Mesh/Parts/Ear/FelineEar/FelineEarR.glb" id="1_gchkf"]
+[ext_resource type="Script" uid="uid://b3jfi6whvapna" path="res://Mesh/Parts/Ear/FelineEar/feline_ear.gd" id="2_b8xyo"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_ldeaw"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_ldeaw"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_67nuq"]
+[ext_resource type="Material" uid="uid://bglin3n8wnb0d" path="res://Mesh/Parts/Ear/FelineEar/FelineEarMat.tres" id="6_67nuq"]
+[ext_resource type="Material" uid="uid://dtn3jcvaheois" path="res://Mesh/Parts/Ear/FelineEar/FluffMat.tres" id="6_b8xyo"]
+[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="7_b8xyo"]
+[ext_resource type="Material" uid="uid://x3h3oqedoupd" path="res://Mesh/Parts/Ear/FelineEar/TasselsMat.tres" id="8_52a8k"]
+
+[sub_resource type="Resource" id="Resource_ldeaw"]
+script = ExtResource("5_67nuq")
+spring_freq = 2.0
+angular_damp = 5.0
+force_scale = 180.0
+linear_scale = 652.683
+swing_span = 1.5708
+gravity = Vector3(0, 0, 0)
+metadata/_custom_type_script = ExtResource("5_67nuq")
+
+[sub_resource type="Resource" id="Resource_67nuq"]
+script = ExtResource("5_67nuq")
+spring_freq = 2.0
+angular_damp = 5.0
+force_scale = 180.0
+linear_scale = 652.683
+swing_span = 1.5708
+gravity = Vector3(0, 0, 0)
+metadata/_custom_type_script = ExtResource("5_67nuq")
+
+[node name="FelineEarR" node_paths=PackedStringArray("piercingsTwoRings", "tassels") instance=ExtResource("1_gchkf")]
+script = ExtResource("2_b8xyo")
+earMat = ExtResource("6_67nuq")
+piercingsMat = ExtResource("7_b8xyo")
+piercingsTwoRings = NodePath("EarRigR/Skeleton3D/FelineEarPiercedTwoRingsR")
+tassels = NodePath("EarRigR/Skeleton3D/FelineEarTasselsR")
+tasselsMat = ExtResource("8_52a8k")
+fluffMat = ExtResource("6_b8xyo")
+
+[node name="EarRigR" parent="." index="0"]
+script = ExtResource("3_ldeaw")
+attachPoint = "ear.R"
+
+[node name="FelineEarFluffR" parent="EarRigR/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("6_b8xyo")
+
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.917223, -0.359143, 0.172391, 0.398327, 0.833512, -0.382875, -0.00618322, 0.41985, 0.907572, -0.0314931, 0.0598624, 0.0113889)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_ldeaw")
+bone_name = "DEF-Ear.R"
+properties = SubResource("Resource_ldeaw")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.885197, -0.459128, 0.0750124, 0.465209, 0.872716, -0.148146, 0.00255366, 0.166035, 0.986117, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_ldeaw")
+bone_name = "DEF-Root.R"
+properties = SubResource("Resource_67nuq")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="FelineEarPiercedTwoRingsR" parent="EarRigR/Skeleton3D" index="3"]
+visibility_range_end = 10.0
+surface_material_override/0 = ExtResource("7_b8xyo")
+
+[node name="FelineEarR" parent="EarRigR/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("6_67nuq")
+
+[node name="FelineEarTasselsR" parent="EarRigR/Skeleton3D" index="5"]
+surface_material_override/0 = ExtResource("8_52a8k")

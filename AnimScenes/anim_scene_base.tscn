@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf5g7hgjv6lyb"]
+
+[ext_resource type="Script" uid="uid://id8mhy5mmrlo" path="res://AnimScenes/anim_scene_base.gd" id="1_h107d"]
+
+[node name="AnimSceneBase" type="Node3D"]
+script = ExtResource("1_h107d")

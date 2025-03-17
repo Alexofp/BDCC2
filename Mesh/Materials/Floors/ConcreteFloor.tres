@@ -8,8 +8,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_fsm5x")
-shader_parameter/ao_light_affect = 1.0
-shader_parameter/uv1_scale_final = 0.25
 shader_parameter/texture_albedo = ExtResource("2_mr6cu")
 shader_parameter/texture_orm = ExtResource("3_5baan")
 shader_parameter/texture_normal = ExtResource("4_uic1n")
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/uv1_scale_final = 0.25

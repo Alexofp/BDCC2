@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c56fqxox0e0ia"]
+[gd_scene load_steps=5 format=3 uid="uid://c56fqxox0e0ia"]
 
 [ext_resource type="PackedScene" uid="uid://dhympd3rdrxia" path="res://Mesh/Skeleton/BodySkeleton.glb" id="1_v7x4s"]
+[ext_resource type="Script" uid="uid://40s5d4yyawwa" path="res://Mesh/Skeleton/body_skeleton.gd" id="2_8p8i6"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="2_8r017"]
+[ext_resource type="Script" uid="uid://dmjuverppxq7r" path="res://Game/Doll/DollOpenableHole.gd" id="4_w8otv"]
 
 [node name="BodySkeleton" instance=ExtResource("1_v7x4s")]
+script = ExtResource("2_8p8i6")
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D" index="0" node_paths=PackedStringArray("skeleton") instance=ExtResource("2_8r017")]
 pointName = "body"
@@ -16,3 +19,40 @@ bone_idx = 56
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_8r017")]
 pointName = "head"
+
+[node name="BoneAttachment3D2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="2"]
+transform = Transform3D(1, 7.10543e-15, -8.55745e-15, -8.55745e-15, 0.982958, -0.183829, 7.10543e-15, 0.183829, 0.982958, 1.11075e-17, 0.907657, -0.0159897)
+bone_name = "DEF-hips"
+bone_idx = 1
+
+[node name="DollAttachPoint" parent="rig/Skeleton3D/BoneAttachment3D2" index="0" instance=ExtResource("2_8r017")]
+transform = Transform3D(1, -1.45786e-15, -1.45906e-15, 1.70219e-15, 0.982807, 0.184638, 1.1648e-15, -0.184638, 0.982807, 0, 0, 0)
+pointName = "tail"
+
+[node name="DollAttachPoint2" parent="rig/Skeleton3D/BoneAttachment3D2" index="1" instance=ExtResource("2_8r017")]
+transform = Transform3D(1, -1.45786e-15, -1.45905e-15, 1.70219e-15, 0.982807, 0.184638, 1.16478e-15, -0.184638, 0.982807, -3.96018e-16, 0.00749147, 0.0651686)
+pointName = "penis"
+
+[node name="VaginaHole" type="Marker3D" parent="rig/Skeleton3D/BoneAttachment3D2" index="2"]
+unique_name_in_owner = true
+transform = Transform3D(1, -7.89381e-16, -1.63925e-14, 1.62584e-14, -0.0885295, 0.996074, -2.2375e-15, -0.996074, -0.0885295, 3.36195e-16, -0.0229051, 0.0202687)
+script = ExtResource("4_w8otv")
+closeSpeed = 0.04
+
+[node name="VaginaInside" type="Marker3D" parent="rig/Skeleton3D/BoneAttachment3D2" index="3"]
+unique_name_in_owner = true
+transform = Transform3D(1, -1.82155e-15, -1.51927e-14, 1.52686e-14, 0.0537476, 0.998555, -1.00234e-15, -0.998555, 0.0537476, -5.68595e-16, 0.10466, 0.0204577)
+
+[node name="AnusHole" type="Marker3D" parent="rig/Skeleton3D/BoneAttachment3D2" index="4"]
+unique_name_in_owner = true
+transform = Transform3D(1, -1.27791e-15, -1.58674e-14, 1.58321e-14, -0.0241532, 0.999709, -1.66078e-15, -0.999709, -0.0241532, -1.07055e-16, -0.0166653, -0.0263465)
+script = ExtResource("4_w8otv")
+closeSpeed = 0.04
+
+[node name="AnusInside" type="Marker3D" parent="rig/Skeleton3D/BoneAttachment3D2" index="5"]
+unique_name_in_owner = true
+transform = Transform3D(1, -1.6266e-16, -1.69772e-14, 1.67178e-14, -0.164962, 0.986301, -2.96101e-15, -0.986301, -0.164962, -9.53943e-16, 0.0946905, -0.0328509)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="rig/Skeleton3D/BoneAttachment3D2" index="6"]
+max_distance = 10.0
+bus = &"Sounds"

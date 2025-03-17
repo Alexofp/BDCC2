@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://ngd6bsr0ou1h"]
+
+[ext_resource type="Script" uid="uid://c47na85wrnesj" path="res://Game/Sandbox/Sandbox.gd" id="1_qcb56"]
+[ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="3_km7vh"]
+[ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="4_84qli"]
+[ext_resource type="Resource" path="res://Maps/genblock.res" id="5_8bc1i"]
+[ext_resource type="Environment" uid="uid://cfeg5fu5v0p4o" path="res://Mesh/Enviroment/GameEnv.tres" id="6_joloh"]
+[ext_resource type="Compositor" uid="uid://c6hes6c0mi07n" path="res://Mesh/Enviroment/GameCompositor.tres" id="7_j5wu2"]
+[ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="8_j5wu2"]
+[ext_resource type="Script" uid="uid://7gh515vs5ir8" path="res://Game/CharacterRegistry/CharacterRegistry.gd" id="10_qyvno"]
+[ext_resource type="PackedScene" uid="uid://br62bovpqjjlq" path="res://Game/DollController/doll_holder.tscn" id="10_roivh"]
+[ext_resource type="PackedScene" uid="uid://5wu3p6gbx2l2" path="res://Anims/test_anim_scene.tscn" id="82_k5pco"]
+
+[node name="Sandbox" type="Node3D"]
+script = ExtResource("1_qcb56")
+
+[node name="BuildingPlatform8x8" parent="." instance=ExtResource("3_km7vh")]
+
+[node name="PCSceneLoader" type="Node3D" parent="."]
+script = ExtResource("4_84qli")
+mapToLoad = ExtResource("5_8bc1i")
+metadata/_custom_type_script = "uid://bpd4f6ganr5gx"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
+light_energy = 0.2
+light_indirect_energy = 0.2
+light_volumetric_fog_energy = 0.0
+shadow_bias = 0.025
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_joloh")
+compositor = ExtResource("7_j5wu2")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.978971, 0.204001, 0, -0.204001, 0.978971, 0, 1.2346, 2.79053)
+visible = false
+light_energy = 2.0
+
+[node name="MainUILayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="InGameMenu" parent="MainUILayer" instance=ExtResource("8_j5wu2")]
+unique_name_in_owner = true
+visible = false
+showCharCreatorButton = true
+
+[node name="TestAnimScene" parent="." instance=ExtResource("82_k5pco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.28286, 0, 0)
+
+[node name="DollHolder" parent="." instance=ExtResource("10_roivh")]
+unique_name_in_owner = true
+
+[node name="CharacterRegistry" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_qyvno")
+metadata/_custom_type_script = "uid://7gh515vs5ir8"
+
+[connection signal="onCharCreatorButton" from="MainUILayer/InGameMenu" to="." method="_on_in_game_menu_on_char_creator_button"]
+[connection signal="onExitButton" from="MainUILayer/InGameMenu" to="." method="_on_in_game_menu_on_exit_button"]

@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://5wu3p6gbx2l2"]
+
+[ext_resource type="Script" uid="uid://d4lt6u2khsco3" path="res://Anims/test_anim_scene.gd" id="1_lb2b5"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_pia7h"]
+[ext_resource type="AnimationLibrary" uid="uid://djmtyjnhvsh0o" path="res://Anims/Raw/TestAnims.glb" id="2_lb2b5"]
+[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="4_y4b7w"]
+
+[node name="TestAnimScene" type="Node3D"]
+script = ExtResource("1_lb2b5")
+
+[node name="Doll" parent="." instance=ExtResource("1_pia7h")]
+disableInternalAnimPlayer = true
+
+[node name="Doll2" parent="." instance=ExtResource("1_pia7h")]
+disableInternalAnimPlayer = true
+
+[node name="Skeleton3D" parent="Doll2/BodySkeleton/rig" index="0"]
+bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/1/position = Vector3(-1.16895e-15, 0.0252853, 0.768511)
+bones/1/rotation = Quaternion(0.69371, -6.23791e-16, -5.52213e-15, 0.720254)
+bones/2/rotation = Quaternion(-0.0224724, 8.71921e-15, 7.815e-15, 0.999748)
+bones/3/rotation = Quaternion(-0.0584825, -4.25263e-15, -5.93204e-15, 0.998288)
+bones/4/rotation = Quaternion(0.0504247, -1.19058e-07, -6.0111e-09, 0.998728)
+bones/5/rotation = Quaternion(-0.528761, -0.367499, -0.458693, 0.612338)
+bones/6/rotation = Quaternion(-0.264689, 0.65537, -0.334785, 0.623176)
+bones/6/scale = Vector3(1.01892, 0.963216, 1.01892)
+bones/7/rotation = Quaternion(0.788345, 0.0939462, -0.123678, 0.595307)
+bones/7/scale = Vector3(1.0013, 0.947059, 1.05499)
+bones/8/scale = Vector3(0.94166, 1, 0.94166)
+bones/9/rotation = Quaternion(-0.354186, -0.176465, 0.180491, 0.900464)
+bones/9/scale = Vector3(0.992428, 1.00936, 1.00058)
+bones/30/rotation = Quaternion(-0.528761, 0.367499, 0.458693, 0.612338)
+bones/31/rotation = Quaternion(-0.264689, -0.65537, 0.334785, 0.623176)
+bones/31/scale = Vector3(1.01892, 0.963216, 1.01892)
+bones/32/rotation = Quaternion(0.788345, -0.0939465, 0.123678, 0.595307)
+bones/32/scale = Vector3(1.0013, 0.947059, 1.05499)
+bones/33/scale = Vector3(0.94166, 0.999999, 0.94166)
+bones/34/rotation = Quaternion(-0.354186, 0.176465, -0.180491, 0.900464)
+bones/34/scale = Vector3(0.992429, 1.00936, 1.00058)
+bones/55/rotation = Quaternion(0.300424, 2.27405e-07, -5.32907e-14, 0.953806)
+bones/56/rotation = Quaternion(-0.187139, -1.17103e-07, -2.23087e-08, 0.982333)
+bones/63/rotation = Quaternion(0.971777, 0.0738079, 0.00377769, 0.224025)
+bones/63/scale = Vector3(1.0146, 0.971426, 1.0146)
+bones/64/rotation = Quaternion(0.485625, 0.0494099, -0.0275238, 0.872335)
+bones/64/scale = Vector3(1.00028, 0.968883, 1.03261)
+bones/65/rotation = Quaternion(-0.734695, -0.120276, 0.0664433, 0.664336)
+bones/65/scale = Vector3(0.988554, 0.985625, 1.02662)
+bones/66/rotation = Quaternion(0.000222044, 0.99138, -0.130991, -0.00249855)
+bones/66/scale = Vector3(0.999971, 1.00005, 0.999969)
+bones/67/rotation = Quaternion(0.971777, -0.0738079, -0.00377768, 0.224025)
+bones/67/scale = Vector3(1.0146, 0.971426, 1.0146)
+bones/68/rotation = Quaternion(0.485625, -0.04941, 0.0275238, 0.872336)
+bones/68/scale = Vector3(1.00028, 0.968883, 1.03261)
+bones/69/rotation = Quaternion(-0.734695, 0.120276, -0.0664432, 0.664336)
+bones/69/scale = Vector3(0.988553, 0.985626, 1.02662)
+bones/70/rotation = Quaternion(-0.000222003, 0.99138, -0.130991, 0.00249855)
+bones/70/scale = Vector3(0.999971, 1.00005, 0.999969)
+
+[node name="BoneAttachment3D" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="1"]
+transform = Transform3D(1, -1.42109e-13, -4.12115e-13, 1.20792e-13, 0.990882, -0.134736, 3.83693e-13, 0.134736, 0.990882, -2.86815e-14, 1.45613, -0.0583297)
+
+[node name="DMWBWiggleRotationModifier3D" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="3"]
+transform = Transform3D(0.913873, 0.402089, 0.0562078, -0.0235064, 0.190613, -0.981384, -0.405318, 0.89554, 0.183648, 0.0351934, 1.17524, -0.109606)
+
+[node name="DMWBWiggleRotationModifier3D2" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="4"]
+transform = Transform3D(0.913873, -0.402089, -0.0562078, 0.0235064, 0.190613, -0.981384, 0.405318, 0.89554, 0.183648, -0.0351934, 1.17524, -0.109606)
+
+[node name="DMWBWiggleRotationModifier3D3" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="5"]
+transform = Transform3D(0.999996, 0.00294016, -4.98723e-07, 0.000648088, -0.22026, 0.975441, 0.00286784, -0.975437, -0.220261, 0.0964748, 0.806499, -0.0284935)
+
+[node name="DMWBWiggleRotationModifier3D4" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="6"]
+transform = Transform3D(0.999996, -0.00294016, 4.98723e-07, -0.000648088, -0.22026, 0.975441, -0.00286784, -0.975437, -0.220261, -0.0964748, 0.806499, -0.0284935)
+
+[node name="BoneAttachment3D2" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="7"]
+transform = Transform3D(1, 7.08922e-15, -8.5601e-15, -6.76294e-15, 0.999296, 0.0375322, 8.82014e-15, -0.0375322, 0.999296, -8.13575e-18, 0.768511, -0.0252853)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Doll/BodySkeleton")
+libraries = {
+&"TestAnims": ExtResource("2_lb2b5")
+}
+autoplay = "TestAnims/SexStanding_1"
+speed_scale = 2.0
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Doll2/BodySkeleton")
+libraries = {
+&"TestAnims": ExtResource("2_lb2b5")
+}
+autoplay = "TestAnims/SexStanding_2"
+speed_scale = 2.0
+
+[node name="Interactable" parent="." instance=ExtResource("4_y4b7w")]
+
+[node name="Interactable2" parent="." instance=ExtResource("4_y4b7w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62023, 0, 0)
+
+[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
+[connection signal="onInteract" from="Interactable2" to="." method="_on_interactable_on_interact"]
+
+[editable path="Doll2"]
+[editable path="Doll2/BodySkeleton"]

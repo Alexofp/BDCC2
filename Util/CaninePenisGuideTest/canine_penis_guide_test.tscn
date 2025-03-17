@@ -1,0 +1,161 @@
+[gd_scene load_steps=14 format=3 uid="uid://dg7vjbo6e8vkq"]
+
+[ext_resource type="PackedScene" uid="uid://dy0oeh56twjk1" path="res://Mesh/Parts/Penis/CaninePenis/CaninePenis.glb" id="1_v5nas"]
+[ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="2_7cdkb"]
+[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Game/Character/Bodyparts/Penis/PenisSkeletonModifier.gd" id="3_wuwq1"]
+[ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="3_y5bcb"]
+[ext_resource type="PackedScene" uid="uid://cch6fqrdrbsg2" path="res://Util/CaninePenisGuideTest/TorusCloseable.glb" id="5_1rine"]
+[ext_resource type="Script" uid="uid://dvx8mwmqael6h" path="res://Util/CaninePenisGuideTest/torus_closeable.gd" id="6_w8wci"]
+
+[sub_resource type="Environment" id="Environment_y5bcb"]
+background_mode = 1
+background_color = Color(0.364863, 0.227695, 0.307064, 1)
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="TorusMesh" id="TorusMesh_y5bcb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5bcb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuwq1"]
+
+[sub_resource type="Curve3D" id="Curve3D_y5bcb"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, -0.1, 0, 0, 0.41, 0, 0.0238022, 0.00858939, 0, -0.157182, -0.123668, 0, 0.157182, 0.123668, 0, 0.100281, 0.599298, 0, -0.0990144, -0.0140055, 0, -0.0497739, -0.00474973, 0, 0.43348, 0.75385),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_wuwq1"]
+_data = [Vector2(0, 0), 0.0, 5.65921, 0, 1, Vector2(0.112211, 0.635027), 0.0, 0.0, 0, 0, Vector2(0.171617, 0.504679), 0.0, 0.0, 0, 0, Vector2(0.267327, 0.495989), 0.0, 0.0, 0, 0, Vector2(0.442244, 0.47861), 0.0, 0.0, 0, 0, Vector2(0.617162, 0.504679), 1.59577, 1.59577, 0, 0, Vector2(0.867987, 0.878342), 0.0, 0.0, 0, 0, Vector2(1, 0.643717), -1.77729, 0.0, 1, 0]
+point_count = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1rine"]
+albedo_color = Color(1, 0.49, 0.49, 1)
+
+[node name="CaninePenisGuideTest" instance=ExtResource("1_v5nas")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_y5bcb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(0.570943, -0.278101, 0.772453, 7.85059e-09, 0.94088, 0.338739, -0.820989, -0.1934, 0.537189, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CaninePenisRig" index="0"]
+transform = Transform3D(-0.0615654, -4.43832e-10, -7.82067e-09, -5.00028e-09, 0.0495352, 0.0365537, 6.02944e-09, 0.0365537, -0.0495352, 0, 0.101593, 0.599293)
+visible = false
+mesh = SubResource("TorusMesh_y5bcb")
+skeleton = NodePath("../Skeleton3D/GuidePath/PathFollow3D2")
+
+[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0238022, 0.00858939)
+
+[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_y5bcb")
+
+[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wuwq1")
+
+[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" index="4" node_paths=PackedStringArray("shaftNode", "holeNode", "insideNode")]
+curve = SubResource("Curve3D_y5bcb")
+script = ExtResource("2_7cdkb")
+shaftNode = NodePath("../ShaftNode")
+holeNode = NodePath("../../../HoleNode")
+insideNode = NodePath("../../../InsideNode")
+blendDistance = 0.54
+straightness = 0.41
+
+[node name="PathFollow3D2" type="PathFollow3D" parent="CaninePenisRig/Skeleton3D/GuidePath" index="0"]
+transform = Transform3D(-0.999827, -6.34608e-08, -6.01098e-08, 0, 0.687576, -0.725907, 8.74077e-08, -0.725907, -0.687576, 0, 0.0679865, 0.571657)
+progress = 0.582639
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CaninePenisRig/Skeleton3D/GuidePath/PathFollow3D2" index="0"]
+transform = Transform3D(0.0615661, 5.2878e-09, 5.47513e-09, -5.47513e-09, -3.72529e-09, 0.0615661, 5.2878e-09, -0.0615661, -3.72529e-09, 0, 0, 0)
+visible = false
+mesh = SubResource("TorusMesh_y5bcb")
+
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="5"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("3_wuwq1")
+lenModificationBone = "penis.006"
+chainLength = 5
+ballsBone = "balls"
+metadata/_custom_type_script = "uid://clc1kuop8qcgb"
+
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="6" node_paths=PackedStringArray("targetPath", "holeNode")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("3_y5bcb")
+bone = "penis.006"
+chainLength = 9
+targetPath = NodePath("../GuidePath")
+thicknessCurve = SubResource("Curve_wuwq1")
+holeNode = NodePath("../../../HoleNode")
+metadata/_custom_type_script = "uid://ddp3batfh4dqr"
+
+[node name="Camera3D" type="Camera3D" parent="." index="3"]
+transform = Transform3D(0.0881608, -0.382377, 0.919791, 0.0364832, 0.924006, 0.380633, -0.995438, 0, 0.0954115, 0.645507, 0.285864, 0.450621)
+visible = false
+current = true
+
+[node name="InsideNode" type="Marker3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 0.140055, 0.990144, 0, -0.990144, 0.140055, 0, 0.43348, 0.75385)
+
+[node name="TorusCloseable" parent="InsideNode" index="0" node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
+transform = Transform3D(0.0601211, 1.56749e-09, -5.18656e-10, 2.9401e-10, -0.0287481, -0.0528024, -1.62468e-09, 0.0528024, -0.0287481, 0, 0.103571, -0.347666)
+script = ExtResource("6_w8wci")
+opener = NodePath("../../CaninePenisRig/Skeleton3D/FollowSplineSkeletonModifier")
+openValueMult = 1.155
+
+[node name="TorusCloseable" parent="InsideNode/TorusCloseable" index="0"]
+blend_shapes/Close = 1.0
+surface_material_override/0 = SubResource("StandardMaterial3D_1rine")
+
+[node name="TorusCloseable2" parent="InsideNode" index="1" node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
+transform = Transform3D(-2.62798e-09, 0.0595285, -0.00842026, -0.0595285, 0.0011793, 0.00833727, 0.00842026, 0.00833726, 0.0589418, 0, 0.136018, -0.184653)
+script = ExtResource("6_w8wci")
+opener = NodePath("../../CaninePenisRig/Skeleton3D/FollowSplineSkeletonModifier")
+openValueMult = 1.155
+
+[node name="TorusCloseable" parent="InsideNode/TorusCloseable2" index="0"]
+blend_shapes/Close = 1.0
+surface_material_override/0 = SubResource("StandardMaterial3D_1rine")
+
+[node name="HoleNode" type="Marker3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 0.61834, 0.785911, 0, -0.785911, 0.61834, 0, 0.100281, 0.599298)
+
+[editable path="InsideNode/TorusCloseable"]
+[editable path="InsideNode/TorusCloseable2"]

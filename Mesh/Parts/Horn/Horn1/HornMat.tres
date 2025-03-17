@@ -1,0 +1,40 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterBodyMat" load_steps=6 format=3 uid="uid://f308xgf67sd7"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="1_v2hvu"]
+[ext_resource type="Shader" uid="uid://ct8dby4fn5qad" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyShader.gdshader" id="2_v57u3"]
+[ext_resource type="Texture2D" uid="uid://boxgf5yrh6o5g" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_BaseColor.png" id="3_51pje"]
+[ext_resource type="Texture2D" uid="uid://my7dgwrf0lsh" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_Normal.png" id="4_fwkup"]
+[ext_resource type="Texture2D" uid="uid://vtq3g40f7u27" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_ORM.png" id="5_hbhw3"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_v57u3")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("3_51pje")
+shader_parameter/texture_orm = ExtResource("5_hbhw3")
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/texture_normal = ExtResource("4_fwkup")
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+script = ExtResource("1_v2hvu")
+backlight = false
+freshnel = false
+rimlight = false
+subsurfaceScattering = false
+alphaMask = false
+uvBasedDiscard = false
+alphaSupport = false
+globalDetailMask = false
+globalDetailRoughMask = false
+colorMask = false
+eyeMode = false
+doubleSided = false
+toonShading = false
+clearCache = false
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

@@ -1,116 +1,309 @@
-[gd_scene load_steps=2 format=3 uid="uid://d32omdfp8acg8"]
+[gd_scene load_steps=6 format=3 uid="uid://d32omdfp8acg8"]
 
 [ext_resource type="PackedScene" uid="uid://ctlxdll74pd6e" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn" id="1_2qxtl"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="2_r3sbk"]
+[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_4iue4"]
+
+[sub_resource type="Shader" id="Shader_plkf8"]
+code = "shader_type spatial;
+
+#define MY_BACKLIGHT
+#define MY_FRESHNEL
+#define MY_RIMLIGHT
+#define MY_SUBSURFACESCATTER
+#define MY_UV_BASED_DISCARD
+#define MY_GLOBALDETAILMAP
+
+
+render_mode
+blend_mix,
+#ifdef MY_ALPHASUPPORT
+depth_prepass_alpha,
+#endif
+depth_draw_opaque,
+#ifdef MY_TOONSHADING
+diffuse_toon,
+#else
+diffuse_burley,
+#endif
+specular_schlick_ggx,
+#ifdef MY_SUBSURFACESCATTER
+sss_mode_skin,
+#endif
+#ifdef MY_DOUBLESIDED
+cull_disabled
+#else
+cull_back
+#endif
+;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0) = 1.0;
+
+#ifdef MY_ALPHAMASK
+uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
+uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
+#endif
+
+#ifdef MY_RIMLIGHT
+uniform float rim : hint_range(0.0, 3.0, 0.01) = 1.0;
+uniform float rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_rim : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float ao_mult : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+#ifdef MY_SUBSURFACESCATTER
+uniform float subsurface_scattering_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_subsurface_scattering : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+#ifdef MY_BACKLIGHT
+uniform vec4 backlight : source_color = vec4(0.3, 0.24, 0.24, 1.0);
+//uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
+uniform vec3 uv1_offset = vec3(0.0);
+//uniform vec3 uv2_scale = vec3(1.0, 1.0, 1.0);
+//uniform vec3 uv2_offset = vec3(0.0);
+
+#ifdef MY_FRESHNEL
+uniform float freshnel_width : hint_range(0.0, 30.0, 0.1) = 5.0;
+uniform float freshnel_mod : hint_range(0.0, 0.3, 0.01) = 0.1;
+uniform vec3 freshnel_color : source_color = vec3(0.05,0.02,0.02);
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view))-freshnel_mod, 0.0, 1.0 )), amount);
+}
+#endif
+
+//#define MY_COLORMASK
+#ifdef MY_COLORMASK
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+#endif
+
+//#define MY_GLOBALDETAILROUGHMAP
+#ifdef MY_GLOBALDETAILROUGHMAP
+uniform sampler2D texture_detail_rough_global : hint_roughness_b, filter_linear_mipmap, repeat_enable;
+uniform float detail_rough_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_rough_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+#endif
+//#define MY_GLOBALDETAILMAP
+#ifdef MY_GLOBALDETAILMAP
+uniform sampler2D texture_detail_normal_global : hint_normal, filter_linear_mipmap, repeat_enable;
+uniform float detail_normal_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_normal_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+vec3 _simple_normal_blend(vec3 b, vec3 d) {
+	return vec3(b.xy + d.xy - 0.5, 1.0);
+}
+
+vec3 udm_normal_blend(vec3 b, vec3 d) {
+	b = b*2.0 - 1.0;
+	d = d*2.0 - 1.0;
+	vec3 r = vec3(b.xy + d.xy, b.z);
+	r = normalize(r);
+	return r*0.5 + 0.5;
+}
+#endif
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+#ifdef MY_UV_BASED_DISCARD
+	if(base_uv.y < 0.0)
+		discard;
+#endif
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+#ifdef MY_COLORMASK
+	vec4 mask = texture(texture_color_mask, base_uv);
+{
+	float maskF = mask.r + mask.g + mask.b;
+	maskF = max(maskF, 1.0);
+	mask.rgb /= maskF;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 result = vec4(0.0);
+	result += mask.r*color_r*color_r.a;
+	result += mask.g*color_g*color_g.a;
+	result += mask.b*color_b*color_b.a;
+
+	result.a *= mask.a;
+
+	vec4 mask_color = texture(texture_color_mask, base_uv);
+
+	ALBEDO.rgb = mix(ALBEDO.rgb, result.rgb, result.a);
+
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
+}
+#endif
+
+#ifdef MY_FRESHNEL
+	// Freshnel: Enabled
+	float basic_fresnel = fresnel(freshnel_width, NORMAL, VIEW);
+	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
+	ALBEDO = mix(ALBEDO, freshnel_color, basic_fresnel);// - basic_fresnel;
+#endif
+
+	METALLIC = orm_tex.b * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	ROUGHNESS = orm_tex.g * roughness;
+
+#ifdef MY_COLORMASK
+#ifdef MY_EYEMODE
+	ROUGHNESS *= min(1.0 - mask.g*0.9, 1.0);
+	EMISSION = albedo_tex.rgb*color_mask_g.rgb*mask.g;
+	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r.rgb, mask.r*0.5);
+	//EMISSION.rgb *= 2.0;
+#endif
+#endif
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+#ifdef MY_RIMLIGHT
+	// Rim: Enabled
+	//vec2 rim_tex = texture(texture_rim, base_uv).xy;
+	RIM = rim;// * rim_tex.x;// - basic_fresnel*2.5;
+	RIM_TINT = rim_tint;// * rim_tex.y;
+#endif
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r * ao_mult;
+	AO_LIGHT_AFFECT = ao_light_affect;
+
+#ifdef MY_SUBSURFACESCATTER
+	// Subsurface Scattering: Enabled
+	//float sss_tex = texture(texture_subsurface_scattering, base_uv).r;
+	SSS_STRENGTH = subsurface_scattering_strength;// * sss_tex;
+#endif
+
+#ifdef MY_BACKLIGHT
+	// Backlight: Enabled
+	//vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
+	BACKLIGHT = (backlight.rgb);// + backlight_tex);
+#endif
+
+#ifdef MY_ALPHAMASK
+	vec4 alpha_tex = texture(texture_alpha, base_uv);
+	ALPHA *= (1.0 - alpha_tex.r);
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+#endif
+
+#ifdef MY_ALPHASUPPORT
+	ALPHA *= albedo_tex.a*albedo.a;
+#endif
+
+#ifdef MY_GLOBALDETAILMAP
+	vec3 detail_norm_tex_global = texture(texture_detail_normal_global, base_uv*detail_normal_scale).rgb; // base_uv
+	detail_norm_tex_global = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+#endif
+
+#ifdef MY_GLOBALDETAILROUGHMAP
+	vec3 detail_rough_tex_global = texture(texture_detail_rough_global, base_uv*detail_rough_scale).rgb; // base_uv
+	detail_rough_tex_global.g = detail_rough_tex_global.g * (detail_rough_blend) + 1.0 - detail_rough_blend;
+
+	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m811r"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_plkf8")
+shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/rim = 1.75
+shader_parameter/rim_tint = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 0.25
+shader_parameter/subsurface_scattering_strength = 0.23
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.16
+shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
+shader_parameter/texture_detail_normal_global = ExtResource("3_4iue4")
+shader_parameter/detail_normal_scale = 40.0
+shader_parameter/detail_normal_blend = 0.3
+script = ExtResource("2_r3sbk")
+backlight = true
+freshnel = true
+rimlight = true
+subsurfaceScattering = true
+alphaMask = false
+uvBasedDiscard = true
+alphaSupport = false
+globalDetailMask = true
+globalDetailRoughMask = false
+colorMask = false
+eyeMode = false
+doubleSided = false
+toonShading = false
+clearCache = false
 
 [node name="FeminineBody" instance=ExtResource("1_2qxtl")]
+bodyMat = SubResource("ShaderMaterial_m811r")
 
-[node name="Skeleton3D" parent="rig" index="0"]
-bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/1/position = Vector3(-1.14971e-15, 0.0159897, 0.907657)
-bones/1/rotation = Quaternion(0.76936, 3.56185e-22, -5.56141e-15, 0.638816)
-bones/2/rotation = Quaternion(-0.07521, 8.73337e-15, 7.79517e-15, 0.997168)
-bones/2/scale = Vector3(1, 1, 1)
-bones/3/rotation = Quaternion(-0.106489, -4.09734e-15, -6.12173e-15, 0.994314)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.00227008, -1.19209e-07, -2.7062e-10, 0.999997)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/position = Vector3(0.0166712, 0.0949603, 0.0616833)
-bones/5/rotation = Quaternion(-0.558164, -0.318974, -0.380405, 0.664832)
-bones/5/scale = Vector3(1, 1, 1)
-bones/6/rotation = Quaternion(-0.13325, 0.70011, -0.454113, 0.534671)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(0.0996061, -6.12986e-06, -8.26334e-08, 0.995027)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/scale = Vector3(1, 0.999999, 1)
-bones/9/rotation = Quaternion(-0.069744, -0.000110621, -0.00177351, 0.997563)
-bones/9/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.0438214, -0.00388376, 0.022669, 0.998775)
-bones/13/rotation = Quaternion(0.031269, 9.74757e-05, -3.0331e-06, 0.999511)
-bones/13/scale = Vector3(1, 0.999998, 1)
-bones/14/rotation = Quaternion(0.0372355, -5.71234e-06, -3.06136e-07, 0.999306)
-bones/14/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(-0.0366681, 0.344571, 0.322806, 0.880751)
-bones/15/scale = Vector3(1, 1, 1)
-bones/16/rotation = Quaternion(0.060377, -4.54223e-06, 7.57804e-05, 0.998176)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(-0.00371572, -9.61147e-07, -0.000159851, 0.999993)
-bones/19/rotation = Quaternion(0.00805936, 0.00415746, 0.0208835, 0.999741)
-bones/20/rotation = Quaternion(0.023643, -1.52554e-06, -9.78109e-08, 0.99972)
-bones/20/scale = Vector3(1, 1, 1)
-bones/21/rotation = Quaternion(0.0145152, 4.47743e-07, -2.73355e-08, 0.999895)
-bones/23/rotation = Quaternion(-0.00637927, 0.01074, 0.0233498, 0.999649)
-bones/24/rotation = Quaternion(0.0437214, 0.00012212, -5.28576e-06, 0.999044)
-bones/24/scale = Vector3(1, 1, 1)
-bones/25/rotation = Quaternion(0.0154263, -4.46631e-06, -4.96775e-08, 0.999881)
-bones/25/scale = Vector3(1, 1, 1)
-bones/27/rotation = Quaternion(0.00717971, 0.0109784, 0.0223141, 0.999665)
-bones/28/rotation = Quaternion(0.0401171, 1.75892e-07, 4.49228e-08, 0.999195)
-bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(0.0281643, -9.05694e-07, -5.94043e-09, 0.999603)
-bones/29/scale = Vector3(1, 1, 1)
-bones/30/position = Vector3(-0.0166711, 0.0949603, 0.0616833)
-bones/30/rotation = Quaternion(-0.558163, 0.318974, 0.380405, 0.664832)
-bones/30/scale = Vector3(1, 1, 1)
-bones/31/rotation = Quaternion(-0.13325, -0.700109, 0.454113, 0.534671)
-bones/31/scale = Vector3(1, 1, 1)
-bones/32/rotation = Quaternion(0.0996051, 6.03019e-06, 4.57952e-07, 0.995027)
-bones/32/scale = Vector3(1, 1, 1)
-bones/33/scale = Vector3(0.999999, 1, 1)
-bones/34/rotation = Quaternion(-0.0697435, 0.00011044, 0.00177286, 0.997563)
-bones/34/scale = Vector3(1, 1, 1)
-bones/37/position = Vector3(2.65081e-08, 0.0567516, 1.91278e-07)
-bones/37/rotation = Quaternion(-0.0438214, 0.0038839, -0.0226691, 0.998775)
-bones/38/rotation = Quaternion(0.0312693, -9.77007e-05, 3.02916e-06, 0.999511)
-bones/38/scale = Vector3(1, 1, 1)
-bones/39/rotation = Quaternion(0.0372355, 5.83935e-06, 3.00225e-07, 0.999307)
-bones/39/scale = Vector3(1, 1, 1)
-bones/40/rotation = Quaternion(-0.0366681, -0.344571, -0.322806, 0.880751)
-bones/40/scale = Vector3(1, 1, 1)
-bones/41/rotation = Quaternion(0.0603771, 4.48251e-06, -7.58055e-05, 0.998176)
-bones/41/scale = Vector3(1, 1, 1)
-bones/42/rotation = Quaternion(-0.0037156, 9.55727e-07, 0.000159915, 0.999993)
-bones/44/position = Vector3(-8.80604e-09, 0.0603471, 3.95826e-08)
-bones/44/rotation = Quaternion(0.00805933, -0.00415742, -0.0208835, 0.999741)
-bones/45/rotation = Quaternion(0.0236435, 1.51338e-06, 3.94844e-08, 0.99972)
-bones/45/scale = Vector3(1, 0.999999, 1)
-bones/46/rotation = Quaternion(0.0145152, -4.47358e-07, 2.74323e-08, 0.999895)
-bones/48/position = Vector3(0.000216981, 0.0581256, -5.71334e-05)
-bones/48/rotation = Quaternion(-0.00637914, -0.0107401, -0.0233498, 0.999649)
-bones/49/rotation = Quaternion(0.0437218, -0.00012198, 5.25978e-06, 0.999044)
-bones/49/scale = Vector3(1, 1, 1)
-bones/50/rotation = Quaternion(0.0154263, 4.58737e-06, 4.91225e-08, 0.999881)
-bones/50/scale = Vector3(1, 1, 1)
-bones/52/rotation = Quaternion(0.00717969, -0.0109784, -0.0223141, 0.999665)
-bones/53/rotation = Quaternion(0.0401176, -1.55201e-07, -6.5363e-08, 0.999195)
-bones/53/scale = Vector3(1, 1, 1)
-bones/54/rotation = Quaternion(0.0281644, 9.01099e-07, 1.02878e-07, 0.999603)
-bones/54/scale = Vector3(1, 1, 1)
-bones/55/position = Vector3(-2.36515e-15, 0.17762, -1.57082e-08)
-bones/55/rotation = Quaternion(0.225422, 2.32282e-07, -4.16777e-14, 0.974261)
-bones/55/scale = Vector3(1, 1, 1)
-bones/56/rotation = Quaternion(-0.139655, -1.18041e-07, -1.66482e-08, 0.9902)
-bones/57/position = Vector3(0.0351934, 0.120868, -0.0439795)
-bones/57/rotation = Quaternion(0.692648, 0.165807, -0.124785, 0.690779)
-bones/57/scale = Vector3(1, 1, 1)
-bones/58/position = Vector3(-0.0351934, 0.120868, -0.0439795)
-bones/58/rotation = Quaternion(0.692648, -0.165807, 0.124785, 0.690779)
-bones/58/scale = Vector3(1, 1, 1)
-bones/59/position = Vector3(3.9003e-14, 0.10735, 0.0297468)
-bones/59/rotation = Quaternion(0.69487, -2.88617e-07, -2.78879e-07, 0.719135)
-bones/59/scale = Vector3(1, 1, 1)
-bones/63/rotation = Quaternion(0.992483, 0.0592881, -0.00167869, 0.107054)
-bones/63/scale = Vector3(1, 1, 1)
-bones/64/rotation = Quaternion(0.0714872, -1.52943e-06, 8.98487e-08, 0.997442)
-bones/64/scale = Vector3(1, 1, 1)
-bones/65/rotation = Quaternion(-0.589055, -0.0322485, 0.0503015, 0.805881)
-bones/65/scale = Vector3(1, 1, 1)
-bones/66/rotation = Quaternion(0.000206226, 0.991371, -0.131062, -0.00249642)
-bones/66/scale = Vector3(1, 1, 0.999992)
-bones/67/rotation = Quaternion(0.992483, -0.0592881, 0.00167869, 0.107054)
-bones/67/scale = Vector3(1, 1, 1)
-bones/68/rotation = Quaternion(0.0714872, 1.52943e-06, -8.98487e-08, 0.997442)
-bones/68/scale = Vector3(1, 1, 1)
-bones/69/rotation = Quaternion(-0.589055, 0.0322485, -0.0503015, 0.805881)
-bones/69/scale = Vector3(1, 1, 1)
-bones/70/rotation = Quaternion(-0.000206226, 0.991371, -0.131062, 0.00249642)
-bones/70/scale = Vector3(1, 1, 0.999992)
+[node name="Body" parent="rig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="DigiLegs" parent="rig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="FemaleCrotch" parent="rig/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="MaleCrotch" parent="rig/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="NeckConnector" parent="rig/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")
+
+[node name="PlantiLegs" parent="rig/Skeleton3D" index="8"]
+surface_material_override/0 = SubResource("ShaderMaterial_m811r")

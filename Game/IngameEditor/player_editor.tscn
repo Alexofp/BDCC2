@@ -278,7 +278,6 @@ layout_mode = 2
 [node name="SaveFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
 unique_name_in_owner = true
 size = Vector2i(567, 430)
-ok_button_text = "Save"
 access = 2
 filters = PackedStringArray("*.res")
 

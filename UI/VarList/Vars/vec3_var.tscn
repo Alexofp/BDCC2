@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ynhgacghc763"]
 
-[ext_resource type="Script" path="res://UI/VarList/Vars/vec_3_var.gd" id="1_qt7oa"]
+[ext_resource type="Script" uid="uid://cd8xnjo1lenpx" path="res://UI/VarList/Vars/vec_3_var.gd" id="1_qt7oa"]
 
 [node name="Vec3Var" type="VBoxContainer"]
 anchors_preset = 10

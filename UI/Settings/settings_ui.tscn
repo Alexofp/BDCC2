@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bl3xkx2qr7pgs"]
+
+[ext_resource type="Script" uid="uid://dt3ymfgrn0ra" path="res://UI/Settings/settings_ui.gd" id="1_1fc14"]
+[ext_resource type="PackedScene" uid="uid://dx63awl2m4mp1" path="res://UI/Settings/graphics_settings.tscn" id="1_eh5x6"]
+[ext_resource type="PackedScene" uid="uid://crptnf04fy3x8" path="res://UI/Settings/sound_settings.tscn" id="2_mbliq"]
+
+[node name="SettingsUI" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1fc14")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Sound" parent="VBoxContainer/TabContainer" instance=ExtResource("2_mbliq")]
+visible = false
+layout_mode = 2
+
+[node name="Graphics" parent="VBoxContainer/TabContainer" instance=ExtResource("1_eh5x6")]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save settings"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="DefaultSettingsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Defaults"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/DefaultSettingsButton" to="." method="_on_default_settings_button_pressed"]

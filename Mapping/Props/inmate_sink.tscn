@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3cc3kvador1j"]
 
 [ext_resource type="PackedScene" uid="uid://drutgb0dxyqp" path="res://Mapping/Props/Raw/InmateSink.glb" id="1_ep3ap"]
-[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_7h67h"]
+[ext_resource type="Script" uid="uid://y8y8q68ta03p" path="res://Mapping/PropBasic.gd" id="2_7h67h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xljd2"]
 size = Vector3(0.666667, 0.531996, 0.449925)

@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://jnn5wng7mhrd"]
+[gd_scene load_steps=4 format=3 uid="uid://jnn5wng7mhrd"]
 
 [ext_resource type="Script" uid="uid://cb1ykmcp88pkq" path="res://Mapping/World/doll_test.gd" id="1_xux33"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="2_5rl85"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqtup"]
+size = Vector3(0.3, 1.5, 0.3)
 
 [node name="DollTest" type="Node3D"]
 script = ExtResource("1_xux33")
 
 [node name="Doll" parent="." instance=ExtResource("2_5rl85")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_tqtup")

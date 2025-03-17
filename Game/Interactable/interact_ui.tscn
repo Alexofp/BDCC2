@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0jdqoifihgii"]
+
+[ext_resource type="Script" uid="uid://cu2k4jidl0qv1" path="res://Game/Interactable/interact_ui.gd" id="1_jxy44"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c07a3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxy44"]
+
+[node name="InteractUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_jxy44")
+
+[node name="ActionsList" type="ItemList" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -102.0
+offset_right = -35.0
+offset_bottom = 97.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c07a3")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jxy44")
+item_count = 2
+item_0/text = "Meow"
+item_1/text = "asd"

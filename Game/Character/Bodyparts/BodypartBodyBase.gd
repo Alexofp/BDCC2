@@ -3,6 +3,7 @@ class_name BodypartBodyBase
 
 var thickness:float = 0.5
 var legType:String = "planti" # planti digi
+var bodyLayers:Array = []
 
 func getBodypartType() -> String:
 	return BodypartType.Body
@@ -25,6 +26,13 @@ func getOptions() -> Dictionary:
 				["digi", "Digitigrade"],
 			],
 			editors = ["part"],
+		},
+		"bodyLayers": {
+			name = "Layers",
+			type = "texVarLayerList",
+			texType = TextureVariantType.BodyLayer,
+			texSubType = "def",
+			editors = ["skin"],
 		},
 	}
 

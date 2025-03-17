@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cde62aishg4dl"
+path="res://.godot/imported/Squish - Doggy Plap-002.wav-9645ef7047f1c3cb669a00bd5eb32d10.sample"
+
+[deps]
+
+source_file="res://Sounds/Plaps/Squish - Doggy Plap-002.wav"
+dest_files=["res://.godot/imported/Squish - Doggy Plap-002.wav-9645ef7047f1c3cb669a00bd5eb32d10.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

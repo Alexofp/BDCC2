@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbv6hg6no0qrn"]
+
+[ext_resource type="Script" uid="uid://dbavpf1recv8n" path="res://UI/InGameMenu/in_game_menu.gd" id="1_eycxj"]
+[ext_resource type="PackedScene" uid="uid://c3simn20mij3o" path="res://Game/Multiplayer/UI/multiplayer_info_list.tscn" id="2_qr8r0"]
+
+[node name="InGameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_eycxj")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+
+[node name="CharCreatorButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Character Creator"
+
+[node name="SandboxMenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sandbox Menu"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NicknameEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HostNorayButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Host noray"
+
+[node name="NoRayOIDEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Noray OID"
+
+[node name="JoinNorayButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Connect noray"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Host direct"
+
+[node name="IPAddressEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "IP address"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Connect by IP"
+
+[node name="MultiplayerInfoList" parent="." instance=ExtResource("2_qr8r0")]
+custom_minimum_size = Vector2(222, 111)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = -146.0
+offset_bottom = 110.0
+grow_horizontal = 0
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/CharCreatorButton" to="." method="_on_char_creator_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SandboxMenuButton" to="." method="_on_sandbox_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HostNorayButton" to="." method="_on_host_noray_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/JoinNorayButton" to="." method="_on_join_noray_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

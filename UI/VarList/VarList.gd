@@ -36,6 +36,10 @@ func setVars(_vars:Dictionary):
 			newWidget = preload("res://UI/VarList/Vars/dropdown_var.tscn").instantiate()
 		elif(theType in "slider"):
 			newWidget = preload("res://UI/VarList/Vars/slider_var.tscn").instantiate()
+		elif(theType in "texVarLayerList"):
+			newWidget = preload("res://UI/VarList/Vars/texture_variant_layers_var.tscn").instantiate()
+		elif(theType in "pattern"):
+			newWidget = preload("res://UI/VarList/Vars/pattern_var.tscn").instantiate()
 		
 		if(newWidget == null):
 			printerr("Uknown property type found: "+theType)
@@ -45,6 +49,10 @@ func setVars(_vars:Dictionary):
 		newWidget.id = dataID
 		newWidget.onValueChange.connect(onWidgetValueChange)
 		newWidget.setData(varLine)
+		
+		if(varLine.has("addSeparator") && varLine["addSeparator"]):
+			var newSep:HSeparator = HSeparator.new()
+			add_child(newSep)
 
 func onWidgetValueChange(id, value):
 	onVarChange.emit(id, value)

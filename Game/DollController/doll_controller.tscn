@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4gfcxs35bota"]
+
+[ext_resource type="Script" uid="uid://bg4x0l07nlv61" path="res://Game/DollController/doll_controller.gd" id="1_k0gws"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_n8w0r"]
+[ext_resource type="Script" uid="uid://be2cul3yhop6t" path="res://Game/Systems/Camera/DollCamera.gd" id="3_5wuau"]
+[ext_resource type="PackedScene" uid="uid://be7cu1ta28jdh" path="res://Game/Interactable/interactor.tscn" id="3_qvvrb"]
+[ext_resource type="PackedScene" uid="uid://b6s2blxqp3ylj" path="res://Game/DollController/doll_controls.tscn" id="5_5o600"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="7_pwrse"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n8w0r"]
+margin = 0.01
+radius = 0.3
+height = 1.8
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_k0gws"]
+length = 0.001
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gv77k"]
+properties/0/path = NodePath(".:noclip_on")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:syncPosition")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:syncRotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:characterID")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:state")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+
+[node name="DollController" type="CharacterBody3D"]
+script = ExtResource("1_k0gws")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_n8w0r")
+
+[node name="ModelRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Doll" parent="ModelRoot" instance=ExtResource("1_n8w0r")]
+unique_name_in_owner = true
+
+[node name="CameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("SeparationRayShape3D_k0gws")
+
+[node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm" node_paths=PackedStringArray("doll")]
+unique_name_in_owner = true
+fov = 60.0
+script = ExtResource("3_5wuau")
+doll = NodePath("../../..")
+cameraActive = true
+
+[node name="Interactor" parent="." node_paths=PackedStringArray("user") instance=ExtResource("3_qvvrb")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809213, 0)
+user = NodePath("..")
+
+[node name="DollControls" parent="." instance=ExtResource("5_5o600")]
+unique_name_in_owner = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_gv77k")
+public_visibility = false
+script = ExtResource("7_pwrse")

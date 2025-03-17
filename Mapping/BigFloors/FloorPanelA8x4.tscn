@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5yvaht1wsdht"]
 
 [ext_resource type="PackedScene" uid="uid://cpy2qrth3s1in" path="res://Mapping/BigFloors/Raw/FloorPanelA8x4.glb" id="1_muayf"]
-[ext_resource type="Script" path="res://Mapping/BigFloors/Panel.gd" id="2_g17n2"]
+[ext_resource type="Script" uid="uid://bugjv3tju06se" path="res://Mapping/BigFloors/Panel.gd" id="2_g17n2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i0ilp"]
 size = Vector3(8, 0.0685424, 4)

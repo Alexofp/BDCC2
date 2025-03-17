@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c010jg28no6wu"]
 
 [ext_resource type="PackedScene" uid="uid://cf0hnmn4nnbuy" path="res://Mapping/Props/Raw/ConstructionLightBoth.glb" id="1_eedrb"]
-[ext_resource type="Script" path="res://Mapping/Props/construction_light_both.gd" id="2_7ursy"]
+[ext_resource type="Script" uid="uid://bmvufvlt0fpcs" path="res://Mapping/Props/construction_light_both.gd" id="2_7ursy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ta3ub"]
 size = Vector3(1.10869, 1.96713, 0.99803)

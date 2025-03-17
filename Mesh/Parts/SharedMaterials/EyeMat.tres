@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://crsv57v2tbwqk"]
+
+[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Materials/MyBodyMat/MyEyeShader.gdshader" id="1_pel17"]
+[ext_resource type="Texture2D" uid="uid://72gdnq0laick" path="res://Mesh/Parts/SharedTextures/Eyes/eye_colormask.png" id="2_8immc"]
+[ext_resource type="Texture2D" uid="uid://b5qsa2fvvk5x0" path="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_Normal.png" id="3_y5bxh"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_pel17")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/texture_normal = ExtResource("3_y5bxh")
+shader_parameter/normal_scale = 1.0
+shader_parameter/clearcoat = 1.0
+shader_parameter/clearcoat_roughness = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("2_8immc")
+shader_parameter/colorR = Color(0, 0.4, 0.918, 1)
+shader_parameter/colorG = Color(0, 0.631, 1, 1)
+shader_parameter/colorB = Color(1, 1, 1, 1)
+shader_parameter/glowR = 0.1
+shader_parameter/glowG = 0.7
+shader_parameter/glowB = 0.0

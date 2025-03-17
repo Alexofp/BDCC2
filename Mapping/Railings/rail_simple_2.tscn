@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cqvnb6ortt8i" path="res://Mapping/Railings/Raw/RailSimple2.glb" id="1_7ws7p"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_kljj8"]
-[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_vgot7"]
+[ext_resource type="Script" uid="uid://b7dbefviswt4e" path="res://Mapping/Railings/rail.gd" id="2_vgot7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aka43"]
 size = Vector3(1.84, 1.01983, 0.0400003)

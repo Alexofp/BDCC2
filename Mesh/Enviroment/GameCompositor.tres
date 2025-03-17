@@ -1,0 +1,18 @@
+[gd_resource type="Compositor" load_steps=3 format=3 uid="uid://c6hes6c0mi07n"]
+
+[ext_resource type="Script" uid="uid://d4kptxb6tg5us" path="res://SMAA/SMAA.gd" id="1_op6aq"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_xa4f7"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("1_op6aq")
+quality = 3
+edge_detection_method = 1
+metadata/_custom_type_script = ExtResource("1_op6aq")
+
+[resource]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_xa4f7")])

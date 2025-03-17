@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d22nb5qh4tlor"]
+[gd_scene load_steps=10 format=3 uid="uid://d22nb5qh4tlor"]
 
 [ext_resource type="Script" uid="uid://bg6c7oprbl6l" path="res://doll_test.gd" id="1_n6qcd"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_uejsk"]
@@ -19,6 +19,90 @@ sdfgi_use_occlusion = true
 sdfgi_cascades = 1
 sdfgi_max_distance = 25.6
 
+[sub_resource type="Animation" id="Animation_rfw0t"]
+resource_name = "CameraZoom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [30.0, 12.7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.07501, 1.57707, 2.6871), Vector3(0.562, 1.737, 1.654)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.164061, 0.247837, 0), Vector3(-0.0523599, 0.247837, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t3sc1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.07501, 1.57707, 2.6871)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.164061, 0.247837, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mhs7p"]
+_data = {
+&"CameraZoom": SubResource("Animation_rfw0t"),
+&"RESET": SubResource("Animation_t3sc1")
+}
+
 [node name="DollTest" type="Node3D"]
 script = ExtResource("1_n6qcd")
 
@@ -31,9 +115,16 @@ transform = Transform3D(0.760406, -0.219992, 0.611053, 0, 0.940881, 0.338738, -0
 [node name="Doll" parent="." instance=ExtResource("1_uejsk")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.969312, -0.0715542, 0.235188, 0, 0.956702, 0.291069, -0.245832, -0.282137, 0.927343, 0.71621, 1.55816, 1.32155)
+transform = Transform3D(0.969445, -0.0400651, 0.242014, 0, 0.986572, 0.163326, -0.245308, -0.158336, 0.956428, 1.07501, 1.57707, 2.6871)
 current = true
+fov = 30.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CharacterCreator" parent="CanvasLayer" instance=ExtResource("3_f2yfk")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_mhs7p")
+}

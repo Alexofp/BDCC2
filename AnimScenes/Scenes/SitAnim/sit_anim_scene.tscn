@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://dp4uuiyogya06"]
+
+[ext_resource type="PackedScene" uid="uid://bf5g7hgjv6lyb" path="res://AnimScenes/anim_scene_base.tscn" id="1_a1rgy"]
+[ext_resource type="Script" uid="uid://cbcacg0hofk1j" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.gd" id="2_wah76"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="4_na0af"]
+[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="4_t1vil"]
+[ext_resource type="Script" uid="uid://dnxwp30h8nuwk" path="res://Game/Interactable/InteractActionResource.gd" id="5_t1vil"]
+[ext_resource type="AnimationLibrary" uid="uid://nn3cjmcfumow" path="res://Anims/Raw/BasicAnims.glb" id="6_8h8k3"]
+
+[sub_resource type="Resource" id="Resource_8h8k3"]
+script = ExtResource("5_t1vil")
+id = "sit"
+name = "Sit down"
+priority = 0
+args = []
+disabled = false
+hidden = false
+onlyWhenStanding = true
+metadata/_custom_type_script = "uid://dnxwp30h8nuwk"
+
+[sub_resource type="Resource" id="Resource_5c8vv"]
+script = ExtResource("5_t1vil")
+id = "unsit"
+name = "Get up"
+priority = 0
+args = []
+disabled = false
+hidden = false
+onlyWhenStanding = false
+metadata/_custom_type_script = "uid://dnxwp30h8nuwk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5c8vv"]
+animation = &"BasicAnims/Sit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8ohwo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wkw5c"]
+states/BasicAnims_Sit/node = SubResource("AnimationNodeAnimation_5c8vv")
+states/BasicAnims_Sit/position = Vector2(427, 100)
+transitions = ["Start", "BasicAnims_Sit", SubResource("AnimationNodeStateMachineTransition_8ohwo")]
+graph_offset = Vector2(-33, -13)
+
+[sub_resource type="Animation" id="Animation_2ceav"]
+resource_name = "asd"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjk27"]
+_data = {
+&"asd": SubResource("Animation_2ceav")
+}
+
+[node name="SitAnimScene" instance=ExtResource("1_a1rgy")]
+script = ExtResource("2_wah76")
+
+[node name="SitSpot" parent="." index="0" instance=ExtResource("4_na0af")]
+unique_name_in_owner = true
+
+[node name="Interactable" parent="." index="1" instance=ExtResource("4_t1vil")]
+unique_name_in_owner = true
+actionsResources = Array[ExtResource("5_t1vil")]([SubResource("Resource_8h8k3"), SubResource("Resource_5c8vv")])
+
+[node name="StandSpot" type="Marker3D" parent="." index="2"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.707047)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+unique_name_in_owner = true
+active = false
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_wkw5c")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+active = false
+libraries = {
+&"": SubResource("AnimationLibrary_rjk27"),
+&"BasicAnims": ExtResource("6_8h8k3")
+}
+
+[connection signal="onDollSwitch" from="SitSpot" to="." method="_on_sit_spot_on_doll_switch"]
+[connection signal="onPawnSwitch" from="SitSpot" to="." method="_on_sit_spot_on_pawn_switch"]
+[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://n18esd2ap2r0"]
+
+[ext_resource type="PackedScene" uid="uid://bl3xkx2qr7pgs" path="res://UI/Settings/settings_ui.tscn" id="1_hscln"]
+[ext_resource type="Script" uid="uid://disshewq7w0y" path="res://UI/Settings/in_game_settings.gd" id="1_r4l0i"]
+
+[node name="InGameSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_r4l0i")
+
+[node name="CenterContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.282986
+anchor_top = 0.268519
+anchor_right = 0.717014
+anchor_bottom = 0.731481
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsUI" parent="CenterContainer/PanelContainer" instance=ExtResource("1_hscln")]
+layout_mode = 2
+
+[connection signal="onCancelPressed" from="CenterContainer/PanelContainer/SettingsUI" to="." method="_on_settings_ui_on_cancel_pressed"]
+[connection signal="onSavePressed" from="CenterContainer/PanelContainer/SettingsUI" to="." method="_on_settings_ui_on_save_pressed"]

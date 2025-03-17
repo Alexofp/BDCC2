@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://clfb0e0x1uxi7"]
 
 [ext_resource type="PackedScene" uid="uid://b2ctnyodk212h" path="res://Mapping/Props/Raw/LampCeiling.glb" id="1_85uqx"]
-[ext_resource type="Script" path="res://Mapping/Props/lamp_ceiling.gd" id="2_00xts"]
+[ext_resource type="Script" uid="uid://c6wwlfqa6gi7n" path="res://Mapping/Props/lamp_ceiling.gd" id="2_00xts"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qytl1"]
 size = Vector3(1.49655, 0.170361, 0.5)

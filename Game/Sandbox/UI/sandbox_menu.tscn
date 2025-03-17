@@ -1,0 +1,92 @@
+[gd_scene load_steps=2 format=3 uid="uid://s5yh1e7kmjna"]
+
+[ext_resource type="Script" uid="uid://c3asq68g4eqb0" path="res://Game/Sandbox/UI/sandbox_menu.gd" id="1_3wu7w"]
+
+[node name="SandboxMenu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3wu7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sandbox menu"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Close"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Actions"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TestButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test button"
+
+[node name="SexSceneButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn sex scene"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pawn list"
+horizontal_alignment = 1
+
+[node name="PawnList" type="ItemList" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SwitchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Switch to"
+
+[node name="DeletePawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Delete pawn"
+
+[node name="AddPawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Add new pawn"
+
+[connection signal="pressed" from="VBoxContainer/Label/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/SwitchButton" to="." method="_on_switch_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/AddPawnButton" to="." method="_on_add_pawn_button_pressed"]

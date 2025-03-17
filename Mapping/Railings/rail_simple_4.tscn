@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://do0tmvbvfrrmu"]
 
 [ext_resource type="PackedScene" uid="uid://cwyy2hl3q8wsb" path="res://Mapping/Railings/Raw/RailSimple4.glb" id="1_p1ms2"]
-[ext_resource type="Script" path="res://Mapping/Railings/rail.gd" id="2_ce61m"]
+[ext_resource type="Script" uid="uid://b7dbefviswt4e" path="res://Mapping/Railings/rail.gd" id="2_ce61m"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_mfpc3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tua5e"]

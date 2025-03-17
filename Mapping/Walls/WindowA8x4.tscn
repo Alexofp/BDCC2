@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjc02adv4rin8"]
 
 [ext_resource type="PackedScene" uid="uid://ccytxu1qoknop" path="res://Mapping/Walls/Raw/WindowA8x4.glb" id="1_bt3jn"]
-[ext_resource type="Script" path="res://Mapping/PropBasic.gd" id="2_cqlcm"]
+[ext_resource type="Script" uid="uid://y8y8q68ta03p" path="res://Mapping/PropBasic.gd" id="2_cqlcm"]
 [ext_resource type="Material" uid="uid://d10511vx4f7ky" path="res://Mesh/Materials/GlassMat.tres" id="3_0wi4e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qqd4p"]

@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://cuxxmyiiqauvb"]
+
+[ext_resource type="AudioStream" uid="uid://yinv5ck75ilp" path="res://Sounds/Plaps/Squish - Doggy Plap-001.wav" id="1_ytsyc"]
+[ext_resource type="AudioStream" uid="uid://cde62aishg4dl" path="res://Sounds/Plaps/Squish - Doggy Plap-002.wav" id="2_b1g5k"]
+[ext_resource type="AudioStream" uid="uid://fiy5k1rk0sn4" path="res://Sounds/Plaps/Squish - Doggy Plap-003.wav" id="3_2685l"]
+[ext_resource type="AudioStream" uid="uid://cxy50q1768lio" path="res://Sounds/Plaps/Squish - Doggy Plap-004.wav" id="4_g51wb"]
+
+[resource]
+random_pitch = 1.2
+streams_count = 4
+stream_0/stream = ExtResource("1_ytsyc")
+stream_1/stream = ExtResource("2_b1g5k")
+stream_2/stream = ExtResource("3_2685l")
+stream_3/stream = ExtResource("4_g51wb")

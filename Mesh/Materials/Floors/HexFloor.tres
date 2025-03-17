@@ -9,13 +9,13 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_8brio")
+shader_parameter/texture_albedo = ExtResource("2_435yl")
+shader_parameter/texture_orm = ExtResource("5_073fo")
+shader_parameter/texture_normal = ExtResource("4_djlej")
 shader_parameter/ao_light_affect = 1.0
+shader_parameter/texture_heightmap = ExtResource("3_2jir4")
 shader_parameter/heightmap_scale = 4.0
 shader_parameter/heightmap_min_layers = 4
 shader_parameter/heightmap_max_layers = 8
 shader_parameter/heightmap_flip = Vector2(1, 1)
 shader_parameter/uv1_scale_final = 0.25
-shader_parameter/texture_albedo = ExtResource("2_435yl")
-shader_parameter/texture_orm = ExtResource("5_073fo")
-shader_parameter/texture_normal = ExtResource("4_djlej")
-shader_parameter/texture_heightmap = ExtResource("3_2jir4")

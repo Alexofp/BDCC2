@@ -1,3 +1,4 @@
+@tool
 extends "res://Mapping/Props/WallLight.gd"
 
 func applyEditorOption(_id, _value):

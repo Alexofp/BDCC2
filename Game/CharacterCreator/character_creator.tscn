@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("1_8ciux")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -21,11 +22,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Confirm"
 
 [node name="Control" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -72,6 +88,7 @@ layout_mode = 2
 
 [node name="OptionsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -84,6 +101,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="SkinTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SkinOptionsBigList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionsSelButton" to="." method="_on_options_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]

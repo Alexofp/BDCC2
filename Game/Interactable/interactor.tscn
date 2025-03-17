@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://be7cu1ta28jdh"]
+
+[ext_resource type="Script" uid="uid://b5iim4vvdfmra" path="res://Game/Interactable/interactor.gd" id="1_1ayas"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_rda17"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bdvxa"]
+height = 2.6
+radius = 1.6
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1ayas"]
+properties/0/path = NodePath(".:actionsSync")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="Interactor" type="Area3D"]
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+script = ExtResource("1_1ayas")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CylinderShape3D_bdvxa")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1ayas")
+public_visibility = false
+script = ExtResource("2_rda17")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

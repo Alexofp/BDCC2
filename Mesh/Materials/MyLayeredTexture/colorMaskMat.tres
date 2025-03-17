@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c0mgwhww0ibgj"]
+
+[ext_resource type="Shader" uid="uid://d3hjcvrrk0ji3" path="res://Mesh/Materials/MyLayeredTexture/colorMaskShader.gdshader" id="1_uvoin"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_uvoin")
+shader_parameter/colorR = Color(0, 0, 0, 1)
+shader_parameter/colorG = Color(0, 0, 0, 1)
+shader_parameter/colorB = Color(0, 0, 0, 1)

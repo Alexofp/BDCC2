@@ -71,6 +71,9 @@ static func getScriptsInFolder(folder: String):
 	return result
 
 static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
+	return getFilesInFolderSmart(folder, "gd", includeThisFolder, includeSubFolders, reqursive)
+
+static func getFilesInFolderSmart(folder: String, extension:String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
 	var result:Array = []
 	
 	var dir = DirAccess.open(folder)
@@ -88,7 +91,7 @@ static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, in
 				if(!includeThisFolder):
 					file_name = dir.get_next()
 					continue
-				if(file_name.get_extension() == "gd"):
+				if(file_name.get_extension() == extension):
 					var full_path = folder.path_join(file_name)
 					result.append(full_path)
 			file_name = dir.get_next()

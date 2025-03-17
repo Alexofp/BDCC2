@@ -12,6 +12,11 @@ class_name PCSceneLoader
 	set(value):
 		if(value):
 			doClearMap()
+@export var loadOnStart: bool = false
+
+func _ready() -> void:
+	if(loadOnStart && !Engine.is_editor_hint() && mapToLoad != null):
+		doLoadMap(mapToLoad)
 
 static func delete_children(node: Node):
 	for n in node.get_children():
@@ -39,11 +44,11 @@ func doLoadMap(theMap:PCEditorScene):
 			var newNode:Node3D = load(propPath).instantiate()
 			if(newNode == null):
 				printerr("PROP NOT FOUND: "+propPath)
-			add_child(newNode)
+			add_child(newNode, true)
 			newNode.owner = get_tree().edited_scene_root
 			newNode.transform = theTransform
 			if(newNode.has_method("applyEditorOption")):
-				if(!theSettings.is_empty()):
+				if(!theSettings.is_empty() && get_tree().edited_scene_root != null):
 					get_tree().edited_scene_root.set_editable_instance(newNode, true)
 				for settingID in theSettings:
 					newNode.applyEditorOption(settingID, theSettings[settingID])

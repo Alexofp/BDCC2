@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://botekdip48xy4"]
 
 [ext_resource type="PackedScene" uid="uid://bb5365y05rhpl" path="res://Mapping/Props/Raw/WallLightBig.glb" id="1_vdphg"]
-[ext_resource type="Script" path="res://Mapping/Props/WallLightBig.gd" id="2_dpfm8"]
+[ext_resource type="Script" uid="uid://3iy082bq1k4e" path="res://Mapping/Props/WallLightBig.gd" id="2_dpfm8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0gs2k"]
 size = Vector3(1.55161, 0.350314, 0.319992)

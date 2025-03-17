@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx63awl2m4mp1"]
+
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_2k3el"]
+[ext_resource type="Script" uid="uid://brwg57deouguj" path="res://UI/Settings/graphics_settings.gd" id="1_w8ab8"]
+
+[node name="GraphicsSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_w8ab8")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPSLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current FPS: 123
+MS: 12.3ms
+GPU memory used:"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsList" parent="VBoxContainer/ScrollContainer" instance=ExtResource("1_2k3el")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="onVarChange" from="VBoxContainer/ScrollContainer/SettingsList" to="." method="_on_settings_list_on_var_change"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://b47fsvv0ro6dw"]
+
+[ext_resource type="Script" uid="uid://dhg22mellct74" path="res://AnimScenes/pose_spot.gd" id="1_4drwq"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="3_oii2k"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dilbs"]
+
+[node name="PoseSpot" type="Marker3D"]
+script = ExtResource("1_4drwq")
+
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dilbs")
+script = ExtResource("3_oii2k")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

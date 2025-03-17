@@ -1,0 +1,204 @@
+[gd_scene load_steps=9 format=3 uid="uid://dguma6op74xwp"]
+
+[ext_resource type="PackedScene" uid="uid://dgmbw0x8pnbvm" path="res://Mesh/Parts/Tail/FelineTail/FelineTail.glb" id="1_hpuhi"]
+[ext_resource type="Script" uid="uid://c78v7i5euoayi" path="res://Mesh/Parts/Tail/FelineTail/feline_tail.gd" id="2_ks0ik"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_ro6fy"]
+[ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/FelineTail/TailMat.tres" id="4_ks0ik"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_tach6"]
+[ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/FelineTail/TailSkeletonModifier.gd" id="5_4lk77"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_ks0ik"]
+
+[sub_resource type="Resource" id="Resource_4lk77"]
+script = ExtResource("5_ks0ik")
+spring_freq = 1.0
+angular_damp = 5.0
+force_scale = 180.0
+linear_scale = 360.0
+swing_span = 1.0472
+gravity = Vector3(0, 0, 0)
+metadata/_custom_type_script = ExtResource("5_ks0ik")
+
+[node name="FelineTail" node_paths=PackedStringArray("fuzzyTail", "lionTip", "tailSkeletonModifier") instance=ExtResource("1_hpuhi")]
+script = ExtResource("2_ks0ik")
+fuzzyTail = NodePath("FelineTailRig/Skeleton3D/FelineTailFuzz")
+lionTip = NodePath("FelineTailRig/Skeleton3D/FelineTailLionTip")
+tailMat = ExtResource("4_ks0ik")
+tailSkeletonModifier = NodePath("FelineTailRig/Skeleton3D/TailSkeletonModifier")
+
+[node name="FelineTailRig" parent="." index="0"]
+script = ExtResource("3_ro6fy")
+attachPoint = "tail"
+
+[node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_ks0ik")
+
+[node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_4lk77")
+lenModificationBone = "DEF-Tail5"
+chainLength = 4
+metadata/_custom_type_script = "uid://586q2vbietnv"
+
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 2.98023e-08)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail1"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="3"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.217824)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail2"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="4"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.431051)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail3"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D4" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="5"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.64318)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail4"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D5" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="6"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.85613)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail5"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D6" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="7"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -1.06908)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_tach6")
+bone_name = "DEF-Tail6"
+properties = SubResource("Resource_4lk77")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="FelineTailFuzz" parent="FelineTailRig/Skeleton3D" index="8"]
+visible = false
+surface_material_override/0 = ExtResource("4_ks0ik")
+
+[node name="FelineTailLionTip" parent="FelineTailRig/Skeleton3D" index="9"]
+surface_material_override/0 = ExtResource("4_ks0ik")
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "TailWag"

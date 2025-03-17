@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://j3e10d4s7cfd"]
 
-[ext_resource type="Script" path="res://UI/VarList/Vars/bool_var.gd" id="1_arbfc"]
+[ext_resource type="Script" uid="uid://md67hxaxs4bi" path="res://UI/VarList/Vars/bool_var.gd" id="1_arbfc"]
 
 [node name="BoolVar" type="VBoxContainer"]
 anchors_preset = 10

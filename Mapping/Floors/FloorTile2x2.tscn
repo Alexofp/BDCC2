@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhyhtvnssxqgl"]
 
 [ext_resource type="PackedScene" uid="uid://b6di6oamtvkns" path="res://Mapping/Floors/Raw/FloorTile2x2.glb" id="1_4t5xk"]
-[ext_resource type="Script" path="res://Mapping/Floors/FloorTile.gd" id="2_s12pt"]
+[ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_s12pt"]
 [ext_resource type="Material" uid="uid://bpnd3c2selc2p" path="res://Mesh/Materials/Floors/ConcreteFloor.tres" id="3_cnf77"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4wbu3"]

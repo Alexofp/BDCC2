@@ -1,3 +1,4 @@
+@tool
 extends PropBasic
 
 func getEditorOptions() -> Dictionary:

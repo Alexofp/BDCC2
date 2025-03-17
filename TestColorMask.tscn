@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://fenkjqcn0kcx"]
+
+[ext_resource type="Script" uid="uid://b68uibxyipefs" path="res://test_color_mask.gd" id="1_oj8yj"]
+[ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="2_tu0ye"]
+[ext_resource type="PackedScene" uid="uid://dampae2pj0y8v" path="res://Mesh/Materials/MyLayeredTexture/color_mask_texture_rect.tscn" id="3_tu0ye"]
+[ext_resource type="Shader" uid="uid://d3hjcvrrk0ji3" path="res://Mesh/Materials/MyLayeredTexture/colorMaskShader.gdshader" id="4_g3oq7"]
+[ext_resource type="Texture2D" uid="uid://dcctjppxhifes" path="res://Mesh/Parts/SharedTextures/BodyLayers/Belly.png" id="5_ewdfu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3oq7"]
+resource_local_to_scene = true
+shader = ExtResource("4_g3oq7")
+shader_parameter/texture_color_mask = ExtResource("5_ewdfu")
+shader_parameter/colorR = Color(0.933333, 1, 0, 0)
+shader_parameter/colorG = Color(1, 0, 0, 1)
+shader_parameter/colorB = Color(1, 0, 0, 1)
+
+[node name="TestColorMask" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oj8yj")
+
+[node name="MyLayeredTexture" parent="." instance=ExtResource("2_tu0ye")]
+clearColor = Color(1, 0, 1, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorMaskTextureRect" parent="." instance=ExtResource("3_tu0ye")]
+material = SubResource("ShaderMaterial_g3oq7")
+layout_mode = 1
+offset_right = -468.0

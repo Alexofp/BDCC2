@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c5vf5k7e6g50l"
+path="res://.godot/imported/smaa_weight.glsl-5999720bbd144c899054a489e1112b7a.res"
+
+[deps]
+
+source_file="res://SMAA/smaa_weight.glsl"
+dest_files=["res://.godot/imported/smaa_weight.glsl-5999720bbd144c899054a489e1112b7a.res"]
+
+[params]
+

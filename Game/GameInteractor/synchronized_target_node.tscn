@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dehbj4uvvpyxd"]
+
+[ext_resource type="Script" uid="uid://chnsgo0ek88f3" path="res://Game/GameInteractor/synchronized_target_node.gd" id="1_kkgqf"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_wsggn"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wsggn"]
+properties/0/path = NodePath(".:UID")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="SynchronizedTargetNode" type="Node"]
+script = ExtResource("1_kkgqf")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wsggn")
+public_visibility = false
+script = ExtResource("2_wsggn")

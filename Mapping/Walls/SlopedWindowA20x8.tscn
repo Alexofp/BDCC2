@@ -25,6 +25,3 @@ editorOptionsEasy = {
 }
 }
 editorOptionsID = "slopedwindowbig"
-
-[node name="@StaticBody3D@26324" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

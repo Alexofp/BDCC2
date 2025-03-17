@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://br62bovpqjjlq"]
+
+[ext_resource type="Script" uid="uid://but715s56c418" path="res://Game/DollController/doll_holder.gd" id="1_n8qej"]
+
+[node name="DollHolder" type="Node3D"]
+script = ExtResource("1_n8qej")
+
+[node name="Dolls" type="Node3D" parent="."]
+unique_name_in_owner = true

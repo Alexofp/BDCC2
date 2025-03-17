@@ -1,3 +1,4 @@
+@tool
 extends PropBasic
 
 @export var floorMesh:MeshInstance3D
