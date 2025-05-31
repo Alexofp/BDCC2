@@ -4,6 +4,8 @@ var characterRegistry:CharacterRegistry
 var pawnRegistry:PawnRegistry
 var dollHolder:DollHolder
 var sitManager:SitManager
+var networkedNodes:NetworkedNodes
+var sexManager:SexManager
 
 var serverCommandObjects:Dictionary = {}
 var clientCommandObjects:Dictionary = {}
@@ -33,6 +35,8 @@ func saveFullNetworkData() -> Dictionary:
 		characterRegistry = characterRegistry.saveNetworkData(),
 		pawnRegistry = pawnRegistry.saveNetworkData(),
 		dolls = dollHolder.saveNetworkData(),
+		sexManager = sexManager.saveNetworkData(),
+		networkedNodes = networkedNodes.saveNetworkData(),
 		sitManager = sitManager.saveNetworkData(),
 	}
 
@@ -40,6 +44,8 @@ func loadFullNetworkData(_data:Dictionary):
 	characterRegistry.loadNetworkData(SAVE.loadVar(_data, "characterRegistry", {}))
 	pawnRegistry.loadNetworkData(SAVE.loadVar(_data, "pawnRegistry", {}))
 	dollHolder.loadNetworkData(SAVE.loadVar(_data, "dolls", {}))
+	sexManager.loadNetworkData(SAVE.loadVar(_data, "sexManager", {}))
+	networkedNodes.loadNetworkData(SAVE.loadVar(_data, "networkedNodes", {}))
 	sitManager.loadNetworkData(SAVE.loadVar(_data, "sitManager", {}))
 
 func registerOnServerCommand(_command:int, _theObj:Object, functionName:String, callType:int, argsList:Array):

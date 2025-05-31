@@ -16,7 +16,7 @@ func _init():
 func getName() -> String:
 	return "Feline head"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Head/FelineHead/feline_head.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:
@@ -32,7 +32,7 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "FelineHead",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 
 	return theOptions

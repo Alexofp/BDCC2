@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceqrt2ibv85tj"]
+
+[ext_resource type="Script" uid="uid://co5xei1ylw516" path="res://Util/SomeTests/CollisionShapekeys/CollisionShapeWithShapeKeys.gd" id="1_n5sba"]
+[ext_resource type="Resource" uid="uid://w1j4t8o6j6cu" path="res://Util/SomeTests/CollisionShapekeys/TestShapeKeyCol.tres" id="2_l0rck"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_l0rck"]
+data = PackedVector3Array(-1, -1.20958, 1, -1, 0.790424, -1, -1, 0.790424, 1, -1, -1.20958, 1, -1, -1.20958, -1, -1, 0.790424, -1, -1, -1.20958, -1, 2.72782, 1.22761, -1, -1, 0.790424, -1, -1, -1.20958, -1, 2.72782, -0.772392, -1, 2.72782, 1.22761, -1, 2.72782, -0.772392, -1, 2.72782, 1.22761, 1, 2.72782, 1.22761, -1, 2.72782, -0.772392, -1, 2.72782, -0.772392, 1, 2.72782, 1.22761, 1, 2.72782, -0.772392, 1, -1, 0.790424, 1, 2.72782, 1.22761, 1, 2.72782, -0.772392, 1, -1, -1.20958, 1, -1, 0.790424, 1, -1, -1.20958, -1, 2.72782, -0.772392, 1, 2.72782, -0.772392, -1, -1, -1.20958, -1, -1, -1.20958, 1, 2.72782, -0.772392, 1, 2.72782, 1.22761, -1, -1, 0.790424, 1, -1, 0.790424, -1, 2.72782, 1.22761, -1, 2.72782, 1.22761, 1, -1, 0.790424, 1)
+
+[node name="ShapeKeysAnimatableBody3D" type="AnimatableBody3D"]
+
+[node name="CollisionShapeWithShapeKeys" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_l0rck")
+script = ExtResource("1_n5sba")
+shapeWithShapeKeys = ExtResource("2_l0rck")
+shapeKeySettings = Dictionary[String, float]({
+"ShapeA": 0.61,
+"ShapeB": 0.46
+})
+metadata/_custom_type_script = "uid://co5xei1ylw516"

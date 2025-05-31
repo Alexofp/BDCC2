@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://q2df1o3dycie"]
+
+[ext_resource type="Script" uid="uid://bg8w4bcorduei" path="res://Mesh/Cum/NurbsCum/sticky_rigid.gd" id="1_5ey8l"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5ey8l"]
+rough = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_5ey8l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ey8l"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.32549)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ey8l"]
+radius = 0.0157068
+
+[node name="StickyRigid" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_5ey8l")
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_5ey8l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0318735, 0, 0, 0, 0.0318735, 0, 0, 0, 0.0318735, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_5ey8l")
+surface_material_override/0 = SubResource("StandardMaterial3D_5ey8l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_5ey8l")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

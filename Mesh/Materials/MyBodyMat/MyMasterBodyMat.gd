@@ -50,9 +50,17 @@ class_name MyMasterBodyMat
 	set(value):
 		doubleSided = value
 		updateShader()
+@export var outline:bool = false:
+	set(value):
+		outline = value
+		updateShader()
 @export var toonShading:bool = false:
 	set(value):
 		toonShading = value
+		updateShader()
+@export var cumLayer:bool = false:
+	set(value):
+		cumLayer = value
 		updateShader()
 		
 @export var clearCache:bool = false:
@@ -79,6 +87,8 @@ func copyFrom(otherShader:MyMasterBodyMat, ignoreUniforms:Array = []):
 	eyeMode = otherShader.eyeMode
 	doubleSided = otherShader.doubleSided
 	toonShading = otherShader.toonShading
+	outline = otherShader.outline
+	cumLayer = otherShader.cumLayer
 	updateShader()
 	#var allUniforms:Array = shader.get_shader_uniform_list()
 	for theUniformName in uniformNames:
@@ -116,8 +126,12 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("cm")
 	if(doubleSided):
 		theFlags.append("ds")
+	if(outline):
+		theFlags.append("ou")
 	if(eyeMode):
 		theFlags.append("em")
+	if(cumLayer):
+		theFlags.append("cl")
 	return Util.join(theFlags, "|")
 
 func calculateShaderResource() -> Array:
@@ -150,8 +164,12 @@ func calculateShaderResource() -> Array:
 		defines.append("MY_COLORMASK")
 	if(doubleSided):
 		defines.append("MY_DOUBLESIDED")
+	if(outline):
+		defines.append("MY_OUTLINE")
 	if(eyeMode):
 		defines.append("MY_EYEMODE")
+	if(cumLayer):
+		defines.append("MY_CUMLAYER")
 	var definesText:String = ""
 	for define in defines:
 		definesText += "#define "+define+"\n"

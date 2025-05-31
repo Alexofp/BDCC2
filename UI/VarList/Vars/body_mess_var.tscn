@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsoah8k88ujei"]
+
+[ext_resource type="Script" uid="uid://bamauolh7orkw" path="res://UI/VarList/Vars/body_mess_var.gd" id="1_fxxft"]
+
+[node name="BodyMessVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_fxxft")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="MessEntriesList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

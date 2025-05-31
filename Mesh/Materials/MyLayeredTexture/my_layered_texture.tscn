@@ -26,3 +26,9 @@ size_flags_vertical = 3
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CacheTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="CacheTimer" to="." method="_on_cache_timer_timeout"]

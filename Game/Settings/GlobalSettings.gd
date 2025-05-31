@@ -8,8 +8,8 @@ var sounds:SoundSettings = SoundSettings.new()
 
 signal changedCharTextureQuality
 
-func _init() -> void:
-	GlobalRegistry.doInit()
+#func _init() -> void:
+	#GlobalRegistry.doInit()
 
 func _ready() -> void:
 	if(!ShaderPrecompScreen.didPrecomp && ProjectSettings.get("BDCC2/precompile_shaders")): # && false

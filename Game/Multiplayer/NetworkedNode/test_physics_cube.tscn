@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://7lt6qtcqipj"]
+
+[ext_resource type="Script" uid="uid://x60xwh7dgbkt" path="res://Game/Multiplayer/NetworkedNode/test_physics_cube.gd" id="1_oq1o7"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_ssytu"]
+[ext_resource type="PackedScene" uid="uid://fdc6jyseehm2" path="res://AnimScenes/Scenes/SitAnim/sit_anim_handler.tscn" id="3_6b1jw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fl8to"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oq1o7"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6b1jw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="TestPhysicsCube" type="RigidBody3D" groups=["Networked"]]
+script = ExtResource("1_oq1o7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fl8to")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_oq1o7")
+
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+delta_interval = 0.1
+replication_config = SubResource("SceneReplicationConfig_6b1jw")
+script = ExtResource("2_ssytu")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
+
+[node name="SitAnimHandler" parent="." instance=ExtResource("3_6b1jw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.196948)

@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://86vyk8f23mah"]
+
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_7ajhi"]
+[ext_resource type="Script" uid="uid://7yn8pc5re2qc" path="res://Game/CharacterCreator/char_creator_wizard_window.gd" id="1_sflvd"]
+
+[node name="CharCreatorWizardWindow" type="ConfirmationDialog"]
+auto_translate_mode = 1
+title = "Character Creator Wizard"
+size = Vector2i(400, 300)
+visible = true
+script = ExtResource("1_sflvd")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharWizardVarList" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_7ajhi")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="onVarChange" from="ScrollContainer/VBoxContainer/CharWizardVarList" to="." method="_on_char_wizard_var_list_on_var_change"]

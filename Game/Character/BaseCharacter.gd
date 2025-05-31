@@ -2,8 +2,22 @@ extends RefCounted
 class_name BaseCharacter
 
 var id:String = ""
-var bodyparts:Dictionary = {}
+var bodyparts:Dictionary[int, BodypartBase] = {}
 var skinTypes:Dictionary = {}
+
+var charName:String = "New character"
+var gender:GenderPronounsProfile = GenderPronounsProfile.new()
+var species:SpeciesProfile = SpeciesProfile.new()
+var thickness:float = 1.0
+var weightDistribution:float = 0.0
+var muscles:float = 0.0
+var voice:VoiceProfile = VoiceProfile.new()
+var inventory:Inventory = Inventory.new()
+var walkAnim:String = Doll.WALK_UNISEX
+var idleAnim:String = Doll.IDLE_NORMAL1
+
+var charState:CharState = CharState.new()
+var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
 
 signal onBodypartChange(slot, newpart)
 signal onBodypartOptionChange(slot, optionID, newvalue)
@@ -12,14 +26,24 @@ signal onGenericPartOptionChange(genericType, id, optionID, newvalue)
 signal onBodypartSkinTypeChange(slot, skinType, skinTypeData)
 signal onBodypartSkinTypeOverrideSwitch(slot)
 signal onBaseSkinTypeChange(skinType, skinTypeData)
+signal onCharOptionChange(changeID)
+signal onEquippedItemChange(slot, newItem)
 
-const GENERIC_BODYPARTS = "body"
-const GENERIC_CLOTHING = "clo"
+const GENERIC_BODYPARTS = 0
+const GENERIC_CLOTHING = 1
 
 func getID() -> String:
 	return id
 
 func _init():
+	inventory.onEquippedItemChange.connect(onInventoryEquipItemChange)
+	inventory.onEquippedItemOptionChange.connect(onInventoryEquipItemOptionChangeCallback)
+	inventory.setCharacter(self)
+	
+	#inventory.setEquippedItem(InventorySlot.Eyes, GlobalRegistry.createItem("Blindfold"))
+	
+	charState.setCharacter(self)
+	
 	var body:BodypartBodyBase = load("res://Game/Character/Bodyparts/Body/FeminineBody.gd").new()
 	addBodypart(BodypartSlot.Body, body)
 	
@@ -28,8 +52,16 @@ func _init():
 	
 	#body.setOptionValue("thickness", 2.0)
 	#body.setOptionValue("thickness", 0.0)
+	pass
 
-func addBodypart(slot:String, part:BodypartBase):
+func onInventoryEquipItemChange(_slot:int, _item:ItemBase):
+	onEquippedItemChange.emit(_slot, _item)
+	onGenericPartChange.emit(GENERIC_CLOTHING, _slot, _item)
+
+func onInventoryEquipItemOptionChangeCallback(optionID:String, value, _part:ItemBase, slot:int):
+	onGenericPartOptionChange.emit(GENERIC_CLOTHING, slot, optionID, value)
+
+func addBodypart(slot:int, part:BodypartBase):
 	if(part == null):
 		clearBodypart(slot)
 		return
@@ -46,11 +78,11 @@ func addBodypart(slot:String, part:BodypartBase):
 	onBodypartChange.emit(slot, part)
 	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, part)
 
-func clearBodypart(slot:String):
+func clearBodypart(slot:int):
 	if(!bodyparts.has(slot)):
 		return
 	var part:BodypartBase = bodyparts[slot]
-	part.currentSlot = ""
+	part.currentSlot = -1
 	part.onOptionChanged.disconnect(onBodypartOptionChangeCallback.bind(part, slot))
 	part.setCharacter(null)
 	bodyparts.erase(slot)
@@ -58,18 +90,18 @@ func clearBodypart(slot:String):
 	onBodypartChange.emit(slot, null)
 	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, null)
 
-func getBodypart(slot:String) -> BodypartBase:
+func getBodypart(slot:int) -> BodypartBase:
 	if(!bodyparts.has(slot)):
 		return null
 	return bodyparts[slot]
 
-func hasBodypart(slot:String) -> bool:
+func hasBodypart(slot:int) -> bool:
 	return bodyparts.has(slot)
 
-func getBodyparts() -> Dictionary:
+func getBodyparts() -> Dictionary[int, BodypartBase]:
 	return bodyparts
 
-func onBodypartOptionChangeCallback(optionID:String, value, _part:BodypartBase, slot:String):
+func onBodypartOptionChangeCallback(optionID:String, value, _part:BodypartBase, slot:int):
 	onBodypartOptionChange.emit(slot, optionID, value)
 	onGenericPartOptionChange.emit(GENERIC_BODYPARTS, slot, optionID, value)
 
@@ -81,33 +113,35 @@ func getGenericParts() -> Dictionary:
 		bodypartResult[bodypartSlot] = bodyparts[bodypartSlot]
 	result[GENERIC_BODYPARTS] = bodypartResult
 	
-	# Implement clothing
-	result[GENERIC_CLOTHING] = {}
+	var itemResult:Dictionary = {}
+	for invSlot in inventory.getEquippedItems():
+		itemResult[invSlot] = inventory.getEquippedItem(invSlot)
+	result[GENERIC_CLOTHING] = itemResult
 	return result
 
-func getGenericPart(_genericType:String, _id:String) -> GenericPart:
+func getGenericPart(_genericType:int, _id:int) -> GenericPart:
 	if(_genericType == GENERIC_BODYPARTS):
 		return getBodypart(_id)
 	if(_genericType == GENERIC_CLOTHING):
-		assert(false, "IMPLEMENT ME")
+		return inventory.getEquippedItem(_id)
 	return null
 
 #func addBodypart(slot:String, part:BodypartBase):
-func addGenericPart(_genericType:String, slot:String, part:GenericPart):
+func addGenericPart(_genericType:int, slot:int, part:GenericPart):
 	if(_genericType == GENERIC_BODYPARTS):
 		addBodypart(slot, part)
 		return
 	if(_genericType == GENERIC_CLOTHING):
-		assert(false, "IMPLEMENT ME")
+		inventory.setEquippedItem(slot, part)
 		return
 	Log.Printerr("Trying to add a generic part of unknown type: "+str(_genericType))
 
-func removeGenericPart(_genericType:String, slot:String):
+func removeGenericPart(_genericType:int, slot:int):
 	if(_genericType == GENERIC_BODYPARTS):
 		clearBodypart(slot)
 		return
 	if(_genericType == GENERIC_CLOTHING):
-		assert(false, "IMPLEMENT ME")
+		inventory.removeEquippedItem(slot)
 		return
 	Log.Printerr("Trying to remove a generic part of unknown type: "+str(_genericType))
 
@@ -169,7 +203,7 @@ func getBaseSkinTypeDatas() -> Dictionary:
 	return skinTypes
 
 ## Main method for setting the skin type of a bodypart. Will throw an error if you try to pass in an unsupported skin type
-func setSkinTypeForSlot(bodypartSlot:String, newSkinType:String):
+func setSkinTypeForSlot(bodypartSlot:int, newSkinType:String):
 	if(!hasBodypart(bodypartSlot)):
 		return
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -189,7 +223,7 @@ func setSkinTypeForSlot(bodypartSlot:String, newSkinType:String):
 		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
 
 ## Main method for setting the skin data of a bodypart. If you pass null data, the base data will be used
-func setSkinTypeDataForSlot(bodypartSlot:String, newSkinData:SkinTypeData):
+func setSkinTypeDataForSlot(bodypartSlot:int, newSkinData:SkinTypeData):
 	if(!hasBodypart(bodypartSlot)):
 		return
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -205,7 +239,7 @@ func setSkinTypeDataForSlot(bodypartSlot:String, newSkinData:SkinTypeData):
 	if(hadOverrideBefore != haveOverrideNow || oldSkinType != theBodypart.skinType):
 		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
 	
-func updateSkinForSlot(bodypartSlot:String):
+func updateSkinForSlot(bodypartSlot:int):
 	if(!hasBodypart(bodypartSlot)):
 		return
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -237,6 +271,224 @@ func clearBodyparts():
 	for bodypartSlot in bodyparts.keys():
 		clearBodypart(bodypartSlot)
 	
+func getGenderProfile() -> GenderPronounsProfile:
+	return gender
+
+func getGenderName() -> String:
+	return gender.getGenderName()
+
+func getName() -> String:
+	return charName
+
+func getSexVoiceID() -> String:
+	return voice.getSexVoiceID()
+
+func getSexVoice() -> SexVoiceBase:
+	return voice.getSexVoice()
+
+func getVoiceProfile() -> VoiceProfile:
+	return voice
+
+func getCharOptionsFinalWithValues() -> Dictionary:
+	return getCharOptions()
+
+func getCharOptions() -> Dictionary:
+	return {
+		CharOption.name: {
+			name = "Name",
+			type = "stringWindow",
+			value = charName,
+			charNameFilter = true,
+		},
+		CharOption.gender: {
+			name = "Gender",
+			type = "genderProfile",
+			value = gender.saveData(),
+		},
+		CharOption.species: {
+			name = "Species",
+			type = "speciesProfile",
+			value = species.saveData(),
+		},
+		CharOption.thickness: {
+			name = "Thickness",
+			type = "slider",
+			min = 0.0,
+			max = 2.0,
+			value = thickness,
+		},
+		CharOption.weightDistribution: {
+			name = "Weight distribution",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = weightDistribution,
+		},
+		CharOption.muscles: {
+			name = "Muscles",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = muscles,
+		},
+		CharOption.voice: {
+			name = "Voice",
+			type = "sexVoice",
+			value = voice.saveData(),
+		},
+		CharOption.idleAnim: {
+			name = "Idle style",
+			type = "selector",
+			value = idleAnim,
+			values = Doll.IDLE_PICKABLE_ANIMS,
+		},
+		CharOption.walkAnim: {
+			name = "Walk style",
+			type = "selector",
+			value = walkAnim,
+			values = Doll.WALK_PICKABLE_ANIMS,
+		},
+		"bodyMess": {
+			name = "Body mess",
+			type = "bodyMess",
+			value = fluids.saveData(),
+			editors = [GenericPart.EDITOR_INTERACT],
+		},
+	}
+
+func getSyncOptions() -> Array[String]:
+	return [
+		CharOption.name,
+		CharOption.gender,
+		CharOption.species,
+		CharOption.thickness,
+		CharOption.weightDistribution,
+		CharOption.muscles,
+		CharOption.voice,
+		CharOption.idleAnim,
+		CharOption.walkAnim,
+		"bodyMess",
+	]
+
+func getSyncOptionValue(_id:String):
+	if(_id == CharOption.name):
+		return charName
+	elif(_id == CharOption.gender):
+		return gender.saveData()
+	elif(_id == CharOption.species):
+		return species.saveData()
+	elif(_id == CharOption.thickness):
+		return thickness
+	elif(_id == CharOption.weightDistribution):
+		return weightDistribution
+	elif(_id == CharOption.muscles):
+		return muscles
+	elif(_id == CharOption.voice):
+		return voice.saveData()
+	elif(_id == CharOption.idleAnim):
+		return idleAnim
+	elif(_id == CharOption.walkAnim):
+		return walkAnim
+	elif(_id == "bodyMess"):
+		return fluids.saveData()
+
+func applyCharChange(_id:String, _value):
+	if(_id == CharOption.name):
+		charName = _value
+	elif(_id == CharOption.gender):
+		gender.loadData(_value)
+	elif(_id == CharOption.species):
+		species.loadData(_value)
+	elif(_id == CharOption.thickness):
+		thickness = _value
+	elif(_id == CharOption.weightDistribution):
+		weightDistribution = _value
+	elif(_id == CharOption.muscles):
+		muscles = _value
+	elif(_id == CharOption.voice):
+		voice.loadData(_value)
+	elif(_id == CharOption.idleAnim):
+		idleAnim = _value
+	elif(_id == CharOption.walkAnim):
+		walkAnim = _value
+	elif(_id == "bodyMess"):
+		fluids.loadData(_value)
+		
+	onCharOptionChange.emit(_id)
+
+func processTime(_dt:float):
+	charState.processTime(_dt)
+
+func getBodyMess() -> FluidsOnBodyProfile:
+	return fluids
+
+func getCharState() -> CharState:
+	return charState
+
+func addArousal(_howMuch:float):
+	charState.addArousal(_howMuch)
+
+func setArousal(_howMuch:float):
+	charState.setArousal(_howMuch)
+
+func getArousal() -> float:
+	return charState.getArousal()
+
+func resetToBaseEditorState():
+	for bodypartSlot in bodyparts.keys():
+		removeGenericPart(GENERIC_BODYPARTS, bodypartSlot)
+	
+	var speciesMain:SpeciesBase = GlobalRegistry.getSpecies(species.getMainSpeciesID())
+	
+	var bodypartsTemplate:Dictionary = speciesMain.getCharacterCreatorPartsTemplate(gender.getGender())
+	
+	for bodypartSlot in bodypartsTemplate:
+		var bodypartEntry:Dictionary = bodypartsTemplate[bodypartSlot]
+		var bodypartID:String = bodypartEntry["id"]
+		var bodypartData:Dictionary = bodypartEntry["data"] if bodypartEntry.has("data") else {}
+		
+		var theBodypart:BodypartBase = GlobalRegistry.createBodypart(bodypartID)
+		if(!theBodypart):
+			continue
+		addBodypart(bodypartSlot, theBodypart)
+		if(bodypartEntry.has("skinType")):
+			setSkinTypeForSlot(bodypartSlot, bodypartEntry["skinType"])
+		
+		for optionID in bodypartData:
+			theBodypart.setOptionValue(optionID, bodypartData[optionID])
+
+func hasBodypartID(_partID:String) -> bool:
+	for bodypartSlot in bodyparts:
+		if(bodyparts[bodypartSlot].id == _partID):
+			return true
+	return false
+
+func getInventory() -> Inventory:
+	return inventory
+
+func getWalkAnim() -> String:
+	if(inventory.shouldHobbleLegs()):
+		return Doll.WALK_HOBBLED
+	return walkAnim
+	
+func getIdleAnim() -> String:
+	return idleAnim
+
+func getWalkSpeed() -> float:
+	if(inventory.shouldHobbleLegs()):
+		return 0.5
+	return 1.0
+
+func canSprint() -> bool:
+	if(inventory.shouldHobbleLegs()):
+		return false
+	return true
+	
+func getJumpHeight() -> float:
+	if(inventory.shouldHobbleLegs()):
+		return 0.5
+	return 1.0
+
 func saveNetworkData() -> Dictionary:
 	var skinTypesData:Dictionary = {}
 	for skinType in skinTypes:
@@ -245,14 +497,20 @@ func saveNetworkData() -> Dictionary:
 	var bodypartsData:Dictionary = {}
 	for bodypartSlot in bodyparts:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
-		bodypartsData[bodypartSlot] = {
+		bodypartsData[str(bodypartSlot)] = {
 			id = theBodypart.id,
 			data = theBodypart.saveNetworkData(),
 		}
 	
+	var charData:Dictionary = {}
+	for syncOption in getSyncOptions():
+		charData[syncOption] = getSyncOptionValue(syncOption)
+	
 	return {
 		skinTypes = skinTypesData,
 		bodyparts = bodypartsData,
+		charData = charData,
+		charState = charState.saveNetworkedData(),
 	}
 
 func loadNetworkData(_data:Dictionary):
@@ -271,8 +529,8 @@ func loadNetworkData(_data:Dictionary):
 		clearBodyparts()
 		
 		var bodypartsData:Dictionary = SAVE.loadVar(_data, "bodyparts", {})
-		for bodypartSlot in bodypartsData:
-			var bodypartData:Dictionary = SAVE.loadVar(bodypartsData, bodypartSlot, {})
+		for bodypartSlotStr in bodypartsData:
+			var bodypartData:Dictionary = SAVE.loadVar(bodypartsData, str(bodypartSlotStr), {})
 			var bodypartID:String = SAVE.loadVar(bodypartData, "id", "")
 			if(bodypartID == ""):
 				Log.Printerr("Empty bodypart ID received in BaseCharacter.loadNetworkData")
@@ -282,4 +540,12 @@ func loadNetworkData(_data:Dictionary):
 				Log.Printerr("Bad bodypart id in BaseCharacter.loadNetworkData, id='"+str(bodypartID)+"'")
 				continue
 			theBodypart.loadNetworkData(SAVE.loadVar(bodypartData, "data", {}))
-			addBodypart(bodypartSlot, theBodypart)
+			addBodypart(int(bodypartSlotStr), theBodypart)
+	
+	if(_data.has("charData")):
+		var charData:Dictionary = SAVE.loadVar(_data, "charData", {})
+		for syncOption in charData:
+			applyCharChange(syncOption, charData[syncOption])
+	
+	if(_data.has("charState")):
+		charState.loadNetworkedData(SAVE.loadVar(_data, "charState", {}))

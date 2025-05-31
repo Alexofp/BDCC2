@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dee8o1kt4bhsi"]
+
+[ext_resource type="Script" uid="uid://dsoyj5rrsc6fx" path="res://Mesh/Util/simple_chain.gd" id="1_qgs43"]
+[ext_resource type="Material" uid="uid://ck05wgk4h16vd" path="res://Mesh/Util/SimpleChainMat.tres" id="2_3fx58"]
+
+[sub_resource type="Curve3D" id="Curve3D_qlw4l"]
+resource_local_to_scene = true
+bake_interval = 0.1
+_data = {
+"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.1, 0, 0, 0, 0.252402, 0, -0.1, 0, 0, 0, 0, 0, 0, -0.173227),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="SimpleChain" type="Path3D"]
+curve = SubResource("Curve3D_qlw4l")
+script = ExtResource("1_qgs43")
+curve_mode = 1
+iter_add_last_point = false
+uv_size = 1.012
+material = ExtResource("2_3fx58")

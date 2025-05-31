@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://difsomh3whhfj"]
+
+[ext_resource type="Script" uid="uid://df24brbn3gx2m" path="res://UI/VarList/Vars/face_override_var.gd" id="1_swb4t"]
+
+[node name="FaceOverrideVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_swb4t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="OverrideList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

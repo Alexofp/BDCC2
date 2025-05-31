@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://1rej4olu07lf"]
+
+[ext_resource type="Script" uid="uid://dl5jqb0bvxu48" path="res://Mesh/Clothing/InmateCuffs/inmate_wrist_cuffs.gd" id="1_s5f2n"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_kg8ds"]
+[ext_resource type="PackedScene" uid="uid://dyyn8wgr5l3un" path="res://Mesh/Clothing/InmateCuffs/InmateCuff.tscn" id="3_6eew5"]
+[ext_resource type="PackedScene" uid="uid://dee8o1kt4bhsi" path="res://Mesh/Util/SimpleChain.tscn" id="4_kau36"]
+[ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="5_b18bc"]
+
+[sub_resource type="Curve3D" id="Curve3D_fddo3"]
+resource_local_to_scene = true
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.1, 0, 0.0907618, 0, 0.00159595, 0, -0.1, 0, 0, 0, 0, -0.0437978, 0, 0.000452533),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3wf7"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_b18bc")
+shader_parameter/twirl_aspect = 0.5
+shader_parameter/extra_angle = 0.0
+shader_parameter/line_width = 0.011
+shader_parameter/link_radius = 0.15
+shader_parameter/link_thickness = 0.05
+shader_parameter/repeat_size = 1.0
+shader_parameter/repeat_size_b = 0.1
+shader_parameter/roughness = 0.25
+shader_parameter/metallic = 1.0
+shader_parameter/color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="InmateWristCuffs" type="Node3D"]
+script = ExtResource("1_s5f2n")
+
+[node name="LeftWrist" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156032, 0, -1.10329e-08)
+script = ExtResource("2_kg8ds")
+attachPoint = "wrist.L"
+
+[node name="InmateCuffL" parent="LeftWrist" instance=ExtResource("3_6eew5")]
+unique_name_in_owner = true
+transform = Transform3D(-0.604576, 0, 0.604576, 0, 0.855, 0, -0.604576, 0, -0.604576, 0, 0, 0)
+
+[node name="CuffLoc" type="Node3D" parent="LeftWrist/InmateCuffL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0526602, 0, -0.0553)
+
+[node name="RightWrist" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109743, 0, 7.57199e-09)
+script = ExtResource("2_kg8ds")
+attachPoint = "wrist.R"
+
+[node name="InmateCuffR" parent="RightWrist" instance=ExtResource("3_6eew5")]
+unique_name_in_owner = true
+transform = Transform3D(-0.604576, 0, 0.604576, 0, 0.855, 0, -0.604576, 0, -0.604576, 0, 0, 0)
+
+[node name="CuffLoc" type="Node3D" parent="RightWrist/InmateCuffR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0549126, 0, 0.0541641)
+
+[node name="Chain" parent="." node_paths=PackedStringArray("nodeA", "nodeB") instance=ExtResource("4_kau36")]
+unique_name_in_owner = true
+curve = SubResource("Curve3D_fddo3")
+nodeA = NodePath("../LeftWrist/InmateCuffL/CuffLoc")
+nodeB = NodePath("../RightWrist/InmateCuffR/CuffLoc")
+curve_mode = 0
+iter_min_dist = 0.021
+material = SubResource("ShaderMaterial_q3wf7")

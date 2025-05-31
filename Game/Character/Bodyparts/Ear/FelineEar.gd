@@ -18,7 +18,7 @@ func _init():
 func getName() -> String:
 	return "Feline ear"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	if(_slot == BodypartSlot.LeftEar):
 		return "res://Mesh/Parts/Ear/FelineEar/feline_ear_l.tscn"
 	else:
@@ -38,35 +38,35 @@ func getOptions() -> Dictionary:
 				["", "No piercings"],
 				["TwoRings", "Two rings"],
 			],
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["piercingsColor"] = {
 			name = "Piercings color",
 			type = "color",
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["tassels"] = {
 			name = "Tassels",
 			type = "bool",
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["tasselsColor"] = {
 			name = "Tassels color",
 			type = "color",
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["fluffColor"] = {
 			name = "Fluff color",
 			type = "color",
 			alpha = true,
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.EarPattern,
 			texSubType = "FelineEar",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 
 	return theOptions

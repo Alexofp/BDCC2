@@ -7,6 +7,8 @@ const MaxMessages = 20
 const MessageRemoveTime = 5.0
 
 func addMessage(theText:String):
+	if(!remove_message_timer):
+		return
 	messages.append(theText)
 	while(messages.size() > MaxMessages):
 		messages.pop_front()

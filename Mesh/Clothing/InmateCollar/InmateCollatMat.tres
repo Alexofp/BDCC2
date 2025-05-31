@@ -1,0 +1,15 @@
+[gd_resource type="ORMMaterial3D" load_steps=5 format=3 uid="uid://rppd8rmsx1nv"]
+
+[ext_resource type="Texture2D" uid="uid://dxbryfh8kriow" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_BaseColor.png" id="1_5d6aq"]
+[ext_resource type="Texture2D" uid="uid://cfgk36801tss7" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_Emit.png" id="2_5ehgv"]
+[ext_resource type="Texture2D" uid="uid://6xdf7kv3y5mm" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_Normal.png" id="3_wchp2"]
+[ext_resource type="Texture2D" uid="uid://yspi8dxmwhoh" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_ORM.png" id="4_41d81"]
+
+[resource]
+albedo_texture = ExtResource("1_5d6aq")
+orm_texture = ExtResource("4_41d81")
+emission_enabled = true
+emission_energy_multiplier = 11.0
+emission_texture = ExtResource("2_5ehgv")
+normal_enabled = true
+normal_texture = ExtResource("3_wchp2")

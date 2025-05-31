@@ -57,6 +57,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Test button"
 
+[node name="SpawnCubeButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn cube"
+
+[node name="SpawnBenchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn bench"
+
 [node name="SexSceneButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Spawn sex scene"
@@ -79,6 +87,10 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Switch to"
 
+[node name="StartSexButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start sex with"
+
 [node name="DeletePawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Delete pawn"
@@ -88,5 +100,10 @@ layout_mode = 2
 text = "Add new pawn"
 
 [connection signal="pressed" from="VBoxContainer/Label/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/SpawnCubeButton" to="." method="_on_spawn_cube_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/SpawnBenchButton" to="." method="_on_spawn_bench_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/SexSceneButton" to="." method="_on_sex_scene_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/SwitchButton" to="." method="_on_switch_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/StartSexButton" to="." method="_on_start_sex_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/DeletePawnButton" to="." method="_on_delete_pawn_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/AddPawnButton" to="." method="_on_add_pawn_button_pressed"]

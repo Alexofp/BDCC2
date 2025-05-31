@@ -12,3 +12,4 @@ func applyOption(_optionID:String, _value:Variant):
 			hairMat.set_shader_parameter("color_mask_g", _value)
 		if(_optionID == "color3"):
 			hairMat.set_shader_parameter("color_mask_b", _value)
+			

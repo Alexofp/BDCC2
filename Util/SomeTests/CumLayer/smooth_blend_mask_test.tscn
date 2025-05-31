@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjpiv2bbl3r34"]
+
+[ext_resource type="Shader" uid="uid://csax2g5jqpal3" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealShader.gdshader" id="1_ydsvb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ipd23"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmf4c"]
+noise = SubResource("FastNoiseLite_ipd23")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrq33"]
+shader = ExtResource("1_ydsvb")
+shader_parameter/cutoff = 0.5
+shader_parameter/smooth_size = 0.2
+shader_parameter/mask = SubResource("NoiseTexture2D_pmf4c")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="SmoothBlendMaskTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_rrq33")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

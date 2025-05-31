@@ -7,7 +7,7 @@ func _init():
 func getName() -> String:
 	return "Feminine body"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:

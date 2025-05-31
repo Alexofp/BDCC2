@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cddam810q137h"]
+
+[node name="SexActionButton" type="Button"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Button"

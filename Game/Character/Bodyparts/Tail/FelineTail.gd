@@ -17,7 +17,7 @@ func _init():
 func getName() -> String:
 	return "Feline tail"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Tail/FelineTail/feline_tail.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:
@@ -32,7 +32,7 @@ func getOptions() -> Dictionary:
 			type = "slider",
 			min = 0.9,
 			max = 1.5,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["tailType"] = {
 			name = "Tail type",
@@ -42,21 +42,21 @@ func getOptions() -> Dictionary:
 				["fluffy", "Fluffy"],
 				["lion", "Lion tip"],
 			],
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["thickness"] = {
 			name = "Thickness",
 			type = "slider",
 			min = -1.0,
 			max = 1.0,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.TailPattern,
 			texSubType = "FelineTail",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 
 		

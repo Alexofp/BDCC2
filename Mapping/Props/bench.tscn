@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dou27ldgaq4cc"]
+[gd_scene load_steps=7 format=3 uid="uid://dou27ldgaq4cc"]
 
 [ext_resource type="PackedScene" uid="uid://c65hubvbpxmvd" path="res://Mapping/Props/Raw/Bench.glb" id="1_llgmc"]
-[ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="2_bxh7q"]
+[ext_resource type="PackedScene" uid="uid://c0isfr4f1lemd" path="res://AnimScenes/Scenes/SitAnim/bench_anim_handler.tscn" id="3_h16yf"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="3_xplsm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x22yw"]
 size = Vector3(1.92631, 0.542473, 0.765853)
@@ -9,7 +10,15 @@ size = Vector3(1.92631, 0.542473, 0.765853)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ft0qw"]
 size = Vector3(1.92631, 0.767698, 0.110222)
 
-[node name="Bench" instance=ExtResource("1_llgmc")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xplsm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Bench" groups=["Networked"] instance=ExtResource("1_llgmc")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bench" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.580417, -0.319291)
@@ -22,8 +31,9 @@ shape = SubResource("BoxShape3D_x22yw")
 transform = Transform3D(1, 0, 0, 0, 0.966743, 0.255749, 0, -0.255749, 0.966743, 0, 0.195936, -0.278135)
 shape = SubResource("BoxShape3D_ft0qw")
 
-[node name="SitAnimScene" parent="." index="4" instance=ExtResource("2_bxh7q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526443, 0, -0.169801)
+[node name="BenchAnimHandler" parent="." index="4" instance=ExtResource("3_h16yf")]
 
-[node name="SitAnimScene2" parent="." index="5" instance=ExtResource("2_bxh7q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526, 0, -0.169801)
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="5"]
+replication_config = SubResource("SceneReplicationConfig_xplsm")
+script = ExtResource("3_xplsm")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

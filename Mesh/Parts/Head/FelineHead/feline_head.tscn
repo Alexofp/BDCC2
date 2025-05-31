@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0l6erkveqgyk"]
+[gd_scene load_steps=21 format=3 uid="uid://b0l6erkveqgyk"]
 
 [ext_resource type="PackedScene" uid="uid://cw3gpucq3d0vb" path="res://Mesh/Parts/Head/FelineHead/FelineHead.glb" id="1_qhi50"]
 [ext_resource type="Script" uid="uid://c4elfen018uyc" path="res://Mesh/Parts/Head/FelineHead/feline_head.gd" id="2_0kujj"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_0v4py"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="4_0v4py"]
-[ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/FelineTail/TailMat.tres" id="4_ew517"]
+[ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_4wgvr"]
 [ext_resource type="Texture2D" uid="uid://jhs5mw3w2y3p" path="res://Mesh/Parts/SharedTextures/Brows/brow1.png" id="6_fk6bo"]
 [ext_resource type="Texture2D" uid="uid://dqqgx26c8rdly" path="res://Mesh/Parts/SharedTextures/Eyelashes/MyEyelashes1.png" id="7_qg2ga"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="8_4wgvr"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dpp2scgbab25y" path="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineMouth_Normal.png" id="12_pbyhb"]
 [ext_resource type="Texture2D" uid="uid://b6vi42bo4ed2k" path="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineMouth_ORM.png" id="13_uaaub"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="14_ew517"]
+[ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="15_4wgvr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kw5g6"]
 transparency = 1
@@ -23,7 +24,7 @@ albedo_texture = ExtResource("6_fk6bo")
 transparency = 1
 albedo_texture = ExtResource("7_qg2ga")
 
-[sub_resource type="Shader" id="Shader_cvnc3"]
+[sub_resource type="Shader" id="Shader_4wgvr"]
 code = "shader_type spatial;
 
 #define MY_FRESHNEL
@@ -138,6 +139,27 @@ vec3 udm_normal_blend(vec3 b, vec3 d) {
 }
 #endif
 
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
@@ -193,7 +215,7 @@ void fragment() {
 	METALLIC = orm_tex.b * metallic;
 	SPECULAR = specular;
 
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	ROUGHNESS = orm_tex.g * roughness;
 
 #ifdef MY_COLORMASK
@@ -257,12 +279,45 @@ void fragment() {
 	ROUGHNESS *= detail_rough_tex_global.g;
 #endif
 
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
+#endif
+
 }
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ik7j"]
 render_priority = 0
-shader = SubResource("Shader_cvnc3")
+shader = SubResource("Shader_4wgvr")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/texture_albedo = ExtResource("10_ew517")
 shader_parameter/texture_orm = ExtResource("13_uaaub")
@@ -295,7 +350,9 @@ globalDetailRoughMask = false
 colorMask = true
 eyeMode = false
 doubleSided = false
+outline = false
 toonShading = false
+cumLayer = false
 clearCache = false
 metadata/_custom_type_script = ExtResource("9_p6sel")
 
@@ -306,7 +363,7 @@ albedo_color = Color(0.27, 0.27, 0.27, 0.501961)
 [node name="FelineHead" instance=ExtResource("1_qhi50")]
 script = ExtResource("2_0kujj")
 eyeMat = ExtResource("8_4wgvr")
-headMat = ExtResource("4_ew517")
+headMat = ExtResource("4_4wgvr")
 
 [node name="MyHeadRig" parent="." index="0"]
 script = ExtResource("3_0v4py")
@@ -314,9 +371,48 @@ attachPoint = "head"
 
 [node name="Skeleton3D" parent="MyHeadRig" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
+bones/1/rotation = Quaternion(5.4034e-07, 0.207265, 0.978285, 1.14479e-07)
+bones/2/position = Vector3(2.90426e-08, 0.0961214, 0.0262907)
+bones/3/position = Vector3(-0.0195124, 0.0887538, 0.0236524)
+bones/4/rotation = Quaternion(0.251698, 5.46488e-07, -1.84913e-07, 0.967806)
+bones/5/position = Vector3(0.0195124, 0.0887539, 0.0236523)
+bones/6/position = Vector3(0.0302246, 0.072747, 0.0159155)
+bones/6/rotation = Quaternion(0.251698, 5.46488e-07, -1.84913e-07, 0.967806)
+bones/7/rotation = Quaternion(-1.77351e-07, 0.972315, 0.233675, -1.81204e-06)
+bones/9/position = Vector3(-2.75872e-14, 0.0207229, 1.78295e-08)
+bones/9/rotation = Quaternion(0.0235056, -1.81947e-06, -1.02931e-07, 0.999724)
+bones/10/rotation = Quaternion(0.465239, 0.525497, 0.567273, 0.430821)
+bones/11/position = Vector3(-3.26119e-16, 0.0166931, 0.137374)
+bones/12/position = Vector3(0.0381667, 0.00436759, 0.0825039)
+bones/12/rotation = Quaternion(2.92728e-05, 0.584543, 0.811363, 2.10872e-05)
+bones/13/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/14/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/15/position = Vector3(-0.0381667, 0.00436759, 0.0825039)
+bones/15/rotation = Quaternion(-2.92727e-05, 0.584543, 0.811363, -2.10872e-05)
+bones/16/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/17/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/18/rotation = Quaternion(0.0531128, 0.759278, 0.614335, -0.208013)
+bones/19/rotation = Quaternion(0.201153, 0.736259, 0.586102, -0.271929)
+bones/20/rotation = Quaternion(0.0767849, 0.730923, 0.677659, 0.0251854)
+bones/21/rotation = Quaternion(0.293425, 0.647349, 0.592002, -0.379966)
+bones/23/rotation = Quaternion(0.142533, 0.620279, 0.754219, -0.161531)
+bones/24/rotation = Quaternion(0.218995, 0.619485, 0.701254, -0.276626)
+bones/25/rotation = Quaternion(0.147627, 0.619609, 0.7709, 0.00234812)
+bones/27/rotation = Quaternion(-0.46524, 0.525497, 0.567273, -0.430821)
+bones/28/rotation = Quaternion(-0.0531134, 0.759277, 0.614335, 0.208014)
+bones/29/rotation = Quaternion(-0.201153, 0.736259, 0.586102, 0.271929)
+bones/30/rotation = Quaternion(-0.0767863, 0.730922, 0.67766, -0.0251846)
+bones/32/rotation = Quaternion(-0.0587004, 0.64205, 0.761781, -0.063371)
+bones/33/rotation = Quaternion(-0.141922, 0.617386, 0.756586, 0.162083)
+bones/34/rotation = Quaternion(-0.218995, 0.619485, 0.701254, 0.276626)
+bones/35/rotation = Quaternion(-0.147626, 0.619612, 0.770897, -0.00234867)
+bones/36/rotation = Quaternion(0.707107, -1.5482e-06, -1.5482e-06, 0.707107)
+bones/37/rotation = Quaternion(0.707107, -2.64401e-06, -2.64401e-06, 0.707107)
+bones/40/rotation = Quaternion(0.707107, 1.5482e-06, 1.5482e-06, 0.707107)
+bones/41/rotation = Quaternion(0.707107, 2.64401e-06, 2.64401e-06, 0.707107)
 
 [node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0"]
-surface_material_override/0 = ExtResource("4_ew517")
+surface_material_override/0 = ExtResource("4_4wgvr")
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1"]
 surface_material_override/0 = SubResource("StandardMaterial3D_kw5g6")
@@ -331,29 +427,32 @@ surface_material_override/1 = ExtResource("8_4wgvr")
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="4" instance=ExtResource("4_0v4py")]
 pointName = "hair"
 
-[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="5" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="5" instance=ExtResource("4_0v4py")]
+pointName = "head_items"
+
+[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0547889, 0.153346, 0.00886823)
 pointName = "ear.L"
 
-[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="6" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="7" instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0237597, 0.168494, 0.0774401)
 pointName = "horn.L"
 
-[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="7" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="8" instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024, 0.168, 0.077)
 pointName = "horn.R"
 
-[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="8" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="9" instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="9"]
-surface_material_override/0 = ExtResource("4_ew517")
+[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10"]
+surface_material_override/0 = ExtResource("4_4wgvr")
 
-[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="10"]
+[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11"]
 surface_material_override/0 = SubResource("ShaderMaterial_3ik7j")
 
-[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="11"]
+[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12"]
 visibility_range_end = 3.0
 surface_material_override/0 = SubResource("StandardMaterial3D_a88nv")
 
@@ -365,3 +464,11 @@ unique_name_in_owner = true
 resolution = Vector2i(1024, 1024)
 clearColor = Color(1, 1, 1, 1)
 graphicsOptionAutoScale = 1
+
+[node name="FaceAnimator" parent="." index="3" node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("15_4wgvr")]
+unique_name_in_owner = true
+dollPart = NodePath("..")
+animPlayer = NodePath("../AnimationPlayer")
+moanMultiplier = 0.7
+
+[connection signal="onTextureUpdated" from="HeadLayeredTexture" to="." method="_on_head_layered_texture_on_texture_updated"]

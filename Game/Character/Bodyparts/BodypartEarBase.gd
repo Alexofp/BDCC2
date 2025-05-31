@@ -1,5 +1,5 @@
 extends BodypartBase
 class_name BodypartEarBase
 
-func getBodypartType() -> String:
+func getBodypartType() -> int:
 	return BodypartType.Ear

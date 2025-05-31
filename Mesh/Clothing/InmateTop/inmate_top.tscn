@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs55fqvjo5soo"]
+
+[ext_resource type="PackedScene" uid="uid://oq2t56viweqk" path="res://Mesh/Clothing/InmateTop/InmateTop.glb" id="1_0xw5g"]
+[ext_resource type="Script" uid="uid://bgrf3cjus0c1m" path="res://Mesh/Clothing/InmateTop/inmate_top.gd" id="2_76335"]
+[ext_resource type="Material" uid="uid://cy5ku31rbarkv" path="res://Mesh/Clothing/InmateTop/inmateTopMat.tres" id="3_md5sb"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_vqwp7"]
+
+[node name="InmateTop" instance=ExtResource("1_0xw5g")]
+script = ExtResource("2_76335")
+clothesMat = ExtResource("3_md5sb")
+
+[node name="rig" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("3_vqwp7")
+attachPoint = "body"
+skeletonMeshes = [NodePath("Skeleton3D/InmateTop"), NodePath("Skeleton3D/InmateTop_PulledUp")]
+
+[node name="InmateTop" parent="rig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("3_md5sb")
+
+[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" index="1"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("3_md5sb")

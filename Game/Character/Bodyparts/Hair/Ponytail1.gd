@@ -6,5 +6,5 @@ func _init():
 func getName() -> String:
 	return "Ponytail 1"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Hair/Ponytail1/ponytail1.tscn"

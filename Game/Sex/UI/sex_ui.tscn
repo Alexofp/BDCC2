@@ -1,0 +1,177 @@
+[gd_scene load_steps=6 format=3 uid="uid://p4m1d4oacfut"]
+
+[ext_resource type="Script" uid="uid://cjfeedoi3xti4" path="res://Game/Sex/UI/sex_ui.gd" id="1_e8tk3"]
+[ext_resource type="PackedScene" uid="uid://cddam810q137h" path="res://Game/Sex/UI/sex_action_button.tscn" id="2_n3q0f"]
+[ext_resource type="PackedScene" uid="uid://c2fc3kupmxgw0" path="res://Game/Sex/UI/sex_participant_ui_entry.tscn" id="3_schvr"]
+
+[sub_resource type="Animation" id="Animation_n3q0f"]
+resource_name = "QuickFade"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8pvey"]
+_data = {
+&"QuickFade": SubResource("Animation_n3q0f")
+}
+
+[node name="SexUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_e8tk3")
+
+[node name="FadeRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EmptySpace" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="ActionTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="ActionProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+
+[node name="BottomPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ButtonsGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/BottomPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+
+[node name="ActionButton" parent="HBoxContainer/VBoxContainer/BottomPanel/ButtonsGrid" instance=ExtResource("2_n3q0f")]
+layout_mode = 2
+
+[node name="RightPanel" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Camera"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LockedCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Locked"
+
+[node name="FreeCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Free"
+
+[node name="FPSCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "First person"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Auto-consent"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enabled"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ParticipantsList" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SexParticipantUIEntry" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3/ScrollContainer/ParticipantsList" instance=ExtResource("3_schvr")]
+layout_mode = 2
+
+[node name="FadeAnimPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_8pvey")
+}
+
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/EmptySpace" to="." method="_on_empty_space_gui_input"]
+[connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/LockedCameraButton" to="." method="_on_locked_camera_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/FreeCameraButton" to="." method="_on_free_camera_button_pressed"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]

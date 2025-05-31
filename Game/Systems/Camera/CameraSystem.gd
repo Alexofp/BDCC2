@@ -25,6 +25,11 @@ func _process(_delta: float) -> void:
 	var newCam:PriorityCamera = getActiveCameraWithHighestPriority()
 	if(newCam != currentCam):
 		setCurrentCam(newCam)
+	
+	if(UIHandler.shouldMouseBeCaptured()):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func setCurrentCam(theCam:PriorityCamera):
 	var oldCam := currentCam

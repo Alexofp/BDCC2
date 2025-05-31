@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyyn8wgr5l3un"]
+
+[ext_resource type="PackedScene" uid="uid://bbl37pmkf1tqb" path="res://Mesh/Clothing/InmateCuffs/InmateCuff.glb" id="1_ie3gw"]
+[ext_resource type="Material" uid="uid://d0mwh4hfe52is" path="res://Mesh/Clothing/InmateCuffs/InmateCuffMat.tres" id="2_wlj4g"]
+
+[node name="InmateCuff" type="Node3D"]
+
+[node name="InmateCuff" parent="." instance=ExtResource("1_ie3gw")]
+transform = Transform3D(0.082, 0, 0, 0, 0.082, 0, 0, 0, 0.082, 0, 0, 0)
+
+[node name="InmateCuff" parent="InmateCuff" index="0"]
+surface_material_override/0 = ExtResource("2_wlj4g")
+
+[editable path="InmateCuff"]

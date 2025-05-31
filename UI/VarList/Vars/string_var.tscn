@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cypxga6k8w334"]
 
-[ext_resource type="Script" path="res://UI/VarList/Vars/string_var.gd" id="1_7nxm8"]
+[ext_resource type="Script" uid="uid://hgetrupbgb7c" path="res://UI/VarList/Vars/string_var.gd" id="1_7nxm8"]
 
 [node name="StringVar" type="VBoxContainer"]
 anchors_preset = 10

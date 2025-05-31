@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://di8q5ut8regou"]
+
+[ext_resource type="Script" uid="uid://b0nggqit6xbyk" path="res://Game/Doll/FaceAnimator/face_animator.gd" id="1_3wsd5"]
+
+[node name="FaceAnimator" type="Node"]
+script = ExtResource("1_3wsd5")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true

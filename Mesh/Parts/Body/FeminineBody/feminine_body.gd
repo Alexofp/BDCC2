@@ -9,30 +9,35 @@ extends DollPart
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
+@onready var randomCumScroll:float = RNG.randfRange(0.0, 100.0)
+@onready var cum_layer: MyLayeredTexture = %CumLayer
+@onready var nipples: MeshInstance3D = %Nipples
+
+func updateThickness():
+	updateThicknessBody()
+
+func applyCharOption(_optionID:String, _value:Variant):
+	updateThicknessBody(_optionID)
+
 func applyOption(_optionID:String, _value:Variant):
-	if(_optionID == "thickness"):
-		var thinValue:float = 0.0
-		var thickValue:float = 0.0
-		if(_value > 0.5):
-			thickValue = (_value - 0.5)*2.0
-		if(_value < 0.5):
-			thinValue = (0.5 - _value)*2.0
-		setBlendshape("ThinVery", thinValue)
-		setBlendshape("Thick", thickValue)
+	updateBreasts(_optionID, _value)
+	
 	if(_optionID == "legType"):
 		digi_legs.visible = (_value == "digi")
 		planti_legs.visible = (_value == "planti")
 	if(_optionID == "bodyLayers"):
 		updateBodyTexture()
+	if(_optionID == "breasts"):
+		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
 
 func applySkinTypeData(_skinTypeData:SkinTypeData):
 	if(bodyMat == null):
 		return
 		
-	const ignoreUniforms = ["albedo"]
+	const ignoreUniforms = ["albedo", "texture_cum_mask"]
 		
 	if(_skinTypeData.skinType == SkinType.HumanSkin):
-		bodyMat.copyFrom(load("res://Mesh/Parts/Body/FeminineBody/BodySmartMatTest.tres"), ignoreUniforms)
+		bodyMat.copyFrom(load("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
 		bodyMat.set_shader_parameter("texture_normal", load("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png"))
 		bodyMat.set_shader_parameter("texture_orm", load("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"))
 	elif(_skinTypeData.skinType == SkinType.Fur):
@@ -42,7 +47,9 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)
+	bodyMat.set_shader_parameter("cumScroll", randomCumScroll)
 	updateBodyTexture()
+	updateBodyMess()
 
 func updateBodyTexture():
 	var theSkinData:SkinTypeData = getSkinData()
@@ -65,9 +72,33 @@ func gatherPartFlags(_theFlags:Dictionary):
 	pass
 
 func applyPartFlags(_theFlags:Dictionary):
+	if(_theFlags.has("HideNipples") && _theFlags["HideNipples"]):
+		nipples.visible = false
+	else:
+		nipples.visible = true
+		
 	if(_theFlags.has("HumanNeck") && _theFlags["HumanNeck"]):
 		neck_connector.visible = true
 		neck_connector_furry.visible = false
 	else:
 		neck_connector.visible = false
 		neck_connector_furry.visible = true
+	updateBreastsCleavage(getOptionValue("breastsCleavage", 0.0))
+	
+func _on_body_layered_texture_on_texture_updated(_newTexture: Texture2D) -> void:
+	if(bodyMat):
+		bodyMat.set_shader_parameter("texture_albedo", _newTexture)
+
+func updateBodyMess():
+	var _mess:= getBodyMess()
+	if(!_mess):
+		return
+	_mess.updateLayeredTexture(cum_layer)
+
+func _on_cum_layer_on_texture_updated(newTexture: Variant) -> void:
+	if(bodyMat):
+		bodyMat.set_shader_parameter("texture_cum_mask", newTexture)
+
+func updateBodyAlphaMask(_finalAlpha:Texture2D):
+	if(bodyMat):
+		bodyMat.set_shader_parameter("texture_alpha", _finalAlpha)

@@ -117,6 +117,13 @@ vec3 udm_normal_blend(vec3 b, vec3 d) {
 }
 #endif
 
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
@@ -172,7 +179,7 @@ void fragment() {
 	METALLIC = orm_tex.b * metallic;
 	SPECULAR = specular;
 
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	ROUGHNESS = orm_tex.g * roughness;
 
 #ifdef MY_COLORMASK
@@ -236,6 +243,20 @@ void fragment() {
 	ROUGHNESS *= detail_rough_tex_global.g;
 #endif
 
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
+#endif
+
 }
 "
 
@@ -270,6 +291,7 @@ globalDetailRoughMask = false
 colorMask = false
 eyeMode = false
 doubleSided = false
+outline = false
 toonShading = false
 clearCache = false
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

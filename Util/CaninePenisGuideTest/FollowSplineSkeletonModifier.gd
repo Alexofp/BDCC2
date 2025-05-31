@@ -8,6 +8,7 @@ class_name FollowSplineSkeletonModifier
 
 @export var thicknessCurve:Curve
 @export var holeNode:Node3D
+@export var insideNode:Node3D
 
 var thicknessAtHole:float = 0.0
 var howDeepTip:float = 0.0
@@ -68,6 +69,7 @@ func _process_modification() -> void:
 	var firstBoneOffsetOnCurve:float = 0.0
 	var lastBoneOffsetOnCurve:float = 0.0
 	var holeOffsetOnCurve:float = curve.get_closest_offset(targetPath.to_local(holeNode.to_global(Vector3(0.0, 0.0, 0.0))))
+	var insideOffsetOnCurve:float = curve.get_closest_offset(targetPath.to_local(insideNode.to_global(Vector3(0.0, 0.0, 0.0))))
 	
 	#print(boneDistances)
 	var _i:int = 0
@@ -123,10 +125,17 @@ func _process_modification() -> void:
 	lastBoneOffsetOnCurve += 0.03
 	thicknessAtHole = 0.0
 	howDeepTip = 0.0
+	
 	if(holeOffsetOnCurve >= firstBoneOffsetOnCurve && holeOffsetOnCurve <= lastBoneOffsetOnCurve):
+
 		var factorOpen:float = clamp(1.0-(holeOffsetOnCurve-firstBoneOffsetOnCurve)/(lastBoneOffsetOnCurve-firstBoneOffsetOnCurve), 0.0, 1.0)
+		var factorDeep:float = clamp(1.0-(insideOffsetOnCurve-firstBoneOffsetOnCurve)/(lastBoneOffsetOnCurve-firstBoneOffsetOnCurve), 0.0, 1.0)
 		howDeepTip = factorOpen
 		#print(factorOpen)
+		
+		#print("a ", firstBoneOffsetOnCurve)
+		#print("a ", firstBoneOffsetOnCurve*curve.get_baked_length())
+		#print("a ", factorDeep)
 		
 		if(thicknessCurve):
 			var theThickness:float = thicknessCurve.sample_baked(factorOpen)
@@ -135,6 +144,7 @@ func _process_modification() -> void:
 			if(holeNode is DollOpenableHole):
 				holeNode.setRawOpenValue(thicknessAtHole)
 				holeNode.setRawHowDeepTip(howDeepTip)
+				holeNode.setFactorDeep(factorDeep)
 		#print(holeOffsetOnCurve)
 		#print("BEFORE: ",firstBoneOffsetOnCurve, " AFTER: ",lastBoneOffsetOnCurve)
 
@@ -146,6 +156,8 @@ func getHowDeepTipValue() -> float:
 
 func _y_look_at(from: Transform3D, target: Vector3) -> Transform3D:
 	var t_v: Vector3 = target - from.origin
+	if(t_v.length_squared() == 0.0):
+		return from
 	var v_y: Vector3 = t_v.normalized()
 	var v_z: Vector3 = from.basis.x.cross(v_y)
 	v_z = v_z.normalized()

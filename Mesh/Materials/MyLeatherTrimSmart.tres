@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://sx83emcekphh"]
+
+[ext_resource type="Shader" uid="uid://c2oij1xjnd8o1" path="res://Mesh/Materials/Shaders/MyTrimShader.tres" id="1_7hqrp"]
+[ext_resource type="Texture2D" uid="uid://dyhfmwh88ceru" path="res://Mesh/Textures/TrimSheets/MyLeatherTrim/MyLeatherTrim_low_DefaultMaterial_BaseColor.png" id="2_vqnl7"]
+[ext_resource type="Texture2D" uid="uid://dhp3eivm6xpb5" path="res://Mesh/Textures/TrimSheets/MyLeatherTrim/MyLeatherTrim_low_DefaultMaterial_Normal.png" id="3_x2dxp"]
+[ext_resource type="Texture2D" uid="uid://nlprxucqv58r" path="res://Mesh/Textures/TrimSheets/MyLeatherTrim/MyLeatherTrim_low_DefaultMaterial_ORM.png" id="4_iwqhf"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7hqrp")
+shader_parameter/texture_albedo = ExtResource("2_vqnl7")
+shader_parameter/texture_orm = ExtResource("4_iwqhf")
+shader_parameter/texture_normal = ExtResource("3_x2dxp")
+shader_parameter/ao_light_affect = 1.0

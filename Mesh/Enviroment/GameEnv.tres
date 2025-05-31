@@ -11,6 +11,9 @@ sky_material = SubResource("PanoramaSkyMaterial_wohoj")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_iiin2")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
 tonemap_mode = 3
 ssao_intensity = 3.0
 ssil_intensity = 5.0
@@ -18,7 +21,6 @@ sdfgi_use_occlusion = true
 sdfgi_cascades = 1
 sdfgi_max_distance = 25.6
 sdfgi_energy = 10.0
-glow_enabled = true
 glow_normalized = true
 glow_strength = 0.58
 glow_blend_mode = 1

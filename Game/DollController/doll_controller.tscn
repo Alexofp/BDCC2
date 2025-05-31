@@ -21,22 +21,33 @@ properties/0/spawn = true
 properties/0/replication_mode = 2
 properties/1/path = NodePath(".:velocity")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath(".:syncPosition")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:syncRotation")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:characterID")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 properties/5/path = NodePath(".:state")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:expressionState")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="DollController" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_k0gws")
+noclip_on = null
+syncPosition = null
+syncRotation = null
+state = null
+characterID = null
+expressionState = null
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

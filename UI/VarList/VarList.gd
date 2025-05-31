@@ -3,6 +3,7 @@ class_name VarList
 
 signal onVarChange(id, value)
 
+@export var addSeparators:bool = false
 var widgets:Array = []
 
 func setVars(_vars:Dictionary):
@@ -32,14 +33,26 @@ func setVars(_vars:Dictionary):
 			newWidget = preload("res://UI/VarList/Vars/color_var.tscn").instantiate()
 		elif(theType == "colorPalette"):
 			newWidget = preload("res://UI/VarList/Vars/color_palette_var.tscn").instantiate()
-		elif(theType in "selector"):
+		elif(theType == "selector"):
 			newWidget = preload("res://UI/VarList/Vars/dropdown_var.tscn").instantiate()
-		elif(theType in "slider"):
+		elif(theType == "slider"):
 			newWidget = preload("res://UI/VarList/Vars/slider_var.tscn").instantiate()
-		elif(theType in "texVarLayerList"):
+		elif(theType == "texVarLayerList"):
 			newWidget = preload("res://UI/VarList/Vars/texture_variant_layers_var.tscn").instantiate()
-		elif(theType in "pattern"):
+		elif(theType == "pattern"):
 			newWidget = preload("res://UI/VarList/Vars/pattern_var.tscn").instantiate()
+		elif(theType == "stringWindow"):
+			newWidget = preload("res://UI/VarList/Vars/string_window_var.tscn").instantiate()
+		elif(theType == "genderProfile"):
+			newWidget = preload("res://UI/VarList/Vars/gender_profile_var.tscn").instantiate()
+		elif(theType == "speciesProfile"):
+			newWidget = preload("res://UI/VarList/Vars/species_var.tscn").instantiate()
+		elif(theType == "sexVoice"):
+			newWidget = preload("res://UI/VarList/Vars/sex_voice_var.tscn").instantiate()
+		elif(theType == "faceOverride"):
+			newWidget = preload("res://UI/VarList/Vars/face_override_var.tscn").instantiate()
+		elif(theType == "bodyMess"):
+			newWidget = preload("res://UI/VarList/Vars/body_mess_var.tscn").instantiate()
 		
 		if(newWidget == null):
 			printerr("Uknown property type found: "+theType)
@@ -50,7 +63,7 @@ func setVars(_vars:Dictionary):
 		newWidget.onValueChange.connect(onWidgetValueChange)
 		newWidget.setData(varLine)
 		
-		if(varLine.has("addSeparator") && varLine["addSeparator"]):
+		if((varLine.has("addSeparator") && varLine["addSeparator"]) || (addSeparators && (!varLine.has("noSeparator") || !varLine["noSeparator"]))):
 			var newSep:HSeparator = HSeparator.new()
 			add_child(newSep)
 

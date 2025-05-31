@@ -35,7 +35,7 @@ import_script/path=""
 _subresources={
 "animations": {
 "SexStanding_1": {
-"save_to_file/enabled": true,
+"save_to_file/enabled": false,
 "save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "res://Anims/Raw/SexStanding_1.res",
 "settings/loop_mode": 1,

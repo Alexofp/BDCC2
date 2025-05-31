@@ -1,0 +1,189 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=42 format=3 uid="uid://bkdtv5v60x8li"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_c366e"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_epb8q"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_v3v4e"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_c366e"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_epb8q"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_wljf6"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_nstkn"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_l4a0u"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_avy05"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_pdg8m"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c366e"]
+animation = &"Look_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_epb8q"]
+animation = &"Look_Right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_4p5fs"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_c366e")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_epb8q")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v3v4e"]
+animation = &"Look_Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nstkn"]
+animation = &"Look_Up"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_h7pv5"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_v3v4e")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_nstkn")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o81br"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_h7mxv"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_avy05"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_wljf6"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_epb8q"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_egu43"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_v3v4e"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_epb8q"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_nstkn"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_v3v4e"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_ecsoo"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mmxb5"]
+animation = &"Mouth_Open"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7mxv"]
+animation = &"Brows_Angry"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_avy05"]
+animation = &"HeadTPose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wljf6"]
+animation = &"Brows_Shy"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6h5ry"]
+animation = &"Eyes_Close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdg8m"]
+animation = &"HeadTPose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kbaeb"]
+animation = &"Eyes_Sexy"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_52num"]
+animation = &"Look_Cross"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_63ytf"]
+animation = &"Mouth_Blep"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p5fs"]
+animation = &"Mouth_Panting"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rsisv"]
+animation = &"HeadTPose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rpccn"]
+animation = &"Mouth_Sad"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ddub5"]
+animation = &"Mouth_Smile"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mttck"]
+animation = &"Mouth_Snarl"
+
+[resource]
+resource_local_to_scene = true
+graph_offset = Vector2(-207.384, 137.633)
+nodes/Brows_Add/node = SubResource("AnimationNodeAdd2_c366e")
+nodes/Brows_Add/position = Vector2(980, 60)
+nodes/Brows_Angry/node = SubResource("AnimationNodeBlend2_epb8q")
+nodes/Brows_Angry/position = Vector2(720, -160)
+nodes/Brows_Shy/node = SubResource("AnimationNodeBlend2_v3v4e")
+nodes/Brows_Shy/position = Vector2(560, -380)
+nodes/Eyes_Close/node = SubResource("AnimationNodeTimeSeek_c366e")
+nodes/Eyes_Close/position = Vector2(-160, 260)
+nodes/Eyes_Close_Time/node = SubResource("AnimationNodeTimeScale_epb8q")
+nodes/Eyes_Close_Time/position = Vector2(-340, 260)
+nodes/Eyes_Closed_Add/node = SubResource("AnimationNodeAdd2_wljf6")
+nodes/Eyes_Closed_Add/position = Vector2(100, 120)
+nodes/Eyes_Sexy/node = SubResource("AnimationNodeBlend2_nstkn")
+nodes/Eyes_Sexy/position = Vector2(-120, -80)
+nodes/LookDirStuff/node = SubResource("AnimationNodeAdd2_l4a0u")
+nodes/LookDirStuff/position = Vector2(160, 480)
+nodes/Look_Cross/node = SubResource("AnimationNodeAdd2_avy05")
+nodes/Look_Cross/position = Vector2(460, 460)
+nodes/Look_Dir/node = SubResource("AnimationNodeAdd2_pdg8m")
+nodes/Look_Dir/position = Vector2(460, 180)
+nodes/Look_Dir_X/node = SubResource("AnimationNodeBlendSpace1D_4p5fs")
+nodes/Look_Dir_X/position = Vector2(-40, 420)
+nodes/Look_Dir_Y/node = SubResource("AnimationNodeBlendSpace1D_h7pv5")
+nodes/Look_Dir_Y/position = Vector2(-40, 620)
+nodes/Mouth_Add/node = SubResource("AnimationNodeAdd2_o81br")
+nodes/Mouth_Add/position = Vector2(760, 360)
+nodes/Mouth_Blep/node = SubResource("AnimationNodeAdd2_h7mxv")
+nodes/Mouth_Blep/position = Vector2(-180, 800)
+nodes/Mouth_Blep_Pos/node = SubResource("AnimationNodeTimeSeek_avy05")
+nodes/Mouth_Blep_Pos/position = Vector2(-380, 1000)
+nodes/Mouth_Blep_Time/node = SubResource("AnimationNodeTimeScale_wljf6")
+nodes/Mouth_Blep_Time/position = Vector2(-560, 1040)
+nodes/Mouth_Open/node = SubResource("AnimationNodeTimeSeek_epb8q")
+nodes/Mouth_Open/position = Vector2(540, 940)
+nodes/Mouth_Open_Add/node = SubResource("AnimationNodeAdd2_egu43")
+nodes/Mouth_Open_Add/position = Vector2(700, 760)
+nodes/Mouth_Opened_Time/node = SubResource("AnimationNodeTimeScale_v3v4e")
+nodes/Mouth_Opened_Time/position = Vector2(340, 1060)
+nodes/Mouth_Sad/node = SubResource("AnimationNodeAdd2_epb8q")
+nodes/Mouth_Sad/position = Vector2(-800, 600)
+nodes/Mouth_Smile/node = SubResource("AnimationNodeAdd2_nstkn")
+nodes/Mouth_Smile/position = Vector2(-480, 700)
+nodes/Mouth_Snarl/node = SubResource("AnimationNodeAdd2_v3v4e")
+nodes/Mouth_Snarl/position = Vector2(-1120, 480)
+nodes/Panting/node = SubResource("AnimationNodeAdd2_ecsoo")
+nodes/Panting/position = Vector2(200, 800)
+nodes/anim_mouth_open/node = SubResource("AnimationNodeAnimation_mmxb5")
+nodes/anim_mouth_open/position = Vector2(120, 1180)
+nodes/brows_angry/node = SubResource("AnimationNodeAnimation_h7mxv")
+nodes/brows_angry/position = Vector2(520, -80)
+nodes/brows_base/node = SubResource("AnimationNodeAnimation_avy05")
+nodes/brows_base/position = Vector2(300, -420)
+nodes/brows_shy/node = SubResource("AnimationNodeAnimation_wljf6")
+nodes/brows_shy/position = Vector2(360, -240)
+nodes/eyes_close_anim/node = SubResource("AnimationNodeAnimation_6h5ry")
+nodes/eyes_close_anim/position = Vector2(-520, 260)
+nodes/eyes_closed_base/node = SubResource("AnimationNodeAnimation_pdg8m")
+nodes/eyes_closed_base/position = Vector2(-340, -160)
+nodes/eyes_sexy/node = SubResource("AnimationNodeAnimation_kbaeb")
+nodes/eyes_sexy/position = Vector2(-320, 60)
+nodes/look_cross/node = SubResource("AnimationNodeAnimation_52num")
+nodes/look_cross/position = Vector2(300, 640)
+nodes/mouth_blep/node = SubResource("AnimationNodeAnimation_63ytf")
+nodes/mouth_blep/position = Vector2(-740, 1060)
+nodes/mouth_panting_anim/node = SubResource("AnimationNodeAnimation_4p5fs")
+nodes/mouth_panting_anim/position = Vector2(0, 1000)
+nodes/mouth_panting_base/node = SubResource("AnimationNodeAnimation_rsisv")
+nodes/mouth_panting_base/position = Vector2(-1400, 440)
+nodes/mouth_sad/node = SubResource("AnimationNodeAnimation_rpccn")
+nodes/mouth_sad/position = Vector2(-980, 760)
+nodes/mouth_smile/node = SubResource("AnimationNodeAnimation_ddub5")
+nodes/mouth_smile/position = Vector2(-680, 860)
+nodes/mouth_snarl/node = SubResource("AnimationNodeAnimation_mttck")
+nodes/mouth_snarl/position = Vector2(-1320, 700)
+nodes/output/position = Vector2(1260, 260)
+node_connections = [&"Brows_Add", 0, &"Mouth_Add", &"Brows_Add", 1, &"Brows_Angry", &"Brows_Angry", 0, &"Brows_Shy", &"Brows_Angry", 1, &"brows_angry", &"Brows_Shy", 0, &"brows_base", &"Brows_Shy", 1, &"brows_shy", &"Eyes_Close", 0, &"Eyes_Close_Time", &"Eyes_Close_Time", 0, &"eyes_close_anim", &"Eyes_Closed_Add", 0, &"Eyes_Sexy", &"Eyes_Closed_Add", 1, &"Eyes_Close", &"Eyes_Sexy", 0, &"eyes_closed_base", &"Eyes_Sexy", 1, &"eyes_sexy", &"LookDirStuff", 0, &"Look_Dir_X", &"LookDirStuff", 1, &"Look_Dir_Y", &"Look_Cross", 0, &"LookDirStuff", &"Look_Cross", 1, &"look_cross", &"Look_Dir", 0, &"Eyes_Closed_Add", &"Look_Dir", 1, &"Look_Cross", &"Mouth_Add", 0, &"Look_Dir", &"Mouth_Add", 1, &"Mouth_Open_Add", &"Mouth_Blep", 0, &"Mouth_Smile", &"Mouth_Blep", 1, &"Mouth_Blep_Pos", &"Mouth_Blep_Pos", 0, &"Mouth_Blep_Time", &"Mouth_Blep_Time", 0, &"mouth_blep", &"Mouth_Open", 0, &"Mouth_Opened_Time", &"Mouth_Open_Add", 0, &"Panting", &"Mouth_Open_Add", 1, &"Mouth_Open", &"Mouth_Opened_Time", 0, &"anim_mouth_open", &"Mouth_Sad", 0, &"Mouth_Snarl", &"Mouth_Sad", 1, &"mouth_sad", &"Mouth_Smile", 0, &"Mouth_Sad", &"Mouth_Smile", 1, &"mouth_smile", &"Mouth_Snarl", 0, &"mouth_panting_base", &"Mouth_Snarl", 1, &"mouth_snarl", &"Panting", 0, &"Mouth_Blep", &"Panting", 1, &"mouth_panting_anim", &"output", 0, &"Brows_Add"]

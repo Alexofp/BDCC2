@@ -4,16 +4,16 @@ class_name BodypartBase
 var skinType:String = ""
 var skinDataOverride:SkinTypeData
 
-var currentSlot:String = ""
+var currentSlot:int = -1
 
 func getBodypartSlots() -> Array:
 	return BodypartSlot.getFromType(getBodypartType())
 
-func supportsSlot(slot:String) -> bool:
+func supportsSlot(slot:int) -> bool:
 	return slot in getBodypartSlots()
 
-func getBodypartType() -> String:
-	return ""
+func getBodypartType() -> int:
+	return -1
 
 func getSupportedSkinTypes() -> Dictionary:
 	return {}
@@ -33,7 +33,7 @@ func getSkinType() -> String:
 	#return {
 		#name = "Skin type",
 		#type = "selector",
-		#editors = ["part"],
+		#editors = [EDITOR_PART],
 		#values = theValues,
 	#}
 
@@ -48,7 +48,7 @@ func getSkinTypeData() -> SkinTypeData:
 		return null
 	return theCharacter.getBaseSkinTypeData(theSkinType)
 
-func getCurrentSlot() -> String:
+func getCurrentSlot() -> int:
 	return currentSlot
 
 func getTextureVariantsPaths() -> Array:

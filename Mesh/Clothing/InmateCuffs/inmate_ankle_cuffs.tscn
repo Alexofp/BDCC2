@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmfu2lyyile1l"]
+
+[ext_resource type="Script" uid="uid://dnr4h4c7t315e" path="res://Mesh/Clothing/InmateCuffs/inmate_ankle_cuffs.gd" id="1_y2jxc"]
+[ext_resource type="PackedScene" uid="uid://dyyn8wgr5l3un" path="res://Mesh/Clothing/InmateCuffs/InmateCuff.tscn" id="2_43os2"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_fddo3"]
+[ext_resource type="PackedScene" uid="uid://dee8o1kt4bhsi" path="res://Mesh/Util/SimpleChain.tscn" id="4_43os2"]
+[ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="5_q3wf7"]
+
+[sub_resource type="Curve3D" id="Curve3D_fddo3"]
+resource_local_to_scene = true
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.1, 0, 0.0796926, 0, 0.00186661, 0, -0.1, 0, 0, 0, 0, -0.0326141, 0, 0.000529278),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3wf7"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_q3wf7")
+shader_parameter/twirl_aspect = 0.5
+shader_parameter/extra_angle = 0.0
+shader_parameter/line_width = 0.011
+shader_parameter/link_radius = 0.15
+shader_parameter/link_thickness = 0.05
+shader_parameter/repeat_size = 1.0
+shader_parameter/repeat_size_b = 0.1
+shader_parameter/roughness = 0.25
+shader_parameter/metallic = 1.0
+shader_parameter/color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="InmateAnkleCuffs" type="Node3D"]
+script = ExtResource("1_y2jxc")
+
+[node name="LeftAnkle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156032, 0, -1.10329e-08)
+script = ExtResource("3_fddo3")
+attachPoint = "ankle.L"
+
+[node name="InmateCuffL" parent="LeftAnkle" instance=ExtResource("2_43os2")]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 0, 0)
+
+[node name="CuffLoc" type="Node3D" parent="LeftAnkle/InmateCuffL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0526602, 0, -0.0553)
+
+[node name="InmateCuffDigiL" parent="LeftAnkle" instance=ExtResource("2_43os2")]
+unique_name_in_owner = true
+transform = Transform3D(-0.761101, 1.3977e-08, 0.761101, -0.1313, 1.06022, -0.1313, -0.74969, -0.185687, -0.74969, 0, -0.001, -0.041)
+
+[node name="CuffLoc" type="Node3D" parent="LeftAnkle/InmateCuffDigiL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0526602, 0, -0.0553)
+
+[node name="RightAnkle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109743, 0, 7.57199e-09)
+script = ExtResource("3_fddo3")
+attachPoint = "ankle.R"
+
+[node name="InmateCuffR" parent="RightAnkle" instance=ExtResource("2_43os2")]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 0, 0)
+
+[node name="CuffLoc" type="Node3D" parent="RightAnkle/InmateCuffR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0549126, 0, 0.0541641)
+
+[node name="InmateCuffDigiR" parent="RightAnkle" instance=ExtResource("2_43os2")]
+unique_name_in_owner = true
+transform = Transform3D(-0.761101, 1.86387e-08, 0.761101, -0.132203, 1.06, -0.132203, -0.749531, -0.186963, -0.749531, 0, -0.001, -0.041)
+
+[node name="CuffLoc" type="Node3D" parent="RightAnkle/InmateCuffDigiR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0549126, 0, 0.0541641)
+
+[node name="Chain" parent="." node_paths=PackedStringArray("nodeA", "nodeB") instance=ExtResource("4_43os2")]
+unique_name_in_owner = true
+curve = SubResource("Curve3D_fddo3")
+nodeA = NodePath("../LeftAnkle/InmateCuffL/CuffLoc")
+nodeB = NodePath("../RightAnkle/InmateCuffR/CuffLoc")
+curve_mode = 0
+iter_min_dist = 0.021
+material = SubResource("ShaderMaterial_q3wf7")

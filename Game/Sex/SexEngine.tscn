@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://cetxt6ypnfvxp"]
+
+[ext_resource type="Script" uid="uid://cj2cjhp518yo6" path="res://Game/Sex/SexEngine.gd" id="1_ki4rl"]
+[ext_resource type="Script" uid="uid://bgimnbbr8c0eo" path="res://Game/Systems/Camera/PriorityCamera.gd" id="2_h647o"]
+[ext_resource type="PackedScene" uid="uid://ffmxaf82tmg8" path="res://Game/Sex/anim_scene_player.tscn" id="3_2xedl"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="4_o3r2a"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hdgrd"]
+properties/0/path = NodePath(".:state")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:transitionTimer")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:transitionTimerFull")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:actionsNetworked")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:actionText")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o3r2a"]
+length = 0.001
+
+[node name="SexEngine" type="Node3D" groups=["Networked"]]
+script = ExtResource("1_ki4rl")
+
+[node name="FreeCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.84803, 0.529949, 0, -0.529949, 0.84803, 0, 1.37455, 1.48195)
+fov = 60.0
+script = ExtResource("2_h647o")
+cameraPriority = 99999.0
+metadata/_custom_type_script = "uid://bgimnbbr8c0eo"
+
+[node name="AnimScenePlayer" parent="." instance=ExtResource("3_2xedl")]
+unique_name_in_owner = true
+
+[node name="ProcessTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+autostart = true
+
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hdgrd")
+script = ExtResource("4_o3r2a")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
+
+[node name="FixedCameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
+
+[node name="SpringArm" type="SpringArm3D" parent="FixedCameraPivot"]
+unique_name_in_owner = true
+shape = SubResource("SeparationRayShape3D_o3r2a")
+
+[node name="FixedCamera" type="Camera3D" parent="FixedCameraPivot/SpringArm"]
+unique_name_in_owner = true
+fov = 60.0
+script = ExtResource("2_h647o")
+cameraPriority = 99999.0
+metadata/_custom_type_script = "uid://bgimnbbr8c0eo"
+
+[connection signal="onAnimEvent" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_event"]
+[connection signal="onSceneSwitched" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_scene_switched"]
+[connection signal="timeout" from="ProcessTimer" to="." method="_on_process_timer_timeout"]

@@ -2,9 +2,16 @@ extends Node3D
 class_name Doll
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var animation_tree: AnimationTree = %AnimationTree
+
 @onready var body_skeleton: BodySkeleton = %BodySkeleton
+@onready var voice_handler: VoiceHandler = %VoiceHandler
+
+@onready var alpha_mask_texture: MyLayeredTexture = %AlphaMaskTexture
 
 @export var disableInternalAnimPlayer:bool = false
+
+var expressionState:int = DollExpressionState.Normal
 
 var characterRef:WeakRef
 
@@ -12,11 +19,35 @@ var parts:Dictionary = {
 	BaseCharacter.GENERIC_BODYPARTS: {},
 	BaseCharacter.GENERIC_CLOTHING: {},
 }
+var partPaths:Dictionary = {
+	BaseCharacter.GENERIC_BODYPARTS: {},
+	BaseCharacter.GENERIC_CLOTHING: {},
+}
 var attachPoints:Dictionary = {}
+
+var cachedPartFlags:Dictionary = {}
+
+const WALK_UNISEX = "unisex"
+const WALK_HOBBLED = "hobbled"
+const WALK_FEM = "fem"
+const WALK_PICKABLE_ANIMS:Array = [
+	[WALK_UNISEX, "Unisex"],
+	[WALK_FEM, "Feminine"],
+]
+
+const IDLE_NORMAL1 = "normal1"
+const IDLE_NORMAL2 = "normal2"
+const IDLE_SEXY = "sexy"
+const IDLE_PICKABLE_ANIMS:Array = [
+	[IDLE_NORMAL1, "Normal"],
+	[IDLE_NORMAL2, "Normal Alt"],
+	[IDLE_SEXY, "Sexy"],
+]
 
 func _ready() -> void:
 	if(disableInternalAnimPlayer):
 		animation_player.active = false
+		animation_tree.active = false
 
 func setCharacter(theChar:BaseCharacter):
 	var currentChar := getChar()
@@ -24,12 +55,18 @@ func setCharacter(theChar:BaseCharacter):
 		currentChar.onGenericPartChange.disconnect(onCharPartChange)
 		currentChar.onGenericPartOptionChange.disconnect(onCharPartOptionChange)
 		currentChar.onBodypartSkinTypeChange.disconnect(onCharBodypartSkinTypeChange)
+		currentChar.onCharOptionChange.disconnect(onCharOptionChange)
+		currentChar.getBodyMess().onChange.disconnect(onUpdateBodyMess)
 	
 	characterRef = weakref(theChar)
 	updateFromCharacter()
 	theChar.onGenericPartChange.connect(onCharPartChange)
 	theChar.onGenericPartOptionChange.connect(onCharPartOptionChange)
 	theChar.onBodypartSkinTypeChange.connect(onCharBodypartSkinTypeChange)
+	theChar.onCharOptionChange.connect(onCharOptionChange)
+	theChar.getBodyMess().onChange.connect(onUpdateBodyMess)
+	
+	voice_handler.setCharID(theChar.getID() if theChar else "")
 
 func getChar() -> BaseCharacter:
 	if(characterRef == null):
@@ -41,31 +78,73 @@ func getCharacter() -> BaseCharacter:
 		return null
 	return characterRef.get_ref()
 
-func onCharBodypartSkinTypeChange(slot:String, _theSkinType:String, skinTypeData:SkinTypeData):
+func onUpdateBodyMess():
+	for genericType in parts:
+		for partID in parts[genericType]:
+			var dollPart = parts[genericType][partID]
+			if(dollPart is DollPart):
+				dollPart.updateBodyMess()
+
+func getBodyMess() -> FluidsOnBodyProfile:
+	return getChar().getBodyMess()
+
+func onCharOptionChange(_change:String):
+	var theChar := getCharacter()
+	if(!theChar):
+		return
+	
+	if(_change == "voice"):
+		voice_handler.setVoiceProfile(theChar.getVoiceProfile())
+
+	var theValue = theChar.getSyncOptionValue(_change)
+	for genericType in parts:
+		for partID in parts[genericType]:
+			var dollPart = parts[genericType][partID]
+			if(dollPart is DollPart):
+				dollPart.applyCharOption(_change, theValue)
+
+func onCharBodypartSkinTypeChange(slot:int, _theSkinType:String, skinTypeData:SkinTypeData):
 	if(!parts[BaseCharacter.GENERIC_BODYPARTS].has(slot)):
-		Log.error("Doll doesn't have a part that the character has")
+		# # part might be in the process of being loaded so this is fine
+		#Log.error("Doll doesn't have a part that the character has")
 		return
 	var dollPart:Node3D = parts[BaseCharacter.GENERIC_BODYPARTS][slot]
 	if(dollPart is DollPart):
 		dollPart.applySkinTypeDataFinal(skinTypeData)
 
-func onCharPartOptionChange(_genericType:String, slot:String, optionID:String, newvalue):
+func onCharPartOptionChange(_genericType:int, slot:int, optionID:String, newvalue):
 	if(!parts[_genericType].has(slot)):
-		Log.error("Doll doesn't have a part that the character has")
+		# # part might be in the process of being loaded so this is fine
+		#Log.error("Doll doesn't have a part that the character has")
 		return
 	var dollPart:Node3D = parts[_genericType][slot]
 	if(dollPart is DollPart):
 		dollPart.applyOption(optionID, newvalue)
+	
+	if(_genericType == BaseCharacter.GENERIC_BODYPARTS):
+		var theClothingParts:Dictionary = parts[BaseCharacter.GENERIC_CLOTHING]
+		for theOtherPartSlot in theClothingParts:
+			var theOtherPart = theClothingParts[theOtherPartSlot]
+			if(theOtherPart is DollPart):
+				if(slot in theOtherPart.getSyncedBodypartSlots()):
+					theOtherPart.applySyncedBodypartOption(slot, optionID, newvalue)
 
-func onCharPartChange(_genericType:String, slot:String, _newpart):
+func onCharPartChange(_genericType:int, slot:int, _newpart):
 	updatePartFromCharacter(_genericType, slot)
+	
+	if(_genericType == BaseCharacter.GENERIC_BODYPARTS):
+		checkAllClothingScenes()
 
 func clear():
 	for genericType in parts:
 		for slot in parts[genericType]:
-			var bodypartDollPart:DollPart = parts[genericType][slot]
+			var bodypartDollPart:Node = parts[genericType][slot]
 			bodypartDollPart.queue_free()
 	parts = {
+		BaseCharacter.GENERIC_BODYPARTS: {},
+		BaseCharacter.GENERIC_CLOTHING: {},
+	}
+	partPaths = {
 		BaseCharacter.GENERIC_BODYPARTS: {},
 		BaseCharacter.GENERIC_CLOTHING: {},
 	}
@@ -75,24 +154,39 @@ func updateFromCharacter():
 	var character := getChar()
 	if(character == null):
 		return
+	
 	var genericParts:Dictionary = character.getGenericParts()
 	for genericType in genericParts:
 		for bodypartSlot in genericParts[genericType]:
 			updatePartFromCharacter(genericType, bodypartSlot)
 
-func updatePartFromCharacter(genericType:String, bodypartSlot:String):
-	var part:GenericPart = getChar().getGenericPart(genericType, bodypartSlot)
-	if(part == null):
-		if(parts[genericType].has(bodypartSlot)):
-			parts[genericType][bodypartSlot].queue_free()
-			parts[genericType].erase(bodypartSlot)
-		return
-		
+	for optionID in character.getSyncOptions():
+		onCharOptionChange(optionID)
+
+func clearOutPart(genericType:int, bodypartSlot:int):
+	var theDollPart:DollPart = getDollPart(genericType, bodypartSlot)
+	if(theDollPart && theDollPart.getBodyAlphaMask()):
+		triggerAlphaMaskUpdate()
 	if(parts[genericType].has(bodypartSlot)):
 		parts[genericType][bodypartSlot].queue_free()
 		parts[genericType].erase(bodypartSlot)
-		
+		triggerDollPartFlagsUpdate()
+	if(partPaths[genericType].has(bodypartSlot)):
+		partPaths[genericType].erase(bodypartSlot)
+
+func updatePartFromCharacter(genericType:int, bodypartSlot:int):
+	var part:GenericPart = getChar().getGenericPart(genericType, bodypartSlot)
+	if(part == null):
+		clearOutPart(genericType, bodypartSlot)
+		return
+	
+	clearOutPart(genericType, bodypartSlot)
+	
 	var partScenePath:String = part.getScenePath(bodypartSlot)
+	if(partScenePath == ""):
+		return
+	partPaths[genericType][bodypartSlot] = partScenePath
+	
 	var theCallback := func(dollSceneScene:PackedScene, cachedPart):
 		if(getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
 			#print("SWITCHERUUU")
@@ -102,14 +196,20 @@ func updatePartFromCharacter(genericType:String, bodypartSlot:String):
 		#print(dollSceneScene)
 		if(dollSceneScene == null):
 			return
+		if(dollSceneScene.resource_path != cachedPart.getScenePath(bodypartSlot)):
+			return
 		var dollScene := dollSceneScene.instantiate()
+		if(dollScene.scene_file_path != cachedPart.getScenePath(bodypartSlot)):
+			dollScene.queue_free()
+			return
 		parts[genericType][bodypartSlot] = dollScene
+		partPaths[genericType][bodypartSlot] = dollScene.scene_file_path
 		add_child(dollScene)
 		if(dollScene is DollPart):
 			dollScene.setDoll(self)
 			dollScene.setPart(part)
 			
-			var partOptions:Dictionary = part.getOptions()
+			var partOptions:Dictionary = part.getOptionsFinal()
 			for optionID in partOptions:
 				dollScene.applyOption(optionID, part.getOptionValue(optionID))
 			
@@ -118,7 +218,23 @@ func updatePartFromCharacter(genericType:String, bodypartSlot:String):
 				if(theData != null):
 					dollScene.applySkinTypeDataFinal(theData)
 			
+			for syncOptionID in getCharacter().getSyncOptions():
+				dollScene.applyCharOption(syncOptionID, getCharacter().getSyncOptionValue(syncOptionID))
+			
+			var syncedBodypartSlots:Array = dollScene.getSyncedBodypartSlots()
+			for otherBodypartSlot in syncedBodypartSlots:
+				var theOtherPart:GenericPart = getChar().getBodypart(otherBodypartSlot)
+				if(theOtherPart == null):
+					continue
+				for optionID in theOtherPart.getOptionsFinal():
+					dollScene.applySyncedBodypartOption(otherBodypartSlot, optionID, theOtherPart.getOptionValue(optionID))
+			
 			dollScene.setPenisTargets(penisTargetHoleNode, penisTargetInsideNode)
+			dollScene.setExpressionState(expressionState)
+			dollScene.updateBodyMess()
+			if(dollScene.getBodyAlphaMask()):
+				triggerAlphaMaskUpdate()
+			dollScene.onSpawn(genericType, bodypartSlot, cachedPart.id)
 					
 		triggerDollPartFlagsUpdate()
 		
@@ -176,28 +292,90 @@ func getAttachPoint(pointName:String) -> DollAttachPoint:
 func isFirstPerson() -> bool:
 	return false
 
+func getLocomotionPlayback() -> AnimationNodeStateMachinePlayback:
+	return animation_tree["parameters/Locomotion/playback"]
+
+func travelLocomotion(_newState:String):
+	var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
+	if(state_machine.get_current_node() != _newState):
+		state_machine.travel(_newState)
+
+func setWalkAnim(_walkAnim:String):
+	animation_tree["parameters/Locomotion/Walk/Walk_Selector/transition_request"] = _walkAnim
+
+func setIdleAnim(_walkAnim:String):
+	animation_tree["parameters/Locomotion/Idle/Idle_Selector/transition_request"] = _walkAnim
+
 func animStand():
-	if(animation_player.assigned_animation != "BodyAnims/Idle"):
-		animation_player.play("BodyAnims/Idle", 0.2)
+	#const theAnimName = "LocomotionAnims/Idle"
+	#const theAnimName = "LocomotionAnims/IdleLong"
+	#const theAnimName = "LocomotionAnims/IdleSexy"
+	#if(animation_player.assigned_animation != theAnimName):
+	#	animation_player.play(theAnimName, 0.2)
+	travelLocomotion("Idle")
 
 func animWalk():
-	if(animation_player.assigned_animation != "BodyAnims/Walk"):
-		animation_player.play("BodyAnims/Walk", 0.2)
+	#const theAnimName = "LocomotionAnims/WalkUnisex"
+	#const theAnimName = "LocomotionAnims/WalkFem"
+	#if(animation_player.assigned_animation != theAnimName):
+	#	animation_player.play(theAnimName, 0.2)
+	travelLocomotion("Walk")
 
 func animRun():
-	if(animation_player.assigned_animation != "BodyAnims/Run"):
-		animation_player.play("BodyAnims/Run", 0.2)
+	#const theAnimName = "LocomotionAnims/Run"
+	#if(animation_player.assigned_animation != theAnimName):
+	#	animation_player.play(theAnimName, 0.2)
+	travelLocomotion("Run")
 
 func animFall():
-	if(animation_player.assigned_animation != "BodyAnims/Falling"):
-		animation_player.play("BodyAnims/Falling", 0.15)
+	#const theAnimName = "LocomotionAnims/Fall"
+	#if(animation_player.assigned_animation != theAnimName):
+	#	animation_player.play(theAnimName, 0.15)
+	travelLocomotion("Fall")
 
-func animSit():
-	if(animation_player.assigned_animation != "BasicAnims/Sit"):
-		animation_player.play("BasicAnims/Sit", 0.15)
+#func animSit():
+	#const theAnimName = "BasicAnims/Sit"
+	#if(animation_player.assigned_animation != theAnimName):
+		#animation_player.play(theAnimName, 0.15)
+
+var animArmbinder:bool = false
+func setArmbinderPoseEnabled(_en:bool):
+	animArmbinder = _en
+	animation_tree["parameters/ArmBinder_Blend/blend_amount"] = 1.0 if _en else 0.0
+func isArmbinderPoseEnabled() -> bool:
+	return animArmbinder
+
+var animCuffedBehindBack:bool = false
+func setCuffedBehindBackPoseEnabled(_en:bool):
+	animCuffedBehindBack = _en
+	animation_tree["parameters/CuffedBehindBack_Blend/blend_amount"] = 1.0 if _en else 0.0
+func isCuffedBehindBackPoseEnabled() -> bool:
+	return animCuffedBehindBack
 
 func setAnimPlayerEnabled(newEn:bool):
 	animation_player.active = newEn
+	animation_tree.active = newEn
+
+var dollAlphaMaskDirty:bool = false
+func triggerAlphaMaskUpdate():
+	if(dollAlphaMaskDirty):
+		return
+	_on_alpha_mask_texture_on_texture_updated(null)
+	dollAlphaMaskDirty = true
+	updateAlphaMask.call_deferred()
+
+func updateAlphaMask():
+	alpha_mask_texture.clearLayers()
+	
+	for inventorySlot in parts[BaseCharacter.GENERIC_CLOTHING]:
+		var theItemPart = parts[BaseCharacter.GENERIC_CLOTHING][inventorySlot]
+		if(theItemPart is DollPart):
+			var theAlphaMask = theItemPart.getBodyAlphaMask()
+			if(!theAlphaMask):
+				continue
+			alpha_mask_texture.addBlendAddLayer(theAlphaMask)
+	
+	dollAlphaMaskDirty = false
 
 var dollPartFlagsDirty:bool = false
 func triggerDollPartFlagsUpdate():
@@ -207,21 +385,36 @@ func triggerDollPartFlagsUpdate():
 	updateDollPartFlags.call_deferred()
 
 func updateDollPartFlags():
-	var allTheFlags:Dictionary = {}
+	cachedPartFlags = {}
 	
 	for genericType in parts:
 		for partID in parts[genericType]:
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
-				dollPart.gatherPartFlags(allTheFlags)
+				dollPart.gatherPartFlags(cachedPartFlags)
 	
 	for genericType in parts:
 		for partID in parts[genericType]:
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
-				dollPart.applyPartFlags(allTheFlags)
+				dollPart.applyPartFlags(cachedPartFlags)
+	
+	if(cachedPartFlags.has("ArmbinderPose") && cachedPartFlags["ArmbinderPose"]):
+		setArmbinderPoseEnabled(true)
+	else:
+		setArmbinderPoseEnabled(false)
+	
+	if(cachedPartFlags.has("CuffedBehindBackPose") && cachedPartFlags["CuffedBehindBackPose"]):
+		setCuffedBehindBackPoseEnabled(true)
+	else:
+		setCuffedBehindBackPoseEnabled(false)
 	
 	dollPartFlagsDirty = false
+
+func getCachedPartFlag(_id:String, _default:Variant) -> Variant:
+	if(!cachedPartFlags.has(_id)):
+		return _default
+	return cachedPartFlags[_id]
 
 var penisTargetHoleNode:Node3D
 var penisTargetInsideNode:Node3D
@@ -260,3 +453,92 @@ func alignPenisToAnus(otherDoll:Doll):
 
 func getBodySkeleton() -> BodySkeleton:
 	return body_skeleton
+
+func getExpressionState() -> int:
+	return expressionState
+
+func setExpressionState(newExpression:int):
+	expressionState = newExpression
+
+	for genericType in parts:
+		for partID in parts[genericType]:
+			var dollPart = parts[genericType][partID]
+			if(dollPart is DollPart):
+				dollPart.setExpressionState(expressionState)
+				var theFaceAnimator:FaceAnimator = dollPart.getFaceAnimator()
+				if(theFaceAnimator):
+					theFaceAnimator.setExpressionState(newExpression)
+
+func getDollPart(genericType:int, slot:int) -> DollPart:
+	if(!parts.has(genericType)):
+		return null
+	if(!parts[genericType].has(slot)):
+		return null
+	var dollPart:Node3D = parts[genericType][slot]
+	# BaseCharacter.GENERIC_BODYPARTS
+	if(dollPart is DollPart):
+		return dollPart
+	return null
+
+func getPartCachedPath(genericType:int, slot:int) -> String:
+	if(!partPaths.has(genericType)):
+		return ""
+	if(!partPaths[genericType].has(slot)):
+		return ""
+	return partPaths[genericType][slot]
+
+## Re-create clothing in case they don't fit the current bodyparts anymore
+func checkAllClothingScenes():
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return
+	var theInv:Inventory = theChar.getInventory()
+	for invSlot in theInv.getEquippedItems():
+		var theItem:ItemBase = theInv.getEquippedItem(invSlot)
+		
+		var theScenePath:String = theItem.getScenePath(invSlot)
+		if(theScenePath != getPartCachedPath(BaseCharacter.GENERIC_CLOTHING, invSlot)):
+			#print("RE-CREATING "+str(InventorySlot.getName(invSlot))+" "+theScenePath+" "+getPartCachedPath(BaseCharacter.GENERIC_CLOTHING, invSlot))
+			updatePartFromCharacter(BaseCharacter.GENERIC_CLOTHING, invSlot)
+
+func getVoiceHandler() -> VoiceHandler:
+	return voice_handler
+
+func _on_voice_handler_on_sound(soundType: int, soundEntry: SexSoundEntry) -> void:
+	var theHead:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Head)
+	if(!theHead):
+		return
+	var faceAnimator:FaceAnimator = theHead.getFaceAnimator()
+	if(!faceAnimator):
+		return
+	faceAnimator.onVoiceSound(soundType, soundEntry, voice_handler)
+
+func _on_voice_handler_on_event(_eventID: String, _args: Array) -> void:
+	var theHead:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Head)
+	if(!theHead):
+		return
+	var faceAnimator:FaceAnimator = theHead.getFaceAnimator()
+	if(!faceAnimator):
+		return
+	faceAnimator.sendFaceGestureEvent(_eventID, _args)
+
+func doCumVisible(cumForward:bool):
+	var thePenis:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Penis)
+	if(!thePenis):
+		return
+	var penisHandler:PenisHandler = thePenis.getPenisHandler()
+	if(!penisHandler):
+		return
+	penisHandler.cum(cumForward)
+
+@onready var breast_l_wiggle: DMWBWiggleRotationModifier3D = %BreastLWiggle
+@onready var breast_r_wiggle: DMWBWiggleRotationModifier3D = %BreastRWiggle
+
+func setBreastWiggleMod(_mod:float):
+	breast_l_wiggle.influence = _mod
+	breast_r_wiggle.influence = _mod
+
+func _on_alpha_mask_texture_on_texture_updated(newTexture: Texture2D) -> void:
+	var theBody:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
+	if(theBody):
+		theBody.updateBodyAlphaMask(newTexture)

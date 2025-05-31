@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://brxgmjq7ih3q2"]
+
+[ext_resource type="Script" uid="uid://b5mmf4s0gv5dl" path="res://UI/VarList/Vars/sex_voice_var.gd" id="1_75us4"]
+[ext_resource type="PackedScene" uid="uid://d3hv65j5t6274" path="res://UI/VarList/Vars/slider_var.tscn" id="2_cn3r3"]
+
+[node name="SexVoiceVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_75us4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="VoiceSelector" type="OptionButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PitchSlider" parent="." instance=ExtResource("2_cn3r3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VoiceInfoLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PreviewButton" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Preview voice"
+
+[connection signal="item_selected" from="HBoxContainer/VoiceSelector" to="." method="_on_voice_selector_item_selected"]
+[connection signal="onValueChange" from="PitchSlider" to="." method="_on_pitch_slider_on_value_change"]
+[connection signal="meta_clicked" from="VoiceInfoLabel" to="." method="_on_voice_info_label_meta_clicked"]
+[connection signal="pressed" from="HBoxContainer2/PreviewButton" to="." method="_on_preview_button_pressed"]

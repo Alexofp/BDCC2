@@ -1,9 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://5wu3p6gbx2l2"]
+[gd_scene load_steps=13 format=3 uid="uid://5wu3p6gbx2l2"]
 
 [ext_resource type="Script" uid="uid://d4lt6u2khsco3" path="res://Anims/test_anim_scene.gd" id="1_lb2b5"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_pia7h"]
 [ext_resource type="AnimationLibrary" uid="uid://djmtyjnhvsh0o" path="res://Anims/Raw/TestAnims.glb" id="2_lb2b5"]
+[ext_resource type="AnimationLibrary" uid="uid://dp75yhrt14hxu" path="res://Anims/Raw/SexStandingAnims.glb" id="3_lov1o"]
 [ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="4_y4b7w"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kates"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cty3v"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2fssf"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4b7w"]
+animation = &"TestAnims/SexStanding_1"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lov1o"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kates"]
+graph_offset = Vector2(-387, 88.9)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_y4b7w")
+nodes/Animation/position = Vector2(-300, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_lov1o")
+nodes/TimeScale/position = Vector2(40, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2fssf"]
+states/BlendTree/node = SubResource("AnimationNodeBlendTree_kates")
+states/BlendTree/position = Vector2(411, 100)
+states/Start/position = Vector2(199, 100)
+graph_offset = Vector2(-52, -29)
 
 [node name="TestAnimScene" type="Node3D"]
 script = ExtResource("1_lb2b5")
@@ -57,26 +98,45 @@ bones/70/rotation = Quaternion(-0.000222003, 0.99138, -0.130991, 0.00249855)
 bones/70/scale = Vector3(0.999971, 1.00005, 0.999969)
 
 [node name="BoneAttachment3D" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="1"]
-transform = Transform3D(1, -1.42109e-13, -4.12115e-13, 1.20792e-13, 0.990882, -0.134736, 3.83693e-13, 0.134736, 0.990882, -2.86815e-14, 1.45613, -0.0583297)
+transform = Transform3D(1, -2.77567e-08, 1.48423e-07, -5.66747e-09, 0.975367, 0.220589, -1.50889e-07, -0.220589, 0.975367, -2.00379e-08, 1.44034, -0.183317)
 
-[node name="DMWBWiggleRotationModifier3D" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="3"]
-transform = Transform3D(0.913873, 0.402089, 0.0562078, -0.0235064, 0.190613, -0.981384, -0.405318, 0.89554, 0.183648, 0.0351934, 1.17524, -0.109606)
+[node name="BreastLWiggle" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="2"]
+transform = Transform3D(0.914704, 0.383503, 0.127449, -0.101496, 0.523265, -0.846105, -0.391173, 0.761, 0.517556, 0.0152895, 1.09744, -0.176484)
 
-[node name="DMWBWiggleRotationModifier3D2" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="4"]
-transform = Transform3D(0.913873, -0.402089, -0.0562078, 0.0235064, 0.190613, -0.981384, 0.405318, 0.89554, 0.183648, -0.0351934, 1.17524, -0.109606)
+[node name="BreastRWiggle" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="3"]
+transform = Transform3D(0.914704, -0.383502, -0.127449, 0.101496, 0.523265, -0.846105, 0.391172, 0.761, 0.517556, -0.0152896, 1.09744, -0.176484)
 
-[node name="DMWBWiggleRotationModifier3D3" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="5"]
-transform = Transform3D(0.999996, 0.00294016, -4.98723e-07, 0.000648088, -0.22026, 0.975441, 0.00286784, -0.975437, -0.220261, 0.0964748, 0.806499, -0.0284935)
+[node name="ButtLWiggle" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="4"]
+transform = Transform3D(0.997005, 0.0773427, -2.65539e-05, 0.0170732, -0.219752, 0.975407, 0.0754347, -0.972485, -0.220414, 0.0886929, 0.816125, -0.0285714)
 
-[node name="DMWBWiggleRotationModifier3D4" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="6"]
-transform = Transform3D(0.999996, -0.00294016, 4.98723e-07, -0.000648088, -0.22026, 0.975441, -0.00286784, -0.975437, -0.220261, -0.0964748, 0.806499, -0.0284935)
+[node name="ButtRWiggle" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="5"]
+transform = Transform3D(0.997005, -0.0773425, 2.67066e-05, -0.0170733, -0.219752, 0.975407, -0.0754346, -0.972485, -0.220414, -0.0886929, 0.816125, -0.0285714)
 
-[node name="BoneAttachment3D2" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="7"]
-transform = Transform3D(1, 7.08922e-15, -8.5601e-15, -6.76294e-15, 0.999296, 0.0375322, 8.82014e-15, -0.0375322, 0.999296, -8.13575e-18, 0.768511, -0.0252853)
+[node name="VaginaWiggle" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="6"]
+transform = Transform3D(1, 3.39785e-16, 2.38419e-07, 5.25932e-08, -0.975366, -0.220592, 2.32545e-07, 0.220592, -0.975366, -1.1802e-15, 0.805596, -0.000612626)
+
+[node name="ChestBoneAttachment" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="7"]
+transform = Transform3D(1, -5.37489e-08, 1.41105e-07, -5.66721e-09, 0.920482, 0.390786, -1.50889e-07, -0.390786, 0.920482, -3.07447e-09, 1.06356, -0.0567425)
+
+[node name="UpperChestBoneAttachment" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="8"]
+transform = Transform3D(1, -5.31076e-08, 1.41348e-07, -5.66721e-09, 0.922247, 0.386603, -1.50889e-07, -0.386603, 0.922247, -1.15753e-08, 1.20914, -0.118549)
+
+[node name="BoneAttachment3D2" parent="Doll2/BodySkeleton/rig/Skeleton3D" index="9"]
+transform = Transform3D(1, 7.08922e-15, -8.5601e-15, -6.76294e-15, 0.999296, 0.0375322, 8.82014e-15, -0.0375322, 0.999296, -1.16895e-15, 0.768511, -0.0252853)
+
+[node name="SquirtParticles1" parent="Doll2/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="0"]
+process_material = SubResource("ParticleProcessMaterial_kates")
+
+[node name="SquirtParticles2" parent="Doll2/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="1"]
+process_material = SubResource("ParticleProcessMaterial_cty3v")
+
+[node name="SquirtParticles3" parent="Doll2/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2"]
+process_material = SubResource("ParticleProcessMaterial_2fssf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Doll/BodySkeleton")
 libraries = {
+&"SexStandingAnims": ExtResource("3_lov1o"),
 &"TestAnims": ExtResource("2_lb2b5")
 }
 autoplay = "TestAnims/SexStanding_1"
@@ -94,6 +154,12 @@ speed_scale = 2.0
 
 [node name="Interactable2" parent="." instance=ExtResource("4_y4b7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62023, 0, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Doll/BodySkeleton")
+tree_root = SubResource("AnimationNodeStateMachine_2fssf")
+anim_player = NodePath("../AnimationPlayer")
+parameters/BlendTree/TimeScale/scale = 1.0
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
 [connection signal="onInteract" from="Interactable2" to="." method="_on_interactable_on_interact"]

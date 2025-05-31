@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmsc73gxffjoq"]
+
+[ext_resource type="Script" uid="uid://c44axdjpk8gbs" path="res://AnimScenes/Scenes/TestSexAnim/test_sex_handler.gd" id="1_i7yjc"]
+[ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="2_3cg0x"]
+[ext_resource type="PackedScene" uid="uid://cf74i2os3befl" path="res://AnimScenes/Scenes/TestSexAnim/test_sex_scene.tscn" id="3_bmayg"]
+[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="4_fyd4t"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="5_3cg0x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_i7yjc"]
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cg0x"]
+albedo_color = Color(0.35, 0.501667, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmayg"]
+albedo_color = Color(1, 0.35, 0.880833, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bmayg"]
+properties/0/path = NodePath(".:isVag")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="TestSexHandler" type="Node3D" groups=["Networked"]]
+script = ExtResource("1_i7yjc")
+
+[node name="AnimSceneSpawner" parent="." instance=ExtResource("2_3cg0x")]
+unique_name_in_owner = true
+scene = ExtResource("3_bmayg")
+
+[node name="Interactable" parent="." instance=ExtResource("4_fyd4t")]
+unique_name_in_owner = true
+
+[node name="BallTop" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.283393, 0, 0, 0, 0.283393, 0, 0, 0, 0.283393, 0, 0.489418, 0)
+mesh = SubResource("SphereMesh_i7yjc")
+surface_material_override/0 = SubResource("StandardMaterial3D_3cg0x")
+
+[node name="BallBottom" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.283393, 0, 0, 0, 0.283393, 0, 0, 0, 0.283393, 0, 0.784748, 0)
+mesh = SubResource("SphereMesh_i7yjc")
+surface_material_override/0 = SubResource("StandardMaterial3D_bmayg")
+
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bmayg")
+script = ExtResource("5_3cg0x")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
+
+[connection signal="onDollSwitch" from="AnimSceneSpawner" to="." method="_on_anim_scene_spawner_on_doll_switch"]
+[connection signal="onSpawnedChanged" from="AnimSceneSpawner" to="." method="_on_anim_scene_spawner_on_spawned_changed"]
+[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmy87heh4e3c6"]
+
+[ext_resource type="Script" uid="uid://7smb0san2k0v" path="res://Mesh/Cum/NurbsCum/cum_strand_nurbs.gd" id="1_pcqtq"]
+[ext_resource type="PackedScene" uid="uid://dwaj3g3ccunm7" path="res://Mesh/Cum/NurbsCum/nurbs_cum_strand.tscn" id="1_q6oho"]
+[ext_resource type="Script" uid="uid://cqktblqqkub2j" path="res://Mesh/Cum/NurbsCum/BoneFollowNodeSkeletonModifier.gd" id="2_pcqtq"]
+[ext_resource type="Material" uid="uid://3mphb5x2ctsk" path="res://Mesh/Cum/NurbsCum/CumNurbsMat.tres" id="3_ysnyh"]
+
+[node name="CumStrandNurbs" type="Node3D"]
+script = ExtResource("1_pcqtq")
+
+[node name="NurbsCumStrand" parent="." instance=ExtResource("1_q6oho")]
+
+[node name="NurbsPath_004" parent="NurbsCumStrand/CumRig/Skeleton3D" index="0"]
+cast_shadow = 0
+visibility_range_end = 15.0
+visibility_range_end_margin = 2.0
+visibility_range_fade_mode = 1
+surface_material_override/0 = ExtResource("3_ysnyh")
+
+[node name="BoneFollowNodeSkeletonModifier" type="SkeletonModifier3D" parent="NurbsCumStrand/CumRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("2_pcqtq")
+metadata/_custom_type_script = "uid://cqktblqqkub2j"
+
+[editable path="NurbsCumStrand"]

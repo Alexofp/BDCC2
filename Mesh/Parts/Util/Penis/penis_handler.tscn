@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b11j3m713s4da"]
+
+[ext_resource type="Script" uid="uid://bxwk8n8e7aao3" path="res://Mesh/Parts/Util/Penis/penis_handler.gd" id="1_khcqm"]
+
+[node name="PenisHandler" type="Node"]
+script = ExtResource("1_khcqm")

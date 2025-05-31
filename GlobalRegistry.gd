@@ -1,14 +1,30 @@
-extends Object
-class_name GlobalRegistry # and so we meet again
+extends Node
+#class_name GlobalRegistry # and so we meet again
 
-static var wasInit = false
+var wasInit:bool = false
 
-static var bodyparts: Dictionary = {}
-static var bodypartRefs: Dictionary = {}
-static var textureVariants:Dictionary = {}
-static var textureVariantsByType:Dictionary = {}
+var lastUniqueItemID:int = 0
 
-static func doInit():
+var bodyparts: Dictionary = {}
+var bodypartRefs: Dictionary = {}
+var textureVariants:Dictionary = {}
+var textureVariantsByType:Dictionary = {}
+var sexActivities: Dictionary = {}
+var sexActivityRefs: Dictionary = {}
+var sexTypes: Dictionary = {}
+var sexTypeRefs: Dictionary = {}
+var animScenes: Dictionary = {}
+var sexVoices: Dictionary = {}
+var voiceActors: Dictionary = {}
+var species:Dictionary = {}
+var items:Dictionary = {}
+var itemRefs:Dictionary = {}
+var clothingSceneSelectors:Array = []
+
+func _init() -> void:
+	doInit()
+
+func doInit():
 	if(wasInit):
 		return
 	wasInit = true
@@ -22,10 +38,25 @@ static func doInit():
 	
 	registerTextureVariantsFolder("res://Mesh/Parts/SharedTextures/")
 	
+	registerSexActivityFolder("res://Game/Sex/SexActivities/")
+	registerSexTypeFolder("res://Game/Sex/SexTypes/")
+	
+	registerAnimSceneFolder("res://AnimScenes/Defs/")
+	
+	registerVoiceActorFolder("res://Sounds/VoiceActors/")
+	registerSexVoiceFolder("res://Sounds/Voices/")
+	registerSexSoundFolder("res://Sounds/VoiceBanks/")
+	
+	registerSpeciesFolder("res://Game/Character/Species/")
+	
+	registerItemFolder("res://Inventory/Items/")
+	registerClothingSelectorFolder("res://Inventory/ClothingSelectors/")
+	sortClothingSelectors()
+	
 	Log.Print("GlobalRegistry: Registered everything")
 
 
-static func registerBodypart(path: String):
+func registerBodypart(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()
 	
@@ -37,29 +68,29 @@ static func registerBodypart(path: String):
 		for thePath in textureVariantsPaths:
 			registerTextureVariant(thePath)
 
-static func registerBodypartsFolder(folder: String):
+func registerBodypartsFolder(folder: String):
 	var scripts = Util.getScriptsInFolder(folder)
 	for scriptPath in scripts:
 		registerBodypart(scriptPath)
 
-static func createBodypart(id: String) -> BodypartBase:
+func createBodypart(id: String) -> BodypartBase:
 	if(bodyparts.has(id)):
 		return bodyparts[id].new()
 	else:
 		Log.Printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
 
-static func getBodyparts():
+func getBodyparts():
 	return bodypartRefs
 
-static func getBodypartRef(id: String) -> BodypartBase:
+func getBodypartRef(id: String) -> BodypartBase:
 	if(bodypartRefs.has(id)):
 		return bodypartRefs[id]
 	else:
 		Log.Printerr("ERROR: bodypart with the id "+str(id)+" wasn't found")
 		return null
 
-static func getBodypartIDsForSlot(bodypartSlot:String):
+func getBodypartIDsForSlot(bodypartSlot:int):
 	var result:Array = []
 	
 	for bodypartID in bodypartRefs:
@@ -68,7 +99,7 @@ static func getBodypartIDsForSlot(bodypartSlot:String):
 	
 	return result
 
-static func getBodypartIDsOfType(bodypartType:String):
+func getBodypartIDsOfType(bodypartType:int):
 	var result:Array = []
 	
 	for bodypartID in bodypartRefs:
@@ -78,7 +109,7 @@ static func getBodypartIDsOfType(bodypartType:String):
 	return result
 
 
-static func registerTextureVariant(path: String):
+func registerTextureVariant(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()
 	
@@ -107,21 +138,299 @@ static func registerTextureVariant(path: String):
 				textureVariantsByType[theType][theSubType] = []
 			textureVariantsByType[theType][theSubType].append(object.id)
 
-static func registerTextureVariantsFolder(folder: String):
+func registerTextureVariantsFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
 	for scriptPath in scripts:
 		registerTextureVariant(scriptPath)
 
-static func getTextureVariant(id: String) -> TextureVariant:
+func getTextureVariant(id: String) -> TextureVariant:
 	if(textureVariants.has(id)):
 		return textureVariants[id]
 	else:
 		Log.Printerr("ERROR: texture variant with the id "+str(id)+" wasn't found")
 		return null
 
-static func getTextureVariantsIDsOfTypeAndSubType(theType:String, theSubType:String) -> Array:
+func getTextureVariantsIDsOfTypeAndSubType(theType:String, theSubType:String) -> Array:
 	if(!textureVariantsByType.has(theType)):
 		return []
 	if(!textureVariantsByType[theType].has(theSubType)):
 		return []
 	return textureVariantsByType[theType][theSubType]
+
+
+
+
+func registerSexActivity(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexActivityBase):
+		sexActivities[object.id] = loadedClass
+		sexActivityRefs[object.id] = object
+
+func registerSexActivityFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSexActivity(scriptPath)
+
+func createSexActivity(id: String) -> SexActivityBase:
+	if(sexActivities.has(id)):
+		return sexActivities[id].new()
+	else:
+		Log.Printerr("ERROR: sex activity with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexActivities():
+	return sexActivityRefs
+
+func getSexActivityRef(id: String) -> SexActivityBase:
+	if(sexActivityRefs.has(id)):
+		return sexActivityRefs[id]
+	else:
+		Log.Printerr("ERROR: sex activity with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+
+func registerSexType(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexTypeBase):
+		sexTypes[object.id] = loadedClass
+		sexTypeRefs[object.id] = object
+
+func registerSexTypeFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSexType(scriptPath)
+
+func createSexType(id: String) -> SexTypeBase:
+	if(sexTypes.has(id)):
+		return sexTypes[id].new()
+	else:
+		Log.Printerr("ERROR: sex type with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexTypes():
+	return sexTypeRefs
+
+func getSexTypeRef(id: String) -> SexTypeBase:
+	if(sexTypeRefs.has(id)):
+		return sexTypeRefs[id]
+	else:
+		Log.Printerr("ERROR: sex type with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+
+func registerAnimScene(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is AnimDefBase):
+		animScenes[object.id] = object
+
+func registerAnimSceneFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerAnimScene(scriptPath)
+
+func getAnimScenes():
+	return animScenes
+
+func getAnimScene(id: String) -> AnimDefBase:
+	if(animScenes.has(id)):
+		return animScenes[id]
+	else:
+		Log.Printerr("ERROR: anim scene with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+func registerVoiceActor(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is VoiceActor):
+		voiceActors[object.id] = object
+
+func registerVoiceActorFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerVoiceActor(scriptPath)
+
+func getVoiceActors():
+	return voiceActors
+
+func getVoiceActor(id: String) -> VoiceActor:
+	if(voiceActors.has(id)):
+		return voiceActors[id]
+	else:
+		Log.Printerr("ERROR: voice actor with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+
+func registerSexVoice(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexVoiceBase):
+		sexVoices[object.id] = object
+
+func registerSexVoiceFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSexVoice(scriptPath)
+
+func getSexVoices():
+	return sexVoices
+
+func getSexVoice(id: String) -> SexVoiceBase:
+	if(sexVoices.has(id)):
+		return sexVoices[id]
+	else:
+		Log.Printerr("ERROR: sex voice with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerSexSoundBank(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(!(object is SexSoundBank)):
+		return
+	var sexSoundBank:SexSoundBank = object
+	
+	for soundsEntry in sexSoundBank.sounds:
+		var entryType:int = soundsEntry["type"]
+		var soundIntensity:int = soundsEntry["intensity"] if soundsEntry.has("intensity") else SexSoundIntensity.Low
+		var soundSpeed:int = soundsEntry["speed"] if soundsEntry.has("speed") else SexSoundSpeed.Slow
+		var mouthState:int = soundsEntry["mouth"] if soundsEntry.has("mouth") else SexSoundMouth.Opened
+		
+		var basePath:String = soundsEntry["basePath"] if soundsEntry.has("basePath") else ""
+		var soundEntries:Array = []
+		for soundActualEntry in soundsEntry["sounds"]:
+			var thePath:String = soundActualEntry["path"]
+			var backTrim:float = soundActualEntry["trimBack"] if soundActualEntry.has("trimBack") else 0.0
+			
+			var finalPath:String = basePath.path_join(thePath) if basePath != "" else thePath
+			var theSound:AudioStream = load(finalPath)
+			
+			var newEntry:SexSoundEntry = SexSoundEntry.new()
+			newEntry.type = entryType
+			newEntry.path = finalPath
+			newEntry.trimBack = backTrim
+			newEntry.length = theSound.get_length()
+			newEntry.intensity = soundIntensity
+			newEntry.speed = soundSpeed
+			newEntry.mouth = mouthState
+			soundEntries.append(newEntry)
+		
+		var voiceID:String = soundsEntry["voice"]
+		var voiceActor:String = soundsEntry["voiceActor"]
+		
+		var theVoice:SexVoiceBase = getSexVoice(voiceID)
+		if(!theVoice):
+			continue
+		if(!theVoice.voiceActors.has(voiceActor)):
+			theVoice.voiceActors.append(voiceActor)
+		theVoice.addManySoundEntries(soundEntries, entryType, mouthState, soundIntensity, soundSpeed)
+
+func registerSexSoundFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSexSoundBank(scriptPath)
+
+
+
+func registerSpecies(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SpeciesBase):
+		species[object.id] = object
+
+func registerSpeciesFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSpecies(scriptPath)
+
+func getSpeciesAll():
+	return species
+
+func getSpecies(id: String) -> SpeciesBase:
+	if(species.has(id)):
+		return species[id]
+	else:
+		Log.Printerr("ERROR: species with the id "+str(id)+" wasn't found")
+		return null
+
+
+func generateUniqueItemID() -> int:
+	lastUniqueItemID += 1
+	return lastUniqueItemID - 1
+
+
+
+func registerItem(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is ItemBase):
+		items[object.id] = loadedClass
+		itemRefs[object.id] = object
+		
+		var theClothingSelectorPaths:Array= object.getClothingSelectorPaths()
+		for thePath in theClothingSelectorPaths:
+			registerClothingSelector(thePath)
+
+func registerItemFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerItem(scriptPath)
+
+func createItem(id: String, genID:bool = true) -> ItemBase:
+	if(items.has(id)):
+		var theItem:ItemBase = items[id].new()
+		if(genID):
+			theItem.uniqueID = generateUniqueItemID()
+		return theItem
+	else:
+		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
+		return null
+
+func getItemRefs() -> Dictionary:
+	return itemRefs
+
+func getItemRef(id: String) -> ItemBase:
+	if(itemRefs.has(id)):
+		return itemRefs[id]
+	else:
+		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerClothingSelector(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is ClothingSceneSelector):
+		clothingSceneSelectors.append(object)
+		#items[object.id] = loadedClass
+		#itemRefs[object.id] = object
+
+func registerClothingSelectorFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerClothingSelector(scriptPath)
+
+func sortClothingSelectors():
+	clothingSceneSelectors.sort_custom(func(a:ClothingSceneSelector, b:ClothingSceneSelector): return a.priority < b.priority)
+
+func getClothingSelectors() -> Array:
+	return clothingSceneSelectors

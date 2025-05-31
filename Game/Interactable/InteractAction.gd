@@ -37,3 +37,14 @@ func isHidden(_user) -> bool:
 		if(!allowedUsers.has(actualUser)):
 			return true
 	return hidden
+
+static func create(theID:String, theName:String, theArgs:Array = [], theDisabled:bool = false, theHidden:bool = false, theOnlyStanding:bool = false) -> InteractAction:
+	var newAction:InteractAction = InteractAction.new()
+	newAction.id = theID
+	newAction.name = theName
+	newAction.args = theArgs
+	newAction.disabled = theDisabled
+	newAction.hidden = theHidden
+	newAction.onlyWhenStanding = theOnlyStanding
+	
+	return newAction

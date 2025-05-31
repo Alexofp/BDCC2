@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy3s2sf36wvtd"]
+[gd_scene load_steps=4 format=3 uid="uid://cy3s2sf36wvtd"]
 
 [ext_resource type="Script" uid="uid://624tlim4w1cd" path="res://Game/CharacterCreator/character_creator.gd" id="1_8ciux"]
 [ext_resource type="PackedScene" uid="uid://dfyh8pivegiu0" path="res://UI/VarList/Vars/dropdown_var.tscn" id="2_n4n5s"]
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_vxsh1"]
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
@@ -33,6 +34,10 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
+[node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wizard"
+
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Confirm"
@@ -53,6 +58,11 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="CharSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Character"
+
 [node name="PartsSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -67,6 +77,24 @@ text = "Options"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Skin&Colors"
+
+[node name="CharTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharVarList" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer" instance=ExtResource("2_vxsh1")]
+unique_name_in_owner = true
+layout_mode = 2
+addSeparators = true
 
 [node name="PartsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -103,6 +131,7 @@ size_flags_horizontal = 3
 
 [node name="SkinTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -115,7 +144,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CharSelButton" to="." method="_on_char_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionsSelButton" to="." method="_on_options_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]
+[connection signal="onVarChange" from="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer/CharVarList" to="." method="_on_char_var_list_on_var_change"]

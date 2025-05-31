@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cwjcp7vwj0evh"
+path="res://.godot/imported/CI-I - (8).wav-43f9fd12b002f7957fcf02523df56d60.sample"
+
+[deps]
+
+source_file="res://Sounds/Cum/CI-I - (8).wav"
+dest_files=["res://.godot/imported/CI-I - (8).wav-43f9fd12b002f7957fcf02523df56d60.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

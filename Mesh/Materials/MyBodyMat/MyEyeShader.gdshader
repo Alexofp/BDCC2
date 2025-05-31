@@ -53,7 +53,7 @@ void fragment() {
 	vec2 clearcoat_tex = texture(texture_clearcoat, base_uv).xy;
 	CLEARCOAT = clearcoat * clearcoat_tex.x;
 	CLEARCOAT_ROUGHNESS = clearcoat_roughness * clearcoat_tex.y;
-	
+
 	{
 		vec4 mask = texture(texture_color_mask, base_uv);
 		float maskF = mask.r + mask.g + mask.b;
@@ -70,9 +70,9 @@ void fragment() {
 		result += mask.b*color_b*color_b.a;
 
 		result.a *= mask.a;
-		
+
 		ALBEDO = mix(ALBEDO, result.rgb, result.a);
-		
+
 		ROUGHNESS *= (1.0-mask.g*0.5);
 		CLEARCOAT_ROUGHNESS *= (1.0-mask.g*0.5);
 		//CLEARCOAT *= (1.0-mask.g);

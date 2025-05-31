@@ -16,6 +16,9 @@ const ArtificialThrottleTime = 0.0
 		#)
 
 func loadCallback(thePath:String, theCallable:Callable):
+	if(thePath == ""):
+		assert(false, "TRYING TO LOAD AN EMPTY PATH")
+		return
 	if(ResourceLoader.has_cached(thePath)):
 		#print("HAS CACHED")
 		theCallable.call(load(thePath))
@@ -46,6 +49,8 @@ func _process(_delta: float) -> void:
 	if(!inFlight.is_empty()):
 		for inFlightPath in inFlight.duplicate():
 			if(ResourceLoader.load_threaded_get_status(inFlightPath) != ResourceLoader.THREAD_LOAD_IN_PROGRESS):
+				var theStatus := ResourceLoader.load_threaded_get_status(inFlightPath)
+				assert(theStatus == ResourceLoader.THREAD_LOAD_LOADED)
 				var theResource:Resource = ResourceLoader.load_threaded_get(inFlightPath)
 				var allCallables:Array = resourcePathToCallablesArray[inFlightPath]
 				

@@ -1,6 +1,6 @@
 extends Node
 
-const SERVER_PORT = 8869
+const SERVER_PORT = 12345
 const SERVER_ADDRESS: String = "127.0.0.1"
 const MAX_PLAYERS : int = 32
 

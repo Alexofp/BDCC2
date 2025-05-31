@@ -1,0 +1,441 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8soxbg2635yk"]
+
+[ext_resource type="PackedScene" uid="uid://bdr7rn7vpdopq" path="res://Mesh/Parts/Head/HumanFeminine/MyHumanHead.glb" id="1_pulm7"]
+[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="2_1sqg3"]
+[ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="3_0qvfw"]
+[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="4_2e0eg"]
+[ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="5_ucdhx"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="6_kgkvm"]
+[ext_resource type="Texture2D" uid="uid://cvaiqtu6j2dk8" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png" id="7_p5s66"]
+[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="8_qf5i2"]
+[ext_resource type="Texture2D" uid="uid://cq0hn1n6r44g1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_Normal.png" id="9_gvoht"]
+[ext_resource type="Texture2D" uid="uid://jmf43x40vgxe" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_ORM.png" id="10_njmga"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://bkdtv5v60x8li" path="res://Game/Doll/FaceAnimator/FacialAnimTree.tres" id="11_2e0n2"]
+
+[sub_resource type="Shader" id="Shader_1sqg3"]
+code = "shader_type spatial;
+
+#define MY_BACKLIGHT
+#define MY_SUBSURFACESCATTER
+#define MY_GLOBALDETAILMAP
+#define MY_OUTLINE
+
+
+render_mode
+blend_mix,
+#ifdef MY_ALPHASUPPORT
+depth_prepass_alpha,
+#endif
+depth_draw_opaque,
+#ifdef MY_TOONSHADING
+diffuse_toon,
+#else
+diffuse_burley,
+#endif
+specular_schlick_ggx,
+#ifdef MY_SUBSURFACESCATTER
+sss_mode_skin,
+#endif
+#ifdef MY_DOUBLESIDED
+cull_disabled
+#else
+cull_back
+#endif
+;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0) = 1.0;
+
+#ifdef MY_ALPHAMASK
+uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
+uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
+#endif
+
+#ifdef MY_RIMLIGHT
+uniform float rim : hint_range(0.0, 3.0, 0.01) = 1.0;
+uniform float rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_rim : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float ao_mult : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+#ifdef MY_SUBSURFACESCATTER
+uniform float subsurface_scattering_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_subsurface_scattering : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+#ifdef MY_BACKLIGHT
+uniform vec4 backlight : source_color = vec4(0.3, 0.24, 0.24, 1.0);
+//uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
+uniform vec3 uv1_offset = vec3(0.0);
+//uniform vec3 uv2_scale = vec3(1.0, 1.0, 1.0);
+//uniform vec3 uv2_offset = vec3(0.0);
+
+#ifdef MY_FRESHNEL
+uniform float freshnel_width : hint_range(0.0, 30.0, 0.1) = 5.0;
+uniform float freshnel_mod : hint_range(0.0, 0.3, 0.01) = 0.1;
+uniform vec3 freshnel_color : source_color = vec3(0.05,0.02,0.02);
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view))-freshnel_mod, 0.0, 1.0 )), amount);
+}
+#endif
+
+//#define MY_COLORMASK
+#ifdef MY_COLORMASK
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+#endif
+
+//#define MY_GLOBALDETAILROUGHMAP
+#ifdef MY_GLOBALDETAILROUGHMAP
+uniform sampler2D texture_detail_rough_global : hint_roughness_b, filter_linear_mipmap, repeat_enable;
+uniform float detail_rough_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_rough_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+#endif
+//#define MY_GLOBALDETAILMAP
+#ifdef MY_GLOBALDETAILMAP
+uniform sampler2D texture_detail_normal_global : hint_normal, filter_linear_mipmap, repeat_enable;
+uniform float detail_normal_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_normal_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+vec3 _simple_normal_blend(vec3 b, vec3 d) {
+	return vec3(b.xy + d.xy - 0.5, 1.0);
+}
+
+vec3 udm_normal_blend(vec3 b, vec3 d) {
+	b = b*2.0 - 1.0;
+	d = d*2.0 - 1.0;
+	vec3 r = vec3(b.xy + d.xy, b.z);
+	r = normalize(r);
+	return r*0.5 + 0.5;
+}
+#endif
+
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+#ifdef MY_UV_BASED_DISCARD
+	if(base_uv.y < 0.0)
+		discard;
+#endif
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+#ifdef MY_COLORMASK
+	vec4 mask = texture(texture_color_mask, base_uv);
+{
+	float maskF = mask.r + mask.g + mask.b;
+	maskF = max(maskF, 1.0);
+	mask.rgb /= maskF;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 result = vec4(0.0);
+	result += mask.r*color_r*color_r.a;
+	result += mask.g*color_g*color_g.a;
+	result += mask.b*color_b*color_b.a;
+
+	result.a *= mask.a;
+
+	vec4 mask_color = texture(texture_color_mask, base_uv);
+
+	ALBEDO.rgb = mix(ALBEDO.rgb, result.rgb, result.a);
+
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
+}
+#endif
+
+#ifdef MY_FRESHNEL
+	// Freshnel: Enabled
+	float basic_fresnel = fresnel(freshnel_width, NORMAL, VIEW);
+	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
+	ALBEDO = mix(ALBEDO, freshnel_color, basic_fresnel);// - basic_fresnel;
+#endif
+
+	METALLIC = orm_tex.b * metallic;
+	SPECULAR = specular;
+
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	ROUGHNESS = orm_tex.g * roughness;
+
+#ifdef MY_COLORMASK
+#ifdef MY_EYEMODE
+	ROUGHNESS *= min(1.0 - mask.g*0.9, 1.0);
+	EMISSION = albedo_tex.rgb*color_mask_g.rgb*mask.g;
+	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r.rgb, mask.r*0.5);
+	//EMISSION.rgb *= 2.0;
+#endif
+#endif
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+#ifdef MY_RIMLIGHT
+	// Rim: Enabled
+	//vec2 rim_tex = texture(texture_rim, base_uv).xy;
+	RIM = rim;// * rim_tex.x;// - basic_fresnel*2.5;
+	RIM_TINT = rim_tint;// * rim_tex.y;
+#endif
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r * ao_mult;
+	AO_LIGHT_AFFECT = ao_light_affect;
+
+#ifdef MY_SUBSURFACESCATTER
+	// Subsurface Scattering: Enabled
+	//float sss_tex = texture(texture_subsurface_scattering, base_uv).r;
+	SSS_STRENGTH = subsurface_scattering_strength;// * sss_tex;
+#endif
+
+#ifdef MY_BACKLIGHT
+	// Backlight: Enabled
+	//vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
+	BACKLIGHT = (backlight.rgb);// + backlight_tex);
+#endif
+
+#ifdef MY_ALPHAMASK
+	vec4 alpha_tex = texture(texture_alpha, base_uv);
+	ALPHA *= (1.0 - alpha_tex.r);
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+#endif
+
+#ifdef MY_ALPHASUPPORT
+	ALPHA *= albedo_tex.a*albedo.a;
+#endif
+
+#ifdef MY_GLOBALDETAILMAP
+	vec3 detail_norm_tex_global = texture(texture_detail_normal_global, base_uv*detail_normal_scale).rgb; // base_uv
+	detail_norm_tex_global = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+#endif
+
+#ifdef MY_GLOBALDETAILROUGHMAP
+	vec3 detail_rough_tex_global = texture(texture_detail_rough_global, base_uv*detail_rough_scale).rgb; // base_uv
+	detail_rough_tex_global.g = detail_rough_tex_global.g * (detail_rough_blend) + 1.0 - detail_rough_blend;
+
+	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
+#endif
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdxkv"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_1sqg3")
+shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/texture_albedo = ExtResource("7_p5s66")
+shader_parameter/texture_orm = ExtResource("10_njmga")
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/texture_normal = ExtResource("9_gvoht")
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 0.25
+shader_parameter/subsurface_scattering_strength = 0.23
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_detail_normal_global = ExtResource("8_qf5i2")
+shader_parameter/detail_normal_scale = 10.0
+shader_parameter/detail_normal_blend = 0.3
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/edge_threshold = 0.0
+shader_parameter/rim_threshold = 0.8
+script = ExtResource("6_kgkvm")
+backlight = true
+freshnel = false
+rimlight = false
+subsurfaceScattering = true
+alphaMask = false
+uvBasedDiscard = false
+alphaSupport = false
+globalDetailMask = true
+globalDetailRoughMask = false
+colorMask = false
+eyeMode = false
+doubleSided = false
+outline = true
+toonShading = false
+cumLayer = false
+clearCache = false
+
+[node name="AnimTreeFacialDefiner" instance=ExtResource("1_pulm7")]
+
+[node name="Skeleton3D" parent="MyHeadRig" index="0"]
+bones/1/rotation = Quaternion(6.65569e-08, 0.472048, 0.881573, 3.56386e-08)
+bones/2/position = Vector3(4.25723e-09, 0.0907292, 0.0281944)
+bones/3/position = Vector3(-0.00984525, 0.0882308, 0.0287998)
+bones/4/position = Vector3(-0.0186727, 0.0850282, 0.027785)
+bones/4/rotation = Quaternion(0.289578, 9.06952e-08, -8.27869e-08, 0.957154)
+bones/5/position = Vector3(0.00984526, 0.0882308, 0.0287998)
+bones/6/position = Vector3(0.0186727, 0.0850282, 0.027785)
+bones/6/rotation = Quaternion(0.289578, 9.06952e-08, -8.27868e-08, 0.957154)
+bones/7/position = Vector3(-2.57657e-10, 0.0354434, -0.00170633)
+bones/7/rotation = Quaternion(-3.69986e-07, 0.954131, 0.299389, -1.32319e-06)
+bones/9/position = Vector3(-6.11577e-14, 0.0226628, -7.85495e-09)
+bones/9/rotation = Quaternion(-0.0741664, -8.63869e-07, 1.83312e-07, 0.997246)
+bones/10/rotation = Quaternion(1.91082e-08, 0.676524, 0.73642, 3.53673e-08)
+bones/11/position = Vector3(-3.06126e-16, 0.0234142, 0.126817)
+bones/12/position = Vector3(0.0270634, 0.016086, 0.111078)
+bones/12/rotation = Quaternion(2.21983e-07, 0.707115, 0.707099, 2.21963e-07)
+bones/13/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/14/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/15/position = Vector3(-0.0270634, 0.016086, 0.111078)
+bones/15/rotation = Quaternion(-2.21979e-07, 0.707115, 0.707099, -2.21967e-07)
+bones/16/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/17/rotation = Quaternion(3.09086e-08, 0.707107, 0.707107, 3.09086e-08)
+bones/18/rotation = Quaternion(0.0325584, 0.811282, 0.582356, -0.0402782)
+bones/19/rotation = Quaternion(0.0374869, 0.706112, 0.706113, -0.0374844)
+bones/20/rotation = Quaternion(0.213208, 0.73461, 0.605336, -0.220134)
+bones/21/rotation = Quaternion(-0.127035, 0.754553, 0.62932, 0.135898)
+bones/22/position = Vector3(0.0256474, 0.094621, 0.110905)
+bones/22/rotation = Quaternion(0.0458902, 0.688081, 0.723006, -0.0412534)
+bones/23/rotation = Quaternion(0.361704, 0.590919, 0.647654, -0.317063)
+bones/25/rotation = Quaternion(0.0563496, 0.535588, 0.842029, -0.0309395)
+bones/26/rotation = Quaternion(0.219744, 0.538983, 0.790087, -0.192283)
+bones/27/rotation = Quaternion(-0.120986, 0.546072, 0.816725, 0.141873)
+bones/29/rotation = Quaternion(2.68676e-08, 0.676524, 0.73642, 2.82389e-08)
+bones/30/rotation = Quaternion(-0.0325591, 0.811282, 0.582356, 0.0402787)
+bones/31/rotation = Quaternion(-0.0374869, 0.706112, 0.706113, 0.0374844)
+bones/32/rotation = Quaternion(-0.21321, 0.734608, 0.605338, 0.220134)
+bones/33/rotation = Quaternion(0.127035, 0.754553, 0.62932, -0.135898)
+bones/34/rotation = Quaternion(-0.0458902, 0.688081, 0.723006, 0.0412534)
+bones/36/rotation = Quaternion(0.272675, 0.586205, 0.721745, -0.247175)
+bones/37/rotation = Quaternion(-0.0563502, 0.535588, 0.842029, 0.0309403)
+bones/38/rotation = Quaternion(-0.219745, 0.538983, 0.790087, 0.192284)
+bones/39/rotation = Quaternion(0.120986, 0.546072, 0.816725, -0.141873)
+bones/40/rotation = Quaternion(0.707107, -1.12673e-06, -1.12673e-06, 0.707107)
+bones/41/rotation = Quaternion(0.707107, -1.71678e-06, -1.71678e-06, 0.707107)
+bones/44/rotation = Quaternion(0.707107, 1.12673e-06, 1.12673e-06, 0.707107)
+bones/45/rotation = Quaternion(0.707107, 1.71678e-06, 1.71678e-06, 0.707107)
+
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_1sqg3")
+
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("3_0qvfw")
+
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("4_2e0eg")
+surface_material_override/1 = ExtResource("4_2e0eg")
+
+[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3"]
+surface_material_override/0 = ExtResource("5_ucdhx")
+
+[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("ShaderMaterial_mdxkv")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = ExtResource("11_2e0n2")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Brows_Add/add_amount = 1.0
+parameters/Brows_Angry/blend_amount = 0.0
+parameters/Brows_Shy/blend_amount = 0
+parameters/Eyes_Close/seek_request = -1.0
+parameters/Eyes_Close_Time/scale = 0.0
+parameters/Eyes_Closed_Add/add_amount = 1.0
+parameters/Eyes_Sexy/blend_amount = 0.0
+parameters/LookDirStuff/add_amount = 1.0
+parameters/Look_Cross/add_amount = 0.0
+parameters/Look_Dir/add_amount = 1.0
+parameters/Look_Dir_X/blend_position = 0.0
+parameters/Look_Dir_Y/blend_position = 0.0
+parameters/Mouth_Add/add_amount = 1.0
+parameters/Mouth_Blep/add_amount = 1.0
+parameters/Mouth_Blep_Pos/seek_request = -1.0
+parameters/Mouth_Blep_Time/scale = 0.0
+parameters/Mouth_Open/seek_request = -1.0
+parameters/Mouth_Open_Add/add_amount = 1.0
+parameters/Mouth_Opened_Time/scale = 0.0
+parameters/Mouth_Sad/add_amount = 0.0
+parameters/Mouth_Smile/add_amount = 0.0
+parameters/Mouth_Snarl/add_amount = 0.0
+parameters/Panting/add_amount = 0.0

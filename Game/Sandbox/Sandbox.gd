@@ -8,15 +8,20 @@ class_name GameBase
 @onready var sandbox_menu: PanelContainer = %SandboxMenu
 
 var character_creator:Node
+var interaction_menu:Node
+var inventory_ui:Node
 
 @onready var characterRegistry: CharacterRegistry = %CharacterRegistry
 @onready var pawn_registry: PawnRegistry = %PawnRegistry
 @onready var sit_manager: SitManager = %SitManager
+@onready var networked_nodes: NetworkedNodes = %NetworkedNodes
+@onready var sex_manager: SexManager = %SexManager
 
+@onready var sex_ui: SexUI = %SexUI
 
 func _init():
 	GM.game = self
-	GlobalRegistry.doInit()
+	#GlobalRegistry.doInit()
 
 func _enter_tree() -> void:
 	GM.game = self
@@ -70,15 +75,13 @@ func _ready() -> void:
 	myInfo.charID = thePC.getID()
 	#thePawn.grabControl()
 	#doll_holder.createDollControllerFor(thePC).grabControl()
-	$TestAnimScene.setChar(thePC)
+	#$TestAnimScene.setChar(thePC)
 	
 	
+	var char2:BaseCharacter = characterRegistry.createCharacter()
+	var _thePawn2:CharacterPawn = pawn_registry.createPawn(char2.getID())
+	sex_manager.startSex(SexType.OnTheFloor, {dom=thePC.getID(), sub=char2.getID()}, {}, _thePawn.global_position, Vector3(0.0, 0.0, 0.0))
 	
-	#$WorldEnvironment.environment.sdfgi_enabled = false
-	#$MainUILayer/TextureRect.texture = $MyLayeredTexture.getTexture()
-	#$MyLayeredTexture.addColorMaskLayer(("res://icon.svg"), Color.RED, Color.YELLOW, Color.TRANSPARENT)
-	#$MyLayeredTexture.addBlendAddLayer(("res://a1.png"))
-	#$MyLayeredTexture.addBlendAddLayer(("res://a2.png"))
 
 func hideAllMenus():
 	in_game_menu.visible = false
@@ -86,6 +89,12 @@ func hideAllMenus():
 	if(character_creator):
 		character_creator.queue_free()
 		character_creator = null
+	if(interaction_menu):
+		interaction_menu.queue_free()
+		interaction_menu = null
+	if(inventory_ui):
+		inventory_ui.queue_free()
+		inventory_ui = null
 
 func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("game_menu")):
@@ -99,7 +108,33 @@ func _process(_delta: float) -> void:
 			_on_in_game_menu_on_char_creator_button()
 		else:
 			onCharCreatorConfirmButton()
+	if(Input.is_action_just_pressed("game_interact_menu")):
+		if(!interaction_menu):
+			interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
+			main_ui_layer.add_child(interaction_menu)
+			interaction_menu.onClose.connect(onInteractionMenuClosed)
+			interaction_menu.setCharacter(GM.pc)
+		else:
+			onInteractionMenuClosed()
+	if(Input.is_action_just_pressed("game_inventory")):
+		if(!inventory_ui):
+			inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
+			main_ui_layer.add_child(inventory_ui)
+			#interaction_menu.onClose.connect(onInteractionMenuClosed)
+			inventory_ui.setInventory(GM.pc.inventory)
+		else:
+			onInventoryClosed()
+		
+func onInventoryClosed():
+	if(inventory_ui):
+		inventory_ui.queue_free()
+		inventory_ui = null
 	
+func onInteractionMenuClosed():
+	if(interaction_menu):
+		interaction_menu.queue_free()
+		interaction_menu = null
+
 func _on_in_game_menu_on_char_creator_button() -> void:
 	hideAllMenus()
 	if(character_creator != null && is_instance_valid(character_creator)):
@@ -136,7 +171,12 @@ func _on_doll_holder_on_current_doll_switch(_oldDoll: Variant, _newDoll: DollCon
 		interact_ui.setInteractorAndUser(null, null)
 	else:
 		interact_ui.setInteractorAndUser(_newDoll.getInteractor(), _newDoll)
-
+	
+	if(!Network.getMyPlayerInfo()):
+		sex_ui.setPawn(null)
+	else:
+		var currentCharID:String = Network.getMyPlayerInfo().charID
+		sex_ui.setPawn(GM.pawnRegistry.getPawn(currentCharID))
 
 func _on_sandbox_menu_on_close_pressed() -> void:
 	sandbox_menu.visible = false
@@ -144,3 +184,6 @@ func _on_sandbox_menu_on_close_pressed() -> void:
 func _on_in_game_menu_on_sandbox_menu_button() -> void:
 	hideAllMenus()
 	sandbox_menu.visible = true
+
+func getSexManager() -> SexManager:
+	return sex_manager

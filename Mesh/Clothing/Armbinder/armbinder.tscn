@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgx8p2f48oa1j"]
+
+[ext_resource type="PackedScene" uid="uid://sgbo8xpu1ebd" path="res://Mesh/Clothing/Armbinder/Armbinder.glb" id="1_bisdq"]
+[ext_resource type="Script" uid="uid://w4hu85iubrvn" path="res://Mesh/Clothing/Armbinder/armbinder.gd" id="2_bisdq"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_xbjo8"]
+[ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_wdpr0"]
+
+[node name="ArmBinder" instance=ExtResource("1_bisdq")]
+script = ExtResource("2_bisdq")
+
+[node name="rigArmbinder" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("3_xbjo8")
+attachPoint = "body"
+skeletonMeshes = [NodePath("Skeleton3D/Armbinder")]
+
+[node name="Armbinder" parent="rigArmbinder/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_wdpr0")

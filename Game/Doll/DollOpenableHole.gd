@@ -6,11 +6,13 @@ class_name DollOpenableHole
 var curOpenValue:float = 0.0
 var rawOpenValue:float = 0.0
 var oldOpenValue:float = 0.0
+var curFactorDeepValue:float = 0.0
 
 #var finalPushValue:float = 0.0
 var pushValue:float = 0.0
 var rawPushValue:float = 0.0
 var savedInValue:float = 0.0
+var rawFactorDeep:float = 0.0
 
 
 #func setOpenVal(theVal:float):
@@ -20,6 +22,9 @@ func setRawOpenValue(theVal:float):
 
 func getOpenValue() -> float:
 	return curOpenValue
+
+func getTipInVal() -> float:
+	return savedInValue
 
 func getPullValue() -> float:
 	return -pushValue
@@ -41,6 +46,11 @@ func _process(_delta: float) -> void:
 	#print(curOpenValue)
 	#setOpenVal(curOpenValue)
 	
+	if(rawFactorDeep > curFactorDeepValue):
+		curFactorDeepValue = moveValueTowards(curFactorDeepValue, rawFactorDeep, _delta*2.0)
+	else:
+		curFactorDeepValue = moveValueTowards(curFactorDeepValue, rawFactorDeep, _delta*1.5)
+	
 	var inDiff:float = targetInValue - savedInValue
 	var diff:float = curOpenValue - oldOpenValue
 	pushValue = moveValueTowards(pushValue, 0.0, _delta*5.0*max(abs(pushValue), 0.1))
@@ -51,6 +61,7 @@ func _process(_delta: float) -> void:
 	oldOpenValue = curOpenValue
 	rawOpenValue = 0.0
 	rawPushValue = 0.0
+	rawFactorDeep = 0.0
 
 func moveValueTowards(ourValue:float, targetValue:float, changeSpeed:float) -> float:
 	if(changeSpeed == 0.0 || ourValue == targetValue):
@@ -71,9 +82,11 @@ func moveValueTowards(ourValue:float, targetValue:float, changeSpeed:float) -> f
 func setRawHowDeepTip(_theVal:float):
 	rawPushValue = _theVal
 
+func setFactorDeep(_theVal:float):
+	rawFactorDeep = _theVal*7.0
 
-
-
+func getFactorDeep() -> float:
+	return curFactorDeepValue
 
 
 #

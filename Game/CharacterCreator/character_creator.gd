@@ -3,7 +3,8 @@ extends Control
 @onready var parts_sel_button: Button = %PartsSelButton
 @onready var options_sel_button: Button = %OptionsSelButton
 @onready var skin_sel_button: Button = %SkinSelButton
-var currentTab:String = "parts" # parts options skin
+@onready var char_sel_button: Button = %CharSelButton
+var currentTab:String = "char" # parts options skin char
 
 @onready var parts_tab: VBoxContainer = %PartsTab
 @onready var parts_list: VBoxContainer = %PartsList
@@ -14,11 +15,16 @@ var currentTab:String = "parts" # parts options skin
 @onready var skin_tab: VBoxContainer = %SkinTab
 @onready var skin_options_big_list: VBoxContainer = %SkinOptionsBigList
 
+@onready var char_tab: VBoxContainer = %CharTab
+@onready var char_var_list: VarList = %CharVarList
+
 var dropdownVarScene := preload("res://UI/VarList/Vars/dropdown_var.tscn")
 
 var collapseRegionScene := preload("res://UI/collapsable_region.tscn")
 var varListScene := preload("res://UI/VarList/VarList.tscn")
 var regionRememberOpen:Dictionary = {}
+
+var charCreatorWizardWindow := preload("res://Game/CharacterCreator/char_creator_wizard_window.tscn")
 
 var character:BaseCharacter
 
@@ -45,6 +51,10 @@ func setCharacter(newChar:BaseCharacter):
 	updateSelectedTab()
 	updatePartsList()
 	updatePartOptionsList()
+	updateCharTab()
+	
+	#showWizardWindow()
+	
 
 func getChar() -> BaseCharacter:
 	return character
@@ -70,10 +80,12 @@ func updateSelectedTab():
 	parts_sel_button.text = "[ Parts ]" if currentTab == "parts" else "Parts"
 	options_sel_button.text = "[ Options ]" if currentTab == "options" else "Options"
 	skin_sel_button.text = "[ Skin&Colors ]" if currentTab == "skin" else "Skin&Colors"
+	char_sel_button.text = "[ Character ]" if currentTab == "char" else "Character"
 	
 	parts_tab.visible = (currentTab == "parts")
 	options_tab.visible = (currentTab == "options")
 	skin_tab.visible = (currentTab == "skin")
+	char_tab.visible = (currentTab == "char")
 	
 func _on_parts_sel_button_pressed() -> void:
 	currentTab = "parts"
@@ -91,6 +103,20 @@ func _on_skin_sel_button_pressed() -> void:
 func updateSkinTab():
 	updatePartOptionsListGeneric(skin_options_big_list, "skin")
 
+func updateCharTab():
+	if(!character):
+		char_var_list.setVars({})
+		return
+	var theOptions:Dictionary = {}
+	var theCharOptions:Dictionary = character.getCharOptions()
+	for charOptionID in theCharOptions:
+		var theOption:Dictionary = theCharOptions[charOptionID]
+		var theEditors:Array = theOption["editors"] if theOption.has("editors") else [GenericPart.EDITOR_PART]
+		if(!theEditors.has(GenericPart.EDITOR_PART)):
+			continue
+		theOptions[charOptionID] = theOption
+	char_var_list.setVars(theOptions)
+
 func chanceSkinTypeDataColor(theColor:Color, skinType:String):
 	if(character == null):
 		return
@@ -106,7 +132,7 @@ func chanceSkinTypeDataColor(theColor:Color, skinType:String):
 	GM.characterRegistry.askCharacterChangeBaseSkinTypeData(character, skinType, skinTypeData)
 	
 
-func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:String):
+func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:int):
 	if(character == null):
 		return
 	
@@ -119,7 +145,7 @@ func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:String):
 	newSkinData.color = theColor
 	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, newSkinData.skinType, newSkinData)
 
-func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:String):
+func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
 	if(character == null):
 		return
 	
@@ -165,7 +191,7 @@ func updatePartsList():
 		})
 		newDropDown.onValueChange.connect(onBodypartDropdownPicked)
 
-func onBodypartDropdownPicked(_id:String, _value):
+func onBodypartDropdownPicked(_id:int, _value):
 	if(_value == null):
 		_value = ""
 	
@@ -225,7 +251,7 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		var options:Dictionary = {}
 		for optionID in allOptions:
 			var optionEntry:Dictionary = allOptions[optionID]
-			var optionTypes:Array = optionEntry["editors"] if optionEntry.has("editors") else ["part"]
+			var optionTypes:Array = optionEntry["editors"] if optionEntry.has("editors") else [GenericPart.EDITOR_PART]
 			if(!optionTypes.has(optionFilter)):
 				continue
 			optionEntry["value"] = bodypart.getOptionValue(optionID)
@@ -241,8 +267,8 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		var newRegion = collapseRegionScene.instantiate()
 		listNode.add_child(newRegion)
 		newRegion.setName(bodypart.getEditorName())
-		newRegion.setOpened(regionRememberOpen[bodypartSlot+"_part"] if regionRememberOpen.has(bodypartSlot+"_part") else false)
-		newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(bodypartSlot+"_part"))
+		newRegion.setOpened(regionRememberOpen[BodypartSlot.getName(bodypartSlot)+"_part"] if regionRememberOpen.has(BodypartSlot.getName(bodypartSlot)+"_part") else false)
+		newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(BodypartSlot.getName(bodypartSlot)+"_part"))
 		
 		if(isSkin):
 			var supportsSkinType:bool = bodypart.supportsSkinTypes()
@@ -282,7 +308,7 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		newVarList.setVars(options)
 		newVarList.onVarChange.connect(onBodypartChangeOption.bind(bodypartSlot))
 
-func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:String):
+func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
 	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
 	if(newToggled):
 		#bodypart.skinDataOverride = null
@@ -301,7 +327,7 @@ func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:String):
 func onCollapseOpenToggle(newOpen:bool, collapseID:String):
 	regionRememberOpen[collapseID] = newOpen
 
-func onBodypartChangeOption(_id:String, value, bodypartSlot:String):
+func onBodypartChangeOption(_id:String, value, bodypartSlot:int):
 	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
 	if(bodypart == null):
 		return
@@ -317,3 +343,48 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
+
+
+func _on_char_sel_button_pressed() -> void:
+	currentTab = "char"
+	updateSelectedTab()
+	updateCharTab()
+
+
+func _on_char_var_list_on_var_change(id: String, value: Variant) -> void:
+	if(!character):
+		return
+	GM.characterRegistry.askCharacterSyncOptionChange(character, id, value)
+	#character.applyCharChange(id, value)
+
+var wizardWindow:ConfirmationDialog
+func _on_wizard_button_pressed() -> void:
+	showWizardWindow()
+
+func showWizardWindow():
+	if(wizardWindow):
+		wizardWindow.queue_free()
+		wizardWindow = null
+	
+	wizardWindow = charCreatorWizardWindow.instantiate()
+	add_child(wizardWindow)
+	wizardWindow.popup_centered()
+	wizardWindow.setData({
+		CharOption.name: character.getSyncOptionValue(CharOption.name),
+		CharOption.gender: character.getSyncOptionValue(CharOption.gender),
+		CharOption.species: character.getSyncOptionValue(CharOption.species),
+	})
+	wizardWindow.onCancel.connect(onWizardClose)
+	wizardWindow.onWizardSubmit.connect(onWizardSubmit)
+
+func onWizardClose(_window):
+	if(wizardWindow):
+		wizardWindow.queue_free()
+		wizardWindow = null
+
+func onWizardSubmit(_window, _data:Dictionary):
+	if(wizardWindow):
+		wizardWindow.queue_free()
+		wizardWindow = null
+	
+	GM.characterRegistry.askCharacterWizardSubmit(character, _data)

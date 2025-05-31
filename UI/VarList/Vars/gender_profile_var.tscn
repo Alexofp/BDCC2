@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://f80olnn8ddb2"]
+
+[ext_resource type="Script" uid="uid://y2hggbfsr4cw" path="res://UI/VarList/Vars/gender_profile_var.gd" id="1_cwu47"]
+
+[node name="GenderProfileVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_cwu47")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Gender"
+
+[node name="GenderSelector" type="OptionButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Pronouns"
+
+[node name="PronounsSelector" type="OptionButton" parent="HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="HBoxContainer/GenderSelector" to="." method="_on_gender_selector_item_selected"]
+[connection signal="item_selected" from="HBoxContainer2/PronounsSelector" to="." method="_on_pronouns_selector_item_selected"]

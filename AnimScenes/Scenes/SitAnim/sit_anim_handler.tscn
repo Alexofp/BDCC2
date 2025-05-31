@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://fdc6jyseehm2"]
+
+[ext_resource type="Script" uid="uid://cg5g1ocyu7vw0" path="res://AnimScenes/Scenes/SitAnim/sit_anim_handler.gd" id="1_hkxcb"]
+[ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="1_r2mff"]
+[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="3_aqipv"]
+[ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="4_2pl3n"]
+
+[node name="SitAnimHandler" type="Node3D" groups=["Networked"]]
+script = ExtResource("1_hkxcb")
+
+[node name="Interactable" parent="." instance=ExtResource("3_aqipv")]
+unique_name_in_owner = true
+
+[node name="StandSpot" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54)
+
+[node name="SitSpawner" parent="." instance=ExtResource("1_r2mff")]
+scene = ExtResource("4_2pl3n")
+
+[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

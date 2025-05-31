@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvdqmlho1jwut"]
+[gd_scene load_steps=28 format=3 uid="uid://cvdqmlho1jwut"]
 
 [ext_resource type="PackedScene" uid="uid://dy0oeh56twjk1" path="res://Mesh/Parts/Penis/CaninePenis/CaninePenis.glb" id="1_4oe3s"]
 [ext_resource type="Script" uid="uid://c7jyatc2ye3fo" path="res://Mesh/Parts/Penis/CaninePenis/canine_penis.gd" id="2_vlnjl"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="9_vlnjl"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="10_nabfd"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="10_vlnjl"]
+[ext_resource type="PackedScene" uid="uid://dek5xh0as01c2" path="res://Game/Doll/Particles/squirt_particles.tscn" id="12_5uh76"]
+[ext_resource type="PackedScene" uid="uid://b11j3m713s4da" path="res://Mesh/Parts/Util/Penis/penis_handler.tscn" id="13_6kaci"]
 
 [sub_resource type="Curve3D" id="Curve3D_nabfd"]
 bake_interval = 0.01
@@ -28,12 +30,12 @@ point_count = 8
 
 [sub_resource type="Resource" id="Resource_5uh76"]
 script = ExtResource("10_nabfd")
-spring_freq = 3.0
+spring_freq = 1.0
 angular_damp = 5.0
 force_scale = 180.0
 linear_scale = 3600.0
-swing_span = 0.523599
-gravity = Vector3(0, -10, 0)
+swing_span = 1.0472
+gravity = Vector3(0, -100, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="Resource" id="Resource_vlnjl"]
@@ -45,6 +47,75 @@ linear_scale = 720.0
 swing_span = 0.349066
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kaci"]
+use_particle_trails = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_im0a1"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="Curve" id="Curve_6kaci"]
+_data = [Vector2(0, 0), 0.0, 6.88268, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_mor6m"]
+radius = 0.01
+section_length = 0.1
+curve = SubResource("Curve_6kaci")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6kaci"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mor6m"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5uh76"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, 1)
+spread = 35.971
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a6gdu"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, 1)
+spread = 35.971
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w0gqb"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, 1)
+spread = 35.971
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
 
 [node name="CaninePenis" node_paths=PackedStringArray("nodeToScale", "furTuft", "penisModifier", "jiggleModifiers") instance=ExtResource("1_4oe3s")]
 script = ExtResource("2_vlnjl")
@@ -169,7 +240,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -3.19744e-14, 1.19209e-06, 1.19112e-06, -0.0404104, 0.999183, 4.81729e-08, 0.999183, 0.0404104, 1.5136e-15, 0.0273747, 0.103531)
+transform = Transform3D(-1, 9.23706e-14, 1.19209e-06, 1.19114e-06, -0.0398801, 0.999204, 4.75409e-08, 0.999204, 0.0398801, 1.5136e-15, 0.0273747, 0.103531)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -192,7 +263,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 4.9738e-14, 1.19209e-06, 1.18835e-06, -0.0792304, 0.996856, 9.44501e-08, 0.996856, 0.0792304, -6.24003e-17, 0.0255148, 0.149519)
+transform = Transform3D(-1, 2.13163e-14, 1.19209e-06, 1.18831e-06, -0.0796024, 0.996827, 9.48935e-08, 0.996827, 0.0796024, 5.66069e-15, 0.0255392, 0.14952)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -215,7 +286,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.66978e-13, 1.19209e-06, 1.18403e-06, -0.116121, 0.993235, 1.38427e-07, 0.993235, 0.116121, 2.12249e-15, 0.0218681, 0.1954)
+transform = Transform3D(-1, -1.42109e-14, 1.19209e-06, 1.18362e-06, -0.119044, 0.992889, 1.41911e-07, 0.992889, 0.119044, 6.53745e-15, 0.0218754, 0.1954)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -238,7 +309,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -6.39488e-14, 1.19209e-06, 1.17839e-06, -0.151207, 0.988502, 1.80253e-07, 0.988502, 0.151207, 9.70345e-15, 0.0165235, 0.241115)
+transform = Transform3D(-1, 6.75016e-14, 1.19209e-06, 1.1771e-06, -0.158082, 0.987426, 1.88449e-07, 0.987426, 0.158082, 5.77904e-15, 0.0163963, 0.241099)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -261,7 +332,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -8.88178e-14, 1.19209e-06, 1.17185e-06, -0.183493, 0.983021, 2.18741e-07, 0.983021, 0.183493, 6.6558e-15, 0.00956407, 0.286612)
+transform = Transform3D(-1, -3.90799e-14, 1.19209e-06, 1.16883e-06, -0.196601, 0.980484, 2.34367e-07, 0.980484, 0.196601, 8.78152e-15, 0.0091204, 0.286546)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -284,7 +355,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -1.66978e-13, 1.19209e-06, 1.16412e-06, -0.215365, 0.976534, 2.56734e-07, 0.976534, 0.215365, 2.46353e-15, 0.00111864, 0.331856)
+transform = Transform3D(-1, -1.49214e-13, 1.19209e-06, 1.15886e-06, -0.234491, 0.972118, 2.79534e-07, 0.972118, 0.234491, 6.87849e-15, 7.16681e-05, 0.331674)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -307,7 +378,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.45661e-13, 1.19209e-06, 1.15166e-06, -0.258247, 0.966079, 3.07854e-07, 0.966079, 0.258247, -5.32611e-15, -0.00879372, 0.376802)
+transform = Transform3D(-1, -4.9738e-14, 1.19209e-06, 1.14726e-06, -0.271654, 0.962395, 3.23836e-07, 0.962395, 0.271654, -9.35662e-17, -0.010721, 0.376416)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -322,3 +393,90 @@ metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="14"]
 surface_material_override/0 = ExtResource("4_hkkiv")
+
+[node name="TipCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" index="15"]
+transform = Transform3D(-1, -4.9738e-14, 1.19209e-06, 1.14726e-06, -0.271654, 0.962395, 3.23836e-07, 0.962395, 0.271654, -9.35662e-17, -0.010721, 0.376416)
+bone_name = "penis.006"
+bone_idx = 9
+
+[node name="CumParticlesForward" parent="CaninePenisRig/Skeleton3D/TipCumAttach" index="0" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_im0a1")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesForward2" parent="CaninePenisRig/Skeleton3D/TipCumAttach" index="1" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_6kaci")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesForward3" parent="CaninePenisRig/Skeleton3D/TipCumAttach" index="2" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_mor6m")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="BackCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" index="16"]
+transform = Transform3D(-1, 6.75016e-14, 1.19209e-06, 1.1771e-06, -0.158082, 0.987426, 1.88449e-07, 0.987426, 0.158082, 5.77904e-15, 0.0163963, 0.241099)
+bone_name = "penis.003"
+bone_idx = 6
+
+[node name="CumParticlesBack" parent="CaninePenisRig/Skeleton3D/BackCumAttach" index="0" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.84
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_5uh76")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesBack2" parent="CaninePenisRig/Skeleton3D/BackCumAttach" index="1" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.84
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_a6gdu")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesBack3" parent="CaninePenisRig/Skeleton3D/BackCumAttach" index="2" instance=ExtResource("12_5uh76")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6kaci")
+amount = 16
+lifetime = 2.0
+one_shot = false
+explosiveness = 0.84
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_w0gqb")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="PenisHandler" parent="." index="1" node_paths=PackedStringArray("forwardCumParticles", "insideCumParticles") instance=ExtResource("13_6kaci")]
+unique_name_in_owner = true
+forwardCumParticles = [NodePath("../CaninePenisRig/Skeleton3D/TipCumAttach/CumParticlesForward"), NodePath("../CaninePenisRig/Skeleton3D/TipCumAttach/CumParticlesForward2"), NodePath("../CaninePenisRig/Skeleton3D/TipCumAttach/CumParticlesForward3")]
+insideCumParticles = [NodePath("../CaninePenisRig/Skeleton3D/BackCumAttach/CumParticlesBack"), NodePath("../CaninePenisRig/Skeleton3D/BackCumAttach/CumParticlesBack2"), NodePath("../CaninePenisRig/Skeleton3D/BackCumAttach/CumParticlesBack3")]

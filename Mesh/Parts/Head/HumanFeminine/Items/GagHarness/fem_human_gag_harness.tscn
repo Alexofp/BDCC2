@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://be0h3ti6u3uef"]
+
+[ext_resource type="PackedScene" uid="uid://31o62fmd76xh" path="res://Mesh/Parts/Head/HumanFeminine/Items/GagHarness/FemHumanHarnessGag.glb" id="1_6360v"]
+[ext_resource type="Script" uid="uid://co6cugyddfr3n" path="res://Mesh/Parts/Head/HumanFeminine/Items/GagHarness/fem_human_gag_harness.gd" id="1_uywra"]
+[ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="2_xjc5y"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_35ast"]
+
+[node name="FemHumanGagHarness" type="Node3D"]
+script = ExtResource("1_uywra")
+
+[node name="FemHumanHarnessGag" parent="." instance=ExtResource("1_6360v")]
+script = ExtResource("3_35ast")
+attachPoint = "head_items"
+
+[node name="FemHumanGagHarness" parent="FemHumanHarnessGag" index="0"]
+surface_material_override/0 = ExtResource("2_xjc5y")
+
+[node name="BallGagModule" parent="FemHumanHarnessGag" index="1"]
+surface_material_override/0 = ExtResource("2_xjc5y")
+
+[node name="RingGagModule" parent="FemHumanHarnessGag" index="2"]
+surface_material_override/0 = ExtResource("2_xjc5y")
+
+[editable path="FemHumanHarnessGag"]

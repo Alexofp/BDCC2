@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dmjixnki75tax"]
+
+[ext_resource type="Shader" uid="uid://csax2g5jqpal3" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealShader.gdshader" id="1_do2le"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_do2le")
+shader_parameter/cutoff = 0.5
+shader_parameter/smooth_size = 0.2
+shader_parameter/alpha_mask_scroll = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)

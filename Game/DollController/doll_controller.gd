@@ -55,6 +55,8 @@ const STATE_SITTING = "sitting"
 var uniqueID:int = -1
 #@onready var sit_node: SynchronizedTargetNode = %SitNode
 
+@export var expressionState:int = DollExpressionState.Normal
+
 func getNetworkPlayerID() -> int:
 	for playerID in Network.players:
 		var info:NetworkPlayerInfo = Network.players[playerID]
@@ -80,8 +82,8 @@ func canSit() -> bool:
 	return getState() == STATE_NORMAL
 
 
-func playSitAnim():
-	doll.animSit()
+#func playSitAnim():
+#	doll.animSit()
 
 func setPoseSpot(newSpot:PoseSpot):
 	var thePawn := getPawn()
@@ -129,6 +131,12 @@ func getDoll() -> Doll:
 func playDollAnim(_dollAnim:String, _howFast:float = 1.0):
 	#getDoll().playAnim(dollAnim, howFast)
 	pass
+
+func _enter_tree() -> void:
+	UIHandler.addMouseCapturer(self)
+
+func _exit_tree() -> void:
+	UIHandler.removeMouseCapturer(self)
 
 func _ready():
 	basis = Basis.IDENTITY
@@ -215,10 +223,36 @@ func syncRot3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.8, autoSn
 		#result.z = remoteVec3.z
 	
 	return result
-	
+
+func getWalkSpeedMult() -> float:
+	var theChar:= getCharacter()
+	if(!theChar):
+		return 1.0
+	return theChar.getWalkSpeed()
+
+func canSprint() -> bool:
+	var theChar:= getCharacter()
+	if(!theChar):
+		return true
+	return theChar.canSprint()
+
+func getJumpHeight() -> float:
+	var theChar:= getCharacter()
+	if(!theChar):
+		return 1.0
+	return theChar.getJumpHeight()
+
+func processChar(_delta:float):
+	var theChar:= getCharacter()
+	if(!theChar):
+		return
+	#TODO: Make this work using signals rather than constant pulling?
+	doll.setWalkAnim(theChar.getWalkAnim())
+	doll.setIdleAnim(theChar.getIdleAnim())
 
 func _process(delta:float):
 	processFocus()
+	processChar(delta)
 	
 	var hasAuthority:bool = !isRemote()
 	var theIsControlledByUs:bool = isControlledByUs()#isControlledByPlayer()
@@ -258,11 +292,21 @@ func _process(delta:float):
 	if(hasAuthority):
 		syncPosition = position
 		syncRotation = model_root.rotation
+		
+		processExpressionState(delta)
+	doll.setExpressionState(expressionState)
+
+func processExpressionState(_delta:float):
+	var currentSex:SexEngine = GM.sexManager.getSexEngineOfCharID(characterID)
+	if(currentSex):
+		setExpressionState(currentSex.getExpressionState(characterID))
+	else:
+		setExpressionState(DollExpressionState.Normal)
 
 func processMove(delta:float):
 	if(!isRemote()):
-		var move_speed: = ANIM_MOVE_SPEED * MOVE_MULT
-		if doll_controls.sprint_isdown:
+		var move_speed: = ANIM_MOVE_SPEED * MOVE_MULT * getWalkSpeedMult()
+		if doll_controls.sprint_isdown && canSprint():
 			move_speed = ANIM_RUN_SPEED * RUN_MULT
 			if(noclip_on):
 				move_speed *= NOCLIP_MULT
@@ -287,7 +331,7 @@ func processMove(delta:float):
 				#velocity.x = move_direction_no_y.x * move_speed 
 				#velocity.z = move_direction_no_y.z * move_speed
 			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
-				velocity.y = JUMP_FORCE
+				velocity.y = JUMP_FORCE * getJumpHeight()
 	
 	if !noclip_on:
 		if not is_on_floor():
@@ -337,10 +381,15 @@ func process_mousecapture(_delta:float):
 	if(doll_controls.mousecapture_isdown):
 		mousecapture_on = !mousecapture_on
 	
+	#if mousecapture_on && !UIHandler.hasAnyUIVisible():
+	#	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#else:
+	#	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func shouldCaptureMouse() -> bool:
 	if mousecapture_on && !UIHandler.hasAnyUIVisible():
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		return true
+	return false
 
 func process_camera():
 	if(!camera.isActive()):
@@ -368,13 +417,24 @@ func process_camera():
 		SpringArm.position.x = 0.0
 	elif(SpringArm.spring_length <= 1.0):
 		SpringArm.position.x = 0.1
-		$CameraPivot.position.y = 1.525
+		CameraPivot.position.y = 1.525
 	else:
 		SpringArm.position.x = 0.3
-		$CameraPivot.position.y = 1.125
+		CameraPivot.position.y = 1.125
 	
-	if(getDoll().isFirstPerson()):
-		CameraPivot.position = model_root.basis * Vector3(0.0, 1.625, 0.1)
+	#if(getDoll().isFirstPerson()):
+	#	CameraPivot.position = model_root.basis * Vector3(0.0, 1.625, 0.1)
+	#var theSpot := getPoseSpot()
+	if(getState() == STATE_NORMAL):
+		CameraPivot.position.x = 0
+		CameraPivot.position.z = 0
+	else:
+		SpringArm.position.x = 0.0
+		#SpringArm.position.z = 0.0
+		CameraPivot.global_position = getBodySkeleton().getChestBoneAttachment().global_position + Vector3(0.0, 0.3, 0.0)
+
+func getGlobalChestBonePosition() -> Vector3:
+	return getBodySkeleton().getChestBoneAttachment().global_position
 
 func process_movement():
 	#var input_direction = Vector3.ZERO
@@ -401,7 +461,7 @@ func process_animation(delta):
 			##playDollAnim(DollAnim.Fall)
 			##bodySkeleton.jump()
 		elif move_direction != Vector3.ZERO:
-			if doll_controls.sprint_isdown:
+			if doll_controls.sprint_isdown && canSprint():
 				##playDollAnim(DollAnim.Run)
 				##bodySkeleton.run()
 				getDoll().animRun()
@@ -421,7 +481,7 @@ func isRemote() -> bool:
 	return Network.isMultiplayer() && !is_multiplayer_authority()
 
 func process_noclip(_delta):
-	$CollisionShape.disabled = noclip_on
+	$CollisionShape.disabled = noclip_on || (state == STATE_SITTING)
 
 func _unhandled_input(_event):
 	if(UIHandler.hasAnyUIVisible()):
@@ -464,11 +524,14 @@ func updatePoseSpot():
 	
 	if(!theSpot):
 		doll.setAnimPlayerEnabled(true)
+		#if(getState() != STATE_NORMAL):
+		getBodySkeleton().resetBones()
+		getDoll().alignPenisToVagina(null)
 		setState(STATE_NORMAL)
 	else:
 		doll.setAnimPlayerEnabled(false)
+		#if(getState() != STATE_SITTING):
 		setState(STATE_SITTING)
-		#playSitAnim()
 #
 #func _on_sit_node_on_node_changed(newSpot: Variant) -> void:
 	#if(newSpot == null):
@@ -531,5 +594,13 @@ func processFocus():
 func getPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(characterID)
 
+func getCharacter() -> BaseCharacter:
+	return GM.characterRegistry.getCharacter(characterID)
+
 func onSeatChange(_newSpot:PoseSpot):
 	updatePoseSpot()
+
+func setExpressionState(newExpr:int):
+	if(newExpr == DollExpressionState.IgnoreChange):
+		return
+	expressionState = newExpr

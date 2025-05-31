@@ -1,0 +1,340 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterBodyMat" load_steps=7 format=3 uid="uid://cy5ku31rbarkv"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="1_01lk7"]
+[ext_resource type="Texture2D" uid="uid://bftci7hrdk8rq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_BaseColor.png" id="2_kym5q"]
+[ext_resource type="Texture2D" uid="uid://bckwvs0pckpsm" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Emit.png" id="3_odg20"]
+[ext_resource type="Texture2D" uid="uid://bmy4bgb43cuuq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Normal.png" id="4_3ooie"]
+[ext_resource type="Texture2D" uid="uid://hcu5o103lkx4" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png" id="5_lkc1y"]
+
+[sub_resource type="Shader" id="Shader_yytri"]
+code = "shader_type spatial;
+
+#define MY_RIMLIGHT
+#define MY_COLORMASK
+#define MY_DOUBLESIDED
+
+
+render_mode
+blend_mix,
+#ifdef MY_ALPHASUPPORT
+depth_prepass_alpha,
+#endif
+depth_draw_opaque,
+#ifdef MY_TOONSHADING
+diffuse_toon,
+#else
+diffuse_burley,
+#endif
+specular_schlick_ggx,
+#ifdef MY_SUBSURFACESCATTER
+sss_mode_skin,
+#endif
+#ifdef MY_DOUBLESIDED
+cull_disabled
+#else
+cull_back
+#endif
+;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0) = 1.0;
+
+#ifdef MY_ALPHAMASK
+uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
+uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
+#endif
+
+#ifdef MY_RIMLIGHT
+uniform float rim : hint_range(0.0, 3.0, 0.01) = 1.0;
+uniform float rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_rim : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float ao_mult : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+#ifdef MY_SUBSURFACESCATTER
+uniform float subsurface_scattering_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
+//uniform sampler2D texture_subsurface_scattering : hint_default_white, filter_linear_mipmap, repeat_enable;
+#endif
+
+#ifdef MY_BACKLIGHT
+uniform vec4 backlight : source_color = vec4(0.3, 0.24, 0.24, 1.0);
+//uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
+#endif
+
+uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
+uniform vec3 uv1_offset = vec3(0.0);
+//uniform vec3 uv2_scale = vec3(1.0, 1.0, 1.0);
+//uniform vec3 uv2_offset = vec3(0.0);
+
+#ifdef MY_FRESHNEL
+uniform float freshnel_width : hint_range(0.0, 30.0, 0.1) = 5.0;
+uniform float freshnel_mod : hint_range(0.0, 0.3, 0.01) = 0.1;
+uniform vec3 freshnel_color : source_color = vec3(0.05,0.02,0.02);
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view))-freshnel_mod, 0.0, 1.0 )), amount);
+}
+#endif
+
+//#define MY_COLORMASK
+#ifdef MY_COLORMASK
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+#endif
+
+//#define MY_GLOBALDETAILROUGHMAP
+#ifdef MY_GLOBALDETAILROUGHMAP
+uniform sampler2D texture_detail_rough_global : hint_roughness_b, filter_linear_mipmap, repeat_enable;
+uniform float detail_rough_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_rough_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+#endif
+//#define MY_GLOBALDETAILMAP
+#ifdef MY_GLOBALDETAILMAP
+uniform sampler2D texture_detail_normal_global : hint_normal, filter_linear_mipmap, repeat_enable;
+uniform float detail_normal_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
+uniform float detail_normal_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
+
+vec3 _simple_normal_blend(vec3 b, vec3 d) {
+	return vec3(b.xy + d.xy - 0.5, 1.0);
+}
+
+vec3 udm_normal_blend(vec3 b, vec3 d) {
+	b = b*2.0 - 1.0;
+	d = d*2.0 - 1.0;
+	vec3 r = vec3(b.xy + d.xy, b.z);
+	r = normalize(r);
+	return r*0.5 + 0.5;
+}
+#endif
+
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+#ifdef MY_UV_BASED_DISCARD
+	if(base_uv.y < 0.0)
+		discard;
+#endif
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	vec4 orm_tex = texture(texture_orm, base_uv);
+
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+#ifdef MY_COLORMASK
+	vec4 mask = texture(texture_color_mask, base_uv);
+{
+	float maskF = mask.r + mask.g + mask.b;
+	maskF = max(maskF, 1.0);
+	mask.rgb /= maskF;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 result = vec4(0.0);
+	result += mask.r*color_r*color_r.a;
+	result += mask.g*color_g*color_g.a;
+	result += mask.b*color_b*color_b.a;
+
+	result.a *= mask.a;
+
+	vec4 mask_color = texture(texture_color_mask, base_uv);
+
+	ALBEDO.rgb = mix(ALBEDO.rgb, result.rgb, result.a);
+
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
+}
+#endif
+
+#ifdef MY_FRESHNEL
+	// Freshnel: Enabled
+	float basic_fresnel = fresnel(freshnel_width, NORMAL, VIEW);
+	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
+	ALBEDO = mix(ALBEDO, freshnel_color, basic_fresnel);// - basic_fresnel;
+#endif
+
+	METALLIC = orm_tex.b * metallic;
+	SPECULAR = specular;
+
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	ROUGHNESS = orm_tex.g * roughness;
+
+#ifdef MY_COLORMASK
+#ifdef MY_EYEMODE
+	ROUGHNESS *= min(1.0 - mask.g*0.9, 1.0);
+	EMISSION = albedo_tex.rgb*color_mask_g.rgb*mask.g;
+	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r.rgb, mask.r*0.5);
+	//EMISSION.rgb *= 2.0;
+#endif
+#endif
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+#ifdef MY_RIMLIGHT
+	// Rim: Enabled
+	//vec2 rim_tex = texture(texture_rim, base_uv).xy;
+	RIM = rim;// * rim_tex.x;// - basic_fresnel*2.5;
+	RIM_TINT = rim_tint;// * rim_tex.y;
+#endif
+
+	// Ambient Occlusion: Enabled
+	AO = orm_tex.r * ao_mult;
+	AO_LIGHT_AFFECT = ao_light_affect;
+
+#ifdef MY_SUBSURFACESCATTER
+	// Subsurface Scattering: Enabled
+	//float sss_tex = texture(texture_subsurface_scattering, base_uv).r;
+	SSS_STRENGTH = subsurface_scattering_strength;// * sss_tex;
+#endif
+
+#ifdef MY_BACKLIGHT
+	// Backlight: Enabled
+	//vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
+	BACKLIGHT = (backlight.rgb);// + backlight_tex);
+#endif
+
+#ifdef MY_ALPHAMASK
+	vec4 alpha_tex = texture(texture_alpha, base_uv);
+	ALPHA *= (1.0 - alpha_tex.r);
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+#endif
+
+#ifdef MY_ALPHASUPPORT
+	ALPHA *= albedo_tex.a*albedo.a;
+#endif
+
+#ifdef MY_GLOBALDETAILMAP
+	vec3 detail_norm_tex_global = texture(texture_detail_normal_global, base_uv*detail_normal_scale).rgb; // base_uv
+	detail_norm_tex_global = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+#endif
+
+#ifdef MY_GLOBALDETAILROUGHMAP
+	vec3 detail_rough_tex_global = texture(texture_detail_rough_global, base_uv*detail_rough_scale).rgb; // base_uv
+	detail_rough_tex_global.g = detail_rough_tex_global.g * (detail_rough_blend) + 1.0 - detail_rough_blend;
+
+	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
+	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
+	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
+#endif
+
+}
+"
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_yytri")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_kym5q")
+shader_parameter/texture_orm = ExtResource("5_lkc1y")
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/texture_normal = ExtResource("4_3ooie")
+shader_parameter/normal_scale = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("3_odg20")
+shader_parameter/color_mask_r = Color(0.26, 0.26, 0.26, 1)
+shader_parameter/color_mask_g = Color(0.32, 0.117333, 0, 1)
+shader_parameter/color_mask_b = Color(1, 0.4, 0, 1)
+script = ExtResource("1_01lk7")
+backlight = false
+freshnel = false
+rimlight = true
+subsurfaceScattering = false
+alphaMask = false
+uvBasedDiscard = false
+alphaSupport = false
+globalDetailMask = false
+globalDetailRoughMask = false
+colorMask = true
+eyeMode = false
+doubleSided = true
+outline = false
+toonShading = false
+cumLayer = false
+clearCache = false
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

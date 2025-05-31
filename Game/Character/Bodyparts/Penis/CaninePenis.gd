@@ -20,7 +20,7 @@ func _init():
 func getName() -> String:
 	return "Canine penis"
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Penis/CaninePenis/canine_penis.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:
@@ -33,52 +33,52 @@ func getOptions() -> Dictionary:
 	theOptions["shaftColor"] = {
 			name = "Shaft color",
 			type = "color",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.PenisPattern,
 			texSubType = "CanineShaft",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		}
 	theOptions["penisScale"] = {
 			name = "Size",
 			type = "slider",
 			min = 0.5,
 			max = 1.5,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["penisLenMod"] = {
 			name = "Length",
 			type = "slider",
 			min = 0.2,
 			max = 2.0,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["penBallsDrop"] = {
 			name = "Balls position",
 			type = "slider",
 			min = -0.02,
 			max = 0.02,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["penBallsScale"] = {
 			name = "Balls scale",
 			type = "slider",
 			min = 0.0,
 			max = 2.0,
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["furTuft"] = {
 			name = "Fur tufts",
 			type = "bool",
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 	theOptions["furTuftColor"] = {
 			name = "Fur tufts color",
 			type = "color",
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		}
 		
 	return theOptions

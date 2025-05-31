@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyx0lcoi6r0tp"]
+
+[ext_resource type="Script" uid="uid://ccn5vvltq1hsy" path="res://Game/Doll/FaceAnimator/voice_handler.gd" id="1_wi60u"]
+
+[node name="VoiceHandler" type="Node3D"]
+script = ExtResource("1_wi60u")

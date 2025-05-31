@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di3gua31ods6x"]
+
+[ext_resource type="Script" uid="uid://dh24a8jptvwiq" path="res://Game/Sex/sex_manager.gd" id="1_wwlux"]
+
+[node name="SexManager" type="Node3D"]
+script = ExtResource("1_wwlux")

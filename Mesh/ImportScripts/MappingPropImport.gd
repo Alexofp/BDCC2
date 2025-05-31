@@ -106,15 +106,15 @@ func processMeshInstanceMats(node:MeshInstance3D):
 		var surfaceName:String = mesh.get("surface_"+str(_i)+"/name")
 		
 		if(surfaceName.begins_with("MyBigTrim")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/MyBigTrimSmart.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyBigTrimSmart.tres"))
 		if(surfaceName.begins_with("MyTrim")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/MyTrimSmart.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyTrimSmart.tres"))
 		if(surfaceName.begins_with("MyDecals")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/MyDecalTrimSmart.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyDecalTrimSmart.tres"))
 		if(surfaceName.begins_with("Glass")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/GlassMat.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/GlassMat.tres"))
 		if(surfaceName.begins_with("MyFloorTrim")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/MyFloorTrimSmart.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyFloorTrimSmart.tres"))
 		if(surfaceName.begins_with("ShinyTubeMat")):
-			node.set_surface_override_material(_i, preload("res://Mesh/Materials/MyPipeMaterial.tres"))
+			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyPipeMaterial.tres"))
 			

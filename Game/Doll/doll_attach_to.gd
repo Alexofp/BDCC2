@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 		savedPoint = pointNode
 
 func doPos(theNode:Node3D):
-	if(theNode):
+	if(theNode && theNode.is_inside_tree() && is_inside_tree()):
 		global_transform = theNode.global_transform
 
 func onNewAttachPoint(oldPoint, newPoint):

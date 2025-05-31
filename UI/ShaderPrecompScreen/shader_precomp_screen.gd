@@ -2,7 +2,7 @@ extends Node3D
 class_name ShaderPrecompScreen
 
 static var didPrecomp:bool = false
-@onready var feminine_body: Node3D = $FeminineBody
+#@onready var feminine_body: Node3D = $FeminineBody
 
 func _ready():
 	doStuff()
@@ -24,8 +24,10 @@ func doStuff():
 		$RiggedCube2/RiggedCube/Skeleton3D/Cube7,
 		$RiggedCube2/RiggedCube/Skeleton3D/Cube8,
 		$RiggedCube2/RiggedCube/Skeleton3D/Cube9,
+		$RiggedCube2/RiggedCube/Skeleton3D/Cube10,
+		$RiggedCube2/RiggedCube/Skeleton3D/Cube11,
 		#$MyHumanHead,
-		feminine_body,
+		#feminine_body,
 	]
 	
 	await RenderingServer.frame_post_draw

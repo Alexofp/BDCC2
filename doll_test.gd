@@ -7,8 +7,8 @@ var player:BaseCharacter = BaseCharacter.new()
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 var zoomProgress:float = 0.0
 
-func _init():
-	GlobalRegistry.doInit()
+#func _init():
+#	GlobalRegistry.doInit()
 
 func _ready() -> void:
 	doll.setCharacter(player)

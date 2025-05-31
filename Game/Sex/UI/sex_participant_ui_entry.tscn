@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2fc3kupmxgw0"]
+
+[ext_resource type="Script" uid="uid://b6fu1vluvuqli" path="res://Game/Sex/UI/sex_participant_ui_entry.gd" id="1_axb4f"]
+
+[node name="SexParticipantUIEntry" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 54.0
+grow_horizontal = 2
+script = ExtResource("1_axb4f")
+
+[node name="NameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NAME"
+
+[node name="ArousalBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0

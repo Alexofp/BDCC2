@@ -35,6 +35,7 @@ globalDetailRoughMask = false
 colorMask = false
 eyeMode = false
 doubleSided = false
+outline = false
 toonShading = false
 clearCache = false
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

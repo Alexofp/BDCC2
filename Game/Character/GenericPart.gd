@@ -6,6 +6,10 @@ var charRef:WeakRef
 
 signal onOptionChanged(optionID, newValue)
 
+const EDITOR_SKIN = "skin"
+const EDITOR_PART = "part"
+const EDITOR_INTERACT = "interact"
+
 func getName() -> String:
 	return "FILL ME"
 
@@ -20,6 +24,14 @@ func getOptions() -> Dictionary:
 func getOptionsFinal() -> Dictionary:
 	return getOptions()
 
+func getOptionsFinalWithValues() -> Dictionary:
+	var theOptions:Dictionary = getOptionsFinal()
+	
+	for optionID in theOptions:
+		theOptions[optionID]["value"] = getOptionValue(optionID)
+	
+	return theOptions
+
 func getOptionValue(_optionID:String) -> Variant:
 	return get(_optionID)
 
@@ -30,10 +42,10 @@ func setOptionValue(_optionID:String, _value:Variant):
 func applyOption(_optionID:String, _value:Variant):
 	set(_optionID, _value)
 
-func getScenePath(_slot:String) -> String:
+func getScenePath(_slot:int) -> String:
 	return ""
 
-func createScene(_slot:String) -> Node3D:
+func createScene(_slot:int) -> Node3D:
 	var theScenePath := getScenePath(_slot)
 	if(theScenePath == ""):
 		return null

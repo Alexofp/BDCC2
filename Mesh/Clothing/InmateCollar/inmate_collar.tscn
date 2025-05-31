@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://sjhp8kbtbwrw"]
+
+[ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_jdp3t"]
+[ext_resource type="PackedScene" uid="uid://b50jm3rvxohyh" path="res://Mesh/Clothing/InmateCollar/InmateCollar.glb" id="2_et3qn"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_redhd"]
+[ext_resource type="Material" uid="uid://rppd8rmsx1nv" path="res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres" id="4_xg6at"]
+
+[node name="InmateCollar" type="Node3D"]
+script = ExtResource("1_jdp3t")
+
+[node name="InmateCollar" parent="." instance=ExtResource("2_et3qn")]
+script = ExtResource("3_redhd")
+attachPoint = "collar"
+
+[node name="InmateCollar" parent="InmateCollar" index="0"]
+transform = Transform3D(0.069, 0, 0, 0, 0.069, 0, 0, 0, 0.069, 0, 0, 0)
+surface_material_override/0 = ExtResource("4_xg6at")
+
+[editable path="InmateCollar"]

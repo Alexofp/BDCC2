@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtnj2mbq1cm3i"]
+
+[ext_resource type="Script" uid="uid://cn6vhem5otnfl" path="res://Game/Multiplayer/NetworkedNode/networked_nodes.gd" id="1_5i831"]
+
+[node name="NetworkedNodes" type="Node3D"]
+script = ExtResource("1_5i831")

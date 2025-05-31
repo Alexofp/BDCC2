@@ -571,7 +571,7 @@ func makeNodePreviewInstant(theNode:Node):
 func makeNodePreview(theNode:Node):
 	if(theNode is MeshInstance3D):
 		for _i in range(theNode.get_surface_override_material_count()):
-			theNode.set_surface_override_material(_i, preload("res://Mesh/Materials/PreviewMat.tres"))
+			theNode.set_surface_override_material(_i, load("res://Mesh/Materials/PreviewMat.tres"))
 	for childNode in theNode.get_children():
 		makeNodePreview(childNode)
 
@@ -842,22 +842,22 @@ func addEditorChildToMousePosSymmetry(theProp:PCEditorProp, nodeSettings:Diction
 	
 	return tempID
 
-func symmetrize_position(position: Vector3, axis: String, symmetry_point: Vector3 = Vector3(0, 0, 0)) -> Vector3:
+func symmetrize_position(thepos: Vector3, axis: String, symmetry_point: Vector3 = Vector3(0, 0, 0)) -> Vector3:
 	# Ensure the provided axis is valid
 	if axis not in ["x", "y", "z"]:
 		push_error("Invalid axis. Use 'x', 'y', or 'z'.")
-		return position
+		return thepos
 
-	var symmetrized_position = position
+	var symmetrized_position = thepos
 
 	# Symmetrize the position across the specified axis and symmetry point
 	match axis:
 		"x":
-			symmetrized_position.x = 2 * symmetry_point.x - position.x
+			symmetrized_position.x = 2 * symmetry_point.x - thepos.x
 		"y":
-			symmetrized_position.y = 2 * symmetry_point.y - position.y
+			symmetrized_position.y = 2 * symmetry_point.y - thepos.y
 		"z":
-			symmetrized_position.z = 2 * symmetry_point.z - position.z
+			symmetrized_position.z = 2 * symmetry_point.z - thepos.z
 
 	return symmetrized_position
 
@@ -1310,7 +1310,7 @@ func toggleBuildingPlatform(showMessages:bool=false):
 		if(showMessages):
 			showMessage("Platform hidden")
 		return
-	buildingPlatform = preload("res://Mapping/Dev/building_platform_8x8_gray.tscn").instantiate()
+	buildingPlatform = load("res://Mapping/Dev/building_platform_8x8_gray.tscn").instantiate()
 	get_parent().add_child(buildingPlatform)
 	if(showMessages):
 		showMessage("Platform shown")

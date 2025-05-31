@@ -18,6 +18,9 @@ func getCharacter() -> BaseCharacter:
 		return GM.characterRegistry.getCharacter(id)
 	return null
 
+func getCharID() -> String:
+	return id
+
 func getDoll() -> DollController:
 	return doll
 

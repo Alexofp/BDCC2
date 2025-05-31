@@ -3,6 +3,7 @@ class_name SoundSettings
 
 var masterVolume:float = 1.0
 var soundVolume:float = 1.0
+var voiceVolume:float = 1.0
 
 func getSettings() -> Dictionary:
 	return {
@@ -20,6 +21,13 @@ func getSettings() -> Dictionary:
 			max = 1.0,
 			default = 1.0,
 		},
+		"voiceVolume": {
+			name = "Voice volume",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			default = 1.0,
+		},
 	}
 
 
@@ -30,4 +38,7 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
 		"soundVolume":
 			var sounds_index := AudioServer.get_bus_index("Sounds")
+			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
+		"voiceVolume":
+			var sounds_index := AudioServer.get_bus_index("Voice")
 			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))

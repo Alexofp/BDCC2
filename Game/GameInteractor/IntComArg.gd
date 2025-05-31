@@ -19,7 +19,7 @@ static func isValid(theType:int, theValue:Variant) -> bool:
 		return true
 	if(theType == TypeDict && theValue is Dictionary):
 		return true
-	if(theType == TypeAny && (theValue==null || theValue is int || theValue is String || theValue is Array || theValue is float || theValue is Dictionary || theValue is Color || theValue is Vector2 || theValue is Vector3)):
+	if(theType == TypeAny && (theValue==null || theValue is int || theValue is String || theValue is Array || theValue is float || theValue is Dictionary || theValue is Color || theValue is Vector2 || theValue is Vector3 || theValue is bool)):
 		return true
 	
 	return false

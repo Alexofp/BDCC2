@@ -9,7 +9,6 @@
 [sub_resource type="Shader" id="Shader_cvnc3"]
 code = "shader_type spatial;
 
-#define MY_FRESHNEL
 #define MY_COLORMASK
 
 
@@ -121,6 +120,27 @@ vec3 udm_normal_blend(vec3 b, vec3 d) {
 }
 #endif
 
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
@@ -176,7 +196,7 @@ void fragment() {
 	METALLIC = orm_tex.b * metallic;
 	SPECULAR = specular;
 
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	ROUGHNESS = orm_tex.g * roughness;
 
 #ifdef MY_COLORMASK
@@ -240,6 +260,39 @@ void fragment() {
 	ROUGHNESS *= detail_rough_tex_global.g;
 #endif
 
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
+#endif
+
 }
 "
 
@@ -255,20 +308,17 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
 shader_parameter/texture_normal = ExtResource("4_2sc7i")
 shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 1.0
+shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/freshnel_width = 5.0
-shader_parameter/freshnel_mod = 0.1
-shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
 shader_parameter/texture_color_mask = ExtResource("3_k1cni")
 shader_parameter/color_mask_r = Color(0.62, 0.209147, 0.1798, 1)
 shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
 shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
 script = ExtResource("1_cvnc3")
 backlight = false
-freshnel = true
+freshnel = false
 rimlight = false
 subsurfaceScattering = false
 alphaMask = false
@@ -279,6 +329,8 @@ globalDetailRoughMask = false
 colorMask = true
 eyeMode = false
 doubleSided = false
+outline = false
 toonShading = false
+cumLayer = false
 clearCache = false
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://2nbgnba5g4x7"]
+[gd_scene load_steps=5 format=3 uid="uid://2nbgnba5g4x7"]
 
 [ext_resource type="PackedScene" uid="uid://1vhf2u6i3oa3" path="res://Mapping/Props/Raw/Chair1.glb" id="1_x7lfo"]
-[ext_resource type="Script" uid="uid://cd3knq35muy7y" path="res://AnimScenes/anim_scene_spawner.gd" id="4_oj7mc"]
-[ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="5_lm6xm"]
+[ext_resource type="PackedScene" uid="uid://fdc6jyseehm2" path="res://AnimScenes/Scenes/SitAnim/sit_anim_handler.tscn" id="4_0bwen"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fgpvj"]
 size = Vector3(0.65022, 0.490939, 0.559775)
@@ -37,9 +36,4 @@ shape = SubResource("BoxShape3D_fgpvj")
 transform = Transform3D(1, 0, 0, 0, 0.990144, 0.140055, 0, -0.140055, 0.990144, 0, 0.229442, -0.248333)
 shape = SubResource("BoxShape3D_nuq0f")
 
-[node name="AnimSceneSpawner" type="Node3D" parent="." index="4"]
-script = ExtResource("4_oj7mc")
-scene = ExtResource("5_lm6xm")
-metadata/_custom_type_script = "uid://cd3knq35muy7y"
-
-[node name="SitAnimScene" parent="." index="5" instance=ExtResource("5_lm6xm")]
+[node name="SitAnimHandler" parent="." index="4" instance=ExtResource("4_0bwen")]

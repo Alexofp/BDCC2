@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf74i2os3befl"]
+
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="1_dthnl"]
+[ext_resource type="Script" uid="uid://bgx3h2to3mlxl" path="res://AnimScenes/Scenes/TestSexAnim/test_sex_scene.gd" id="1_qpbml"]
+
+[node name="TestSexScene" type="Node3D"]
+script = ExtResource("1_qpbml")
+
+[node name="SitSpot" parent="." instance=ExtResource("1_dthnl")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." instance=ExtResource("1_dthnl")]
+unique_name_in_owner = true

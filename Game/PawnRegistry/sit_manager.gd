@@ -147,7 +147,4 @@ func loadNetworkData(_data:Dictionary):
 	var sittersData:Array = SAVE.loadVar(_data, "sitters", [])
 	
 	for pair in sittersData:
-		Log.Print("LOADING A SIT AAAAAAAAAAA: "+str(pair))
 		doSitRPC(pair[0], pair[1])
-	Log.Print("AAAAA "+str(pawnToSeat))
-	Log.Print("AAAAA2 "+str(seatToPawn))

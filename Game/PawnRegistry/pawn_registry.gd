@@ -81,12 +81,13 @@ func deletePawn(charID:String):
 		deletePawnRPC.rpc(charID)
 
 func pawnDeleteCleanup(thePawn:CharacterPawn):
-	onPawnDeleted.emit(thePawn)
-	onPawnListChanged.emit()
+	onPawnDeleted.emit(thePawn) # Should this happen after the erase?
 	
 	if(thePawn.is_inside_tree()):
 		thePawn.name = "TO_BE_DELETED"
 	pawns.erase(thePawn.id)
+	
+	onPawnListChanged.emit()
 
 func clearPawns():
 	for charID in pawns.keys():

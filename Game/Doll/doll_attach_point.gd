@@ -33,7 +33,7 @@ func _exit_tree() -> void:
 		Log.error("Attach point couldn't find a doll during deletion")
 		return
 	doll.removeAttachPoint(self)
-
+	
 func _process(_delta: float) -> void:
 	doPosChilds.call_deferred()
 
@@ -41,6 +41,6 @@ func doPosChilds():
 	if(!is_inside_tree() || is_queued_for_deletion()):
 		return
 	for childPoint in attached:
-		if(!childPoint):
+		if(!childPoint || !childPoint.is_inside_tree()):
 			continue
 		childPoint.global_transform = global_transform

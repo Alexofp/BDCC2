@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfw56qwq2jap0"]
+
+[ext_resource type="Script" uid="uid://bsyn4b7230i1y" path="res://UI/VarList/Vars/species_var.gd" id="1_g3uow"]
+
+[node name="SpeciesVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_g3uow")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+vertical_alignment = 1
+
+[node name="SpeciesSelector" type="OptionButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HybridHBox" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HybridHBox"]
+layout_mode = 2
+text = "Second species"
+
+[node name="SecondSpeciesSelector" type="OptionButton" parent="HybridHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HybridCheckBox" type="CheckBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hybrid species"
+
+[connection signal="item_selected" from="HBoxContainer/SpeciesSelector" to="." method="_on_species_selector_item_selected"]
+[connection signal="item_selected" from="HybridHBox/SecondSpeciesSelector" to="." method="_on_second_species_selector_item_selected"]
+[connection signal="pressed" from="HybridCheckBox" to="." method="_on_hybrid_check_box_pressed"]

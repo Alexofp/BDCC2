@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmj8cqsndj2mo"]
+
+[ext_resource type="Script" uid="uid://c0bq4hqtct0t6" path="res://UI/VarList/Vars/string_window_var.gd" id="1_uidb8"]
+
+[node name="StringWindowVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_uidb8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Label"
+
+[node name="ChangeButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Change"
+
+[connection signal="pressed" from="HBoxContainer/ChangeButton" to="." method="_on_change_button_pressed"]

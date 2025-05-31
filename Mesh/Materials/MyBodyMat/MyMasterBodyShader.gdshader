@@ -110,6 +110,27 @@ vec3 udm_normal_blend(vec3 b, vec3 d) {
 }
 #endif
 
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
@@ -165,7 +186,7 @@ void fragment() {
 	METALLIC = orm_tex.b * metallic;
 	SPECULAR = specular;
 
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	ROUGHNESS = orm_tex.g * roughness;
 
 #ifdef MY_COLORMASK
@@ -227,6 +248,39 @@ void fragment() {
 	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
 	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
 	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
 #endif
 
 }

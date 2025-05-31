@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0isfr4f1lemd"]
+
+[ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="1_k7pa1"]
+[ext_resource type="Script" uid="uid://5yhekbdxljs1" path="res://AnimScenes/Scenes/SitAnim/bench_anim_handler..gd" id="2_34f0x"]
+[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="3_ud5bg"]
+[ext_resource type="PackedScene" uid="uid://nqxy5s7ye680" path="res://AnimScenes/Scenes/SitAnim/bench_cuddle_scene.tscn" id="6_il50t"]
+[ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="6_ud5bg"]
+
+[node name="BenchAnimHandler" type="Node3D" groups=["Networked"]]
+script = ExtResource("2_34f0x")
+
+[node name="Interactable" parent="." instance=ExtResource("3_ud5bg")]
+unique_name_in_owner = true
+
+[node name="StandSpotLeft" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526, 0, 0.540104)
+
+[node name="StandSpotRight" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526, 0, 0.54)
+
+[node name="SitSpawnerLeft" parent="." instance=ExtResource("1_k7pa1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526443, 0, -0.169801)
+scene = ExtResource("6_ud5bg")
+
+[node name="SitSpawnerRight" parent="." instance=ExtResource("1_k7pa1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526, 0, -0.17)
+scene = ExtResource("6_ud5bg")
+
+[node name="SitSpawnerCuddle" parent="." instance=ExtResource("1_k7pa1")]
+scene = ExtResource("6_il50t")
+
+[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://bdtwkbjfc2yjm"]
+[gd_scene load_steps=27 format=4 uid="uid://bdtwkbjfc2yjm"]
 
 [ext_resource type="Script" uid="uid://bgn5eou04l6fw" path="res://UI/ShaderPrecompScreen/shader_precomp_screen.gd" id="1_oki52"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="2_ycgg1"]
@@ -8,302 +8,20 @@
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="6_8iydo"]
 [ext_resource type="Material" uid="uid://cc5cujgom31u5" path="res://Mesh/Materials/Floors/ConcreteTiles.tres" id="6_f0w4x"]
 [ext_resource type="PackedScene" uid="uid://06pfnmb305cv" path="res://Mapping/Props/WallLight.tscn" id="7_8u4nw"]
-[ext_resource type="PackedScene" uid="uid://d32omdfp8acg8" path="res://Mapping/World/feminine_body.tscn" id="8_ofbok"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="9_8iydo"]
-[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="10_8u4nw"]
 [ext_resource type="PackedScene" uid="uid://cjnh3bwuagu50" path="res://UI/ShaderPrecompScreen/RiggedCube.glb" id="11_qm4el"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="12_cg4fj"]
 [ext_resource type="Material" uid="uid://sle1odyxpbnx" path="res://Mesh/Parts/SharedMaterials/HairMat.tres" id="13_odv5m"]
-[ext_resource type="Material" uid="uid://c8vrimhqhhto8" path="res://Mesh/Parts/Body/FeminineBody/BodySmartMatTest.tres" id="14_4alj0"]
+[ext_resource type="Material" uid="uid://c8vrimhqhhto8" path="res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres" id="14_4alj0"]
 [ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="16_4alj0"]
 [ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/FelineTail/TailMat.tres" id="16_53ind"]
 [ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="17_obufd"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="18_uawf8"]
+[ext_resource type="Material" uid="uid://bo0v0t0xwyewc" path="res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres" id="18_xo4mo"]
 [ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="20_53ind"]
 [ext_resource type="PackedScene" uid="uid://b85gkt2ndvnwd" path="res://Mapping/Decals/DecalNumDots.tscn" id="25_g1ojs"]
 [ext_resource type="PackedScene" uid="uid://bf5hr37wkj4ke" path="res://Mapping/Walls/WindowA4x3.tscn" id="26_upy2a"]
 [ext_resource type="PackedScene" uid="uid://dxwidk66svbvu" path="res://Mapping/World/RockTest1.tscn" id="27_f0w4x"]
 [ext_resource type="PackedScene" uid="uid://gvkslhfyjgrp" path="res://Mapping/Props/inmate_bed.tscn" id="28_upy2a"]
-
-[sub_resource type="Shader" id="Shader_plkf8"]
-code = "shader_type spatial;
-
-#define MY_BACKLIGHT
-#define MY_FRESHNEL
-#define MY_RIMLIGHT
-#define MY_SUBSURFACESCATTER
-#define MY_UV_BASED_DISCARD
-#define MY_GLOBALDETAILMAP
-
-
-render_mode
-blend_mix,
-#ifdef MY_ALPHASUPPORT
-depth_prepass_alpha,
-#endif
-depth_draw_opaque,
-#ifdef MY_TOONSHADING
-diffuse_toon,
-#else
-diffuse_burley,
-#endif
-specular_schlick_ggx,
-#ifdef MY_SUBSURFACESCATTER
-sss_mode_skin,
-#endif
-#ifdef MY_DOUBLESIDED
-cull_disabled
-#else
-cull_back
-#endif
-;
-
-uniform vec4 albedo : source_color = vec4(1.0);
-uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
-
-uniform float roughness : hint_range(0.0, 1.0) = 1.0;
-
-uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.5;
-uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
-
-uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
-uniform float normal_scale : hint_range(-16.0, 16.0) = 1.0;
-
-#ifdef MY_ALPHAMASK
-uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
-uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
-#endif
-
-#ifdef MY_RIMLIGHT
-uniform float rim : hint_range(0.0, 3.0, 0.01) = 1.0;
-uniform float rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
-//uniform sampler2D texture_rim : hint_default_white, filter_linear_mipmap, repeat_enable;
-#endif
-
-uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01) = 0.0;
-uniform float ao_mult : hint_range(0.0, 1.0, 0.01) = 1.0;
-
-#ifdef MY_SUBSURFACESCATTER
-uniform float subsurface_scattering_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
-//uniform sampler2D texture_subsurface_scattering : hint_default_white, filter_linear_mipmap, repeat_enable;
-#endif
-
-#ifdef MY_BACKLIGHT
-uniform vec4 backlight : source_color = vec4(0.3, 0.24, 0.24, 1.0);
-//uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
-#endif
-
-uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
-uniform vec3 uv1_offset = vec3(0.0);
-//uniform vec3 uv2_scale = vec3(1.0, 1.0, 1.0);
-//uniform vec3 uv2_offset = vec3(0.0);
-
-#ifdef MY_FRESHNEL
-uniform float freshnel_width : hint_range(0.0, 30.0, 0.1) = 5.0;
-uniform float freshnel_mod : hint_range(0.0, 0.3, 0.01) = 0.1;
-uniform vec3 freshnel_color : source_color = vec3(0.05,0.02,0.02);
-
-float fresnel(float amount, vec3 normal, vec3 view)
-{
-	return pow((1.0 - clamp(dot(normalize(normal), normalize(view))-freshnel_mod, 0.0, 1.0 )), amount);
-}
-#endif
-
-//#define MY_COLORMASK
-#ifdef MY_COLORMASK
-uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
-uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
-uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
-uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
-#endif
-
-//#define MY_GLOBALDETAILROUGHMAP
-#ifdef MY_GLOBALDETAILROUGHMAP
-uniform sampler2D texture_detail_rough_global : hint_roughness_b, filter_linear_mipmap, repeat_enable;
-uniform float detail_rough_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
-uniform float detail_rough_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
-
-#endif
-//#define MY_GLOBALDETAILMAP
-#ifdef MY_GLOBALDETAILMAP
-uniform sampler2D texture_detail_normal_global : hint_normal, filter_linear_mipmap, repeat_enable;
-uniform float detail_normal_scale : hint_range(0.01, 100.0, 0.01) = 1.0;
-uniform float detail_normal_blend : hint_range(0.01, 3.0, 0.01) = 1.0;
-
-vec3 _simple_normal_blend(vec3 b, vec3 d) {
-	return vec3(b.xy + d.xy - 0.5, 1.0);
-}
-
-vec3 udm_normal_blend(vec3 b, vec3 d) {
-	b = b*2.0 - 1.0;
-	d = d*2.0 - 1.0;
-	vec3 r = vec3(b.xy + d.xy, b.z);
-	r = normalize(r);
-	return r*0.5 + 0.5;
-}
-#endif
-
-void vertex() {
-	UV = UV * uv1_scale.xy + uv1_offset.xy;
-}
-
-void fragment() {
-	vec2 base_uv = UV;
-
-#ifdef MY_UV_BASED_DISCARD
-	if(base_uv.y < 0.0)
-		discard;
-#endif
-
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	vec4 orm_tex = texture(texture_orm, base_uv);
-
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-
-#ifdef MY_COLORMASK
-	vec4 mask = texture(texture_color_mask, base_uv);
-{
-	float maskF = mask.r + mask.g + mask.b;
-	maskF = max(maskF, 1.0);
-	mask.rgb /= maskF;
-
-	vec4 color_r = color_mask_r;
-	vec4 color_g = color_mask_g;
-	vec4 color_b = color_mask_b;
-
-    vec4 result = vec4(0.0);
-	result += mask.r*color_r*color_r.a;
-	result += mask.g*color_g*color_g.a;
-	result += mask.b*color_b*color_b.a;
-
-	result.a *= mask.a;
-
-	vec4 mask_color = texture(texture_color_mask, base_uv);
-
-	ALBEDO.rgb = mix(ALBEDO.rgb, result.rgb, result.a);
-
-	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
-	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
-	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
-}
-#endif
-
-#ifdef MY_FRESHNEL
-	// Freshnel: Enabled
-	float basic_fresnel = fresnel(freshnel_width, NORMAL, VIEW);
-	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
-	ALBEDO = mix(ALBEDO, freshnel_color, basic_fresnel);// - basic_fresnel;
-#endif
-
-	METALLIC = orm_tex.b * metallic;
-	SPECULAR = specular;
-
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
-	ROUGHNESS = orm_tex.g * roughness;
-
-#ifdef MY_COLORMASK
-#ifdef MY_EYEMODE
-	ROUGHNESS *= min(1.0 - mask.g*0.9, 1.0);
-	EMISSION = albedo_tex.rgb*color_mask_g.rgb*mask.g;
-	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r.rgb, mask.r*0.5);
-	//EMISSION.rgb *= 2.0;
-#endif
-#endif
-
-	// Normal Map: Enabled
-	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
-	NORMAL_MAP_DEPTH = normal_scale;
-
-#ifdef MY_RIMLIGHT
-	// Rim: Enabled
-	//vec2 rim_tex = texture(texture_rim, base_uv).xy;
-	RIM = rim;// * rim_tex.x;// - basic_fresnel*2.5;
-	RIM_TINT = rim_tint;// * rim_tex.y;
-#endif
-
-	// Ambient Occlusion: Enabled
-	AO = orm_tex.r * ao_mult;
-	AO_LIGHT_AFFECT = ao_light_affect;
-
-#ifdef MY_SUBSURFACESCATTER
-	// Subsurface Scattering: Enabled
-	//float sss_tex = texture(texture_subsurface_scattering, base_uv).r;
-	SSS_STRENGTH = subsurface_scattering_strength;// * sss_tex;
-#endif
-
-#ifdef MY_BACKLIGHT
-	// Backlight: Enabled
-	//vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
-	BACKLIGHT = (backlight.rgb);// + backlight_tex);
-#endif
-
-#ifdef MY_ALPHAMASK
-	vec4 alpha_tex = texture(texture_alpha, base_uv);
-	ALPHA *= (1.0 - alpha_tex.r);
-	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
-#endif
-
-#ifdef MY_ALPHASUPPORT
-	ALPHA *= albedo_tex.a*albedo.a;
-#endif
-
-#ifdef MY_GLOBALDETAILMAP
-	vec3 detail_norm_tex_global = texture(texture_detail_normal_global, base_uv*detail_normal_scale).rgb; // base_uv
-	detail_norm_tex_global = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
-	NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
-#endif
-
-#ifdef MY_GLOBALDETAILROUGHMAP
-	vec3 detail_rough_tex_global = texture(texture_detail_rough_global, base_uv*detail_rough_scale).rgb; // base_uv
-	detail_rough_tex_global.g = detail_rough_tex_global.g * (detail_rough_blend) + 1.0 - detail_rough_blend;
-
-	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
-	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
-	ROUGHNESS *= detail_rough_tex_global.g;
-#endif
-
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_khxt0"]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_plkf8")
-shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/normal_scale = 1.0
-shader_parameter/rim = 1.75
-shader_parameter/rim_tint = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 0.25
-shader_parameter/subsurface_scattering_strength = 0.23
-shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/freshnel_width = 5.0
-shader_parameter/freshnel_mod = 0.16
-shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
-shader_parameter/texture_detail_normal_global = ExtResource("10_8u4nw")
-shader_parameter/detail_normal_scale = 40.0
-shader_parameter/detail_normal_blend = 0.3
-script = ExtResource("9_8iydo")
-backlight = true
-freshnel = true
-rimlight = true
-subsurfaceScattering = true
-alphaMask = false
-uvBasedDiscard = true
-alphaSupport = false
-globalDetailMask = true
-globalDetailRoughMask = false
-colorMask = false
-eyeMode = false
-doubleSided = false
-toonShading = false
-clearCache = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uawf8"]
 
@@ -400,10 +118,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10686, 0.451218, -1.05698)
 visible = false
 
-[node name="FeminineBody" parent="." instance=ExtResource("8_ofbok")]
-visible = false
-bodyMat = SubResource("ShaderMaterial_khxt0")
-
 [node name="RiggedCube2" parent="." instance=ExtResource("11_qm4el")]
 transform = Transform3D(0.1307, 0, 0, 0, 0.1307, 0, 0, 0, 0.1307, -1.0495, 0.499355, 0)
 
@@ -467,6 +181,18 @@ visible = false
 mesh = SubResource("ArrayMesh_rdtr6")
 skin = SubResource("Skin_3p35b")
 surface_material_override/0 = ExtResource("20_53ind")
+
+[node name="Cube10" type="MeshInstance3D" parent="RiggedCube2/RiggedCube/Skeleton3D" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.18783, 0, -2.50403)
+mesh = SubResource("ArrayMesh_rdtr6")
+skin = SubResource("Skin_3p35b")
+surface_material_override/0 = ExtResource("14_4alj0")
+
+[node name="Cube11" type="MeshInstance3D" parent="RiggedCube2/RiggedCube/Skeleton3D" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.18783, 0, -2.50403)
+mesh = SubResource("ArrayMesh_rdtr6")
+skin = SubResource("Skin_3p35b")
+surface_material_override/0 = ExtResource("18_xo4mo")
 
 [node name="DecalNumDots" parent="." instance=ExtResource("25_g1ojs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33682, 0)

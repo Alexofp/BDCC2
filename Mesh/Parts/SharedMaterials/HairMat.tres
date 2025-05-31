@@ -4,12 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bcafkd8e0224u" path="res://Mesh/Parts/SharedTextures/Hair/hairColormask.png" id="2_jd031"]
 [ext_resource type="Texture2D" uid="uid://ch3vj3nxghogt" path="res://Mesh/Parts/SharedTextures/Hair/hairNormal.png" id="3_lpgne"]
 
-[sub_resource type="Shader" id="Shader_uyagv"]
+[sub_resource type="Shader" id="Shader_tvysh"]
 code = "shader_type spatial;
 
-#define MY_FRESHNEL
-#define MY_RIMLIGHT
 #define MY_COLORMASK
+#define MY_OUTLINE
 
 
 render_mode
@@ -27,7 +26,12 @@ specular_schlick_ggx,
 #ifdef MY_SUBSURFACESCATTER
 sss_mode_skin,
 #endif
-cull_back;
+#ifdef MY_DOUBLESIDED
+cull_disabled
+#else
+cull_back
+#endif
+;
 
 uniform vec4 albedo : source_color = vec4(1.0);
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
@@ -83,10 +87,10 @@ float fresnel(float amount, vec3 normal, vec3 view)
 
 //#define MY_COLORMASK
 #ifdef MY_COLORMASK
-uniform sampler2D texture_color_mask : hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform vec3 color_mask_r : source_color = vec3(1.0, 0.0, 0.0);
-uniform vec3 color_mask_g : source_color = vec3(0.0, 1.0, 0.0);
-uniform vec3 color_mask_b : source_color = vec3(0.0, 0.0, 1.0);
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
 #endif
 
 //#define MY_GLOBALDETAILROUGHMAP
@@ -115,29 +119,70 @@ vec3 udm_normal_blend(vec3 b, vec3 d) {
 }
 #endif
 
+//#define MY_OUTLINE
+#ifdef MY_OUTLINE
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.05;
+uniform float rim_threshold : hint_range(0.0, 1.0) = 0.8;
+#endif
+
+//#define MY_CUMLAYER
+#ifdef MY_CUMLAYER
+uniform sampler2D texture_cum_layer: source_color, hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform float cum_layer_scale : hint_range(0.0, 10.0) = 1.0;
+
+uniform sampler2D texture_cum_mask: hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 cum_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float cumRoughness : hint_range(0.0, 1.0) = 0.0;
+uniform float cumScroll : hint_range(0.0, 1.0) = 0.0;
+
+uniform float cumCutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float cumSmoothSize : hint_range(0.0, 1.0) = 0.1;
+#endif
+
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
 
 void fragment() {
 	vec2 base_uv = UV;
-	
+
 #ifdef MY_UV_BASED_DISCARD
 	if(base_uv.y < 0.0)
 		discard;
 #endif
-	
+
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
 	vec4 orm_tex = texture(texture_orm, base_uv);
 
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
 
 #ifdef MY_COLORMASK
+	vec4 mask = texture(texture_color_mask, base_uv);
+{
+	float maskF = mask.r + mask.g + mask.b;
+	maskF = max(maskF, 1.0);
+	mask.rgb /= maskF;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 result = vec4(0.0);
+	result += mask.r*color_r*color_r.a;
+	result += mask.g*color_g*color_g.a;
+	result += mask.b*color_b*color_b.a;
+
+	result.a *= mask.a;
+
 	vec4 mask_color = texture(texture_color_mask, base_uv);
-	
-	ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
-	ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
-	ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
+
+	ALBEDO.rgb = mix(ALBEDO.rgb, result.rgb, result.a);
+
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_r, mask_color.r);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_g, mask_color.g);
+	//ALBEDO.rgb = mix(ALBEDO.rgb, albedo_tex.rgb*color_mask_b, mask_color.b);
+}
 #endif
 
 #ifdef MY_FRESHNEL
@@ -146,18 +191,18 @@ void fragment() {
 	basic_fresnel = smoothstep(0.0, 1.0, basic_fresnel)*1.0; //0.5 magic number seems to give the most intuitive control
 	ALBEDO = mix(ALBEDO, freshnel_color, basic_fresnel);// - basic_fresnel;
 #endif
-	
+
 	METALLIC = orm_tex.b * metallic;
 	SPECULAR = specular;
 
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	ROUGHNESS = orm_tex.g * roughness;
-	
+
 #ifdef MY_COLORMASK
 #ifdef MY_EYEMODE
-	ROUGHNESS *= min(1.0 - mask_color.g*0.9, 1.0);
-	EMISSION = albedo_tex.rgb*color_mask_g*mask_color.g;
-	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r, mask_color.r*0.5);
+	ROUGHNESS *= min(1.0 - mask.g*0.9, 1.0);
+	EMISSION = albedo_tex.rgb*color_mask_g.rgb*mask.g;
+	EMISSION.rgb = mix(EMISSION.rgb, albedo_tex.rgb*color_mask_r.rgb, mask.r*0.5);
 	//EMISSION.rgb *= 2.0;
 #endif
 #endif
@@ -208,10 +253,43 @@ void fragment() {
 #ifdef MY_GLOBALDETAILROUGHMAP
 	vec3 detail_rough_tex_global = texture(texture_detail_rough_global, base_uv*detail_rough_scale).rgb; // base_uv
 	detail_rough_tex_global.g = detail_rough_tex_global.g * (detail_rough_blend) + 1.0 - detail_rough_blend;
-	
+
 	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
 	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
 	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+#ifdef MY_CUMLAYER
+
+	vec4 cum_tex = texture(texture_cum_layer, (base_uv + vec2(cumScroll*3.3, cumScroll) - vec2(0.0, TIME*0.001))*cum_layer_scale);
+	vec4 cum_mask_tex = texture(texture_cum_mask, base_uv);
+	
+	float cumValue = cum_tex.a;
+	float cumAlphaAlpha = smoothstep(cumCutoff, cumCutoff + cumSmoothSize, cumValue * (1.0 - cumSmoothSize) + cumSmoothSize);
+	
+	float cumAlpha = cum_tex.a * cum_mask_tex.r * cum_color.a * cumAlphaAlpha;
+	
+	ALBEDO = mix(ALBEDO, cum_tex.rgb*cum_color.rgb, cumAlpha);
+	ROUGHNESS = mix(ROUGHNESS, cumRoughness, cumAlpha);
+	
+	BACKLIGHT = mix(BACKLIGHT, vec3(0.5, 0.5, 0.5), cumAlpha);
+	//SPECULAR = 3.0;//mix(SPECULAR, 30.0, min(cumAlpha*3.0, 1.0));
+	//RIM = mix(RIM, 1.0, cumAlpha);
+	//RIM_TINT = mix(RIM_TINT, 1.0, cumAlpha);
+#endif
+
+#ifdef MY_OUTLINE
+	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
+
+    vec3 nOutline = normalize(NORMAL);
+    vec3 dxOutline = dFdx(nOutline);
+    vec3 dyOutline = dFdy(nOutline);
+    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	edgeOutline /= dot(VERTEX, VERTEX);
+
+    if (edgeOutline > (edge_threshold*edge_threshold) && rimOutline > rim_threshold) {
+        ALBEDO = mix(ALBEDO, outline_color.rgb, rimOutline*0.7);
+    }
 #endif
 
 }
@@ -220,30 +298,28 @@ void fragment() {
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_uyagv")
+shader = SubResource("Shader_tvysh")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/roughness = 0.726
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/texture_normal = ExtResource("3_lpgne")
 shader_parameter/normal_scale = 1.0
-shader_parameter/rim = 0.49
-shader_parameter/rim_tint = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/freshnel_width = 5.0
-shader_parameter/freshnel_mod = 0.1
-shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
 shader_parameter/texture_color_mask = ExtResource("2_jd031")
 shader_parameter/color_mask_r = Color(0.39, 0.0351, 0.0351, 1)
 shader_parameter/color_mask_g = Color(0.72, 0.288, 0.288, 1)
 shader_parameter/color_mask_b = Color(0.72, 0.1584, 0.1584, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/edge_threshold = 0.026
+shader_parameter/rim_threshold = 0.8
 script = ExtResource("1_8w0ex")
 backlight = false
-freshnel = true
-rimlight = true
+freshnel = false
+rimlight = false
 subsurfaceScattering = false
 alphaMask = false
 uvBasedDiscard = false
@@ -252,6 +328,9 @@ globalDetailMask = false
 globalDetailRoughMask = false
 colorMask = true
 eyeMode = false
+doubleSided = false
+outline = true
 toonShading = false
+cumLayer = false
 clearCache = false
-metadata/_custom_type_script = ExtResource("1_8w0ex")
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

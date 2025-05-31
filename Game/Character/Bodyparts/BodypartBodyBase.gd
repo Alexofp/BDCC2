@@ -1,22 +1,37 @@
 extends BodypartBase
 class_name BodypartBodyBase
 
-var thickness:float = 0.5
 var legType:String = "planti" # planti digi
 var bodyLayers:Array = []
+var breasts:float = 1.0
+var nippleShape:float = 0.0
+var breastsCleavage:float = 0.0
 
-func getBodypartType() -> String:
+func getBodypartType() -> int:
 	return BodypartType.Body
 
 func getOptions() -> Dictionary:
 	return {
-		"thickness": {
-			name = "Thickness",
+		"breasts": {
+			name = "Breast size",
+			type = "slider",
+			min = 0.0,
+			max = 3.0,
+			editors = [EDITOR_PART],
+		},
+		"breastsCleavage": {
+			name = "Breast cleavage",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
-			delayUpdate = true,
-			editors = ["part"],
+			editors = [EDITOR_PART],
+		},
+		"nippleShape": {
+			name = "Nipples shape",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
 		},
 		"legType": {
 			name = "Legs",
@@ -25,14 +40,14 @@ func getOptions() -> Dictionary:
 				["planti", "Plantigrade"],
 				["digi", "Digitigrade"],
 			],
-			editors = ["part"],
+			editors = [EDITOR_PART],
 		},
 		"bodyLayers": {
 			name = "Layers",
 			type = "texVarLayerList",
 			texType = TextureVariantType.BodyLayer,
 			texSubType = "def",
-			editors = ["skin"],
+			editors = [EDITOR_SKIN],
 		},
 	}
 
