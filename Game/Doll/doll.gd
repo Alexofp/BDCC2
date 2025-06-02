@@ -56,6 +56,7 @@ func setCharacter(theChar:BaseCharacter):
 		currentChar.onGenericPartOptionChange.disconnect(onCharPartOptionChange)
 		currentChar.onBodypartSkinTypeChange.disconnect(onCharBodypartSkinTypeChange)
 		currentChar.onCharOptionChange.disconnect(onCharOptionChange)
+		currentChar.onPartFilterChange.disconnect(updatePartFilter)
 		currentChar.getBodyMess().onChange.disconnect(onUpdateBodyMess)
 	
 	characterRef = weakref(theChar)
@@ -64,6 +65,7 @@ func setCharacter(theChar:BaseCharacter):
 	theChar.onGenericPartOptionChange.connect(onCharPartOptionChange)
 	theChar.onBodypartSkinTypeChange.connect(onCharBodypartSkinTypeChange)
 	theChar.onCharOptionChange.connect(onCharOptionChange)
+	theChar.onPartFilterChange.connect(updatePartFilter)
 	theChar.getBodyMess().onChange.connect(onUpdateBodyMess)
 	
 	voice_handler.setCharID(theChar.getID() if theChar else "")
@@ -181,6 +183,8 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		return
 	
 	clearOutPart(genericType, bodypartSlot)
+	if(shouldBeFilteredOut(genericType, bodypartSlot)):
+		return
 	
 	var partScenePath:String = part.getScenePath(bodypartSlot)
 	if(partScenePath == ""):
@@ -188,6 +192,8 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 	partPaths[genericType][bodypartSlot] = partScenePath
 	
 	var theCallback := func(dollSceneScene:PackedScene, cachedPart):
+		if(shouldBeFilteredOut(genericType, bodypartSlot)):
+			return
 		if(getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
 			#print("SWITCHERUUU")
 			return
@@ -487,6 +493,12 @@ func getPartCachedPath(genericType:int, slot:int) -> String:
 		return ""
 	return partPaths[genericType][slot]
 
+func getGenericPart(genericType:int, slot:int) -> GenericPart:
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return null
+	return theChar.getGenericPart(genericType, slot)
+
 ## Re-create clothing in case they don't fit the current bodyparts anymore
 func checkAllClothingScenes():
 	var theChar:BaseCharacter = getCharacter()
@@ -542,3 +554,24 @@ func _on_alpha_mask_texture_on_texture_updated(newTexture: Texture2D) -> void:
 	var theBody:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
 	if(theBody):
 		theBody.updateBodyAlphaMask(newTexture)
+
+func shouldBeFilteredOut(genericType:int, bodypartSlot:int) -> bool:
+	var thePart:GenericPart = getGenericPart(genericType, bodypartSlot)
+	if(!thePart):
+		return false
+	return thePart.shouldBeFilteredOut()
+
+func updatePartFilter():
+	var character := getChar()
+	if(character == null):
+		return
+	var genericParts:Dictionary = character.getGenericParts()
+	for genericType in genericParts:
+		for bodypartSlot in genericParts[genericType]:
+			var dollPartExists:bool = (getDollPart(genericType, bodypartSlot) != null)
+			var shouldFilter:bool = shouldBeFilteredOut(genericType, bodypartSlot)
+			
+			if(dollPartExists && shouldFilter):
+				clearOutPart(genericType, bodypartSlot)
+			elif(!dollPartExists && !shouldFilter):
+				updatePartFromCharacter(genericType, bodypartSlot)

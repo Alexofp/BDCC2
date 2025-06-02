@@ -3,6 +3,7 @@ class_name GenericPart
 
 var id:String = "error"
 var charRef:WeakRef
+var internalHidePart:bool = false # Should the doll not spawn this part
 
 signal onOptionChanged(optionID, newValue)
 
@@ -76,6 +77,9 @@ func setCharacter(theCharacter:BaseCharacter):
 		charRef = null
 		return
 	charRef = weakref(theCharacter)
+
+func shouldBeFilteredOut() -> bool:
+	return internalHidePart
 
 func saveOptionsData() -> Dictionary:
 	var data:Dictionary = {}

@@ -69,6 +69,9 @@ func getScenePath(_slot:int) -> String:
 func shouldHobbleLegs() -> bool:
 	return false
 
+func getSexHideTags() -> Dictionary:
+	return {}
+
 func saveNetworkData() -> Dictionary:
 	return {}
 

@@ -11,3 +11,9 @@ func getSlot() -> int:
 
 func shouldHobbleLegs() -> bool:
 	return true
+
+func getSexHideTags() -> Dictionary:
+	return {
+		SexHideTag.LegRestraint: true,
+		SexHideTag.AnkleCuffs: true,
+	}

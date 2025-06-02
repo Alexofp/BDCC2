@@ -460,6 +460,14 @@ func getRoleID(_role:String) -> String:
 		return ""
 	return sexType.getRoleID(_role)
 
+func _on_anim_scene_player_on_anim_play(_animID: String, _state: String) -> void:
+	pass # Replace with function body.
+
+func getSexHideTagsFor(_charID:String) -> Array:
+	var result:Array = []
+	result.append_array(anim_scene_player.getSexHideTagsFor(_charID))
+	return result
+
 func processCameraControl(_delta:float, _controllingCamera:bool):
 	if(cameraMode == CAMERA_FREE):
 		const speed := 2.0

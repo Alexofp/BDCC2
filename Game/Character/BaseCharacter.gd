@@ -28,6 +28,7 @@ signal onBodypartSkinTypeOverrideSwitch(slot)
 signal onBaseSkinTypeChange(skinType, skinTypeData)
 signal onCharOptionChange(changeID)
 signal onEquippedItemChange(slot, newItem)
+signal onPartFilterChange
 
 const GENERIC_BODYPARTS = 0
 const GENERIC_CLOTHING = 1
@@ -55,6 +56,7 @@ func _init():
 	pass
 
 func onInventoryEquipItemChange(_slot:int, _item:ItemBase):
+	updatePartFilter()
 	onEquippedItemChange.emit(_slot, _item)
 	onGenericPartChange.emit(GENERIC_CLOTHING, _slot, _item)
 
@@ -488,6 +490,35 @@ func getJumpHeight() -> float:
 	if(inventory.shouldHobbleLegs()):
 		return 0.5
 	return 1.0
+
+func triggerUpdatePartFilter():
+	updatePartFilter()
+
+func updatePartFilter():
+	var theSex:SexEngine = GM.sexManager.getSexEngineOfCharID(getID())
+	var theSexHideTags:Array = theSex.getSexHideTagsFor(getID()) if theSex else []
+	
+	var shouldEmit:bool = false
+	for slot in inventory.getEquippedItems():
+		var theItem:ItemBase = inventory.getEquippedItem(slot)
+		
+		var currentVal:bool = theItem.internalHidePart
+		
+		var finalVal:bool = false
+		var theItemHideTags:Dictionary = theItem.getSexHideTags()
+		for theTag in theSexHideTags:
+			if(theItemHideTags.has(theTag)):
+				finalVal = true
+				break
+		
+		if(finalVal != currentVal):
+			shouldEmit = true
+		theItem.internalHidePart = finalVal
+	if(shouldEmit):
+		onPartFilterChange.emit()
+
+func triggerPartFilterChangeSignal():
+	onPartFilterChange.emit()
 
 func saveNetworkData() -> Dictionary:
 	var skinTypesData:Dictionary = {}

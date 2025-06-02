@@ -8,3 +8,9 @@ func getName() -> String:
 
 func getSlot() -> int:
 	return InventorySlot.Wrists
+
+func getSexHideTags() -> Dictionary:
+	return {
+		SexHideTag.ArmRestraint: true,
+		SexHideTag.Armbinder: true,
+	}

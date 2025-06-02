@@ -528,6 +528,11 @@ func updatePoseSpot():
 		getBodySkeleton().resetBones()
 		getDoll().alignPenisToVagina(null)
 		setState(STATE_NORMAL)
+		
+		# Bad code?
+		var theChar:BaseCharacter = getCharacter()
+		if(theChar):
+			theChar.triggerUpdatePartFilter()
 	else:
 		doll.setAnimPlayerEnabled(false)
 		#if(getState() != STATE_SITTING):

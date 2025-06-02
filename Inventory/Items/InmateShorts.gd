@@ -37,3 +37,10 @@ func getOptions() -> Dictionary:
 			editors = [EDITOR_INTERACT],
 		},
 	}
+
+func getSexHideTags() -> Dictionary:
+	return {
+		SexHideTag.CoversPenis: !pulledDown,
+		SexHideTag.CoversVagina: !pulledDown,
+		SexHideTag.CoversAnus: !pulledDown,
+	}

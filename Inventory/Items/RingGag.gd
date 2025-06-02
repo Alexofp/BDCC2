@@ -8,3 +8,8 @@ func getName() -> String:
 
 func getSlot() -> int:
 	return InventorySlot.Mouth
+
+func getSexHideTags() -> Dictionary:
+	return {
+		SexHideTag.Gag: true,
+	}

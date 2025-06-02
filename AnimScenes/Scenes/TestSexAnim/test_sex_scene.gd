@@ -14,6 +14,10 @@ func setupScene() -> void:
 		sub = "sex/SexStandingTease_2",
 	}, {
 		CONF_BASESPEED: 1.0,
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	addState("slow", {
 		dom = "sex/SexStandingSlow_1",
@@ -27,6 +31,10 @@ func setupScene() -> void:
 		CONF_ANIMEVENTS: [
 			animEventOnFrame(7, "plap"),
 		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	addState("sex", {
 		dom = "sex/SexStanding_1",
@@ -40,6 +48,10 @@ func setupScene() -> void:
 		CONF_ANIMEVENTS: [
 			animEventOnFrame(7, "plap"),
 		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	addState("fast", {
 		dom = "sex/SexStandingFast_1",
@@ -53,6 +65,10 @@ func setupScene() -> void:
 		CONF_ANIMEVENTS: [
 			animEventOnFrame(7, "plap"),
 		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	addState("inside", {
 		dom = "sex/SexStandingInside_1",
@@ -65,6 +81,10 @@ func setupScene() -> void:
 		CONF_TIMEDSPEEDSWITCH_MAX: 10.0,
 		CONF_ANIMEVENTS: [
 		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	addState("cum", {
 		dom = "sex/SexStandingCum_1",
@@ -80,6 +100,10 @@ func setupScene() -> void:
 			animEventOnFrame(77, "plap"),
 			animEventOnFrame(82, "cumInsideSound"),
 		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+			sub = [SexHideTag.ArmRestraint],
+		},
 	})
 	
 	connectStates("tease", "inside", 0.5)

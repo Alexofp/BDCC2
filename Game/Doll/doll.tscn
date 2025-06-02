@@ -557,5 +557,3 @@ clearColor = Color(0, 0, 0, 0)
 [connection signal="onTextureUpdated" from="AlphaMaskTexture" to="." method="_on_alpha_mask_texture_on_texture_updated"]
 
 [editable path="BodySkeleton"]
-[editable path="BodySkeleton/rig/Skeleton3D/AttachBreast/DollAttachPoint/BreastLAttach/MarkerBlendshaped"]
-[editable path="BodySkeleton/FeminineBody"]

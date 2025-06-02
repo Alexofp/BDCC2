@@ -10,6 +10,7 @@ signal onSpawnedChanged(isSpawned)
 signal onPawnSwitch(id, pawn)
 signal onDollSwitch(id, doll)
 signal onAnimEvent(eventID, args)
+signal onAnimPlay(state)
 
 var spawnedScene:AnimSceneBase
 
@@ -38,6 +39,7 @@ func spawn() -> AnimSceneBase:
 	spawnedScene.onDollSwitch.connect(onSpawnedSceneDollSwitch)
 	spawnedScene.onPawnSwitch.connect(onSpawnedScenePawnSwitch)
 	spawnedScene.onAnimEvent.connect(onSpawnedSceneAnimEvent)
+	spawnedScene.onAnimPlay.connect(onSpawnSceneAnimPlay)
 	add_child(newScene, true)
 	onSpawned.emit()
 	onSpawnedChanged.emit(true)
@@ -53,6 +55,9 @@ func onSpawnedScenePawnSwitch(_theID:String, _thePawn:CharacterPawn):
 
 func onSpawnedSceneAnimEvent(_eventID:String, _args:Variant):
 	onAnimEvent.emit(_eventID, _args)
+
+func onSpawnSceneAnimPlay(_state:String):
+	onAnimPlay.emit(_state)
 
 func getScene() -> AnimSceneBase:
 	return spawnedScene

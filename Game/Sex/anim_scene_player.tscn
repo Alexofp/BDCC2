@@ -10,4 +10,5 @@ script = ExtResource("1_agggj")
 unique_name_in_owner = true
 
 [connection signal="onAnimEvent" from="AnimSceneSpawner" to="." method="_on_anim_scene_spawner_on_anim_event"]
+[connection signal="onAnimPlay" from="AnimSceneSpawner" to="." method="_on_anim_scene_spawner_on_anim_play"]
 [connection signal="onSpawnedChanged" from="AnimSceneSpawner" to="." method="_on_anim_scene_spawner_on_spawned_changed"]

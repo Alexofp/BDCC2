@@ -24,6 +24,7 @@ signal onAnimUpdate
 signal onPawnSwitch(id, pawn)
 signal onDollSwitch(id, doll)
 signal onAnimEvent(eventID, args)
+signal onAnimPlay(state)
 
 var speedSwitchTimer:Timer
 
@@ -36,6 +37,7 @@ const CONF_SPEEDMULT_MAX = "speedMultMax"
 const CONF_TIMEDSPEEDSWITCH_MIN = "timedSpeedSwitchMin"
 const CONF_TIMEDSPEEDSWITCH_MAX = "timedSpeedSwitchMax"
 const CONF_ANIMEVENTS = "animEvents"
+const CONF_HIDETAGS = "hideTags"
 
 var dollBlendTreeBase:AnimationNodeBlendTree = preload("res://Game/Doll/Util/DollBlendTreeBase.tres")
 
@@ -141,6 +143,7 @@ func addState(stateID:String, animByPose:Dictionary, stateSettings:Dictionary = 
 	theStateInfo[CONF_TIMEDSPEEDSWITCH_MIN] = stateSettings[CONF_TIMEDSPEEDSWITCH_MIN] if stateSettings.has(CONF_TIMEDSPEEDSWITCH_MIN) else 0.0
 	theStateInfo[CONF_TIMEDSPEEDSWITCH_MAX] = stateSettings[CONF_TIMEDSPEEDSWITCH_MAX] if stateSettings.has(CONF_TIMEDSPEEDSWITCH_MAX) else 0.0
 	theStateInfo[CONF_ANIMEVENTS] = stateSettings[CONF_ANIMEVENTS] if stateSettings.has(CONF_ANIMEVENTS) else []
+	theStateInfo[CONF_HIDETAGS] = stateSettings[CONF_HIDETAGS] if stateSettings.has(CONF_HIDETAGS) else {}
 	
 	states[stateID] = theStateInfo
 
@@ -441,6 +444,7 @@ func updateAnim():
 	deferUpdateMainAnimTree.call_deferred()
 	
 	onAnimUpdate.emit()
+	doCharChecksAfterPlay()
 
 func deferUpdateMainAnimTree():
 	mainAnimTree["parameters/blendtree/statemachine/playback"].start(state, true)
@@ -526,6 +530,14 @@ func getStateSpeed(theState:String) -> float:
 		return 1.0
 	return mainAnimTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"]
 
+func doCharChecksAfterPlay():
+	for sitterID in sitters:
+		var theSitter := getSitter(sitterID)
+		if(!theSitter):
+			continue
+		var theChar:BaseCharacter = theSitter.getCharacter()
+		theChar.triggerUpdatePartFilter()
+
 func playState(newState:String, setToState:bool=false):
 	setStateSpeed(state, 1.0)
 	
@@ -536,6 +548,7 @@ func playState(newState:String, setToState:bool=false):
 	
 	if(setToState):
 		updateAnim()
+		onPlayState(newState)
 		return
 	for sitterID in sitters:
 		var sitterInfo:Dictionary = sitters[sitterID]
@@ -546,9 +559,30 @@ func playState(newState:String, setToState:bool=false):
 	var mainAnimTreePlayback:AnimationNodeStateMachinePlayback = mainAnimTree["parameters/blendtree/statemachine/playback"]
 	mainAnimTreePlayback.travel(newState)
 	onPlayState(newState)
+	doCharChecksAfterPlay()
 
+func getRoleByCharID(_charID:String) -> String:
+	for roleID in sitters:
+		var thePawn:CharacterPawn = getSitter(roleID)
+		if(!thePawn):
+			continue
+		if(thePawn.getCharID() == _charID):
+			return roleID
+	return ""
+
+func getSexHideTagsFor(_charID:String) -> Array:
+	var theRole:String = getRoleByCharID(_charID)
+	if(theRole == ""):
+		return []
+	var stateInfo:Dictionary = getCurrentStateData() 
+	var theHideTags:Dictionary = stateInfo[CONF_HIDETAGS] if stateInfo.has(CONF_HIDETAGS) else {}
+	if(!theHideTags.has(theRole)):
+		return []
+	return theHideTags[theRole]
+	
+# Maybe this isn't needed?
 func onPlayState(_state:String):
-	pass
+	onAnimPlay.emit(state)
 	
 func playOneShot(oneshotID:String):
 	for sitterID in sitters:
@@ -595,6 +629,13 @@ func getState() -> String:
 
 func getCurrentStateData() -> Dictionary:
 	return states[state] if states.has(state) else {}
+
+func getSexHideTags(_role:String) -> Array:
+	var currentStateData:Dictionary = getCurrentStateData()
+	if(!currentStateData.has(CONF_HIDETAGS)):
+		return []
+	var allHideTags:Dictionary = currentStateData[CONF_HIDETAGS]
+	return allHideTags[_role] if allHideTags.has(_role) else []
 
 var soundPlap := preload("res://Sounds/Plaps/RandomPlapSound.tres")
 

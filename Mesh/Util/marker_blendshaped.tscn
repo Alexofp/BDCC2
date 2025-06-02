@@ -4,7 +4,6 @@
 
 [node name="MarkerBlendshaped" type="Node3D"]
 script = ExtResource("1_k4148")
-mirrorX = null
 
 [node name="BlendshapesMarkers" type="Node3D" parent="."]
 unique_name_in_owner = true

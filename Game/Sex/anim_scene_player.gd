@@ -8,6 +8,7 @@ var state:String = ""
 
 signal onSceneSwitched
 signal onAnimEvent(animID, state, eventID, args)
+signal onAnimPlay(animID, state)
 
 @rpc("authority", "call_remote", "reliable")
 func playOneShot_RPC(oneshotID:String):
@@ -93,13 +94,26 @@ func sitPawns(thePawns:Dictionary):
 				anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisAnus"], AnimSceneBase.HOLE_ANUS)
 			else:
 				anim_scene_spawner.getScene().alignPenisReset(role)
-		
+
 func _on_anim_scene_spawner_on_anim_event(eventID: String, args: Variant) -> void:
 	onAnimEvent.emit(animID, state, eventID, args)
 
 func _on_anim_scene_spawner_on_spawned_changed(isSpawned: Variant) -> void:
 	if(isSpawned):
 		onSceneSwitched.emit()
+
+func _on_anim_scene_spawner_on_anim_play(theState: String) -> void:
+	onAnimPlay.emit(animID, theState)
+
+func getAnimScene() -> AnimSceneBase:
+	if(!anim_scene_spawner.isSpawned()):
+		return null
+	return anim_scene_spawner.getScene()
+
+func getSexHideTagsFor(_charID:String) -> Array:
+	if(!anim_scene_spawner.isSpawned()):
+		return []
+	return anim_scene_spawner.getScene().getSexHideTagsFor(_charID)
 
 func saveNetworkData() -> Dictionary:
 	return {

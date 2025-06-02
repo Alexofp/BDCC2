@@ -77,6 +77,9 @@ func isParticipatingInSex(thePawn:CharacterPawn) -> bool:
 
 func isCharIDParticipatingInSex(theCharID:String) -> bool:
 	return !!getSexEngineOfCharID(theCharID)
+	
+func isCharParticipatingInSex(theChar:BaseCharacter) -> bool:
+	return !!getSexEngineOfCharID(theChar.getID())
 
 func saveNetworkData() -> Dictionary:
 	return {}
