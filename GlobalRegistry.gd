@@ -20,6 +20,7 @@ var species:Dictionary = {}
 var items:Dictionary = {}
 var itemRefs:Dictionary = {}
 var clothingSceneSelectors:Array = []
+var dollPoses:Dictionary = {}
 
 func _init() -> void:
 	doInit()
@@ -52,6 +53,8 @@ func doInit():
 	registerItemFolder("res://Inventory/Items/")
 	registerClothingSelectorFolder("res://Inventory/ClothingSelectors/")
 	sortClothingSelectors()
+	
+	registerDollPoseFolder("res://Game/Doll/Posing/Poses/")
 	
 	Log.Print("GlobalRegistry: Registered everything")
 
@@ -434,3 +437,28 @@ func sortClothingSelectors():
 
 func getClothingSelectors() -> Array:
 	return clothingSceneSelectors
+
+
+
+
+func registerDollPose(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is DollPoseBase):
+		dollPoses[object.id] = object
+
+func registerDollPoseFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerDollPose(scriptPath)
+
+func getDollPoses() -> Dictionary:
+	return dollPoses
+
+func getDollPose(id: String) -> DollPoseBase:
+	if(dollPoses.has(id)):
+		return dollPoses[id]
+	else:
+		Log.Printerr("ERROR: doll pose with the id "+str(id)+" wasn't found")
+		return null

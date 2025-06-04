@@ -8,14 +8,15 @@ class_name GameBase
 @onready var sandbox_menu: PanelContainer = %SandboxMenu
 
 var character_creator:Node
-var interaction_menu:Node
-var inventory_ui:Node
+#var interaction_menu:Node
+#var inventory_ui:Node
 
 @onready var characterRegistry: CharacterRegistry = %CharacterRegistry
 @onready var pawn_registry: PawnRegistry = %PawnRegistry
 @onready var sit_manager: SitManager = %SitManager
 @onready var networked_nodes: NetworkedNodes = %NetworkedNodes
 @onready var sex_manager: SexManager = %SexManager
+@onready var character_menu: Control = %CharacterMenu
 
 @onready var sex_ui: SexUI = %SexUI
 
@@ -63,6 +64,7 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 		#doll_holder.deleteDollsOfNetworkPlayerID(_peer_id)
 
 func _ready() -> void:
+	hideAllMenus()
 	sit_manager.connectSignals()
 	
 	Network.multiplayerStarted.connect(onMultiplayerStart)
@@ -89,12 +91,13 @@ func hideAllMenus():
 	if(character_creator):
 		character_creator.queue_free()
 		character_creator = null
-	if(interaction_menu):
-		interaction_menu.queue_free()
-		interaction_menu = null
-	if(inventory_ui):
-		inventory_ui.queue_free()
-		inventory_ui = null
+	#if(interaction_menu):
+	#	interaction_menu.queue_free()
+	#	interaction_menu = null
+	hideCharacterMenu()
+	#if(inventory_ui):
+	#	inventory_ui.queue_free()
+	#	inventory_ui = null
 
 func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("game_menu")):
@@ -108,32 +111,51 @@ func _process(_delta: float) -> void:
 			_on_in_game_menu_on_char_creator_button()
 		else:
 			onCharCreatorConfirmButton()
-	if(Input.is_action_just_pressed("game_interact_menu")):
-		if(!interaction_menu):
-			interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
-			main_ui_layer.add_child(interaction_menu)
-			interaction_menu.onClose.connect(onInteractionMenuClosed)
-			interaction_menu.setCharacter(GM.pc)
-		else:
-			onInteractionMenuClosed()
-	if(Input.is_action_just_pressed("game_inventory")):
-		if(!inventory_ui):
-			inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
-			main_ui_layer.add_child(inventory_ui)
+	if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
+		toggleCharacterMenu()
+		#if(!interaction_menu):
+			#interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
+			#main_ui_layer.add_child(interaction_menu)
 			#interaction_menu.onClose.connect(onInteractionMenuClosed)
-			inventory_ui.setInventory(GM.pc.inventory)
-		else:
-			onInventoryClosed()
-		
-func onInventoryClosed():
-	if(inventory_ui):
-		inventory_ui.queue_free()
-		inventory_ui = null
-	
-func onInteractionMenuClosed():
-	if(interaction_menu):
-		interaction_menu.queue_free()
-		interaction_menu = null
+			#interaction_menu.setCharacter(GM.pc)
+		#else:
+			#onInteractionMenuClosed()
+	#if(Input.is_action_just_pressed("game_inventory")):
+		#if(!inventory_ui):
+			#inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
+			#main_ui_layer.add_child(inventory_ui)
+			##interaction_menu.onClose.connect(onInteractionMenuClosed)
+			#inventory_ui.setInventory(GM.pc.inventory)
+		#else:
+			#onInventoryClosed()
+
+func toggleCharacterMenu():
+	if(character_menu.visible):
+		hideCharacterMenu()
+	else:
+		showCharacterMenu()
+
+func showCharacterMenu():
+	if(character_menu.visible):
+		return
+	character_menu.visible = true
+	character_menu.setCharacter(GM.pc)
+
+func hideCharacterMenu():
+	if(!character_menu.visible):
+		return
+	character_menu.visible = false
+	character_menu.setCharacter(null)
+
+#func onInventoryClosed():
+	#if(inventory_ui):
+		#inventory_ui.queue_free()
+		#inventory_ui = null
+	#
+#func onInteractionMenuClosed():
+	#if(interaction_menu):
+		#interaction_menu.queue_free()
+		#interaction_menu = null
 
 func _on_in_game_menu_on_char_creator_button() -> void:
 	hideAllMenus()
@@ -187,3 +209,6 @@ func _on_in_game_menu_on_sandbox_menu_button() -> void:
 
 func getSexManager() -> SexManager:
 	return sex_manager
+
+func _on_character_menu_on_close() -> void:
+	hideCharacterMenu()

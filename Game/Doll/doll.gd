@@ -44,10 +44,71 @@ const IDLE_PICKABLE_ANIMS:Array = [
 	[IDLE_SEXY, "Sexy"],
 ]
 
+static var addedPosesToTree:bool = false
+const POSES_TO_ADD = [
+	"Kneel",
+]
+
+func updateAnimPlayer():
+	for poseID in GlobalRegistry.getDollPoses():
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+		if(theDollPose.animLibrary != null && theDollPose.animLibraryName != ""):
+			if(!animation_player.has_animation_library(theDollPose.animLibraryName)):
+				animation_player.add_animation_library(theDollPose.animLibraryName, theDollPose.animLibrary)
+	
+func updateAnimTreeOnce():
+	var theTree:AnimationRootNode = dollBlendTree
+	if(!(theTree is AnimationNodeBlendTree)):
+		Log.Printerr("Bad anim tree")
+		return
+	var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
+	var theLocIdle:AnimationNodeBlendTree = theLocomotion.get_node("Idle")
+	var thePoseIdleSelector:AnimationNodeTransition = theLocIdle.get_node("Idle_Selector")
+	
+	var _i:int = thePoseIdleSelector.get_input_count()
+	for poseID in GlobalRegistry.getDollPoses():
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+		if(theDollPose.poseType != DollPoseBase.PoseType.Fullbody):
+			continue
+		var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+		newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
+		theLocIdle.add_node(poseID, newAnim)
+		
+		thePoseIdleSelector.add_input(poseID)
+		
+		theLocIdle.connect_node("Idle_Selector", _i, poseID)
+		_i += 1
+	
+	var theArmsSelector:AnimationNodeTransition = theTree.get_node("Arms_Selector")
+	_i = theArmsSelector.get_input_count()
+	for poseID in GlobalRegistry.getDollPoses():
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+		if(theDollPose.poseType != DollPoseBase.PoseType.Arms):
+			continue
+		var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+		newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
+		theTree.add_node("arms_"+poseID, newAnim)
+		
+		theArmsSelector.add_input(poseID)
+		
+		theTree.connect_node("Arms_Selector", _i, "arms_"+poseID)
+		_i += 1
+
+var dollBlendTree := preload("res://Game/Doll/Util/DollBlendTree.tres")
+
+func _init():
+	if(!addedPosesToTree):
+		updateAnimTreeOnce()
+		addedPosesToTree = true
+
 func _ready() -> void:
+	updateAnimPlayer()
 	if(disableInternalAnimPlayer):
 		animation_player.active = false
 		animation_tree.active = false
+	
+	#setIdlePoseEnabled(true)
+	#setIdlePose("Kneel")
 
 func setCharacter(theChar:BaseCharacter):
 	var currentChar := getChar()
@@ -97,7 +158,10 @@ func onCharOptionChange(_change:String):
 	
 	if(_change == "voice"):
 		voice_handler.setVoiceProfile(theChar.getVoiceProfile())
-
+	
+	if(_change == CharOption.idlePose || _change == CharOption.idleAnim || _change == CharOption.poseArms):
+		updatePose()
+	
 	var theValue = theChar.getSyncOptionValue(_change)
 	for genericType in parts:
 		for partID in parts[genericType]:
@@ -575,3 +639,26 @@ func updatePartFilter():
 				clearOutPart(genericType, bodypartSlot)
 			elif(!dollPartExists && !shouldFilter):
 				updatePartFromCharacter(genericType, bodypartSlot)
+
+func setArmsAnim(_walkAnim:String):
+	if(_walkAnim == ""):
+		animation_tree["parameters/Arms_Blend/blend_amount"] = 0.0
+	else:
+		animation_tree["parameters/Arms_Blend/blend_amount"] = 1.0
+		animation_tree["parameters/Arms_Selector/transition_request"] = _walkAnim
+
+func updatePose():
+	var theChar:BaseCharacter = getChar()
+	if(!theChar):
+		setIdleAnim("normal1")
+		return
+	var theIdlePoseID:String = theChar.getIdlePose()
+	var theIdlePose:DollPoseBase = GlobalRegistry.getDollPose(theIdlePoseID) if theIdlePoseID != "" else null
+	if(!theIdlePose):
+		setIdleAnim(theChar.getIdleAnim())
+	else:
+		setIdleAnim(theIdlePose.getAnimName())
+	
+	var theArmsPoseID:String = theChar.getPoseArms()
+	var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
+	setArmsAnim(theArmsPoseID if theArmsPose else "")

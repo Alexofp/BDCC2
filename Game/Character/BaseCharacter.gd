@@ -15,6 +15,8 @@ var voice:VoiceProfile = VoiceProfile.new()
 var inventory:Inventory = Inventory.new()
 var walkAnim:String = Doll.WALK_UNISEX
 var idleAnim:String = Doll.IDLE_NORMAL1
+var idlePose:String = ""
+var poseArms:String = ""
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -369,6 +371,8 @@ func getSyncOptions() -> Array[String]:
 		CharOption.voice,
 		CharOption.idleAnim,
 		CharOption.walkAnim,
+		CharOption.idlePose,
+		CharOption.poseArms,
 		"bodyMess",
 	]
 
@@ -391,6 +395,10 @@ func getSyncOptionValue(_id:String):
 		return idleAnim
 	elif(_id == CharOption.walkAnim):
 		return walkAnim
+	elif(_id == CharOption.idlePose):
+		return idlePose
+	elif(_id == CharOption.poseArms):
+		return poseArms
 	elif(_id == "bodyMess"):
 		return fluids.saveData()
 
@@ -413,6 +421,10 @@ func applyCharChange(_id:String, _value):
 		idleAnim = _value
 	elif(_id == CharOption.walkAnim):
 		walkAnim = _value
+	elif(_id == CharOption.idlePose):
+		idlePose = _value
+	elif(_id == CharOption.poseArms):
+		poseArms = _value
 	elif(_id == "bodyMess"):
 		fluids.loadData(_value)
 		
@@ -519,6 +531,12 @@ func updatePartFilter():
 
 func triggerPartFilterChangeSignal():
 	onPartFilterChange.emit()
+
+func getIdlePose() -> String:
+	return idlePose
+
+func getPoseArms() -> String:
+	return poseArms
 
 func saveNetworkData() -> Dictionary:
 	var skinTypesData:Dictionary = {}

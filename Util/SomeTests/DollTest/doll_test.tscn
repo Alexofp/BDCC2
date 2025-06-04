@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://d22nb5qh4tlor"]
+
+[ext_resource type="Script" uid="uid://bg6c7oprbl6l" path="res://Util/SomeTests/DollTest/doll_test.gd" id="1_n6qcd"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_uejsk"]
+[ext_resource type="PackedScene" uid="uid://cy3s2sf36wvtd" path="res://Game/CharacterCreator/character_creator.tscn" id="3_f2yfk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mbmng"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_vlr75"]
+sky_material = SubResource("ProceduralSkyMaterial_mbmng")
+
+[sub_resource type="Environment" id="Environment_jbfiy"]
+background_mode = 2
+sky = SubResource("Sky_vlr75")
+tonemap_mode = 3
+sdfgi_use_occlusion = true
+sdfgi_cascades = 1
+sdfgi_max_distance = 25.6
+
+[sub_resource type="Animation" id="Animation_rfw0t"]
+resource_name = "CameraZoom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [30.0, 12.7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.07501, 1.57707, 2.6871), Vector3(0.562, 1.737, 1.654)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.164061, 0.247837, 0), Vector3(-0.0523599, 0.247837, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t3sc1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.07501, 1.57707, 2.6871)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.164061, 0.247837, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mhs7p"]
+_data = {
+&"CameraZoom": SubResource("Animation_rfw0t"),
+&"RESET": SubResource("Animation_t3sc1")
+}
+
+[node name="DollTest" type="Node3D"]
+script = ExtResource("1_n6qcd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jbfiy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.760406, -0.219992, 0.611053, 0, 0.940881, 0.338738, -0.649448, -0.257578, 0.715452, 0, 0, 0)
+
+[node name="Doll" parent="." instance=ExtResource("1_uejsk")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.969445, -0.0400651, 0.242014, 0, 0.986572, 0.163326, -0.245308, -0.158336, 0.956428, 1.07501, 1.57707, 2.6871)
+current = true
+fov = 30.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CharacterCreator" parent="CanvasLayer" instance=ExtResource("3_f2yfk")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_mhs7p")
+}

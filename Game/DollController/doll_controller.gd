@@ -248,7 +248,8 @@ func processChar(_delta:float):
 		return
 	#TODO: Make this work using signals rather than constant pulling?
 	doll.setWalkAnim(theChar.getWalkAnim())
-	doll.setIdleAnim(theChar.getIdleAnim())
+	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
+	#doll.setIdleAnim(theChar.getIdleAnim())
 
 func _process(delta:float):
 	processFocus()
@@ -412,15 +413,18 @@ func process_camera():
 			SpringArm.spring_length -= 0.1
 		if(Input.is_action_just_pressed("camera_zoomout") && canScrollUp()):
 			SpringArm.spring_length += 0.1
-	if(SpringArm.spring_length <= 0.0):
-		SpringArm.spring_length = 0.0
-		SpringArm.position.x = 0.0
-	elif(SpringArm.spring_length <= 1.0):
-		SpringArm.position.x = 0.1
-		CameraPivot.position.y = 1.525
-	else:
-		SpringArm.position.x = 0.3
-		CameraPivot.position.y = 1.125
+	
+
+	if(!processDollPoseCamera()):
+		if(SpringArm.spring_length <= 0.0):
+			SpringArm.spring_length = 0.0
+			SpringArm.position.x = 0.0
+		elif(SpringArm.spring_length <= 1.0):
+			SpringArm.position.x = 0.1
+			CameraPivot.position.y = 1.525
+		else:
+			SpringArm.position.x = 0.3
+			CameraPivot.position.y = 1.125
 	
 	#if(getDoll().isFirstPerson()):
 	#	CameraPivot.position = model_root.basis * Vector3(0.0, 1.625, 0.1)
@@ -432,6 +436,19 @@ func process_camera():
 		SpringArm.position.x = 0.0
 		#SpringArm.position.z = 0.0
 		CameraPivot.global_position = getBodySkeleton().getChestBoneAttachment().global_position + Vector3(0.0, 0.3, 0.0)
+
+func processDollPoseCamera() -> bool:
+	# Maybe all of this should happen inside the base character
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar || theChar.getIdlePose() == ""):
+		return false
+	var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(theChar.getIdlePose())
+	if(!theDollPose || !theDollPose.hasCustomCamera()):
+		return false
+	var theCameraOffset:Vector2 = theDollPose.processCamera(SpringArm.spring_length)
+	SpringArm.position.x = theCameraOffset.x
+	CameraPivot.position.y = theCameraOffset.y
+	return true
 
 func getGlobalChestBonePosition() -> Vector3:
 	return getBodySkeleton().getChestBoneAttachment().global_position

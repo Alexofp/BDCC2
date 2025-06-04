@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx3cjrmwtnh82"]
 
-[ext_resource type="Script" uid="uid://67f38sc7t4ku" path="res://fullscreen_chat.gd" id="1_vx7ov"]
+[ext_resource type="Script" uid="uid://67f38sc7t4ku" path="res://UI/FullScreenChat/fullscreen_chat.gd" id="1_vx7ov"]
 
 [node name="FullscreenChat" type="Node"]
 script = ExtResource("1_vx7ov")

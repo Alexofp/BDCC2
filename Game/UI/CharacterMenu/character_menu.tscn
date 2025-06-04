@@ -1,0 +1,106 @@
+[gd_scene load_steps=5 format=3 uid="uid://w1hpye5t7hjr"]
+
+[ext_resource type="Script" uid="uid://bt2s8v78fqqr5" path="res://Game/UI/CharacterMenu/character_menu.gd" id="1_5rlio"]
+[ext_resource type="PackedScene" uid="uid://bea8vmwiu4vwf" path="res://Game/CharacterCreator/InteractionMenu/interaction_menu_embed.tscn" id="2_clhsb"]
+[ext_resource type="PackedScene" uid="uid://nex6xlb2bqnf" path="res://Inventory/UI/inventory_ui_embed.tscn" id="3_7l853"]
+[ext_resource type="PackedScene" uid="uid://bn1nx7qh0s4io" path="res://Game/UI/CharacterMenu/posing_menu.tscn" id="4_aaxik"]
+
+[node name="CharacterMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5rlio")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -447.0
+offset_top = 61.0
+offset_right = -26.0
+offset_bottom = -149.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CharacterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Character"
+
+[node name="InventoryButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inventory"
+
+[node name="PoseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pose"
+
+[node name="InteractButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Interact"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InteractionMenuEmbedded" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_clhsb")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="InventoryUIEmbed" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_7l853")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PosingMenu" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_aaxik")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CloseControlSpace" type="Control" parent="PanelContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CloseButton" type="Button" parent="PanelContainer/CloseControlSpace"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Close"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CharacterButton" to="." method="_on_character_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PoseButton" to="." method="_on_pose_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InteractButton" to="." method="_on_interact_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CloseControlSpace/CloseButton" to="." method="_on_close_button_pressed"]
