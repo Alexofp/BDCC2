@@ -345,12 +345,14 @@ func getCharOptions() -> Dictionary:
 			type = "selector",
 			value = idleAnim,
 			values = Doll.IDLE_PICKABLE_ANIMS,
+			editors = [GenericPart.EDITOR_PART, GenericPart.EDITOR_INTERACT],
 		},
 		CharOption.walkAnim: {
 			name = "Walk style",
 			type = "selector",
 			value = walkAnim,
 			values = Doll.WALK_PICKABLE_ANIMS,
+			editors = [GenericPart.EDITOR_PART, GenericPart.EDITOR_INTERACT],
 		},
 		"bodyMess": {
 			name = "Body mess",
