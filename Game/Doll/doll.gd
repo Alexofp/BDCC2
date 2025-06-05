@@ -50,49 +50,81 @@ const POSES_TO_ADD = [
 ]
 
 func updateAnimPlayer():
+	updateAnimPlayerSpecific(animation_player)
+	
+static func updateAnimPlayerSpecific(_animPlayer:AnimationPlayer):
 	for poseID in GlobalRegistry.getDollPoses():
 		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
 		if(theDollPose.animLibrary != null && theDollPose.animLibraryName != ""):
-			if(!animation_player.has_animation_library(theDollPose.animLibraryName)):
-				animation_player.add_animation_library(theDollPose.animLibraryName, theDollPose.animLibrary)
+			if(!_animPlayer.has_animation_library(theDollPose.animLibraryName)):
+				_animPlayer.add_animation_library(theDollPose.animLibraryName, theDollPose.animLibrary)
 	
 func updateAnimTreeOnce():
-	var theTree:AnimationRootNode = dollBlendTree
+	updateAnimTreeWithPoses(dollBlendTree)
+
+#AnimationRootNode
+static func updateAnimTreeWithPoses(theTree:AnimationRootNode, noFullBody:bool = false):
 	if(!(theTree is AnimationNodeBlendTree)):
 		Log.Printerr("Bad anim tree")
 		return
-	var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
-	var theLocIdle:AnimationNodeBlendTree = theLocomotion.get_node("Idle")
-	var thePoseIdleSelector:AnimationNodeTransition = theLocIdle.get_node("Idle_Selector")
+	if(theTree.has_node("UPDATED_WITH_POSES")):
+		return
+	theTree.add_node("UPDATED_WITH_POSES", AnimationNodeAnimation.new())
 	
-	var _i:int = thePoseIdleSelector.get_input_count()
-	for poseID in GlobalRegistry.getDollPoses():
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
-		if(theDollPose.poseType != DollPoseBase.PoseType.Fullbody):
-			continue
-		var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
-		newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
-		theLocIdle.add_node(poseID, newAnim)
+	if(!noFullBody):
+		var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
+		var theLocIdle:AnimationNodeBlendTree = theLocomotion.get_node("Idle")
+		var thePoseIdleSelector:AnimationNodeTransition = theLocIdle.get_node("Idle_Selector")
+		var _i:int = thePoseIdleSelector.get_input_count()
 		
-		thePoseIdleSelector.add_input(poseID)
+		for poseID in GlobalRegistry.getDollPoses():
+			var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+			if(theDollPose.poseType != DollPoseBase.PoseType.Fullbody):
+				continue
+			var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+			newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
+			theLocIdle.add_node(poseID, newAnim)
+			
+			thePoseIdleSelector.add_input(poseID)
+			
+			theLocIdle.connect_node("Idle_Selector", _i, poseID)
+			_i += 1
+	if(!noFullBody):
+		var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
+		var theLocWalk:AnimationNodeBlendTree = theLocomotion.get_node("Walk")
+		var thePoseWalkSelector:AnimationNodeTransition = theLocWalk.get_node("Walk_Selector")
+		var _i:int = thePoseWalkSelector.get_input_count()
 		
-		theLocIdle.connect_node("Idle_Selector", _i, poseID)
-		_i += 1
+		for poseID in GlobalRegistry.getDollPoses():
+			var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+			if(theDollPose.poseType != DollPoseBase.PoseType.Fullbody):
+				continue
+			if(theDollPose.getWalkAnimName() == ""):
+				continue
+			var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+			newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getWalkAnimName()
+			theLocWalk.add_node(poseID, newAnim)
+			
+			thePoseWalkSelector.add_input(poseID)
+			
+			theLocWalk.connect_node("Walk_Selector", _i, poseID)
+			_i += 1
 	
-	var theArmsSelector:AnimationNodeTransition = theTree.get_node("Arms_Selector")
-	_i = theArmsSelector.get_input_count()
-	for poseID in GlobalRegistry.getDollPoses():
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
-		if(theDollPose.poseType != DollPoseBase.PoseType.Arms):
-			continue
-		var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
-		newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
-		theTree.add_node("arms_"+poseID, newAnim)
-		
-		theArmsSelector.add_input(poseID)
-		
-		theTree.connect_node("Arms_Selector", _i, "arms_"+poseID)
-		_i += 1
+	if(true):
+		var theArmsSelector:AnimationNodeTransition = theTree.get_node("Arms_Selector")
+		var _i:int = theArmsSelector.get_input_count()
+		for poseID in GlobalRegistry.getDollPoses():
+			var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(poseID)
+			if(theDollPose.poseType != DollPoseBase.PoseType.Arms):
+				continue
+			var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+			newAnim.animation = theDollPose.animLibraryName+"/"+theDollPose.getAnimName()
+			theTree.add_node("arms_"+poseID, newAnim)
+			
+			theArmsSelector.add_input(poseID)
+			
+			theTree.connect_node("Arms_Selector", _i, "arms_"+poseID)
+			_i += 1
 
 var dollBlendTree := preload("res://Game/Doll/Util/DollBlendTree.tres")
 
@@ -370,6 +402,14 @@ func travelLocomotion(_newState:String):
 	if(state_machine.get_current_node() != _newState):
 		state_machine.travel(_newState)
 
+func isWalking() -> bool:
+	var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
+	return state_machine.get_current_node() == "Walk"
+
+func isStanding() -> bool:
+	var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
+	return state_machine.get_current_node() == "Idle"
+
 func setWalkAnim(_walkAnim:String):
 	animation_tree["parameters/Locomotion/Walk/Walk_Selector/transition_request"] = _walkAnim
 
@@ -640,12 +680,14 @@ func updatePartFilter():
 			elif(!dollPartExists && !shouldFilter):
 				updatePartFromCharacter(genericType, bodypartSlot)
 
-func setArmsAnim(_walkAnim:String):
+func setArmsAnim(_walkAnim:String, theAnimTree:AnimationTree = null):
+	if(!theAnimTree):
+		theAnimTree = animation_tree
 	if(_walkAnim == ""):
-		animation_tree["parameters/Arms_Blend/blend_amount"] = 0.0
+		theAnimTree["parameters/Arms_Blend/blend_amount"] = 0.0
 	else:
-		animation_tree["parameters/Arms_Blend/blend_amount"] = 1.0
-		animation_tree["parameters/Arms_Selector/transition_request"] = _walkAnim
+		theAnimTree["parameters/Arms_Blend/blend_amount"] = 1.0
+		theAnimTree["parameters/Arms_Selector/transition_request"] = _walkAnim
 
 func updatePose():
 	var theChar:BaseCharacter = getChar()
@@ -659,6 +701,9 @@ func updatePose():
 	else:
 		setIdleAnim(theIdlePose.getAnimName())
 	
-	var theArmsPoseID:String = theChar.getPoseArms()
-	var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
-	setArmsAnim(theArmsPoseID if theArmsPose else "")
+	if(theIdlePose && ((isStanding() && !theIdlePose.doesPoseSupportArmPoses()) || (isWalking() && !theIdlePose.doesWalkSupportArmPoses()))):
+		setArmsAnim("")
+	else:
+		var theArmsPoseID:String = theChar.getPoseArms()
+		var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
+		setArmsAnim(theArmsPoseID if theArmsPose else "")

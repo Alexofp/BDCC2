@@ -1,4 +1,6 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=12 format=3 uid="uid://bsf01bbt0ejbk"]
+[gd_resource type="AnimationNodeBlendTree" load_steps=13 format=3 uid="uid://c8ovbng4kuwt3"]
+
+[ext_resource type="Curve" uid="uid://hi468xaib60v" path="res://AnimScenes/SmoothInterpolation.tres" id="1_5f3vp"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1pahp"]
 animation = &"RestraintAnims/CuffedBehindBack"
@@ -6,7 +8,7 @@ animation = &"RestraintAnims/CuffedBehindBack"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xxuld"]
 animation = &"RestraintAnims/CuffedFront"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_52wvm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_di8rb"]
 animation = &"RestraintAnims/APose"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yudco"]
@@ -16,11 +18,12 @@ animation = &"RestraintAnims/APoseArmbinder"
 filter_enabled = true
 filters = ["rig/Skeleton3D:f_index.2.L", "rig/Skeleton3D:f_index.2.R", "rig/Skeleton3D:f_index.3.L", "rig/Skeleton3D:f_index.3.R", "rig/Skeleton3D:f_index.L", "rig/Skeleton3D:f_index.R", "rig/Skeleton3D:f_middle.2.L", "rig/Skeleton3D:f_middle.2.R", "rig/Skeleton3D:f_middle.3.L", "rig/Skeleton3D:f_middle.3.R", "rig/Skeleton3D:f_middle.L", "rig/Skeleton3D:f_middle.R", "rig/Skeleton3D:f_pinky.2.L", "rig/Skeleton3D:f_pinky.2.R", "rig/Skeleton3D:f_pinky.3.L", "rig/Skeleton3D:f_pinky.3.R", "rig/Skeleton3D:f_pinky.L", "rig/Skeleton3D:f_pinky.R", "rig/Skeleton3D:f_ring.2.L", "rig/Skeleton3D:f_ring.2.R", "rig/Skeleton3D:f_ring.3.L", "rig/Skeleton3D:f_ring.3.R", "rig/Skeleton3D:f_ring.L", "rig/Skeleton3D:f_ring.R", "rig/Skeleton3D:f_thumb.2.L", "rig/Skeleton3D:f_thumb.2.R", "rig/Skeleton3D:f_thumb.3.L", "rig/Skeleton3D:f_thumb.3.R", "rig/Skeleton3D:f_thumb.L", "rig/Skeleton3D:f_thumb.R", "rig/Skeleton3D:forearm.L", "rig/Skeleton3D:forearm.R", "rig/Skeleton3D:forearm_twist1.L", "rig/Skeleton3D:forearm_twist1.R", "rig/Skeleton3D:forearm_twist2.L", "rig/Skeleton3D:forearm_twist2.R", "rig/Skeleton3D:hand.L", "rig/Skeleton3D:hand.R", "rig/Skeleton3D:shoulder.L", "rig/Skeleton3D:shoulder.R", "rig/Skeleton3D:upper_arm.L", "rig/Skeleton3D:upper_arm.R", "rig/Skeleton3D:upper_arm_twist.L", "rig/Skeleton3D:upper_arm_twist.R"]
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_52wvm"]
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_di8rb"]
 filter_enabled = true
 filters = ["rig/Skeleton3D:f_index.2.L", "rig/Skeleton3D:f_index.2.R", "rig/Skeleton3D:f_index.3.L", "rig/Skeleton3D:f_index.3.R", "rig/Skeleton3D:f_index.L", "rig/Skeleton3D:f_index.R", "rig/Skeleton3D:f_middle.2.L", "rig/Skeleton3D:f_middle.2.R", "rig/Skeleton3D:f_middle.3.L", "rig/Skeleton3D:f_middle.3.R", "rig/Skeleton3D:f_middle.L", "rig/Skeleton3D:f_middle.R", "rig/Skeleton3D:f_pinky.2.L", "rig/Skeleton3D:f_pinky.2.R", "rig/Skeleton3D:f_pinky.3.L", "rig/Skeleton3D:f_pinky.3.R", "rig/Skeleton3D:f_pinky.L", "rig/Skeleton3D:f_pinky.R", "rig/Skeleton3D:f_ring.2.L", "rig/Skeleton3D:f_ring.2.R", "rig/Skeleton3D:f_ring.3.L", "rig/Skeleton3D:f_ring.3.R", "rig/Skeleton3D:f_ring.L", "rig/Skeleton3D:f_ring.R", "rig/Skeleton3D:f_thumb.2.L", "rig/Skeleton3D:f_thumb.2.R", "rig/Skeleton3D:f_thumb.3.L", "rig/Skeleton3D:f_thumb.3.R", "rig/Skeleton3D:f_thumb.L", "rig/Skeleton3D:f_thumb.R", "rig/Skeleton3D:forearm.L", "rig/Skeleton3D:forearm.R", "rig/Skeleton3D:forearm_twist1.L", "rig/Skeleton3D:forearm_twist1.R", "rig/Skeleton3D:forearm_twist2.L", "rig/Skeleton3D:forearm_twist2.R", "rig/Skeleton3D:hand.L", "rig/Skeleton3D:hand.R", "rig/Skeleton3D:shoulder.L", "rig/Skeleton3D:shoulder.R", "rig/Skeleton3D:upper_arm.L", "rig/Skeleton3D:upper_arm.R", "rig/Skeleton3D:upper_arm_twist.L", "rig/Skeleton3D:upper_arm_twist.R"]
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_5f3vp"]
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_hc66h"]
+xfade_curve = ExtResource("1_5f3vp")
 input_0/name = "state_0"
 input_0/auto_advance = false
 input_0/break_loop_at_end = false
@@ -40,28 +43,28 @@ animation = &"RestraintAnims/APose"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l7aga"]
 
 [resource]
-graph_offset = Vector2(-814.875, 83.462)
+graph_offset = Vector2(-576.571, -107.307)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yudco")
 nodes/Animation/position = Vector2(-380, 320)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1pahp")
 "nodes/Animation 2/position" = Vector2(-40, 420)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_xxuld")
 "nodes/Animation 3/position" = Vector2(280, 440)
-"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_52wvm")
-"nodes/Animation 4/position" = Vector2(-900, 340)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_di8rb")
+"nodes/Animation 4/position" = Vector2(-840, 320)
 nodes/ArmBinder_Blend/node = SubResource("AnimationNodeBlend2_1pahp")
 nodes/ArmBinder_Blend/position = Vector2(20, 120)
-nodes/Arms_Blend/node = SubResource("AnimationNodeBlend2_52wvm")
-nodes/Arms_Blend/position = Vector2(-380, 40)
-nodes/Arms_Selector/node = SubResource("AnimationNodeTransition_5f3vp")
-nodes/Arms_Selector/position = Vector2(-580, 320)
+nodes/Arms_Blend/node = SubResource("AnimationNodeBlend2_di8rb")
+nodes/Arms_Blend/position = Vector2(-353.655, 27.3712)
+nodes/Arms_Selector/node = SubResource("AnimationNodeTransition_hc66h")
+nodes/Arms_Selector/position = Vector2(-580, 240)
 nodes/CuffedBehindBack_Blend/node = SubResource("AnimationNodeBlend2_p36ij")
 nodes/CuffedBehindBack_Blend/position = Vector2(240, 120)
 nodes/CuffedFront_Blend/node = SubResource("AnimationNodeBlend2_dr03u")
 nodes/CuffedFront_Blend/position = Vector2(520, 120)
 nodes/RA_BRIDGE_PLACEHOLDER/node = SubResource("AnimationNodeAnimation_p36ij")
-nodes/RA_BRIDGE_PLACEHOLDER/position = Vector2(-1060, 140)
+nodes/RA_BRIDGE_PLACEHOLDER/position = Vector2(-1060, 160)
 nodes/RestraintAnims_BRIDGE/node = SubResource("AnimationNodeBlend2_l7aga")
-nodes/RestraintAnims_BRIDGE/position = Vector2(-760, 60)
+nodes/RestraintAnims_BRIDGE/position = Vector2(-780, -40)
 nodes/output/position = Vector2(780, 100)
 node_connections = [&"ArmBinder_Blend", 0, &"Arms_Blend", &"ArmBinder_Blend", 1, &"Animation", &"Arms_Blend", 0, &"RestraintAnims_BRIDGE", &"Arms_Blend", 1, &"Arms_Selector", &"Arms_Selector", 0, &"Animation 4", &"CuffedBehindBack_Blend", 0, &"ArmBinder_Blend", &"CuffedBehindBack_Blend", 1, &"Animation 2", &"CuffedFront_Blend", 0, &"CuffedBehindBack_Blend", &"CuffedFront_Blend", 1, &"Animation 3", &"RestraintAnims_BRIDGE", 1, &"RA_BRIDGE_PLACEHOLDER", &"output", 0, &"CuffedFront_Blend"]

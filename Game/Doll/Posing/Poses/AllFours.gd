@@ -1,19 +1,20 @@
 extends DollPoseBase
 
 func _init() -> void:
-	id = "Kneel"
-	animName = "Kneel"
-	visibleName = "Kneel"
+	id = "AllFours"
+	animName = "AllFours"
+	visibleName = "All fours"
 	walkAnim = "CrawlAllFours"
 	
 	poseType = PoseType.Fullbody
 	
 	animLibrary = preload("res://Anims/Raw/Poses.glb")
 	animLibraryName = "Poses"
-
+	
 	noSprint = true
 	walkSpeed = CRAWL_SPEED
 	walkSupportsArmPose = false
+	poseSupportsArmPose = false
 
 func hasCustomCamera() -> bool:
 	return true

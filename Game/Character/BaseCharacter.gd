@@ -481,6 +481,12 @@ func getInventory() -> Inventory:
 	return inventory
 
 func getWalkAnim() -> String:
+	if(idlePose != ""):
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(theDollPose):
+			if(theDollPose.getWalkAnimName() != ""):
+				return idlePose
+		
 	if(inventory.shouldHobbleLegs()):
 		return Doll.WALK_HOBBLED
 	return walkAnim
@@ -491,11 +497,20 @@ func getIdleAnim() -> String:
 func getWalkSpeed() -> float:
 	if(inventory.shouldHobbleLegs()):
 		return 0.5
+	if(idlePose != ""):
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(theDollPose):
+			return theDollPose.getWalkSpeedMult()
 	return 1.0
 
 func canSprint() -> bool:
 	if(inventory.shouldHobbleLegs()):
 		return false
+	if(idlePose != ""):
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(theDollPose):
+			if(theDollPose.preventsSprint()):
+				return false
 	return true
 	
 func getJumpHeight() -> float:

@@ -173,6 +173,7 @@ func updateAnimPlayerFor(seatID:String):
 	for animLibraryID in animLibraries:
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
+	Doll.updateAnimPlayerSpecific(animPlayer)
 
 func calculateStateAnimData():
 	animData.clear()
@@ -382,9 +383,11 @@ func updateAnimTreeFor(seatID:String):
 	
 	var finalFinalBlendTree:AnimationNodeBlendTree
 	if(!isMain):
-		finalFinalBlendTree = dollBlendTreeBase.duplicate()
+		finalFinalBlendTree = dollBlendTreeBase.duplicate(true)
 		finalFinalBlendTree.add_node("blendtree", finalBlendTree)
 		finalFinalBlendTree.connect_node("RestraintAnims_BRIDGE", 0, "blendtree")
+		
+		Doll.updateAnimTreeWithPoses(finalFinalBlendTree, true)
 	else:
 		finalFinalBlendTree = AnimationNodeBlendTree.new()
 		finalFinalBlendTree.add_node("blendtree", finalBlendTree)
@@ -478,6 +481,13 @@ func updateRestraintAnimsFor(sitterID:String):
 		animTree["parameters/ArmBinder_Blend/blend_amount"] = 1.0 if theDoll.isArmbinderPoseEnabled() else 0.0
 	if(supportsCuffedAnim):
 		animTree["parameters/CuffedBehindBack_Blend/blend_amount"] = 1.0 if theDoll.isCuffedBehindBackPoseEnabled() else 0.0
+	
+	#TODO: Maybe improve this?
+	var theChar:BaseCharacter = theDoll.getChar()
+	if(theChar):
+		var theArmsPoseID:String = theChar.getPoseArms()
+		var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
+		theDoll.setArmsAnim(theArmsPoseID if theArmsPose else "", animTree)
 	
 func _process(_delta: float) -> void:
 	for sitterID in sitters:
