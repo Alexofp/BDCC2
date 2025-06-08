@@ -417,6 +417,7 @@ func setIdleAnim(_walkAnim:String):
 	animation_tree["parameters/Locomotion/Idle/Idle_Selector/transition_request"] = _walkAnim
 
 func animStand():
+	#body_skeleton.resetBones()
 	#const theAnimName = "LocomotionAnims/Idle"
 	#const theAnimName = "LocomotionAnims/IdleLong"
 	#const theAnimName = "LocomotionAnims/IdleSexy"
