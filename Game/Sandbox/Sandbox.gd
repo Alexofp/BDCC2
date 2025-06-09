@@ -82,8 +82,28 @@ func _ready() -> void:
 	
 	var char2:BaseCharacter = characterRegistry.createCharacter()
 	var _thePawn2:CharacterPawn = pawn_registry.createPawn(char2.getID())
-	sex_manager.startSex(SexType.OnTheFloor, {dom=thePC.getID(), sub=char2.getID()}, {}, _thePawn.global_position, Vector3(0.0, 0.0, 0.0))
+	_thePawn2.position.x = 2.0
 	
+	#sex_manager.startSex(SexType.OnTheFloor, {dom=thePC.getID(), sub=char2.getID()}, {}, _thePawn.global_position, Vector3(0.0, 0.0, 0.0))
+	
+	#testFutures()
+	#ThreadedResourceLoader.threadPool.task_completed.connect(onTaskCompleted)
+
+#func onTaskCompleted(_theTask):
+#	print("MEOW "+str(_theTask.result))
+
+func testFutures():
+	var theFuture := ThreadedResourceLoader.threadPool.submit_task_array_parameterized(self, "testThread", [RNG.randiRange(1, 10), RNG.randiRange(1, 10)])
+	await theFuture.task_completed
+	print("RESULT: "+str(theFuture.get_result()))
+	#await ThreadedResourceLoader.threadPool.task_completed
+	#var theResult:int = theFuture.get_result()
+	#print("RESULT: "+str(theResult))
+
+func testThread(_a:int, _b:int) -> int:
+	for _i in range(1000000):
+		var _asd = sqrt(_i)+sqrt(_i)+pow(_i, 0.1)
+	return _a + _b
 
 func hideAllMenus():
 	in_game_menu.visible = false
@@ -101,6 +121,8 @@ func hideAllMenus():
 
 func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("game_menu")):
+		#testFutures()
+		#return
 		if(character_creator):
 			return
 		var newVis:bool = !in_game_menu.visible

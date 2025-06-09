@@ -93,12 +93,12 @@ func _process_modification() -> void:
 		return
 	
 	# BDCC2 EDIT
-	var gravScale:float = 1.0
-	if(enableGravityHelper):
-		var curRot:=(basis * Vector3.UP).normalized()
-		var upRot:=_global_directionStart
-		gravScale = clamp(1.0-curRot.dot(upRot), 0.0, 1.0)
-		#print(gravScale)
+	#var gravScale:float = 1.0
+	#if(enableGravityHelper):
+		#var curRot:=(basis * Vector3.UP).normalized()
+		#var upRot:=_global_directionStart
+		#gravScale = clamp(1.0-curRot.dot(upRot), 0.0, 1.0)
+		##print(gravScale)
 	# END
 	
 	var skeleton := get_skeleton()

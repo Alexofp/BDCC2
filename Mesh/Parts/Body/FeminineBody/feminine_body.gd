@@ -37,13 +37,13 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	const ignoreUniforms = ["albedo", "texture_cum_mask"]
 		
 	if(_skinTypeData.skinType == SkinType.HumanSkin):
-		bodyMat.copyFrom(load("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", load("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png"))
-		bodyMat.set_shader_parameter("texture_orm", load("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"))
+		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
+		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png"))
+		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"))
 	elif(_skinTypeData.skinType == SkinType.Fur):
-		bodyMat.copyFrom(load("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", load("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"))
-		bodyMat.set_shader_parameter("texture_orm", load("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png"))
+		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
+		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"))
+		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png"))
 	
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)

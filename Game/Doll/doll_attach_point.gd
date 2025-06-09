@@ -36,6 +36,7 @@ func _exit_tree() -> void:
 	
 func _process(_delta: float) -> void:
 	doPosChilds.call_deferred()
+	pass
 
 func doPosChilds():
 	if(!is_inside_tree() || is_queued_for_deletion()):

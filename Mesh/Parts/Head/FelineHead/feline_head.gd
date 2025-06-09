@@ -27,10 +27,10 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	#headMat.set_shader_parameter("albedo", _skinTypeData.color)
 	
 	const ignoreUniforms = ["albedo"]
-	headMat.copyFrom(load("res://Mesh/Parts/Head/FelineHead/HeadMat.tres"), ignoreUniforms)
-	#headMat.set_shader_parameter("texture_albedo", load("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_BaseColor.png"))
-	headMat.set_shader_parameter("texture_normal", load("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_Normal.png"))
-	headMat.set_shader_parameter("texture_orm", load("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_ORM.png"))
+	headMat.copyFrom(preload("res://Mesh/Parts/Head/FelineHead/HeadMat.tres"), ignoreUniforms)
+	#headMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_BaseColor.png"))
+	headMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_Normal.png"))
+	headMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_ORM.png"))
 	
 	#headMat.set_shader_parameter("texture_cum_mask", CUM_NOISE)
 	#headMat.set_shader_parameter("texture_cum_mask", null)

@@ -116,7 +116,6 @@ blendshapes = Dictionary[String, float]({
 "Thick": 0.0,
 "ThinVery": 0.0
 })
-mirrorX = false
 blendshapesData = Dictionary[String, Vector3]({
 "BodySize": Vector3(0.00201949, -0.0127878, 0.0285344),
 "BreastsBig": Vector3(-0.000253007, -0.0162516, 0.0380869),

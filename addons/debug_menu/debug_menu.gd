@@ -356,7 +356,8 @@ func _process(_delta: float) -> void:
 		frame_history_total_last.modulate = frame_time_gradient.sample(remap(1000.0 / frametime, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
 
 		var viewport_rid := get_viewport().get_viewport_rid()
-		var frametime_cpu := RenderingServer.viewport_get_measured_render_time_cpu(viewport_rid) + RenderingServer.get_frame_setup_time_cpu()
+		#var frametime_cpu := RenderingServer.viewport_get_measured_render_time_cpu(viewport_rid) + RenderingServer.get_frame_setup_time_cpu()
+		var frametime_cpu := Performance.get_monitor(Performance.TIME_PROCESS)*1000.0
 		frame_history_cpu.push_back(frametime_cpu)
 		if frame_history_cpu.size() > HISTORY_NUM_FRAMES:
 			frame_history_cpu.pop_front()

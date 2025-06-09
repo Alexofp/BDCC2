@@ -9,13 +9,30 @@ var throttling:float = 0.0
 const RequestThrottleTime = 0.1
 const ArtificialThrottleTime = 0.0
 
+var threadPool:FutureThreadPool
+
+func _ready() -> void:
+	threadPool = FutureThreadPool.new()
+	add_child(threadPool)
+
 #func loadAsync(thePath:String) -> Resource:
 	#var result:Array = []
 	#loadCallback(thePath, func(theResource):
 		#result.append(theResource)
 		#)
 
+func getThreadPool() -> FutureThreadPool:
+	return threadPool
+
+func loadThreaded(_thePath:String):
+	return load(_thePath)
+
 func loadCallback(thePath:String, theCallable:Callable):
+	var theFuture := threadPool.submit_task(self, "loadThreaded", thePath)
+	await theFuture.task_completed
+	theCallable.call(theFuture.get_result())
+
+func loadCallbackOld(thePath:String, theCallable:Callable):
 	if(thePath == ""):
 		assert(false, "TRYING TO LOAD AN EMPTY PATH")
 		return
