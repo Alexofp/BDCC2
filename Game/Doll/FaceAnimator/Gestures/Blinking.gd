@@ -24,6 +24,14 @@ func processTime(_dt:float):
 		blinkTimer = RNG.randfRange(5.0, 15.0)
 		doBlink()
 
+func processValues(_vals:FaceAnimator, _dt:float):
+	_vals.valEyesClosed = _vals.valEyesClosed * (1.0 - blink) + blink
+	
+	blinkTimer -= _dt
+	if(blinkTimer <= 0.0):
+		blinkTimer = RNG.randfRange(5.0, 15.0)
+		doBlink()
+
 func doBlink():
 	if(blinkTween):
 		blinkTween.kill()

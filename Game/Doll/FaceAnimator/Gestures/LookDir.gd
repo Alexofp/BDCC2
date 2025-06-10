@@ -32,3 +32,11 @@ func processFaceVec2(_valID:int, _val:Vector2) -> Vector2:
 	if(_valID == FaceValue.LookDir):
 		return lookDir
 	return _val
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	_vals.valLookDir = lookDir
+
+	dirTimer -= _dt
+	if(dirTimer <= 0.0):
+		dirTimer = RNG.randfRange(1.0, 10.0)
+		doChangeDir()

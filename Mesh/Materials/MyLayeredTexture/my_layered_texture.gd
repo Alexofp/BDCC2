@@ -78,10 +78,10 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 	inProcess = true
 	dirty = false
 	
-	if(bakeTexture):
-		cache_timer.stop()
-		if(!cachedTexture):
-			_on_cache_timer_timeout()
+	#if(bakeTexture):
+	#	cache_timer.stop()
+	#	if(!cachedTexture):
+	#		_on_cache_timer_timeout()
 	
 	sub_viewport.size = (resolution / resDivider) if textureSpawned else Vector2i(32, 32)
 	color_rect.color = clearColor
@@ -213,12 +213,29 @@ func characterTextureOptionChanged():
 		resDivider = 1
 	markDirty()
 
+var cacheIndx:int = 0
 func _on_cache_timer_timeout() -> void:
-	cachedTexture = ImageTexture.create_from_image(sub_viewport.get_texture().get_image())
 	#TODO: Make a threadpool that would create compressed textures? They use way less VRAM
 	#cachedTexture = PortableCompressedTexture2D.new()
 	#cachedTexture.create_from_image(sub_viewport.get_texture().get_image(), PortableCompressedTexture2D.COMPRESSION_MODE_BASIS_UNIVERSAL)
-	onTextureUpdated.emit(cachedTexture)
+	cacheIndx += 1
+	var savedIndx:int = cacheIndx
+	var theFuture := ThreadedResourceLoader.getThreadPool2().submit_task(self, "doCachedTextureThreaded", sub_viewport.get_texture().get_image(), cacheIndx)
+	await theFuture.task_completed
+	if(savedIndx != cacheIndx):
+		return
+	
+	if(!cachedTexture && theFuture.result):
+		cachedTexture = theFuture.result
+		onTextureUpdated.emit(cachedTexture)
+	
+	#cachedTexture = ImageTexture.create_from_image(sub_viewport.get_texture().get_image())
+	#onTextureUpdated.emit(cachedTexture)
 	sub_viewport.size = Vector2i(32, 32)
 	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-	
+
+func doCachedTextureThreaded(_image:Image):
+	var newCachedTexture = PortableCompressedTexture2D.new()
+	newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_BASIS_UNIVERSAL)
+	#newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
+	return newCachedTexture

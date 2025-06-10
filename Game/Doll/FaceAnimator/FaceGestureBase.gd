@@ -62,7 +62,8 @@ func getTargetInfluence() -> float:
 	return 0.0
 
 func processInfluence(_dt:float):
-	var theTarget:float = getTargetInfluence()
+	#var theTarget:float = getTargetInfluence()
+	var theTarget:float = 1.0 if enabled else 0.0
 	
 	if(influence < theTarget):
 		influence += _dt / blendInTime
@@ -81,6 +82,9 @@ func processTime(_dt:float):
 	pass
 
 func onEvent(_eventID:String, _args:Array):
+	pass
+
+func processValues(_vals:FaceAnimator, _dt:float):
 	pass
 
 func processFaceValue(_valID:int, _val:float) -> float:

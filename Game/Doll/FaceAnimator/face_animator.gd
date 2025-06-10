@@ -58,6 +58,52 @@ var mouthSnarlParam:String = "Mouth_Snarl/add_amount"
 var browsShyParam:String = "Brows_Shy/blend_amount"
 var browsAngryParam:String = "Brows_Angry/blend_amount"
 
+var valEyesClosed:float = 0.0
+var valEyesSexy:float = 0.0
+	
+var valBrowsShy:float = 0.0
+var valBrowsAngry:float = 0.0
+	
+var valMouthOpen:float = 0.0
+var valMouthPanting:float = 0.0
+var valMouthBlep:float = 0.0
+var valMouthSmile:float = 0.0
+var valMouthSad:float = 0.0
+var valMouthSnarl:float = 0.0
+	
+var valLookDir:Vector2 = Vector2()
+var valLookCross:float = 0.0
+
+var savedvalEyesClosed:float = -1.0
+var savedvalEyesSexy:float = -1.0
+	
+var savedvalBrowsShy:float = -1.0
+var savedvalBrowsAngry:float = -1.0
+	
+var savedvalMouthOpen:float = -1.0
+var savedvalMouthPanting:float = -1.0
+var savedvalMouthBlep:float = -1.0
+var savedvalMouthSmile:float = -1.0
+var savedvalMouthSad:float = -1.0
+var savedvalMouthSnarl:float = -1.0
+	
+var savedvalLookDir:Vector2 = Vector2(-1.0, -1.0)
+var savedvalLookCross:float = -1.0
+
+func resetVals():
+	valEyesClosed = 0.0
+	valEyesSexy = 0.0
+	valBrowsShy = 0.0
+	valBrowsAngry = 0.0
+	valMouthOpen = 0.0
+	valMouthPanting = 0.0
+	valMouthBlep = 0.0
+	valMouthSad = 0.0
+	valMouthSmile = 0.0
+	valMouthSnarl = 0.0
+	valLookDir = Vector2(0.0, 0.0)
+	valLookCross = 0.0
+
 @onready var animTree: AnimationTree = %AnimationTree
 
 @export var expressionState:int = DollExpressionState.Normal :
@@ -162,6 +208,7 @@ func updateAnimTree():
 	animTree["parameters/Eyes_Closed_Add/add_amount"] = 1.0
 	animTree["parameters/Mouth_Open_Add/add_amount"] = 1.0
 	animTree["parameters/Eyes_Close_Time/scale"] = 0.0
+	animTree["parameters/Mouth_Opened_Time/scale"] = 0.0
 
 func setBlendTreeAnimNode(theBlendTree:AnimationNodeBlendTree, animNodeName:String, newAnim:String):
 	var anAnimNode:AnimationNodeAnimation = theBlendTree.get_node(animNodeName)
@@ -239,32 +286,108 @@ func moveValueTowards(theVal:float, targetVal:float, speedChange:float) -> float
 			theVal = targetVal
 	return theVal
 
+#TODO: OPTIMIZE THIS
 func _process(_delta: float) -> void:
 	if(Engine.is_editor_hint()):
 		return
+
 	updateFaceExpression(_delta)
-	for gesture in gestures:
-		gesture.processTimeFinal(_delta)
+	
+	#for gesture in gestures:
+	#	gesture.processTimeFinal(_delta)
 
 func updateFaceExpression(_delta: float):
 	if(!animTree.tree_root):
 		return
 	
-	setParam(mouthOpenParam, clamp(getFaceValue(FaceValue.MouthOpen), 0.0, 1.0))
-	setParam(mouthPantingParam, clamp(getFaceValue(FaceValue.MouthPanting), 0.0, 1.0))
-	setParam(eyesClosedParam, clamp(getFaceValue(FaceValue.EyesClosed), 0.0, 1.0))
-	setParam(mouthBlepParam, clamp(getFaceValue(FaceValue.MouthBlep), 0.0, 1.0))
-	setParam(eyesSexyParam, clamp(getFaceValue(FaceValue.EyesSexy), 0.0, 1.0))
-	setParam(browsShyParam, clamp(getFaceValue(FaceValue.BrowsShy), 0.0, 1.0))
-	setParam(browsAngryParam, clamp(getFaceValue(FaceValue.BrowsAngry), 0.0, 1.0))
-	setParam(lookCrossParam, clamp(getFaceValue(FaceValue.LookCross), 0.0, 1.0))
-	setParam(mouthSadParam, clamp(getFaceValue(FaceValue.MouthSad), 0.0, 1.0))
-	setParam(mouthSmileParam, clamp(getFaceValue(FaceValue.MouthSmile), 0.0, 1.0))
-	setParam(mouthSnarlParam, clamp(getFaceValue(FaceValue.MouthSnarl), 0.0, 1.0))
+	resetVals()
+	for gesture in gestures:
+		gesture.processValues(self, _delta)
 	
-	var lookDirFinal:Vector2 = getFaceVec2(FaceValue.LookDir)
-	setParam(lookDirXParam, lookDirFinal.x)
-	setParam(lookDirYParam, lookDirFinal.y)
+	for fieldID in faceOverride.fields:
+		match fieldID:
+			FaceValue.MouthOpen:
+				valMouthOpen = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.MouthPanting:
+				valMouthPanting = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.EyesClosed:
+				valEyesClosed = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.MouthBlep:
+				valMouthBlep = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.EyesSexy:
+				valEyesSexy = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.BrowsShy:
+				valBrowsShy = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.BrowsAngry:
+				valBrowsAngry = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.LookCross:
+				valLookCross = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.MouthSad:
+				valMouthSad = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.MouthSmile:
+				valMouthSmile = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.MouthSnarl:
+				valMouthSnarl = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.LookDir:
+				valLookDir = faceOverride.getFaceValueOverride(fieldID)
+
+	if(gagMouthOverride >= 0.0):
+		valMouthOpen = gagMouthOverride
+	
+	if(valMouthOpen != savedvalMouthOpen):
+		savedvalMouthOpen = valMouthOpen
+		setParam(mouthOpenParam, valMouthOpen)
+	if(valMouthPanting != savedvalMouthPanting):
+		savedvalMouthPanting = valMouthPanting
+		setParam(mouthPantingParam, valMouthPanting)
+	if(valEyesClosed != savedvalEyesClosed):
+		savedvalEyesClosed = valEyesClosed
+		setParam(eyesClosedParam, valEyesClosed)
+	if(valMouthBlep != savedvalMouthBlep):
+		savedvalMouthBlep = valMouthBlep
+		setParam(mouthBlepParam, valMouthBlep)
+	if(valEyesSexy != savedvalEyesSexy):
+		savedvalEyesSexy = valEyesSexy
+		setParam(eyesSexyParam, valEyesSexy)
+	if(valBrowsShy != savedvalBrowsShy):
+		savedvalBrowsShy = valBrowsShy
+		setParam(browsShyParam, valBrowsShy)
+	if(valBrowsAngry != savedvalBrowsAngry):
+		savedvalBrowsAngry = valBrowsAngry
+		setParam(browsAngryParam, valBrowsAngry)
+	if(valLookCross != savedvalLookCross):
+		savedvalLookCross = valLookCross
+		setParam(lookCrossParam, valLookCross)
+	if(valMouthSad != savedvalMouthSad):
+		savedvalMouthSad = valMouthSad
+		setParam(mouthSadParam, valMouthSad)
+	if(valMouthSmile != savedvalMouthSmile):
+		savedvalMouthSmile = valMouthSmile
+		setParam(mouthSmileParam, valMouthSmile)
+	if(valMouthSnarl != savedvalMouthSnarl):
+		savedvalMouthSnarl = valMouthSnarl
+		setParam(mouthSnarlParam, valMouthSnarl)
+	if(valLookDir != savedvalLookDir):
+		savedvalLookDir = valLookDir
+		setParam(lookDirXParam, valLookDir.x)
+		setParam(lookDirYParam, valLookDir.y)
+		
+		
+	#setParam(mouthOpenParam, clamp(getFaceValue(FaceValue.MouthOpen), 0.0, 1.0))
+	#setParam(mouthPantingParam, clamp(getFaceValue(FaceValue.MouthPanting), 0.0, 1.0))
+	#setParam(eyesClosedParam, clamp(getFaceValue(FaceValue.EyesClosed), 0.0, 1.0))
+	#setParam(mouthBlepParam, clamp(getFaceValue(FaceValue.MouthBlep), 0.0, 1.0))
+	#setParam(eyesSexyParam, clamp(getFaceValue(FaceValue.EyesSexy), 0.0, 1.0))
+	#setParam(browsShyParam, clamp(getFaceValue(FaceValue.BrowsShy), 0.0, 1.0))
+	#setParam(browsAngryParam, clamp(getFaceValue(FaceValue.BrowsAngry), 0.0, 1.0))
+	#setParam(lookCrossParam, clamp(getFaceValue(FaceValue.LookCross), 0.0, 1.0))
+	#setParam(mouthSadParam, clamp(getFaceValue(FaceValue.MouthSad), 0.0, 1.0))
+	#setParam(mouthSmileParam, clamp(getFaceValue(FaceValue.MouthSmile), 0.0, 1.0))
+	#setParam(mouthSnarlParam, clamp(getFaceValue(FaceValue.MouthSnarl), 0.0, 1.0))
+	#
+	#var lookDirFinal:Vector2 = getFaceVec2(FaceValue.LookDir)
+	#setParam(lookDirXParam, lookDirFinal.x)
+	#setParam(lookDirYParam, lookDirFinal.y)
 
 func getFaceValue(theFaceValue:int) -> float:
 	if(faceOverride.isFaceValueOverridden(theFaceValue)):

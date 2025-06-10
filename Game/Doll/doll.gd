@@ -3,6 +3,7 @@ class_name Doll
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: AnimationTree = %AnimationTree
+@onready var parts_node: Node3D = %Parts
 
 @onready var body_skeleton: BodySkeleton = %BodySkeleton
 @onready var voice_handler: VoiceHandler = %VoiceHandler
@@ -306,7 +307,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 			return
 		parts[genericType][bodypartSlot] = dollScene
 		partPaths[genericType][bodypartSlot] = dollScene.scene_file_path
-		add_child(dollScene)
+		parts_node.add_child(dollScene)
 		if(dollScene is DollPart):
 			dollScene.setDoll(self)
 			dollScene.setPart(part)

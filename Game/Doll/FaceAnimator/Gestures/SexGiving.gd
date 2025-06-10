@@ -22,3 +22,12 @@ func updateExpressionState(_expression:int):
 		start()
 	else:
 		stop()
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	processInfluence(_dt)
+	
+	if(influence <= 0.0):
+		return
+	_vals.valMouthOpen = lerp(_vals.valMouthOpen, max(0.05, _vals.valMouthOpen), influence)
+	_vals.valMouthSnarl = lerp(_vals.valMouthSnarl, max(getArousal()*0.2, _vals.valMouthSnarl), influence)
+	

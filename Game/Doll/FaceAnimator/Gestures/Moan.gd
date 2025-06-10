@@ -54,3 +54,12 @@ func doMoanLoudness(_soundEntry: SexSoundEntry, _loudness: SexSoundLoudness, _vo
 		tweenVals.append([loudness*moanMult*globalMoanMult, soundFrameTime])
 	tweenVals.append([0.0, 0.2])
 	doTween("moanValue", tweenVals)
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	_vals.valLookDir.y = lerp(_vals.valLookDir.y, 1.0, moanValue*0.5)
+	
+	if(moanValue > 0.0):
+		_vals.valMouthOpen = _vals.valMouthOpen * (1.0 - moanValue) + moanValue
+		_vals.valBrowsShy = max(moanValue, _vals.valBrowsShy)
+	elif(moanValue < 0.0):
+		_vals.valMouthOpen = max(_vals.valMouthOpen * (1.0 + moanValue), abs(moanValue)*0.1)

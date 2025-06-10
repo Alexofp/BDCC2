@@ -337,8 +337,6 @@ func processMove(delta:float):
 	if !noclip_on:
 		if not is_on_floor():
 			velocity.y -= GRAVITY_FORCE * delta
-
-		
 		
 	input_velocity = velocity
 	move_and_slide()

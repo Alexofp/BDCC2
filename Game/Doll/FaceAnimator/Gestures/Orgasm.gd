@@ -66,3 +66,25 @@ func processFaceVec2(_valID:int, _val:Vector2) -> Vector2:
 		#start()
 	#else:
 		#stop()
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	processInfluence(_dt)
+	
+	if(timerBlep > 0.0):
+		timerBlep -= _dt
+	enabled = (timerBlep > 0.0)
+	#setEnabled(timerBlep > 0.0)
+	if(influence <= 0.0):
+		return
+	_vals.valLookDir = lerp(_vals.valLookDir, Vector2(0.0, 1.0), influence)
+	
+	if(closeEyes):
+		_vals.valEyesClosed = lerp(_vals.valEyesClosed, RNG.randfRange(0.9, 1.0), influence)
+	else:
+		_vals.valEyesClosed = lerp(_vals.valEyesClosed, RNG.randfRange(0.0, 0.1), influence)
+	
+	if(crossEyed):
+		_vals.valLookCross = lerp(_vals.valLookCross, RNG.randfRange(0.9, 1.0), influence)
+	
+	if(crossEyed || closeEyes):
+		_vals.valBrowsShy = lerp(_vals.valBrowsShy, RNG.randfRange(0.9, 1.0), influence)

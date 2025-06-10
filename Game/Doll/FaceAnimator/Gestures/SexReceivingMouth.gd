@@ -16,3 +16,10 @@ func processFaceValue(_valID:int, _val:float) -> float:
 
 func updateExpressionState(_expression:int):
 	setEnabled(_expression == DollExpressionState.SexReceiving)
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	processInfluence(_dt)
+	
+	if(influence <= 0.0):
+		return
+	_vals.valMouthOpen = lerp(_vals.valMouthOpen, max(0.3, _vals.valMouthOpen), influence)

@@ -31,3 +31,17 @@ func processTime(_dt:float):
 	shouldOpenMouth = (getExpressionState() == DollExpressionState.SexReceiving)
 	setEnabled(shouldOpenMouth || theCharState.getAutoMoan() > 0.0)
 	
+func processValues(_vals:FaceAnimator, _dt:float):
+	processInfluence(_dt)
+	
+	var theCharState:CharState = getCharState()
+	shouldOpenMouth = (getExpressionState() == DollExpressionState.SexReceiving)
+	enabled = (shouldOpenMouth || theCharState.getAutoMoan() > 0.0)
+	#setEnabled(shouldOpenMouth || theCharState.getAutoMoan() > 0.0)
+	
+	if(influence <= 0.0):
+		return
+	
+	_vals.valMouthPanting = lerp(_vals.valMouthPanting, max(1.0, _vals.valMouthPanting), influence)
+	_vals.valEyesSexy = lerp(_vals.valEyesSexy, max(1.0, _vals.valEyesSexy), influence)
+	

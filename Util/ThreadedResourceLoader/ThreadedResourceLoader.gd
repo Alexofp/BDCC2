@@ -10,10 +10,13 @@ const RequestThrottleTime = 0.1
 const ArtificialThrottleTime = 0.0
 
 var threadPool:FutureThreadPool
+var threadPool2:FutureThreadPool
 
 func _ready() -> void:
 	threadPool = FutureThreadPool.new()
 	add_child(threadPool)
+	threadPool2 = FutureThreadPool.new()
+	add_child(threadPool2)
 
 #func loadAsync(thePath:String) -> Resource:
 	#var result:Array = []
@@ -23,6 +26,8 @@ func _ready() -> void:
 
 func getThreadPool() -> FutureThreadPool:
 	return threadPool
+func getThreadPool2() -> FutureThreadPool:
+	return threadPool2
 
 func loadThreaded(_thePath:String):
 	return load(_thePath)

@@ -39,3 +39,11 @@ func doPlap():
 		[1.0, 0.3],
 		[0.0, 0.4],
 	])
+
+func processValues(_vals:FaceAnimator, _dt:float):
+	if(plapValue <= 0.0 && plap2Value <= 0.0):
+		return
+	_vals.valBrowsAngry = max(plapValue, _vals.valBrowsAngry)
+	_vals.valBrowsShy = min(1.0-plapValue, _vals.valBrowsShy)
+	_vals.valMouthOpen = max(plap2Value*0.2, _vals.valMouthOpen)
+	_vals.valMouthSnarl = max(plap2Value*0.2, _vals.valMouthSnarl)

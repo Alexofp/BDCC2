@@ -40,6 +40,13 @@ func doPos(theNode:Node3D):
 		global_transform = theNode.global_transform
 
 func onNewAttachPoint(oldPoint, newPoint):
+	if(oldPoint):
+		oldPoint.removeAttach(self)
+		#oldPoint.attached.erase(self)
+	if(newPoint):
+		newPoint.addAttach(self)
+		#newPoint.attached.append(self)
+	
 	if(newPoint == null || !is_instance_valid(newPoint)):
 		for mesh in skeletonMeshes:
 			mesh.skeleton = NodePath("")
@@ -50,7 +57,8 @@ func onNewAttachPoint(oldPoint, newPoint):
 			mesh.skeleton = mesh.get_path_to(pointSkeleton) if pointSkeleton != null else NodePath("")
 			#print("SET SKELETON TO "+("(NULL) " if pointSkeleton==null else "")+"SKELETON")
 	
-	if(oldPoint):
-		oldPoint.attached.erase(self)
-	if(newPoint):
-		newPoint.attached.append(self)
+
+
+func _exit_tree() -> void:
+	if(savedPoint && is_instance_valid(savedPoint)):
+		savedPoint.removeAttach(self)

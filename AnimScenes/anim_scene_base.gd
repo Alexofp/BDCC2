@@ -488,10 +488,14 @@ func updateRestraintAnimsFor(sitterID:String):
 		var theArmsPoseID:String = theChar.getPoseArms()
 		var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
 		theDoll.setArmsAnim(theArmsPoseID if theArmsPose else "", animTree)
-	
+
+var checkTime:float = 0.0
 func _process(_delta: float) -> void:
-	for sitterID in sitters:
-		updateRestraintAnimsFor(sitterID)
+	checkTime -= _delta
+	if(checkTime <= 0.0):
+		for sitterID in sitters:
+			updateRestraintAnimsFor(sitterID)
+		checkTime = 0.1
 
 func updatePenisTargetFor(sitterID:String):
 	var sitDoll:DollController = getSitterDoll(sitterID)
