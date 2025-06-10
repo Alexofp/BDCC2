@@ -1,11 +1,19 @@
 extends DollPart
 
-@export var earMat:MyMasterBodyMat
-@export var piercingsMat:MyMasterBodyMat
+@export var ear:MeshInstance3D = null
+@export var earFluff:MeshInstance3D = null
+var earMat:MyMasterBodyMat
+var piercingsMat:MyMasterBodyMat
 @export var piercingsTwoRings:MeshInstance3D = null
 @export var tassels:MeshInstance3D = null
-@export var tasselsMat:MyMasterBodyMat
-@export var fluffMat:StandardMaterial3D
+var tasselsMat:MyMasterBodyMat
+var fluffMat:StandardMaterial3D
+
+func grabMaterials():
+	earMat = ear.get_surface_override_material(0)
+	piercingsMat = piercingsTwoRings.get_surface_override_material(0)
+	tasselsMat = tassels.get_surface_override_material(0)
+	fluffMat = earFluff.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "piercings"):

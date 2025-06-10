@@ -67,6 +67,7 @@ input_2/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1pahp"]
 graph_offset = Vector2(-402.525, -54.2775)
+nodes/output/position = Vector2(580, -80)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_lws2c")
 nodes/Animation/position = Vector2(-220, 60)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_yn8uc")
@@ -75,8 +76,7 @@ nodes/Animation/position = Vector2(-220, 60)
 "nodes/Animation 3/position" = Vector2(-220, 420)
 nodes/Idle_Selector/node = SubResource("AnimationNodeTransition_ce1cx")
 nodes/Idle_Selector/position = Vector2(160, 140)
-nodes/output/position = Vector2(580, -80)
-node_connections = [&"Idle_Selector", 0, &"Animation", &"Idle_Selector", 1, &"Animation 2", &"Idle_Selector", 2, &"Animation 3", &"output", 0, &"Idle_Selector"]
+node_connections = [&"output", 0, &"Idle_Selector", &"Idle_Selector", 0, &"Animation", &"Idle_Selector", 1, &"Animation 2", &"Idle_Selector", 2, &"Animation 3"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_olppk"]
 animation = &"LocomotionAnims/Run"
@@ -115,7 +115,7 @@ nodes/Animation/position = Vector2(-360, 20)
 "nodes/Animation 3/position" = Vector2(-340, 320)
 nodes/Walk_Selector/node = SubResource("AnimationNodeTransition_doc38")
 nodes/Walk_Selector/position = Vector2(20, 120)
-node_connections = [&"Walk_Selector", 0, &"Animation", &"Walk_Selector", 1, &"Animation 2", &"Walk_Selector", 2, &"Animation 3", &"output", 0, &"Walk_Selector"]
+node_connections = [&"output", 0, &"Walk_Selector", &"Walk_Selector", 0, &"Animation", &"Walk_Selector", 1, &"Animation 2", &"Walk_Selector", 2, &"Animation 3"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yxnr4"]
 xfade_time = 0.2
@@ -175,6 +175,7 @@ animation = &"RestraintAnims/APose"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l7aga"]
 
 [resource]
+nodes/output/position = Vector2(780, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yudco")
 nodes/Animation/position = Vector2(-380, 320)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1pahp")
@@ -199,5 +200,4 @@ nodes/RA_BRIDGE_PLACEHOLDER/node = SubResource("AnimationNodeAnimation_p36ij")
 nodes/RA_BRIDGE_PLACEHOLDER/position = Vector2(-1060, 160)
 nodes/RestraintAnims_BRIDGE/node = SubResource("AnimationNodeBlend2_l7aga")
 nodes/RestraintAnims_BRIDGE/position = Vector2(-780, -40)
-nodes/output/position = Vector2(780, 100)
-node_connections = [&"ArmBinder_Blend", 0, &"Arms_Blend", &"ArmBinder_Blend", 1, &"Animation", &"Arms_Blend", 0, &"RestraintAnims_BRIDGE", &"Arms_Blend", 1, &"Arms_Selector", &"Arms_Selector", 0, &"Animation 4", &"CuffedBehindBack_Blend", 0, &"ArmBinder_Blend", &"CuffedBehindBack_Blend", 1, &"Animation 2", &"CuffedFront_Blend", 0, &"CuffedBehindBack_Blend", &"CuffedFront_Blend", 1, &"Animation 3", &"RestraintAnims_BRIDGE", 0, &"Locomotion", &"RestraintAnims_BRIDGE", 1, &"RA_BRIDGE_PLACEHOLDER", &"output", 0, &"CuffedFront_Blend"]
+node_connections = [&"output", 0, &"CuffedFront_Blend", &"ArmBinder_Blend", 0, &"Arms_Blend", &"ArmBinder_Blend", 1, &"Animation", &"Arms_Blend", 0, &"RestraintAnims_BRIDGE", &"Arms_Blend", 1, &"Arms_Selector", &"Arms_Selector", 0, &"Animation 4", &"CuffedBehindBack_Blend", 0, &"ArmBinder_Blend", &"CuffedBehindBack_Blend", 1, &"Animation 2", &"CuffedFront_Blend", 0, &"CuffedBehindBack_Blend", &"CuffedFront_Blend", 1, &"Animation 3", &"RestraintAnims_BRIDGE", 0, &"Locomotion", &"RestraintAnims_BRIDGE", 1, &"RA_BRIDGE_PLACEHOLDER"]

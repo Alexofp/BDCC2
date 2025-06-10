@@ -1,16 +1,24 @@
 extends DollPart
 
-@export var ballsMat:MyMasterBodyMat
-@export var shaftMat:MyMasterBodyMat
+@onready var balls: MeshInstance3D = $CaninePenisRig/Skeleton3D/Balls
+@onready var shaft: MeshInstance3D = $CaninePenisRig/Skeleton3D/Shaft
+
+var ballsMat:MyMasterBodyMat
+var shaftMat:MyMasterBodyMat
 @export var nodeToScale:Node3D
 @export var furTuft:MeshInstance3D
-@export var tuftMat:MyMasterBodyMat
+var tuftMat:MyMasterBodyMat
 @export var penisModifier:PenisSkeletonModifier
 @export var jiggleModifiers:Array[SkeletonModifier3D] = []
 
 @onready var guide_path: Path3D = %GuidePath
 @onready var follow_spline_skeleton_modifier: FollowSplineSkeletonModifier = %FollowSplineSkeletonModifier
 @onready var penis_handler: PenisHandler = %PenisHandler
+
+func grabMaterials():
+	shaftMat = shaft.get_surface_override_material(0)
+	ballsMat = balls.get_surface_override_material(0)
+	tuftMat = furTuft.get_surface_override_material(0)
 
 var enableTween:Tween
 func enableSplineModifier(doEn:bool, _time:float = 0.5):

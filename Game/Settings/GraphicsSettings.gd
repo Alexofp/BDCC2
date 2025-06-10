@@ -249,8 +249,17 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128 if (newVal == GI.ENABLED) else RenderingServer.ENV_SDFGI_RAY_COUNT_32)
 		"ssaa":
 			var gameCompositor :Compositor= load("res://Mesh/Enviroment/GameCompositor.tres")
-			gameCompositor.compositor_effects[0].enabled = (newVal == SSAA.SMAA)
-			OPTIONS.get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA if (newVal == SSAA.FXAA) else Viewport.SCREEN_SPACE_AA_DISABLED 
+			gameCompositor.compositor_effects[0].enabled = false
+			if(newVal == SSAA.SMAA):
+				if(Viewport.SCREEN_SPACE_AA_MAX < 3):
+					OPTIONS.get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
+					gameCompositor.compositor_effects[0].enabled = true
+				else:
+					OPTIONS.get_viewport().screen_space_aa = 2 as Viewport.ScreenSpaceAA#Viewport.SCREEN_SPACE_AA_SMAA
+			elif(newVal == SSAA.FXAA):
+				OPTIONS.get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
+			else:
+				OPTIONS.get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
 		"aa":
 			if(newVal == AA.AAX2):
 				OPTIONS.get_viewport().msaa_3d = Viewport.MSAA_2X

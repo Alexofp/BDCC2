@@ -7,7 +7,6 @@
 
 [node name="InmateTop" instance=ExtResource("1_0xw5g")]
 script = ExtResource("2_76335")
-clothesMat = ExtResource("3_md5sb")
 
 [node name="rig" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_vqwp7")

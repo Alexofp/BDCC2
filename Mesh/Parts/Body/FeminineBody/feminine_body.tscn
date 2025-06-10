@@ -15,7 +15,6 @@
 
 [node name="FeminineBody" instance=ExtResource("1_y7j6w")]
 script = ExtResource("2_3rtfg")
-bodyMat = ExtResource("4_f00mj")
 
 [node name="rig" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("2_i5sai")

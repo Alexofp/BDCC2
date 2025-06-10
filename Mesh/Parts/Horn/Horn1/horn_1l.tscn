@@ -7,7 +7,6 @@
 
 [node name="Horn1L" type="Node3D" node_paths=PackedStringArray("hornMesh")]
 script = ExtResource("2_obt2w")
-hornMat = ExtResource("3_r28gr")
 hornMesh = NodePath("Horn1L2/Horn1L")
 isLeft = true
 

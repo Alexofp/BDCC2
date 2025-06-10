@@ -44,6 +44,7 @@ animation = &"RestraintAnims/APose"
 
 [resource]
 graph_offset = Vector2(-576.571, -107.307)
+nodes/output/position = Vector2(780, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yudco")
 nodes/Animation/position = Vector2(-380, 320)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1pahp")
@@ -66,5 +67,4 @@ nodes/RA_BRIDGE_PLACEHOLDER/node = SubResource("AnimationNodeAnimation_p36ij")
 nodes/RA_BRIDGE_PLACEHOLDER/position = Vector2(-1060, 160)
 nodes/RestraintAnims_BRIDGE/node = SubResource("AnimationNodeBlend2_l7aga")
 nodes/RestraintAnims_BRIDGE/position = Vector2(-780, -40)
-nodes/output/position = Vector2(780, 100)
-node_connections = [&"ArmBinder_Blend", 0, &"Arms_Blend", &"ArmBinder_Blend", 1, &"Animation", &"Arms_Blend", 0, &"RestraintAnims_BRIDGE", &"Arms_Blend", 1, &"Arms_Selector", &"Arms_Selector", 0, &"Animation 4", &"CuffedBehindBack_Blend", 0, &"ArmBinder_Blend", &"CuffedBehindBack_Blend", 1, &"Animation 2", &"CuffedFront_Blend", 0, &"CuffedBehindBack_Blend", &"CuffedFront_Blend", 1, &"Animation 3", &"RestraintAnims_BRIDGE", 1, &"RA_BRIDGE_PLACEHOLDER", &"output", 0, &"CuffedFront_Blend"]
+node_connections = [&"output", 0, &"CuffedFront_Blend", &"ArmBinder_Blend", 0, &"Arms_Blend", &"ArmBinder_Blend", 1, &"Animation", &"Arms_Blend", 0, &"RestraintAnims_BRIDGE", &"Arms_Blend", 1, &"Arms_Selector", &"Arms_Selector", 0, &"Animation 4", &"CuffedBehindBack_Blend", 0, &"ArmBinder_Blend", &"CuffedBehindBack_Blend", 1, &"Animation 2", &"CuffedFront_Blend", 0, &"CuffedBehindBack_Blend", &"CuffedFront_Blend", 1, &"Animation 3", &"RestraintAnims_BRIDGE", 1, &"RA_BRIDGE_PLACEHOLDER"]

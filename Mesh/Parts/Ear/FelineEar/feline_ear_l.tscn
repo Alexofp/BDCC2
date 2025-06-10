@@ -20,14 +20,12 @@ swing_span = 1.5708
 gravity = Vector3(0, 0, 0)
 metadata/_custom_type_script = ExtResource("5_3ue0o")
 
-[node name="FelineEarL" node_paths=PackedStringArray("piercingsTwoRings", "tassels") instance=ExtResource("1_ekhe4")]
+[node name="FelineEarL" node_paths=PackedStringArray("ear", "earFluff", "piercingsTwoRings", "tassels") instance=ExtResource("1_ekhe4")]
 script = ExtResource("2_qb750")
-earMat = ExtResource("7_qb750")
-piercingsMat = ExtResource("8_qb750")
+ear = NodePath("EarRigL/Skeleton3D/FelineEarL")
+earFluff = NodePath("EarRigL/Skeleton3D/FelineEarFluffL")
 piercingsTwoRings = NodePath("EarRigL/Skeleton3D/FelineEarPiercedTwoRingsL")
 tassels = NodePath("EarRigL/Skeleton3D/FelineEarTasselsL")
-tasselsMat = ExtResource("8_q2p81")
-fluffMat = ExtResource("6_qb750")
 
 [node name="EarRigL" parent="." index="0"]
 script = ExtResource("3_x5mfk")
@@ -46,7 +44,14 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.917223, 0.359143, -0.172391, -0.398327, 0.833512, -0.382875, 0.00618322, 0.41985, 0.907572, 0.0314931, 0.0598624, 0.0113889)
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+transform = Transform3D(0.91722256, 0.35914314, -0.17239133, -0.3983268, 0.833512, -0.38287526, 0.0061832154, 0.41984993, 0.90757245, 0.031493124, 0.05986244, 0.011388892)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -69,7 +74,14 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.885197, 0.459128, -0.0750124, -0.465209, 0.872716, -0.148146, -0.00255366, 0.166035, 0.986117, 0, 0, 0)
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+transform = Transform3D(0.88519734, 0.45912835, -0.075012386, -0.46520874, 0.8727162, -0.14814635, -0.0025536604, 0.16603516, 0.9861165, 0, 0, 0)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false

@@ -1,8 +1,11 @@
 extends DollPart
 
-@export var hairMat:MyMasterBodyMat
+var hairMat:MyMasterBodyMat
 
 @onready var ponytail: MeshInstance3D = %Ponytail
+
+func grabMaterials():
+	hairMat = ponytail.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(hairMat != null):

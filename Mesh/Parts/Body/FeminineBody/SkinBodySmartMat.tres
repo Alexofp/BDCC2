@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="2_dqa3g"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_h0f5k"]
 
-[sub_resource type="Shader" id="Shader_dqa3g"]
+[sub_resource type="Shader" id="Shader_akxq8"]
 code = "shader_type spatial;
 
 #define MY_BACKLIGHT
@@ -304,7 +304,7 @@ void fragment() {
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_dqa3g")
+shader = SubResource("Shader_akxq8")
 shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5

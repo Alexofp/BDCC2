@@ -3,7 +3,10 @@ extends DollPart
 @onready var shorts: MeshInstance3D = %Shorts
 @onready var shorts_pulled_down: MeshInstance3D = %Shorts_PulledDown
 
-@export var clothesMat:MyMasterBodyMat
+var clothesMat:MyMasterBodyMat
+
+func grabMaterials():
+	clothesMat = shorts.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(clothesMat != null):

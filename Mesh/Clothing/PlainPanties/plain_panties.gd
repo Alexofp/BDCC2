@@ -1,10 +1,12 @@
 extends DollPart
 
-@export var clothesMat:MyMasterBodyMat
+var clothesMat:MyMasterBodyMat
 
 @onready var plain_panties: MeshInstance3D = %PlainPanties
 @onready var plain_panties_shifted: MeshInstance3D = %PlainPantiesShifted
 
+func grabMaterials():
+	clothesMat = plain_panties.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(clothesMat != null):

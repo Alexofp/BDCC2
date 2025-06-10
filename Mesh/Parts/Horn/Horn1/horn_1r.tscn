@@ -7,7 +7,6 @@
 
 [node name="Horn1R" type="Node3D" node_paths=PackedStringArray("hornMesh")]
 script = ExtResource("2_n8bxl")
-hornMat = ExtResource("3_1mly8")
 hornMesh = NodePath("Horn1R2/Horn1R")
 
 [node name="Horn1R2" parent="." instance=ExtResource("1_n8bxl")]

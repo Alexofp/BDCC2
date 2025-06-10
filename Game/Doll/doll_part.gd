@@ -7,6 +7,12 @@ var dollRef:WeakRef
 var partRef:WeakRef
 var cachedSkinTypeData:SkinTypeData
 
+func _ready():
+	grabMaterials()
+
+func grabMaterials():
+	pass
+
 func setDoll(theDoll:Doll):
 	if(theDoll == null):
 		dollRef = null

@@ -1,8 +1,15 @@
 extends DollPart
 
-@export var eyeMat:ShaderMaterial
-@export var headMat:MyMasterBodyMat
+@onready var eyes: MeshInstance3D = $MyHeadRig/Skeleton3D/Eyes
+@onready var my_human_head: MeshInstance3D = $MyHeadRig/Skeleton3D/MyHumanHead
+
+var eyeMat:ShaderMaterial
+var headMat:MyMasterBodyMat
 @onready var face_animator: FaceAnimator = %FaceAnimator
+
+func grabMaterials():
+	headMat = my_human_head.get_surface_override_material(0)
+	eyeMat = eyes.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(eyeMat != null):

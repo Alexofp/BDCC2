@@ -16,7 +16,7 @@ precompile_shaders=false
 
 config/name="AssetTest"
 run/main_scene="uid://bdtwkbjfc2yjm"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=120
 config/icon="res://icon.svg"
 

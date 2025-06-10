@@ -5,13 +5,16 @@ extends DollPart
 @onready var neck_connector: MeshInstance3D = %NeckConnector
 @onready var neck_connector_furry: MeshInstance3D = %NeckConnectorFurry
 
-@export var bodyMat:MyMasterBodyMat
+var bodyMat:MyMasterBodyMat
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
 @onready var randomCumScroll:float = RNG.randfRange(0.0, 100.0)
 @onready var cum_layer: MyLayeredTexture = %CumLayer
 @onready var nipples: MeshInstance3D = %Nipples
+
+func grabMaterials():
+	bodyMat = neck_connector.get_surface_override_material(0)
 
 func updateThickness():
 	updateThicknessBody()

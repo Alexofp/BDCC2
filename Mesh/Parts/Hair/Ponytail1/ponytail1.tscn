@@ -45,7 +45,6 @@ bind/2/pose = Transform3D(7.54978e-08, 1.95584e-14, -1, 5.85905e-07, -1, 1.19209
 
 [node name="Ponytail" instance=ExtResource("1_cb8oa")]
 script = ExtResource("2_xqaau")
-hairMat = ExtResource("3_hblm6")
 
 [node name="HairRig" parent="." index="0"]
 script = ExtResource("6_1k6or")

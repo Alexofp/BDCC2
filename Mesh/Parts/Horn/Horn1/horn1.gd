@@ -1,8 +1,11 @@
 extends DollPart
 
-@export var hornMat:MyMasterBodyMat
+var hornMat:MyMasterBodyMat
 @export var hornMesh:MeshInstance3D
 @export var isLeft:bool = false
+
+func grabMaterials():
+	hornMat = hornMesh.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "hornColor"):

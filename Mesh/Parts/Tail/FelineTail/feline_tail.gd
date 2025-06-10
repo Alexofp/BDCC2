@@ -2,8 +2,11 @@ extends DollPart
 
 @export var fuzzyTail:MeshInstance3D
 @export var lionTip:MeshInstance3D
-@export var tailMat:MyMasterBodyMat
+var tailMat:MyMasterBodyMat
 @export var tailSkeletonModifier:TailSkeletonModifier
+
+func grabMaterials():
+	tailMat = fuzzyTail.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "tailType"):
