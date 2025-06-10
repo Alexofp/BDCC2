@@ -270,7 +270,7 @@ func _process(delta:float):
 	if(theIsControlledByUs):
 		process_mousecapture(delta)
 	if(theIsControlledByUs):
-		process_camera()
+		process_camera_pivot()
 	process_movement()
 	if(hasAuthority):
 		if(doll_controls.noclip_isdown):
@@ -338,6 +338,12 @@ func processMove(delta:float):
 		if not is_on_floor():
 			velocity.y -= GRAVITY_FORCE * delta
 		
+
+
+func _physics_process(_delta:float):
+	if(isControlledByUs()):
+		process_camera()
+	
 	input_velocity = velocity
 	move_and_slide()
 	
@@ -347,10 +353,9 @@ func processMove(delta:float):
 		var collision = get_slide_collision(index)
 		if collision.get_collider() is RigidBody3D:
 			rigidbody_collisions.append(collision)
-
-func _physics_process(_delta:float):
-	var central_multiplier = input_velocity.length() * COLLIDE_FORCE
-	var directional_multiplier = input_velocity.length() * (COLLIDE_FORCE/DIRECTIONAL_FORCE_DIV)
+	
+	var central_multiplier = input_velocity.length() * COLLIDE_FORCE * 3.0
+	var directional_multiplier = input_velocity.length() * (COLLIDE_FORCE/DIRECTIONAL_FORCE_DIV) * 3.0
 	
 	for collision in rigidbody_collisions:
 		var direction = -collision.get_normal()
@@ -390,7 +395,7 @@ func shouldCaptureMouse() -> bool:
 		return true
 	return false
 
-func process_camera():
+func process_camera_pivot():
 	if(!camera.isActive()):
 		return
 	var camera_rotation_euler = camera_rotation.get_euler()
@@ -434,6 +439,11 @@ func process_camera():
 		SpringArm.position.x = 0.0
 		#SpringArm.position.z = 0.0
 		CameraPivot.global_position = getBodySkeleton().getChestBoneAttachment().global_position + Vector3(0.0, 0.3, 0.0)
+
+
+func process_camera():
+	if(!camera.isActive()):
+		return
 
 func processDollPoseCamera() -> bool:
 	# Maybe all of this should happen inside the base character
