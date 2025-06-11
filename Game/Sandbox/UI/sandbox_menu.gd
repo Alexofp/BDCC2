@@ -75,7 +75,8 @@ func _on_add_pawn_button_pressed() -> void:
 	#TODO Make this a gameinteractor thing?
 	var thePC:BaseCharacter = GameInteractor.characterRegistry.createCharacter()
 	var _thePawn:CharacterPawn = GameInteractor.pawnRegistry.createPawn(thePC.getID())
-	
+	_thePawn.position.x = RNG.randfRange(-4.0, 4.0)
+	_thePawn.position.z = RNG.randfRange(-2.0, 2.0)
 
 var theCubeScene := preload("res://Game/Multiplayer/NetworkedNode/test_physics_cube.tscn")
 func _on_spawn_cube_button_pressed() -> void:

@@ -28,6 +28,7 @@ ThreadedResourceLoader="*res://Util/ThreadedResourceLoader/ThreadedResourceLoade
 GameInteractor="*res://Game/GameInteractor/game_interactor.tscn"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+ProcessBalancer="*res://Game/Systems/ProcessBalancer/ProcessBalancer.gd"
 FullscreenChat="*res://UI/FullScreenChat/fullscreen_chat.tscn"
 Network="*res://Game/Multiplayer/Network.gd"
 Noray="*res://addons/netfox.noray/noray.gd"

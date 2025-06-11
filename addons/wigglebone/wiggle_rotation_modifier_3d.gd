@@ -51,11 +51,15 @@ var _reset := true
 
 func _enter_tree() -> void:
 	_setup()
+	if(!Engine.is_editor_hint()):
+		ProcessBalancer.addWiggleModifier(self)
 
 
 func _exit_tree() -> void:
 	_bone_idx = -1
 	_bone_parent_idx = -1
+	if(!Engine.is_editor_hint()):
+		ProcessBalancer.removeWiggleModifier(self)
 
 
 func _property_can_revert(property: StringName) -> bool:
@@ -88,11 +92,14 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
+var manualTurnOff:bool = false
 func _process_modification() -> void:
 	if _bone_idx < 0:
 		return
-	
+		
 	# BDCC2 EDIT
+	if(manualTurnOff):
+		return
 	var gravScale:float = 1.0
 	if(enableGravityHelper):
 		var curRot:=(basis * Vector3.UP).normalized()

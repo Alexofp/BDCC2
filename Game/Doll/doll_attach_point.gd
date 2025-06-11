@@ -36,7 +36,7 @@ func _exit_tree() -> void:
 	doll.removeAttachPoint(self)
 	
 func _process(_delta: float) -> void:
-	doPosChilds.call_deferred()
+	doPosChilds()
 	pass
 #func _physics_process(_delta: float) -> void:
 	#doPosChilds()
@@ -45,10 +45,11 @@ func _process(_delta: float) -> void:
 func doPosChilds():
 	if(!is_inside_tree() || is_queued_for_deletion()):
 		return
+	var theTrans := global_transform
 	for childPoint in attached:
 		if(!childPoint || !childPoint.is_inside_tree()):
 			continue
-		childPoint.global_transform = global_transform
+		childPoint.global_transform = theTrans
 		#childPoint.reset_physics_interpolation()
 	#reset_physics_interpolation()
 

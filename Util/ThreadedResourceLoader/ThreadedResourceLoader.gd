@@ -14,8 +14,10 @@ var threadPool2:FutureThreadPool
 
 func _ready() -> void:
 	threadPool = FutureThreadPool.new()
+	threadPool.setThreadCount(2)
 	add_child(threadPool)
 	threadPool2 = FutureThreadPool.new()
+	threadPool.setThreadCount(1)
 	add_child(threadPool2)
 
 #func loadAsync(thePath:String) -> Resource:

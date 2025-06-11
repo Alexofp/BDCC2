@@ -10,6 +10,7 @@ signal task_completed(task)
 ##This property controls whether the thread pool should emit signals.
 #@export var use_signals: bool = false
 @export var use_signals: bool = true # BDCC2 edit
+@export var threadCount:int = 2
 
 var __tasks: Array = []
 var __started = false
@@ -18,6 +19,9 @@ var __tasks_lock: Mutex = Mutex.new()
 var __tasks_wait: Semaphore = Semaphore.new()
 
 @onready var __pool = __create_pool()
+
+func setThreadCount(_newAm:int):
+	threadCount = _newAm
 
 func _notification(what: int):
 	if what == NOTIFICATION_PREDELETE:
@@ -88,7 +92,7 @@ func __wait_for_shutdown():
 func __create_pool():
 	var result = []
 	#for c in range(OS.get_processor_count()):
-	for c in range(2): #BDCC2 edit
+	for c in range(threadCount): #BDCC2 edit
 		result.append(Thread.new())
 	return result
 

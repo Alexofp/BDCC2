@@ -8,6 +8,7 @@ signal currentCameraChanged(oldCamera, newCamera)
 func addCamera(newCam:PriorityCamera):
 	if(cameras.has(newCam) || !newCam):
 		return
+	newCam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	cameras.append(newCam)
 	
 	if(newCam.isCameraConsideredActive()):

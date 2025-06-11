@@ -33,6 +33,12 @@ var smoothRevealRect = preload("res://Mesh/Materials/MyLayeredTexture/SmoothReve
 var cachedTexture:Texture2D
 signal onTextureUpdated(newTexture)
 
+func _enter_tree() -> void:
+	ProcessBalancer.addLayeredTexture(self)
+
+func _exit_tree() -> void:
+	ProcessBalancer.removeLayeredTexture(self)
+
 func _ready():
 	if(graphicsOptionAutoScale == GraphicsOptionAutoScale.Character):
 		OPTIONS.changedCharTextureQuality.connect(characterTextureOptionChanged)
@@ -41,26 +47,6 @@ func _ready():
 
 var farTimer:float = 0.0
 var textureSpawned:bool = true
-func _process(_delta: float) -> void:
-	var theParent:Node = get_parent()
-	if(!theParent || !(theParent is Node3D)):
-		return
-	var camera:Camera3D = get_viewport().get_camera_3d()
-	if(!camera):
-		return
-	var distSqr:float = camera.global_position.distance_squared_to(theParent.global_position)
-	
-	if(distSqr < 1000.0):
-		farTimer = 5.0
-	else:
-		farTimer -= _delta
-	
-	if(textureSpawned && farTimer <= 0.0):
-		textureSpawned = false
-		markDirty()
-	elif(!textureSpawned && farTimer > 0.0):
-		textureSpawned = true
-		markDirty()
 
 func markDirty():
 	if(dirty):

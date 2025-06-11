@@ -709,3 +709,10 @@ func updatePose():
 		var theArmsPoseID:String = theChar.getPoseArms()
 		var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
 		setArmsAnim(theArmsPoseID if theArmsPose else "")
+
+
+func _on_visible_on_screen_enabler_3d_screen_entered() -> void:
+	parts_node.visible = true
+
+func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
+	parts_node.visible = false
