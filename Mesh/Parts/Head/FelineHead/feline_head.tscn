@@ -455,6 +455,7 @@ visibility_range_end = 3.0
 surface_material_override/0 = SubResource("StandardMaterial3D_a88nv")
 
 [node name="AnimationPlayer" parent="." index="1"]
+active = false
 autoplay = "HeadTPose"
 
 [node name="HeadLayeredTexture" parent="." index="2" instance=ExtResource("14_ew517")]

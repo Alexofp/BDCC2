@@ -105,6 +105,7 @@ pointName = "horn.R"
 pointName = "head_items"
 
 [node name="AnimationPlayer" parent="." index="1"]
+active = false
 autoplay = "HeadTPose"
 
 [node name="FaceAnimator" parent="." index="2" node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("14_l4a0u")]

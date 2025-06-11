@@ -465,7 +465,8 @@ func isCuffedBehindBackPoseEnabled() -> bool:
 	return animCuffedBehindBack
 
 func setAnimPlayerEnabled(newEn:bool):
-	animation_player.active = newEn
+	#animation_player.active = newEn
+	animation_player.active = false
 	animation_tree.active = newEn
 
 var dollAlphaMaskDirty:bool = false
