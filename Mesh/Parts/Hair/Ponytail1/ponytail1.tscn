@@ -62,6 +62,7 @@ mesh = SubResource("ArrayMesh_oju78")
 skin = SubResource("Skin_qnex1")
 
 [node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="HairRig/Skeleton3D" index="2"]
+active = false
 setting_count = 2
 settings/0/root_bone_name = "Tail1"
 settings/0/root_bone = 1

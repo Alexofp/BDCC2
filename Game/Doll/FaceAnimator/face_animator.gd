@@ -117,6 +117,8 @@ var gagMouthOverride:float = -1.0
 
 static var cachedGestures:Array = []
 func _ready() -> void:
+	if(animPlayer):
+		animPlayer.active = false
 	updateAnimTree()
 	
 	if(cachedGestures.is_empty()):
@@ -329,7 +331,7 @@ func updateFaceExpression(_delta: float):
 			FaceValue.MouthSnarl:
 				valMouthSnarl = faceOverride.getFaceValueOverride(fieldID)
 			FaceValue.LookDir:
-				valLookDir = faceOverride.getFaceValueOverride(fieldID)
+				valLookDir = faceOverride.getFaceValueOverride(fieldID, Vector2(0.0, 0.0))
 
 	if(gagMouthOverride >= 0.0):
 		valMouthOpen = gagMouthOverride
