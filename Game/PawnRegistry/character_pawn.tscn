@@ -39,5 +39,12 @@ replication_config = SubResource("SceneReplicationConfig_1pxof")
 public_visibility = false
 script = ExtResource("2_1pxof")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_height_offset = 0.25
+debug_enabled = true
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

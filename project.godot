@@ -48,6 +48,7 @@ enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/go
 [global_group]
 
 Networked="Automatically spawn/despawn/sync this node over the network"
+Navmesh=""
 
 [input]
 

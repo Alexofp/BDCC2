@@ -260,7 +260,7 @@ func _process(delta:float):
 	#camera.current = theIsControlledByUs
 	#print(camera.current)
 	
-	if(hasAuthority):
+	if(theIsControlledByUs && hasAuthority):
 		reset_input()
 	if(theIsControlledByUs):
 		doll_controls.processInput()

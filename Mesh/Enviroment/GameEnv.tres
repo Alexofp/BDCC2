@@ -19,7 +19,6 @@ ssao_intensity = 3.0
 ssil_intensity = 5.0
 sdfgi_use_occlusion = true
 sdfgi_cascades = 1
-sdfgi_max_distance = 25.6
 sdfgi_energy = 10.0
 glow_normalized = true
 glow_strength = 0.58

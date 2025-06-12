@@ -1,7 +1,6 @@
 extends Node3D
 class_name CharacterPawn
 
-
 @export var id:String = ""
 var doll:DollController
 #var poseSpot:PoseSpot
@@ -9,9 +8,17 @@ var doll:DollController
 @onready var doll_node: SyncNode = %DollNode
 #@onready var sit_node: SyncNode = %SitNode
 
+@onready var navigation_agent_3d: NavigationAgent3D = %NavigationAgent3D
+
+var ai:PawnAI
+
 signal dollSpawned(doll)
 signal dollDespawned(doll)
 signal dollSwitched(newdoll, olddoll)
+
+func _ready() -> void:
+	ai = PawnAI.new()
+	ai.setPawn(self)
 
 func getCharacter() -> BaseCharacter:
 	if(GM.characterRegistry):
@@ -47,8 +54,33 @@ func _process(_delta: float) -> void:
 		else:
 			if(shouldBeSpawned): # && RNG.chance(1)
 				spawnDoll()
-	
-	
+
+func _physics_process(_delta: float) -> void:
+	if(!isControlledByUs()):
+		if(isDollSpawned()):
+			getDoll().reset_input()
+		ai.processAI(_delta)
+
+func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
+	if(!isDollSpawned()):
+		var dirToGo:Vector3 = (_pos - global_position)
+		if(dirToGo.length_squared() < 5.0):
+			return
+		global_position += dirToGo.normalized()*_delta*(3.0 if !shouldRun else 5.0)
+		return
+	else:
+		var theDoll := getDoll()
+		var dirToGo:Vector3 = (_pos - global_position)
+		#if(dirToGo.length_squared() < 5.0):
+		#	theDoll.doll_controls.move_direction = Vector3(0.0, 0.0, 0.0)
+		#	theDoll.doll_controls.move_direction_no_y = Vector3(0.0, 0.0, 0.0)
+		#	return
+		theDoll.doll_controls.move_direction = dirToGo.normalized()
+		theDoll.doll_controls.move_direction_no_y = theDoll.doll_controls.move_direction
+		theDoll.doll_controls.move_direction_no_y.y = 0.0
+		theDoll.doll_controls.move_direction_no_y = theDoll.doll_controls.move_direction_no_y.normalized()
+		theDoll.doll_controls.sprint_isdown = shouldRun
+
 func isDollSpawned() -> bool:
 	return !!doll
 
@@ -130,3 +162,6 @@ func onSeatChange(_newSpot:PoseSpot):
 	var theDoll := getDoll()
 	if(theDoll):
 		theDoll.onSeatChange(_newSpot)
+
+func getNavAgent() -> NavigationAgent3D:
+	return navigation_agent_3d
