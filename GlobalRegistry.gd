@@ -21,6 +21,12 @@ var items:Dictionary = {}
 var itemRefs:Dictionary = {}
 var clothingSceneSelectors:Array = []
 var dollPoses:Dictionary = {}
+var aiActions:Dictionary = {}
+var aiActionRefs:Dictionary = {}
+var soloGoals:Dictionary = {}
+var soloGoalRefs:Dictionary = {}
+var interactions:Dictionary = {}
+var interactionRefs:Dictionary = {}
 
 func _init() -> void:
 	doInit()
@@ -55,6 +61,10 @@ func doInit():
 	sortClothingSelectors()
 	
 	registerDollPoseFolder("res://Game/Doll/Posing/Poses/")
+	
+	registerAIActionFolder("res://Game/PawnAI/Actions/")
+	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
+	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	
 	Log.Print("GlobalRegistry: Registered everything")
 
@@ -461,4 +471,97 @@ func getDollPose(id: String) -> DollPoseBase:
 		return dollPoses[id]
 	else:
 		Log.Printerr("ERROR: doll pose with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerAIAction(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is AIActionBase):
+		aiActions[object.id] = loadedClass
+		aiActionRefs[object.id] = object
+
+func registerAIActionFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerAIAction(scriptPath)
+
+func createAIAction(id: String) -> AIActionBase:
+	if(aiActions.has(id)):
+		return aiActions[id].new()
+	else:
+		Log.Printerr("ERROR: ai action with the id "+str(id)+" wasn't found")
+		return null
+
+func getAIActionRefs() -> Dictionary:
+	return aiActionRefs
+
+func getAIActionRef(id: String) -> AIActionBase:
+	if(aiActionRefs.has(id)):
+		return aiActionRefs[id]
+	else:
+		Log.Printerr("ERROR: ai action with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerInteraction(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is InteractionBase):
+		interactions[object.id] = loadedClass
+		interactionRefs[object.id] = object
+
+func registerInteractionFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerInteraction(scriptPath)
+
+func createInteraction(id: String) -> InteractionBase:
+	if(interactions.has(id)):
+		return interactions[id].new()
+	else:
+		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
+		return null
+
+func getInteractionRefs() -> Dictionary:
+	return interactionRefs
+
+func getInteractionRef(id: String) -> InteractionBase:
+	if(interactionRefs.has(id)):
+		return interactionRefs[id]
+	else:
+		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerSoloGoal(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SoloGoalBase):
+		soloGoals[object.id] = loadedClass
+		soloGoalRefs[object.id] = object
+
+func registerSoloGoalFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerSoloGoal(scriptPath)
+
+func createSoloGoal(id: String) -> SoloGoalBase:
+	if(soloGoals.has(id)):
+		return soloGoals[id].new()
+	else:
+		Log.Printerr("ERROR: solo goal with the id "+str(id)+" wasn't found")
+		return null
+
+func getSoloGoalsRefs() -> Dictionary:
+	return soloGoalRefs
+
+func getSoloGoalRef(id: String) -> SoloGoalBase:
+	if(soloGoalRefs.has(id)):
+		return soloGoalRefs[id]
+	else:
+		Log.Printerr("ERROR: solo goal with the id "+str(id)+" wasn't found")
 		return null

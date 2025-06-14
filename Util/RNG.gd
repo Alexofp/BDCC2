@@ -66,11 +66,11 @@ static func pickWeighted(ar, weights: Array):
 	
 	var sum = 0.0
 	for w in weights:
-		sum += w
+		sum += max(w, 0.0)
 	
 	var r:float = randf_range(0.0, sum)
 	for i in range(weights.size()):
-		r -= weights[i]
+		r -= max(weights[i], 0.0)
 		if r <= 0.0:
 			return ar[i]
 			
@@ -84,11 +84,11 @@ static func pickWeightedPairs(ar: Array):
 		
 	var sum = 0.0
 	for pair in ar:
-		sum += pair[1]
+		sum += max(pair[1], 0.0)
 		
 	var r:float = randf_range(0.0, sum)
 	for i in range(ar.size()):
-		r -= ar[i][1]
+		r -= max(ar[i][1], 0.0)
 		if r <= 0.0:
 			return ar[i][0]
 			
@@ -106,11 +106,11 @@ static func grabWeighted(ar, weights: Array):
 	
 	var sum = 0.0
 	for w in weights:
-		sum += w
+		sum += max(w, 0.0)
 	
 	var r:float = randf_range(0.0, sum)
 	for i in range(weights.size()):
-		r -= weights[i]
+		r -= max(weights[i], 0.0)
 		if r <= 0.0:
 			var result2 = ar[i]
 			ar.remove_at(i)
@@ -129,11 +129,11 @@ static func grabWeightedPairs(ar: Array):
 		
 	var sum = 0.0
 	for pair in ar:
-		sum += pair[1]
+		sum += max(pair[1], 0.0)
 		
 	var r:float = randf_range(0.0, sum)
 	for i in range(ar.size()):
-		r -= ar[i][1]
+		r -= max(ar[i][1], 0.0)
 		if r <= 0.0:
 			var result2 = ar[i][0]
 			ar.remove_at(i)
@@ -152,3 +152,19 @@ static func grabWeightedPairs(ar: Array):
 static func pickHashed(ar, thehash:int):
 	thehash = thehash % ar.size()
 	return ar[thehash]
+
+static func pickWeightedDict(ar:Dictionary):
+	if(ar.is_empty()):
+		return null
+	
+	var sum = 0.0
+	for w in ar:
+		sum += max(ar[w], 0.0)
+	
+	var r:float = randf_range(0.0, sum)
+	for i in ar:
+		r -= max(ar[i], 0.0)
+		if r <= 0.0:
+			return i
+			
+	return ar.keys()[0]

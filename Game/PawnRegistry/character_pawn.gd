@@ -11,6 +11,7 @@ var doll:DollController
 @onready var navigation_agent_3d: NavigationAgent3D = %NavigationAgent3D
 
 var ai:PawnAI
+var interaction:InteractionBase
 
 signal dollSpawned(doll)
 signal dollDespawned(doll)
@@ -165,3 +166,15 @@ func onSeatChange(_newSpot:PoseSpot):
 
 func getNavAgent() -> NavigationAgent3D:
 	return navigation_agent_3d
+
+func getAI() -> PawnAI:
+	return ai
+
+func hasInteraction() -> bool:
+	return interaction != null
+
+func getInteraction() -> InteractionBase:
+	return interaction
+
+func setInteraction(_int:InteractionBase):
+	interaction = _int

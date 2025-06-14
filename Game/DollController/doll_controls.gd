@@ -28,6 +28,8 @@ func resetInput():
 	sprint_isdown = false
 	input_dir = Vector2.ZERO
 	camera_dir = Vector2.ZERO
+	move_direction = Vector3.ZERO
+	move_direction_no_y = Vector3.ZERO
 
 
 func processInput():

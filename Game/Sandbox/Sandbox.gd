@@ -20,9 +20,13 @@ var character_creator:Node
 
 @onready var sex_ui: SexUI = %SexUI
 
+var interactionSystem:InteractionSystem
+
 func _init():
 	GM.game = self
 	#GlobalRegistry.doInit()
+	
+	interactionSystem = InteractionSystem.new()
 
 func _enter_tree() -> void:
 	GM.game = self
@@ -150,6 +154,9 @@ func _process(_delta: float) -> void:
 			#inventory_ui.setInventory(GM.pc.inventory)
 		#else:
 			#onInventoryClosed()
+
+func _physics_process(_dt: float) -> void:
+	interactionSystem.processInteractions(_dt)
 
 func toggleCharacterMenu():
 	if(character_menu.visible):

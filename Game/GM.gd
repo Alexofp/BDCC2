@@ -11,6 +11,7 @@ static var pawnRegistry:PawnRegistry: get = getPawnRegistry
 static var dollHolder:DollHolder: get = getDollHolder
 static var sitManager:SitManager: get = getSitManager
 static var sexManager:SexManager: get = getSexManager
+static var IS:InteractionSystem: get = getInteractionSystem
 
 static func getPC() -> BaseCharacter:
 	var myNetworkPlayer:NetworkPlayerInfo = Network.getMyPlayerInfo()
@@ -66,4 +67,9 @@ static func getSitManager() -> SitManager:
 static func getSexManager() -> SexManager:
 	if(game != null):
 		return game.getSexManager()
+	return null
+
+static func getInteractionSystem() -> InteractionSystem:
+	if(game != null):
+		return game.interactionSystem
 	return null
