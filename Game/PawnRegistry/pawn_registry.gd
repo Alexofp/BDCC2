@@ -102,6 +102,18 @@ func deletePawnOfNetworkPlayer(info:NetworkPlayerInfo):
 		return
 	deletePawn(info.charID)
 
+#TODO: Make this use a grid or whatever
+func getPawnsNear(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
+	var result:Array[CharacterPawn] = []
+	var _radSquared:float = _radius * _radius
+	
+	for charID in pawns:
+		var thePawn:CharacterPawn = pawns[charID]
+		if(thePawn.global_position.distance_squared_to(_pos) <= _radius):
+			result.append(thePawn)
+	
+	return result
+
 func saveNetworkData() -> Dictionary:
 	var pawnData:Array = []
 	for charID in pawns:

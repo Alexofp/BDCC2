@@ -49,6 +49,7 @@ func _process(_delta: float) -> void:
 		
 		if(isDollSpawned()):
 			position = doll.position
+			rotation = doll.model_root.rotation
 			
 			if(!shouldBeSpawned): # || RNG.chance(1)
 				despawnDoll()
@@ -57,10 +58,10 @@ func _process(_delta: float) -> void:
 				spawnDoll()
 
 func _physics_process(_delta: float) -> void:
-	if(!isControlledByUs()):
-		if(isDollSpawned()):
-			getDoll().reset_input()
-		ai.processAI(_delta)
+	#if(!isControlledByUs()):
+	#	if(isDollSpawned()):
+	#		getDoll().reset_input()
+	ai.processAI(_delta)
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):

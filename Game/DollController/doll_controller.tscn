@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4gfcxs35bota"]
+[gd_scene load_steps=11 format=3 uid="uid://d4gfcxs35bota"]
 
 [ext_resource type="Script" uid="uid://bg4x0l07nlv61" path="res://Game/DollController/doll_controller.gd" id="1_k0gws"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_n8w0r"]
@@ -37,6 +37,10 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:expressionState")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l1oh5"]
+height = 2.6
+radius = 1.6
 
 [node name="DollController" type="CharacterBody3D"]
 collision_layer = 2
@@ -81,3 +85,18 @@ unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_gv77k")
 public_visibility = false
 script = ExtResource("7_pwrse")
+
+[node name="OtherDollsArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809, 0)
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OtherDollsArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CylinderShape3D_l1oh5")
+
+[connection signal="body_entered" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_entered"]
+[connection signal="body_exited" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_exited"]

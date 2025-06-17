@@ -2,6 +2,20 @@ extends RefCounted
 class_name SoloGoalBase
 
 var id:String = ""
+var pawnRef:WeakRef
+var interactionRef:WeakRef
+
+func setPawn(_pawn:CharacterPawn):
+	if(!_pawn):
+		pawnRef = null
+		return
+	pawnRef = weakref(_pawn)
+
+func setInteraction(_interaction:InteractionBase):
+	if(!_interaction):
+		interactionRef = null
+		return
+	interactionRef = weakref(_interaction)
 
 func getScore(_pawn:CharacterPawn) -> float:
 	return 0.0
@@ -26,8 +40,8 @@ func processRare(_pawn:CharacterPawn):
 
 func tryPickAction(_pawn:CharacterPawn) -> bool:
 	var theAI:PawnAI = _pawn.getAI()
-	if(theAI.isDoingAction()):
-		return false
+	#if(theAI.isDoingAction()):
+	#	return false
 	var theActions := getActions(_pawn)
 	if(theActions.is_empty()):
 		return false
@@ -36,6 +50,9 @@ func tryPickAction(_pawn:CharacterPawn) -> bool:
 		theScores.append(max(actionEntry["score"], 0.0) if actionEntry.has("score") else 0.0)
 	
 	var randomEntry:Dictionary = RNG.pickWeighted(theActions, theScores)
+	
+	if(randomEntry["id"] == theAI.getActionID()):
+		return false
 	
 	theAI.startAction(randomEntry["id"], randomEntry["args"] if randomEntry.has("args") else [])
 	return true

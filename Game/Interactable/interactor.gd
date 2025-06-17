@@ -19,7 +19,7 @@ func onActionsSync(_newActionsRaw:Array):
 		newBakedAction.disabled = actionEntry["dis"]
 		actionsBaked.append(newBakedAction)
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if(!Network.isServer()):
 		return
 	actionsCache=calculateActions()
@@ -53,6 +53,14 @@ func calculateActions() -> Array[InteractAction]:
 	var _user = getUser()
 	var result:Array[InteractAction]= []
 	
+	if(_user && (_user is DollController) && GM.IS):
+		if(!_user.isControlledByAnyPlayer()):
+			return []
+		
+		var thePawn:CharacterPawn = _user.getPawn()
+		if(thePawn):
+			result.append_array(GM.IS.getActionsFor(thePawn.getCharID()))
+	
 	for interactable in interactables:
 		var theActions:Array[InteractAction] = interactable.getActionsFinal(self, _user)
 		for anAction in theActions:
@@ -62,7 +70,11 @@ func calculateActions() -> Array[InteractAction]:
 	
 	var actionByDistance:Dictionary = {}
 	for action in result:
-		var theDistance:float = global_position.distance_squared_to(action.interactable.global_position) if action.interactable != null else 100.0
+		var theDistance:float = 100.0
+		if(action.customTargetNode):
+			theDistance = global_position.distance_squared_to(action.customTargetNode.global_position)
+		elif(action.interactable):
+			theDistance = global_position.distance_squared_to(action.interactable.global_position)
 		actionByDistance[action] = theDistance
 		
 	result.sort_custom(func(a, b): return actionByDistance[a] < actionByDistance[b])
@@ -78,6 +90,10 @@ func doAction(theAction:InteractAction):
 	if(!(theAction in actionsCache)):
 		assert(false, "Tried to use do an action that is not possible")
 		return
+	if(theAction.customInteractNode):
+		theAction.customInteractNode.doInteractorAction(getUser(), theAction)
+		return
+	
 	if(!theAction.interactable):
 		assert(false, "Interactable doesn't exist")
 		return

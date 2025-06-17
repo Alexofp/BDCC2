@@ -45,25 +45,33 @@ func stopWalking():
 	goTowards(getPawn().global_position)
 
 func processAI(_dt:float):
-	if(aiAction):
-		aiAction.processActionFinal(_dt)
-		checkAction()
+	var isPC:bool = isControlledByUs()
+	
+	if(!isPC):
+		if(pawn.isDollSpawned()):
+			pawn.getDoll().reset_input()
+		if(aiAction):
+			aiAction.processActionFinal(_dt)
+			checkAction()
+	else:
+		pass
 	
 	bigUpdateTime -= _dt
 	if(bigUpdateTime <= 0.0):
 		bigUpdateTime = 1.0
 		processRare()
 	
-	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
+	if(!isPC):
+		var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
 
-	#var current_agent_position: Vector3 = pawn.global_position
-	var next_path_position: Vector3 = theNavAgent.get_next_path_position()
-	if theNavAgent.is_navigation_finished():
-		return
+		#var current_agent_position: Vector3 = pawn.global_position
+		var next_path_position: Vector3 = theNavAgent.get_next_path_position()
+		if theNavAgent.is_navigation_finished():
+			return
 
-	goTowardsRaw(next_path_position, _dt, shouldRunToTarget)
-	#velocity = current_agent_position.direction_to(next_path_position) * movement_speed
-	#move_and_slide()
+		goTowardsRaw(next_path_position, _dt, shouldRunToTarget)
+		#velocity = current_agent_position.direction_to(next_path_position) * movement_speed
+		#move_and_slide()
 
 
 
@@ -103,7 +111,19 @@ func checkAction():
 		return
 	if(!aiAction.hasEnded()):
 		return
+	stopAction()
+
+func stopAction():
 	aiAction = null
+	stopWalking()
 
 func isDoingAction() -> bool:
 	return aiAction != null
+
+func isControlledByUs():
+	return pawn.isControlledByUs()
+
+func getActionID() -> String:
+	if(!aiAction):
+		return ""
+	return aiAction.id

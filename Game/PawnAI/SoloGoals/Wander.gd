@@ -10,14 +10,19 @@ func getActions(_pawn:CharacterPawn) -> Array:
 	if(GM.pcDoll == null):
 		return []
 	return [
-		{
-			id = "GoTo",
-			args = [GM.pcDoll.global_position],
-			score = 1.0,
-		},
+		#{
+			#id = "GoTo",
+			#args = [GM.pcDoll.global_position],
+			#score = 1.0,
+		#},
 		{
 			id = "Wait",
 			args = [],
 			score = 1.0,
 		},
+		#{
+			#id = "Follow",
+			#args = [GM.pc.id],
+			#score = 1.0,
+		#},
 	]

@@ -23,6 +23,8 @@ func tryPickNewGoal() -> bool:
 	
 	var newGoal:SoloGoalBase = GlobalRegistry.createSoloGoal(theGoalToPick.id)
 	goal = newGoal
+	goal.setPawn(getPawn(ROLE_MAIN))
+	goal.setInteraction(self)
 	return true
 
 func gatherPossibleGoals(minScore:float = 0.0) -> Dictionary[SoloGoalBase, float]:
@@ -57,3 +59,14 @@ func filterOutUnlikelyGoals(theGoals:Dictionary[SoloGoalBase, float], filterGape
 			result[theGoal] = theScore
 	
 	return result
+
+func getActions(_role:int) -> Array:
+	return []
+
+func getInterruptActions(_role:int, _newCharID:String) -> Array:
+	return [
+		interuptAction("startTalk", "Hey!", 0.0),
+	]
+
+func doInterruptAction(_role:int, _newCharID:String, _actionID:String, _args:Array):
+	startInteraction("Talking", {main = _newCharID, target = ROLE_MAIN})

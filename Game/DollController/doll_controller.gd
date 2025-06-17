@@ -525,6 +525,13 @@ func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
 func isControlledByPlayer() -> bool:
 	return GM.pcDoll == self
 
+func isControlledByAnyPlayer() -> bool:
+	for playerID in Network.players:
+		var info:NetworkPlayerInfo = Network.players[playerID]
+		if(info.charID == characterID):
+			return true
+	return false
+
 func grabControl():
 	#GM.setCurrentDoll(self)
 	pass
@@ -634,3 +641,20 @@ func setExpressionState(newExpr:int):
 	if(newExpr == DollExpressionState.IgnoreChange):
 		return
 	expressionState = newExpr
+
+# Disabled. Enable 'Monitoring' on the OtherDollsArea to make this work
+var nearbyDolls:Array[DollController] = []
+func _on_other_dolls_area_body_entered(body: Node3D) -> void:
+	if(body is DollController):
+		if(body == self):
+			return
+		nearbyDolls.append(body)
+		body.tree_exiting.connect(_on_other_dolls_area_body_exited.bind(body))
+
+func _on_other_dolls_area_body_exited(body: Node3D) -> void:
+	if(body is DollController):
+		nearbyDolls.erase(body)
+		body.tree_exiting.disconnect(_on_other_dolls_area_body_exited.bind(body))
+
+func getNearbyDolls() -> Array[DollController]:
+	return nearbyDolls

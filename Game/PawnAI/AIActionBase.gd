@@ -19,8 +19,7 @@ func processAction(_dt:float):
 func processActionFinal(_dt:float):
 	if(childAction):
 		childAction.processAction(_dt)
-	else:
-		processAction(_dt)
+	processAction(_dt)
 	checkChildAction()
 
 func processRare():
@@ -29,8 +28,7 @@ func processRare():
 func processRareFinal():
 	if(childAction):
 		childAction.processRare()
-	else:
-		processRare()
+	processRare()
 	checkChildAction()
 
 func startChildAction(_id:String, _args:Array = []):
@@ -41,6 +39,11 @@ func startChildAction(_id:String, _args:Array = []):
 	childAction = theAction
 	childAction.setAI(getAI())
 	childAction.start(_args)
+
+func getChildActionID() -> String:
+	if(!childAction):
+		return ""
+	return childAction.id
 
 func setAI(_ai:PawnAI):
 	ai = _ai
