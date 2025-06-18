@@ -25,7 +25,6 @@ script = ExtResource("1_7fod6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.311408, 0, 0, 0, 0.311408, 0, 0, 0, 0.311408, 0, 0, 0)
-visible = false
 mesh = SubResource("CapsuleMesh_7fod6")
 
 [node name="DollNode" type="Node" parent="."]
@@ -46,5 +45,4 @@ target_desired_distance = 0.5
 path_height_offset = 0.25
 debug_enabled = true
 
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

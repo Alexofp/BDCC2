@@ -17,6 +17,8 @@ signal dollSpawned(doll)
 signal dollDespawned(doll)
 signal dollSwitched(newdoll, olddoll)
 
+var gridPos:Vector2i
+
 func _ready() -> void:
 	ai = PawnAI.new()
 	ai.setPawn(self)
@@ -33,29 +35,37 @@ func getDoll() -> DollController:
 	return doll
 
 func shouldDollBeSpawned() -> bool:
-	for playerID in Network.players:
-		var info:NetworkPlayerInfo = Network.players[playerID]
-		if(info.charID == id):
-			return true
+	#for playerID in Network.players:
+		#var info:NetworkPlayerInfo = Network.players[playerID]
+		#if(info.charID == id):
+			#return true
 	if(GM.pawnRegistry.shouldPawnDollBeSpawned(self)):
 		return true
 	return false
 
+var despawnTimer:float = 0.0
 func _process(_delta: float) -> void:
 	#if(is_queued_for_deletion()): #HACK fixes a crash when hosting with NORAY, dunno
 	#	return
 	if(Network.isServer()):
 		var shouldBeSpawned:bool = shouldDollBeSpawned()
+		if(shouldBeSpawned):
+			despawnTimer = 0.0
+		else:
+			despawnTimer += _delta
 		
 		if(isDollSpawned()):
 			position = doll.position
 			rotation = doll.model_root.rotation
 			
-			if(!shouldBeSpawned): # || RNG.chance(1)
+			if(!shouldBeSpawned && despawnTimer > 1.0): # || RNG.chance(1)
 				despawnDoll()
 		else:
 			if(shouldBeSpawned): # && RNG.chance(1)
 				spawnDoll()
+	
+	$MeshInstance3D.visible = !isDollSpawned()
+	GM.pawnRegistry.checkPawnSparseGrid(self)
 
 func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):
@@ -66,9 +76,10 @@ func _physics_process(_delta: float) -> void:
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):
 		var dirToGo:Vector3 = (_pos - global_position)
-		if(dirToGo.length_squared() < 5.0):
+		if(dirToGo.length_squared() < 0.01):
+			global_position = _pos
 			return
-		global_position += dirToGo.normalized()*_delta*(3.0 if !shouldRun else 5.0)
+		global_position += dirToGo.limit_length(_delta*(3.0 if !shouldRun else 5.0))
 		return
 	else:
 		var theDoll := getDoll()

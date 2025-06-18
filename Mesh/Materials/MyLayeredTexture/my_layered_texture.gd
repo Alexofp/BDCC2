@@ -201,6 +201,9 @@ func characterTextureOptionChanged():
 
 var cacheIndx:int = 0
 func _on_cache_timer_timeout() -> void:
+	#TODO: I disabled the texture compression because it gets triggered too often? A setting?
+	if(true):
+		return
 	#TODO: Make a threadpool that would create compressed textures? They use way less VRAM
 	#cachedTexture = PortableCompressedTexture2D.new()
 	#cachedTexture.create_from_image(sub_viewport.get_texture().get_image(), PortableCompressedTexture2D.COMPRESSION_MODE_BASIS_UNIVERSAL)

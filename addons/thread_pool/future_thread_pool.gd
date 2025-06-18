@@ -221,12 +221,13 @@ class Future:
 
 
 	func __execute_task() -> void:
-		if __no_argument:
-			result = target_instance.call(target_method)
-		elif __array_argument:
-			result = target_instance.callv(target_method, target_argument)
-		else:
-			result = target_instance.call(target_method, target_argument)
+		if(target_instance):
+			if __no_argument:
+				result = target_instance.call(target_method)
+			elif __array_argument:
+				result = target_instance.callv(target_method, target_argument)
+			else:
+				result = target_instance.call(target_method, target_argument)
 		__wait.post()
 
 

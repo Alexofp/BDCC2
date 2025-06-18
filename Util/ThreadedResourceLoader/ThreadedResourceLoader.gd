@@ -37,7 +37,8 @@ func loadThreaded(_thePath:String):
 func loadCallback(thePath:String, theCallable:Callable):
 	var theFuture := threadPool.submit_task(self, "loadThreaded", thePath)
 	await theFuture.task_completed
-	theCallable.call(theFuture.get_result())
+	if(theCallable.get_object()):
+		theCallable.call(theFuture.get_result())
 
 func loadCallbackOld(thePath:String, theCallable:Callable):
 	if(thePath == ""):

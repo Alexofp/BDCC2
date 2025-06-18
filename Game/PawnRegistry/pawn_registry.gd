@@ -9,6 +9,9 @@ signal onPawnCreated(pawn)
 signal onPawnDeleted(pawn)
 signal onPawnListChanged
 
+const GRID_SIZE = 10
+var sparsePawnGrid:Dictionary[Vector2i, Array] = {}
+
 func _ready() -> void:
 	GameInteractor.pawnRegistry = self
 	pass
@@ -28,6 +31,8 @@ func createPawnRPC(charID:String, data:Dictionary):
 	
 	add_child(thePawn, true)
 	thePawn.loadNetworkData(data)
+	
+	insertPawnIntoSparseGrid(thePawn)
 	onPawnCreated.emit(thePawn)
 	onPawnListChanged.emit()
 
@@ -38,6 +43,7 @@ func deletePawnRPC(charID:String):
 		return
 	pawns[charID].queue_free()
 
+#TODO: Ability to spawn at specific position?
 func createPawn(charID:String) -> CharacterPawn:
 	if(!Network.isServer()):
 		return null
@@ -55,6 +61,7 @@ func createPawn(charID:String) -> CharacterPawn:
 	
 	add_child(thePawn, true)
 	
+	insertPawnIntoSparseGrid(thePawn)
 	onPawnCreated.emit(thePawn)
 	onPawnListChanged.emit()
 	
@@ -87,6 +94,8 @@ func pawnDeleteCleanup(thePawn:CharacterPawn):
 		thePawn.name = "TO_BE_DELETED"
 	pawns.erase(thePawn.id)
 	
+	removePawnFromSparseGridSpecific(thePawn, thePawn.gridPos)
+	
 	onPawnListChanged.emit()
 
 func clearPawns():
@@ -95,7 +104,18 @@ func clearPawns():
 	pawns = {}
 
 func shouldPawnDollBeSpawned(_thePawn:CharacterPawn) -> bool:
-	return true
+	for playerID in Network.players:
+		var info:NetworkPlayerInfo = Network.players[playerID]
+		if(info.charID != ""):
+			# If we are the player
+			if(info.charID == _thePawn.id):
+				return true
+			# if any player is nearby
+			var thePCPawn:CharacterPawn = getPawn(info.charID)
+			if(thePCPawn && thePCPawn.global_position.distance_squared_to(_thePawn.global_position) < 30.0):
+				return true
+	
+	return false
 
 func deletePawnOfNetworkPlayer(info:NetworkPlayerInfo):
 	if(info.charID == ""):
@@ -109,10 +129,38 @@ func getPawnsNear(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
 	
 	for charID in pawns:
 		var thePawn:CharacterPawn = pawns[charID]
-		if(thePawn.global_position.distance_squared_to(_pos) <= _radius):
+		if(thePawn.global_position.distance_squared_to(_pos) <= _radSquared):
 			result.append(thePawn)
 	
 	return result
+
+func getGridPos(_pos:Vector3) -> Vector2i:
+	return Vector2i(round(_pos.x/GRID_SIZE), round(_pos.z/GRID_SIZE))
+
+func insertPawnIntoSparseGrid(_pawn:CharacterPawn):
+	var thePos:Vector3 = _pawn.global_position
+	var theGridPos := getGridPos(thePos)
+	insertPawnIntoSparseGridSpecific(_pawn, theGridPos)
+	
+func insertPawnIntoSparseGridSpecific(_pawn:CharacterPawn, theGridPos:Vector2i):
+	if(!sparsePawnGrid.has(theGridPos)):
+		sparsePawnGrid[theGridPos] = [_pawn]
+	else:
+		sparsePawnGrid[theGridPos].append(_pawn)
+	_pawn.gridPos = theGridPos
+
+func removePawnFromSparseGridSpecific(_pawn:CharacterPawn, _pos:Vector2i):
+	if(!sparsePawnGrid.has(_pos)):
+		return
+	sparsePawnGrid[_pos].erase(_pawn)
+
+func checkPawnSparseGrid(_pawn:CharacterPawn):
+	var thePos:Vector3 = _pawn.global_position
+	var theGridPos := getGridPos(thePos)
+	
+	if(_pawn.gridPos != theGridPos):
+		removePawnFromSparseGridSpecific(_pawn, _pawn.gridPos)
+		insertPawnIntoSparseGridSpecific(_pawn, theGridPos)
 
 func saveNetworkData() -> Dictionary:
 	var pawnData:Array = []

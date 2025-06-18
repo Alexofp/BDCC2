@@ -248,6 +248,16 @@ func clear():
 		BaseCharacter.GENERIC_CLOTHING: {},
 	}
 
+func _physics_process(_delta: float) -> void:
+	if(!partUpdateQueue.is_empty()):
+		partUpdateQueueTimer -= _delta
+		if(partUpdateQueueTimer <= 0.0):
+			partUpdateQueueTimer = RNG.randfRange(0.5, 1.5) / partUpdateQueue.size()
+			var theEntry:Array = partUpdateQueue.pop_front()
+			updatePartFromCharacter(theEntry[0], theEntry[1])
+
+var partUpdateQueue:Array = []
+var partUpdateQueueTimer:float = 0.0
 func updateFromCharacter():
 	clear()
 	var character := getChar()
@@ -257,7 +267,8 @@ func updateFromCharacter():
 	var genericParts:Dictionary = character.getGenericParts()
 	for genericType in genericParts:
 		for bodypartSlot in genericParts[genericType]:
-			updatePartFromCharacter(genericType, bodypartSlot)
+			partUpdateQueue.append([genericType, bodypartSlot])
+			#updatePartFromCharacter(genericType, bodypartSlot)
 
 	for optionID in character.getSyncOptions():
 		onCharOptionChange(optionID)
@@ -291,7 +302,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 	var theCallback := func(dollSceneScene:PackedScene, cachedPart):
 		if(shouldBeFilteredOut(genericType, bodypartSlot)):
 			return
-		if(getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
+		if(!getChar() || getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
 			#print("SWITCHERUUU")
 			return
 		if(!self || !is_instance_valid(self)):
