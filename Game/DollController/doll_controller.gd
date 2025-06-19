@@ -559,6 +559,11 @@ func updatePoseSpot():
 		#if(getState() != STATE_NORMAL):
 		getBodySkeleton().resetBones()
 		getDoll().alignPenisToVagina(null)
+		if(getState() != STATE_NORMAL):
+			# This prevents 2 dolls from occupying the same spot
+			# Glitchy stuff happens otherwise
+			position.x += RNG.randfRange(-0.1, 0.1)
+			position.z += RNG.randfRange(-0.1, 0.1)
 		setState(STATE_NORMAL)
 		
 		# Bad code?

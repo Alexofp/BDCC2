@@ -1,6 +1,9 @@
 extends Node3D
 class_name CharacterPawn
 
+const DOLL_DESPAWN_TIME = 1.0
+const DOLL_DESPAWN_DISTANCE = 30.0 * 30.0 #Squared
+
 @export var id:String = ""
 var doll:DollController
 #var poseSpot:PoseSpot
@@ -58,7 +61,7 @@ func _process(_delta: float) -> void:
 			position = doll.position
 			rotation = doll.model_root.rotation
 			
-			if(!shouldBeSpawned && despawnTimer > 1.0): # || RNG.chance(1)
+			if(!shouldBeSpawned && despawnTimer > DOLL_DESPAWN_TIME): # || RNG.chance(1)
 				despawnDoll()
 		else:
 			if(shouldBeSpawned): # && RNG.chance(1)

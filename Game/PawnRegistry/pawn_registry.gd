@@ -112,7 +112,7 @@ func shouldPawnDollBeSpawned(_thePawn:CharacterPawn) -> bool:
 				return true
 			# if any player is nearby
 			var thePCPawn:CharacterPawn = getPawn(info.charID)
-			if(thePCPawn && thePCPawn.global_position.distance_squared_to(_thePawn.global_position) < 30.0):
+			if(thePCPawn && thePCPawn.global_position.distance_squared_to(_thePawn.global_position) < CharacterPawn.DOLL_DESPAWN_DISTANCE):
 				return true
 	
 	return false
@@ -122,14 +122,31 @@ func deletePawnOfNetworkPlayer(info:NetworkPlayerInfo):
 		return
 	deletePawn(info.charID)
 
-#TODO: Make this use a grid or whatever
 func getPawnsNear(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn] = []
-	var _radSquared:float = _radius * _radius
+	var radSquared:float = _radius * _radius
+	var gridSizeToCheck:int = int(ceil(_radius/GRID_SIZE))
+	var gridPos:= getGridPos(_pos)
+	
+	for _x in range(gridPos.x - gridSizeToCheck, gridPos.x + gridSizeToCheck + 1):
+		for _y in range(gridPos.y - gridSizeToCheck, gridPos.y + gridSizeToCheck + 1):
+			var finalGridPos:Vector2i = Vector2i(_x, _y)
+			
+			if(sparsePawnGrid.has(finalGridPos)):
+				var thePawns:Array = sparsePawnGrid[finalGridPos]
+				for thePawn in thePawns:
+					if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
+						result.append(thePawn)
+			
+	return result
+	
+func getPawnsNearSlow(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
+	var result:Array[CharacterPawn] = []
+	var radSquared:float = _radius * _radius
 	
 	for charID in pawns:
 		var thePawn:CharacterPawn = pawns[charID]
-		if(thePawn.global_position.distance_squared_to(_pos) <= _radSquared):
+		if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
 			result.append(thePawn)
 	
 	return result
@@ -153,6 +170,8 @@ func removePawnFromSparseGridSpecific(_pawn:CharacterPawn, _pos:Vector2i):
 	if(!sparsePawnGrid.has(_pos)):
 		return
 	sparsePawnGrid[_pos].erase(_pawn)
+	if(sparsePawnGrid[_pos].is_empty()):
+		sparsePawnGrid.erase(_pos)
 
 func checkPawnSparseGrid(_pawn:CharacterPawn):
 	var thePos:Vector3 = _pawn.global_position
