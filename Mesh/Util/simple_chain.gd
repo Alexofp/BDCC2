@@ -1,6 +1,5 @@
 @tool
-extends Path3D
-#extends "res://addons/godot-polyliner/Line3D/LinePath3D.gd"
+extends "res://addons/godot-polyliner/Line3D/LinePath3D.gd"
 
 @export var nodeA:Node3D
 @export var nodeB:Node3D
