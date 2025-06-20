@@ -36,11 +36,11 @@ func _exit_tree() -> void:
 	doll.removeAttachPoint(self)
 	
 func _process(_delta: float) -> void:
-	doPosChilds()
+	doPosChilds.call_deferred()
 	pass
 #func _physics_process(_delta: float) -> void:
-	#doPosChilds()
-	#pass
+	#doPosChilds.call_deferred()
+#	pass
 
 func doPosChilds():
 	if(!is_inside_tree() || is_queued_for_deletion()):
@@ -50,7 +50,7 @@ func doPosChilds():
 		if(!childPoint || !childPoint.is_inside_tree()):
 			continue
 		childPoint.global_transform = theTrans
-		#childPoint.reset_physics_interpolation()
+		childPoint.reset_physics_interpolation()
 	#reset_physics_interpolation()
 
 func addAttach(_theNode:Node3D):
@@ -58,13 +58,10 @@ func addAttach(_theNode:Node3D):
 	#if(_theNode.get_parent()):
 	#	_theNode.get_parent().remove_child(_theNode)
 	#add_child(_theNode)
-	_theNode.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	#_theNode.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	
 	#var newRemote:RemoteTransform3D = RemoteTransform3D.new()
 	#add_child(newRemote)
-	#newRemote.process_priority = 999
-	#newRemote.process_physics_priority = 999
-	#newRemote.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	#newRemote.remote_path = newRemote.get_path_to(_theNode)
 	#nodeToRemote[_theNode] = newRemote
 
@@ -72,4 +69,4 @@ func removeAttach(_theNode:Node3D):
 	attached.erase(_theNode)
 	if(nodeToRemote.has(_theNode)):
 		nodeToRemote[_theNode].queue_free()
-		#nodeToRemote.erase(_theNode)
+		nodeToRemote.erase(_theNode)
