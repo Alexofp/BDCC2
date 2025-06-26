@@ -180,3 +180,19 @@ static func folderExists(path:String) -> bool:
 	if(dir):
 		return true
 	return false
+
+## input splitOnFirst("Test.Meow.Woof", ".")
+## output ["Test", "Meow.Woof"]
+## Always returns a pair of strings
+static func splitOnFirst(text: String, separator: String) -> Array[String]:
+	var stuff:PackedStringArray = text.split(separator)
+	
+	if(stuff.is_empty()):
+		return ["", ""]
+	if(stuff.size() <= 1):
+		return [stuff[0], ""]
+	
+	var firstEntry:String = stuff[0]
+	stuff.remove_at(0)
+	
+	return [firstEntry, join(stuff, separator)]

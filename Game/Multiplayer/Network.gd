@@ -395,6 +395,13 @@ func getMyPlayerInfo() -> NetworkPlayerInfo:
 		return null
 	return players[theID]
 
+func getRPCPlayerInfo() -> NetworkPlayerInfo:
+	var theID :int = multiplayer.get_remote_sender_id()
+	if(!players.has(theID)):
+		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
+		return null
+	return players[theID]
+
 func saveNetworkData() -> Dictionary:
 	var playerData:Dictionary = {}
 	for playerID in players:
@@ -642,3 +649,9 @@ func rpcClients(callable:Callable, args:Array = [], skipUs:bool = true):
 		if(skipUs && playerID == getMultiplayerID()):
 			continue
 		callable.bindv(args).rpc_id(playerID)
+
+@rpc("authority", "call_remote", "reliable")
+func sendToChat_RPC(_id:int, _text:String):
+	var theInfo := getPlayerInfo(_id)
+	if(theInfo):
+		theInfo.sendToChat(_text)

@@ -1,10 +1,16 @@
-extends RefCounted
-class_name UIHandler
+extends Node
 
-static var UIs:Array = []
-static var mouseCaptures:Array = []
+var UIs:Array[Control] = []
+var mouseCaptures:Array[Node] = []
 
-static func addUI(theUI:Control):
+var uiVisible:bool = false
+var gameplayInputBlocked:bool = false
+var menuInputBlocked:bool = false
+
+#func _ready() -> void:
+#	get_viewport().gui_focus_changed.connect(onGuiFocusChanged)
+
+func addUI(theUI:Control):
 	if(theUI == null || !is_instance_valid(theUI)):
 		return
 	if(UIs.has(theUI)):
@@ -12,23 +18,14 @@ static func addUI(theUI:Control):
 	UIs.append(theUI)
 	theUI.tree_exiting.connect(removeUI.bind(theUI))
 
-static func removeUI(theUI:Control):
+func removeUI(theUI:Control):
 	if(UIs.has(theUI)):
 		UIs.erase(theUI)
 
-static func hasAnyUIVisible() -> bool:
-	var UIAmount:int = UIs.size()
-	for _i in range(UIAmount):
-		var theUI:Control = UIs[UIAmount - _i - 1]
-		if(theUI == null || !is_instance_valid(theUI)):
-			UIs.remove_at(UIAmount - _i - 1)
-			continue
-		
-		if(theUI.is_visible_in_tree()):
-			return true
-	return false
+func hasAnyUIVisible() -> bool:
+	return uiVisible
 
-static func addMouseCapturer(theNode:Node):
+func addMouseCapturer(theNode:Node):
 	if(theNode == null || !is_instance_valid(theNode)):
 		return
 	if(mouseCaptures.has(theNode)):
@@ -39,12 +36,74 @@ static func addMouseCapturer(theNode:Node):
 	mouseCaptures.append(theNode)
 	theNode.tree_exiting.connect(removeMouseCapturer.bind(theNode))
 
-static func removeMouseCapturer(theNode:Node):
+func removeMouseCapturer(theNode:Node):
 	if(mouseCaptures.has(theNode)):
 		mouseCaptures.erase(theNode)
 
-static func shouldMouseBeCaptured() -> bool:
+func shouldMouseBeCaptured() -> bool:
 	for node in mouseCaptures:
 		if(node.shouldCaptureMouse()):
 			return true
 	return false
+
+func isGameplayInputBlocked() -> bool:
+	return gameplayInputBlocked
+
+func isMenuInputBlocked() -> bool:
+	var theViewport := get_viewport()
+	if(theViewport):
+		var theControl := theViewport.gui_get_focus_owner()
+		if(theControl):
+			if((theControl is LineEdit) && theControl.is_editing()):
+				return true
+	
+	return menuInputBlocked
+
+func _process(_delta: float) -> void:
+	uiVisible = false
+	gameplayInputBlocked = false
+	menuInputBlocked = false
+	
+	var UIAmount:int = UIs.size()
+	for _i in range(UIAmount):
+		var theUI:Control = UIs[UIAmount - _i - 1]
+		if(theUI == null || !is_instance_valid(theUI)):
+			UIs.remove_at(UIAmount - _i - 1)
+			continue
+		
+		if(internal_isUIVisible(theUI)):
+			uiVisible = true
+			
+		if(theUI.has_method("isGameplayInputBlocked")):
+			if(theUI.isGameplayInputBlocked()):
+				gameplayInputBlocked = true
+		elif(theUI.is_visible_in_tree()):
+			gameplayInputBlocked = true
+			
+		if(theUI.has_method("isMenuInputBlocked")):
+			if(theUI.isMenuInputBlocked()):
+				menuInputBlocked = true
+
+	if(shouldMouseBeCaptured()):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func internal_isUIVisible(theUI:Control) -> bool:
+	if(theUI.has_method("isUIVisible")):
+		if(theUI.isUIVisible()):
+			return true
+	elif(theUI.is_visible_in_tree()):
+		return true
+	return false
+
+func tryCloseMenu():
+	for theUI in UIs:
+		if(internal_isUIVisible(theUI) && theUI.has_method("tryCloseMenu")):
+			if(theUI.tryCloseMenu()):
+				return true
+	return false
+
+func releaseUIFocus():
+	if(get_viewport().gui_get_focus_owner()):
+		get_viewport().gui_get_focus_owner().release_focus()

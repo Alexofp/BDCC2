@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cus18dcl63ch6"]
+
+[ext_resource type="Script" uid="uid://bf5num4svw1x6" path="res://UI/Control3D/control_3d.gd" id="1_7ng3w"]
+
+[node name="Control3D" type="Node3D"]
+physics_interpolation_mode = 2
+script = ExtResource("1_7ng3w")

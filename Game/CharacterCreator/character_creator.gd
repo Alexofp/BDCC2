@@ -344,6 +344,9 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
 
+func tryCloseMenu() -> bool:
+	onConfirmPressed.emit()
+	return true
 
 func _on_char_sel_button_pressed() -> void:
 	currentTab = "char"

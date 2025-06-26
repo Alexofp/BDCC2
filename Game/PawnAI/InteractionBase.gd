@@ -176,7 +176,10 @@ func isCharIDInvolved(_charID:String):
 	return idToRole.has(_charID)
 
 func sayText(_role:int, _text:String):
-	print(str(_role)+": "+_text)
+	#print(str(_role)+": "+_text)
+	var thePawn := getPawn(_role)
+	if(thePawn):
+		thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
 
 func startAction(_role:int, actionID:String, args:Array = []):
 	var thePawn:CharacterPawn = getPawn(_role)

@@ -469,6 +469,9 @@ func getSexHideTagsFor(_charID:String) -> Array:
 	return result
 
 func processCameraControl(_delta:float, _controllingCamera:bool):
+	if(UIHandler.isMenuInputBlocked()):
+		return
+	
 	if(cameraMode == CAMERA_FREE):
 		const speed := 2.0
 		var vel := Vector3.ZERO

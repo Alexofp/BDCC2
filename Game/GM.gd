@@ -3,6 +3,7 @@ class_name GM
 
 static var game:GameBase
 static var pcDoll:DollController: get = getPCDoll
+static var pcPawn:CharacterPawn: get = getPCPawn
 static var cachedPcDoll:DollController
 
 static var pc:BaseCharacter: get = getPC
@@ -32,6 +33,15 @@ static func getPCDoll() -> DollController:
 		return null
 	var pawn:CharacterPawn = pawnRegistry.getPawn(thePC.getID())
 	return pawn.getDoll()
+#
+static func getPCPawn() -> CharacterPawn:
+	var thePC:BaseCharacter = pc
+	if(!thePC):
+		return null
+	if(!pawnRegistry):
+		return null
+	var pawn:CharacterPawn = pawnRegistry.getPawn(thePC.getID())
+	return pawn
 #
 #static func handlePlayerCharIDChanged(_charID:String):
 	#updateCurrentDoll(pcDoll)
@@ -73,3 +83,6 @@ static func getInteractionSystem() -> InteractionSystem:
 	if(game != null):
 		return game.interactionSystem
 	return null
+
+static func sendChat(_text:String):
+	GameInteractor.askChatSend(_text)

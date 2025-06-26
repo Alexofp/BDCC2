@@ -17,6 +17,7 @@ var character_creator:Node
 @onready var networked_nodes: NetworkedNodes = %NetworkedNodes
 @onready var sex_manager: SexManager = %SexManager
 @onready var character_menu: Control = %CharacterMenu
+@onready var chat_widget_fullscreeen: Control = %ChatWidgetFullscreeen
 
 @onready var sex_ui: SexUI = %SexUI
 
@@ -124,36 +125,44 @@ func hideAllMenus():
 	#	inventory_ui = null
 
 func _process(_delta: float) -> void:
-	if(Input.is_action_just_pressed("game_menu")):
-		#testFutures()
-		#return
-		if(character_creator):
-			return
-		var newVis:bool = !in_game_menu.visible
-		hideAllMenus()
-		in_game_menu.visible = newVis
-	if(Input.is_action_just_pressed("debug_mousecapture")):
-		if(!character_creator):
-			_on_in_game_menu_on_char_creator_button()
-		else:
-			onCharCreatorConfirmButton()
-	if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
-		toggleCharacterMenu()
-		#if(!interaction_menu):
-			#interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
-			#main_ui_layer.add_child(interaction_menu)
-			#interaction_menu.onClose.connect(onInteractionMenuClosed)
-			#interaction_menu.setCharacter(GM.pc)
-		#else:
-			#onInteractionMenuClosed()
-	#if(Input.is_action_just_pressed("game_inventory")):
-		#if(!inventory_ui):
-			#inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
-			#main_ui_layer.add_child(inventory_ui)
-			##interaction_menu.onClose.connect(onInteractionMenuClosed)
-			#inventory_ui.setInventory(GM.pc.inventory)
-		#else:
-			#onInventoryClosed()
+	chat_widget_fullscreeen.visible = !sex_ui.visible
+	
+	if(!UIHandler.isMenuInputBlocked()):
+		if(Input.is_action_just_pressed("game_menu")):
+			if(!UIHandler.tryCloseMenu()):
+				in_game_menu.visible = true
+			
+			#testFutures()
+			#return
+			#if(character_creator):
+				#return
+			#var newVis:bool = !in_game_menu.visible
+			#hideAllMenus()
+			#in_game_menu.visible = newVis
+		if(Input.is_action_just_pressed("debug_mousecapture")):
+			if(!character_creator):
+				if(!UIHandler.tryCloseMenu()):
+					_on_in_game_menu_on_char_creator_button()
+			else:
+				onCharCreatorConfirmButton()
+		if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
+			if(!UIHandler.tryCloseMenu()):
+				toggleCharacterMenu()
+			#if(!interaction_menu):
+				#interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
+				#main_ui_layer.add_child(interaction_menu)
+				#interaction_menu.onClose.connect(onInteractionMenuClosed)
+				#interaction_menu.setCharacter(GM.pc)
+			#else:
+				#onInteractionMenuClosed()
+		#if(Input.is_action_just_pressed("game_inventory")):
+			#if(!inventory_ui):
+				#inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
+				#main_ui_layer.add_child(inventory_ui)
+				##interaction_menu.onClose.connect(onInteractionMenuClosed)
+				#inventory_ui.setInventory(GM.pc.inventory)
+			#else:
+				#onInventoryClosed()
 
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)
@@ -187,7 +196,6 @@ func hideCharacterMenu():
 		#interaction_menu = null
 
 func _on_in_game_menu_on_char_creator_button() -> void:
-	hideAllMenus()
 	if(character_creator != null && is_instance_valid(character_creator)):
 		return
 	

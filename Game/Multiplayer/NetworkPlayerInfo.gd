@@ -42,3 +42,11 @@ func isUs() -> bool:
 
 func getName() -> String:
 	return nickname
+
+func sendToChat(_text:String):
+	if(isUs()):
+		GameChat.addChat(_text)
+		return
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.sendToChat_RPC.rpc_id(id, _text)

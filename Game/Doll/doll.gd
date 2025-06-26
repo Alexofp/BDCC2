@@ -11,6 +11,7 @@ class_name Doll
 @onready var alpha_mask_texture: MyLayeredTexture = %AlphaMaskTexture
 
 @export var disableInternalAnimPlayer:bool = false
+@onready var hover_text: Label3D = %HoverText
 
 var expressionState:int = DollExpressionState.Normal
 
@@ -728,3 +729,6 @@ func _on_visible_on_screen_enabler_3d_screen_entered() -> void:
 
 func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
 	parts_node.visible = false
+
+func getHoverText() -> Label3D:
+	return hover_text

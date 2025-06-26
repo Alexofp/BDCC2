@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c21kjx7fu1d7j"]
+
+[ext_resource type="PackedScene" uid="uid://g7hlt44gtx1w" path="res://UI/FullScreenChat/chat_widget.tscn" id="1_7hwcb"]
+[ext_resource type="Script" uid="uid://bt0372ocxlyie" path="res://UI/FullScreenChat/chat_widget_fullscreeen.gd" id="1_iqoxc"]
+
+[node name="ChatWidgetFullscreeen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_iqoxc")
+
+[node name="ChatPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -376.0
+offset_top = -365.0
+offset_right = -44.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ChatWidget" parent="ChatPanel" instance=ExtResource("1_7hwcb")]
+unique_name_in_owner = true
+layout_mode = 2

@@ -210,3 +210,52 @@ func getNodeByUniqueID(theID:Array) -> Node:
 		return get_tree().root.get_node_or_null(NodePath(theID[1]))
 	
 	return null
+
+@rpc("any_peer", "call_remote", "reliable")
+func askChatSend_ServerRPC(_text:String):
+	if(!hasAuthority()):
+		return
+	handleChatSend(Network.getRPCPlayerInfo(), _text)
+
+# Only gets called on server
+func handleChatSend(_playerInfo:NetworkPlayerInfo, _text:String):
+	#print("MEOW: "+_text)
+	if(!_playerInfo):
+		return
+	
+	if(_text.begins_with("/")):
+		var commandPair := Util.splitOnFirst(_text, " ")
+		var commandType:String = commandPair[0].substr(1)
+		var commandArgText:String = commandPair[1] if commandPair.size() >= 1 else ""
+		
+		#TODO: Setup a system for kicking and other stuff
+		if(commandType == "meow"):
+			_playerInfo.sendToChat("Meow meow :3")
+		elif(commandType == "echo"):
+			_playerInfo.sendToChat("Echoing back: "+commandArgText)
+		elif(commandType == "me"):
+			var thePawn := GM.pawnRegistry.getPawn(_playerInfo.charID)
+			if(thePawn):
+				thePawn.sayAdvanced(CharacterPawn.parseMeTextToArray(commandArgText))
+		else:
+			_playerInfo.sendToChat("Unknown command: "+commandType)
+	else:
+		var thePawn := GM.pawnRegistry.getPawn(_playerInfo.charID)
+		if(thePawn):
+			thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
+		#sendChatGlobal(_playerInfo.getName()+": "+_text)
+
+func askChatSend(_text:String):
+	if(Network.isClient()):
+		askChatSend_ServerRPC.rpc_id(1, _text)
+		return
+	handleChatSend(Network.getMyPlayerInfo(), _text)
+
+func sendChatGlobal(_text:String):
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(sendChat_RPC, [_text])
+	sendChat_RPC(_text)
+	
+@rpc("authority", "call_remote", "reliable")
+func sendChat_RPC(_text:String):
+	GameChat.addChat(_text)

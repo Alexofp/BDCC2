@@ -7,6 +7,7 @@ func start(_roles:Dictionary, _args:Array):
 	involve(ROLE_MAIN, _roles["main"])
 	involve(ROLE_TARGET, _roles["target"])
 	
+	sayText(ROLE_MAIN, "Hey!")
 	startAction(ROLE_TARGET, "Follow", [getCharID(ROLE_MAIN)])
 	pushDelay(2.0)
 	pushSay(ROLE_TARGET, "What?")
@@ -23,6 +24,7 @@ func getActions(_role:int) -> Array:
 
 func doAction(_role:int, _actionID:String, _args:Array):
 	if(_actionID == "stop"):
+		sayText(ROLE_MAIN, "Never mind.")
 		stopInteraction()
 	if(_actionID == "sex"):
 		GM.sexManager.startSex(SexType.OnTheFloor, {dom=getCharID(ROLE_MAIN), sub=getCharID(ROLE_TARGET)}, {}, getPawn(ROLE_MAIN).global_position, getPawn(ROLE_MAIN).global_rotation)

@@ -93,3 +93,7 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
+
+func tryCloseMenu() -> bool:
+	onClose.emit()
+	return true

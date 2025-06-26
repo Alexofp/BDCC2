@@ -8,6 +8,7 @@ class_name SexUI
 @onready var action_text_label: RichTextLabel = %ActionTextLabel
 @onready var auto_consent_check_box: CheckBox = %AutoConsentCheckBox
 @onready var participants_list: VBoxContainer = %ParticipantsList
+@onready var chat_widget: VBoxContainer = %ChatWidget
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -178,10 +179,20 @@ func shouldCaptureMouse() -> bool:
 		return true
 	return false
 
+func _unhandled_input(event: InputEvent) -> void:
+	if(event.is_action_pressed("game_chat")):
+		if(!UIHandler.isMenuInputBlocked() && !get_viewport().gui_get_focus_owner()):
+			chat_widget.grabLineEditFocus()
+
 func _on_empty_space_gui_input(event: InputEvent) -> void:
 	if(event is InputEventMouseButton):
+		if(event.button_index == MOUSE_BUTTON_LEFT):
+			if(event.pressed):
+				UIHandler.releaseUIFocus()
+		
 		if(event.button_index == MOUSE_BUTTON_RIGHT):
 			if(event.pressed):
+				UIHandler.releaseUIFocus()
 				controllingCamera = true
 			else:
 				controllingCamera = false

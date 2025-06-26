@@ -14,3 +14,7 @@ func _on_settings_ui_on_save_pressed() -> void:
 
 func _on_settings_ui_on_cancel_pressed() -> void:
 	onCancelPressed.emit()
+
+func tryCloseMenu() -> bool:
+	onCancelPressed.emit()
+	return true

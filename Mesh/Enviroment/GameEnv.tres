@@ -1,9 +1,9 @@
 [gd_resource type="Environment" load_steps=4 format=3 uid="uid://cfeg5fu5v0p4o"]
 
-[ext_resource type="Texture2D" uid="uid://bq007at2vij1i" path="res://Mesh/Enviroment/HDR_silver_and_gold_nebulae.png" id="1_4ddbf"]
+[ext_resource type="Texture2D" uid="uid://b55y6w4n0fyio" path="res://Mesh/Enviroment/MySky.png" id="1_kbo3f"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wohoj"]
-panorama = ExtResource("1_4ddbf")
+panorama = ExtResource("1_kbo3f")
 
 [sub_resource type="Sky" id="Sky_iiin2"]
 sky_material = SubResource("PanoramaSkyMaterial_wohoj")

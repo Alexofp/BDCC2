@@ -17,6 +17,10 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
 
+func tryCloseMenu() -> bool:
+	visible = false
+	return true
+
 func _ready():
 	char_creator_button.visible = showCharCreatorButton
 	Network.noray_connected.connect(onNorayConnected)

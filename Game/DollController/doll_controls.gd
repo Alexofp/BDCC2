@@ -38,6 +38,8 @@ func processInput():
 		return
 	if(!doll_controller.isControlledByUs()):
 		return
+	if(UIHandler.isGameplayInputBlocked()):
+		return
 	#Log.Print("Meow "+str(get_path()))
 	input_dir = Vector2.ZERO
 	input_dir.x = Input.get_axis("move_left", "move_right")

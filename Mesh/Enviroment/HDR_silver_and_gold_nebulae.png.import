@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq007at2vij1i"
-path.bptc="res://.godot/imported/HDR_silver_and_gold_nebulae.png-f3a95d08d959c65fb7417ccdcd727b79.bptc.ctex"
+path.s3tc="res://.godot/imported/HDR_silver_and_gold_nebulae.png-f3a95d08d959c65fb7417ccdcd727b79.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,12 +12,12 @@ metadata={
 [deps]
 
 source_file="res://Mesh/Enviroment/HDR_silver_and_gold_nebulae.png"
-dest_files=["res://.godot/imported/HDR_silver_and_gold_nebulae.png-f3a95d08d959c65fb7417ccdcd727b79.bptc.ctex"]
+dest_files=["res://.godot/imported/HDR_silver_and_gold_nebulae.png-f3a95d08d959c65fb7417ccdcd727b79.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

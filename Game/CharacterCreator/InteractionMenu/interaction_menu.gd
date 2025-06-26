@@ -99,3 +99,7 @@ func onCharVarChange(_varID:String, _value:Variant):
 
 func _on_close_button_pressed() -> void:
 	onClose.emit()
+
+func tryCloseMenu() -> bool:
+	onClose.emit()
+	return true

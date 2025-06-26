@@ -4,6 +4,11 @@ class_name CharacterPawn
 const DOLL_DESPAWN_TIME = 1.0
 const DOLL_DESPAWN_DISTANCE = 30.0 * 30.0 #Squared
 
+enum SayType {
+	Speech,
+	Action,
+}
+
 @export var id:String = ""
 var doll:DollController
 #var poseSpot:PoseSpot
@@ -25,6 +30,18 @@ var gridPos:Vector2i
 func _ready() -> void:
 	ai = PawnAI.new()
 	ai.setPawn(self)
+	
+	#print(sayArrayToText([
+		#[SayType.Speech, "Hello."],
+		#[SayType.Speech, "World."],
+		#[SayType.Action, "Rubs paws"],
+		#[SayType.Action, "Meows"],
+		#[SayType.Speech, "Meow meow."],
+		#[SayType.Speech, "Meow meow."],
+	#]))
+	#print(parseMeTextToArray("meows and purrs \"Hello world\" Nya"))
+	#print(parseMeTextToArray("meows and purrs\naa\"Hello world\"\nNya"))
+	#print(parseSayTextToArray("Hello *nuzzles you* uwu, meow meow *meows a lot*"))
 
 func getCharacter() -> BaseCharacter:
 	if(GM.characterRegistry):
@@ -69,6 +86,7 @@ func _process(_delta: float) -> void:
 	
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
+	
 
 func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):
@@ -193,3 +211,128 @@ func getInteraction() -> InteractionBase:
 
 func setInteraction(_int:InteractionBase):
 	interaction = _int
+
+static func sayArrayToText(theStuff:Array) -> String:
+	var result:String = ""
+	for stuffEntry in theStuff:
+		var entryType:int = stuffEntry[0]
+		
+		if(!result.is_empty()):
+			result += " "
+		
+		if(entryType == SayType.Speech):
+			result += stuffEntry[1]
+		if(entryType == SayType.Action):
+			result += "*"+stuffEntry[1]+"*"
+			
+	return result
+
+static func sayArrayToMeText(theStuff:Array) -> String:
+	var result:String = ""
+	for stuffEntry in theStuff:
+		var entryType:int = stuffEntry[0]
+		
+		if(!result.is_empty()):
+			result += " "
+		
+		if(entryType == SayType.Speech):
+			result += "\""+stuffEntry[1]+"\""
+		if(entryType == SayType.Action):
+			result += stuffEntry[1]
+			
+	return result
+
+static func sayArrayToChatTextSmart(charName:String, theStuff:Array) -> String:
+	if(theStuff.is_empty()):
+		return ""
+	var firstType:Array = theStuff.front()
+	if(firstType[0] == SayType.Speech):
+		return charName+": "+sayArrayToText(theStuff)
+	elif(firstType[0] == SayType.Action):
+		return charName+" "+sayArrayToMeText(theStuff)
+	else:
+		return "error?"
+
+static func parseMeTextToArray(_theText:String) -> Array:
+	var result:Array = []
+	
+	var curText:String = ""
+	var curToken:int = SayType.Action
+	
+	for theLetter in _theText:
+		if(theLetter == "\""):
+			if(curText != ""):
+				result.append([curToken, curText.strip_edges()])
+				curText = ""
+			if(curToken == SayType.Action):
+				curToken = SayType.Speech
+			else:
+				curToken = SayType.Action
+		else:
+			curText += theLetter
+	
+	if(curText != ""):
+		result.append([curToken, curText.strip_edges()])
+		curText = ""
+	
+	return result
+
+static func parseSayTextToArray(_theText:String) -> Array:
+	var result:Array = []
+	
+	var curText:String = ""
+	var curToken:int = SayType.Speech
+	
+	for theLetter in _theText:
+		if(theLetter == "*"):
+			if(curText != ""):
+				result.append([curToken, curText.strip_edges()])
+				curText = ""
+			if(curToken == SayType.Action):
+				curToken = SayType.Speech
+			else:
+				curToken = SayType.Action
+		else:
+			curText += theLetter
+	
+	if(curText != ""):
+		result.append([curToken, curText.strip_edges()])
+		curText = ""
+	
+	return result
+
+func sayAdvanced(stuff:Array):
+	GM.pawnRegistry.sayAdvanced(self, stuff)
+
+func sayAdvancedLocal(stuff:Array):
+	# Spread this to nearby dolls to hear?
+	#var theText:String = sayArrayToText(stuff)
+	
+	#if(isDollSpawned()):
+		#var theDoll := getDoll()
+		
+		# Hover text maybe should happen in hear
+		# But if the pc isn't controlling a doll, we do it here
+		#theDoll.addHoverText(theText)
+	
+	var nearbyPawns := GM.pawnRegistry.getPawnsNear(global_position, 20.0)
+	for theOtherPawn in nearbyPawns:
+		#if(theOtherPawn == self):
+		#	continue
+		theOtherPawn.hearAdvanced(self, stuff)
+		#theOtherPawn.addHoverText("I HEAR!")
+
+func hearAdvanced(otherPawn:CharacterPawn, stuff:Array):
+	if(isControlledByUs()):
+		sendToChatLocal(sayArrayToChatTextSmart(otherPawn.getCharacter().getName(), stuff))
+		var theText:String = sayArrayToText(stuff)
+		otherPawn.addHoverText(theText)
+		
+func sendToChatLocal(rawText:String):
+	if(isControlledByUs()):
+		GameChat.addChat(rawText)
+
+func addHoverText(_text:String):
+	if(isDollSpawned()):
+		var theDoll := getDoll()
+		theDoll.addHoverText(_text)

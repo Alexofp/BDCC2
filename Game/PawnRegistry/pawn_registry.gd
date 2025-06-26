@@ -90,6 +90,9 @@ func deletePawn(charID:String):
 func pawnDeleteCleanup(thePawn:CharacterPawn):
 	onPawnDeleted.emit(thePawn) # Should this happen after the erase?
 	
+	if(thePawn.getInteraction()):
+		thePawn.getInteraction().stopInteraction()
+	
 	if(thePawn.is_inside_tree()):
 		thePawn.name = "TO_BE_DELETED"
 	pawns.erase(thePawn.id)
@@ -180,6 +183,20 @@ func checkPawnSparseGrid(_pawn:CharacterPawn):
 	if(_pawn.gridPos != theGridPos):
 		removePawnFromSparseGridSpecific(_pawn, _pawn.gridPos)
 		insertPawnIntoSparseGridSpecific(_pawn, theGridPos)
+
+@rpc("authority", "call_remote", "reliable")
+func sayAdvanced_RPC(_charID:String, _stuff:Array):
+	var thePawn := getPawn(_charID)
+	if(!thePawn):
+		return
+	thePawn.sayAdvancedLocal(_stuff)
+
+func sayAdvanced(_pawn:CharacterPawn, _stuff:Array):
+	if(Network.isClient() || !_pawn || _stuff.is_empty()):
+		return
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(sayAdvanced_RPC, [_pawn.getCharID(), _stuff])
+	_pawn.sayAdvancedLocal(_stuff)
 
 func saveNetworkData() -> Dictionary:
 	var pawnData:Array = []

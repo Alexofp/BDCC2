@@ -24,6 +24,10 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
 
+func tryCloseMenu() -> bool:
+	onClosePressed.emit()
+	return true
+
 func updatePawnMenu():
 	pawn_list.clear()
 	pawnIDs.clear()

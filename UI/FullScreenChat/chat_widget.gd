@@ -18,6 +18,8 @@ func _ready() -> void:
 	
 	scrollbar.changed.connect(handleScrollbarChanged)
 	max_scroll_length = scrollbar.max_value
+	
+	fullUpdate()
 
 func addChat(_text:String):
 	#TODO: Fix ability to send bbcode
@@ -37,6 +39,7 @@ func onGameChatMessage(_text:String):
 
 func fullUpdate():
 	Util.delete_children(messages_list)
+	messages = []
 	
 	for message in GameChat.getMessages():
 		addChat(message)
@@ -48,7 +51,20 @@ func handleScrollbarChanged():
 
 func _on_chat_line_edit_text_submitted(_new_text: String) -> void:
 	#TODO: A send chat function that actually makes the character try to say stuff
-	GameChat.addChat(_new_text)
+	#GameChat.addChat(_new_text)
+	GM.sendChat(_new_text)
 	chat_line_edit.text = ""
 	
 	onMessageSent.emit(_new_text)
+	
+	chat_line_edit.release_focus()
+
+func grabLineEditFocus():
+	chat_line_edit.grab_focus()
+
+func hasLineEditFocus() -> bool:
+	return chat_line_edit.is_editing() || chat_line_edit.has_focus()
+
+func releaseLineEditFocus():
+	chat_line_edit.release_focus()
+	chat_line_edit.unedit()

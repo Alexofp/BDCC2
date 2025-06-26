@@ -57,6 +57,8 @@ var uniqueID:int = -1
 
 @export var expressionState:int = DollExpressionState.Normal
 
+var hoverTexts:Array = []
+
 func getNetworkPlayerID() -> int:
 	for playerID in Network.players:
 		var info:NetworkPlayerInfo = Network.players[playerID]
@@ -267,8 +269,8 @@ func _process(delta:float):
 	
 	processCharacterID()
 
-	if(theIsControlledByUs):
-		process_mousecapture(delta)
+	#if(theIsControlledByUs):
+	#	process_mousecapture(delta)
 	if(theIsControlledByUs):
 		process_camera_pivot()
 	process_movement()
@@ -282,9 +284,6 @@ func _process(delta:float):
 	if(!hasAuthority):
 		position = syncVec3(position, syncPosition)
 		model_root.rotation = syncRot3(model_root.rotation, syncRotation)
-	
-	if(getState() == STATE_NORMAL):
-		processMove(delta)
 	
 	processPoseSpot()
 	#if(getState() == STATE_SITTING): # SIT HACK. IMPLEMENT PROPER SIT SYNC
@@ -333,6 +332,7 @@ func processMove(delta:float):
 				#velocity.z = move_direction_no_y.z * move_speed
 			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
 				velocity.y = JUMP_FORCE * getJumpHeight()
+				#addHoverText("JUMP!")
 	
 	if !noclip_on:
 		if not is_on_floor():
@@ -343,7 +343,10 @@ func processMove(delta:float):
 func _physics_process(_delta:float):
 	if(isControlledByUs()):
 		process_camera()
-	
+
+	if(getState() == STATE_NORMAL):
+		processMove(_delta)
+		
 	input_velocity = velocity
 	move_and_slide()
 	
@@ -362,7 +365,8 @@ func _physics_process(_delta:float):
 		var location = collision.get_position()
 		collision.get_collider().apply_central_impulse(direction * central_multiplier)
 		collision.get_collider().apply_impulse(direction * directional_multiplier, location)
-
+	
+	processHoverText(_delta)
 
 
 func canScrollUp() -> bool:
@@ -382,13 +386,14 @@ func canScrollDown() -> bool:
 	return true
 
 func process_mousecapture(_delta:float):
-	if(doll_controls.mousecapture_isdown):
-		mousecapture_on = !mousecapture_on
+	#if(doll_controls.mousecapture_isdown):
+	#	mousecapture_on = !mousecapture_on
 	
 	#if mousecapture_on && !UIHandler.hasAnyUIVisible():
 	#	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#else:
 	#	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	pass
 
 func shouldCaptureMouse() -> bool:
 	if mousecapture_on && !UIHandler.hasAnyUIVisible():
@@ -663,3 +668,23 @@ func _on_other_dolls_area_body_exited(body: Node3D) -> void:
 
 func getNearbyDolls() -> Array[DollController]:
 	return nearbyDolls
+
+func addHoverText(_text:String):
+	hoverTexts.append([_text, 5.0])
+
+func processHoverText(_dt:float):
+	var finalText:String = ""
+	
+	var hoverAm:int = hoverTexts.size()
+	for _i in range(hoverAm):
+		var _ii:int = (hoverAm - _i - 1)
+		hoverTexts[_ii][1] -= _dt
+		if(hoverTexts[_ii][1] <= 0.0):
+			hoverTexts.remove_at(_ii)
+	
+	for theEntry in hoverTexts:
+		finalText += theEntry[0] + "\n"
+	
+	var hover_text := doll.getHoverText()
+	if(hover_text.text != finalText):
+		hover_text.text = finalText
