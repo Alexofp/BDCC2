@@ -46,6 +46,9 @@ func handleNetworkCommand(_command:int, _clientID:int, _data:Array):
 		if(_data[1] == BaseCharacter.GENERIC_BODYPARTS && _data[3] != ""):
 			bodypart = GlobalRegistry.createBodypart(_data[3])
 			bodypart.loadNetworkData(_data[4])
+		elif(_data[1] == BaseCharacter.GENERIC_CLOTHING && _data[3] != ""):
+			bodypart = GlobalRegistry.createItem(_data[3])
+			bodypart.loadNetworkData(_data[4])
 		theCharacter.addGenericPart(_data[1], _data[2], bodypart)
 	
 	if(_command == InteractCommand.BODYPART_CHANGE):

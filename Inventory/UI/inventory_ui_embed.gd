@@ -49,4 +49,5 @@ func updateInventory():
 func onNewItemIDSelected(_id, _value:String, _slot:int):
 	if(!inventory):
 		return
-	inventory.setEquippedItem(_slot, GlobalRegistry.createItem(_value) if _value != "" else null)
+	GM.characterRegistry.askCharacterPartChange(inventory.getChar(), BaseCharacter.GENERIC_CLOTHING, _slot, _value, {})
+	#inventory.setEquippedItem(_slot, GlobalRegistry.createItem(_value) if _value != "" else null)
