@@ -27,6 +27,7 @@ var soloGoals:Dictionary = {}
 var soloGoalRefs:Dictionary = {}
 var interactions:Dictionary = {}
 var interactionRefs:Dictionary = {}
+var dollGestures:Dictionary = {}
 
 func _init() -> void:
 	doInit()
@@ -61,6 +62,7 @@ func doInit():
 	sortClothingSelectors()
 	
 	registerDollPoseFolder("res://Game/Doll/Posing/Poses/")
+	registerDollGestureFolder("res://Game/Doll/Posing/Gestures/")
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
@@ -564,4 +566,29 @@ func getSoloGoalRef(id: String) -> SoloGoalBase:
 		return soloGoalRefs[id]
 	else:
 		Log.Printerr("ERROR: solo goal with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+
+func registerDollGesture(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is DollGestureBase):
+		dollGestures[object.id] = object
+
+func registerDollGestureFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerDollGesture(scriptPath)
+
+func getDollGestures() -> Dictionary:
+	return dollGestures
+
+func getDollGesture(id: String) -> DollGestureBase:
+	if(dollGestures.has(id)):
+		return dollGestures[id]
+	else:
+		Log.Printerr("ERROR: doll gesture with the id "+str(id)+" wasn't found")
 		return null

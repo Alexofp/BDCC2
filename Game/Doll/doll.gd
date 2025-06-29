@@ -47,9 +47,8 @@ const IDLE_PICKABLE_ANIMS:Array = [
 ]
 
 static var addedPosesToTree:bool = false
-const POSES_TO_ADD = [
-	"Kneel",
-]
+
+signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func updateAnimPlayer():
 	updateAnimPlayerSpecific(animation_player)
@@ -64,6 +63,24 @@ static func updateAnimPlayerSpecific(_animPlayer:AnimationPlayer):
 func updateAnimTreeOnce():
 	updateAnimTreeWithPoses(dollBlendTree)
 
+func playGesture(_gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
+	var theGesture := GlobalRegistry.getDollGesture(_gestureID)
+	if(theGesture == null):
+		return
+	if(_playFullBody && theGesture.playFullBody):
+		animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		animation_tree["parameters/Locomotion/Idle/FullBodyGesture_Selector/transition_request"] = _gestureID
+	if(playPartialBody && theGesture.playPartial):
+		animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		animation_tree["parameters/BodyGesture_Selector/transition_request"] = _gestureID
+	onGesturePlay.emit(_gestureID, _playFullBody, playPartialBody)
+	
+func stopGesture(stopFullBody:bool = true, stopPartical:bool = true):
+	if(stopFullBody):
+		animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
+	if(stopPartical):
+		animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
+
 #AnimationRootNode
 static func updateAnimTreeWithPoses(theTree:AnimationRootNode, noFullBody:bool = false):
 	if(!(theTree is AnimationNodeBlendTree)):
@@ -72,6 +89,40 @@ static func updateAnimTreeWithPoses(theTree:AnimationRootNode, noFullBody:bool =
 	if(theTree.has_node("UPDATED_WITH_POSES")):
 		return
 	theTree.add_node("UPDATED_WITH_POSES", AnimationNodeAnimation.new())
+	
+	if(true):
+		#var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
+		#var theLocIdle:AnimationNodeBlendTree = theLocomotion.get_node("Idle")
+		var theGestureSelector:AnimationNodeTransition = theTree.get_node("BodyGesture_Selector")
+		var _i:int = theGestureSelector.get_input_count()
+		
+		for gestureID in GlobalRegistry.getDollGestures():
+			var theDollGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
+			var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+			newAnim.animation = theDollGesture.getAnimName()
+			theTree.add_node("gesture_"+gestureID, newAnim)
+			
+			theGestureSelector.add_input(gestureID)
+			
+			theTree.connect_node("BodyGesture_Selector", _i, "gesture_"+gestureID)
+			_i += 1
+	
+	if(!noFullBody):
+		var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
+		var theLocIdle:AnimationNodeBlendTree = theLocomotion.get_node("Idle")
+		var theGestureSelector:AnimationNodeTransition = theLocIdle.get_node("FullBodyGesture_Selector")
+		var _i:int = theGestureSelector.get_input_count()
+		
+		for gestureID in GlobalRegistry.getDollGestures():
+			var theDollGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
+			var newAnim:AnimationNodeAnimation = AnimationNodeAnimation.new()
+			newAnim.animation = theDollGesture.getAnimName()
+			theLocIdle.add_node("gesture_"+gestureID, newAnim)
+			
+			theGestureSelector.add_input(gestureID)
+			
+			theLocIdle.connect_node("FullBodyGesture_Selector", _i, "gesture_"+gestureID)
+			_i += 1
 	
 	if(!noFullBody):
 		var theLocomotion:AnimationNodeStateMachine = theTree.get_node("Locomotion")
@@ -411,6 +462,8 @@ func getLocomotionPlayback() -> AnimationNodeStateMachinePlayback:
 	return animation_tree["parameters/Locomotion/playback"]
 
 func travelLocomotion(_newState:String):
+	if(_newState != "Idle"):
+		stopGesture(true, false)
 	var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
 	if(state_machine.get_current_node() != _newState):
 		state_machine.travel(_newState)

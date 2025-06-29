@@ -98,5 +98,6 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_l1oh5")
 
+[connection signal="onGesturePlay" from="ModelRoot/Doll" to="." method="_on_doll_on_gesture_play"]
 [connection signal="body_entered" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_entered"]
 [connection signal="body_exited" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_exited"]

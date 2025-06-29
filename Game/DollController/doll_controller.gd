@@ -59,6 +59,8 @@ var uniqueID:int = -1
 
 var hoverTexts:Array = []
 
+signal onGesturePlay(gestureID, playFullBody, playPartial)
+
 func getNetworkPlayerID() -> int:
 	for playerID in Network.players:
 		var info:NetworkPlayerInfo = Network.players[playerID]
@@ -688,3 +690,10 @@ func processHoverText(_dt:float):
 	var hover_text := doll.getHoverText()
 	if(hover_text.text != finalText):
 		hover_text.text = finalText
+
+func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial: bool) -> void:
+	onGesturePlay.emit(gestureID, playFullBody, playPartial)
+
+func playGesture(gestureID: String):
+	GM.dollHolder.askPlayGesture(self, gestureID)
+	

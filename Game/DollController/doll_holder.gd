@@ -119,3 +119,30 @@ func loadNetworkData(_data:Dictionary):
 	var dollData:Array = SAVE.loadVar(_data, "dolls", [])
 	for dollEntry in dollData:
 		createDollController_RPC(dollEntry)
+
+@rpc("authority", "call_remote", "reliable")
+func playGesture_RPC(theDollID:int, _gestureID:String):
+	var theDoll:= findDollWithUniqueID(theDollID)
+	if(!theDoll):
+		return
+	theDoll.getDoll().playGesture(_gestureID)
+
+func playGesture(_doll:DollController, _gestureID:String):
+	if(Network.isClient()):
+		return
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(playGesture_RPC, [_doll.uniqueID, _gestureID])
+	playGesture_RPC(_doll.uniqueID, _gestureID)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askPlayGesture_SERVERRPC(theDollID:int, _gestureID:String):
+	var theDoll:= findDollWithUniqueID(theDollID)
+	if(!theDoll):
+		return
+	theDoll.getDoll().playGesture(_gestureID)
+
+func askPlayGesture(_doll:DollController, _gestureID:String):
+	if(Network.isServer()):
+		playGesture(_doll, _gestureID)
+	else:
+		askPlayGesture_SERVERRPC.rpc_id(1, _doll.uniqueID, _gestureID)

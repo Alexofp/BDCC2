@@ -22,7 +22,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Anim"
+text = "Poses"
 
 [node name="FullBodyAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -33,6 +33,14 @@ layout_mode = 2
 text = "Arm poses"
 
 [node name="ArmAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Gestures"
+
+[node name="GestureAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 

@@ -5,7 +5,7 @@ class_name PoseSpot
 var doll:DollController
 
 signal onPawnSwitch(newPawn)
-signal onDollSwitch(newDoll)
+signal onDollSwitch(newDoll, oldDoll)
 #@onready var sitter_node: SyncNode = %SitterNode
 
 #func checkSitter():
@@ -60,7 +60,7 @@ func dollUpdate():
 		return
 	doll = newDoll
 	
-	onDollSwitch.emit(doll)
+	onDollSwitch.emit(doll, oldDoll)
 
 func doSit(theSitter:CharacterPawn):
 	#setPawn(theSitter)

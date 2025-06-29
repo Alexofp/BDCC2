@@ -170,6 +170,7 @@ func updateAnimPlayerFor(seatID:String):
 	var animPlayer:AnimationPlayer = seatInfo["anim"]
 	
 	animPlayer.add_animation_library("RestraintAnims", preload("res://Anims/Raw/RestraintAnims.glb"))
+	animPlayer.add_animation_library("GestureAnims", preload("res://Anims/Raw/GestureAnims.glb"))
 	for animLibraryID in animLibraries:
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
@@ -437,9 +438,23 @@ func addSeat(theID:String, theSpot:PoseSpot):
 func onSeatPawnSwitchFunc(_newPawn:CharacterPawn, theID:String):
 	onPawnSwitch.emit(theID, _newPawn)
 
-func onSeatDollSwitchFunc(_newDoll:DollController, theID:String):
+func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theID:String):
 	updateAnim()
 	onDollSwitch.emit(theID, _newDoll)
+	
+	if(_oldDoll):
+		_oldDoll.onGesturePlay.disconnect(onSitterGesturePlay.bind(theID))
+	if(_newDoll):
+		_newDoll.onGesturePlay.connect(onSitterGesturePlay.bind(theID))
+	
+func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _id:String):
+	if(!sitters.has(_id)):
+		return
+	var sitterInfo:Dictionary = sitters[_id]
+	var animTree:AnimationTree = sitterInfo["tree"]
+	if(_playPartial):
+		animTree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		animTree["parameters/BodyGesture_Selector/transition_request"] = _gestureID
 
 func updateAnim():
 	for sitterID in sitters:
