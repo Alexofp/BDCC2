@@ -9,3 +9,6 @@ func _init() -> void:
 	
 	animLibrary = preload("res://Anims/Raw/Poses.glb")
 	animLibraryName = "Poses"
+
+	preventsFullbodyGestures = false
+	preventsPartialGestures = false

@@ -301,6 +301,14 @@ static func parseSayTextToArray(_theText:String) -> Array:
 	
 	return result
 
+static func getStuffTalkLen(stuff:Array) -> float:
+	var result:float = 0.0
+	for stuffEntry in stuff:
+		#TODO: Make this depend on amount of speech
+		if(stuffEntry[0] == SayType.Speech):
+			result = 3.0
+	return result
+
 func sayAdvanced(stuff:Array):
 	GM.pawnRegistry.sayAdvanced(self, stuff)
 
@@ -314,6 +322,11 @@ func sayAdvancedLocal(stuff:Array):
 		# Hover text maybe should happen in hear
 		# But if the pc isn't controlling a doll, we do it here
 		#theDoll.addHoverText(theText)
+	
+	if(isDollSpawned()):
+		var theSpeechTime:float = getStuffTalkLen(stuff)
+		if(theSpeechTime > 0.0):
+			getDoll().getDoll().doFaceTalkAnim(theSpeechTime)
 	
 	var nearbyPawns := GM.pawnRegistry.getPawnsNear(global_position, 20.0)
 	for theOtherPawn in nearbyPawns:
@@ -336,3 +349,20 @@ func addHoverText(_text:String):
 	if(isDollSpawned()):
 		var theDoll := getDoll()
 		theDoll.addHoverText(_text)
+
+func playGesture(_gestureID:String):
+	if(isDollSpawned()):
+		var theDoll := getDoll()
+		GM.dollHolder.playGesture(theDoll, _gestureID)
+
+func isFullbodyGesturesBlocked() -> bool:
+	var theChar := getCharacter()
+	if(!theChar):
+		return false
+	return theChar.isFullbodyGesturesBlocked()
+
+func isPartialGesturesBlocked() -> bool:
+	var theChar := getCharacter()
+	if(!theChar):
+		return false
+	return theChar.isPartialGesturesBlocked()

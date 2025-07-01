@@ -19,6 +19,8 @@ enum {
 	
 	LookDir,
 	LookCross,
+	
+	Talking,
 }
 
 static func getAll() -> Array:
@@ -38,6 +40,8 @@ static func getAll() -> Array:
 		
 		LookDir,
 		LookCross,
+		
+		Talking,
 	]
 
 static func getAllTexts() -> Array:
@@ -57,6 +61,8 @@ static func getAllTexts() -> Array:
 		
 		"LookDir",
 		"LookCross",
+		
+		"Talking",
 	]
 
 const FACE_VALUE_FLOAT = 0

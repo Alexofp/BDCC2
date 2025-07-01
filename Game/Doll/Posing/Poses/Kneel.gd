@@ -14,6 +14,8 @@ func _init() -> void:
 	noSprint = true
 	walkSpeed = CRAWL_SPEED
 	walkSupportsArmPose = false
+	
+	preventsPartialGestures = false
 
 func hasCustomCamera() -> bool:
 	return true

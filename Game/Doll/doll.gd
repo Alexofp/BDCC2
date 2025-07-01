@@ -13,6 +13,15 @@ class_name Doll
 @export var disableInternalAnimPlayer:bool = false
 @onready var hover_text: Label3D = %HoverText
 
+@onready var look_at_modifier_chest: LookAtModifier3D = %LookAtModifierChest
+@onready var look_at_modifier_neck: LookAtModifier3D = %LookAtModifierNeck
+@onready var look_at_modifier_head: LookAtModifier3D = %LookAtModifierHead
+@onready var look_at_target: Node3D = %LookAtTarget
+@onready var look_at_eyes: Node3D = %LookAtEyes
+@onready var look_at_target_default: Node3D = %LookAtTargetDefault
+
+var lookAtNode:Node3D = null
+
 var expressionState:int = DollExpressionState.Normal
 
 var characterRef:WeakRef
@@ -308,6 +317,9 @@ func _physics_process(_delta: float) -> void:
 			var theEntry:Array = partUpdateQueue.pop_front()
 			updatePartFromCharacter(theEntry[0], theEntry[1])
 
+func _process(_delta: float) -> void:
+	processLookAt(_delta)
+	
 var partUpdateQueue:Array = []
 var partUpdateQueueTimer:float = 0.0
 func updateFromCharacter():
@@ -434,12 +446,15 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 				#
 	#triggerDollPartFlagsUpdate()
 
+signal attachPointSetupChanged
+
 func setupAttachPoint(attachPoint):
 	var attachPointName:String = attachPoint.pointName
 	
 	#assert(!attachPoints.has(attachPointName), "TRYING TO ADD AN ATTACH POINT WITH THE EXISTING NAME "+str(attachPointName))
 	
 	attachPoints[attachPointName] = attachPoint
+	attachPointSetupChanged.emit()
 
 func removeAttachPoint(attachPoint):
 	var attachPointName:String = attachPoint.pointName
@@ -449,6 +464,7 @@ func removeAttachPoint(attachPoint):
 	
 	if(attachPoints.has(attachPointName) && attachPoints[attachPointName] == attachPoint):
 		attachPoints.erase(attachPointName)
+		attachPointSetupChanged.emit()
 
 func getAttachPoint(pointName:String) -> DollAttachPoint:
 	if(!attachPoints.has(pointName)):
@@ -785,3 +801,75 @@ func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
 
 func getHoverText() -> Label3D:
 	return hover_text
+
+func setLookAtModifiersInfluence(_inf:float):
+	look_at_modifier_head.active = (_inf > 0.0)
+	look_at_modifier_neck.active = (_inf > 0.0)
+	look_at_modifier_chest.active = (_inf > 0.0)
+	
+	look_at_modifier_head.influence = _inf
+	look_at_modifier_neck.influence = _inf*0.75
+	look_at_modifier_chest.influence = _inf*0.5
+
+func getLookAtModifiersInfluence() -> float:
+	return look_at_modifier_head.influence
+
+var lookAtTimer:float = 0.0
+
+func processLookAt(_dt:float):
+	if(!lookAtNode):
+		var theInf:float = look_at_modifier_head.influence
+		if(theInf > 0.0):
+			theInf -= _dt*3.0
+			theInf = clamp(theInf, 0.0, 1.0)
+			setLookAtModifiersInfluence(theInf)
+			if(theInf <= 0.0):
+				look_at_target.position = look_at_target_default.position
+		return
+	else:
+		var theInf:float = look_at_modifier_head.influence
+		if(theInf < 1.0):
+			theInf += _dt*3.0
+			theInf = clamp(theInf, 0.0, 1.0)
+			setLookAtModifiersInfluence(theInf)
+		
+		var desiredPos:Vector3 = lookAtNode.global_position
+		var dirTo:Vector3 = desiredPos - look_at_target.global_position
+		var theDist:float = dirTo.length()
+		
+		if(!isLookAtCustom):
+			lookAtTimer -= _dt
+			if(lookAtTimer <= 0.0 || theDist > 10.0):
+				lookAtNode = null
+				return
+		
+		if(theDist > 0.01):
+			dirTo = dirTo.normalized()
+			look_at_target.global_position += dirTo*_dt*min(theDist, 5.0)*5.0
+
+
+		
+func lookAt(_node:Node3D, _howLong:float = 10.0):
+	lookAtNode = _node
+	lookAtTimer = _howLong
+	isLookAtCustom = false
+
+func getEyesNode() -> Node3D:
+	return look_at_eyes
+
+
+@onready var look_at_target_custom: Node3D = %LookAtTargetCustom
+var isLookAtCustom:bool = false
+
+func lookAtClear():
+	isLookAtCustom = false
+	lookAtTimer = 0.0
+	lookAtNode = null
+
+func lookAtCustom(thePos:Vector3):
+	look_at_target_custom.position = thePos
+	lookAtNode = look_at_target_custom
+	isLookAtCustom = true
+
+func doFaceTalkAnim(_len:float):
+	voice_handler.sendEvent("talk", [_len])

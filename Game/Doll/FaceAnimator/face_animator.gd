@@ -33,6 +33,8 @@ var tweens:Dictionary[String, Tween] = {}
 @export var browsShy_anim:String = "Brows_Shy"
 @export var browsAngry_anim:String = "Brows_Angry"
 
+@export var talking_anim:String = "Talking"
+
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name.ends_with("_anim"):
@@ -57,6 +59,7 @@ var mouthSadParam:String = "Mouth_Sad/add_amount"
 var mouthSnarlParam:String = "Mouth_Snarl/add_amount"
 var browsShyParam:String = "Brows_Shy/blend_amount"
 var browsAngryParam:String = "Brows_Angry/blend_amount"
+var talkingParam:String = "Talking/add_amount"
 
 var valEyesClosed:float = 0.0
 var valEyesSexy:float = 0.0
@@ -70,6 +73,7 @@ var valMouthBlep:float = 0.0
 var valMouthSmile:float = 0.0
 var valMouthSad:float = 0.0
 var valMouthSnarl:float = 0.0
+var valTalking:float = 0.0
 	
 var valLookDir:Vector2 = Vector2()
 var valLookCross:float = 0.0
@@ -86,6 +90,7 @@ var savedvalMouthBlep:float = -1.0
 var savedvalMouthSmile:float = -1.0
 var savedvalMouthSad:float = -1.0
 var savedvalMouthSnarl:float = -1.0
+var savedvalTalking:float = -1.0
 	
 var savedvalLookDir:Vector2 = Vector2(-1.0, -1.0)
 var savedvalLookCross:float = -1.0
@@ -103,6 +108,7 @@ func resetVals():
 	valMouthSnarl = 0.0
 	valLookDir = Vector2(0.0, 0.0)
 	valLookCross = 0.0
+	valTalking = 0.0
 
 @onready var animTree: AnimationTree = %AnimationTree
 
@@ -186,6 +192,8 @@ func updateAnimTree():
 	setBlendTreeAnimNode(blendTree, "brows_shy", browsShy_anim)
 	setBlendTreeAnimNode(blendTree, "brows_angry", browsAngry_anim)
 	
+	setBlendTreeAnimNode(blendTree, "talking_anim", talking_anim)
+	
 	setBlendTreeAnimNode(blendTree, "look_cross", lookCross_anim)
 	
 	setBlendTreeBlend1Nodes(blendTree, "Look_Dir_X", [
@@ -267,6 +275,9 @@ func doMoanLoudness(_soundEntry: SexSoundEntry, _loudness: SexSoundLoudness, _vo
 	sendFaceGestureEvent("moanLoudness", [_soundEntry, _loudness, _voiceHandler, moanMult])
 	sendFaceGestureEvent("orgasm", [])
 
+func doTalk(_length:float = 3.0):
+	sendFaceGestureEvent("talk", [_length])
+
 func onVoiceSound(_soundType: int, _soundEntry: SexSoundEntry, _voiceHandler:VoiceHandler):
 	if(_soundType == SexSoundType.Moan):
 		doMoan(_soundEntry, _voiceHandler, RNG.randfRange(0.5, 0.8))
@@ -330,6 +341,8 @@ func updateFaceExpression(_delta: float):
 				valMouthSmile = faceOverride.getFaceValueOverride(fieldID)
 			FaceValue.MouthSnarl:
 				valMouthSnarl = faceOverride.getFaceValueOverride(fieldID)
+			FaceValue.Talking:
+				valTalking = faceOverride.getFaceValueOverride(fieldID)
 			FaceValue.LookDir:
 				valLookDir = faceOverride.getFaceValueOverride(fieldID, Vector2(0.0, 0.0))
 
@@ -369,6 +382,9 @@ func updateFaceExpression(_delta: float):
 	if(valMouthSnarl != savedvalMouthSnarl):
 		savedvalMouthSnarl = valMouthSnarl
 		setParam(mouthSnarlParam, valMouthSnarl)
+	if(valTalking != savedvalTalking):
+		savedvalTalking = valTalking
+		setParam(talkingParam, valTalking)
 	if(valLookDir != savedvalLookDir):
 		savedvalLookDir = valLookDir
 		setParam(lookDirXParam, valLookDir.x)

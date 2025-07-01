@@ -24,6 +24,9 @@ enum QueueEntry {
 	Say,
 	Event,
 	State,
+	LookAt,
+	StopLookAt,
+	StopInteraction,
 }
 
 func involve(_role:int, _pawn:CharacterPawn):
@@ -115,6 +118,15 @@ func pushDelay(_delay:float):
 func pushSay(_role:int, _text:String):
 	interactionQueue.append([QueueEntry.Say, _role, _text])
 
+func pushLookAt(_role1:int, _role2:int):
+	interactionQueue.append([QueueEntry.LookAt, _role1, _role2])
+
+func pushStopLookAt(_role1:int):
+	interactionQueue.append([QueueEntry.StopLookAt, _role1])
+	
+func pushStopInteraction():
+	interactionQueue.append([QueueEntry.StopInteraction])
+
 func pushEvent(_eventID:String, _args:Array = []):
 	interactionQueue.append([QueueEntry.Event, _eventID, _args])
 
@@ -147,6 +159,15 @@ func processQueue(_dt:float):
 			QueueEntry.State:
 				setState(theEntry[1])
 				interactionQueue.pop_front()
+			QueueEntry.LookAt:
+				lookAt(theEntry[1], theEntry[2], theEntry[3] if theEntry.size() > 3 else false)
+				interactionQueue.pop_front()
+			QueueEntry.StopLookAt:
+				stopLookAt(theEntry[1])
+				interactionQueue.pop_front()
+			QueueEntry.StopInteraction:
+				stopInteraction()
+				interactionQueue.pop_front()
 			_:
 				assert(false, "BAD QUEUE ENTRY TYPE")
 				interactionQueue.pop_front()
@@ -175,11 +196,37 @@ func stopInteraction():
 func isCharIDInvolved(_charID:String):
 	return idToRole.has(_charID)
 
-func sayText(_role:int, _text:String):
+func sayText(_role:int, _text:String, talkGesture:bool = true):
 	#print(str(_role)+": "+_text)
 	var thePawn := getPawn(_role)
 	if(thePawn):
 		thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
+		if(talkGesture):
+			doTalkGesture(_role)
+		#if(talkMouth):
+		#	doTalkFaceAnim(_role)
+
+# Not multiplayer-synced
+#func doTalkFaceAnim(_role:int, _len:float = 3.0):
+	#var thePawn := getPawn(_role)
+	#if(thePawn && thePawn.isDollSpawned()):
+		#thePawn.getDoll().getDoll().doFaceTalkAnim(_len)
+
+func doGesture(_role:int, _gestureID:String):
+	var thePawn := getPawn(_role)
+	if(thePawn):
+		thePawn.playGesture(_gestureID)
+
+func doTalkGesture(_role:int):
+	doGesture(_role, RNG.pick([
+		DollGesture.Talking1Hand,
+		DollGesture.Talking2Hands,
+		DollGesture.HeadGesture,
+		DollGesture.HeadGestureShort,
+		DollGesture.HeadNod,
+		DollGesture.HappyHand,
+		DollGesture.LookAway,
+	]))
 
 func startAction(_role:int, actionID:String, args:Array = []):
 	var thePawn:CharacterPawn = getPawn(_role)
@@ -220,3 +267,23 @@ func getDistanceBetween(_role1:int, _role2:int) -> float:
 	if(!pawn1 || !pawn2):
 		return 99999.9
 	return pawn1.global_position.distance_to(pawn2.global_position)
+
+func lookAt(_role1:int, _role2:int, lookBack:bool = false):
+	var pawn1:= getPawn(_role1)
+	var pawn2:= getPawn(_role2)
+	if(!pawn1 || !pawn2):
+		return
+	var doll1:= pawn1.getDoll()
+	var doll2:= pawn2.getDoll()
+	if(doll1 && doll2):
+		GM.dollHolder.askLookAtDoll(doll1, doll2)
+		if(lookBack):
+			GM.dollHolder.askLookAtDoll(doll2, doll1)
+
+func stopLookAt(_role1:int):
+	var pawn1:= getPawn(_role1)
+	if(!pawn1):
+		return
+	var doll1:= pawn1.getDoll()
+	if(doll1 && doll1.getDoll()):
+		GM.dollHolder.askLookAtClear(doll1)

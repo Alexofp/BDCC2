@@ -555,6 +555,28 @@ func getIdlePose() -> String:
 func getPoseArms() -> String:
 	return poseArms
 
+func isFullbodyGesturesBlocked() -> bool:
+	if(idlePose != ""):
+		var thePose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(thePose && thePose.doesPreventFullbodyGestures()):
+			return true
+	if(poseArms != ""):
+		var thePose:DollPoseBase = GlobalRegistry.getDollPose(poseArms)
+		if(thePose && thePose.doesPreventFullbodyGestures()):
+			return true
+	return false
+	
+func isPartialGesturesBlocked() -> bool:
+	if(idlePose != ""):
+		var thePose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(thePose && thePose.doesPreventPartialGestures()):
+			return true
+	if(poseArms != ""):
+		var thePose:DollPoseBase = GlobalRegistry.getDollPose(poseArms)
+		if(thePose && thePose.doesPreventPartialGestures()):
+			return true
+	return false
+
 func saveNetworkData() -> Dictionary:
 	var skinTypesData:Dictionary = {}
 	for skinType in skinTypes:

@@ -697,3 +697,11 @@ func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial
 func playGesture(gestureID: String):
 	GM.dollHolder.askPlayGesture(self, gestureID)
 	
+func lookAt(_node:Node3D):
+	getDoll().lookAt(_node)
+
+func lookAtDoll(_doll:DollController):
+	if(!_doll):
+		lookAt(null)
+	else:
+		lookAt(_doll.getDoll().getEyesNode())

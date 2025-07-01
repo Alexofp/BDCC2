@@ -5,10 +5,24 @@ class_name DollAttachTo
 @export var skeletonMeshes:Array[MeshInstance3D] = []
 var savedPoint:DollAttachPoint
 
+var theDoll:Doll
+
 #func _ready() -> void:
 #	process_priority = 99999
 
+func _enter_tree() -> void:
+	theDoll = calculateDoll()
+	if(theDoll):
+		theDoll.attachPointSetupChanged.connect(updateAttach)
+
+func _ready() -> void:
+	if(theDoll):
+		updateAttach()
+
 func getDoll() -> Doll:
+	return theDoll
+	
+func calculateDoll() -> Doll:
 	var result:Node = get_parent()
 	
 	while(result != null):
@@ -17,7 +31,10 @@ func getDoll() -> Doll:
 		result = result.get_parent()
 	return null
 
-func _process(_delta: float) -> void:
+#func _process(_delta: float) -> void:
+#	pass
+
+func updateAttach():
 	var doll := getDoll()
 	if(doll != null):
 		var pointNode := doll.getAttachPoint(attachPoint)
@@ -60,5 +77,6 @@ func onNewAttachPoint(oldPoint, newPoint):
 
 
 func _exit_tree() -> void:
+	theDoll = null
 	if(savedPoint && is_instance_valid(savedPoint)):
 		savedPoint.removeAttach(self)

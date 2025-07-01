@@ -17,6 +17,8 @@ var noSprint:bool = false
 var walkSpeed:float = 1.0
 var walkSupportsArmPose:bool = true
 var poseSupportsArmPose:bool = true
+var preventsPartialGestures:bool = true
+var preventsFullbodyGestures:bool = true
 
 var poseType:int = PoseType.Fullbody
 
@@ -52,3 +54,9 @@ func doesWalkSupportArmPoses() -> bool:
 
 func doesPoseSupportArmPoses() -> bool:
 	return poseSupportsArmPose
+
+func doesPreventPartialGestures() -> bool:
+	return preventsPartialGestures
+	
+func doesPreventFullbodyGestures() -> bool:
+	return preventsFullbodyGestures

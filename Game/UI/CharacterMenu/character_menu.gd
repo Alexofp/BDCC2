@@ -97,3 +97,45 @@ func _exit_tree() -> void:
 func tryCloseMenu() -> bool:
 	onClose.emit()
 	return true
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if(event is InputEventMouseButton):
+		if(event.button_index == MOUSE_BUTTON_RIGHT && event.pressed):
+			if(GM.pcDoll):
+				GM.dollHolder.askLookAtClear(GM.pcDoll)
+		
+		if(event.button_index == MOUSE_BUTTON_LEFT && event.pressed):
+			#print("PRESSED!")
+			shoot_ray()
+
+func shoot_ray():
+	var theCamera := get_viewport().get_camera_3d()
+# here we tell where to raycast is pointing adn from where
+	var mouse_pos := get_viewport().get_mouse_position() 
+	var ray_length := 1000.0
+	var from := theCamera.project_ray_origin(mouse_pos)
+	var to := from + theCamera.project_ray_normal(mouse_pos) * ray_length
+	var space_state := theCamera.get_world_3d().direct_space_state
+
+# here i set params for intersect_ray
+	var params := PhysicsRayQueryParameters3D.new()
+	params.from = from
+	params.to = to
+	params.collide_with_areas = true  # Set to true to include Area nodes
+	params.collide_with_bodies = true  # Set to true to include PhysicsBody nodes (don't know if necessary)
+
+	var result := space_state.intersect_ray(params)
+
+# here I try to see the result
+	if result and result.collider:
+		#print("Raycast hit: ", result.collider, " ", result.position)
+		if(GM.pcDoll):
+			if(result.collider == GM.pcDoll):
+				GM.dollHolder.askLookAtClear(GM.pcDoll)
+			else:
+				GM.dollHolder.askLookAtCustom(GM.pcDoll, result.position)
+	else: 
+		#print("Raycast hit: ", result)
+		if(GM.pcDoll):
+			GM.dollHolder.askLookAtClear(GM.pcDoll)

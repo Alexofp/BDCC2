@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://y65ir3supv5s"]
+[gd_scene load_steps=21 format=3 uid="uid://y65ir3supv5s"]
 
 [ext_resource type="Script" uid="uid://cy0ulaqjxe5e3" path="res://Game/Doll/doll.gd" id="1_x8ebr"]
 [ext_resource type="PackedScene" uid="uid://c56fqxox0e0ia" path="res://Mesh/Skeleton/body_skeleton.tscn" id="2_k7aqf"]
@@ -65,6 +65,8 @@ spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
 
+[sub_resource type="BoxMesh" id="BoxMesh_5l1g8"]
+
 [node name="Doll" type="Node3D"]
 script = ExtResource("1_x8ebr")
 
@@ -74,8 +76,15 @@ unique_name_in_owner = true
 [node name="BodySkeleton" parent="Parts" instance=ExtResource("2_k7aqf")]
 unique_name_in_owner = true
 
+[node name="BoneAttachment3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="1"]
+transform = Transform3D(1, -2.3825046e-15, -1.9344623e-15, 2.479612e-15, 0.99865484, 0.051856153, 1.8083095e-15, -0.051856156, 0.9986547, 3.738823e-15, 1.6004182, -0.039354894)
+
 [node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" instance=ExtResource("3_l2cwv")]
 unique_name_in_owner = true
+
+[node name="LookAtEyes" type="Node3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="2"]
+unique_name_in_owner = true
+transform = Transform3D(1, 5.9557004e-23, 0, 5.9557004e-23, 1, 0, -6.352747e-22, 0, 1, 1.452509e-16, 0.03637588, 0.024326924)
 
 [node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="2"]
 _import_path = NodePath("")
@@ -229,6 +238,12 @@ bone_name = "vagina"
 properties = SubResource("Resource_avrwx")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
+[node name="HoverTextBoneAttach" parent="Parts/BodySkeleton/rig/Skeleton3D" index="7"]
+transform = Transform3D(1, 1.4995202e-14, -1.257985e-14, -1.2583044e-14, 0.9848093, 0.17364034, 1.4992524e-14, -0.17364034, 0.9848093, 1.1402046e-18, 1.3580042, -0.009756824)
+
+[node name="BoneAttachment3D3" parent="Parts/BodySkeleton/rig/Skeleton3D" index="8"]
+transform = Transform3D(1, 1.591379e-14, -5.9927285e-15, -1.6021515e-14, 0.99983037, -0.01842612, 5.6984802e-15, 0.01842612, 0.99983037, 2.6645746e-15, 1.5329254, -0.040598713)
+
 [node name="HoverText" type="Label3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" index="1"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.343, -0.095)
@@ -238,6 +253,12 @@ fixed_size = true
 vertical_alignment = 2
 autowrap_mode = 3
 width = 600.0
+
+[node name="ChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" index="15"]
+transform = Transform3D(1, 7.206556e-18, -3.3025815e-18, -6.5006073e-18, 0.98401076, 0.17810988, 4.5324733e-18, -0.17810988, 0.98401076, 4.2351647e-22, 1.2023741, 0.018412834)
+
+[node name="UpperChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" index="16"]
+transform = Transform3D(1, 1.4995202e-14, -1.257985e-14, -1.2583044e-14, 0.9848093, 0.17364034, 1.4992524e-14, -0.17364034, 0.9848093, 1.1402046e-18, 1.3580042, -0.009756824)
 
 [node name="DollAttachPoint" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2" index="0"]
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
@@ -250,6 +271,50 @@ process_material = SubResource("ParticleProcessMaterial_q8qd3")
 
 [node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2"]
 process_material = SubResource("ParticleProcessMaterial_i5c51")
+
+[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="18"]
+unique_name_in_owner = true
+influence = 0.5
+target_node = NodePath("../../../../../LookAtTarget")
+bone_name = "chest"
+bone = 21
+use_secondary_rotation = false
+duration = 0.3
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.5707964
+primary_damp_threshold = 1.0
+
+[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="19"]
+unique_name_in_owner = true
+influence = 0.75
+target_node = NodePath("../../../../../LookAtTarget")
+bone_name = "neck"
+bone = 23
+duration = 0.4
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.5707964
+primary_damp_threshold = 1.0
+secondary_limit_angle = 0.6981317
+secondary_damp_threshold = 1.0
+
+[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="20"]
+unique_name_in_owner = true
+target_node = NodePath("../../../../../LookAtTarget")
+bone_name = "head"
+bone = 24
+duration = 0.7
+transition_type = 1
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.134464
+primary_damp_threshold = 1.0
+secondary_limit_angle = 0.5235988
+secondary_damp_threshold = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton"]
 unique_name_in_owner = true
@@ -340,6 +405,24 @@ parameters/BodyGesture_Selector/current_index = -1
 unique_name_in_owner = true
 resolution = Vector2i(256, 256)
 clearColor = Color(0, 0, 0, 0)
+
+[node name="LookAtTarget" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LookAtTarget"]
+transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_5l1g8")
+
+[node name="LookAtTargetDefault" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
+
+[node name="LookAtTargetCustom" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
+top_level = true
 
 [node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88834, 0)
