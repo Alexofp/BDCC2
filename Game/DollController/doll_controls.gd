@@ -62,8 +62,8 @@ func processInput():
 	move_direction = move_direction.normalized()
 	move_direction_no_y = move_direction_no_y.normalized()
 	
-	if(Input.is_action_just_pressed("move_jump")):
-		GameInteractor.sendPingToServer()
+	#if(Input.is_action_just_pressed("move_jump")):
+	#	GameInteractor.sendPingToServer()
 
 func _unhandled_input(event):
 	if(Network.isMultiplayer() && !is_multiplayer_authority()):
