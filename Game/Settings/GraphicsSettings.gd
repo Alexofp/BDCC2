@@ -56,6 +56,12 @@ enum TEXTURESCHARACTERS {
 }
 var texturesChar:int
 
+enum TEXTURESCOMPRESSION {
+	DISABLED,
+	ENABLED,
+}
+var texturesCompression:int
+
 enum SSAO {
 	DISABLED,
 	ENABLED,
@@ -170,6 +176,16 @@ func getSettings() -> Dictionary:
 				[TEXTURESCHARACTERS.LOW, "Low"],
 			],
 			default = TEXTURESCHARACTERS.MAX,
+			addSeparator = false,
+		},
+		"texturesCompression": {
+			name = "Texture compression",
+			type = "selector",
+			values = [
+				[TEXTURESCOMPRESSION.DISABLED, "Disabled (Higher VRAM usage)"],
+				[TEXTURESCOMPRESSION.ENABLED, "Enabled (Lower VRAM usage)"],
+			],
+			default = TEXTURESCOMPRESSION.DISABLED,
 			addSeparator = true,
 		},
 		"ssaa": {
@@ -312,6 +328,8 @@ func applySettingValue(_settingID:String, newVal:Variant):
 					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		
 		"texturesChar":
+			OPTIONS.triggerCharTextureQualityChange()
+		"texturesCompression":
 			OPTIONS.triggerCharTextureQualityChange()
 	
 	#print("APPLIED: "+_settingID)

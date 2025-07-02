@@ -152,7 +152,7 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 		#cachedTexture = ImageTexture.create_from_image(sub_viewport.get_texture().get_image())
 		#onTextureUpdated.emit(cachedTexture)
 		#onTextureUpdated.emit(sub_viewport.get_texture())
-	if(bakeTexture):
+	if(bakeTexture && OPTIONS.graphics.texturesCompression == GraphicsSettings.TEXTURESCOMPRESSION.ENABLED):
 		cache_timer.start()
 	
 	if(!dirty):
