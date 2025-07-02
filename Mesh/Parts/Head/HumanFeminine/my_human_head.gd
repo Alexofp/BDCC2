@@ -4,7 +4,7 @@ extends DollPart
 @onready var my_human_head: MeshInstance3D = $MyHeadRig/Skeleton3D/MyHumanHead
 
 var eyeMat:ShaderMaterial
-var headMat:MyMasterBodyMat
+var headMat:MyMasterMaterial
 @onready var face_animator: FaceAnimator = %FaceAnimator
 
 func grabMaterials():
@@ -52,5 +52,5 @@ func updateBodyMess():
 	if(!_mess):
 		return
 	if(headMat):
-		headMat.set_shader_parameter("cumCutoff", 1.0-_mess.getMess(FluidsOnBodyZone.Face))
-		headMat.set_shader_parameter("cum_layer_scale", 1.0)
+		headMat.set_shader_parameter("messCutoff", 1.0-_mess.getMess(FluidsOnBodyZone.Face))
+		headMat.set_shader_parameter("messLayerScale", 1.0)

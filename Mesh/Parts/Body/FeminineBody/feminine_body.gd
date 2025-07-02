@@ -5,7 +5,7 @@ extends DollPart
 @onready var neck_connector: MeshInstance3D = %NeckConnector
 @onready var neck_connector_furry: MeshInstance3D = %NeckConnectorFurry
 
-var bodyMat:MyMasterBodyMat
+var bodyMat:MyMasterMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -37,7 +37,7 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	if(bodyMat == null):
 		return
 		
-	const ignoreUniforms = ["albedo", "texture_cum_mask"]
+	const ignoreUniforms = ["albedo", "texture_mess_mask"]
 		
 	if(_skinTypeData.skinType == SkinType.HumanSkin):
 		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
@@ -50,7 +50,7 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)
-	bodyMat.set_shader_parameter("cumScroll", randomCumScroll)
+	bodyMat.set_shader_parameter("messScroll", randomCumScroll)
 	updateBodyTexture()
 	updateBodyMess()
 
@@ -100,7 +100,7 @@ func updateBodyMess():
 
 func _on_cum_layer_on_texture_updated(newTexture: Variant) -> void:
 	if(bodyMat):
-		bodyMat.set_shader_parameter("texture_cum_mask", newTexture)
+		bodyMat.set_shader_parameter("texture_mess_mask", newTexture)
 
 func updateBodyAlphaMask(_finalAlpha:Texture2D):
 	if(bodyMat):

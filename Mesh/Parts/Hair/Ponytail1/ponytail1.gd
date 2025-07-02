@@ -1,6 +1,6 @@
 extends DollPart
 
-var hairMat:MyMasterBodyMat
+var hairMat:MyMasterMaterial
 
 @onready var ponytail: MeshInstance3D = %Ponytail
 

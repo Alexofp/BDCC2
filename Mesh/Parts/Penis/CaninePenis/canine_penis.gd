@@ -3,11 +3,11 @@ extends DollPart
 @onready var balls: MeshInstance3D = $CaninePenisRig/Skeleton3D/Balls
 @onready var shaft: MeshInstance3D = $CaninePenisRig/Skeleton3D/Shaft
 
-var ballsMat:MyMasterBodyMat
-var shaftMat:MyMasterBodyMat
+var ballsMat:MyMasterMaterial
+var shaftMat:MyMasterMaterial
 @export var nodeToScale:Node3D
 @export var furTuft:MeshInstance3D
-var tuftMat:MyMasterBodyMat
+var tuftMat:MyMasterMaterial
 @export var penisModifier:PenisSkeletonModifier
 @export var jiggleModifiers:Array[SkeletonModifier3D] = []
 

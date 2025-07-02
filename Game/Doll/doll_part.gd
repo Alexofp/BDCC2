@@ -137,7 +137,7 @@ func addLayersToTexture(layeredTexture:MyLayeredTexture, layers:Array):
 		elif(textureVariant.pathTexture != ""):
 			layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK)
 
-func applyColormaskPatternToMyMat(theMat:MyMasterBodyMat, theValue:Dictionary):
+func applyColormaskPatternToMyMat(theMat:MyMasterMaterial, theValue:Dictionary):
 	if(!theMat):
 		return
 	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "")

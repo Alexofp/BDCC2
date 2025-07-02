@@ -4,7 +4,7 @@ extends DollPart
 @onready var eyes: MeshInstance3D = $MyHeadRig/Skeleton3D/Eyes
 
 var eyeMat:ShaderMaterial
-var headMat:MyMasterBodyMat
+var headMat:MyMasterMaterial
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
 
@@ -39,9 +39,9 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	headMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_Normal.png"))
 	headMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_ORM.png"))
 	
-	#headMat.set_shader_parameter("texture_cum_mask", CUM_NOISE)
-	#headMat.set_shader_parameter("texture_cum_mask", null)
-	#headMat.set_shader_parameter("texture_cum_layer", null)
+	#headMat.set_shader_parameter("texture_mess_mask", CUM_NOISE)
+	#headMat.set_shader_parameter("texture_mess_mask", null)
+	#headMat.set_shader_parameter("texture_mess_layer", null)
 	
 	updateHeadTexture()
 
@@ -76,8 +76,8 @@ func updateBodyMess():
 	if(!_mess):
 		return
 	if(headMat):
-		headMat.set_shader_parameter("cumCutoff", 1.0-_mess.getMess(FluidsOnBodyZone.Face))
-		headMat.set_shader_parameter("cum_layer_scale", 1.0)
+		headMat.set_shader_parameter("messCutoff", 1.0-_mess.getMess(FluidsOnBodyZone.Face))
+		headMat.set_shader_parameter("messLayerScale", 1.0)
 #	CUM_NOISE.color_ramp.set_offset(0, 1.0-_mess.getMess(FluidsOnBodyZone.Face))
 
 func applyPartFlags(_theFlags:Dictionary):

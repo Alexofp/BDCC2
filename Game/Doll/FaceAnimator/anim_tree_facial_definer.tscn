@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="3_0qvfw"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="4_2e0eg"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="5_ucdhx"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="6_kgkvm"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="6_kgkvm"]
 [ext_resource type="Texture2D" uid="uid://cvaiqtu6j2dk8" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png" id="7_p5s66"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="8_qf5i2"]
 [ext_resource type="Texture2D" uid="uid://cq0hn1n6r44g1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_Normal.png" id="9_gvoht"]

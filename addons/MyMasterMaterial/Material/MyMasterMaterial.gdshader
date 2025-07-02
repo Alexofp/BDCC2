@@ -1,18 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://bit1p64srkgtb"]
+shader_type spatial;
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_cvnc3"]
-[ext_resource type="Texture2D" uid="uid://bx3lmwjs2mg0t" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_BaseColor.png" id="2_xtm00"]
-[ext_resource type="Texture2D" uid="uid://1v188h0t0al1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Emit.png" id="3_k1cni"]
-[ext_resource type="Texture2D" uid="uid://bjcbpfemns8s4" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Normal.png" id="4_2sc7i"]
-[ext_resource type="Texture2D" uid="uid://wenkwwijoepq" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_ORM.png" id="5_2sk36"]
-
-[sub_resource type="Shader" id="Shader_cvnc3"]
-code = "shader_type spatial;
-
-#define MY_NORMAL_MAP
-#define MY_PBR_ORM
-#define MY_COLORMASK
-
+//{{DEFINES_PLACEHOLDER}}
 
 render_mode
 blend_mix,
@@ -433,30 +421,4 @@ void light(){
 	vec3 add2 = add1 + smoothed * rimlight_color.rgb;
 	DIFFUSE_LIGHT += ALBEDO * add2;
 }
-#endif"
-
-[resource]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_cvnc3")
-shader_parameter/texture_albedo = ExtResource("2_xtm00")
-shader_parameter/texture_normal = ExtResource("4_2sc7i")
-shader_parameter/texture_orm = ExtResource("5_2sk36")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = ExtResource("3_k1cni")
-shader_parameter/color_mask_r = Color(0.62, 0.209147, 0.1798, 1)
-shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
-shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
-script = ExtResource("1_cvnc3")
-normalMap = 1
-pbrSetup = 3
-colorMask = true
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+#endif

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d32omdfp8acg8"]
 
 [ext_resource type="PackedScene" uid="uid://ctlxdll74pd6e" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn" id="1_2qxtl"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://Mesh/Materials/MyBodyMat/MyMasterBodyMat.gd" id="2_r3sbk"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="2_r3sbk"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_4iue4"]
 
 [sub_resource type="Shader" id="Shader_plkf8"]

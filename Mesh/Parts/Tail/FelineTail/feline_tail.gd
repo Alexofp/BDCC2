@@ -2,7 +2,7 @@ extends DollPart
 
 @export var fuzzyTail:MeshInstance3D
 @export var lionTip:MeshInstance3D
-var tailMat:MyMasterBodyMat
+var tailMat:MyMasterMaterial
 @export var tailSkeletonModifier:TailSkeletonModifier
 
 func grabMaterials():
