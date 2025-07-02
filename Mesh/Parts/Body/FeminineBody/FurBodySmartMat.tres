@@ -303,8 +303,8 @@ offsets = PackedFloat32Array(0.441718, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_k5qwb"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8loft"]
-color_ramp = SubResource("Gradient_dqa3g")
 noise = SubResource("FastNoiseLite_k5qwb")
+color_ramp = SubResource("Gradient_dqa3g")
 
 [resource]
 resource_local_to_scene = true
@@ -334,18 +334,7 @@ shader_parameter/cumCutoff = 0.0
 shader_parameter/cumSmoothSize = 0.1
 script = ExtResource("1_m2oq5")
 backlight = true
-freshnel = false
-rimlight = false
-subsurfaceScattering = false
 alphaMask = true
 uvBasedDiscard = true
-alphaSupport = false
-globalDetailMask = false
-globalDetailRoughMask = false
-colorMask = false
-eyeMode = false
-doubleSided = false
 outline = true
-toonShading = false
 cumLayer = true
-clearCache = false

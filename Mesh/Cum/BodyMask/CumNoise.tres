@@ -11,6 +11,6 @@ frequency = 0.0422
 [resource]
 width = 256
 height = 256
-seamless = true
-color_ramp = SubResource("Gradient_iri6k")
 noise = SubResource("FastNoiseLite_iri6k")
+color_ramp = SubResource("Gradient_iri6k")
+seamless = true

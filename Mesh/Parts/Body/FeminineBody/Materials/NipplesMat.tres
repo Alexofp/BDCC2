@@ -300,9 +300,9 @@ frequency = 0.1205
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ldx5"]
 width = 128
 height = 128
+noise = SubResource("FastNoiseLite_d17xq")
 as_normal_map = true
 bump_strength = 0.4
-noise = SubResource("FastNoiseLite_d17xq")
 
 [resource]
 render_priority = 0
@@ -319,20 +319,5 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 script = ExtResource("1_c2p8e")
-backlight = false
-freshnel = false
-rimlight = false
-subsurfaceScattering = false
-alphaMask = false
-uvBasedDiscard = false
 alphaSupport = true
-globalDetailMask = false
-globalDetailRoughMask = false
-colorMask = false
-eyeMode = false
-doubleSided = false
-outline = false
-toonShading = false
-cumLayer = false
-clearCache = false
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

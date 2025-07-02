@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d2lavghuqbe41" path="res://Mesh/Clothing/Shorts/Textures/Shorts_low_DefaultMaterial_Normal.png" id="4_vrep4"]
 [ext_resource type="Texture2D" uid="uid://bvuii28kgnhae" path="res://Mesh/Clothing/Shorts/Textures/Shorts_low_DefaultMaterial_ORM.png" id="5_btkyx"]
 
-[sub_resource type="Shader" id="Shader_yytri"]
+[sub_resource type="Shader" id="Shader_01lk7"]
 code = "shader_type spatial;
 
 #define MY_RIMLIGHT
@@ -301,7 +301,7 @@ void fragment() {
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_yytri")
+shader = SubResource("Shader_01lk7")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/texture_albedo = ExtResource("2_t01qc")
 shader_parameter/texture_orm = ExtResource("5_btkyx")
@@ -321,20 +321,7 @@ shader_parameter/color_mask_r = Color(0.26, 0.26, 0.26, 1)
 shader_parameter/color_mask_g = Color(0.32, 0.117333, 0, 1)
 shader_parameter/color_mask_b = Color(1, 0.4, 0, 1)
 script = ExtResource("1_yytri")
-backlight = false
-freshnel = false
 rimlight = true
-subsurfaceScattering = false
-alphaMask = false
-uvBasedDiscard = false
-alphaSupport = false
-globalDetailMask = false
-globalDetailRoughMask = false
 colorMask = true
-eyeMode = false
 doubleSided = true
-outline = false
-toonShading = false
-cumLayer = false
-clearCache = false
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

@@ -8,10 +8,10 @@ colors = PackedColorArray(0.76, 0.76, 0.76, 0, 1, 1, 1, 1)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ip2re"]
 height = 64
-in_3d_space = true
-seamless = true
-color_ramp = SubResource("Gradient_hg8w3")
 noise = SubResource("FastNoiseLite_pcqtq")
+color_ramp = SubResource("Gradient_hg8w3")
+seamless = true
+in_3d_space = true
 
 [resource]
 transparency = 1
