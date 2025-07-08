@@ -3,6 +3,7 @@ extends BodypartTailBase
 var tailType:String = "fluffy"
 var thickness:float = 0.0
 var tailLenMod:float = 1.0
+var idleAnim:String = "TailWag"
 
 var pattern:Dictionary = {
 	pattern = "FelineTail_Default",
@@ -27,6 +28,19 @@ func getSupportedSkinTypes() -> Dictionary:
 
 func getOptions() -> Dictionary:
 	var theOptions:Dictionary = super.getOptions()
+	theOptions["idleAnim"] = {
+			name = "Idle animation",
+			type = "selector",
+			values = [
+				["TailWag", "Wag"],
+				["TailWagHigh", "Wag high"],
+				["TailRest", "Rest"],
+				["TailWrappedAround", "Wrapped"],
+				["TailHug", "Hug"],
+				["TailTPose", "Spear"],
+			],
+			editors = [EDITOR_PART, EDITOR_INTERACT],
+		}
 	theOptions["tailLenMod"] = {
 			name = "Length",
 			type = "slider",

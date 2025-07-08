@@ -137,7 +137,7 @@ bone_name = "hips"
 bone_idx = 1
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D/BoneAttachment3D2" index="0" instance=ExtResource("2_8r017")]
-transform = Transform3D(1, -1.45786e-15, -1.45906e-15, 1.70219e-15, 0.982807, 0.184638, 1.1648e-15, -0.184638, 0.982807, 0, 0, 0)
+transform = Transform3D(1, -1.457861e-15, -1.4590591e-15, 1.7021899e-15, 0.9828071, 0.18463802, 1.164799e-15, -0.18463802, 0.9828071, -7.152177e-17, 0.008215368, -0.0015363991)
 pointName = "tail"
 
 [node name="DollAttachPoint2" parent="rig/Skeleton3D/BoneAttachment3D2" index="1" instance=ExtResource("2_8r017")]

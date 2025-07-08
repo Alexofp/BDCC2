@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdrof0fjtcmr4"]
+
+[ext_resource type="PackedScene" uid="uid://cdrtrymqai34n" path="res://Mesh/Parts/Hair/Ponytail2/Ponytail2.glb" id="1_hluix"]
+[ext_resource type="Script" uid="uid://b6teahv8spryk" path="res://Mesh/Parts/Hair/Ponytail2/ponytail_2.gd" id="2_jv8h1"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="2_ke2gs"]
+[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/Parts/SharedMaterials/RubberBandMat.tres" id="3_jv8h1"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_pobbw"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_ytwix"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_yh2ul"]
+
+[sub_resource type="Resource" id="Resource_77wm5"]
+script = ExtResource("7_yh2ul")
+spring_freq = 2.0
+linear_scale = 1065.882
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[node name="Ponytail2" instance=ExtResource("1_hluix")]
+script = ExtResource("2_jv8h1")
+
+[node name="Ponytail2Rig" parent="." index="0"]
+script = ExtResource("3_pobbw")
+attachPoint = "hair"
+
+[node name="Ponytail2" parent="Ponytail2Rig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("2_ke2gs")
+surface_material_override/1 = ExtResource("3_jv8h1")
+
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 0, -1.509958e-07, 0, -1, 0, -1.509958e-07, 0, 1, 1.9398315e-17, 0.22720814, -0.15553114)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_ytwix")
+bone_name = "Tail1"
+properties = SubResource("Resource_77wm5")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 0, -1.509958e-07, 0, -1, 0, -1.509958e-07, 0, 1, 9.075767e-16, 0.06701964, -0.18675433)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_ytwix")
+bone_name = "Tail2"
+properties = SubResource("Resource_77wm5")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"

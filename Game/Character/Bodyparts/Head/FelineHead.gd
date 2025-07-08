@@ -8,6 +8,10 @@ var headLayers:Array = [
 		colorB = Color.WHITE,
 	}
 ]
+var fluff:bool = true
+var fluffDown:float = 0.0
+var fluffWide:float = 0.0
+var fluffShort:float = 0.0
 
 func _init():
 	id = "FelineHead"
@@ -33,6 +37,32 @@ func getOptions() -> Dictionary:
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "FelineHead",
 			editors = [EDITOR_SKIN],
+		}
+	theOptions["fluff"] = {
+			name = "Cheek fluff",
+			type = "bool",
+			editors = [EDITOR_PART],
+		}
+	theOptions["fluffDown"] = {
+			name = "Fluff down",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		}
+	theOptions["fluffWide"] = {
+			name = "Fluff spread",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		}
+	theOptions["fluffShort"] = {
+			name = "Fluff trim",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
 		}
 
 	return theOptions

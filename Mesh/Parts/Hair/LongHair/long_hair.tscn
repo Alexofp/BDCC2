@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://blg82y5mrciab"]
+
+[ext_resource type="PackedScene" uid="uid://jckxikftpr5y" path="res://Mesh/Parts/Hair/LongHair/LongHair.glb" id="1_3b5iq"]
+[ext_resource type="Script" uid="uid://cosom5mee60al" path="res://Mesh/Parts/Hair/LongHair/long_hair.gd" id="2_3b5iq"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_7kvhl"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_5iffy"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_7kvhl"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_5iffy"]
+
+[sub_resource type="Resource" id="Resource_7kvhl"]
+script = ExtResource("6_5iffy")
+spring_freq = 1.0
+linear_scale = 1065.882
+swing_span = 0.5235987755982988
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_5iffy"]
+script = ExtResource("6_5iffy")
+spring_freq = 1.0
+linear_scale = 1065.882
+swing_span = 0.5235987755982988
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[node name="LongHair" instance=ExtResource("1_3b5iq")]
+script = ExtResource("2_3b5iq")
+
+[node name="LongHairRig" parent="." index="0"]
+script = ExtResource("3_7kvhl")
+attachPoint = "hair"
+
+[node name="LongHair" parent="LongHairRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_5iffy")
+
+[node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.9956264, 0.08975268, 0.025932578, 0.07706912, -0.945949, 0.3150248, 0.052805215, -0.3116484, -0.948729, 0.059439525, -0.023115624, -0.10121792)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_7kvhl")
+bone_name = "Back.L"
+properties = SubResource("Resource_7kvhl")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.99562645, -0.08975268, -0.025932772, -0.077069074, -0.94594926, 0.31502455, -0.05280538, -0.31164816, -0.9487292, -0.059439525, -0.023115624, -0.10121792)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_7kvhl")
+bone_name = "Back.R"
+properties = SubResource("Resource_5iffy")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"

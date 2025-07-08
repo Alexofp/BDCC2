@@ -204,6 +204,9 @@ func _on_in_game_menu_on_char_creator_button() -> void:
 	
 	character_creator.setCharacter(GM.pc)
 	character_creator.onConfirmPressed.connect(onCharCreatorConfirmButton)
+	
+	#TODO: REMOVE THIS
+	OPTIONS.triggerCharTextureQualityChange()
 
 func onCharCreatorConfirmButton():
 	if(character_creator == null || !is_instance_valid(character_creator)):

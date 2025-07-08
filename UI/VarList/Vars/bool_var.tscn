@@ -17,8 +17,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
+[node name="LabelButton" type="TextureButton" parent="HBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+
 [node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="HBoxContainer/Label/LabelButton" to="." method="_on_label_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

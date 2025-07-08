@@ -1,4 +1,4 @@
-[gd_scene load_steps=657 format=4 uid="uid://ngd6bsr0ou1h"]
+[gd_scene load_steps=658 format=4 uid="uid://ngd6bsr0ou1h"]
 
 [ext_resource type="Script" uid="uid://c47na85wrnesj" path="res://Game/Sandbox/Sandbox.gd" id="1_qcb56"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="3_km7vh"]
@@ -88,6 +88,7 @@
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="92_hm45f"]
 [ext_resource type="PackedScene" uid="uid://c3knge733imay" path="res://Mapping/Walls/BackWallA4x4.tscn" id="93_uemke"]
 [ext_resource type="PackedScene" uid="uid://dlu17cy4x165f" path="res://Mapping/Floors/FloorTile1x1WallCorner.tscn" id="94_hy28h"]
+[ext_resource type="VoxelGIData" uid="uid://4iljh3cgf6n4" path="res://Game/Sandbox/Sandbox.VoxelGI_data.res" id="94_lodsc"]
 [ext_resource type="PackedScene" uid="uid://dxwidk66svbvu" path="res://Mapping/World/RockTest1.tscn" id="95_2okax"]
 [ext_resource type="Texture2D" uid="uid://k3fqn8gimg6h" path="res://Mesh/Textures/Tileable/rock35/rock35_color.png" id="96_x8xji"]
 [ext_resource type="Texture2D" uid="uid://b1ogd70f5bxor" path="res://Mesh/Textures/Tileable/rock35/rock35_normal.png" id="97_d37nm"]
@@ -10562,7 +10563,7 @@ agent_max_climb = 0.55
 
 [sub_resource type="SphereMesh" id="SphereMesh_mrx3p"]
 
-[sub_resource type="Shader" id="Shader_hm45f"]
+[sub_resource type="Shader" id="Shader_lodsc"]
 code = "shader_type spatial;
 
 
@@ -10990,14 +10991,14 @@ void light(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c7nna"]
 render_priority = 0
-shader = SubResource("Shader_hm45f")
+shader = SubResource("Shader_lodsc")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 0.0
 shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.999999977648
+shader_parameter/metallic = 1.999999955296
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 script = ExtResource("92_hm45f")
@@ -11005,7 +11006,7 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6bdbm"]
 render_priority = 0
-shader = SubResource("Shader_hm45f")
+shader = SubResource("Shader_lodsc")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -29068,6 +29069,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_c7nna")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.975914, 1.1024301, -1.0028977)
 mesh = SubResource("SphereMesh_mrx3p")
 surface_material_override/0 = SubResource("ShaderMaterial_6bdbm")
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.256618, 4.3496304, 0.6785574)
+visible = false
+subdiv = 0
+size = Vector3(73.56543, 10.873474, 25.514404)
+data = ExtResource("94_lodsc")
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

@@ -35,4 +35,12 @@ func _init():
 			flags = {
 			},
 		},
+		"Ferri": {
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Ferri.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

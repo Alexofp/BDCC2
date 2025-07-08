@@ -1,14 +1,18 @@
 extends DollPart
 
-@export var fuzzyTail:MeshInstance3D
-@export var lionTip:MeshInstance3D
 var tailMat:MyMasterMaterial
-@export var tailSkeletonModifier:TailSkeletonModifier
+@onready var feline_tail: MeshInstance3D = %FelineTail
+@onready var fuzzyTail: MeshInstance3D = %FelineTailFuzz
+@onready var lionTip: MeshInstance3D = %FelineTailLionTip
+@onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func grabMaterials():
 	tailMat = fuzzyTail.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
+	if(_optionID == "idleAnim"):
+		animation_player.play(_value, 0.5)
 	if(_optionID == "tailType"):
 		if(fuzzyTail):
 			fuzzyTail.visible = (_value == "fluffy")

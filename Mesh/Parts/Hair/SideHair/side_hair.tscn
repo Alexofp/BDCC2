@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv737qt5276kf"]
+
+[ext_resource type="PackedScene" uid="uid://ckqxw53axp6nh" path="res://Mesh/Parts/Hair/SideHair/FerriHair.glb" id="1_135ig"]
+[ext_resource type="Script" uid="uid://bmq1mdybrmfro" path="res://Mesh/Parts/Hair/SideHair/side_hair.gd" id="2_ltlex"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_tr3pq"]
+[ext_resource type="Material" uid="uid://sle1odyxpbnx" path="res://Mesh/Parts/SharedMaterials/HairMat.tres" id="4_mjvrm"]
+
+[node name="SideHair" instance=ExtResource("1_135ig")]
+script = ExtResource("2_ltlex")
+
+[node name="FerriHairRig" parent="." index="0"]
+script = ExtResource("2_tr3pq")
+attachPoint = "hair"
+
+[node name="FerriHair" parent="FerriHairRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_mjvrm")

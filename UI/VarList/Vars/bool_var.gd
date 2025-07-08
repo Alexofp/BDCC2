@@ -12,3 +12,8 @@ func setData(_data:Dictionary):
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	triggerChange(toggled_on)
+
+func _on_label_button_pressed() -> void:
+	if(check_box.disabled):
+		return
+	check_box.button_pressed = !check_box.button_pressed

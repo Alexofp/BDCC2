@@ -1,0 +1,207 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmbvmavkg6ml0"]
+
+[ext_resource type="PackedScene" uid="uid://c7wjcss6gwwbp" path="res://Mesh/Parts/Tail/DragonTail/DragonTail.glb" id="1_nw76p"]
+[ext_resource type="Script" uid="uid://8r8v11gi2rqv" path="res://Mesh/Parts/Tail/DragonTail/dragon_tail.gd" id="2_m0kbu"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_5phsq"]
+[ext_resource type="Material" uid="uid://dk4duadyugft7" path="res://Mesh/Parts/Tail/DragonTail/DragonTailMat.tres" id="4_a1f5f"]
+[ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/FelineTail/TailSkeletonModifier.gd" id="4_m0kbu"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_a1f5f"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_fn4g7"]
+
+[sub_resource type="Resource" id="Resource_mfacx"]
+script = ExtResource("6_fn4g7")
+spring_freq = 1.0
+swing_span = 1.0472
+metadata/_custom_type_script = ExtResource("6_fn4g7")
+
+[node name="DragonTail" instance=ExtResource("1_nw76p")]
+script = ExtResource("2_m0kbu")
+
+[node name="DragonTailRig" parent="." index="0"]
+script = ExtResource("3_5phsq")
+attachPoint = "tail"
+
+[node name="Skeleton3D" parent="DragonTailRig" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025510669, 0)
+
+[node name="DragonTail" parent="DragonTailRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+lod_bias = 5.0
+surface_material_override/0 = ExtResource("4_a1f5f")
+
+[node name="Ridges" parent="DragonTailRig/Skeleton3D" index="1"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_a1f5f")
+
+[node name="TailFluff" parent="DragonTailRig/Skeleton3D" index="2"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_a1f5f")
+
+[node name="UnderFluff" parent="DragonTailRig/Skeleton3D" index="3"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_a1f5f")
+
+[node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="4"]
+_import_path = NodePath("")
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_m0kbu")
+lenModificationBone = "DEF-Tail5"
+chainLength = 4
+metadata/_custom_type_script = "uid://586q2vbietnv"
+
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="5"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail1"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="6"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.27688512)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail2"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="7"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.99999994, 0, 0, 0, -0.547928)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail3"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D4" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="8"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.99999994, 0, 0, 0, -0.817574)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail4"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D5" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="9"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.99999994, 0, 0, 0, -1.0882651)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail5"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D6" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="10"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.99999994, 0, 0, 0, -1.358956)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_a1f5f")
+bone_name = "DEF-Tail6"
+properties = SubResource("Resource_mfacx")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="AnimationPlayer" parent="." index="2"]
+unique_name_in_owner = true
+autoplay = "TailWag"

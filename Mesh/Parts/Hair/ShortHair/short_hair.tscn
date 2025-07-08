@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhawj2jle6qsv"]
+
+[ext_resource type="PackedScene" uid="uid://g3nyjr26cdum" path="res://Mesh/Parts/Hair/ShortHair/ShortHair.glb" id="1_vkhs3"]
+[ext_resource type="Script" uid="uid://cphykvra05jpc" path="res://Mesh/Parts/Hair/ShortHair/short_hair.gd" id="2_ithp7"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_qahxa"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_aba34"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_ithp7"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_bxdto"]
+
+[sub_resource type="Resource" id="Resource_uoj1p"]
+script = ExtResource("5_bxdto")
+angular_damp = 11.0
+force_scale = 454.51
+linear_scale = 2399.216
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[node name="ShortHair" instance=ExtResource("1_vkhs3")]
+script = ExtResource("2_ithp7")
+
+[node name="ShortHairRig" parent="." index="0"]
+script = ExtResource("3_qahxa")
+attachPoint = "hair"
+
+[node name="ShortHair" parent="ShortHairRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_ithp7")
+
+[node name="Wiggle1" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 0, -1.509958e-07, 0, -1, 0, -1.509958e-07, 0, 1, 0.0040807878, 0.06393456, -0.101084664)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_aba34")
+bone_name = "WiggleBack"
+properties = SubResource("Resource_uoj1p")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 0, -1.509958e-07, 0, -1, 0, -1.509958e-07, 0, 1, 0.08895963, 0.014953569, 0.065205686)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_aba34")
+bone_name = "WiggleL"
+properties = SubResource("Resource_uoj1p")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="3"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 0, -1.509958e-07, 0, -1, 0, -1.509958e-07, 0, 1, -0.08185904, 0.011730373, 0.022395112)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_aba34")
+bone_name = "WiggleR"
+properties = SubResource("Resource_uoj1p")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"

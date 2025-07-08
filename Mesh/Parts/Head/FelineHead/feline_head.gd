@@ -2,6 +2,7 @@ extends DollPart
 
 @onready var feline_head: MeshInstance3D = $MyHeadRig/Skeleton3D/FelineHead
 @onready var eyes: MeshInstance3D = $MyHeadRig/Skeleton3D/Eyes
+@onready var cheek_fluff: MeshInstance3D = %CheekFluff
 
 var eyeMat:ShaderMaterial
 var headMat:MyMasterMaterial
@@ -22,6 +23,14 @@ func applyOption(_optionID:String, _value:Variant):
 			eyeMat.set_shader_parameter("colorG", _value)
 		if(_optionID == "eyeColor3"):
 			eyeMat.set_shader_parameter("colorB", _value)
+	if(_optionID == "fluff"):
+		cheek_fluff.visible = _value
+	if(_optionID == "fluffDown"):
+		setBlendshape("FluffDown", _value)
+	if(_optionID == "fluffWide"):
+		setBlendshape("FluffWide", _value)
+	if(_optionID == "fluffShort"):
+		setBlendshape("FluffShort", _value)
 	if(_optionID == "headLayers"):
 		updateHeadTexture()
 	if(_optionID == "faceOverride"):

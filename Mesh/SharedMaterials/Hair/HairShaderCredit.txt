@@ -1,0 +1,2 @@
+Adapted from Godot-Hair-Shading by LiveTrower
+https://github.com/LiveTrower/Godot-Hair-Shading

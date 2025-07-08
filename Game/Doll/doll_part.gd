@@ -231,3 +231,18 @@ func updateBodyAlphaMask(_finalAlpha:Texture2D):
 
 func onSpawn(_genericType:int, _bodypartSlot:int, _id:String):
 	pass
+
+func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Variant):
+	if(_hairMat != null):
+		if(_optionID == "colorRoot"):
+			_hairMat.set_shader_parameter("root_color", _value)
+		if(_optionID == "shading"):
+			_hairMat.set_shader_parameter("ambient_occlusion", _value)
+		if(_optionID == "colorTip"):
+			_hairMat.set_shader_parameter("tip_color", _value)
+			
+			var newCol:Color = _value
+			newCol.s = clamp(newCol.s*0.2, 0.0, 1.0)
+			newCol.v = max(min(0.7, newCol.v), 0.5)
+			_hairMat.set_shader_parameter("primary_color", newCol)
+			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)

@@ -4,8 +4,10 @@ extends DollPart
 @onready var planti_legs: MeshInstance3D = %PlantiLegs
 @onready var neck_connector: MeshInstance3D = %NeckConnector
 @onready var neck_connector_furry: MeshInstance3D = %NeckConnectorFurry
+@onready var hand_pads: MeshInstance3D = %HandPads
 
 var bodyMat:MyMasterMaterial
+var handPadsMat:MyMasterMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -15,6 +17,7 @@ var bodyMat:MyMasterMaterial
 
 func grabMaterials():
 	bodyMat = neck_connector.get_surface_override_material(0)
+	handPadsMat = hand_pads.get_surface_override_material(0)
 
 func updateThickness():
 	updateThicknessBody()
@@ -25,6 +28,13 @@ func applyCharOption(_optionID:String, _value:Variant):
 func applyOption(_optionID:String, _value:Variant):
 	updateBreasts(_optionID, _value)
 	
+	if(_optionID == "claws"):
+		setBlendshape("Claws", _value)
+	if(_optionID == "handPads"):
+		hand_pads.visible = _value
+	if(_optionID == "handPadsColor"):
+		if(handPadsMat):
+			handPadsMat.set_shader_parameter("albedo", _value)
 	if(_optionID == "legType"):
 		digi_legs.visible = (_value == "digi")
 		planti_legs.visible = (_value == "planti")
@@ -37,7 +47,7 @@ func applySkinTypeData(_skinTypeData:SkinTypeData):
 	if(bodyMat == null):
 		return
 		
-	const ignoreUniforms = ["albedo", "texture_mess_mask"]
+	const ignoreUniforms = ["albedo", "texture_mess_mask", "texture_alpha"]
 		
 	if(_skinTypeData.skinType == SkinType.HumanSkin):
 		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)

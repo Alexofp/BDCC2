@@ -7,6 +7,10 @@ var breasts:float = 1.0
 var nippleShape:float = 0.0
 var breastsCleavage:float = 0.0
 
+var claws:float = 0.0
+var handPads:bool = false
+var handPadsColor:Color = Color(0.6, 0.301, 0.192, 1.0)
+
 func getBodypartType() -> int:
 	return BodypartType.Body
 
@@ -48,6 +52,23 @@ func getOptions() -> Dictionary:
 			texType = TextureVariantType.BodyLayer,
 			texSubType = "def",
 			editors = [EDITOR_SKIN],
+		},
+		"handPads": {
+			name = "Hand pads",
+			type = "bool",
+			editors = [EDITOR_PART],
+		},
+		"handPadsColor": {
+			name = "Hand pads color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"claws": {
+			name = "Claws",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
 		},
 	}
 

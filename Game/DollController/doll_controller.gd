@@ -264,10 +264,10 @@ func _process(delta:float):
 	#camera.current = theIsControlledByUs
 	#print(camera.current)
 	
-	if(theIsControlledByUs && hasAuthority):
-		reset_input()
-	if(theIsControlledByUs):
-		doll_controls.processInput()
+	#if(theIsControlledByUs && hasAuthority):
+		#reset_input()
+	#if(theIsControlledByUs):
+	#	doll_controls.processInput()
 	
 	processCharacterID()
 
@@ -343,8 +343,15 @@ func processMove(delta:float):
 
 
 func _physics_process(_delta:float):
-	if(isControlledByUs()):
+	var hasAuthority:bool = !isRemote()
+	var theIsControlledByUs:bool = isControlledByUs()
+	if(theIsControlledByUs):
 		process_camera()
+
+	if(theIsControlledByUs && hasAuthority):
+		reset_input()
+	if(theIsControlledByUs):
+		doll_controls.processInput()
 
 	if(getState() == STATE_NORMAL):
 		processMove(_delta)
