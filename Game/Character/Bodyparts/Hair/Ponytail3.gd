@@ -3,10 +3,10 @@ extends BodypartHairBase
 var bandColor:Color = Color("171717")
 
 func _init():
-	id = "Ponytail1"
+	id = "Ponytail3"
 
 func getName() -> String:
-	return "Ponytail 1"
+	return "Ponytail 3"
 
 func getOptions() -> Dictionary:
 	var theOptions := super.getOptions()
@@ -18,4 +18,4 @@ func getOptions() -> Dictionary:
 	return theOptions
 
 func getScenePath(_slot:int) -> String:
-	return "res://Mesh/Parts/Hair/Ponytail1/ponytail1.tscn"
+	return "res://Mesh/Parts/Hair/Ponytail3/ponytail_3.tscn"

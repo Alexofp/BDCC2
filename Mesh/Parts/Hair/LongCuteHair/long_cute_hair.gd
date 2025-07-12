@@ -2,10 +2,11 @@ extends DollPart
 
 var hairMat:ShaderMaterial
 
-@onready var side_hair: MeshInstance3D = %SideHair
+@onready var long_cute_hair: MeshInstance3D = %LongCuteHair
 
 func grabMaterials():
-	hairMat = side_hair.get_surface_override_material(0)
+	hairMat = long_cute_hair.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	applyHairMatOption(hairMat, _optionID, _value)
+			

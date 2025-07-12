@@ -1,14 +1,18 @@
 extends DollPart
 
 var hairMat:ShaderMaterial
+var rubberBandMat:ShaderMaterial
 
 @onready var ponytail: MeshInstance3D = %Ponytail
 
 func grabMaterials():
 	hairMat = ponytail.get_surface_override_material(0)
+	rubberBandMat = ponytail.get_surface_override_material(1)
 
 func applyOption(_optionID:String, _value:Variant):
 	applyHairMatOption(hairMat, _optionID, _value)
+	if(_optionID == "bandColor"):
+		rubberBandMat.set_shader_parameter("albedo", _value)
 	#if(hairMat != null):
 		#if(_optionID == "color1"):
 			#hairMat.set_shader_parameter("color_mask_r", _value)

@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddjsdtudrcdop"]
+
+[ext_resource type="PackedScene" uid="uid://mbh4g1xlp116" path="res://Mesh/Parts/Hair/LongCuteHair/LongCuteHair.glb" id="1_b8m2i"]
+[ext_resource type="Script" uid="uid://cb7byli1s32rq" path="res://Mesh/Parts/Hair/LongCuteHair/long_cute_hair.gd" id="2_smkm8"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="2_yc25h"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_g8hfx"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_wml73"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_rl78q"]
+
+[sub_resource type="Resource" id="Resource_2rrcj"]
+script = ExtResource("6_rl78q")
+spring_freq = 1.0
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_wml73"]
+script = ExtResource("6_rl78q")
+spring_freq = 2.0
+angular_damp = 2.0
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_rl78q"]
+script = ExtResource("6_rl78q")
+spring_freq = 2.0
+angular_damp = 4.0
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[node name="LongCuteHair" instance=ExtResource("1_b8m2i")]
+script = ExtResource("2_smkm8")
+
+[node name="LongCuteHairRig" parent="." index="0"]
+script = ExtResource("3_g8hfx")
+attachPoint = "hair"
+
+[node name="LongCuteHair" parent="LongCuteHairRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("2_yc25h")
+
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-0.9999937, -0.003566288, 4.9414457e-06, 0.0035662884, -0.99999, 0.0027221574, -4.766601e-06, 0.0027221579, 0.9999963, 0.064373784, 0.00014650822, -0.097705185)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Back.L"
+properties = SubResource("Resource_2rrcj")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-0.9999937, -0.0035662842, 4.766598e-06, 0.0035662837, -0.99999, 0.0027221595, -4.941443e-06, 0.002722159, 0.9999963, -0.064373784, 0.00014650822, -0.097705185)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Back.R"
+properties = SubResource("Resource_2rrcj")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="3"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-0.9996513, 0.026406972, 0.00026708673, -0.026406972, -0.99944687, -0.020216288, -0.00026691193, -0.020216292, 0.9997956, 0.08041468, 0.11152209, 0.0921981)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Front.L"
+properties = SubResource("Resource_wml73")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="4"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-0.9996513, 0.026406927, 0.0002669118, -0.026406927, -0.99944687, -0.020216316, -0.0002670866, -0.020216312, 0.9997956, -0.08041468, 0.11152209, 0.0921981)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Front.R"
+properties = SubResource("Resource_wml73")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="5"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 3.0741014e-14, 8.742278e-08, -3.0741014e-14, -1, 1.3437324e-21, 8.742278e-08, -1.3437324e-21, 1, 0.08041468, -0.0012792349, 0.016063377)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Side.L"
+properties = SubResource("Resource_rl78q")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairWiggle6" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="6"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, -3.0741014e-14, -8.742278e-08, 3.0741014e-14, -1, 1.3437324e-21, -8.742278e-08, -1.3437324e-21, 1, -0.08041468, -0.0012792349, 0.016063377)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_wml73")
+bone_name = "Side.R"
+properties = SubResource("Resource_rl78q")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"

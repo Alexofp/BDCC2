@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpwwk30tha2qv"]
+[gd_scene load_steps=6 format=3 uid="uid://dpwwk30tha2qv"]
 
 [ext_resource type="PackedScene" uid="uid://dlvl0ehqwdfxm" path="res://Mesh/Parts/Hair/Ponytail1/Ponytail1.glb" id="1_cb8oa"]
 [ext_resource type="Script" uid="uid://ujys1vsfvwyr" path="res://Mesh/Parts/Hair/Ponytail1/ponytail1.gd" id="2_xqaau"]
 [ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_hblm6"]
+[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/Parts/SharedMaterials/RubberBandMat.tres" id="5_elktu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="6_1k6or"]
 
 [node name="Ponytail" instance=ExtResource("1_cb8oa")]
@@ -15,6 +16,7 @@ attachPoint = "hair"
 [node name="Ponytail" parent="HairRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_hblm6")
+surface_material_override/1 = ExtResource("5_elktu")
 
 [node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="HairRig/Skeleton3D" index="1"]
 active = false
