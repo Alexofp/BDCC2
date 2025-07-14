@@ -36,6 +36,9 @@ func doInit():
 	if(wasInit):
 		return
 	wasInit = true
+	
+	GM.presets = CharacterPresetHolder.new()
+	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Hair/")

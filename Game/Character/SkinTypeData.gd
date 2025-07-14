@@ -14,6 +14,12 @@ func loadNetworkData(_data:Dictionary):
 	skinType = SAVE.loadVar(_data, "skinType", SkinType.HumanSkin)
 	color = SAVE.loadVar(_data, "color", Color.WHITE)
 
+func saveData() -> Dictionary:
+	return saveNetworkData()
+
+func loadData(_data:Dictionary):
+	loadNetworkData(_data)
+
 func makeCopy() -> SkinTypeData:
 	var newSkinData:SkinTypeData = SkinTypeData.new()
 	newSkinData.skinType = skinType

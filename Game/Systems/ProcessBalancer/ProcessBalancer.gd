@@ -31,13 +31,13 @@ func _process(_delta: float) -> void:
 			continue
 		var howOft:int = 1
 		var theDist:float = animNode.global_position.distance_squared_to(camera.global_position)
-		if(theDist > 30.0):
-			howOft = 2
-		if(theDist > 50.0):
-			howOft = 3
 		if(theDist > 100.0):
+			howOft = 2
+		if(theDist > 200.0):
+			howOft = 3
+		if(theDist > 500.0):
 			howOft = 5
-		if(theDist > 300.0):
+		if(theDist > 1000.0):
 			howOft = 10
 		
 		#if(true):

@@ -3,7 +3,7 @@ class_name BaseCharacter
 
 var id:String = ""
 var bodyparts:Dictionary[int, BodypartBase] = {}
-var skinTypes:Dictionary = {}
+var skinTypes:Dictionary[String, SkinTypeData] = {}
 
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()

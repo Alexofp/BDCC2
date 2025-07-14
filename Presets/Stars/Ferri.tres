@@ -1,0 +1,192 @@
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_jipxy"]
+
+[resource]
+script = ExtResource("1_jipxy")
+data = {
+&"bodyparts": Dictionary[String, Dictionary]({
+"Body": {
+&"data": {
+"options": {
+"bodyLayers": [{
+&"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
+&"colorG": Color(0, 0.043137256, 0.28235295, 1),
+&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"id": "Ferri"
+}],
+"breasts": 2.24,
+"breastsCleavage": 0.0,
+"claws": 1.0,
+"handPads": true,
+"handPadsColor": Color(0, 0.87058824, 0.8666667, 1),
+"legType": "digi",
+"nippleShape": 0.0
+},
+"skinDataOverride": null,
+"skinType": "Fur"
+},
+&"id": "FeminineBody"
+},
+"Hair": {
+&"data": {
+"options": {
+"colorRoot": Color(1, 0.9863281, 0.96875, 1),
+"colorTip": Color(0.24229431, 0.24229431, 0.92578125, 1),
+"shading": 0.5
+}
+},
+&"id": "SideHair"
+},
+"Head": {
+&"data": {
+"options": {
+"eyeColor1": Color(0, 0.42, 0.42, 1),
+"eyeColor2": Color(0, 0.87058824, 0.8666667, 1),
+"eyeColor3": Color(1, 1, 1, 1),
+"faceOverride": {
+&"fields": {},
+&"values": {}
+},
+"fluff": true,
+"fluffDown": 1.0,
+"fluffShort": 0.0,
+"fluffWide": 0.0,
+"headLayers": [{
+&"colorB": Color(0, 0.8862745, 0.88235295, 1),
+&"colorG": Color(0, 0.043137256, 0.28235295, 1),
+&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"id": "FelineHead_Ferri"
+}, {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(1, 1, 1, 1),
+&"colorR": Color(0.23925783, 0.29879662, 0.546875, 1),
+&"id": "FelineHead_Snout"
+}, {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
+&"colorR": Color(0, 0, 0, 1),
+&"id": "FelineHead_Lines"
+}]
+},
+"skinDataOverride": null,
+"skinType": "Fur"
+},
+&"id": "FelineHead"
+},
+"Left Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(0, 0.8862745, 0.88235295, 1),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0, 0.8862745, 0.88235295, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"tassels": true,
+"tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
+},
+"skinDataOverride": null,
+"skinType": "Fur"
+},
+&"id": "FelineEar"
+},
+"Left Horn": {
+&"data": {
+"options": {
+"hornColor": Color(0, 0.03529412, 0.3647059, 1),
+"hornForwardShift": 0.0,
+"hornScale": 1.0,
+"hornSideShift": 0.0
+}
+},
+&"id": "Horn1"
+},
+"Right Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(0, 0.8862745, 0.88235295, 1),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0, 0.8862745, 0.88235295, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "TwoRings",
+"piercingsColor": Color(1, 1, 1, 1),
+"tassels": true,
+"tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
+},
+"skinDataOverride": null,
+"skinType": "Fur"
+},
+&"id": "FelineEar"
+},
+"Right Horn": {
+&"data": {
+"options": {
+"hornColor": Color(0, 0.03529412, 0.3647059, 1),
+"hornForwardShift": 0.0,
+"hornScale": 1.0,
+"hornSideShift": 0.0
+}
+},
+&"id": "Horn1"
+},
+"Tail": {
+&"data": {
+"options": {
+"idleAnim": "TailWag",
+"pattern": {
+&"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
+&"colorG": Color(0, 0.043137256, 0.28235295, 1),
+&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"pattern": "DragonTail_Ferri"
+},
+"ridges": true,
+"tailLenMod": 1.0,
+"thickness": 1.0,
+"tipfluff": true,
+"underfluff": true
+},
+"skinDataOverride": null,
+"skinType": "Fur"
+},
+&"id": "DragonTail"
+}
+}),
+&"charName": "Ferri",
+&"gender": {
+&"customGenderName": "",
+&"customPronouns": {},
+&"gender": 1,
+&"pronouns": 0
+},
+&"idleAnim": "normal1",
+&"muscles": 0.0,
+&"skinTypes": Dictionary[String, Dictionary]({
+"Fur": {
+&"color": Color(0.4509804, 0.60784316, 0.7647059, 1),
+&"skinType": "Fur"
+},
+"Skin": {
+&"color": Color(1, 1, 1, 1),
+&"skinType": "Skin"
+}
+}),
+&"species": {
+&"customName": "",
+&"mainSpecies": "Feline",
+&"secondarySpecies": ""
+},
+&"thickness": 1.73,
+&"voice": {
+&"pitch": 1.0,
+&"sexVoice": "Fem1"
+},
+&"walkAnim": "unisex",
+&"weightDistribution": 0.0
+}

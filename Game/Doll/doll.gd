@@ -289,8 +289,15 @@ func onCharPartOptionChange(_genericType:int, slot:int, optionID:String, newvalu
 				if(slot in theOtherPart.getSyncedBodypartSlots()):
 					theOtherPart.applySyncedBodypartOption(slot, optionID, newvalue)
 
+func updatePartFromCharacterDelayed(_genericType:int, slot:int):
+	for existingEntry in partUpdateQueue:
+		if(existingEntry[0] == _genericType && existingEntry[1] == slot):
+			return
+	partUpdateQueue.append([_genericType, slot])
+
 func onCharPartChange(_genericType:int, slot:int, _newpart):
-	updatePartFromCharacter(_genericType, slot)
+	#updatePartFromCharacter(_genericType, slot)
+	updatePartFromCharacterDelayed(_genericType, slot)
 	
 	if(_genericType == BaseCharacter.GENERIC_BODYPARTS):
 		checkAllClothingScenes()
@@ -331,7 +338,8 @@ func updateFromCharacter():
 	var genericParts:Dictionary = character.getGenericParts()
 	for genericType in genericParts:
 		for bodypartSlot in genericParts[genericType]:
-			partUpdateQueue.append([genericType, bodypartSlot])
+			#partUpdateQueue.append([genericType, bodypartSlot])
+			updatePartFromCharacterDelayed(genericType, bodypartSlot)
 			#updatePartFromCharacter(genericType, bodypartSlot)
 
 	for optionID in character.getSyncOptions():
@@ -699,7 +707,8 @@ func checkAllClothingScenes():
 		var theScenePath:String = theItem.getScenePath(invSlot)
 		if(theScenePath != getPartCachedPath(BaseCharacter.GENERIC_CLOTHING, invSlot)):
 			#print("RE-CREATING "+str(InventorySlot.getName(invSlot))+" "+theScenePath+" "+getPartCachedPath(BaseCharacter.GENERIC_CLOTHING, invSlot))
-			updatePartFromCharacter(BaseCharacter.GENERIC_CLOTHING, invSlot)
+			#updatePartFromCharacter(BaseCharacter.GENERIC_CLOTHING, invSlot)
+			updatePartFromCharacterDelayed(BaseCharacter.GENERIC_CLOTHING, invSlot)
 
 func getVoiceHandler() -> VoiceHandler:
 	return voice_handler
@@ -762,7 +771,8 @@ func updatePartFilter():
 			if(dollPartExists && shouldFilter):
 				clearOutPart(genericType, bodypartSlot)
 			elif(!dollPartExists && !shouldFilter):
-				updatePartFromCharacter(genericType, bodypartSlot)
+				#updatePartFromCharacter(genericType, bodypartSlot)
+				updatePartFromCharacterDelayed(genericType, bodypartSlot)
 
 func setArmsAnim(_walkAnim:String, theAnimTree:AnimationTree = null):
 	if(!theAnimTree):

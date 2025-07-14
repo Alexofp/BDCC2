@@ -173,6 +173,11 @@ static func sanitizeCharacterName(_theName:String) -> String:
 		result += letter
 	
 	return result
+
+static func sanitizeFileName(_theName:String) -> String:
+	_theName = _theName.strip_escapes()
+	_theName = _theName.validate_filename()
+	return _theName
 	
 
 static func folderExists(path:String) -> bool:
@@ -196,3 +201,6 @@ static func splitOnFirst(text: String, separator: String) -> Array[String]:
 	stuff.remove_at(0)
 	
 	return [firstEntry, join(stuff, separator)]
+
+static func createFolder(_path:String):
+	DirAccess.make_dir_recursive_absolute(_path)

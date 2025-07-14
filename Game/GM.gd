@@ -13,6 +13,7 @@ static var dollHolder:DollHolder: get = getDollHolder
 static var sitManager:SitManager: get = getSitManager
 static var sexManager:SexManager: get = getSexManager
 static var IS:InteractionSystem: get = getInteractionSystem
+static var presets:CharacterPresetHolder
 
 static func getPC() -> BaseCharacter:
 	var myNetworkPlayer:NetworkPlayerInfo = Network.getMyPlayerInfo()

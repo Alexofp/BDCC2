@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cy3s2sf36wvtd"]
+[gd_scene load_steps=5 format=3 uid="uid://cy3s2sf36wvtd"]
 
 [ext_resource type="Script" uid="uid://624tlim4w1cd" path="res://Game/CharacterCreator/character_creator.gd" id="1_8ciux"]
 [ext_resource type="PackedScene" uid="uid://dfyh8pivegiu0" path="res://UI/VarList/Vars/dropdown_var.tscn" id="2_n4n5s"]
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_vxsh1"]
+[ext_resource type="PackedScene" uid="uid://c2hmfb1ww5ps8" path="res://Game/Character/Preset/UI/character_preset_selector.tscn" id="4_h7akw"]
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
@@ -37,6 +38,14 @@ mouse_filter = 2
 [node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Wizard"
+
+[node name="LoadPresetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load preset"
+
+[node name="SavePresetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save preset"
 
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -144,10 +153,40 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="SavePresetDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Save preset"
+size = Vector2i(360, 88)
+
+[node name="SavePresetLineEdit" type="LineEdit" parent="SavePresetDialog"]
+unique_name_in_owner = true
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 352.0
+offset_bottom = 39.0
+
+[node name="LoadPresetDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Load preset"
+size = Vector2i(360, 338)
+
+[node name="CharacterPresetSelector" parent="LoadPresetDialog" instance=ExtResource("4_h7akw")]
+unique_name_in_owner = true
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/LoadPresetButton" to="." method="_on_load_preset_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/SavePresetButton" to="." method="_on_save_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CharSelButton" to="." method="_on_char_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionsSelButton" to="." method="_on_options_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]
 [connection signal="onVarChange" from="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer/CharVarList" to="." method="_on_char_var_list_on_var_change"]
+[connection signal="confirmed" from="SavePresetDialog" to="." method="_on_save_preset_dialog_confirmed"]
+[connection signal="confirmed" from="LoadPresetDialog" to="." method="_on_load_preset_dialogue_confirmed"]

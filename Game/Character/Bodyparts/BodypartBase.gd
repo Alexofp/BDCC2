@@ -94,3 +94,9 @@ func loadNetworkData(_data:Dictionary):
 			skinDataOverride.loadNetworkData(newSkinDataOverride)
 	
 	loadOptionsData(SAVE.loadVar(_data, "options", {}))
+
+func saveData() -> Dictionary:
+	return saveNetworkData()
+
+func loadData(_data:Dictionary):
+	loadNetworkData(_data)

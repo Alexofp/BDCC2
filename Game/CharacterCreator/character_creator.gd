@@ -391,3 +391,49 @@ func onWizardSubmit(_window, _data:Dictionary):
 		wizardWindow = null
 	
 	GM.characterRegistry.askCharacterWizardSubmit(character, _data)
+
+@onready var save_preset_dialog: ConfirmationDialog = %SavePresetDialog
+@onready var save_preset_line_edit: LineEdit = %SavePresetLineEdit
+@onready var load_preset_dialog: ConfirmationDialog = %LoadPresetDialog
+@onready var character_preset_selector: VBoxContainer = %CharacterPresetSelector
+
+func _on_load_preset_button_pressed() -> void:
+	if(!character):
+		return
+	load_preset_dialog.popup_centered()
+	#setSelectedPreset.setSelectedPreset()
+	#load_preset_list.clear()
+	#for preset in GM.presets.userPresets:
+	#	load_preset_list.add_item(preset.getEditorName())
+
+func _on_save_preset_button_pressed() -> void:
+	if(!character):
+		return
+	save_preset_dialog.popup_centered()
+	if(save_preset_line_edit.text == ""):
+		save_preset_line_edit.text = Util.sanitizeFileName(character.charName)
+
+func _on_save_preset_dialog_confirmed() -> void:
+	if(!character):
+		return
+	var theName:String = save_preset_line_edit.text
+	theName = Util.sanitizeFileName(theName)
+	
+	var newPreset:CharacterPreset = CharacterPreset.new()
+	newPreset.loadFromCharacter(character)
+	newPreset.savePreset(theName)
+	GM.presets.rescanUserPresets()
+	character_preset_selector.updateAll()
+	#character_preset_selector.setSelectedPreset()
+
+func _on_load_preset_dialogue_confirmed() -> void:
+	if(!character):
+		return
+	if(character_preset_selector.getSelectedPreset() == null):
+		return
+	var newPreset:CharacterPreset = character_preset_selector.getSelectedPreset()
+	#var newPreset:CharacterPreset = CharacterPreset.new()
+	#if(!newPreset.loadPreset("test")):
+	#	return
+	GM.characterRegistry.askCharacterLoadPreset(character, newPreset)
+	save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())

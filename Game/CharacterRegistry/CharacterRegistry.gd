@@ -212,6 +212,21 @@ func clearCharacters():
 	for charID in characters.keys():
 		removeCharacterID(charID)
 
+func askCharacterLoadPreset(character:BaseCharacter, preset:CharacterPreset):
+	if(Network.isServer()):
+		preset.applyToCharacter(character)
+	else:
+		askCharacterLoadPreset_SERVERRPC.rpc_id(1, character.getID(), preset.saveData())
+
+@rpc("any_peer", "call_remote", "reliable")
+func askCharacterLoadPreset_SERVERRPC(characterID:String, _data:Dictionary):
+	var theCharacter:BaseCharacter = getCharacter(characterID)
+	if(!theCharacter):
+		return
+	var thePreset:CharacterPreset = CharacterPreset.new()
+	thePreset.loadData(_data)
+	thePreset.applyToCharacter(theCharacter)
+	
 func askCharacterWizardSubmit(character:BaseCharacter, _data:Dictionary):
 	if(Network.isServer()):
 		characterWizardSubmitDo(character, _data)

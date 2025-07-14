@@ -11,6 +11,14 @@ const NAMES = [
 	"Body", "Head", "Left Ear", "Right Ear", "Hair", "Left Horn", "Right Horn", "Tail", "Penis",
 ]
 
+static func slotToString(_slot:int) -> String:
+	if(_slot < 0 || _slot >= NAMES.size()):
+		return ""
+	return NAMES[_slot]
+
+static func slotFromString(_slot:String) -> int:
+	return NAMES.find(_slot)
+
 static func getAll() -> Array:
 	return ALL
 

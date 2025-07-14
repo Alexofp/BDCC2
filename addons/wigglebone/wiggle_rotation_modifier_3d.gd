@@ -99,7 +99,12 @@ func _process_modification() -> void:
 		
 	# BDCC2 EDIT
 	if(manualTurnOff):
-		return
+		influence = clamp(influence-0.05, 0.0, 1.0)
+		if(influence <= 0.01):
+			return
+		#return
+	else:
+		influence = clamp(influence+0.05, 0.0, 1.0)
 	var gravScale:float = 1.0
 	if(enableGravityHelper):
 		var curRot:=(basis * Vector3.UP).normalized()
