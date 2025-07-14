@@ -1,8 +1,8 @@
 extends RefCounted
 class_name CharacterPreset
 
-var bodyparts:Dictionary[String, Dictionary] = {}
-var skinTypes:Dictionary[String, Dictionary] = {}
+var bodyparts:Dictionary = {}
+var skinTypes:Dictionary = {}
 
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()

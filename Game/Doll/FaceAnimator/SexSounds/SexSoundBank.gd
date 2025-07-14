@@ -83,5 +83,4 @@ func getEntriesFromFolder(folder:String, ext:String="ogg") -> Array:
 			path = fileName,
 			trimBack = 0.0,
 		})
-	
 	return result

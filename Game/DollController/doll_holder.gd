@@ -146,6 +146,8 @@ func playGesture(_doll:DollController, _gestureID:String):
 @rpc("any_peer", "call_remote", "reliable")
 func askPlayGesture_SERVERRPC(theDollID:int, _gestureID:String):
 	# Any checks should go here
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(playGesture_RPC, [theDollID, _gestureID])
 	playGesture_RPC(theDollID, _gestureID)
 	#var theDoll:= findDollWithUniqueID(theDollID)
 	#if(!theDoll):

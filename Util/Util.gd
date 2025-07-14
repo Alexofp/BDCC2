@@ -103,11 +103,11 @@ static func getFilesInFolderSmart(folder: String, extension:String, includeThisF
 static func fix_resource_path(file:String) -> String:
 	if file.ends_with(".remap"):
 		file = file.trim_suffix(".remap")
-	#elif file.ends_with(".import"):
-	#	file = file.trim_suffix(".import")
+	elif file.ends_with(".import"): #TODO: This might be breaking stuff but its required for sounds in exported builds
+		file = file.trim_suffix(".import")
 	return file
 
-static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true, getFullPath:bool = true):
+static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true, getFullPath:bool = true) -> Array:
 	var result = []
 	
 	var dir = DirAccess.open(folder)
