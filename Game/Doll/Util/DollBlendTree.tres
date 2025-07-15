@@ -35,11 +35,11 @@ filters = ["rig/Skeleton3D:breast.L", "rig/Skeleton3D:breast.R", "rig/Skeleton3D
 sync = true
 fadein_time = 0.3
 fadein_curve = ExtResource("1_5f3vp")
-fadeout_time = 0.3
+fadeout_time = 0.1
 fadeout_curve = ExtResource("1_5f3vp")
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_rg1ls"]
-xfade_time = 0.1
+xfade_time = 0.3
 xfade_curve = ExtResource("1_5f3vp")
 allow_transition_to_self = true
 
@@ -71,7 +71,7 @@ fadeout_time = 0.3
 fadeout_curve = ExtResource("1_5f3vp")
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_2jp0l"]
-xfade_time = 0.1
+xfade_time = 0.3
 xfade_curve = ExtResource("1_5f3vp")
 allow_transition_to_self = true
 
@@ -92,7 +92,7 @@ input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1pahp"]
-graph_offset = Vector2(-207.57925, 48.07663)
+graph_offset = Vector2(-293.57925, 24.07663)
 nodes/output/position = Vector2(740, 120)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_lws2c")
 nodes/Animation/position = Vector2(-220, 60)
@@ -197,7 +197,7 @@ states/Start/position = Vector2(137, 3)
 states/Walk/node = SubResource("AnimationNodeBlendTree_lws2c")
 states/Walk/position = Vector2(693, -13)
 transitions = ["Run", "Fall", SubResource("AnimationNodeStateMachineTransition_yxnr4"), "Fall", "Run", SubResource("AnimationNodeStateMachineTransition_llte3"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_ce1cx"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_gc4t1"), "Fall", "Walk", SubResource("AnimationNodeStateMachineTransition_rg1ls"), "Walk", "Fall", SubResource("AnimationNodeStateMachineTransition_roiah"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5l1g8"), "Fall", "Idle", SubResource("AnimationNodeStateMachineTransition_yn8uc"), "Idle", "Fall", SubResource("AnimationNodeStateMachineTransition_olppk"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_cpvxs"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_xxuld"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_p36ij"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_dr03u")]
-graph_offset = Vector2(107, -45)
+graph_offset = Vector2(61, -182)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ktxk0"]
 animation = &"RestraintAnims/APose"
@@ -205,7 +205,7 @@ animation = &"RestraintAnims/APose"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_pj0q3"]
 
 [resource]
-graph_offset = Vector2(-919.0391, -166.35324)
+graph_offset = Vector2(-654.9548, -101.176506)
 nodes/output/position = Vector2(1000, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_gc4t1")
 nodes/Animation/position = Vector2(-120, 340)

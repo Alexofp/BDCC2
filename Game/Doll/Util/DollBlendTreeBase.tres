@@ -35,11 +35,11 @@ filters = ["rig/Skeleton3D:breast.L", "rig/Skeleton3D:breast.R", "rig/Skeleton3D
 sync = true
 fadein_time = 0.3
 fadein_curve = ExtResource("1_5f3vp")
-fadeout_time = 0.3
+fadeout_time = 0.1
 fadeout_curve = ExtResource("1_5f3vp")
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_8rac0"]
-xfade_time = 0.1
+xfade_time = 0.3
 xfade_curve = ExtResource("1_5f3vp")
 allow_transition_to_self = true
 
@@ -205,7 +205,7 @@ animation = &"RestraintAnims/APose"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l7aga"]
 
 [resource]
-graph_offset = Vector2(-443.2716, -10.493584)
+graph_offset = Vector2(-687.2716, -40.493584)
 nodes/output/position = Vector2(1000, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yudco")
 nodes/Animation/position = Vector2(-120, 340)

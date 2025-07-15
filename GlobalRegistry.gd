@@ -338,6 +338,9 @@ func registerSexSoundBank(path: String):
 			
 			var finalPath:String = basePath.path_join(thePath) if basePath != "" else thePath
 			var theSound:AudioStream = load(finalPath)
+			if(!theSound):
+				printerr("Sound is bad: "+str(finalPath))
+				continue
 			
 			var newEntry:SexSoundEntry = SexSoundEntry.new()
 			newEntry.type = entryType

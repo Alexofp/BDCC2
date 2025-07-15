@@ -343,16 +343,17 @@ func processMove(delta:float):
 
 
 func _physics_process(_delta:float):
-	var hasAuthority:bool = !isRemote()
+	#var hasAuthority:bool = !isRemote()
 	var theIsControlledByUs:bool = isControlledByUs()
 	if(theIsControlledByUs):
 		process_camera()
 
-	if(theIsControlledByUs && hasAuthority):
-		reset_input()
 	if(theIsControlledByUs):
+		doll_controls.resetInput()
 		doll_controls.processInput()
-
+	#if(Input.is_action_pressed("move_jump")):
+	#	print("JUMP")
+	
 	if(getState() == STATE_NORMAL):
 		processMove(_delta)
 		

@@ -47,7 +47,7 @@ func processInput():
 	camera_dir = Vector2.ZERO
 	camera_dir.x = Input.get_axis("camera_left", "camera_right")
 	camera_dir.y = Input.get_axis("camera_up", "camera_down")
-	jump_isdown = Input.is_action_pressed("move_jump")
+	jump_isdown = Input.is_action_pressed("move_jump") || Input.is_action_just_pressed("move_jump")
 	sprint_isdown = Input.is_action_pressed("move_sprint")
 	
 	noclip_isdown = Input.is_action_just_pressed("debug_noclip")

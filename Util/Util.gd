@@ -107,8 +107,13 @@ static func fix_resource_path(file:String) -> String:
 		file = file.trim_suffix(".import")
 	return file
 
+static func fix_resource_path_only_remap(file:String) -> String:
+	if file.ends_with(".remap"):
+		file = file.trim_suffix(".remap")
+	return file
+
 static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true, getFullPath:bool = true) -> Array:
-	var result = []
+	var result:Array = []
 	
 	var dir = DirAccess.open(folder)
 	if dir:

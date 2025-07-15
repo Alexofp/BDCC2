@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://botekdip48xy4"]
+[gd_scene load_steps=5 format=3 uid="uid://botekdip48xy4"]
 
 [ext_resource type="PackedScene" uid="uid://bb5365y05rhpl" path="res://Mapping/Props/Raw/WallLightBig.glb" id="1_vdphg"]
 [ext_resource type="Script" uid="uid://3iy082bq1k4e" path="res://Mapping/Props/WallLightBig.gd" id="2_dpfm8"]
+[ext_resource type="PackedScene" uid="uid://c24n0yg58dmg" path="res://Game/MappingElements/Lights/MappingSpotlight.tscn" id="3_2iwge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0gs2k"]
 size = Vector3(1.55161, 0.350314, 0.319992)
@@ -17,10 +18,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00830714, 0.181899)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0262311, -0.0208356)
 shape = SubResource("BoxShape3D_0gs2k")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="WallLightBig" index="1"]
-transform = Transform3D(-1, -5.32558e-14, 8.74228e-08, 4.31313e-08, 0.869822, 0.493365, -7.60423e-08, 0.493365, -0.869822, 0, -0.101759, 0.275208)
-light_color = Color(0.51, 0.755, 1, 1)
+[node name="SpotLight3D" parent="WallLightBig" index="1" instance=ExtResource("3_2iwge")]
+transform = Transform3D(-1, -4.9703104e-14, 8.742278e-08, 4.31313e-08, 0.8698223, 0.49336517, -7.60423e-08, 0.49336517, -0.8698223, 0, -0.101759, 0.275208)
+light_color = Color(0.50980395, 0.75686276, 1, 1)
 light_energy = 4.0
-light_indirect_energy = 5.0
+light_volumetric_fog_energy = 1.0
 spot_range = 15.0
 spot_angle = 100.52

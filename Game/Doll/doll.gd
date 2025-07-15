@@ -77,10 +77,12 @@ func playGesture(_gestureID:String, _playFullBody:bool=true, playPartialBody:boo
 	if(theGesture == null):
 		return
 	if(_playFullBody && theGesture.playFullBody):
-		animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		if(!animation_tree["parameters/Locomotion/Idle/FullBodyGesture/active"]):
+			animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		animation_tree["parameters/Locomotion/Idle/FullBodyGesture_Selector/transition_request"] = _gestureID
 	if(playPartialBody && theGesture.playPartial):
-		animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		if(!animation_tree["parameters/BodyGesture/active"]):
+			animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 		animation_tree["parameters/BodyGesture_Selector/transition_request"] = _gestureID
 	onGesturePlay.emit(_gestureID, _playFullBody, playPartialBody)
 	
