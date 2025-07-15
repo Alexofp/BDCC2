@@ -42,7 +42,7 @@ func _post_import(scene:Node):
 		scene.set_script(preload("res://Mapping/PipeBasic.gd"))
 		scene.editorOptionsID = "pipe"
 	else:
-		scene.set_script(preload("res://Mapping/PropBasic.gd"))
+		scene.set_script(preload("res://Mapping/PropBasicColors.gd"))
 		
 	return scene
 

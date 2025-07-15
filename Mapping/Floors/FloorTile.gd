@@ -1,7 +1,11 @@
-@tool
 extends PropBasic
 
 @export var floorMesh:MeshInstance3D
+
+@export var floormat:String = "res://Mesh/Materials/Floors/HexFloor.tres"
+@export var roughness:float = 0.5
+@export var colorbase:Color = Color("868686")
+@export var uvscale:float = 1.0
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {

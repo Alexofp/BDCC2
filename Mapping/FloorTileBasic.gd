@@ -1,4 +1,4 @@
-extends PropBasic
+extends PropBasicColors
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {

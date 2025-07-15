@@ -67,7 +67,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="BoneAttachment3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="1"]
-transform = Transform3D(1, -2.3825046e-15, -1.9344623e-15, 2.479612e-15, 0.99865484, 0.051856153, 1.8083095e-15, -0.051856156, 0.9986547, 3.738823e-15, 1.6004182, -0.039354894)
+transform = Transform3D(1, -2.08849e-15, -2.0201405e-15, 2.1883069e-15, 0.99871206, 0.050742712, 1.9115602e-15, -0.050742716, 0.99871194, 3.738823e-15, 1.6004182, -0.039354894)
 
 [node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" instance=ExtResource("3_l2cwv")]
 unique_name_in_owner = true

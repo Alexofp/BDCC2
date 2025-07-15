@@ -1,6 +1,11 @@
-@tool
 extends Node3D
 class_name PropBasic
+
+#@export var roughness:float = 0.5
+#@export var colorbase = Color("868686")
+#@export var color1 = Color("353535")
+#@export var color2 = Color("222222")
+#@export var color3 = Color("111111")
 
 @export var editorOptionsEasy:Dictionary = {
 	"roughness": {type="roughness"},
@@ -11,11 +16,41 @@ class_name PropBasic
 }
 @export var editorOptionsID:String = ""
 
+const PROP_OPTIONS_FULL:Dictionary = {
+	"roughness": {type="roughness"},
+	"colorbase": {type="color", value=Color("868686")},
+	"color1": {type="color", value=Color("353535")},
+	"color2": {type="color", value=Color("222222")},
+	"color3": {type="color", value=Color("111111")},
+}
+const EDITOR_OPTIONS_ID_NONE = ""
+const EDITOR_OPTIONS_ID_WALL = "wall"
+const EDITOR_OPTIONS_ID_BACKWALL = "backwall"
+const EDITOR_OPTIONS_ID_TILE = "tile"
+const EDITOR_OPTIONS_ID_STAIRS = "stairs"
+const EDITOR_OPTIONS_ID_FANCYRAILING = "fancyrailing"
+const EDITOR_OPTIONS_ID_FOUNDATION = "foundation"
+const EDITOR_OPTIONS_ID_COLUMN = "column"
+const EDITOR_OPTIONS_ID_DECAL = "decal"
+const EDITOR_OPTIONS_ID_PIPE = "pipe"
+const EDITOR_OPTIONS_ID_BIGFLOORSCI = "BigFloorSci"
+const EDITOR_OPTIONS_ID_MIDDLEPIECECUTOUT = "MiddlePieceCutout"
+const EDITOR_OPTIONS_ID_FLOORTILEWORLD = "floortileworld"
+const EDITOR_OPTIONS_ID_CHAIR = "chair"
+const EDITOR_OPTIONS_ID_DOORB = "doorb"
+const EDITOR_OPTIONS_ID_WALLLIGHT = "walllight"
+const EDITOR_OPTIONS_ID_SKYLINER = "skyliner"
+const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIG = "slopedwindowbig"
+const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIGSIDE = "slopedwindowbigside"
+
+func _ready() -> void:
+	applyAllEditorOptions()
+
 func getEditorOptionsID() -> String:
 	return editorOptionsID
 
 func getEditorOptionsEasy() -> Dictionary:
-	return editorOptionsEasy
+	return {}
 
 func getEditorOptions() -> Dictionary:
 	var result:Dictionary = {}
@@ -27,7 +62,7 @@ func getEditorOptions() -> Dictionary:
 			result[optionID] = {
 				name = ("Roughness" if !optionDict.has("name") else optionDict["name"]),
 				type = "floatPresets",
-				value = (0.5 if !optionDict.has("value") else optionDict["value"]),
+				#value = get(optionID),#(0.5 if !optionDict.has("value") else optionDict["value"]),
 				step = 0.01,
 				presets = [
 					0.0, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0,
@@ -37,7 +72,7 @@ func getEditorOptions() -> Dictionary:
 			result[optionID] = {
 				name = ("Tile scale" if !optionDict.has("name") else optionDict["name"]),
 				type = "floatPresets",
-				value = (1.0 if !optionDict.has("value") else optionDict["value"]),
+				#value = get(optionID),#(1.0 if !optionDict.has("value") else optionDict["value"]),
 				step = 0.01,
 				presets = [
 					0.1, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 10.0,
@@ -47,7 +82,7 @@ func getEditorOptions() -> Dictionary:
 			result[optionID] = {
 				name = (optionID if !optionDict.has("name") else optionDict["name"]),
 				type = "colorPalette",
-				value = (Color("868686") if !optionDict.has("value") else optionDict["value"]),
+				#value = get(optionID),#(Color("868686") if !optionDict.has("value") else optionDict["value"]),
 				palette = ([] if !optionDict.has("palette") else optionDict["palette"]),
 				BDCC = true,
 				basic = true,
@@ -56,7 +91,7 @@ func getEditorOptions() -> Dictionary:
 			result[optionID] = {
 				name = (optionID if !optionDict.has("name") else optionDict["name"]),
 				type = "colorPalette",
-				value = (Color("fffea4") if !optionDict.has("value") else optionDict["value"]),
+				#value = get(optionID),#(Color("fffea4") if !optionDict.has("value") else optionDict["value"]),
 				palette = ([] if !optionDict.has("palette") else optionDict["palette"]),
 				light = true,
 			}
@@ -64,11 +99,23 @@ func getEditorOptions() -> Dictionary:
 			result[optionID] = {
 				name = ("Material" if !optionDict.has("name") else optionDict["name"]),
 				type = "selector",
-				value = optionDict["value"] if optionDict.has("value") else (optionDict["values"][0] if !(optionDict["values"][0] is Array) else optionDict["values"][0][0]),
+				#value = get(optionID),#optionDict["value"] if optionDict.has("value") else (optionDict["values"][0] if !(optionDict["values"][0] is Array) else optionDict["values"][0][0]),
 				values = optionDict["values"],
 			}
 		
 	return result
+
+func applyAllEditorOptions():
+	var theOptions := getEditorOptions()
+	for theOptionID in theOptions:
+		applyEditorOption(theOptionID, getEditorOption(theOptionID))
+
+func setEditorOption(_id:String, _value:Variant):
+	set(_id, _value)
+	applyEditorOption(_id, _value)
+
+func getEditorOption(_id:String) -> Variant:
+	return get(_id)
 
 func applyEditorOption(_id, _value):
 	if(_id == "roughness"):

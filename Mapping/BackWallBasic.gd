@@ -1,5 +1,4 @@
-@tool
-extends PropBasic
+extends PropBasicColors
 
 func getEditorOptions() -> Dictionary:
 	return {
