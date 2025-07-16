@@ -9,3 +9,6 @@ func getEditorOptionsEasy() -> Dictionary:
 		"color3": {type="color", name="Metal", value=Color("353535")},
 	}
 	return theSettings
+
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_PIPE

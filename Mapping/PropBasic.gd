@@ -14,7 +14,7 @@ class_name PropBasic
 	#"color2": {type="color", value=Color("222222")},
 	#"color3": {type="color", value=Color("111111")},
 #}
-@export var editorOptionsID:String = ""
+#@export var editorOptionsID:String = ""
 
 const PROP_OPTIONS_FULL:Dictionary = {
 	"roughness": {type="roughness"},
@@ -55,7 +55,7 @@ func _ready() -> void:
 	applyAllEditorOptions()
 
 func getEditorOptionsID() -> String:
-	return editorOptionsID
+	return ""
 
 func getEditorOptionsEasy() -> Dictionary:
 	return {}
@@ -113,6 +113,12 @@ func getEditorOptions() -> Dictionary:
 		
 	return result
 
+func getEditorOptionsWithValues() -> Dictionary:
+	var result := getEditorOptions()
+	for optionID in result:
+		result[optionID]["value"] = getEditorOption(optionID)
+	return result
+	
 func applyAllEditorOptions():
 	var theOptions := getEditorOptions()
 	for theOptionID in theOptions:
@@ -120,6 +126,9 @@ func applyAllEditorOptions():
 
 func setEditorOption(_id:String, _value:Variant):
 	set(_id, _value)
+	applyEditorOption(_id, _value)
+
+func setEditorOptionTool(_id:String, _value:Variant):
 	applyEditorOption(_id, _value)
 
 func getEditorOption(_id:String) -> Variant:

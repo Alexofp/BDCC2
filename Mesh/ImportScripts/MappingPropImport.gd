@@ -13,34 +13,24 @@ func _post_import(scene:Node):
 	
 	if(scene.name.begins_with("Wall") || scene.name.begins_with("Window")):
 		scene.set_script(preload("res://Mapping/WallBasic.gd"))
-		scene.editorOptionsID = "wall"
 	elif(scene.name.begins_with("BackWall")):
 		scene.set_script(preload("res://Mapping/BackWallBasic.gd"))
-		scene.editorOptionsID = "backwall"
 	elif(scene.name.begins_with("BigFloor")):
 		scene.set_script(preload("res://Mapping/FloorBasic.gd"))
-		#scene.editorOptionsID = "backwall"
 	elif(scene.name.begins_with("Tile")):
 		scene.set_script(preload("res://Mapping/FloorTileBasic.gd"))
-		scene.editorOptionsID = "tile"
 	elif(scene.name.begins_with("Stairs")):
 		scene.set_script(preload("res://Mapping/StairsBasic.gd"))
-		scene.editorOptionsID = "stairs"
 	elif(scene.name.begins_with("FancyRailing")):
 		scene.set_script(preload("res://Mapping/FancyRailingBasic.gd"))
-		scene.editorOptionsID = "fancyrailing"
 	elif(scene.name.begins_with("Foundation")):
 		scene.set_script(preload("res://Mapping/FoundationBasic.gd"))
-		scene.editorOptionsID = "foundation"
 	elif(scene.name.begins_with("Column")):
 		scene.set_script(preload("res://Mapping/ColumnBasic.gd"))
-		scene.editorOptionsID = "column"
 	elif(scene.name.begins_with("Decal")):
 		scene.set_script(preload("res://Mapping/DecalBasic.gd"))
-		scene.editorOptionsID = "decal"
 	elif(scene.name.begins_with("Pipe")):
 		scene.set_script(preload("res://Mapping/PipeBasic.gd"))
-		scene.editorOptionsID = "pipe"
 	else:
 		scene.set_script(preload("res://Mapping/PropBasicColors.gd"))
 		

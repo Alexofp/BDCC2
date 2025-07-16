@@ -9,3 +9,6 @@ func getEditorOptionsEasy() -> Dictionary:
 		#"color3": {type="colorLight", value=Color("00E0FF")},
 	}
 	return theSettings
+
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_COLUMN

@@ -147,10 +147,10 @@ func setup_preview_viewport() -> void:
 
 func generatePreview(node: Node) -> Texture2D:
 	preview_viewport.add_child(node)
-	if(node.has_method("getEditorOptions")):
-		var editorOptions:Dictionary = node.getEditorOptions()
-		for optionID in editorOptions:
-			node.applyEditorOption(optionID, editorOptions[optionID]["value"])
+	#if(node.has_method("getEditorOptions")):
+	#	var editorOptions:Dictionary = node.getEditorOptions()
+	#	for optionID in editorOptions:
+	#		node.applyEditorOption(optionID, editorOptions[optionID]["value"])
 	preview_viewport.size = preview_size
 
 	var aabb := get_aabb(node)

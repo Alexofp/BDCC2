@@ -1,11 +1,15 @@
-extends PropBasicColors
+extends PropBasic
+
+@export var roughness:float = 0.5
+@export var colorbase:Color = Color("d8a300")
+@export var color1:Color = Color("303030")
+@export var color3:Color = Color("fffea4")
 
 func getEditorOptions() -> Dictionary:
 	return {
 		"roughness": {
 			name = "Roughness",
 			type = "floatPresets",
-			value = 0.5,
 			step = 0.01,
 			presets = [
 				0.0, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0,
@@ -14,15 +18,13 @@ func getEditorOptions() -> Dictionary:
 		"colorbase": {
 			name = "Base Color",
 			type = "colorPalette",
-			value = Color("d8a300"),
 			BDCC = true,
 			basic = true,
 			palette = [Color("d8a300"), Color("303030")],
 		},
-		"color": {
+		"color1": {
 			name = "Main Color",
 			type = "colorPalette",
-			value = Color("303030"),
 			BDCC = true,
 			basic = true,
 			palette = [Color("d8a300"), Color("303030")],
@@ -37,7 +39,6 @@ func getEditorOptions() -> Dictionary:
 		"color3": {
 			name = "Light Color",
 			type = "colorPalette",
-			value = Color("fffea4"),
 			light = true,
 		},
 	}
@@ -47,7 +48,7 @@ func applyEditorOption(_id, _value):
 		setInstanceShaderParameter("roughness_mult", _value)
 	if(_id == "colorbase"):
 		setInstanceShaderParameter("trim_color_base", _value)
-	if(_id == "color"):
+	if(_id == "color1"):
 		setInstanceShaderParameter("trim_color_main", _value)
 	if(_id == "color2"):
 		setInstanceShaderParameter("trim_color_second", _value)

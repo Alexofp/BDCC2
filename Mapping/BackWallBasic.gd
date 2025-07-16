@@ -1,11 +1,13 @@
-extends PropBasicColors
+extends PropBasic
+
+@export var roughness:float = 0.5
+@export var colorbase:Color = Color("6e6e6e")
 
 func getEditorOptions() -> Dictionary:
 	return {
 		"roughness": {
 			name = "Roughness",
 			type = "floatPresets",
-			value = 0.5,
 			step = 0.01,
 			presets = [
 				0.0, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0,
@@ -14,8 +16,10 @@ func getEditorOptions() -> Dictionary:
 		"colorbase": {
 			name = "Main Color",
 			type = "colorPalette",
-			value = Color("6e6e6e"),
 			BDCC = true,
 			basic = true,
 		},
 	}
+
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_BACKWALL

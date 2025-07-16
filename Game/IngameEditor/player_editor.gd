@@ -780,8 +780,8 @@ func getPropSettingsByID(_theID:int) -> Dictionary:
 func getPropSettingsFullByID(_theID:int) -> Dictionary:
 	var result:Dictionary = {}
 	var theNode:Node = getNodeByID(_theID)
-	if(theNode.has_method("getEditorOptions")):
-		result = theNode.getEditorOptions()
+	if(theNode.has_method("getEditorOptionsWithValues")):
+		result = theNode.getEditorOptionsWithValues()
 	var propSettingsApplied:Dictionary = getPropSettingsByID(_theID)
 	for settingID in propSettingsApplied:
 		if(result.has(settingID)):
@@ -1065,8 +1065,8 @@ func setNewSelectedProp(newProp:PCEditorProp, customSettingValues:Dictionary = {
 			savedSettingsByID[settingsID] = {}
 		selectedPropSettingsValues = savedSettingsByID[settingsID]
 		
-		if(theNodeForSettings.has_method("getEditorOptions")):
-			selectedPropSettings = theNodeForSettings.getEditorOptions()
+		if(theNodeForSettings.has_method("getEditorOptionsWithValues")):
+			selectedPropSettings = theNodeForSettings.getEditorOptionsWithValues()
 			
 			for settingID in selectedPropSettings:
 				if(!selectedPropSettingsValues.has(settingID)):
