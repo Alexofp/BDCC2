@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ldcbfiitencw"]
+[gd_scene load_steps=5 format=3 uid="uid://ldcbfiitencw"]
 
 [ext_resource type="PackedScene" uid="uid://biogsmmimt1l5" path="res://Mapping/Props/Raw/Chair2.glb" id="1_6pqlf"]
+[ext_resource type="Script" uid="uid://hl6by82k78fy" path="res://Mapping/Props/chair.gd" id="2_s1gpe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vk2lm"]
 size = Vector3(0.65022, 0.490939, 0.559775)
@@ -9,20 +10,7 @@ size = Vector3(0.65022, 0.490939, 0.559775)
 size = Vector3(0.65022, 0.582577, 0.100856)
 
 [node name="Chair2" instance=ExtResource("1_6pqlf")]
-editorOptionsEasy = {
-"color1": {
-"type": "color",
-"value": Color(0.207843, 0.207843, 0.207843, 1)
-},
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
-editorOptionsID = "chair"
+script = ExtResource("2_s1gpe")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Chair2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.486725, -0.0929759)

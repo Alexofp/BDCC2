@@ -1,21 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://c37mpql4p4pra"]
+[gd_scene load_steps=4 format=3 uid="uid://c37mpql4p4pra"]
 
 [ext_resource type="PackedScene" uid="uid://cpmugxor0u3n6" path="res://Mapping/BigFloors/Raw/MiddlePieceCutout1x3.glb" id="1_t41q5"]
+[ext_resource type="Script" uid="uid://c0l144a1ex13" path="res://Mapping/BigFloors/middle_piece_cutout.gd" id="2_sdloa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qd2qv"]
 size = Vector3(0.8, 0.105696, 3.36)
 
 [node name="MiddlePieceCutout1x3" instance=ExtResource("1_t41q5")]
-editorOptionsEasy = {
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
-editorOptionsID = "MiddlePieceCutout"
+script = ExtResource("2_sdloa")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MiddlePieceCutout1x3" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000601791, -1.5)

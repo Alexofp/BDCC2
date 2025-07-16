@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://r2upk7vpgdgp"]
+[gd_scene load_steps=7 format=3 uid="uid://r2upk7vpgdgp"]
 
 [ext_resource type="PackedScene" uid="uid://cu87pfr64no2f" path="res://Mapping/Walls/Raw/DoorA2x3.glb" id="1_5jiml"]
+[ext_resource type="Script" uid="uid://bwakrmrqgdvrf" path="res://Mapping/Walls/doorA2x3.gd" id="2_8dhc7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cga5k"]
 size = Vector3(2, 0.101058, 1.0191)
@@ -15,27 +16,7 @@ size = Vector3(0.346924, 2.99485, 0.802734)
 size = Vector3(1.37962, 2.31301, 0.236612)
 
 [node name="DoorA2x3" instance=ExtResource("1_5jiml")]
-editorOptionsEasy = {
-"color1": {
-"type": "color",
-"value": Color(0.207843, 0.207843, 0.207843, 1)
-},
-"color2": {
-"type": "color",
-"value": Color(0.133333, 0.133333, 0.133333, 1)
-},
-"color3": {
-"type": "colorLight",
-"value": Color(0, 0.878431, 1, 1)
-},
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
+script = ExtResource("2_8dhc7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="DoorFrameA2x3" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48343, 0)

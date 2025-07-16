@@ -1,30 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3cc3kvador1j"]
 
 [ext_resource type="PackedScene" uid="uid://drutgb0dxyqp" path="res://Mapping/Props/Raw/InmateSink.glb" id="1_ep3ap"]
-[ext_resource type="Script" uid="uid://y8y8q68ta03p" path="res://Mapping/PropBasic.gd" id="2_7h67h"]
+[ext_resource type="Script" uid="uid://b16w4tl66fdxu" path="res://Mapping/Props/inmate_sink.gd" id="2_nj1tb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xljd2"]
 size = Vector3(0.666667, 0.531996, 0.449925)
 
 [node name="InmateSink" instance=ExtResource("1_ep3ap")]
-script = ExtResource("2_7h67h")
-editorOptionsEasy = {
-"color1": {
-"type": "color",
-"value": Color(0.207843, 0.207843, 0.207843, 1)
-},
-"color3": {
-"type": "colorLight",
-"value": Color(0, 0.878431, 1, 1)
-},
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
+script = ExtResource("2_nj1tb")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="InmateSink" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151429, 0.236471)

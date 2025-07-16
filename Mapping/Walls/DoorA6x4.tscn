@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://oum7tpus40ll"]
+[gd_scene load_steps=7 format=3 uid="uid://oum7tpus40ll"]
 
 [ext_resource type="PackedScene" uid="uid://0jydy5ja4kf4" path="res://Mapping/Walls/Raw/DoorA6x4.glb" id="1_4lnll"]
+[ext_resource type="Script" uid="uid://bqtlj8ysb8jqf" path="res://Mapping/Walls/doorA6x4.gd" id="2_0oh33"]
 
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_ts3gs"]
 size = Vector3(0.564369, 4, 0.678541)
@@ -15,27 +16,7 @@ size = Vector3(5, 4, 0.409701)
 size = Vector3(5, 4, 0.409701)
 
 [node name="DoorA6x4" instance=ExtResource("1_4lnll")]
-editorOptionsEasy = {
-"color1": {
-"type": "color",
-"value": Color(0.207843, 0.207843, 0.207843, 1)
-},
-"color2": {
-"type": "color",
-"value": Color(1, 1, 1, 1)
-},
-"color3": {
-"type": "colorLight",
-"value": Color(0, 0.878431, 1, 1)
-},
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
+script = ExtResource("2_0oh33")
 
 [node name="OccluderInstance3D2" type="OccluderInstance3D" parent="DoorFrameA6x4" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70746, 2, -2.38419e-07)

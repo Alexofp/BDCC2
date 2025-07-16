@@ -7,6 +7,9 @@ extends PropBasic
 @export var colorbase:Color = Color("868686")
 @export var uvscale:float = 1.0
 
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_FLOORTILEWORLD
+
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {
 		"floormat": {type="matpicker", values = [

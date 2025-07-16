@@ -7,21 +7,28 @@ class_name PropBasic
 #@export var color2 = Color("222222")
 #@export var color3 = Color("111111")
 
-@export var editorOptionsEasy:Dictionary = {
-	"roughness": {type="roughness"},
-	"colorbase": {type="color", value=Color("868686")},
-	"color1": {type="color", value=Color("353535")},
-	"color2": {type="color", value=Color("222222")},
-	"color3": {type="color", value=Color("111111")},
-}
+#@export var editorOptionsEasy:Dictionary = {
+	#"roughness": {type="roughness"},
+	#"colorbase": {type="color", value=Color("868686")},
+	#"color1": {type="color", value=Color("353535")},
+	#"color2": {type="color", value=Color("222222")},
+	#"color3": {type="color", value=Color("111111")},
+#}
 @export var editorOptionsID:String = ""
 
 const PROP_OPTIONS_FULL:Dictionary = {
 	"roughness": {type="roughness"},
-	"colorbase": {type="color", value=Color("868686")},
-	"color1": {type="color", value=Color("353535")},
-	"color2": {type="color", value=Color("222222")},
-	"color3": {type="color", value=Color("111111")},
+	"colorbase": {type="color"},
+	"color1": {type="color"},
+	"color2": {type="color"},
+	"color3": {type="color"},
+}
+const PROP_OPTIONS_FULL_LIGHT:Dictionary = {
+	"roughness": {type="roughness"},
+	"colorbase": {type="color"},
+	"color1": {type="color"},
+	"color2": {type="color"},
+	"color3": {type="colorLight"},
 }
 const EDITOR_OPTIONS_ID_NONE = ""
 const EDITOR_OPTIONS_ID_WALL = "wall"
@@ -34,6 +41,7 @@ const EDITOR_OPTIONS_ID_COLUMN = "column"
 const EDITOR_OPTIONS_ID_DECAL = "decal"
 const EDITOR_OPTIONS_ID_PIPE = "pipe"
 const EDITOR_OPTIONS_ID_BIGFLOORSCI = "BigFloorSci"
+const EDITOR_OPTIONS_ID_BIGFLOORTECH = "BigFloorTech"
 const EDITOR_OPTIONS_ID_MIDDLEPIECECUTOUT = "MiddlePieceCutout"
 const EDITOR_OPTIONS_ID_FLOORTILEWORLD = "floortileworld"
 const EDITOR_OPTIONS_ID_CHAIR = "chair"

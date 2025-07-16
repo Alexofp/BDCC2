@@ -1,23 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ua6tiv0yujo2"]
+[gd_scene load_steps=3 format=3 uid="uid://ua6tiv0yujo2"]
 
 [ext_resource type="PackedScene" uid="uid://cxsgqhyjh0wa4" path="res://Mapping/Walls/Raw/SlopedWindowWallA8Right.glb" id="1_agbno"]
+[ext_resource type="Script" uid="uid://blpmjdugvvjug" path="res://Mapping/Walls/sloped_window_wallA8.gd" id="2_ob57o"]
 
 [node name="SlopedWindowWallA8Right" instance=ExtResource("1_agbno")]
-editorOptionsEasy = {
-"color1": {
-"type": "color",
-"value": Color(0.207843, 0.207843, 0.207843, 1)
-},
-"color2": {
-"type": "color",
-"value": Color(1, 1, 1, 1)
-},
-"colorbase": {
-"type": "color",
-"value": Color(0.52549, 0.52549, 0.52549, 1)
-},
-"roughness": {
-"type": "roughness"
-}
-}
-editorOptionsID = "slopedwindowbigside"
+script = ExtResource("2_ob57o")

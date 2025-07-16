@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcw8uqxxmwe8y"]
+[gd_scene load_steps=5 format=3 uid="uid://dcw8uqxxmwe8y"]
 
 [ext_resource type="PackedScene" uid="uid://cq6bw6ra8ck56" path="res://Mapping/BigFloors/Raw/BigFloorSci10x6.glb" id="1_k13ps"]
+[ext_resource type="Script" uid="uid://cbpkq8yndd48l" path="res://Mapping/BigFloors/big_floor_sci.gd" id="2_hnpb7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pvn15"]
 size = Vector3(6, 0.165968, 10)
@@ -9,7 +10,7 @@ size = Vector3(6, 0.165968, 10)
 size = Vector2(10, 6)
 
 [node name="BigFloorSci10x6" instance=ExtResource("1_k13ps")]
-editorOptionsID = "BigFloorSci"
+script = ExtResource("2_hnpb7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BigFloorSci10x6" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0307377, -5)

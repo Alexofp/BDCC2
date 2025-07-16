@@ -97,7 +97,7 @@ agent_max_climb = 0.55
 
 [sub_resource type="SphereMesh" id="SphereMesh_mrx3p"]
 
-[sub_resource type="Shader" id="Shader_mrx3p"]
+[sub_resource type="Shader" id="Shader_cobb5"]
 code = "shader_type spatial;
 
 
@@ -525,7 +525,7 @@ void light(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c7nna"]
 render_priority = 0
-shader = SubResource("Shader_mrx3p")
+shader = SubResource("Shader_cobb5")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -540,7 +540,7 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6bdbm"]
 render_priority = 0
-shader = SubResource("Shader_mrx3p")
+shader = SubResource("Shader_cobb5")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -999,7 +999,7 @@ color3 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="WallLightBig" parent="GenBlockMap" instance=ExtResource("42_chhel")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 3.6, 3.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(0.74, 1, 0.99133337, 1)
 
 [node name="WallLightBig2" parent="GenBlockMap" instance=ExtResource("42_chhel")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 3.6, 3.8)

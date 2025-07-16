@@ -13,7 +13,8 @@ size = Vector2(1.02, 1.02)
 [node name="FloorTile1x1" node_paths=PackedStringArray("floorMesh") instance=ExtResource("1_seenh")]
 script = ExtResource("2_7jre0")
 floorMesh = NodePath("Cube_083")
-editorOptionsID = "floortileworld"
+floormat = "res://Mesh/Materials/Floors/HexFloor.tres"
+uvscale = 1.0
 
 [node name="Cube_083" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)

@@ -402,7 +402,7 @@ func _process(_delta: float) -> void:
 		if fps_history.size() > HISTORY_NUM_FRAMES:
 			fps_history.pop_front()
 
-		fps.text = str(floor(frames_per_second)) + " FPS"
+		fps.text = str(int(floor(frames_per_second))) + " FPS"
 		var frame_time_color := frame_time_gradient.sample(remap(frames_per_second, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
 		fps.modulate = frame_time_color
 
@@ -437,7 +437,7 @@ func _process(_delta: float) -> void:
 				
 		if(style == Style.VISIBLE_COMPACT):
 			frame_time.text += "\nCPU: " + str(frametime_cpu_avg).pad_decimals(2)+" GPU: " + str(frametime_gpu_avg).pad_decimals(2)
-			frame_time.text += "\nDrawcalls: " + str(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))+" Tris: "+str(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME))
+			frame_time.text += "\nDrawcalls: " + str(int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))+" Tris: "+str(int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)))
 			frame_time.text += "\nRAM: "+str(Performance.get_monitor(Performance.MEMORY_STATIC)/1024.0/1024.0).pad_decimals(2)+" MB"+" GPU: " + str(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)/1024.0/1024.0).pad_decimals(2)+" MB"
 
 		frame_number.text = "Frame: " + str(Engine.get_frames_drawn())

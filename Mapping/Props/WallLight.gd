@@ -52,3 +52,6 @@ func applyEditorOption(_id, _value):
 	if(_id == "color3"):
 		setInstanceShaderParameter("trim_color_third", _value)
 		$WallLight/SpotLight3D.light_color = _value
+
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_WALLLIGHT
