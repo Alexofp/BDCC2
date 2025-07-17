@@ -3,6 +3,16 @@
 class_name DMWBWiggleRotationModifier3D
 extends SkeletonModifier3D
 
+@export var collider_enabled: bool = false
+@export var collider_nodes: Array[CollisionShape3D]
+@export var collider_bounce: float = 0.1  # restitution [0,1]
+@export var collider_bone_offset:float = 0.15
+@export var collider_bone_radius:float = 0.04:
+	set = set_collider_bone_radius
+func set_collider_bone_radius(value: float) -> void:
+	collider_bone_radius = maxf(0.0, value)
+	update_gizmos()
+
 ## Adds jiggle physics to a bone influencing the pose position.
 
 const _SWING_LIMIT_EPSILON := 1e-4
@@ -199,6 +209,26 @@ func _process_modification() -> void:
 				rotation_axis = pose_to_global_rotation * Vector3.RIGHT
 			rotation_axis = rotation_axis.normalized()
 
+	if collider_enabled:
+		# Compute bone tip in global space
+		var tip_global = _global_position + _global_direction * collider_bone_offset
+		for collider_node in collider_nodes:
+			if(!collider_node || !collider_node.shape || !(collider_node.shape is SphereShape3D)):
+				continue
+			var collider_shape_radius: float = collider_bone_radius + collider_node.shape.radius * collider_node.global_basis.get_scale().x
+			var to_center = tip_global - collider_node.global_position
+			var dist = to_center.length()
+			if dist < collider_shape_radius:
+				var normal = to_center / dist
+				# Project tip onto sphere surface
+				var corrected_tip = collider_node.global_position + normal * collider_shape_radius
+				# Update direction accordingly
+				_global_direction = (corrected_tip - _global_position).normalized()
+				# Reflect angular velocity around normal, with bounce damping
+				var vn = _angular_velocity.dot(normal)
+				_angular_velocity = _angular_velocity - (collider_bounce) * vn * normal
+
+
 	# Limit rotation and angular velocity. _SWING_LIMIT_EPSILON prevents sticking to limit.
 	if rotation_angle > properties.swing_span + _SWING_LIMIT_EPSILON:
 		# Limit rotation.
@@ -211,6 +241,8 @@ func _process_modification() -> void:
 			# Limit force to tangent on swing span circle.
 			torque_force = torque_force.project(rotation_axis)
 			_angular_velocity = _global_direction.cross(torque_force)
+
+
 
 	_global_direction = _global_direction.normalized()
 	# Remove rotation around bone forward axis.

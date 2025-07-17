@@ -12,6 +12,7 @@ var _handle_force := Vector3.ZERO
 var _handle_dragging := false
 var _force_global := Vector3.ZERO
 var _cone_lines := Functions.create_cone_lines()
+var _sphere_lines := Functions.create_sphere_lines()
 
 
 func _init() -> void:
@@ -76,6 +77,8 @@ func _redraw(gizmo: EditorNode3DGizmo) -> void:
 
 	var material := get_material(&"main", gizmo)
 	Functions.gizmo_draw_cone(gizmo, material, _cone_lines, properties.swing_span, node.handle_distance)
+	if(node.collider_enabled):
+		Functions.gizmo_draw_sphere(gizmo, material, _sphere_lines, node.collider_bone_radius)
 
 
 func _get_handle_position(node: DMWBWiggleRotationModifier3D) -> Vector3:

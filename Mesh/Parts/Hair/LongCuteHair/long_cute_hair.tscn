@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddjsdtudrcdop"]
+[gd_scene load_steps=11 format=3 uid="uid://ddjsdtudrcdop"]
 
 [ext_resource type="PackedScene" uid="uid://mbh4g1xlp116" path="res://Mesh/Parts/Hair/LongCuteHair/LongCuteHair.glb" id="1_b8m2i"]
 [ext_resource type="Script" uid="uid://cb7byli1s32rq" path="res://Mesh/Parts/Hair/LongCuteHair/long_cute_hair.gd" id="2_smkm8"]
@@ -9,7 +9,9 @@
 
 [sub_resource type="Resource" id="Resource_2rrcj"]
 script = ExtResource("6_rl78q")
-spring_freq = 1.0
+spring_freq = 2.0
+linear_scale = 604.898
+swing_span = 1.7453292519943295
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
@@ -26,6 +28,8 @@ spring_freq = 2.0
 angular_damp = 4.0
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_wml73"]
+
 [node name="LongCuteHair" instance=ExtResource("1_b8m2i")]
 script = ExtResource("2_smkm8")
 
@@ -37,7 +41,7 @@ attachPoint = "hair"
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("2_yc25h")
 
-[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="1"]
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -47,7 +51,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9999937, -0.003566288, 4.9414457e-06, 0.0035662884, -0.99999, 0.0027221574, -4.766601e-06, 0.0027221579, 0.9999963, 0.064373784, 0.00014650822, -0.097705185)
+transform = Transform3D(-0.9968221, 0.07945328, -0.005731897, -0.076952495, -0.9790479, -0.18852958, -0.020591097, -0.18748936, 0.9820508, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -56,11 +60,13 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
 bone_name = "Back.L"
 properties = SubResource("Resource_2rrcj")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="2"]
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -70,7 +76,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9999937, -0.0035662842, 4.766598e-06, 0.0035662837, -0.99999, 0.0027221595, -4.941443e-06, 0.002722159, 0.9999963, -0.064373784, 0.00014650822, -0.097705185)
+transform = Transform3D(-0.9968221, -0.07945328, 0.005731897, 0.076952495, -0.9790479, -0.18852958, 0.020591097, -0.18748936, 0.9820508, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -79,6 +85,8 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
 bone_name = "Back.R"
 properties = SubResource("Resource_2rrcj")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -93,7 +101,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9996513, 0.026406972, 0.00026708673, -0.026406972, -0.99944687, -0.020216288, -0.00026691193, -0.020216292, 0.9997956, 0.08041468, 0.11152209, 0.0921981)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, -1, 0, 8.742278e-08, 0, 1, 0.08041468, 0.11152209, 0.0921981)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -102,6 +110,9 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_bounce = 0.0
+collider_bone_offset = 0.5
+collider_bone_radius = 0.0
 bone_name = "Front.L"
 properties = SubResource("Resource_wml73")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -116,7 +127,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9996513, 0.026406927, 0.0002669118, -0.026406927, -0.99944687, -0.020216316, -0.0002670866, -0.020216312, 0.9997956, -0.08041468, 0.11152209, 0.0921981)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, -1, 0, -8.742278e-08, 0, 1, -0.08041468, 0.11152209, 0.0921981)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -125,6 +136,9 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_bounce = 0.0
+collider_bone_offset = 0.5
+collider_bone_radius = 0.0
 bone_name = "Front.R"
 properties = SubResource("Resource_wml73")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -148,6 +162,9 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_bounce = 0.0
+collider_bone_offset = 0.5
+collider_bone_radius = 0.0
 bone_name = "Side.L"
 properties = SubResource("Resource_rl78q")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -171,6 +188,18 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_wml73")
+collider_bounce = 0.0
+collider_bone_offset = 0.5
+collider_bone_radius = 0.0
 bone_name = "Side.R"
 properties = SubResource("Resource_rl78q")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairCollision" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
+script = ExtResource("3_g8hfx")
+attachPoint = "upperchest"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+shape = SubResource("SphereShape3D_wml73")

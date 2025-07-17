@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckrtasa3100xf"]
+[gd_scene load_steps=10 format=3 uid="uid://ckrtasa3100xf"]
 
 [ext_resource type="PackedScene" uid="uid://dguqodx0xhekt" path="res://Mesh/Parts/Hair/Ponytail3/Ponytail3.glb" id="1_dot7r"]
 [ext_resource type="Script" uid="uid://cnfh10io1ev0o" path="res://Mesh/Parts/Hair/Ponytail3/ponytail_3.gd" id="2_vmulo"]
@@ -15,6 +15,8 @@ linear_scale = 1065.882
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_7drtq"]
+
 [node name="Ponytail3" instance=ExtResource("1_dot7r")]
 script = ExtResource("2_vmulo")
 
@@ -27,7 +29,7 @@ unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_7drtq")
 surface_material_override/1 = ExtResource("5_iw3yv")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="1"]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -46,11 +48,14 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("6_7drtq")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.029999999998835847
 bone_name = "Tail1"
 properties = SubResource("Resource_oanuy")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="2"]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -69,6 +74,18 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("6_7drtq")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.029999999998835847
 bone_name = "Tail1"
 properties = SubResource("Resource_oanuy")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairCollision" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
+script = ExtResource("3_6wrer")
+attachPoint = "upperchest"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+shape = SubResource("SphereShape3D_7drtq")

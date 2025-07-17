@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpwwk30tha2qv"]
+[gd_scene load_steps=10 format=3 uid="uid://dpwwk30tha2qv"]
 
 [ext_resource type="PackedScene" uid="uid://dlvl0ehqwdfxm" path="res://Mesh/Parts/Hair/Ponytail1/Ponytail1.glb" id="1_cb8oa"]
 [ext_resource type="Script" uid="uid://ujys1vsfvwyr" path="res://Mesh/Parts/Hair/Ponytail1/ponytail1.gd" id="2_xqaau"]
 [ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_hblm6"]
 [ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/Parts/SharedMaterials/RubberBandMat.tres" id="5_elktu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="6_1k6or"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_wcud1"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_bo6te"]
+
+[sub_resource type="Resource" id="Resource_tj25j"]
+script = ExtResource("7_bo6te")
+spring_freq = 2.0
+angular_damp = 6.0
+linear_scale = 1217.143
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_elktu"]
 
 [node name="Ponytail" instance=ExtResource("1_cb8oa")]
 script = ExtResource("2_xqaau")
@@ -18,62 +30,62 @@ unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_hblm6")
 surface_material_override/1 = ExtResource("5_elktu")
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="HairRig/Skeleton3D" index="1"]
-active = false
-setting_count = 2
-settings/0/root_bone_name = "Tail1"
-settings/0/root_bone = 1
-settings/0/end_bone_name = "Tail1"
-settings/0/end_bone = 1
-settings/0/extend_end_bone = true
-settings/0/end_bone/direction = 2
-settings/0/end_bone/length = 0.361
-settings/0/center_from = 0
-settings/0/individual_config = false
-settings/0/rotation_axis = 3
-settings/0/radius/value = 0.013
-settings/0/radius/damping_curve = null
-settings/0/stiffness/value = 0.3
-settings/0/stiffness/damping_curve = null
-settings/0/drag/value = 0.1
-settings/0/drag/damping_curve = null
-settings/0/gravity/value = 1.0
-settings/0/gravity/damping_curve = null
-settings/0/gravity/direction = Vector3(0, -1, 0)
-settings/0/enable_all_child_collisions = false
-settings/0/collision_count = 0
-settings/1/root_bone_name = "Tail2"
-settings/1/root_bone = 2
-settings/1/end_bone_name = "Tail2"
-settings/1/end_bone = 2
-settings/1/extend_end_bone = true
-settings/1/end_bone/direction = 2
-settings/1/end_bone/length = 0.13
-settings/1/center_from = 0
-settings/1/individual_config = false
-settings/1/rotation_axis = 3
-settings/1/radius/value = 0.093
-settings/1/radius/damping_curve = null
-settings/1/stiffness/value = 0.3
-settings/1/stiffness/damping_curve = null
-settings/1/drag/value = 0.1
-settings/1/drag/damping_curve = null
-settings/1/gravity/value = 1.0
-settings/1/gravity/damping_curve = null
-settings/1/gravity/direction = Vector3(0, -1, 0)
-settings/1/enable_all_child_collisions = false
-settings/1/collision_count = 1
-settings/1/collisions/0 = NodePath("SpringBoneCollisionSphere3D")
+[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-3.5762787e-07, 3.2782555e-07, -1, 0.5450678, -0.838392, -4.7683716e-07, -0.838392, -0.5450678, 1.1920929e-07, -1.574271e-17, 0.09336993, -0.1057371)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_wcud1")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+bone_name = "Tail1"
+properties = SubResource("Resource_tj25j")
+enableGravityHelper = true
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="SpringBoneCollisionSphere3D" type="SpringBoneCollisionSphere3D" parent="HairRig/Skeleton3D/SpringBoneSimulator3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0684476, 0.139147)
-top_level = true
-radius = 0.2
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1.3505425e-07, 2.5102074e-07, -1.0000013, -6.6323345e-15, -1.0000002, -2.5808095e-07, -1.0000002, -8.940694e-08, 1.3311848e-07, 3.082951e-08, 0.01452551, -0.15699661)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_wcud1")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+bone_name = "Tail2"
+properties = SubResource("Resource_tj25j")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="PonytailCollision" type="Node3D" parent="." index="1"]
+[node name="HairCollision" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
 script = ExtResource("6_1k6or")
 attachPoint = "upperchest"
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="PonytailCollision" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0684476, 0.139147)
-remote_path = NodePath("../../HairRig/Skeleton3D/SpringBoneSimulator3D/SpringBoneCollisionSphere3D")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+shape = SubResource("SphereShape3D_elktu")
