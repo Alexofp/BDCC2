@@ -251,16 +251,16 @@ func getSettings() -> Dictionary:
 		},
 	}
 
+var gameEnv: Environment = preload("res://Mesh/Enviroment/GameEnv.tres")
+
 func applySettingValue(_settingID:String, newVal:Variant):
 	match _settingID:
 		"ssao":
-			var gameEnv :Environment= load("res://Mesh/Enviroment/GameEnv.tres")
 			gameEnv.ssao_enabled = (newVal in [SSAO.ENABLED, SSAO.ENABLED_SSIL])
 			gameEnv.ssil_enabled = (newVal == SSAO.ENABLED_SSIL)
 		"gi":
-			var gameEnv :Environment= load("res://Mesh/Enviroment/GameEnv.tres")
 			gameEnv.sdfgi_enabled = (newVal in [GI.ENABLED, GI.REDUCED])
-			gameEnv.sdfgi_energy = (5.0 if (newVal==GI.ENABLED) else 2.0)
+			#gameEnv.sdfgi_energy = (5.0 if (newVal==GI.ENABLED) else 2.0)
 			RenderingServer.gi_set_use_half_resolution((newVal in [GI.DISABLED, GI.REDUCED]))
 			RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128 if (newVal == GI.ENABLED) else RenderingServer.ENV_SDFGI_RAY_COUNT_32)
 		"ssaa":
@@ -297,10 +297,8 @@ func applySettingValue(_settingID:String, newVal:Variant):
 				Engine.max_fps = fpsValues[newVal]
 				DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		"glow":
-			var gameEnv :Environment= load("res://Mesh/Enviroment/GameEnv.tres")
 			gameEnv.glow_enabled = (newVal in [GLOW.ENABLED])
 		"fog":
-			var gameEnv :Environment= load("res://Mesh/Enviroment/GameEnv.tres")
 			gameEnv.volumetric_fog_enabled = (newVal in [FOG.VOLUMETRIC])
 			gameEnv.fog_enabled = (newVal in [FOG.SIMPLE])
 		"renderScale":

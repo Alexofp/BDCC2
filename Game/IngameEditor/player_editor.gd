@@ -29,6 +29,7 @@ class_name PlayerEditor
 @onready var my_template_dialog: ConfirmationDialog = %MyTemplateDialog
 @onready var template_item_list: ItemList = %TemplateItemList
 
+signal onExitPressed
 
 var currentMapPath:String = ""
 var messagesList:Array = []
@@ -1190,6 +1191,8 @@ func _on_file_id_pressed(id: int) -> void:
 	if(id == 5):
 		#open_template_dialog.popup_centered()
 		my_template_dialog.popup_centered()
+	if(id == 8):
+		onExitPressed.emit()
 
 func generateNewPropID() -> int:
 	while(propEntries.has(lastUniqueID)):

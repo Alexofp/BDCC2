@@ -10,6 +10,9 @@ size = Vector3(1.49655, 0.170361, 0.5)
 [node name="LampCeiling" instance=ExtResource("1_85uqx")]
 script = ExtResource("2_00xts")
 
+[node name="LampCeiling" parent="." index="0"]
+gi_mode = 0
+
 [node name="StaticBody3D" type="StaticBody3D" parent="LampCeiling" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460984, 0)
 
@@ -24,3 +27,9 @@ light_energy = 2.0
 spot_range = 15.0
 spot_angle = 101.98
 metadata/_edit_pinned_properties_ = [&"spot_range", &"spot_angle", &"light_color", &"light_energy"]
+
+[node name="LampCeiling_lod1" parent="." index="1"]
+gi_mode = 0
+
+[node name="LampCeiling_lod2" parent="." index="2"]
+gi_mode = 0

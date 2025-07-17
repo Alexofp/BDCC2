@@ -44,5 +44,6 @@ func doStuff():
 		#await RenderingServer.frame_post_draw
 	
 	#get_tree().change_scene_to_file(ProjectSettings.get_setting("application/run/main_scene"))
-	get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
+	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
+	get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
 	#get_tree().change_scene_to_file(_theCurrentScenePath)

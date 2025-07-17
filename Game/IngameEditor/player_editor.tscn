@@ -44,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="HeadPivot"]
 unique_name_in_owner = true
+physics_interpolation_mode = 2
 current = true
 
 [node name="FlashlightLight" type="SpotLight3D" parent="HeadPivot/Camera3D"]
@@ -151,7 +152,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="File" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
-item_count = 7
+item_count = 9
 item_0/text = "Clear map"
 item_0/id = 0
 item_1/text = "Open (F2 or F9)"
@@ -166,6 +167,10 @@ item_5/id = 6
 item_5/separator = true
 item_6/text = "Open Template"
 item_6/id = 5
+item_7/id = 7
+item_7/separator = true
+item_8/text = "Exit"
+item_8/id = 8
 
 [node name="View" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
 auto_translate_mode = 1

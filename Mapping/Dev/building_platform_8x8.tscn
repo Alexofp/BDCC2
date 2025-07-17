@@ -15,6 +15,7 @@ size = Vector2(8, 8)
 [node name="BuildingPlatform8x8" instance=ExtResource("1_54bln")]
 
 [node name="BuildingPlatform8x8" parent="." index="0"]
+gi_mode = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_k61f7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BuildingPlatform8x8" index="0"]
