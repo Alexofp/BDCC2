@@ -142,6 +142,11 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	UIHandler.removeMouseCapturer(self)
 
+func shouldCaptureMouse() -> bool:
+	if mousecapture_on && !UIHandler.hasAnyUIVisible():
+		return true
+	return false
+
 func _ready():
 	basis = Basis.IDENTITY
 	SpringArm.add_excluded_object(self.get_rid())
@@ -404,11 +409,6 @@ func process_mousecapture(_delta:float):
 	#else:
 	#	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	pass
-
-func shouldCaptureMouse() -> bool:
-	if mousecapture_on && !UIHandler.hasAnyUIVisible():
-		return true
-	return false
 
 func process_camera_pivot():
 	if(!camera.isActive()):

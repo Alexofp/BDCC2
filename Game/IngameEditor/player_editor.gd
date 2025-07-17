@@ -93,14 +93,14 @@ func updateMouseLock() -> void:
 	
 	var finalMouseLocked:bool = mouseLocked
 	
-	var theTool:=getCurrentTool()
-	var shouldUnlockByTool:bool = false
-	if(theTool != null && theTool.shouldUnlockMouse()):
-		shouldUnlockByTool = true
-	if(finalMouseLocked && !shouldUnlockByTool && !open_file_dialog.visible && !save_file_dialog.visible):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#var theTool:=getCurrentTool()
+	#var shouldUnlockByTool:bool = false
+	#if(theTool != null && theTool.shouldUnlockMouse()):
+	#	shouldUnlockByTool = true
+	#if(finalMouseLocked && !shouldUnlockByTool && !open_file_dialog.visible && !save_file_dialog.visible):
+	#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#else:
+	#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	editor_canvas_layer.visible = !finalMouseLocked
 
 var headtween:Tween
@@ -1392,3 +1392,23 @@ func _on_my_template_dialog_confirmed() -> void:
 	if(template_item_list.get_selected_items().size() < 1):
 		return
 	_on_open_file_dialog_file_selected(foundTemplates[template_item_list.get_selected_items()[0]], true)
+
+func _enter_tree() -> void:
+	UIHandler.addMouseCapturer(self)
+
+func _exit_tree() -> void:
+	UIHandler.removeMouseCapturer(self)
+
+func shouldCaptureMouse() -> bool:
+	var finalMouseLocked:bool = mouseLocked
+	var theTool:=getCurrentTool()
+	var shouldUnlockByTool:bool = false
+	if(theTool != null && theTool.shouldUnlockMouse()):
+		shouldUnlockByTool = true
+	
+	if(finalMouseLocked && !shouldUnlockByTool && !open_file_dialog.visible && !save_file_dialog.visible):
+		return true
+	
+	#if mousecapture_on && !UIHandler.hasAnyUIVisible():
+	#	return true
+	return false

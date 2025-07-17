@@ -32,7 +32,7 @@ func _post_import(scene:Node):
 	elif(scene.name.begins_with("Pipe")):
 		scene.set_script(preload("res://Mapping/PipeBasic.gd"))
 	else:
-		scene.set_script(preload("res://Mapping/PropBasicColors.gd"))
+		scene.set_script(preload("res://Mapping/PropBasic.gd"))
 		
 	return scene
 

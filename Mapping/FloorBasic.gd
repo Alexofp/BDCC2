@@ -1,11 +1,17 @@
-extends PropBasicColors
+extends PropBasic
+
+@export var roughness:float = 0.5
+@export var colorbase:Color = Color("868686")
+@export var color1:Color = Color("353535")
+@export var color2:Color = Color("222222")
+@export var color3:Color = Color("00E0FF")
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {
 		"roughness": {type="roughness"},
-		"colorbase": {type="color", value=Color("868686")},
-		"color1": {type="color", value=Color("353535")},
-		"color2": {type="color", value=Color("222222")},
-		"color3": {type="colorLight", value=Color("00E0FF")},
+		"colorbase": {type="color"},
+		"color1": {type="color"},
+		"color2": {type="color"},
+		"color3": {type="colorLight"},
 	}
 	return theSettings

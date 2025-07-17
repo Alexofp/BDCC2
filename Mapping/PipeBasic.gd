@@ -1,4 +1,10 @@
-extends PropBasicColors
+extends PropBasic
+
+@export var roughness:float = 0.5
+@export var colorbase:Color = Color.ORANGE
+@export var color1:Color = Color.ORANGE
+@export var color2:Color = Color.WHITE
+@export var color3:Color = Color("353535")
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {

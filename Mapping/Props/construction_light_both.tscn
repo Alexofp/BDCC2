@@ -9,6 +9,10 @@ size = Vector3(1.10869, 1.96713, 0.99803)
 
 [node name="ConstructionLightBoth" instance=ExtResource("1_eedrb")]
 script = ExtResource("2_7ursy")
+roughness = 0.5
+colorbase = Color(0.84705883, 0.6392157, 0, 1)
+color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
+color3 = Color(1, 0.99607843, 0.6431373, 1)
 
 [node name="ConstructionLightBoth" parent="." index="0"]
 instance_shader_parameters/roughness_mult = 0.69
