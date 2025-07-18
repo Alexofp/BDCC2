@@ -4,6 +4,7 @@ func _init():
 	idprefix = ""
 	type = TextureVariantType.BodyLayer
 	subType = "def"
+	previewDollPartPath = "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"
 	
 	textures = {
 		"TestLayer": {

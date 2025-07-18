@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://djlfaldpl6h3m"]
+
+[ext_resource type="Script" uid="uid://c1h5kjtpyahi3" path="res://UI/PreviewMaker/preview_maker.gd" id="1_nljnl"]
+
+[node name="PreviewMaker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nljnl")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="PreviewItemList" type="ItemList" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+select_mode = 2
+
+[node name="DoPreviewsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Render previews"
+
+[node name="OpenFolderButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open folder"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/DoPreviewsButton" to="." method="_on_do_previews_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/OpenFolderButton" to="." method="_on_open_folder_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

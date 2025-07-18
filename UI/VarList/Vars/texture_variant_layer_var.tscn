@@ -10,10 +10,18 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_2lgvh")
 
-[node name="TexSelectorButton" type="OptionButton" parent="."]
+[node name="SelectTextureVarButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+expand_icon = true
+
+[node name="TexSelectorButton" type="OptionButton" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
 
 [node name="ColorRectR" type="ColorPickerButton" parent="."]
 unique_name_in_owner = true
@@ -42,6 +50,7 @@ text = "v"
 layout_mode = 2
 text = "x"
 
+[connection signal="pressed" from="SelectTextureVarButton" to="." method="_on_select_texture_var_button_pressed"]
 [connection signal="item_selected" from="TexSelectorButton" to="." method="_on_tex_selector_button_item_selected"]
 [connection signal="color_changed" from="ColorRectR" to="." method="_on_color_rect_r_color_changed"]
 [connection signal="color_changed" from="ColorRectG" to="." method="_on_color_rect_g_color_changed"]

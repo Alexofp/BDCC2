@@ -4,6 +4,7 @@ extends VarUIBase
 @onready var color_rect_r: ColorPickerButton = %ColorRectR
 @onready var color_rect_g: ColorPickerButton = %ColorRectG
 @onready var color_rect_b: ColorPickerButton = %ColorRectB
+@onready var select_texture_var_button: Button = %SelectTextureVarButton
 
 signal onUpButtonPressed
 signal onDownButtonPressed
@@ -75,6 +76,20 @@ func updateTexSelector():
 	if(!allIDs.has(selectedID)):
 		allIDs.append(selectedID)
 	
+	if(selectedID == ""):
+		select_texture_var_button.text = "- Empty -"
+	else:
+		var theSelectedTexVariant:TextureVariant = GlobalRegistry.getTextureVariant(selectedID)
+		if(!theSelectedTexVariant):
+			select_texture_var_button.text = "- Missing -"
+		else:
+			select_texture_var_button.text = theSelectedTexVariant.getName()
+			select_texture_var_button.icon = load(theSelectedTexVariant.previewPath) if theSelectedTexVariant.previewPath != "" else null
+			if(select_texture_var_button.icon):
+				select_texture_var_button.custom_minimum_size.y = 64.0
+			else:
+				select_texture_var_button.custom_minimum_size.y = 0.0
+			
 	var _i:int = 0
 	
 	for theID in allIDs:
@@ -140,3 +155,34 @@ func _on_color_rect_b_color_changed(_color: Color) -> void:
 	colorB = color_rect_b.color
 	triggerChange(getFinalData())
 	isChanging = false
+
+var texVarSelWindow
+func _on_select_texture_var_button_pressed() -> void:
+	if(texVarSelWindow):
+		texVarSelWindow.queue_free()
+		texVarSelWindow = null
+	
+	texVarSelWindow = preload("res://UI/VarList/Util/texture_variant_selector_window.tscn").instantiate()
+	add_child(texVarSelWindow)
+	texVarSelWindow.popup_centered()
+	
+	texVarSelWindow.setData({
+		value = selectedID,
+		values = allIDs,
+	})
+	texVarSelWindow.onClose.connect(onTexVarSelWindowClose)
+	texVarSelWindow.onApply.connect(onTexVarSelWindowApply)
+
+func onTexVarSelWindowClose(_window):
+	if(texVarSelWindow):
+		texVarSelWindow.queue_free()
+		texVarSelWindow = null
+
+func onTexVarSelWindowApply(_window, _id:String):
+	if(texVarSelWindow):
+		texVarSelWindow.queue_free()
+		texVarSelWindow = null
+	selectedID = _id
+	updateTexSelector()
+	updateColors()
+	triggerChange(getFinalData())

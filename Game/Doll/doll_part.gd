@@ -246,3 +246,11 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 			newCol.v = max(min(0.7, newCol.v), 0.5)
 			_hairMat.set_shader_parameter("primary_color", newCol)
 			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)
+
+var previewDollMat := preload("res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres")
+
+func prepareForPreview(_previewMaker):
+	pass
+
+func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
+	pass

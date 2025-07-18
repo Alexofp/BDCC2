@@ -12,6 +12,9 @@ var pathColormask:String = ""
 var pathNormal:String = ""
 var pathORM:String = ""
 
+var previewDollPartPath:String = ""
+var previewPath:String = ""
+
 var flags:Dictionary = {}
 
 func getName() -> String:

@@ -96,3 +96,15 @@ func applyPartFlags(_theFlags:Dictionary):
 		face_animator.setGagMouthOverride(0.57)
 	else:
 		face_animator.setGagMouthOverride()
+
+
+func prepareForPreview(_previewMaker):
+	headMat.copyFrom(previewDollMat)
+
+func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
+	if(_textureVariant.pathColormask != ""):
+		headMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathColormask))
+	elif(_textureVariant.pathTexture != ""):
+		headMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
+	else:
+		headMat.set_shader_parameter("texture_color_mask", null)

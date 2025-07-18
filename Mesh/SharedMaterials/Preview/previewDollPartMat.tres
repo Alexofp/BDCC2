@@ -1,23 +1,13 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=5 format=3 uid="uid://c8vrimhqhhto8"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://b62crf0202w1j"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_thp74"]
-[ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="2_dqa3g"]
-[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_h0f5k"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_fskcs"]
 
-[sub_resource type="Shader" id="Shader_dqa3g"]
+[sub_resource type="Shader" id="Shader_hd1xu"]
 code = "shader_type spatial;
 
-#define MY_NORMAL_MAP
-#define MY_PBR_ORM
-#define MY_BACKLIGHT
-#define MY_RIMLIGHT
-#define MY_SUBSURFACESCATTER
-#define MY_SUBSURFACESCATTER_SKIN
-#define MY_ALPHAMASK
 #define MY_UV_BASED_DISCARD
-#define MY_GLOBALDETAILMAP
-#define MY_OUTLINE
-#define MY_MESSLAYER
+#define MY_COLORMASK
+#define MY_DOUBLESIDED
 
 
 render_mode
@@ -442,43 +432,22 @@ void light(){
 #endif"
 
 [resource]
-resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_dqa3g")
-shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader = SubResource("Shader_hd1xu")
+shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/alpha_scissor_threshold = 0.5
-shader_parameter/rim = 0.5
-shader_parameter/rim_tint = 1.0
-shader_parameter/subsurface_scattering_strength = 0.23
-shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_detail_normal_global = ExtResource("3_h0f5k")
-shader_parameter/detail_normal_scale = 40.0
-shader_parameter/detail_normal_blend = 0.3
-shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
-shader_parameter/outline_thickness = 0.8
-shader_parameter/texture_mess_layer = ExtResource("2_dqa3g")
-shader_parameter/messLayerScale = 3.0000001425
-shader_parameter/messColor = Color(1, 1, 1, 1)
-shader_parameter/messRoughness = 0.0
-shader_parameter/messScroll = 0.0
-shader_parameter/messCutoff = 0.0
-shader_parameter/messSmoothSize = 0.1
-script = ExtResource("1_thp74")
-normalMap = 1
-pbrSetup = 3
-subsurfaceScattering = 2
-backlight = true
-rimlight = true
-outline = true
-alphaMask = true
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("1_fskcs")
+doubleSided = true
+colorMask = true
 uvBasedDiscard = true
-globalDetailMask = true
-messLayer = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

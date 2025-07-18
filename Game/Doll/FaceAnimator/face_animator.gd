@@ -303,8 +303,9 @@ func moveValueTowards(theVal:float, targetVal:float, speedChange:float) -> float
 func _process(_delta: float) -> void:
 	if(Engine.is_editor_hint()):
 		return
-
-	updateFaceExpression(_delta)
+	
+	if(getDoll()):
+		updateFaceExpression(_delta)
 	
 	#for gesture in gestures:
 	#	gesture.processTimeFinal(_delta)

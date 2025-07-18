@@ -115,3 +115,14 @@ func _on_cum_layer_on_texture_updated(newTexture: Variant) -> void:
 func updateBodyAlphaMask(_finalAlpha:Texture2D):
 	if(bodyMat):
 		bodyMat.set_shader_parameter("texture_alpha", _finalAlpha)
+
+func prepareForPreview(_previewMaker):
+	bodyMat.copyFrom(previewDollMat)
+
+func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
+	if(_textureVariant.pathColormask != ""):
+		bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathColormask))
+	elif(_textureVariant.pathTexture != ""):
+		bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
+	else:
+		bodyMat.set_shader_parameter("texture_color_mask", null)

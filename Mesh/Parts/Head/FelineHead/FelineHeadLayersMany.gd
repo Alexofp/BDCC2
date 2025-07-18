@@ -5,6 +5,8 @@ func _init():
 	type = TextureVariantType.HeadLayer
 	subType = "FelineHead"
 	
+	previewDollPartPath = "res://Mesh/Parts/Head/FelineHead/feline_head.tscn"
+	
 	textures = {
 		"Snout": {
 			name = "Snout",

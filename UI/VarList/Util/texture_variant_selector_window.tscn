@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://y7osaxdw7cyo"]
+
+[ext_resource type="Script" uid="uid://cv0j0e44rm1ss" path="res://UI/VarList/Util/texture_variant_selector_window.gd" id="1_b1iij"]
+
+[node name="TextureVariantSelectorWindow" type="ConfirmationDialog"]
+oversampling_override = 1.0
+title = "Select texture"
+size = Vector2i(400, 500)
+visible = true
+script = ExtResource("1_b1iij")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 451.0
+
+[node name="TextureVariantList" type="ItemList" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+fixed_icon_size = Vector2i(150, 150)
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="item_selected" from="VBoxContainer/TextureVariantList" to="." method="_on_texture_variant_list_item_selected"]
