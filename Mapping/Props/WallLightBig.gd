@@ -1,14 +1,40 @@
-extends "res://Mapping/Props/WallLight.gd"
+@tool
+extends PropBasic
+
+@onready var spot_light_3d: SpotLight3D = $WallLightBig/SpotLight3D
+
+@export var roughness:float = 0.5:
+	set(value):
+		roughness = value
+		notifySetEditorValue("roughness", value)
+@export var colorbase:Color = Color("868686"):
+	set(value):
+		colorbase = value
+		notifySetEditorValue("colorbase", value)
+@export var color1:Color = Color("303030"):
+	set(value):
+		color1 = value
+		notifySetEditorValue("color1", value)
+@export var color3:Color = Color("00E0FF"):
+	set(value):
+		color3 = value
+		notifySetEditorValue("color3", value)
+
+func getEditorOptionsEasy() -> Dictionary:
+	var theSettings:Dictionary =  {
+		"roughness": {type="roughness"},
+		"colorbase": {type="color"},
+		"color1": {type="color"},
+		#"color2": {type="color"},
+		"color3": {type="colorLight"},
+	}
+	return theSettings
 
 func applyEditorOption(_id, _value):
-	if(_id == "roughness"):
-		setInstanceShaderParameter("roughness_mult", _value)
-	if(_id == "colorbase"):
-		setInstanceShaderParameter("trim_color_base", _value)
-	if(_id == "color"):
-		setInstanceShaderParameter("trim_color_main", _value)
-	if(_id == "color2"):
-		setInstanceShaderParameter("trim_color_second", _value)
+	super.applyEditorOption(_id, _value)
 	if(_id == "color3"):
-		setInstanceShaderParameter("trim_color_third", _value)
-		$WallLightBig/SpotLight3D.light_color = _value
+		if(spot_light_3d):
+			spot_light_3d.light_color = _value
+
+func getEditorOptionsID() -> String:
+	return EDITOR_OPTIONS_ID_WALLLIGHT

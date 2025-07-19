@@ -7,6 +7,12 @@ size = Vector3(0.4, 1.44156, 1.1)
 
 [node name="ColumnB2Corner" instance=ExtResource("1_skog6")]
 
+[node name="ColumnB2Corner" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="ColumnB2Corner" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnB2Corner/StaticBody3D" index="0"]
@@ -24,3 +30,21 @@ shape = SubResource("BoxShape3D_qkl64")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="ColumnB2Corner/StaticBody3D" index="3"]
 transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 0.198, 1, 0)
 shape = SubResource("BoxShape3D_qkl64")
+
+[node name="ColumnB2Corner_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[node name="ColumnB2Corner_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[node name="ColumnB2Corner_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)

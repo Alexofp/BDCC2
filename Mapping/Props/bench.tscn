@@ -22,14 +22,15 @@ properties/1/replication_mode = 2
 [node name="Bench" groups=["Networked"] instance=ExtResource("1_llgmc")]
 script = ExtResource("2_h16yf")
 roughness = 0.5
-colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
+colorbase = Color(0.53, 0.53, 0.53, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="Bench" parent="." index="0"]
-instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
-instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
-instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
 instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bench" index="0"]
@@ -42,6 +43,24 @@ shape = SubResource("BoxShape3D_x22yw")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Bench/StaticBody3D" index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.966743, 0.255749, 0, -0.255749, 0.966743, 0, 0.195936, -0.278135)
 shape = SubResource("BoxShape3D_ft0qw")
+
+[node name="Bench_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
+
+[node name="Bench_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
+
+[node name="Bench_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="BenchAnimHandler" parent="." index="4" instance=ExtResource("3_h16yf")]
 

@@ -10,6 +10,13 @@ size = Vector3(0.2, 0.2, 0.3)
 
 [node name="PipeA05Converter" instance=ExtResource("1_7eqm4")]
 
+[node name="PipeA05Converter" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
+instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="PipeA05Converter" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, 0.25)
 

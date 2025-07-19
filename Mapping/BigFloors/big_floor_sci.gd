@@ -1,3 +1,4 @@
+@tool
 extends "res://Mapping/FloorBasic.gd"
 
 func getEditorOptionsID() -> String:

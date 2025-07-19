@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bychy0qy5syl0" path="res://Mapping/Decals/Raw/DecalPushGently.glb" id="1_qtk4d"]
 
 [node name="DecalPushGently" instance=ExtResource("1_qtk4d")]
+
+[node name="DecalPushGently" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

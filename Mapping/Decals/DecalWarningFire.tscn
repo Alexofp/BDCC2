@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bnnbxpcl507jg" path="res://Mapping/Decals/Raw/DecalWarningFire.glb" id="1_6ke6b"]
 
 [node name="DecalWarningFire" instance=ExtResource("1_6ke6b")]
+
+[node name="DecalWarningFire" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

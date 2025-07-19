@@ -11,6 +11,8 @@ size = Vector3(1.84, 0.04, 0.319829)
 script = ExtResource("2_u6b07")
 
 [node name="RailWallHanging2" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_s52ux")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RailWallHanging2" index="0"]

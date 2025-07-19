@@ -9,9 +9,17 @@ size = Vector3(1.49655, 0.170361, 0.5)
 
 [node name="LampCeiling" instance=ExtResource("1_85uqx")]
 script = ExtResource("2_00xts")
+roughness = 0.5
+colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
+color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
+color3 = Color(0, 0.8784314, 1, 1)
 
 [node name="LampCeiling" parent="." index="0"]
 gi_mode = 0
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LampCeiling" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460984, 0)
@@ -22,7 +30,7 @@ shape = SubResource("BoxShape3D_qytl1")
 
 [node name="SpotLight3D" parent="LampCeiling" index="1" instance=ExtResource("3_yp53l")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.977766, 0)
-light_color = Color(0.51, 0.755, 1, 1)
+light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 2.0
 spot_range = 15.0
 spot_angle = 101.98
@@ -30,6 +38,14 @@ metadata/_edit_pinned_properties_ = [&"spot_range", &"spot_angle", &"light_color
 
 [node name="LampCeiling_lod1" parent="." index="1"]
 gi_mode = 0
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
 [node name="LampCeiling_lod2" parent="." index="2"]
 gi_mode = 0
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

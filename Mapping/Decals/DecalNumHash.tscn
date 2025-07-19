@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bb65p3vbgy6ee" path="res://Mapping/Decals/Raw/DecalNumHash.glb" id="1_47rm8"]
 
 [node name="DecalNumHash" instance=ExtResource("1_47rm8")]
+
+[node name="DecalNumHash" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

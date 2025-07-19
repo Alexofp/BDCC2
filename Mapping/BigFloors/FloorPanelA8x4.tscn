@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5yvaht1wsdht"]
 
 [ext_resource type="PackedScene" uid="uid://cpy2qrth3s1in" path="res://Mapping/BigFloors/Raw/FloorPanelA8x4.glb" id="1_muayf"]
-[ext_resource type="Script" uid="uid://bcjpcxknqu5o7" path="res://Mapping/FloorBasic.gd" id="2_fy7h1"]
+[ext_resource type="Script" uid="uid://bi2l5m1wp8b5o" path="res://Mapping/BigFloors/floor_panelA8x4.gd" id="2_fy7h1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i0ilp"]
 size = Vector3(8, 0.0685424, 4)
@@ -15,7 +15,14 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.13333334, 0.13333334, 0.13333334, 1)
-color3 = Color(0.06666667, 0.06666667, 0.06666667, 1)
+color3 = Color(0, 0.8784314, 1, 1)
+
+[node name="FloorPanelA8x4" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FloorPanelA8x4" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0327302, 0)

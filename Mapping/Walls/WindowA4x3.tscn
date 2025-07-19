@@ -10,6 +10,11 @@ size = Vector3(4, 0.8, 0.0580209)
 
 [node name="WindowA4x3" instance=ExtResource("1_gnrob")]
 
+[node name="WindowA4x3" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="WindowA4x3" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.131057)
 
@@ -19,3 +24,18 @@ shape = SubResource("BoxShape3D_ecsl0")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="WindowA4x3" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59892, 0.0310572)
 occluder = SubResource("BoxOccluder3D_havk4")
+
+[node name="WindowA4x3_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="WindowA4x3_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="WindowA4x3_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

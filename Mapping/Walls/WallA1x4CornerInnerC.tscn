@@ -7,7 +7,22 @@ points = PackedVector3Array(-0.897709, 3.98982, -9.78708e-05, -0.880677, 3.98982
 
 [node name="WallA1x4CornerInnerC" instance=ExtResource("1_arcf0")]
 
+[node name="WallA1x4CornerInnerC" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="WallA1x4CornerInnerC" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x4CornerInnerC/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_lkm4j")
+
+[node name="WallA1x4CornerInnerC_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="WallA1x4CornerInnerC_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -1,9 +1,22 @@
+@tool
 extends PropBasic
 
-@export var roughness:float = 0.5
-@export var colorbase:Color = Color("353535")
-@export var color1:Color = Color("868686")
-@export var color2:Color = Color("222222")
+@export var roughness:float = 0.5:
+	set(value):
+		roughness = value
+		notifySetEditorValue("roughness", value)
+@export var colorbase:Color = Color("353535"):
+	set(value):
+		colorbase = value
+		notifySetEditorValue("colorbase", value)
+@export var color1:Color = Color("868686"):
+	set(value):
+		color1 = value
+		notifySetEditorValue("color1", value)
+@export var color2:Color = Color("222222"):
+	set(value):
+		color2 = value
+		notifySetEditorValue("color2", value)
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {

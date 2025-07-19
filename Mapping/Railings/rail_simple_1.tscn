@@ -11,7 +11,8 @@ size = Vector3(0.84, 1.01983, 0.0400003)
 script = ExtResource("2_msdb2")
 
 [node name="RailSimple1" parent="." index="0"]
-instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)

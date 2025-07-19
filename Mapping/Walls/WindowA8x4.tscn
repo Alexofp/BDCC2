@@ -11,11 +11,13 @@ size = Vector3(8, 1, 0.07)
 
 [node name="WindowA8x4" instance=ExtResource("1_bt3jn")]
 script = ExtResource("2_4r7j1")
+color2 = Color(0.133333, 0.133333, 0.133333, 1)
 
 [node name="WindowA8x4" parent="." index="0"]
-instance_shader_parameters/trim_color_base = Color(0.321728, 0.321728, 0.321728, 1)
-instance_shader_parameters/trim_color_main = Color(0.431373, 0.431373, 0.431373, 1)
-instance_shader_parameters/trim_color_second = Color(0.306923, 0.306923, 0.306923, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WindowA8x4" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.141751)
@@ -26,3 +28,21 @@ shape = SubResource("BoxShape3D_qqd4p")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="WindowA8x4" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0.0417512)
 occluder = SubResource("BoxOccluder3D_wnyj3")
+
+[node name="WindowA8x4_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="WindowA8x4_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="WindowA8x4_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)

@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://coecxatmvu8nh" path="res://Mapping/Decals/Raw/DecalLineWhite1Striped.glb" id="1_ehngx"]
 
 [node name="DecalLineWhite1Striped" instance=ExtResource("1_ehngx")]
+
+[node name="DecalLineWhite1Striped" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

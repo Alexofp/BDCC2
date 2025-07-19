@@ -8,6 +8,12 @@ size = Vector3(0.800001, 0.105696, 10)
 
 [node name="MiddlePieceCutout1x10" instance=ExtResource("1_bdnwn")]
 script = ExtResource("2_1gpny")
+roughness = 0.5
+colorbase = Color(0.52549, 0.52549, 0.52549, 1)
+
+[node name="MiddlePieceCutout1x10" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MiddlePieceCutout1x10" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000601791, 0)

@@ -10,6 +10,11 @@ size = Vector3(0.6, 0.953059, 0.6)
 
 [node name="Foundation2CornerOuter" instance=ExtResource("1_anml6")]
 
+[node name="Foundation2CornerOuter" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Foundation2CornerOuter" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.431616, 0.530519, -0.431617)
 
@@ -20,3 +25,18 @@ shape = SubResource("BoxShape3D_3v867")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation2CornerOuter" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.699685, 0.498587, -0.69388)
 occluder = SubResource("BoxOccluder3D_yha8h")
+
+[node name="Foundation2CornerOuter_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="Foundation2CornerOuter_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="Foundation2CornerOuter_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

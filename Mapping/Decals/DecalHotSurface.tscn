@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dvo4j6vnhefe0" path="res://Mapping/Decals/Raw/DecalHotSurface.glb" id="1_gejt0"]
 
 [node name="DecalHotSurface" instance=ExtResource("1_gejt0")]
+
+[node name="DecalHotSurface" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

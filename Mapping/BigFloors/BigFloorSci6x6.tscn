@@ -12,6 +12,13 @@ size = Vector2(6.00001, 6)
 [node name="BigFloorSci6x6" instance=ExtResource("1_7snvu")]
 script = ExtResource("2_lcd3k")
 
+[node name="BigFloorSci6x6" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="BigFloorSci6x6" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.15256e-07, -0.0307377, -3)
 

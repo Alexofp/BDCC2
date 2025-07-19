@@ -1,6 +1,8 @@
 extends Node3D
 class_name PropBasic
 
+var meshes:Array[GeometryInstance3D] = []
+var meshesDirty:bool = true
 #@export var roughness:float = 0.5
 #@export var colorbase = Color("868686")
 #@export var color1 = Color("353535")
@@ -15,6 +17,7 @@ class_name PropBasic
 	#"color3": {type="color", value=Color("111111")},
 #}
 #@export var editorOptionsID:String = ""
+signal onEditorValueChange(id, value)
 
 const PROP_OPTIONS_FULL:Dictionary = {
 	"roughness": {type="roughness"},
@@ -128,35 +131,45 @@ func setEditorOption(_id:String, _value:Variant):
 	set(_id, _value)
 	applyEditorOption(_id, _value)
 
-func setEditorOptionTool(_id:String, _value:Variant):
+func notifySetEditorValue(_id:String, _value:Variant):
+	onEditorValueChange.emit(_id, _value)
 	applyEditorOption(_id, _value)
 
 func getEditorOption(_id:String) -> Variant:
 	return get(_id)
 
 func applyEditorOption(_id, _value):
-	if(_id == "roughness"):
-		setInstanceShaderParameter("roughness_mult", _value)
-	if(_id == "colorbase"):
-		setInstanceShaderParameter("trim_color_base", _value)
-	if(_id == "color1"):
-		setInstanceShaderParameter("trim_color_main", _value)
-	if(_id == "color2"):
-		setInstanceShaderParameter("trim_color_second", _value)
-	if(_id == "color3"):
-		setInstanceShaderParameter("trim_color_third", _value)
+	match _id:
+		"roughness":
+			setInstanceShaderParameter("roughness_mult", _value)
+		"colorbase":
+			setInstanceShaderParameter("trim_color_base", _value)
+		"color1":
+			setInstanceShaderParameter("trim_color_main", _value)
+		"color2":
+			setInstanceShaderParameter("trim_color_second", _value)
+		"color3":
+			setInstanceShaderParameter("trim_color_third", _value)
 
-func getMeshes() -> Array:
-	var result:Array = []
+func getMeshes() -> Array[GeometryInstance3D]:
+	if(!meshesDirty):
+		return meshes
+	var result:Array[GeometryInstance3D] = []
 	for child in get_children():
+		if(child is PropBasic): # Another prop has started
+			continue
 		if(child is MeshInstance3D):
 			result.append(child)
 		result.append_array(getMeshesSub(child))
+	meshes = result
+	meshesDirty = false
 	return result
 
-func getMeshesSub(theNode:Node) -> Array:
-	var result:Array = []
+func getMeshesSub(theNode:Node) -> Array[GeometryInstance3D]:
+	var result:Array[GeometryInstance3D] = []
 	for child in theNode.get_children():
+		if(child is PropBasic): # Another prop has started
+			continue
 		if(child is MeshInstance3D):
 			result.append(child)
 		result.append_array(getMeshesSub(child))

@@ -13,6 +13,13 @@ size = Vector3(0.4, 0.4, 0.9)
 
 [node name="PipeA1Curved" instance=ExtResource("1_n08ho")]
 
+[node name="PipeA1Curved" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
+instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Curved" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249984, -2.98023e-08, 0.5)
 

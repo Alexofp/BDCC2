@@ -12,6 +12,8 @@ script = ExtResource("2_2tcav")
 
 [node name="Tube_Tube_030" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_5rk6o")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tube_Tube_030" index="0"]

@@ -7,6 +7,13 @@ size = Vector3(1.01598, 1.10685, 0.1)
 
 [node name="FancyRailing2Corner" instance=ExtResource("1_ao2q8")]
 
+[node name="FancyRailing2Corner" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing2Corner" index="0"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.452201, 0.502437, 0.452202)
 
@@ -17,3 +24,24 @@ shape = SubResource("BoxShape3D_87vwc")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="FancyRailing2Corner/StaticBody3D" index="1"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.458, 0, 0)
 shape = SubResource("BoxShape3D_87vwc")
+
+[node name="FancyRailing2Corner_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="FancyRailing2Corner_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[node name="FancyRailing2Corner_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)

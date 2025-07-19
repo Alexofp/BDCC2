@@ -17,7 +17,8 @@ size = Vector2(0.8, 4)
 [node name="BackWallA1x4CornerOuter" instance=ExtResource("1_3lgdb")]
 
 [node name="BackWallA1x4CornerOuter" parent="." index="0"]
-instance_shader_parameters/trim_color_base = Color(0.341176, 0.341176, 0.341176, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="BackWallA1x4CornerOuter" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, -0.5)
@@ -45,3 +46,15 @@ occluder = SubResource("QuadOccluder3D_dnbqy")
 [node name="OccluderInstance3D3" type="OccluderInstance3D" parent="BackWallA1x4CornerOuter" index="3"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.3, 2, -0.3)
 occluder = SubResource("QuadOccluder3D_0besl")
+
+[node name="BackWallA1x4CornerOuter_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
+
+[node name="BackWallA1x4CornerOuter_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
+
+[node name="BackWallA1x4CornerOuter_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

@@ -5,3 +5,19 @@
 
 [node name="SlopedWindowWallA8Right" instance=ExtResource("1_agbno")]
 script = ExtResource("2_ob57o")
+roughness = 0.5
+colorbase = Color(0.52549, 0.52549, 0.52549, 1)
+color1 = Color(0.207843, 0.207843, 0.207843, 1)
+color2 = Color(1, 1, 1, 1)
+
+[node name="SlopedWindowWallA8Right" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+
+[node name="SlopedWindowWallA8Right_lod1" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)

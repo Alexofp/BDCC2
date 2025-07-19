@@ -15,10 +15,10 @@ color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
 color3 = Color(1, 0.99607843, 0.6431373, 1)
 
 [node name="ConstructionLightBoth" parent="." index="0"]
-instance_shader_parameters/roughness_mult = 0.69
-instance_shader_parameters/trim_color_base = Color(0.845507, 0.640021, 0, 1)
-instance_shader_parameters/trim_color_main = Color(0.187176, 0.187176, 0.187176, 1)
-instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
+instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.988704, -3.27826e-07)
@@ -28,9 +28,27 @@ shape = SubResource("BoxShape3D_ta3ub")
 
 [node name="SpotLight3D2" parent="." index="1" instance=ExtResource("3_8ldnr")]
 transform = Transform3D(1, 0, 0, 0, -0.90644777, 0.42231792, 0, -0.42231792, -0.90644777, 0, 1.793, 0.126)
-light_color = Color(1, 0.99607843, 0.7607843, 1)
+light_color = Color(1, 0.99607843, 0.6431373, 1)
 light_energy = 10.0
 light_indirect_energy = 1.0
 light_volumetric_fog_energy = 3.0
 spot_range = 15.0
 spot_angle = 53.69
+
+[node name="ConstructionLightBoth_lod1" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
+instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
+
+[node name="ConstructionLightBoth_lod2" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
+instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
+
+[node name="ConstructionLightBoth_lod3" parent="." index="4"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
+instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)

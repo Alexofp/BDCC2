@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cpxbilbrb7jgr" path="res://Mapping/Decals/Raw/DecalDoNotUnplug.glb" id="1_dvh8j"]
 
 [node name="DecalDoNotUnplug" instance=ExtResource("1_dvh8j")]
+
+[node name="DecalDoNotUnplug" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

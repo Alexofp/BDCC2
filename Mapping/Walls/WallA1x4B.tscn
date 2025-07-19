@@ -10,6 +10,11 @@ size = Vector2(4.02, 1.02)
 
 [node name="WallA1x4B" instance=ExtResource("1_4sgsc")]
 
+[node name="WallA1x4B" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="WallA1x4B" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 0.125761)
 
@@ -19,3 +24,8 @@ shape = SubResource("BoxShape3D_ek8fd")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallA1x4B" index="1"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 2, 0)
 occluder = SubResource("QuadOccluder3D_li5cu")
+
+[node name="WallA1x4B_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

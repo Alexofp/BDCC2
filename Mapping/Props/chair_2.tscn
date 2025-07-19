@@ -11,6 +11,14 @@ size = Vector3(0.65022, 0.582577, 0.100856)
 
 [node name="Chair2" instance=ExtResource("1_6pqlf")]
 script = ExtResource("2_s1gpe")
+roughness = 0.5
+colorbase = Color(0.52549, 0.52549, 0.52549, 1)
+color1 = Color(0.207843, 0.207843, 0.207843, 1)
+
+[node name="Chair2" parent="." index="0"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Chair2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.486725, -0.0929759)
@@ -22,3 +30,18 @@ shape = SubResource("BoxShape3D_vk2lm")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Chair2/StaticBody3D" index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.990144, 0.140055, 0, -0.140055, 0.990144, 0, 0.229442, -0.248333)
 shape = SubResource("BoxShape3D_q4n32")
+
+[node name="Chair2_lod1" parent="." index="1"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+
+[node name="Chair2_lod2" parent="." index="2"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+
+[node name="Chair2_lod3" parent="." index="3"]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
