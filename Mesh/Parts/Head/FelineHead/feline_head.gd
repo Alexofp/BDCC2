@@ -36,7 +36,7 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(headMat == null):
 		return
 	
@@ -61,7 +61,7 @@ func updateHeadTexture():
 	
 	head_layered_texture.clearLayers()
 	
-	if(theSkinData.skinType == SkinType.Fur):
+	if(getSkinType() == SkinType.Fur):
 		head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_BaseColor.png", theSkinData.color)
 	#if(theSkinData.skinType == SkinType.HumanSkin):
 	#	body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)

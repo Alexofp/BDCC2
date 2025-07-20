@@ -22,7 +22,7 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(headMat == null):
 		return
 	

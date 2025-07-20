@@ -34,7 +34,7 @@ func applyOption(_optionID:String, _value:Variant):
 		if(fluffMat):
 			fluffMat.albedo_color = _value
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(earMat == null):
 		return
 	

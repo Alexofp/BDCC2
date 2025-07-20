@@ -21,11 +21,11 @@ func _ready():
 	GameInteractor.registerOnServerCommand(InteractCommand.BODYPART_CHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeAny])
 	GameInteractor.registerOnClientCommand(InteractCommand.BODYPART_CHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeAny])
 	
-	GameInteractor.registerOnServerCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeString, IntComArg.TypeDict])
-	GameInteractor.registerOnClientCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeString, IntComArg.TypeDict])
+	GameInteractor.registerOnServerCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeDict])
+	GameInteractor.registerOnClientCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeDict])
 	
-	GameInteractor.registerOnServerCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeDict])
-	GameInteractor.registerOnClientCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeDict])
+	GameInteractor.registerOnServerCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeDict])
+	GameInteractor.registerOnClientCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeDict])
 	
 	
 	#GameInteractor.registerOnClientCommand(InteractCommand.GIVE_BODYPART, self, "onMyFunctioName", [IntComArgType.Int, IntComArgType.String, IntComArgType.Any])
@@ -77,13 +77,13 @@ func handleNetworkCommand(_command:int, _clientID:int, _data:Array):
 			skinTypeData = SkinTypeData.new()
 			skinTypeData.loadNetworkData(_data[3])
 		
-		theCharacter.setSkinTypeForSlot(_data[1], _data[2])
-		theCharacter.setSkinTypeDataForSlot(_data[1], skinTypeData)
+		#theCharacter.setSkinTypeForSlot(_data[1], _data[2])
+		theCharacter.setSkinTypeDataForSlot(_data[1], _data[2], skinTypeData)
 
-func askCharacterChangeBaseSkinTypeData(character:BaseCharacter, newSkinType:String, newSkinTypeData:SkinTypeData):
+func askCharacterChangeBaseSkinTypeData(character:BaseCharacter, newSkinType:int, newSkinTypeData:SkinTypeData):
 	GameInteractor.doOnServer(InteractCommand.CHARACTER_BASESKINCHANGE, [character.getID(), newSkinType, newSkinTypeData.saveNetworkData() if newSkinTypeData else {}])
 
-func onCharacterBaseSkinTypeChange(_skinType:String, skinTypeData:SkinTypeData, character:BaseCharacter):
+func onCharacterBaseSkinTypeChange(_skinType:int, skinTypeData:SkinTypeData, character:BaseCharacter):
 	if(Network.isServerNotSingleplayer()):
 		GameInteractor.doOnAllClients(InteractCommand.CHARACTER_BASESKINCHANGE, [character.getID(), _skinType, skinTypeData.saveNetworkData() if skinTypeData else {}])
 
@@ -115,10 +115,10 @@ func onCharacterGenericPartOptionChange(genericType:int, partSlot:int, optionID:
 
 
 
-func askCharacterBodypartSkinTypeChange(character:BaseCharacter, partSlot:int, skinType:String, skinTypeData:SkinTypeData):
+func askCharacterBodypartSkinTypeChange(character:BaseCharacter, partSlot:int, skinType:int, skinTypeData:SkinTypeData):
 	GameInteractor.doOnServer(InteractCommand.BODYPART_SKINCHANGE, [character.getID(), partSlot, skinType, skinTypeData.saveNetworkData() if skinTypeData else {}])
 
-func onCharacterBodypartSkinTypeChange(partSlot:int, skinType:String, _skinTypeData:SkinTypeData, character:BaseCharacter):
+func onCharacterBodypartSkinTypeChange(partSlot:int, skinType:int, _skinTypeData:SkinTypeData, character:BaseCharacter):
 	if(Network.isServerNotSingleplayer()):
 		var theBodypart:BodypartBase = character.getBodypart(partSlot)
 		GameInteractor.doOnAllClients(InteractCommand.BODYPART_SKINCHANGE, [character.getID(), partSlot, skinType, theBodypart.skinDataOverride.saveNetworkData() if theBodypart.skinDataOverride else {}])

@@ -62,9 +62,12 @@ func applyToCharacter(_char:BaseCharacter):
 	_char.applyCharChange(CharOption.walkAnim, walkAnim)
 	_char.applyCharChange(CharOption.idleAnim, idleAnim)
 	
-	for skinType in skinTypes:
+	for skinTypeA in skinTypes:
+		var skinType = skinTypeA
+		if(skinType is String):
+			skinType = SkinType.stringToType(skinType)
 		var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-		newSkinTypeData.loadData(skinTypes[skinType])
+		newSkinTypeData.loadData(skinTypes[skinTypeA])
 		_char.setBaseSkinTypeData(skinType, newSkinTypeData)
 	
 	for bodypartSlot in _char.bodyparts.keys():

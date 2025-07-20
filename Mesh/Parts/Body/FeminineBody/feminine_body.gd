@@ -43,17 +43,17 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "breasts"):
 		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(bodyMat == null):
 		return
 		
 	const ignoreUniforms = ["albedo", "texture_mess_mask", "texture_alpha"]
 		
-	if(_skinTypeData.skinType == SkinType.HumanSkin):
+	if(_skinType == SkinType.HumanSkin):
 		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
 		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png"))
 		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"))
-	elif(_skinTypeData.skinType == SkinType.Fur):
+	elif(_skinType == SkinType.Fur):
 		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
 		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"))
 		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png"))
@@ -68,12 +68,13 @@ func updateBodyTexture():
 	var theSkinData:SkinTypeData = getSkinData()
 	if(theSkinData == null):
 		return
+	var theSkinType := getSkinType()
 	
 	body_layered_texture.clearLayers()
 	
-	if(theSkinData.skinType == SkinType.Fur):
+	if(theSkinType == SkinType.Fur):
 		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
-	if(theSkinData.skinType == SkinType.HumanSkin):
+	if(theSkinType == SkinType.HumanSkin):
 		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
 	
 	addLayersToTexture(body_layered_texture, getOptionValue("bodyLayers", []))

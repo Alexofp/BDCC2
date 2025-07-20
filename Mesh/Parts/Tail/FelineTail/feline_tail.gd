@@ -31,7 +31,7 @@ func applyOption(_optionID:String, _value:Variant):
 		if(tailSkeletonModifier):
 			tailSkeletonModifier.lenModifier = _value
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(tailMat == null):
 		return
 	

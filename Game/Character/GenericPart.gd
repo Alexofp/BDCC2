@@ -58,8 +58,8 @@ func createScene(_slot:int) -> Node3D:
 func getSupportedSkinTypes() -> Dictionary:
 	return {}
 
-func getSkinType() -> String:
-	return ""
+func getSkinType() -> int:
+	return SkinType.None
 
 func getSkinTypeData() -> SkinTypeData:
 	return null

@@ -1,0 +1,202 @@
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+data = {
+&"bodyparts": {
+"Body": {
+&"data": {
+"options": {
+"bodyLayers": [{
+&"colorB": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"colorG": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"colorR": Color(0.58203125, 0.3253257, 0.26828003, 1),
+&"id": "Belly"
+}, {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
+&"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"id": "FeetFur"
+}, {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
+&"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"id": "HandsFur"
+}],
+"breasts": 1.0,
+"breastsCleavage": 0.0,
+"claws": 0.0,
+"handPads": true,
+"handPadsColor": Color(0.77734375, 0.4106865, 0.2672119, 1),
+"legType": "digi",
+"nippleShape": 0.0
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FeminineBody"
+},
+"Hair": {
+&"data": {
+"options": {
+"bandColor": Color(0.09019608, 0.09019608, 0.09019608, 1),
+"colorRoot": Color(0.85882354, 0.35557595, 0.109803915, 1),
+"colorTip": Color(0.45882353, 0.11829043, 0, 1),
+"shading": 0.5
+}
+},
+&"id": "Ponytail1"
+},
+"Head": {
+&"data": {
+"options": {
+"eyeColor1": Color(0.026519775, 0.14947508, 0.30859375, 1),
+"eyeColor2": Color(0, 0.6313726, 1, 1),
+"eyeColor3": Color(1, 1, 1, 1),
+"faceOverride": {
+&"fields": {},
+&"values": {}
+},
+"fluff": true,
+"fluffDown": 0.0,
+"fluffShort": 0.0,
+"fluffWide": 0.0,
+"headLayers": [{
+&"colorB": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"colorG": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
+&"id": "FelineHead_Ferri"
+}, {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(1, 1, 1, 1),
+&"colorR": Color(0.421875, 0.27355957, 0.27355957, 1),
+&"id": "FelineHead_Snout"
+}, {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
+&"colorR": Color(0, 0, 0, 1),
+&"id": "FelineHead_Lines"
+}]
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineHead"
+},
+"Left Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(1, 1, 1, 1),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0.9411765, 0.5019608, 0.5019608, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"tassels": false,
+"tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineEar"
+},
+"Penis": {
+&"data": {
+"options": {
+"furTuft": true,
+"furTuftColor": Color(0.6328125, 0.39179993, 0.33618164, 1),
+"pattern": {
+&"colorB": Color(0.28627452, 0.03529412, 0.4745098, 1),
+&"colorG": Color(0.58431375, 0.27058825, 0.33333334, 1),
+&"colorR": Color(0.6392157, 0.44705883, 0.5411765, 1),
+&"pattern": "CanineShaft_Default"
+},
+"penBallsDrop": 0.0,
+"penBallsScale": 1.0,
+"penisLenMod": 1.0,
+"penisScale": 0.8,
+"shaftColor": Color(0.58431375, 0.27058825, 0.33333334, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "CaninePenis"
+},
+"Right Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(1, 1, 1, 1),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0.9411765, 0.5019608, 0.5019608, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"tassels": false,
+"tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineEar"
+},
+"Tail": {
+&"data": {
+"options": {
+"idleAnim": "TailWag",
+"pattern": {
+&"colorB": Color(0.3, 0.3, 0.3, 1),
+&"colorG": Color(0.5, 0.5, 0.5, 1),
+&"colorR": Color(0.7, 0.7, 0.7, 1),
+&"pattern": "FelineTail_Default"
+},
+"tailLenMod": 1.0,
+"tailType": "fluffy",
+"thickness": 0.0
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineTail"
+}
+},
+&"charName": "Rahi",
+&"gender": {
+&"customGenderName": "",
+&"customPronouns": {},
+&"gender": 0,
+&"pronouns": 0
+},
+&"idleAnim": "normal1",
+&"muscles": 0.0,
+&"skinTypes": {
+0: {
+&"color": Color(1, 1, 1, 1)
+},
+2: {
+&"color": Color(1, 1, 1, 1)
+},
+3: {
+&"color": Color(0.44140625, 0.24412858, 0.19139099, 1)
+}
+},
+&"species": {
+&"customName": "",
+&"mainSpecies": "Feline",
+&"secondarySpecies": ""
+},
+&"thickness": 1.0,
+&"voice": {
+&"pitch": 1.0,
+&"sexVoice": "Fem1"
+},
+&"walkAnim": "unisex",
+&"weightDistribution": 0.0
+}

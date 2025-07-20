@@ -5,6 +5,7 @@ class_name DollPart
 
 var dollRef:WeakRef
 var partRef:WeakRef
+var cachedSkinType:int = SkinType.None
 var cachedSkinTypeData:SkinTypeData
 
 func _ready():
@@ -77,14 +78,14 @@ func getCharValue(_optionID:String, _default:Variant) -> Variant:
 func applyCharOption(_optionID:String, _value:Variant):
 	pass
 
-func applySkinTypeDataFinal(_skinTypeData:SkinTypeData):
+func applySkinTypeDataFinal(_theSkinType:int, _skinTypeData:SkinTypeData):
+	cachedSkinType = _theSkinType
 	cachedSkinTypeData = _skinTypeData
-	applySkinTypeData(_skinTypeData)
+	applySkinTypeData(_theSkinType, _skinTypeData)
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	pass
 
-#TODO: Cache this?
 func getMeshes() -> Array:
 	var result:Array = []
 	for child in get_children():
@@ -117,6 +118,9 @@ func setBlendshape(_id:String, _value:float):
 
 func getSkinData() -> SkinTypeData:
 	return cachedSkinTypeData
+
+func getSkinType() -> int:
+	return cachedSkinType
 
 func gatherPartFlags(_theFlags:Dictionary):
 	pass

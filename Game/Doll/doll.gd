@@ -265,14 +265,14 @@ func onCharOptionChange(_change:String):
 			if(dollPart is DollPart):
 				dollPart.applyCharOption(_change, theValue)
 
-func onCharBodypartSkinTypeChange(slot:int, _theSkinType:String, skinTypeData:SkinTypeData):
+func onCharBodypartSkinTypeChange(slot:int, _theSkinType:int, skinTypeData:SkinTypeData):
 	if(!parts[BaseCharacter.GENERIC_BODYPARTS].has(slot)):
 		# # part might be in the process of being loaded so this is fine
 		#Log.error("Doll doesn't have a part that the character has")
 		return
 	var dollPart:Node3D = parts[BaseCharacter.GENERIC_BODYPARTS][slot]
 	if(dollPart is DollPart):
-		dollPart.applySkinTypeDataFinal(skinTypeData)
+		dollPart.applySkinTypeDataFinal(_theSkinType, skinTypeData)
 
 func onCharPartOptionChange(_genericType:int, slot:int, optionID:String, newvalue):
 	if(!parts[_genericType].has(slot)):
@@ -404,7 +404,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 			if(part.supportsSkinTypes()):
 				var theData:SkinTypeData = part.getSkinTypeData()
 				if(theData != null):
-					dollScene.applySkinTypeDataFinal(theData)
+					dollScene.applySkinTypeDataFinal(part.getSkinType(), theData)
 			
 			for syncOptionID in getCharacter().getSyncOptions():
 				dollScene.applyCharOption(syncOptionID, getCharacter().getSyncOptionValue(syncOptionID))

@@ -117,7 +117,7 @@ func updateCharTab():
 		theOptions[charOptionID] = theOption
 	char_var_list.setVars(theOptions)
 
-func chanceSkinTypeDataColor(theColor:Color, skinType:String):
+func chanceSkinTypeDataColor(theColor:Color, skinType:int):
 	if(character == null):
 		return
 	
@@ -143,7 +143,7 @@ func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:int):
 	#bodypart.skinDataOverride.color = theColor
 	#character.triggerUpdateAllSkinTypes()
 	newSkinData.color = theColor
-	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, newSkinData.skinType, newSkinData)
+	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.skinType, newSkinData)
 
 func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
 	if(character == null):
@@ -151,11 +151,11 @@ func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
 	
 	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
 
-	var selectedSkinType:String = bodypart.getSupportedSkinTypes().keys()[skinTypeIndex]
+	var selectedSkinType:int = bodypart.getSupportedSkinTypes().keys()[skinTypeIndex]
 	var newSkinTypeData:SkinTypeData = null
 	if(bodypart.skinDataOverride != null):
 		newSkinTypeData = bodypart.skinDataOverride.makeCopy()
-		newSkinTypeData.skinType = selectedSkinType
+		#newSkinTypeData.skinType = selectedSkinType
 	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, selectedSkinType, newSkinTypeData)
 	#bodypart.skinType = selectedSkinType
 	#if(bodypart.skinDataOverride != null):
@@ -318,8 +318,8 @@ func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
 			#bodypart.skinDataOverride = SkinTypeData.new()
 			#bodypart.skinDataOverride.skinType = bodypart.getSkinType()
 			var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-			newSkinTypeData.skinType = bodypart.getSkinType()
-			GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, newSkinTypeData.skinType, newSkinTypeData)
+			#newSkinTypeData.skinType = bodypart.getSkinType()
+			GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinType(), newSkinTypeData)
 	updateSkinTab()
 	#character.updateAllSkinTypes()
 	

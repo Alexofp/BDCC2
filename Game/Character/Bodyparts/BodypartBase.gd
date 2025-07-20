@@ -1,7 +1,7 @@
 extends GenericPart
 class_name BodypartBase
 
-var skinType:String = ""
+var skinType:int = SkinType.None
 var skinDataOverride:SkinTypeData
 
 var currentSlot:int = -1
@@ -18,11 +18,11 @@ func getBodypartType() -> int:
 func getSupportedSkinTypes() -> Dictionary:
 	return {}
 
-func getSkinType() -> String:
-	if(skinType == ""):
-		var theSupported:Dictionary = getSupportedSkinTypes()
-		if(!theSupported.is_empty()):
-			skinType = theSupported.keys()[0]
+func getSkinType() -> int:
+	#if(skinType == ""):
+	#	var theSupported:Dictionary = getSupportedSkinTypes()
+	#	if(!theSupported.is_empty()):
+	#		skinType = theSupported.keys()[0]
 	return skinType
 #
 #func skinTypeSelector() -> Dictionary:
@@ -40,8 +40,8 @@ func getSkinType() -> String:
 func getSkinTypeData() -> SkinTypeData:
 	if(skinDataOverride != null):
 		return skinDataOverride
-	var theSkinType:String = getSkinType()
-	if(theSkinType == ""):
+	var theSkinType := getSkinType()
+	if(theSkinType == SkinType.None):
 		return null
 	var theCharacter:BaseCharacter = getCharacter()
 	if(theCharacter == null):
@@ -84,7 +84,10 @@ func saveNetworkData() -> Dictionary:
 
 func loadNetworkData(_data:Dictionary):
 	if(supportsSkinTypes()):
-		skinType = SAVE.loadVar(_data, "skinType", "")
+		var skinTypeA = SAVE.loadVar(_data, "skinType", SkinType.None)
+		if(skinTypeA is String):
+			skinTypeA = SkinType.stringToType(skinTypeA)
+		skinType = skinTypeA
 		
 		var newSkinDataOverride = SAVE.loadVar(_data, "skinDataOverride", null)
 		if(newSkinDataOverride == null || !(newSkinDataOverride is Dictionary)):

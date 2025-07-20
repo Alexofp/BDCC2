@@ -3,7 +3,7 @@ class_name BaseCharacter
 
 var id:String = ""
 var bodyparts:Dictionary[int, BodypartBase] = {}
-var skinTypes:Dictionary[String, SkinTypeData] = {}
+var skinTypes:Dictionary[int, SkinTypeData] = {}
 
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
@@ -156,8 +156,8 @@ func calculateAllUsedSkinTypes() -> Dictionary:
 	for bodypartSlot in bodyparts:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
 		
-		var theSkinType:String = theBodypart.getSkinType()
-		if(theSkinType != "" && !result.has(theSkinType)):
+		var theSkinType:int = theBodypart.getSkinType()
+		if(theSkinType != SkinType.None && !result.has(theSkinType)):
 			result[theSkinType] = true
 	return result
 
@@ -178,14 +178,14 @@ func checkSkinTypesList():
 			continue
 		
 		var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-		newSkinTypeData.skinType = newSkinType
+		#newSkinTypeData.skinType = newSkinType
 		skinTypes[newSkinType] = newSkinTypeData
 		onBaseSkinTypeChange.emit(newSkinType, newSkinTypeData)
 
 func getAllUsedSkinTypes() -> Dictionary:
 	return skinTypes
 
-func getBaseSkinTypeData(skinType:String, createIfNoExists:bool = true) -> SkinTypeData:
+func getBaseSkinTypeData(skinType:int, createIfNoExists:bool = true) -> SkinTypeData:
 	if(!skinTypes.has(skinType)):
 		if(createIfNoExists):
 			checkSkinTypesList()
@@ -193,21 +193,21 @@ func getBaseSkinTypeData(skinType:String, createIfNoExists:bool = true) -> SkinT
 		return null
 	return skinTypes[skinType]
 
-func setBaseSkinTypeData(theSkinType:String, skinTypeData:SkinTypeData):
+func setBaseSkinTypeData(theSkinType:int, skinTypeData:SkinTypeData):
 	if(skinTypeData == null):
 		if(skinTypes.has(theSkinType)):
 			skinTypes.erase(theSkinType)
 			triggerUpdateAllSkinTypes() # Maybe change this
 		return
 	skinTypes[theSkinType] = skinTypeData
-	onBaseSkinTypeChange.emit(skinTypeData.skinType, skinTypeData)
+	onBaseSkinTypeChange.emit(theSkinType, skinTypeData)
 	triggerUpdateAllSkinTypes() # Maybe change this
 
 func getBaseSkinTypeDatas() -> Dictionary:
 	return skinTypes
 
 ## Main method for setting the skin type of a bodypart. Will throw an error if you try to pass in an unsupported skin type
-func setSkinTypeForSlot(bodypartSlot:int, newSkinType:String):
+func setSkinTypeForSlot(bodypartSlot:int, newSkinType:int):
 	if(!hasBodypart(bodypartSlot)):
 		return
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -217,17 +217,15 @@ func setSkinTypeForSlot(bodypartSlot:int, newSkinType:String):
 	if(!supportedSkinTypes.has(newSkinType) || !supportedSkinTypes[newSkinType]):
 		Log.Printerr("Trying to assign an unsupported skin type '"+str(newSkinType)+"' to a '"+str(theBodypart.id)+"'")
 		return
-	var oldSkinType:String = theBodypart.skinType
+	var oldSkinType:int = theBodypart.skinType
 	theBodypart.skinType = newSkinType
-	if(theBodypart.skinDataOverride != null):
-		theBodypart.skinDataOverride.skinType = newSkinType
 	# Could call updateSkinForSlot() but this is faster
 	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
 	if(oldSkinType != theBodypart.skinType):
 		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
 
 ## Main method for setting the skin data of a bodypart. If you pass null data, the base data will be used
-func setSkinTypeDataForSlot(bodypartSlot:int, newSkinData:SkinTypeData):
+func setSkinTypeDataForSlot(bodypartSlot:int, newSkinType:int, newSkinData:SkinTypeData):
 	if(!hasBodypart(bodypartSlot)):
 		return
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -235,9 +233,9 @@ func setSkinTypeDataForSlot(bodypartSlot:int, newSkinData:SkinTypeData):
 		return
 	var hadOverrideBefore:bool = (theBodypart.skinDataOverride != null)
 	var haveOverrideNow:bool = (newSkinData != null)
-	var oldSkinType:String = theBodypart.skinType
+	var oldSkinType:int = theBodypart.skinType
 	theBodypart.skinDataOverride = newSkinData
-	theBodypart.skinType = newSkinData.skinType if newSkinData else theBodypart.skinType
+	theBodypart.skinType = newSkinType
 	# Could call updateSkinForSlot() but this is faster
 	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
 	if(hadOverrideBefore != haveOverrideNow || oldSkinType != theBodypart.skinType):

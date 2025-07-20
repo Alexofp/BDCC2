@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_jipxy")
 data = {
-&"bodyparts": Dictionary[String, Dictionary]({
+&"bodyparts": {
 "Body": {
 &"data": {
 "options": {
@@ -24,7 +24,7 @@ data = {
 "nippleShape": 0.0
 },
 "skinDataOverride": null,
-"skinType": "Fur"
+"skinType": 3
 },
 &"id": "FeminineBody"
 },
@@ -70,7 +70,7 @@ data = {
 }]
 },
 "skinDataOverride": null,
-"skinType": "Fur"
+"skinType": 3
 },
 &"id": "FelineHead"
 },
@@ -90,7 +90,7 @@ data = {
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
 },
 "skinDataOverride": null,
-"skinType": "Fur"
+"skinType": 3
 },
 &"id": "FelineEar"
 },
@@ -121,7 +121,7 @@ data = {
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
 },
 "skinDataOverride": null,
-"skinType": "Fur"
+"skinType": 3
 },
 &"id": "FelineEar"
 },
@@ -153,11 +153,11 @@ data = {
 "underfluff": true
 },
 "skinDataOverride": null,
-"skinType": "Fur"
+"skinType": 3
 },
 &"id": "DragonTail"
 }
-}),
+},
 &"charName": "Ferri",
 &"gender": {
 &"customGenderName": "",
@@ -167,16 +167,17 @@ data = {
 },
 &"idleAnim": "normal1",
 &"muscles": 0.0,
-&"skinTypes": Dictionary[String, Dictionary]({
-"Fur": {
-&"color": Color(0.4509804, 0.60784316, 0.7647059, 1),
-&"skinType": "Fur"
+&"skinTypes": {
+0: {
+&"color": Color(1, 1, 1, 1)
 },
-"Skin": {
-&"color": Color(1, 1, 1, 1),
-&"skinType": "Skin"
+2: {
+&"color": Color(1, 1, 1, 1)
+},
+3: {
+&"color": Color(0.4509804, 0.60784316, 0.7647059, 1)
 }
-}),
+},
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",

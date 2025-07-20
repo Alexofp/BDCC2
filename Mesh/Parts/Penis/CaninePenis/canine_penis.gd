@@ -91,7 +91,7 @@ func applyOption(_optionID:String, _value:Variant):
 		if(shaftMat):
 			applyColormaskPatternToMyMat(shaftMat, _value)
 
-func applySkinTypeData(_skinTypeData:SkinTypeData):
+func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(ballsMat == null):
 		return
 	

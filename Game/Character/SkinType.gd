@@ -1,12 +1,39 @@
 extends Object
 class_name SkinType
 
-const HumanSkin = "Skin"
-const Fur = "Fur"
-const Scales = "Scales"
-const Latex = "Latex"
-const Android = "Android"
-const Feathers = "Feathers"
+enum {
+	None,
+	Auto,
+	HumanSkin,
+	Fur,
+	Scales,
+	Latex,
+	Android,
+	Feathers,
+}
 
-static func getName(skinType:String) -> String:
-	return skinType
+const NAMES = [
+	"None", "Auto", "Skin", "Fur", "Scales", "Latex", "Android", "Feathers",
+]
+const NAMES_RAW = [
+	"None",
+	"Auto",
+	"HumanSkin",
+	"Fur",
+	"Scales",
+	"Latex",
+	"Android",
+	"Feathers",
+]
+
+static func getName(skinType:int) -> String:
+	if(skinType < 0 || skinType >= NAMES.size()):
+		return "Unknown"
+	return NAMES[skinType]
+
+static func stringToType(_skinTypeStr:String) -> int:
+	for _i in range(NAMES_RAW.size()):
+		if(NAMES_RAW[_i] == _skinTypeStr):
+			return _i
+	
+	return None
