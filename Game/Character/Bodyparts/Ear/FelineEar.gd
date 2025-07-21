@@ -13,6 +13,7 @@ var pattern:Dictionary = {
 var fluffColor:Color = Color.WHITE
 
 func _init():
+	super._init()
 	id = "FelineEar"
 
 func getName() -> String:

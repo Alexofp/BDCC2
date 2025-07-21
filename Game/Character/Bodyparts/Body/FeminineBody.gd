@@ -1,8 +1,9 @@
 extends BodypartBodyBase
 
 func _init():
+	super._init()
 	id = "FeminineBody"
-	skinType = SkinType.HumanSkin
+	skinType = SkinType.Auto
 
 func getName() -> String:
 	return "Feminine body"
@@ -12,6 +13,7 @@ func getScenePath(_slot:int) -> String:
 
 func getSupportedSkinTypes() -> Dictionary:
 	return {
+		SkinType.Auto: true,
 		SkinType.HumanSkin: true,
 		SkinType.Fur: true,
 	}

@@ -11,6 +11,9 @@ const EDITOR_SKIN = "skin"
 const EDITOR_PART = "part"
 const EDITOR_INTERACT = "interact"
 
+func _init():
+	pass
+
 func getName() -> String:
 	return "FILL ME"
 

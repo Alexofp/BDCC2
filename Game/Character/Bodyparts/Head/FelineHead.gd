@@ -14,6 +14,7 @@ var fluffWide:float = 0.0
 var fluffShort:float = 0.0
 
 func _init():
+	super._init()
 	id = "FelineHead"
 	skinType = SkinType.Fur
 

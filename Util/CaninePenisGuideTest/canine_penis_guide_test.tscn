@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dy0oeh56twjk1" path="res://Mesh/Parts/Penis/CaninePenis/CaninePenis.glb" id="1_v5nas"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="2_7cdkb"]
-[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Game/Character/Bodyparts/Penis/PenisSkeletonModifier.gd" id="3_wuwq1"]
+[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="3_wuwq1"]
 [ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="3_y5bcb"]
 [ext_resource type="PackedScene" uid="uid://cch6fqrdrbsg2" path="res://Util/CaninePenisGuideTest/TorusCloseable.glb" id="5_1rine"]
 [ext_resource type="Script" uid="uid://dvx8mwmqael6h" path="res://Util/CaninePenisGuideTest/torus_closeable.gd" id="6_w8wci"]

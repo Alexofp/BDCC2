@@ -15,6 +15,7 @@ var furTuft:bool = true
 var furTuftColor:Color = Color.GRAY
 
 func _init():
+	super._init()
 	id = "CaninePenis"
 
 func getName() -> String:

@@ -1,6 +1,7 @@
 extends BodypartHairBase
 
 func _init():
+	super._init()
 	id = "LongHair"
 
 func getName() -> String:

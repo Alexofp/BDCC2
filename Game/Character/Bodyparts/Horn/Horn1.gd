@@ -1,6 +1,7 @@
 extends BodypartHornBase
 
 func _init():
+	super._init()
 	id = "Horn1"
 
 func getName() -> String:

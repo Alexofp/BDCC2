@@ -1,6 +1,7 @@
 extends BodypartHeadBase
 
 func _init():
+	super._init()
 	id = "HumanFeminineHead"
 	skinType = SkinType.HumanSkin
 

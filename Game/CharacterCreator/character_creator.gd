@@ -275,16 +275,17 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 			
 			if(supportsSkinType):
 				var possibleSkinTypes:Array = bodypart.getSupportedSkinTypes().keys()
-				var theDropDown:OptionButton = OptionButton.new()
-				newRegion.addNodeInside(theDropDown)
-				theDropDown.item_selected.connect(onSkinTypeOverrideSelected.bind(bodypartSlot))
-				
-				var _i:int = 0
-				for theSkinType in possibleSkinTypes:
-					theDropDown.add_item(SkinType.getName(theSkinType))
-					if(theSkinType == bodypart.getSkinType()):
-						theDropDown.select(_i)
-					_i += 1
+				if(possibleSkinTypes.size() > 1):
+					var theDropDown:OptionButton = OptionButton.new()
+					newRegion.addNodeInside(theDropDown)
+					theDropDown.item_selected.connect(onSkinTypeOverrideSelected.bind(bodypartSlot))
+					
+					var _i:int = 0
+					for theSkinType in possibleSkinTypes:
+						theDropDown.add_item(SkinType.getName(theSkinType))
+						if(theSkinType == bodypart.getSkinTypeRaw()):
+							theDropDown.select(_i)
+						_i += 1
 				
 				var isInherit:bool = (bodypart.skinDataOverride == null)
 				
@@ -319,7 +320,7 @@ func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
 			#bodypart.skinDataOverride.skinType = bodypart.getSkinType()
 			var newSkinTypeData:SkinTypeData = SkinTypeData.new()
 			#newSkinTypeData.skinType = bodypart.getSkinType()
-			GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinType(), newSkinTypeData)
+			GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinTypeRaw(), newSkinTypeData)
 	updateSkinTab()
 	#character.updateAllSkinTypes()
 	

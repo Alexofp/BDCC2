@@ -37,3 +37,8 @@ static func stringToType(_skinTypeStr:String) -> int:
 			return _i
 	
 	return None
+
+static func isActualSkinType(_skinType:int) -> bool:
+	if(_skinType in [None, Auto]):
+		return false
+	return true

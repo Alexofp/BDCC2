@@ -81,6 +81,7 @@ func addBodypart(slot:int, part:BodypartBase):
 	checkSkinTypesList()
 	onBodypartChange.emit(slot, part)
 	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, part)
+	updateAllAutoSkinTypes(slot)
 
 func clearBodypart(slot:int):
 	if(!bodyparts.has(slot)):
@@ -93,6 +94,7 @@ func clearBodypart(slot:int):
 	checkSkinTypesList()
 	onBodypartChange.emit(slot, null)
 	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, null)
+	updateAllAutoSkinTypes(slot)
 
 func getBodypart(slot:int) -> BodypartBase:
 	if(!bodyparts.has(slot)):
@@ -157,7 +159,7 @@ func calculateAllUsedSkinTypes() -> Dictionary:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
 		
 		var theSkinType:int = theBodypart.getSkinType()
-		if(theSkinType != SkinType.None && !result.has(theSkinType)):
+		if(SkinType.isActualSkinType(theSkinType) && !result.has(theSkinType)):
 			result[theSkinType] = true
 	return result
 
@@ -206,23 +208,23 @@ func setBaseSkinTypeData(theSkinType:int, skinTypeData:SkinTypeData):
 func getBaseSkinTypeDatas() -> Dictionary:
 	return skinTypes
 
-## Main method for setting the skin type of a bodypart. Will throw an error if you try to pass in an unsupported skin type
-func setSkinTypeForSlot(bodypartSlot:int, newSkinType:int):
+func getSkinTypeOf(bodypartSlot:int) -> int:
 	if(!hasBodypart(bodypartSlot)):
-		return
+		return SkinType.None
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
 	if(!theBodypart.supportsSkinTypes()):
+		return SkinType.None
+	return theBodypart.getSkinType()
+
+func updateAllAutoSkinTypes(theBodypartSlot:int):
+	if(theBodypartSlot != BodypartSlot.Head):
 		return
-	var supportedSkinTypes:Dictionary = theBodypart.getSupportedSkinTypes()
-	if(!supportedSkinTypes.has(newSkinType) || !supportedSkinTypes[newSkinType]):
-		Log.Printerr("Trying to assign an unsupported skin type '"+str(newSkinType)+"' to a '"+str(theBodypart.id)+"'")
-		return
-	var oldSkinType:int = theBodypart.skinType
-	theBodypart.skinType = newSkinType
-	# Could call updateSkinForSlot() but this is faster
-	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
-	if(oldSkinType != theBodypart.skinType):
-		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
+	
+	for bodypartSlot in bodyparts:
+		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
+		
+		if(theBodypart.getSkinTypeRaw() == SkinType.Auto):
+			onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
 
 ## Main method for setting the skin data of a bodypart. If you pass null data, the base data will be used
 func setSkinTypeDataForSlot(bodypartSlot:int, newSkinType:int, newSkinData:SkinTypeData):
@@ -236,8 +238,10 @@ func setSkinTypeDataForSlot(bodypartSlot:int, newSkinType:int, newSkinData:SkinT
 	var oldSkinType:int = theBodypart.skinType
 	theBodypart.skinDataOverride = newSkinData
 	theBodypart.skinType = newSkinType
+	
 	# Could call updateSkinForSlot() but this is faster
 	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
+	updateAllAutoSkinTypes(bodypartSlot)
 	if(hadOverrideBefore != haveOverrideNow || oldSkinType != theBodypart.skinType):
 		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
 	
@@ -466,7 +470,7 @@ func resetToBaseEditorState():
 			continue
 		addBodypart(bodypartSlot, theBodypart)
 		if(bodypartEntry.has("skinType")):
-			setSkinTypeForSlot(bodypartSlot, bodypartEntry["skinType"])
+			setSkinTypeDataForSlot(bodypartSlot, bodypartEntry["skinType"], null)
 		
 		for optionID in bodypartData:
 			theBodypart.setOptionValue(optionID, bodypartData[optionID])

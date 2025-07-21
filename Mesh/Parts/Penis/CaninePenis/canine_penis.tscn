@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dqf0xlat51vbv" path="res://Mesh/Parts/Penis/CaninePenis/ShaftMat.tres" id="4_hkkiv"]
 [ext_resource type="Material" uid="uid://1qayfq46npmg" path="res://Mesh/Parts/Penis/CaninePenis/PenisBallsFurMat.tres" id="4_vlnjl"]
 [ext_resource type="Material" uid="uid://4muecpokhus3" path="res://Mesh/Parts/Penis/CaninePenis/TuftMat.tres" id="5_5uh76"]
-[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Game/Character/Bodyparts/Penis/PenisSkeletonModifier.gd" id="6_6kaci"]
+[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="6_6kaci"]
 [ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="8_nabfd"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="9_vlnjl"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="10_nabfd"]

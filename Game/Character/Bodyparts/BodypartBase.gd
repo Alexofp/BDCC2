@@ -6,6 +6,11 @@ var skinDataOverride:SkinTypeData
 
 var currentSlot:int = -1
 
+func _init():
+	super._init()
+	if(supportsSkinTypes()):
+		skinType = getDefaultSkinType()
+
 func getBodypartSlots() -> Array:
 	return BodypartSlot.getFromType(getBodypartType())
 
@@ -15,16 +20,50 @@ func supportsSlot(slot:int) -> bool:
 func getBodypartType() -> int:
 	return -1
 
+func getDefaultSkinType() -> int:
+	var theSupportedSkinTypes := getSupportedSkinTypes()
+	if(theSupportedSkinTypes.is_empty()):
+		return skinType
+	return theSupportedSkinTypes.keys()[0]
+
 func getSupportedSkinTypes() -> Dictionary:
 	return {}
 
-func getSkinType() -> int:
-	#if(skinType == ""):
-	#	var theSupported:Dictionary = getSupportedSkinTypes()
-	#	if(!theSupported.is_empty()):
-	#		skinType = theSupported.keys()[0]
+func supportsSkinType(_skinType:int) -> bool:
+	var theSupportedSkinTypes := getSupportedSkinTypes()
+	if(theSupportedSkinTypes.has(_skinType) && theSupportedSkinTypes[_skinType]):
+		return true
+	return false
+
+func getSkinTypeRaw() -> int:
 	return skinType
-#
+
+func getSkinType() -> int:
+	if(!supportsSkinTypes()):
+		return SkinType.None
+	var finalSkinType := skinType
+	
+	if(finalSkinType == SkinType.None || !supportsSkinType(finalSkinType)):
+		finalSkinType = getFirstActualSupportedSkinType()
+	elif(finalSkinType == SkinType.Auto && getCurrentSlot() != BodypartSlot.Head):
+		var theChar := getCharacter()
+		if(theChar):
+			var theHeadSkinType := theChar.getSkinTypeOf(BodypartSlot.Head)
+			if(SkinType.isActualSkinType(theHeadSkinType) && supportsSkinType(theHeadSkinType)):
+				finalSkinType = theHeadSkinType
+	if(!SkinType.isActualSkinType(finalSkinType)):
+		finalSkinType = SkinType.Fur
+	return finalSkinType
+
+func getFirstActualSupportedSkinType(fallbackSkinType:int = SkinType.Fur) -> int:
+	var theSupported:Dictionary = getSupportedSkinTypes()
+	if(theSupported.is_empty()):
+		return fallbackSkinType
+	for theSkinType in theSupported.keys():
+		if(SkinType.isActualSkinType(theSkinType)):
+			return theSkinType
+	return fallbackSkinType
+
 #func skinTypeSelector() -> Dictionary:
 	#var theValues:Array = []
 	#var supportedSkinTypes:Dictionary = getSupportedSkinTypes()

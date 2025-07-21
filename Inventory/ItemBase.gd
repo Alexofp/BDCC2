@@ -6,6 +6,9 @@ var uniqueID:int = 0
 
 var invRef:WeakRef
 
+func _init():
+	super._init()
+
 func getName() -> String:
 	return id+":"+str(uniqueID)
 

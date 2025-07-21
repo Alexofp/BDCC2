@@ -13,6 +13,7 @@ var pattern:Dictionary = {
 }
 
 func _init():
+	super._init()
 	id = "FelineTail"
 
 func getName() -> String:

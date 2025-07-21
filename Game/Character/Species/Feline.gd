@@ -13,7 +13,7 @@ func getCharacterCreatorPartsTemplate(_gender:int) -> Dictionary:
 			data = {
 				legType = "digi",
 			},
-			skinType = SkinType.Fur,
+			#skinType = SkinType.Fur,
 		},
 		BodypartSlot.Head: {
 			id = "FelineHead",

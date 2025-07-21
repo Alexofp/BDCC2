@@ -3,6 +3,7 @@ extends BodypartHairBase
 var bandColor:Color = Color("171717")
 
 func _init():
+	super._init()
 	id = "Ponytail2"
 
 func getName() -> String:
