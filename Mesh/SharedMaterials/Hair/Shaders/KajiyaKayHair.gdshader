@@ -25,6 +25,12 @@ uniform bool use_diffuse_texture;
 uniform sampler2D property_tex : hint_default_white; // Red = AO, Green = Nothing, Blue = Root-tips-gradient, Alpha = Alpha
 uniform sampler2D hair_normal_map : hint_roughness_normal;
 
+group_uniforms ColorMask;
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+
 varying vec3 binormal;
 
 void fragment(){
@@ -37,6 +43,28 @@ void fragment(){
 		ALBEDO = basecolor;
 	}
 	ALBEDO.rgb = mix(ALBEDO.rgb, ALBEDO.rgb*COLOR.rgb, ambient_occlusion);
+	
+{
+	vec4 colormask_tex = texture(texture_color_mask, UV2);
+
+	float maskSum = colormask_tex.r + colormask_tex.g + colormask_tex.b;
+	maskSum = max(maskSum, 1.0);
+	colormask_tex.rgb /= maskSum;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 colormask_result = vec4(0.0);
+	colormask_result += colormask_tex.r*color_r*color_r.a;
+	colormask_result += colormask_tex.g*color_g*color_g.a;
+	colormask_result += colormask_tex.b*color_b*color_b.a;
+
+	colormask_result.a *= colormask_tex.a;
+
+	ALBEDO.rgb = mix(ALBEDO.rgb, colormask_result.rgb, colormask_result.a);
+}
+	
 	NORMAL_MAP = texture(hair_normal_map, UV).rgb;
 	AO = property.r;
 	ALPHA = property.a;

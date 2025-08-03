@@ -141,10 +141,10 @@ func addLayersToTexture(layeredTexture:MyLayeredTexture, layers:Array):
 		elif(textureVariant.pathTexture != ""):
 			layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK)
 
-func applyColormaskPatternToMyMat(theMat:MyMasterMaterial, theValue:Dictionary):
+func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	if(!theMat):
 		return
-	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "")
+	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "") if (theValue["pattern"] != "") else null
 	if(textureVariant == null):
 		theMat.set_shader_parameter("texture_color_mask", null)
 	else:
@@ -250,7 +250,9 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 			newCol.v = max(min(0.7, newCol.v), 0.5)
 			_hairMat.set_shader_parameter("primary_color", newCol)
 			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)
-
+		if(_optionID == "pattern"):
+			applyColormaskPatternToMyMat(_hairMat, _value)
+		
 var previewDollMat := preload("res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres")
 
 func prepareForPreview(_previewMaker):

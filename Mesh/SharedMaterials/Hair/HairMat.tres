@@ -24,3 +24,6 @@ shader_parameter/scatter = 1.0
 shader_parameter/use_diffuse_texture = false
 shader_parameter/property_tex = ExtResource("4_1grf4")
 shader_parameter/hair_normal_map = ExtResource("2_apkeq")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)

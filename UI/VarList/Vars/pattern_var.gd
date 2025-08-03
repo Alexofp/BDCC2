@@ -36,7 +36,7 @@ func setData(_data:Dictionary):
 	dropdown_var.setData({
 		name = theName,
 		value = data["pattern"] if data.has("pattern") else "",
-		values = getTextureVariantsValues(texType, texSubType),
+		values = [["", "- No pattern -"]] + getTextureVariantsValues(texType, texSubType),
 	})
 	updateColorPickers()
 	updateColorPickerColors()
@@ -55,7 +55,7 @@ func getTextureVariantsValues(theTexType:String, theTexSubType:String) -> Array:
 	return result
 
 func updateColorPickers():
-	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(data["pattern"] if data.has("pattern") else "")
+	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(data["pattern"] if data.has("pattern") else "") if data["pattern"] != "" else null
 	if(textureVariant == null):
 		color_picker_r.visible = false
 		color_picker_g.visible = false

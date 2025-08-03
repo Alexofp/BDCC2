@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://5kr8kc53glx8"]
+
+[ext_resource type="PackedScene" uid="uid://caaw0a16lvl84" path="res://Mesh/Parts/Hair/ShortHair2/ShortHair2.glb" id="1_clymu"]
+[ext_resource type="Script" uid="uid://b3coe1w8eeg4w" path="res://Mesh/Parts/Hair/ShortHair2/short_hair_2.gd" id="2_ukiar"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_unpj0"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_4ai62"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_4ai62"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_x20oo"]
+
+[sub_resource type="Resource" id="Resource_vip7s"]
+script = ExtResource("6_x20oo")
+angular_damp = 11.0
+force_scale = 454.51
+linear_scale = 2399.216
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_q40by"]
+script = ExtResource("6_x20oo")
+angular_damp = 11.0
+force_scale = 454.51
+linear_scale = 2399.216
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4ai62"]
+
+[node name="ShortHair2" instance=ExtResource("1_clymu")]
+script = ExtResource("2_ukiar")
+
+[node name="ShortHair2Rig" parent="." index="0"]
+script = ExtResource("3_unpj0")
+attachPoint = "hair"
+
+[node name="ShortHair2" parent="ShortHair2Rig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_4ai62")
+
+[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -1.4126388e-07, -1.5099579e-07, -1.4126388e-07, -1, 1.0665124e-14, -1.5099579e-07, 1.0665127e-14, -1, 0.080162644, 0.066127315, -0.083760895)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_4ai62")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.0650000000023283
+bone_name = "Back.L"
+properties = SubResource("Resource_vip7s")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -1.4126388e-07, -1.5099579e-07, -1.4126388e-07, -1, 1.0665124e-14, -1.5099579e-07, 1.0665127e-14, -1, -0.069806635, 0.066127315, -0.083760895)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_4ai62")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.0650000000023283
+bone_name = "Back.R"
+properties = SubResource("Resource_q40by")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairCollision" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
+script = ExtResource("3_unpj0")
+attachPoint = "upperchest"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.113, 0.387)
+shape = SubResource("SphereShape3D_4ai62")

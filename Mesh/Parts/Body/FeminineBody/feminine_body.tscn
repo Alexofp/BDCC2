@@ -1,13 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctlxdll74pd6e"]
+[gd_scene load_steps=17 format=3 uid="uid://ctlxdll74pd6e"]
 
 [ext_resource type="PackedScene" uid="uid://bvc2tbhju26hj" path="res://Mesh/Parts/Body/FeminineBody/FeminineBody.glb" id="1_y7j6w"]
 [ext_resource type="Script" uid="uid://ctusa2pckufj3" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.gd" id="2_3rtfg"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_i5sai"]
 [ext_resource type="Material" uid="uid://c8vrimhqhhto8" path="res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres" id="4_f00mj"]
+[ext_resource type="Material" uid="uid://dcbr4y3a5am7w" path="res://Mesh/Parts/Body/FeminineBody/Materials/ClawMat.tres" id="5_7ldx5"]
 [ext_resource type="Material" uid="uid://1axcwsr088nr" path="res://Mesh/Parts/Body/FeminineBody/Materials/GenitalsMat.tres" id="5_e373p"]
+[ext_resource type="Material" uid="uid://blyihc0xrip4l" path="res://Mesh/Parts/Body/FeminineBody/Materials/ToeClawMat.tres" id="6_18t5l"]
 [ext_resource type="Material" uid="uid://crmsb1gfa4uhb" path="res://Mesh/Parts/Body/FeminineBody/Materials/NipplesMat.tres" id="6_87rsm"]
 [ext_resource type="Material" uid="uid://jdhk7tfypoi4" path="res://Mesh/Parts/SharedMaterials/PawPadsMat.tres" id="6_d17xq"]
 [ext_resource type="Material" uid="uid://dj84k4ovj7x3j" path="res://Mesh/Parts/Body/FeminineBody/Materials/PubicHairMat.tres" id="7_e373p"]
+[ext_resource type="Material" uid="uid://btms7u562wrwh" path="res://Mesh/Parts/Body/FeminineBody/Materials/HindPawPadsMat.tres" id="7_sep4h"]
 [ext_resource type="Script" uid="uid://conllg2gdcesx" path="res://Mesh/Parts/Util/Body/belly_bulge_tracker.gd" id="10_e373p"]
 [ext_resource type="PackedScene" uid="uid://b7cbiv3il0ixo" path="res://Mesh/Util/marker_blendshaped.tscn" id="11_d17xq"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="11_sj2jt"]
@@ -23,12 +26,16 @@ attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/HandPads")]
 
 [node name="Body" parent="rig/Skeleton3D" index="0"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
+surface_material_override/1 = ExtResource("5_7ldx5")
 
 [node name="DigiLegs" parent="rig/Skeleton3D" index="1"]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
+surface_material_override/1 = ExtResource("6_18t5l")
+surface_material_override/2 = ExtResource("7_sep4h")
 
 [node name="FemaleCrotch" parent="rig/Skeleton3D" index="2"]
 surface_material_override/0 = ExtResource("4_f00mj")
@@ -65,6 +72,7 @@ surface_material_override/0 = ExtResource("6_87rsm")
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="9"]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
+surface_material_override/1 = ExtResource("6_18t5l")
 
 [node name="PubicHair" parent="rig/Skeleton3D" index="10"]
 lod_bias = 100.0

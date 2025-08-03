@@ -1,0 +1,209 @@
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_u1rnj"]
+
+[resource]
+script = ExtResource("1_u1rnj")
+data = {
+&"bodyparts": {
+"Body": {
+&"data": {
+"options": {
+"bodyLayers": [{
+&"colorB": Color(0, 0.60784316, 0.5764706, 1),
+&"colorG": Color(0.88235295, 0.88235295, 0.8745098, 1),
+&"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
+&"id": "Artica"
+}],
+"breasts": 1.78,
+"breastsCleavage": 0.0,
+"claws": 1.0,
+"clawsColor": Color(0.19215687, 0.24705882, 0.24705882, 1),
+"handPads": true,
+"handPadsColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"hindPawPadColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"legType": "digi",
+"nippleColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"nippleShape": 0.0,
+"toeClawColor": Color(0.19215687, 0.24705882, 0.24705882, 1)
+},
+"skinDataOverride": null,
+"skinType": 1
+},
+&"id": "FeminineBody"
+},
+"Hair": {
+&"data": {
+"options": {
+"colorRoot": Color(1, 1, 1, 1),
+"colorTip": Color(0.95, 0.95, 0.95, 1),
+"pattern": {
+&"colorB": Color(0.08235295, 0.9372549, 0.9490196, 0.0627451),
+&"colorG": Color(0.08235295, 0.9372549, 0.9490196, 0.6745098),
+&"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
+&"pattern": "ShortHair2_Tips"
+},
+"shading": 0.5
+}
+},
+&"id": "ShortHair2"
+},
+"Head": {
+&"data": {
+"options": {
+"eyeColor1": Color(0.15527344, 0.75, 0.61042136, 1),
+"eyeColor2": Color(0.050980393, 0.81960785, 0.6392157, 1),
+"eyeColor3": Color(1, 1, 1, 1),
+"faceOverride": {
+&"fields": {
+1: true,
+2: true
+},
+&"values": {
+1: 0.28,
+2: 0.71,
+6: 0.0,
+7: 1.0,
+8: 0.07,
+9: 0.0
+}
+},
+"fluff": true,
+"fluffLen": -0.32999999999999996,
+"fluffSpiky": 0.0,
+"fluffThick": 0.0,
+"fluffWide": -0.41,
+"headLayers": [{
+&"colorB": Color(0.08235294, 0.9372549, 0.9490196, 1),
+&"colorG": Color(0.76, 0.76, 0.7524, 1),
+&"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
+&"id": "CanineHead_Artica"
+}, {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(1, 1, 1, 1),
+&"colorR": Color(0.3019608, 0.3882353, 0.3882353, 1),
+&"id": "CanineHead_Snout"
+}, {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(1, 1, 1, 1),
+&"colorR": Color(0, 0, 0, 1),
+&"id": "CanineHead_Lines"
+}]
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "CanineHead"
+},
+"Left Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(0.8811, 0.89, 0.88406664, 0),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0.8745098, 0.8862745, 0.8784314, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "",
+"piercingsColor": Color(0.53125, 0.53125, 0.53125, 1),
+"tassels": true,
+"tasselsColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineEar"
+},
+"Penis": {
+&"data": {
+"options": {
+"furTuft": true,
+"furTuftColor": Color(0.74509805, 0.74509805, 0.74509805, 1),
+"pattern": {
+&"colorB": Color(0.04859998, 0.40896, 0.54, 1),
+&"colorG": Color(0.07559997, 0.82726014, 0.84, 1),
+&"colorR": Color(0.076499976, 0.83710855, 0.85, 1),
+&"pattern": "CanineShaft_Default"
+},
+"penBallsDrop": 0.0,
+"penBallsScale": 1.0,
+"penisLenMod": 1.0,
+"penisScale": 0.8,
+"shaftColor": Color(0.08459998, 0.9257435, 0.93999994, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "CaninePenis"
+},
+"Right Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(1, 1, 1, 0),
+"pattern": {
+&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"colorR": Color(0.8745098, 0.8862745, 0.8784314, 1),
+&"pattern": "FelineEar_Default"
+},
+"piercings": "TwoRings",
+"piercingsColor": Color(0.5703125, 0.5703125, 0.5703125, 1),
+"tassels": true,
+"tasselsColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineEar"
+},
+"Tail": {
+&"data": {
+"options": {
+"idleAnim": "TailWag",
+"pattern": {
+&"colorB": Color(0.88235295, 0.88235295, 0.8745098, 1),
+&"colorG": Color(0.5019608, 0.5019608, 0.5019608, 0),
+&"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
+&"pattern": "FelineTail_Burger"
+},
+"tailLenMod": 1.0,
+"tailType": "fluffy",
+"thickness": 2.0
+},
+"skinDataOverride": null,
+"skinType": 3
+},
+&"id": "FelineTail"
+}
+},
+&"charName": "Artica",
+&"gender": {
+&"customGenderName": "",
+&"customPronouns": {},
+&"gender": 1,
+&"pronouns": 0
+},
+&"idleAnim": "normal1",
+&"muscles": 0.0,
+&"skinTypes": {
+2: {
+&"color": Color(1, 1, 1, 1)
+},
+3: {
+&"color": Color(1, 1, 1, 1)
+}
+},
+&"species": {
+&"customName": "",
+&"mainSpecies": "Canine",
+&"secondarySpecies": ""
+},
+&"thickness": 1.34,
+&"voice": {
+&"pitch": 1.0,
+&"sexVoice": "Fem1"
+},
+&"walkAnim": "unisex",
+&"weightDistribution": 0.0
+}

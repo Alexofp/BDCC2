@@ -1,5 +1,6 @@
 extends DollPart
 
+@onready var body: MeshInstance3D = %Body
 @onready var digi_legs: MeshInstance3D = %DigiLegs
 @onready var planti_legs: MeshInstance3D = %PlantiLegs
 @onready var neck_connector: MeshInstance3D = %NeckConnector
@@ -8,6 +9,10 @@ extends DollPart
 
 var bodyMat:MyMasterMaterial
 var handPadsMat:MyMasterMaterial
+var nippleMat:MyMasterMaterial
+var clawMat:MyMasterMaterial
+var toeClawMat:MyMasterMaterial
+var hindPawPadsMat:MyMasterMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -16,8 +21,12 @@ var handPadsMat:MyMasterMaterial
 @onready var nipples: MeshInstance3D = %Nipples
 
 func grabMaterials():
-	bodyMat = neck_connector.get_surface_override_material(0)
+	bodyMat = body.get_surface_override_material(0)
+	clawMat = body.get_surface_override_material(1)
 	handPadsMat = hand_pads.get_surface_override_material(0)
+	nippleMat = nipples.get_surface_override_material(0)
+	toeClawMat = digi_legs.get_surface_override_material(1)
+	hindPawPadsMat = digi_legs.get_surface_override_material(2)
 
 func updateThickness():
 	updateThicknessBody()
@@ -30,11 +39,23 @@ func applyOption(_optionID:String, _value:Variant):
 	
 	if(_optionID == "claws"):
 		setBlendshape("Claws", _value)
+	if(_optionID == "clawsColor"):
+		if(clawMat):
+			clawMat.set_shader_parameter("albedo", _value)
 	if(_optionID == "handPads"):
 		hand_pads.visible = _value
 	if(_optionID == "handPadsColor"):
 		if(handPadsMat):
 			handPadsMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "toeClawColor"):
+		if(toeClawMat):
+			toeClawMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "hindPawPadColor"):
+		if(hindPawPadsMat):
+			hindPawPadsMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "nippleColor"):
+		if(nippleMat):
+			nippleMat.set_shader_parameter("albedo", _value)
 	if(_optionID == "legType"):
 		digi_legs.visible = (_value == "digi")
 		planti_legs.visible = (_value == "planti")

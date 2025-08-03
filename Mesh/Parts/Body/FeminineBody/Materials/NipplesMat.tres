@@ -445,6 +445,7 @@ as_normal_map = true
 bump_strength = 0.4
 
 [resource]
+resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_c2p8e")
 shader_parameter/texture_albedo = ExtResource("2_em13s")

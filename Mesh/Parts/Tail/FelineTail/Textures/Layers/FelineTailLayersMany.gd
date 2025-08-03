@@ -42,4 +42,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Burger": {
+			name = "Burger",
+			colormask = "res://Mesh/Parts/Tail/FelineTail/Textures/Layers/Burger.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

@@ -8,11 +8,18 @@ var colorRoot:Color = Color("db1c1c")
 var colorTip:Color = Color("750000")
 var shading:float = 0.5
 
+var pattern:Dictionary = {
+	pattern = "",
+	colorR = Color(0.7, 0.7, 0.7),
+	colorG = Color(0.5, 0.5, 0.5),
+	colorB = Color(0.3, 0.3, 0.3),
+}
+
 func getBodypartType() -> int:
 	return BodypartType.Hair
 
 func getOptions() -> Dictionary:
-	return {
+	var theOptions:Dictionary = {
 		"colorRoot": {
 			name = "Roots color",
 			type = "color",
@@ -46,3 +53,13 @@ func getOptions() -> Dictionary:
 			#editors = [EDITOR_PART],
 		#},
 	}
+	
+	theOptions["pattern"] = {
+			name = "Pattern",
+			type = "pattern",
+			texType = TextureVariantType.HairPattern,
+			texSubType = id,
+			editors = [EDITOR_PART],
+		}
+	
+	return theOptions

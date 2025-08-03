@@ -51,7 +51,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9968221, 0.07945328, -0.005731897, -0.076952495, -0.9790479, -0.18852958, -0.020591097, -0.18748936, 0.9820508, 0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.99656665, 0.082639635, -0.005105463, -0.08003855, -0.9773141, -0.19609028, -0.02119447, -0.19500837, 0.9805726, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -76,7 +76,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9968221, -0.07945328, 0.005731897, 0.076952495, -0.9790479, -0.18852958, 0.020591097, -0.18748936, 0.9820508, -0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.99656665, -0.082639635, 0.005105463, 0.08003855, -0.9773141, -0.19609028, 0.02119447, -0.19500837, 0.9805726, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -201,5 +201,5 @@ script = ExtResource("3_g8hfx")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11268902, 0.35181445)
 shape = SubResource("SphereShape3D_wml73")

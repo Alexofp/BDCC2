@@ -44,4 +44,12 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Artica": {
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Artica.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

@@ -42,6 +42,10 @@ func getVariants() -> Array:
 			newVar.pathORM = entry["orm"]
 		if(entry.has("flags")):
 			newVar.flags = entry["flags"]
+		if(entry.has("subType")):
+			newVar.subType = entry["subType"]
+		else:
+			newVar.subType = subType
 		result.append(newVar)
 	
 	return result

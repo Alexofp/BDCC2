@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bukykanm7r26f"]
+
+[ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="1_a6p2q"]
+
+[resource]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = ExtResource("1_a6p2q")

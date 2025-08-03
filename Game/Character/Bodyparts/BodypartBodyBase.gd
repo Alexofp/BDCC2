@@ -6,10 +6,14 @@ var bodyLayers:Array = []
 var breasts:float = 1.0
 var nippleShape:float = 0.0
 var breastsCleavage:float = 0.0
+var nippleColor:Color = Color("f58c8c")
 
 var claws:float = 0.0
+var clawsColor:Color = Color("855a5a")
+var toeClawColor:Color = Color("855a5a")
 var handPads:bool = false
-var handPadsColor:Color = Color(0.6, 0.301, 0.192, 1.0)
+var handPadsColor:Color = Color("a6a6a6")
+var hindPawPadColor:Color = Color("a6a6a6")
 
 func getBodypartType() -> int:
 	return BodypartType.Body
@@ -35,6 +39,11 @@ func getOptions() -> Dictionary:
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
+			editors = [EDITOR_PART],
+		},
+		"nippleColor": {
+			name = "Nipples color",
+			type = "color",
 			editors = [EDITOR_PART],
 		},
 		"legType": {
@@ -68,6 +77,21 @@ func getOptions() -> Dictionary:
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
+			editors = [EDITOR_PART],
+		},
+		"clawsColor": {
+			name = "Claw/nail color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"toeClawColor": {
+			name = "Toe claw/tail color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"hindPawPadColor": {
+			name = "Digi-leg pawpad color",
+			type = "color",
 			editors = [EDITOR_PART],
 		},
 	}

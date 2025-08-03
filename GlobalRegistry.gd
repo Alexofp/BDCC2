@@ -133,16 +133,20 @@ func registerTextureVariant(path: String):
 	
 	if(object is TextureVariantMany):
 		var theType:String = object.type
-		var theSubType:String = object.subType
+		#var theSubType:String = object.subType
 		if(theType != ""):
 			if(!textureVariantsByType.has(theType)):
 				textureVariantsByType[theType] = {}
-			if(!textureVariantsByType[theType].has(theSubType)):
-				textureVariantsByType[theType][theSubType] = []
+			#if(!textureVariantsByType[theType].has(theSubType)):
+			#	textureVariantsByType[theType][theSubType] = []
 		
 		for texVar in object.getVariants():
 			textureVariants[texVar.id] = texVar
 			if(theType != ""):
+				var theSubType:String = texVar.subType
+				if(!textureVariantsByType[theType].has(theSubType)):
+					textureVariantsByType[theType][theSubType] = []
+				
 				textureVariantsByType[theType][theSubType].append(texVar.id)
 		
 	elif(object is TextureVariant):

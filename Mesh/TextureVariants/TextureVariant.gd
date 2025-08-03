@@ -6,6 +6,7 @@ var id:String = ""
 var name:String = ""
 
 var type:String = ""
+var subType:String = ""
 
 var pathTexture:String = ""
 var pathColormask:String = ""
