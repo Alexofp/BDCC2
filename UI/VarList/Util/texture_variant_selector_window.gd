@@ -45,3 +45,9 @@ func _on_texture_variant_list_item_selected(index: int) -> void:
 	if(index < 0 || index >= idListActual.size()):
 		return
 	selectedID = idListActual[index]
+
+func _enter_tree() -> void:
+	UIHandler.addWindow(self)
+
+func _exit_tree() -> void:
+	UIHandler.removeWindow(self)

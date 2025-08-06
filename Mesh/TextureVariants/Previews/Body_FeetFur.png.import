@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://davtccidpua2u"
-path="res://.godot/imported/Artica.png-afdf81f27942f4f2d6defc5613c0b150.ctex"
+uid="uid://byawjvbhxtllj"
+path="res://.godot/imported/Body_FeetFur.png-a1db09fafe1559ad7e3cb620da6052f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/TextureVariants/Previews/Artica.png"
-dest_files=["res://.godot/imported/Artica.png-afdf81f27942f4f2d6defc5613c0b150.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/Body_FeetFur.png"
+dest_files=["res://.godot/imported/Body_FeetFur.png-a1db09fafe1559ad7e3cb620da6052f6.ctex"]
 
 [params]
 

@@ -252,7 +252,25 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)
 		if(_optionID == "pattern"):
 			applyColormaskPatternToMyMat(_hairMat, _value)
-		
+
+func applyEyeOptions(_eyeMat:ShaderMaterial, _optionID:String, _value:Variant):
+	if(_eyeMat != null):
+		if(_optionID == "eyeColor1"):
+			_eyeMat.set_shader_parameter("colorR", _value)
+		if(_optionID == "eyeColor2"):
+			_eyeMat.set_shader_parameter("colorG", _value)
+		if(_optionID == "eyeColor3"):
+			_eyeMat.set_shader_parameter("colorB", _value)
+
+func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Variant):
+	if(_mouthMat != null):
+		if(_optionID == "mouthColor"):
+			_mouthMat.set_shader_parameter("color_mask_r", _value)
+		if(_optionID == "tongueColor"):
+			_mouthMat.set_shader_parameter("color_mask_g", _value)
+		if(_optionID == "teethColor"):
+			_mouthMat.set_shader_parameter("color_mask_b", _value)
+
 var previewDollMat := preload("res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres")
 
 func prepareForPreview(_previewMaker):

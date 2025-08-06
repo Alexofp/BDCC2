@@ -1,7 +1,7 @@
 extends TextureVariantMany
 
 func _init():
-	idprefix = ""
+	idprefix = "Body_"
 	type = TextureVariantType.BodyLayer
 	subType = "def"
 	previewDollPartPath = "res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn"

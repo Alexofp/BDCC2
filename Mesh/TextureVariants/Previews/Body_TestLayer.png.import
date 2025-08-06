@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhhav4twlk113"
-path="res://.godot/imported/TestLayer.png-36415fd7fc557a02a88473e3fb1efd67.ctex"
+uid="uid://d125ftbupsq54"
+path="res://.godot/imported/Body_TestLayer.png-d420b3ba23965bb81574c0692ae13718.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/TextureVariants/Previews/TestLayer.png"
-dest_files=["res://.godot/imported/TestLayer.png-36415fd7fc557a02a88473e3fb1efd67.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/Body_TestLayer.png"
+dest_files=["res://.godot/imported/Body_TestLayer.png-d420b3ba23965bb81574c0692ae13718.ctex"]
 
 [params]
 

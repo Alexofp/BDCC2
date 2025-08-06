@@ -2,6 +2,7 @@ extends Node
 
 var UIs:Array[Control] = []
 var mouseCaptures:Array[Node] = []
+var windows:Array[Window] = []
 
 var uiVisible:bool = false
 var gameplayInputBlocked:bool = false
@@ -57,6 +58,15 @@ func isMenuInputBlocked() -> bool:
 			if((theControl is LineEdit) && theControl.is_editing()):
 				return true
 	
+	for window in windows:
+		if(is_instance_valid(window) && window.is_inside_tree()):
+			var windowViewport := window.get_viewport()
+			if(windowViewport):
+				var theControl := windowViewport.gui_get_focus_owner()
+				if(theControl):
+					if((theControl is LineEdit) && theControl.is_editing()):
+						return true
+	
 	return menuInputBlocked
 
 func _process(_delta: float) -> void:
@@ -107,3 +117,10 @@ func tryCloseMenu():
 func releaseUIFocus():
 	if(get_viewport().gui_get_focus_owner()):
 		get_viewport().gui_get_focus_owner().release_focus()
+
+func addWindow(theWindow:Window):
+	windows.append(theWindow)
+	#theWindow.tree_exiting.connect(removeWindow.bind(theWindow))
+
+func removeWindow(theWindow:Window):
+	windows.erase(theWindow)

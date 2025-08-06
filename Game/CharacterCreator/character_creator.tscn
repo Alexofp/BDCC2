@@ -161,6 +161,7 @@ size = Vector2i(360, 88)
 
 [node name="SavePresetLineEdit" type="LineEdit" parent="SavePresetDialog"]
 unique_name_in_owner = true
+anchors_preset = -1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 352.0
@@ -174,6 +175,7 @@ size = Vector2i(360, 338)
 
 [node name="CharacterPresetSelector" parent="LoadPresetDialog" instance=ExtResource("4_h7akw")]
 unique_name_in_owner = true
+anchors_preset = -1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0

@@ -16,6 +16,12 @@ func _on_canceled() -> void:
 func _ready() -> void:
 	pass
 
+func _enter_tree() -> void:
+	UIHandler.addWindow(self)
+
+func _exit_tree() -> void:
+	UIHandler.removeWindow(self)
+
 func updateData():
 	char_wizard_var_list.setVars({
 		CharOption.name: {

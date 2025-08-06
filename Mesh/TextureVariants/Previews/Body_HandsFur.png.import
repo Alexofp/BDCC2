@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iof8cg6wim0d"
-path="res://.godot/imported/FeetFur.png-b6a194be572fd67da0f58b199ff73606.ctex"
+uid="uid://bbch1sk6yu22s"
+path="res://.godot/imported/Body_HandsFur.png-839f3567e490a89c33b90f7bb7ed4cee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/TextureVariants/Previews/FeetFur.png"
-dest_files=["res://.godot/imported/FeetFur.png-b6a194be572fd67da0f58b199ff73606.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/Body_HandsFur.png"
+dest_files=["res://.godot/imported/Body_HandsFur.png-839f3567e490a89c33b90f7bb7ed4cee.ctex"]
 
 [params]
 

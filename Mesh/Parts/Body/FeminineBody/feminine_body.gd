@@ -141,6 +141,10 @@ func updateBodyAlphaMask(_finalAlpha:Texture2D):
 
 func prepareForPreview(_previewMaker):
 	bodyMat.copyFrom(previewDollMat)
+	nipples.visible = false
+	digi_legs.visible = false
+	planti_legs.visible = true
+	hand_pads.visible = false
 
 func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	if(_textureVariant.pathColormask != ""):

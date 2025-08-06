@@ -13,17 +13,17 @@ data = {
 &"colorB": Color(0.5803922, 0.3254902, 0.26666668, 1),
 &"colorG": Color(0.5803922, 0.3254902, 0.26666668, 1),
 &"colorR": Color(0.58203125, 0.3253257, 0.26828003, 1),
-&"id": "Belly"
+&"id": "Body_Belly"
 }, {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
 &"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
-&"id": "FeetFur"
+&"id": "Body_FeetFur"
 }, {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
 &"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
-&"id": "HandsFur"
+&"id": "Body_HandsFur"
 }],
 "breasts": 1.0,
 "breastsCleavage": 0.0,

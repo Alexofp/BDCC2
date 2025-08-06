@@ -3,9 +3,11 @@ extends DollPart
 @onready var feline_head: MeshInstance3D = $MyHeadRig/Skeleton3D/FelineHead
 @onready var eyes: MeshInstance3D = $MyHeadRig/Skeleton3D/Eyes
 @onready var cheek_fluff: MeshInstance3D = %CheekFluff
+@onready var feline_mouth: MeshInstance3D = %FelineMouth
 
 var eyeMat:ShaderMaterial
 var headMat:MyMasterMaterial
+var mouthMat:MyMasterMaterial
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
 
@@ -14,15 +16,12 @@ var headMat:MyMasterMaterial
 func grabMaterials():
 	headMat = feline_head.get_surface_override_material(0)
 	eyeMat = eyes.get_surface_override_material(0)
+	mouthMat = feline_mouth.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
-	if(eyeMat != null):
-		if(_optionID == "eyeColor1"):
-			eyeMat.set_shader_parameter("colorR", _value)
-		if(_optionID == "eyeColor2"):
-			eyeMat.set_shader_parameter("colorG", _value)
-		if(_optionID == "eyeColor3"):
-			eyeMat.set_shader_parameter("colorB", _value)
+	applyEyeOptions(eyeMat, _optionID, _value)
+	applyMouthOptions(mouthMat, _optionID, _value)
+	
 	if(_optionID == "fluff"):
 		cheek_fluff.visible = _value
 	if(_optionID == "fluffDown"):

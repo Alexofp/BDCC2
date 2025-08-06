@@ -29,3 +29,9 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 		var sanitizedText:String = Util.sanitizeCharacterName(new_text)
 		if(sanitizedText != new_text):
 			line_edit.text = sanitizedText
+
+func _enter_tree() -> void:
+	UIHandler.addWindow(self)
+
+func _exit_tree() -> void:
+	UIHandler.removeWindow(self)

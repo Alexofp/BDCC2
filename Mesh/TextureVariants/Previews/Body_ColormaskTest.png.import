@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3yry12p1kxh2"
-path="res://.godot/imported/Belly.png-ca7db14479f6ba3e619931872b5ed149.ctex"
+uid="uid://c6tvlyfupumik"
+path="res://.godot/imported/Body_ColormaskTest.png-84c190859fc211772eb2ef03289bb37e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/TextureVariants/Previews/Belly.png"
-dest_files=["res://.godot/imported/Belly.png-ca7db14479f6ba3e619931872b5ed149.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/Body_ColormaskTest.png"
+dest_files=["res://.godot/imported/Body_ColormaskTest.png-84c190859fc211772eb2ef03289bb37e.ctex"]
 
 [params]
 

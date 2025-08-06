@@ -13,7 +13,7 @@ data = {
 &"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
 &"colorG": Color(0, 0.043137256, 0.28235295, 1),
 &"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
-&"id": "Ferri"
+&"id": "Body_Ferri"
 }],
 "breasts": 2.24,
 "breastsCleavage": 0.0,

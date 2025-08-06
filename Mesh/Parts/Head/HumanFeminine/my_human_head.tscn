@@ -78,6 +78,7 @@ surface_material_override/0 = ExtResource("12_l4a0u")
 surface_material_override/1 = ExtResource("12_l4a0u")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("12_k178j")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4"]

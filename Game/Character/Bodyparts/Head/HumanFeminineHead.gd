@@ -11,6 +11,11 @@ func getName() -> String:
 func getScenePath(_slot:int) -> String:
 	return "res://Mesh/Parts/Head/HumanFeminine/my_human_head.tscn"
 
+func getOptions() -> Dictionary:
+	var theOptions := super.getOptions()
+	
+	return theOptions
+
 func getSupportedSkinTypes() -> Dictionary:
 	return {
 		SkinType.HumanSkin: true,

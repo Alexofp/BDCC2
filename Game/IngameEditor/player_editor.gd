@@ -81,7 +81,7 @@ func _ready():
 	## Uncomment to auto-load the cellblock template
 	#_on_open_file_dialog_file_selected.call_deferred("res://Game/IngameEditor/Templates/genblock.res", true)
 	pass
-	
+
 var savedEscapePressed:bool = false
 func updateMouseLock() -> void:
 	var isEscapePressed:bool = Input.is_physical_key_pressed(KEY_ESCAPE) || Input.is_physical_key_pressed(KEY_Q)
@@ -1395,9 +1395,17 @@ func _on_my_template_dialog_confirmed() -> void:
 
 func _enter_tree() -> void:
 	UIHandler.addMouseCapturer(self)
+	UIHandler.addWindow(save_file_dialog)
+	UIHandler.addWindow(open_file_dialog)
+	UIHandler.addWindow(open_template_dialog)
+	UIHandler.addWindow(my_template_dialog)
 
 func _exit_tree() -> void:
 	UIHandler.removeMouseCapturer(self)
+	UIHandler.removeWindow(save_file_dialog)
+	UIHandler.removeWindow(open_file_dialog)
+	UIHandler.removeWindow(open_template_dialog)
+	UIHandler.removeWindow(my_template_dialog)
 
 func shouldCaptureMouse() -> bool:
 	var finalMouseLocked:bool = mouseLocked

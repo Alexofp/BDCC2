@@ -341,9 +341,13 @@ func _on_confirm_button_pressed() -> void:
 
 func _enter_tree() -> void:
 	UIHandler.addUI(self)
+	UIHandler.addWindow(save_preset_dialog)
+	UIHandler.addWindow(load_preset_dialog)
 
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)
+	UIHandler.removeWindow(save_preset_dialog)
+	UIHandler.removeWindow(load_preset_dialog)
 
 func tryCloseMenu() -> bool:
 	onConfirmPressed.emit()

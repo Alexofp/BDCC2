@@ -2,23 +2,21 @@ extends DollPart
 
 @onready var eyes: MeshInstance3D = $MyHeadRig/Skeleton3D/Eyes
 @onready var my_human_head: MeshInstance3D = $MyHeadRig/Skeleton3D/MyHumanHead
+@onready var mouth_mesh: MeshInstance3D = %MouthMesh
 
 var eyeMat:ShaderMaterial
 var headMat:MyMasterMaterial
+var mouthMat:MyMasterMaterial
 @onready var face_animator: FaceAnimator = %FaceAnimator
 
 func grabMaterials():
 	headMat = my_human_head.get_surface_override_material(0)
 	eyeMat = eyes.get_surface_override_material(0)
+	mouthMat = mouth_mesh.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
-	if(eyeMat != null):
-		if(_optionID == "eyeColor1"):
-			eyeMat.set_shader_parameter("colorR", _value)
-		if(_optionID == "eyeColor2"):
-			eyeMat.set_shader_parameter("colorG", _value)
-		if(_optionID == "eyeColor3"):
-			eyeMat.set_shader_parameter("colorB", _value)
+	applyEyeOptions(eyeMat, _optionID, _value)
+	applyMouthOptions(mouthMat, _optionID, _value)
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
 
