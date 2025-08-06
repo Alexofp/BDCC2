@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c28dnoeykjhkq"]
+
+[ext_resource type="Script" uid="uid://0csri83sjkkl" path="res://Mesh/Clothing/LatexSuit/latex_suit.gd" id="1_femw1"]
+
+[node name="LatexSuit" type="Node3D"]
+script = ExtResource("1_femw1")

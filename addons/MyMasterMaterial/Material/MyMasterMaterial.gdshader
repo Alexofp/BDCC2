@@ -171,6 +171,18 @@ uniform float messCutoff : hint_range(0.0, 1.0) = 0.0;
 uniform float messSmoothSize : hint_range(0.0, 1.0) = 0.1;
 #endif
 
+//#define MY_EXTRA_LAYER
+#ifdef MY_EXTRA_LAYER
+uniform vec4 extra_albedo : source_color = vec4(1.0);
+uniform sampler2D texture_extra_albedo : source_color, filter_linear_mipmap, repeat_enable, hint_default_transparent;
+uniform sampler2D texture_extra_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_extra_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
+	#ifdef MY_RIMLIGHT
+uniform float extra_rim : hint_range(0.0, 100.0, 0.01) = 1.0;
+uniform float extra_rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
+	#endif
+#endif
+
 // ratio 0.0 returns 0.0
 // ratio 0.5 returns value*0.5
 // ratio 1.0 returns value
@@ -321,6 +333,28 @@ void fragment() {
 	//detail_rough_tex_global.rgb = mix(vec3(0.5,0.5,1.0), detail_norm_tex_global, detail_normal_blend);
 	//NORMAL_MAP = udm_normal_blend(NORMAL_MAP, detail_norm_tex_global); //_simple_normal_blend
 	ROUGHNESS *= detail_rough_tex_global.g;
+#endif
+
+#ifdef MY_EXTRA_LAYER
+{
+	vec4 extra_albedo_tex = texture(texture_extra_albedo, base_uv);
+	vec4 extra_final_albedo = extra_albedo * extra_albedo_tex;
+	vec3 extra_normal_tex = texture(texture_extra_normal, base_uv).rgb;
+	vec4 extra_orm_tex = texture(texture_extra_orm, base_uv);
+
+	ALBEDO = mix(ALBEDO, extra_final_albedo.rgb, extra_final_albedo.a);
+	NORMAL_MAP = mix(NORMAL_MAP, extra_normal_tex.rgb, extra_final_albedo.a);
+	AO = mix(AO, extra_orm_tex.r, extra_final_albedo.a);
+	ROUGHNESS = mix(ROUGHNESS, extra_orm_tex.g, extra_albedo_tex.a);
+	METALLIC = mix(METALLIC, extra_orm_tex.b, extra_final_albedo.a);
+#ifdef MY_RIMLIGHT
+	RIM = mix(RIM, extra_rim, extra_final_albedo.a);
+	RIM_TINT = mix(RIM_TINT, extra_rim_tint, extra_final_albedo.a);
+#endif
+#ifdef MY_SUBSURFACESCATTER
+	SSS_STRENGTH = mix(SSS_STRENGTH, 0.0, extra_final_albedo.a);
+#endif
+}
 #endif
 
 #ifdef MY_MESSLAYER

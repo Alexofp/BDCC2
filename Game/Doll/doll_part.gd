@@ -260,3 +260,9 @@ func prepareForPreview(_previewMaker):
 
 func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	pass
+
+func getExtraLayerData() -> Dictionary:
+	return {}
+
+func applyExtraLayerData(_data:Dictionary):
+	pass

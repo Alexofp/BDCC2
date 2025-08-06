@@ -7,4 +7,5 @@ func _init() -> void:
 	sceneByBodypartID = {
 		"FelineHead": "res://Mesh/Parts/Head/FelineHead/Items/GagHarness/feline_gag_harness.tscn",
 		"HumanFeminineHead": "res://Mesh/Parts/Head/HumanFeminine/Items/GagHarness/fem_human_gag_harness.tscn",
+		"CanineHead": "res://Mesh/Parts/Head/CanineHead/Items/GagHarness/canine_gag_harness.tscn",
 	}

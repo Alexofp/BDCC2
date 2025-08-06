@@ -357,6 +357,8 @@ func clearOutPart(genericType:int, bodypartSlot:int):
 		triggerDollPartFlagsUpdate()
 	if(partPaths[genericType].has(bodypartSlot)):
 		partPaths[genericType].erase(bodypartSlot)
+	if(theDollPart && genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
+		updateExtraLayer()
 
 func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 	var part:GenericPart = getChar().getGenericPart(genericType, bodypartSlot)
@@ -423,6 +425,11 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 			if(dollScene.getBodyAlphaMask()):
 				triggerAlphaMaskUpdate()
 			dollScene.onSpawn(genericType, bodypartSlot, cachedPart.id)
+			
+			if(genericType == BaseCharacter.GENERIC_BODYPARTS && bodypartSlot == BodypartSlot.Body):
+				updateExtraLayer()
+			elif(genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
+				updateExtraLayer()
 					
 		triggerDollPartFlagsUpdate()
 		
@@ -885,3 +892,44 @@ func lookAtCustom(thePos:Vector3):
 
 func doFaceTalkAnim(_len:float):
 	voice_handler.sendEvent("talk", [_len])
+
+
+
+
+func getExtraLayerData() -> Dictionary:
+	var thePart := getDollPart(BaseCharacter.GENERIC_CLOTHING, InventorySlot.Suit)
+	if(thePart):
+		return thePart.getExtraLayerData()
+	return {}
+
+#const SUIT = {
+	#color = Color.WHITE,
+	#albedo = "res://Mesh/Clothing/LatexSuit/Textures/LatexSuitAlbedo.png",
+	#normal = "res://Mesh/Clothing/LatexSuit/Textures/LatexSuitNormal.png",
+	#orm = "res://Mesh/Clothing/LatexSuit/Textures/LatexSuitORM.png",
+	#rim = 50.0,
+	#rim_tint = 0.0,
+#}
+
+var extraLayerRaw:Dictionary = {}
+var extraLayer:Dictionary = {}
+func updateExtraLayer():
+	var theData := getExtraLayerData()
+	if(theData.is_empty()):
+		extraLayerRaw.clear()
+		extraLayer.clear()
+	else:
+		for fieldID in ["color", "rim", "rim_tint"]:
+			extraLayer[fieldID] = theData[fieldID]
+		for texID in ["albedo", "normal", "orm"]:
+			if(!extraLayerRaw.has(texID) || extraLayerRaw[texID] != theData[texID]):
+				extraLayerRaw[texID] = theData[texID]
+				extraLayer[texID] = load(theData[texID])
+	
+	# apply to bodyparts
+	var theBody := getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
+	if(theBody):
+		theBody.applyExtraLayerData(extraLayer)
+
+func getFinalExtraLayerData() -> Dictionary:
+	return extraLayer

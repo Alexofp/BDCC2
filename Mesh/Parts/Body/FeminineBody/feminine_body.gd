@@ -84,6 +84,7 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	bodyMat.set_shader_parameter("messScroll", randomCumScroll)
 	updateBodyTexture()
 	updateBodyMess()
+	applyExtraLayerData(getDoll().getFinalExtraLayerData())
 
 func updateBodyTexture():
 	var theSkinData:SkinTypeData = getSkinData()
@@ -148,3 +149,23 @@ func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 		bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
 	else:
 		bodyMat.set_shader_parameter("texture_color_mask", null)
+
+func applyExtraLayerData(_data:Dictionary):
+	if(!bodyMat):
+		return
+	if(_data.is_empty()):
+		bodyMat.extraLayer = false
+		return
+	if(!bodyMat.rimlight):
+		bodyMat.rimlight = true
+		bodyMat.set_shader_parameter("rim", 0.0)
+	bodyMat.extraLayer = true
+	bodyMat.set_shader_parameter("extra_albedo", _data["color"])
+	bodyMat.set_shader_parameter("texture_extra_albedo", _data["albedo"])
+	bodyMat.set_shader_parameter("texture_extra_normal", _data["normal"])
+	bodyMat.set_shader_parameter("texture_extra_orm", _data["orm"])
+	bodyMat.set_shader_parameter("extra_rim", _data["rim"])
+	bodyMat.set_shader_parameter("extra_rim_tint", _data["rim_tint"])
+		
+	
+	

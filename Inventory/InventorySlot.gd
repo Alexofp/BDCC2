@@ -7,6 +7,7 @@ enum {
 	Collar,
 	Top,
 	Bottom,
+	Suit,
 	Wrists,
 	Ankles,
 	Nipples,
@@ -14,8 +15,8 @@ enum {
 	UnderwearBottom,
 }
 
-const ALL = [Eyes, Mouth, Collar, Top, Bottom, Wrists, Ankles, Nipples, UnderwearTop, UnderwearBottom]
-const NAMES = ["Eyes", "Mouth", "Collar", "Top", "Bottom", "Wrists", "Ankles", "Nipples", "Underwear (top)", "Underwear (bottom)"]
+const ALL = [Eyes, Mouth, Collar, Top, Bottom, Suit, Wrists, Ankles, Nipples, UnderwearTop, UnderwearBottom]
+const NAMES = ["Eyes", "Mouth", "Collar", "Top", "Bottom", "Suit", "Wrists", "Ankles", "Nipples", "Underwear (top)", "Underwear (bottom)"]
 
 static func getAll() -> Array:
 	return ALL

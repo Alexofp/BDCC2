@@ -134,6 +134,10 @@ enum SubsurfaceScatteringType {
 	set(value):
 		albedoMatcap = value
 		updateShader()
+@export var extraLayer:bool = false:
+	set(value):
+		extraLayer = value
+		updateShader()
 
 @export_group("CACHE")
 @export var clearCache:bool = false:
@@ -170,6 +174,7 @@ func copyFrom(otherShader:MyMasterMaterial, ignoreUniforms:Array = []):
 	edgeOutline = otherShader.edgeOutline
 	messLayer = otherShader.messLayer
 	albedoMatcap = otherShader.albedoMatcap
+	extraLayer = otherShader.extraLayer
 	updateShader()
 	#var allUniforms:Array = shader.get_shader_uniform_list()
 	for theUniformName in uniformNames:
@@ -247,6 +252,8 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("ml")
 	if(albedoMatcap):
 		theFlags.append("am")
+	if(extraLayer):
+		theFlags.append("el")
 	return join(theFlags, "|")
 
 func calculateShaderResource() -> Array:
@@ -322,6 +329,8 @@ func calculateShaderResource() -> Array:
 		defines.append("MY_MESSLAYER")
 	if(albedoMatcap):
 		defines.append("MY_ALBEDO_MATCAP")
+	if(extraLayer):
+		defines.append("MY_EXTRA_LAYER")
 	var definesText:String = ""
 	for define in defines:
 		definesText += "#define "+define+"\n"

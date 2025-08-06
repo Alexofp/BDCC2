@@ -536,6 +536,7 @@ shader_parameter/metallic = 1.999999955296
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 script = ExtResource("92_hm45f")
+extraLayer = null
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6bdbm"]
@@ -551,6 +552,7 @@ shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 script = ExtResource("92_hm45f")
+extraLayer = null
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="Sandbox" type="Node3D"]
@@ -3743,6 +3745,7 @@ unique_name_in_owner = true
 [node name="SandboxMenu" parent="MainUILayer" instance=ExtResource("9_jow8c")]
 unique_name_in_owner = true
 visible = false
+anchors_preset = -1
 offset_left = 219.0
 offset_top = 89.0
 offset_right = -219.0
@@ -3767,6 +3770,19 @@ surface_material_override/0 = SubResource("ShaderMaterial_c7nna")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.975914, 1.1024301, -1.0028977)
 mesh = SubResource("SphereMesh_mrx3p")
 surface_material_override/0 = SubResource("ShaderMaterial_6bdbm")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.34079, 1.6990299, 6.9351664)
+visible = false
+size = Vector3(10.67205, 5.2156677, 7.66066)
+box_projection = true
+interior = true
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.818573, 4.4939404, -3.4044714)
+visible = false
+size = Vector3(25.624687, 12.621361, 19.332125)
+box_projection = true
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

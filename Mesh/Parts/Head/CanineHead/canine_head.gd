@@ -87,7 +87,7 @@ func applyPartFlags(_theFlags:Dictionary):
 	if(_theFlags.has("HeadRingGag") && _theFlags["HeadRingGag"]):
 		face_animator.setGagMouthOverride(0.76)
 	elif(_theFlags.has("HeadBallGag") && _theFlags["HeadBallGag"]):
-		face_animator.setGagMouthOverride(0.57)
+		face_animator.setGagMouthOverride(0.76)
 	else:
 		face_animator.setGagMouthOverride()
 
