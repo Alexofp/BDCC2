@@ -38,6 +38,7 @@ surface_material_override/1 = ExtResource("6_18t5l")
 surface_material_override/2 = ExtResource("7_sep4h")
 
 [node name="FemaleCrotch" parent="rig/Skeleton3D" index="2"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_e373p")
 
@@ -46,6 +47,7 @@ unique_name_in_owner = true
 surface_material_override/0 = ExtResource("6_d17xq")
 
 [node name="MaleCrotch" parent="rig/Skeleton3D" index="4"]
+unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_e373p")

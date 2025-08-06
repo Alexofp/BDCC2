@@ -10,6 +10,10 @@ func getCharacterCreatorPartsTemplate(_gender:int) -> Dictionary:
 	return {
 		BodypartSlot.Body: {
 			id = "FeminineBody",
+			data = {
+				legType = "planti",
+				vagina = Gender.shouldHaveVaginaByDefault(_gender),
+			},
 		},
 		BodypartSlot.Head: {
 			id = "HumanFeminineHead",

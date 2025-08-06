@@ -15,6 +15,9 @@ var handPads:bool = false
 var handPadsColor:Color = Color("a6a6a6")
 var hindPawPadColor:Color = Color("a6a6a6")
 
+var vagina:bool = true
+var vaginaType:int = VaginaType.Normal
+
 func getBodypartType() -> int:
 	return BodypartType.Body
 
@@ -92,6 +95,22 @@ func getOptions() -> Dictionary:
 		"hindPawPadColor": {
 			name = "Digi-leg pawpad color",
 			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"vagina": {
+			name = "Vagina",
+			type = "bool",
+			editors = [EDITOR_PART],
+		},
+		"vaginaType": {
+			name = "Vagina type",
+			type = "selector",
+			values = [
+				[VaginaType.Normal, VaginaType.NAMES[VaginaType.Normal]],
+				[VaginaType.Puffy, VaginaType.NAMES[VaginaType.Puffy]],
+				[VaginaType.PuffyClosed, VaginaType.NAMES[VaginaType.PuffyClosed]],
+				#[VaginaType.Spade, VaginaType.NAMES[VaginaType.Spade]],
+			],
 			editors = [EDITOR_PART],
 		},
 	}

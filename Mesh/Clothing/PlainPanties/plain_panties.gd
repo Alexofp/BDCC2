@@ -23,6 +23,7 @@ func applyCharOption(_optionID:String, _value:Variant):
 func gatherPartFlags(_theFlags:Dictionary):
 	if(!getOptionValue("shifted", false)):
 		_theFlags["HidePenis"] = true
+		_theFlags["NormalVagina"] = true
 
 func applyPartFlags(_theFlags:Dictionary):
 	if(_theFlags.has("HidePanties") && _theFlags["HidePanties"]):

@@ -19,6 +19,8 @@ var hindPawPadsMat:MyMasterMaterial
 @onready var randomCumScroll:float = RNG.randfRange(0.0, 100.0)
 @onready var cum_layer: MyLayeredTexture = %CumLayer
 @onready var nipples: MeshInstance3D = %Nipples
+@onready var male_crotch: MeshInstance3D = %MaleCrotch
+@onready var female_crotch: MeshInstance3D = %FemaleCrotch
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
@@ -63,7 +65,11 @@ func applyOption(_optionID:String, _value:Variant):
 		updateBodyTexture()
 	if(_optionID == "breasts"):
 		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
-
+	if(_optionID == "vagina"):
+		updateCrotch()
+	if(_optionID == "vaginaType"):
+		updateCrotch()
+	
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(bodyMat == null):
 		return
@@ -120,6 +126,7 @@ func applyPartFlags(_theFlags:Dictionary):
 		neck_connector.visible = false
 		neck_connector_furry.visible = true
 	updateBreastsCleavage(getOptionValue("breastsCleavage", 0.0))
+	updateCrotch()
 	
 func _on_body_layered_texture_on_texture_updated(_newTexture: Texture2D) -> void:
 	if(bodyMat):
@@ -171,5 +178,25 @@ func applyExtraLayerData(_data:Dictionary):
 	bodyMat.set_shader_parameter("extra_rim", _data["rim"])
 	bodyMat.set_shader_parameter("extra_rim_tint", _data["rim_tint"])
 		
+func updateCrotch():
+	var forceNormalVagina:bool = getCachedPartFlag("NormalVagina", false)
+	var hasVag:bool = getOptionValue("vagina", true)
+	var vagType:int = getOptionValue("vaginaType", VaginaType.Normal) if !forceNormalVagina else VaginaType.Normal
 	
+	if(hasVag):
+		female_crotch.visible = true
+		male_crotch.visible = false
+		
+		if(vagType == VaginaType.Puffy):
+			setBlendshape("PussyPuffy", 1.0)
+			setBlendshape("PussyClosedTight", 0.0)
+		elif(vagType == VaginaType.PuffyClosed):
+			setBlendshape("PussyPuffy", 1.0)
+			setBlendshape("PussyClosedTight", 1.0)
+		else:
+			setBlendshape("PussyPuffy", 0.0)
+			setBlendshape("PussyClosedTight", 0.0)
+	else:
+		female_crotch.visible = false
+		male_crotch.visible = true
 	

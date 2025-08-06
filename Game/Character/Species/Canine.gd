@@ -12,6 +12,7 @@ func getCharacterCreatorPartsTemplate(_gender:int) -> Dictionary:
 			id = "FeminineBody",
 			data = {
 				legType = "digi",
+				vagina = Gender.shouldHaveVaginaByDefault(_gender),
 			},
 			#skinType = SkinType.Fur,
 		},

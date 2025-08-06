@@ -34,3 +34,15 @@ static func getDefaultPronouns(theGender:int) -> int:
 		return Pronouns.TheyThem
 	
 	return Pronouns.TheyThem
+
+static func shouldHaveVaginaByDefault(theGender:int) -> bool:
+	if(theGender == Male):
+		return false
+	if(theGender == Female):
+		return true
+	if(theGender == Androgynous):
+		return true
+	if(theGender == NonBinary):
+		return false
+	
+	return false
