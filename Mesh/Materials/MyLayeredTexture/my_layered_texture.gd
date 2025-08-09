@@ -25,6 +25,7 @@ const LAYER_SIMPLE = 0
 const LAYER_COLORMASK = 1
 const LAYER_BLENDADD = 2
 const LAYER_SMOOTHREVEAL = 3
+const LAYER_SIMPLE_PART = 4
 
 var colorMaskTextureRect = preload("res://Mesh/Materials/MyLayeredTexture/color_mask_texture_rect.tscn")
 var addModeTextureRect = preload("res://Mesh/Materials/MyLayeredTexture/add_mode_texture_rect.tscn")
@@ -93,6 +94,17 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 			newRect.texture = theTexture
 			newRect.self_modulate = layerEntry[2]
 		
+		if(layerType == LAYER_SIMPLE_PART):
+			var newRect:TextureRect = TextureRect.new()
+			color_rect.add_child(newRect)
+			newRect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			newRect.anchor_left = layerEntry[3].x
+			newRect.anchor_top = layerEntry[3].y
+			newRect.anchor_right = layerEntry[3].x + layerEntry[4].x
+			newRect.anchor_bottom = layerEntry[3].y + layerEntry[4].y
+			newRect.texture = theTexture
+			newRect.self_modulate = layerEntry[2]
+		
 		elif(layerType == LAYER_COLORMASK):
 			var newRect: = colorMaskTextureRect.instantiate()
 			color_rect.add_child(newRect)
@@ -135,7 +147,7 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 			newRect.setScroll(layerEntry[5])
 			
 			
-		await get_tree().create_timer(0.2/layers.size()).timeout
+		#await get_tree().create_timer(0.2/layers.size()).timeout
 		
 	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	
@@ -176,6 +188,10 @@ func clearLayers():
 
 func addSimpleLayer(theTexture, theColor:Color = Color.WHITE):
 	layers.append([LAYER_SIMPLE, theTexture, theColor])
+	markDirty()
+
+func addSimpleLayerAt(theTexture, theColor:Color = Color.WHITE, thePos:Vector2 = Vector2(1.0, 1.0), theSize:Vector2 = Vector2(1.0, 1.0)):
+	layers.append([LAYER_SIMPLE_PART, theTexture, theColor, thePos, theSize])
 	markDirty()
 
 func addColorMaskLayer(theTexture, colorR:Color = Color.BLACK, colorG:Color = Color.BLACK, colorB:Color = Color.BLACK):

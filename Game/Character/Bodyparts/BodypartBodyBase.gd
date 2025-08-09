@@ -15,8 +15,14 @@ var handPads:bool = false
 var handPadsColor:Color = Color("a6a6a6")
 var hindPawPadColor:Color = Color("a6a6a6")
 
+var anusColor:Color = Color("f58c8c")
+var anusInColor:Color = Color("f58c8c")
+
 var vagina:bool = true
 var vaginaType:int = VaginaType.Normal
+var vaginaSize:float = 0.0
+var vaginaColor:Color = Color("f58c8c")
+var vaginaInColor:Color = Color("f58c8c")
 
 func getBodypartType() -> int:
 	return BodypartType.Body
@@ -97,6 +103,16 @@ func getOptions() -> Dictionary:
 			type = "color",
 			editors = [EDITOR_PART],
 		},
+		"anusColor": {
+			name = "Anus color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"anusInColor": {
+			name = "Anus (inside) color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
 		"vagina": {
 			name = "Vagina",
 			type = "bool",
@@ -107,10 +123,26 @@ func getOptions() -> Dictionary:
 			type = "selector",
 			values = [
 				[VaginaType.Normal, VaginaType.NAMES[VaginaType.Normal]],
-				[VaginaType.Puffy, VaginaType.NAMES[VaginaType.Puffy]],
-				[VaginaType.PuffyClosed, VaginaType.NAMES[VaginaType.PuffyClosed]],
-				#[VaginaType.Spade, VaginaType.NAMES[VaginaType.Spade]],
+				[VaginaType.Closed, VaginaType.NAMES[VaginaType.Closed]],
+				[VaginaType.Spade, VaginaType.NAMES[VaginaType.Spade]],
 			],
+			editors = [EDITOR_PART],
+		},
+		"vaginaSize": {
+			name = "Vagina size",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		},
+		"vaginaColor": {
+			name = "Vagina color",
+			type = "color",
+			editors = [EDITOR_PART],
+		},
+		"vaginaInColor": {
+			name = "Vagina (inside) color",
+			type = "color",
 			editors = [EDITOR_PART],
 		},
 	}

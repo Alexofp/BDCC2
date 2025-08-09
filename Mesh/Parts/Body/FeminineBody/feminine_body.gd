@@ -6,13 +6,14 @@ extends DollPart
 @onready var neck_connector: MeshInstance3D = %NeckConnector
 @onready var neck_connector_furry: MeshInstance3D = %NeckConnectorFurry
 @onready var hand_pads: MeshInstance3D = %HandPads
-
 var bodyMat:MyMasterMaterial
 var handPadsMat:MyMasterMaterial
 var nippleMat:MyMasterMaterial
 var clawMat:MyMasterMaterial
 var toeClawMat:MyMasterMaterial
 var hindPawPadsMat:MyMasterMaterial
+var genitalsMat:MyMasterMaterial
+var spadeMat:MyMasterMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -21,6 +22,8 @@ var hindPawPadsMat:MyMasterMaterial
 @onready var nipples: MeshInstance3D = %Nipples
 @onready var male_crotch: MeshInstance3D = %MaleCrotch
 @onready var female_crotch: MeshInstance3D = %FemaleCrotch
+@onready var female_crotch_spade: MeshInstance3D = %FemaleCrotchSpade
+
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
@@ -29,6 +32,8 @@ func grabMaterials():
 	nippleMat = nipples.get_surface_override_material(0)
 	toeClawMat = digi_legs.get_surface_override_material(1)
 	hindPawPadsMat = digi_legs.get_surface_override_material(2)
+	genitalsMat = female_crotch.get_surface_override_material(1)
+	spadeMat = female_crotch_spade.get_surface_override_material(2)
 
 func updateThickness():
 	updateThicknessBody()
@@ -62,12 +67,25 @@ func applyOption(_optionID:String, _value:Variant):
 		digi_legs.visible = (_value == "digi")
 		planti_legs.visible = (_value == "planti")
 	if(_optionID == "bodyLayers"):
-		updateBodyTexture()
+		triggerUpdateBodyTexture()
+	if(_optionID == "anusColor"):
+		triggerUpdateBodyTexture()
+		genitalsMat.set_shader_parameter("color_mask_g", _value)
+	if(_optionID == "anusInColor"):
+		genitalsMat.set_shader_parameter("color_mask_b", _value)
+	if(_optionID == "vaginaColor"):
+		genitalsMat.set_shader_parameter("albedo", _value)
+		spadeMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "vaginaInColor"):
+		genitalsMat.set_shader_parameter("color_mask_r", _value)
+		spadeMat.set_shader_parameter("color_mask_r", _value)
 	if(_optionID == "breasts"):
 		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
 	if(_optionID == "vagina"):
 		updateCrotch()
 	if(_optionID == "vaginaType"):
+		updateCrotch()
+	if(_optionID == "vaginaSize"):
 		updateCrotch()
 	
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
@@ -88,9 +106,18 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)
 	bodyMat.set_shader_parameter("messScroll", randomCumScroll)
-	updateBodyTexture()
+	triggerUpdateBodyTexture()
 	updateBodyMess()
 	applyExtraLayerData(getDoll().getFinalExtraLayerData())
+
+var isUpdatingBodyTexture:bool = false
+func triggerUpdateBodyTexture():
+	if(isUpdatingBodyTexture):
+		return
+	isUpdatingBodyTexture = true
+	await get_tree().process_frame
+	isUpdatingBodyTexture = false
+	updateBodyTexture()
 
 func updateBodyTexture():
 	var theSkinData:SkinTypeData = getSkinData()
@@ -106,6 +133,10 @@ func updateBodyTexture():
 		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
 	
 	addLayersToTexture(body_layered_texture, getOptionValue("bodyLayers", []))
+
+	var anusColor:Color = getOptionValue("anusColor", Color.RED)
+	body_layered_texture.addSimpleLayerAt(preload("res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/AnusL.png"), anusColor, Vector2(322.0/2048.0, 747.0/2048.0), Vector2(0.03125, 0.03125))
+	body_layered_texture.addSimpleLayerAt(preload("res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/AnusR.png"), anusColor, Vector2(1662.0/2048.0, 747.0/2048.0), Vector2(0.03125, 0.03125))
 
 	bodyMat.set_shader_parameter("texture_albedo", body_layered_texture.getTexture())
 	bodyMat.set_shader_parameter("freshnel_mod", 0.15)
@@ -182,21 +213,28 @@ func updateCrotch():
 	var forceNormalVagina:bool = getCachedPartFlag("NormalVagina", false)
 	var hasVag:bool = getOptionValue("vagina", true)
 	var vagType:int = getOptionValue("vaginaType", VaginaType.Normal) if !forceNormalVagina else VaginaType.Normal
+	var vagSize:float = getOptionValue("vaginaSize", 0.0) if !forceNormalVagina else 0.0
 	
 	if(hasVag):
-		female_crotch.visible = true
-		male_crotch.visible = false
-		
-		if(vagType == VaginaType.Puffy):
-			setBlendshape("PussyPuffy", 1.0)
-			setBlendshape("PussyClosedTight", 0.0)
-		elif(vagType == VaginaType.PuffyClosed):
-			setBlendshape("PussyPuffy", 1.0)
-			setBlendshape("PussyClosedTight", 1.0)
+		if(vagType == VaginaType.Spade):
+			female_crotch_spade.visible = true
+			female_crotch.visible = false
+			male_crotch.visible = false
+			setBlendshape("CaninePussySize", vagSize)
 		else:
-			setBlendshape("PussyPuffy", 0.0)
-			setBlendshape("PussyClosedTight", 0.0)
+			female_crotch.visible = true
+			male_crotch.visible = false
+			female_crotch_spade.visible = false
+			
+			if(vagType == VaginaType.Closed):
+				#setBlendshape("PussyPuffy", 1.0)
+				setBlendshape("PussyClosedTight", 1.0)
+			else:
+				#setBlendshape("PussyPuffy", 0.0)
+				setBlendshape("PussyClosedTight", 0.0)
+			setBlendshape("PussyPuffy", vagSize)
 	else:
 		female_crotch.visible = false
 		male_crotch.visible = true
+		female_crotch_spade.visible = false
 	
