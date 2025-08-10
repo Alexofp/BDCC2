@@ -9,6 +9,8 @@ data = {
 "Body": {
 &"data": {
 "options": {
+"anusColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"anusInColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "bodyLayers": [{
 &"colorB": Color(0, 0.60784316, 0.5764706, 1),
 &"colorG": Color(0.88235295, 0.88235295, 0.8745098, 1),
@@ -25,7 +27,12 @@ data = {
 "legType": "digi",
 "nippleColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "nippleShape": 0.0,
-"toeClawColor": Color(0.19215687, 0.24705882, 0.24705882, 1)
+"toeClawColor": Color(0.19215687, 0.24705882, 0.24705882, 1),
+"vagina": true,
+"vaginaColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"vaginaInColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"vaginaSize": 0.0,
+"vaginaType": 0
 },
 "skinDataOverride": null,
 "skinType": 1

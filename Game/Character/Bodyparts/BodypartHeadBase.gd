@@ -43,15 +43,21 @@ func getOptions() -> Dictionary:
 			name = "Mouth color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Mouth,
 		},
 		"tongueColor": {
 			name = "Tongue color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Mouth,
 		},
 		"teethColor": {
 			name = "Teeth color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Mouth,
 		},
 	}
+
+func getDefaultEditorZone() -> int:
+	return CharCreatorZone.Face

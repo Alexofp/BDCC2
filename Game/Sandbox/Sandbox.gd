@@ -202,7 +202,7 @@ func _on_in_game_menu_on_char_creator_button() -> void:
 	character_creator = preload("res://Game/CharacterCreator/character_creator.tscn").instantiate()
 	main_ui_layer.add_child(character_creator)
 	
-	character_creator.setCharacter(GM.pc)
+	character_creator.setCharacter(GM.pc, GM.pcDoll.getDoll())
 	character_creator.onConfirmPressed.connect(onCharCreatorConfirmButton)
 	
 	#TODO: REMOVE THIS

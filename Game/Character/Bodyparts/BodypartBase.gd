@@ -106,6 +106,9 @@ func getTextureVariantsValues(texType:String, texSubType:String) -> Array:
 		
 	return result
 
+func getDefaultEditorZone() -> int:
+	return CharCreatorZone.NOTHING
+
 func saveNetworkData() -> Dictionary:
 	var _data:Dictionary = {}
 	

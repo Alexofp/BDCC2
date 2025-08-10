@@ -108,3 +108,8 @@ func applyPartFlags(_theFlags:Dictionary):
 		visible = false
 	else:
 		visible = true
+	
+	if(_theFlags.has("SmallerPenisBulge") && _theFlags["SmallerPenisBulge"]):
+		setBlendshape("TaintBulgeLess", 1.0)
+	else:
+		setBlendshape("TaintBulgeLess", 0.0)

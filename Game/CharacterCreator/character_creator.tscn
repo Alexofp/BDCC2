@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy3s2sf36wvtd"]
+[gd_scene load_steps=6 format=3 uid="uid://cy3s2sf36wvtd"]
 
 [ext_resource type="Script" uid="uid://624tlim4w1cd" path="res://Game/CharacterCreator/character_creator.gd" id="1_8ciux"]
 [ext_resource type="PackedScene" uid="uid://dfyh8pivegiu0" path="res://UI/VarList/Vars/dropdown_var.tscn" id="2_n4n5s"]
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_vxsh1"]
 [ext_resource type="PackedScene" uid="uid://c2hmfb1ww5ps8" path="res://Game/Character/Preset/UI/character_preset_selector.tscn" id="4_h7akw"]
+[ext_resource type="PackedScene" uid="uid://bwv5juyft3osa" path="res://Game/CharacterCreator/character_creator_camera_setup.tscn" id="5_jh7ml"]
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
@@ -33,6 +34,7 @@ mouse_filter = 2
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.01
 mouse_filter = 2
 
 [node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer"]
@@ -51,11 +53,44 @@ text = "Save preset"
 layout_mode = 2
 text = "Confirm"
 
-[node name="Control" type="Control" parent="HBoxContainer"]
+[node name="DraggerControl" type="Control" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-mouse_filter = 2
+
+[node name="FilterPanel" type="PanelContainer" parent="HBoxContainer/DraggerControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -397.0
+offset_top = -302.0
+offset_right = -213.0
+offset_bottom = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilterList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList"]
+layout_mode = 2
+text = "Categories"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CategoryButtonsList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -181,10 +216,14 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -49.0
 
+[node name="CharacterCreatorCameraSetup" parent="." instance=ExtResource("5_jh7ml")]
+unique_name_in_owner = true
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/LoadPresetButton" to="." method="_on_load_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/SavePresetButton" to="." method="_on_save_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="gui_input" from="HBoxContainer/DraggerControl" to="." method="_on_dragger_control_gui_input"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CharSelButton" to="." method="_on_char_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionsSelButton" to="." method="_on_options_sel_button_pressed"]

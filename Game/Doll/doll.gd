@@ -57,6 +57,8 @@ const IDLE_PICKABLE_ANIMS:Array = [
 
 static var addedPosesToTree:bool = false
 
+var openMouthTemp:bool = false
+
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func updateAnimPlayer():
@@ -670,15 +672,21 @@ func getExpressionState() -> int:
 
 func setExpressionState(newExpression:int):
 	expressionState = newExpression
+	updateExpressionState()
 
+func updateExpressionState():
+	var theExpressionState:int = expressionState
+	if(openMouthTemp):
+		theExpressionState = DollExpressionState.OpenMouth
+	
 	for genericType in parts:
 		for partID in parts[genericType]:
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
-				dollPart.setExpressionState(expressionState)
+				dollPart.setExpressionState(theExpressionState)
 				var theFaceAnimator:FaceAnimator = dollPart.getFaceAnimator()
 				if(theFaceAnimator):
-					theFaceAnimator.setExpressionState(newExpression)
+					theFaceAnimator.setExpressionState(theExpressionState)
 
 func getDollPart(genericType:int, slot:int) -> DollPart:
 	if(!parts.has(genericType)):
@@ -802,7 +810,7 @@ func updatePose():
 	if(!theIdlePose):
 		setIdleAnim(theChar.getIdleAnim())
 	else:
-		setIdleAnim(theIdlePose.getAnimName())
+		setIdleAnim(theIdlePoseID)#theIdlePose.getAnimName())
 	
 	if(theIdlePose && ((isStanding() && !theIdlePose.doesPoseSupportArmPoses()) || (isWalking() && !theIdlePose.doesWalkSupportArmPoses()))):
 		setArmsAnim("")
@@ -933,3 +941,18 @@ func updateExtraLayer():
 
 func getFinalExtraLayerData() -> Dictionary:
 	return extraLayer
+
+func skeletonBoneGlobalOffset(skel: Skeleton3D, bone_name: String, local_offset: Vector3) -> Vector3:
+	var idx = skel.find_bone(bone_name)
+	if idx == -1:
+		push_error("Bone '%s' not found." % bone_name)
+		return Vector3.ZERO
+	var bone_pose := skel.get_bone_global_pose(idx)
+	return skel.to_global(bone_pose * (local_offset))
+
+func getBonePos(boneName:String, theOffset:Vector3) -> Vector3:
+	return skeletonBoneGlobalOffset(body_skeleton.skeleton_3d, boneName, theOffset)
+
+func setMouthOpenTemporary(_newOpen:bool):
+	openMouthTemp = _newOpen
+	updateExpressionState()

@@ -9,4 +9,6 @@ enum {
 	SexReceiving,
 	SexGiving,
 	
+	OpenMouth,
+	
 }

@@ -5,6 +5,7 @@ extends Control
 @onready var skin_sel_button: Button = %SkinSelButton
 @onready var char_sel_button: Button = %CharSelButton
 var currentTab:String = "char" # parts options skin char
+var zoneFilter:int = CharCreatorZone.ALL
 
 @onready var parts_tab: VBoxContainer = %PartsTab
 @onready var parts_list: VBoxContainer = %PartsList
@@ -27,21 +28,26 @@ var regionRememberOpen:Dictionary = {}
 var charCreatorWizardWindow := preload("res://Game/CharacterCreator/char_creator_wizard_window.tscn")
 
 var character:BaseCharacter
+var doll:Doll
 
 signal onConfirmPressed
 
 func _ready() -> void:
 	#updateSelectedTab()
 	#updatePartOptionsList()
+	character_creator_camera_setup.characterCreatorRef = weakref(self)
+	setTab("char")
 	pass
 
-func setCharacter(newChar:BaseCharacter):
+func setCharacter(newChar:BaseCharacter, newDoll:Doll):
 	if(character != null && is_instance_valid(character)):
+		resetCharacterPose()
 		character.onGenericPartChange.disconnect(onCharGenericPartChange)
 		character.onBaseSkinTypeChange.disconnect(onCharBaseSkinDataChange)
 		character.onBodypartSkinTypeChange.disconnect(onCharBodypartSkinDataChange)
 		character.onBodypartSkinTypeOverrideSwitch.disconnect(onCharBodypartSkinDataOverrideSwitch)
 	character = newChar
+	doll = newDoll
 	if(character != null && is_instance_valid(character)):
 		character.onGenericPartChange.connect(onCharGenericPartChange)
 		character.onBaseSkinTypeChange.connect(onCharBaseSkinDataChange)
@@ -86,19 +92,28 @@ func updateSelectedTab():
 	options_tab.visible = (currentTab == "options")
 	skin_tab.visible = (currentTab == "skin")
 	char_tab.visible = (currentTab == "char")
-	
-func _on_parts_sel_button_pressed() -> void:
-	currentTab = "parts"
+
+func setTab(_newTab:String):
+	currentTab = _newTab
 	updateSelectedTab()
+
+	if(currentTab == "skin"):
+		updateSkinTab()
+	if(currentTab == "char"):
+		updateCharTab()
+	updateCategoryOptions()
+	updateCategoryButtonsList()
+	setZoneFilter(CharCreatorZone.ALL)
+	#updateSelectedZoneFilter()
+
+func _on_parts_sel_button_pressed() -> void:
+	setTab("parts")
 
 func _on_options_sel_button_pressed() -> void:
-	currentTab = "options"
-	updateSelectedTab()
+	setTab("options")
 
 func _on_skin_sel_button_pressed() -> void:
-	currentTab = "skin"
-	updateSelectedTab()
-	updateSkinTab()
+	setTab("skin")
 
 func updateSkinTab():
 	updatePartOptionsListGeneric(skin_options_big_list, "skin")
@@ -252,8 +267,16 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		for optionID in allOptions:
 			var optionEntry:Dictionary = allOptions[optionID]
 			var optionTypes:Array = optionEntry["editors"] if optionEntry.has("editors") else [GenericPart.EDITOR_PART]
+			# Editor type check
 			if(!optionTypes.has(optionFilter)):
 				continue
+			# Zone filter
+			if(!isSkin && zoneFilter != CharCreatorZone.ALL):
+				var editorZone:int = bodypart.getDefaultEditorZone()
+				if(optionEntry.has("editorZone")):
+					editorZone = optionEntry["editorZone"]
+				if(zoneFilter != editorZone):
+					continue
 			optionEntry["value"] = bodypart.getOptionValue(optionID)
 			options[optionID] = optionEntry
 		
@@ -264,11 +287,16 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		if(!shouldAddStuff):
 			continue
 		
+		var regionShouldBeOpened:bool = regionRememberOpen[BodypartSlot.getName(bodypartSlot)+"_part"] if regionRememberOpen.has(BodypartSlot.getName(bodypartSlot)+"_part") else false
+		if(!isSkin && zoneFilter != CharCreatorZone.ALL):
+			regionShouldBeOpened = true
+		
 		var newRegion = collapseRegionScene.instantiate()
 		listNode.add_child(newRegion)
 		newRegion.setName(bodypart.getEditorName())
-		newRegion.setOpened(regionRememberOpen[BodypartSlot.getName(bodypartSlot)+"_part"] if regionRememberOpen.has(BodypartSlot.getName(bodypartSlot)+"_part") else false)
-		newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(BodypartSlot.getName(bodypartSlot)+"_part"))
+		newRegion.setOpened(regionShouldBeOpened)
+		if(!isSkin && zoneFilter != CharCreatorZone.ALL):
+			newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(BodypartSlot.getName(bodypartSlot)+"_part"))
 		
 		if(isSkin):
 			var supportsSkinType:bool = bodypart.supportsSkinTypes()
@@ -345,6 +373,7 @@ func _enter_tree() -> void:
 	UIHandler.addWindow(load_preset_dialog)
 
 func _exit_tree() -> void:
+	resetCharacterPose()
 	UIHandler.removeUI(self)
 	UIHandler.removeWindow(save_preset_dialog)
 	UIHandler.removeWindow(load_preset_dialog)
@@ -354,9 +383,7 @@ func tryCloseMenu() -> bool:
 	return true
 
 func _on_char_sel_button_pressed() -> void:
-	currentTab = "char"
-	updateSelectedTab()
-	updateCharTab()
+	setTab("char")
 
 
 func _on_char_var_list_on_var_change(id: String, value: Variant) -> void:
@@ -421,6 +448,7 @@ func _on_save_preset_button_pressed() -> void:
 func _on_save_preset_dialog_confirmed() -> void:
 	if(!character):
 		return
+	#resetCharacterPose()
 	var theName:String = save_preset_line_edit.text
 	theName = Util.sanitizeFileName(theName)
 	
@@ -442,3 +470,128 @@ func _on_load_preset_dialogue_confirmed() -> void:
 	#	return
 	GM.characterRegistry.askCharacterLoadPreset(character, newPreset)
 	save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())
+
+func _process(_delta: float) -> void:
+	if(doll):
+		character_creator_camera_setup.global_position = doll.global_position
+		character_creator_camera_setup.global_rotation.y = doll.global_rotation.y
+		
+@onready var character_creator_camera_setup: CharacterCreatorCameraSetup = %CharacterCreatorCameraSetup
+@onready var dragger_control: Control = %DraggerControl
+var controllingCamera:bool = false
+
+func _on_dragger_control_gui_input(event: InputEvent) -> void:
+	if(event is InputEventMouseButton):
+		#if(event.button_index == MOUSE_BUTTON_LEFT):
+			#if(event.pressed):
+				#UIHandler.releaseUIFocus()
+		if(event.button_index == MOUSE_BUTTON_WHEEL_DOWN):
+			character_creator_camera_setup.handleZoom(1.0)
+		if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
+			character_creator_camera_setup.handleZoom(-1.0)
+		
+		
+		if(event.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_LEFT, MOUSE_BUTTON_MIDDLE]):
+			if(event.pressed):
+				UIHandler.releaseUIFocus()
+				controllingCamera = true
+			else:
+				controllingCamera = false
+
+func _input(event: InputEvent) -> void:
+	if(controllingCamera && event is InputEventMouseMotion):
+		var mouseD:Vector2 = event.relative
+		character_creator_camera_setup.handleMouseMove(mouseD)
+
+var categoryToSlotToOptions:Dictionary = {}
+func updateCategoryOptions():
+	categoryToSlotToOptions.clear()
+	if(!character):
+		return
+	if(currentTab != "options"):
+		return
+	for bodypartSlot in character.getBodyparts():
+		var theBodypart:BodypartBase = character.getBodypart(bodypartSlot)
+		
+		var theOptions := theBodypart.getOptionsFinal()
+		#if(!theOptions.is_empty() && !categoryToSlotToOptions.has(bodypartSlot)):
+		#	categoryToSlotToOptions[bodypartSlot] = {}
+		
+		#var cachedOptions:Dictionary = categoryToSlotToOptions[bodypartSlot]
+		for optionID in theOptions:
+			var theOptionEntry:Dictionary = theOptions[optionID]
+			var theEditorZone:int = theBodypart.getDefaultEditorZone()
+			if(theOptionEntry.has("editorZone")):
+				theEditorZone = theOptionEntry["editorZone"]
+			if(theEditorZone == CharCreatorZone.NOTHING):
+				continue
+			if(!categoryToSlotToOptions.has(theEditorZone)):
+				categoryToSlotToOptions[theEditorZone] = {}
+			var zoneCacheOptions:Dictionary = categoryToSlotToOptions[theEditorZone]
+			if(!zoneCacheOptions.has(bodypartSlot)):
+				zoneCacheOptions[bodypartSlot] = {}
+			var cachedOptions:Dictionary = zoneCacheOptions[bodypartSlot]
+			cachedOptions[optionID] = theOptionEntry
+
+var categoryToButton:Dictionary[int, Button] = {}
+@onready var category_buttons_list: VBoxContainer = %CategoryButtonsList
+@onready var filter_panel: PanelContainer = %FilterPanel
+
+func updateCategoryButtonsList():
+	Util.delete_children(category_buttons_list)
+	categoryToButton.clear()
+	
+	if(currentTab != "options"):
+		filter_panel.visible = false
+		return
+	filter_panel.visible = true
+	
+	var aButton:Button = Button.new()
+	aButton.text = "All"
+	category_buttons_list.add_child(aButton)
+	categoryToButton[CharCreatorZone.ALL] = aButton
+	aButton.pressed.connect(setZoneFilter.bind(CharCreatorZone.ALL))
+	
+	for zone in CharCreatorZone.ORDER:
+		if(!categoryToSlotToOptions.has(zone)):
+			continue
+		var zoneName:String = CharCreatorZone.getName(zone)
+		
+		var newButton:Button = Button.new()
+		newButton.text = zoneName
+		category_buttons_list.add_child(newButton)
+		categoryToButton[zone] = newButton
+		newButton.pressed.connect(setZoneFilter.bind(zone))
+
+func setZoneFilter(_zone:int):
+	zoneFilter = _zone
+	character_creator_camera_setup.setZone(zoneFilter)
+	updateSelectedZoneFilter()
+	if(currentTab == "options"):
+		updatePartOptionsList()
+	if(character):
+		if(_zone == CharCreatorZone.Legs):
+			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "ShowFoot")
+		else:
+			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "")
+		if(_zone == CharCreatorZone.Hands):
+			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "ShowHands")
+		else:
+			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "")
+	if(doll):
+		if(_zone == CharCreatorZone.Mouth):
+			doll.setMouthOpenTemporary(true)
+		else:
+			doll.setMouthOpenTemporary(false)
+		
+func updateSelectedZoneFilter():
+	for zone in categoryToButton:
+		categoryToButton[zone].disabled = (zoneFilter == zone)
+
+func resetCharacterPose():
+	if(!character):
+		return
+	GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "")
+	GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "")
+	if(doll):
+		doll.setMouthOpenTemporary(false)

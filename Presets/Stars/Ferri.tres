@@ -9,6 +9,8 @@ data = {
 "Body": {
 &"data": {
 "options": {
+"anusColor": Color(0, 0.8862745, 0.88235295, 1),
+"anusInColor": Color(0, 0.8862745, 0.88235295, 1),
 "bodyLayers": [{
 &"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
 &"colorG": Color(0, 0.043137256, 0.28235295, 1),
@@ -18,10 +20,19 @@ data = {
 "breasts": 2.24,
 "breastsCleavage": 0.0,
 "claws": 1.0,
+"clawsColor": Color(0, 0.043137256, 0.28235295, 1),
 "handPads": true,
 "handPadsColor": Color(0, 0.87058824, 0.8666667, 1),
+"hindPawPadColor": Color(0, 0.8862745, 0.88235295, 1),
 "legType": "digi",
-"nippleShape": 0.0
+"nippleColor": Color(0, 0.8862745, 0.88235295, 1),
+"nippleShape": 0.0,
+"toeClawColor": Color(0, 0.043137256, 0.28235295, 1),
+"vagina": true,
+"vaginaColor": Color(0, 0.8862745, 0.88235295, 1),
+"vaginaInColor": Color(0, 0.8862745, 0.88235295, 1),
+"vaginaSize": 0.0,
+"vaginaType": 0
 },
 "skinDataOverride": null,
 "skinType": 3
@@ -33,6 +44,12 @@ data = {
 "options": {
 "colorRoot": Color(1, 0.9863281, 0.96875, 1),
 "colorTip": Color(0.24229431, 0.24229431, 0.92578125, 1),
+"pattern": {
+&"colorB": Color(0.3, 0.3, 0.3, 1),
+&"colorG": Color(0.5, 0.5, 0.5, 1),
+&"colorR": Color(0.7, 0.7, 0.7, 1),
+&"pattern": ""
+},
 "shading": 0.5
 }
 },
@@ -67,7 +84,10 @@ data = {
 &"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
 &"colorR": Color(0, 0, 0, 1),
 &"id": "FelineHead_Lines"
-}]
+}],
+"mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
+"teethColor": Color(1, 0.9098039, 0.85882354, 1),
+"tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)
 },
 "skinDataOverride": null,
 "skinType": 3

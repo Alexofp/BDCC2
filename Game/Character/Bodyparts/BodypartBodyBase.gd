@@ -35,6 +35,7 @@ func getOptions() -> Dictionary:
 			min = 0.0,
 			max = 3.0,
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
 		},
 		"breastsCleavage": {
 			name = "Breast cleavage",
@@ -42,6 +43,7 @@ func getOptions() -> Dictionary:
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
 		},
 		"nippleShape": {
 			name = "Nipples shape",
@@ -49,11 +51,13 @@ func getOptions() -> Dictionary:
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
 		},
 		"nippleColor": {
 			name = "Nipples color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
 		},
 		"legType": {
 			name = "Legs",
@@ -63,6 +67,7 @@ func getOptions() -> Dictionary:
 				["digi", "Digitigrade"],
 			],
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Legs,
 		},
 		"bodyLayers": {
 			name = "Layers",
@@ -75,11 +80,13 @@ func getOptions() -> Dictionary:
 			name = "Hand pads",
 			type = "bool",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Hands,
 		},
 		"handPadsColor": {
 			name = "Hand pads color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Hands,
 		},
 		"claws": {
 			name = "Claws",
@@ -87,36 +94,43 @@ func getOptions() -> Dictionary:
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Hands,
 		},
 		"clawsColor": {
 			name = "Claw/nail color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Hands,
 		},
 		"toeClawColor": {
 			name = "Toe claw/tail color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Legs,
 		},
 		"hindPawPadColor": {
 			name = "Digi-leg pawpad color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Legs,
 		},
 		"anusColor": {
 			name = "Anus color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"anusInColor": {
 			name = "Anus (inside) color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"vagina": {
 			name = "Vagina",
 			type = "bool",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"vaginaType": {
 			name = "Vagina type",
@@ -127,6 +141,7 @@ func getOptions() -> Dictionary:
 				[VaginaType.Spade, VaginaType.NAMES[VaginaType.Spade]],
 			],
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"vaginaSize": {
 			name = "Vagina size",
@@ -134,16 +149,19 @@ func getOptions() -> Dictionary:
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"vaginaColor": {
 			name = "Vagina color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 		"vaginaInColor": {
 			name = "Vagina (inside) color",
 			type = "color",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
 		},
 	}
 
@@ -159,3 +177,6 @@ func getOptions() -> Dictionary:
 		#return
 		#
 	#super.applyOption(_optionID, _value)
+
+func getDefaultEditorZone() -> int:
+	return CharCreatorZone.Body

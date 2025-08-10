@@ -63,3 +63,6 @@ func getOptions() -> Dictionary:
 		}
 	
 	return theOptions
+
+func getDefaultEditorZone() -> int:
+	return CharCreatorZone.Head

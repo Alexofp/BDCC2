@@ -83,6 +83,7 @@ func applyOption(_optionID:String, _value:Variant):
 		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
 	if(_optionID == "vagina"):
 		updateCrotch()
+		triggerDollPartFlagsUpdate()
 	if(_optionID == "vaginaType"):
 		updateCrotch()
 	if(_optionID == "vaginaSize"):
@@ -142,7 +143,8 @@ func updateBodyTexture():
 	bodyMat.set_shader_parameter("freshnel_mod", 0.15)
 	
 func gatherPartFlags(_theFlags:Dictionary):
-	pass
+	if(getOptionValue("vagina", false)):
+		_theFlags["SmallerPenisBulge"] = true
 
 func applyPartFlags(_theFlags:Dictionary):
 	if(_theFlags.has("HideNipples") && _theFlags["HideNipples"]):

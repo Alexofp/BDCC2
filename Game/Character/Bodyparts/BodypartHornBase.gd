@@ -38,3 +38,6 @@ func getOptions() -> Dictionary:
 			editors = [EDITOR_PART],
 		},
 	}
+
+func getDefaultEditorZone() -> int:
+	return CharCreatorZone.Head
