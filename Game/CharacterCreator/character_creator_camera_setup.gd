@@ -13,6 +13,12 @@ func getCharCreator():
 		return null
 	return characterCreatorRef.get_ref()
 
+func setCharCreator(_newCharCreator):
+	if(!_newCharCreator):
+		characterCreatorRef = null
+		return
+	characterCreatorRef = weakref(_newCharCreator)
+
 func getDoll() -> Doll:
 	var theCharCreator = getCharCreator()
 	if(theCharCreator == null):

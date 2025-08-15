@@ -5,8 +5,8 @@ var charRef:WeakRef
 
 var equipped:Dictionary[int, ItemBase] = {}
 
-signal onEquippedItemChange(slot, newItem)
-signal onEquippedItemOptionChange(optionID, value, part, slot)
+signal onEquippedItemChange(slot:int, newItem:ItemBase)
+signal onEquippedItemOptionChange(optionID:String, value:Variant, part:ItemBase, slot:int)
 
 func removeEquippedItem(_slot:int) -> ItemBase:
 	if(!equipped.has(_slot)):

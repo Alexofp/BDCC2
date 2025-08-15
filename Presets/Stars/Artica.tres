@@ -27,15 +27,15 @@ data = {
 "legType": "digi",
 "nippleColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "nippleShape": 0.0,
+"skinDataOverride": null,
+"skinType": 1,
 "toeClawColor": Color(0.19215687, 0.24705882, 0.24705882, 1),
 "vagina": true,
 "vaginaColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "vaginaInColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "vaginaSize": 0.0,
 "vaginaType": 0
-},
-"skinDataOverride": null,
-"skinType": 1
+}
 },
 &"id": "FeminineBody"
 },
@@ -97,11 +97,10 @@ data = {
 &"id": "CanineHead_Lines"
 }],
 "mouthColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"skinDataOverride": null,
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "CanineHead"
 },
@@ -117,11 +116,10 @@ data = {
 },
 "piercings": "",
 "piercingsColor": Color(0.53125, 0.53125, 0.53125, 1),
+"skinDataOverride": null,
 "tassels": true,
 "tasselsColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -140,10 +138,9 @@ data = {
 "penBallsScale": 1.0,
 "penisLenMod": 1.0,
 "penisScale": 0.8,
-"shaftColor": Color(0.08459998, 0.9257435, 0.93999994, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+"shaftColor": Color(0.08459998, 0.9257435, 0.93999994, 1),
+"skinDataOverride": null
+}
 },
 &"id": "CaninePenis"
 },
@@ -159,11 +156,10 @@ data = {
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(0.5703125, 0.5703125, 0.5703125, 1),
+"skinDataOverride": null,
 "tassels": true,
 "tasselsColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -177,12 +173,11 @@ data = {
 &"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
 &"pattern": "FelineTail_Burger"
 },
+"skinDataOverride": null,
 "tailLenMod": 1.0,
 "tailType": "fluffy",
 "thickness": 2.0
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineTail"
 }
@@ -197,11 +192,10 @@ data = {
 &"idleAnim": "normal1",
 &"muscles": 0.0,
 &"skinTypes": {
-2: {
-&"color": Color(1, 1, 1, 1)
-},
+&"skinTypes": {
 3: {
 &"color": Color(1, 1, 1, 1)
+}
 }
 },
 &"species": {

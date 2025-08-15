@@ -71,7 +71,7 @@ func getOptions() -> Dictionary:
 			type = "pattern",
 			texType = TextureVariantType.TailPattern,
 			texSubType = "FelineTail",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 
 		

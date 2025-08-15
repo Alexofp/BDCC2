@@ -66,6 +66,37 @@ func getBodypartOptionValue(_slot:int, _optionID:String, _default:Variant) -> Va
 func applyOption(_optionID:String, _value:Variant):
 	pass
 
+func applyOptionFinal(_optionID:String, _value:Variant):
+	if(_optionID == "skinType"):
+		triggerSkinDataUpdate()
+		return
+	if(_optionID == "skinDataOverride"):
+		triggerSkinDataUpdate()
+		return
+	
+	applyOption(_optionID, _value)
+
+var isUpdatingSkinData:bool = false
+func triggerSkinDataUpdate():
+	if(isUpdatingSkinData):
+		return
+	isUpdatingSkinData = true
+	#await get_tree().process_frame
+	triggerSkinDataUpdateActual()
+	isUpdatingSkinData = false
+	
+	#triggerSkinDataUpdateActual.call_deferred()
+
+func triggerSkinDataUpdateActual():
+	isUpdatingSkinData = false
+	var thePart := getPart()
+	if(!thePart):
+		return
+	if(thePart.supportsSkinTypes()):
+		var theData:SkinTypeData = thePart.getSkinTypeData()
+		if(theData != null):
+			applySkinTypeDataFinal(thePart.getSkinType(), theData)
+
 func getCharValue(_optionID:String, _default:Variant) -> Variant:
 	var thePart := getPart()
 	if(!thePart):
@@ -74,6 +105,12 @@ func getCharValue(_optionID:String, _default:Variant) -> Variant:
 	if(!theChar):
 		return _default
 	return theChar.getSyncOptionValue(_optionID)
+
+func applyCharOptionFinal(_optionID:String, _value:Variant):
+	if(_optionID == CharOption.skinTypes):
+		triggerSkinDataUpdate()
+	
+	applyCharOption(_optionID, _value)
 
 func applyCharOption(_optionID:String, _value:Variant):
 	pass

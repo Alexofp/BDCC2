@@ -12,6 +12,7 @@ const SUIT = {
 func gatherPartFlags(_theFlags:Dictionary):
 	_theFlags["HidePenis"] = true
 	_theFlags["HideNipples"] = true
+	_theFlags["HideVagina"] = true
 
 func getExtraLayerData() -> Dictionary:
 	return SUIT

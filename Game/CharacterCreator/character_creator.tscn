@@ -119,6 +119,7 @@ text = "Options"
 
 [node name="SkinSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "Skin&Colors"
 

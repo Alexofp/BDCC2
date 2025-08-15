@@ -2,7 +2,7 @@ extends RefCounted
 class_name CharacterPreset
 
 var bodyparts:Dictionary = {}
-var skinTypes:Dictionary = {}
+var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
@@ -36,10 +36,7 @@ func loadFromCharacter(_char:BaseCharacter):
 			data = theBodypart.saveData(),
 		}
 	
-	skinTypes.clear()
-	for skinType in _char.skinTypes:
-		var theSkinType:SkinTypeData = _char.skinTypes[skinType]
-		skinTypes[skinType] = theSkinType.saveData()
+	skinTypes.loadData(_char.skinTypes.saveData().duplicate(true))
 	
 	charName = _char.charName
 	gender.loadData(_char.gender.saveData())
@@ -62,16 +59,11 @@ func applyToCharacter(_char:BaseCharacter):
 	_char.applyCharChange(CharOption.walkAnim, walkAnim)
 	_char.applyCharChange(CharOption.idleAnim, idleAnim)
 	
-	for skinTypeA in skinTypes:
-		var skinType = skinTypeA
-		if(skinType is String):
-			skinType = SkinType.stringToType(skinType)
-		var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-		newSkinTypeData.loadData(skinTypes[skinTypeA])
-		_char.setBaseSkinTypeData(skinType, newSkinTypeData)
-	
 	for bodypartSlot in _char.bodyparts.keys():
 		_char.removeGenericPart(BaseCharacter.GENERIC_BODYPARTS, bodypartSlot)
+		
+	_char.skinTypes.loadData(skinTypes.saveData().duplicate(true))
+		
 	for bodypartSlotString in bodyparts:
 		var bodypartSlot:int = BodypartSlot.slotFromString(bodypartSlotString)
 		if(bodypartSlot < 0):
@@ -89,7 +81,7 @@ func applyToCharacter(_char:BaseCharacter):
 func saveData() -> Dictionary:
 	return {
 		bodyparts = bodyparts,
-		skinTypes = skinTypes,
+		skinTypes = skinTypes.saveData(),
 		
 		charName = charName,
 		gender = gender.saveData(),
@@ -104,7 +96,7 @@ func saveData() -> Dictionary:
 
 func loadData(_data:Dictionary):
 	bodyparts = SAVE.loadVar(_data, "bodyparts", {})
-	skinTypes = SAVE.loadVar(_data, "skinTypes", {})
+	skinTypes.loadData(SAVE.loadVar(_data, "skinTypes", {}))
 	
 	charName = SAVE.loadVar(_data, "charName", "New character")
 	gender.loadData(SAVE.loadVar(_data, "gender", {}))

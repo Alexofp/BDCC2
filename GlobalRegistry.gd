@@ -440,6 +440,14 @@ func getItemRef(id: String) -> ItemBase:
 		return null
 
 
+func createGenericPart(_genericType:int, _partID:String) -> GenericPart:
+	if(_genericType == BaseCharacter.GENERIC_BODYPARTS && _partID != ""):
+		return createBodypart(_partID)
+	elif(_genericType == BaseCharacter.GENERIC_CLOTHING && _partID != ""):
+		return createItem(_partID)
+	Log.Printerr("createGenericPart() got an uknown generic type: "+str(_genericType)+", part id = "+str(_partID))
+	return null
+
 func registerClothingSelector(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()

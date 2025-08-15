@@ -89,7 +89,7 @@ func getOptions() -> Dictionary:
 			type = "pattern",
 			texType = TextureVariantType.TailPattern,
 			texSubType = "DragonTail",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 
 		

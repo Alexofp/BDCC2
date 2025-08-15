@@ -27,15 +27,15 @@ data = {
 "legType": "digi",
 "nippleColor": Color(0, 0.8862745, 0.88235295, 1),
 "nippleShape": 0.0,
+"skinDataOverride": null,
+"skinType": 3,
 "toeClawColor": Color(0, 0.043137256, 0.28235295, 1),
 "vagina": true,
 "vaginaColor": Color(0, 0.8862745, 0.88235295, 1),
 "vaginaInColor": Color(0, 0.8862745, 0.88235295, 1),
 "vaginaSize": 0.0,
 "vaginaType": 0
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FeminineBody"
 },
@@ -86,11 +86,10 @@ data = {
 &"id": "FelineHead_Lines"
 }],
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
+"skinDataOverride": null,
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineHead"
 },
@@ -106,11 +105,10 @@ data = {
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
 "tassels": true,
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -137,11 +135,10 @@ data = {
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
 "tassels": true,
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -167,13 +164,12 @@ data = {
 &"pattern": "DragonTail_Ferri"
 },
 "ridges": true,
+"skinDataOverride": null,
 "tailLenMod": 1.0,
 "thickness": 1.0,
 "tipfluff": true,
 "underfluff": true
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "DragonTail"
 }
@@ -188,14 +184,10 @@ data = {
 &"idleAnim": "normal1",
 &"muscles": 0.0,
 &"skinTypes": {
-0: {
-&"color": Color(1, 1, 1, 1)
-},
-2: {
-&"color": Color(1, 1, 1, 1)
-},
+&"skinTypes": {
 3: {
 &"color": Color(0.4509804, 0.60784316, 0.7647059, 1)
+}
 }
 },
 &"species": {

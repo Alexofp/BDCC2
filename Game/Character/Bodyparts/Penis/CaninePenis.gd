@@ -34,14 +34,14 @@ func getOptions() -> Dictionary:
 	theOptions["shaftColor"] = {
 			name = "Shaft color",
 			type = "color",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.PenisPattern,
 			texSubType = "CanineShaft",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 	theOptions["penisScale"] = {
 			name = "Size",

@@ -32,55 +32,67 @@ var doll:Doll
 
 signal onConfirmPressed
 
+signal onUpdateBaseSkinTypesList
+
 func _ready() -> void:
 	#updateSelectedTab()
 	#updatePartOptionsList()
-	character_creator_camera_setup.characterCreatorRef = weakref(self)
+	character_creator_camera_setup.setCharCreator(self)
 	setTab("char")
 	pass
 
 func setCharacter(newChar:BaseCharacter, newDoll:Doll):
 	if(character != null && is_instance_valid(character)):
 		resetCharacterPose()
-		character.onGenericPartChange.disconnect(onCharGenericPartChange)
-		character.onBaseSkinTypeChange.disconnect(onCharBaseSkinDataChange)
-		character.onBodypartSkinTypeChange.disconnect(onCharBodypartSkinDataChange)
-		character.onBodypartSkinTypeOverrideSwitch.disconnect(onCharBodypartSkinDataOverrideSwitch)
+		character.onChange.disconnect(onCharChange)
 	character = newChar
 	doll = newDoll
 	if(character != null && is_instance_valid(character)):
-		character.onGenericPartChange.connect(onCharGenericPartChange)
-		character.onBaseSkinTypeChange.connect(onCharBaseSkinDataChange)
-		character.onBodypartSkinTypeChange.connect(onCharBodypartSkinDataChange)
-		character.onBodypartSkinTypeOverrideSwitch.connect(onCharBodypartSkinDataOverrideSwitch)
+		character.onChange.connect(onCharChange)
 	
 	updateSelectedTab()
 	updatePartsList()
 	updatePartOptionsList()
 	updateCharTab()
 	
+	character_creator_camera_setup.setZone(zoneFilter)
+	character_creator_camera_setup._process(0.0)
 	#showWizardWindow()
+
+func onCharChange(_change:BaseCharChange):
+	var theType := _change.getType()
 	
+	match theType:
+		BaseCharChange.PART:
+			triggerUpdateAll()
+		BaseCharChange.PART_OPTION:
+			if(_change.optionID == "skinType"):
+				onUpdateBaseSkinTypesList.emit()
+			pass
+		BaseCharChange.CHAR_OPTION:
+			if(_change.optionID == CharOption.skinTypes):
+				onUpdateBaseSkinTypesList.emit()
+			pass
+		BaseCharChange.PART_FILTER:
+			pass
+
+var isUpdatingAll:bool = false
+func triggerUpdateAll():
+	if(isUpdatingAll):
+		return
+	isUpdatingAll = true
+	await get_tree().process_frame
+	updatePartsList()
+	updatePartOptionsList()
+	updateCategoryOptions()
+	updateCategoryButtonsList()
+	isUpdatingAll = false
 
 func getChar() -> BaseCharacter:
 	return character
 
 func getCharacter() -> BaseCharacter:
 	return character
-
-func onCharBodypartSkinDataOverrideSwitch(_slot):
-	updateSkinTab()
-
-func onCharBodypartSkinDataChange(_slot, _skinType, _skinTypeData):
-	#updateSkinTab()
-	pass
-
-func onCharBaseSkinDataChange(_skinType, _skinTypeData):
-	#updateSkinTab()
-	pass
-
-func onCharGenericPartChange(_genericType, _id, _newpart):
-	updatePartOptionsList()
 
 func updateSelectedTab():
 	parts_sel_button.text = "[ Parts ]" if currentTab == "parts" else "Parts"
@@ -132,7 +144,7 @@ func updateCharTab():
 		theOptions[charOptionID] = theOption
 	char_var_list.setVars(theOptions)
 
-func chanceSkinTypeDataColor(theColor:Color, skinType:int):
+func changeSkinTypeDataColor(skinType:int, theColor:Color):
 	if(character == null):
 		return
 	
@@ -146,37 +158,39 @@ func chanceSkinTypeDataColor(theColor:Color, skinType:int):
 
 	GM.characterRegistry.askCharacterChangeBaseSkinTypeData(character, skinType, skinTypeData)
 	
+#
+#func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:int):
+	#if(character == null):
+		#return
+	#
+	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
+	#if(bodypart.skinDataOverride == null):
+		#return
+	#var newSkinData:SkinTypeData = bodypart.skinDataOverride.makeCopy()
+	##bodypart.skinDataOverride.color = theColor
+	##character.triggerUpdateAllSkinTypes()
+	#newSkinData.color = theColor
+	#GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, "skinDataOverride", newSkinData)
 
-func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:int):
-	if(character == null):
-		return
-	
-	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-	if(bodypart.skinDataOverride == null):
-		return
-	var newSkinData:SkinTypeData = bodypart.skinDataOverride.makeCopy()
-	#bodypart.skinDataOverride.color = theColor
-	#character.triggerUpdateAllSkinTypes()
-	newSkinData.color = theColor
-	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.skinType, newSkinData)
-
-func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
-	if(character == null):
-		return
-	
-	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-
-	var selectedSkinType:int = bodypart.getSupportedSkinTypes().keys()[skinTypeIndex]
-	var newSkinTypeData:SkinTypeData = null
-	if(bodypart.skinDataOverride != null):
-		newSkinTypeData = bodypart.skinDataOverride.makeCopy()
-		#newSkinTypeData.skinType = selectedSkinType
-	GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, selectedSkinType, newSkinTypeData)
-	#bodypart.skinType = selectedSkinType
+#func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
+	#if(character == null):
+		#return
+	#
+	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
+#
+	#var selectedSkinType:int = bodypart.getSupportedSkinTypes().keys()[skinTypeIndex]
+	#var newSkinTypeData:SkinTypeData = null
 	#if(bodypart.skinDataOverride != null):
-	#	bodypart.skinDataOverride.skinType = selectedSkinType
-	#character.updateAllSkinTypes()
-	updateSkinTab()
+		#newSkinTypeData = bodypart.skinDataOverride.makeCopy()
+		##newSkinTypeData.skinType = selectedSkinType
+	#GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, selectedSkinType, newSkinTypeData)
+	#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, selectedSkinType, newSkinTypeData)
+	##bodypart.skinType = selectedSkinType
+	##if(bodypart.skinDataOverride != null):
+	##	bodypart.skinDataOverride.skinType = selectedSkinType
+	##character.updateAllSkinTypes()
+	##updateSkinTab()
+	##updatePartOptionsList()
 
 func updatePartsList():
 	Util.delete_children(parts_list)
@@ -222,47 +236,59 @@ func onBodypartDropdownPicked(_id:int, _value):
 	GM.characterRegistry.askCharacterPartChange(character, BaseCharacter.GENERIC_BODYPARTS, _id, _value, {})
 
 func updatePartOptionsList():
+	if(currentTab != "options"):
+		return
 	updatePartOptionsListGeneric(options_big_list, "part")
 
 func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 	Util.delete_children(listNode)
 	
-	var isSkin:bool = (optionFilter == "skin")
+	var isSkin:bool = true#(optionFilter == "skin")
 	
 	if(character == null):
 		return
 	
-	if(isSkin):
+	if(zoneFilter in [CharCreatorZone.Body, CharCreatorZone.ALL]): #isSkin || 
 		var skinTypes:Dictionary = character.getAllUsedSkinTypes()
 		
 		if(!skinTypes.is_empty()):
+			#var regionShouldBeOpened:bool = regionRememberOpen["baseColors"] if regionRememberOpen.has("baseColors") else false
+			#if(zoneFilter != CharCreatorZone.ALL): #!isSkin && 
+			#	regionShouldBeOpened = true
+			
 			var baseSkinRegion := collapseRegionScene.instantiate()
 			listNode.add_child(baseSkinRegion)
 			baseSkinRegion.setName("Base colors")
-			baseSkinRegion.setOpened(regionRememberOpen["baseColors"] if regionRememberOpen.has("baseColors") else false)
-			baseSkinRegion.onOpenToggle.connect(onCollapseOpenToggle.bind("baseColors"))
+			baseSkinRegion.setOpened(true)#regionShouldBeOpened)
+			#if(zoneFilter != CharCreatorZone.ALL):
+			#	baseSkinRegion.onOpenToggle.connect(onCollapseOpenToggle.bind("baseColors"))
 			
-			for skinType in skinTypes:
-				var skinTypeData:SkinTypeData = skinTypes[skinType]
-				
-				var skinTypeName:String = SkinType.getName(skinType)
-				
-				var theLabel:Label = Label.new()
-				baseSkinRegion.addNodeInside(theLabel)
-				theLabel.text = skinTypeName
-
-				var theColorPicker:ColorPickerButton = ColorPickerButton.new()
-				baseSkinRegion.addNodeInside(theColorPicker)
-				theColorPicker.color = skinTypeData.color
-				theColorPicker.custom_minimum_size.y = 30.0
-				
-				theColorPicker.color_changed.connect(chanceSkinTypeDataColor.bind(skinType))
+			var theColorsList := preload("res://Game/CharacterCreator/Util/char_creator_base_skin_types_list.tscn").instantiate()
+			baseSkinRegion.addNodeInside(theColorsList)
+			theColorsList.setProfile(character.skinTypes if character else null)
+			theColorsList.onColorChange.connect(changeSkinTypeDataColor)
+			
+			#for skinType in skinTypes:
+				#var skinTypeData:SkinTypeData = skinTypes[skinType]
+				#
+				#var skinTypeName:String = SkinType.getName(skinType)
+				#
+				#var theLabel:Label = Label.new()
+				#baseSkinRegion.addNodeInside(theLabel)
+				#theLabel.text = skinTypeName
+#
+				#var theColorPicker:ColorPickerButton = ColorPickerButton.new()
+				#baseSkinRegion.addNodeInside(theColorPicker)
+				#theColorPicker.color = skinTypeData.color
+				#theColorPicker.custom_minimum_size.y = 30.0
+				#
+				#theColorPicker.color_changed.connect(changeSkinTypeDataColor.bind(skinType))
 
 	
 	for bodypartSlot in character.getBodyparts():
 		var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
 		
-		var allOptions:Dictionary = bodypart.getOptions()
+		var allOptions:Dictionary = bodypart.getOptionsFinal()
 		var options:Dictionary = {}
 		for optionID in allOptions:
 			var optionEntry:Dictionary = allOptions[optionID]
@@ -271,7 +297,7 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 			if(!optionTypes.has(optionFilter)):
 				continue
 			# Zone filter
-			if(!isSkin && zoneFilter != CharCreatorZone.ALL):
+			if(zoneFilter != CharCreatorZone.ALL): #!isSkin && 
 				var editorZone:int = bodypart.getDefaultEditorZone()
 				if(optionEntry.has("editorZone")):
 					editorZone = optionEntry["editorZone"]
@@ -281,55 +307,56 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 			options[optionID] = optionEntry
 		
 		var shouldAddStuff:bool = false
-		if(!options.is_empty() || (isSkin && bodypart.supportsSkinTypes())):
+		if(!options.is_empty() || (isSkin && bodypart.supportsSkinTypes() && zoneFilter in [CharCreatorZone.ALL, bodypart.getDefaultEditorZone()])):
 			shouldAddStuff = true
 		
 		if(!shouldAddStuff):
 			continue
 		
 		var regionShouldBeOpened:bool = regionRememberOpen[BodypartSlot.getName(bodypartSlot)+"_part"] if regionRememberOpen.has(BodypartSlot.getName(bodypartSlot)+"_part") else false
-		if(!isSkin && zoneFilter != CharCreatorZone.ALL):
+		if(zoneFilter != CharCreatorZone.ALL): #!isSkin && 
 			regionShouldBeOpened = true
 		
 		var newRegion = collapseRegionScene.instantiate()
 		listNode.add_child(newRegion)
-		newRegion.setName(bodypart.getEditorName())
+		newRegion.setName(bodypart.getEditorName() if !BodypartSlot.hasPair(bodypartSlot) else (BodypartSlot.getName(bodypartSlot)+" - "+bodypart.getEditorName()))
 		newRegion.setOpened(regionShouldBeOpened)
 		if(!isSkin && zoneFilter != CharCreatorZone.ALL):
 			newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(BodypartSlot.getName(bodypartSlot)+"_part"))
 		
-		if(isSkin):
-			var supportsSkinType:bool = bodypart.supportsSkinTypes()
-			
-			if(supportsSkinType):
-				var possibleSkinTypes:Array = bodypart.getSupportedSkinTypes().keys()
-				if(possibleSkinTypes.size() > 1):
-					var theDropDown:OptionButton = OptionButton.new()
-					newRegion.addNodeInside(theDropDown)
-					theDropDown.item_selected.connect(onSkinTypeOverrideSelected.bind(bodypartSlot))
-					
-					var _i:int = 0
-					for theSkinType in possibleSkinTypes:
-						theDropDown.add_item(SkinType.getName(theSkinType))
-						if(theSkinType == bodypart.getSkinTypeRaw()):
-							theDropDown.select(_i)
-						_i += 1
-				
-				var isInherit:bool = (bodypart.skinDataOverride == null)
-				
-				var overrideCheckbox:CheckBox = CheckBox.new()
-				newRegion.addNodeInside(overrideCheckbox)
-				overrideCheckbox.text = "Inherit base color"
-				overrideCheckbox.set_pressed_no_signal(isInherit)
-				overrideCheckbox.toggled.connect(onBodypartOverrideSkinDataCheckbox.bind(bodypartSlot))
-				
-				if(!isInherit):
-					var theColorPicker:ColorPickerButton = ColorPickerButton.new()
-					newRegion.addNodeInside(theColorPicker)
-					theColorPicker.color = bodypart.skinDataOverride.color
-					theColorPicker.custom_minimum_size.y = 30.0
-					
-					theColorPicker.color_changed.connect(chanceSkinTypeDataBodypartColor.bind(bodypartSlot))
+		#TODO: CAN CAFELY REMOVE THIS PROBABLY
+		#if(false && isSkin && zoneFilter in [bodypart.getDefaultEditorZone(), CharCreatorZone.ALL]):
+			#var supportsSkinType:bool = bodypart.supportsSkinTypes()
+			#
+			#if(supportsSkinType):
+				#var possibleSkinTypes:Array = bodypart.getSupportedSkinTypes().keys()
+				#if(possibleSkinTypes.size() > 1):
+					#var theDropDown:OptionButton = OptionButton.new()
+					#newRegion.addNodeInside(theDropDown)
+					#theDropDown.item_selected.connect(onSkinTypeOverrideSelected.bind(bodypartSlot))
+					#
+					#var _i:int = 0
+					#for theSkinType in possibleSkinTypes:
+						#theDropDown.add_item(SkinType.getName(theSkinType))
+						#if(theSkinType == bodypart.getSkinTypeRaw()):
+							#theDropDown.select(_i)
+						#_i += 1
+				#
+				#var isInherit:bool = (bodypart.skinDataOverride == null)
+				#
+				#var overrideCheckbox:CheckBox = CheckBox.new()
+				#newRegion.addNodeInside(overrideCheckbox)
+				#overrideCheckbox.text = "Inherit base color"
+				#overrideCheckbox.set_pressed_no_signal(isInherit)
+				#overrideCheckbox.toggled.connect(onBodypartOverrideSkinDataCheckbox.bind(bodypartSlot))
+				#
+				#if(!isInherit):
+					#var theColorPicker:ColorPickerButton = ColorPickerButton.new()
+					#newRegion.addNodeInside(theColorPicker)
+					#theColorPicker.color = bodypart.skinDataOverride.color
+					#theColorPicker.custom_minimum_size.y = 30.0
+					#
+					#theColorPicker.color_changed.connect(chanceSkinTypeDataBodypartColor.bind(bodypartSlot))
 
 				
 		var newVarList:VarList = varListScene.instantiate()
@@ -337,20 +364,21 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		newVarList.setVars(options)
 		newVarList.onVarChange.connect(onBodypartChangeOption.bind(bodypartSlot))
 
-func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
-	var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-	if(newToggled):
-		#bodypart.skinDataOverride = null
-		GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.skinType, null)
-	else:
-		if(bodypart.skinDataOverride == null):
-			#bodypart.skinDataOverride = SkinTypeData.new()
-			#bodypart.skinDataOverride.skinType = bodypart.getSkinType()
-			var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-			#newSkinTypeData.skinType = bodypart.getSkinType()
-			GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinTypeRaw(), newSkinTypeData)
-	updateSkinTab()
-	#character.updateAllSkinTypes()
+#func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
+	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
+	#if(newToggled):
+		##bodypart.skinDataOverride = null
+		#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.skinType, null)
+	#else:
+		#if(bodypart.skinDataOverride == null):
+			##bodypart.skinDataOverride = SkinTypeData.new()
+			##bodypart.skinDataOverride.skinType = bodypart.getSkinType()
+			#var newSkinTypeData:SkinTypeData = SkinTypeData.new()
+			##newSkinTypeData.skinType = bodypart.getSkinType()
+			#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinTypeRaw(), newSkinTypeData)
+	##updateSkinTab()
+	##updatePartOptionsList()
+	##character.updateAllSkinTypes()
 	
 
 func onCollapseOpenToggle(newOpen:bool, collapseID:String):

@@ -37,7 +37,7 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "FelineHead",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 	theOptions["fluff"] = {
 			name = "Cheek fluff",

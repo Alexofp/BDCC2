@@ -9,6 +9,8 @@ data = {
 "Body": {
 &"data": {
 "options": {
+"anusColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
+"anusInColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
 "bodyLayers": [{
 &"colorB": Color(0.5803922, 0.3254902, 0.26666668, 1),
 &"colorG": Color(0.5803922, 0.3254902, 0.26666668, 1),
@@ -28,13 +30,22 @@ data = {
 "breasts": 1.0,
 "breastsCleavage": 0.0,
 "claws": 0.0,
+"clawsColor": Color(0.52156866, 0.3529412, 0.3529412, 1),
 "handPads": true,
 "handPadsColor": Color(0.77734375, 0.4106865, 0.2672119, 1),
+"hindPawPadColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
 "legType": "digi",
-"nippleShape": 0.0
-},
+"nippleColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
+"nippleShape": 0.0,
 "skinDataOverride": null,
-"skinType": 3
+"skinType": 3,
+"toeClawColor": Color(0.52156866, 0.3529412, 0.3529412, 1),
+"vagina": true,
+"vaginaColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
+"vaginaInColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
+"vaginaSize": 0.0,
+"vaginaType": 0
+}
 },
 &"id": "FeminineBody"
 },
@@ -44,6 +55,12 @@ data = {
 "bandColor": Color(0.09019608, 0.09019608, 0.09019608, 1),
 "colorRoot": Color(0.85882354, 0.35557595, 0.109803915, 1),
 "colorTip": Color(0.45882353, 0.11829043, 0, 1),
+"pattern": {
+&"colorB": Color(0.3, 0.3, 0.3, 1),
+&"colorG": Color(0.5, 0.5, 0.5, 1),
+&"colorR": Color(0.7, 0.7, 0.7, 1),
+&"pattern": ""
+},
 "shading": 0.5
 }
 },
@@ -78,10 +95,12 @@ data = {
 &"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
 &"colorR": Color(0, 0, 0, 1),
 &"id": "FelineHead_Lines"
-}]
-},
+}],
+"mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
 "skinDataOverride": null,
-"skinType": 3
+"teethColor": Color(1, 0.9098039, 0.85882354, 1),
+"tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)
+}
 },
 &"id": "FelineHead"
 },
@@ -97,11 +116,10 @@ data = {
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
 "tassels": false,
 "tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -120,10 +138,9 @@ data = {
 "penBallsScale": 1.0,
 "penisLenMod": 1.0,
 "penisScale": 0.8,
-"shaftColor": Color(0.58431375, 0.27058825, 0.33333334, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+"shaftColor": Color(0.58431375, 0.27058825, 0.33333334, 1),
+"skinDataOverride": null
+}
 },
 &"id": "CaninePenis"
 },
@@ -139,11 +156,10 @@ data = {
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
 "tassels": false,
 "tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineEar"
 },
@@ -157,12 +173,11 @@ data = {
 &"colorR": Color(0.7, 0.7, 0.7, 1),
 &"pattern": "FelineTail_Default"
 },
+"skinDataOverride": null,
 "tailLenMod": 1.0,
 "tailType": "fluffy",
 "thickness": 0.0
-},
-"skinDataOverride": null,
-"skinType": 3
+}
 },
 &"id": "FelineTail"
 }
@@ -177,14 +192,10 @@ data = {
 &"idleAnim": "normal1",
 &"muscles": 0.0,
 &"skinTypes": {
-0: {
-&"color": Color(1, 1, 1, 1)
-},
-2: {
-&"color": Color(1, 1, 1, 1)
-},
+&"skinTypes": {
 3: {
 &"color": Color(0.44140625, 0.24412858, 0.19139099, 1)
+}
 }
 },
 &"species": {

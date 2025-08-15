@@ -7,135 +7,86 @@ var lastUniqueID:int = 0
 signal characterAdded(charID, character)
 signal characterRemoved(charID, character)
 
-#signal onGenericPartChange(character, id, newpart)
-#signal onGenericPartOptionChange(character, id, optionID, newvalue)
-
 func _ready():
 	GameInteractor.characterRegistry = self
 	#Network.playerConnected.connect(onPlayerConnected)
 	#set_multiplayer_authority(Network.getHostID())
 	
-	GameInteractor.registerOnServerCommand(InteractCommand.GIVE_BODYPART, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeDict])
-	GameInteractor.registerOnClientCommand(InteractCommand.GIVE_BODYPART, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeDict])
-	
-	GameInteractor.registerOnServerCommand(InteractCommand.BODYPART_CHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeAny])
-	GameInteractor.registerOnClientCommand(InteractCommand.BODYPART_CHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeString, IntComArg.TypeAny])
-	
-	GameInteractor.registerOnServerCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeDict])
-	GameInteractor.registerOnClientCommand(InteractCommand.CHARACTER_BASESKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeDict])
-	
-	GameInteractor.registerOnServerCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeDict])
-	GameInteractor.registerOnClientCommand(InteractCommand.BODYPART_SKINCHANGE, self, "handleNetworkCommand", GameInteractor.CALLTYPE_ARRAY, [IntComArg.TypeString, IntComArg.TypeInt, IntComArg.TypeInt, IntComArg.TypeDict])
-	
-	
-	#GameInteractor.registerOnClientCommand(InteractCommand.GIVE_BODYPART, self, "onMyFunctioName", [IntComArgType.Int, IntComArgType.String, IntComArgType.Any])
 
 #func onPlayerConnected(_id:int, _playerInfo:NetworkPlayerInfo):
 	#if(Network.isServer() && Network.getMultiplayerID() != _id):
 		#Log.Print("Sending full characters data to "+str(_id))
 		#applyFullNetworkData.rpc_id(_id, saveFullNetworkData())
 
-func handleNetworkCommand(_command:int, _clientID:int, _data:Array):
-	var _isServer:bool = (_clientID!=1)
-	
-	if(_command == InteractCommand.GIVE_BODYPART):
-		var theCharacter:BaseCharacter = getCharacter(_data[0])
-		if(!theCharacter):
-			return
-		var bodypart:GenericPart
-		if(_data[1] == BaseCharacter.GENERIC_BODYPARTS && _data[3] != ""):
-			bodypart = GlobalRegistry.createBodypart(_data[3])
-			bodypart.loadNetworkData(_data[4])
-		elif(_data[1] == BaseCharacter.GENERIC_CLOTHING && _data[3] != ""):
-			bodypart = GlobalRegistry.createItem(_data[3])
-			bodypart.loadNetworkData(_data[4])
-		theCharacter.addGenericPart(_data[1], _data[2], bodypart)
-	
-	if(_command == InteractCommand.BODYPART_CHANGE):
-		var theCharacter:BaseCharacter = getCharacter(_data[0])
-		if(!theCharacter):
-			return
-		var genericPart:GenericPart = theCharacter.getGenericPart(_data[1], _data[2])
-		if(!genericPart):
-			return
-		genericPart.setOptionValue(_data[3], _data[4])
-	
-	if(_command == InteractCommand.CHARACTER_BASESKINCHANGE):
-		var theCharacter:BaseCharacter = getCharacter(_data[0])
-		if(!theCharacter):
-			return
-		var skinTypeData:SkinTypeData = SkinTypeData.new()
-		skinTypeData.loadNetworkData(_data[2])
-		theCharacter.setBaseSkinTypeData(_data[1], skinTypeData)
-	
-	if(_command == InteractCommand.BODYPART_SKINCHANGE):
-		var theCharacter:BaseCharacter = getCharacter(_data[0])
-		if(!theCharacter):
-			return
-		var skinTypeData:SkinTypeData
-		if(!_data[3].is_empty()):
-			skinTypeData = SkinTypeData.new()
-			skinTypeData.loadNetworkData(_data[3])
-		
-		#theCharacter.setSkinTypeForSlot(_data[1], _data[2])
-		theCharacter.setSkinTypeDataForSlot(_data[1], _data[2], skinTypeData)
-
 func askCharacterChangeBaseSkinTypeData(character:BaseCharacter, newSkinType:int, newSkinTypeData:SkinTypeData):
-	GameInteractor.doOnServer(InteractCommand.CHARACTER_BASESKINCHANGE, [character.getID(), newSkinType, newSkinTypeData.saveNetworkData() if newSkinTypeData else {}])
+	if(Network.isServer()):
+		character.setBaseSkinTypeData(newSkinType, newSkinTypeData)
+	else:
+		askCharacterChangeBaseSkinTypeData_SERVERRPC.rpc_id(1, character.getID(), newSkinType, newSkinTypeData.saveNetworkData())
 
-func onCharacterBaseSkinTypeChange(_skinType:int, skinTypeData:SkinTypeData, character:BaseCharacter):
-	if(Network.isServerNotSingleplayer()):
-		GameInteractor.doOnAllClients(InteractCommand.CHARACTER_BASESKINCHANGE, [character.getID(), _skinType, skinTypeData.saveNetworkData() if skinTypeData else {}])
-
+@rpc("any_peer", "call_remote", "reliable")
+func askCharacterChangeBaseSkinTypeData_SERVERRPC(_id:String, _skinType:int, _skinTypeData:Dictionary):
+	# Do server checks here
+	var theCharacter := getCharacter(_id)
+	if(!theCharacter):
+		return
+	var skinTypeData := SkinTypeData.new()
+	skinTypeData.loadNetworkData(_skinTypeData)
+	#askCharacterChangeBaseSkinTypeData(theCharacter, _skinType, skinTypeData)
+	theCharacter.setBaseSkinTypeData(_skinType, skinTypeData)
 
 
 func askCharacterPartChange(character:BaseCharacter, genericType:int, partSlot:int, _newPartID:String, _newPartData:Dictionary):
-	#if(Network.isServer()):
-		#var newpart:BodypartBase
-		#if(_newPartID != ""):
-			#newpart = GlobalRegistry.createBodypart(_newPartID)
-			#if(newpart != null):
-				#newpart.loadNetworkData(_newPartData)
-		#character.addGenericPart(genericType, partSlot, newpart)
-	#else:
-	GameInteractor.doOnServer(InteractCommand.GIVE_BODYPART, [character.getID(), genericType, partSlot, _newPartID, _newPartData])
+	if(Network.isServer()):
+		if(!character):
+			return
+		var bodypart:GenericPart = GlobalRegistry.createGenericPart(genericType, _newPartID) if _newPartID != "" else null
+		if(bodypart):
+			bodypart.loadNetworkData(_newPartData)
+		character.addGenericPart(genericType, partSlot, bodypart)
+	else:
+		askCharacterPartChange_SERVERRPC.rpc_id(1, character.getID(), genericType, partSlot, _newPartID, _newPartData)
 
-func onCharacterGenericPartChance(genericType:int, partSlot:int, newpart:GenericPart, character:BaseCharacter):
-	if(Network.isServerNotSingleplayer()):
-		GameInteractor.doOnAllClients(InteractCommand.GIVE_BODYPART, [character.getID(), genericType, partSlot, (newpart.id if newpart else ""), newpart.saveNetworkData() if newpart else {}])
-
+@rpc("any_peer", "call_remote", "reliable")
+func askCharacterPartChange_SERVERRPC(_id:String, genericType:int, partSlot:int, _newPartID:String, _newPartData:Dictionary):
+	# Do server checks here
+	var theCharacter := getCharacter(_id)
+	if(!theCharacter):
+		return
+	askCharacterPartChange(theCharacter, genericType, partSlot, _newPartID, _newPartData)
 
 
 func askCharacterPartOptionChange(character:BaseCharacter, genericType:int, partSlot:int, optionID:String, newvalue:Variant):
-	GameInteractor.doOnServer(InteractCommand.BODYPART_CHANGE, [character.getID(), genericType, partSlot, optionID, newvalue])
+	if(Network.isServer()):
+		#var character:BaseCharacter = getCharacter(_id)
+		if(!character):
+			return
+		var genericPart:GenericPart = character.getGenericPart(genericType, partSlot)
+		if(!genericPart):
+			return
+		genericPart.setOptionValue(optionID, newvalue)
+	else:
+		askCharacterPartOptionChange_SERVERRPC.rpc_id(1, character.getID(), genericType, partSlot, optionID, newvalue)
+	#GameInteractor.doOnServer(InteractCommand.BODYPART_CHANGE, [character.getID(), genericType, partSlot, optionID, newvalue])
 
-func onCharacterGenericPartOptionChange(genericType:int, partSlot:int, optionID:String, newvalue:Variant, character:BaseCharacter):
-	if(Network.isServerNotSingleplayer()):
-		GameInteractor.doOnAllClients(InteractCommand.BODYPART_CHANGE, [character.getID(), genericType, partSlot, optionID, newvalue])
-
-
-
-func askCharacterBodypartSkinTypeChange(character:BaseCharacter, partSlot:int, skinType:int, skinTypeData:SkinTypeData):
-	GameInteractor.doOnServer(InteractCommand.BODYPART_SKINCHANGE, [character.getID(), partSlot, skinType, skinTypeData.saveNetworkData() if skinTypeData else {}])
-
-func onCharacterBodypartSkinTypeChange(partSlot:int, skinType:int, _skinTypeData:SkinTypeData, character:BaseCharacter):
-	if(Network.isServerNotSingleplayer()):
-		var theBodypart:BodypartBase = character.getBodypart(partSlot)
-		GameInteractor.doOnAllClients(InteractCommand.BODYPART_SKINCHANGE, [character.getID(), partSlot, skinType, theBodypart.skinDataOverride.saveNetworkData() if theBodypart.skinDataOverride else {}])
+@rpc("any_peer", "call_remote", "reliable")
+func askCharacterPartOptionChange_SERVERRPC(_id:String, genericType:int, partSlot:int, optionID:String, newvalue:Variant):
+	# Do the server checks here
+	var theCharacter := getCharacter(_id)
+	if(!theCharacter):
+		return
+	askCharacterPartOptionChange(theCharacter, genericType, partSlot, optionID, newvalue)
 
 
 func askCharacterSyncOptionChange(character:BaseCharacter, optionID:String, theValue):
 	if(Network.isServer()):
 		character.applyCharChange(optionID, theValue)
 	else:
-		onCharacterSyncOptionChange_RPC.rpc_id(1, character.getID(), optionID, theValue)
+		onCharacterSyncOptionChange_SERVERRPC.rpc_id(1, character.getID(), optionID, theValue)
 		
-func onCharacterSyncOptionChange(optionID:String, character:BaseCharacter):
-	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(onCharacterSyncOptionChange_RPC, [character.getID(), optionID, character.getSyncOptionValue(optionID)])
-
 @rpc("any_peer", "call_remote", "reliable")
-func onCharacterSyncOptionChange_RPC(charID:String, optionID:String, theValue):
+func onCharacterSyncOptionChange_SERVERRPC(charID:String, optionID:String, theValue):
+	# Do server checks here
 	var theCharacter:BaseCharacter = getCharacter(charID)
 	if(!theCharacter):
 		return
@@ -165,15 +116,55 @@ func addCharacter(theChar:BaseCharacter):
 	connectSignalsToCharacter(theChar)
 
 func connectSignalsToCharacter(theChar:BaseCharacter):
-	theChar.onGenericPartChange.connect(onCharacterGenericPartChance.bind(theChar))
-	theChar.onGenericPartOptionChange.connect(onCharacterGenericPartOptionChange.bind(theChar))
-	theChar.onBodypartSkinTypeChange.connect(onCharacterBodypartSkinTypeChange.bind(theChar))
-	theChar.onBaseSkinTypeChange.connect(onCharacterBaseSkinTypeChange.bind(theChar))
-	theChar.onCharOptionChange.connect(onCharacterSyncOptionChange.bind(theChar))
+	theChar.onChange.connect(onCharChange.bind(theChar))
 	pass
 
+func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
+	var theType := _change.getType()
+	
+	match theType:
+		BaseCharChange.PART:
+			if(Network.isServerNotSingleplayer()):
+				var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
+				Network.rpcClients(characterPartChange_RPC, [_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData() if thePart else {}])
+			pass
+		BaseCharChange.PART_OPTION:
+			if(Network.isServerNotSingleplayer()):
+				Network.rpcClients(characterPartOptionChange_RPC, [_theChar.getID(), _change.genericType, _change.slot, _change.optionID, _change.value])
+			pass
+		BaseCharChange.CHAR_OPTION:
+			if(Network.isServerNotSingleplayer()):
+				Network.rpcClients(characterOptionChange_RPC, [_theChar.getID(), _change.optionID, _theChar.getSyncOptionValue(_change.optionID)])
+			pass
+		BaseCharChange.PART_FILTER:
+			pass
 
+@rpc("authority", "call_remote", "reliable")
+func characterOptionChange_RPC(_id:String, _optionID:String, _value:Variant):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.applyCharChange(_optionID, _value)
 
+@rpc("authority", "call_remote", "reliable")
+func characterPartOptionChange_RPC(_id:String, _genericType:int, _slot:int, _optionID:String, _value:Variant):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	var genericPart:GenericPart = theCharacter.getGenericPart(_genericType, _slot)
+	if(!genericPart):
+		return
+	genericPart.setOptionValue(_optionID, _value)
+
+@rpc("authority", "call_remote", "reliable")
+func characterPartChange_RPC(_id:String, _genericType:int, _slot:int, _partID:String, _partData:Dictionary):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	var bodypart:GenericPart = GlobalRegistry.createGenericPart(_genericType, _partID) if _partID != "" else null
+	if(bodypart):
+		bodypart.loadNetworkData(_partData)
+	theCharacter.addGenericPart(_genericType, _slot, bodypart)
 
 func createCharacter() -> BaseCharacter:
 	var newID := generateNewUniqueID()
@@ -220,6 +211,7 @@ func askCharacterLoadPreset(character:BaseCharacter, preset:CharacterPreset):
 
 @rpc("any_peer", "call_remote", "reliable")
 func askCharacterLoadPreset_SERVERRPC(characterID:String, _data:Dictionary):
+	# Server checks here
 	var theCharacter:BaseCharacter = getCharacter(characterID)
 	if(!theCharacter):
 		return
@@ -235,6 +227,7 @@ func askCharacterWizardSubmit(character:BaseCharacter, _data:Dictionary):
 		
 @rpc("authority", "call_remote", "reliable")
 func askCharacterWizardSubmit_RPC(characterID:String, _data:Dictionary):
+	# Server checks here
 	var theCharacter:BaseCharacter = getCharacter(characterID)
 	if(!theCharacter):
 		return

@@ -211,23 +211,48 @@ func _ready() -> void:
 func setCharacter(theChar:BaseCharacter):
 	var currentChar := getChar()
 	if(currentChar != null):
-		currentChar.onGenericPartChange.disconnect(onCharPartChange)
-		currentChar.onGenericPartOptionChange.disconnect(onCharPartOptionChange)
-		currentChar.onBodypartSkinTypeChange.disconnect(onCharBodypartSkinTypeChange)
-		currentChar.onCharOptionChange.disconnect(onCharOptionChange)
-		currentChar.onPartFilterChange.disconnect(updatePartFilter)
+		currentChar.onChange.disconnect(onCharChange)
 		currentChar.getBodyMess().onChange.disconnect(onUpdateBodyMess)
 	
 	characterRef = weakref(theChar)
 	updateFromCharacter()
-	theChar.onGenericPartChange.connect(onCharPartChange)
-	theChar.onGenericPartOptionChange.connect(onCharPartOptionChange)
-	theChar.onBodypartSkinTypeChange.connect(onCharBodypartSkinTypeChange)
-	theChar.onCharOptionChange.connect(onCharOptionChange)
-	theChar.onPartFilterChange.connect(updatePartFilter)
+	
+	theChar.onChange.connect(onCharChange)
 	theChar.getBodyMess().onChange.connect(onUpdateBodyMess)
 	
 	voice_handler.setCharID(theChar.getID() if theChar else "")
+
+func onCharChange(_change:BaseCharChange):
+	var theType := _change.getType()
+	
+	match theType:
+		BaseCharChange.PART:
+			onCharPartChange(_change.genericType, _change.slot)
+		BaseCharChange.PART_OPTION:
+			onCharPartOptionChange(_change.genericType, _change.slot, _change.optionID, _change.value)
+			if(_change.genericType == BaseCharacter.GENERIC_BODYPARTS && _change.slot == BodypartSlot.Head && _change.optionID == "skinType"):
+				updateAutoSkinParts()
+		BaseCharChange.CHAR_OPTION:
+			onCharOptionChange(_change.optionID)
+		BaseCharChange.PART_FILTER:
+			updatePartFilter()
+		BaseCharChange.AUTO_SKIN_UPDATE:
+			updateAutoSkinParts()
+
+func updateAutoSkinParts():
+	if(!parts.has(BaseCharacter.GENERIC_BODYPARTS)):
+		return
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return
+	for bodypartSlot in parts[BaseCharacter.GENERIC_BODYPARTS]:
+		if(!theChar.hasBodypart(bodypartSlot)):
+			continue
+		var theBodypart:BodypartBase = theChar.getBodypart(bodypartSlot)
+		if(theBodypart.getSkinTypeRaw() == SkinType.Auto):
+			var theDollPart:DollPart = parts[BaseCharacter.GENERIC_BODYPARTS][bodypartSlot]
+			if(theDollPart):
+				theDollPart.triggerSkinDataUpdate()
 
 func getChar() -> BaseCharacter:
 	if(characterRef == null):
@@ -265,7 +290,7 @@ func onCharOptionChange(_change:String):
 		for partID in parts[genericType]:
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
-				dollPart.applyCharOption(_change, theValue)
+				dollPart.applyCharOptionFinal(_change, theValue)
 
 func onCharBodypartSkinTypeChange(slot:int, _theSkinType:int, skinTypeData:SkinTypeData):
 	if(!parts[BaseCharacter.GENERIC_BODYPARTS].has(slot)):
@@ -283,7 +308,7 @@ func onCharPartOptionChange(_genericType:int, slot:int, optionID:String, newvalu
 		return
 	var dollPart:Node3D = parts[_genericType][slot]
 	if(dollPart is DollPart):
-		dollPart.applyOption(optionID, newvalue)
+		dollPart.applyOptionFinal(optionID, newvalue)
 	
 	if(_genericType == BaseCharacter.GENERIC_BODYPARTS):
 		var theClothingParts:Dictionary = parts[BaseCharacter.GENERIC_CLOTHING]
@@ -299,7 +324,7 @@ func updatePartFromCharacterDelayed(_genericType:int, slot:int):
 			return
 	partUpdateQueue.append([_genericType, slot])
 
-func onCharPartChange(_genericType:int, slot:int, _newpart):
+func onCharPartChange(_genericType:int, slot:int, _newpart = null):
 	#updatePartFromCharacter(_genericType, slot)
 	updatePartFromCharacterDelayed(_genericType, slot)
 	
@@ -324,7 +349,7 @@ func _physics_process(_delta: float) -> void:
 	if(!partUpdateQueue.is_empty()):
 		partUpdateQueueTimer -= _delta
 		if(partUpdateQueueTimer <= 0.0):
-			partUpdateQueueTimer = RNG.randfRange(0.5, 1.5) / partUpdateQueue.size()
+			partUpdateQueueTimer = 0.3
 			var theEntry:Array = partUpdateQueue.pop_front()
 			updatePartFromCharacter(theEntry[0], theEntry[1])
 
@@ -403,7 +428,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 			
 			var partOptions:Dictionary = part.getOptionsFinal()
 			for optionID in partOptions:
-				dollScene.applyOption(optionID, part.getOptionValue(optionID))
+				dollScene.applyOptionFinal(optionID, part.getOptionValue(optionID))
 			
 			if(part.supportsSkinTypes()):
 				var theData:SkinTypeData = part.getSkinTypeData()
@@ -411,7 +436,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 					dollScene.applySkinTypeDataFinal(part.getSkinType(), theData)
 			
 			for syncOptionID in getCharacter().getSyncOptions():
-				dollScene.applyCharOption(syncOptionID, getCharacter().getSyncOptionValue(syncOptionID))
+				dollScene.applyCharOptionFinal(syncOptionID, getCharacter().getSyncOptionValue(syncOptionID))
 			
 			var syncedBodypartSlots:Array = dollScene.getSyncedBodypartSlots()
 			for otherBodypartSlot in syncedBodypartSlots:
@@ -454,7 +479,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		#
 		#var partOptions:Dictionary = part.getOptions()
 		#for optionID in partOptions:
-			#dollScene.applyOption(optionID, part.getOptionValue(optionID))
+			#dollScene.applyOptionFinal(optionID, part.getOptionValue(optionID))
 		#
 		#if(part.supportsSkinTypes()):
 			#var theData:SkinTypeData = part.getSkinTypeData()

@@ -44,3 +44,17 @@ static func getFromType(bodypartType:int) -> Array:
 		BodypartType.Penis:
 			return [Penis]
 	return []
+
+static func getPair(bodypartType:int) -> int:
+	if(bodypartType == LeftEar):
+		return RightEar
+	if(bodypartType == RightEar):
+		return LeftEar
+	if(bodypartType == LeftHorn):
+		return RightHorn
+	if(bodypartType == RightHorn):
+		return LeftHorn
+	return -1
+
+static func hasPair(bodypartType:int) -> bool:
+	return getPair(bodypartType) >= 0

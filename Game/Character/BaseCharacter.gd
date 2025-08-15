@@ -3,7 +3,7 @@ class_name BaseCharacter
 
 var id:String = ""
 var bodyparts:Dictionary[int, BodypartBase] = {}
-var skinTypes:Dictionary[int, SkinTypeData] = {}
+var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
@@ -21,16 +21,7 @@ var poseArms:String = ""
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
 
-signal onBodypartChange(slot, newpart)
-signal onBodypartOptionChange(slot, optionID, newvalue)
-signal onGenericPartChange(genericType, id, newpart)
-signal onGenericPartOptionChange(genericType, id, optionID, newvalue)
-signal onBodypartSkinTypeChange(slot, skinType, skinTypeData)
-signal onBodypartSkinTypeOverrideSwitch(slot)
-signal onBaseSkinTypeChange(skinType, skinTypeData)
-signal onCharOptionChange(changeID)
-signal onEquippedItemChange(slot, newItem)
-signal onPartFilterChange
+signal onChange(change:BaseCharChange)
 
 const GENERIC_BODYPARTS = 0
 const GENERIC_CLOTHING = 1
@@ -39,6 +30,8 @@ func getID() -> String:
 	return id
 
 func _init():
+	skinTypes.skinTypeChanged.connect(onSkinTypeChanged)
+	
 	inventory.onEquippedItemChange.connect(onInventoryEquipItemChange)
 	inventory.onEquippedItemOptionChange.connect(onInventoryEquipItemOptionChangeCallback)
 	inventory.setCharacter(self)
@@ -57,13 +50,16 @@ func _init():
 	#body.setOptionValue("thickness", 0.0)
 	pass
 
+func onSkinTypeChanged(_skinType:int, _skinTypeData:SkinTypeData):
+	#triggerUpdateAllSkinTypes()
+	onChange.emit(BaseCharChange.createCharOptionChange(CharOption.skinTypes))
+
 func onInventoryEquipItemChange(_slot:int, _item:ItemBase):
 	updatePartFilter()
-	onEquippedItemChange.emit(_slot, _item)
-	onGenericPartChange.emit(GENERIC_CLOTHING, _slot, _item)
+	onChange.emit(BaseCharChange.createPartChange(GENERIC_CLOTHING, _slot))
 
 func onInventoryEquipItemOptionChangeCallback(optionID:String, value, _part:ItemBase, slot:int):
-	onGenericPartOptionChange.emit(GENERIC_CLOTHING, slot, optionID, value)
+	onChange.emit(BaseCharChange.createPartOptionChange(GENERIC_CLOTHING, slot, optionID, value))
 
 func addBodypart(slot:int, part:BodypartBase):
 	if(part == null):
@@ -78,9 +74,8 @@ func addBodypart(slot:int, part:BodypartBase):
 	part.currentSlot = slot
 	part.onOptionChanged.connect(onBodypartOptionChangeCallback.bind(part, slot))
 	part.setCharacter(self)
-	checkSkinTypesList()
-	onBodypartChange.emit(slot, part)
-	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, part)
+	triggerCheckSkinTypesList()
+	onChange.emit(BaseCharChange.createPartChange(GENERIC_BODYPARTS, slot))
 	updateAllAutoSkinTypes(slot)
 
 func clearBodypart(slot:int):
@@ -91,9 +86,8 @@ func clearBodypart(slot:int):
 	part.onOptionChanged.disconnect(onBodypartOptionChangeCallback.bind(part, slot))
 	part.setCharacter(null)
 	bodyparts.erase(slot)
-	checkSkinTypesList()
-	onBodypartChange.emit(slot, null)
-	onGenericPartChange.emit(GENERIC_BODYPARTS, slot, null)
+	triggerCheckSkinTypesList()
+	onChange.emit(BaseCharChange.createPartChange(GENERIC_BODYPARTS, slot))
 	updateAllAutoSkinTypes(slot)
 
 func getBodypart(slot:int) -> BodypartBase:
@@ -108,9 +102,12 @@ func getBodyparts() -> Dictionary[int, BodypartBase]:
 	return bodyparts
 
 func onBodypartOptionChangeCallback(optionID:String, value, _part:BodypartBase, slot:int):
-	onBodypartOptionChange.emit(slot, optionID, value)
-	onGenericPartOptionChange.emit(GENERIC_BODYPARTS, slot, optionID, value)
-
+	onChange.emit(BaseCharChange.createPartOptionChange(GENERIC_BODYPARTS, slot, optionID, value))
+	#if(slot == BodypartSlot.Head && optionID == "skinType"):
+	#	updateAllAutoSkinTypes(slot)
+	if(optionID == "skinType"):
+		triggerCheckSkinTypesList()
+	
 func getGenericParts() -> Dictionary:
 	var result:Dictionary = {}
 	
@@ -163,50 +160,40 @@ func calculateAllUsedSkinTypes() -> Dictionary:
 			result[theSkinType] = true
 	return result
 
+var checkingSkinTypesList:bool = false
+func triggerCheckSkinTypesList():
+	if(checkingSkinTypesList):
+		return
+	checkingSkinTypesList = true
+	checkSkinTypesList.call_deferred()
+	checkingSkinTypesList = false
+
 ## Gathers the list of all currently used skin types and then makes sure all skin types have an entry in our base skin types dictionary.
 ## For example, adds fur skin type data if we add cat ears to a human.
 ## Will also automatically remove any skin types that aren't in use.
 func checkSkinTypesList():
 	var whatWeShouldHave:Dictionary = calculateAllUsedSkinTypes()
 	
-	# This breaks in multiplayer
-	#for ourSkinType in skinTypes.keys():
-		#if(!whatWeShouldHave.has(ourSkinType)):
-			#skinTypes.erase(ourSkinType)
-			#onBaseSkinTypeChange.emit(ourSkinType, null)
-		
+	for ourSkinType in skinTypes.skinTypes.keys():
+		if(!whatWeShouldHave.has(ourSkinType)):
+			skinTypes.remove(ourSkinType)
+	
 	for newSkinType in whatWeShouldHave:
-		if(skinTypes.has(newSkinType)):
-			continue
-		
-		var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-		#newSkinTypeData.skinType = newSkinType
-		skinTypes[newSkinType] = newSkinTypeData
-		onBaseSkinTypeChange.emit(newSkinType, newSkinTypeData)
+		skinTypes.create(newSkinType)
 
 func getAllUsedSkinTypes() -> Dictionary:
-	return skinTypes
+	return skinTypes.skinTypes
 
 func getBaseSkinTypeData(skinType:int, createIfNoExists:bool = true) -> SkinTypeData:
-	if(!skinTypes.has(skinType)):
-		if(createIfNoExists):
-			checkSkinTypesList()
-			return skinTypes[skinType]
-		return null
-	return skinTypes[skinType]
+	if(createIfNoExists):
+		skinTypes.create(skinType)
+	return skinTypes.getSkinType(skinType)
 
 func setBaseSkinTypeData(theSkinType:int, skinTypeData:SkinTypeData):
-	if(skinTypeData == null):
-		if(skinTypes.has(theSkinType)):
-			skinTypes.erase(theSkinType)
-			triggerUpdateAllSkinTypes() # Maybe change this
-		return
-	skinTypes[theSkinType] = skinTypeData
-	onBaseSkinTypeChange.emit(theSkinType, skinTypeData)
-	triggerUpdateAllSkinTypes() # Maybe change this
+	skinTypes.setSkinType(theSkinType, skinTypeData)
 
 func getBaseSkinTypeDatas() -> Dictionary:
-	return skinTypes
+	return skinTypes.skinTypes
 
 func getSkinTypeOf(bodypartSlot:int) -> int:
 	if(!hasBodypart(bodypartSlot)):
@@ -220,11 +207,7 @@ func updateAllAutoSkinTypes(theBodypartSlot:int):
 	if(theBodypartSlot != BodypartSlot.Head):
 		return
 	
-	for bodypartSlot in bodyparts:
-		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
-		
-		if(theBodypart.getSkinTypeRaw() == SkinType.Auto):
-			onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
+	onChange.emit(BaseCharChange.createAutoSkinUpdate())
 
 ## Main method for setting the skin data of a bodypart. If you pass null data, the base data will be used
 func setSkinTypeDataForSlot(bodypartSlot:int, newSkinType:int, newSkinData:SkinTypeData):
@@ -233,18 +216,9 @@ func setSkinTypeDataForSlot(bodypartSlot:int, newSkinType:int, newSkinData:SkinT
 	var theBodypart:BodypartBase = bodyparts[bodypartSlot]
 	if(!theBodypart.supportsSkinTypes()):
 		return
-	var hadOverrideBefore:bool = (theBodypart.skinDataOverride != null)
-	var haveOverrideNow:bool = (newSkinData != null)
-	var oldSkinType:int = theBodypart.skinType
-	theBodypart.skinDataOverride = newSkinData
-	theBodypart.skinType = newSkinType
-	
-	# Could call updateSkinForSlot() but this is faster
-	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theBodypart.getSkinTypeData())
-	updateAllAutoSkinTypes(bodypartSlot)
-	if(hadOverrideBefore != haveOverrideNow || oldSkinType != theBodypart.skinType):
-		onBodypartSkinTypeOverrideSwitch.emit(bodypartSlot)
-	
+	theBodypart.setOptionValue("skinType", newSkinType)
+	theBodypart.setOptionValue("skinDataOverride", newSkinData)
+
 func updateSkinForSlot(bodypartSlot:int):
 	if(!hasBodypart(bodypartSlot)):
 		return
@@ -254,10 +228,10 @@ func updateSkinForSlot(bodypartSlot:int):
 	var theSkinData:SkinTypeData = theBodypart.getSkinTypeData()
 	if(theSkinData == null):
 		return
-	onBodypartSkinTypeChange.emit(bodypartSlot, theBodypart.getSkinType(), theSkinData)
-
+	onChange.emit(BaseCharChange.createPartOptionChange(BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, "skinDataOverride", theSkinData))
+	
 func updateAllSkinTypes():
-	checkSkinTypesList()
+	#checkSkinTypesList()
 	for bodypartSlot in bodyparts:
 		updateSkinForSlot(bodypartSlot)
 
@@ -265,11 +239,12 @@ var isUpdatingAllSkinTypes:bool = false
 ## Same as updateAllSkinTypes() but this has a built-in auto-debouncing.
 ## This means, it will only actually update every 0.2 seconds
 func triggerUpdateAllSkinTypes():
-	checkSkinTypesList()
+	#checkSkinTypesList()
 	if(isUpdatingAllSkinTypes):
 		return
 	isUpdatingAllSkinTypes = true
-	#await OPTIONS.get_tree().create_timer(0.2).timeout 
+	await OPTIONS.get_tree().create_timer(0.2).timeout 
+	checkSkinTypesList()
 	updateAllSkinTypes()
 	isUpdatingAllSkinTypes = false
 	
@@ -377,6 +352,7 @@ func getSyncOptions() -> Array[String]:
 		CharOption.walkAnim,
 		CharOption.idlePose,
 		CharOption.poseArms,
+		CharOption.skinTypes,
 		"bodyMess",
 	]
 
@@ -403,6 +379,8 @@ func getSyncOptionValue(_id:String):
 		return idlePose
 	elif(_id == CharOption.poseArms):
 		return poseArms
+	elif(_id == CharOption.skinTypes):
+		return skinTypes.saveData()
 	elif(_id == "bodyMess"):
 		return fluids.saveData()
 
@@ -429,10 +407,12 @@ func applyCharChange(_id:String, _value):
 		idlePose = _value
 	elif(_id == CharOption.poseArms):
 		poseArms = _value
+	elif(_id == CharOption.skinTypes):
+		skinTypes.loadData(_value)
 	elif(_id == "bodyMess"):
 		fluids.loadData(_value)
 		
-	onCharOptionChange.emit(_id)
+	onChange.emit(BaseCharChange.createCharOptionChange(_id))
 
 func processTime(_dt:float):
 	charState.processTime(_dt)
@@ -546,10 +526,10 @@ func updatePartFilter():
 			shouldEmit = true
 		theItem.internalHidePart = finalVal
 	if(shouldEmit):
-		onPartFilterChange.emit()
+		onChange.emit(BaseCharChange.createPartFilterUpdate())
 
 func triggerPartFilterChangeSignal():
-	onPartFilterChange.emit()
+	onChange.emit(BaseCharChange.createPartFilterUpdate())
 
 func getIdlePose() -> String:
 	return idlePose
@@ -580,10 +560,6 @@ func isPartialGesturesBlocked() -> bool:
 	return false
 
 func saveNetworkData() -> Dictionary:
-	var skinTypesData:Dictionary = {}
-	for skinType in skinTypes:
-		skinTypesData[skinType] = skinTypes[skinType].saveNetworkData()
-	
 	var bodypartsData:Dictionary = {}
 	for bodypartSlot in bodyparts:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -597,23 +573,15 @@ func saveNetworkData() -> Dictionary:
 		charData[syncOption] = getSyncOptionValue(syncOption)
 	
 	return {
-		skinTypes = skinTypesData,
+		#skinTypes = skinTypes.saveData(),
 		bodyparts = bodypartsData,
 		charData = charData,
 		charState = charState.saveNetworkedData(),
 	}
 
 func loadNetworkData(_data:Dictionary):
-	if(_data.has("skinTypes")):
-		skinTypes.clear()
-		var skinTypesData:Dictionary = SAVE.loadVar(_data, "skinTypes", {})
-		for skinType in skinTypesData:
-			var newSkinType:SkinTypeData = SkinTypeData.new()
-			newSkinType.loadNetworkData(SAVE.loadVar(skinTypesData, skinType, {}))
-			setBaseSkinTypeData(skinType, newSkinType)
-			#skinTypes[skinType] = newSkinType
-		
-		triggerUpdateAllSkinTypes()
+	#if(_data.has("skinTypes")):
+	#	skinTypes.loadData(_data["skinTypes"])
 	
 	if(_data.has("bodyparts")):
 		clearBodyparts()

@@ -60,14 +60,14 @@ func getOptions() -> Dictionary:
 			name = "Fluff color",
 			type = "color",
 			alpha = true,
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.EarPattern,
 			texSubType = "FelineEar",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		}
 
 	return theOptions

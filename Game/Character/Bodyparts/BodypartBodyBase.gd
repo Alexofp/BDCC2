@@ -74,7 +74,7 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.BodyLayer,
 			texSubType = "def",
-			editors = [EDITOR_SKIN],
+			editors = [EDITOR_PART],
 		},
 		"handPads": {
 			name = "Hand pads",

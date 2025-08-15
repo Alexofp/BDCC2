@@ -213,7 +213,8 @@ func applyExtraLayerData(_data:Dictionary):
 		
 func updateCrotch():
 	var forceNormalVagina:bool = getCachedPartFlag("NormalVagina", false)
-	var hasVag:bool = getOptionValue("vagina", true)
+	var hideVagina:bool = getCachedPartFlag("HideVagina", false)
+	var hasVag:bool = getOptionValue("vagina", true) if !hideVagina else false
 	var vagType:int = getOptionValue("vaginaType", VaginaType.Normal) if !forceNormalVagina else VaginaType.Normal
 	var vagSize:float = getOptionValue("vaginaSize", 0.0) if !forceNormalVagina else 0.0
 	

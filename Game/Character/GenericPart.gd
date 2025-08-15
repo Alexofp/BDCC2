@@ -7,7 +7,7 @@ var internalHidePart:bool = false # Should the doll not spawn this part
 
 signal onOptionChanged(optionID, newValue)
 
-const EDITOR_SKIN = "skin"
+#const EDITOR_SKIN = "skin"
 const EDITOR_PART = "part"
 const EDITOR_INTERACT = "interact"
 
