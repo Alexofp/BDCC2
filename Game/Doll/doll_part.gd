@@ -1,4 +1,4 @@
-extends Node3D
+extends DollBasePart
 class_name DollPart
 
 #@export var symmetryAttachTo:Array[DollAttachTo] = []
@@ -8,10 +8,16 @@ var partRef:WeakRef
 var cachedSkinType:int = SkinType.None
 var cachedSkinTypeData:SkinTypeData
 
+var cachedExtraPaths:Dictionary[int, String] = {}
+var extras:Dictionary[int, DollExtraPart] = {}
+
 func _ready():
-	grabMaterials()
+	super._ready()
 
 func grabMaterials():
+	pass
+
+func onSpawn(_genericType:int, _bodypartSlot:int, _id:String):
 	pass
 
 func setDoll(theDoll:Doll):
@@ -42,27 +48,6 @@ func getPart() -> GenericPart:
 		return null
 	return partRef.get_ref()
 
-func getOptionValue(_optionID:String, _default:Variant) -> Variant:
-	var thePart := getPart()
-	if(thePart == null):
-		return _default
-	return thePart.getOptionValue(_optionID)
-
-func getBodypartOptionValue(_slot:int, _optionID:String, _default:Variant) -> Variant:
-	var thePart := getPart()
-	if(thePart == null):
-		return _default
-	var theChar := thePart.getCharacter()
-	if(theChar == null):
-		return _default
-	var theOtherPart := theChar.getBodypart(_slot)
-	if(theOtherPart == null):
-		return _default
-	var theValue = theOtherPart.getOptionValue(_optionID)
-	if(theValue == null):
-		return _default
-	return theValue
-
 func applyOption(_optionID:String, _value:Variant):
 	pass
 
@@ -75,6 +60,8 @@ func applyOptionFinal(_optionID:String, _value:Variant):
 		return
 	
 	applyOption(_optionID, _value)
+	for slot in extras:
+		extras[slot].applyOptionFinal(_optionID, _value)
 
 var isUpdatingSkinData:bool = false
 func triggerSkinDataUpdate():
@@ -82,12 +69,12 @@ func triggerSkinDataUpdate():
 		return
 	isUpdatingSkinData = true
 	#await get_tree().process_frame
-	triggerSkinDataUpdateActual()
+	triggerSkinDataUpdate_DoWork()
 	isUpdatingSkinData = false
 	
 	#triggerSkinDataUpdateActual.call_deferred()
 
-func triggerSkinDataUpdateActual():
+func triggerSkinDataUpdate_DoWork():
 	isUpdatingSkinData = false
 	var thePart := getPart()
 	if(!thePart):
@@ -97,20 +84,13 @@ func triggerSkinDataUpdateActual():
 		if(theData != null):
 			applySkinTypeDataFinal(thePart.getSkinType(), theData)
 
-func getCharValue(_optionID:String, _default:Variant) -> Variant:
-	var thePart := getPart()
-	if(!thePart):
-		return _default
-	var theChar := thePart.getCharacter()
-	if(!theChar):
-		return _default
-	return theChar.getSyncOptionValue(_optionID)
-
 func applyCharOptionFinal(_optionID:String, _value:Variant):
 	if(_optionID == CharOption.skinTypes):
 		triggerSkinDataUpdate()
 	
 	applyCharOption(_optionID, _value)
+	for slot in extras:
+		extras[slot].applyCharOptionFinal(_optionID, _value)
 
 func applyCharOption(_optionID:String, _value:Variant):
 	pass
@@ -123,36 +103,6 @@ func applySkinTypeDataFinal(_theSkinType:int, _skinTypeData:SkinTypeData):
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	pass
 
-func getMeshes() -> Array:
-	var result:Array = []
-	for child in get_children():
-		if(child is MeshInstance3D):
-			result.append(child)
-		elif(child is MarkerBlendshaped):
-			result.append(child)
-		result.append_array(getMeshesSub(child))
-	return result
-
-func getMeshesSub(theNode:Node) -> Array:
-	var result:Array = []
-	for child in theNode.get_children():
-		if(child is MeshInstance3D):
-			result.append(child)
-		elif(child is MarkerBlendshaped):
-			result.append(child)
-		result.append_array(getMeshesSub(child))
-	return result
-
-func setBlendshape(_id:String, _value:float):
-	for meshA in getMeshes():
-		if(meshA is MeshInstance3D):
-			var mesh:MeshInstance3D = meshA
-			var indx:int = mesh.find_blend_shape_by_name(_id)
-			if(indx >= 0):
-				mesh.set_blend_shape_value(indx, _value)
-		if(meshA is MarkerBlendshaped):
-			meshA.setBlendshape(_id, _value)
-
 func getSkinData() -> SkinTypeData:
 	return cachedSkinTypeData
 
@@ -162,35 +112,14 @@ func getSkinType() -> int:
 func gatherPartFlags(_theFlags:Dictionary):
 	pass
 
+func applyPartFlagsFinal(_theFlags:Dictionary):
+	applyPartFlags(_theFlags)
+	for slot in extras:
+		extras[slot].applyPartFlagsFinal(_theFlags)
+
 func applyPartFlags(_theFlags:Dictionary):
 	pass
 
-func addLayersToTexture(layeredTexture:MyLayeredTexture, layers:Array):
-	for layerEntry in layers:
-		var texVarID:String = layerEntry["id"] if layerEntry.has("id") else ""
-		
-		var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(texVarID)
-		if(textureVariant == null):
-			continue
-		
-		if(textureVariant.pathColormask != ""):
-			layeredTexture.addColorMaskLayer(textureVariant.pathColormask, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK, layerEntry["colorG"] if layerEntry.has("colorG") else Color.BLACK, layerEntry["colorB"] if layerEntry.has("colorB") else Color.BLACK)
-		elif(textureVariant.pathTexture != ""):
-			layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK)
-
-func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
-	if(!theMat):
-		return
-	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "") if (theValue["pattern"] != "") else null
-	if(textureVariant == null):
-		theMat.set_shader_parameter("texture_color_mask", null)
-	else:
-		theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
-	
-	theMat.set_shader_parameter("color_mask_r", theValue["colorR"] if theValue.has("colorR") else Color.WHITE)
-	theMat.set_shader_parameter("color_mask_g", theValue["colorG"] if theValue.has("colorG") else Color.WHITE)
-	theMat.set_shader_parameter("color_mask_b", theValue["colorB"] if theValue.has("colorB") else Color.WHITE)
-	
 func setPenisTargets(_holeNode:Node3D, _insideNode:Node3D):
 	pass
 
@@ -209,104 +138,17 @@ func updateBodyMess():
 func getBodyMess() -> FluidsOnBodyProfile:
 	return getDoll().getBodyMess()
 
-func updateThicknessBody(_optionID:String = ""):
-	if(!(_optionID in ["", CharOption.thickness, CharOption.weightDistribution, CharOption.muscles])):
-		return
-	var theThickness:float = getCharValue(CharOption.thickness, 1.0)
-	var theWeightDistribution:float = getCharValue(CharOption.weightDistribution, 0.0)
-
-	var thinValue:float = max(1.0-theThickness, 0.0)
-	var thickValue:float = max(0.0, theThickness-1.0)
-
-	setBlendshape("ThinVery", thinValue * max(1.0 - theWeightDistribution, 0.0))
-	setBlendshape("BodySize", -thinValue * max(theWeightDistribution, 0.0))
-	setBlendshape("ThickFurry", thickValue * max(1.0 - theWeightDistribution, 0.0))
-	setBlendshape("Fat", thickValue * max(theWeightDistribution, 0.0))
-	setBlendshape("Muscles", getCharValue(CharOption.muscles, 1.0))
-	
-func triggerDollPartFlagsUpdate():
-	var theDoll := getDoll()
-	if(theDoll):
-		theDoll.triggerDollPartFlagsUpdate()
-	
-func triggerAlphaMaskUpdate():
-	var theDoll := getDoll()
-	if(theDoll):
-		theDoll.triggerAlphaMaskUpdate()
-
 func getSyncedBodypartSlots() -> Array:
 	return []
 
 func applySyncedBodypartOption(_slot:int, _optionID:String, _value:Variant):
 	pass
 
-func updateBreasts(_optionID:String, _value:Variant):
-	if(_optionID == "breasts"):
-		setBlendshape("BreastsHuge", max(0.0, (_value-1.0)/3.0))
-		setBlendshape("BreastsFlat", clamp(1.0-_value, 0.0, 1.0))
-	if(_optionID == "breastsCleavage"):
-		setBlendshape("BreastsCleavage", _value if !getCachedPartFlag("ForceBreastCleavage", false) else 1.0)
-	if(_optionID == "nippleShape"):
-		setBlendshape("NipplesNormal", max(1.0-_value, 0.0))
-		setBlendshape("NipplesAnime", max(_value, 0.0))
-
-func updateBreastsCleavage(_value:Variant):
-	var newVal:float = _value
-	if(getCachedPartFlag("ForceBreastCleavage", false)):
-		newVal = 1.0
-	if(getCachedPartFlag("ForceZeroBreastCleavage", false)):
-		newVal = 0.0
-	setBlendshape("BreastsCleavage", newVal)
-
-func getCachedPartFlag(_id:String, _default:Variant) -> Variant:
-	var theDoll := getDoll()
-	if(!theDoll):
-		return _default
-	return theDoll.getCachedPartFlag(_id, _default)
-
 func getBodyAlphaMask() -> Texture2D:
 	return null
 
 func updateBodyAlphaMask(_finalAlpha:Texture2D):
 	pass
-
-func onSpawn(_genericType:int, _bodypartSlot:int, _id:String):
-	pass
-
-func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Variant):
-	if(_hairMat != null):
-		if(_optionID == "colorRoot"):
-			_hairMat.set_shader_parameter("root_color", _value)
-		if(_optionID == "shading"):
-			_hairMat.set_shader_parameter("ambient_occlusion", _value)
-		if(_optionID == "colorTip"):
-			_hairMat.set_shader_parameter("tip_color", _value)
-			
-			var newCol:Color = _value
-			newCol.s = clamp(newCol.s*0.2, 0.0, 1.0)
-			newCol.v = max(min(0.7, newCol.v), 0.5)
-			_hairMat.set_shader_parameter("primary_color", newCol)
-			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)
-		if(_optionID == "pattern"):
-			applyColormaskPatternToMyMat(_hairMat, _value)
-
-func applyEyeOptions(_eyeMat:ShaderMaterial, _optionID:String, _value:Variant):
-	if(_eyeMat != null):
-		if(_optionID == "eyeColor1"):
-			_eyeMat.set_shader_parameter("colorR", _value)
-		if(_optionID == "eyeColor2"):
-			_eyeMat.set_shader_parameter("colorG", _value)
-		if(_optionID == "eyeColor3"):
-			_eyeMat.set_shader_parameter("colorB", _value)
-
-func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Variant):
-	if(_mouthMat != null):
-		if(_optionID == "mouthColor"):
-			_mouthMat.set_shader_parameter("color_mask_r", _value)
-		if(_optionID == "tongueColor"):
-			_mouthMat.set_shader_parameter("color_mask_g", _value)
-		if(_optionID == "teethColor"):
-			_mouthMat.set_shader_parameter("color_mask_b", _value)
 
 var previewDollMat := preload("res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres")
 
@@ -321,3 +163,42 @@ func getExtraLayerData() -> Dictionary:
 
 func applyExtraLayerData(_data:Dictionary):
 	pass
+
+func getNodeToAttachExtras(_slot:int) -> Node3D:
+	return self
+
+func setExtra(_slot:int, _path:String):
+	if(_path.is_empty() && !cachedExtraPaths.has(_slot)):
+		return
+	if(!_path.is_empty() && cachedExtraPaths.has(_slot) && cachedExtraPaths[_slot] == _path):
+		return
+	if(extras.has(_slot)):
+		extras[_slot].queue_free()
+		extras.erase(_slot)
+		cachedExtraPaths.erase(_slot)
+	if(_path.is_empty()):
+		return
+	cachedExtraPaths[_slot] = _path
+	var theFuture := ThreadedResourceLoader.loadFuture(_path)
+	await theFuture.task_completed
+	var thePackedScene:PackedScene = theFuture.get_result()
+	if(!cachedExtraPaths.has(_slot) || extras.has(_slot) || (cachedExtraPaths.has(_slot) && cachedExtraPaths[_slot] != _path)):
+		return
+	var theExtraDollScene:DollExtraPart = thePackedScene.instantiate()
+	var theNodeToAttachTo := getNodeToAttachExtras(_slot)
+	theNodeToAttachTo.add_child(theExtraDollScene)
+	theExtraDollScene.setDollPart(self)
+	extras[_slot] = theExtraDollScene
+	
+	var theChar := getDoll().getCharacter()
+	if(!theChar):
+		return
+	
+	var thePart := getPart()
+	for optionID in thePart.getOptionsFinal():
+		theExtraDollScene.applyOptionFinal(optionID, thePart.getOptionValue(optionID))
+	
+	for syncOptionID in theChar.getSyncOptions():
+		theExtraDollScene.applyCharOptionFinal(syncOptionID, theChar.getSyncOptionValue(syncOptionID))
+	
+	theExtraDollScene.applyPartFlagsFinal(getDoll().cachedPartFlags)

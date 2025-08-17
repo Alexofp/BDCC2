@@ -99,6 +99,10 @@ enum SubsurfaceScatteringType {
 	set(value):
 		alphaTransparency = value
 		updateShader()
+@export var alphaTest:bool = false:
+	set(value):
+		alphaTest = value
+		updateShader()
 
 @export_group("SPECIAL")
 @export var doubleSided:bool = false:
@@ -162,6 +166,7 @@ func copyFrom(otherShader:MyMasterMaterial, ignoreUniforms:Array = []):
 	alphaMask = otherShader.alphaMask
 	uvBasedDiscard = otherShader.uvBasedDiscard
 	alphaTransparency = otherShader.alphaTransparency
+	alphaTest = otherShader.alphaTest
 	globalDetailMask = otherShader.globalDetailMask
 	globalDetailRoughMask = otherShader.globalDetailRoughMask
 	colorMask = otherShader.colorMask
@@ -232,6 +237,8 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("u")
 	if(alphaTransparency):
 		theFlags.append("aa")
+	if(alphaTest):
+		theFlags.append("alt")
 	if(globalDetailMask):
 		theFlags.append("dt")
 	if(globalDetailRoughMask):
@@ -301,6 +308,8 @@ func calculateShaderResource() -> Array:
 		defines.append("MY_TOONSHADING")
 	if(alphaMask):
 		defines.append("MY_ALPHAMASK")
+	if(alphaMask || alphaTest):
+		defines.append("MY_ALPHATEST")
 	if(uvBasedDiscard):
 		defines.append("MY_UV_BASED_DISCARD")
 	if(alphaTransparency):

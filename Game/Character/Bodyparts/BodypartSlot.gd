@@ -1,9 +1,15 @@
 extends Object
 class_name BodypartSlot
 
-enum {
-	Body, Head, LeftEar, RightEar, Hair, LeftHorn, RightHorn, Tail, Penis,
-}
+const Body = 0
+const Head = 1
+const LeftEar = 2
+const RightEar = 3
+const Hair = 4
+const LeftHorn = 5
+const RightHorn = 6
+const Tail = 7
+const Penis = 8
 const ALL = [
 	Body, Head, LeftEar, RightEar, Hair, LeftHorn, RightHorn, Tail, Penis,
 ]

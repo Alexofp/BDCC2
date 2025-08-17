@@ -8,16 +8,13 @@
 [ext_resource type="Material" uid="uid://dtn3jcvaheois" path="res://Mesh/Parts/Ear/FelineEar/FluffMat.tres" id="6_qb750"]
 [ext_resource type="Material" uid="uid://bglin3n8wnb0d" path="res://Mesh/Parts/Ear/FelineEar/FelineEarMat.tres" id="7_qb750"]
 [ext_resource type="Material" uid="uid://x3h3oqedoupd" path="res://Mesh/Parts/Ear/FelineEar/TasselsMat.tres" id="8_q2p81"]
-[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="8_qb750"]
+[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMatOLD.tres" id="8_qb750"]
 
 [sub_resource type="Resource" id="Resource_btijh"]
 script = ExtResource("5_3ue0o")
 spring_freq = 2.0
-angular_damp = 5.0
-force_scale = 180.0
 linear_scale = 652.683
 swing_span = 1.5708
-gravity = Vector3(0, 0, 0)
 metadata/_custom_type_script = ExtResource("5_3ue0o")
 
 [node name="FelineEarL" node_paths=PackedStringArray("ear", "earFluff", "piercingsTwoRings", "tassels") instance=ExtResource("1_ekhe4")]
@@ -44,13 +41,6 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
 transform = Transform3D(0.91722256, 0.35914314, -0.17239133, -0.3983268, 0.833512, -0.38287526, 0.0061832154, 0.41984993, 0.90757245, 0.031493124, 0.05986244, 0.011388892)
 rotation_edit_mode = 0
 rotation_order = 2
@@ -74,13 +64,6 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
 transform = Transform3D(0.88519734, 0.45912835, -0.075012386, -0.46520874, 0.8727162, -0.14814635, -0.0025536604, 0.16603516, 0.9861165, 0, 0, 0)
 rotation_edit_mode = 0
 rotation_order = 2

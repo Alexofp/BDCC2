@@ -19,6 +19,7 @@ var fluffSpiky:float = 0.0
 var fluffWide:float = 0.0
 var fluffLen:float = 0.0
 var fluffThick:float = 0.0
+var piercings:Array = [""]
 
 func _init():
 	super._init()
@@ -77,6 +78,15 @@ func getOptions() -> Dictionary:
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
+			editors = [EDITOR_PART],
+		}
+	theOptions["piercings"] = {
+			name = "Piercings",
+			type = "extraColored",
+			values = [
+				["", "No piercings", 0],
+				["p1", "Piercings 1", 2],
+			],
 			editors = [EDITOR_PART],
 		}
 

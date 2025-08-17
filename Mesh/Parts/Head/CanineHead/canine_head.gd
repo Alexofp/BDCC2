@@ -4,6 +4,7 @@ extends DollPart
 @onready var eyes: MeshInstance3D = $MyCanineHeadRig/Skeleton3D/Eyes
 @onready var cheek_fluff: MeshInstance3D = %CheekFluff
 @onready var canine_mouth: MeshInstance3D = %CanineMouth
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
 
 var eyeMat:ShaderMaterial
 var headMat:MyMasterMaterial
@@ -35,7 +36,13 @@ func applyOption(_optionID:String, _value:Variant):
 		updateHeadTexture()
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
-
+	if(_optionID == "piercings"):
+		var theType:String = (_value[0] if _value.size() > 0 else "")
+		if(theType == "p1"):
+			setExtra(0, "res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/piercings_1.tscn")
+		else:
+			setExtra(0, "")
+		
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(headMat == null):
 		return
@@ -99,3 +106,6 @@ func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 		headMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
 	else:
 		headMat.set_shader_parameter("texture_color_mask", null)
+
+func getNodeToAttachExtras(_slot:int) -> Node3D:
+	return skeleton_3d

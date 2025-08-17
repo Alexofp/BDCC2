@@ -24,6 +24,8 @@ var vaginaSize:float = 0.0
 var vaginaColor:Color = Color("f58c8c")
 var vaginaInColor:Color = Color("f58c8c")
 
+var nipplePiercing:Array = [""]
+
 func getBodypartType() -> int:
 	return BodypartType.Body
 
@@ -56,6 +58,16 @@ func getOptions() -> Dictionary:
 		"nippleColor": {
 			name = "Nipples color",
 			type = "color",
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
+		},
+		"nipplePiercing": {
+			name = "Nipple piercings",
+			type = "extraColored",
+			values = [
+				["", "No piercings", 0],
+				["p1", "Piercings 1", 1],
+			],
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Breasts,
 		},

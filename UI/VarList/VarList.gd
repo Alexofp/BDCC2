@@ -56,6 +56,8 @@ func setVars(_vars:Dictionary):
 				newWidget = preload("res://UI/VarList/Vars/body_mess_var.tscn").instantiate()
 			"skinDataOverride":
 				newWidget = preload("res://UI/VarList/Vars/skin_type_override_var.tscn").instantiate()
+			"extraColored":
+				newWidget = preload("res://UI/VarList/Vars/extra_colored_var.tscn").instantiate()
 			
 		if(newWidget == null):
 			printerr("Uknown property type found: "+theType)

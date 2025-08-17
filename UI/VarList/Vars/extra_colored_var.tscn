@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://cynvbcadr78c5"]
+
+[ext_resource type="Script" uid="uid://dnq3unur1ch6g" path="res://UI/VarList/Vars/extra_colored_var.gd" id="1_7hqh2"]
+
+[node name="ExtraColoredVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_7hqh2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPicker1" type="ColorPickerButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColorPicker2" type="ColorPickerButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColorPicker3" type="ColorPickerButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColorPicker4" type="ColorPickerButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[connection signal="item_selected" from="HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="color_changed" from="HBoxContainer/ColorPicker1" to="." method="_on_color_picker_1_color_changed"]
+[connection signal="color_changed" from="HBoxContainer/ColorPicker2" to="." method="_on_color_picker_2_color_changed"]
+[connection signal="color_changed" from="HBoxContainer/ColorPicker3" to="." method="_on_color_picker_3_color_changed"]
+[connection signal="color_changed" from="HBoxContainer/ColorPicker4" to="." method="_on_color_picker_4_color_changed"]

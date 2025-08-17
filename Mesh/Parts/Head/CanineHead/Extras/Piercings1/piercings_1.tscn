@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://7h5u63etgyem"]
+
+[ext_resource type="PackedScene" uid="uid://phayf41vc2d3" path="res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/Piercings1.glb" id="1_7yqvv"]
+[ext_resource type="Script" uid="uid://cxd05ed1amipb" path="res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/piercings_1.gd" id="2_atn76"]
+[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="3_atn76"]
+
+[node name="Piercings1" instance=ExtResource("1_7yqvv")]
+script = ExtResource("2_atn76")
+
+[node name="BallPiercing" parent="MyCanineHeadRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("3_atn76")

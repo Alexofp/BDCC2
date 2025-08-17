@@ -26,6 +26,9 @@ script = ExtResource("2_i5sai")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/FemaleCrotchSpade"), NodePath("Skeleton3D/HandPads"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair")]
 
+[node name="Skeleton3D" parent="rig" index="0"]
+unique_name_in_owner = true
+
 [node name="Body" parent="rig/Skeleton3D" index="0"]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
@@ -145,8 +148,8 @@ blendshapesData = Dictionary[String, Vector3]({
 "BodySize": Vector3(0.00201949, -0.0127878, 0.0285344),
 "BreastsBig": Vector3(-0.000253007, -0.0162516, 0.0380869),
 "BreastsCleavage": Vector3(-0.0193616, 0.00542237, 0.00740767),
-"BreastsFlat": Vector3(-0.00131722, 0.00694816, -0.0316098),
-"BreastsHuge": Vector3(-0.0075251, -0.0516979, 0.116481),
+"BreastsFlat": Vector3(-0.002, 0.007, -0.03),
+"BreastsHuge": Vector3(-0.004, -0.052, 0.116),
 "BreastsShape": Vector3(-0.001814, 0.00188494, 0.00267816),
 "Fat": Vector3(0.00087488, -0.00857871, 0.0168519),
 "Muscles": Vector3(-0.00830813, -0.000765995, 0.0174012),
@@ -190,7 +193,7 @@ visible = false
 gizmo_extents = 0.1
 
 [node name="BreastsFlat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="7"]
-transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.00131722, 0.00694816, -0.0316098)
+transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.002, 0.007, -0.03)
 visible = false
 gizmo_extents = 0.1
 
@@ -200,12 +203,15 @@ visible = false
 gizmo_extents = 0.1
 
 [node name="BreastsHuge" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="9"]
-transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.0075251, -0.0516979, 0.116481)
+transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.004, -0.052, 0.116)
 visible = false
 gizmo_extents = 0.1
 
 [node name="DollAttachPoint" parent="BreastLAttach/MarkerBlendshaped/Target" index="0" instance=ExtResource("11_uprqo")]
 pointName = "nipple.L"
+
+[node name="NippleL" type="Node3D" parent="BreastLAttach/MarkerBlendshaped/Target/DollAttachPoint" index="0"]
+unique_name_in_owner = true
 
 [node name="BreastRAttach" type="Node3D" parent="." index="7"]
 script = ExtResource("2_i5sai")
@@ -230,8 +236,8 @@ blendshapesData = Dictionary[String, Vector3]({
 "BodySize": Vector3(0.00201949, -0.0127878, 0.0285344),
 "BreastsBig": Vector3(-0.000253007, -0.0162516, 0.0380869),
 "BreastsCleavage": Vector3(-0.0193616, 0.00542237, 0.00740767),
-"BreastsFlat": Vector3(-0.00131722, 0.00694816, -0.0316098),
-"BreastsHuge": Vector3(-0.0075251, -0.0516979, 0.116481),
+"BreastsFlat": Vector3(-0.002, 0.007, -0.03),
+"BreastsHuge": Vector3(-0.004, -0.052, 0.116),
 "BreastsShape": Vector3(-0.001814, 0.00188494, 0.00267816),
 "Fat": Vector3(0.00087488, -0.00857871, 0.0168519),
 "Muscles": Vector3(-0.00830813, -0.000765995, 0.0174012),
@@ -241,6 +247,9 @@ blendshapesData = Dictionary[String, Vector3]({
 
 [node name="DollAttachPoint" parent="BreastRAttach/MarkerBlendshaped/Target" index="0" instance=ExtResource("11_uprqo")]
 pointName = "nipple.R"
+
+[node name="NippleR" type="Node3D" parent="BreastRAttach/MarkerBlendshaped/Target/DollAttachPoint" index="0"]
+unique_name_in_owner = true
 
 [connection signal="onTextureUpdated" from="BodyLayeredTexture" to="." method="_on_body_layered_texture_on_texture_updated"]
 [connection signal="onTextureUpdated" from="CumLayer" to="." method="_on_cum_layer_on_texture_updated"]

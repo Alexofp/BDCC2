@@ -1,14 +1,10 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=5 format=3 uid="uid://qrmte2wmm0qf"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://btoejf7edmi2l"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_ycba6"]
-[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="2_eis57"]
-[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="3_wsmhv"]
 
-[sub_resource type="Shader" id="Shader_eis57"]
+[sub_resource type="Shader" id="Shader_ycba6"]
 code = "shader_type spatial;
 
-#define MY_PBR_ORM
-#define MY_COLORMASK
 
 
 render_mode
@@ -80,8 +76,6 @@ uniform sampler2D texture_anisotropy_flowmap : hint_anisotropy, filter_linear_mi
 
 #ifdef MY_ALPHAMASK
 uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
-#endif
-#ifdef MY_ALPHATEST
 uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
 #endif
 
@@ -324,10 +318,7 @@ void fragment() {
 #ifdef MY_ALPHAMASK
 	vec4 alpha_tex = texture(texture_alpha, base_uv);
 	ALPHA *= (1.0 - alpha_tex.r);
-#endif
-#ifdef MY_ALPHATEST
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
-	ALPHA *= albedo.a * albedo_tex.a;
 #endif
 
 #ifdef MY_ALPHASUPPORT
@@ -474,22 +465,15 @@ void light(){
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_eis57")
-shader_parameter/texture_orm = ExtResource("3_wsmhv")
-shader_parameter/albedo = Color(1, 1, 1, 1)
+shader = SubResource("Shader_ycba6")
+shader_parameter/albedo = Color(0.5729883, 0.5729883, 0.5729883, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
+shader_parameter/roughness = 0.30000001425
 shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
+shader_parameter/metallic = 1.9999999552960002
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = ExtResource("2_eis57")
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 script = ExtResource("1_ycba6")
-pbrSetup = 3
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

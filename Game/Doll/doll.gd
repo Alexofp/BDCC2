@@ -225,19 +225,33 @@ func setCharacter(theChar:BaseCharacter):
 func onCharChange(_change:BaseCharChange):
 	var theType := _change.getType()
 	
-	match theType:
-		BaseCharChange.PART:
-			onCharPartChange(_change.genericType, _change.slot)
-		BaseCharChange.PART_OPTION:
-			onCharPartOptionChange(_change.genericType, _change.slot, _change.optionID, _change.value)
-			if(_change.genericType == BaseCharacter.GENERIC_BODYPARTS && _change.slot == BodypartSlot.Head && _change.optionID == "skinType"):
-				updateAutoSkinParts()
-		BaseCharChange.CHAR_OPTION:
-			onCharOptionChange(_change.optionID)
-		BaseCharChange.PART_FILTER:
-			updatePartFilter()
-		BaseCharChange.AUTO_SKIN_UPDATE:
+	if(theType == BaseCharChange.PART):
+		onCharPartChange(_change.genericType, _change.slot)
+	elif(theType == BaseCharChange.PART_OPTION):
+		onCharPartOptionChange(_change.genericType, _change.slot, _change.optionID, _change.value)
+		if(_change.genericType == BaseCharacter.GENERIC_BODYPARTS && _change.slot == BodypartSlot.Head && _change.optionID == "skinType"):
 			updateAutoSkinParts()
+	elif(theType == BaseCharChange.CHAR_OPTION):
+		onCharOptionChange(_change.optionID)
+	elif(theType == BaseCharChange.PART_FILTER):
+		updatePartFilter()
+	elif(theType == BaseCharChange.AUTO_SKIN_UPDATE):
+		updateAutoSkinParts()
+	
+	# Match is slower apparently. Uncomment me when that's no longer the case
+	#match theType:
+		#BaseCharChange.PART:
+			#onCharPartChange(_change.genericType, _change.slot)
+		#BaseCharChange.PART_OPTION:
+			#onCharPartOptionChange(_change.genericType, _change.slot, _change.optionID, _change.value)
+			#if(_change.genericType == BaseCharacter.GENERIC_BODYPARTS && _change.slot == BodypartSlot.Head && _change.optionID == "skinType"):
+				#updateAutoSkinParts()
+		#BaseCharChange.CHAR_OPTION:
+			#onCharOptionChange(_change.optionID)
+		#BaseCharChange.PART_FILTER:
+			#updatePartFilter()
+		#BaseCharChange.AUTO_SKIN_UPDATE:
+			#updateAutoSkinParts()
 
 func updateAutoSkinParts():
 	if(!parts.has(BaseCharacter.GENERIC_BODYPARTS)):
@@ -635,7 +649,7 @@ func updateDollPartFlags():
 		for partID in parts[genericType]:
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
-				dollPart.applyPartFlags(cachedPartFlags)
+				dollPart.applyPartFlagsFinal(cachedPartFlags)
 	
 	if(cachedPartFlags.has("ArmbinderPose") && cachedPartFlags["ArmbinderPose"]):
 		setArmbinderPoseEnabled(true)

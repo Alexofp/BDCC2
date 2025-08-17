@@ -24,6 +24,9 @@ var spadeMat:MyMasterMaterial
 @onready var female_crotch: MeshInstance3D = %FemaleCrotch
 @onready var female_crotch_spade: MeshInstance3D = %FemaleCrotchSpade
 
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+@onready var nipple_l: Node3D = %NippleL
+@onready var nipple_r: Node3D = %NippleR
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
@@ -88,6 +91,14 @@ func applyOption(_optionID:String, _value:Variant):
 		updateCrotch()
 	if(_optionID == "vaginaSize"):
 		updateCrotch()
+	if(_optionID == "nipplePiercing"):
+		var theVal:String = _value[0] if _value.size() > 0 else ""
+		if(theVal == "p1"):
+			setExtra(0, "res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.tscn")
+			setExtra(1, "res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.tscn")
+		else:
+			setExtra(0, "")
+			setExtra(1, "")
 	
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(bodyMat == null):
@@ -240,4 +251,10 @@ func updateCrotch():
 		female_crotch.visible = false
 		male_crotch.visible = true
 		female_crotch_spade.visible = false
-	
+
+func getNodeToAttachExtras(_slot:int) -> Node3D:
+	if(_slot == 0):
+		return nipple_l
+	if(_slot == 1):
+		return nipple_r
+	return skeleton_3d

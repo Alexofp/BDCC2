@@ -26,6 +26,7 @@ data = {
 "hindPawPadColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "legType": "digi",
 "nippleColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"nipplePiercing": ["p1", Color(0.9647059, 0.003921569, 0.9490196, 1)],
 "nippleShape": 0.0,
 "skinDataOverride": null,
 "skinType": 1,
@@ -97,6 +98,7 @@ data = {
 &"id": "CanineHead_Lines"
 }],
 "mouthColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
+"piercings": ["p1", Color(0.9647059, 0.003921569, 0.9490196, 1), Color(0.9647059, 0.003921569, 0.9490196, 1)],
 "skinDataOverride": null,
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.08235294, 0.9372549, 0.9490196, 1)

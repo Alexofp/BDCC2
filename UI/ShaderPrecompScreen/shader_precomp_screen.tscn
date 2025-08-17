@@ -17,7 +17,7 @@
 [ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="17_obufd"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="18_uawf8"]
 [ext_resource type="Material" uid="uid://bo0v0t0xwyewc" path="res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres" id="18_xo4mo"]
-[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="20_53ind"]
+[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMatOLD.tres" id="20_53ind"]
 [ext_resource type="PackedScene" uid="uid://b85gkt2ndvnwd" path="res://Mapping/Decals/DecalNumDots.tscn" id="25_g1ojs"]
 [ext_resource type="PackedScene" uid="uid://bf5hr37wkj4ke" path="res://Mapping/Walls/WindowA4x3.tscn" id="26_upy2a"]
 [ext_resource type="PackedScene" uid="uid://dxwidk66svbvu" path="res://Mapping/World/RockTest1.tscn" id="27_f0w4x"]

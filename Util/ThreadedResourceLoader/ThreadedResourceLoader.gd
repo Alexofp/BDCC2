@@ -31,14 +31,17 @@ func getThreadPool() -> FutureThreadPool:
 func getThreadPool2() -> FutureThreadPool:
 	return threadPool2
 
-func loadThreaded(_thePath:String):
+func internal_loadThreaded(_thePath:String):
 	return load(_thePath)
 
 func loadCallback(thePath:String, theCallable:Callable):
-	var theFuture := threadPool.submit_task(self, "loadThreaded", thePath)
+	var theFuture := threadPool.submit_task(self, "internal_loadThreaded", thePath)
 	await theFuture.task_completed
 	if(theCallable.get_object()):
 		theCallable.call(theFuture.get_result())
+
+func loadFuture(thePath:String) -> FutureThreadPool.Future:
+	return threadPool.submit_task(self, "internal_loadThreaded", thePath)
 
 func loadCallbackOld(thePath:String, theCallable:Callable):
 	if(thePath == ""):
