@@ -385,17 +385,17 @@ func _physics_process(_delta:float):
 
 
 func canScrollUp() -> bool:
-	if(!GM.game || !GM.game.interact_ui):
+	if(!GM.main || !GM.main.interact_ui):
 		return true
-	var interact_ui := GM.game.interact_ui
+	var interact_ui := GM.main.interact_ui
 	if(!interact_ui.canScrollUp() || interact_ui.didScrollThisFrame()):
 		return false
 	return true
 
 func canScrollDown() -> bool:
-	if(!GM.game || !GM.game.interact_ui):
+	if(!GM.main || !GM.main.interact_ui):
 		return true
-	var interact_ui := GM.game.interact_ui
+	var interact_ui := GM.main.interact_ui
 	if(!interact_ui.canScrollDown() || interact_ui.didScrollThisFrame()):
 		return false
 	return true

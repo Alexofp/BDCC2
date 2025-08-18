@@ -1,5 +1,5 @@
 extends Node3D
-class_name GameBase
+class_name MainScene
 
 @onready var in_game_menu: Control = %InGameMenu
 @onready var main_ui_layer: CanvasLayer = %MainUILayer
@@ -8,8 +8,6 @@ class_name GameBase
 @onready var sandbox_menu: PanelContainer = %SandboxMenu
 
 var character_creator:Node
-#var interaction_menu:Node
-#var inventory_ui:Node
 
 @onready var characterRegistry: CharacterRegistry = %CharacterRegistry
 @onready var pawn_registry: PawnRegistry = %PawnRegistry
@@ -23,18 +21,38 @@ var character_creator:Node
 
 var interactionSystem:InteractionSystem
 
-func _init():
-	GM.game = self
-	#GlobalRegistry.doInit()
+var gameMode:GameModeBase
+
+func loadModeOnMap(_map:String, _mode:int, _args:Array):
+	if(!GameMode.SCENES.has(_mode)):
+		Log.Printerr("UNKNOWN GAME MODE: "+str(_mode))
+	else:
+		var theScene:PackedScene = load(GameMode.SCENES[_mode])
+		var theMode:GameModeBase = theScene.instantiate()
+		add_child(theMode)
+		theMode.initArgs(_args)
+		gameMode = theMode
 	
+	#TODO: Loading screen?
+	var theFuture := ThreadedResourceLoader.loadFuture(_map)
+	await theFuture.task_completed
+	var theMap:PackedScene = theFuture.get_result()#load(_map)
+	var theMapNode:Node3D = theMap.instantiate()
+	add_child(theMapNode)
+	if(gameMode):
+		gameMode.start()
+	
+func _init():
+	GM.main = self
+	#GlobalRegistry.doInit()
 	interactionSystem = InteractionSystem.new()
 
 func _enter_tree() -> void:
-	GM.game = self
+	GM.main = self
 
 func _exit_tree() -> void:
-	if(GM.game == self):
-		GM.game = null
+	if(GM.main == self):
+		GM.main = null
 
 func onMultiplayerStart(_isHost:bool):
 	Log.Print("onMultiplayerStart(isHost="+str(_isHost)+")")
@@ -42,7 +60,7 @@ func onMultiplayerStart(_isHost:bool):
 		characterRegistry.clearCharacters()
 		pawn_registry.clearPawns()
 		doll_holder.clearDolls()
-	if(_isHost):
+	if(_isHost): # Makes it so you can figure out who is host/client by looking at the node tree
 		var newNode:Node2D = Node2D.new()
 		newNode.name = "HOOOOST"
 		add_child(newNode)
@@ -53,62 +71,32 @@ func onMultiplayerStart(_isHost:bool):
 
 func onPlayerConnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	Log.Print("Player connected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
-	if(Network.isServer()):
-		var thePC:BaseCharacter = characterRegistry.createCharacter()
-		var _thePawn:CharacterPawn = pawn_registry.createPawn(thePC.getID())
-		_player_info.charID = thePC.getID()
-		#thePawn.setPlayerID(_peer_id)
+	#if(Network.isServer()):
+		#var thePC:BaseCharacter = characterRegistry.createCharacter()
+		#var _thePawn:CharacterPawn = pawn_registry.createPawn(thePC.getID())
+		#_player_info.charID = thePC.getID()
+	if(gameMode):
+		gameMode.onPlayerConnected(_peer_id, _player_info)
 		
-		
-		#var _theDoll:DollController = doll_holder.createDollControllerFor(thePC, _peer_id)
-
 func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player disconnected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
-	if(Network.isServer()):
-		pawn_registry.deletePawnOfNetworkPlayer(_player_info)
-		#doll_holder.deleteDollsOfNetworkPlayerID(_peer_id)
+	#if(Network.isServer()):
+	#	pawn_registry.deletePawnOfNetworkPlayer(_player_info)
+	if(gameMode):
+		gameMode.onPlayerDisconnected(_peer_id, _player_info)
+	pass
 
 func _ready() -> void:
 	hideAllMenus()
 	sit_manager.connectSignals()
-	
 	Network.multiplayerStarted.connect(onMultiplayerStart)
 	Network.playerConnected.connect(onPlayerConnected)
 	Network.playerDisconnected.connect(onPlayerDisconnected)
-	
-	var thePC:BaseCharacter = characterRegistry.createCharacter()
-	var _thePawn:CharacterPawn = pawn_registry.createPawn(thePC.getID())
-	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
-	myInfo.charID = thePC.getID()
-	#thePawn.grabControl()
-	#doll_holder.createDollControllerFor(thePC).grabControl()
-	#$TestAnimScene.setChar(thePC)
-	
-	
-	var char2:BaseCharacter = characterRegistry.createCharacter()
-	var _thePawn2:CharacterPawn = pawn_registry.createPawn(char2.getID())
-	_thePawn2.position.x = 2.0
-	
-	#sex_manager.startSex(SexType.OnTheFloor, {dom=thePC.getID(), sub=char2.getID()}, {}, _thePawn.global_position, Vector3(0.0, 0.0, 0.0))
-	
-	#testFutures()
-	#ThreadedResourceLoader.threadPool.task_completed.connect(onTaskCompleted)
 
-#func onTaskCompleted(_theTask):
-#	print("MEOW "+str(_theTask.result))
-
-func testFutures():
-	var theFuture := ThreadedResourceLoader.threadPool.submit_task_array_parameterized(self, "testThread", [RNG.randiRange(1, 10), RNG.randiRange(1, 10)])
-	await theFuture.task_completed
-	print("RESULT: "+str(theFuture.get_result()))
-	#await ThreadedResourceLoader.threadPool.task_completed
-	#var theResult:int = theFuture.get_result()
-	#print("RESULT: "+str(theResult))
-
-func testThread(_a:int, _b:int) -> int:
-	for _i in range(1000000):
-		var _asd = sqrt(_i)+sqrt(_i)+pow(_i, 0.1)
-	return _a + _b
+	#var thePC:BaseCharacter = characterRegistry.createCharacter()
+	#var _thePawn:CharacterPawn = pawn_registry.createPawn(thePC.getID())
+	#var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
+	#myInfo.charID = thePC.getID()
 
 func hideAllMenus():
 	in_game_menu.visible = false
@@ -148,21 +136,6 @@ func _process(_delta: float) -> void:
 		if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
 			if(!UIHandler.tryCloseMenu()):
 				toggleCharacterMenu()
-			#if(!interaction_menu):
-				#interaction_menu = preload("res://Game/CharacterCreator/InteractionMenu/interaction_menu.tscn").instantiate()
-				#main_ui_layer.add_child(interaction_menu)
-				#interaction_menu.onClose.connect(onInteractionMenuClosed)
-				#interaction_menu.setCharacter(GM.pc)
-			#else:
-				#onInteractionMenuClosed()
-		#if(Input.is_action_just_pressed("game_inventory")):
-			#if(!inventory_ui):
-				#inventory_ui = preload("res://Inventory/UI/inventory_test_ui.tscn").instantiate()
-				#main_ui_layer.add_child(inventory_ui)
-				##interaction_menu.onClose.connect(onInteractionMenuClosed)
-				#inventory_ui.setInventory(GM.pc.inventory)
-			#else:
-				#onInventoryClosed()
 
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)
@@ -185,16 +158,6 @@ func hideCharacterMenu():
 	character_menu.visible = false
 	character_menu.setCharacter(null)
 
-#func onInventoryClosed():
-	#if(inventory_ui):
-		#inventory_ui.queue_free()
-		#inventory_ui = null
-	#
-#func onInteractionMenuClosed():
-	#if(interaction_menu):
-		#interaction_menu.queue_free()
-		#interaction_menu = null
-
 func _on_in_game_menu_on_char_creator_button() -> void:
 	if(character_creator != null && is_instance_valid(character_creator)):
 		return
@@ -216,7 +179,8 @@ func onCharCreatorConfirmButton():
 
 
 func _on_in_game_menu_on_exit_button() -> void:
-	get_tree().quit()
+	#get_tree().quit()
+	GM.startMainMenu()
 
 func getCharacterRegistry() -> CharacterRegistry:
 	return characterRegistry
@@ -252,3 +216,6 @@ func getSexManager() -> SexManager:
 
 func _on_character_menu_on_close() -> void:
 	hideCharacterMenu()
+
+func getGameMode() -> GameModeBase:
+	return gameMode

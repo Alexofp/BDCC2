@@ -172,4 +172,4 @@ func _on_open_folder_button_pressed() -> void:
 	OS.shell_open(ProjectSettings.globalize_path(getSavePreviewFolder()))
 
 func _on_close_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
+	GM.startMainMenu()

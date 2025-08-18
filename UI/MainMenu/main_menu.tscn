@@ -28,6 +28,11 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Play"
 
+[node name="CharEditorButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Character Editor"
+
 [node name="EditorButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -39,5 +44,6 @@ size_flags_vertical = 3
 text = "Preview Maker"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/CharEditorButton" to="." method="_on_char_editor_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/PreviewMaker" to="." method="_on_preview_maker_pressed"]

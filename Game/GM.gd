@@ -1,7 +1,8 @@
 extends Object
 class_name GM
 
-static var game:GameBase
+static var main:MainScene
+static var game:GameModeBase: get = getGameMode
 static var pcDoll:DollController: get = getPCDoll
 static var pcPawn:CharacterPawn: get = getPCPawn
 static var cachedPcDoll:DollController
@@ -56,34 +57,56 @@ static func getPCPawn() -> CharacterPawn:
 		#newPcDoll.onGainControl()
 
 static func getCharacterRegistry() -> CharacterRegistry:
-	if(game != null):
-		return game.getCharacterRegistry()
+	if(main != null):
+		return main.getCharacterRegistry()
 	return null
 
 static func getPawnRegistry() -> PawnRegistry:
-	if(game != null):
-		return game.getPawnRegistry()
+	if(main != null):
+		return main.getPawnRegistry()
 	return null
 
 static func getDollHolder() -> DollHolder:
-	if(game != null):
-		return game.getDollHolder()
+	if(main != null):
+		return main.getDollHolder()
 	return null
 
 static func getSitManager() -> SitManager:
-	if(game != null):
-		return game.sit_manager
+	if(main != null):
+		return main.sit_manager
 	return null
 
 static func getSexManager() -> SexManager:
-	if(game != null):
-		return game.getSexManager()
+	if(main != null):
+		return main.getSexManager()
 	return null
 
 static func getInteractionSystem() -> InteractionSystem:
-	if(game != null):
-		return game.interactionSystem
+	if(main != null):
+		return main.interactionSystem
+	return null
+
+static func getGameMode() -> GameModeBase:
+	if(main):
+		return main.getGame	
 	return null
 
 static func sendChat(_text:String):
 	GameInteractor.askChatSend(_text)
+
+static var isChangingScene:bool = false
+
+static func startGame(_map:String, _mode:int, _args:Array = []):
+	assert(!isChangingScene, "Already changing a scene!")
+	isChangingScene = true
+	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GameInteractor.get_tree().scene_changed
+	isChangingScene = false
+	GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+
+static func startMainMenu():
+	assert(!isChangingScene, "Already changing a scene!")
+	isChangingScene = true
+	GameInteractor.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
+	await GameInteractor.get_tree().scene_changed
+	isChangingScene = false

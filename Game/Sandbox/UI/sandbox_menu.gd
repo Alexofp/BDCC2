@@ -94,7 +94,7 @@ func _on_spawn_cube_button_pressed() -> void:
 func spawnCubeOnServer(thePos:Vector3):
 	var theCube:Node3D = theCubeScene.instantiate()
 	
-	GM.game.add_child(theCube, true)
+	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
 	GameInteractor.networkedNodes.notifySpawned(theCube)
 
@@ -111,7 +111,7 @@ var theBenchScene := preload("res://Mapping/Props/bench.tscn")
 func spawnBenchOnServer(thePos:Vector3):
 	var theCube:Node3D = theBenchScene.instantiate()
 	
-	GM.game.add_child(theCube, true)
+	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
 	GameInteractor.networkedNodes.notifySpawned(theCube)
 
@@ -130,7 +130,7 @@ var theSexScene := preload("res://AnimScenes/Scenes/TestSexAnim/test_sex_handler
 func spawnSexSceneOnServer(thePos:Vector3, theAng:Vector3):
 	var theCube:Node3D = theSexScene.instantiate()
 	
-	GM.game.add_child(theCube, true)
+	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
 	theCube.global_rotation = theAng
 	GameInteractor.networkedNodes.notifySpawned(theCube)
