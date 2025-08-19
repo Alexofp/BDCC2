@@ -19,6 +19,8 @@ var character_creator:Node
 
 @onready var sex_ui: SexUI = %SexUI
 
+@onready var building_platform_8x_8: Node3D = %BuildingPlatform8x8
+
 var interactionSystem:InteractionSystem
 
 var gameMode:GameModeBase
@@ -33,12 +35,12 @@ func loadModeOnMap(_map:String, _mode:int, _args:Array):
 		theMode.initArgs(_args)
 		gameMode = theMode
 	
-	#TODO: Loading screen?
 	var theFuture := ThreadedResourceLoader.loadFuture(_map)
 	await theFuture.task_completed
 	var theMap:PackedScene = theFuture.get_result()#load(_map)
 	var theMapNode:Node3D = theMap.instantiate()
 	add_child(theMapNode)
+	building_platform_8x_8.queue_free()
 	if(gameMode):
 		gameMode.start()
 	
@@ -120,19 +122,12 @@ func _process(_delta: float) -> void:
 			if(!UIHandler.tryCloseMenu()):
 				in_game_menu.visible = true
 			
-			#testFutures()
-			#return
-			#if(character_creator):
-				#return
-			#var newVis:bool = !in_game_menu.visible
-			#hideAllMenus()
-			#in_game_menu.visible = newVis
-		if(Input.is_action_just_pressed("debug_mousecapture")):
-			if(!character_creator):
-				if(!UIHandler.tryCloseMenu()):
-					_on_in_game_menu_on_char_creator_button()
-			else:
-				onCharCreatorConfirmButton()
+		#if(Input.is_action_just_pressed("debug_mousecapture")):
+			#if(!character_creator):
+				#if(!UIHandler.tryCloseMenu()):
+					#_on_in_game_menu_on_char_creator_button()
+			#else:
+				#onCharCreatorConfirmButton()
 		if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
 			if(!UIHandler.tryCloseMenu()):
 				toggleCharacterMenu()
@@ -159,24 +154,38 @@ func hideCharacterMenu():
 	character_menu.setCharacter(null)
 
 func _on_in_game_menu_on_char_creator_button() -> void:
+	showCharacterCreator()
+	
+func showCharacterCreator():
 	if(character_creator != null && is_instance_valid(character_creator)):
 		return
 	
 	character_creator = preload("res://Game/CharacterCreator/character_creator.tscn").instantiate()
 	main_ui_layer.add_child(character_creator)
 	
-	character_creator.setCharacter(GM.pc, GM.pcDoll.getDoll())
+	character_creator.setCharacter(GM.pc)
 	character_creator.onConfirmPressed.connect(onCharCreatorConfirmButton)
 	
 	#TODO: REMOVE THIS
 	OPTIONS.triggerCharTextureQualityChange()
+	if(gameMode):
+		gameMode.onCharacterCreatorAppear()
 
 func onCharCreatorConfirmButton():
+	hideCharacterCreator()
+	
+func hideCharacterCreator():
 	if(character_creator == null || !is_instance_valid(character_creator)):
 		return
 	character_creator.queue_free()
 	character_creator = null
+	if(gameMode):
+		gameMode.onCharacterCreatorConfirm()
 
+func isCharacterCreatorVisible() -> bool:
+	if(character_creator == null || !is_instance_valid(character_creator)):
+		return false
+	return true
 
 func _on_in_game_menu_on_exit_button() -> void:
 	#get_tree().quit()

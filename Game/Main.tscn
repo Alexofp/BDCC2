@@ -22,6 +22,7 @@ script = ExtResource("1_3tq7c")
 unique_name_in_owner = true
 
 [node name="BuildingPlatform8x8" parent="." instance=ExtResource("3_b3cwe")]
+unique_name_in_owner = true
 
 [node name="CharacterRegistry" type="Node" parent="."]
 unique_name_in_owner = true

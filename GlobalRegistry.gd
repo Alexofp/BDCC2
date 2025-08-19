@@ -1,7 +1,8 @@
 extends Node
 #class_name GlobalRegistry # and so we meet again
 
-var wasInit:bool = false
+var beganInit:bool = false
+var finishedInit:bool = false
 
 var lastUniqueItemID:int = 0
 
@@ -29,13 +30,19 @@ var interactions:Dictionary = {}
 var interactionRefs:Dictionary = {}
 var dollGestures:Dictionary = {}
 
-func _init() -> void:
+signal initialized
+
+func _ready() -> void:
 	doInit()
 
 func doInit():
-	if(wasInit):
+	if(beganInit):
 		return
-	wasInit = true
+	beganInit = true
+	
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var start := Time.get_ticks_usec()
 	
 	GM.presets = CharacterPresetHolder.new()
 	
@@ -71,7 +78,12 @@ func doInit():
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	
-	Log.Print("GlobalRegistry: Registered everything")
+	var end := Time.get_ticks_usec()
+	var worker_time:float = (end-start)/1000000.0
+	
+	Log.Print("GlobalRegistry: Registered everything in %s seconds" % [worker_time])
+	finishedInit = true
+	initialized.emit()
 
 
 func registerBodypart(path: String):

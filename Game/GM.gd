@@ -94,19 +94,24 @@ static func getGameMode() -> GameModeBase:
 static func sendChat(_text:String):
 	GameInteractor.askChatSend(_text)
 
-static var isChangingScene:bool = false
+static var changingScene:bool = false
 
 static func startGame(_map:String, _mode:int, _args:Array = []):
-	assert(!isChangingScene, "Already changing a scene!")
-	isChangingScene = true
+	assert(!changingScene, "Already changing a scene!")
+	LoadingScreen.startLoad()
+	changingScene = true
 	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GameInteractor.get_tree().scene_changed
-	isChangingScene = false
-	GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	changingScene = false
+	LoadingScreen.finishLoad()
 
 static func startMainMenu():
-	assert(!isChangingScene, "Already changing a scene!")
-	isChangingScene = true
+	assert(!changingScene, "Already changing a scene!")
+	changingScene = true
 	GameInteractor.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
 	await GameInteractor.get_tree().scene_changed
-	isChangingScene = false
+	changingScene = false
+
+static func isChangingScene() -> bool:
+	return changingScene

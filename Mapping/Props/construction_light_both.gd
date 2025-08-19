@@ -67,4 +67,5 @@ func applyEditorOption(_id, _value):
 		setInstanceShaderParameter("trim_color_second", _value)
 	if(_id == "color3"):
 		setInstanceShaderParameter("trim_color_third", _value)
-		$SpotLight3D2.light_color = _value
+		if(is_inside_tree()):
+			$SpotLight3D2.light_color = _value

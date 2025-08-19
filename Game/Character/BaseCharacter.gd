@@ -559,6 +559,9 @@ func isPartialGesturesBlocked() -> bool:
 			return true
 	return false
 
+func notifyPresetApplied():
+	onChange.emit(BaseCharChange.createPresetApplied())
+
 func saveNetworkData() -> Dictionary:
 	var bodypartsData:Dictionary = {}
 	for bodypartSlot in bodyparts:

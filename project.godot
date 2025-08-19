@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+LoadingScreen="*res://UI/LoadingScreen/LoadingScreen.tscn"
 GlobalRegistry="*res://GlobalRegistry.gd"
 OPTIONS="*res://Game/Settings/GlobalSettings.gd"
 ThreadedResourceLoader="*res://Util/ThreadedResourceLoader/ThreadedResourceLoader.gd"

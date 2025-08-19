@@ -8,6 +8,7 @@ enum {
 	CHAR_OPTION,
 	PART_FILTER,
 	AUTO_SKIN_UPDATE,
+	PRESET_APPLIED,
 }
 
 var changeType:int = NOTHING
@@ -51,6 +52,11 @@ static func createPartFilterUpdate() -> BaseCharChange:
 static func createAutoSkinUpdate() -> BaseCharChange:
 	var result := BaseCharChange.new()
 	result.changeType = AUTO_SKIN_UPDATE
+	return result
+	
+static func createPresetApplied() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = PRESET_APPLIED
 	return result
 
 func saveData() -> Dictionary:

@@ -29,6 +29,7 @@ var charCreatorWizardWindow := preload("res://Game/CharacterCreator/char_creator
 
 var character:BaseCharacter
 var doll:Doll
+var cachedDoll:Doll
 
 signal onConfirmPressed
 
@@ -41,12 +42,13 @@ func _ready() -> void:
 	setTab("char")
 	pass
 
-func setCharacter(newChar:BaseCharacter, newDoll:Doll):
+func setCharacter(newChar:BaseCharacter):
 	if(character != null && is_instance_valid(character)):
 		resetCharacterPose()
 		character.onChange.disconnect(onCharChange)
 	character = newChar
-	doll = newDoll
+	doll = null
+	cachedDoll = null
 	if(character != null && is_instance_valid(character)):
 		character.onChange.connect(onCharChange)
 	
@@ -75,6 +77,9 @@ func onCharChange(_change:BaseCharChange):
 			pass
 		BaseCharChange.PART_FILTER:
 			pass
+		BaseCharChange.PRESET_APPLIED:
+			triggerUpdateAll()
+			updateCharTab()
 
 var isUpdatingAll:bool = false
 func triggerUpdateAll():
@@ -500,6 +505,19 @@ func _on_load_preset_dialogue_confirmed() -> void:
 	save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())
 
 func _process(_delta: float) -> void:
+	if(character):
+		var thePawn := GM.pawnRegistry.getPawn(character.getID())
+		if(thePawn):
+			doll = thePawn.getDoll().getDoll() if thePawn.getDoll() else null
+		else:
+			doll = null
+	else:
+		doll = null
+	
+	if(cachedDoll != doll):
+		# NEW DOLL
+		cachedDoll = doll
+	
 	if(doll):
 		character_creator_camera_setup.global_position = doll.global_position
 		character_creator_camera_setup.global_rotation.y = doll.global_rotation.y

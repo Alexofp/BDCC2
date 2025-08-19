@@ -218,7 +218,15 @@ func askCharacterLoadPreset_SERVERRPC(characterID:String, _data:Dictionary):
 	var thePreset:CharacterPreset = CharacterPreset.new()
 	thePreset.loadData(_data)
 	thePreset.applyToCharacter(theCharacter)
-	
+	Network.rpcClients(notifyPresetApplied_RPC, [characterID])
+
+@rpc("authority", "call_remote", "reliable")
+func notifyPresetApplied_RPC(characterID:String):
+	var theCharacter:BaseCharacter = getCharacter(characterID)
+	if(!theCharacter):
+		return
+	theCharacter.notifyPresetApplied()
+
 func askCharacterWizardSubmit(character:BaseCharacter, _data:Dictionary):
 	if(Network.isServer()):
 		characterWizardSubmitDo(character, _data)

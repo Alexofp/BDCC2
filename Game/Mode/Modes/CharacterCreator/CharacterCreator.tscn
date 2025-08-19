@@ -5,3 +5,23 @@
 
 [node name="CharacterCreator" instance=ExtResource("1_d3wav")]
 script = ExtResource("2_spf3o")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
+
+[node name="HelpfulLabel" type="Label" parent="CanvasLayer" index="0"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -74.0
+offset_right = 365.0
+offset_bottom = -51.0
+grow_vertical = 0
+text = "Press Q to open the character creator again"
+
+[node name="HideLabelTimer" type="Timer" parent="." index="1"]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]

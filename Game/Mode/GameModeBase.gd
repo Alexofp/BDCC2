@@ -24,3 +24,30 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	if(Network.isServer()):
 		GM.pawnRegistry.deletePawnOfNetworkPlayer(_player_info)
 	pass
+
+func showCharacterCreator():
+	GM.main.showCharacterCreator()
+
+func hideCharacterCreator():
+	GM.main.hideCharacterCreator()
+
+func isCharacterCreatorVisible() -> bool:
+	return GM.main.isCharacterCreatorVisible()
+
+func onCharacterCreatorAppear():
+	pass
+
+func onCharacterCreatorConfirm():
+	pass
+
+func _process(_delta: float) -> void:
+	processCharacterCreator(_delta)
+
+func processCharacterCreator(_delta:float):
+	if(!UIHandler.isMenuInputBlocked()):
+		if(Input.is_action_just_pressed("debug_mousecapture")):
+			if(!isCharacterCreatorVisible()):
+				if(!UIHandler.tryCloseMenu()):
+					showCharacterCreator()
+			else:
+				hideCharacterCreator()

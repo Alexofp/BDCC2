@@ -77,7 +77,9 @@ func applyToCharacter(_char:BaseCharacter):
 			continue
 		theBodypart.loadData(theBodypartEntry["data"] if theBodypartEntry.has("data") else {})
 		_char.addBodypart(bodypartSlot, theBodypart)
-		
+	
+	_char.notifyPresetApplied()
+	
 func saveData() -> Dictionary:
 	return {
 		bodyparts = bodyparts,

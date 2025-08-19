@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bdtwkbjfc2yjm"]
+[gd_scene load_steps=26 format=4 uid="uid://bdtwkbjfc2yjm"]
 
 [ext_resource type="Script" uid="uid://bgn5eou04l6fw" path="res://UI/ShaderPrecompScreen/shader_precomp_screen.gd" id="1_oki52"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="2_ycgg1"]
@@ -6,7 +6,6 @@
 [ext_resource type="Compositor" uid="uid://c6hes6c0mi07n" path="res://Mesh/Enviroment/GameCompositor.tres" id="4_iby3j"]
 [ext_resource type="PackedScene" uid="uid://b25k4g328a0jh" path="res://Mapping/Floors/FloorTile1x1.tscn" id="5_ofbok"]
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="6_8iydo"]
-[ext_resource type="Material" uid="uid://cc5cujgom31u5" path="res://Mesh/Materials/Floors/ConcreteTiles.tres" id="6_f0w4x"]
 [ext_resource type="PackedScene" uid="uid://06pfnmb305cv" path="res://Mapping/Props/WallLight.tscn" id="7_8u4nw"]
 [ext_resource type="PackedScene" uid="uid://cjnh3bwuagu50" path="res://UI/ShaderPrecompScreen/RiggedCube.glb" id="11_qm4el"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="12_cg4fj"]
@@ -56,8 +55,10 @@ bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_oki52")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -66,6 +67,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.996078)
 
 [node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,7 +110,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.761492, 0.0272092, 0)
 
 [node name="Cube_083" parent="FloorTile1x2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.57068, 0, 0.5)
-surface_material_override/0 = ExtResource("6_f0w4x")
 
 [node name="Bench" parent="." instance=ExtResource("6_8iydo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.775988, 0.0211385, -1.10485)

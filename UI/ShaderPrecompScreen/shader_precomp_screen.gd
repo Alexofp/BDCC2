@@ -6,6 +6,7 @@ static var didPrecomp:bool = false
 
 func _ready():
 	doStuff()
+	LoadingScreen.startLoad()
 
 func doStuff():
 	didPrecomp = true
@@ -45,5 +46,10 @@ func doStuff():
 	
 	#get_tree().change_scene_to_file(ProjectSettings.get_setting("application/run/main_scene"))
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
+	if(GlobalRegistry.beganInit):
+		if(!GlobalRegistry.finishedInit):
+			await GlobalRegistry.initialized
+	
 	GM.startMainMenu()
+	LoadingScreen.finishLoad()
 	#get_tree().change_scene_to_file(_theCurrentScenePath)
