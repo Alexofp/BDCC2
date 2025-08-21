@@ -24,8 +24,10 @@ var character_creator:Node
 var interactionSystem:InteractionSystem
 
 var gameMode:GameModeBase
+var mapPath:String = ""
 
 func loadModeOnMap(_map:String, _mode:int, _args:Array):
+	mapPath = _map
 	if(!GameMode.SCENES.has(_mode)):
 		Log.Printerr("UNKNOWN GAME MODE: "+str(_mode))
 	else:
@@ -41,9 +43,11 @@ func loadModeOnMap(_map:String, _mode:int, _args:Array):
 	var theMapNode:Node3D = theMap.instantiate()
 	add_child(theMapNode)
 	building_platform_8x_8.queue_free()
+
+func startGame():
 	if(gameMode):
 		gameMode.start()
-	
+
 func _init():
 	GM.main = self
 	#GlobalRegistry.doInit()
@@ -56,7 +60,7 @@ func _exit_tree() -> void:
 	if(GM.main == self):
 		GM.main = null
 
-func onMultiplayerStart(_isHost:bool):
+func onMultiplayerPreStart(_isHost:bool):
 	Log.Print("onMultiplayerStart(isHost="+str(_isHost)+")")
 	if(!_isHost):
 		characterRegistry.clearCharacters()
@@ -70,6 +74,9 @@ func onMultiplayerStart(_isHost:bool):
 		var newNode:Node2D = Node2D.new()
 		newNode.name = "CLIENTTTTT"
 		add_child(newNode)
+
+func onMultiplayerStart(_isHost:bool):
+	pass
 
 func onPlayerConnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	Log.Print("Player connected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
@@ -91,6 +98,7 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 func _ready() -> void:
 	hideAllMenus()
 	sit_manager.connectSignals()
+	Network.preMultiplayerStarted.connect(onMultiplayerPreStart)
 	Network.multiplayerStarted.connect(onMultiplayerStart)
 	Network.playerConnected.connect(onPlayerConnected)
 	Network.playerDisconnected.connect(onPlayerDisconnected)

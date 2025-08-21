@@ -106,7 +106,7 @@ func _process(_delta: float) -> void:
 	#	setPawn(null)
 
 func onPawnChange(_newPawn:CharacterPawn):
-	Log.Print("NEW POSE SEAT PAWN "+str(_newPawn))
+	#Log.Print("NEW POSE SEAT PAWN "+str(_newPawn))
 	
 	onPawnSwitch.emit(_newPawn)
 	dollUpdate()

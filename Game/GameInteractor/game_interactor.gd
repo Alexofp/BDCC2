@@ -18,7 +18,8 @@ const UID_PATH = 1
 const UID_NULL = 2
 
 func _ready():
-	Network.playerConnected.connect(onPlayerConnected)
+	#Network.playerConnected.connect(onPlayerConnected)
+	pass
 
 func onPlayerConnected(_id:int, _playerInfo:NetworkPlayerInfo):
 	if(Network.isServer() && Network.getMultiplayerID() != _id):

@@ -100,18 +100,85 @@ static func startGame(_map:String, _mode:int, _args:Array = []):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
+	GameInteractor.get_tree().paused = true
 	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GameInteractor.get_tree().scene_changed
 	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	GM.main.startGame()
+	GameInteractor.get_tree().paused = false
 	changingScene = false
 	LoadingScreen.finishLoad()
 
 static func startMainMenu():
 	assert(!changingScene, "Already changing a scene!")
 	changingScene = true
+	#TODO: STOP NETWORK
+	Network.stopMultiplayer()
 	GameInteractor.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
 	await GameInteractor.get_tree().scene_changed
 	changingScene = false
 
 static func isChangingScene() -> bool:
 	return changingScene
+
+static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = []):
+	assert(!changingScene, "Already changing a scene!")
+	LoadingScreen.startLoad()
+	changingScene = true
+	GameInteractor.get_tree().paused = true
+	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GameInteractor.get_tree().scene_changed
+	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	LoadingScreen.setText("Hosting..")
+	var res := await Network.hostLAN(_nickname)
+	if(res.isError()):
+		errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
+		return
+	GM.main.startGame()
+	#await GameInteractor.get_tree().create_timer(2.0).timeout
+	GameInteractor.get_tree().paused = false
+	changingScene = false
+	LoadingScreen.finishLoad()
+
+static func joinLANGame(_nickname:String, _ip:String):
+	#Network.joinGame(_nickname, _ip)
+	LoadingScreen.startLoad()
+	GameInteractor.get_tree().paused = true
+	LoadingScreen.setText("Connecting..")
+	var res := await Network.connectLAN(_ip)
+	if(res.error):
+		errorOutToMainMenu(res.result if res.result is String else "Unable to connect")
+		return
+	LoadingScreen.setText("Getting game info..")
+	res = await Network.clientAskGameInfo()
+	if(res.error):
+		errorOutToMainMenu(res.result if res.result is String else "Failed to get game info")
+		return
+	var mapToLoad:String = res.result["map"]
+	var modeToLoad:int = res.result["mode"]
+	var modeArgs:Array = []
+	LoadingScreen.setText("Loading map..")
+	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GameInteractor.get_tree().scene_changed
+	await GameInteractor.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs)
+	LoadingScreen.setText("Loading game state..")
+	res = await Network.clientAskToJoin(_nickname)
+	if(res.error):
+		errorOutToMainMenu(res.result if res.result is String else "Failed to load game state")
+		return
+	GM.main.startGame()
+	GameInteractor.get_tree().paused = false
+	LoadingScreen.finishLoad()
+	
+static func isInGame() -> bool:
+	return main != null
+
+static func errorOutToMainMenu(_errorText:String):
+	Network.stopMultiplayer()
+	changingScene = false
+	if(isInGame()):
+		await startMainMenu()
+	LoadingScreen.showError(_errorText)
+	GameInteractor.get_tree().paused = false
+	changingScene = false
+	LoadingScreen.finishLoad()

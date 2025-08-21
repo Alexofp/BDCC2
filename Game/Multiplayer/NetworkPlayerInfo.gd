@@ -9,6 +9,8 @@ var id:int = 1 # no save
 # No save of all these
 #var doll:DollController # The doll that this player is currently controlling
 
+#var connecting:bool = false # Is this player still connecting to the server. If true, they won't receive game RPCs
+
 func changeCurrentCharID(newID:String):
 	var oldCharID:=charID
 	charID = newID

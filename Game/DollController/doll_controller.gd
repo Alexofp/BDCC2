@@ -70,7 +70,7 @@ func getNetworkPlayerID() -> int:
 
 func setCharacterID(newID:String):
 	characterID = newID
-	Log.Print("setCharacterID "+str(newID))
+	#Log.Print("setCharacterID "+str(newID))
 	#getDoll().setCharacter(GM.characterRegistry.getCharacter(newID))
 
 func processCharacterID():
@@ -628,7 +628,7 @@ func updateControlsMultiplayerAuthority():
 			NID = 1
 		doll_controls.set_multiplayer_authority(NID)
 		#doll_controls.set_multiplayer_authority(networkPlayerID)
-		Log.Print("doll_controls.set_multiplayer_authority "+str(NID))
+		#Log.Print("doll_controls.set_multiplayer_authority "+str(NID))
 
 var cachedNID:int = -1
 func processFocus():
