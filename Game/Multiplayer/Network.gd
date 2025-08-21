@@ -24,6 +24,9 @@ signal multiplayerEnded(isHost:bool)
 
 var networkPlayerInfoScene := preload("res://Game/Multiplayer/NetworkPlayerInfo.tscn")
 
+var roomID:String = ""
+signal roomIDChanged(newRoomID:String)
+
 @rpc("any_peer", "call_remote", "reliable")
 func askToJoinGame(nickname:String):
 	if(!isServer()):
@@ -224,6 +227,8 @@ func isClientOrSingleplayer() -> bool:
 	return !multiplayer.multiplayer_peer || !multiplayer.is_server()
 
 func stopMultiplayer():
+	roomID = ""
+	roomIDChanged.emit(roomID)
 	if(!isMultiplayer()):
 		return
 	multiplayerEnded.emit(isServer())
@@ -398,3 +403,51 @@ func clientAskToJoin_RPC(_data:Dictionary):
 	#multiplayerStarted.emit(false)
 	#GameInteractor.applyFullNetworkData(_data)
 	#internal_clientAskToJoin.emit()
+
+func hasRoomID() -> bool:
+	return roomID != ""
+
+func getRoomID() -> String:
+	return roomID
+
+# NODE TUNNEL
+const NODETUNNEL_SERVER = "relay.nodetunnel.io"
+const NODETUNNEL_PORT = 9998
+
+func hostNodeTunnel(hostNickname:String = "host", relayServer:String = NODETUNNEL_SERVER, relayServerPort:int = NODETUNNEL_PORT) -> FuncResultOrError:
+	preMultiplayerStarted.emit(true)
+	setMyNickname(hostNickname)
+	
+	var peer := NodeTunnelPeer.new()
+	multiplayer.multiplayer_peer = peer
+	
+	peer.connect_to_relay(relayServer, relayServerPort)
+	await peer.relay_connected
+	Log.Print("Node Tunnel Connected! Your ID: "+ str(peer.online_id))
+	
+	peer.host()
+	await peer.hosting
+	
+	Log.Print("(Node Tunnel) Share this ID: "+str(peer.online_id))
+	roomID = peer.online_id
+	roomIDChanged.emit(roomID)
+	
+	#await get_tree().process_frame
+	multiplayerStarted.emit(true)
+	return FuncResultOrError.createResult(true)
+
+func connectNodeTunnel(_hostID:String, relayServer:String = NODETUNNEL_SERVER, relayServerPort:int = NODETUNNEL_PORT) -> FuncResultOrError:
+	roomID = _hostID
+	roomIDChanged.emit(roomID)
+	var peer := NodeTunnelPeer.new()
+	multiplayer.multiplayer_peer = peer
+	
+	peer.connect_to_relay(relayServer, relayServerPort)
+	await peer.relay_connected
+	Log.Print("Node Tunnel Connected! Your ID: "+ str(peer.online_id))
+	
+	peer.join(_hostID)
+	await peer.joined
+	
+	return FuncResultOrError.createResult(true)
+# NODE TUNNEL END

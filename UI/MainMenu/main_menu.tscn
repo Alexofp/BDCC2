@@ -69,7 +69,12 @@ placeholder_text = "Nickname"
 [node name="LanButton" type="Button" parent="CenterContainer/MultiplayerList"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Direct Connect"
+text = "Direct Connect (LAN)"
+
+[node name="NodeTunnelButton" type="Button" parent="CenterContainer/MultiplayerList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Relay Server (Internet)"
 
 [node name="BackButton" type="Button" parent="CenterContainer/MultiplayerList"]
 layout_mode = 2
@@ -78,6 +83,7 @@ text = "Back"
 
 [node name="LanList" type="VBoxContainer" parent="CenterContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -107,6 +113,62 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
+[node name="NodeTunnelList" type="VBoxContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="NTHostButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create room"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+
+[node name="NTRoomEdit" type="LineEdit" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+placeholder_text = "Room ID"
+
+[node name="NTJoinButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Join room"
+
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Back"
+
+[node name="NTRelayBottomList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="NTRelayBottomList"]
+layout_mode = 2
+text = "Relay server:"
+horizontal_alignment = 1
+
+[node name="NTRelayServerEdit" type="LineEdit" parent="NTRelayBottomList"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Relay Server"
+
 [connection signal="pressed" from="CenterContainer/MainList/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/CharEditorButton" to="." method="_on_char_editor_button_pressed"]
@@ -114,7 +176,11 @@ text = "Back"
 [connection signal="pressed" from="CenterContainer/MainList/PreviewMaker" to="." method="_on_preview_maker_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/LanButton" to="." method="_on_lan_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MultiplayerList/NodeTunnelButton" to="." method="_on_node_tunnel_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/LanHostButton" to="." method="_on_lan_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/LanJoinButton" to="." method="_on_lan_join_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NodeTunnelList/NTHostButton" to="." method="_on_nt_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NodeTunnelList/NTJoinButton" to="." method="_on_nt_join_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NodeTunnelList/BackButton" to="." method="_on_back_button_pressed"]

@@ -3,10 +3,12 @@ extends Control
 const SCREEN_MAIN = 0
 const SCREEN_MULTIPLAYER = 1
 const SCREEN_MULT_LAN = 2
+const SCREEN_MULT_NODETUNNEL = 3
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
 	SCREEN_MULT_LAN: SCREEN_MULTIPLAYER,
+	SCREEN_MULT_NODETUNNEL: SCREEN_MULTIPLAYER,
 }
 
 var currentScreen:int = -1
@@ -18,9 +20,15 @@ var currentScreen:int = -1
 @onready var nickname_edit: LineEdit = %NicknameEdit
 @onready var lan_ip_edit: LineEdit = %LanIPEdit
 
+@onready var node_tunnel_list: VBoxContainer = %NodeTunnelList
+@onready var nt_room_edit: LineEdit = $CenterContainer/NodeTunnelList/NTRoomEdit
+@onready var nt_relay_server_edit: LineEdit = %NTRelayServerEdit
+@onready var nt_relay_bottom_list: VBoxContainer = %NTRelayBottomList
+
 func _ready() -> void:
 	setScreen(SCREEN_MAIN)
 	
+	nt_relay_server_edit.text = Network.NODETUNNEL_SERVER
 	#LoadingScreen.showError("Test message")
 
 func setScreen(_screen:int):
@@ -28,6 +36,8 @@ func setScreen(_screen:int):
 	main_list.visible = (_screen == SCREEN_MAIN)
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	lan_list.visible = (_screen == SCREEN_MULT_LAN)
+	node_tunnel_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
+	nt_relay_bottom_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
 
 func _on_play_button_pressed() -> void:
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
@@ -66,3 +76,20 @@ func _on_lan_join_button_pressed() -> void:
 	var theIP:String = lan_ip_edit.text if !lan_ip_edit.text.is_empty() else "127.0.0.1"
 	
 	GM.joinLANGame(theNickame, theIP)
+
+
+func _on_nt_host_button_pressed() -> void:
+	var theNickame:String = nickname_edit.text if nickname_edit.text else "Host"
+	var theRelayServer:String = nt_relay_server_edit.text if !nt_relay_server_edit.text.is_empty() else Network.NODETUNNEL_SERVER
+	
+	GM.hostNodeTunnelGame(theNickame, "res://Maps/Prison/prison.tscn", GameMode.Sandbox, [], theRelayServer)
+
+func _on_nt_join_button_pressed() -> void:
+	var theNickame:String = nickname_edit.text if !nickname_edit.text.is_empty() else "Client"
+	var theRoomID:String = nt_room_edit.text if !nt_room_edit.text.is_empty() else ""
+	var theRelayServer:String = nt_relay_server_edit.text if !nt_relay_server_edit.text.is_empty() else Network.NODETUNNEL_SERVER
+	
+	GM.joinNodeTunnelGame(theNickame, theRoomID, theRelayServer)
+
+func _on_node_tunnel_button_pressed() -> void:
+	setScreen(SCREEN_MULT_NODETUNNEL)

@@ -51,6 +51,33 @@ text = "Settings"
 layout_mode = 2
 text = "Exit"
 
+[node name="RoomIDPanel" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer"]
+layout_mode = 2
+text = "Share this room ID
+to let others join"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CopyRoomIDButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "COPY ROOM ID"
+
+[node name="RoomIDLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="MultiplayerInfoList" parent="." instance=ExtResource("2_qr8r0")]
 custom_minimum_size = Vector2(222, 111)
 layout_mode = 1
@@ -69,3 +96,4 @@ grow_horizontal = 0
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SandboxMenuButton" to="." method="_on_sandbox_menu_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer/CopyRoomIDButton" to="." method="_on_copy_room_id_button_pressed"]

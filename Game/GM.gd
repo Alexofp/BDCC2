@@ -121,7 +121,7 @@ static func startMainMenu():
 static func isChangingScene() -> bool:
 	return changingScene
 
-static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = []):
+static func internal_hostGame(hostFunc:Callable, _nickname:String, _map:String, _mode:int, _args:Array = []):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
@@ -130,7 +130,7 @@ static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = 
 	await GameInteractor.get_tree().scene_changed
 	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
 	LoadingScreen.setText("Hosting..")
-	var res := await Network.hostLAN(_nickname)
+	var res = await hostFunc.call(_nickname) #Network.hostLAN(_nickname)
 	if(res.isError()):
 		errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
 		return
@@ -140,12 +140,18 @@ static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = 
 	changingScene = false
 	LoadingScreen.finishLoad()
 
-static func joinLANGame(_nickname:String, _ip:String):
+static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = []):
+	await internal_hostGame(Network.hostLAN, _nickname, _map, _mode, _args)
+
+static func hostNodeTunnelGame(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
+	await internal_hostGame(Network.hostNodeTunnel.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
+
+static func internal_joinGame(joinFunc:Callable, _nickname:String):
 	#Network.joinGame(_nickname, _ip)
 	LoadingScreen.startLoad()
 	GameInteractor.get_tree().paused = true
 	LoadingScreen.setText("Connecting..")
-	var res := await Network.connectLAN(_ip)
+	var res = await joinFunc.call()#Network.connectLAN(_ip)
 	if(res.error):
 		errorOutToMainMenu(res.result if res.result is String else "Unable to connect")
 		return
@@ -169,6 +175,12 @@ static func joinLANGame(_nickname:String, _ip:String):
 	GM.main.startGame()
 	GameInteractor.get_tree().paused = false
 	LoadingScreen.finishLoad()
+
+static func joinLANGame(_nickname:String, _ip:String):
+	await internal_joinGame(Network.connectLAN.bind(_ip), _nickname)
+
+static func joinNodeTunnelGame(_nickname:String, _roomID:String, relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
+	await internal_joinGame(Network.connectNodeTunnel.bind(_roomID, relayServer, relayServerPort), _nickname)
 	
 static func isInGame() -> bool:
 	return main != null

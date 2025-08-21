@@ -9,6 +9,9 @@ signal onSandboxMenuButton
 
 @export var showCharCreatorButton:bool = false
 
+@onready var room_id_panel: PanelContainer = %RoomIDPanel
+@onready var room_id_line_edit: LineEdit = %RoomIDLineEdit
+
 var settingsScene = preload("res://UI/Settings/in_game_settings.tscn")
 
 func _enter_tree() -> void:
@@ -23,6 +26,8 @@ func tryCloseMenu() -> bool:
 
 func _ready():
 	char_creator_button.visible = showCharCreatorButton
+	Network.roomIDChanged.connect(updateMultiplayerRoomID)
+	updateMultiplayerRoomID(Network.roomID)
 
 func _on_continue_button_pressed() -> void:
 	visible = false
@@ -49,3 +54,16 @@ func _on_visibility_changed() -> void:
 
 func _on_sandbox_menu_button_pressed() -> void:
 	onSandboxMenuButton.emit()
+
+func updateMultiplayerRoomID(_roomID:String):
+	if(_roomID.is_empty()):
+		room_id_panel.visible = false
+		return
+	room_id_panel.visible = true
+	room_id_line_edit.text = _roomID
+
+func _on_toggle_room_id_button_pressed() -> void:
+	room_id_line_edit.visible = !room_id_line_edit.visible
+
+func _on_copy_room_id_button_pressed() -> void:
+	DisplayServer.clipboard_set(Network.roomID)
