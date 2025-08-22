@@ -67,6 +67,9 @@ func getOptions() -> Dictionary:
 			values = [
 				["", "No piercings", 0],
 				["p1", "Piercings 1", 1],
+				["p2", "Piercings 2", 1],
+				["p3", "Piercings 3", 1],
+				["p4", "Piercings 4", 2],
 			],
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Breasts,

@@ -96,6 +96,15 @@ func applyOption(_optionID:String, _value:Variant):
 		if(theVal == "p1"):
 			setExtra(0, "res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.tscn")
 			setExtra(1, "res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.tscn")
+		elif(theVal == "p2"):
+			setExtra(0, "res://Mesh/Parts/Util/Piercings/NippleSpikes/nipple_spikes.tscn")
+			setExtra(1, "res://Mesh/Parts/Util/Piercings/NippleSpikes/nipple_spikes.tscn")
+		elif(theVal == "p3"):
+			setExtra(0, "res://Mesh/Parts/Util/Piercings/NippleCross/nipple_cross.tscn")
+			setExtra(1, "res://Mesh/Parts/Util/Piercings/NippleCross/nipple_cross.tscn")
+		elif(theVal == "p4"):
+			setExtra(0, "res://Mesh/Parts/Util/Piercings/NippleRingBall/nipple_ring_ball.tscn")
+			setExtra(1, "res://Mesh/Parts/Util/Piercings/NippleRingBall/nipple_ring_ball.tscn")
 		else:
 			setExtra(0, "")
 			setExtra(1, "")

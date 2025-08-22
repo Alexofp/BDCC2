@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy5th2gwcflmc"]
+
+[ext_resource type="PackedScene" uid="uid://dvxefd4i11ufv" path="res://Mesh/Parts/Util/Piercings/NippleRingBall/NippleRingBall.glb" id="1_aqwjc"]
+[ext_resource type="Script" uid="uid://rmw0pgghdojq" path="res://Mesh/Parts/Util/Piercings/NippleRingBall/nipple_ring_ball.gd" id="2_n2ev7"]
+[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="3_uq1os"]
+
+[node name="NippleRingBall" instance=ExtResource("1_aqwjc")]
+script = ExtResource("2_n2ev7")
+
+[node name="RingBall" parent="." index="0"]
+unique_name_in_owner = true
+transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, -0.005)
+surface_material_override/0 = ExtResource("3_uq1os")
