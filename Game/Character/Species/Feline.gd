@@ -23,13 +23,13 @@ func getCharacterCreatorPartsTemplate(_gender:int) -> Dictionary:
 			id = "Ponytail1",
 		},
 		BodypartSlot.LeftEar: {
-			id = "FelineEar",
+			id = "FluffyEar",
 		},
 		BodypartSlot.RightEar: {
-			id = "FelineEar",
+			id = "FluffyEar",
 		},
 		BodypartSlot.Tail: {
-			id = "FelineTail",
+			id = "LongTail",
 		},
 	}
 	if(_gender in [Gender.Male, Gender.Androgynous]):

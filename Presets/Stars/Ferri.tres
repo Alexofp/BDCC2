@@ -26,9 +26,10 @@ data = {
 "hindPawPadColor": Color(0, 0.8862745, 0.88235295, 1),
 "legType": "digi",
 "nippleColor": Color(0, 0.8862745, 0.88235295, 1),
+"nipplePiercing": [""],
 "nippleShape": 0.0,
 "skinDataOverride": null,
-"skinType": 3,
+"skinType": 1,
 "toeClawColor": Color(0, 0.043137256, 0.28235295, 1),
 "vagina": true,
 "vaginaColor": Color(0, 0.8862745, 0.88235295, 1),
@@ -101,7 +102,7 @@ data = {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
 &"colorR": Color(0, 0.8862745, 0.88235295, 1),
-&"pattern": "FelineEar_Default"
+&"pattern": "FluffyEar_Default"
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -110,7 +111,7 @@ data = {
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
 }
 },
-&"id": "FelineEar"
+&"id": "FluffyEar"
 },
 "Left Horn": {
 &"data": {
@@ -131,7 +132,7 @@ data = {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
 &"colorR": Color(0, 0.8862745, 0.88235295, 1),
-&"pattern": "FelineEar_Default"
+&"pattern": "FluffyEar_Default"
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -140,7 +141,7 @@ data = {
 "tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
 }
 },
-&"id": "FelineEar"
+&"id": "FluffyEar"
 },
 "Right Horn": {
 &"data": {
@@ -156,7 +157,7 @@ data = {
 "Tail": {
 &"data": {
 "options": {
-"idleAnim": "TailWag",
+"idleAnim": 0,
 "pattern": {
 &"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
 &"colorG": Color(0, 0.043137256, 0.28235295, 1),

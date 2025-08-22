@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://8r8v11gi2rqv" path="res://Mesh/Parts/Tail/DragonTail/dragon_tail.gd" id="2_m0kbu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_5phsq"]
 [ext_resource type="Material" uid="uid://dk4duadyugft7" path="res://Mesh/Parts/Tail/DragonTail/DragonTailMat.tres" id="4_a1f5f"]
-[ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/FelineTail/TailSkeletonModifier.gd" id="4_m0kbu"]
+[ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/LongTail/TailSkeletonModifier.gd" id="4_m0kbu"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_a1f5f"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_fn4g7"]
 

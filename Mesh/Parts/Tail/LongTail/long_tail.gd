@@ -1,5 +1,9 @@
 extends DollPart
 
+const TAIL_FLUFFY = 0
+const TAIL_SMOOTH = 1
+const TAIL_LIONTIP = 2
+
 const TAILANIM_WAG = 0
 const TAILANIM_WAGHIGH = 1
 const TAILANIM_REST = 2
@@ -16,18 +20,15 @@ const TAIL_ANIMS = {
 	TAILANIM_SPEAR: "TailTPose",
 }
 
-@onready var dragon_tail: MeshInstance3D = %DragonTail
-@onready var ridges: MeshInstance3D = %Ridges
-@onready var tail_fluff: MeshInstance3D = %TailFluff
-@onready var under_fluff: MeshInstance3D = %UnderFluff
+var tailMat:MyMasterMaterial
+@onready var feline_tail: MeshInstance3D = %FelineTail
+@onready var fuzzyTail: MeshInstance3D = %FelineTailFuzz
+@onready var lionTip: MeshInstance3D = %FelineTailLionTip
+@onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-var tailMat:MyMasterMaterial
-@onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
-
 func grabMaterials():
-	tailMat = dragon_tail.get_surface_override_material(0)
-	pass
+	tailMat = fuzzyTail.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "idleAnim"):
@@ -35,14 +36,18 @@ func applyOption(_optionID:String, _value:Variant):
 			animation_player.play(TAIL_ANIMS[_value], 0.5)
 		else:
 			animation_player.play("TailRest", 0.5)
-	if(_optionID == "underfluff"):
-		under_fluff.visible = _value
-	if(_optionID == "ridges"):
-		ridges.visible = _value
-	if(_optionID == "tipfluff"):
-		tail_fluff.visible = _value
+	if(_optionID == "tailType"):
+		if(fuzzyTail):
+			fuzzyTail.visible = (_value == TAIL_FLUFFY)
+		if(lionTip):
+			lionTip.visible = (_value == TAIL_LIONTIP)
 	if(_optionID == "thickness"):
-		setBlendshape("Thick", _value)
+		if(_value >= 0.0):
+			setBlendshape("Thick", _value)
+			setBlendshape("Lion", 0.0)
+		else:
+			setBlendshape("Thick", 0.0)
+			setBlendshape("Lion", -_value)
 	if(_optionID == "pattern"):
 		applyColormaskPatternToMyMat(tailMat, _value)
 	if(_optionID == "tailLenMod"):

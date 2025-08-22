@@ -1,5 +1,9 @@
 extends BodypartTailBase
 
+const TAIL_FLUFFY = 0
+const TAIL_SMOOTH = 1
+const TAIL_LIONTIP = 2
+
 const TAILANIM_WAG = 0
 const TAILANIM_WAGHIGH = 1
 const TAILANIM_REST = 2
@@ -7,16 +11,13 @@ const TAILANIM_WRAPPEDAROUND = 3
 const TAILANIM_HUG = 4
 const TAILANIM_SPEAR = 5
 
-#var tailType:String = "fluffy"
+var tailType:int = TAIL_FLUFFY
 var thickness:float = 0.0
 var tailLenMod:float = 1.0
-var underfluff:bool = true
-var ridges:bool = true
-var tipfluff:bool = true
 var idleAnim:int = TAILANIM_WAG
 
 var pattern:Dictionary = {
-	pattern = "DragonTail_Default",
+	pattern = "",
 	colorR = Color(0.7, 0.7, 0.7),
 	colorG = Color(0.5, 0.5, 0.5),
 	colorB = Color(0.3, 0.3, 0.3),
@@ -24,13 +25,13 @@ var pattern:Dictionary = {
 
 func _init():
 	super._init()
-	id = "DragonTail"
+	id = "LongTail"
 
 func getName() -> String:
-	return "Dragon tail"
+	return "Long tail"
 
 func getScenePath(_slot:int) -> String:
-	return "res://Mesh/Parts/Tail/DragonTail/dragon_tail.tscn"
+	return "res://Mesh/Parts/Tail/LongTail/long_tail.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:
 	return {
@@ -59,31 +60,16 @@ func getOptions() -> Dictionary:
 			max = 1.5,
 			editors = [EDITOR_PART],
 		}
-	theOptions["underfluff"] = {
-			name = "Under fluff",
-			type = "bool",
+	theOptions["tailType"] = {
+			name = "Tail type",
+			type = "selector",
+			values = [
+				[TAIL_SMOOTH, "Smooth"],
+				[TAIL_FLUFFY, "Fluffy"],
+				[TAIL_LIONTIP, "Lion tip"],
+			],
 			editors = [EDITOR_PART],
 		}
-	theOptions["ridges"] = {
-			name = "Ridges",
-			type = "bool",
-			editors = [EDITOR_PART],
-		}
-	theOptions["tipfluff"] = {
-			name = "Tip fluff",
-			type = "bool",
-			editors = [EDITOR_PART],
-		}
-	#theOptions["tailType"] = {
-			#name = "Tail type",
-			#type = "selector",
-			#values = [
-				#["smooth", "Smooth"],
-				#["fluffy", "Fluffy"],
-				#["lion", "Lion tip"],
-			#],
-			#editors = [EDITOR_PART],
-		#}
 	theOptions["thickness"] = {
 			name = "Thickness",
 			type = "slider",
@@ -95,7 +81,7 @@ func getOptions() -> Dictionary:
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.TailPattern,
-			texSubType = "DragonTail",
+			texSubType = "LongTail",
 			editors = [EDITOR_PART],
 		}
 
@@ -104,5 +90,5 @@ func getOptions() -> Dictionary:
 
 func getTextureVariantsPaths() -> Array:
 	return [
-		"res://Mesh/Parts/Tail/DragonTail/Textures/Layers/DragonTailLayersMany.gd",
+		"res://Mesh/Parts/Tail/LongTail/Textures/Layers/LongTailLayersMany.gd",
 	]

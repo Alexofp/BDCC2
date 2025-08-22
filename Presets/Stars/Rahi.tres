@@ -36,9 +36,10 @@ data = {
 "hindPawPadColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
 "legType": "digi",
 "nippleColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
+"nipplePiercing": [""],
 "nippleShape": 0.0,
 "skinDataOverride": null,
-"skinType": 3,
+"skinType": 1,
 "toeClawColor": Color(0.52156866, 0.3529412, 0.3529412, 1),
 "vagina": true,
 "vaginaColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
@@ -112,7 +113,7 @@ data = {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
 &"colorR": Color(0.9411765, 0.5019608, 0.5019608, 1),
-&"pattern": "FelineEar_Default"
+&"pattern": "FluffyEar_Default"
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -121,7 +122,7 @@ data = {
 "tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
 }
 },
-&"id": "FelineEar"
+&"id": "FluffyEar"
 },
 "Penis": {
 &"data": {
@@ -152,7 +153,7 @@ data = {
 &"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
 &"colorR": Color(0.9411765, 0.5019608, 0.5019608, 1),
-&"pattern": "FelineEar_Default"
+&"pattern": "FluffyEar_Default"
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -161,25 +162,25 @@ data = {
 "tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
 }
 },
-&"id": "FelineEar"
+&"id": "FluffyEar"
 },
 "Tail": {
 &"data": {
 "options": {
-"idleAnim": "TailWag",
+"idleAnim": 0,
 "pattern": {
 &"colorB": Color(0.3, 0.3, 0.3, 1),
 &"colorG": Color(0.5, 0.5, 0.5, 1),
 &"colorR": Color(0.7, 0.7, 0.7, 1),
-&"pattern": "FelineTail_Default"
+&"pattern": ""
 },
 "skinDataOverride": null,
 "tailLenMod": 1.0,
-"tailType": "fluffy",
+"tailType": 0,
 "thickness": 0.0
 }
 },
-&"id": "FelineTail"
+&"id": "LongTail"
 }
 },
 &"charName": "Rahi",

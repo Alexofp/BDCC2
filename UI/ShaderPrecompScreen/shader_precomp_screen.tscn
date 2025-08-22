@@ -12,7 +12,7 @@
 [ext_resource type="Material" uid="uid://sle1odyxpbnx" path="res://Mesh/Parts/SharedMaterials/HairMat.tres" id="13_odv5m"]
 [ext_resource type="Material" uid="uid://c8vrimhqhhto8" path="res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres" id="14_4alj0"]
 [ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="16_4alj0"]
-[ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/FelineTail/TailMat.tres" id="16_53ind"]
+[ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/LongTail/TailMat.tres" id="16_53ind"]
 [ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="17_obufd"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="18_uawf8"]
 [ext_resource type="Material" uid="uid://bo0v0t0xwyewc" path="res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres" id="18_xo4mo"]
