@@ -1,9 +1,12 @@
 extends BodypartBase
 class_name BodypartHeadBase
 
-var eyeColor1:Color = Color("0066ea")
-var eyeColor2:Color = Color("00a1ff")
-var eyeColor3:Color = Color.WHITE
+var eyes:Dictionary = {
+	pattern = "Eye_Normal",
+	colorR = Color("0066ea"),
+	colorG = Color("00a1ff"),
+	colorB = Color(Color.WHITE),
+}
 var mouthColor:Color = Color("9e352e")
 var tongueColor:Color = Color("9e352e")
 var teethColor:Color = Color("ffe8db")
@@ -18,19 +21,11 @@ func getBodypartType() -> int:
 
 func getOptions() -> Dictionary:
 	return {
-		"eyeColor1": {
-			name = "Eye color 1",
-			type = "color",
-			editors = [EDITOR_PART],
-		},
-		"eyeColor2": {
-			name = "Eye color 2",
-			type = "color",
-			editors = [EDITOR_PART],
-		},
-		"eyeColor3": {
-			name = "Eye color 3",
-			type = "color",
+		"eyes": {
+			name = "Pattern",
+			type = "pattern",
+			texType = TextureVariantType.EyePattern,
+			texSubType = "def",
 			editors = [EDITOR_PART],
 		},
 		"faceOverride": {

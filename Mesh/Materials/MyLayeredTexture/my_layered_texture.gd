@@ -187,6 +187,8 @@ func clearLayers():
 	markDirty()
 
 func addSimpleLayer(theTexture, theColor:Color = Color.WHITE):
+	if(theColor.a <= 0.0):
+		return
 	layers.append([LAYER_SIMPLE, theTexture, theColor])
 	markDirty()
 

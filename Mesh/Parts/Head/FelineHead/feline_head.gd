@@ -24,15 +24,19 @@ func applyOption(_optionID:String, _value:Variant):
 	
 	if(_optionID == "fluff"):
 		cheek_fluff.visible = _value
-	if(_optionID == "fluffDown"):
+	elif(_optionID == "fluffDown"):
 		setBlendshape("FluffDown", _value)
-	if(_optionID == "fluffWide"):
+	elif(_optionID == "fluffWide"):
 		setBlendshape("FluffWide", _value)
-	if(_optionID == "fluffShort"):
+	elif(_optionID == "fluffShort"):
 		setBlendshape("FluffShort", _value)
-	if(_optionID == "headLayers"):
+	elif(_optionID == "headLayers"):
 		updateHeadTexture()
-	if(_optionID == "faceOverride"):
+	elif(_optionID == "snout"):
+		updateHeadTexture()
+	elif(_optionID == "lines"):
+		updateHeadTexture()
+	elif(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
 
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
@@ -66,6 +70,9 @@ func updateHeadTexture():
 	#	body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
 	
 	addLayersToTexture(head_layered_texture, getOptionValue("headLayers", []))
+
+	head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/FelineHead/Textures/Layers/FelineSnout.png", getOptionValue("snout", Color.WHITE))
+	head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/FelineHead/Textures/Layers/Lines.png", getOptionValue("lines", Color.WHITE))
 
 	headMat.set_shader_parameter("texture_albedo", head_layered_texture.getTexture())
 	updateBodyMess()

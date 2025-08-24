@@ -70,9 +70,12 @@ data = {
 "Head": {
 &"data": {
 "options": {
-"eyeColor1": Color(0.026519775, 0.14947508, 0.30859375, 1),
-"eyeColor2": Color(0, 0.6313726, 1, 1),
-"eyeColor3": Color(1, 1, 1, 1),
+"eyes": {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(0, 0.6313726, 1, 1),
+&"colorR": Color(0, 0.4, 0.91764706, 1),
+&"pattern": "Eye_Normal"
+},
 "faceOverride": {
 &"fields": {},
 &"values": {}
@@ -86,19 +89,11 @@ data = {
 &"colorG": Color(0.5803922, 0.3254902, 0.26666668, 1),
 &"colorR": Color(0.5803922, 0.3254902, 0.26666668, 1),
 &"id": "FelineHead_Ferri"
-}, {
-&"colorB": Color(1, 1, 1, 1),
-&"colorG": Color(1, 1, 1, 1),
-&"colorR": Color(0.421875, 0.27355957, 0.27355957, 1),
-&"id": "FelineHead_Snout"
-}, {
-&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"colorG": Color(0.6627451, 0.6627451, 0.6627451, 1),
-&"colorR": Color(0, 0, 0, 1),
-&"id": "FelineHead_Lines"
 }],
+"lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
 "skinDataOverride": null,
+"snout": Color(0.42352942, 0.27450982, 0.27450982, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)
 }
@@ -187,7 +182,7 @@ data = {
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
-&"gender": 0,
+&"gender": 1,
 &"pronouns": 0
 },
 &"idleAnim": "normal1",

@@ -24,19 +24,23 @@ func applyOption(_optionID:String, _value:Variant):
 	applyMouthOptions(mouthMat, _optionID, _value)
 	if(_optionID == "fluff"):
 		cheek_fluff.visible = _value
-	if(_optionID == "fluffSpiky"):
+	elif(_optionID == "fluffSpiky"):
 		setBlendshape("Droop", 1.0-_value)
-	if(_optionID == "fluffWide"):
+	elif(_optionID == "fluffWide"):
 		setBlendshape("Width", _value)
-	if(_optionID == "fluffLen"):
+	elif(_optionID == "fluffLen"):
 		setBlendshape("Length", _value)
-	if(_optionID == "fluffThick"):
+	elif(_optionID == "fluffThick"):
 		setBlendshape("Thickness", _value)
-	if(_optionID == "headLayers"):
+	elif(_optionID == "headLayers"):
 		updateHeadTexture()
-	if(_optionID == "faceOverride"):
+	elif(_optionID == "snout"):
+		updateHeadTexture()
+	elif(_optionID == "lines"):
+		updateHeadTexture()
+	elif(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
-	if(_optionID == "piercings"):
+	elif(_optionID == "piercings"):
 		var theType:String = (_value[0] if _value.size() > 0 else "")
 		if(theType == "p1"):
 			setExtra(0, "res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/piercings_1.tscn")
@@ -66,6 +70,9 @@ func updateHeadTexture():
 		head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/CanineHead/Textures/Fur/MyCanineHeadV2_substance_UVGRID_BaseColor.png", theSkinData.color)
 	
 	addLayersToTexture(head_layered_texture, getOptionValue("headLayers", []))
+
+	head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/CanineHead/Textures/Layers/Snout.png", getOptionValue("snout", Color.WHITE))
+	head_layered_texture.addSimpleLayer("res://Mesh/Parts/Head/CanineHead/Textures/Layers/Lines.png", getOptionValue("lines", Color.WHITE))
 
 	headMat.set_shader_parameter("texture_albedo", head_layered_texture.getTexture())
 	updateBodyMess()

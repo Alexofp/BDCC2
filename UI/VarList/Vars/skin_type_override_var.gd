@@ -15,7 +15,12 @@ func setData(_data:Dictionary):
 		setValueRaw(_data["value"])
 	updateUIStuff()
 
-func setValueRaw(_value:SkinTypeData):
+func setValueRaw(_value):
+	if(_value is Dictionary):
+		var _newVal:SkinTypeData = SkinTypeData.new()
+		_newVal.loadData(_value)
+		_value = _newVal
+	
 	if(!_value):
 		skinTypeData = null
 	else:

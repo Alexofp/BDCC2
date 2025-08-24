@@ -1,17 +1,13 @@
 extends BodypartHeadBase
 
 var headLayers:Array = [
-	{
-		id="FelineHead_Snout",
-		colorR = Color("ff9898"),
-		colorG = Color.WHITE,
-		colorB = Color.WHITE,
-	}
 ]
 var fluff:bool = true
 var fluffDown:float = 0.0
 var fluffWide:float = 0.0
 var fluffShort:float = 0.0
+var snout:Color = Color("9b9b9b")
+var lines:Color = Color.BLACK
 
 func _init():
 	super._init()
@@ -37,6 +33,18 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "FelineHead",
+			editors = [EDITOR_PART],
+		}
+	theOptions["snout"] = {
+			name = "Snout color",
+			type = "color",
+			alpha = true,
+			editors = [EDITOR_PART],
+		}
+	theOptions["lines"] = {
+			name = "Liner color",
+			type = "color",
+			alpha = true,
 			editors = [EDITOR_PART],
 		}
 	theOptions["fluff"] = {

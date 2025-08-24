@@ -1,18 +1,6 @@
 extends BodypartHeadBase
 
 var headLayers:Array = [
-	{
-		id="CanineHead_Snout",
-		colorR = Color("9b9b9b"),
-		colorG = Color.WHITE,
-		colorB = Color.WHITE,
-	},
-	{
-		id="CanineHead_Lines",
-		colorR = Color.BLACK,
-		colorG = Color.WHITE,
-		colorB = Color.WHITE,
-	},
 ]
 var fluff:bool = true
 var fluffSpiky:float = 0.0
@@ -20,6 +8,8 @@ var fluffWide:float = 0.0
 var fluffLen:float = 0.0
 var fluffThick:float = 0.0
 var piercings:Array = [""]
+var snout:Color = Color("9b9b9b")
+var lines:Color = Color.BLACK
 
 func _init():
 	super._init()
@@ -45,6 +35,18 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "CanineHead",
+			editors = [EDITOR_PART],
+		}
+	theOptions["snout"] = {
+			name = "Snout color",
+			type = "color",
+			alpha = true,
+			editors = [EDITOR_PART],
+		}
+	theOptions["lines"] = {
+			name = "Liner color",
+			type = "color",
+			alpha = true,
 			editors = [EDITOR_PART],
 		}
 	theOptions["fluff"] = {

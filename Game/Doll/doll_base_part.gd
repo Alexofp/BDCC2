@@ -190,14 +190,18 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 		elif(_optionID == "pattern"):
 			applyColormaskPatternToMyMat(_hairMat, _value)
 
-func applyEyeOptions(_eyeMat:ShaderMaterial, _optionID:String, _value:Variant):
-	if(_eyeMat != null):
-		if(_optionID == "eyeColor1"):
-			_eyeMat.set_shader_parameter("colorR", _value)
-		elif(_optionID == "eyeColor2"):
-			_eyeMat.set_shader_parameter("colorG", _value)
-		elif(_optionID == "eyeColor3"):
-			_eyeMat.set_shader_parameter("colorB", _value)
+func applyEyeOptions(theMat:ShaderMaterial, _optionID:String, theValue:Variant):
+	if(theMat != null):
+		if(_optionID == "eyes"):
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "") if (theValue["pattern"] != "") else null
+			if(textureVariant == null):
+				theMat.set_shader_parameter("texture_color_mask", null)
+			else:
+				theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+			
+			theMat.set_shader_parameter("colorR", theValue["colorR"] if theValue.has("colorR") else Color.WHITE)
+			theMat.set_shader_parameter("colorG", theValue["colorG"] if theValue.has("colorG") else Color.WHITE)
+			theMat.set_shader_parameter("colorB", theValue["colorB"] if theValue.has("colorB") else Color.WHITE)
 
 func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Variant):
 	if(_mouthMat != null):

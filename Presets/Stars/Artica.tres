@@ -59,9 +59,12 @@ data = {
 "Head": {
 &"data": {
 "options": {
-"eyeColor1": Color(0.15527344, 0.75, 0.61042136, 1),
-"eyeColor2": Color(0.050980393, 0.81960785, 0.6392157, 1),
-"eyeColor3": Color(1, 1, 1, 1),
+"eyes": {
+&"colorB": Color(1, 1, 1, 1),
+&"colorG": Color(0.050980393, 0.81960785, 0.6392157, 1),
+&"colorR": Color(0.15686275, 0.7490196, 0.6117647, 1),
+&"pattern": "Eye_Normal"
+},
 "faceOverride": {
 &"fields": {
 1: true,
@@ -86,20 +89,12 @@ data = {
 &"colorG": Color(0.76, 0.76, 0.7524, 1),
 &"colorR": Color(0.08235294, 0.9372549, 0.9490196, 1),
 &"id": "CanineHead_Artica"
-}, {
-&"colorB": Color(1, 1, 1, 1),
-&"colorG": Color(1, 1, 1, 1),
-&"colorR": Color(0.3019608, 0.3882353, 0.3882353, 1),
-&"id": "CanineHead_Snout"
-}, {
-&"colorB": Color(1, 1, 1, 1),
-&"colorG": Color(1, 1, 1, 1),
-&"colorR": Color(0, 0, 0, 1),
-&"id": "CanineHead_Lines"
 }],
+"lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "piercings": ["p1", Color(0.9647059, 0.003921569, 0.9490196, 1), Color(0.9647059, 0.003921569, 0.9490196, 1)],
 "skinDataOverride": null,
+"snout": Color(0.3019608, 0.3882353, 0.3882353, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.08235294, 0.9372549, 0.9490196, 1)
 }
