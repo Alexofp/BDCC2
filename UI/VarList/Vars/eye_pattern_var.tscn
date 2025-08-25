@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2r06f162se5b"]
+
+[ext_resource type="Script" uid="uid://dsk8vcwcgs258" path="res://UI/VarList/Vars/eye_pattern_var.gd" id="1_24axv"]
+[ext_resource type="PackedScene" uid="uid://b6p07kkkwjixi" path="res://UI/VarList/Vars/pattern_var.tscn" id="2_664e8"]
+
+[node name="EyePatternVar" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_24axv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Heterochromia"
+
+[node name="TwoColorsCheckBox" type="CheckBox" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PatternLeftEye" parent="." instance=ExtResource("2_664e8")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PatternRightEye" parent="." instance=ExtResource("2_664e8")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="toggled" from="HBoxContainer/TwoColorsCheckBox" to="." method="_on_two_colors_check_box_toggled"]
+[connection signal="onValueChange" from="PatternLeftEye" to="." method="_on_pattern_left_eye_on_value_change"]
+[connection signal="onValueChange" from="PatternRightEye" to="." method="_on_pattern_right_eye_on_value_change"]

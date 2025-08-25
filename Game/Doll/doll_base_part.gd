@@ -190,9 +190,11 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 		elif(_optionID == "pattern"):
 			applyColormaskPatternToMyMat(_hairMat, _value)
 
-func applyEyeOptions(theMat:ShaderMaterial, _optionID:String, theValue:Variant):
-	if(theMat != null):
-		if(_optionID == "eyes"):
+func applyEyeOptions(eyesNode:MeshInstance3D, _optionID:String, theValue:Variant):
+	if(_optionID == "eyes"):
+		var theMat:ShaderMaterial = eyesNode.get_surface_override_material(0)
+		
+		if(theMat != null):
 			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["id"] if theValue.has("id") else "") if (theValue.has("id") && theValue["id"] != "") else null
 			if(textureVariant == null):
 				theMat.set_shader_parameter("texture_color_mask", null)
@@ -202,7 +204,24 @@ func applyEyeOptions(theMat:ShaderMaterial, _optionID:String, theValue:Variant):
 			theMat.set_shader_parameter("colorR", theValue["r"] if theValue.has("r") else Color.WHITE)
 			theMat.set_shader_parameter("colorG", theValue["g"] if theValue.has("g") else Color.WHITE)
 			theMat.set_shader_parameter("colorB", theValue["b"] if theValue.has("b") else Color.WHITE)
-
+	
+		if(!theValue.has("id2")):
+			eyesNode.set_surface_override_material(1, theMat)
+		else:
+			var theMat2:ShaderMaterial = theMat.duplicate()
+			eyesNode.set_surface_override_material(1, theMat2)
+			
+			if(theMat2 != null):
+				var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["id2"] if theValue.has("id2") else "") if (theValue.has("id2") && theValue["id2"] != "") else null
+				if(textureVariant == null):
+					theMat2.set_shader_parameter("texture_color_mask", null)
+				else:
+					theMat2.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+				
+				theMat2.set_shader_parameter("colorR", theValue["r2"] if theValue.has("r2") else Color.WHITE)
+				theMat2.set_shader_parameter("colorG", theValue["g2"] if theValue.has("g2") else Color.WHITE)
+				theMat2.set_shader_parameter("colorB", theValue["b2"] if theValue.has("b2") else Color.WHITE)
+	
 func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Variant):
 	if(_mouthMat != null):
 		if(_optionID == "mouthColor"):

@@ -23,7 +23,7 @@ func getOptions() -> Dictionary:
 	return {
 		"eyes": {
 			name = "Pattern",
-			type = "pattern",
+			type = "eyePattern",
 			texType = TextureVariantType.EyePattern,
 			texSubType = "def",
 			editors = [EDITOR_PART],

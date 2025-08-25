@@ -15,7 +15,7 @@ func grabMaterials():
 	mouthMat = mouth_mesh.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
-	applyEyeOptions(eyeMat, _optionID, _value)
+	applyEyeOptions(eyes, _optionID, _value)
 	applyMouthOptions(mouthMat, _optionID, _value)
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
