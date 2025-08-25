@@ -8,14 +8,14 @@ func _init():
 	previewDollPartPath = "res://Mesh/Parts/Head/FelineHead/feline_head.tscn"
 	
 	textures = {
-		"Snout": {
-			name = "Snout",
-			texture = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/FelineSnout.png",
-		},
-		"Lines": {
-			name = "Lines",
-			texture = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Lines.png",
-		},
+		#"Snout": {
+			#name = "Snout",
+			#texture = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/FelineSnout.png",
+		#},
+		#"Lines": {
+			#name = "Lines",
+			#texture = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Lines.png",
+		#},
 		"Ferri": {
 			name = "Ferri",
 			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Ferri.png",

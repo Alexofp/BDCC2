@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpka2h2ypy0r7"]
+[gd_scene load_steps=3 format=3 uid="uid://dpka2h2ypy0r7"]
 
 [ext_resource type="Script" uid="uid://ds37w03w0raty" path="res://UI/MainMenu/main_menu.gd" id="1_jld46"]
+[ext_resource type="PackedScene" uid="uid://bl3xkx2qr7pgs" path="res://UI/Settings/settings_ui.tscn" id="2_t17p2"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -40,15 +41,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Character Editor"
 
-[node name="EditorButton" type="Button" parent="CenterContainer/MainList"]
+[node name="SettingsButton" type="Button" parent="CenterContainer/MainList"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Map Editor"
-
-[node name="PreviewMaker" type="Button" parent="CenterContainer/MainList"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Preview Maker"
+text = "Settings"
 
 [node name="ExitButton" type="Button" parent="CenterContainer/MainList"]
 layout_mode = 2
@@ -64,7 +60,7 @@ layout_mode = 2
 [node name="NicknameEdit" type="LineEdit" parent="CenterContainer/MultiplayerList"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Nickname"
+placeholder_text = "Nickname..."
 
 [node name="LanButton" type="Button" parent="CenterContainer/MultiplayerList"]
 layout_mode = 2
@@ -115,6 +111,7 @@ text = "Back"
 
 [node name="NodeTunnelList" type="VBoxContainer" parent="CenterContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -143,8 +140,25 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
+[node name="SettingsTab" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SettingsUI" parent="SettingsTab" instance=ExtResource("2_t17p2")]
+layout_mode = 2
+
 [node name="NTRelayBottomList" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -169,11 +183,42 @@ unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Relay Server"
 
+[node name="ToolsContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -209.0
+offset_top = -130.0
+offset_right = -27.0
+offset_bottom = -33.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ToolsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ToolsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Dev tools"
+horizontal_alignment = 1
+
+[node name="EditorButton" type="Button" parent="ToolsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Map Editor"
+
+[node name="PreviewMaker" type="Button" parent="ToolsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Preview Maker"
+
 [connection signal="pressed" from="CenterContainer/MainList/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/CharEditorButton" to="." method="_on_char_editor_button_pressed"]
-[connection signal="pressed" from="CenterContainer/MainList/EditorButton" to="." method="_on_editor_button_pressed"]
-[connection signal="pressed" from="CenterContainer/MainList/PreviewMaker" to="." method="_on_preview_maker_pressed"]
+[connection signal="pressed" from="CenterContainer/MainList/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/LanButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/NodeTunnelButton" to="." method="_on_node_tunnel_button_pressed"]
@@ -184,3 +229,7 @@ placeholder_text = "Relay Server"
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/NTHostButton" to="." method="_on_nt_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/NTJoinButton" to="." method="_on_nt_join_button_pressed"]
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="onCancelPressed" from="SettingsTab/SettingsUI" to="." method="_on_settings_ui_on_cancel_pressed"]
+[connection signal="onSavePressed" from="SettingsTab/SettingsUI" to="." method="_on_settings_ui_on_save_pressed"]
+[connection signal="pressed" from="ToolsContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="ToolsContainer/VBoxContainer/PreviewMaker" to="." method="_on_preview_maker_pressed"]

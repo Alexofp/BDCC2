@@ -9,10 +9,10 @@ var colorTip:Color = Color("750000")
 var shading:float = 0.5
 
 var pattern:Dictionary = {
-	pattern = "",
-	colorR = Color(0.7, 0.7, 0.7),
-	colorG = Color(0.5, 0.5, 0.5),
-	colorB = Color(0.3, 0.3, 0.3),
+	id = "",
+	r = Color(0.7, 0.7, 0.7),
+	g = Color(0.5, 0.5, 0.5),
+	b = Color(0.3, 0.3, 0.3),
 }
 
 func getBodypartType() -> int:

@@ -78,9 +78,9 @@ func _on_add_button_pressed() -> void:
 	
 	var newLayer:Dictionary = {
 		id = allIDs.front(),
-		colorR = theTexVariant.getFlag("defR", Color.WHITE),
-		colorG = theTexVariant.getFlag("defG", Color.DARK_GRAY),
-		colorB = theTexVariant.getFlag("defB", Color.DIM_GRAY),
+		r = theTexVariant.getFlag("defR", Color.WHITE),
+		g = theTexVariant.getFlag("defG", Color.DARK_GRAY),
+		b = theTexVariant.getFlag("defB", Color.DIM_GRAY),
 	}
 	layers.append(newLayer)
 	updateLayers()

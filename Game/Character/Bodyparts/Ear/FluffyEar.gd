@@ -5,10 +5,10 @@ var tassels:bool = false
 var piercingsColor:Color = Color.WHITE
 var tasselsColor:Color = Color.DIM_GRAY
 var pattern:Dictionary = {
-	pattern = "FluffyEar_Default",
-	colorR = Color.LIGHT_CORAL,
-	colorG = Color.GRAY,
-	colorB = Color.DIM_GRAY,
+	id = "FluffyEar_Default",
+	r = Color.LIGHT_CORAL,
+	g = Color.GRAY,
+	b = Color.DIM_GRAY,
 }
 var fluffColor:Color = Color.WHITE
 

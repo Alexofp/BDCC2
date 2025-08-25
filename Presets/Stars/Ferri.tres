@@ -12,9 +12,9 @@ data = {
 "anusColor": Color(0, 0.8862745, 0.88235295, 1),
 "anusInColor": Color(0, 0.8862745, 0.88235295, 1),
 "bodyLayers": [{
-&"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
-&"colorG": Color(0, 0.043137256, 0.28235295, 1),
-&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"b": Color(0.09411765, 0.16862746, 0.44705883, 1),
+&"g": Color(0, 0.043137256, 0.28235295, 1),
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
 &"id": "Body_Ferri"
 }],
 "breasts": 2.24,
@@ -46,10 +46,10 @@ data = {
 "colorRoot": Color(1, 0.9863281, 0.96875, 1),
 "colorTip": Color(0.24229431, 0.24229431, 0.92578125, 1),
 "pattern": {
-&"colorB": Color(0.3, 0.3, 0.3, 1),
-&"colorG": Color(0.5, 0.5, 0.5, 1),
-&"colorR": Color(0.7, 0.7, 0.7, 1),
-&"pattern": ""
+&"b": Color(0.3, 0.3, 0.3, 1),
+&"g": Color(0.5, 0.5, 0.5, 1),
+&"r": Color(0.7, 0.7, 0.7, 1),
+&"id": ""
 },
 "shading": 0.5
 }
@@ -60,10 +60,10 @@ data = {
 &"data": {
 "options": {
 "eyes": {
-&"colorB": Color(1, 1, 1, 1),
-&"colorG": Color(0, 0.87058824, 0.8666667, 1),
-&"colorR": Color(0, 0.41960785, 0.41960785, 1),
-&"pattern": "Eye_Normal"
+&"b": Color(1, 1, 1, 1),
+&"g": Color(0, 0.87058824, 0.8666667, 1),
+&"r": Color(0, 0.41960785, 0.41960785, 1),
+&"id": "Eye_Normal"
 },
 "faceOverride": {
 &"fields": {},
@@ -74,9 +74,9 @@ data = {
 "fluffShort": 0.0,
 "fluffWide": 0.0,
 "headLayers": [{
-&"colorB": Color(0, 0.8862745, 0.88235295, 1),
-&"colorG": Color(0, 0.043137256, 0.28235295, 1),
-&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"b": Color(0, 0.8862745, 0.88235295, 1),
+&"g": Color(0, 0.043137256, 0.28235295, 1),
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
 &"id": "FelineHead_Ferri"
 }],
 "lines": Color(0, 0, 0, 1),
@@ -94,10 +94,10 @@ data = {
 "options": {
 "fluffColor": Color(0, 0.8862745, 0.88235295, 1),
 "pattern": {
-&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"colorR": Color(0, 0.8862745, 0.88235295, 1),
-&"pattern": "FluffyEar_Default"
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"r": Color(0, 0.8862745, 0.88235295, 1),
+&"id": "FluffyEar_Default"
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -124,10 +124,10 @@ data = {
 "options": {
 "fluffColor": Color(0, 0.8862745, 0.88235295, 1),
 "pattern": {
-&"colorB": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"colorG": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"colorR": Color(0, 0.8862745, 0.88235295, 1),
-&"pattern": "FluffyEar_Default"
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"r": Color(0, 0.8862745, 0.88235295, 1),
+&"id": "FluffyEar_Default"
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -154,10 +154,10 @@ data = {
 "options": {
 "idleAnim": 0,
 "pattern": {
-&"colorB": Color(0.09411765, 0.16862746, 0.44705883, 1),
-&"colorG": Color(0, 0.043137256, 0.28235295, 1),
-&"colorR": Color(0.8666667, 0.80784315, 0.7882353, 1),
-&"pattern": "DragonTail_Ferri"
+&"b": Color(0.09411765, 0.16862746, 0.44705883, 1),
+&"g": Color(0, 0.043137256, 0.28235295, 1),
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
+&"id": "DragonTail_Ferri"
 },
 "ridges": true,
 "skinDataOverride": null,

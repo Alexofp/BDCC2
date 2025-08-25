@@ -17,10 +17,10 @@ var tailLenMod:float = 1.0
 var idleAnim:int = TAILANIM_WAG
 
 var pattern:Dictionary = {
-	pattern = "",
-	colorR = Color(0.7, 0.7, 0.7),
-	colorG = Color(0.5, 0.5, 0.5),
-	colorB = Color(0.3, 0.3, 0.3),
+	id = "",
+	r = Color(0.7, 0.7, 0.7),
+	g = Color(0.5, 0.5, 0.5),
+	b = Color(0.3, 0.3, 0.3),
 }
 
 func _init():

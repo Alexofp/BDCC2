@@ -105,22 +105,22 @@ func addLayersToTexture(layeredTexture:MyLayeredTexture, layers:Array):
 			continue
 		
 		if(textureVariant.pathColormask != ""):
-			layeredTexture.addColorMaskLayer(textureVariant.pathColormask, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK, layerEntry["colorG"] if layerEntry.has("colorG") else Color.BLACK, layerEntry["colorB"] if layerEntry.has("colorB") else Color.BLACK)
+			layeredTexture.addColorMaskLayer(textureVariant.pathColormask, layerEntry["r"] if layerEntry.has("r") else Color.BLACK, layerEntry["g"] if layerEntry.has("g") else Color.BLACK, layerEntry["b"] if layerEntry.has("b") else Color.BLACK)
 		elif(textureVariant.pathTexture != ""):
-			layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["colorR"] if layerEntry.has("colorR") else Color.BLACK)
+			layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["r"] if layerEntry.has("r") else Color.BLACK)
 
 func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	if(!theMat):
 		return
-	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "") if (theValue["pattern"] != "") else null
+	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["id"] if theValue.has("id") else "") if (theValue.has("id") && theValue["id"] != "") else null
 	if(textureVariant == null):
 		theMat.set_shader_parameter("texture_color_mask", null)
 	else:
 		theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
 	
-	theMat.set_shader_parameter("color_mask_r", theValue["colorR"] if theValue.has("colorR") else Color.WHITE)
-	theMat.set_shader_parameter("color_mask_g", theValue["colorG"] if theValue.has("colorG") else Color.WHITE)
-	theMat.set_shader_parameter("color_mask_b", theValue["colorB"] if theValue.has("colorB") else Color.WHITE)
+	theMat.set_shader_parameter("color_mask_r", theValue["r"] if theValue.has("r") else Color.WHITE)
+	theMat.set_shader_parameter("color_mask_g", theValue["g"] if theValue.has("g") else Color.WHITE)
+	theMat.set_shader_parameter("color_mask_b", theValue["b"] if theValue.has("b") else Color.WHITE)
 	
 
 func updateThicknessBody(_optionID:String = ""):
@@ -193,15 +193,15 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 func applyEyeOptions(theMat:ShaderMaterial, _optionID:String, theValue:Variant):
 	if(theMat != null):
 		if(_optionID == "eyes"):
-			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["pattern"] if theValue.has("pattern") else "") if (theValue["pattern"] != "") else null
+			var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(theValue["id"] if theValue.has("id") else "") if (theValue.has("id") && theValue["id"] != "") else null
 			if(textureVariant == null):
 				theMat.set_shader_parameter("texture_color_mask", null)
 			else:
 				theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
 			
-			theMat.set_shader_parameter("colorR", theValue["colorR"] if theValue.has("colorR") else Color.WHITE)
-			theMat.set_shader_parameter("colorG", theValue["colorG"] if theValue.has("colorG") else Color.WHITE)
-			theMat.set_shader_parameter("colorB", theValue["colorB"] if theValue.has("colorB") else Color.WHITE)
+			theMat.set_shader_parameter("colorR", theValue["r"] if theValue.has("r") else Color.WHITE)
+			theMat.set_shader_parameter("colorG", theValue["g"] if theValue.has("g") else Color.WHITE)
+			theMat.set_shader_parameter("colorB", theValue["b"] if theValue.has("b") else Color.WHITE)
 
 func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Variant):
 	if(_mouthMat != null):

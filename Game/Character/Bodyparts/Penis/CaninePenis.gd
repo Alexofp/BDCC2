@@ -5,10 +5,10 @@ var penisLenMod:float = 1.0
 var penBallsDrop:float = 0.0
 var penBallsScale:float = 1.0
 var pattern:Dictionary = {
-	pattern = "CanineShaft_Default",
-	colorR = Color("A3728A"),
-	colorG = Color("954555"),
-	colorB = Color("490979"),
+	id = "CanineShaft_Default",
+	r = Color("A3728A"),
+	g = Color("954555"),
+	b = Color("490979"),
 }
 var shaftColor:Color = Color("954555")
 var furTuft:bool = true

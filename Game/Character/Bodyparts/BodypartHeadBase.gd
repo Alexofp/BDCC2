@@ -2,10 +2,10 @@ extends BodypartBase
 class_name BodypartHeadBase
 
 var eyes:Dictionary = {
-	pattern = "Eye_Normal",
-	colorR = Color("0066ea"),
-	colorG = Color("00a1ff"),
-	colorB = Color(Color.WHITE),
+	id = "Eye_Normal",
+	r = Color("0066ea"),
+	g = Color("00a1ff"),
+	b = Color(Color.WHITE),
 }
 var mouthColor:Color = Color("9e352e")
 var tongueColor:Color = Color("9e352e")

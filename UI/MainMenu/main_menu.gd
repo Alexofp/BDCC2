@@ -4,6 +4,7 @@ const SCREEN_MAIN = 0
 const SCREEN_MULTIPLAYER = 1
 const SCREEN_MULT_LAN = 2
 const SCREEN_MULT_NODETUNNEL = 3
+const SCREEN_SETTINGS = 4
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
@@ -24,6 +25,8 @@ var currentScreen:int = -1
 @onready var nt_room_edit: LineEdit = $CenterContainer/NodeTunnelList/NTRoomEdit
 @onready var nt_relay_server_edit: LineEdit = %NTRelayServerEdit
 @onready var nt_relay_bottom_list: VBoxContainer = %NTRelayBottomList
+@onready var tools_container: PanelContainer = %ToolsContainer
+@onready var settings_tab: MarginContainer = %SettingsTab
 
 func _ready() -> void:
 	setScreen(SCREEN_MAIN)
@@ -34,10 +37,12 @@ func _ready() -> void:
 func setScreen(_screen:int):
 	currentScreen = _screen
 	main_list.visible = (_screen == SCREEN_MAIN)
+	tools_container.visible = (_screen == SCREEN_MAIN)
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	lan_list.visible = (_screen == SCREEN_MULT_LAN)
 	node_tunnel_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
 	nt_relay_bottom_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
+	settings_tab.visible = (_screen == SCREEN_SETTINGS)
 
 func _on_play_button_pressed() -> void:
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
@@ -93,3 +98,11 @@ func _on_nt_join_button_pressed() -> void:
 
 func _on_node_tunnel_button_pressed() -> void:
 	setScreen(SCREEN_MULT_NODETUNNEL)
+
+func _on_settings_button_pressed() -> void:
+	setScreen(SCREEN_SETTINGS)
+
+func _on_settings_ui_on_cancel_pressed() -> void:
+	_on_back_button_pressed()
+func _on_settings_ui_on_save_pressed() -> void:
+	_on_back_button_pressed()

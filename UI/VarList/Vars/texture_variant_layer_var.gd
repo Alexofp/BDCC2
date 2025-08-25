@@ -1,10 +1,11 @@
 extends VarUIBase
 
-@onready var tex_selector_button: OptionButton = %TexSelectorButton
+#@onready var tex_selector_button: OptionButton = %TexSelectorButton
 @onready var color_rect_r: ColorPickerButton = %ColorRectR
 @onready var color_rect_g: ColorPickerButton = %ColorRectG
 @onready var color_rect_b: ColorPickerButton = %ColorRectB
 @onready var select_texture_var_button: Button = %SelectTextureVarButton
+@onready var select_texture_icon: TextureRect = %SelectTextureIcon
 
 signal onUpButtonPressed
 signal onDownButtonPressed
@@ -32,11 +33,17 @@ func setData(_data:Dictionary):
 	if(_data.has("value")):
 		var theData:Dictionary = _data["value"]
 		selectedID = theData["id"]
-		if(theData.has("colorR")):
+		if(theData.has("r")):
+			colorR = theData["r"]
+		elif(theData.has("colorR")):
 			colorR = theData["colorR"]
-		if(theData.has("colorG")):
+		if(theData.has("g")):
+			colorG = theData["g"]
+		elif(theData.has("colorG")):
 			colorG = theData["colorG"]
-		if(theData.has("colorB")):
+		if(theData.has("b")):
+			colorB = theData["b"]
+		elif(theData.has("colorB")):
 			colorB = theData["colorB"]
 	
 	updateTexSelector()
@@ -64,13 +71,13 @@ func updateColors():
 func getFinalData() -> Dictionary:
 	return {
 		id = selectedID,
-		colorR = colorR,
-		colorG = colorG,
-		colorB = colorB,
+		r = colorR,
+		g = colorG,
+		b = colorB,
 	}
 
 func updateTexSelector():
-	tex_selector_button.clear()
+	#tex_selector_button.clear()
 	
 	allIDs = GlobalRegistry.getTextureVariantsIDsOfTypeAndSubType(texType, texSubType)
 	if(!allIDs.has(selectedID)):
@@ -84,30 +91,30 @@ func updateTexSelector():
 			select_texture_var_button.text = "- Missing -"
 		else:
 			select_texture_var_button.text = theSelectedTexVariant.getName()
-			select_texture_var_button.icon = load(theSelectedTexVariant.previewPath) if theSelectedTexVariant.previewPath != "" else null
-			if(select_texture_var_button.icon):
-				select_texture_var_button.custom_minimum_size.y = 64.0
+			select_texture_icon.texture = load(theSelectedTexVariant.previewPath) if theSelectedTexVariant.previewPath != "" else null
+			if(select_texture_icon.texture):
+				select_texture_var_button.custom_minimum_size.y = 32.0
 			else:
 				select_texture_var_button.custom_minimum_size.y = 0.0
 			
-	var _i:int = 0
-	
-	for theID in allIDs:
-		var texVariant:TextureVariant = GlobalRegistry.getTextureVariant(theID)
-		if(texVariant == null):
-			tex_selector_button.add_item(theID)
-			
-			if(theID == selectedID):
-				tex_selector_button.select(_i)
-			_i += 1
-			continue
-		
-		tex_selector_button.add_item(texVariant.getName())
-			
-		if(theID == selectedID):
-			tex_selector_button.select(_i)
-		_i += 1
-		continue
+	#var _i:int = 0
+	#
+	#for theID in allIDs:
+		#var texVariant:TextureVariant = GlobalRegistry.getTextureVariant(theID)
+		#if(texVariant == null):
+			#tex_selector_button.add_item(theID)
+			#
+			#if(theID == selectedID):
+				#tex_selector_button.select(_i)
+			#_i += 1
+			#continue
+		#
+		#tex_selector_button.add_item(texVariant.getName())
+			#
+		#if(theID == selectedID):
+			#tex_selector_button.select(_i)
+		#_i += 1
+		#continue
 
 func _on_up_button_pressed() -> void:
 	onUpButtonPressed.emit()

@@ -16,10 +16,10 @@ var tipfluff:bool = true
 var idleAnim:int = TAILANIM_WAG
 
 var pattern:Dictionary = {
-	pattern = "DragonTail_Default",
-	colorR = Color(0.7, 0.7, 0.7),
-	colorG = Color(0.5, 0.5, 0.5),
-	colorB = Color(0.3, 0.3, 0.3),
+	id = "DragonTail_Default",
+	r = Color(0.7, 0.7, 0.7),
+	g = Color(0.5, 0.5, 0.5),
+	b = Color(0.3, 0.3, 0.3),
 }
 
 func _init():

@@ -17,6 +17,7 @@ func setData(_data:Dictionary):
 	if(_data.has("values")):
 		textureVariantIDs = _data["values"]
 	updateList()
+	texture_variant_list.ensure_current_is_visible()
 	
 func updateList():
 	var _i:int = 0

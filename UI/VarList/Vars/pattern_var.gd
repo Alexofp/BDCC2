@@ -10,10 +10,10 @@ var texType:String = ""
 var texSubType:String = ""
 
 var data:Dictionary = {
-	pattern = "",
-	colorR = Color.WHITE,
-	colorG = Color.WHITE,
-	colorB = Color.WHITE,
+	id = "",
+	r = Color.WHITE,
+	g = Color.WHITE,
+	b = Color.WHITE,
 }
 
 func setData(_data:Dictionary):
@@ -35,7 +35,7 @@ func setData(_data:Dictionary):
 		
 	dropdown_var.setData({
 		name = theName,
-		value = data["pattern"] if data.has("pattern") else "",
+		value = data["id"] if data.has("id") else "",
 		values = [["", "- No pattern -"]] + getTextureVariantsValues(texType, texSubType),
 	})
 	updateColorPickers()
@@ -55,7 +55,7 @@ func getTextureVariantsValues(theTexType:String, theTexSubType:String) -> Array:
 	return result
 
 func updateColorPickers():
-	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(data["pattern"] if data.has("pattern") else "") if data["pattern"] != "" else null
+	var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(data["id"] if data.has("id") else "") if (data.has("id") && data["id"] != "") else null
 	if(textureVariant == null):
 		color_picker_r.visible = false
 		color_picker_g.visible = false
@@ -68,24 +68,24 @@ func updateColorPickers():
 	color_list.visible = (color_picker_r.visible || color_picker_g.visible || color_picker_b.visible)
 
 func updateColorPickerColors():
-	color_picker_r.color = data["colorR"] if data.has("colorR") else Color.WHITE
-	color_picker_g.color = data["colorG"] if data.has("colorG") else Color.WHITE
-	color_picker_b.color = data["colorB"] if data.has("colorB") else Color.WHITE
+	color_picker_r.color = data["r"] if data.has("r") else Color.WHITE
+	color_picker_g.color = data["g"] if data.has("g") else Color.WHITE
+	color_picker_b.color = data["b"] if data.has("b") else Color.WHITE
 
 func _on_dropdown_var_on_value_change(_id: Variant, newValue: Variant) -> void:
-	data["pattern"] = newValue
+	data["id"] = newValue
 	
 	updateColorPickers()
 	triggerChange(data.duplicate())
 
 func _on_color_picker_r_color_changed(color: Color) -> void:
-	data["colorR"] = color
+	data["r"] = color
 	triggerChange(data.duplicate())
 
 func _on_color_picker_g_color_changed(color: Color) -> void:
-	data["colorG"] = color
+	data["g"] = color
 	triggerChange(data.duplicate())
 
 func _on_color_picker_b_color_changed(color: Color) -> void:
-	data["colorB"] = color
+	data["b"] = color
 	triggerChange(data.duplicate())
