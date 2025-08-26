@@ -547,7 +547,7 @@ func getActionText() -> String:
 
 func sendSexActivityEvent(_eventID:String, _args:Array = []):
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(sendSexActivityEvent_RPC, [_eventID, _args])
+		Network.rpcClients(sendSexActivityEvent_RPC.bind(_eventID, _args))
 
 @rpc("authority", "call_remote", "reliable")
 func sendSexActivityEvent_RPC(_eventID:String, _args:Array = []):
@@ -558,7 +558,7 @@ func sendSexActivityEvent_RPC(_eventID:String, _args:Array = []):
 
 func sendSexTypeEvent(_eventID:String, _args:Array = []):
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(sendSexTypeEvent_RPC, [_eventID, _args])
+		Network.rpcClients(sendSexTypeEvent_RPC.bind(_eventID, _args))
 
 @rpc("authority", "call_remote", "reliable")
 func sendSexTypeEvent_RPC(_eventID:String, _args:Array = []):
@@ -585,9 +585,9 @@ func syncParticipant(_charID:String):
 	if(!Network.isServerNotSingleplayer()):
 		return
 	if(!participants.has(_charID)):
-		Network.rpcClients(syncParticipant_RPC, [_charID, {}])
+		Network.rpcClients(syncParticipant_RPC.bind(_charID, {}))
 	else:
-		Network.rpcClients(syncParticipant_RPC, [_charID, participants[_charID].saveNetworkData()])
+		Network.rpcClients(syncParticipant_RPC.bind(_charID, participants[_charID].saveNetworkData()))
 
 @rpc("authority", "call_remote", "reliable")
 func syncParticipant_RPC(_charID:String, _data:Dictionary):

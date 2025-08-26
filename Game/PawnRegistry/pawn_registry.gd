@@ -66,7 +66,7 @@ func createPawn(charID:String) -> CharacterPawn:
 	onPawnListChanged.emit()
 	
 	if(Network.isServerNotSingleplayer()):
-		createPawnRPC.rpc(charID, thePawn.saveNetworkData())
+		Network.rpcClients(createPawnRPC.bind(charID, thePawn.saveNetworkData()))
 	
 	return thePawn
 
@@ -85,7 +85,7 @@ func deletePawn(charID:String):
 	pawns.erase(charID)
 
 	if(Network.isServerNotSingleplayer()):
-		deletePawnRPC.rpc(charID)
+		Network.rpcClients(deletePawnRPC.bind(charID))
 
 func pawnDeleteCleanup(thePawn:CharacterPawn):
 	onPawnDeleted.emit(thePawn) # Should this happen after the erase?
@@ -195,7 +195,7 @@ func sayAdvanced(_pawn:CharacterPawn, _stuff:Array):
 	if(Network.isClient() || !_pawn || _stuff.is_empty()):
 		return
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(sayAdvanced_RPC, [_pawn.getCharID(), _stuff])
+		Network.rpcClients(sayAdvanced_RPC.bind(_pawn.getCharID(), _stuff))
 	_pawn.sayAdvancedLocal(_stuff)
 
 func saveNetworkData() -> Dictionary:

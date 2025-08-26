@@ -19,7 +19,7 @@ func setScenePath(thePath:String):
 	scenePath = thePath
 	scene = load(scenePath)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(setScenePath, [thePath])
+		Network.rpcClients(setScenePath.bind(thePath))
 
 func isSpawned() -> bool:
 	return !!spawnedScene

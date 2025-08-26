@@ -165,8 +165,7 @@ func doOnAllClients(_command:int, _data:Array = []):
 	if(!Network.isMultiplayer()):
 		return
 	if(Network.getMultiplayerID() == 1):
-		#internalDoOnClient.rpc(_command, _data)
-		Network.rpcClients(internalDoOnClient, [_command, _data])
+		Network.rpcClients(internalDoOnClient.bind(_command, _data))
 
 func doOnClientList(_clients:Array, _command:int, _data:Array = []):
 	if(!Network.isMultiplayer()):
@@ -254,7 +253,7 @@ func askChatSend(_text:String):
 
 func sendChatGlobal(_text:String):
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(sendChat_RPC, [_text])
+		Network.rpcClients(sendChat_RPC.bind(_text))
 	sendChat_RPC(_text)
 	
 @rpc("authority", "call_remote", "reliable")

@@ -18,7 +18,7 @@ func playOneShot_RPC(oneshotID:String):
 func playOneShot(oneshotID:String):
 	playOneShot_RPC(oneshotID)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playOneShot_RPC, [oneshotID])
+		Network.rpcClients(playOneShot_RPC.bind(oneshotID))
 
 @rpc("authority", "call_remote", "reliable")
 func playAnim_RPC(theAnimID:String, theStateID:String, thePawns:Dictionary):
@@ -52,7 +52,7 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
 		sitPawns(thePawns)
 		anim_scene_spawner.getScene().playState(state)
 		if(Network.isServerNotSingleplayer()):
-			Network.rpcClients(playAnim_RPC, [theAnimID, theStateID, thePawns])
+			Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns))
 		return
 	
 	if(animID != theAnimID):
@@ -72,7 +72,7 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
 	sitPawns(thePawns)
 	anim_scene_spawner.getScene().playState(state, true)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playAnim_RPC, [theAnimID, theStateID, thePawns])
+		Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns))
 
 func sitPawns(thePawns:Dictionary):
 	if(!anim_scene_spawner.isSpawned()):

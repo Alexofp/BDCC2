@@ -157,11 +157,11 @@ func _on_doll_node_on_node_changed(newNode: Variant) -> void:
 	doll = newNode
 	
 	if(doll):
-		Log.Print("DOLL GOT SPAWNED")
+		Log.Print("Doll spawned for "+getCharID())
 		doll.updatePoseSpot()
 		dollSpawned.emit(doll)
 	elif(tempDoll && !doll):
-		Log.Print("DOLL GOT DESPAWNED")
+		Log.Print("Doll despawned for "+getCharID())
 		dollDespawned.emit(tempDoll)
 	if(doll != tempDoll):
 		dollSwitched.emit(doll, tempDoll)

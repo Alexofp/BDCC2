@@ -39,7 +39,7 @@ func addRole(theRole:String, charID:String):
 	roleToID[theRole] = charID
 	idToRole[charID] = theRole
 	#if(Network.isServerNotSingleplayer()):
-	#	Network.rpcClients(addRole, [theRole, charID])
+	#	Network.rpcClients(addRole.bind(theRole, charID))
 
 func getRoleID(theRole:String) -> String:
 	if(!roleToID.has(theRole)):

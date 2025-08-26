@@ -16,9 +16,9 @@ func notifySpawned(_node:Node):
 	if(_node is Node3D):
 		nodeData["pos"] = _node.position
 		nodeData["ang"] = _node.rotation
-	Network.rpcClients(spawnNetworkedNode_RPC, [
+	Network.rpcClients(spawnNetworkedNode_RPC.bind(
 		_node.scene_file_path, str(_node.get_parent().get_path()), _node.name, nodeData
-	])
+	))
 	var allNetworked:Array = []
 	getAllNetworkedNodesOfRecursive(_node, allNetworked)
 	for childNode in allNetworked:
@@ -27,9 +27,9 @@ func notifySpawned(_node:Node):
 			childNodeData["pos"] = childNode.position
 			childNodeData["ang"] = childNode.rotation
 		
-		Network.rpcClients(spawnNetworkedNode_RPC, [
+		Network.rpcClients(spawnNetworkedNode_RPC.bind(
 			childNode.scene_file_path, str(childNode.get_parent().get_path()), childNode.name, childNodeData
-		])
+		))
 	
 func getAllNetworkedNodesOfRecursive(_node:Node, _ar:Array):
 	for child in _node.get_children():
@@ -44,9 +44,9 @@ func onNetworkedNodeDeleted(_node:Node):
 	if(!Network.isServerNotSingleplayer()):
 		return
 	Log.Print("DELETING NODE "+str(_node.get_path()))
-	Network.rpcClients(deleteNetworkedNode_RPC, [
+	Network.rpcClients(deleteNetworkedNode_RPC.bind(
 		str(_node.get_path()),
-	])
+	))
 
 @rpc("authority", "call_remote", "reliable")
 func deleteNetworkedNode_RPC(_thePath:String):

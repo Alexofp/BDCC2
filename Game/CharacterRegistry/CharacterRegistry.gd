@@ -126,15 +126,15 @@ func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 		BaseCharChange.PART:
 			if(Network.isServerNotSingleplayer()):
 				var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
-				Network.rpcClients(characterPartChange_RPC, [_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData() if thePart else {}])
+				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData() if thePart else {}))
 			pass
 		BaseCharChange.PART_OPTION:
 			if(Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterPartOptionChange_RPC, [_theChar.getID(), _change.genericType, _change.slot, _change.optionID, _change.value])
+				Network.rpcClients(characterPartOptionChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, _change.optionID, _change.value))
 			pass
 		BaseCharChange.CHAR_OPTION:
 			if(Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterOptionChange_RPC, [_theChar.getID(), _change.optionID, _theChar.getSyncOptionValue(_change.optionID)])
+				Network.rpcClients(characterOptionChange_RPC.bind(_theChar.getID(), _change.optionID, _theChar.getSyncOptionValue(_change.optionID)))
 			pass
 		BaseCharChange.PART_FILTER:
 			pass
@@ -182,7 +182,7 @@ func createCharacterCustomID(theID:String) -> BaseCharacter:
 	characters[theID] = newChar
 	characterAdded.emit(theID, newChar)
 	if(Network.isServerNotSingleplayer()):
-		createCharacter_RPC.rpc(theID, newChar.saveNetworkData())
+		Network.rpcClients(createCharacter_RPC.bind(theID, newChar.saveNetworkData()))
 	return newChar
 
 @rpc("authority", "call_remote", "reliable")
@@ -197,7 +197,7 @@ func removeCharacterID(theCharID:String):
 	characters.erase(theCharID)
 	characterRemoved.emit(theCharID, theCharInfo)
 	if(Network.isServerNotSingleplayer()):
-		removeCharacter_RPC.rpc(theCharID)
+		Network.rpcClients(removeCharacter_RPC.bind(theCharID))
 
 func clearCharacters():
 	for charID in characters.keys():
@@ -218,7 +218,7 @@ func askCharacterLoadPreset_SERVERRPC(characterID:String, _data:Dictionary):
 	var thePreset:CharacterPreset = CharacterPreset.new()
 	thePreset.loadData(_data)
 	thePreset.applyToCharacter(theCharacter)
-	Network.rpcClients(notifyPresetApplied_RPC, [characterID])
+	Network.rpcClients(notifyPresetApplied_RPC.bind(characterID))
 
 @rpc("authority", "call_remote", "reliable")
 func notifyPresetApplied_RPC(characterID:String):
@@ -264,7 +264,7 @@ func _physics_process(_delta: float) -> void:
 			if(charState.getDirtyTime() >= 0.5):
 				#print("DIRTY!")
 				var dirtyData:=charState.getDirtyFieldsData()
-				Network.rpcClients(syncCharState_RPC, [charID, dirtyData])
+				Network.rpcClients(syncCharState_RPC.bind(charID, dirtyData))
 				
 				charState.clearDirty()
 
@@ -273,7 +273,7 @@ func _physics_process(_delta: float) -> void:
 				bodyMess.dirty -= _delta
 				
 				if(bodyMess.dirty <= 0.0):
-					Network.rpcClients(syncBodyMess_RPC, [charID, bodyMess.saveData()])
+					Network.rpcClients(syncBodyMess_RPC.bind(charID, bodyMess.saveData()))
 
 @rpc("authority", "call_remote", "reliable")
 func syncCharState_RPC(_characterID:String, _data:Dictionary):

@@ -38,7 +38,7 @@ func doSit(_pawn:CharacterPawn, _spot:PoseSpot):
 	
 	#print("MEOW MEOW MEOW "+str(pawnToSeat))
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doSitRPC, [GameInteractor.getUniqueIDOf(_pawn), GameInteractor.getUniqueIDOf(_spot)])
+		Network.rpcClients(doSitRPC.bind(GameInteractor.getUniqueIDOf(_pawn), GameInteractor.getUniqueIDOf(_spot)))
 
 @rpc("authority", "call_remote", "reliable")
 func doSitRPC(_pawnID:Array, _spotID:Array):
@@ -66,7 +66,7 @@ func unsit(_pawn:CharacterPawn):
 	_spot.onPawnChange(null)
 	
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doUnsitRPC, [GameInteractor.getUniqueIDOf(_pawn)])
+		Network.rpcClients(doUnsitRPC.bind(GameInteractor.getUniqueIDOf(_pawn)))
 
 @rpc("authority", "call_remote", "reliable")
 func doUnsitRPC(_pawnID:Array):

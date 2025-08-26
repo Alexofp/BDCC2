@@ -34,7 +34,7 @@ func createDollControllerFor(character:BaseCharacter) -> DollController:
 		dolls.add_child(theDoll, true)
 		
 		if(Network.isServerNotSingleplayer()):
-			createDollController_RPC.rpc(theDoll.saveNetworkData())
+			Network.rpcClients(createDollController_RPC.bind(theDoll.saveNetworkData()))
 		
 		return theDoll
 	return null
@@ -43,7 +43,7 @@ func onDollDeleted(doll:DollController):
 	if(doll.is_inside_tree()):
 		doll.name = "TO_BE_DELETED"
 	if(Network.isServerNotSingleplayer()):
-		deleteDoll_RPC.rpc(doll.uniqueID)
+		Network.rpcClients(deleteDoll_RPC.bind(doll.uniqueID))
 
 @rpc("authority", "call_remote", "reliable")
 func deleteDoll_RPC(uniqueID:int):
@@ -55,7 +55,7 @@ func deleteDoll_RPC(uniqueID:int):
 
 @rpc("authority", "call_remote", "reliable")
 func createDollController_RPC(dollData:Dictionary):
-	Log.Print("createDollController_RPC UID="+str(dollData["UID"]))
+	Log.Print("Creating doll for UID="+str(dollData["UID"]))
 	var theDoll:DollController= dollControllerScene.instantiate()
 	theDoll.name = str(SAVE.loadVar(dollData, "UID", 0))
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
@@ -140,14 +140,14 @@ func playGesture(_doll:DollController, _gestureID:String):
 	if(Network.isClient()):
 		return
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playGesture_RPC, [_doll.uniqueID, _gestureID])
+		Network.rpcClients(playGesture_RPC.bind(_doll.uniqueID, _gestureID))
 	playGesture_RPC(_doll.uniqueID, _gestureID)
 
 @rpc("any_peer", "call_remote", "reliable")
 func askPlayGesture_SERVERRPC(theDollID:int, _gestureID:String):
 	# Any checks should go here
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playGesture_RPC, [theDollID, _gestureID])
+		Network.rpcClients(playGesture_RPC.bind(theDollID, _gestureID))
 	playGesture_RPC(theDollID, _gestureID)
 	#var theDoll:= findDollWithUniqueID(theDollID)
 	#if(!theDoll):
@@ -166,7 +166,7 @@ func askLookAtCustom(_doll:DollController, _pos:Vector3):
 	if(Network.isServer()):
 		_doll.getDoll().lookAtCustom(_pos)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(askLookAtCustom_RPC, [_doll.uniqueID, _pos])
+		Network.rpcClients(askLookAtCustom_RPC.bind(_doll.uniqueID, _pos))
 	elif(Network.isClient()):
 		askLookAtCustom_ServerRPC.rpc_id(1, _doll.uniqueID, _pos)
 
@@ -190,7 +190,7 @@ func askLookAtClear(_doll:DollController):
 	if(Network.isServer()):
 		_doll.getDoll().lookAtClear()
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(askLookAtClear_RPC, [_doll.uniqueID])
+		Network.rpcClients(askLookAtClear_RPC.bind(_doll.uniqueID))
 	elif(Network.isClient()):
 		askLookAtClear_ServerRPC.rpc_id(1, _doll.uniqueID)
 
@@ -225,7 +225,7 @@ func askLookAt(_doll:DollController, _node:Node3D, _howLong:float = 10.0):
 		_doll.getDoll().lookAt(_node, _howLong)
 	if(Network.isServerNotSingleplayer()):
 		var theNode = GameInteractor.getUniqueIDOf(_node)
-		Network.rpcClients(askLookAt_RPC, [_doll.uniqueID, theNode, _howLong])
+		Network.rpcClients(askLookAt_RPC.bind(_doll.uniqueID, theNode, _howLong))
 	elif(Network.isClient()):
 		var theNode = GameInteractor.getUniqueIDOf(_node)
 		askLookAt_ServerRPC.rpc_id(1, _doll.uniqueID, theNode, _howLong)

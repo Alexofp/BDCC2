@@ -67,7 +67,7 @@ func registerPlayerInfo(info:NetworkPlayerInfo, isConnect:bool = true):
 	info.name = str(info.id)
 	
 	if(isServerNotSingleplayer()):
-		rpcClients(registerPlayerInfo_RPC, [info.saveNetworkData()])
+		rpcClients(registerPlayerInfo_RPC.bind(info.saveNetworkData()))
 	
 	if(isConnect):
 		playerConnected.emit(info.id, info)
@@ -86,8 +86,7 @@ func deletePlayerInfoByID(theID:int, isDisconnect:bool = true):
 	players.erase(theID)
 
 	if(isServerNotSingleplayer()):
-		#deletePlayerInfoByID_RPC.rpc(theID)
-		rpcClients(deletePlayerInfoByID_RPC, [theID])
+		rpcClients(deletePlayerInfoByID_RPC.bind(theID))
 
 	if(isDisconnect):
 		Log.Print("Player disconnected: id="+str(theID)+", name="+(str(theData.nickname) if theData else "ERROR"))
@@ -140,7 +139,8 @@ func loadNetworkData(_data:Dictionary):
 
 @rpc("authority", "call_remote", "reliable")
 func applyJoinGameNetworkData(_data:Dictionary):
-	Log.Print("RECEIVED PLAYERS INFO FROM "+str(multiplayer.get_remote_sender_id()))
+	#Log.Print("RECEIVED PLAYERS INFO FROM "+str(multiplayer.get_remote_sender_id()))
+	Log.Print("RECEIVED PLAYER DATA: "+str(_data))
 	loadNetworkData(_data)
 	
 @rpc("authority", "call_remote", "reliable")
@@ -212,7 +212,8 @@ func _on_player_disconnected(id):
 		deletePlayerInfoByID(id, true)
 
 func _on_server_disconnected():
-	stopMultiplayer()
+	#stopMultiplayer()
+	GM.errorOutToMainMenu("Connection to server lost")
 
 func isServer() -> bool:
 	return !multiplayer.multiplayer_peer || (multiplayer.multiplayer_peer && multiplayer.is_server())
@@ -274,11 +275,18 @@ func getInfoThatControlsCharID(_charID:String) -> NetworkPlayerInfo:
 # Why? .rpc() sends the rpc to all clients no matter if they are considered
 # fully connected or still connecting (haven't received game data).
 # This function would only send the rpc to clients that are fully connected
-func rpcClients(callable:Callable, args:Array = [], skipUs:bool = true):
+func rpcClients(callable:Callable):
 	for playerID in players:
-		if(skipUs && playerID == getMultiplayerID()):
+		if(playerID == getMultiplayerID() || players[playerID].connecting):
 			continue
-		callable.bindv(args).rpc_id(playerID)
+		callable.rpc_id(playerID)
+
+func rpcClientsArgs(callable:Callable, args:Array = [], skipUs:bool = true):
+	var theCallable:Callable = callable.bindv(args)
+	for playerID in players:
+		if((skipUs && playerID == getMultiplayerID()) || players[playerID].connecting):
+			continue
+		theCallable.rpc_id(playerID)
 
 @rpc("authority", "call_remote", "reliable")
 func sendToChat_RPC(_id:int, _text:String):
@@ -332,17 +340,18 @@ func connectLAN(_ip:String) -> FuncResultOrError:
 func clientAskGameInfo() -> FuncResultOrError:
 	if(!multiplayer.multiplayer_peer || multiplayer.multiplayer_peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection lost")
+	Log.Print("Asking for game info")
 	clientAskGameInfo_SERVERRPC.rpc_id(1)
 	#TODO: Some kind of timeout?
 	await internal_clientAskGameInfo
-	
+	Log.Print("Received game info")
 	return clientAskGameInfo_RESULT
 
 @rpc("any_peer", "call_remote", "reliable")
 func clientAskGameInfo_SERVERRPC():
 	if(!isServer()):
 		return
-	Log.Print("RECEIVED ASK FOR GAME STATE FROM "+str(multiplayer.get_remote_sender_id()))
+	Log.Print("Received ask for game info, sending it to "+str(multiplayer.get_remote_sender_id()))
 	
 	var gameState:Dictionary = {
 		map = GM.main.mapPath,
@@ -365,12 +374,14 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	
 	preMultiplayerStarted.emit(false)
 	clearPlayers()
+	Log.Print("Asking to join with nickname "+_nickname)
 	clientAskToJoin_SERVERRPC.rpc_id(1, _nickname)
 	
 	await internal_clientAskToJoin
 	
-	Log.Print("applyFullNetworkData()")
+	Log.Print("Got full game data, applying")
 	GameInteractor.applyFullNetworkData(clientAskToJoin_RESULT.result)
+	Log.Print("Full game data got applied")
 	clientAskToJoin_RESULT = null
 	multiplayerStarted.emit(false)
 	return FuncResultOrError.createResult(true)
@@ -380,14 +391,20 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 	if(!isServer()):
 		return
 	
-	Log.Print("RECEIVED ASK TO JOIN FROM "+str(multiplayer.get_remote_sender_id()))
+	Log.Print("Received ask to join from "+str(multiplayer.get_remote_sender_id()))
+	
+	Log.Print("Registring new player "+str(multiplayer.get_remote_sender_id()))
+	var myInfo := createPlayerInfo(multiplayer.get_remote_sender_id(), nickname)
+	myInfo.connecting = true
+	registerPlayerInfo(myInfo)
+	
+	Log.Print("Sending player list to "+str(multiplayer.get_remote_sender_id()))
 	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData())
 	
+	Log.Print("Sending full game data to "+str(multiplayer.get_remote_sender_id()))
 	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData())
-	Log.Print("SENT GAME DATA TO "+str(multiplayer.get_remote_sender_id()))
 	
-	var myInfo := createPlayerInfo(multiplayer.get_remote_sender_id(), nickname)
-	registerPlayerInfo(myInfo)
+	myInfo.connecting = false
 	
 	#GameInteractor.applyFullNetworkData.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData())
 

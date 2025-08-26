@@ -82,7 +82,7 @@ func playState(theState:String, resetAnim:bool = false):
 	state = theState
 	playStateLocal(resetAnim)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playState_RPC, [state, resetAnim])
+		Network.rpcClients(playState_RPC.bind(state, resetAnim))
 
 @rpc("authority", "call_remote", "reliable")
 func playState_RPC(theState:String, resetAnim:bool = false):
