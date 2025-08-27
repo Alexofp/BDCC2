@@ -162,6 +162,7 @@ func hideCharacterMenu():
 	character_menu.setCharacter(null)
 
 func _on_in_game_menu_on_char_creator_button() -> void:
+	hideAllMenus()
 	showCharacterCreator()
 	
 func showCharacterCreator():

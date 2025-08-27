@@ -63,7 +63,6 @@ metadata/_edit_use_anchors_ = true
 [node name="SandboxMenu" parent="MainUILayer" instance=ExtResource("13_hoyip")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = -1
 offset_left = 219.0
 offset_top = 89.0
 offset_right = -219.0

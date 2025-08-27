@@ -125,6 +125,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.1,
 
 [node name="WallLight2" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 2.5, 3.7)
+visible = false
 color3 = Color(1, 1, 1, 1)
 
 [node name="WallLight3" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
@@ -196,6 +197,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6904244, 0.25075552, -3.68
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
+visible = false
 light_energy = 0.2
 light_indirect_energy = 0.2
 light_volumetric_fog_energy = 0.0
@@ -210,3 +212,17 @@ compositor = ExtResource("38_8tcj0")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_dsa3d")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, 2.1955385)
+visible = false
+size = Vector3(9.717773, 9.746338, 12.356445)
+ambient_mode = 2
+ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, -2.3732486)
+visible = false
+size = Vector3(9.717773, 9.746338, 12.356445)
+ambient_mode = 2
+ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)

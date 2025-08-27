@@ -1,19 +1,13 @@
-[gd_resource type="Environment" load_steps=4 format=3 uid="uid://cfeg5fu5v0p4o"]
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://cfeg5fu5v0p4o"]
 
-[ext_resource type="Texture2D" uid="uid://b55y6w4n0fyio" path="res://Mesh/Enviroment/MySky.png" id="1_kbo3f"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wohoj"]
-panorama = ExtResource("1_kbo3f")
-
-[sub_resource type="Sky" id="Sky_iiin2"]
-sky_material = SubResource("PanoramaSkyMaterial_wohoj")
-radiance_size = 0
+[ext_resource type="Sky" uid="uid://caai468y1nhrg" path="res://Mesh/Enviroment/SpaceSky.tres" id="1_kbo3f"]
 
 [resource]
 background_mode = 2
-sky = SubResource("Sky_iiin2")
-ambient_light_source = 2
+sky = ExtResource("1_kbo3f")
+ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.1
 tonemap_mode = 3
 ssao_intensity = 3.0
@@ -21,7 +15,6 @@ ssil_intensity = 10.0
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 2
-sdfgi_energy = 5.0
 glow_normalized = true
 glow_strength = 0.58
 glow_blend_mode = 1
