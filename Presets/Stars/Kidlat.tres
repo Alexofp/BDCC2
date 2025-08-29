@@ -1,0 +1,186 @@
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_svrj4"]
+
+[resource]
+script = ExtResource("1_svrj4")
+data = {
+&"bodyparts": {
+"Body": {
+&"data": {
+"options": {
+"anusColor": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"anusInColor": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"bodyLayers": [{
+&"b": Color(0, 0.6267031, 0.7109375, 1),
+&"g": Color(0, 0.6972656, 0.796875, 1),
+&"id": "Body_Belly2",
+&"r": Color(0.08235294, 0.8117647, 0.9098039, 1)
+}, {
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.6627451, 0.6627451, 0.6627451, 1),
+&"id": "Body_HeartBreasts",
+&"r": Color(0.19607843, 0.19215687, 0.21568628, 1)
+}, {
+&"b": Color(0.08235294, 0.8117647, 0.9098039, 0),
+&"g": Color(0.08235294, 0.8117647, 0.9098039, 1),
+&"id": "Body_Lighting",
+&"r": Color(0.08235294, 0.8117647, 0.9098039, 1)
+}],
+"breasts": 1.81,
+"breastsCleavage": 0.0,
+"claws": 1.0,
+"clawsColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
+"handPads": true,
+"handPadsColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
+"hindPawPadColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
+"legType": "digi",
+"nippleColor": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"nipplePiercing": [""],
+"nippleShape": 0.0,
+"skinDataOverride": null,
+"skinType": 1,
+"toeClawColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
+"vagina": true,
+"vaginaColor": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"vaginaInColor": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"vaginaSize": 0.0,
+"vaginaType": 0
+}
+},
+&"id": "FeminineBody"
+},
+"Hair": {
+&"data": {
+"options": {
+"colorRoot": Color(0.101960786, 0.09411765, 0.13725491, 1),
+"colorTip": Color(0.101960786, 0.09411765, 0.13725491, 1),
+"pattern": {
+&"b": Color(0.5411765, 0, 0.654902, 0),
+&"g": Color(0.5921569, 0, 1, 0.5647059),
+&"id": "CoolBangsHair_Kidlat",
+&"r": Color(0.3372549, 0.92156863, 1, 1)
+},
+"shading": 0.5
+}
+},
+&"id": "CoolBangsHair"
+},
+"Head": {
+&"data": {
+"options": {
+"eyes": {
+&"b": Color(1, 1, 1, 1),
+"b2": Color(1, 1, 1, 1),
+&"g": Color(0.21960784, 0.7764706, 0.93333334, 1),
+"g2": Color(0.52156866, 0.2509804, 0.84313726, 1),
+&"id": "Eye_Normal",
+"id2": "Eye_Normal",
+&"r": Color(0.21960784, 0.7764706, 0.93333334, 1),
+"r2": Color(0.52156866, 0.2509804, 0.84313726, 1)
+},
+"faceOverride": {
+&"fields": {},
+&"values": {}
+},
+"fluff": true,
+"fluffDown": 1.0,
+"fluffShort": 0.0,
+"fluffWide": 0.0,
+"headLayers": [],
+"lines": Color(0, 0, 0, 1),
+"mouthColor": Color(0.24313726, 0.8784314, 0.9764706, 1),
+"skinDataOverride": null,
+"snout": Color(0.30588236, 0.83137256, 0.84313726, 1),
+"teethColor": Color(1, 1, 1, 1),
+"tongueColor": Color(0.24313726, 0.8784314, 0.9764706, 1)
+}
+},
+&"id": "FelineHead"
+},
+"Left Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(0, 0.8862745, 0.88235295, 1),
+"pattern": {
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"id": "FluffyEar_Default",
+&"r": Color(0.50980395, 0.25882354, 0.84313726, 1)
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
+"tassels": false,
+"tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
+}
+},
+&"id": "FluffyEar"
+},
+"Right Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(0, 0.8862745, 0.88235295, 1),
+"pattern": {
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"id": "FluffyEar_Default",
+&"r": Color(0.50980395, 0.25882354, 0.84313726, 1)
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": null,
+"tassels": false,
+"tasselsColor": Color(0, 0.03529412, 0.2784314, 1)
+}
+},
+&"id": "FluffyEar"
+},
+"Tail": {
+&"data": {
+"options": {
+"idleAnim": 0,
+"pattern": {
+&"b": Color(0.08627451, 0.80784315, 0.9098039, 1),
+&"g": Color(0.08627451, 0.80784315, 0.9098039, 1),
+&"id": "LongTail_LionTip",
+&"r": Color(0.08627451, 0.80784315, 0.9098039, 1)
+},
+"skinDataOverride": null,
+"tailLenMod": 1.0,
+"tailType": 0,
+"thickness": 0.69
+}
+},
+&"id": "LongTail"
+}
+},
+&"charName": "Kidlat",
+&"gender": {
+&"customGenderName": "",
+&"customPronouns": {},
+&"gender": 1,
+&"pronouns": 0
+},
+&"idleAnim": "normal1",
+&"muscles": 0.0,
+&"skinTypes": {
+&"skinTypes": {
+3: {
+&"color": Color(0.19607843, 0.19215687, 0.21568628, 1)
+}
+}
+},
+&"species": {
+&"customName": "",
+&"mainSpecies": "Feline",
+&"secondarySpecies": ""
+},
+&"thickness": 1.62,
+&"voice": {
+&"pitch": 1.0,
+&"sexVoice": "Fem1"
+},
+&"walkAnim": "unisex",
+&"weightDistribution": 0.0
+}

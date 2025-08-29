@@ -16,6 +16,15 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Belly2": {
+			name = "Belly 2",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Belly2.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 		"FeetFur": {
 			name = "Feet fur",
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/FeetFur.png",
@@ -40,6 +49,22 @@ func _init():
 		"Artica": {
 			name = "Artica",
 			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Artica.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"HeartBreasts": {
+			name = "Heart on breasts",
+			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/HeartBreasts.png",
+			flags = {
+				rect = [0.4443359375, 0.10205078125, 0.0625, 0.0625],
+			},
+		},
+		"Lighting": {
+			name = "Lighting",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Lighting.png",
 			flags = {
 				hasR=true,
 				hasG=true,

@@ -1,29 +1,11 @@
 [gd_resource type="Sky" load_steps=5 format=3 uid="uid://bkcgm2uhe6dja"]
 
+[ext_resource type="Shader" uid="uid://bepy4di867b2g" path="res://Mesh/Enviroment/SpaceSkyUniqueReflectionShader.tres" id="1_0y1wu"]
 [ext_resource type="Texture2D" uid="uid://cutt217rbbco6" path="res://Mesh/Enviroment/moon_lab_1k.exr" id="1_kq1wq"]
 [ext_resource type="Texture2D" uid="uid://b55y6w4n0fyio" path="res://Mesh/Enviroment/MySky.png" id="2_0y1wu"]
 
-[sub_resource type="Shader" id="Shader_kbo3f"]
-code = "
-// NOTE: Shader automatically converted from Godot Engine 4.5.beta6's PanoramaSkyMaterial.
-
-shader_type sky;
-
-uniform sampler2D source_panorama : filter_linear, source_color, hint_default_black;
-uniform sampler2D reflection_panorama : filter_linear, source_color, hint_default_black;
-uniform float exposure : hint_range(0, 128) = 1.0;
-
-void sky() {
-	if (AT_CUBEMAP_PASS) {
-		COLOR = texture(reflection_panorama, SKY_COORDS).rgb * exposure;
-	} else {
-		COLOR = texture(source_panorama, SKY_COORDS).rgb * exposure;
-	}
-}
-"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c62nv"]
-shader = SubResource("Shader_kbo3f")
+shader = ExtResource("1_0y1wu")
 shader_parameter/source_panorama = ExtResource("2_0y1wu")
 shader_parameter/reflection_panorama = ExtResource("1_kq1wq")
 shader_parameter/exposure = 1.0

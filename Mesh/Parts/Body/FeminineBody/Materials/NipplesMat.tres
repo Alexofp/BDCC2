@@ -81,6 +81,8 @@ uniform sampler2D texture_anisotropy_flowmap : hint_anisotropy, filter_linear_mi
 
 #ifdef MY_ALPHAMASK
 uniform sampler2D texture_alpha : hint_default_black, filter_nearest, repeat_enable;
+#endif
+#ifdef MY_ALPHATEST
 uniform float alpha_scissor_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
 #endif
 
@@ -323,7 +325,10 @@ void fragment() {
 #ifdef MY_ALPHAMASK
 	vec4 alpha_tex = texture(texture_alpha, base_uv);
 	ALPHA *= (1.0 - alpha_tex.r);
+#endif
+#ifdef MY_ALPHATEST
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+	ALPHA *= albedo.a * albedo_tex.a;
 #endif
 
 #ifdef MY_ALPHASUPPORT

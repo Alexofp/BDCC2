@@ -210,7 +210,13 @@ func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	if(_textureVariant.pathColormask != ""):
 		bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathColormask))
 	elif(_textureVariant.pathTexture != ""):
-		bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
+		if(_textureVariant.flags.has("rect")):
+			#TODO: Fix this
+			var _theRect:Array = _textureVariant.flags["rect"]
+			bodyMat.set_shader_parameter("texture_color_mask", null)
+			pass
+		else:
+			bodyMat.set_shader_parameter("texture_color_mask", load(_textureVariant.pathTexture))
 	else:
 		bodyMat.set_shader_parameter("texture_color_mask", null)
 

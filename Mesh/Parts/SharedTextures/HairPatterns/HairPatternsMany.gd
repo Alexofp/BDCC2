@@ -57,4 +57,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"CoolBangsHair_Kidlat": {
+			name = "Kidlat",
+			subType = "CoolBangsHair",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/CoolBangsHair/Kidlat.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

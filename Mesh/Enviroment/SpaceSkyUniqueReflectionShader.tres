@@ -1,0 +1,20 @@
+[gd_resource type="Shader" format=3 uid="uid://bepy4di867b2g"]
+
+[resource]
+code = "
+// NOTE: Shader automatically converted from Godot Engine 4.5.beta6's PanoramaSkyMaterial.
+
+shader_type sky;
+
+uniform sampler2D source_panorama : filter_linear, source_color, hint_default_black;
+uniform sampler2D reflection_panorama : filter_linear, source_color, hint_default_black;
+uniform float exposure : hint_range(0, 128) = 1.0;
+
+void sky() {
+	if (AT_CUBEMAP_PASS) {
+		COLOR = texture(reflection_panorama, SKY_COORDS).rgb * exposure;
+	} else {
+		COLOR = texture(source_panorama, SKY_COORDS).rgb * exposure;
+	}
+}
+"

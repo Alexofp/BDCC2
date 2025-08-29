@@ -1,0 +1,167 @@
+[gd_scene load_steps=10 format=3 uid="uid://c1c472u71y23k"]
+
+[ext_resource type="PackedScene" uid="uid://82fqiov2i6ju" path="res://Mesh/Parts/Hair/CoolBangsHair/CoolBangsHair.glb" id="1_njult"]
+[ext_resource type="Script" uid="uid://d5nddu7dgdwj" path="res://Mesh/Parts/Hair/CoolBangsHair/cool_bangs_hair.gd" id="2_mjd73"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q5e7s"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_q5e7s"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_nnhdf"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_mcysv"]
+
+[sub_resource type="Resource" id="Resource_kw6ne"]
+script = ExtResource("6_mcysv")
+angular_damp = 11.0
+force_scale = 454.51
+linear_scale = 2399.216
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_f5von"]
+script = ExtResource("6_mcysv")
+angular_damp = 11.0
+force_scale = 454.51
+linear_scale = 2399.216
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Resource" id="Resource_nnhdf"]
+script = ExtResource("6_mcysv")
+spring_freq = 2.5
+force_scale = 454.51
+linear_scale = 2399.216
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[node name="CoolBangsHair" instance=ExtResource("1_njult")]
+script = ExtResource("2_mjd73")
+
+[node name="CoolBangsHairRig" parent="." index="0"]
+script = ExtResource("3_q5e7s")
+attachPoint = "hair"
+
+[node name="CoolBangsHair" parent="CoolBangsHairRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_q5e7s")
+
+[node name="Wiggle2" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="1"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, -1.5099579e-07, 0, -1, 0, -1.5099579e-07, 0, -1, 0.07699911, 0.09372476, -0.076519154)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_nnhdf")
+collider_enabled = true
+collider_bone_radius = 0.0650000000023283
+bone_name = "Back.L"
+properties = SubResource("Resource_kw6ne")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle3" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 1.5099579e-07, 0, -1, 0, 1.5099579e-07, 0, -1, -0.07699911, 0.09372476, -0.076519154)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_nnhdf")
+collider_enabled = true
+collider_bone_radius = 0.0650000000023283
+bone_name = "Back.R"
+properties = SubResource("Resource_f5von")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle4" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="3"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, -1.5099579e-07, 0, -1, 0, -1.5099579e-07, 0, -1, 0.096647054, 0.020076692, 0.029277336)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_nnhdf")
+collider_enabled = true
+collider_bone_radius = 0.0650000000023283
+bone_name = "Bang.L"
+properties = SubResource("Resource_f5von")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle5" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="4"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 1.5099579e-07, 0, -1, 0, 1.5099579e-07, 0, -1, -0.096647054, 0.020076692, 0.029277336)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_nnhdf")
+collider_enabled = true
+collider_bone_radius = 0.0650000000023283
+bone_name = "Bang.R"
+properties = SubResource("Resource_f5von")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle6" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="5"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 9.5015565e-08, -3.3343417e-07, -9.501562e-08, 1, -1.9003109e-07, 3.3343417e-07, 1.9003112e-07, 1, 0.013136295, 0.2258114, 0.02611839)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("5_nnhdf")
+collider_enabled = true
+collider_bone_radius = 0.0650000000023283
+bone_name = "Tip"
+properties = SubResource("Resource_nnhdf")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
