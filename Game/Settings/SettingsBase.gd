@@ -1,6 +1,8 @@
 extends RefCounted
 class_name SettingsBase
 
+signal onSettingChange(settingID:String, value:Variant)
+
 func getSettings() -> Dictionary:
 	return {
 	}
@@ -20,6 +22,7 @@ func getSettingValue(_settingID:String) -> Variant:
 func setSettingValue(_settingID:String, newVal:Variant):
 	set(_settingID, newVal)
 	applySettingValue(_settingID, newVal)
+	onSettingChange.emit(_settingID, newVal)
 
 func applySettingValue(_settingID:String, _newVal:Variant):
 	pass

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b713vreedlaa1"]
+
+[ext_resource type="Material" uid="uid://dfkrg8v3nxwwy" path="res://Util/PostProcess/AnamorphicLensFlare/AnamorphicLensFlareScreenMat.tres" id="1_g2nmt"]
+[ext_resource type="Script" uid="uid://md5dtf28tr1e" path="res://Util/PostProcess/AnamorphicLensFlare/anamorphic_lens_flare.gd" id="1_trt0l"]
+
+[node name="LensFlareRect" type="ColorRect"]
+material = ExtResource("1_g2nmt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_trt0l")
+
+[node name="AnamorphicLensFlare" type="CanvasLayer" parent="."]
+visible = false

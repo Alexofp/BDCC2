@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cd67yc3o3sghc"]
+[gd_scene load_steps=16 format=3 uid="uid://cd67yc3o3sghc"]
 
 [ext_resource type="Script" uid="uid://bs0iekltipukv" path="res://Game/Main.gd" id="1_3tq7c"]
 [ext_resource type="PackedScene" uid="uid://gu1fuum5hwy1" path="res://Game/PawnRegistry/sit_manager.tscn" id="2_eg2md"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://br62bovpqjjlq" path="res://Game/DollController/doll_holder.tscn" id="6_tc76r"]
 [ext_resource type="PackedScene" uid="uid://dtnj2mbq1cm3i" path="res://Game/Multiplayer/NetworkedNode/networked_nodes.tscn" id="7_ijdku"]
 [ext_resource type="PackedScene" uid="uid://di3gua31ods6x" path="res://Game/Sex/sex_manager.tscn" id="8_wo11f"]
+[ext_resource type="PackedScene" uid="uid://b713vreedlaa1" path="res://Util/PostProcess/AnamorphicLensFlare/anamorphic_lens_flare.tscn" id="9_eg2md"]
 [ext_resource type="PackedScene" uid="uid://c21kjx7fu1d7j" path="res://UI/FullScreenChat/chat_widget_fullscreeen.tscn" id="9_qvna0"]
 [ext_resource type="PackedScene" uid="uid://c0jdqoifihgii" path="res://Game/Interactable/interact_ui.tscn" id="10_w1287"]
 [ext_resource type="PackedScene" uid="uid://p4m1d4oacfut" path="res://Game/Sex/UI/sex_ui.tscn" id="11_ijkwl"]
@@ -40,6 +41,8 @@ unique_name_in_owner = true
 
 [node name="SexManager" parent="." instance=ExtResource("8_wo11f")]
 unique_name_in_owner = true
+
+[node name="AnamorphicLensFlare" parent="." instance=ExtResource("9_eg2md")]
 
 [node name="MainUILayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

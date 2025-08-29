@@ -94,6 +94,7 @@ var ssaa:int
 enum GLOW {
 	DISABLED,
 	ENABLED,
+	ANAMORPHIC,
 }
 var glow:int
 
@@ -226,6 +227,7 @@ func getSettings() -> Dictionary:
 			values = [
 				[GLOW.DISABLED, "Disabled (Fast)"],
 				[GLOW.ENABLED, "Enabled (Average)"],
+				[GLOW.ANAMORPHIC, "Anamorphic (Slow)"],
 			],
 			default = GLOW.ENABLED,
 		},
@@ -297,7 +299,7 @@ func applySettingValue(_settingID:String, newVal:Variant):
 				Engine.max_fps = fpsValues[newVal]
 				DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		"glow":
-			gameEnv.glow_enabled = (newVal in [GLOW.ENABLED])
+			gameEnv.glow_enabled = (newVal in [GLOW.ENABLED, GLOW.ANAMORPHIC])
 		"fog":
 			gameEnv.volumetric_fog_enabled = (newVal in [FOG.VOLUMETRIC])
 			gameEnv.fog_enabled = (newVal in [FOG.SIMPLE])
