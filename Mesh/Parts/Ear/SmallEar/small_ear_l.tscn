@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://d354ccc8qke00"]
+
+[ext_resource type="PackedScene" uid="uid://b6xw6s5tygcr" path="res://Mesh/Parts/Ear/SmallEar/SmallEarL.glb" id="1_o2cim"]
+[ext_resource type="Script" uid="uid://dh6tbq33dntqj" path="res://Mesh/Parts/Ear/SmallEar/small_ear.gd" id="2_2gg5g"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_e1wlb"]
+[ext_resource type="Material" uid="uid://ci2id5ivwwjnp" path="res://Mesh/Parts/Ear/SmallEar/FelineEarMat.tres" id="4_f2te7"]
+[ext_resource type="Material" uid="uid://bjg5e34tcybd" path="res://Mesh/Parts/Ear/SmallEar/SmallEarFluffMat.tres" id="5_2gg5g"]
+[ext_resource type="Material" uid="uid://x3h3oqedoupd" path="res://Mesh/Parts/Ear/FluffyEar/TasselsMat.tres" id="5_olbh1"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="7_f2te7"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_olbh1"]
+
+[sub_resource type="Resource" id="Resource_kevxp"]
+script = ExtResource("8_olbh1")
+spring_freq = 2.0
+linear_scale = 652.683
+swing_span = 1.5708
+metadata/_custom_type_script = ExtResource("8_olbh1")
+
+[node name="SmallEarL" node_paths=PackedStringArray("ear", "earFluff", "tassels") instance=ExtResource("1_o2cim")]
+script = ExtResource("2_2gg5g")
+ear = NodePath("SmallEarL/Skeleton3D/EarL")
+earFluff = NodePath("SmallEarL/Skeleton3D/InnerFluffL")
+tassels = NodePath("SmallEarL/Skeleton3D/TasselsL")
+
+[node name="SmallEarL" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_e1wlb")
+attachPoint = "ear.L"
+
+[node name="EarL" parent="SmallEarL/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_f2te7")
+
+[node name="InnerFluffL" parent="SmallEarL/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("5_2gg5g")
+
+[node name="TasselsL" parent="SmallEarL/Skeleton3D" index="2"]
+surface_material_override/0 = ExtResource("5_olbh1")
+
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarL/Skeleton3D" index="3"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.9208793, 0.38938695, 0.018949628, -0.36594784, 0.88015985, -0.30232558, -0.13440034, 0.27147081, 0.95301634, 0.011787079, 0.036829725, 0.005357153)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_f2te7")
+bone_name = "Ear.L"
+properties = SubResource("Resource_kevxp")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"

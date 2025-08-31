@@ -73,7 +73,7 @@ data = {
 "eyes": {
 &"b": Color(1, 1, 1, 1),
 &"g": Color(0, 0.6313726, 1, 1),
-&"id": "Eye_Normal",
+&"id": "Eye_Mystic",
 &"r": Color(0, 0.4, 0.91764706, 1)
 },
 "faceOverride": {
@@ -92,6 +92,7 @@ data = {
 }],
 "lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
+"shapeRound": 0.11,
 "skinDataOverride": null,
 "snout": Color(0.42352942, 0.27450982, 0.27450982, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),

@@ -42,4 +42,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Mystic": {
+			name = "Mystic",
+			colormask = "res://Mesh/Parts/SharedTextures/Eyes/eye_mystic.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

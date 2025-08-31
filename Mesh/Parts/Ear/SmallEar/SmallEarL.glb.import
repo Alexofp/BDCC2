@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cw3gpucq3d0vb"
-path="res://.godot/imported/FelineHead.glb-636fe0863a982ba9a024b69816ca53f2.scn"
+uid="uid://b6xw6s5tygcr"
+path="res://.godot/imported/SmallEarL.glb-dfbe9f659d54cea37784941e7eec28bb.scn"
 
 [deps]
 
-source_file="res://Mesh/Parts/Head/FelineHead/FelineHead.glb"
-dest_files=["res://.godot/imported/FelineHead.glb-636fe0863a982ba9a024b69816ca53f2.scn"]
+source_file="res://Mesh/Parts/Ear/SmallEar/SmallEarL.glb"
+dest_files=["res://.godot/imported/SmallEarL.glb-dfbe9f659d54cea37784941e7eec28bb.scn"]
 
 [params]
 
@@ -38,5 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=1
+gltf/naming_version=2
 gltf/embedded_image_handling=1

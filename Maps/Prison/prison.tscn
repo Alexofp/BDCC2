@@ -1,7 +1,7 @@
 [gd_scene load_steps=78 format=3 uid="uid://cqxqisi1jql0h"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_207vj"]
-[ext_resource type="Resource" path="res://Maps/genblock.res" id="2_3wh73"]
+[ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_3wh73"]
 [ext_resource type="PackedScene" uid="uid://c5qw6lii6gf8a" path="res://Mapping/Floors/FloorTile4x4.tscn" id="3_n0ve6"]
 [ext_resource type="PackedScene" uid="uid://db84vx235i5rn" path="res://Mapping/Walls/WindowBarsA4x3.tscn" id="5_57q1u"]
 [ext_resource type="PackedScene" uid="uid://cyqosc5s4pb7" path="res://Mapping/Walls/WallA4x4.tscn" id="7_w48ot"]
@@ -715,6 +715,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -9, 
 
 [node name="WallA4x1" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x2" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 4)
@@ -724,6 +725,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 4)
 
 [node name="WallA2x2" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -10, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x3" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -8, 2, 9)
@@ -800,9 +802,11 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0
 
 [node name="WallA4x6" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x7" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WindowBarsA4x5" parent="GenBlockMap" instance=ExtResource("5_57q1u")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 7, 0, 4)
@@ -812,9 +816,11 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 
 
 [node name="WallA4x7" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 9, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x8" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x8" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 0, 6)
@@ -851,6 +857,7 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerOuter" parent="GenBlockMap" instance=ExtResource("29_cq2pp")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 19, 0, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x34" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 6)
@@ -859,9 +866,11 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x9" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x10" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x35" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 5, 6)
@@ -890,18 +899,23 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x11" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x12" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x13" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x3" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x9" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 11, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x40" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 10)
@@ -928,6 +942,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11,
 
 [node name="WallA1x6" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FancyRailing4" parent="GenBlockMap" instance=ExtResource("30_xvs6m")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -10, 5, 4)
@@ -949,15 +964,15 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6, 5
 
 [node name="WallLightBig" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 3.6, 3.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig2" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 3.6, 3.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig3" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 9, 3.6, 3.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x44" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10, 5, 10)
@@ -1005,6 +1020,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 
 
 [node name="WallA1x4CornerOuter2" parent="GenBlockMap" instance=ExtResource("29_cq2pp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 0, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile1x1" parent="GenBlockMap" instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 6)
@@ -1094,15 +1110,19 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 
 
 [node name="WallA1x1CornerOuter" parent="GenBlockMap" instance=ExtResource("37_qgi2l")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x18" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 4, 7)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x10" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 4, 11)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x8" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 4, 10)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FancyRailing2Corner" parent="GenBlockMap" instance=ExtResource("38_hfet6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, 5, 4)
@@ -1140,6 +1160,7 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerOuter3" parent="GenBlockMap" instance=ExtResource("29_cq2pp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 5, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x19" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 5, 15)
@@ -1155,9 +1176,11 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 5
 
 [node name="WallA4x20" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x11" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x12" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 5, 12)
@@ -1202,6 +1225,7 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerC2" parent="GenBlockMap" instance=ExtResource("10_day4y")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -17, 5, 11)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x21" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, 9)
@@ -1228,6 +1252,7 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerB3" parent="GenBlockMap" instance=ExtResource("16_hxit5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="BackWallA8x6" parent="GenBlockMap" instance=ExtResource("11_aq2qi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 0, 0)
@@ -1243,21 +1268,25 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18,
 
 [node name="WallA1x11" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 4, -2)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="BackWallA8x8" parent="GenBlockMap" instance=ExtResource("11_aq2qi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, 0)
 
 [node name="WallA1x4CornerInnerB4" parent="GenBlockMap" instance=ExtResource("16_hxit5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 5, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x23" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, -1)
 
 [node name="WallA2x15" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, 3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x16" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, 5)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x12" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 5, 2)
@@ -1267,6 +1296,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18,
 
 [node name="WallA4x24" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 0, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x17" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -17, 0, 4)
@@ -1279,6 +1309,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18,
 
 [node name="WallA1x14" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 0, -2)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x64" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16, 5, 2)
@@ -1313,33 +1344,39 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14,
 
 [node name="WallLightBig4" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallA4x26" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x27" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -12, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x19" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x20" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -15, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallLightBig5" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig6" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallA4x28" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -16, 3.9, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x21" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -13, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x66" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 9.1, 10)
@@ -1435,6 +1472,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4, -4)
 
 [node name="WallA1x1CornerInner" parent="GenBlockMap" instance=ExtResource("43_f2i3i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA5" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12.5, 5, 20)
@@ -1465,6 +1503,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 24, 
 
 [node name="WallA1x4CornerOuter4" parent="GenBlockMap" instance=ExtResource("29_cq2pp")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 5, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA7" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 5, 18)
@@ -1743,15 +1782,19 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="ColumnA9" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA10" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA11" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 18, 4.5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x4CornerOuterB" parent="GenBlockMap" instance=ExtResource("51_uqf76")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 1, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x32" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 1, -9)
@@ -1788,9 +1831,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 5, -4)
 
 [node name="ColumnA12" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA13" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x33" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 5, -9)
@@ -1800,33 +1845,42 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 5
 
 [node name="WallA1x4CornerOuterB2" parent="GenBlockMap" instance=ExtResource("51_uqf76")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnB1" parent="GenBlockMap" instance=ExtResource("53_1ygym")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 4, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnB2" parent="GenBlockMap" instance=ExtResource("53_1ygym")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 4, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA14" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 7, 4.5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA2" parent="GenBlockMap" instance=ExtResource("54_xh3my")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 11, 4.5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA3" parent="GenBlockMap" instance=ExtResource("54_xh3my")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 19, 4.5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA15" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 21, 4.5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WindowBarsA4x12" parent="GenBlockMap" instance=ExtResource("5_57q1u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, -4)
 
 [node name="WallA1x4CornerOuterB3" parent="GenBlockMap" instance=ExtResource("51_uqf76")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x4CornerOuterB4" parent="GenBlockMap" instance=ExtResource("51_uqf76")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, -4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="ColumnA16" parent="GenBlockMap" instance=ExtResource("40_5tx25")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 7, 8.4, -4)
@@ -2327,33 +2381,39 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x34" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 23, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x35" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 31, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x36" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 39, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x35" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 26, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x36" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 34, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x37" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 3, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallLightBig9" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22.9, 3.6, 3.7)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig10" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30.9, 3.6, 3.7)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig11" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 39, 3.6, 3.7)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x151" parent="GenBlockMap" instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -6)
@@ -2589,15 +2649,19 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x1CornerOuter2" parent="GenBlockMap" instance=ExtResource("37_qgi2l")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 19, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x37" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 19, 4, 7)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x20" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 19, 4, 9)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x38" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 19, 4, 11)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x38" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 19, 0, 7)
@@ -3199,30 +3263,39 @@ color3 = Color(1, 1, 1, 1)
 
 [node name="WallA2x45" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 21, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x43" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 25, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x44" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 29, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x45" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 33, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x46" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 37, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x47" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 41, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x46" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 45, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x48" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 48, 3.9, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x49" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 46, 0, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x47" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 49, 0, 4)
@@ -3250,27 +3323,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 4, -4)
 
 [node name="WallA1x4CornerInnerB7" parent="GenBlockMap" instance=ExtResource("16_hxit5")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 49, 0, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x24" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 0, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x25" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, -4)
 
 [node name="WallA1x26" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 23, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x27" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 44, 4, 4)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x28" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 4, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x29" parent="GenBlockMap" instance=ExtResource("21_tpsi6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 4, -4)
 
 [node name="WallA1x1CornerInner2" parent="GenBlockMap" instance=ExtResource("43_f2i3i")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 49, 4, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FancyRailing22" parent="GenBlockMap" instance=ExtResource("39_mfkbf")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19, 5, 10)
@@ -3320,9 +3399,11 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 
 
 [node name="WallA2x52" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 5, 5)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x53" parent="GenBlockMap" instance=ExtResource("13_vqtgh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 5, 3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x53" parent="GenBlockMap" instance=ExtResource("7_w48ot")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 5, -1)
@@ -3332,6 +3413,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 5, -4)
 
 [node name="WallA1x4CornerInnerB8" parent="GenBlockMap" instance=ExtResource("16_hxit5")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 49, 5, -3)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA1x30" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 5, -4)
@@ -3429,6 +3511,7 @@ colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerB9" parent="GenBlockMap" instance=ExtResource("16_hxit5")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 49, 5, 11)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WindowBarsA4x16" parent="GenBlockMap" instance=ExtResource("5_57q1u")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 46, 5, 12)
@@ -3456,33 +3539,39 @@ transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 27, 
 
 [node name="WallA4x54" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 28, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x57" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 31, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x55" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 36, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x58" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 39, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA4x56" parent="GenBlockMap" instance=ExtResource("19_fmkev")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 44, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallA2x59" parent="GenBlockMap" instance=ExtResource("20_4xkr7")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 47, 8, 12)
+colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="WallLightBig12" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 44, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig13" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 36, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallLightBig14" parent="GenBlockMap" instance=ExtResource("32_ju0lk")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 28, 8.6, 11.8)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 1, 1, 1)
 
 [node name="WallA1x33" parent="GenBlockMap" instance=ExtResource("8_wrhh4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 26, 5, 12)

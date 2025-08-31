@@ -14,8 +14,8 @@ data = {
 "bodyLayers": [{
 &"b": Color(0.09411765, 0.16862746, 0.44705883, 1),
 &"g": Color(0, 0.043137256, 0.28235295, 1),
-&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
-&"id": "Body_Ferri"
+&"id": "Body_Ferri",
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1)
 }],
 "breasts": 2.24,
 "breastsCleavage": 0.0,
@@ -48,8 +48,8 @@ data = {
 "pattern": {
 &"b": Color(0.3, 0.3, 0.3, 1),
 &"g": Color(0.5, 0.5, 0.5, 1),
-&"r": Color(0.7, 0.7, 0.7, 1),
-&"id": ""
+&"id": "",
+&"r": Color(0.7, 0.7, 0.7, 1)
 },
 "shading": 0.5
 }
@@ -62,8 +62,8 @@ data = {
 "eyes": {
 &"b": Color(1, 1, 1, 1),
 &"g": Color(0, 0.87058824, 0.8666667, 1),
-&"r": Color(0, 0.41960785, 0.41960785, 1),
-&"id": "Eye_Normal"
+&"id": "Eye_Normal",
+&"r": Color(0, 0.41960785, 0.41960785, 1)
 },
 "faceOverride": {
 &"fields": {},
@@ -76,11 +76,12 @@ data = {
 "headLayers": [{
 &"b": Color(0, 0.8862745, 0.88235295, 1),
 &"g": Color(0, 0.043137256, 0.28235295, 1),
-&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
-&"id": "FelineHead_Ferri"
+&"id": "FelineHead_Ferri",
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1)
 }],
 "lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
+"shapeRound": 0.0,
 "skinDataOverride": null,
 "snout": Color(0.23921569, 0.29803923, 0.54509807, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
@@ -96,8 +97,8 @@ data = {
 "pattern": {
 &"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"r": Color(0, 0.8862745, 0.88235295, 1),
-&"id": "FluffyEar_Default"
+&"id": "FluffyEar_Default",
+&"r": Color(0, 0.8862745, 0.88235295, 1)
 },
 "piercings": "",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -126,8 +127,8 @@ data = {
 "pattern": {
 &"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"r": Color(0, 0.8862745, 0.88235295, 1),
-&"id": "FluffyEar_Default"
+&"id": "FluffyEar_Default",
+&"r": Color(0, 0.8862745, 0.88235295, 1)
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(1, 1, 1, 1),
@@ -156,8 +157,8 @@ data = {
 "pattern": {
 &"b": Color(0.09411765, 0.16862746, 0.44705883, 1),
 &"g": Color(0, 0.043137256, 0.28235295, 1),
-&"r": Color(0.8666667, 0.80784315, 0.7882353, 1),
-&"id": "DragonTail_Ferri"
+&"id": "DragonTail_Ferri",
+&"r": Color(0.8666667, 0.80784315, 0.7882353, 1)
 },
 "ridges": true,
 "skinDataOverride": null,

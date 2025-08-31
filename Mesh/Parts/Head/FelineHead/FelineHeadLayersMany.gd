@@ -25,4 +25,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Coffee": {
+			name = "Coffee",
+			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Coffee.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

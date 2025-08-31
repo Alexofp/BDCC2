@@ -67,4 +67,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"LongHair_Coffee": {
+			name = "Coffee",
+			subType = "LongHair",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/LongHair/Coffee.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

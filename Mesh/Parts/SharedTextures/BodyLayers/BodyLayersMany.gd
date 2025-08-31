@@ -71,4 +71,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Coffee": {
+			name = "Coffee",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Coffee.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

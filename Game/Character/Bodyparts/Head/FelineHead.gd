@@ -8,6 +8,7 @@ var fluffWide:float = 0.0
 var fluffShort:float = 0.0
 var snout:Color = Color("9b9b9b")
 var lines:Color = Color.BLACK
+var shapeRound:float = 0.0
 
 func _init():
 	super._init()
@@ -33,6 +34,13 @@ func getOptions() -> Dictionary:
 			type = "texVarLayerList",
 			texType = TextureVariantType.HeadLayer,
 			texSubType = "FelineHead",
+			editors = [EDITOR_PART],
+		}
+	theOptions["shapeRound"] = {
+			name = "Rounder shape",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
 			editors = [EDITOR_PART],
 		}
 	theOptions["snout"] = {
