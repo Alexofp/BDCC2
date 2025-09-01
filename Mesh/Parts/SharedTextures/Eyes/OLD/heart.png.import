@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5suapord0yqi"
-path.s3tc="res://.godot/imported/heart.png-6ccbcf2050ee91aebe25f7e14849c424.s3tc.ctex"
+path.s3tc="res://.godot/imported/heart.png-2a32155b8521fa0ebd1dfad536e4fe04.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/heart.png"
-dest_files=["res://.godot/imported/heart.png-6ccbcf2050ee91aebe25f7e14849c424.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/heart.png"
+dest_files=["res://.godot/imported/heart.png-2a32155b8521fa0ebd1dfad536e4fe04.s3tc.ctex"]
 
 [params]
 

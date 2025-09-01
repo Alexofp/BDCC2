@@ -19,3 +19,10 @@ func applyOption(_optionID:String, _value:Variant):
 	if(ball_gag_module != null):
 		if(_optionID == "ballColor"):
 			ball_gag_module.set_instance_shader_parameter("trim_color_main", _value)
+
+func getSyncedBodypartSlots() -> Array:
+	return [BodypartSlot.Head]
+
+func applySyncedBodypartOption(_slot:int, _optionID:String, _value:Variant):
+	if(_optionID == "shapeRound"):
+		setBlendshape("Round", _value)

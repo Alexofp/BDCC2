@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://uy7q5t8lgmp"
-path.s3tc="res://.godot/imported/Eye_low_HumanEyeRight_BaseColor.png-63a4c919d2365084fdbdc4655053b68f.s3tc.ctex"
+path.s3tc="res://.godot/imported/Eye_low_HumanEyeRight_BaseColor.png-e4c265f203456764fbd6e48b854c06e1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_BaseColor.png"
-dest_files=["res://.godot/imported/Eye_low_HumanEyeRight_BaseColor.png-63a4c919d2365084fdbdc4655053b68f.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/Eye_low_HumanEyeRight_BaseColor.png"
+dest_files=["res://.godot/imported/Eye_low_HumanEyeRight_BaseColor.png-e4c265f203456764fbd6e48b854c06e1.s3tc.ctex"]
 
 [params]
 

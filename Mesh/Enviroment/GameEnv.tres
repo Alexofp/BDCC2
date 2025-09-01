@@ -1,5 +1,6 @@
-[gd_resource type="Environment" load_steps=2 format=3 uid="uid://cfeg5fu5v0p4o"]
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://cfeg5fu5v0p4o"]
 
+[ext_resource type="CompressedTexture3D" uid="uid://yishne3ug5sg" path="res://Mesh/Enviroment/lutBlueish.webp" id="1_c62nv"]
 [ext_resource type="Sky" uid="uid://caai468y1nhrg" path="res://Mesh/Enviroment/SpaceSky.tres" id="1_kbo3f"]
 
 [resource]
@@ -8,13 +9,16 @@ sky = ExtResource("1_kbo3f")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.1
-tonemap_mode = 3
+ambient_light_energy = 0.05
+tonemap_mode = 4
+tonemap_exposure = 0.8
 ssao_intensity = 3.0
 ssil_intensity = 10.0
+sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 2
+sdfgi_y_scale = 2
 glow_normalized = true
 glow_strength = 0.58
 glow_blend_mode = 1
@@ -25,6 +29,9 @@ fog_sky_affect = 0.0
 fog_depth_begin = 5.0
 fog_depth_end = 75.0
 volumetric_fog_density = 0.02
-volumetric_fog_anisotropy = 0.31
+volumetric_fog_anisotropy = 0.64
 volumetric_fog_length = 32.0
 volumetric_fog_sky_affect = 0.4
+adjustment_enabled = true
+adjustment_brightness = 1.5
+adjustment_color_correction = ExtResource("1_c62nv")

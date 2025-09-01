@@ -1,24 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0l6erkveqgyk"]
+[gd_scene load_steps=13 format=3 uid="uid://b0l6erkveqgyk"]
 
 [ext_resource type="PackedScene" uid="uid://cw3gpucq3d0vb" path="res://Mesh/Parts/Head/FelineHead/FelineHead.glb" id="1_qhi50"]
 [ext_resource type="Script" uid="uid://c4elfen018uyc" path="res://Mesh/Parts/Head/FelineHead/feline_head.gd" id="2_0kujj"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_0v4py"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="4_0v4py"]
 [ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_4wgvr"]
-[ext_resource type="Texture2D" uid="uid://jhs5mw3w2y3p" path="res://Mesh/Parts/SharedTextures/Brows/brow1.png" id="6_fk6bo"]
-[ext_resource type="Texture2D" uid="uid://dqqgx26c8rdly" path="res://Mesh/Parts/SharedTextures/Eyelashes/MyEyelashes1.png" id="7_qg2ga"]
+[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="5_3i52i"]
+[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="6_a88nv"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="8_4wgvr"]
 [ext_resource type="Material" uid="uid://dvkj4usha6csj" path="res://Mesh/Parts/Head/FelineHead/MouthMat.tres" id="9_3i52i"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="14_ew517"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="15_4wgvr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kw5g6"]
-transparency = 1
-albedo_texture = ExtResource("6_fk6bo")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i52i"]
-transparency = 1
-albedo_texture = ExtResource("7_qg2ga")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a88nv"]
 transparency = 1
@@ -78,10 +70,10 @@ unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_4wgvr")
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_kw5g6")
+surface_material_override/0 = ExtResource("5_3i52i")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2"]
-surface_material_override/0 = SubResource("StandardMaterial3D_3i52i")
+surface_material_override/0 = ExtResource("6_a88nv")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3"]
 surface_material_override/0 = ExtResource("8_4wgvr")

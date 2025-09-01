@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1vii2iyqyreq"
-path.s3tc="res://.godot/imported/hound.png-e5a59e74fd16923866f65c09d419b39c.s3tc.ctex"
+uid="uid://b0rthh2vqjgds"
+path.s3tc="res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/hound.png"
-dest_files=["res://.godot/imported/hound.png-e5a59e74fd16923866f65c09d419b39c.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/demon.png"
+dest_files=["res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.s3tc.ctex"]
 
 [params]
 

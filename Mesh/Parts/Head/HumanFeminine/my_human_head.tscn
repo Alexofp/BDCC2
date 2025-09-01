@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://c4lbfd4esakpr" path="res://Mesh/Parts/Head/HumanFeminine/my_human_head.gd" id="2_l4a0u"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_pdg8m"]
 [ext_resource type="Material" uid="uid://5ypm6rky47xe" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanHeadMat.tres" id="4_ivnxr"]
+[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="5_ivnxr"]
 [ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="10_o81br"]
-[ext_resource type="Material" uid="uid://13wriie643e5" path="res://Mesh/Parts/SharedMaterials/EyelashesMat.tres" id="11_o81br"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="12_k178j"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="12_l4a0u"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="14_l4a0u"]
@@ -71,7 +71,7 @@ bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.707106
 surface_material_override/0 = ExtResource("10_o81br")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1"]
-surface_material_override/0 = ExtResource("11_o81br")
+surface_material_override/0 = ExtResource("5_ivnxr")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2"]
 surface_material_override/0 = ExtResource("12_l4a0u")

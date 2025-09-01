@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c55073mvhxpxt"
-path="res://.godot/imported/eye_mystic.png-a4d133e16aec12d895479b43060920b1.ctex"
+uid="uid://r5g53wyf0nno"
+path="res://.godot/imported/eye_demon.png-6521b34f10d1475c95fd64e762d22f8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/eye_mystic.png"
-dest_files=["res://.godot/imported/eye_mystic.png-a4d133e16aec12d895479b43060920b1.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/eye_demon.png"
+dest_files=["res://.godot/imported/eye_demon.png-6521b34f10d1475c95fd64e762d22f8c.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfpcnpr4sf0wg"
-path.s3tc="res://.godot/imported/animal.png-255fa9a8ffcbd4f5d3517e93213b0b5c.s3tc.ctex"
+path.s3tc="res://.godot/imported/animal.png-8d690c4b8a2b223674e53ad809afcd6d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/animal.png"
-dest_files=["res://.godot/imported/animal.png-255fa9a8ffcbd4f5d3517e93213b0b5c.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/animal.png"
+dest_files=["res://.godot/imported/animal.png-8d690c4b8a2b223674e53ad809afcd6d.s3tc.ctex"]
 
 [params]
 

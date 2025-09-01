@@ -27,9 +27,10 @@ shape = SubResource("BoxShape3D_0gs2k")
 [node name="SpotLight3D" parent="WallLightBig" index="1" instance=ExtResource("3_2iwge")]
 transform = Transform3D(-1, -4.9703104e-14, 8.742278e-08, 4.31313e-08, 0.8698223, 0.49336517, -7.60423e-08, 0.49336517, -0.8698223, 0, -0.101759, 0.275208)
 light_color = Color(0, 0.8784314, 1, 1)
-light_energy = 4.0
+light_energy = 10.0
 light_volumetric_fog_energy = 1.0
 spot_range = 15.0
+spot_attenuation = 2.0
 spot_angle = 100.52
 
 [node name="WallLightBig_lod1" parent="." index="1"]
