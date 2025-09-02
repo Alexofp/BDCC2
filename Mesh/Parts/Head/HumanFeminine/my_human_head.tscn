@@ -68,9 +68,11 @@ bones/44/rotation = Quaternion(0.7071068, 1.1267261e-06, 1.1267261e-06, 0.707106
 bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.7071068)
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("10_o81br")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("5_ivnxr")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2"]

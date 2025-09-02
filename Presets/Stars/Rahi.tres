@@ -35,9 +35,20 @@ data = {
 "handPadsColor": Color(0.77734375, 0.4106865, 0.2672119, 1),
 "hindPawPadColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
 "legType": "digi",
-"nippleColor": Color(0.9607843, 0.54901963, 0.54901963, 1),
 "nipplePiercing": [""],
 "nippleShape": 0.0,
+"nipples": {
+&"b": Color(0.7411765, 0.2509804, 0.2509804, 1),
+&"g": Color(0.96862745, 0.6784314, 0.69803923, 1),
+&"id": "Nipple_Default",
+&"r": Color(0.9607843, 0.54901963, 0.54901963, 1)
+},
+"pubicHair": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "",
+&"r": Color(0, 0, 0, 1)
+},
 "skinDataOverride": null,
 "skinType": 1,
 "toeClawColor": Color(0.52156866, 0.3529412, 0.3529412, 1),
@@ -54,7 +65,7 @@ data = {
 &"data": {
 "options": {
 "bandColor": Color(0.09019608, 0.09019608, 0.09019608, 1),
-"colorRoot": Color(0.6627451, 0.328125, 0.16470586, 1),
+"colorRoot": Color(0.6627451, 0.25808823, 0.16470586, 1),
 "colorTip": Color(0.359375, 0.22576122, 0.1796875, 1),
 "pattern": {
 &"b": Color(0.3, 0.3, 0.3, 1),
@@ -70,10 +81,22 @@ data = {
 "Head": {
 &"data": {
 "options": {
+"brows": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Brow_Brow1",
+&"r": Color(0.32421875, 0.16844177, 0.16844177, 1)
+},
+"eyelashes": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Eyelashes_Eyelashes1",
+&"r": Color(0, 0, 0, 1)
+},
 "eyes": {
 &"b": Color(1, 1, 1, 1),
 &"g": Color(0, 0.6313726, 1, 1),
-&"id": "Eye_Mystic",
+&"id": "Eye_Normal",
 &"r": Color(0, 0.4, 0.91764706, 1)
 },
 "faceOverride": {

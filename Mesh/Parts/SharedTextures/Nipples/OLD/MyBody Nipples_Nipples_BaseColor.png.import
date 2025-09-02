@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d34eo1l4jjbpj"
-path.s3tc="res://.godot/imported/eye_colormask.png-a8530c35164b1f0bf8613fb7f211adbd.s3tc.ctex"
+uid="uid://jynenxqisa3y"
+path.s3tc="res://.godot/imported/MyBody Nipples_Nipples_BaseColor.png-769e6ba1a9b27ecc1e8447c2e0ffef17.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/eye_colormask.png"
-dest_files=["res://.godot/imported/eye_colormask.png-a8530c35164b1f0bf8613fb7f211adbd.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Nipples/OLD/MyBody Nipples_Nipples_BaseColor.png"
+dest_files=["res://.godot/imported/MyBody Nipples_Nipples_BaseColor.png-769e6ba1a9b27ecc1e8447c2e0ffef17.s3tc.ctex"]
 
 [params]
 

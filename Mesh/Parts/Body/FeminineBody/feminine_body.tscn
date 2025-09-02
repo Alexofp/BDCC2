@@ -81,7 +81,7 @@ surface_material_override/0 = ExtResource("4_f00mj")
 [node name="Nipples" parent="rig/Skeleton3D" index="9"]
 unique_name_in_owner = true
 lod_bias = 100.0
-blend_shapes/NipplesAnime = 1.0
+blend_shapes/NipplesNormal = 1.0
 surface_material_override/0 = ExtResource("6_87rsm")
 
 [node name="PlantiLegs" parent="rig/Skeleton3D" index="10"]
@@ -90,7 +90,7 @@ surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("6_18t5l")
 
 [node name="PubicHair" parent="rig/Skeleton3D" index="11"]
-visible = false
+unique_name_in_owner = true
 lod_bias = 100.0
 surface_material_override/0 = ExtResource("7_e373p")
 

@@ -14,6 +14,7 @@ var toeClawMat:MyMasterMaterial
 var hindPawPadsMat:MyMasterMaterial
 var genitalsMat:MyMasterMaterial
 var spadeMat:MyMasterMaterial
+var pubicHairMat:MyMasterMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -23,10 +24,12 @@ var spadeMat:MyMasterMaterial
 @onready var male_crotch: MeshInstance3D = %MaleCrotch
 @onready var female_crotch: MeshInstance3D = %FemaleCrotch
 @onready var female_crotch_spade: MeshInstance3D = %FemaleCrotchSpade
-
-@onready var skeleton_3d: Skeleton3D = %Skeleton3D
 @onready var nipple_l: Node3D = %NippleL
 @onready var nipple_r: Node3D = %NippleR
+@onready var pubic_hair: MeshInstance3D = %PubicHair
+
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
@@ -37,6 +40,7 @@ func grabMaterials():
 	hindPawPadsMat = digi_legs.get_surface_override_material(2)
 	genitalsMat = female_crotch.get_surface_override_material(1)
 	spadeMat = female_crotch_spade.get_surface_override_material(2)
+	pubicHairMat = pubic_hair.get_surface_override_material(0)
 
 func updateThickness():
 	updateThicknessBody()
@@ -63,9 +67,10 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "hindPawPadColor"):
 		if(hindPawPadsMat):
 			hindPawPadsMat.set_shader_parameter("albedo", _value)
-	if(_optionID == "nippleColor"):
-		if(nippleMat):
-			nippleMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "nipples"):
+		applyColormaskPatternToMyMat(nippleMat, _value)
+	if(_optionID == "pubicHair"):
+		applyColormaskPatternToMyMat(pubicHairMat, _value)
 	if(_optionID == "legType"):
 		digi_legs.visible = (_value == "digi")
 		planti_legs.visible = (_value == "planti")

@@ -14,8 +14,8 @@ data = {
 "bodyLayers": [{
 &"b": Color(0, 0.60784316, 0.5764706, 1),
 &"g": Color(0.88235295, 0.88235295, 0.8745098, 1),
-&"r": Color(0.08235294, 0.9372549, 0.9490196, 1),
-&"id": "Body_Artica"
+&"id": "Body_Artica",
+&"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
 }],
 "breasts": 1.78,
 "breastsCleavage": 0.0,
@@ -25,9 +25,20 @@ data = {
 "handPadsColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "hindPawPadColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "legType": "digi",
-"nippleColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "nipplePiercing": ["p1", Color(0.9647059, 0.003921569, 0.9490196, 1)],
 "nippleShape": 0.0,
+"nipples": {
+&"b": Color(0.7411765, 0.2509804, 0.2509804, 1),
+&"g": Color(0.96862745, 0.6784314, 0.69803923, 1),
+&"id": "Nipple_Default",
+&"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
+},
+"pubicHair": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "",
+&"r": Color(0, 0, 0, 1)
+},
 "skinDataOverride": null,
 "skinType": 1,
 "toeClawColor": Color(0.19215687, 0.24705882, 0.24705882, 1),
@@ -48,8 +59,8 @@ data = {
 "pattern": {
 &"b": Color(0.08235295, 0.9372549, 0.9490196, 0.0627451),
 &"g": Color(0.08235295, 0.9372549, 0.9490196, 0.6745098),
-&"r": Color(0.08235294, 0.9372549, 0.9490196, 1),
-&"id": "ShortHair2_Tips"
+&"id": "ShortHair2_Tips",
+&"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
 },
 "shading": 0.5
 }
@@ -59,11 +70,23 @@ data = {
 "Head": {
 &"data": {
 "options": {
+"brows": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Brow_Brow1",
+&"r": Color(0.06666667, 0.3137255, 0.34509805, 1)
+},
+"eyelashes": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Eyelashes_Eyelashes1",
+&"r": Color(0.007843138, 0.06666667, 0.07450981, 1)
+},
 "eyes": {
 &"b": Color(1, 1, 1, 1),
 &"g": Color(0.050980393, 0.81960785, 0.6392157, 1),
-&"r": Color(0.15686275, 0.7490196, 0.6117647, 1),
-&"id": "Eye_Normal"
+&"id": "Eye_Normal",
+&"r": Color(0.15686275, 0.7490196, 0.6117647, 1)
 },
 "faceOverride": {
 &"fields": {
@@ -87,10 +110,10 @@ data = {
 "headLayers": [{
 &"b": Color(0.08235294, 0.9372549, 0.9490196, 1),
 &"g": Color(0.76, 0.76, 0.7524, 1),
-&"r": Color(0.08235294, 0.9372549, 0.9490196, 1),
-&"id": "CanineHead_Artica"
+&"id": "CanineHead_Artica",
+&"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
 }],
-"lines": Color(0, 0, 0, 1),
+"lines": Color(0.00869751, 0.06683607, 0.07421875, 1),
 "mouthColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "piercings": ["p1", Color(0.9647059, 0.003921569, 0.9490196, 1), Color(0.9647059, 0.003921569, 0.9490196, 1)],
 "skinDataOverride": null,
@@ -108,8 +131,8 @@ data = {
 "pattern": {
 &"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"r": Color(0.8745098, 0.8862745, 0.8784314, 1),
-&"id": "FluffyEar_Default"
+&"id": "FluffyEar_Default",
+&"r": Color(0.8745098, 0.8862745, 0.8784314, 1)
 },
 "piercings": "",
 "piercingsColor": Color(0.53125, 0.53125, 0.53125, 1),
@@ -128,8 +151,8 @@ data = {
 "pattern": {
 &"b": Color(0.04859998, 0.40896, 0.54, 1),
 &"g": Color(0.07559997, 0.82726014, 0.84, 1),
-&"r": Color(0.076499976, 0.83710855, 0.85, 1),
-&"id": "CanineShaft_Default"
+&"id": "CanineShaft_Default",
+&"r": Color(0.076499976, 0.83710855, 0.85, 1)
 },
 "penBallsDrop": 0.0,
 "penBallsScale": 1.0,
@@ -148,8 +171,8 @@ data = {
 "pattern": {
 &"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
 &"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"r": Color(0.8745098, 0.8862745, 0.8784314, 1),
-&"id": "FluffyEar_Default"
+&"id": "FluffyEar_Default",
+&"r": Color(0.8745098, 0.8862745, 0.8784314, 1)
 },
 "piercings": "TwoRings",
 "piercingsColor": Color(0.5703125, 0.5703125, 0.5703125, 1),
@@ -167,8 +190,8 @@ data = {
 "pattern": {
 &"b": Color(0.88235295, 0.88235295, 0.8745098, 1),
 &"g": Color(0.5019608, 0.5019608, 0.5019608, 0),
-&"r": Color(0.08235294, 0.9372549, 0.9490196, 1),
-&"id": "LongTail_Burger"
+&"id": "LongTail_Burger",
+&"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
 },
 "skinDataOverride": null,
 "tailLenMod": 1.0,

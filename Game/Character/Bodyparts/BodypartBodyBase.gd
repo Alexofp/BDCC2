@@ -6,7 +6,14 @@ var bodyLayers:Array = []
 var breasts:float = 1.0
 var nippleShape:float = 0.0
 var breastsCleavage:float = 0.0
-var nippleColor:Color = Color("f58c8c")
+var nipples:Dictionary = {
+	id = "Nipple_Default",
+	r = Color("f58c8c"),
+	g = Color("f7adb2ff"),
+	b = Color("bd4040ff"),
+}
+
+var nipplePiercing:Array = [""]
 
 var claws:float = 0.0
 var clawsColor:Color = Color("855a5a")
@@ -23,8 +30,12 @@ var vaginaType:int = VaginaType.Normal
 var vaginaSize:float = 0.0
 var vaginaColor:Color = Color("f58c8c")
 var vaginaInColor:Color = Color("f58c8c")
-
-var nipplePiercing:Array = [""]
+var pubicHair:Dictionary = {
+	id = "",
+	r = Color("000000ff"),
+	g = Color("ff0000ff"),
+	b = Color("00ff00ff"),
+}
 
 func getBodypartType() -> int:
 	return BodypartType.Body
@@ -55,9 +66,11 @@ func getOptions() -> Dictionary:
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Breasts,
 		},
-		"nippleColor": {
-			name = "Nipples color",
-			type = "color",
+		"nipples": {
+			name = "Nipples pattern",
+			type = "pattern",
+			texType = TextureVariantType.NipplePattern,
+			texSubType = "def",
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Breasts,
 		},
@@ -175,6 +188,14 @@ func getOptions() -> Dictionary:
 		"vaginaInColor": {
 			name = "Vagina (inside) color",
 			type = "color",
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
+		},
+		"pubicHair": {
+			name = "Pubic hair",
+			type = "pattern",
+			texType = TextureVariantType.PubicHairPattern,
+			texSubType = "def",
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Crotch,
 		},

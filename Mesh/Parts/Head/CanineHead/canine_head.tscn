@@ -76,9 +76,11 @@ unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_3axi8")
 
 [node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_yb4lr")
 
 [node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4"]
+unique_name_in_owner = true
 surface_material_override/0 = ExtResource("6_3axi8")
 
 [node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5"]

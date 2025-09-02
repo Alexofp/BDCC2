@@ -117,6 +117,10 @@ enum SubsurfaceScatteringType {
 	set(value):
 		colorMask = value
 		updateShader()
+@export var colorMaskAsAlbedo:bool = false:
+	set(value):
+		colorMaskAsAlbedo = value
+		updateShader()
 ## Discards pixels if their UV.y coordinate is above 1.0; Could be used to make some of the mesh transparent while keeping the altered normals of the visible parts (highly specialized use-case)
 @export var uvBasedDiscard:bool = false:
 	set(value):
@@ -170,6 +174,7 @@ func copyFrom(otherShader:MyMasterMaterial, ignoreUniforms:Array = []):
 	globalDetailMask = otherShader.globalDetailMask
 	globalDetailRoughMask = otherShader.globalDetailRoughMask
 	colorMask = otherShader.colorMask
+	colorMaskAsAlbedo = otherShader.colorMaskAsAlbedo
 	doubleSided = otherShader.doubleSided
 	unshaded = otherShader.unshaded
 	toonShading = otherShader.toonShading
@@ -245,6 +250,8 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("dr")
 	if(colorMask):
 		theFlags.append("cm")
+	if(colorMaskAsAlbedo):
+		theFlags.append("cma")
 	if(doubleSided):
 		theFlags.append("ds")
 	if(unshaded):
@@ -320,6 +327,8 @@ func calculateShaderResource() -> Array:
 		defines.append("MY_GLOBALDETAILROUGHMAP")
 	if(colorMask):
 		defines.append("MY_COLORMASK")
+	if(colorMaskAsAlbedo):
+		defines.append("MY_COLORMASKALBEDO")
 	if(doubleSided):
 		defines.append("MY_DOUBLESIDED")
 	if(unshaded):

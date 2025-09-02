@@ -5,10 +5,14 @@ extends DollPart
 @onready var cheek_fluff: MeshInstance3D = %CheekFluff
 @onready var canine_mouth: MeshInstance3D = %CanineMouth
 @onready var skeleton_3d: Skeleton3D = %Skeleton3D
+@onready var eye_brows: MeshInstance3D = %EyeBrows
+@onready var eyelashes: MeshInstance3D = %Eyelashes
 
 var eyeMat:ShaderMaterial
 var headMat:MyMasterMaterial
 var mouthMat:MyMasterMaterial
+var browMat:MyMasterMaterial
+var eyelashesMat:MyMasterMaterial
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
 
@@ -18,10 +22,14 @@ func grabMaterials():
 	headMat = canine_head.get_surface_override_material(0)
 	eyeMat = eyes.get_surface_override_material(0)
 	mouthMat = canine_mouth.get_surface_override_material(0)
+	browMat = eye_brows.get_surface_override_material(0)
+	eyelashesMat = eyelashes.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	applyEyeOptions(eyes, _optionID, _value)
 	applyMouthOptions(mouthMat, _optionID, _value)
+	applyBrowOptions(browMat, _optionID, _value)
+	applyEyelashesOptions(eyelashesMat, _optionID, _value)
 	if(_optionID == "fluff"):
 		cheek_fluff.visible = _value
 	elif(_optionID == "fluffSpiky"):

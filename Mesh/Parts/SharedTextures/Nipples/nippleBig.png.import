@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pn4xsdw54bby"
-path="res://.godot/imported/MyBody_MyBody Nipples_SMALL.png-07361b3fc6fdb7c7b383e3ccdc1f89ca.ctex"
+uid="uid://2aqy006egxh1"
+path="res://.godot/imported/nippleBig.png-b2f412844a8a9723013949906ddbadf0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Nipples/MyBody_MyBody Nipples_SMALL.png"
-dest_files=["res://.godot/imported/MyBody_MyBody Nipples_SMALL.png-07361b3fc6fdb7c7b383e3ccdc1f89ca.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Nipples/nippleBig.png"
+dest_files=["res://.godot/imported/nippleBig.png-b2f412844a8a9723013949906ddbadf0.ctex"]
 
 [params]
 

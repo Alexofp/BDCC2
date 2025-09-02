@@ -6,6 +6,7 @@ enum {
 	ALL = -1,
 	Head = 0,
 	Ears,
+	Eyes,
 	Face,
 	Mouth,
 	Breasts,
@@ -20,6 +21,7 @@ const ORDER = [
 	ALL,
 	Head,
 	Ears,
+	Eyes,
 	Face,
 	Mouth,
 	Breasts,
@@ -33,6 +35,7 @@ const ORDER = [
 const NAMES = [
 	"Head",
 	"Ears",
+	"Eyes",
 	"Face",
 	"Mouth",
 	"Breasts",
@@ -46,6 +49,7 @@ const NAMES = [
 const ZONE_TO_BONE = {
 	Head: "head",
 	Ears: "head",
+	Eyes: "head",
 	Face: "head",
 	Mouth: "head",
 	Breasts: "upper_chest",
@@ -58,6 +62,7 @@ const ZONE_TO_BONE = {
 }
 const ZONE_TO_OFFSET = {
 	ALL: Vector3(0.0, 1.336, 0.0),
+	Eyes: Vector3(0.0, 0.07, 0.0),
 	Head: Vector3(0.0, 0.15, 0.0),
 	Ears: Vector3(0.0, 0.15, 0.0),
 	Mouth: Vector3(0.0, 0.0, 0.03),
@@ -81,6 +86,7 @@ const ZONE_TO_CAMERA_DIST = {
 }
 const ZONE_TO_FOV = {
 	ALL: 60.0,
+	Eyes: 20.0,
 	Body: 60.0,
 	Mouth: 20.0,
 	Face: 30.0,

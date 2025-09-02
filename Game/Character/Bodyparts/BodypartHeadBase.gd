@@ -10,6 +10,18 @@ var eyes:Dictionary = {
 var mouthColor:Color = Color("9e352e")
 var tongueColor:Color = Color("9e352e")
 var teethColor:Color = Color("ffe8db")
+var brows:Dictionary = {
+	id = "Brow_Brow1",
+	r = Color("000000ff"),
+	g = Color("ff0000ff"),
+	b = Color("00ff00ff"),
+}
+var eyelashes:Dictionary = {
+	id = "Eyelashes_Eyelashes1",
+	r = Color("000000ff"),
+	g = Color("ff0000ff"),
+	b = Color("00ff00ff"),
+}
 
 var faceOverride:Dictionary = {
 	fields = {},
@@ -27,6 +39,23 @@ func getOptions() -> Dictionary:
 			texType = TextureVariantType.EyePattern,
 			texSubType = "def",
 			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Eyes,
+		},
+		"brows": {
+			name = "Brows",
+			type = "pattern",
+			texType = TextureVariantType.BrowPattern,
+			texSubType = "def",
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Eyes,
+		},
+		"eyelashes": {
+			name = "Eyelashes",
+			type = "pattern",
+			texType = TextureVariantType.EyelashesPattern,
+			texSubType = "def",
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Eyes,
 		},
 		"faceOverride": {
 			name = "Face expression",

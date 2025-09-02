@@ -234,3 +234,13 @@ func applyMouthOptions(_mouthMat:ShaderMaterial, _optionID:String, _value:Varian
 			_mouthMat.set_shader_parameter("color_mask_g", _value)
 		elif(_optionID == "teethColor"):
 			_mouthMat.set_shader_parameter("color_mask_b", _value)
+
+func applyBrowOptions(_browMat:ShaderMaterial, _optionID:String, _value:Variant):
+	if(_browMat != null):
+		if(_optionID == "brows"):
+			applyColormaskPatternToMyMat(_browMat, _value)
+
+func applyEyelashesOptions(_lashesMat:ShaderMaterial, _optionID:String, _value:Variant):
+	if(_lashesMat != null):
+		if(_optionID == "eyelashes"):
+			applyColormaskPatternToMyMat(_lashesMat, _value)

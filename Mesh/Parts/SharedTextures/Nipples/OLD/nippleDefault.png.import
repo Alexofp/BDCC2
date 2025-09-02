@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp8akkr6nye5k"
-path.s3tc="res://.godot/imported/nippleSmallWhite.png-d44ae6dc3b03dd5320dafb6cf48b9a31.s3tc.ctex"
+uid="uid://yrjqka0ed4th"
+path.s3tc="res://.godot/imported/nippleDefault.png-6d1b7b5b9980ea2a6d4073f3da69b933.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/Nipples/nippleSmallWhite.png"
-dest_files=["res://.godot/imported/nippleSmallWhite.png-d44ae6dc3b03dd5320dafb6cf48b9a31.s3tc.ctex"]
+source_file="res://Mesh/Parts/SharedTextures/Nipples/OLD/nippleDefault.png"
+dest_files=["res://.godot/imported/nippleDefault.png-6d1b7b5b9980ea2a6d4073f3da69b933.s3tc.ctex"]
 
 [params]
 
