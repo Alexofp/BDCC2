@@ -1,47 +1,52 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddjsdtudrcdop"]
+[gd_scene load_steps=12 format=3 uid="uid://rl6vlymktgyw"]
 
-[ext_resource type="PackedScene" uid="uid://mbh4g1xlp116" path="res://Mesh/Parts/Hair/LongCuteHair/LongCuteHair.glb" id="1_b8m2i"]
-[ext_resource type="Script" uid="uid://cb7byli1s32rq" path="res://Mesh/Parts/Hair/LongCuteHair/long_cute_hair.gd" id="2_smkm8"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="2_yc25h"]
-[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_g8hfx"]
-[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_wml73"]
-[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_rl78q"]
+[ext_resource type="PackedScene" uid="uid://c8t7ndn3xd6o6" path="res://Mesh/Parts/Hair/LongHairBow/LongHairBow.glb" id="1_xm0g1"]
+[ext_resource type="Script" uid="uid://b61ps3h7kaukk" path="res://Mesh/Parts/Hair/LongHairBow/long_hair_bow.gd" id="2_1cifc"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_d6v78"]
+[ext_resource type="Material" uid="uid://gjmecdaviinn" path="res://Mesh/Parts/Hair/LongHairBow/BowMat.tres" id="4_1cifc"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="5_fn1xs"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_du25m"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_2q17d"]
 
-[sub_resource type="Resource" id="Resource_2rrcj"]
-script = ExtResource("6_rl78q")
+[sub_resource type="Resource" id="Resource_getdw"]
+script = ExtResource("7_2q17d")
 spring_freq = 2.0
 linear_scale = 604.898
 swing_span = 1.7453292519943295
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="Resource" id="Resource_wml73"]
-script = ExtResource("6_rl78q")
+[sub_resource type="Resource" id="Resource_xsyb3"]
+script = ExtResource("7_2q17d")
 spring_freq = 2.0
 angular_damp = 2.0
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="Resource" id="Resource_rl78q"]
-script = ExtResource("6_rl78q")
+[sub_resource type="Resource" id="Resource_6ttd8"]
+script = ExtResource("7_2q17d")
 spring_freq = 2.0
 angular_damp = 4.0
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wml73"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_sgedy"]
 
-[node name="LongCuteHair" instance=ExtResource("1_b8m2i")]
-script = ExtResource("2_smkm8")
+[node name="LongHairBow" instance=ExtResource("1_xm0g1")]
+script = ExtResource("2_1cifc")
 
-[node name="LongCuteHairRig" parent="." index="0"]
-script = ExtResource("3_g8hfx")
+[node name="LongHairBowRig" parent="." index="0"]
+script = ExtResource("3_d6v78")
 attachPoint = "hair"
 
-[node name="LongCuteHair" parent="LongCuteHairRig/Skeleton3D" index="0"]
+[node name="Bow" parent="LongHairBowRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("2_yc25h")
+surface_material_override/0 = ExtResource("4_1cifc")
 
-[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
+[node name="LongHairBow" parent="LongHairBowRig/Skeleton3D" index="1"]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("5_fn1xs")
+
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -51,7 +56,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99672174, 0.08071882, -0.0054861684, -0.07817819, -0.9783677, -0.19153257, -0.020827772, -0.19047578, 0.98147094, 0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9967041, 0.080940425, -0.005442721, -0.07839282, -0.9782475, -0.19205843, -0.02086962, -0.19099875, 0.9813684, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -59,14 +64,14 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_enabled = true
 collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
 bone_name = "Back.L"
-properties = SubResource("Resource_2rrcj")
+properties = SubResource("Resource_getdw")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="3" node_paths=PackedStringArray("collider_nodes")]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -76,7 +81,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99672174, -0.08071882, 0.0054861684, 0.07817819, -0.9783677, -0.19153257, 0.020827772, -0.19047578, 0.98147094, -0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9967041, -0.080940425, 0.005442721, 0.07839282, -0.9782475, -0.19205843, 0.02086962, -0.19099875, 0.9813684, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -84,14 +89,14 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_enabled = true
 collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
 bone_name = "Back.R"
-properties = SubResource("Resource_2rrcj")
+properties = SubResource("Resource_getdw")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="3"]
+[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="4"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -101,7 +106,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 0, 8.742278e-08, 0, -1, 0, 8.742278e-08, 0, 1, 0.08041468, 0.11152209, 0.0921981)
+transform = Transform3D(-1, 0, 5.6425995e-07, 0, -1, 0, 5.6425995e-07, 0, 1, 0.08041468, 0.11415506, 0.042434905)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -109,15 +114,15 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_bounce = 0.0
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Front.L"
-properties = SubResource("Resource_wml73")
+properties = SubResource("Resource_xsyb3")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="4"]
+[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="5"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -127,7 +132,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 0, -8.742278e-08, 0, -1, 0, -8.742278e-08, 0, 1, -0.08041468, 0.11152209, 0.0921981)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, -1, 0, -8.742278e-08, 0, 1, -0.08041468, 0.10625614, 0.047437552)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -135,15 +140,15 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_bounce = 0.0
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Front.R"
-properties = SubResource("Resource_wml73")
+properties = SubResource("Resource_xsyb3")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="5"]
+[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="6"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -161,15 +166,15 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_bounce = 0.0
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Side.L"
-properties = SubResource("Resource_rl78q")
+properties = SubResource("Resource_6ttd8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle6" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="6"]
+[node name="HairWiggle6" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" index="7"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -187,19 +192,19 @@ visible = true
 visibility_parent = NodePath("")
 active = true
 influence = 1.0
-script = ExtResource("5_wml73")
+script = ExtResource("6_du25m")
 collider_bounce = 0.0
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Side.R"
-properties = SubResource("Resource_rl78q")
+properties = SubResource("Resource_6ttd8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="HairCollision" type="Node3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
-script = ExtResource("3_g8hfx")
+script = ExtResource("3_d6v78")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11268902, 0.35181445)
-shape = SubResource("SphereShape3D_wml73")
+shape = SubResource("SphereShape3D_sgedy")

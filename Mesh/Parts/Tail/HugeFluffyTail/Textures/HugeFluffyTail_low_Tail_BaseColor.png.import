@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpo1k3wgrb32b"
-path.s3tc="res://.godot/imported/FluffyTail_low_DefaultMaterial_ORM.png-8b415bf2fbffa28f942c4b4fffa6abc4.s3tc.ctex"
+uid="uid://blsu2hqv4axac"
+path.s3tc="res://.godot/imported/HugeFluffyTail_low_Tail_BaseColor.png-e4583f77572e657ddd2ff90dd7be8ffb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_ORM.png"
-dest_files=["res://.godot/imported/FluffyTail_low_DefaultMaterial_ORM.png-8b415bf2fbffa28f942c4b4fffa6abc4.s3tc.ctex"]
+source_file="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_BaseColor.png"
+dest_files=["res://.godot/imported/HugeFluffyTail_low_Tail_BaseColor.png-e4583f77572e657ddd2ff90dd7be8ffb.s3tc.ctex"]
 
 [params]
 
@@ -26,8 +26,8 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=3
-roughness/src_normal="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_Normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

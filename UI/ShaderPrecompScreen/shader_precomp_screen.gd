@@ -71,6 +71,8 @@ const MATERIALS = [
 	"res://Mesh/SharedMaterials/Hair/HairMat.tres",
 	"res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres",
 	"res://Mesh/Util/SimpleChainMat.tres",
+	"res://Mesh/Parts/Hair/LongHairBow/BowMat.tres",
+	
 ]
 const SCENES = [
 	"res://Mapping/Decals/DecalArrow2White.tscn",

@@ -16,6 +16,16 @@ func _init():
 				hasB=true,
 			},
 		},
+		"LongHairBow_Tips": {
+			name = "Tips",
+			subType = "LongHairBow",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/LongCuteHair/Tips.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 		"ShortHair_Tips": {
 			name = "Tips",
 			subType = "ShortHair",
