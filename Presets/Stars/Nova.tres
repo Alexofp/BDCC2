@@ -1,0 +1,229 @@
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_42ahd"]
+
+[resource]
+script = ExtResource("1_42ahd")
+data = {
+&"bodyparts": {
+"Body": {
+&"data": {
+"options": {
+"anusColor": Color(0.6431373, 0.44313726, 0.44313726, 1),
+"anusInColor": Color(0.6431373, 0.44313726, 0.44313726, 1),
+"bodyLayers": [{
+&"b": Color(0.21960784, 0.21960784, 0.21960784, 1),
+&"g": Color(0.4392157, 0.4392157, 0.4392157, 1),
+&"id": "Body_Nova",
+&"r": Color(0.24705882, 0.24705882, 0.24705882, 1)
+}],
+"breasts": 1.96,
+"breastsCleavage": 0.0,
+"claws": 1.0,
+"clawsColor": Color(0.5390625, 0.5390625, 0.5390625, 1),
+"handPads": true,
+"handPadsColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
+"hindPawPadColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
+"legType": "digi",
+"nipplePiercing": [""],
+"nippleShape": 0.0,
+"nipples": {
+&"b": Color(0.7411765, 0.2509804, 0.2509804, 1),
+&"g": Color(0.96862745, 0.6784314, 0.69803923, 1),
+&"id": "Nipple_Default",
+&"r": Color(0.6431373, 0.44313726, 0.44313726, 1)
+},
+"pubicHair": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "",
+&"r": Color(0, 0, 0, 1)
+},
+"skinDataOverride": null,
+"skinType": 1,
+"toeClawColor": Color(0.5078125, 0.5078125, 0.5078125, 1),
+"vagina": true,
+"vaginaColor": Color(0.6431373, 0.44313726, 0.44313726, 1),
+"vaginaInColor": Color(0.6431373, 0.44313726, 0.44313726, 1),
+"vaginaSize": 0.0,
+"vaginaType": 0
+}
+},
+&"id": "FeminineBody"
+},
+"Hair": {
+&"data": {
+"options": {
+"colorRoot": Color(0.51171875, 0.51171875, 0.51171875, 1),
+"colorTip": Color(0.8862745, 0.8862745, 0.8862745, 1),
+"pattern": {
+&"b": Color(0.8862745, 0.8862745, 0.8862745, 0),
+&"g": Color(0.8862745, 0.8862745, 0.8862745, 0),
+&"id": "ShortHair2_BigStrands",
+&"r": Color(0.058898926, 0.45012823, 0.75390625, 1)
+},
+"shading": 0.5
+}
+},
+&"id": "ShortHair2"
+},
+"Head": {
+&"data": {
+"options": {
+"brows": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Brow_Brow1",
+&"r": Color(0.21875, 0.21875, 0.21875, 1)
+},
+"eyelashes": {
+&"b": Color(0, 1, 0, 1),
+&"g": Color(1, 0, 0, 1),
+&"id": "Eyelashes_Eyelashes1",
+&"r": Color(0, 0, 0, 1)
+},
+"eyes": {
+&"b": Color(1, 1, 1, 1),
+&"g": Color(1, 0.7734375, 0, 1),
+&"id": "Eye_Mystic",
+&"r": Color(0.91764706, 0.55919117, 0, 1)
+},
+"faceOverride": {
+&"fields": {},
+&"values": {}
+},
+"fluff": true,
+"fluffLen": 0.0,
+"fluffSpiky": 0.0,
+"fluffThick": 0.0,
+"fluffWide": 0.0,
+"headLayers": [{
+&"b": Color(0.21960784, 0.21960784, 0.21960784, 1),
+&"g": Color(0.4392157, 0.4392157, 0.4392157, 1),
+&"id": "CanineHead_Nova",
+&"r": Color(0.24705882, 0.24705882, 0.24705882, 1)
+}],
+"lines": Color(0, 0, 0, 1),
+"mouthColor": Color(0.7647059, 0.42352942, 0.43529412, 1),
+"piercings": [""],
+"skinDataOverride": null,
+"snout": Color(0.29296875, 0.29296875, 0.29296875, 1),
+"teethColor": Color(1, 0.9098039, 0.85882354, 1),
+"tongueColor": Color(0.7265625, 0.38031006, 0.39224988, 1)
+}
+},
+&"id": "CanineHead"
+},
+"Left Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(1, 1, 1, 1),
+"pattern": {
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"id": "FluffyEar_Default",
+&"r": Color(0.92941177, 0.92941177, 0.92941177, 1)
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": {
+&"color": Color(0.4392157, 0.4392157, 0.4392157, 1)
+},
+"tassels": false,
+"tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
+}
+},
+&"id": "FluffyEar"
+},
+"Penis": {
+&"data": {
+"options": {
+"furTuft": true,
+"furTuftColor": Color(0.48046875, 0.48046875, 0.48046875, 1),
+"pattern": {
+&"b": Color(0.32040194, 0.10697937, 0.48046875, 1),
+&"g": Color(0.73046875, 0.442276, 0.4940029, 1),
+&"id": "CanineShaft_Default",
+&"r": Color(0.80859375, 0.5022125, 0.59412694, 1)
+},
+"penBallsDrop": 0.0,
+"penBallsScale": 1.0,
+"penisLenMod": 1.0,
+"penisScale": 0.8,
+"shaftColor": Color(0.71875, 0.46606445, 0.517334, 1),
+"skinDataOverride": null
+}
+},
+&"id": "CaninePenis"
+},
+"Right Ear": {
+&"data": {
+"options": {
+"fluffColor": Color(1, 1, 1, 1),
+"pattern": {
+&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
+&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
+&"id": "FluffyEar_Default",
+&"r": Color(0.9296875, 0.9296875, 0.9296875, 1)
+},
+"piercings": "",
+"piercingsColor": Color(1, 1, 1, 1),
+"skinDataOverride": {
+&"color": Color(0.4392157, 0.4392157, 0.4392157, 1)
+},
+"tassels": false,
+"tasselsColor": Color(0.4117647, 0.4117647, 0.4117647, 1)
+}
+},
+&"id": "FluffyEar"
+},
+"Tail": {
+&"data": {
+"options": {
+"idleAnim": 1,
+"pattern": {
+&"b": Color(0.5625, 0.5625, 0.5625, 1),
+&"g": Color(0.5, 0.5, 0.5, 1),
+&"id": "FluffyTail_Default",
+&"r": Color(0.7, 0.7, 0.7, 1)
+},
+"skinDataOverride": {
+&"color": Color(0.24705882, 0.24705882, 0.24705882, 1)
+},
+"tailLenMod": 1.0,
+"thickness": 0.62,
+"width": 0.14
+}
+},
+&"id": "FluffyTail"
+}
+},
+&"charName": "Nova",
+&"gender": {
+&"customGenderName": "",
+&"customPronouns": {},
+&"gender": 1,
+&"pronouns": 0
+},
+&"idleAnim": "normal1",
+&"muscles": 0.0,
+&"skinTypes": {
+&"skinTypes": {
+3: {
+&"color": Color(0.76862746, 0.77254903, 0.76862746, 1)
+}
+}
+},
+&"species": {
+&"customName": "",
+&"mainSpecies": "Canine",
+&"secondarySpecies": ""
+},
+&"thickness": 1.42,
+&"voice": {
+&"pitch": 1.0,
+&"sexVoice": "Fem1"
+},
+&"walkAnim": "unisex",
+&"weightDistribution": 0.0
+}

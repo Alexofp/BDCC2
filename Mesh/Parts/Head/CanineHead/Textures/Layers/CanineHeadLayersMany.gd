@@ -26,4 +26,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Nova": {
+			name = "Nova",
+			colormask = "res://Mesh/Parts/Head/CanineHead/Textures/Layers/Nova.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

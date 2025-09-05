@@ -25,6 +25,15 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Belly3": {
+			name = "Belly 3",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Belly3.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 		"FeetFur": {
 			name = "Feet fur",
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/FeetFur.png",
@@ -74,6 +83,15 @@ func _init():
 		"Coffee": {
 			name = "Coffee",
 			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Coffee.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"Nova": {
+			name = "Nova",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Nova.png",
 			flags = {
 				hasR=true,
 				hasG=true,
