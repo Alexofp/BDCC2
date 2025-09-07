@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cysrakag2d0af"
 path.s3tc="res://.godot/imported/heart.png-b357f5d9dfb925e8923a6a6905867a58.s3tc.ctex"
+path.etc2="res://.godot/imported/heart.png-b357f5d9dfb925e8923a6a6905867a58.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/PubicHair/heart.png"
-dest_files=["res://.godot/imported/heart.png-b357f5d9dfb925e8923a6a6905867a58.s3tc.ctex"]
+dest_files=["res://.godot/imported/heart.png-b357f5d9dfb925e8923a6a6905867a58.s3tc.ctex", "res://.godot/imported/heart.png-b357f5d9dfb925e8923a6a6905867a58.etc2.ctex"]
 
 [params]
 

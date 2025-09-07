@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://pk6sqefm164r"
 path.s3tc="res://.godot/imported/square.png-6eb1afd8a068918601e4b7f24e4afbd0.s3tc.ctex"
+path.etc2="res://.godot/imported/square.png-6eb1afd8a068918601e4b7f24e4afbd0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/PubicHair/square.png"
-dest_files=["res://.godot/imported/square.png-6eb1afd8a068918601e4b7f24e4afbd0.s3tc.ctex"]
+dest_files=["res://.godot/imported/square.png-6eb1afd8a068918601e4b7f24e4afbd0.s3tc.ctex", "res://.godot/imported/square.png-6eb1afd8a068918601e4b7f24e4afbd0.etc2.ctex"]
 
 [params]
 

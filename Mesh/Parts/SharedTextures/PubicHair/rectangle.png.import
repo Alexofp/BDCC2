@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://nqi1oswdjnmb"
 path.s3tc="res://.godot/imported/rectangle.png-3c5dc837679bb3353dfbe9bf883c1fb1.s3tc.ctex"
+path.etc2="res://.godot/imported/rectangle.png-3c5dc837679bb3353dfbe9bf883c1fb1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/PubicHair/rectangle.png"
-dest_files=["res://.godot/imported/rectangle.png-3c5dc837679bb3353dfbe9bf883c1fb1.s3tc.ctex"]
+dest_files=["res://.godot/imported/rectangle.png-3c5dc837679bb3353dfbe9bf883c1fb1.s3tc.ctex", "res://.godot/imported/rectangle.png-3c5dc837679bb3353dfbe9bf883c1fb1.etc2.ctex"]
 
 [params]
 

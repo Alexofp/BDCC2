@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6ht5hbbfy5xj"
 path.s3tc="res://.godot/imported/hexagon_normal.png-ad1a877c06943fc0448dd516a94262fc.s3tc.ctex"
+path.etc2="res://.godot/imported/hexagon_normal.png-ad1a877c06943fc0448dd516a94262fc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Tileable/hexagon/hexagon_normal.png"
-dest_files=["res://.godot/imported/hexagon_normal.png-ad1a877c06943fc0448dd516a94262fc.s3tc.ctex"]
+dest_files=["res://.godot/imported/hexagon_normal.png-ad1a877c06943fc0448dd516a94262fc.s3tc.ctex", "res://.godot/imported/hexagon_normal.png-ad1a877c06943fc0448dd516a94262fc.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cilu0a8egis1u"
 path.s3tc="res://.godot/imported/PlainBra_low_DefaultMaterial_Normal.png-b2457b23d1d132733547a447d213b54f.s3tc.ctex"
+path.etc2="res://.godot/imported/PlainBra_low_DefaultMaterial_Normal.png-b2457b23d1d132733547a447d213b54f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_Normal.png"
-dest_files=["res://.godot/imported/PlainBra_low_DefaultMaterial_Normal.png-b2457b23d1d132733547a447d213b54f.s3tc.ctex"]
+dest_files=["res://.godot/imported/PlainBra_low_DefaultMaterial_Normal.png-b2457b23d1d132733547a447d213b54f.s3tc.ctex", "res://.godot/imported/PlainBra_low_DefaultMaterial_Normal.png-b2457b23d1d132733547a447d213b54f.etc2.ctex"]
 
 [params]
 

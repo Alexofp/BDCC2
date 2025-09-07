@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcctjppxhifes"
 path.s3tc="res://.godot/imported/Belly.png-3b589b9cbc81258e08b77c751dfd3bcb.s3tc.ctex"
+path.etc2="res://.godot/imported/Belly.png-3b589b9cbc81258e08b77c751dfd3bcb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/BodyLayers/Belly.png"
-dest_files=["res://.godot/imported/Belly.png-3b589b9cbc81258e08b77c751dfd3bcb.s3tc.ctex"]
+dest_files=["res://.godot/imported/Belly.png-3b589b9cbc81258e08b77c751dfd3bcb.s3tc.ctex", "res://.godot/imported/Belly.png-3b589b9cbc81258e08b77c751dfd3bcb.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://jgf05togs6c7"
 path.s3tc="res://.godot/imported/MyCanineMouthV2_low_CanineMouth_Emit.png-9cc0692afb198146666e472ab175e3da.s3tc.ctex"
+path.etc2="res://.godot/imported/MyCanineMouthV2_low_CanineMouth_Emit.png-9cc0692afb198146666e472ab175e3da.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Emit.png"
-dest_files=["res://.godot/imported/MyCanineMouthV2_low_CanineMouth_Emit.png-9cc0692afb198146666e472ab175e3da.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyCanineMouthV2_low_CanineMouth_Emit.png-9cc0692afb198146666e472ab175e3da.s3tc.ctex", "res://.godot/imported/MyCanineMouthV2_low_CanineMouth_Emit.png-9cc0692afb198146666e472ab175e3da.etc2.ctex"]
 
 [params]
 

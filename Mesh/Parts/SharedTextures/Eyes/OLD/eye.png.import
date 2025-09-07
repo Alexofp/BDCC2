@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://2lrqk3xnl1nu"
 path.s3tc="res://.godot/imported/eye.png-fb000b3cbfcf4ff18c5f085ebf1f667e.s3tc.ctex"
+path.etc2="res://.godot/imported/eye.png-fb000b3cbfcf4ff18c5f085ebf1f667e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/eye.png"
-dest_files=["res://.godot/imported/eye.png-fb000b3cbfcf4ff18c5f085ebf1f667e.s3tc.ctex"]
+dest_files=["res://.godot/imported/eye.png-fb000b3cbfcf4ff18c5f085ebf1f667e.s3tc.ctex", "res://.godot/imported/eye.png-fb000b3cbfcf4ff18c5f085ebf1f667e.etc2.ctex"]
 
 [params]
 

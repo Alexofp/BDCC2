@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://1v188h0t0al1"
 path.s3tc="res://.godot/imported/MyHumanHeadV2Mouth_Mouth_Emit.png-e27f6e2c0471bda6334440a73a1977d6.s3tc.ctex"
+path.etc2="res://.godot/imported/MyHumanHeadV2Mouth_Mouth_Emit.png-e27f6e2c0471bda6334440a73a1977d6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Emit.png"
-dest_files=["res://.godot/imported/MyHumanHeadV2Mouth_Mouth_Emit.png-e27f6e2c0471bda6334440a73a1977d6.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyHumanHeadV2Mouth_Mouth_Emit.png-e27f6e2c0471bda6334440a73a1977d6.s3tc.ctex", "res://.godot/imported/MyHumanHeadV2Mouth_Mouth_Emit.png-e27f6e2c0471bda6334440a73a1977d6.etc2.ctex"]
 
 [params]
 

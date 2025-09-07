@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx5gyw0py6qky"
 path.s3tc="res://.godot/imported/Gradient.png-63b0b0f5c7fb4ab1093dbb06ffdfb059.s3tc.ctex"
+path.etc2="res://.godot/imported/Gradient.png-63b0b0f5c7fb4ab1093dbb06ffdfb059.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Tail/LongTail/Textures/Layers/Gradient.png"
-dest_files=["res://.godot/imported/Gradient.png-63b0b0f5c7fb4ab1093dbb06ffdfb059.s3tc.ctex"]
+dest_files=["res://.godot/imported/Gradient.png-63b0b0f5c7fb4ab1093dbb06ffdfb059.s3tc.ctex", "res://.godot/imported/Gradient.png-63b0b0f5c7fb4ab1093dbb06ffdfb059.etc2.ctex"]
 
 [params]
 

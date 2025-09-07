@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://brd3bqbrbtndf"
 path.s3tc="res://.godot/imported/LionTip.png-4b397b632a0fa6ab5f8f60d02bbeb30e.s3tc.ctex"
+path.etc2="res://.godot/imported/LionTip.png-4b397b632a0fa6ab5f8f60d02bbeb30e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Tail/LongTail/Textures/Layers/LionTip.png"
-dest_files=["res://.godot/imported/LionTip.png-4b397b632a0fa6ab5f8f60d02bbeb30e.s3tc.ctex"]
+dest_files=["res://.godot/imported/LionTip.png-4b397b632a0fa6ab5f8f60d02bbeb30e.s3tc.ctex", "res://.godot/imported/LionTip.png-4b397b632a0fa6ab5f8f60d02bbeb30e.etc2.ctex"]
 
 [params]
 

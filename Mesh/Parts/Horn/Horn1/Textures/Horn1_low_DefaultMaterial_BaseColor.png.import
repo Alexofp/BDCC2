@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://boxgf5yrh6o5g"
 path.s3tc="res://.godot/imported/Horn1_low_DefaultMaterial_BaseColor.png-6473516fcb64630e3a421822f6aeab97.s3tc.ctex"
+path.etc2="res://.godot/imported/Horn1_low_DefaultMaterial_BaseColor.png-6473516fcb64630e3a421822f6aeab97.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_BaseColor.png"
-dest_files=["res://.godot/imported/Horn1_low_DefaultMaterial_BaseColor.png-6473516fcb64630e3a421822f6aeab97.s3tc.ctex"]
+dest_files=["res://.godot/imported/Horn1_low_DefaultMaterial_BaseColor.png-6473516fcb64630e3a421822f6aeab97.s3tc.ctex", "res://.godot/imported/Horn1_low_DefaultMaterial_BaseColor.png-6473516fcb64630e3a421822f6aeab97.etc2.ctex"]
 
 [params]
 

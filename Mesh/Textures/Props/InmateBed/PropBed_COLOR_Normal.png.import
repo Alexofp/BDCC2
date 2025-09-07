@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b78janvigrk04"
 path.s3tc="res://.godot/imported/PropBed_COLOR_Normal.png-f1455cba278cf0736f86dd039eff3c92.s3tc.ctex"
+path.etc2="res://.godot/imported/PropBed_COLOR_Normal.png-f1455cba278cf0736f86dd039eff3c92.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Props/InmateBed/PropBed_COLOR_Normal.png"
-dest_files=["res://.godot/imported/PropBed_COLOR_Normal.png-f1455cba278cf0736f86dd039eff3c92.s3tc.ctex"]
+dest_files=["res://.godot/imported/PropBed_COLOR_Normal.png-f1455cba278cf0736f86dd039eff3c92.s3tc.ctex", "res://.godot/imported/PropBed_COLOR_Normal.png-f1455cba278cf0736f86dd039eff3c92.etc2.ctex"]
 
 [params]
 

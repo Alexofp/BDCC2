@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxv3tygjn5pi0"
 path.s3tc="res://.godot/imported/Dots.png-6b082ef638a0d7b8b3a6e7f9b27c384d.s3tc.ctex"
+path.etc2="res://.godot/imported/Dots.png-6b082ef638a0d7b8b3a6e7f9b27c384d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Ear/FluffyEar/Textures/Patterns/Dots.png"
-dest_files=["res://.godot/imported/Dots.png-6b082ef638a0d7b8b3a6e7f9b27c384d.s3tc.ctex"]
+dest_files=["res://.godot/imported/Dots.png-6b082ef638a0d7b8b3a6e7f9b27c384d.s3tc.ctex", "res://.godot/imported/Dots.png-6b082ef638a0d7b8b3a6e7f9b27c384d.etc2.ctex"]
 
 [params]
 

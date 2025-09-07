@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmchess3ibfue"
 path.s3tc="res://.godot/imported/LatexSuitAlbedo.png-3707cee5011d95b8b5cc917f5f54e3e3.s3tc.ctex"
+path.etc2="res://.godot/imported/LatexSuitAlbedo.png-3707cee5011d95b8b5cc917f5f54e3e3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Clothing/LatexSuit/Textures/LatexSuitAlbedo.png"
-dest_files=["res://.godot/imported/LatexSuitAlbedo.png-3707cee5011d95b8b5cc917f5f54e3e3.s3tc.ctex"]
+dest_files=["res://.godot/imported/LatexSuitAlbedo.png-3707cee5011d95b8b5cc917f5f54e3e3.s3tc.ctex", "res://.godot/imported/LatexSuitAlbedo.png-3707cee5011d95b8b5cc917f5f54e3e3.etc2.ctex"]
 
 [params]
 

@@ -35,4 +35,22 @@ func _init():
 				hasB=true,
 			},
 		},
+		"EyeDarkness": {
+			name = "Eye darkness",
+			colormask = "res://Mesh/Parts/Head/CanineHead/Textures/Layers/EyeDarkness.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"Back": {
+			name = "Back",
+			colormask = "res://Mesh/Parts/Head/CanineHead/Textures/Layers/Back.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

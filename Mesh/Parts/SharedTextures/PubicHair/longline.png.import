@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://m50xowq6lfxt"
 path.s3tc="res://.godot/imported/longline.png-17691c53b0e85bd07a4cbe285c7d7d14.s3tc.ctex"
+path.etc2="res://.godot/imported/longline.png-17691c53b0e85bd07a4cbe285c7d7d14.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/PubicHair/longline.png"
-dest_files=["res://.godot/imported/longline.png-17691c53b0e85bd07a4cbe285c7d7d14.s3tc.ctex"]
+dest_files=["res://.godot/imported/longline.png-17691c53b0e85bd07a4cbe285c7d7d14.s3tc.ctex", "res://.godot/imported/longline.png-17691c53b0e85bd07a4cbe285c7d7d14.etc2.ctex"]
 
 [params]
 

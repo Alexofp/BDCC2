@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bi0fcr6wcaehl"
 path.s3tc="res://.godot/imported/tiles_normal.png-ed1c551bf3a1a0b0ee4f9afe3e889acd.s3tc.ctex"
+path.etc2="res://.godot/imported/tiles_normal.png-ed1c551bf3a1a0b0ee4f9afe3e889acd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Tileable/concrete_tiles/tiles_normal.png"
-dest_files=["res://.godot/imported/tiles_normal.png-ed1c551bf3a1a0b0ee4f9afe3e889acd.s3tc.ctex"]
+dest_files=["res://.godot/imported/tiles_normal.png-ed1c551bf3a1a0b0ee4f9afe3e889acd.s3tc.ctex", "res://.godot/imported/tiles_normal.png-ed1c551bf3a1a0b0ee4f9afe3e889acd.etc2.ctex"]
 
 [params]
 

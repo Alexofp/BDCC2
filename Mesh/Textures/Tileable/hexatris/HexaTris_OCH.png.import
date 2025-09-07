@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://smit14gauqxo"
 path.bptc="res://.godot/imported/HexaTris_OCH.png-bc22708411fecc6e5e847513a0dc2174.bptc.ctex"
+path.astc="res://.godot/imported/HexaTris_OCH.png-bc22708411fecc6e5e847513a0dc2174.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Tileable/hexatris/HexaTris_OCH.png"
-dest_files=["res://.godot/imported/HexaTris_OCH.png-bc22708411fecc6e5e847513a0dc2174.bptc.ctex"]
+dest_files=["res://.godot/imported/HexaTris_OCH.png-bc22708411fecc6e5e847513a0dc2174.bptc.ctex", "res://.godot/imported/HexaTris_OCH.png-bc22708411fecc6e5e847513a0dc2174.astc.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmwvvquc1jfd3"
 path.s3tc="res://.godot/imported/trace_04.png-8a3602661daf30927ee1cf439d547464.s3tc.ctex"
+path.etc2="res://.godot/imported/trace_04.png-8a3602661daf30927ee1cf439d547464.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Particles/Generic/trace_04.png"
-dest_files=["res://.godot/imported/trace_04.png-8a3602661daf30927ee1cf439d547464.s3tc.ctex"]
+dest_files=["res://.godot/imported/trace_04.png-8a3602661daf30927ee1cf439d547464.s3tc.ctex", "res://.godot/imported/trace_04.png-8a3602661daf30927ee1cf439d547464.etc2.ctex"]
 
 [params]
 

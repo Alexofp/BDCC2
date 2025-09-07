@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c52i58defv1gq"
 path.s3tc="res://.godot/imported/MyFelineEarSubstanceIn_FelineEar_BaseColor.png-4498ffcdd64603e8c863a204c4555c91.s3tc.ctex"
+path.etc2="res://.godot/imported/MyFelineEarSubstanceIn_FelineEar_BaseColor.png-4498ffcdd64603e8c863a204c4555c91.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Ear/FluffyEar/Textures/Fur/MyFelineEarSubstanceIn_FelineEar_BaseColor.png"
-dest_files=["res://.godot/imported/MyFelineEarSubstanceIn_FelineEar_BaseColor.png-4498ffcdd64603e8c863a204c4555c91.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyFelineEarSubstanceIn_FelineEar_BaseColor.png-4498ffcdd64603e8c863a204c4555c91.s3tc.ctex", "res://.godot/imported/MyFelineEarSubstanceIn_FelineEar_BaseColor.png-4498ffcdd64603e8c863a204c4555c91.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2md3inu0x7kr"
 path.s3tc="res://.godot/imported/MyFelineTailSubstance_Tail_BaseColor.png-ab3604001cdbed28789f287d88ffeb3d.s3tc.ctex"
+path.etc2="res://.godot/imported/MyFelineTailSubstance_Tail_BaseColor.png-ab3604001cdbed28789f287d88ffeb3d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_BaseColor.png"
-dest_files=["res://.godot/imported/MyFelineTailSubstance_Tail_BaseColor.png-ab3604001cdbed28789f287d88ffeb3d.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyFelineTailSubstance_Tail_BaseColor.png-ab3604001cdbed28789f287d88ffeb3d.s3tc.ctex", "res://.godot/imported/MyFelineTailSubstance_Tail_BaseColor.png-ab3604001cdbed28789f287d88ffeb3d.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyhfmwh88ceru"
 path.s3tc="res://.godot/imported/MyLeatherTrim_low_DefaultMaterial_BaseColor.png-90e9c48df24e51945d8e2fadc6d6ba89.s3tc.ctex"
+path.etc2="res://.godot/imported/MyLeatherTrim_low_DefaultMaterial_BaseColor.png-90e9c48df24e51945d8e2fadc6d6ba89.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/TrimSheets/MyLeatherTrim/MyLeatherTrim_low_DefaultMaterial_BaseColor.png"
-dest_files=["res://.godot/imported/MyLeatherTrim_low_DefaultMaterial_BaseColor.png-90e9c48df24e51945d8e2fadc6d6ba89.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyLeatherTrim_low_DefaultMaterial_BaseColor.png-90e9c48df24e51945d8e2fadc6d6ba89.s3tc.ctex", "res://.godot/imported/MyLeatherTrim_low_DefaultMaterial_BaseColor.png-90e9c48df24e51945d8e2fadc6d6ba89.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx65uvupc2gh5"
 path.s3tc="res://.godot/imported/FeetFur.png-fd375f5cfca5f417cb04298c785162e7.s3tc.ctex"
+path.etc2="res://.godot/imported/FeetFur.png-fd375f5cfca5f417cb04298c785162e7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/BodyLayers/FeetFur.png"
-dest_files=["res://.godot/imported/FeetFur.png-fd375f5cfca5f417cb04298c785162e7.s3tc.ctex"]
+dest_files=["res://.godot/imported/FeetFur.png-fd375f5cfca5f417cb04298c785162e7.s3tc.ctex", "res://.godot/imported/FeetFur.png-fd375f5cfca5f417cb04298c785162e7.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dftxbb3uqcx32"
 path.s3tc="res://.godot/imported/line.png-3e3855caa59b32d01e5dad206340c1bc.s3tc.ctex"
+path.etc2="res://.godot/imported/line.png-3e3855caa59b32d01e5dad206340c1bc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/PubicHair/line.png"
-dest_files=["res://.godot/imported/line.png-3e3855caa59b32d01e5dad206340c1bc.s3tc.ctex"]
+dest_files=["res://.godot/imported/line.png-3e3855caa59b32d01e5dad206340c1bc.s3tc.ctex", "res://.godot/imported/line.png-3e3855caa59b32d01e5dad206340c1bc.etc2.ctex"]
 
 [params]
 

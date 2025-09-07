@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://drrqq0n6vmogu"
 path.s3tc="res://.godot/imported/MyBodySubstancePainter_Body_ORM.png-8fe0e30bb67ce3355c72d3ae0bbba5f1.s3tc.ctex"
+path.etc2="res://.godot/imported/MyBodySubstancePainter_Body_ORM.png-8fe0e30bb67ce3355c72d3ae0bbba5f1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"
-dest_files=["res://.godot/imported/MyBodySubstancePainter_Body_ORM.png-8fe0e30bb67ce3355c72d3ae0bbba5f1.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyBodySubstancePainter_Body_ORM.png-8fe0e30bb67ce3355c72d3ae0bbba5f1.s3tc.ctex", "res://.godot/imported/MyBodySubstancePainter_Body_ORM.png-8fe0e30bb67ce3355c72d3ae0bbba5f1.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdabhdl8e6u35"
 path.s3tc="res://.godot/imported/icon.png-b47e422175a72258caae14cf305ed745.s3tc.ctex"
+path.etc2="res://.godot/imported/icon.png-b47e422175a72258caae14cf305ed745.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/godot-polyliner/icon.png"
-dest_files=["res://.godot/imported/icon.png-b47e422175a72258caae14cf305ed745.s3tc.ctex"]
+dest_files=["res://.godot/imported/icon.png-b47e422175a72258caae14cf305ed745.s3tc.ctex", "res://.godot/imported/icon.png-b47e422175a72258caae14cf305ed745.etc2.ctex"]
 
 [params]
 

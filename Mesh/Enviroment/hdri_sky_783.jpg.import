@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ua0rc74ks3lf"
 path.s3tc="res://.godot/imported/hdri_sky_783.jpg-621116c885edec26706ce9a04660c0d4.s3tc.ctex"
+path.etc2="res://.godot/imported/hdri_sky_783.jpg-621116c885edec26706ce9a04660c0d4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Enviroment/hdri_sky_783.jpg"
-dest_files=["res://.godot/imported/hdri_sky_783.jpg-621116c885edec26706ce9a04660c0d4.s3tc.ctex"]
+dest_files=["res://.godot/imported/hdri_sky_783.jpg-621116c885edec26706ce9a04660c0d4.s3tc.ctex", "res://.godot/imported/hdri_sky_783.jpg-621116c885edec26706ce9a04660c0d4.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxpgffls0y83b"
 path.s3tc="res://.godot/imported/Hair_NormalMap.png-b447db251849e574e13f802e528b2b8d.s3tc.ctex"
+path.etc2="res://.godot/imported/Hair_NormalMap.png-b447db251849e574e13f802e528b2b8d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png"
-dest_files=["res://.godot/imported/Hair_NormalMap.png-b447db251849e574e13f802e528b2b8d.s3tc.ctex"]
+dest_files=["res://.godot/imported/Hair_NormalMap.png-b447db251849e574e13f802e528b2b8d.s3tc.ctex", "res://.godot/imported/Hair_NormalMap.png-b447db251849e574e13f802e528b2b8d.etc2.ctex"]
 
 [params]
 

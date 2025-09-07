@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dm6wmu8rxyflp"
 path.s3tc="res://.godot/imported/CollarCuff lowpoly_Cuff_ORM.png-345601cc6bf3b0a46575ad95129be9b3.s3tc.ctex"
+path.etc2="res://.godot/imported/CollarCuff lowpoly_Cuff_ORM.png-345601cc6bf3b0a46575ad95129be9b3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Clothing/InmateCuffs/Textures/CollarCuff lowpoly_Cuff_ORM.png"
-dest_files=["res://.godot/imported/CollarCuff lowpoly_Cuff_ORM.png-345601cc6bf3b0a46575ad95129be9b3.s3tc.ctex"]
+dest_files=["res://.godot/imported/CollarCuff lowpoly_Cuff_ORM.png-345601cc6bf3b0a46575ad95129be9b3.s3tc.ctex", "res://.godot/imported/CollarCuff lowpoly_Cuff_ORM.png-345601cc6bf3b0a46575ad95129be9b3.etc2.ctex"]
 
 [params]
 

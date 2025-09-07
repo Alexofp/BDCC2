@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://boe50shxdmajp"
 path.s3tc="res://.godot/imported/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png-78dc3bc4cf0b7caa5a6d630aeccbe07d.s3tc.ctex"
+path.etc2="res://.godot/imported/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png-78dc3bc4cf0b7caa5a6d630aeccbe07d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png"
-dest_files=["res://.godot/imported/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png-78dc3bc4cf0b7caa5a6d630aeccbe07d.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png-78dc3bc4cf0b7caa5a6d630aeccbe07d.s3tc.ctex", "res://.godot/imported/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png-78dc3bc4cf0b7caa5a6d630aeccbe07d.etc2.ctex"]
 
 [params]
 

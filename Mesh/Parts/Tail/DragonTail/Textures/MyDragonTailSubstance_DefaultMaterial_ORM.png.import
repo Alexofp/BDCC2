@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c73cktj5msep3"
 path.s3tc="res://.godot/imported/MyDragonTailSubstance_DefaultMaterial_ORM.png-62cdb049620bbe05d80f48829e6bbedb.s3tc.ctex"
+path.etc2="res://.godot/imported/MyDragonTailSubstance_DefaultMaterial_ORM.png-62cdb049620bbe05d80f48829e6bbedb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_ORM.png"
-dest_files=["res://.godot/imported/MyDragonTailSubstance_DefaultMaterial_ORM.png-62cdb049620bbe05d80f48829e6bbedb.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyDragonTailSubstance_DefaultMaterial_ORM.png-62cdb049620bbe05d80f48829e6bbedb.s3tc.ctex", "res://.godot/imported/MyDragonTailSubstance_DefaultMaterial_ORM.png-62cdb049620bbe05d80f48829e6bbedb.etc2.ctex"]
 
 [params]
 

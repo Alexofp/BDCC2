@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://3wxcdtyhhvfc"
 path.s3tc="res://.godot/imported/PlainPanties_low_DefaultMaterial_BaseColor.png-e2d24514783dd483d4b3ae5e29641c6f.s3tc.ctex"
+path.etc2="res://.godot/imported/PlainPanties_low_DefaultMaterial_BaseColor.png-e2d24514783dd483d4b3ae5e29641c6f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_BaseColor.png"
-dest_files=["res://.godot/imported/PlainPanties_low_DefaultMaterial_BaseColor.png-e2d24514783dd483d4b3ae5e29641c6f.s3tc.ctex"]
+dest_files=["res://.godot/imported/PlainPanties_low_DefaultMaterial_BaseColor.png-e2d24514783dd483d4b3ae5e29641c6f.s3tc.ctex", "res://.godot/imported/PlainPanties_low_DefaultMaterial_BaseColor.png-e2d24514783dd483d4b3ae5e29641c6f.etc2.ctex"]
 
 [params]
 

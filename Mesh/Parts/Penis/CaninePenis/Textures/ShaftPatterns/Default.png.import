@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbjfcq7cuqwxg"
 path.s3tc="res://.godot/imported/Default.png-f56e377e6d5ea8dffbc409c6308b8107.s3tc.ctex"
+path.etc2="res://.godot/imported/Default.png-f56e377e6d5ea8dffbc409c6308b8107.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Penis/CaninePenis/Textures/ShaftPatterns/Default.png"
-dest_files=["res://.godot/imported/Default.png-f56e377e6d5ea8dffbc409c6308b8107.s3tc.ctex"]
+dest_files=["res://.godot/imported/Default.png-f56e377e6d5ea8dffbc409c6308b8107.s3tc.ctex", "res://.godot/imported/Default.png-f56e377e6d5ea8dffbc409c6308b8107.etc2.ctex"]
 
 [params]
 

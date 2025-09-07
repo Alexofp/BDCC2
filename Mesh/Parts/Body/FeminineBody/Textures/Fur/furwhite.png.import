@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://nuwqaf754ero"
 path.s3tc="res://.godot/imported/furwhite.png-2f8da62795796fb2f6ccd07e661596d4.s3tc.ctex"
+path.etc2="res://.godot/imported/furwhite.png-2f8da62795796fb2f6ccd07e661596d4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/furwhite.png"
-dest_files=["res://.godot/imported/furwhite.png-2f8da62795796fb2f6ccd07e661596d4.s3tc.ctex"]
+dest_files=["res://.godot/imported/furwhite.png-2f8da62795796fb2f6ccd07e661596d4.s3tc.ctex", "res://.godot/imported/furwhite.png-2f8da62795796fb2f6ccd07e661596d4.etc2.ctex"]
 
 [params]
 

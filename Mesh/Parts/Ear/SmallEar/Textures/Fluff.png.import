@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdy7hljqsp63n"
 path.s3tc="res://.godot/imported/Fluff.png-2dffd37f2dfc76b99da28c4c5a2247bb.s3tc.ctex"
+path.etc2="res://.godot/imported/Fluff.png-2dffd37f2dfc76b99da28c4c5a2247bb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Ear/SmallEar/Textures/Fluff.png"
-dest_files=["res://.godot/imported/Fluff.png-2dffd37f2dfc76b99da28c4c5a2247bb.s3tc.ctex"]
+dest_files=["res://.godot/imported/Fluff.png-2dffd37f2dfc76b99da28c4c5a2247bb.s3tc.ctex", "res://.godot/imported/Fluff.png-2dffd37f2dfc76b99da28c4c5a2247bb.etc2.ctex"]
 
 [params]
 

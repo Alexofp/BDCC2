@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dm8j5i1ll266u"
 path.s3tc="res://.godot/imported/CaninePenisLowpoly_Sheath_BaseColor.png-e25395bdb19d4c5bb91e2a8c9f9ef5fd.s3tc.ctex"
+path.etc2="res://.godot/imported/CaninePenisLowpoly_Sheath_BaseColor.png-e25395bdb19d4c5bb91e2a8c9f9ef5fd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_BaseColor.png"
-dest_files=["res://.godot/imported/CaninePenisLowpoly_Sheath_BaseColor.png-e25395bdb19d4c5bb91e2a8c9f9ef5fd.s3tc.ctex"]
+dest_files=["res://.godot/imported/CaninePenisLowpoly_Sheath_BaseColor.png-e25395bdb19d4c5bb91e2a8c9f9ef5fd.s3tc.ctex", "res://.godot/imported/CaninePenisLowpoly_Sheath_BaseColor.png-e25395bdb19d4c5bb91e2a8c9f9ef5fd.etc2.ctex"]
 
 [params]
 

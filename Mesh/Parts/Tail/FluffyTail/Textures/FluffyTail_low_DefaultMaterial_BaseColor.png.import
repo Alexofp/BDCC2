@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dd7jm87vr6fsf"
 path.s3tc="res://.godot/imported/FluffyTail_low_DefaultMaterial_BaseColor.png-40882fe74f275465532a491fe16a3734.s3tc.ctex"
+path.etc2="res://.godot/imported/FluffyTail_low_DefaultMaterial_BaseColor.png-40882fe74f275465532a491fe16a3734.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_BaseColor.png"
-dest_files=["res://.godot/imported/FluffyTail_low_DefaultMaterial_BaseColor.png-40882fe74f275465532a491fe16a3734.s3tc.ctex"]
+dest_files=["res://.godot/imported/FluffyTail_low_DefaultMaterial_BaseColor.png-40882fe74f275465532a491fe16a3734.s3tc.ctex", "res://.godot/imported/FluffyTail_low_DefaultMaterial_BaseColor.png-40882fe74f275465532a491fe16a3734.etc2.ctex"]
 
 [params]
 

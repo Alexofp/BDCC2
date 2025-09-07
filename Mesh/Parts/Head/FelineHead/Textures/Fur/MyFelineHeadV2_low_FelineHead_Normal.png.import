@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2sjoyfel537u"
 path.s3tc="res://.godot/imported/MyFelineHeadV2_low_FelineHead_Normal.png-e1cad88b442be1732c1ec5862b53b878.s3tc.ctex"
+path.etc2="res://.godot/imported/MyFelineHeadV2_low_FelineHead_Normal.png-e1cad88b442be1732c1ec5862b53b878.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_Normal.png"
-dest_files=["res://.godot/imported/MyFelineHeadV2_low_FelineHead_Normal.png-e1cad88b442be1732c1ec5862b53b878.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyFelineHeadV2_low_FelineHead_Normal.png-e1cad88b442be1732c1ec5862b53b878.s3tc.ctex", "res://.godot/imported/MyFelineHeadV2_low_FelineHead_Normal.png-e1cad88b442be1732c1ec5862b53b878.etc2.ctex"]
 
 [params]
 

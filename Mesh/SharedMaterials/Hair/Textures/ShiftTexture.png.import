@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c36t7vfra6lai"
 path.s3tc="res://.godot/imported/ShiftTexture.png-5143cc1df0d117367dc929c7abebfa32.s3tc.ctex"
+path.etc2="res://.godot/imported/ShiftTexture.png-5143cc1df0d117367dc929c7abebfa32.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png"
-dest_files=["res://.godot/imported/ShiftTexture.png-5143cc1df0d117367dc929c7abebfa32.s3tc.ctex"]
+dest_files=["res://.godot/imported/ShiftTexture.png-5143cc1df0d117367dc929c7abebfa32.s3tc.ctex", "res://.godot/imported/ShiftTexture.png-5143cc1df0d117367dc929c7abebfa32.etc2.ctex"]
 
 [params]
 

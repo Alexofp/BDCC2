@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0xv31o4h8vlg"
 path.s3tc="res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Emit.png-4330c466b26af2cc4d31340448692740.s3tc.ctex"
+path.etc2="res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Emit.png-4330c466b26af2cc4d31340448692740.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/TrimSheets/MyFloorTrim/MyTrim Lowpoly_DefaultMaterial_Emit.png"
-dest_files=["res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Emit.png-4330c466b26af2cc4d31340448692740.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Emit.png-4330c466b26af2cc4d31340448692740.s3tc.ctex", "res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Emit.png-4330c466b26af2cc4d31340448692740.etc2.ctex"]
 
 [params]
 

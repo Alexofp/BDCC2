@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://csn355fwuuxlc"
 path.s3tc="res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Height.png-e59c25e8f5601c973c43df9df894cb4f.s3tc.ctex"
+path.etc2="res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Height.png-e59c25e8f5601c973c43df9df894cb4f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Height.png"
-dest_files=["res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Height.png-e59c25e8f5601c973c43df9df894cb4f.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Height.png-e59c25e8f5601c973c43df9df894cb4f.s3tc.ctex", "res://.godot/imported/MyTrim Lowpoly_DefaultMaterial_Height.png-e59c25e8f5601c973c43df9df894cb4f.etc2.ctex"]
 
 [params]
 

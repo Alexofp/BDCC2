@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://hcu5o103lkx4"
 path.s3tc="res://.godot/imported/InmateTop_low_DefaultMaterial_ORM.png-ff2a0963ccb4d83a5683d14648875989.s3tc.ctex"
+path.etc2="res://.godot/imported/InmateTop_low_DefaultMaterial_ORM.png-ff2a0963ccb4d83a5683d14648875989.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png"
-dest_files=["res://.godot/imported/InmateTop_low_DefaultMaterial_ORM.png-ff2a0963ccb4d83a5683d14648875989.s3tc.ctex"]
+dest_files=["res://.godot/imported/InmateTop_low_DefaultMaterial_ORM.png-ff2a0963ccb4d83a5683d14648875989.s3tc.ctex", "res://.godot/imported/InmateTop_low_DefaultMaterial_ORM.png-ff2a0963ccb4d83a5683d14648875989.etc2.ctex"]
 
 [params]
 

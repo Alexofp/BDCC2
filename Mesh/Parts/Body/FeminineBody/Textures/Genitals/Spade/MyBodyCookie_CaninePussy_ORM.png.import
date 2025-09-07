@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqtclt7pb1ydi"
 path.s3tc="res://.godot/imported/MyBodyCookie_CaninePussy_ORM.png-20cf7f664bd8fe9d333d586fa6c5bc5a.s3tc.ctex"
+path.etc2="res://.godot/imported/MyBodyCookie_CaninePussy_ORM.png-20cf7f664bd8fe9d333d586fa6c5bc5a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_ORM.png"
-dest_files=["res://.godot/imported/MyBodyCookie_CaninePussy_ORM.png-20cf7f664bd8fe9d333d586fa6c5bc5a.s3tc.ctex"]
+dest_files=["res://.godot/imported/MyBodyCookie_CaninePussy_ORM.png-20cf7f664bd8fe9d333d586fa6c5bc5a.s3tc.ctex", "res://.godot/imported/MyBodyCookie_CaninePussy_ORM.png-20cf7f664bd8fe9d333d586fa6c5bc5a.etc2.ctex"]
 
 [params]
 

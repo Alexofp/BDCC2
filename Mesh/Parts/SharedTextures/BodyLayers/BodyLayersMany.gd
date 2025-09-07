@@ -98,4 +98,31 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Back1": {
+			name = "Back 1",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Back1.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"ThighHighs": {
+			name = "Thigh highs",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/ThighHighs.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"GlovesFingerless": {
+			name = "Gloves fingerless",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/GlovesFingerless.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

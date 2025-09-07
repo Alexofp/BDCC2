@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://uxolfp1icg1i"
 path.s3tc="res://.godot/imported/fabrictiles_color.png-afb4c492298b266e08e49c61d48246b1.s3tc.ctex"
+path.etc2="res://.godot/imported/fabrictiles_color.png-afb4c492298b266e08e49c61d48246b1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Textures/Tileable/fabric_tiles/fabrictiles_color.png"
-dest_files=["res://.godot/imported/fabrictiles_color.png-afb4c492298b266e08e49c61d48246b1.s3tc.ctex"]
+dest_files=["res://.godot/imported/fabrictiles_color.png-afb4c492298b266e08e49c61d48246b1.s3tc.ctex", "res://.godot/imported/fabrictiles_color.png-afb4c492298b266e08e49c61d48246b1.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0rthh2vqjgds"
 path.s3tc="res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.s3tc.ctex"
+path.etc2="res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Parts/SharedTextures/Eyes/OLD/demon.png"
-dest_files=["res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.s3tc.ctex"]
+dest_files=["res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.s3tc.ctex", "res://.godot/imported/demon.png-0d1647ec1da4eaed9e04ce464c1b7d63.etc2.ctex"]
 
 [params]
 

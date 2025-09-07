@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://do0idgrp0f147"
 path.s3tc="res://.godot/imported/cummask.png-0e496e70bb5126af47c33b4e15ba4381.s3tc.ctex"
+path.etc2="res://.godot/imported/cummask.png-0e496e70bb5126af47c33b4e15ba4381.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Util/SomeTests/CumLayer/cummask.png"
-dest_files=["res://.godot/imported/cummask.png-0e496e70bb5126af47c33b4e15ba4381.s3tc.ctex"]
+dest_files=["res://.godot/imported/cummask.png-0e496e70bb5126af47c33b4e15ba4381.s3tc.ctex", "res://.godot/imported/cummask.png-0e496e70bb5126af47c33b4e15ba4381.etc2.ctex"]
 
 [params]
 

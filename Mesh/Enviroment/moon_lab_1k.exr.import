@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cutt217rbbco6"
 path.bptc="res://.godot/imported/moon_lab_1k.exr-5a049e76d942d82a29bfc6988f1cb4ec.bptc.ctex"
+path.astc="res://.godot/imported/moon_lab_1k.exr-5a049e76d942d82a29bfc6988f1cb4ec.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Mesh/Enviroment/moon_lab_1k.exr"
-dest_files=["res://.godot/imported/moon_lab_1k.exr-5a049e76d942d82a29bfc6988f1cb4ec.bptc.ctex"]
+dest_files=["res://.godot/imported/moon_lab_1k.exr-5a049e76d942d82a29bfc6988f1cb4ec.bptc.ctex", "res://.godot/imported/moon_lab_1k.exr-5a049e76d942d82a29bfc6988f1cb4ec.astc.ctex"]
 
 [params]
 

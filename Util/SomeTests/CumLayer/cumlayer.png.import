@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfcw0i0j2aagw"
 path.s3tc="res://.godot/imported/cumlayer.png-25c6cf79535aa475474251da6990fec9.s3tc.ctex"
+path.etc2="res://.godot/imported/cumlayer.png-25c6cf79535aa475474251da6990fec9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Util/SomeTests/CumLayer/cumlayer.png"
-dest_files=["res://.godot/imported/cumlayer.png-25c6cf79535aa475474251da6990fec9.s3tc.ctex"]
+dest_files=["res://.godot/imported/cumlayer.png-25c6cf79535aa475474251da6990fec9.s3tc.ctex", "res://.godot/imported/cumlayer.png-25c6cf79535aa475474251da6990fec9.etc2.ctex"]
 
 [params]
 
