@@ -87,4 +87,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Ponytail3_Felina": {
+			name = "Felina",
+			subType = "Ponytail3",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/Ponytail3/Felina.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

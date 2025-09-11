@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://cqxqisi1jql0h"]
+[gd_scene load_steps=79 format=3 uid="uid://cqxqisi1jql0h"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_207vj"]
 [ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_3wh73"]
@@ -56,6 +56,7 @@
 [ext_resource type="PackedScene" uid="uid://1a8t700w04rl" path="res://Mapping/Decals/DecalNum4.tscn" id="69_wvyww"]
 [ext_resource type="PackedScene" uid="uid://dd3jjfix6elji" path="res://Mapping/Decals/DecalNum5.tscn" id="70_g7i5c"]
 [ext_resource type="PackedScene" uid="uid://coywr17jhtgwq" path="res://Mapping/Decals/DecalNum6.tscn" id="71_ismwf"]
+[ext_resource type="PackedScene" uid="uid://c24n0yg58dmg" path="res://Game/MappingElements/Lights/MappingSpotlight.tscn" id="72_ksl72"]
 [ext_resource type="PackedScene" uid="uid://b1ol5t7lbo3gu" path="res://Mapping/Railings/FancyRailing1.tscn" id="72_xqwcl"]
 [ext_resource type="PackedScene" uid="uid://d0pvhwsbtsdjh" path="res://Mapping/Railings/FancyRailing2Stairs.tscn" id="73_1ynqf"]
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="74_47uhn"]
@@ -83,7 +84,7 @@ agent_max_climb = 0.55
 
 [sub_resource type="SphereMesh" id="SphereMesh_kb7ll"]
 
-[sub_resource type="Shader" id="Shader_gwxin"]
+[sub_resource type="Shader" id="Shader_q1g3e"]
 code = "shader_type spatial;
 
 
@@ -196,6 +197,14 @@ float fresnel(float amount, vec3 normal, vec3 view)
 
 //#define MY_COLORMASK
 #ifdef MY_COLORMASK
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+#endif
+
+//#define MY_COLORMASKALBEDO
+#ifdef MY_COLORMASKALBEDO
 uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
 uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
 uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
@@ -369,6 +378,31 @@ void fragment() {
 	colormask_result.a *= colormask_tex.a;
 
 	ALBEDO.rgb = mix(ALBEDO.rgb, colormask_result.rgb, colormask_result.a);
+}
+#endif
+
+#ifdef MY_COLORMASKALBEDO
+{
+	vec4 colormask_tex = texture(texture_color_mask, base_uv);
+
+	float maskSum = colormask_tex.r + colormask_tex.g + colormask_tex.b;
+	maskSum = max(maskSum, 1.0);
+	colormask_tex.rgb /= maskSum;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 colormask_result = vec4(0.0);
+	colormask_result += colormask_tex.r*color_r*color_r.a;
+	colormask_result += colormask_tex.g*color_g*color_g.a;
+	colormask_result += colormask_tex.b*color_b*color_b.a;
+
+	colormask_result.a = colormask_tex.a;
+	
+	ALPHA = colormask_result.a;
+	ALBEDO = colormask_result.rgb;
+	//ALBEDO.rgb = mix(ALBEDO.rgb, colormask_result.rgb, colormask_result.a);
 }
 #endif
 
@@ -550,7 +584,7 @@ void light(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wrhh4"]
 render_priority = 0
-shader = SubResource("Shader_gwxin")
+shader = SubResource("Shader_q1g3e")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -568,7 +602,7 @@ size = Vector3(0.17, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lxt44"]
 render_priority = 0
-shader = SubResource("Shader_gwxin")
+shader = SubResource("Shader_q1g3e")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -3847,3 +3881,23 @@ size = Vector3(10.773254, 6.8201904, 13.176331)
 box_projection = true
 ambient_mode = 2
 ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+
+[node name="MappingSpotlight" parent="." instance=ExtResource("72_ksl72")]
+transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, -4.5975895, 36.913902, -39.079666)
+light_color = Color(0.56, 0.67733324, 1, 1)
+light_energy = 1500.0
+distance_fade_begin = 40.0
+spot_range = 77.838
+spot_attenuation = 2.0
+spot_angle = 28.29
+spot_angle_attenuation = 0.044194072
+
+[node name="MappingSpotlight2" parent="." instance=ExtResource("72_ksl72")]
+transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, 36.657444, 36.913902, -39.079666)
+light_color = Color(0.56, 0.67733324, 1, 1)
+light_energy = 1500.0
+distance_fade_begin = 40.0
+spot_range = 77.838
+spot_attenuation = 2.0
+spot_angle = 28.29
+spot_angle_attenuation = 0.044194072

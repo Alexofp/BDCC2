@@ -38,8 +38,8 @@ data = {
 "nipplePiercing": [""],
 "nippleShape": 0.0,
 "nipples": {
-&"b": Color(0.7411765, 0.2509804, 0.2509804, 1),
-&"g": Color(0.96862745, 0.6784314, 0.69803923, 1),
+&"b": Color(0.30588236, 0.83137256, 0.84313726, 1),
+&"g": Color(0.30588236, 0.83137256, 0.84313726, 1),
 &"id": "Nipple_Default",
 &"r": Color(0.30588236, 0.83137256, 0.84313726, 1)
 },
@@ -97,8 +97,8 @@ data = {
 "b2": Color(1, 1, 1, 1),
 &"g": Color(0.21960784, 0.7764706, 0.93333334, 1),
 "g2": Color(0.52156866, 0.2509804, 0.84313726, 1),
-&"id": "Eye_Mystic",
-"id2": "Eye_Mystic",
+&"id": "Eye_Normal",
+"id2": "Eye_Normal",
 &"r": Color(0.21960784, 0.7764706, 0.93333334, 1),
 "r2": Color(0.52156866, 0.2509804, 0.84313726, 1)
 },
@@ -163,20 +163,21 @@ data = {
 "Tail": {
 &"data": {
 "options": {
+"fullness": 0.0,
 "idleAnim": 0,
 "pattern": {
-&"b": Color(0.08627451, 0.80784315, 0.9098039, 1),
-&"g": Color(0.08627451, 0.80784315, 0.9098039, 1),
-&"id": "LongTail_LionTip",
-&"r": Color(0.08627451, 0.80784315, 0.9098039, 1)
+&"b": Color(0.14117648, 0.4627451, 0.5058824, 1),
+&"g": Color(0.2784314, 0.25490198, 0.3019608, 1),
+&"id": "PaintbrushTail_TipLad",
+&"r": Color(0.078431375, 0.80784315, 0.8980392, 1)
 },
 "skinDataOverride": null,
-"tailLenMod": 1.0,
-"tailType": 0,
-"thickness": 0.69
+"tailLenMod": 1.19,
+"thickness": 0.6000000000000001,
+"wobbly": 0.0
 }
 },
-&"id": "LongTail"
+&"id": "PaintbrushTail"
 }
 },
 &"charName": "Kidlat",

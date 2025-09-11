@@ -17,12 +17,12 @@ const TAIL_ANIMS = {
 }
 
 var tailMat:MyMasterMaterial
-@onready var fluffy_tail: MeshInstance3D = %FluffyTail
+@onready var paintbrush_tail: MeshInstance3D = %PaintbrushTail
 @onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func grabMaterials():
-	tailMat = fluffy_tail.get_surface_override_material(0)
+	tailMat = paintbrush_tail.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "idleAnim"):
@@ -31,9 +31,13 @@ func applyOption(_optionID:String, _value:Variant):
 		else:
 			animation_player.play("TailRest", 0.5)
 	elif(_optionID == "thickness"):
-		setBlendshape("Thick", _value)
-	elif(_optionID == "width"):
-		setBlendshape("Width", _value)
+		setBlendshape("Thickness", _value)
+	elif(_optionID == "fullness"):
+		setBlendshape("Fullness", _value)
+	elif(_optionID == "wobbly"):
+		setBlendshape("Wobbly", _value)
+	#elif(_optionID == "width"):
+	#	setBlendshape("Width", _value)
 	elif(_optionID == "pattern"):
 		applyColormaskPatternToMyMat(tailMat, _value)
 	elif(_optionID == "tailLenMod"):

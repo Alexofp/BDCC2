@@ -7,18 +7,16 @@ const TAILANIM_WRAPPEDAROUND = 3
 const TAILANIM_HUG = 4
 const TAILANIM_SPEAR = 5
 
-const TAILTYPE_BAND_BOW = 0
-const TAILTYPE_BAND = 1
-const TAILTYPE_BOW = 2
-const TAILTYPE_PLAIN = 3
-
-var tailType:int = TAILTYPE_BAND_BOW
+#var tailType:String = "fluffy"
 var thickness:float = 0.0
-var taper:float = 0.0
-var tip:float = 0.0
+var fullness:float = 0.0
+var wobbly:float = 0.0
+#var width:float = 0.0
 var tailLenMod:float = 1.0
+#var underfluff:bool = true
+#var ridges:bool = true
+#var tipfluff:bool = true
 var idleAnim:int = TAILANIM_WAG
-var bowColor = Color("ff65ff")
 
 var pattern:Dictionary = {
 	id = "",
@@ -29,13 +27,13 @@ var pattern:Dictionary = {
 
 func _init():
 	super._init()
-	id = "HugeFluffyTail"
+	id = "PaintbrushTail"
 
 func getName() -> String:
-	return "Huge Fluffy tail"
+	return "Paintbrush tail"
 
 func getScenePath(_slot:int) -> String:
-	return "res://Mesh/Parts/Tail/HugeFluffyTail/huge_fluffy_tail.tscn"
+	return "res://Mesh/Parts/Tail/PaintbrushTail/paintbrush_tail.tscn"
 
 func getSupportedSkinTypes() -> Dictionary:
 	return {
@@ -79,48 +77,49 @@ func getOptions() -> Dictionary:
 			#type = "bool",
 			#editors = [EDITOR_PART],
 		#}
-	theOptions["tailType"] = {
-			name = "Tail type",
-			type = "selector",
-			values = [
-				[TAILTYPE_BAND_BOW, "Band+Bow"],
-				[TAILTYPE_BAND, "Just band"],
-				[TAILTYPE_BOW, "Just bow"],
-				[TAILTYPE_PLAIN, "Plain"],
-			],
-			editors = [EDITOR_PART],
-		}
-	theOptions["bowColor"] = {
-			name = "Bow color",
-			type = "color",
-			editors = [EDITOR_PART],
-		}
+	#theOptions["tailType"] = {
+			#name = "Tail type",
+			#type = "selector",
+			#values = [
+				#["smooth", "Smooth"],
+				#["fluffy", "Fluffy"],
+				#["lion", "Lion tip"],
+			#],
+			#editors = [EDITOR_PART],
+		#}
 	theOptions["thickness"] = {
 			name = "Thickness",
 			type = "slider",
-			min = -1.0,
+			min = -0.5,
 			max = 1.0,
 			editors = [EDITOR_PART],
 		}
-	theOptions["taper"] = {
-			name = "Taper",
+	theOptions["fullness"] = {
+			name = "Fullness",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
 		}
-	theOptions["tip"] = {
-			name = "Tip",
+	theOptions["wobbly"] = {
+			name = "Wobbly",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
 			editors = [EDITOR_PART],
 		}
+	#theOptions["width"] = {
+			#name = "Width",
+			#type = "slider",
+			#min = 0.0,
+			#max = 1.0,
+			#editors = [EDITOR_PART],
+		#}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",
 			texType = TextureVariantType.TailPattern,
-			texSubType = "HugeFluffyTail",
+			texSubType = "PaintbrushTail",
 			editors = [EDITOR_PART],
 		}
 
@@ -129,5 +128,5 @@ func getOptions() -> Dictionary:
 
 func getTextureVariantsPaths() -> Array:
 	return [
-		"res://Mesh/Parts/Tail/HugeFluffyTail/Textures/Layers/HugeFluffyTailLayersMany.gd",
+		"res://Mesh/Parts/Tail/PaintbrushTail/Textures/Layers/PaintbrushTailLayersMany.gd",
 	]

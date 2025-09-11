@@ -34,4 +34,22 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Geometric": {
+			name = "Geometric",
+			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Geometric.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"Mark": {
+			name = "Mark",
+			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Mark.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}
