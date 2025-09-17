@@ -115,8 +115,9 @@ data = {
 }],
 "lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
-"shapeRound": 0.11,
+"shapeRound": 0.0,
 "skinDataOverride": null,
+"smallMuzzle": 1.0,
 "snout": Color(0.42352942, 0.27450982, 0.27450982, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)

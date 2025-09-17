@@ -41,6 +41,8 @@ func applyOption(_optionID:String, _value:Variant):
 		setBlendshape("FluffShort", _value)
 	elif(_optionID == "shapeRound"):
 		setBlendshape("Round", _value)
+	elif(_optionID == "smallMuzzle"):
+		setBlendshape("SmallMuzzle", _value)
 	elif(_optionID == "headLayers"):
 		updateHeadTexture()
 	elif(_optionID == "snout"):

@@ -84,7 +84,7 @@ agent_max_climb = 0.55
 
 [sub_resource type="SphereMesh" id="SphereMesh_kb7ll"]
 
-[sub_resource type="Shader" id="Shader_q1g3e"]
+[sub_resource type="Shader" id="Shader_ksl72"]
 code = "shader_type spatial;
 
 
@@ -584,7 +584,7 @@ void light(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wrhh4"]
 render_priority = 0
-shader = SubResource("Shader_q1g3e")
+shader = SubResource("Shader_ksl72")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -602,7 +602,7 @@ size = Vector3(0.17, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lxt44"]
 render_priority = 0
-shader = SubResource("Shader_q1g3e")
+shader = SubResource("Shader_ksl72")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -3827,17 +3827,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 5, 13)
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
-visible = false
-light_energy = 0.2
-light_indirect_energy = 0.2
-light_volumetric_fog_energy = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("88_n0ve6")
 compositor = ExtResource("89_ioopm")
@@ -3901,3 +3890,25 @@ spot_range = 77.838
 spot_attenuation = 2.0
 spot_angle = 28.29
 spot_angle_attenuation = 0.044194072
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.79781187, 0.5409632, -0.26618606, 0.35712096, 0.779735, 0.5142741, 0.48575795, 0.31523335, -0.8152712, 0, 2.95159, 0)
+visible = false
+light_energy = 0.2
+light_indirect_energy = 0.2
+light_volumetric_fog_energy = 0.0
+shadow_bias = 0.025
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 10.0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, -4.3711424e-08, 0.9999995, 0, -1.0000008, -4.3711367e-08, 0, 2.95159, 0)
+light_energy = 0.5
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+shadow_bias = 0.025
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 10.0
+sky_mode = 1

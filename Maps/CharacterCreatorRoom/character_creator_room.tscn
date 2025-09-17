@@ -209,6 +209,16 @@ directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 10.0
 
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, -4.3711424e-08, 0.9999995, 0, -1.0000008, -4.3711367e-08, 0, 2.95159, 0)
+light_energy = 0.5
+light_indirect_energy = 0.2
+light_volumetric_fog_energy = 0.0
+shadow_bias = 0.025
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 10.0
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("37_nbq4c")
 compositor = ExtResource("38_8tcj0")

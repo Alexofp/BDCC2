@@ -9,6 +9,7 @@ var fluffShort:float = 0.0
 var snout:Color = Color("9b9b9b")
 var lines:Color = Color.BLACK
 var shapeRound:float = 0.0
+var smallMuzzle:float = 0.0
 
 func _init():
 	super._init()
@@ -38,6 +39,13 @@ func getOptions() -> Dictionary:
 		}
 	theOptions["shapeRound"] = {
 			name = "Rounder shape",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		}
+	theOptions["smallMuzzle"] = {
+			name = "Small muzzle",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,

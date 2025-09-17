@@ -97,4 +97,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"SideHair_BigStrands": {
+			name = "Big strands",
+			subType = "SideHair",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/SideHair/BigStrands.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}
