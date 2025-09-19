@@ -1,7 +1,7 @@
 extends Node
 
 # Errors
-const OK = 0
+#const OK = 0
 const ERROR_GENERIC = 1
 
 const SERVER_PORT = 12345
@@ -426,6 +426,14 @@ func hasRoomID() -> bool:
 
 func getRoomID() -> String:
 	return roomID
+
+func asyncCondition(cond: Callable, timeout: float = 10.0) -> Error:
+	timeout = Time.get_ticks_msec() + timeout * 1000
+	while not cond.call():
+		await get_tree().process_frame
+		if Time.get_ticks_msec() > timeout:
+			return ERR_TIMEOUT
+	return OK
 
 # NODE TUNNEL
 const NODETUNNEL_SERVER = "relay.nodetunnel.io"
