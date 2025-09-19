@@ -302,21 +302,26 @@ func updateTemplateList():
 	foundTemplates.clear()
 	
 	var thePath:String = "res://Game/IngameEditor/Templates/"
-	var dir = DirAccess.open(thePath)
-	if(dir):
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				pass
-			else:
-				var final_path:String = thePath.path_join(file_name)
-				template_item_list.add_item(final_path.get_file())
-				foundTemplates.append(final_path)
-				#var theScript = load(final_path)
-				#var theCommand = theScript.new()
-				#commands[theCommand.id] = theScript
-			file_name = dir.get_next()
+	var theTemplatePaths:= Util.getResourcesFromFolder(thePath, ["res"])
+	for theTemplatePath in theTemplatePaths:
+		template_item_list.add_item(theTemplatePath.get_file())
+		foundTemplates.append(theTemplatePath)
+	
+	#var dir = DirAccess.open(thePath)
+	#if(dir):
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if dir.current_is_dir():
+				#pass
+			#else:
+				#var final_path:String = thePath.path_join(file_name)
+				#template_item_list.add_item(final_path.get_file())
+				#foundTemplates.append(final_path)
+				##var theScript = load(final_path)
+				##var theCommand = theScript.new()
+				##commands[theCommand.id] = theScript
+			#file_name = dir.get_next()
 
 @onready var tool_item_list: ItemList = %ToolItemList
 @onready var editor_ui: Control = %EditorUI
@@ -326,23 +331,29 @@ func updateCommandsDict():
 	commands.clear()
 	
 	var thePath:String = "res://Game/IngameEditor/Commands/"
-	var dir = DirAccess.open(thePath)
-	if(dir):
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				pass
-			else:
-				var final_path:String = thePath.path_join(file_name)
-				if(final_path.get_extension() != "gd"):
-					file_name = dir.get_next()
-					continue
-				
-				var theScript = load(final_path)
-				var theCommand = theScript.new()
-				commands[theCommand.id] = theScript
-			file_name = dir.get_next()
+	var theScriptsFiles := Util.getResourcesFromFolder(thePath, ["gd"])
+	theScriptsFiles.sort()
+	for theScriptPath in theScriptsFiles:
+		var theScript = load(theScriptPath)
+		var theCommand = theScript.new()
+		commands[theCommand.id] = theScript
+	#var dir = DirAccess.open(thePath)
+	#if(dir):
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if dir.current_is_dir():
+				#pass
+			#else:
+				#var final_path:String = thePath.path_join(file_name)
+				#if(final_path.get_extension() != "gd"):
+					#file_name = dir.get_next()
+					#continue
+				#
+				#var theScript = load(final_path)
+				#var theCommand = theScript.new()
+				#commands[theCommand.id] = theScript
+			#file_name = dir.get_next()
 
 func createCommand(_theID:String) -> PcEditorCommandBase:
 	if(!commands.has(_theID)):
@@ -414,26 +425,36 @@ func updateToolsDict():
 	tools.clear()
 	
 	var thePath:String = "res://Game/IngameEditor/Tools/"
-	var dir = DirAccess.open(thePath)
-	if(dir):
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				pass
-			else:
-				var final_path:String = thePath.path_join(file_name)
-				if(final_path.get_extension() != "gd"):
-					file_name = dir.get_next()
-					continue
-				
-				var theScript = load(final_path)
-				var theTool = theScript.new()
-				tools[theTool.id] = theTool
-				theTool.setPC(self)
-				if(selectedTool == ""):
-					selectedTool = theTool.id
-			file_name = dir.get_next()
+	var theScriptsFiles := Util.getResourcesFromFolder(thePath, ["gd"])
+	theScriptsFiles.sort()
+	for theScriptPath in theScriptsFiles:
+		var theScript = load(theScriptPath)
+		var theTool = theScript.new()
+		tools[theTool.id] = theTool
+		theTool.setPC(self)
+		if(selectedTool == ""):
+			selectedTool = theTool.id
+	
+	#var dir = DirAccess.open(thePath)
+	#if(dir):
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if dir.current_is_dir():
+				#pass
+			#else:
+				#var final_path:String = thePath.path_join(file_name)
+				#if(final_path.get_extension() != "gd"):
+					#file_name = dir.get_next()
+					#continue
+				#
+				#var theScript = load(final_path)
+				#var theTool = theScript.new()
+				#tools[theTool.id] = theTool
+				#theTool.setPC(self)
+				#if(selectedTool == ""):
+					#selectedTool = theTool.id
+			#file_name = dir.get_next()
 
 func readyUI():
 	updateCommandsDict()

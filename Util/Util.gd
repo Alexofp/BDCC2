@@ -49,29 +49,31 @@ static func getFirstSkeleton3DOfANode(node: Node) -> Skeleton3D:
 	
 	return null
 
-static func getScriptsInFolder(folder: String):
-	var result = []
-	
-	var dir = DirAccess.open(folder)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				pass
-				#print("Found directory: " + file_name)
-			else:
-				if(file_name.get_extension() == "gd"):
-					var full_path = folder.path_join(file_name)
-					result.append(full_path)
-			file_name = dir.get_next()
-	else:
-		Log.Printerr("An error occurred when trying to access the path "+folder)
-	
-	return result
+static func getScriptsInFolder(folder: String) -> Array[String]:
+	return getResourcesFromFolder(folder, ["gd"])
+	#var result = []
+	#
+	#var dir = DirAccess.open(folder)
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if dir.current_is_dir():
+				#pass
+				##print("Found directory: " + file_name)
+			#else:
+				#if(file_name.get_extension() == "gd"):
+					#var full_path = folder.path_join(file_name)
+					#result.append(full_path)
+			#file_name = dir.get_next()
+	#else:
+		#Log.Printerr("An error occurred when trying to access the path "+folder)
+	#
+	#return result
 
 static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
-	return getFilesInFolderSmart(folder, "gd", includeThisFolder, includeSubFolders, reqursive)
+	#return getFilesInFolderSmart(folder, "gd", includeThisFolder, includeSubFolders, reqursive)
+	return getResourcesFromFolderSmart(folder, ["gd"], includeThisFolder, includeSubFolders, reqursive)
 
 static func getFilesInFolderSmart(folder: String, extension:String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
 	var result:Array = []
@@ -186,8 +188,10 @@ static func sanitizeFileName(_theName:String) -> String:
 	
 
 static func folderExists(path:String) -> bool:
-	var dir = DirAccess.open(path)
-	if(dir):
+	#var dir = DirAccess.open(path)
+	#if(dir):
+	#	return true
+	if(DirAccess.dir_exists_absolute(path)):
 		return true
 	return false
 
@@ -209,3 +213,70 @@ static func splitOnFirst(text: String, separator: String) -> Array[String]:
 
 static func createFolder(_path:String):
 	DirAccess.make_dir_recursive_absolute(_path)
+
+## Returned path is local to the folder. Technically faster than getResourcesFromFolder() but you need to join it with the folder yourself
+static func getResourcesFromFolderLocalPath(_folder:String, _extentions:Array[String]) -> Array[String]:
+	var result:Array[String] = []
+	var resourceList := ResourceLoader.list_directory(_folder)
+	for resourcePath in resourceList:
+		var extension := resourcePath.get_extension()
+		# For editor builds
+		if (extension in _extentions):
+			result.append(resourcePath)
+	return result
+
+static func getResourcesFromFolder(_folder:String, _extentions:Array[String]) -> Array[String]:
+	var result:Array[String] = []
+	var resourceList := ResourceLoader.list_directory(_folder)
+	for resourcePath in resourceList:
+		var extension := resourcePath.get_extension()
+		# For editor builds
+		if (extension in _extentions):
+			result.append(_folder.path_join(resourcePath))
+	return result
+
+static func getResourcesFromFolderRecursiveLocalPath(_folder:String, _extentions:Array[String]) -> Array[String]:
+	var result:Array[String] = []
+	var resourceList := ResourceLoader.list_directory(_folder)
+	for resourcePath in resourceList:
+		if(resourcePath.ends_with("/")):
+			var extraPaths := getResourcesFromFolderRecursiveLocalPath(_folder.path_join(resourcePath), _extentions)
+			for extraPath in extraPaths:
+				result.append(resourcePath.path_join(extraPath))
+		else:
+			var extension := resourcePath.get_extension()
+			# For editor builds
+			if (extension in _extentions):
+				result.append(resourcePath)
+	return result
+
+static func getResourcesFromFolderRecursive(_folder:String, _extentions:Array[String]) -> Array[String]:
+	var result:Array[String] = []
+	var resourceList := ResourceLoader.list_directory(_folder)
+	for resourcePath in resourceList:
+		if(resourcePath.ends_with("/")):
+			var extraPaths := getResourcesFromFolderRecursiveLocalPath(_folder.path_join(resourcePath), _extentions)
+			for extraPath in extraPaths:
+				result.append(_folder.path_join(resourcePath.path_join(extraPath)))
+		else:
+			var extension := resourcePath.get_extension()
+			# For editor builds
+			if (extension in _extentions):
+				result.append(_folder.path_join(resourcePath))
+	return result
+
+static func getResourcesFromFolderSmart(_folder:String, _extentions:Array[String], includeThisFolder:bool = true, includeSubFolders:bool = true, reqursive:bool = true, fullPath:bool = true) -> Array[String]:
+	var result:Array[String] = []
+	var resourceList := ResourceLoader.list_directory(_folder)
+	for resourcePath in resourceList:
+		if(resourcePath.ends_with("/")):
+			if(includeSubFolders):
+				var extraPaths := getResourcesFromFolderSmart(_folder.path_join(resourcePath), _extentions, true, reqursive, reqursive, fullPath)
+				for extraPath in extraPaths:
+					result.append(extraPath if fullPath else resourcePath.path_join(extraPath))
+		elif(includeThisFolder):
+			var extension := resourcePath.get_extension()
+			# For editor builds
+			if (extension in _extentions):
+				result.append(_folder.path_join(resourcePath) if fullPath else resourcePath)
+	return result

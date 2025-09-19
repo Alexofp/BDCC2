@@ -96,6 +96,8 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	pass
 
 func _ready() -> void:
+	#print("MEOW: "+str(Util.getResourcesFromFolderSmart("res://Sounds/", ["wav"], true, true, true, false)))
+	
 	hideAllMenus()
 	sit_manager.connectSignals()
 	Network.preMultiplayerStarted.connect(onMultiplayerPreStart)

@@ -70,7 +70,7 @@ func loadIconCache():
 			pathToPreview = theCache.data["icons"]
 
 func readAssets():
-	var files:Array = getFilesInFolderSmart(assetsPath, "tscn", true, true, true)
+	var files:Array = Util.getResourcesFromFolderSmart(assetsPath, ["tscn"], true, true, true)#getFilesInFolderSmart(assetsPath, "tscn", true, true, true)
 	
 	for pathA in files:
 		var path:String = pathA
@@ -95,32 +95,32 @@ func readAssets():
 		if(!pathToPreview.has(path)):
 			previewsToGenerate.append(path)
 
-static func getFilesInFolderSmart(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true):
-	var result = []
-	
-	var dir = DirAccess.open(folder)
-	if dir:
-		dir.include_navigational = false
-		dir.list_dir_begin()
-		var file_name = PCEditorUtil.fix_resource_path(dir.get_next())
-		while file_name != "":
-			if dir.current_is_dir():
-				if(includeSubFolders):
-					var full_path = folder.path_join(file_name)
-					result.append_array(getFilesInFolderSmart(full_path, ext, true, reqursive))
-				#print("Found directory: " + file_name)
-			else:
-				if(!includeThisFolder):
-					file_name = PCEditorUtil.fix_resource_path(dir.get_next())
-					continue
-				if(file_name.get_extension() == ext):
-					var full_path = folder.path_join(file_name)
-					result.append(full_path)
-			file_name = PCEditorUtil.fix_resource_path(dir.get_next())
-	else:
-		printerr("An error occurred when trying to access the path "+folder)
-	
-	return result
+#static func getFilesInFolderSmart(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true):
+	#var result = []
+	#
+	#var dir = DirAccess.open(folder)
+	#if dir:
+		#dir.include_navigational = false
+		#dir.list_dir_begin()
+		#var file_name = PCEditorUtil.fix_resource_path(dir.get_next())
+		#while file_name != "":
+			#if dir.current_is_dir():
+				#if(includeSubFolders):
+					#var full_path = folder.path_join(file_name)
+					#result.append_array(getFilesInFolderSmart(full_path, ext, true, reqursive))
+				##print("Found directory: " + file_name)
+			#else:
+				#if(!includeThisFolder):
+					#file_name = PCEditorUtil.fix_resource_path(dir.get_next())
+					#continue
+				#if(file_name.get_extension() == ext):
+					#var full_path = folder.path_join(file_name)
+					#result.append(full_path)
+			#file_name = PCEditorUtil.fix_resource_path(dir.get_next())
+	#else:
+		#printerr("An error occurred when trying to access the path "+folder)
+	#
+	#return result
 
 func setup_preview_viewport() -> void:
 	preview_viewport = SubViewport.new()

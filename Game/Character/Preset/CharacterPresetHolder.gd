@@ -27,7 +27,7 @@ func loadPacks():
 
 func loadPacksFromFolder(_folder:String) -> Array[CharacterPreset]:
 	var result:Array[CharacterPreset] = []
-	var thePaths := Util.getFilesInFolderSmartFixPath(_folder, "tres", true, false, false)
+	var thePaths := Util.getResourcesFromFolder(_folder, ["tres"])#Util.getFilesInFolderSmartFixPath(_folder, "tres", true, false, false)
 	
 	for path in thePaths:
 		var thePreset:CharacterPreset = CharacterPreset.new()
