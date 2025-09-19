@@ -140,9 +140,9 @@ data = {
 "options": {
 "fluffColor": Color(0.654902, 0.6039216, 0.73333335, 1),
 "pattern": {
-&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"id": "FluffyEar_Default",
+&"b": Color(0.5882353, 1, 0, 1),
+&"g": Color(0.07058824, 0, 0.08627451, 1),
+&"id": "FluffyEar_WeirdMarkings",
 &"r": Color(0.5882353, 1, 0, 1)
 },
 "piercings": "",
@@ -159,9 +159,9 @@ data = {
 "options": {
 "fluffColor": Color(0.654902, 0.6039216, 0.73333335, 1),
 "pattern": {
-&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"id": "FluffyEar_Default",
+&"b": Color(0.5882353, 1, 0, 1),
+&"g": Color(0.07058824, 0, 0.08627451, 1),
+&"id": "FluffyEar_WeirdMarkings",
 &"r": Color(0.5882353, 1, 0, 1)
 },
 "piercings": "",

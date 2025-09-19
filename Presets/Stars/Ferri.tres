@@ -106,6 +106,7 @@ data = {
 "mouthColor": Color(0.61960787, 0.20784314, 0.18039216, 1),
 "shapeRound": 0.0,
 "skinDataOverride": null,
+"smallMuzzle": 0.0,
 "snout": Color(0.23921569, 0.29803923, 0.54509807, 1),
 "teethColor": Color(1, 0.9098039, 0.85882354, 1),
 "tongueColor": Color(0.61960787, 0.20784314, 0.18039216, 1)
@@ -118,9 +119,9 @@ data = {
 "options": {
 "fluffColor": Color(0, 0.8862745, 0.88235295, 1),
 "pattern": {
-&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"id": "FluffyEar_Default",
+&"b": Color(0, 0.03529412, 0.2784314, 1),
+&"g": Color(0, 0.03529412, 0.2784314, 1),
+&"id": "FluffyEar_Gradient",
 &"r": Color(0, 0.8862745, 0.88235295, 1)
 },
 "piercings": "",
@@ -148,9 +149,9 @@ data = {
 "options": {
 "fluffColor": Color(0, 0.8862745, 0.88235295, 1),
 "pattern": {
-&"b": Color(0.4117647, 0.4117647, 0.4117647, 1),
-&"g": Color(0.74509805, 0.74509805, 0.74509805, 1),
-&"id": "FluffyEar_Default",
+&"b": Color(0, 0.03529412, 0.2784314, 1),
+&"g": Color(0, 0.03529412, 0.2784314, 1),
+&"id": "FluffyEar_Gradient",
 &"r": Color(0, 0.8862745, 0.88235295, 1)
 },
 "piercings": "TwoRings",
