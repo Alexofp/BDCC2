@@ -146,6 +146,9 @@ static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = 
 static func hostNodeTunnelGame(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
 	await internal_hostGame(Network.hostNodeTunnel.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
 
+static func hostNoray(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT):
+	await internal_hostGame(Network.hostNoray.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
+
 static func internal_joinGame(joinFunc:Callable, _nickname:String):
 	#Network.joinGame(_nickname, _ip)
 	LoadingScreen.startLoad()
@@ -181,6 +184,9 @@ static func joinLANGame(_nickname:String, _ip:String):
 
 static func joinNodeTunnelGame(_nickname:String, _roomID:String, relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
 	await internal_joinGame(Network.connectNodeTunnel.bind(_roomID, relayServer, relayServerPort), _nickname)
+	
+static func joinNorayGame(_nickname:String, _roomID:String, relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT, forceRelay:bool = false):
+	await internal_joinGame(Network.connectNoray.bind(_roomID, relayServer, relayServerPort, forceRelay), _nickname)
 	
 static func isInGame() -> bool:
 	return main != null

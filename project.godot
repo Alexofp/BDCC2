@@ -34,16 +34,16 @@ UIHandler="*res://UI/UIHandler/UIHandler.gd"
 GameChat="*res://UI/FullScreenChat/GameChat.gd"
 FullscreenChat="res://UI/FullScreenChat/fullscreen_chat.tscn"
 Network="*res://Game/Multiplayer/Network.gd"
-CameraSystem="*res://Game/Systems/Camera/CameraSystem.gd"
-CumManager="*res://Mesh/Cum/CumManager.gd"
+Noray="*res://addons/netfox.noray/noray.gd"
+PacketHandshake="*res://addons/netfox.noray/packet-handshake.gd"
 NetworkTime="*res://addons/netfox/network-time.gd"
 NetworkTimeSynchronizer="*res://addons/netfox/network-time-synchronizer.gd"
 NetworkRollback="*res://addons/netfox/rollback/network-rollback.gd"
 NetworkEvents="*res://addons/netfox/network-events.gd"
 NetworkPerformance="*res://addons/netfox/network-performance.gd"
 WindowTiler="*res://addons/netfox.extras/window-tiler.gd"
-Noray="*res://addons/netfox.noray/noray.gd"
-PacketHandshake="*res://addons/netfox.noray/packet-handshake.gd"
+CameraSystem="*res://Game/Systems/Camera/CameraSystem.gd"
+CumManager="*res://Mesh/Cum/CumManager.gd"
 
 [display]
 
@@ -256,6 +256,11 @@ game_chat={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Cum Extra Collision"
 3d_physics/layer_10="Interactable"
+
+[netfox]
+
+time/tickrate=20
+time/sync_to_physics=true
 
 [physics]
 

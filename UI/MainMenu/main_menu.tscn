@@ -68,6 +68,12 @@ size_flags_vertical = 3
 text = "Direct Connect (LAN)"
 
 [node name="NodeTunnelButton" type="Button" parent="CenterContainer/MultiplayerList"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "NodeTunnel (Internet)"
+
+[node name="NorayTunnelButton" type="Button" parent="CenterContainer/MultiplayerList"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Relay Server (Internet)"
@@ -124,6 +130,7 @@ text = "Create room"
 layout_mode = 2
 
 [node name="NTRoomEdit" type="LineEdit" parent="CenterContainer/NodeTunnelList"]
+unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Room ID"
 
@@ -140,8 +147,40 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
+[node name="NorayTunnelList" type="VBoxContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="NorayHostButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create room"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/NorayTunnelList"]
+layout_mode = 2
+
+[node name="NorayRoomEdit" type="LineEdit" parent="CenterContainer/NorayTunnelList"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Room ID"
+
+[node name="NorayJoinButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Join room"
+
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NorayTunnelList"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Back"
+
 [node name="SettingsTab" type="MarginContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,6 +218,36 @@ text = "Relay server:"
 horizontal_alignment = 1
 
 [node name="NTRelayServerEdit" type="LineEdit" parent="NTRelayBottomList"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Relay Server"
+
+[node name="NorayRelayBottomList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="NorayRelayBottomList"]
+layout_mode = 2
+text = "Relay server:"
+horizontal_alignment = 1
+
+[node name="NorayRelayList" type="OptionButton" parent="NorayRelayBottomList"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NorayRelayServerEdit" type="LineEdit" parent="NorayRelayBottomList"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Relay Server"
@@ -222,6 +291,7 @@ text = "Preview Maker"
 [connection signal="pressed" from="CenterContainer/MainList/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/LanButton" to="." method="_on_lan_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/NodeTunnelButton" to="." method="_on_node_tunnel_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MultiplayerList/NorayTunnelButton" to="." method="_on_noray_tunnel_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/LanHostButton" to="." method="_on_lan_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/LanJoinButton" to="." method="_on_lan_join_button_pressed"]
@@ -229,7 +299,11 @@ text = "Preview Maker"
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/NTHostButton" to="." method="_on_nt_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/NTJoinButton" to="." method="_on_nt_join_button_pressed"]
 [connection signal="pressed" from="CenterContainer/NodeTunnelList/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NorayTunnelList/NorayHostButton" to="." method="_on_noray_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NorayTunnelList/NorayJoinButton" to="." method="_on_noray_join_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NorayTunnelList/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="onCancelPressed" from="SettingsTab/SettingsUI" to="." method="_on_settings_ui_on_cancel_pressed"]
 [connection signal="onSavePressed" from="SettingsTab/SettingsUI" to="." method="_on_settings_ui_on_save_pressed"]
+[connection signal="item_selected" from="NorayRelayBottomList/NorayRelayList" to="." method="_on_noray_relay_list_item_selected"]
 [connection signal="pressed" from="ToolsContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="ToolsContainer/VBoxContainer/PreviewMaker" to="." method="_on_preview_maker_pressed"]

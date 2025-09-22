@@ -280,3 +280,18 @@ static func getResourcesFromFolderSmart(_folder:String, _extentions:Array[String
 			if (extension in _extentions):
 				result.append(_folder.path_join(resourcePath) if fullPath else resourcePath)
 	return result
+
+# Input: 127.0.0.1:12345
+# output: ["127.0.0.1", 12345]
+# Input: 127.0.0.1
+# output: ["127.0.0.1"]
+# Input: 127.0.0.1:12345:6969
+# output: ["127.0.0.1", 12345]
+static func separateIPPort(address:String) -> Array:
+	if address.contains(":"):
+		var parts:Array = address.split(":")
+		var host:String = parts[0]
+		var port:int = (parts[1] as String).to_int()
+		return [host, port]
+	else:
+		return [address]

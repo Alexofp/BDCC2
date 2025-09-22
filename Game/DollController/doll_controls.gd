@@ -15,9 +15,19 @@ var mousecapture_isdown = false
 
 @export var pid:int = 1: set = setPID
 
+signal multiplayerAuthorityUpdate
+
+#func _ready():
+#	NetworkTime.before_tick_loop.connect(doInputGather)
+
+func doInputGather():
+	resetInput()
+	processInput()
+
 func setPID(newPid:int):
 	pid = newPid
 	set_multiplayer_authority(newPid)
+	multiplayerAuthorityUpdate.emit()
 
 func resetInput():
 	if(Network.isMultiplayer() && !is_multiplayer_authority()):

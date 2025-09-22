@@ -152,16 +152,15 @@ func _ready() -> void:
 	var myInfo := createPlayerInfo(1, "Player")
 	registerPlayerInfo(myInfo)
 	
-	multiplayer.multiplayer_peer = null
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	
-
-func canHostOrJoin() -> bool:
-	return !!multiplayer.multiplayer_peer
+	registerNoraySignals()
+	
 
 var internal_connectResult:FuncResultOrError
 signal internal_onConnectOrFail
@@ -216,24 +215,31 @@ func _on_server_disconnected():
 	GM.errorOutToMainMenu("Connection to server lost")
 
 func isServer() -> bool:
-	return !multiplayer.multiplayer_peer || (multiplayer.multiplayer_peer && multiplayer.is_server())
+	var peer := multiplayer.multiplayer_peer
+	if(!peer):
+		return true
+	return multiplayer.is_server()
 	
 func isServerNotSingleplayer() -> bool:
-	return !!multiplayer.multiplayer_peer && multiplayer.is_server()
+	return isServer() && isMultiplayer()
 	
 func isClient() -> bool:
-	return !!multiplayer.multiplayer_peer && !multiplayer.is_server()
+	return !isServer() && isMultiplayer()
 
 func isClientOrSingleplayer() -> bool:
-	return !multiplayer.multiplayer_peer || !multiplayer.is_server()
+	return !isServer()
 
 func stopMultiplayer():
 	roomID = ""
 	roomIDChanged.emit(roomID)
+	norayRole = NorayRole.NONE
+	if(Noray.is_connected_to_host()):
+		Noray.disconnect_from_host()
+		NetworkTime.stop()
 	if(!isMultiplayer()):
 		return
 	multiplayerEnded.emit(isServer())
-	multiplayer.multiplayer_peer = null
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	#players.clear()
 	serverDisconnected.emit()
 
@@ -243,7 +249,11 @@ func getMultiplayerID() -> int:
 	return multiplayer.get_unique_id()
 
 func isMultiplayer() -> bool:
-	return !!multiplayer.multiplayer_peer
+	if(!multiplayer.multiplayer_peer):
+		return false
+	if(multiplayer.multiplayer_peer is OfflineMultiplayerPeer):
+		return false
+	return true
 
 func isHostID(_theID:int) -> bool:
 	return _theID == 1
@@ -275,11 +285,14 @@ func getInfoThatControlsCharID(_charID:String) -> NetworkPlayerInfo:
 # Why? .rpc() sends the rpc to all clients no matter if they are considered
 # fully connected or still connecting (haven't received game data).
 # This function would only send the rpc to clients that are fully connected
-func rpcClients(callable:Callable):
+func rpcClients(callable:Callable, debugOutput:bool = false):
 	for playerID in players:
 		if(playerID == getMultiplayerID() || players[playerID].connecting):
 			continue
+		if(debugOutput):
+			Log.Print("RPC "+str(callable)+" on "+str(playerID))
 		callable.rpc_id(playerID)
+			
 
 func rpcClientsArgs(callable:Callable, args:Array = [], skipUs:bool = true):
 	var theCallable:Callable = callable.bindv(args)
@@ -329,16 +342,21 @@ func connectLAN(_ip:String) -> FuncResultOrError:
 	
 	await internal_onConnectOrFail
 	if(internal_connectResult.isError()):
-		Log.Printerr("Network failed to connect, status = "+str(peer.get_connection_status()))
+		Log.Printerr("Network failed to connect, status = "+str(getConnectionState()))
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection failed")
-	if(peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
-		Log.Printerr("Network failed to connect, status = "+str(peer.get_connection_status()))
+	if(getConnectionState() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
+		Log.Printerr("Network failed to connect, status = "+str(getConnectionState()))
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection failed")
 	
 	return FuncResultOrError.createResult(true)
 
+func getConnectionState() -> int:
+	if(!multiplayer.multiplayer_peer):
+		return MultiplayerPeer.CONNECTION_DISCONNECTED
+	return multiplayer.multiplayer_peer.get_connection_status()
+
 func clientAskGameInfo() -> FuncResultOrError:
-	if(!multiplayer.multiplayer_peer || multiplayer.multiplayer_peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
+	if(getConnectionState() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection lost")
 	Log.Print("Asking for game info")
 	clientAskGameInfo_SERVERRPC.rpc_id(1)
@@ -368,7 +386,7 @@ func clientAskGameInfo_RPC(_state:Dictionary):
 
 
 func clientAskToJoin(_nickname:String) -> FuncResultOrError:
-	if(!multiplayer.multiplayer_peer || multiplayer.multiplayer_peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
+	if(getConnectionState() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
 		# Not connected
 		return FuncResultOrError.createError(ERROR_GENERIC)
 	
@@ -435,6 +453,9 @@ func asyncCondition(cond: Callable, timeout: float = 10.0) -> Error:
 			return ERR_TIMEOUT
 	return OK
 
+func shouldProcessLocally() -> bool:
+	return NetworkTime._state == NetworkTime._STATE_INACTIVE #TODO: Replace with something less hacky?
+
 # NODE TUNNEL
 const NODETUNNEL_SERVER = "relay.nodetunnel.io"
 const NODETUNNEL_PORT = 9998
@@ -476,3 +497,207 @@ func connectNodeTunnel(_hostID:String, relayServer:String = NODETUNNEL_SERVER, r
 	
 	return FuncResultOrError.createResult(true)
 # NODE TUNNEL END
+
+# NORAY
+const NORAY_SERVER = "213.183.61.83"#"tomfol.io"
+const NORAY_PORT = 8890
+
+const NORAY_SERVERS = [
+	"213.183.61.83:8890",
+	"tomfol.io:8890",
+]
+
+enum NorayRole { NONE, HOST, CLIENT }
+var norayRole = NorayRole.NONE
+
+func registerNoraySignals():
+	Noray.on_oid.connect(func(oid):
+		Log.Print("OID = "+str(oid)))
+	Noray.on_connect_nat.connect(norayHandleConnectNat)
+	Noray.on_connect_relay.connect(norayHandleConnectRelay)
+	pass
+
+func norayPrepare(relayServer:String = NORAY_SERVER, relayServerPort:int = NORAY_PORT) -> FuncResultOrError:
+	Noray.process_mode = Node.PROCESS_MODE_ALWAYS
+	PacketHandshake.process_mode = Node.PROCESS_MODE_ALWAYS
+	NetworkTime.process_mode = Node.PROCESS_MODE_ALWAYS
+	NetworkTimeSynchronizer.process_mode = Node.PROCESS_MODE_ALWAYS
+	NetworkRollback.process_mode = Node.PROCESS_MODE_ALWAYS
+	NetworkEvents.process_mode = Node.PROCESS_MODE_ALWAYS
+	NetworkPerformance.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	var error := await Noray.connect_to_host(relayServer, relayServerPort)
+	if(error != OK):
+		var errorText:String = "Failed to connect to Noray, error = "+str(error_string(error))
+		Log.Printerr(errorText)
+		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
+	
+	Noray.register_host()
+	await Noray.on_pid
+	#await asyncCondition(
+	#	func(): return Noray.oid != ""
+	#)
+	
+	error = await Noray.register_remote()
+	if(error != OK):
+		var errorText:String = "Failed to register remote address, error = "+str(error_string(error))
+		Log.Printerr(errorText)
+		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
+	
+	Log.Print("Registered local port: " + str(Noray.local_port))
+	return FuncResultOrError.createResult(true)
+	
+func hostNoray(hostNickname:String = "host", relayServer:String = NORAY_SERVER, relayServerPort:int = NORAY_PORT) -> FuncResultOrError:
+	norayRole = NorayRole.HOST
+	preMultiplayerStarted.emit(true)
+	setMyNickname(hostNickname)
+	
+	var errorBig := await norayPrepare(relayServer, relayServerPort)
+	if(errorBig.isError()):
+		return errorBig
+	
+	var port := Noray.local_port
+	Log.Print("Starting host on port " + str(port))
+	
+	var peer = ENetMultiplayerPeer.new()
+	var error := peer.create_server(port)
+	if(error != OK):
+		var errorText:String = "Failed to listen on "+str(port)+" port, error = "+str(error_string(error))
+		Log.Printerr(errorText)
+		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
+	
+	get_tree().get_multiplayer().multiplayer_peer = peer
+	Log.Print("Listening on port " + str(port))
+	
+	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
+		await get_tree().process_frame
+	
+	if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		var errorText:String = "Failed to start server!"
+		Log.Printerr(errorText)
+		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
+	
+	get_tree().get_multiplayer().server_relay = true
+	
+	roomID = Noray.oid
+	roomIDChanged.emit(roomID)
+	
+	multiplayerStarted.emit(true)
+	return FuncResultOrError.createResult(true)
+
+func connectNoray(_hostID:String, relayServer:String = NORAY_SERVER, relayServerPort:int = NORAY_PORT, forceRelay:bool = false) -> FuncResultOrError:
+	norayRole = NorayRole.CLIENT
+	roomID = _hostID
+	roomIDChanged.emit(roomID)
+	
+	var errorBig := await norayPrepare(relayServer, relayServerPort)
+	if(errorBig.isError()):
+		return errorBig
+	
+	if(forceRelay):
+		Noray.connect_relay(_hostID)
+	else:
+		Noray.connect_nat(_hostID)
+	
+	await internal_norayConnectedOrFailed
+	if(norayConnectedOrFailed_RESULT.isError()):
+		return norayConnectedOrFailed_RESULT
+	return FuncResultOrError.createResult(true)
+	
+signal internal_norayConnectedOrFailed
+var norayConnectedOrFailed_RESULT:FuncResultOrError
+	
+func norayHandleConnectNat(address: String, port: int) -> Error:
+	var err := await norayHandleConnect(address, port)
+
+	# If client failed to connect over NAT, try again over relay
+	if err != OK and norayRole != NorayRole.HOST:
+		Log.Print("NAT connect failed with reason %s, retrying with relay" % error_string(err))
+		Noray.connect_relay(roomID)
+		err = OK
+		return err
+
+	norayConnectedOrFailed_RESULT = FuncResultOrError.createResult(true)
+	internal_norayConnectedOrFailed.emit()
+
+	return err
+
+func norayHandleConnectRelay(address: String, port: int) -> Error:
+	var err := await norayHandleConnect(address, port)
+	
+	if err != OK:
+		norayConnectedOrFailed_RESULT = FuncResultOrError.createError(ERROR_GENERIC, "Failed to connect")
+		internal_norayConnectedOrFailed.emit()
+	else:
+		norayConnectedOrFailed_RESULT = FuncResultOrError.createResult(true)
+		internal_norayConnectedOrFailed.emit()
+	
+	return err
+
+func norayHandleConnect(address: String, port: int) -> Error:
+	if not Noray.local_port:
+		return ERR_UNCONFIGURED
+
+	var err := OK
+	
+	if norayRole == NorayRole.NONE:
+		Log.warning("Refusing connection, not running as client nor host")
+		err = ERR_UNAVAILABLE
+	
+	if norayRole == NorayRole.CLIENT:
+		var udp = PacketPeerUDP.new()
+		udp.bind(Noray.local_port)
+		udp.set_dest_address(address, port)
+		
+		Log.Print("Attempting handshake with %s:%s" % [address, port])
+		err = await PacketHandshake.over_packet_peer(udp)
+		udp.close()
+		
+		if err != OK:
+			if err == ERR_BUSY:
+				Log.Print("Handshake to %s:%s succeeded partially, attempting connection anyway" % [address, port])
+			else:
+				Log.Print("Handshake to %s:%s failed: %s" % [address, port, error_string(err)])
+				return err
+		else:
+			Log.Print("Handshake to %s:%s succeeded" % [address, port])
+
+		# Connect
+		var peer = ENetMultiplayerPeer.new()
+		err = peer.create_client(address, port, 0, 0, 0, Noray.local_port)
+		if err != OK:
+			Log.Print("Failed to create client: %s" % error_string(err))
+			return err
+
+		get_tree().get_multiplayer().multiplayer_peer = peer
+		
+		# Wait for connection to succeed
+		await asyncCondition(
+			func(): return peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTING
+		)
+			
+		if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+			Log.Print("Failed to connect to %s:%s with status %s" % [address, port, peer.get_connection_status()])
+			get_tree().get_multiplayer().multiplayer_peer = null
+			return ERR_CANT_CONNECT
+		
+		#connect_ui.hide()
+		# NOTE: This is not needed when using NetworkEvents
+		# However, this script also runs in multiplayer-simple where NetworkEvents
+		# are assumed to be absent, hence starting NetworkTime manually
+		#NetworkTime.start()
+
+	if norayRole == NorayRole.HOST:
+		# We should already have the connection configured, only thing to do is a handshake
+		var peer = get_tree().get_multiplayer().multiplayer_peer as ENetMultiplayerPeer
+		
+		err = await PacketHandshake.over_enet_peer(peer, address, port)
+		
+		if err != OK:
+			Log.Print("Handshake to %s:%s failed: %s" % [address, port, error_string(err)])
+			return err
+		Log.Print("Handshake to %s:%s concluded" % [address, port])
+
+	return err
+	
+# NORAY END
