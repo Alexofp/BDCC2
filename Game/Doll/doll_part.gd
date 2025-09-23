@@ -179,9 +179,14 @@ func setExtra(_slot:int, _path:String):
 	if(_path.is_empty()):
 		return
 	cachedExtraPaths[_slot] = _path
-	var theFuture := ThreadedResourceLoader.loadFuture(_path)
-	await theFuture.task_completed
-	var thePackedScene:PackedScene = theFuture.get_result()
+	#var theFuture := ThreadedResourceLoader.loadRequest(_path)
+	#var theFuture := ThreadedResourceLoader.loadFuture(_path)
+	#await theFuture.requestFinished
+	#await theFuture.task_completed
+	var thePackedScene:PackedScene = await ThreadedResourceLoader.asyncLoadRequest(_path)# theFuture.getResult()
+	if(!thePackedScene):
+		Log.Printerr("Failed to spawn part: "+str(_path))
+		return
 	if(!cachedExtraPaths.has(_slot) || extras.has(_slot) || (cachedExtraPaths.has(_slot) && cachedExtraPaths[_slot] != _path)):
 		return
 	var theExtraDollScene:DollExtraPart = thePackedScene.instantiate()

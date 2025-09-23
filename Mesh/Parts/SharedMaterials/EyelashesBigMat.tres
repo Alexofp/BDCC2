@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="1_a6p2q"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_eeiox"]
 
-[sub_resource type="Shader" id="Shader_yxr2x"]
+[sub_resource type="Shader" id="Shader_eeiox"]
 code = "shader_type spatial;
 
 #define MY_ALPHAMASK
@@ -507,7 +507,7 @@ void light(){
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_yxr2x")
+shader = SubResource("Shader_eeiox")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0

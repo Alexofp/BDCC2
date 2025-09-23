@@ -59,6 +59,14 @@ func markDirty():
 func loadThreaded(_path:String):
 	return load(_path)
 
+func shouldBeUpdatedAgain() -> bool:
+	if(dirty || inProcess):
+		return false
+	var theTexture := getTexture()
+	if(!theTexture):
+		return true
+	return false
+
 func updateTexture(): # TODO make this process threaded somehow? The texture loading takes up time
 	if(!dirty):
 		return
@@ -78,9 +86,10 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 		var layerType:int = layerEntry[0]
 		var theTexture = layerEntry[1]
 		if(theTexture is String):
-			var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture)
-			await theFuture.task_completed
-			theTexture = theFuture.get_result()
+			#var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture)
+			#await theFuture.task_completed
+			#theTexture = theFuture.get_result()
+			theTexture = await ThreadedResourceLoader.asyncLoadRequest(theTexture, 1)
 			#theTexture = load(theTexture)
 		
 		if(layerType == LAYER_SIMPLE):
@@ -137,10 +146,11 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 			#newRect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			var theTexture2 = layerEntry[2]
 			if(theTexture2 is String):
-				var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture2)
-				await theFuture.task_completed
-				theTexture2 = theFuture.get_result()
+				#var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture2)
+				#await theFuture.task_completed
+				#theTexture2 = theFuture.get_result()
 				#theTexture2 = load(theTexture2)
+				theTexture2 = await ThreadedResourceLoader.asyncLoadRequest(theTexture2, 1)
 			newRect.setRevealTexture(theTexture)
 			newRect.setAlphaMaskTexture(theTexture2)
 			newRect.setRevealAndSmooth(layerEntry[3], layerEntry[4])

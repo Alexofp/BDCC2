@@ -86,6 +86,10 @@ func _process(_delta: float) -> void:
 			elif(!theTexture.textureSpawned && theTexture.farTimer > 0.0):
 				theTexture.textureSpawned = true
 				theTexture.markDirty()
+			
+			if(theTexture.shouldBeUpdatedAgain()):
+				Log.Print("Caught a bad texture!")
+				theTexture.markDirty()
 	# LAYERED TEXTURES UPDATE END
 
 func addLayeredTexture(_texture:MyLayeredTexture):

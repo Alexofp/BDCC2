@@ -5,6 +5,8 @@ var resourcePathToCallablesArray:Dictionary[String, Array] = {}
 const MaxInFlight := 1
 var inFlight:Array[String] = []
 
+#var loadRequests:Array[BackgroundLoadRequest] = []
+
 var throttling:float = 0.0
 const RequestThrottleTime = 0.1
 const ArtificialThrottleTime = 0.0
@@ -19,6 +21,28 @@ func _ready() -> void:
 	threadPool2 = FutureThreadPool.new()
 	threadPool.setThreadCount(1)
 	add_child(threadPool2)
+
+func loadRequest(_path:String, _tryAgainCount:int = 0) -> BackgroundLoadRequest:
+	var newRequest := BackgroundLoadRequest.new()
+	#loadRequests.append(newRequest)
+	#newRequest.requestFinished.connect(func():
+	#	loadRequests.erase(newRequest))
+	newRequest.doLoad(_path, _tryAgainCount)
+	return newRequest
+
+func asyncLoadRequest(_path:String, _tryAgainCount:int = 0) -> Resource:
+	#Log.Print("ASYNC REQUEST: "+str(_path))
+	#if(true):
+	#	return load(_path)
+	if(_path == ""):
+		return null
+	if(ResourceLoader.has_cached(_path)):
+		#print("HIT CACHE: "+str(_path))
+		#return ResourceLoader.load(_path)
+		return load(_path)
+	var theRequest := loadRequest(_path, _tryAgainCount)
+	await theRequest.requestFinished
+	return theRequest.getResult()
 
 #func loadAsync(thePath:String) -> Resource:
 	#var result:Array = []

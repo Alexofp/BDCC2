@@ -106,10 +106,10 @@ func _on_spawn_bench_button_pressed() -> void:
 		return
 	spawnBenchOnServer(cubePos)
 
-var theBenchScene := preload("res://Mapping/Props/bench.tscn")
+var theBenchScenePath := "res://Mapping/Props/bench.tscn"
 @rpc("any_peer", "call_remote", "reliable")
 func spawnBenchOnServer(thePos:Vector3):
-	var theCube:Node3D = theBenchScene.instantiate()
+	var theCube:Node3D = load(theBenchScenePath).instantiate()
 	
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos

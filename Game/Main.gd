@@ -37,9 +37,15 @@ func loadModeOnMap(_map:String, _mode:int, _args:Array):
 		theMode.initArgs(_args)
 		gameMode = theMode
 	
-	var theFuture := ThreadedResourceLoader.loadFuture(_map)
-	await theFuture.task_completed
-	var theMap:PackedScene = theFuture.get_result()#load(_map)
+	#var theFuture := ThreadedResourceLoader.loadFuture(_map)
+	#await theFuture.task_completed
+	#var theFuture := ThreadedResourceLoader.loadRequest(_map)
+	#await theFuture.requestFinished
+	var theMap:PackedScene = await ThreadedResourceLoader.asyncLoadRequest(_map)#theFuture.getResult()#load(_map)
+	if(!theMap):
+		Log.Printerr("Failed to load the map: "+str(_map))
+		# Do something here? Load a placeholder map?
+		return
 	var theMapNode:Node3D = theMap.instantiate()
 	add_child(theMapNode)
 	building_platform_8x_8.queue_free()

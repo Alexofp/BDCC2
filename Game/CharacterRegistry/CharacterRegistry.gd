@@ -231,10 +231,10 @@ func askCharacterWizardSubmit(character:BaseCharacter, _data:Dictionary):
 	if(Network.isServer()):
 		characterWizardSubmitDo(character, _data)
 	else:
-		askCharacterWizardSubmit_RPC.rpc_id(1, character.getID(), _data)
+		askCharacterWizardSubmit_SERVERRPC.rpc_id(1, character.getID(), _data)
 		
-@rpc("authority", "call_remote", "reliable")
-func askCharacterWizardSubmit_RPC(characterID:String, _data:Dictionary):
+@rpc("any_peer", "call_remote", "reliable")
+func askCharacterWizardSubmit_SERVERRPC(characterID:String, _data:Dictionary):
 	# Server checks here
 	var theCharacter:BaseCharacter = getCharacter(characterID)
 	if(!theCharacter):

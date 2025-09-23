@@ -416,7 +416,10 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		return
 	partPaths[genericType][bodypartSlot] = partScenePath
 	
-	var theCallback := func(dollSceneScene:PackedScene, cachedPart):
+	var cachedPart := part
+	var dollSceneScene:PackedScene = await ThreadedResourceLoader.asyncLoadRequest(partScenePath)
+	#var theCallback := func(dollSceneScene:PackedScene, cachedPart):
+	if(true):
 		if(shouldBeFilteredOut(genericType, bodypartSlot)):
 			return
 		if(!getChar() || getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
@@ -474,7 +477,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 					
 		triggerDollPartFlagsUpdate()
 		
-	ThreadedResourceLoader.loadCallback(partScenePath, theCallback.bind(part))
+	#ThreadedResourceLoader.loadCallback(partScenePath, theCallback.bind(part))
 	
 	#if(true):
 		#return
