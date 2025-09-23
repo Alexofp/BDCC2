@@ -4,10 +4,8 @@ class_name Log
 static func error(text: String):
 	var thePrefix:String = getDebugPrefix()
 	printerr(thePrefix+text)
-	#if(FullscreenChat):
-	#	FullscreenChat.addErrorMessage(thePrefix+text)
-	if(GameChat):
-		GameChat.addChat(thePrefix+text)
+	#if(GameChat):
+	#	GameChat.addChat(thePrefix+text)
 	#Console.printLine("[color=red]"+text+"[/color]")
 
 static func Printerr(text: String):
@@ -21,10 +19,8 @@ static func warning(text: String):
 static func Print(text: String):
 	var thePrefix:String = getDebugPrefix()
 	print(thePrefix+text)
-	#if(FullscreenChat):
-	#	FullscreenChat.addMessage(thePrefix+text)
-	if(GameChat):
-		GameChat.addChat(thePrefix+text)
+	#if(GameChat):
+	#	GameChat.addChat(thePrefix+text)
 	#Console.printLine(text)
 
 static func getDebugPrefix() -> String:

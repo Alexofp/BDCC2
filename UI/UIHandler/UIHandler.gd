@@ -24,6 +24,8 @@ func removeUI(theUI:Control):
 		UIs.erase(theUI)
 
 func hasAnyUIVisible() -> bool:
+	if(Console.is_visible()):
+		return true
 	return uiVisible
 
 func addMouseCapturer(theNode:Node):
@@ -42,12 +44,17 @@ func removeMouseCapturer(theNode:Node):
 		mouseCaptures.erase(theNode)
 
 func shouldMouseBeCaptured() -> bool:
+	if(Console.is_visible()):
+		return false
+	
 	for node in mouseCaptures:
 		if(node.shouldCaptureMouse()):
 			return true
 	return false
 
 func isGameplayInputBlocked() -> bool:
+	if(Console.is_visible()):
+		return true
 	return gameplayInputBlocked
 
 func isMenuInputBlocked() -> bool:

@@ -32,7 +32,79 @@ var dollGestures:Dictionary = {}
 
 signal initialized
 
+class CustomLogger extends Logger:
+	func _log_message(message: String, _error: bool) -> void:
+		_log_message_defer.call_deferred(message, _error)
+	
+	func _log_message_defer(message: String, _error: bool) -> void:
+		if(!Console):
+			return
+		#CustomLoggerUI.get_node("Panel/RichTextLabel").text += message
+		Console.print_line(message.trim_suffix("\n"))
+
+	func _log_error(
+			function: String,
+			file: String,
+			line: int,
+			code: String,
+			rationale: String,
+			_editor_notify: bool,
+			error_type: int,
+			script_backtraces: Array[ScriptBacktrace]
+	) -> void:
+		_log_error_defer.call_deferred(function, file, line, code, rationale, _editor_notify, error_type, script_backtraces)
+
+	func _log_error_defer(
+			function: String,
+			file: String,
+			line: int,
+			code: String,
+			rationale: String,
+			_editor_notify: bool,
+			error_type: int,
+			script_backtraces: Array[ScriptBacktrace]
+	) -> void:
+		if(!Console):
+			return
+		var prefix := ""
+		# The column at which to print the trace. Should match the length of the
+		# unformatted text above it.
+		var trace_indent := 0
+
+		match error_type:
+			ERROR_TYPE_ERROR:
+				prefix = "[color=#f54][b]ERROR:[/b]"
+				trace_indent = 6
+			ERROR_TYPE_WARNING:
+				prefix = "[color=#fd4][b]WARNING:[/b]"
+				trace_indent = 8
+			ERROR_TYPE_SCRIPT:
+				prefix = "[color=#f4f][b]SCRIPT ERROR:[/b]"
+				trace_indent = 13
+			ERROR_TYPE_SHADER:
+				prefix = "[color=#4bf][b]SHADER ERROR:[/b]"
+				trace_indent = 13
+
+		var trace := "%*s %s (%s:%s)" % [trace_indent, "at:", function, file, line]
+		var script_backtraces_text := ""
+		for backtrace in script_backtraces:
+			script_backtraces_text += backtrace.format(trace_indent - 3) + "\n"
+
+		#CustomLoggerUI.get_node("Panel/RichTextLabel").text += "%s %s %s[/color]\n[color=#999]%s[/color]\n[color=#999]%s[/color]" % [
+		Console.print_line("%s %s %s[/color]\n[color=#999]%s[/color]\n[color=#999]%s[/color]" % [
+				prefix,
+				code,
+				rationale,
+				trace,
+				script_backtraces_text,
+			])
+
+func _init() -> void:
+	OS.add_logger(CustomLogger.new())
+
 func _ready() -> void:
+	Console.enable_on_release_build = true
+	Console.canvas_layer.layer = 4009
 	doInit()
 
 func doInit():
