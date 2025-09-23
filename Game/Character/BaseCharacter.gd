@@ -580,6 +580,7 @@ func saveNetworkData() -> Dictionary:
 		bodyparts = bodypartsData,
 		charData = charData,
 		charState = charState.saveNetworkedData(),
+		inventory = inventory.saveNetworkData(),
 	}
 
 func loadNetworkData(_data:Dictionary):
@@ -610,3 +611,6 @@ func loadNetworkData(_data:Dictionary):
 	
 	if(_data.has("charState")):
 		charState.loadNetworkedData(SAVE.loadVar(_data, "charState", {}))
+	
+	if(_data.has("inventory")):
+		inventory.loadNetworkData(SAVE.loadVar(_data, "inventory", {}))

@@ -78,7 +78,30 @@ func shouldHobbleLegs() -> bool:
 	return false
 
 func saveNetworkData() -> Dictionary:
-	return {}
+	var equippedData:Dictionary = {}
+	for invSlot in equipped:
+		var theItem:ItemBase = equipped[invSlot]
+		equippedData[invSlot] = {
+			id = theItem.id,
+			uid = theItem.uniqueID,
+			data = theItem.saveNetworkData(),
+		}
+	
+	return {
+		equipped = equippedData,
+	}
 
 func loadNetworkData(_data:Dictionary):
-	pass
+	for invSlot in equipped.keys():
+		removeEquippedItem(invSlot)
+	equipped.clear()
+	
+	var equippedData:Dictionary = SAVE.loadVar(_data, "equipped", {})
+	for invSlot in equippedData:
+		var itemData:Dictionary = equippedData[invSlot]
+		var itemID:String = SAVE.loadVar(itemData, "id", "")
+		var uid:int = SAVE.loadVar(itemData, "uid", 0)
+		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
+		theItem.uniqueID = uid
+		theItem.loadNetworkData(SAVE.loadVar(itemData, "data", {}))
+		setEquippedItem(invSlot, theItem)
