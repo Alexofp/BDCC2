@@ -10,7 +10,7 @@ func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	return sexEngine.startMainActivity(activityID, _roles, _args)
 
 func onMainActivityEnded(_activityID:String):
-	pass
+	doRun()
 
 func sendEvent(_eventID:String, _args:Array = [], _sendToSelf:bool = true):
 	getSexEngine().sendSexTypeEvent(_eventID, _args)

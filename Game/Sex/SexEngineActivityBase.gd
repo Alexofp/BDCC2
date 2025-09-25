@@ -8,6 +8,8 @@ var engineRef:WeakRef
 var roleToID:Dictionary = {}
 var idToRole:Dictionary = {}
 
+var state:String = ""
+
 func setSexEngine(theEngine:SexEngine):
 	engineRef = weakref(theEngine)
 
@@ -19,16 +21,37 @@ func getSexEngine() -> SexEngine:
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, ["dom", "sub"])
 
+func onStartFinal():
+	onStart()
+	doRun()
+
 func onStart():
 	pass
+
+func getStateFuncPrefixRaw(_state:String) -> String:
+	if(_state.is_empty()):
+		return "start"
+	else:
+		return _state
+
+func getStateFuncPrefix() -> String:
+	return getStateFuncPrefixRaw(state)
+
+func setState(_newState:String):
+	if(_newState == state):
+		return
+	state = _newState
+	doRun()
+
+func doRun():
+	var funcName:String = getStateFuncPrefix()+"_run"
+	if(has_method(funcName)):
+		call(funcName)
 
 func addActionText(theText:String):
 	var sexEngine:SexEngine = getSexEngine()
 	if(sexEngine):
 		sexEngine.addActionText(theText)
-
-func onDelayedAction(_role:String, _actionID:String, _action:Dictionary):
-	pass
 
 func setupRoles(_roles:Dictionary, _need:Array):
 	for needRole in _need:
@@ -40,6 +63,9 @@ func addRole(theRole:String, charID:String):
 	idToRole[charID] = theRole
 	#if(Network.isServerNotSingleplayer()):
 	#	Network.rpcClients(addRole.bind(theRole, charID))
+
+func getAllRoles() -> Array[String]:
+	return roleToID.keys()
 
 func getRoleID(theRole:String) -> String:
 	if(!roleToID.has(theRole)):
@@ -71,37 +97,64 @@ func setArousal(_theRole:String, _howMuch:float):
 		return
 	theChar.setArousal(_howMuch)
 
-func getActions(_role:String) -> Array:
-	return [
-		action("test", "TEST ACTION"),
-	]
+var tempActions:Array[SexAction] = []
 
-func onDelayedActionStarted(_role:String, _actionID:String, _action:Dictionary):
+func addAction(_name:String, _score:float, _actionID:String, _args:Array = []):
+	var newAction:SexAction = SexAction.new()
+	newAction.id = _actionID
+	newAction.actionName = _name
+	newAction.score = _score
+	newAction.args = _args
+	
+	tempActions.append(newAction)
+
+func getActionsFinal(_role:String) -> Array[SexAction]:
+	tempActions = []
+	
+	var theFuncName:String = getStateFuncPrefix()+"_actions"
+	if(has_method(theFuncName)):
+		call(theFuncName, _role)
+	
+	getActions(_role)
+	var result := tempActions
+	tempActions = []
+	return result
+
+func getActions(_role:String):
 	pass
 
-func doAction(_role:String, actionID:String, _theAction:Dictionary):
-	if(actionID == "test"):
-		Log.Print("NYAAAAAAAAAAAAAAAAA")
+func doEvent(_event:SexEvent):
+	pass
 
-func getActionsForCharID(_charID:String) -> Array:
-	return getActions(idToRole[_charID])
+func doEventFinal(_state:String, _event:SexEvent):
+	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_event"
+	if(has_method(theFuncName)):
+		call(theFuncName, _event)
+		return
+	doEvent(_event)
 
-func doActionForCharID(_charID:String, actionID:String, _theAction:Dictionary):
-	doAction(getRoleFromID(_charID), actionID, _theAction)
+func doActionFinal(_role:String, _action:SexAction):
+	var theFuncName:String = getStateFuncPrefix()+"_do"
+	if(has_method(theFuncName)):
+		if(call(theFuncName, _role, _action)):
+			return
+	doAction(_role, _action)
 
-func doOnDelayedActionStartedForCharID(_charID:String, actionID:String, _theAction:Dictionary):
-	onDelayedActionStarted(getRoleFromID(_charID), actionID, _theAction)
+func doActionFinalCustomState(_state:String, _role:String, _action:SexAction):
+	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_do"
+	if(has_method(theFuncName)):
+		call(theFuncName, _role, _action)
+		return
+	doAction(_role, _action)
 
-func action(theId:String, theName:String, actionModifiers:Dictionary = {}):
-	return {
-		id = theId,
-		name = theName,
-		args = [],
-		mods = actionModifiers,
-	}
+func doAction(_role:String, _action:SexAction):
+	pass
+	
+func getActionsForCharID(_charID:String) -> Array[SexAction]:
+	return getActionsFinal(idToRole[_charID])
 
-func getAnimScenePath() -> String:
-	return "res://AnimScenes/Scenes/TestSexAnim/test_sex_scene.tscn"
+func doActionForCharID(_charID:String, _action:SexAction):
+	doActionFinal(getRoleFromID(_charID), _action)
 
 func endActivity():
 	var sexEngine:SexEngine = getSexEngine()
@@ -127,6 +180,12 @@ func playAnim(theAnimID:String, theStateID:String, theAnimSeats:Dictionary):
 func playOneShot(oneShotID:String):
 	getSexEngine().playOneShot(oneShotID)
 
+func doProcessFinal(_dt:float):
+	var theFunc := getStateFuncPrefix()+"_process"
+	if(has_method(theFunc)):
+		call(theFunc, _dt)
+	doProcess(_dt)
+
 func doProcess(_dt:float):
 	pass
 
@@ -134,7 +193,6 @@ func doProcess(_dt:float):
 ## If _sendToSelf is true (default), The event is also received locally
 func sendEvent(_eventID:String, _args:Array = [], _sendToSelf:bool = true):
 	assert(false, "Trying to call sendEvent from the base class")
-
 
 func onEvent(_eventID:String, _args:Array):
 	pass
@@ -179,9 +237,6 @@ func getExpressionStateForCharID(_charID:String) -> int:
 func isConsensual() -> bool:
 	return getSexEngine().isConsensual()
 
-func processSex(_dt:float):
-	return
-
 func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Variant):
 	pass
 
@@ -201,6 +256,48 @@ func processAnalSex(_dt:float, topRole:String, bottomRole:String, mult:float = 1
 
 func doOrgasm(_role:String, _causerRole:String = "", _orgasmType:int = SexOrgasmType.Generic, _orgasmCause:int = SexOrgasmCause.Generic, _intensity:int = SexOrgasmIntensity.Normal):
 	setArousal(_role, 0.0)
+
+func pushCancelStopper():
+	getSexEngine().pushToQueue(self, getSexEngine().createCancelStopper())
+
+func pushCancelCatcher(_actionID:String, _args:Array=[]):
+	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcher(state, _actionID, _args))
+
+func pushCancelCatcherEvent(_event:SexEvent):
+	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcherEvent(state, _event))
+
+func pushDelay(_delay:float):
+	getSexEngine().pushToQueue(self, getSexEngine().createQueueDelay(_delay))
+
+func pushDelayCanCancel(_delay:float, _role:String):
+	getSexEngine().pushToQueue(self, getSexEngine().createQueueDelayCanCancel(_delay, _role))
+
+func pushSetState(_state:String):
+	getSexEngine().pushToQueue(self, getSexEngine().createSetState(_state))
+
+func pushEvent(_event:SexEvent):
+	getSexEngine().pushToQueue(self, getSexEngine().createQueueEvent(state, _event))
+
+func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
+	getSexEngine().pushToQueue(self, getSexEngine().createAutoAction(state, _role, _actionID, _args))
+
+func pushActionText(_text:String):
+	getSexEngine().pushToQueue(self, getSexEngine().createActionText(_text))
+
+func isReadyToCum(_role:String) -> bool:
+	var theChar := getRoleChar(_role)
+	if(!theChar):
+		return false
+	return theChar.getArousal() >= 1.0
+
+func isQueueFree() -> bool:
+	return !getSexEngine().isBusy()
+
+func isQueueBusy() -> bool:
+	return getSexEngine().isBusy()
+
+func isBusy() -> bool:
+	return getSexEngine().isBusy()
 
 func saveNetworkData() -> Dictionary:
 	return {

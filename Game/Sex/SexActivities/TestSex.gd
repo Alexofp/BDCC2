@@ -1,8 +1,16 @@
 extends SexActivityBase
 
-var someTimer:float = 0.0
+const SEX_SPEED_SLOW = 0
+const SEX_SPEED_NORMAL = 1
+const SEX_SPEED_FAST = 2
 
-var state:String = ""
+const SEX_SPEEDS = [
+	SEX_SPEED_SLOW, SEX_SPEED_NORMAL, SEX_SPEED_FAST
+]
+const SEX_SPEEDS_ANIM = [
+	"slow", "sex", "fast",
+]
+var sexSpeed:int = SEX_SPEED_SLOW
 
 func _init():
 	id = SexActivity.TestSex
@@ -10,115 +18,93 @@ func _init():
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, ["dom", "sub"])
 	
-func onStart():
+func start_run():
 	playAnim(AnimScene.TestSex, "tease", {dom={id="dom"}, sub="sub"})
 
-func doProcess(_dt:float):
-	someTimer += _dt
-	#if(someTimer >= 10.0):
-	#	endActivity()
+func start_actions(_role:String):
+	addAction("Penetrate", 1.0, "startSex")
 
-func getAnimScenePath() -> String:
-	return "res://AnimScenes/Scenes/TestSexAnim/test_sex_scene.tscn"
+func start_do(_role:String, _action:SexAction):
+	if(_action.id == "startSex"):
+		sexSpeed = SEX_SPEED_SLOW
+		pushDelay(0.3)
+		pushSetState("sex")
 
-func getActions(_role:String) -> Array:
-	var actions:Array = []
-	
-	actions.append(action("bottomCum", "CUM!",{
-	}))
-	actions.append(action("topCum", "CUM TOP!",{
-	}))
-	
-	if(state == ""):
-		actions.append(action("startSex", "Penetrate",{
-			SexActionMod.DELAY: 0.5,
-		}))
-	if(state == "inside"):
-		actions.append(action("startSex", "Fuck more",{
-			SexActionMod.DELAY: 0.5,
-		}))
-		actions.append(action("teaseSex", "Pull out",{
-			SexActionMod.DELAY: 0.5,
-		}))
-	if(state == "sex" || state == "slow"):
-		actions.append(action("fastSex", "Faster",{
-			SexActionMod.DELAY: 0.5,
-		}))
-		actions.append(action("teaseSex", "Slower",{
-			SexActionMod.DELAY: 0.5,
-		}))
-	if(state == "fast"):
-		actions.append(action("startSex", "Slower",{
-			SexActionMod.DELAY: 0.5,
-		}))
-	
-	actions.append(action("stopSex", "Stop sex",{
-			SexActionMod.DELAY: 0.5,
-		}))
-	
-	return actions
+func playCurrentSexAnim():
+	playAnim(AnimScene.TestSex, SEX_SPEEDS_ANIM[sexSpeed], {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
 
-func onDelayedActionStarted(_role:String, _actionID:String, _action:Dictionary):
-	#addActionText(str(_action))
-	pass
+func sex_run():
+	playCurrentSexAnim()
+
+func sex_actions(_role:String):
+	if(sexSpeed < SEX_SPEED_FAST):
+		addAction("Faster", 1.0, "sex_faster")
+	if(sexSpeed > SEX_SPEED_SLOW):
+		addAction("Slower", 1.0, "sex_slower")
+	addAction("Pause", 0.0, "pause")
+
+func sex_do(_role:String, _action:SexAction):
+	if(_action.id == "sex_slower"):
+		sexSpeed -= 1
+		playCurrentSexAnim()
+	if(_action.id == "sex_faster"):
+		sexSpeed += 1
+		playCurrentSexAnim()
+	if(_action.id == "pause"):
+		setState("inside")
+
+func subDoCum():
+	doOrgasm("sub", "dom", SexOrgasmType.Vaginal, SexOrgasmCause.Penis, SexOrgasmIntensity.Normal)
+	playOneShot("bottomCum")
+
+func domDoCum():
+	sexSpeed = SEX_SPEED_SLOW
+	doOrgasm("dom", "sub", SexOrgasmType.Penile, SexOrgasmCause.Vagina, SexOrgasmIntensity.Normal)
+	setState("cuminside")
+	pushDelay(5.0)
+	pushSetState("inside")
+
+func sex_process(_dt:float):
+	if(isReadyToCum("sub")):
+		subDoCum()
+	if(!isQueueBusy() && isReadyToCum("dom")):
+		domDoCum()
+
+func cuminside_run():
+	playAnim(AnimScene.TestSex, "cum", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
+
+func inside_run():
+	playAnim(AnimScene.TestSex, "inside", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
 	
-		
-func doAction(_role:String, _actionID:String, _action:Dictionary): #onDelayedAction
-	if(_actionID == "bottomCum"):
-		doOrgasm("sub", "dom", SexOrgasmType.Vaginal, SexOrgasmCause.Penis, SexOrgasmIntensity.Normal)
-		playOneShot("bottomCum")
-	if(_actionID == "topCum"):
-		doOrgasm("dom", "sub", SexOrgasmType.Penile, SexOrgasmCause.Vagina, SexOrgasmIntensity.Normal)
-		state = "inside"
-		playAnim(AnimScene.TestSex, "cum", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
-	if(_actionID == "stopSex"):
+func inside_actions(_role:String):
+	addAction("Fuck more", 1.0, "fuckmore")
+	addAction("Pull out", 1.0, "pullout")
+
+func inside_do(_role:String, _action:SexAction):
+	if(_action.id == "pullout"):
+		setState("")
+	if(_action.id == "fuckmore"):
+		setState("sex")
+
+func getActions(_role:String):
+	addAction("Stop sex", 0.0, "stopSex")
+
+func doAction(_role:String, _action:SexAction):
+	if(_action.id == "stopSex"):
+		pushDelayCanCancel(0.5, _role)
+		pushEvent(SexEvent.make("stopSex"))
+
+func doEvent(_event:SexEvent):
+	if(_event.id == "stopSex"):
 		addActionText("They decide to stop fucking!")
-		#Log.Print("Stopping sex")
 		endActivity()
-	if(_actionID == "startSex"):
-		if(state == ""):
-			addActionText("They slam their cock inside!")
-		state = "slow"
-		playAnim(AnimScene.TestSex, "slow", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
-	if(_actionID == "fastSex"):
-		addActionText("They fuck them faster!")
-		if(state == "sex"):
-			state = "fast"
-			playAnim(AnimScene.TestSex, "fast", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
-		else:
-			state = "sex"
-			playAnim(AnimScene.TestSex, "sex", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
-	if(_actionID == "teaseSex"):
-		if(state == "slow" || state == "inside"):
-			state = ""
-			playAnim(AnimScene.TestSex, "tease", {dom={id="dom"}, sub="sub"})
-		else:
-			state = "sex"
-			playAnim(AnimScene.TestSex, "sex", {dom={id="dom"}, sub="sub"})
-	
+
 func getExpressionState(_role:String) -> int:
-	if(state in ["sex", "fast"]):
+	if(state in ["sex"]):
 		if(_role == "dom"):
 			return DollExpressionState.SexGiving
 		return DollExpressionState.SexReceiving
 	return DollExpressionState.Normal
-
-func processSex(_dt:float):
-	#if(state == "slow"):
-		#processVaginalSex(_dt, "dom", "sub", 0.5)
-		#addAutomoan("sub", _dt*2.0, 25.0)
-	#if(state == "sex"):
-		#processVaginalSex(_dt, "dom", "sub", 1.0)
-		#addAutomoan("sub", _dt*2.0, 25.0)
-	#if(state == "fast"):
-		#processVaginalSex(_dt, "dom", "sub", 1.5)
-		#addAutomoan("sub", _dt*2.0, 25.0)
-	#
-	if(getRoleChar("sub").getArousal() >= 1.0):
-		doAction("sub", "bottomCum", {})
-	
-	if(getRoleChar("dom").getArousal() >= 1.0):
-		doAction("dom", "topCum", {})
 
 func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Variant):
 	if(_animID == AnimScene.TestSex):

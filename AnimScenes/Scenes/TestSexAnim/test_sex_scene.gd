@@ -107,11 +107,16 @@ func setupScene() -> void:
 	})
 	
 	connectStates("tease", "inside", 0.5)
-	connectStates("inside", "slow", 0.5)
+	#connectStates("inside", "slow", 0.5)
 	connectStates("tease", "slow", 0.5)
 	connectStates("slow", "sex", 0.5)
 	connectStates("sex", "fast", 0.5)
 	
+	connectStates("slow", "inside", 0.5)
+	connectStates("sex", "inside", 0.5)
+	connectStates("fast", "inside", 0.5)
+	
+	connectStates("slow", "cum", 0.5, true)
 	connectStates("sex", "cum", 0.5, true)
 	connectStates("fast", "cum", 0.5, true)
 	connectStates("cum", "inside", 1.0, true, true)

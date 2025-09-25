@@ -18,15 +18,14 @@ const STATE_CONSENT = 2 # We're waiting for someone to agree
 
 @export var state:int = STATE_NORMAL
 @export var transitionTimer:float = 0.0
-@export var transitionTimerFull:float = 1.0
+@export var transitionTimerFull:float = 0.0
 @export var transitionText:String = ""
-var consentedChars:Dictionary = {}
-var delayedAction:Dictionary = {}
 
 const ACTION_SEXTYPE = 0
 const ACTION_SEXACTIVITY = 1
 const ACTION_CONSENT = 2
 const ACTION_DENY_CONSENT = 3
+const ACTION_CANCEL = 4
 
 var actionsCache:Dictionary = {}
 @export var actionsNetworked:Dictionary = {}
@@ -50,6 +49,114 @@ signal onParticipantUpdate(charID)
 var actionTexts:Array = []
 @export var actionText:String = ""
 
+var eventQueue:Array = []
+
+# event queue stuff
+const QUEUE_DELAY = 0
+const QUEUE_EVENT = 1
+const QUEUE_AUTOACTION = 2
+const QUEUE_ACTIONTEXT = 3
+const QUEUE_DELAY_CANCANCEL = 4
+const QUEUE_CANCEL_STOPPER = 5
+const QUEUE_CANCEL_CATCHER = 6
+const QUEUE_CANCEL_CATCHER_EVENT = 7
+const QUEUE_SET_STATE = 8
+
+const JUST_SKIP_QUEUE_TYPES = [
+	QUEUE_CANCEL_STOPPER,
+	QUEUE_CANCEL_CATCHER,
+	QUEUE_CANCEL_CATCHER_EVENT,
+]
+
+func pushToQueue(_obj, _event:Array):
+	eventQueue.append([_obj, _event])
+
+func createCancelStopper():
+	return [QUEUE_CANCEL_STOPPER]
+
+func createCancelCatcher(_state:String, _eventID:String, _args:Array=[]):
+	return [QUEUE_CANCEL_CATCHER, _state, _eventID, _args]
+
+func createCancelCatcherEvent(_state:String, _event:SexEvent):
+	return [QUEUE_CANCEL_CATCHER_EVENT, _state, _event]
+
+func createQueueDelay(_time:float) -> Array:
+	return [QUEUE_DELAY, _time, _time]
+
+func createQueueDelayCanCancel(_time:float, _role:String) -> Array:
+	return [QUEUE_DELAY_CANCANCEL, _time, _time, _role]
+	
+func createSetState(_state:String) -> Array:
+	return [QUEUE_SET_STATE, _state]
+	
+func createQueueEvent(_state:String, _event:SexEvent) -> Array:
+	return [QUEUE_EVENT, _state, _event]
+
+func createAutoAction(_state:String, _role:String, _actionID:String, _args:Array=[]) -> Array:
+	return [QUEUE_AUTOACTION, _state, _role, _actionID, _args]
+
+func createActionText(_text:String):
+	return [QUEUE_ACTIONTEXT, _text]
+
+func isQueueBusy() -> bool:
+	return !eventQueue.is_empty()
+
+func processEventQueue(_dt:float):
+	if(eventQueue.is_empty()):
+		return
+	
+	while(!eventQueue.is_empty()):
+		var currentEntry:Array = eventQueue.front()
+		var _entryObj = currentEntry[0]
+		var queueEntry:Array = currentEntry[1]
+		var queueType:int = queueEntry[0]
+		
+		if(queueType in [QUEUE_DELAY, QUEUE_DELAY_CANCANCEL]):
+			queueEntry[1] -= _dt
+			if(queueEntry[1] <= 0):
+				eventQueue.pop_front()
+				continue
+			else:
+				break
+		elif(queueType == QUEUE_EVENT):
+			eventQueue.pop_front()
+			_entryObj.doEventFinal(queueEntry[1], queueEntry[2])
+		elif(queueType == QUEUE_AUTOACTION):
+			eventQueue.pop_front()
+			
+			var theAction:SexAction = SexAction.new()
+			theAction.id = queueEntry[3]
+			theAction.args = queueEntry[4]
+			
+			_entryObj.doActionFinalCustomState(queueEntry[1], queueEntry[2], theAction)
+		elif(queueType == QUEUE_ACTIONTEXT):
+			eventQueue.pop_front()
+			addActionText(queueEntry[1])
+		elif(queueType == QUEUE_SET_STATE):
+			eventQueue.pop_front()
+			_entryObj.setState(queueEntry[1])
+		elif(queueType in JUST_SKIP_QUEUE_TYPES):
+			eventQueue.pop_front()
+		else:
+			assert(false, "Unknown queue element type: "+str(queueType))
+		
+func calcTransitionTimer():
+	transitionTimer = 0.0
+	transitionTimerFull = 0.0
+	if(eventQueue.is_empty()):
+		return
+	for queueBigEntry in eventQueue:
+		var _entryObj = queueBigEntry[0]
+		var queueEntry:Array = queueBigEntry[1]
+		var queueType:int = queueEntry[0]
+		
+		if(queueType in [QUEUE_DELAY, QUEUE_DELAY_CANCANCEL]):
+			transitionTimer += max(queueEntry[1], 0.0)
+			transitionTimerFull += max(queueEntry[2], 0.0)
+			return
+# event queue stuff end
+
+
 func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	if(args.has("consensual")):
 		consensual = args["consensual"]
@@ -60,7 +167,7 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	sexType.start(roles, args)
 	
 	GameInteractor.networkedNodes.notifySpawned(self)
-	sexType.onStart()
+	sexType.onStartFinal()
 
 func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 	var newInfo:SexParticipantInfo = SexParticipantInfo.new()
@@ -80,11 +187,12 @@ func getParticipant(theID:String) -> SexParticipantInfo:
 func _process(_delta: float) -> void:
 	processCamera(_delta)
 	
-	if(Network.isServer()):
-		if(sexType):
-			sexType.processSex(_delta)
-		if(sexActivity):
-			sexActivity.processSex(_delta)
+#func _physics_process(_delta: float) -> void:
+	#if(Network.isServer()):
+		#if(sexType):
+			#sexType.doProcessFinal(_delta)
+		#if(sexActivity):
+			#sexActivity.doProcessFinal(_delta)
 
 func doProcess(_delta: float) -> void:
 	if(Network.isServer()):
@@ -99,27 +207,14 @@ func doProcess(_delta: float) -> void:
 			#if(theDoll):
 				#theDoll.setExpressionState(getExpressionState(charID))
 	
-	sexType.doProcess(_delta)
+	if(sexType):
+		sexType.doProcessFinal(_delta)
 	if(sexActivity):
-		sexActivity.doProcess(_delta)
+		sexActivity.doProcessFinal(_delta)
 	
-	if(state == STATE_BUSY):
-		transitionTimer -= _delta
-		if(transitionTimer <= 0.0 && Network.isServer()):
-			# We can do stuff
-			state = STATE_NORMAL
-			
-			onDelayedAction(delayedAction)
-	if(state == STATE_CONSENT):
-		if(didEveryoneConsent()):
-			state = STATE_NORMAL
-			onDelayedAction(delayedAction)
-		else:
-			transitionTimer -= _delta
-			if(transitionTimer <= 0.0 && Network.isServer()):
-				# Cancel
-				state = STATE_NORMAL
-			
+	processEventQueue(_delta)
+	if(Network.isServer()):
+		calcTransitionTimer()
 	
 	if(Network.isServer()):
 		# action cache update
@@ -165,55 +260,68 @@ func calculateActions(charID:String) -> Array:
 	
 	var result:Array = []
 	
-	if(doesCharIDNeedsToConsent(charID)):
-		result.append({
-			id = ACTION_CONSENT,
-			name = "Agree",
-		})
-		result.append({
-			id = ACTION_DENY_CONSENT,
-			name = "Deny",
-		})
+	#if(doesCharIDNeedsToConsent(charID)):
+		#result.append({
+			#id = ACTION_CONSENT,
+			#name = "Agree",
+		#})
+		#result.append({
+			#id = ACTION_DENY_CONSENT,
+			#name = "Deny",
+		#})
+	if(!eventQueue.is_empty()):
+		var currentEntry:Array = eventQueue.front()
+		var _entryObj = currentEntry[0]
+		var queueEntry:Array = currentEntry[1]
+		var queueType:int = queueEntry[0]
+		
+		if(queueType == QUEUE_DELAY_CANCANCEL):
+			var _role:String = _entryObj.getRoleFromID(charID)
+			if(_role == queueEntry[3]):
+				result.append({
+					id = ACTION_CANCEL,
+					name = "Cancel",
+				})
 	
 	if(!isSexEngineBusy && sexType):
-		var theActions:Array = sexType.getActionsForCharID(charID)
+		var theActions := sexType.getActionsForCharID(charID)
 		
 		for actionEntry in theActions:
-			if(!shouldKeepAction(charID, actionEntry, sexType)):
-				continue
+			#if(!shouldKeepAction(charID, actionEntry, sexType)):
+			#	continue
 			
 			result.append({
 				id = ACTION_SEXTYPE,
-				name = actionEntry["name"],
+				name = actionEntry.actionName,
 				action = actionEntry,
-				mods = actionEntry["mods"] if actionEntry.has("mods") else {},
+				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
 			})
 	if(!isSexEngineBusy && sexActivity):
-		var theActions:Array = sexActivity.getActionsForCharID(charID)
+		var theActions := sexActivity.getActionsForCharID(charID)
 		
 		for actionEntry in theActions:
-			if(!shouldKeepAction(charID, actionEntry, sexActivity)):
-				continue
+			#if(!shouldKeepAction(charID, actionEntry, sexActivity)):
+			#	continue
 			
 			result.append({
 				id = ACTION_SEXACTIVITY,
-				name = actionEntry["name"],
+				name = actionEntry.actionName,
 				action = actionEntry,
-				mods = actionEntry["mods"] if actionEntry.has("mods") else {},
+				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
 			})
 	
 	return result
 
-func shouldKeepAction(charID:String, actionEntry:Dictionary, sexActivityBase:SexEngineActivityBase) -> bool:
-	var theMods:Dictionary = actionEntry["mods"] if actionEntry.has("mods") else {}
-	
-	if(theMods.has(SexActionMod.ROLES)):
-		if(isConsensual()):
-			pass
-		elif(!(sexActivityBase.getRoleFromID(charID) in theMods[SexActionMod.ROLES])):
-			return false
-	
-	return true
+#func shouldKeepAction(charID:String, actionEntry:Dictionary, sexActivityBase:SexEngineActivityBase) -> bool:
+	#var theMods:Dictionary = actionEntry["mods"] if actionEntry.has("mods") else {}
+	#
+	#if(theMods.has(SexActionMod.ROLES)):
+		#if(isConsensual()):
+			#pass
+		#elif(!(sexActivityBase.getRoleFromID(charID) in theMods[SexActionMod.ROLES])):
+			#return false
+	#
+	#return true
 
 func getActions(charID:String) -> Array:
 	if(!actionsNetworked.has(charID)):
@@ -245,23 +353,21 @@ func doActionNetworked(charID:String, networkedAction:Dictionary):
 	doAction(charID, action)
 
 func doAction(charID:String, action:Dictionary):
-	var theMods:Dictionary = action["mods"] if action.has("mods") else {}
+	#var theMods:Dictionary = action["mods"] if action.has("mods") else {}
 	
-	
-	
-	var requiresConsent:bool = theMods[SexActionMod.CONSENT_ALL] if theMods.has(SexActionMod.CONSENT_ALL) else false
-	if(requiresConsent):
-		transitionText = theMods[SexActionMod.CONSENT_TEXT] if theMods.has(SexActionMod.CONSENT_TEXT) else ""
-		theMods[SexActionMod.CONSENT_ALL] = false
-		doConsentAction(charID, action)
-		return
-	
-	var delay:float = theMods[SexActionMod.DELAY] if theMods.has(SexActionMod.DELAY) else 0.0
-	if(delay > 0.0):
-		transitionText = theMods[SexActionMod.ACTION_TEXT] if theMods.has(SexActionMod.ACTION_TEXT) else ""
-		theMods[SexActionMod.DELAY] = 0.0
-		doDelayedAction(delay, charID, action)
-		return
+	#var requiresConsent:bool = theMods[SexActionMod.CONSENT_ALL] if theMods.has(SexActionMod.CONSENT_ALL) else false
+	#if(requiresConsent):
+		#transitionText = theMods[SexActionMod.CONSENT_TEXT] if theMods.has(SexActionMod.CONSENT_TEXT) else ""
+		#theMods[SexActionMod.CONSENT_ALL] = false
+		#doConsentAction(charID, action)
+		#return
+	#
+	#var delay:float = theMods[SexActionMod.DELAY] if theMods.has(SexActionMod.DELAY) else 0.0
+	#if(delay > 0.0):
+		#transitionText = theMods[SexActionMod.ACTION_TEXT] if theMods.has(SexActionMod.ACTION_TEXT) else ""
+		#theMods[SexActionMod.DELAY] = 0.0
+		#doDelayedAction(delay, charID, action)
+		#return
 	
 	doActionInternal(charID, action)
 
@@ -271,86 +377,37 @@ func doActionInternal(charID:String, action:Dictionary):
 	
 	var actionID:int = action["id"]
 	if(actionID == ACTION_SEXTYPE):
-		var theAction:Dictionary = action["action"]
-		sexType.doActionForCharID(charID, theAction["id"], theAction)
+		var theAction:SexAction = action["action"]
+		sexType.doActionForCharID(charID, theAction)
 	if(actionID == ACTION_SEXACTIVITY):
-		var theAction:Dictionary = action["action"]
-		sexActivity.doActionForCharID(charID, theAction["id"], theAction)
+		var theAction:SexAction = action["action"]
+		sexActivity.doActionForCharID(charID, theAction)
 	if(actionID == ACTION_CONSENT):
-		consentedChars[charID] = true
+		#consentedChars[charID] = true
 		addActionText("Someone agrees!")
 	if(actionID == ACTION_DENY_CONSENT):
 		addActionText("Someone denies the offer!")
-		cancelDelayedAction()
-
-func cancelDelayedAction():
-	transitionTimer = 0.0
-	state = STATE_NORMAL
-	consentedChars.clear()
-	transitionText = ""
-
-func onDelayedAction(_info:Dictionary):
-	#Log.Print("DELAYED ACTION: "+str(_info))
-	doAction(_info["charID"], _info["action"])
-	
-	#if(_info["id"] == ACTION_SEXTYPE):
-		#sexType.onDelayedAction(_info["role"], _info["actionID"], _info["action"])
-	#if(_info["id"] == ACTION_SEXACTIVITY):
-		#sexActivity.onDelayedAction(_info["role"], _info["actionID"], _info["action"])
-	#
-
-func didEveryoneConsent() -> bool:
-	for charID in participants:
-		if(!consentedChars.has(charID) || !consentedChars[charID]):
-			return false
-	return true
-
-func doesCharIDNeedsToConsent(charID:String) -> bool:
-	if(state != STATE_CONSENT):
-		return false
-	if(consentedChars.has(charID) && consentedChars[charID]):
-		return false
-	return true
-
-func doConsentAction(charID:String, _action:Dictionary):
-	if(state != STATE_NORMAL):
-		assert(false, "BAD STATE")
-		return
-	state = STATE_CONSENT
-	transitionTimerFull = 10.0
-	transitionTimer = transitionTimerFull
-	
-	consentedChars = {
-		charID: true,
-	}
-	for participantCharID in participants:
-		var participant:SexParticipantInfo = participants[participantCharID]
-		if(participant.willConsentToAnything()):
-			consentedChars[participantCharID] = true
-	delayedAction = {
-		charID = charID,
-		action = _action,
-	}
-	
-func doDelayedAction(_timer:float, charID:String, _action:Dictionary):
-	if(state != STATE_NORMAL):
-		assert(false, "BAD STATE")
-		return
-	state = STATE_BUSY
-	transitionTimerFull = _timer
-	transitionTimer = transitionTimerFull
-	
-	delayedAction = {
-		charID = charID,
-		action = _action,
-	}
-	
-	if(_action["id"] in [ACTION_SEXTYPE, ACTION_SEXACTIVITY]):
-		var theAction:Dictionary = _action["action"]
-		if(_action["id"] == ACTION_SEXTYPE):
-			sexType.doOnDelayedActionStartedForCharID(charID, theAction["id"], theAction)
-		if(_action["id"] == ACTION_SEXACTIVITY):
-			sexActivity.doOnDelayedActionStartedForCharID(charID, theAction["id"], theAction)
+		#cancelDelayedAction()
+	if(actionID == ACTION_CANCEL):
+		while(!eventQueue.is_empty()):
+			var currentEntry:Array = eventQueue.pop_front()
+			var _entryObj = currentEntry[0]
+			var queueEntry:Array = currentEntry[1]
+			var queueType:int = queueEntry[0]
+			if(queueType == QUEUE_CANCEL_STOPPER):
+				break
+			elif(queueType == QUEUE_CANCEL_CATCHER):
+				var theAction:SexAction = SexAction.new()
+				theAction.id = queueEntry[2]
+				theAction.args = queueEntry[3]
+				
+				_entryObj.doActionFinalCustomState(queueEntry[1], _entryObj.getRoleFromID(charID), theAction)
+				
+				break
+			elif(queueType == QUEUE_CANCEL_CATCHER_EVENT):
+				_entryObj.doEventFinal(queueEntry[1], queueEntry[2])
+				break
+		addActionText("Someone decides to cancel the action!")
 
 func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexActivityBase:
 	if(sexActivity):
@@ -362,7 +419,7 @@ func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	sexActivity = theActivity
 	sexActivity.start(_roles, _args)
 	# TODO some syncing here?
-	sexActivity.onStart()
+	sexActivity.onStartFinal()
 	return sexActivity
 	
 func stopMainActivity():
@@ -379,12 +436,10 @@ func getSexType() -> SexTypeBase:
 	return sexType
 
 func isBusy() -> bool:
-	return state != STATE_NORMAL
+	return isQueueBusy()
 
 func getProgressBarValue() -> float:
-	if(state == STATE_BUSY || state == STATE_CONSENT):
-		if(transitionTimerFull == 0.0):
-			return 0.5
+	if(transitionTimerFull > 0.0):
 		return (1.0 - transitionTimer/transitionTimerFull)
 	return -1.0
 
