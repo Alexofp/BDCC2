@@ -1,7 +1,6 @@
 extends Control
 class_name SexUI
 
-@onready var buttons_grid: GridContainer = %ButtonsGrid
 @onready var action_progress_bar: ProgressBar = %ActionProgressBar
 @onready var fade_anim_player: AnimationPlayer = %FadeAnimPlayer
 @onready var fade_rect: ColorRect = %FadeRect
@@ -9,6 +8,7 @@ class_name SexUI
 @onready var auto_consent_check_box: CheckBox = %AutoConsentCheckBox
 @onready var participants_list: VBoxContainer = %ParticipantsList
 @onready var chat_widget: VBoxContainer = %ChatWidget
+@onready var smart_button_grid: SmartButtonGrid = %SmartButtonGrid
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -16,11 +16,8 @@ var sexEngine:SexEngine
 var pawn:CharacterPawn
 
 var buttonsCache:Array = []
-var buttons:Array = []
 
 var actionTextCache:String = ""
-
-var sexActionButtonScene := preload("res://Game/Sex/UI/sex_action_button.tscn")
 
 var controllingCamera:bool = false
 
@@ -34,25 +31,12 @@ func _exit_tree() -> void:
 
 func _ready():
 	fade_rect.visible = false
-	Util.delete_children(buttons_grid)
-	for _i in range(9):
-		var newButton:Button = sexActionButtonScene.instantiate()
-		buttons_grid.add_child(newButton)
-		buttons.append(newButton)
-		newButton.pressed.connect(onActionButtonPressed.bind(_i))
 	updateButtons()
 
 func onActionButtonPressed(_indx:int):
-	# TODO multiplayer send to server here
-	#Log.Print("Button with indx "+str(_indx)+" was pressed")
-	var page:int = getCurrentPage()
-	var startIndx:int = buttons.size() * page
-	var finalIndx:int = startIndx + _indx
-	
-	if(finalIndx < 0 || finalIndx >= buttonsCache.size()):
+	if(_indx < 0 || _indx >= buttonsCache.size()):
 		return
-	
-	var theAction:Dictionary = buttonsCache[finalIndx]
+	var theAction:Dictionary = buttonsCache[_indx]
 	sexEngine.askSelectAction(pawn.getCharID(), theAction)
 
 func setEngine(theEngine:SexEngine):
@@ -110,23 +94,11 @@ func getCurrentPage() -> int:
 	return 0
 
 func updateButtons():
-	#Log.Print("UPDATE BUTTONS")
-	var buttonCount:int = buttons.size()
-	var buttonsCacheSize:int = buttonsCache.size()
-	
-	var page:int = getCurrentPage()
-	var startIndx:int = buttonCount * page
-	
-	for _i in range(buttonCount):
-		var theButton:Button = buttons[_i]
-		var finalIndx:int = startIndx + _i
-		
-		if(finalIndx >= 0 && finalIndx < buttonsCacheSize):
-			theButton.text = buttonsCache[finalIndx]["name"]
-			theButton.disabled = false
-		else:
-			theButton.text = ""
-			theButton.disabled = true
+	smart_button_grid.clearButtons(false)
+	var _i:int = 0
+	for buttonEntry in buttonsCache:
+		smart_button_grid.addButton(SmartGridButtonEntry.make(buttonEntry["name"], "act", [_i], buttonEntry["cat"]))
+		_i += 1
 	
 func _process(_delta: float) -> void:
 	if(!is_instance_valid(pawn) || !pawn):
@@ -225,3 +197,9 @@ func updateSexParticipantsList():
 		participants_list.add_child(newEntry)
 		newEntry.setCharID(charID)
 		
+func _on_smart_button_grid_on_button_pressed(_buttonEntry: SmartGridButtonEntry) -> void:
+	if(_buttonEntry.actionID == "act"):
+		onActionButtonPressed(_buttonEntry.actionArgs[0])
+	
+	smart_button_grid.clearButtons()
+	buttonsCache.clear()

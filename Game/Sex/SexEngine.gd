@@ -240,7 +240,7 @@ func calculateNetworkActions(theActions:Array) -> Array:
 	
 	var _i:int = 0
 	for actionEntry in theActions:
-		result.append({i=_i,name=actionEntry["name"]})
+		result.append({i=_i,name=actionEntry["name"],cat=(actionEntry["category"] if actionEntry.has("category") else [])})
 		_i += 1
 	
 	return result
@@ -294,6 +294,7 @@ func calculateActions(charID:String) -> Array:
 				id = ACTION_SEXTYPE,
 				name = actionEntry.actionName,
 				action = actionEntry,
+				category = actionEntry.category,
 				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
 			})
 	if(!isSexEngineBusy && sexActivity):
@@ -307,6 +308,7 @@ func calculateActions(charID:String) -> Array:
 				id = ACTION_SEXACTIVITY,
 				name = actionEntry.actionName,
 				action = actionEntry,
+				category = actionEntry.category,
 				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
 			})
 	
@@ -371,8 +373,10 @@ func doAction(charID:String, action:Dictionary):
 	
 	doActionInternal(charID, action)
 
-## Just does the action. Doesn't do any modification checks (like delay)
 func doActionInternal(charID:String, action:Dictionary):
+	actionsCache.clear()
+	actionsNetworked.clear()
+	
 	# all id checks go here
 	
 	var actionID:int = action["id"]

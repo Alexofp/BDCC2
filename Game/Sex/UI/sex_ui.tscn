@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://p4m1d4oacfut"]
 
 [ext_resource type="Script" uid="uid://cjfeedoi3xti4" path="res://Game/Sex/UI/sex_ui.gd" id="1_e8tk3"]
-[ext_resource type="PackedScene" uid="uid://cddam810q137h" path="res://Game/Sex/UI/sex_action_button.tscn" id="2_n3q0f"]
+[ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="3_6jvax"]
 [ext_resource type="PackedScene" uid="uid://c2fc3kupmxgw0" path="res://Game/Sex/UI/sex_participant_ui_entry.tscn" id="3_schvr"]
 [ext_resource type="PackedScene" uid="uid://g7hlt44gtx1w" path="res://UI/FullScreenChat/chat_widget.tscn" id="4_8pvey"]
 
@@ -97,12 +97,8 @@ max_value = 1.0
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="ButtonsGrid" type="GridContainer" parent="HBoxContainer/VBoxContainer/BottomPanel"]
+[node name="SmartButtonGrid" parent="HBoxContainer/VBoxContainer/BottomPanel" instance=ExtResource("3_6jvax")]
 unique_name_in_owner = true
-layout_mode = 2
-columns = 3
-
-[node name="ActionButton" parent="HBoxContainer/VBoxContainer/BottomPanel/ButtonsGrid" instance=ExtResource("2_n3q0f")]
 layout_mode = 2
 
 [node name="RightPanel" type="PanelContainer" parent="HBoxContainer"]
@@ -178,6 +174,7 @@ libraries = {
 }
 
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/EmptySpace" to="." method="_on_empty_space_gui_input"]
+[connection signal="onButtonPressed" from="HBoxContainer/VBoxContainer/BottomPanel/SmartButtonGrid" to="." method="_on_smart_button_grid_on_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/LockedCameraButton" to="." method="_on_locked_camera_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/FreeCameraButton" to="." method="_on_free_camera_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]

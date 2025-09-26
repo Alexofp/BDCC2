@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbt4nw6g7n4ua"]
+
+[ext_resource type="Script" uid="uid://baubg8xit2sn7" path="res://UI/SmartButtonGrid/smart_button_grid.gd" id="1_xbl1x"]
+
+[node name="SmartButtonGrid" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xbl1x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 1
+
+[node name="PagePrevButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.03
+text = "<"
+
+[node name="ButtonGridContainer" type="GridContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 5
+
+[node name="PageNextButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.03
+text = ">"
+
+[connection signal="pressed" from="HBoxContainer/PagePrevButton" to="." method="_on_page_prev_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PageNextButton" to="." method="_on_page_next_button_pressed"]

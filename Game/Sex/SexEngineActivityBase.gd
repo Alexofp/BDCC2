@@ -99,12 +99,13 @@ func setArousal(_theRole:String, _howMuch:float):
 
 var tempActions:Array[SexAction] = []
 
-func addAction(_name:String, _score:float, _actionID:String, _args:Array = []):
+func addAction(_name:String, _score:float, _actionID:String, _args:Array = [], _category:Array[String] = []):
 	var newAction:SexAction = SexAction.new()
 	newAction.id = _actionID
 	newAction.actionName = _name
 	newAction.score = _score
 	newAction.args = _args
+	newAction.category = _category
 	
 	tempActions.append(newAction)
 
