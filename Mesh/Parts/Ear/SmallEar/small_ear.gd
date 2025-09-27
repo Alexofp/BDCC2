@@ -4,9 +4,9 @@ extends DollPart
 @export var earFluff:MeshInstance3D = null
 @export var tassels:MeshInstance3D = null
 
-var earMat:MyMasterMaterial
-var tasselsMat:MyMasterMaterial
-var fluffMat:MyMasterMaterial
+var earMat:ShaderMaterial
+var tasselsMat:ShaderMaterial
+var fluffMat:ShaderMaterial
 
 func grabMaterials():
 	earMat = ear.get_surface_override_material(0)

@@ -2,7 +2,7 @@ extends DollExtraPart
 
 @onready var ring_ball: MeshInstance3D = %RingBall
 
-var piercingMat:MyMasterMaterial
+var piercingMat:ShaderMaterial
 
 func grabMaterials():
 	piercingMat = ring_ball.get_surface_override_material(0)

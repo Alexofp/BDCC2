@@ -16,7 +16,7 @@ const TAIL_ANIMS = {
 	TAILANIM_SPEAR: "TailTPose",
 }
 
-var tailMat:MyMasterMaterial
+var tailMat:ShaderMaterial
 @onready var paintbrush_tail: MeshInstance3D = %PaintbrushTail
 @onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 @onready var animation_player: AnimationPlayer = %AnimationPlayer

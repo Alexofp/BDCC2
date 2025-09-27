@@ -253,6 +253,6 @@ func _on_cache_timer_timeout() -> void:
 
 func doCachedTextureThreaded(_image:Image):
 	var newCachedTexture = PortableCompressedTexture2D.new()
-	newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_BASIS_UNIVERSAL)
+	newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_BPTC)
 	#newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
 	return newCachedTexture

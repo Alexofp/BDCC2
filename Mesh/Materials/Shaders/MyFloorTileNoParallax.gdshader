@@ -1,7 +1,4 @@
-[gd_resource type="Shader" format=3 uid="uid://b8i0m1onn4ykw"]
-
-[resource]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
 
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
@@ -47,4 +44,3 @@ void fragment() {
 	AO = orm_tex.r;
 	AO_LIGHT_AFFECT = ao_light_affect;
 }
-"

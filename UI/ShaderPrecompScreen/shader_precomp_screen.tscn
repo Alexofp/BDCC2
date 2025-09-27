@@ -70,6 +70,9 @@ mesh = SubResource("BoxMesh_ycgg1")
 [node name="RiggedShapekeyCube2" parent="." instance=ExtResource("5_egmkk")]
 transform = Transform3D(0.11487507, 0, 0, 0, 0.11487507, 0, 0, 0, 0.11487507, 0, 0.3763924, 0)
 
+[node name="Cube" parent="RiggedShapekeyCube2/RiggedShapekeyCube/Skeleton3D" index="0"]
+blend_shapes/AShapekey = 0.64383
+
 [node name="RiggedCube2" parent="." instance=ExtResource("11_qm4el")]
 transform = Transform3D(0.11317764, 0, 0, 0, 0.11317764, 0, 0, 0, 0.11317764, 0.34626985, 0.36798963, 0)
 

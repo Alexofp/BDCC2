@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://1a1yc4lq7ow0"]
 
-[ext_resource type="Shader" uid="uid://cy0arr1s2kb6f" path="res://Mesh/Materials/Shaders/MyFloorTileParallax.tres" id="1_8brio"]
+[ext_resource type="Shader" uid="uid://b6iwarsw00s7q" path="res://Mesh/Materials/Shaders/MyFloorTileParallax.gdshader" id="1_2tj2x"]
 [ext_resource type="Texture2D" uid="uid://dd1m6yldtxpfu" path="res://Mesh/Textures/Tileable/hexagon/hexagon_color.png" id="2_435yl"]
 [ext_resource type="Texture2D" uid="uid://chxpjgoa0m0o3" path="res://Mesh/Textures/Tileable/hexagon/hexagon_height.png" id="3_2jir4"]
 [ext_resource type="Texture2D" uid="uid://6ht5hbbfy5xj" path="res://Mesh/Textures/Tileable/hexagon/hexagon_normal.png" id="4_djlej"]
@@ -8,7 +8,7 @@
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_8brio")
+shader = ExtResource("1_2tj2x")
 shader_parameter/texture_albedo = ExtResource("2_435yl")
 shader_parameter/texture_orm = ExtResource("5_073fo")
 shader_parameter/texture_normal = ExtResource("4_djlej")

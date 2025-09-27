@@ -2,7 +2,7 @@ extends DollExtraPart
 
 @onready var dumbbell: MeshInstance3D = %Dumbbell
 
-var piercingMat:MyMasterMaterial
+var piercingMat:ShaderMaterial
 
 func grabMaterials():
 	piercingMat = dumbbell.get_surface_override_material(0)

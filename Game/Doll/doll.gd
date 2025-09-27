@@ -974,7 +974,15 @@ func updateExtraLayer():
 		for texID in ["albedo", "normal", "orm"]:
 			if(!extraLayerRaw.has(texID) || extraLayerRaw[texID] != theData[texID]):
 				extraLayerRaw[texID] = theData[texID]
-				extraLayer[texID] = load(theData[texID])
+				
+				#extraLayer[texID] = MyStreamedTexture.make(theData[texID])
+				
+				#TODO: Will probably produce bugs when we quickly switch this stuff
+				var theTexturePath:String = theData[texID]
+				var theTexture := await ThreadedResourceLoader.asyncLoadRequest(theTexturePath)#MyStreamedTexture.make(theData[texID])
+				var theFinalData := getExtraLayerData()
+				if(!theFinalData.is_empty() && theFinalData.has(texID) && theTexturePath == theFinalData[texID]):
+					extraLayer[texID] = theTexture
 	
 	# apply to bodyparts
 	var theBody := getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)

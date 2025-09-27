@@ -2,7 +2,7 @@ extends DollExtraPart
 
 @onready var cross: MeshInstance3D = %Cross
 
-var piercingMat:MyMasterMaterial
+var piercingMat:ShaderMaterial
 
 func grabMaterials():
 	piercingMat = cross.get_surface_override_material(0)

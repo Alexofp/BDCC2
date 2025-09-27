@@ -1,0 +1,56 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=6 format=3 uid="uid://bb4ntaqlnkdt6"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_mdjpf"]
+[ext_resource type="Shader" uid="uid://bq7ku447rl7jy" path="res://Mesh/Materials/Shaders/Doll/BodySkinExtraLayer.gdshader" id="2_mdjpf"]
+[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_e6qk3"]
+[ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="4_08ybp"]
+[ext_resource type="Texture2D" uid="uid://b83kq63ukpntb" path="res://Mesh/Textures/EmptyTexture.png" id="5_wm512"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_mdjpf")
+shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/anisotropy_ratio = 0.0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/rim = 0.499999988824
+shader_parameter/rim_tint = 1.0
+shader_parameter/subsurface_scattering_strength = 0.23
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_detail_normal_global = ExtResource("3_e6qk3")
+shader_parameter/detail_normal_scale = 40.0
+shader_parameter/detail_normal_blend = 0.3
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
+shader_parameter/texture_mess_layer = ExtResource("4_08ybp")
+shader_parameter/messLayerScale = 3.0000001425
+shader_parameter/texture_mess_mask = ExtResource("5_wm512")
+shader_parameter/messColor = Color(1, 1, 1, 1)
+shader_parameter/messRoughness = 0.0
+shader_parameter/messScroll = 0.0
+shader_parameter/messCutoff = 0.0
+shader_parameter/messSmoothSize = 0.1
+shader_parameter/extra_albedo = Color(1, 1, 1, 1)
+shader_parameter/extra_rim = 1.0
+shader_parameter/extra_rim_tint = 0.5
+script = ExtResource("1_mdjpf")
+normalMap = 1
+pbrSetup = 3
+subsurfaceScattering = 2
+anisotropy = true
+backlight = true
+rimlight = true
+outline = true
+alphaMask = true
+uvBasedDiscard = true
+globalDetailMask = true
+messLayer = true
+extraLayer = true

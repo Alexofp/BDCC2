@@ -1,6 +1,6 @@
 extends DollPart
 
-var clothesMat:MyMasterMaterial
+var clothesMat:ShaderMaterial
 
 @onready var plain_panties: MeshInstance3D = %PlainPanties
 @onready var plain_panties_shifted: MeshInstance3D = %PlainPantiesShifted

@@ -2,11 +2,11 @@ extends DollPart
 
 @export var ear:MeshInstance3D = null
 @export var earFluff:MeshInstance3D = null
-var earMat:MyMasterMaterial
-var piercingsMat:MyMasterMaterial
+var earMat:ShaderMaterial
+var piercingsMat:ShaderMaterial
 @export var piercingsTwoRings:MeshInstance3D = null
 @export var tassels:MeshInstance3D = null
-var tasselsMat:MyMasterMaterial
+var tasselsMat:ShaderMaterial
 var fluffMat:StandardMaterial3D
 
 func grabMaterials():

@@ -20,7 +20,7 @@ const TAIL_ANIMS = {
 	TAILANIM_SPEAR: "TailTPose",
 }
 
-var tailMat:MyMasterMaterial
+var tailMat:ShaderMaterial
 @onready var feline_tail: MeshInstance3D = %FelineTail
 @onready var fuzzyTail: MeshInstance3D = %FelineTailFuzz
 @onready var lionTip: MeshInstance3D = %FelineTailLionTip

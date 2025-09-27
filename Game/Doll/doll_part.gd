@@ -159,7 +159,7 @@ func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	pass
 
 func getExtraLayerData() -> Dictionary:
-	return {}
+	return getDoll().extraLayer
 
 func applyExtraLayerData(_data:Dictionary):
 	pass

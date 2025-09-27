@@ -21,8 +21,8 @@ const TAIL_ANIMS = {
 	TAILANIM_SPEAR: "TailTPose",
 }
 
-var tailMat:MyMasterMaterial
-var bowMat:MyMasterMaterial
+var tailMat:ShaderMaterial
+var bowMat:ShaderMaterial
 @onready var huge_fluffy_tail: MeshInstance3D = %HugeFluffyTail
 @onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 @onready var animation_player: AnimationPlayer = %AnimationPlayer

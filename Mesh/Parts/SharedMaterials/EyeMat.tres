@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://crsv57v2tbwqk"]
 
-[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Materials/MyBodyMat/MyEyeShader.gdshader" id="1_pel17"]
+[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Materials/Shaders/Doll/MyEyeShader.gdshader" id="1_pel17"]
 [ext_resource type="Texture2D" uid="uid://72gdnq0laick" path="res://Mesh/Parts/SharedTextures/Eyes/eye_colormask.png" id="2_8immc"]
 [ext_resource type="Texture2D" uid="uid://b5qsa2fvvk5x0" path="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_Normal.png" id="3_y5bxh"]
 

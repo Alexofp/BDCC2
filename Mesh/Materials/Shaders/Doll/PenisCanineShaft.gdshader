@@ -1,16 +1,11 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://sle1odyxpbnx"]
-
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_8w0ex"]
-[ext_resource type="Texture2D" uid="uid://ch3vj3nxghogt" path="res://Mesh/Parts/SharedTextures/Hair/hairNormal.png" id="3_lpgne"]
-[ext_resource type="Texture2D" uid="uid://cb6f2y2l0pr2" path="res://Mesh/Parts/SharedTextures/Hair/hairORM.png" id="4_rhrr0"]
-
-[sub_resource type="Shader" id="Shader_tvysh"]
-code = "shader_type spatial;
+shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
+#define MY_FRESHNEL
+#define MY_RIMLIGHT
+#define MY_SUBSURFACESCATTER
 #define MY_COLORMASK
-#define MY_OUTLINE
 
 
 render_mode
@@ -121,6 +116,14 @@ float fresnel(float amount, vec3 normal, vec3 view)
 
 //#define MY_COLORMASK
 #ifdef MY_COLORMASK
+uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
+uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform vec4 color_mask_b : source_color = vec4(0.0, 0.0, 1.0, 1.0);
+#endif
+
+//#define MY_COLORMASKALBEDO
+#ifdef MY_COLORMASKALBEDO
 uniform sampler2D texture_color_mask : hint_default_transparent, filter_linear_mipmap, repeat_enable;
 uniform vec4 color_mask_r : source_color = vec4(1.0, 0.0, 0.0, 1.0);
 uniform vec4 color_mask_g : source_color = vec4(0.0, 1.0, 0.0, 1.0);
@@ -294,6 +297,31 @@ void fragment() {
 	colormask_result.a *= colormask_tex.a;
 
 	ALBEDO.rgb = mix(ALBEDO.rgb, colormask_result.rgb, colormask_result.a);
+}
+#endif
+
+#ifdef MY_COLORMASKALBEDO
+{
+	vec4 colormask_tex = texture(texture_color_mask, base_uv);
+
+	float maskSum = colormask_tex.r + colormask_tex.g + colormask_tex.b;
+	maskSum = max(maskSum, 1.0);
+	colormask_tex.rgb /= maskSum;
+
+	vec4 color_r = color_mask_r;
+	vec4 color_g = color_mask_g;
+	vec4 color_b = color_mask_b;
+
+    vec4 colormask_result = vec4(0.0);
+	colormask_result += colormask_tex.r*color_r*color_r.a;
+	colormask_result += colormask_tex.g*color_g*color_g.a;
+	colormask_result += colormask_tex.b*color_b*color_b.a;
+
+	colormask_result.a = colormask_tex.a;
+	
+	ALPHA = colormask_result.a;
+	ALBEDO = colormask_result.rgb;
+	//ALBEDO.rgb = mix(ALBEDO.rgb, colormask_result.rgb, colormask_result.a);
 }
 #endif
 
@@ -471,39 +499,4 @@ void light(){
 	vec3 add2 = add1 + smoothed * rimlight_color.rgb;
 	DIFFUSE_LIGHT += ALBEDO * add2;
 }
-#endif"
-
-[sub_resource type="Gradient" id="Gradient_rhrr0"]
-offsets = PackedFloat32Array(0, 0.5078125, 1)
-colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_mt0ro"]
-gradient = SubResource("Gradient_rhrr0")
-
-[resource]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_tvysh")
-shader_parameter/texture_normal = ExtResource("3_lpgne")
-shader_parameter/texture_orm = ExtResource("4_rhrr0")
-shader_parameter/albedo = Color(0, 0, 0, 1)
-shader_parameter/normal_scale = 1.000000807500001
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = SubResource("GradientTexture1D_mt0ro")
-shader_parameter/color_mask_r = Color(0.39, 0.0351, 0.0351, 1)
-shader_parameter/color_mask_g = Color(0.72, 0.288, 0.288, 1)
-shader_parameter/color_mask_b = Color(0.72, 0.1584, 0.1584, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_8w0ex")
-normalMap = 1
-pbrSetup = 3
-outline = true
-colorMask = true
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+#endif

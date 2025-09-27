@@ -2,7 +2,7 @@ extends DollExtraPart
 
 @onready var spikes: MeshInstance3D = %Spikes
 
-var piercingMat:MyMasterMaterial
+var piercingMat:ShaderMaterial
 
 func grabMaterials():
 	piercingMat = spikes.get_surface_override_material(0)

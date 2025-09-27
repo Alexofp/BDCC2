@@ -7,10 +7,10 @@ extends DollPart
 @onready var eyelashes: MeshInstance3D = %Eyelashes
 
 var eyeMat:ShaderMaterial
-var headMat:MyMasterMaterial
-var mouthMat:MyMasterMaterial
-var browMat:MyMasterMaterial
-var eyelashesMat:MyMasterMaterial
+var headMat:ShaderMaterial
+var mouthMat:ShaderMaterial
+var browMat:ShaderMaterial
+var eyelashesMat:ShaderMaterial
 @onready var face_animator: FaceAnimator = %FaceAnimator
 
 func grabMaterials():

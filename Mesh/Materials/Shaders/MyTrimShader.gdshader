@@ -1,18 +1,14 @@
-[gd_resource type="Shader" format=3 uid="uid://q8h4lbehtuj"]
-
-[resource]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
 
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
 
-uniform vec4 albedo : source_color;
+//uniform vec4 albedo : source_color;
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
 uniform sampler2D texture_orm : hint_roughness_g, filter_linear_mipmap, repeat_enable;
-uniform sampler2D texture_color_map : hint_default_black, filter_linear_mipmap, repeat_enable;
 
 uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
-uniform float normal_scale : hint_range(-16.0, 16.0);
+//uniform float normal_scale : hint_range(-16.0, 16.0);
 
 uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01);
 
@@ -22,16 +18,13 @@ instance uniform vec3 trim_color_second : source_color = vec3(1.0);
 instance uniform vec3 trim_color_third : source_color = vec3(1.0);
 instance uniform vec3 trim_color_base : source_color = vec3(1.0);
 
-uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
-
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
+//uniform vec3 uv1_scale;
+//uniform vec3 uv1_offset;
+//uniform vec3 uv2_scale;
+//uniform vec3 uv2_offset;
 
 void vertex() {
-	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	//UV = UV * uv1_scale.xy + uv1_offset.xy;
 }
 
 void fragment() {
@@ -42,12 +35,12 @@ void fragment() {
 	//albedo_tex *= COLOR;
 
 	// Color map begins
-	//float yUV = -base_uv.y+1.0;
-	//vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
+	float yUV = -base_uv.y+1.0;
+	vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
 	//int layer = int(clamp(yUV, 0.0, 3.0));
-	//float layer = clamp(floor(yUV), 0.0, 3.0);
-	//float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
-	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
+	float layer = clamp(floor(yUV), 0.0, 3.0);
+	float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
+	albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
 
 	//float layer0 = (1.0 - step(1.0, yUV));
 	//float layer1 = step(1.0, yUV) * (1.0 - step(2.0, yUV));
@@ -64,10 +57,7 @@ void fragment() {
 	//albedo_tex.r = yUV;
 	//albedo_tex.g = 0.0;
 	//albedo_tex.b = 0.0;
-	vec4 color_map = texture(texture_color_map, base_uv);
-
-	vec3 trim_colors = trim_color_base * color_map.r + trim_color_main * color_map.g + trim_color_second * color_map.b;
-	albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_colors, 1.0);
+	//vec4 color_map = texture(texture_color_map, base_uv);
 
 
 	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, COLOR.r);
@@ -76,13 +66,13 @@ void fragment() {
 	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, 1.0 - max(COLOR.r, max(COLOR.g, COLOR.b)));
 
 
-	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, color_map.r);
-	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, color_map.g);
-	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_second, color_map.b);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_main, color_map.r);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_second, color_map.g);
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_third, color_map.b);
 	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * trim_color_base, 1.0 - max(color_map.r, max(color_map.g, color_map.b)));
 	// Color map ends
 
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	ALBEDO = albedo_tex.rgb; // albedo.rgb *
 
 	vec4 orm_tex = texture(texture_orm, base_uv);
 
@@ -92,15 +82,9 @@ void fragment() {
 
 	// Normal Map: Enabled
 	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
-	NORMAL_MAP_DEPTH = normal_scale;
+	NORMAL_MAP_DEPTH = 1.0;//normal_scale;
 
 	// Ambient Occlusion: Enabled
 	AO = orm_tex.r;
 	AO_LIGHT_AFFECT = ao_light_affect;
-
-	// Emission: Enabled
-	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
-	// Emission Operator: Add
-	EMISSION = emission_tex * trim_color_third * emission_energy;
 }
-"

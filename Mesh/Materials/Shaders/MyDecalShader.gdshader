@@ -1,12 +1,9 @@
-[gd_resource type="Shader" format=3 uid="uid://dukv02kbpglel"]
-
-[resource]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ORMMaterial3D.
 
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, depth_prepass_alpha;
 
-//#include \"res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc\"
+//#include "res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc"
 
 //uniform vec4 albedo : source_color;
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
@@ -135,4 +132,3 @@ void fragment() {
 	AO = orm_tex.r;
 	AO_LIGHT_AFFECT = ao_light_affect;
 }
-"

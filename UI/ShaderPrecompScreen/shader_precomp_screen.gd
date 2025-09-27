@@ -4,78 +4,24 @@ class_name ShaderPrecompScreen
 const COMPILE_IN_DEBUG = false
 const COMPILE_IN_RELEASE = true
 
+const SHADERS = [
+	"res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader",
+]
+
 const BASIC_MATERIALS = [ # Won't be used for skeletal meshes 100%
-	"res://Mesh/Materials/Floors/BlackTiles.tres",
-	"res://Mesh/Materials/Floors/ConcreteFloor.tres",
-	"res://Mesh/Materials/Floors/ConcreteTiles.tres",
-	"res://Mesh/Materials/Floors/FabricTiles.tres",
-	"res://Mesh/Materials/Floors/HexFloor.tres",
-	"res://Mesh/Materials/Floors/RustyMetal.tres",
-	
 	"res://Mesh/Materials/GlassMat.tres",
-	"res://Mesh/Materials/MyBigTrim.tres",
-	"res://Mesh/Materials/MyBigTrimSmart.tres",
-	"res://Mesh/Materials/MyDecalTrim.tres",
-	"res://Mesh/Materials/MyFloorTrimSmart.tres",
-	"res://Mesh/Materials/MyPipeMaterial.tres",
-	"res://Mesh/Materials/MyTrimSmart.tres",
-	
 ]
 
 const MATERIALS = [
 	"res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres",
 	"res://Mesh/Clothing/InmateCuffs/InmateCuffMat.tres",
-	"res://Mesh/Clothing/InmateTop/inmateTopMat.tres",
-	"res://Mesh/Clothing/PlainBra/plain_bra_fem.tres",
-	"res://Mesh/Clothing/PlainPanties/plain_panties_fem.tres",
-	"res://Mesh/Clothing/Shorts/shortsMat.tres",
 	"res://Mesh/Cum/NurbsCum/CumNurbsMat.tres",
-	
-	"res://Mesh/Materials/MyLeatherTrimSmart.tres",
 	"res://Mesh/Materials/PreviewMat.tres",
-	
-	"res://Mesh/Parts/Body/FeminineBody/Materials/ClawMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/GenitalsMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/HindPawPadsMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/NipplesMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/PubicHairMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/SpadeMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/Materials/ToeClawMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/BodyMatTest.tres",
-	"res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres",
-	"res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres",
-	"res://Mesh/Parts/Ear/FluffyEar/FelineEarMat.tres",
 	"res://Mesh/Parts/Ear/FluffyEar/FluffMat.tres",
-	"res://Mesh/Parts/Ear/FluffyEar/TasselsMat.tres",
-	"res://Mesh/Parts/Head/CanineHead/MouthMat.tres",
-	"res://Mesh/Parts/Head/FelineHead/HeadMat.tres",
-	"res://Mesh/Parts/Head/FelineHead/MouthMat.tres",
-	"res://Mesh/Parts/Head/HumanFeminine/Materials/HumanHeadMat.tres",
-	"res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres",
-	"res://Mesh/Parts/Horn/Horn1/HornMat.tres",
-	"res://Mesh/Parts/Penis/CaninePenis/PenisBallsFurMat.tres",
-	"res://Mesh/Parts/Penis/CaninePenis/ShaftMat.tres",
-	"res://Mesh/Parts/Penis/CaninePenis/TuftMat.tres",
-	"res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres",
-	"res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres",
-	"res://Mesh/Parts/SharedMaterials/EyelashesMat.tres",
-	"res://Mesh/Parts/SharedMaterials/EyeMat.tres",
-	"res://Mesh/Parts/SharedMaterials/HairMat.tres",
-	"res://Mesh/Parts/SharedMaterials/PawPadsMat.tres",
-	"res://Mesh/Parts/SharedMaterials/PiercingsMat.tres",
-	"res://Mesh/Parts/SharedMaterials/PiercingsMatOLD.tres", #Could be removed
-	"res://Mesh/Parts/SharedMaterials/RubberBandMat.tres",
-	"res://Mesh/Parts/Tail/DragonTail/DragonTailMat.tres",
-	"res://Mesh/Parts/Tail/FluffyTail/TailMat.tres",
-	"res://Mesh/Parts/Tail/LongTail/TailMat.tres",
-	"res://Mesh/SharedMaterials/Hair/HairMat.tres",
-	"res://Mesh/SharedMaterials/Preview/previewDollPartMat.tres",
-	"res://Mesh/Util/SimpleChainMat.tres",
-	"res://Mesh/Parts/Hair/LongHairBow/BowMat.tres",
 	
 ]
 const SCENES = [
-	"res://Mapping/Decals/DecalArrow2White.tscn",
+	#"res://Mapping/Decals/DecalArrow2White.tscn",
 ]
 
 static var didPrecomp:bool = false
@@ -115,8 +61,22 @@ func compileShaders():
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
 	
-	var totalCount:int = MATERIALS.size() + SCENES.size() + BASIC_MATERIALS.size()
+	var hairShaderPaths:Array[String] = Util.getResourcesFromFolderRecursive("res://Mesh/SharedMaterials/Hair/Shaders/", ["gdshader"])
+	
+	
+	var shaderPaths:Array[String] = Util.getResourcesFromFolderRecursive("res://Mesh/Materials/Shaders/", ["gdshader"])
+	
+	var totalCount:int = MATERIALS.size() + SCENES.size() + BASIC_MATERIALS.size() + shaderPaths.size() + hairShaderPaths.size() + SHADERS.size()
 	var current:int = 0
+	
+	for shaderPath in (hairShaderPaths+shaderPaths+SHADERS):
+		current += 1
+		updateProgress(current, totalCount)
+		var shaderMat:ShaderMaterial = ShaderMaterial.new()
+		shaderMat.shader = load(shaderPath)
+		setMat(shaderMat)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
 	
 	for matPath in BASIC_MATERIALS:
 		current += 1

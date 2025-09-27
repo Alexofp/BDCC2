@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://d150guoj4gam7"]
 
-[ext_resource type="Shader" uid="uid://q8h4lbehtuj" path="res://Mesh/Materials/Shaders/MyFloorShader.tres" id="1_302h3"]
+[ext_resource type="Shader" uid="uid://deia42tlwqhy4" path="res://Mesh/Materials/Shaders/MyFloorShader.gdshader" id="1_2vnxw"]
 [ext_resource type="Texture2D" uid="uid://60dyndpc1t7a" path="res://Mesh/Textures/TrimSheets/MyFloorTrim/MyTrim Lowpoly_DefaultMaterial_BaseColor.png" id="2_jymaw"]
 [ext_resource type="Texture2D" uid="uid://c5eiclfjfl7w3" path="res://Mesh/Textures/TrimSheets/MyFloorTrim/MyTrim Lowpoly_DefaultMaterial_ColorMap.png" id="3_xa3nn"]
 [ext_resource type="Texture2D" uid="uid://b0xv31o4h8vlg" path="res://Mesh/Textures/TrimSheets/MyFloorTrim/MyTrim Lowpoly_DefaultMaterial_Emit.png" id="4_f2vbn"]
@@ -9,7 +9,7 @@
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_302h3")
+shader = ExtResource("1_2vnxw")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/texture_albedo = ExtResource("2_jymaw")
 shader_parameter/texture_orm = ExtResource("6_lsmx5")

@@ -151,47 +151,47 @@ enum SubsurfaceScatteringType {
 @export var clearCache:bool = false:
 	set(value):
 		if(value):
-			cachedShaders.clear()
+			#cachedShaders.clear()
 			updateShader()
 
-static var cachedShaders:Dictionary = {}
-static var cachedUniformNames:Dictionary = {}
-var uniformNames:Array = []
+#static var cachedShaders:Dictionary = {}
+#static var cachedUniformNames:Dictionary = {}
+#var uniformNames:Array = []
 
-func copyFrom(otherShader:MyMasterMaterial, ignoreUniforms:Array = []):
-	normalMap = otherShader.normalMap
-	pbrSetup = otherShader.pbrSetup
-	clearcoat = otherShader.clearcoat
-	anisotropy = otherShader.anisotropy
-	backlight = otherShader.backlight
-	freshnel = otherShader.freshnel
-	rimlight = otherShader.rimlight
-	subsurfaceScattering = otherShader.subsurfaceScattering
-	alphaMask = otherShader.alphaMask
-	uvBasedDiscard = otherShader.uvBasedDiscard
-	alphaTransparency = otherShader.alphaTransparency
-	alphaTest = otherShader.alphaTest
-	globalDetailMask = otherShader.globalDetailMask
-	globalDetailRoughMask = otherShader.globalDetailRoughMask
-	colorMask = otherShader.colorMask
-	colorMaskAsAlbedo = otherShader.colorMaskAsAlbedo
-	doubleSided = otherShader.doubleSided
-	unshaded = otherShader.unshaded
-	toonShading = otherShader.toonShading
-	customToonShading = otherShader.customToonShading
-	outline = otherShader.outline
-	edgeOutlineExtra = otherShader.edgeOutlineExtra
-	edgeOutline = otherShader.edgeOutline
-	messLayer = otherShader.messLayer
-	albedoMatcap = otherShader.albedoMatcap
-	extraLayer = otherShader.extraLayer
-	updateShader()
+#func copyFrom(otherShader:MyMasterMaterial, ignoreUniforms:Array = []):
+	#normalMap = otherShader.normalMap
+	#pbrSetup = otherShader.pbrSetup
+	#clearcoat = otherShader.clearcoat
+	#anisotropy = otherShader.anisotropy
+	#backlight = otherShader.backlight
+	#freshnel = otherShader.freshnel
+	#rimlight = otherShader.rimlight
+	#subsurfaceScattering = otherShader.subsurfaceScattering
+	#alphaMask = otherShader.alphaMask
+	#uvBasedDiscard = otherShader.uvBasedDiscard
+	#alphaTransparency = otherShader.alphaTransparency
+	#alphaTest = otherShader.alphaTest
+	#globalDetailMask = otherShader.globalDetailMask
+	#globalDetailRoughMask = otherShader.globalDetailRoughMask
+	#colorMask = otherShader.colorMask
+	#colorMaskAsAlbedo = otherShader.colorMaskAsAlbedo
+	#doubleSided = otherShader.doubleSided
+	#unshaded = otherShader.unshaded
+	#toonShading = otherShader.toonShading
+	#customToonShading = otherShader.customToonShading
+	#outline = otherShader.outline
+	#edgeOutlineExtra = otherShader.edgeOutlineExtra
+	#edgeOutline = otherShader.edgeOutline
+	#messLayer = otherShader.messLayer
+	#albedoMatcap = otherShader.albedoMatcap
+	#extraLayer = otherShader.extraLayer
+	#updateShader()
 	#var allUniforms:Array = shader.get_shader_uniform_list()
-	for theUniformName in uniformNames:
-		#var theUniformName:String = theUniform["name"]
-		if(ignoreUniforms.has(theUniformName)):
-			continue
-		set_shader_parameter(theUniformName, otherShader.get_shader_parameter(theUniformName))
+	#for theUniformName in uniformNames:
+		##var theUniformName:String = theUniform["name"]
+		#if(ignoreUniforms.has(theUniformName)):
+			#continue
+		#set_shader_parameter(theUniformName, otherShader.get_shader_parameter(theUniformName))
 
 func _init():
 	updateShader()
@@ -270,7 +270,7 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("el")
 	return join(theFlags, "|")
 
-func calculateShaderResource() -> Array:
+func calculateShaderResource() -> String:
 	var masterResource := preload(ShaderPath)
 	
 	var copyResource := masterResource.duplicate(true)
@@ -355,31 +355,50 @@ func calculateShaderResource() -> Array:
 	
 	var shaderCode:String = copyResource.code
 	shaderCode = shaderCode.replace("//{{DEFINES_PLACEHOLDER}}", definesText)
-	copyResource.code = shaderCode
 	
-	var theuniformNames:Array = []
-	var allUniforms:Array = copyResource.get_shader_uniform_list()
-	for theUniform in allUniforms:
-		theuniformNames.append(theUniform["name"])
-	
-	return [copyResource, theuniformNames]
+	return shaderCode
+	#copyResource.code = shaderCode
+	#
+	#var theuniformNames:Array = []
+	#var allUniforms:Array = copyResource.get_shader_uniform_list()
+	#for theUniform in allUniforms:
+		#theuniformNames.append(theUniform["name"])
+	#
+	#return [copyResource, theuniformNames]
 
+var isUpdating:bool = false
 func updateShader():
-	var currentVariant:String = calculateShaderVariantString()
-	
-	if(currentVariant == ""):
-		shader = preload(ShaderPath)
-		return
-	
-	if(cachedShaders.has(currentVariant) && cachedUniformNames.has(currentVariant)):
-		shader = cachedShaders[currentVariant]
-		uniformNames = cachedUniformNames[currentVariant]
+	if(Engine.is_editor_hint()):
+		if(isUpdating):
+			return
+		isUpdating = true
+		updateShader_internal.call_deferred()
+
+func updateShader_internal():
+	isUpdating = false
+	var theShaderCode := calculateShaderResource()
+	if(shader == null):
+		shader = Shader.new()
+		shader.code = theShaderCode
 	else:
-		var theStuff := calculateShaderResource()
-		shader =  theStuff[0]
-		uniformNames = theStuff[1]
-		cachedShaders[currentVariant] = shader
-		cachedUniformNames[currentVariant] = uniformNames
+		shader.code = theShaderCode
+	if(!shader.resource_path.is_empty()):
+		ResourceSaver.save(shader)
+	#var currentVariant:String = calculateShaderVariantString()
+	#
+	#if(currentVariant == ""):
+		#shader = preload(ShaderPath)
+		#return
+	#
+	#if(cachedShaders.has(currentVariant) && cachedUniformNames.has(currentVariant)):
+		#shader = cachedShaders[currentVariant]
+		#uniformNames = cachedUniformNames[currentVariant]
+	#else:
+		#var theStuff := calculateShaderResource()
+		#shader =  theStuff[0]
+		#uniformNames = theStuff[1]
+		#cachedShaders[currentVariant] = shader
+		#cachedUniformNames[currentVariant] = uniformNames
 
 func join(arr: Array, separator: String = "") -> String:
 	var output = ""

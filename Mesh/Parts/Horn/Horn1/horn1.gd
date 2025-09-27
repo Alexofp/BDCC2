@@ -1,6 +1,6 @@
 extends DollPart
 
-var hornMat:MyMasterMaterial
+var hornMat:ShaderMaterial
 @export var hornMesh:MeshInstance3D
 @export var isLeft:bool = false
 

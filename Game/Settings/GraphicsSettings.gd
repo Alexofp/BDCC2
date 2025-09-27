@@ -186,7 +186,7 @@ func getSettings() -> Dictionary:
 				[TEXTURESCOMPRESSION.DISABLED, "Disabled (Higher VRAM usage)"],
 				[TEXTURESCOMPRESSION.ENABLED, "Enabled (Lower VRAM usage)"],
 			],
-			default = TEXTURESCOMPRESSION.DISABLED,
+			default = TEXTURESCOMPRESSION.ENABLED,
 			addSeparator = true,
 		},
 		"ssaa": {
@@ -239,7 +239,7 @@ func getSettings() -> Dictionary:
 				[GI.REDUCED, "Reduced (Slow)"],
 				[GI.ENABLED, "Enabled (Very Slow)"],
 			],
-			default = GI.REDUCED,
+			default = GI.DISABLED,
 		},
 		"fog": {
 			name = "Fog",
@@ -249,7 +249,7 @@ func getSettings() -> Dictionary:
 				[FOG.SIMPLE, "Simple (Fast)"],
 				[FOG.VOLUMETRIC, "Volumetric (Slow)"],
 			],
-			default = FOG.VOLUMETRIC,
+			default = FOG.DISABLED,
 		},
 	}
 

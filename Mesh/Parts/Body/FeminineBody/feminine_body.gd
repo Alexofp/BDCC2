@@ -6,15 +6,15 @@ extends DollPart
 @onready var neck_connector: MeshInstance3D = %NeckConnector
 @onready var neck_connector_furry: MeshInstance3D = %NeckConnectorFurry
 @onready var hand_pads: MeshInstance3D = %HandPads
-var bodyMat:MyMasterMaterial
-var handPadsMat:MyMasterMaterial
-var nippleMat:MyMasterMaterial
-var clawMat:MyMasterMaterial
-var toeClawMat:MyMasterMaterial
-var hindPawPadsMat:MyMasterMaterial
-var genitalsMat:MyMasterMaterial
-var spadeMat:MyMasterMaterial
-var pubicHairMat:MyMasterMaterial
+var bodyMat:ShaderMaterial
+var handPadsMat:ShaderMaterial
+var nippleMat:ShaderMaterial
+var clawMat:ShaderMaterial
+var toeClawMat:ShaderMaterial
+var hindPawPadsMat:ShaderMaterial
+var genitalsMat:ShaderMaterial
+var spadeMat:ShaderMaterial
+var pubicHairMat:ShaderMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
 
@@ -30,6 +30,10 @@ var pubicHairMat:MyMasterMaterial
 
 @onready var skeleton_3d: Skeleton3D = %Skeleton3D
 
+const FUR_BODY_SMART_EXTRA_LAYER_MAT = preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartExtraLayerMat.tres")
+const FUR_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres")
+const SKIN_BODY_SMART_EXTRA_LAYER_MAT = preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartExtraLayerMat.tres")
+const SKIN_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres")
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
@@ -41,6 +45,18 @@ func grabMaterials():
 	genitalsMat = female_crotch.get_surface_override_material(1)
 	spadeMat = female_crotch_spade.get_surface_override_material(2)
 	pubicHairMat = pubic_hair.get_surface_override_material(0)
+
+func setBodyMat(_mat:ShaderMaterial):
+	_mat = _mat.duplicate()
+	bodyMat = _mat
+	body.set_surface_override_material(0, _mat)
+	digi_legs.set_surface_override_material(0, _mat)
+	female_crotch.set_surface_override_material(0, _mat)
+	female_crotch_spade.set_surface_override_material(0, _mat)
+	male_crotch.set_surface_override_material(0, _mat)
+	neck_connector.set_surface_override_material(0, _mat)
+	neck_connector_furry.set_surface_override_material(0, _mat)
+	planti_legs.set_surface_override_material(0, _mat)
 
 func updateThickness():
 	updateThicknessBody()
@@ -115,26 +131,53 @@ func applyOption(_optionID:String, _value:Variant):
 			setExtra(1, "")
 	
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
+	updateSkinEverything()
+
+const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png")
+const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png")
+
+const FUR_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png")
+const FUR_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png")
+
+func updateSkinEverything():
 	if(bodyMat == null):
 		return
+	var _skinType := getSkinType()
 		
-	const ignoreUniforms = ["albedo", "texture_mess_mask", "texture_alpha"]
-		
+	#const ignoreUniforms = ["albedo", "texture_mess_mask", "texture_alpha"]
+	
+	updateSelectedBodyMat()
+	
 	if(_skinType == SkinType.HumanSkin):
-		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png"))
-		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png"))
+		#bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
+		bodyMat.set_shader_parameter("texture_normal", HUMAN_SKIN_NORMAL)
+		bodyMat.set_shader_parameter("texture_orm", HUMAN_SKIN_ORM)
 	elif(_skinType == SkinType.Fur):
-		bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"))
-		bodyMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png"))
+		#bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
+		bodyMat.set_shader_parameter("texture_normal", FUR_SKIN_NORMAL)
+		bodyMat.set_shader_parameter("texture_orm", FUR_SKIN_ORM)
 	
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)
 	bodyMat.set_shader_parameter("messScroll", randomCumScroll)
 	triggerUpdateBodyTexture()
 	updateBodyMess()
-	applyExtraLayerData(getDoll().getFinalExtraLayerData())
+	
+	var _extraLayerData := getExtraLayerData()
+	if(!_extraLayerData.is_empty()):
+		#bodyMat.extraLayer = false
+		bodyMat.set_shader_parameter("extra_albedo", _extraLayerData["color"])
+		bodyMat.set_shader_parameter("texture_extra_albedo", _extraLayerData["albedo"])
+		bodyMat.set_shader_parameter("texture_extra_normal", _extraLayerData["normal"])
+		bodyMat.set_shader_parameter("texture_extra_orm", _extraLayerData["orm"])
+		bodyMat.set_shader_parameter("extra_rim", _extraLayerData["rim"])
+		bodyMat.set_shader_parameter("extra_rim_tint", _extraLayerData["rim_tint"])
+	#if(!bodyMat.rimlight):
+	#	bodyMat.rimlight = true
+	#	bodyMat.set_shader_parameter("rim", 0.0)
+	#bodyMat.extraLayer = true
+
+	#applyExtraLayerData(getDoll().getFinalExtraLayerData())
 
 var isUpdatingBodyTexture:bool = false
 func triggerUpdateBodyTexture():
@@ -205,7 +248,8 @@ func updateBodyAlphaMask(_finalAlpha:Texture2D):
 		bodyMat.set_shader_parameter("texture_alpha", _finalAlpha)
 
 func prepareForPreview(_previewMaker):
-	bodyMat.copyFrom(previewDollMat)
+	#bodyMat.copyFrom(previewDollMat)
+	setBodyMat(previewDollMat)
 	nipples.visible = false
 	digi_legs.visible = false
 	planti_legs.visible = true
@@ -225,22 +269,24 @@ func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	else:
 		bodyMat.set_shader_parameter("texture_color_mask", null)
 
+func updateSelectedBodyMat():
+	var theSkinType := getSkinType()
+	var theExtraLayerData := getDoll().getFinalExtraLayerData()
+	var hasExtraLayer:bool = !theExtraLayerData.is_empty()
+	
+	if(theSkinType == SkinType.HumanSkin):
+		if(hasExtraLayer):
+			setBodyMat(SKIN_BODY_SMART_EXTRA_LAYER_MAT)
+		else:
+			setBodyMat(SKIN_BODY_SMART_MAT)
+	else:
+		if(hasExtraLayer):
+			setBodyMat(FUR_BODY_SMART_EXTRA_LAYER_MAT)
+		else:
+			setBodyMat(FUR_BODY_SMART_MAT)
+
 func applyExtraLayerData(_data:Dictionary):
-	if(!bodyMat):
-		return
-	if(_data.is_empty()):
-		bodyMat.extraLayer = false
-		return
-	if(!bodyMat.rimlight):
-		bodyMat.rimlight = true
-		bodyMat.set_shader_parameter("rim", 0.0)
-	bodyMat.extraLayer = true
-	bodyMat.set_shader_parameter("extra_albedo", _data["color"])
-	bodyMat.set_shader_parameter("texture_extra_albedo", _data["albedo"])
-	bodyMat.set_shader_parameter("texture_extra_normal", _data["normal"])
-	bodyMat.set_shader_parameter("texture_extra_orm", _data["orm"])
-	bodyMat.set_shader_parameter("extra_rim", _data["rim"])
-	bodyMat.set_shader_parameter("extra_rim_tint", _data["rim_tint"])
+	updateSkinEverything()
 		
 func updateCrotch():
 	var forceNormalVagina:bool = getCachedPartFlag("NormalVagina", false)

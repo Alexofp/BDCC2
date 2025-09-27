@@ -9,10 +9,10 @@ extends DollPart
 
 
 var eyeMat:ShaderMaterial
-var headMat:MyMasterMaterial
-var mouthMat:MyMasterMaterial
-var browMat:MyMasterMaterial
-var eyelashesMat:MyMasterMaterial
+var headMat:ShaderMaterial
+var mouthMat:ShaderMaterial
+var browMat:ShaderMaterial
+var eyelashesMat:ShaderMaterial
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
 
@@ -58,8 +58,8 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	
 	#headMat.set_shader_parameter("albedo", _skinTypeData.color)
 	
-	const ignoreUniforms = ["albedo"]
-	headMat.copyFrom(preload("res://Mesh/Parts/Head/FelineHead/HeadMat.tres"), ignoreUniforms)
+	#const ignoreUniforms = ["albedo"]
+	#headMat.copyFrom(preload("res://Mesh/Parts/Head/FelineHead/HeadMat.tres"), ignoreUniforms)
 	#headMat.set_shader_parameter("texture_albedo", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_BaseColor.png"))
 	headMat.set_shader_parameter("texture_normal", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_Normal.png"))
 	headMat.set_shader_parameter("texture_orm", preload("res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineHead_ORM.png"))
@@ -117,8 +117,16 @@ func applyPartFlags(_theFlags:Dictionary):
 		face_animator.setGagMouthOverride()
 
 
+func setHeadMat(_mat:ShaderMaterial):
+	_mat = _mat.duplicate()
+	$MyHeadRig/Skeleton3D/FelineHead.set_surface_override_material(0, _mat)
+	cheek_fluff.set_surface_override_material(0, _mat)
+	headMat = _mat
+
 func prepareForPreview(_previewMaker):
-	headMat.copyFrom(previewDollMat)
+	#headMat.copyFrom(previewDollMat)
+	setHeadMat(previewDollMat)
+	pass
 
 func previewTextureVariant(_previewMaker, _textureVariant:TextureVariant):
 	if(_textureVariant.pathColormask != ""):

@@ -22,7 +22,7 @@ const TAIL_ANIMS = {
 @onready var under_fluff: MeshInstance3D = %UnderFluff
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-var tailMat:MyMasterMaterial
+var tailMat:ShaderMaterial
 @onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 
 func grabMaterials():
