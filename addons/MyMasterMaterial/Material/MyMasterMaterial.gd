@@ -4,6 +4,13 @@ class_name MyMasterMaterial
 
 const ShaderPath = "res://addons/MyMasterMaterial/Material/MyMasterMaterial.gdshader"
 
+@export_group("UPDATE SHADER")
+@export var UpdateShader:bool = false:
+	set(value):
+		if(value):
+			#cachedShaders.clear()
+			updateShader()
+
 @export_group("PBR")
 enum NormalMapSetup {
 	## No normal map support
@@ -16,7 +23,7 @@ enum NormalMapSetup {
 @export var normalMap:NormalMapSetup = NormalMapSetup.None:
 	set(value):
 		normalMap = value
-		updateShader()
+		#updateShader()
 enum PBRSetup {
 	## Do not include any kind of ao/roughness/metallic maps
 	None,
@@ -34,7 +41,7 @@ enum PBRSetup {
 @export var pbrSetup:PBRSetup = PBRSetup.None:
 	set(value):
 		pbrSetup = value
-		updateShader()
+		#updateShader()
 enum SubsurfaceScatteringType {
 	## Disable the effect
 	None,
@@ -46,113 +53,113 @@ enum SubsurfaceScatteringType {
 @export var subsurfaceScattering:SubsurfaceScatteringType = SubsurfaceScatteringType.None:
 	set(value):
 		subsurfaceScattering = value
-		updateShader()
+		#updateShader()
 @export var clearcoat:bool = false:
 	set(value):
 		clearcoat = value
-		updateShader()
+		#updateShader()
 @export var anisotropy:bool = false:
 	set(value):
 		anisotropy = value
-		updateShader()
+		#updateShader()
 
 @export_group("STYLIZATION")
 @export var backlight:bool = false:
 	set(value):
 		backlight = value
-		updateShader()
+		#updateShader()
 @export var freshnel:bool = false:
 	set(value):
 		freshnel = value
-		updateShader()
+		#updateShader()
 @export var rimlight:bool = false:
 	set(value):
 		rimlight = value
-		updateShader()
+		#updateShader()
 @export var edgeOutline:bool = false:
 	set(value):
 		edgeOutline = value
-		updateShader()
+		#updateShader()
 @export var edgeOutlineExtra:bool = false:
 	set(value):
 		edgeOutlineExtra = value
-		updateShader()
+		#updateShader()
 @export var outline:bool = false:
 	set(value):
 		outline = value
-		updateShader()
+		#updateShader()
 @export var toonShading:bool = false:
 	set(value):
 		toonShading = value
-		updateShader()
+		#updateShader()
 @export var customToonShading:bool = false:
 	set(value):
 		customToonShading = value
-		updateShader()
+		#updateShader()
 
 @export_group("ALPHA")
 @export var alphaMask:bool = false:
 	set(value):
 		alphaMask = value
-		updateShader()
+		#updateShader()
 @export var alphaTransparency:bool = false:
 	set(value):
 		alphaTransparency = value
-		updateShader()
+		#updateShader()
 @export var alphaTest:bool = false:
 	set(value):
 		alphaTest = value
-		updateShader()
+		#updateShader()
 
 @export_group("SPECIAL")
 @export var doubleSided:bool = false:
 	set(value):
 		doubleSided = value
-		updateShader()
+		#updateShader()
 @export var unshaded:bool = false:
 	set(value):
 		unshaded = value
-		updateShader()
+		#updateShader()
 @export var colorMask:bool = false:
 	set(value):
 		colorMask = value
-		updateShader()
+		#updateShader()
 @export var colorMaskAsAlbedo:bool = false:
 	set(value):
 		colorMaskAsAlbedo = value
-		updateShader()
+		#updateShader()
 ## Discards pixels if their UV.y coordinate is above 1.0; Could be used to make some of the mesh transparent while keeping the altered normals of the visible parts (highly specialized use-case)
 @export var uvBasedDiscard:bool = false:
 	set(value):
 		uvBasedDiscard = value
-		updateShader()
+		#updateShader()
 @export var globalDetailMask:bool = false:
 	set(value):
 		globalDetailMask = value
-		updateShader()
+		#updateShader()
 @export var globalDetailRoughMask:bool = false:
 	set(value):
 		globalDetailRoughMask = value
-		updateShader()
+		#updateShader()
 @export var messLayer:bool = false:
 	set(value):
 		messLayer = value
-		updateShader()
+		#updateShader()
 @export var albedoMatcap:bool = false:
 	set(value):
 		albedoMatcap = value
-		updateShader()
+		#updateShader()
 @export var extraLayer:bool = false:
 	set(value):
 		extraLayer = value
-		updateShader()
+		#updateShader()
 
-@export_group("CACHE")
-@export var clearCache:bool = false:
-	set(value):
-		if(value):
-			#cachedShaders.clear()
-			updateShader()
+#@export_group("CACHE")
+#@export var UpdateShader:bool = false:
+	#set(value):
+		#if(value):
+			##cachedShaders.clear()
+			#updateShader()
 
 #static var cachedShaders:Dictionary = {}
 #static var cachedUniformNames:Dictionary = {}

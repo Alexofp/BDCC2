@@ -27,6 +27,8 @@ const LAYER_BLENDADD = 2
 const LAYER_SMOOTHREVEAL = 3
 const LAYER_SIMPLE_PART = 4
 
+var textureVersion:int = 0 # For baking
+
 var colorMaskTextureRect = preload("res://Mesh/Materials/MyLayeredTexture/color_mask_texture_rect.tscn")
 var addModeTextureRect = preload("res://Mesh/Materials/MyLayeredTexture/add_mode_texture_rect.tscn")
 var smoothRevealRect = preload("res://Mesh/Materials/MyLayeredTexture/SmoothRevealTextureRect.tscn")
@@ -56,18 +58,7 @@ func markDirty():
 	if(!inProcess):
 		updateTexture.call_deferred()
 
-func loadThreaded(_path:String):
-	return load(_path)
-
-func shouldBeUpdatedAgain() -> bool:
-	if(dirty || inProcess):
-		return false
-	var theTexture := getTexture()
-	if(!theTexture):
-		return true
-	return false
-
-func updateTexture(): # TODO make this process threaded somehow? The texture loading takes up time
+func updateTexture():
 	if(!dirty):
 		return
 	inProcess = true
@@ -86,9 +77,6 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 		var layerType:int = layerEntry[0]
 		var theTexture = layerEntry[1]
 		if(theTexture is String):
-			#var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture)
-			#await theFuture.task_completed
-			#theTexture = theFuture.get_result()
 			theTexture = await ThreadedResourceLoader.asyncLoadRequest(theTexture, 1)
 			#theTexture = load(theTexture)
 		
@@ -103,7 +91,7 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 			newRect.texture = theTexture
 			newRect.self_modulate = layerEntry[2]
 		
-		if(layerType == LAYER_SIMPLE_PART):
+		elif(layerType == LAYER_SIMPLE_PART):
 			var newRect:TextureRect = TextureRect.new()
 			color_rect.add_child(newRect)
 			newRect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -146,9 +134,6 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 			#newRect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			var theTexture2 = layerEntry[2]
 			if(theTexture2 is String):
-				#var theFuture := ThreadedResourceLoader.getThreadPool().submit_task(self, "loadThreaded", theTexture2)
-				#await theFuture.task_completed
-				#theTexture2 = theFuture.get_result()
 				#theTexture2 = load(theTexture2)
 				theTexture2 = await ThreadedResourceLoader.asyncLoadRequest(theTexture2, 1)
 			newRect.setRevealTexture(theTexture)
@@ -161,19 +146,13 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 		
 	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	
-	#dirty = false
-	
 	await RenderingServer.frame_post_draw
 	
 	cachedTexture = null
 	
+	textureVersion += 1
 	onTextureUpdated.emit(sub_viewport.get_texture())
-	#if(!bakeTexture):
-		#onTextureUpdated.emit(sub_viewport.get_texture())
-	#else:
-		#cachedTexture = ImageTexture.create_from_image(sub_viewport.get_texture().get_image())
-		#onTextureUpdated.emit(cachedTexture)
-		#onTextureUpdated.emit(sub_viewport.get_texture())
+
 	if(bakeTexture && OPTIONS.graphics.texturesCompression == GraphicsSettings.TEXTURESCOMPRESSION.ENABLED):
 		cache_timer.start()
 	
@@ -184,9 +163,7 @@ func updateTexture(): # TODO make this process threaded somehow? The texture loa
 	if(dirty):
 		updateTexture.call_deferred()
 
-func getTexture() -> ViewportTexture:
-	#if(dirty && !inProcess):
-	#	updateTexture()
+func getTexture() -> Texture2D:
 	if(bakeTexture && cachedTexture):
 		return cachedTexture
 	else:
@@ -227,32 +204,27 @@ func characterTextureOptionChanged():
 		resDivider = 1
 	markDirty()
 
-var cacheIndx:int = 0
 func _on_cache_timer_timeout() -> void:
-	#TODO: I disabled the texture compression because it gets triggered too often? A setting?
 	#if(true):
 	#	return
-	#TODO: Make a threadpool that would create compressed textures? They use way less VRAM
-	#cachedTexture = PortableCompressedTexture2D.new()
-	#cachedTexture.create_from_image(sub_viewport.get_texture().get_image(), PortableCompressedTexture2D.COMPRESSION_MODE_BASIS_UNIVERSAL)
-	cacheIndx += 1
-	var savedIndx:int = cacheIndx
-	var theFuture := ThreadedResourceLoader.getThreadPool2().submit_task(self, "doCachedTextureThreaded", sub_viewport.get_texture().get_image(), cacheIndx)
+	var savedIndx:int = textureVersion
+	var theFuture := ThreadedResourceLoader.getThreadPool2().submit_task(self, "doCachedTextureThreaded", sub_viewport.get_texture().get_image())
 	await theFuture.task_completed
-	if(savedIndx != cacheIndx):
+	if(savedIndx != textureVersion):
 		return
 	
 	if(!cachedTexture && theFuture.result):
 		cachedTexture = theFuture.result
 		onTextureUpdated.emit(cachedTexture)
 	
-	#cachedTexture = ImageTexture.create_from_image(sub_viewport.get_texture().get_image())
-	#onTextureUpdated.emit(cachedTexture)
-	sub_viewport.size = Vector2i(32, 32)
-	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	if(!inProcess):
+		sub_viewport.size = Vector2i(32, 32)
+		sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
 func doCachedTextureThreaded(_image:Image):
-	var newCachedTexture = PortableCompressedTexture2D.new()
-	newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_BPTC)
-	#newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
-	return newCachedTexture
+	#var newCachedTexture = PortableCompressedTexture2D.new()
+	#newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_BPTC)
+	##newCachedTexture.create_from_image(_image, PortableCompressedTexture2D.COMPRESSION_MODE_LOSSLESS)
+	#return newCachedTexture
+	_image.compress(Image.COMPRESS_BPTC)
+	return ImageTexture.create_from_image(_image)
