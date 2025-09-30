@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbcu7n3y0kbdy"]
+
+[ext_resource type="Script" uid="uid://c3yb2lg32ilmo" path="res://Util/Serializer/bins_test.gd" id="1_bkem7"]
+
+[node name="BinsTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bkem7")
