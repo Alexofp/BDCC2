@@ -151,7 +151,7 @@ func _on_start_sex_button_pressed() -> void:
 
 @rpc("any_peer", "call_remote", "reliable")
 func startSexEngineOnServer(domID:String, subID:String, thePos:Vector3, theAng:Vector3):
-	GM.sexManager.startSex(SexType.OnTheFloor, {dom=domID, sub=subID}, {}, thePos, theAng)
+	GM.sexManager.startSex(SexType.OnTheFloor, {dom={id=domID,role=SexRole.Dom}, sub={id=subID,role=SexRole.Sub}}, {}, thePos, theAng)
 
 func _on_delete_pawn_button_pressed() -> void:
 	if(pawn_list.get_selected_items().is_empty()):

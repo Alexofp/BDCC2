@@ -34,7 +34,7 @@ func doAction(_role:int, _actionID:String, _args:Array):
 		#TODO: Starting sex should automatically make the doll stop looking
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
-		GM.sexManager.startSex(SexType.OnTheFloor, {dom=getCharID(ROLE_MAIN), sub=getCharID(ROLE_TARGET)}, {}, getPawn(ROLE_MAIN).global_position, getPawn(ROLE_MAIN).global_rotation)
+		GM.sexManager.startSex(SexType.OnTheFloor, {dom={id=getCharID(ROLE_MAIN),role=SexRole.Dom}, sub={id=getCharID(ROLE_TARGET),role=SexRole.Sub}}, {}, getPawn(ROLE_MAIN).global_position, getPawn(ROLE_MAIN).global_rotation)
 		stopInteraction()
 
 func getInterruptActions(_role:int, _newCharID:String) -> Array:

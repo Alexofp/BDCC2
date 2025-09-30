@@ -99,15 +99,16 @@ func setArousal(_theRole:String, _howMuch:float):
 
 var tempActions:Array[SexAction] = []
 
-func addAction(_name:String, _score:float, _actionID:String, _args:Array = [], _category:Array[String] = []):
-	var newAction:SexAction = SexAction.new()
-	newAction.id = _actionID
-	newAction.actionName = _name
-	newAction.score = _score
-	newAction.args = _args
-	newAction.category = _category
+func addAction(_action:SexAction):
+	tempActions.append(_action)
+
+func addActionEasy(_name:String, _score:float, _actionID:String, _args:Array = [], _category:Array[String] = []):
+	var newAction:SexAction = SexAction.make(_name)
+	newAction.setScore(_score)
+	newAction.setCat(_category)
+	newAction.do(_actionID, _args)
 	
-	tempActions.append(newAction)
+	addAction(newAction)
 
 func getActionsFinal(_role:String) -> Array[SexAction]:
 	tempActions = []
@@ -134,28 +135,44 @@ func doEventFinal(_state:String, _event:SexEvent):
 		return
 	doEvent(_event)
 
-func doActionFinal(_role:String, _action:SexAction):
+func doActionFinal(_role:String, _id:String, _args:Array):
 	var theFuncName:String = getStateFuncPrefix()+"_do"
 	if(has_method(theFuncName)):
-		if(call(theFuncName, _role, _action)):
+		if(call(theFuncName, _role, _id, _args)):
 			return
-	doAction(_role, _action)
+	doAction(_role, _id, _args)
 
-func doActionFinalCustomState(_state:String, _role:String, _action:SexAction):
+func doActionFinalCustomState(_state:String, _role:String, _id:String, _args:Array):
 	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_do"
 	if(has_method(theFuncName)):
-		call(theFuncName, _role, _action)
-		return
-	doAction(_role, _action)
+		if(call(theFuncName, _role, _id, _args)):
+			return
+	doAction(_role, _id, _args)
 
-func doAction(_role:String, _action:SexAction):
+func doAction(_role:String, _id:String, _args:Array):
 	pass
 	
 func getActionsForCharID(_charID:String) -> Array[SexAction]:
 	return getActionsFinal(idToRole[_charID])
 
-func doActionForCharID(_charID:String, _action:SexAction):
-	doActionFinal(getRoleFromID(_charID), _action)
+func doActionForCharID(_charID:String, _id:String, _args:Array):
+	doActionFinal(getRoleFromID(_charID), _id, _args)
+
+func doSexActionFinal(_role:String, _action:SexAction):
+	for payloadEntry in _action.payload:
+		var entryType:int = payloadEntry[0]
+		
+		if(entryType == SexAction.ACTION_ACTION):
+			pushAutoAction(_role, payloadEntry[1], payloadEntry[2])
+		elif(entryType == SexAction.ACTION_DELAY):
+			pushDelay(payloadEntry[1])
+		elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
+			pushDelayCanCancel(payloadEntry[1], _role)
+		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
+			pushConsentCheck(payloadEntry[1], [getRoleID(_role)])
+
+func doSexActionForCharID(_charID:String, _action:SexAction):
+	doSexActionFinal(getRoleFromID(_charID), _action)
 
 func endActivity():
 	var sexEngine:SexEngine = getSexEngine()
@@ -204,28 +221,13 @@ func eventArg(_args:Array, _indx:int, _default = null):
 	return _args[_indx]
 
 func isSub(_role:String) -> bool:
-	return false
+	return getSexEngine().isSub(getRoleID(_role))
 	
 func isDom(_role:String) -> bool:
-	return false
-	
-func isSwitch(_role:String) -> bool:
-	return isSub(_role) && isDom(_role)
-	
-func isSubCharID(_charID:String) -> bool:
-	if(!idToRole.has(_charID)):
-		return false
-	return isSub(idToRole[_charID])
+	return getSexEngine().isDom(getRoleID(_role))
 
-func isDomCharID(_charID:String) -> bool:
-	if(!idToRole.has(_charID)):
-		return false
-	return isDom(idToRole[_charID])
-
-func isSwitchCharID(_charID:String) -> bool:
-	if(!idToRole.has(_charID)):
-		return false
-	return isSwitch(idToRole[_charID])
+func canDoDomActions(_role:String) -> bool:
+	return getSexEngine().canDoDomActions(getRoleID(_role))
 
 func getExpressionState(_role:String) -> int:
 	return DollExpressionState.Normal
@@ -261,11 +263,8 @@ func doOrgasm(_role:String, _causerRole:String = "", _orgasmType:int = SexOrgasm
 func pushCancelStopper():
 	getSexEngine().pushToQueue(self, getSexEngine().createCancelStopper())
 
-func pushCancelCatcher(_actionID:String, _args:Array=[]):
-	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcher(state, _actionID, _args))
-
-func pushCancelCatcherEvent(_event:SexEvent):
-	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcherEvent(state, _event))
+func pushCancelCatcher(_event:SexEvent):
+	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcher(state, _event))
 
 func pushDelay(_delay:float):
 	getSexEngine().pushToQueue(self, getSexEngine().createQueueDelay(_delay))
@@ -285,6 +284,9 @@ func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
 func pushActionText(_text:String):
 	getSexEngine().pushToQueue(self, getSexEngine().createActionText(_text))
 
+func pushConsentCheck(_delay:float, _consented:Array[String]):
+	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _consented))
+
 func isReadyToCum(_role:String) -> bool:
 	var theChar := getRoleChar(_role)
 	if(!theChar):
@@ -299,6 +301,15 @@ func isQueueBusy() -> bool:
 
 func isBusy() -> bool:
 	return getSexEngine().isBusy()
+
+func action(_name:String) -> SexAction:
+	return SexAction.make(_name)
+
+func hasEveryoneConsent(_roleList:Array[String]) -> bool:
+	for theRole in roleToID:
+		if(!_roleList.has(theRole)):
+			return false
+	return true
 
 func saveNetworkData() -> Dictionary:
 	return {

@@ -14,26 +14,36 @@ func addSexInternal(theNode:SexEngine):
 func removeSexInternal(theNode:SexEngine):
 	sexEngines.erase(theNode)
 
-func startSex(sexTypeID:String, pawns:Dictionary, args:Dictionary, thePos:Vector3, theAng:Vector3) -> SexEngine:
-	if(!checkPawnsInternal(pawns)):
-		Log.Printerr("Invalid characters setup, can't start sex: "+str(pawns))
+func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector3, theAng:Vector3) -> SexEngine:
+	if(!checkPawnsInternal(roles)):
+		Log.Printerr("Invalid characters setup, can't start sex: "+str(roles))
 		return null
-	for charID in pawns.values():
-		stopAnySexWithCharIDInvolved(charID)
+	for theRole in roles:
+		var theInfo:Dictionary = roles[theRole]
+		if(theInfo.has("id")):
+			stopAnySexWithCharIDInvolved(theInfo["id"])
 	var newSexEngine:SexEngine = sexEngineScene.instantiate()
 	add_child(newSexEngine, true)
 	newSexEngine.global_position = thePos
 	newSexEngine.global_rotation = theAng
 	#sexEngines.append(newSexEngine)
 	
-	for role in pawns:
-		var charID:String = pawns[role]
-		newSexEngine.addParticipant(charID, SexEngine.ROLE_SWITCH)
-		
-	newSexEngine.start(sexTypeID, pawns, args)
+	var roleToID:Dictionary[String, String] = {}
+	
+	for role in roles:
+		var theInfo:Dictionary = roles[role]
+		var newParticipant:SexParticipantInfo = SexParticipantInfo.new()
+		newParticipant.setSexEngine(newSexEngine)
+		if(newParticipant.setupInfo(theInfo)):
+			newSexEngine.addParticipantInfo(newParticipant)
+			roleToID[role] = newParticipant.id
+		else:
+			newSexEngine.stopSex()
+			return null
+
+	newSexEngine.start(sexTypeID, roleToID, args)
 	
 	#GameInteractor.networkedNodes.notifySpawned(newSexEngine)
-	
 	
 	return newSexEngine
 
@@ -41,13 +51,19 @@ func checkPawnsInternal(pawns:Dictionary) -> bool:
 	var uniqueCharIDs:Array = []
 	
 	for role in pawns:
-		var theCharID:String = pawns[role]
-		
-		if(!GM.pawnRegistry.hasPawn(theCharID)):
+		if(!(pawns[role] is Dictionary)):
 			return false
-		if(uniqueCharIDs.has(theCharID)):
+		var theInfo:Dictionary = pawns[role]
+		if(theInfo.has("id")):
+			var theCharID:String = theInfo["id"]
+			
+			if(!GM.pawnRegistry.hasPawn(theCharID)):
+				return false
+			if(uniqueCharIDs.has(theCharID)):
+				return false
+			uniqueCharIDs.append(theCharID)
+		else:
 			return false
-		uniqueCharIDs.append(theCharID)
 	
 	return true
 

@@ -67,7 +67,7 @@ func updateAutoConsentCheckbox():
 	var participant:SexParticipantInfo = getEngine().getParticipant(ourID)
 	if(!participant):
 		return
-	var hasAutoConsent:bool = participant.isAutoConsentEnabled()
+	var hasAutoConsent:bool = participant.isAutoConsentToggledOn()
 	
 	auto_consent_check_box.set_pressed_no_signal(hasAutoConsent)
 

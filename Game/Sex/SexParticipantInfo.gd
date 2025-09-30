@@ -4,8 +4,15 @@ class_name SexParticipantInfo
 var id:String = ""
 var sexRef:WeakRef
 
-var role:int = SexEngine.ROLE_DOM
-var autoConsent:bool = true #false
+var role:int = SexRole.Dom
+var autoConsent:bool = false #false
+
+func setupInfo(_infoDict:Dictionary) -> bool:
+	if(!_infoDict.has("id")):
+		return false
+	id = _infoDict["id"]
+	role = _infoDict["role"] if _infoDict.has("role") else SexRole.Dom
+	return true
 
 func setSexEngine(theSexEngine:SexEngine):
 	sexRef = weakref(theSexEngine)
@@ -18,25 +25,22 @@ func getSexEngine() -> SexEngine:
 func getChar() -> BaseCharacter:
 	return GM.characterRegistry.getCharacter(id)
 
-func isAutoConsentEnabled() -> bool:
+func isAutoConsentToggledOn() -> bool:
 	return autoConsent
 
-func willConsentToAnything() -> bool:
+func isAutoConsent() -> bool:
 	# Add extra checks that force consent here
-	return isAutoConsentEnabled()
+	return isAutoConsentToggledOn()
 
 func syncMe():
 	if(Network.isServerNotSingleplayer()):
 		getSexEngine().syncParticipant(id)
 
-func isSub() -> bool:
-	return getSexEngine().getSexType().isSubCharID(id)
-
 func isDom() -> bool:
-	return getSexEngine().getSexType().isDomCharID(id)
+	return role == SexRole.Dom
 
-func isSwitch() -> bool:
-	return getSexEngine().getSexType().isSwitchCharID(id)
+func isSub() -> bool:
+	return role == SexRole.Sub
 
 func saveNetworkData() -> Dictionary:
 	return {
@@ -45,5 +49,5 @@ func saveNetworkData() -> Dictionary:
 	}
 
 func loadNetworkData(_data:Dictionary):
-	role = SAVE.loadVar(_data, "role", SexEngine.ROLE_SWITCH)
+	role = SAVE.loadVar(_data, "role", SexRole.Dom)
 	autoConsent = SAVE.loadVar(_data, "autoConsent", false)

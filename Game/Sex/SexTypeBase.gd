@@ -16,3 +16,8 @@ func sendEvent(_eventID:String, _args:Array = [], _sendToSelf:bool = true):
 	getSexEngine().sendSexTypeEvent(_eventID, _args)
 	if(_sendToSelf):
 		onEvent(_eventID, _args)
+
+func hasMainActivity() -> bool:
+	if(getSexEngine().sexActivity):
+		return true
+	return false

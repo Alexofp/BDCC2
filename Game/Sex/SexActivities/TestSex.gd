@@ -22,10 +22,10 @@ func start_run():
 	playAnim(AnimScene.TestSex, "tease", {dom={id="dom"}, sub="sub"})
 
 func start_actions(_role:String):
-	addAction("Penetrate", 1.0, "startSex")
+	addActionEasy("Penetrate", 1.0, "startSex")
 
-func start_do(_role:String, _action:SexAction):
-	if(_action.id == "startSex"):
+func start_do(_role:String, _id:String, _args:Array):
+	if(_id == "startSex"):
 		sexSpeed = SEX_SPEED_SLOW
 		pushDelay(0.3)
 		pushSetState("sex")
@@ -38,19 +38,19 @@ func sex_run():
 
 func sex_actions(_role:String):
 	if(sexSpeed < SEX_SPEED_FAST):
-		addAction("Faster", 1.0, "sex_faster")
+		addActionEasy("Faster", 1.0, "sex_faster")
 	if(sexSpeed > SEX_SPEED_SLOW):
-		addAction("Slower", 1.0, "sex_slower")
-	addAction("Pause", 0.0, "pause")
+		addActionEasy("Slower", 1.0, "sex_slower")
+	addActionEasy("Pause", 0.0, "pause")
 
-func sex_do(_role:String, _action:SexAction):
-	if(_action.id == "sex_slower"):
+func sex_do(_role:String, _id:String, _args:Array):
+	if(_id == "sex_slower"):
 		sexSpeed -= 1
 		playCurrentSexAnim()
-	if(_action.id == "sex_faster"):
+	if(_id == "sex_faster"):
 		sexSpeed += 1
 		playCurrentSexAnim()
-	if(_action.id == "pause"):
+	if(_id == "pause"):
 		setState("inside")
 
 func subDoCum():
@@ -77,20 +77,20 @@ func inside_run():
 	playAnim(AnimScene.TestSex, "inside", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
 	
 func inside_actions(_role:String):
-	addAction("Fuck more", 1.0, "fuckmore")
-	addAction("Pull out", 1.0, "pullout")
+	addActionEasy("Fuck more", 1.0, "fuckmore")
+	addActionEasy("Pull out", 1.0, "pullout")
 
-func inside_do(_role:String, _action:SexAction):
-	if(_action.id == "pullout"):
+func inside_do(_role:String, _id:String, _args:Array):
+	if(_id == "pullout"):
 		setState("")
-	if(_action.id == "fuckmore"):
+	if(_id == "fuckmore"):
 		setState("sex")
 
 func getActions(_role:String):
-	addAction("Stop sex", 0.0, "stopSex")
+	addActionEasy("Stop sex", 0.0, "stopSex")
 
-func doAction(_role:String, _action:SexAction):
-	if(_action.id == "stopSex"):
+func doAction(_role:String, _id:String, _args:Array):
+	if(_id == "stopSex"):
 		pushDelayCanCancel(0.5, _role)
 		pushEvent(SexEvent.make("stopSex"))
 
