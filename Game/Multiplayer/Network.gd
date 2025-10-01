@@ -27,19 +27,6 @@ var networkPlayerInfoScene := preload("res://Game/Multiplayer/NetworkPlayerInfo.
 var roomID:String = ""
 signal roomIDChanged(newRoomID:String)
 
-@rpc("any_peer", "call_remote", "reliable")
-func askToJoinGame(nickname:String):
-	if(!isServer()):
-		return
-	Log.Print("RECEIVED ASK TO JOIN FROM "+str(multiplayer.get_remote_sender_id()))
-	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData())
-	Log.Print("SENT GAME JOIN NETWORK DATA TO "+str(multiplayer.get_remote_sender_id()))
-	var myInfo := createPlayerInfo(multiplayer.get_remote_sender_id(), nickname)
-	registerPlayerInfo(myInfo)
-	
-	notifyMultiplayerStarted.rpc_id(multiplayer.get_remote_sender_id())
-	Log.Print("SENT NOTIFY MULTIPLAYER STARTED RPC TO "+str(multiplayer.get_remote_sender_id()))
-
 func setMyNickname(newName:String):
 	var myInfo:NetworkPlayerInfo = getMyPlayerInfo()
 	if(myInfo):
@@ -53,10 +40,12 @@ func createPlayerInfo(theId:int, theNickname:String) -> NetworkPlayerInfo:
 	return info
 	
 @rpc("authority", "call_remote", "reliable")
-func registerPlayerInfo_RPC(theInfo:Dictionary):
-	Log.Print("registerPlayerInfo_RPC "+str(theInfo))
+func registerPlayerInfo_RPC(theBytes:PackedByteArray):
+	var theBins := Bins.readUncompressed(theBytes)
+	#Log.Print("registerPlayerInfo_RPC "+str(theInfo))
 	var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()
-	info.loadNetworkData(theInfo)
+	info.loadNetworkData(theBins)
+	Log.Print("registerPlayerInfo_RPC id="+str(info.id)+" NAME="+str(info.nickname))
 	registerPlayerInfo(info)
 
 func registerPlayerInfo(info:NetworkPlayerInfo, isConnect:bool = true):
@@ -67,7 +56,7 @@ func registerPlayerInfo(info:NetworkPlayerInfo, isConnect:bool = true):
 	info.name = str(info.id)
 	
 	if(isServerNotSingleplayer()):
-		rpcClients(registerPlayerInfo_RPC.bind(info.saveNetworkData()))
+		rpcClients(registerPlayerInfo_RPC.bind(info.saveNetworkData().getBytesRef()))
 	
 	if(isConnect):
 		playerConnected.emit(info.id, info)
@@ -116,11 +105,32 @@ func getRPCPlayerInfo() -> NetworkPlayerInfo:
 		return null
 	return players[theID]
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var data := Bins.saveStart([
+		Bins.I32, players.size(),
+	])
+	for playerID in players:
+		var info:NetworkPlayerInfo = players[playerID]
+		data.append(info.saveNetworkData())
+	return data.endSave()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	clearPlayers()
+	var playersSize:int = _data.readI32()
+	
+	for _i in range(playersSize):
+		var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()
+		info.loadNetworkData(_data)
+		Log.Print("registerPlayerInfo_RPC id="+str(info.id)+" NAME="+str(info.nickname))
+		registerPlayerInfo(info)
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var playerData:Dictionary = {}
 	for playerID in players:
 		var info:NetworkPlayerInfo = players[playerID]
-		playerData[playerID] = info.saveNetworkData()
+		playerData[playerID] = info.saveData()
 	return {
 		players = playerData,
 	}
@@ -130,18 +140,25 @@ func clearPlayers():
 		deletePlayerInfoByID(playerID)
 	players = {}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	clearPlayers()
 	
 	var playerData:Dictionary = SAVE.loadVar(_data, "players", {})
 	for playerID in playerData:
-		registerPlayerInfo_RPC(playerData[playerID] if (playerData[playerID] is Dictionary) else {})
+		var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()
+		info.loadData(playerData[playerID] if (playerData[playerID] is Dictionary) else {})
+		Log.Print("registerPlayerInfo_RPC id="+str(info.id)+" NAME="+str(info.nickname))
+		registerPlayerInfo(info)
 
 @rpc("authority", "call_remote", "reliable")
-func applyJoinGameNetworkData(_data:Dictionary):
+func applyJoinGameNetworkData(_bytes:PackedByteArray):
+	var _data:Bins = Bins.readCompressedSimple(_bytes)
+	#_data.loadStart()
 	#Log.Print("RECEIVED PLAYERS INFO FROM "+str(multiplayer.get_remote_sender_id()))
 	Log.Print("RECEIVED PLAYER DATA: "+str(_data))
 	loadNetworkData(_data)
+	#_data.endLoad()
+	_data.makeSureComplete()
 	
 @rpc("authority", "call_remote", "reliable")
 func notifyMultiplayerStarted():
@@ -178,17 +195,6 @@ func _on_connected_ok():
 func _on_player_connected(_id):
 	#_register_player.rpc_id(id, localPlayerInfo.saveNetworkData())
 	pass
-
-@rpc("any_peer", "reliable")
-func _register_player(new_player_info:Dictionary):
-	var new_player_id:int = multiplayer.get_remote_sender_id()
-	var theInfo:NetworkPlayerInfo = NetworkPlayerInfo.new()
-	theInfo.loadNetworkData(new_player_info)
-	theInfo.id = new_player_id
-	players[new_player_id] = theInfo
-	playerConnected.emit(new_player_id, theInfo)
-	playerListUpdated.emit()
-	printDebug("debug function _register_player on Network.gd: "+ str(getPlayersDebugStr()))
 
 func getPlayersDebugStr() -> String:
 	var theStuff:Dictionary = {}
@@ -417,7 +423,7 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 	registerPlayerInfo(myInfo)
 	
 	Log.Print("Sending player list to "+str(multiplayer.get_remote_sender_id()))
-	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData())
+	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData().getBytesCompressedSimple())
 	
 	Log.Print("Sending full game data to "+str(multiplayer.get_remote_sender_id()))
 	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData())

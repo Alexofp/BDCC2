@@ -24,13 +24,26 @@ func changeNickname(newName:String):
 	if(is_inside_tree()):
 		Network.notifyNameChanged(self)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var data := Bins.saveStart([
+		Bins.I32, id,
+		Bins.Str, nickname,
+	])
+	return data.endSave()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	id = _data.readI32()
+	nickname = _data.readStr()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		id = id,
 		nickname = nickname,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	id = SAVE.loadVar(_data, "id", -1)
 	nickname = SAVE.loadVar(_data, "nickname", "ERROR??")
 

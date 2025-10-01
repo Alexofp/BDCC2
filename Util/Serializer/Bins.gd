@@ -2,8 +2,12 @@ extends RefCounted
 class_name Bins # Binary Saver
 # Heavily inspired by https://github.com/vysker/bytekruncher with an attempt to make it more perfomant
 
+const DO_CHECKSUMS = true
+const DO_SLOW_CHECKSUMS = true
+
 var bytes: PackedByteArray = PackedByteArray()
 var readSpot:int = 0
+var openCounter:int = 0
 
 # In order to add new type
 #1. Add new enum entry
@@ -19,8 +23,9 @@ enum { # The most-used types should go first
 	StrShort,
 	Bool,
 	Float,
-	ByteArray, #Bins
+	ByteArray, #PackedByteArray
 	Var, #Variant
+	I8,
 }
 
 func getSizeOf(_ar:Array) -> int:
@@ -48,20 +53,32 @@ func getSizeOf(_ar:Array) -> int:
 			pointer += 4 + _ar[_indx+1].size()
 		elif(_type == Var):
 			pointer += var_to_bytes(_ar[_indx+1]).size()
+		elif(_type == I8):
+			pointer += 1
 			
 		else:
 			assert(false, "IMPLEMENT ME: TYPE: "+str(_type)+" VALUE: "+str(_ar[_indx+1]))
 		
 	return pointer
 
-func save(_ar:Array):
+func save(_ar:Array, _addSaveMarker:bool = false):
+	var arSize:int = _ar.size()
+	if(arSize % 2 == 1):
+		assert(false, "LAST VALUE IS MISSING")
 	var cSize:int = bytes.size()
 	var toReserve:= getSizeOf(_ar)
+	if(_addSaveMarker):
+		toReserve += 1
 	
 	bytes.resize(cSize + toReserve)
 	
 	var pointer:int = cSize
-	for _ii in range(int(_ar.size()/2.0)):
+	
+	if(_addSaveMarker):
+		bytes.encode_s8(0, 123)
+		pointer += 1
+	
+	for _ii in range(int(arSize/2.0)):
 		var _indx:int = _ii * 2
 		var _type:int = _ar[_indx]
 		var _value:Variant = _ar[_indx+1]
@@ -106,15 +123,31 @@ func save(_ar:Array):
 		elif(_type == Var):
 			var _howMuchBytes := bytes.encode_var(pointer, _value)
 			pointer += _howMuchBytes
+		elif(_type == I8):
+			bytes.encode_s8(pointer, _value)
+			pointer += 1
 			
 		else:
 			assert(false, "IMPLEMENT ME: TYPE: "+str(_type)+" VALUE: "+str(_ar[_indx+1]))
+
+func saveVar(_var:Variant):
+	bytes.append_array(var_to_bytes(_var))
 
 # Start of read functions
 
 func readI64() -> int:
 	var val:int = bytes.decode_s64(readSpot)
 	readSpot += 8
+	return val
+
+func readI32() -> int:
+	var val:int = bytes.decode_s32(readSpot)
+	readSpot += 4
+	return val
+
+func readI8() -> int:
+	var val:int = bytes.decode_s8(readSpot)
+	readSpot += 1
 	return val
 
 func readDouble() -> float:
@@ -161,22 +194,42 @@ func readVar() -> Variant:
 
 # End of read functions
 
+func makeSureComplete() -> bool:
+	if(openCounter == 0):
+		return true
+	assert(false, "YOU FORGOT endSave() OR endLoad() SOMEWHERE")
+	return false
+
 static func saveStart(_dat:Array = []) -> Bins:
 	var newBins := Bins.new()
+	newBins.openCounter += 1
 	
-	if(!_dat.is_empty()):
-		newBins.save(_dat)
+	newBins.save(_dat, DO_CHECKSUMS)
 	
 	return newBins
 
-func endSave():
-	pass
-
+func endSave() -> Bins:
+	if(DO_SLOW_CHECKSUMS):
+		save([I8, 124])
+	openCounter -= 1
+	if(openCounter < 0):
+		assert(false, "TOO MANY endSave() CALLS")
+	return self
+	
 func loadStart():
-	pass
+	openCounter += 1
+	if(DO_CHECKSUMS && readI8() != 123):
+		assert(false, "SOMETHING WENT WRONG, loadStart() CHECKSUM FAILED")
 
 func endLoad():
-	pass
+	if(DO_SLOW_CHECKSUMS && readI8() != 124):
+		assert(false, "SOMETHING WENT WRONG, endLoad() CHECKSUM FAILED")
+	openCounter -= 1
+	if(openCounter < 0):
+		assert(false, "TOO MANY endLoad() CALLS")
+	if(openCounter == 0):
+		if(bytes.size() != readSpot):
+			assert(false, "BAD READ SOMEWHERE! FORGOT TO READ "+str(bytes.size() - readSpot)+" BYTES!")
 
 func seek(_spot:int):
 	readSpot = _spot
@@ -185,24 +238,41 @@ func debugStr() -> String:
 	return str(bytes)
 
 func getBytesCopy() -> PackedByteArray:
+	makeSureComplete()
 	return bytes.duplicate()
 
 func getBytesRef() -> PackedByteArray:
+	makeSureComplete()
 	return bytes
 
 func getBytesSize() -> int:
+	makeSureComplete()
 	return bytes.size()
 
 func getBytesCompressed(_compression: int = FileAccess.COMPRESSION_FASTLZ) -> PackedByteArray:
+	makeSureComplete()
 	return bytes.compress(_compression)
 
 func getBytesCompressedSimple() -> PackedByteArray:
+	makeSureComplete()
 	return bytes.compress(FileAccess.COMPRESSION_DEFLATE)
 
 static func readCompressedSimple(_bytes:PackedByteArray) -> Bins:
 	var newBins := Bins.new()
 	newBins.bytes = _bytes.decompress_dynamic(-1, FileAccess.COMPRESSION_DEFLATE)
 	return newBins
+
+func appendWithID(_id:String, _otherBins:Bins):
+	var theIDArray := _id.to_utf8_buffer()
+	var theStringBuffer := PackedByteArray()
+	theStringBuffer.resize(2)
+	theStringBuffer.encode_u16(0, theIDArray.size())
+	theStringBuffer.append_array(theIDArray)
+	theStringBuffer.append_array(_otherBins.bytes)
+	bytes.append_array(theStringBuffer)
+
+func readID() -> String:
+	return readStrShort()
 
 func append(_otherBins:Bins):
 	bytes.append_array(_otherBins.bytes)
@@ -214,12 +284,12 @@ static func readCompressed(_bytes:PackedByteArray, _uncompressedSize:int, _compr
 	return newBins
 
 # Doesn't duplicate your data!
-static func readUncompressedRef(_bytes:PackedByteArray):
+static func readUncompressed(_bytes:PackedByteArray) -> Bins:
 	var newBins := Bins.new()
 	newBins.bytes = _bytes
 	return newBins
 	
-static func readUncompressed(_bytes:PackedByteArray):
+static func readUncompressedCopy(_bytes:PackedByteArray) -> Bins:
 	var newBins := Bins.new()
 	newBins.bytes = _bytes.duplicate()
 	return newBins

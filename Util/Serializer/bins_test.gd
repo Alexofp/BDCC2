@@ -5,8 +5,9 @@ func _ready() -> void:
 		Bins.I64, 123,
 		Bins.Double, 420.69,
 		Bins.Str, "Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! ",
-		Bins.Var, ["HUH?", 543],
+		#Bins.Var, ["HUH?", 543],
 	])
+	bins.saveVar(["HUH? LOL?", 543])
 	bins.append(writeTest())
 	bins.endSave()
 	
