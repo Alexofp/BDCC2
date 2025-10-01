@@ -721,13 +721,28 @@ func doSquirtVagina(theRole:String, amountMult:float = 1.0, speedMult:float = 1.
 		return
 	theDoll.getDoll().getBodySkeleton().doSquirtVagina(amountMult, speedMult, timeMult, spreadMult)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var data := Bins.saveStart([
+		Bins.StrShort, state,
+		Bins.Var, penisTarget,
+	])
+	return data.endSave()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	state = _data.readStrShort()
+	penisTarget = _data.readVar()
+	_data.endLoad()
+	
+	updateAnim()
+
+func saveData() -> Dictionary:
 	return {
 		state = state,
 		penisTarget = penisTarget,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	state = SAVE.loadVar(_data, "state", "")
 	penisTarget = SAVE.loadVar(_data, "penisTarget", {})
 	

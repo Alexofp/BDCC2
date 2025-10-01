@@ -106,14 +106,28 @@ func _on_interactable_on_interact(user: DollController, action: InteractAction) 
 		sit_spawner_left.setSitter("dom", leftSitter)
 		sit_spawner_right.setSitter("dom", rightSitter)
 	
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.BINS, sit_spawner_left.saveNetworkData(),
+		Bins.BINS, sit_spawner_right.saveNetworkData(),
+		Bins.BINS, sit_spawner_cuddle.saveNetworkData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	sit_spawner_left.loadNetworkData(_data.readBins())
+	sit_spawner_right.loadNetworkData(_data.readBins())
+	sit_spawner_cuddle.loadNetworkData(_data.readBins())
+	_data.endLoad()
+	
+func saveData() -> Dictionary:
 	return {
-		left = sit_spawner_left.saveNetworkedData(),
-		right = sit_spawner_right.saveNetworkedData(),
-		cuddle = sit_spawner_cuddle.saveNetworkedData(),
+		left = sit_spawner_left.saveData(),
+		right = sit_spawner_right.saveData(),
+		cuddle = sit_spawner_cuddle.saveData(),
 	}
 
-func loadNetworkData(_data:Dictionary):
-	sit_spawner_left.loadNetworkData(SAVE.loadVar(_data, "left", {}))
-	sit_spawner_right.loadNetworkData(SAVE.loadVar(_data, "right", {}))
-	sit_spawner_cuddle.loadNetworkData(SAVE.loadVar(_data, "cuddle", {}))
+func loadData(_data:Dictionary):
+	sit_spawner_left.loadData(SAVE.loadVar(_data, "left", {}))
+	sit_spawner_right.loadData(SAVE.loadVar(_data, "right", {}))
+	sit_spawner_cuddle.loadData(SAVE.loadVar(_data, "cuddle", {}))

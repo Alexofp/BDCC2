@@ -82,12 +82,24 @@ func shouldAutoMoan() -> bool:
 		return true
 	return false
 
-func saveNetworkedData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Float, arousal,
+		Bins.Float, arousalFade,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	arousal = _data.readFloat()
+	arousalFade = _data.readFloat()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		arousal = arousal,
 		arousalFade = arousalFade,
 	}
 
-func loadNetworkedData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	arousal = SAVE.loadVar(_data, "arousal", 0.0)
 	arousalFade = SAVE.loadVar(_data, "arousalFade", 0.0)

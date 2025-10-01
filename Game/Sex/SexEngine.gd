@@ -729,7 +729,7 @@ func syncParticipant(_charID:String):
 	if(!participants.has(_charID)):
 		Network.rpcClients(syncParticipant_RPC.bind(_charID, {}))
 	else:
-		Network.rpcClients(syncParticipant_RPC.bind(_charID, participants[_charID].saveNetworkData()))
+		Network.rpcClients(syncParticipant_RPC.bind(_charID, participants[_charID].saveData()))
 
 @rpc("authority", "call_remote", "reliable")
 func syncParticipant_RPC(_charID:String, _data:Dictionary):
@@ -743,10 +743,10 @@ func syncParticipant_RPC(_charID:String, _data:Dictionary):
 		newParticipant.id = _charID
 		newParticipant.setSexEngine(self)
 		participants[_charID] = newParticipant
-		newParticipant.loadNetworkData(_data)
+		newParticipant.loadData(_data)
 		return
 	# Updated participant
-	participants[_charID].loadNetworkData(_data)
+	participants[_charID].loadData(_data) #TODO: Change to load/saveNetworkData
 	onParticipantUpdate.emit(_charID)
 
 func isConsensual() -> bool:
@@ -798,28 +798,38 @@ func canDoDomActions(_charID:String) -> bool:
 		return true
 	return false
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var sexActivityData = null
 	if(sexActivity):
 		sexActivityData = {
 			id = sexActivity.id,
-			data = sexActivity.saveNetworkData(),
+			data = sexActivity.saveData(),
 		}
 	var participantsData:Dictionary = {}
 	for charID in participants:
-		participantsData[charID] = participants[charID].saveNetworkData()
+		participantsData[charID] = participants[charID].saveData()
 	
 	return {
 		participants = participantsData,
 		sexType = {
 			id = sexType.id,
-			data = sexType.saveNetworkData(),
+			data = sexType.saveData(),
 		},
 		sexActivity = sexActivityData,
-		animPlayer = anim_scene_player.saveNetworkData(),
+		animPlayer = anim_scene_player.saveData(),
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	participants.clear()
 	var participantsData:Dictionary = SAVE.loadVar(_data, "participants", {})
 	for charID in participantsData:
@@ -828,7 +838,7 @@ func loadNetworkData(_data:Dictionary):
 	var sexTypeData:Dictionary = SAVE.loadVar(_data, "sexType", {})
 	sexType = GlobalRegistry.createSexType(SAVE.loadVar(sexTypeData, "id", ""))
 	sexType.setSexEngine(self)
-	sexType.loadNetworkData(SAVE.loadVar(sexTypeData, "data", {}))
+	sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
 	
 	var activityData = SAVE.loadVar(_data, "sexActivity", null)
 	if(activityData == null):
@@ -836,6 +846,6 @@ func loadNetworkData(_data:Dictionary):
 	elif(activityData is Dictionary):
 		sexActivity = GlobalRegistry.createSexActivity(SAVE.loadVar(activityData, "id", ""))
 		sexActivity.setSexEngine(self)
-		sexActivity.loadNetworkData(SAVE.loadVar(activityData, "data", {}))
+		sexActivity.loadData(SAVE.loadVar(activityData, "data", {}))
 	
-	anim_scene_player.loadNetworkData(SAVE.loadVar(_data, "animPlayer", {}))
+	anim_scene_player.loadData(SAVE.loadVar(_data, "animPlayer", {}))

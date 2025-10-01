@@ -97,9 +97,17 @@ func isCharIDParticipatingInSex(theCharID:String) -> bool:
 func isCharParticipatingInSex(theChar:BaseCharacter) -> bool:
 	return !!getSexEngineOfCharID(theChar.getID())
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	#sexEngines.clear()
 	pass

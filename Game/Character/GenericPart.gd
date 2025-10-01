@@ -84,6 +84,22 @@ func setCharacter(theCharacter:BaseCharacter):
 func shouldBeFilteredOut() -> bool:
 	return internalHidePart
 
+func saveOptionsNetworkData() -> Bins:
+	var theAr:Array = []
+	var theOptions:Dictionary = getOptionsFinal()
+	for optionID in theOptions:
+		theAr.append_array([Bins.Var, getOptionValue(optionID)])
+	
+	var data := Bins.saveStart(theAr)
+	return data.endSave()
+
+func loadOptionsNetworkData(_data:Bins):
+	_data.loadStart()
+	var theOptions:Dictionary = getOptionsFinal()
+	for optionID in theOptions:
+		setOptionValue(optionID, _data.readVar())
+	_data.endLoad()
+
 func saveOptionsData() -> Dictionary:
 	var data:Dictionary = {}
 	
@@ -100,8 +116,44 @@ func loadOptionsData(_data:Dictionary):
 			continue
 		setOptionValue(optionID, SAVE.loadVar(_data, optionID, getOptionValue(optionID)))
 
-func saveNetworkData() -> Dictionary:
-	return {}
+func saveNetworkData() -> Bins:
+	var data:= Bins.saveStart([
+		Bins.BINS, saveOptionsNetworkData(),
+	])
+	return data.endSave()
 
-func loadNetworkData(_data:Dictionary):
-	pass
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadOptionsNetworkData(_data.readBins())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
+	var _data:Dictionary = {}
+	
+	#if(supportsSkinTypes()):
+		#_data["skinType"] = skinType
+		#
+		#if(skinDataOverride):
+			#_data["skinDataOverride"] = skinDataOverride.saveNetworkData()
+		#else:
+			#_data["skinDataOverride"] = null
+	
+	_data["options"] = saveOptionsData()
+	
+	return _data
+
+func loadData(_data:Dictionary):
+	#if(supportsSkinTypes()):
+		#var skinTypeA = SAVE.loadVar(_data, "skinType", SkinType.None)
+		#if(skinTypeA is String):
+			#skinTypeA = SkinType.stringToType(skinTypeA)
+		#skinType = skinTypeA
+		#
+		#var newSkinDataOverride = SAVE.loadVar(_data, "skinDataOverride", null)
+		#if(newSkinDataOverride == null || !(newSkinDataOverride is Dictionary)):
+			#skinDataOverride = null
+		#else:
+			#skinDataOverride = SkinTypeData.new()
+			#skinDataOverride.loadNetworkData(newSkinDataOverride)
+	
+	loadOptionsData(SAVE.loadVar(_data, "options", {}))

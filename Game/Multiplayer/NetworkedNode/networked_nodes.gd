@@ -72,8 +72,8 @@ func spawnNetworkedNode_RPC(filePath:String, nodePath:String, nodeName:String, n
 	if(get_tree().root.has_node(NodePath(existingNodePath))):
 		# No need to spawn the node, we have it already
 		var theNode:Node = get_tree().root.get_node(NodePath(existingNodePath))
-		if(theNode.has_method("loadNetworkData")):
-			theNode.loadNetworkData(nodeData)
+		if(theNode.has_method("loadData")):
+			theNode.loadData(nodeData)
 		Log.Print("NETWORKED NODE LOADED: "+theNode.name)
 	else:
 		var theNode:Node = theScene.instantiate()
@@ -85,8 +85,8 @@ func spawnNetworkedNode_RPC(filePath:String, nodePath:String, nodeName:String, n
 		var parentNode:Node = get_tree().root.get_node(NodePath(nodePath))
 		parentNode.add_child(theNode)
 		
-		if(theNode.has_method("loadNetworkData")):
-			theNode.loadNetworkData(nodeData)
+		if(theNode.has_method("loadData")):
+			theNode.loadData(nodeData)
 		
 		Log.Print("NETWORKED NODE SPAWNED: "+theNode.name)
 
@@ -98,8 +98,17 @@ func gatherGroupList() -> Array[Node]:
 	
 	return theNodes
 
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
 
-func saveNetworkData() -> Dictionary:
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var pathDict:Dictionary[int, String] = {}
 	var stringToPathDict:Dictionary[String, int] = {}
 	var lastPathID:int = 0
@@ -126,7 +135,7 @@ func saveNetworkData() -> Dictionary:
 			file = theFileID,
 			path = str(node.get_parent().get_path()),
 			name = str(node.name),
-			data = node.saveNetworkData() if node.has_method("saveNetworkData") else {},
+			data = node.saveData() if node.has_method("saveData") else {},
 		}
 		if(node is Node3D):
 			theData["data"]["pos"] = node.position
@@ -139,7 +148,7 @@ func saveNetworkData() -> Dictionary:
 		nodes = nodesData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	var currentNodes := gatherGroupList()
 	for node in currentNodes:
 		node.get_parent().remove_child(node)

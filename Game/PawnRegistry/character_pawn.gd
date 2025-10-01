@@ -144,12 +144,22 @@ func isControlledByUs() -> bool:
 		return false
 	return myInfo.charID == id
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, position,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	position = _data.readVar()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		pos = position,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	position = SAVE.loadVar(_data, "pos", position)
 
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:

@@ -129,7 +129,28 @@ func clear():
 	pawnToSeat.clear()
 	seatToPawn.clear()
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var Ar:Array = [
+		Bins.I32, pawnToSeat.size(),
+	]
+	for pawn in pawnToSeat:
+		var seat := pawnToSeat[pawn]
+		Ar.append_array([Bins.Var, GameInteractor.getUniqueIDOf(pawn)])
+		Ar.append_array([Bins.Var, GameInteractor.getUniqueIDOf(seat)])
+	
+	return Bins.saveStartEnd(Ar)
+
+func loadNetworkData(_data:Bins):
+	clear()
+	_data.loadStart()
+	var theAm:int = _data.readI32()
+	for _i in range(theAm):
+		var pair1 = _data.readVar()
+		var pair2 = _data.readVar()
+		doSitRPC(pair1, pair2)
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var sittersPairs:Array = []
 	for pawn in pawnToSeat:
 		var seat := pawnToSeat[pawn]
@@ -142,7 +163,7 @@ func saveNetworkData() -> Dictionary:
 		sitters = sittersPairs,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	clear()
 	var sittersData:Array = SAVE.loadVar(_data, "sitters", [])
 	

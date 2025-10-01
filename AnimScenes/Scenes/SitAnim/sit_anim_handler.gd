@@ -36,10 +36,20 @@ func _on_interactable_on_interact(user: DollController, action: InteractAction) 
 		if(sit_spawner.getSitter("dom") == user.getPawn()):
 			sit_spawner.despawn()
 			
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.BINS, sit_spawner.saveNetworkData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	sit_spawner.loadNetworkData(_data.readBins())
+	_data.endLoad()
+			
+func saveData() -> Dictionary:
 	return {
-		sit = sit_spawner.saveNetworkedData(),
+		sit = sit_spawner.saveData(),
 	}
 
-func loadNetworkData(_data:Dictionary):
-	sit_spawner.loadNetworkData(SAVE.loadVar(_data, "sit", {}))
+func loadData(_data:Dictionary):
+	sit_spawner.loadData(SAVE.loadVar(_data, "sit", {}))

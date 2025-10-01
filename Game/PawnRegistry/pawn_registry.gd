@@ -30,7 +30,7 @@ func createPawnRPC(charID:String, data:Dictionary):
 	thePawn.tree_exiting.connect(pawnDeleteCleanup.bind(thePawn))
 	
 	add_child(thePawn, true)
-	thePawn.loadNetworkData(data)
+	thePawn.loadData(data)
 	
 	insertPawnIntoSparseGrid(thePawn)
 	onPawnCreated.emit(thePawn)
@@ -198,19 +198,29 @@ func sayAdvanced(_pawn:CharacterPawn, _stuff:Array):
 		Network.rpcClients(sayAdvanced_RPC.bind(_pawn.getCharID(), _stuff))
 	_pawn.sayAdvancedLocal(_stuff)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var pawnData:Array = []
 	for charID in pawns:
 		pawnData.append({
 			id = charID,
-			data = pawns[charID].saveNetworkData(),
+			data = pawns[charID].saveData(),
 		})
 	
 	return {
 		pawns = pawnData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	clearPawns()
 	
 	Log.Print(str(_data))

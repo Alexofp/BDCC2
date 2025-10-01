@@ -115,15 +115,28 @@ func getSexHideTagsFor(_charID:String) -> Array:
 		return []
 	return anim_scene_spawner.getScene().getSexHideTagsFor(_charID)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.StrShort, animID,
+		Bins.StrShort, state,
+		Bins.BINS, anim_scene_spawner.saveNetworkData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	animID = _data.readStrShort()
+	state = _data.readStrShort()
+	anim_scene_spawner.loadNetworkData(_data.readBins())
+	_data.endLoad()
+	
+func saveData() -> Dictionary:
 	return {
 		animID = animID,
 		state = state,
-		scene = anim_scene_spawner.saveNetworkedData(),
+		scene = anim_scene_spawner.saveData(),
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	animID = SAVE.loadVar(_data, "animID", "")
 	state = SAVE.loadVar(_data, "state", "")
-	anim_scene_spawner.loadNetworkData(SAVE.loadVar(_data, "scene", {}))
-	
+	anim_scene_spawner.loadData(SAVE.loadVar(_data, "scene", {}))

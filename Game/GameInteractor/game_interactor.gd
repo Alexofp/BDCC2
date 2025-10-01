@@ -21,27 +21,42 @@ func _ready():
 	#Network.playerConnected.connect(onPlayerConnected)
 	pass
 
-func onPlayerConnected(_id:int, _playerInfo:NetworkPlayerInfo):
-	if(Network.isServer() && Network.getMultiplayerID() != _id):
-		Log.Print("(GAME INTERACTOR) Sending full data to "+str(_id))
-		applyFullNetworkData.rpc_id(_id, saveFullNetworkData())
-
-@rpc("authority", "call_remote", "reliable")
-func applyFullNetworkData(_data:Dictionary):
+func applyFullNetworkData(_data:Bins):
 	Log.Print("(GAME INTERACTOR) Received full data")
 	loadFullNetworkData(_data)
 
-func saveFullNetworkData() -> Dictionary:
+func saveFullNetworkData() -> Bins:
+	var data := Bins.saveStart([
+		Bins.BINS, characterRegistry.saveNetworkData(),
+		Bins.BINS, pawnRegistry.saveNetworkData(),
+		Bins.BINS, dollHolder.saveNetworkData(),
+		Bins.BINS, sexManager.saveNetworkData(),
+		Bins.BINS, networkedNodes.saveNetworkData(),
+		Bins.BINS, sitManager.saveNetworkData(),
+	])
+	return data.endSave()
+
+func loadFullNetworkData(_data:Bins):
+	_data.loadStart()
+	characterRegistry.loadNetworkData(_data.readBins())
+	pawnRegistry.loadNetworkData(_data.readBins())
+	dollHolder.loadNetworkData(_data.readBins())
+	sexManager.loadNetworkData(_data.readBins())
+	networkedNodes.loadNetworkData(_data.readBins())
+	sitManager.loadNetworkData(_data.readBins())
+	_data.endLoad()
+
+func saveFullData() -> Dictionary:
 	return {
-		characterRegistry = characterRegistry.saveNetworkData(),
-		pawnRegistry = pawnRegistry.saveNetworkData(),
-		dolls = dollHolder.saveNetworkData(),
-		sexManager = sexManager.saveNetworkData(),
-		networkedNodes = networkedNodes.saveNetworkData(),
-		sitManager = sitManager.saveNetworkData(),
+		characterRegistry = characterRegistry.saveData(),
+		pawnRegistry = pawnRegistry.saveData(),
+		dolls = dollHolder.saveData(),
+		sexManager = sexManager.saveData(),
+		networkedNodes = networkedNodes.saveData(),
+		sitManager = sitManager.saveData(),
 	}
 
-func loadFullNetworkData(_data:Dictionary):
+func loadFullData(_data:Dictionary):
 	characterRegistry.loadNetworkData(SAVE.loadVar(_data, "characterRegistry", {}))
 	pawnRegistry.loadNetworkData(SAVE.loadVar(_data, "pawnRegistry", {}))
 	dollHolder.loadNetworkData(SAVE.loadVar(_data, "dolls", {}))

@@ -88,15 +88,30 @@ func playState(theState:String, resetAnim:bool = false):
 func playState_RPC(theState:String, resetAnim:bool = false):
 	playState(theState, resetAnim)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.BINS, anim_scene_spawner.saveNetworkData(),
+		Bins.Bool, isVag,
+		Bins.StrShort, state,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	anim_scene_spawner.loadNetworkData(_data.readBins())
+	isVag = _data.readBool()
+	state = _data.readStrShort()
+	playStateLocal(true)
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
-		anim = anim_scene_spawner.saveNetworkedData(),
+		anim = anim_scene_spawner.saveData(),
 		isVag = isVag,
 		state = state,
 	}
 
-func loadNetworkData(_data:Dictionary):
-	anim_scene_spawner.loadNetworkData(SAVE.loadVar(_data, "anim", {}))
+func loadData(_data:Dictionary):
+	anim_scene_spawner.loadData(SAVE.loadVar(_data, "anim", {}))
 	isVag = SAVE.loadVar(_data, "isVag", true)
 	state = SAVE.loadVar(_data, "state", "tease")
 	playStateLocal(true)

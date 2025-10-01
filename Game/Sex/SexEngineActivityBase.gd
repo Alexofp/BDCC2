@@ -311,12 +311,22 @@ func hasEveryoneConsent(_roleList:Array[String]) -> bool:
 			return false
 	return true
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		roleToID = roleToID,
 		idToRole = idToRole,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	roleToID = SAVE.loadVar(_data, "roleToID", {})
 	idToRole = SAVE.loadVar(_data, "idToRole", {})

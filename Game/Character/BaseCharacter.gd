@@ -562,13 +562,59 @@ func isPartialGesturesBlocked() -> bool:
 func notifyPresetApplied():
 	onChange.emit(BaseCharChange.createPresetApplied())
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var ar:Array = [
+		Bins.I8, bodyparts.size(),
+	]
+	for bodypartSlot in bodyparts:
+		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
+		ar.append_array([Bins.I8, bodypartSlot])
+		ar.append_array([Bins.StrShort, theBodypart.id])
+		ar.append_array([Bins.BINS, theBodypart.saveNetworkData()])
+		
+	for syncOption in getSyncOptions():
+		ar.append_array([Bins.Var, getSyncOptionValue(syncOption)])
+	
+	ar.append_array([Bins.BINS, charState.saveNetworkData()])
+	ar.append_array([Bins.BINS, inventory.saveNetworkData()])
+	
+	return Bins.saveStartEnd(ar)
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	
+	clearBodyparts()
+	var theBodypartAm:int = _data.readI8()
+	for _i in range(theBodypartAm):
+		var bodypartSlot:int = _data.readI8()
+		var bodypartID:String = _data.readStrShort()
+		var bodypartData:Bins = _data.readBins()
+		
+		if(bodypartID == ""):
+			Log.Printerr("Empty bodypart ID received in BaseCharacter.loadData")
+			continue
+		var theBodypart:BodypartBase = GlobalRegistry.createBodypart(bodypartID)
+		if(!theBodypart):
+			Log.Printerr("Bad bodypart id in BaseCharacter.loadData, id='"+str(bodypartID)+"'")
+			continue
+		theBodypart.loadNetworkData(bodypartData)
+		addBodypart(bodypartSlot, theBodypart)
+
+	for syncOption in getSyncOptions():
+		applyCharChange(syncOption, _data.readVar())
+	
+	charState.loadNetworkData(_data.readBins())
+	inventory.loadNetworkData(_data.readBins())
+	
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var bodypartsData:Dictionary = {}
 	for bodypartSlot in bodyparts:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
 		bodypartsData[str(bodypartSlot)] = {
 			id = theBodypart.id,
-			data = theBodypart.saveNetworkData(),
+			data = theBodypart.saveData(),
 		}
 	
 	var charData:Dictionary = {}
@@ -576,17 +622,13 @@ func saveNetworkData() -> Dictionary:
 		charData[syncOption] = getSyncOptionValue(syncOption)
 	
 	return {
-		#skinTypes = skinTypes.saveData(),
 		bodyparts = bodypartsData,
 		charData = charData,
-		charState = charState.saveNetworkedData(),
-		inventory = inventory.saveNetworkData(),
+		charState = charState.saveData(),
+		inventory = inventory.saveData(),
 	}
 
-func loadNetworkData(_data:Dictionary):
-	#if(_data.has("skinTypes")):
-	#	skinTypes.loadData(_data["skinTypes"])
-	
+func loadData(_data:Dictionary):
 	if(_data.has("bodyparts")):
 		clearBodyparts()
 		
@@ -595,13 +637,13 @@ func loadNetworkData(_data:Dictionary):
 			var bodypartData:Dictionary = SAVE.loadVar(bodypartsData, str(bodypartSlotStr), {})
 			var bodypartID:String = SAVE.loadVar(bodypartData, "id", "")
 			if(bodypartID == ""):
-				Log.Printerr("Empty bodypart ID received in BaseCharacter.loadNetworkData")
+				Log.Printerr("Empty bodypart ID received in BaseCharacter.loadData")
 				continue
 			var theBodypart:BodypartBase = GlobalRegistry.createBodypart(bodypartID)
 			if(!theBodypart):
-				Log.Printerr("Bad bodypart id in BaseCharacter.loadNetworkData, id='"+str(bodypartID)+"'")
+				Log.Printerr("Bad bodypart id in BaseCharacter.loadData, id='"+str(bodypartID)+"'")
 				continue
-			theBodypart.loadNetworkData(SAVE.loadVar(bodypartData, "data", {}))
+			theBodypart.loadData(SAVE.loadVar(bodypartData, "data", {}))
 			addBodypart(int(bodypartSlotStr), theBodypart)
 	
 	if(_data.has("charData")):
@@ -610,7 +652,7 @@ func loadNetworkData(_data:Dictionary):
 			applyCharChange(syncOption, charData[syncOption])
 	
 	if(_data.has("charState")):
-		charState.loadNetworkedData(SAVE.loadVar(_data, "charState", {}))
+		charState.loadData(SAVE.loadVar(_data, "charState", {}))
 	
 	if(_data.has("inventory")):
-		inventory.loadNetworkData(SAVE.loadVar(_data, "inventory", {}))
+		inventory.loadData(SAVE.loadVar(_data, "inventory", {}))

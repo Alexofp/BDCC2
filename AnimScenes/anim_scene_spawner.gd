@@ -102,17 +102,44 @@ func updateAnim():
 	if(spawnedScene):
 		spawnedScene.updateAnim()
 
-func saveNetworkedData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var data := Bins.saveStart([
+		Bins.Bool, isSpawned(),
+		Bins.StrShort, scenePath,
+		Bins.BINS if isSpawned() else Bins.Ignore, spawnedScene.saveNetworkData() if isSpawned() else null,
+	])
+	return data.endSave()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	var shouldBeSpawned:bool = _data.readBool()
+	var newScenePath = _data.readStrShort()
+	if(newScenePath != ""):
+		setScenePath(newScenePath)
+	if(shouldBeSpawned):
+		spawn()
+		var theSceneData := _data.readBins()
+		if(spawnedScene):
+			spawnedScene.loadNetworkData(theSceneData)
+		else:
+			Log.error("BAD SPAWNED SCENE? PATH="+str(newScenePath))
+	else:
+		despawn()
+	_data.endLoad()
+	
+	updateAnim.call_deferred()
+
+func saveData() -> Dictionary:
 	var sceneData = null
 	if(spawnedScene):
-		sceneData = spawnedScene.saveNetworkData()
+		sceneData = spawnedScene.saveData()
 	return {
 		spawned = isSpawned(),
 		scenePath = scenePath,
 		spawnedScene = sceneData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	var shouldBeSpawned:bool = SAVE.loadVar(_data, "spawned", false)
 	var newScenePath = SAVE.loadVar(_data, "scenePath", "")
 	if(newScenePath != ""):
@@ -122,7 +149,7 @@ func loadNetworkData(_data:Dictionary):
 		
 		var sceneData = SAVE.loadVar(_data, "spawnedScene", null)
 		if((sceneData is Dictionary) && spawnedScene):
-			spawnedScene.loadNetworkData(sceneData)
+			spawnedScene.loadData(sceneData)
 	else:
 		despawn()
 	

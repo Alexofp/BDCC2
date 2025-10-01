@@ -77,21 +77,58 @@ func shouldHobbleLegs() -> bool:
 			return true
 	return false
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var ar:Array = [
+		Bins.I32, equipped.size(),
+	]
+	
+	for invSlot in equipped:
+		var theItem:ItemBase = equipped[invSlot]
+		ar.append_array([Bins.I8, invSlot])
+		ar.append_array([Bins.StrShort, theItem.id])
+		ar.append_array([Bins.I32, theItem.uniqueID])
+		ar.append_array([Bins.BINS, theItem.saveNetworkData()])
+	
+	var data:= Bins.saveStart(ar)
+	return data.endSave()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	for invSlot in equipped.keys():
+		removeEquippedItem(invSlot)
+	equipped.clear()
+	
+	var theItemAmount:int = _data.readI32()
+	for _i in range(theItemAmount):
+		var invSlot:int = _data.readI8()
+		var itemID:String = _data.readStrShort()
+		var uid:int = _data.readI32()
+		var itemData:Bins = _data.readBins()
+		
+		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
+		if(!theItem):
+			continue
+		theItem.uniqueID = uid
+		theItem.loadNetworkData(itemData)
+		setEquippedItem(invSlot, theItem)
+	
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var equippedData:Dictionary = {}
 	for invSlot in equipped:
 		var theItem:ItemBase = equipped[invSlot]
 		equippedData[invSlot] = {
 			id = theItem.id,
 			uid = theItem.uniqueID,
-			data = theItem.saveNetworkData(),
+			data = theItem.saveData(),
 		}
 	
 	return {
 		equipped = equippedData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	for invSlot in equipped.keys():
 		removeEquippedItem(invSlot)
 	equipped.clear()
@@ -103,5 +140,5 @@ func loadNetworkData(_data:Dictionary):
 		var uid:int = SAVE.loadVar(itemData, "uid", 0)
 		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
 		theItem.uniqueID = uid
-		theItem.loadNetworkData(SAVE.loadVar(itemData, "data", {}))
+		theItem.loadData(SAVE.loadVar(itemData, "data", {}))
 		setEquippedItem(invSlot, theItem)

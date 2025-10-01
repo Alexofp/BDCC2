@@ -56,7 +56,7 @@ func registerPlayerInfo(info:NetworkPlayerInfo, isConnect:bool = true):
 	info.name = str(info.id)
 	
 	if(isServerNotSingleplayer()):
-		rpcClients(registerPlayerInfo_RPC.bind(info.saveNetworkData().getBytesRef()))
+		rpcClients(registerPlayerInfo_RPC.bind(info.saveNetworkData().getBytes()))
 	
 	if(isConnect):
 		playerConnected.emit(info.id, info)
@@ -404,7 +404,7 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	await internal_clientAskToJoin
 	
 	Log.Print("Got full game data, applying")
-	GameInteractor.applyFullNetworkData(clientAskToJoin_RESULT.result)
+	GameInteractor.applyFullNetworkData(Bins.readCompressedSimple(clientAskToJoin_RESULT.result))
 	Log.Print("Full game data got applied")
 	clientAskToJoin_RESULT = null
 	multiplayerStarted.emit(false)
@@ -426,7 +426,11 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData().getBytesCompressedSimple())
 	
 	Log.Print("Sending full game data to "+str(multiplayer.get_remote_sender_id()))
-	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData())
+	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData().getBytesCompressedSimple())
+	
+	#Log.Print("UNCOMPRESSED NEW: "+str(GameInteractor.saveFullNetworkData().getBytes().size()))
+	#Log.Print("COMPRESSION NEW: "+str(GameInteractor.saveFullNetworkData().getBytesCompressedSimple().size()))
+	#Log.Print("COMPRESSION OLD: "+str(var_to_bytes(GameInteractor.saveFullData()).size()))
 	
 	myInfo.connecting = false
 	
@@ -438,7 +442,7 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 signal internal_clientAskToJoin
 var clientAskToJoin_RESULT:FuncResultOrError
 @rpc("authority", "call_remote", "reliable")
-func clientAskToJoin_RPC(_data:Dictionary):
+func clientAskToJoin_RPC(_data:PackedByteArray):
 	clientAskToJoin_RESULT = FuncResultOrError.createResult(_data)
 	internal_clientAskToJoin.emit()
 	#multiplayerStarted.emit(false)

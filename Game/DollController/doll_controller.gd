@@ -607,13 +607,29 @@ func getBodySkeleton() -> BodySkeleton:
 func isControlledByUs() -> bool:
 	return getNetworkPlayerID() == Network.getMultiplayerID()
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.StrShort, characterID,
+		Bins.I32, uniqueID,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	characterID = _data.readStrShort()
+	uniqueID = _data.readI32()
+	_data.endLoad()
+	name = str(uniqueID)
+	
+	updateControlsMultiplayerAuthority()
+	updatePoseSpot()
+
+func saveData() -> Dictionary:
 	return {
 		charID = characterID,
 		UID = uniqueID,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	characterID = SAVE.loadVar(_data, "charID", characterID)
 	uniqueID = SAVE.loadVar(_data, "UID", uniqueID)
 	name = str(uniqueID)

@@ -3,19 +3,23 @@ class_name SkinTypeData
 
 var color:Color = Color.WHITE
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, color,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	color = _data.readVar()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		color = color,
 	}
 
-func loadNetworkData(_data:Dictionary):
-	color = SAVE.loadVar(_data, "color", Color.WHITE)
-
-func saveData() -> Dictionary:
-	return saveNetworkData()
-
 func loadData(_data:Dictionary):
-	loadNetworkData(_data)
+	color = SAVE.loadVar(_data, "color", Color.WHITE)
 
 func makeCopy() -> SkinTypeData:
 	var newSkinData:SkinTypeData = SkinTypeData.new()

@@ -1,7 +1,7 @@
 extends Node
 class_name CharacterRegistry
 
-var characters:Dictionary = {}
+var characters:Dictionary[String, BaseCharacter] = {}
 var lastUniqueID:int = 0
 
 signal characterAdded(charID, character)
@@ -22,7 +22,7 @@ func askCharacterChangeBaseSkinTypeData(character:BaseCharacter, newSkinType:int
 	if(Network.isServer()):
 		character.setBaseSkinTypeData(newSkinType, newSkinTypeData)
 	else:
-		askCharacterChangeBaseSkinTypeData_SERVERRPC.rpc_id(1, character.getID(), newSkinType, newSkinTypeData.saveNetworkData())
+		askCharacterChangeBaseSkinTypeData_SERVERRPC.rpc_id(1, character.getID(), newSkinType, newSkinTypeData.saveData())
 
 @rpc("any_peer", "call_remote", "reliable")
 func askCharacterChangeBaseSkinTypeData_SERVERRPC(_id:String, _skinType:int, _skinTypeData:Dictionary):
@@ -31,7 +31,7 @@ func askCharacterChangeBaseSkinTypeData_SERVERRPC(_id:String, _skinType:int, _sk
 	if(!theCharacter):
 		return
 	var skinTypeData := SkinTypeData.new()
-	skinTypeData.loadNetworkData(_skinTypeData)
+	skinTypeData.loadData(_skinTypeData)
 	#askCharacterChangeBaseSkinTypeData(theCharacter, _skinType, skinTypeData)
 	theCharacter.setBaseSkinTypeData(_skinType, skinTypeData)
 
@@ -42,7 +42,7 @@ func askCharacterPartChange(character:BaseCharacter, genericType:int, partSlot:i
 			return
 		var bodypart:GenericPart = GlobalRegistry.createGenericPart(genericType, _newPartID) if _newPartID != "" else null
 		if(bodypart):
-			bodypart.loadNetworkData(_newPartData)
+			bodypart.loadData(_newPartData)
 		character.addGenericPart(genericType, partSlot, bodypart)
 	else:
 		askCharacterPartChange_SERVERRPC.rpc_id(1, character.getID(), genericType, partSlot, _newPartID, _newPartData)
@@ -126,7 +126,7 @@ func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 		BaseCharChange.PART:
 			if(Network.isServerNotSingleplayer()):
 				var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
-				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData() if thePart else {}))
+				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveData() if thePart else {}))
 			pass
 		BaseCharChange.PART_OPTION:
 			if(Network.isServerNotSingleplayer()):
@@ -163,7 +163,7 @@ func characterPartChange_RPC(_id:String, _genericType:int, _slot:int, _partID:St
 		return
 	var bodypart:GenericPart = GlobalRegistry.createGenericPart(_genericType, _partID) if _partID != "" else null
 	if(bodypart):
-		bodypart.loadNetworkData(_partData)
+		bodypart.loadData(_partData)
 	theCharacter.addGenericPart(_genericType, _slot, bodypart)
 
 func createCharacter() -> BaseCharacter:
@@ -173,7 +173,7 @@ func createCharacter() -> BaseCharacter:
 @rpc("authority", "call_remote", "reliable")
 func createCharacter_RPC(theID:String, _data:Dictionary):
 	var theChar:BaseCharacter = createCharacterCustomID(theID)
-	theChar.loadNetworkData(_data)
+	theChar.loadData(_data)
 
 func createCharacterCustomID(theID:String) -> BaseCharacter:
 	var newChar:BaseCharacter = BaseCharacter.new()
@@ -182,7 +182,7 @@ func createCharacterCustomID(theID:String) -> BaseCharacter:
 	characters[theID] = newChar
 	characterAdded.emit(theID, newChar)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(createCharacter_RPC.bind(theID, newChar.saveNetworkData()))
+		Network.rpcClients(createCharacter_RPC.bind(theID, newChar.saveData()))
 	return newChar
 
 @rpc("authority", "call_remote", "reliable")
@@ -289,22 +289,43 @@ func syncBodyMess_RPC(_characterID:String, _data:Dictionary):
 		return
 	theCharacter.getBodyMess().loadData(_data)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	var ar:Array = [
+		Bins.I32, characters.size(),
+	]
+	for charID in characters:
+		ar.append_array([Bins.StrShort, charID])
+		ar.append_array([Bins.BINS, characters[charID].saveNetworkData()])
+	
+	return Bins.saveStartEnd(ar)
+
+func loadNetworkData(_data:Bins):
+	clearCharacters()
+	_data.loadStart()
+	var theCharAmount:int = _data.readI32()
+	for _i in range(theCharAmount):
+		var charID:String = _data.readStrShort()
+		Log.Print("LOADING NETWORKED CHAR "+str(charID))
+		var theChar:BaseCharacter=createCharacterCustomID(charID)
+		theChar.loadNetworkData(_data.readBins())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var charactersData:Dictionary = {}
 	for charID in characters:
 		charactersData[charID] = {
-			data = characters[charID].saveNetworkData(),
+			data = characters[charID].saveData(),
 		}
 	
 	return {
 		characters = charactersData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	clearCharacters()
 	
 	var newChars:Dictionary = SAVE.loadVar(_data, "characters", {})
 	for charID in newChars:
 		Log.Print("LOADING CHAR "+str(charID))
 		var theChar:BaseCharacter=createCharacterCustomID(charID)
-		theChar.loadNetworkData(SAVE.loadVar(newChars[charID], "data", {}))
+		theChar.loadData(SAVE.loadVar(newChars[charID], "data", {}))

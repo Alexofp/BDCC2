@@ -1,14 +1,20 @@
 extends Control
 
 func _ready() -> void:
+	#var someStream := StreamPeerBuffer.new()
+	#print(someStream.get_size())
+	
+	#if(true):
+	#	return
 	var bins:Bins = Bins.saveStart([
 		Bins.I64, 123,
 		Bins.Double, 420.69,
 		Bins.Str, "Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! Hello world! ",
-		#Bins.Var, ["HUH?", 543],
+		Bins.Var, ["HUH?", 543],
+		Bins.BINS, writeTest(),
 	])
-	bins.saveVar(["HUH? LOL?", 543])
-	bins.append(writeTest())
+	#bins.saveVar(["HUH? LOL?", 543])
+	#bins.append(writeTest())
 	bins.endSave()
 	
 	print("ORIG: "+str(bins.debugStr()))
@@ -25,9 +31,13 @@ func _ready() -> void:
 	print("Double: "+str(newBins.readDouble()))
 	print("String: "+str(newBins.readStr()))
 	print("Var: "+str(newBins.readVar()))
-	readTest(newBins)
+	readTest(newBins.readBins())
 	newBins.endLoad()
-
+	
+	#print("TEST: "+str( newBins.bytes.size() )+"  "+str( var_to_bytes(newBins.bytes).size() ))
+	#var testP := PackedByteArray()
+	#print("TEST: "+str( testP.size() )+"  "+str( var_to_bytes(testP).size() ))
+	
 func writeTest() -> Bins:
 	var newBins := Bins.saveStart()
 	newBins.save([

@@ -34,7 +34,7 @@ func createDollControllerFor(character:BaseCharacter) -> DollController:
 		dolls.add_child(theDoll, true)
 		
 		if(Network.isServerNotSingleplayer()):
-			Network.rpcClients(createDollController_RPC.bind(theDoll.saveNetworkData()))
+			Network.rpcClients(createDollController_RPC.bind(theDoll.saveData()))
 		
 		return theDoll
 	return null
@@ -60,7 +60,7 @@ func createDollController_RPC(dollData:Dictionary):
 	theDoll.name = str(SAVE.loadVar(dollData, "UID", 0))
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
 	dolls.add_child(theDoll)
-	theDoll.loadNetworkData(dollData)
+	theDoll.loadData(dollData)
 
 func clearDolls():
 	Util.delete_children(dolls)
@@ -102,18 +102,28 @@ func notifyCurrentDollSwitch(_newDoll:DollController):
 	curDoll = _newDoll
 	onCurrentDollSwitch.emit(oldDoll, curDoll)
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	var dollData:Array = []
 	
 	for doll in dolls.get_children():
 		if(doll is DollController):
-			dollData.append(doll.saveNetworkData())
+			dollData.append(doll.saveData())
 	
 	return {
 		dolls = dollData,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	clearDolls()
 	
 	var dollData:Array = SAVE.loadVar(_data, "dolls", [])

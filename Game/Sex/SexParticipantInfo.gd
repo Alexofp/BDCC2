@@ -42,12 +42,24 @@ func isDom() -> bool:
 func isSub() -> bool:
 	return role == SexRole.Sub
 
-func saveNetworkData() -> Dictionary:
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.I8, role,
+		Bins.Bool, autoConsent,
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	role = _data.readI8()
+	autoConsent = _data.readBool()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
 	return {
 		role = role,
 		autoConsent = autoConsent,
 	}
 
-func loadNetworkData(_data:Dictionary):
+func loadData(_data:Dictionary):
 	role = SAVE.loadVar(_data, "role", SexRole.Dom)
 	autoConsent = SAVE.loadVar(_data, "autoConsent", false)

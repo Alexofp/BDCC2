@@ -5,8 +5,8 @@ class_name Bins # Binary Saver
 const DO_CHECKSUMS = true
 const DO_SLOW_CHECKSUMS = true
 
-var bytes: PackedByteArray = PackedByteArray()
-var readSpot:int = 0
+#var bytes: PackedByteArray = PackedByteArray()
+var bytes: StreamPeerBuffer = StreamPeerBuffer.new()
 var openCounter:int = 0
 
 # In order to add new type
@@ -24,8 +24,10 @@ enum { # The most-used types should go first
 	Bool,
 	Float,
 	ByteArray, #PackedByteArray
+	BINS, #Bins
 	Var, #Variant
 	I8,
+	Ignore,
 }
 
 func getSizeOf(_ar:Array) -> int:
@@ -51,10 +53,14 @@ func getSizeOf(_ar:Array) -> int:
 			pointer += 4
 		elif(_type == ByteArray):
 			pointer += 4 + _ar[_indx+1].size()
+		elif(_type == BINS):
+			pointer += 4 + _ar[_indx+1].bytes.get_size()
 		elif(_type == Var):
 			pointer += var_to_bytes(_ar[_indx+1]).size()
 		elif(_type == I8):
 			pointer += 1
+		elif(_type == Ignore):
+			pointer += 0
 			
 		else:
 			assert(false, "IMPLEMENT ME: TYPE: "+str(_type)+" VALUE: "+str(_ar[_indx+1]))
@@ -65,18 +71,15 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 	var arSize:int = _ar.size()
 	if(arSize % 2 == 1):
 		assert(false, "LAST VALUE IS MISSING")
-	var cSize:int = bytes.size()
+	var cSize:int = bytes.get_size()
 	var toReserve:= getSizeOf(_ar)
 	if(_addSaveMarker):
 		toReserve += 1
 	
 	bytes.resize(cSize + toReserve)
 	
-	var pointer:int = cSize
-	
 	if(_addSaveMarker):
-		bytes.encode_s8(0, 123)
-		pointer += 1
+		bytes.put_8(123)
 	
 	for _ii in range(int(arSize/2.0)):
 		var _indx:int = _ii * 2
@@ -84,48 +87,40 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 		var _value:Variant = _ar[_indx+1]
 		
 		if(_type == I64):
-			bytes.encode_s64(pointer, _value)
-			pointer += 8
+			bytes.put_64(_value)
 		elif(_type == I32):
-			bytes.encode_s32(pointer, _value)
-			pointer += 4
+			bytes.put_32(_value)
 		elif(_type == Double):
-			bytes.encode_double(pointer, _value)
-			pointer += 8
+			bytes.put_double(_value)
 		elif(_type == Str):
 			var valUtf8:PackedByteArray = _value.to_utf8_buffer()
 			var strLen := valUtf8.size()
-			bytes.encode_u32(pointer, strLen)
-			pointer += 4
-			for _i in range(strLen):
-				bytes.set(pointer+_i, valUtf8[_i])
-			pointer += strLen
+			bytes.put_u32(strLen)
+			bytes.put_data(valUtf8)
 		elif(_type == StrShort):
 			var valUtf8:PackedByteArray = _value.to_utf8_buffer()
 			var strLen := valUtf8.size()
-			bytes.encode_u16(pointer, strLen)
-			pointer += 2
-			for _i in range(strLen):
-				bytes.set(pointer+_i, valUtf8[_i])
-			pointer += strLen
+			bytes.put_u16(strLen)
+			bytes.put_data(valUtf8)
 		elif(_type == Bool):
-			bytes.encode_u8(pointer, int(_value))
-			pointer += 1
+			bytes.put_u8(int(_value))
 		elif(_type == Float):
-			bytes.encode_float(pointer, _value)
-			pointer += 4
+			bytes.put_float(_value)
 		elif(_type == ByteArray):
 			var bytesAmount:int = _value.size()
-			bytes.encode_u32(pointer, bytesAmount)
-			pointer += 4
-			for _i in range(bytesAmount):
-				bytes.set(pointer+_i, _value[_i])
+			bytes.put_u32(bytesAmount)
+			bytes.put_data(_value)
+		elif(_type == BINS):
+			var theBytes:PackedByteArray = _value.bytes.data_array
+			var bytesAmount:int = theBytes.size()
+			bytes.put_u32(bytesAmount)
+			bytes.put_data(theBytes)
 		elif(_type == Var):
-			var _howMuchBytes := bytes.encode_var(pointer, _value)
-			pointer += _howMuchBytes
+			bytes.put_var(_value)
 		elif(_type == I8):
-			bytes.encode_s8(pointer, _value)
-			pointer += 1
+			bytes.put_8(_value)
+		elif(_type == Ignore):
+			pass
 			
 		else:
 			assert(false, "IMPLEMENT ME: TYPE: "+str(_type)+" VALUE: "+str(_ar[_indx+1]))
@@ -136,61 +131,45 @@ func saveVar(_var:Variant):
 # Start of read functions
 
 func readI64() -> int:
-	var val:int = bytes.decode_s64(readSpot)
-	readSpot += 8
-	return val
+	return bytes.get_64()
 
 func readI32() -> int:
-	var val:int = bytes.decode_s32(readSpot)
-	readSpot += 4
-	return val
+	return bytes.get_32()
 
 func readI8() -> int:
-	var val:int = bytes.decode_s8(readSpot)
-	readSpot += 1
-	return val
+	return bytes.get_8()
 
 func readDouble() -> float:
-	var val:float = bytes.decode_double(readSpot)
-	readSpot += 8
-	return val
+	return bytes.get_double()
 	
 func readStr() -> String:
-	var utfBufferSize:int = bytes.decode_u32(readSpot)
-	readSpot += 4
-	var theBuff := bytes.slice(readSpot, readSpot+utfBufferSize)
-	readSpot += utfBufferSize
+	var utfBufferSize:int = bytes.get_u32()
+	var theBuff:PackedByteArray = bytes.get_data(utfBufferSize)[1]
 	return theBuff.get_string_from_utf8()
 	
 func readStrShort() -> String:
-	var utfBufferSize:int = bytes.decode_u16(readSpot)
-	readSpot += 2
-	var theBuff := bytes.slice(readSpot, readSpot+utfBufferSize)
-	readSpot += utfBufferSize
+	var utfBufferSize:int = bytes.get_u16()
+	var theBuff:PackedByteArray = bytes.get_data(utfBufferSize)[1]
 	return theBuff.get_string_from_utf8()
 
 func readBool() -> bool:
-	var val:float = bytes.decode_u8(readSpot)
-	readSpot += 1
-	return val
+	return bool(bytes.get_u8())
 
 func readFloat() -> float:
-	var val:float = bytes.decode_float(readSpot)
-	readSpot += 4
-	return val
+	return bytes.get_float()
 
 func readByteArray() -> PackedByteArray:
-	var bufferSize:int = bytes.decode_u32(readSpot)
-	readSpot += 4
-	var theAr:PackedByteArray = bytes.slice(readSpot, readSpot+bufferSize)
-	readSpot += bufferSize
+	var bufferSize:int = bytes.get_u32()
+	var theAr:PackedByteArray = bytes.get_data(bufferSize)[1]
 	return theAr
 
+func readBins() -> Bins:
+	var bufferSize:int = bytes.get_u32()
+	var theAr:PackedByteArray = bytes.get_data(bufferSize)[1]
+	return readUncompressed(theAr)
+
 func readVar() -> Variant:
-	var varSize:int = bytes.decode_var_size(readSpot)
-	var theResult = bytes.decode_var(readSpot)
-	readSpot += varSize
-	return theResult
+	return bytes.get_var()
 
 # End of read functions
 
@@ -207,6 +186,20 @@ static func saveStart(_dat:Array = []) -> Bins:
 	newBins.save(_dat, DO_CHECKSUMS)
 	
 	return newBins
+
+static func saveStartEnd(_dat:Array = []) -> Bins:
+	var newBins := Bins.new()
+	newBins.openCounter += 1
+	
+	newBins.save(_dat, DO_CHECKSUMS)
+	
+	newBins.endSave()
+	return newBins
+
+func saveContinue(_dat:Array = []) -> Bins:
+	openCounter += 1
+	save(_dat, DO_CHECKSUMS)
+	return self
 
 func endSave() -> Bins:
 	if(DO_SLOW_CHECKSUMS):
@@ -228,71 +221,61 @@ func endLoad():
 	if(openCounter < 0):
 		assert(false, "TOO MANY endLoad() CALLS")
 	if(openCounter == 0):
-		if(bytes.size() != readSpot):
-			assert(false, "BAD READ SOMEWHERE! FORGOT TO READ "+str(bytes.size() - readSpot)+" BYTES!")
+		if(bytes.get_size() != bytes.get_position()):
+			assert(false, "BAD READ SOMEWHERE! FORGOT TO READ "+str(bytes.get_size() - bytes.get_position())+" BYTES!")
 
 func seek(_spot:int):
-	readSpot = _spot
+	bytes.seek(_spot)
 
 func debugStr() -> String:
 	return str(bytes)
 
 func getBytesCopy() -> PackedByteArray:
 	makeSureComplete()
-	return bytes.duplicate()
+	return bytes.data_array
 
-func getBytesRef() -> PackedByteArray:
+func getBytes() -> PackedByteArray:
 	makeSureComplete()
-	return bytes
+	return bytes.data_array
 
 func getBytesSize() -> int:
 	makeSureComplete()
-	return bytes.size()
+	return bytes.get_size()
 
 func getBytesCompressed(_compression: int = FileAccess.COMPRESSION_FASTLZ) -> PackedByteArray:
 	makeSureComplete()
-	return bytes.compress(_compression)
+	return bytes.data_array.compress(_compression)
 
 func getBytesCompressedSimple() -> PackedByteArray:
 	makeSureComplete()
-	return bytes.compress(FileAccess.COMPRESSION_DEFLATE)
+	return bytes.data_array.compress(FileAccess.COMPRESSION_DEFLATE)
 
 static func readCompressedSimple(_bytes:PackedByteArray) -> Bins:
 	var newBins := Bins.new()
-	newBins.bytes = _bytes.decompress_dynamic(-1, FileAccess.COMPRESSION_DEFLATE)
+	newBins.bytes.data_array = _bytes.decompress_dynamic(-1, FileAccess.COMPRESSION_DEFLATE)
 	return newBins
-
-func appendWithID(_id:String, _otherBins:Bins):
-	var theIDArray := _id.to_utf8_buffer()
-	var theStringBuffer := PackedByteArray()
-	theStringBuffer.resize(2)
-	theStringBuffer.encode_u16(0, theIDArray.size())
-	theStringBuffer.append_array(theIDArray)
-	theStringBuffer.append_array(_otherBins.bytes)
-	bytes.append_array(theStringBuffer)
 
 func readID() -> String:
 	return readStrShort()
 
 func append(_otherBins:Bins):
-	bytes.append_array(_otherBins.bytes)
+	bytes.put_data(_otherBins.bytes.data_array)
 
 #_uncompressedSize can be obtained using getBytesSize() on the original data
 static func readCompressed(_bytes:PackedByteArray, _uncompressedSize:int, _compression: int = FileAccess.COMPRESSION_FASTLZ) -> Bins:
 	var newBins := Bins.new()
-	newBins.bytes = _bytes.decompress(_uncompressedSize, _compression)
+	newBins.bytes.data_array = _bytes.decompress(_uncompressedSize, _compression)
 	return newBins
 
-# Doesn't duplicate your data!
 static func readUncompressed(_bytes:PackedByteArray) -> Bins:
 	var newBins := Bins.new()
-	newBins.bytes = _bytes
+	newBins.bytes.data_array = _bytes
 	return newBins
 	
-static func readUncompressedCopy(_bytes:PackedByteArray) -> Bins:
-	var newBins := Bins.new()
-	newBins.bytes = _bytes.duplicate()
-	return newBins
+#static func readUncompressedCopy(_bytes:PackedByteArray) -> Bins:
+	#var newBins := Bins.new()
+	#newBins.bytes.data_array = _bytes.duplicate()
+	#return newBins
 
 #Example usage:
 #func saveNetworkData() -> Bins:

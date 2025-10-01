@@ -74,9 +74,3 @@ func shouldHobbleLegs() -> bool:
 
 func getSexHideTags() -> Dictionary:
 	return {}
-
-func saveNetworkData() -> Dictionary:
-	return {}
-
-func loadNetworkData(_data:Dictionary):
-	pass
