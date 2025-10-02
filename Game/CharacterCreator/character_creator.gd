@@ -328,40 +328,6 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		newRegion.setOpened(regionShouldBeOpened)
 		if(!isSkin && zoneFilter != CharCreatorZone.ALL):
 			newRegion.onOpenToggle.connect(onCollapseOpenToggle.bind(BodypartSlot.getName(bodypartSlot)+"_part"))
-		
-		#TODO: CAN CAFELY REMOVE THIS PROBABLY
-		#if(false && isSkin && zoneFilter in [bodypart.getDefaultEditorZone(), CharCreatorZone.ALL]):
-			#var supportsSkinType:bool = bodypart.supportsSkinTypes()
-			#
-			#if(supportsSkinType):
-				#var possibleSkinTypes:Array = bodypart.getSupportedSkinTypes().keys()
-				#if(possibleSkinTypes.size() > 1):
-					#var theDropDown:OptionButton = OptionButton.new()
-					#newRegion.addNodeInside(theDropDown)
-					#theDropDown.item_selected.connect(onSkinTypeOverrideSelected.bind(bodypartSlot))
-					#
-					#var _i:int = 0
-					#for theSkinType in possibleSkinTypes:
-						#theDropDown.add_item(SkinType.getName(theSkinType))
-						#if(theSkinType == bodypart.getSkinTypeRaw()):
-							#theDropDown.select(_i)
-						#_i += 1
-				#
-				#var isInherit:bool = (bodypart.skinDataOverride == null)
-				#
-				#var overrideCheckbox:CheckBox = CheckBox.new()
-				#newRegion.addNodeInside(overrideCheckbox)
-				#overrideCheckbox.text = "Inherit base color"
-				#overrideCheckbox.set_pressed_no_signal(isInherit)
-				#overrideCheckbox.toggled.connect(onBodypartOverrideSkinDataCheckbox.bind(bodypartSlot))
-				#
-				#if(!isInherit):
-					#var theColorPicker:ColorPickerButton = ColorPickerButton.new()
-					#newRegion.addNodeInside(theColorPicker)
-					#theColorPicker.color = bodypart.skinDataOverride.color
-					#theColorPicker.custom_minimum_size.y = 30.0
-					#
-					#theColorPicker.color_changed.connect(chanceSkinTypeDataBodypartColor.bind(bodypartSlot))
 
 				
 		var newVarList:VarList = varListScene.instantiate()
@@ -369,22 +335,6 @@ func updatePartOptionsListGeneric(listNode:Node, optionFilter:String):
 		newVarList.setVars(options)
 		newVarList.onVarChange.connect(onBodypartChangeOption.bind(bodypartSlot))
 
-#func onBodypartOverrideSkinDataCheckbox(newToggled:bool, bodypartSlot:int):
-	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-	#if(newToggled):
-		##bodypart.skinDataOverride = null
-		#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.skinType, null)
-	#else:
-		#if(bodypart.skinDataOverride == null):
-			##bodypart.skinDataOverride = SkinTypeData.new()
-			##bodypart.skinDataOverride.skinType = bodypart.getSkinType()
-			#var newSkinTypeData:SkinTypeData = SkinTypeData.new()
-			##newSkinTypeData.skinType = bodypart.getSkinType()
-			#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, bodypart.getSkinTypeRaw(), newSkinTypeData)
-	##updateSkinTab()
-	##updatePartOptionsList()
-	##character.updateAllSkinTypes()
-	
 
 func onCollapseOpenToggle(newOpen:bool, collapseID:String):
 	regionRememberOpen[collapseID] = newOpen

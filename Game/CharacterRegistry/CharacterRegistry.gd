@@ -126,7 +126,7 @@ func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 		BaseCharChange.PART:
 			if(Network.isServerNotSingleplayer()):
 				var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
-				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveData() if thePart else {}))
+				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData().getBytesCompressedSimple() if thePart else PackedByteArray()))
 			pass
 		BaseCharChange.PART_OPTION:
 			if(Network.isServerNotSingleplayer()):
@@ -157,13 +157,13 @@ func characterPartOptionChange_RPC(_id:String, _genericType:int, _slot:int, _opt
 	genericPart.setOptionValue(_optionID, _value)
 
 @rpc("authority", "call_remote", "reliable")
-func characterPartChange_RPC(_id:String, _genericType:int, _slot:int, _partID:String, _partData:Dictionary):
+func characterPartChange_RPC(_id:String, _genericType:int, _slot:int, _partID:String, _partData:PackedByteArray):
 	var theCharacter:BaseCharacter = getCharacter(_id)
 	if(!theCharacter):
 		return
 	var bodypart:GenericPart = GlobalRegistry.createGenericPart(_genericType, _partID) if _partID != "" else null
 	if(bodypart):
-		bodypart.loadData(_partData)
+		bodypart.loadNetworkData(Bins.readCompressedSimple(_partData))
 	theCharacter.addGenericPart(_genericType, _slot, bodypart)
 
 func createCharacter() -> BaseCharacter:

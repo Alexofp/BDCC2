@@ -179,17 +179,14 @@ func _ready() -> void:
 	registerNoraySignals()
 	
 
-var internal_connectResult:FuncResultOrError
-signal internal_onConnectOrFail
+signal internal_onConnectOrFail(res)
 
 func _on_connection_failed():
-	internal_connectResult = FuncResultOrError.createError(1)
-	internal_onConnectOrFail.emit()
+	internal_onConnectOrFail.emit(FuncResultOrError.createError(1))
 	pass
 
 func _on_connected_ok():
-	internal_connectResult = FuncResultOrError.createResult(true)
-	internal_onConnectOrFail.emit()
+	internal_onConnectOrFail.emit(FuncResultOrError.createResult(true))
 	pass
 
 func _on_player_connected(_id):
@@ -346,7 +343,13 @@ func connectLAN(_ip:String) -> FuncResultOrError:
 		return FuncResultOrError.createError(ERROR_GENERIC, error_string(error))
 	multiplayer.multiplayer_peer = peer
 	
-	await internal_onConnectOrFail
+	var timeoutRes := await AsyncUtil.timeout(internal_onConnectOrFail, 45.0)
+	if(timeoutRes.didTimeout()):
+		return FuncResultOrError.createError(ERROR_GENERIC, "Connection timeout")
+	var internal_connectResult:FuncResultOrError = timeoutRes.getArg1()
+	
+	#await internal_onConnectOrFail
+	
 	if(internal_connectResult.isError()):
 		Log.Printerr("Network failed to connect, status = "+str(getConnectionState()))
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection failed")
@@ -367,7 +370,12 @@ func clientAskGameInfo() -> FuncResultOrError:
 	Log.Print("Asking for game info")
 	clientAskGameInfo_SERVERRPC.rpc_id(1)
 	#TODO: Some kind of timeout?
-	await internal_clientAskGameInfo
+	
+	var timeoutRes := await AsyncUtil.timeout(internal_clientAskGameInfo, 25.0)
+	if(timeoutRes.didTimeout()):
+		return FuncResultOrError.createError(ERROR_GENERIC, "Timeout while getting game info")
+	var clientAskGameInfo_RESULT:FuncResultOrError = timeoutRes.getArg1()
+	#await internal_clientAskGameInfo
 	Log.Print("Received game info")
 	return clientAskGameInfo_RESULT
 
@@ -383,12 +391,11 @@ func clientAskGameInfo_SERVERRPC():
 	}
 	clientAskGameInfo_RPC.rpc_id(multiplayer.get_remote_sender_id(), gameState)
 
-signal internal_clientAskGameInfo
-var clientAskGameInfo_RESULT:FuncResultOrError
+signal internal_clientAskGameInfo(res)
+
 @rpc("authority", "call_remote", "reliable")
 func clientAskGameInfo_RPC(_state:Dictionary):
-	clientAskGameInfo_RESULT = FuncResultOrError.createResult(_state)
-	internal_clientAskGameInfo.emit()
+	internal_clientAskGameInfo.emit(FuncResultOrError.createResult(_state))
 
 
 func clientAskToJoin(_nickname:String) -> FuncResultOrError:
@@ -401,12 +408,16 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	Log.Print("Asking to join with nickname "+_nickname)
 	clientAskToJoin_SERVERRPC.rpc_id(1, _nickname)
 	
-	await internal_clientAskToJoin
+	#await internal_clientAskToJoin
+	var timeoutRes := await AsyncUtil.timeout(internal_clientAskToJoin, 30.0)
+	if(timeoutRes.didTimeout()):
+		return FuncResultOrError.createError(ERROR_GENERIC, "Timeout while getting full game data")
+	var clientAskToJoin_RESULT:FuncResultOrError = timeoutRes.getArg1()
 	
 	Log.Print("Got full game data, applying")
 	GameInteractor.applyFullNetworkData(Bins.readCompressedSimple(clientAskToJoin_RESULT.result))
 	Log.Print("Full game data got applied")
-	clientAskToJoin_RESULT = null
+	
 	multiplayerStarted.emit(false)
 	return FuncResultOrError.createResult(true)
 
@@ -439,12 +450,10 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 	#notifyMultiplayerStarted.rpc_id(multiplayer.get_remote_sender_id())
 	#Log.Print("SENT NOTIFY MULTIPLAYER STARTED RPC TO "+str(multiplayer.get_remote_sender_id()))
 
-signal internal_clientAskToJoin
-var clientAskToJoin_RESULT:FuncResultOrError
+signal internal_clientAskToJoin(res)
 @rpc("authority", "call_remote", "reliable")
 func clientAskToJoin_RPC(_data:PackedByteArray):
-	clientAskToJoin_RESULT = FuncResultOrError.createResult(_data)
-	internal_clientAskToJoin.emit()
+	internal_clientAskToJoin.emit(FuncResultOrError.createResult(_data))
 	#multiplayerStarted.emit(false)
 	#GameInteractor.applyFullNetworkData(_data)
 	#internal_clientAskToJoin.emit()
@@ -543,7 +552,12 @@ func norayPrepare(relayServer:String = NORAY_SERVER, relayServerPort:int = NORAY
 		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
 	
 	Noray.register_host()
-	await Noray.on_pid
+	var theResult := await AsyncUtil.timeout(Noray.on_pid, 10.0)
+	if(theResult.didTimeout()):
+		var errorText:String = "Failed to connect to Noray, timeout while getting PID"
+		Log.Printerr(errorText)
+		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
+	#await Noray.on_pid
 	#await asyncCondition(
 	#	func(): return Noray.oid != ""
 	#)
@@ -609,13 +623,17 @@ func connectNoray(_hostID:String, relayServer:String = NORAY_SERVER, relayServer
 	else:
 		Noray.connect_nat(_hostID)
 	
-	await internal_norayConnectedOrFailed
+	var norayRes := await AsyncUtil.timeout(internal_norayConnectedOrFailed, 45.0)
+	if(norayRes.didTimeout()):
+		return FuncResultOrError.createError(ERROR_GENERIC, "Timeout while connecting to the server")
+	var norayConnectedOrFailed_RESULT:FuncResultOrError = norayRes.getArg1()
+	
+	#await internal_norayConnectedOrFailed
 	if(norayConnectedOrFailed_RESULT.isError()):
 		return norayConnectedOrFailed_RESULT
 	return FuncResultOrError.createResult(true)
 	
-signal internal_norayConnectedOrFailed
-var norayConnectedOrFailed_RESULT:FuncResultOrError
+signal internal_norayConnectedOrFailed(res)
 	
 func norayHandleConnectNat(address: String, port: int) -> Error:
 	var err := await norayHandleConnect(address, port)
@@ -627,8 +645,7 @@ func norayHandleConnectNat(address: String, port: int) -> Error:
 		err = OK
 		return err
 
-	norayConnectedOrFailed_RESULT = FuncResultOrError.createResult(true)
-	internal_norayConnectedOrFailed.emit()
+	internal_norayConnectedOrFailed.emit(FuncResultOrError.createResult(true))
 
 	return err
 
@@ -636,11 +653,9 @@ func norayHandleConnectRelay(address: String, port: int) -> Error:
 	var err := await norayHandleConnect(address, port)
 	
 	if err != OK:
-		norayConnectedOrFailed_RESULT = FuncResultOrError.createError(ERROR_GENERIC, "Failed to connect")
-		internal_norayConnectedOrFailed.emit()
+		internal_norayConnectedOrFailed.emit(FuncResultOrError.createError(ERROR_GENERIC, "Failed to connect"))
 	else:
-		norayConnectedOrFailed_RESULT = FuncResultOrError.createResult(true)
-		internal_norayConnectedOrFailed.emit()
+		internal_norayConnectedOrFailed.emit(FuncResultOrError.createResult(true))
 	
 	return err
 

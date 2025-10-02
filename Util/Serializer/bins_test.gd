@@ -2,7 +2,11 @@ extends Control
 
 func _ready() -> void:
 	#var someStream := StreamPeerBuffer.new()
+	#var someString:String = "HELLO"
+	
+	#someStream.put_var(someString)
 	#print(someStream.get_size())
+	#print(var_to_bytes(someString).size())
 	
 	#if(true):
 	#	return

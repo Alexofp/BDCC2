@@ -56,7 +56,7 @@ func getSizeOf(_ar:Array) -> int:
 		elif(_type == BINS):
 			pointer += 4 + _ar[_indx+1].bytes.get_size()
 		elif(_type == Var):
-			pointer += var_to_bytes(_ar[_indx+1]).size()
+			pointer += var_to_bytes(_ar[_indx+1]).size() + 4
 		elif(_type == I8):
 			pointer += 1
 		elif(_type == Ignore):
@@ -75,6 +75,8 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 	var toReserve:= getSizeOf(_ar)
 	if(_addSaveMarker):
 		toReserve += 1
+	
+	var expectedFinalSize:int = cSize + toReserve
 	
 	bytes.resize(cSize + toReserve)
 	
@@ -124,7 +126,10 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 			
 		else:
 			assert(false, "IMPLEMENT ME: TYPE: "+str(_type)+" VALUE: "+str(_ar[_indx+1]))
-
+	
+	if(expectedFinalSize != bytes.get_size()):
+		assert(false, "SIZES DON'T MATCH! expectedFinalSize="+str(expectedFinalSize)+" bytes.get_size()="+str(bytes.get_size()))
+	
 func saveVar(_var:Variant):
 	bytes.append_array(var_to_bytes(_var))
 

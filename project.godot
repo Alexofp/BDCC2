@@ -45,6 +45,7 @@ NetworkPerformance="*res://addons/netfox/network-performance.gd"
 WindowTiler="*res://addons/netfox.extras/window-tiler.gd"
 CameraSystem="*res://Game/Systems/Camera/CameraSystem.gd"
 CumManager="*res://Mesh/Cum/CumManager.gd"
+AsyncUtil="*res://Util/AsyncUtil.gd"
 
 [display]
 
