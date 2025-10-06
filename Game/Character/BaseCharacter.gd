@@ -29,7 +29,12 @@ const GENERIC_CLOTHING = 1
 func getID() -> String:
 	return id
 
+func deinit():
+	inventory.unregister()
+
 func _init():
+	inventory.register()
+	
 	skinTypes.skinTypeChanged.connect(onSkinTypeChanged)
 	
 	inventory.onEquippedItemChange.connect(onInventoryEquipItemChange)
@@ -144,7 +149,7 @@ func removeGenericPart(_genericType:int, slot:int):
 		clearBodypart(slot)
 		return
 	if(_genericType == GENERIC_CLOTHING):
-		inventory.removeEquippedItem(slot)
+		inventory.clearSlot(slot)
 		return
 	Log.Printerr("Trying to remove a generic part of unknown type: "+str(_genericType))
 

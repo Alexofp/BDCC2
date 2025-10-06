@@ -9,6 +9,7 @@ class_name MainScene
 
 var character_creator:Node
 
+@onready var inventory_registry: InventoryRegistry = %InventoryRegistry
 @onready var characterRegistry: CharacterRegistry = %CharacterRegistry
 @onready var pawn_registry: PawnRegistry = %PawnRegistry
 @onready var sit_manager: SitManager = %SitManager
@@ -217,6 +218,8 @@ func getPawnRegistry() -> PawnRegistry:
 func getDollHolder() -> DollHolder:
 	return doll_holder
 
+func getInventoryRegistry() -> InventoryRegistry:
+	return inventory_registry
 
 func _on_doll_holder_on_current_doll_switch(_oldDoll: Variant, _newDoll: DollController) -> void:
 	if(!_newDoll):

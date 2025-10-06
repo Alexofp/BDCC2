@@ -66,7 +66,7 @@ func createPawn(charID:String) -> CharacterPawn:
 	onPawnListChanged.emit()
 	
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(createPawnRPC.bind(charID, thePawn.saveNetworkData()))
+		Network.rpcClients(createPawnRPC.bind(charID, thePawn.saveData()))
 	
 	return thePawn
 

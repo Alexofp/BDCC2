@@ -9,6 +9,7 @@ static var cachedPcDoll:DollController
 
 static var pc:BaseCharacter: get = getPC
 static var characterRegistry:CharacterRegistry: get = getCharacterRegistry
+static var inventoryRegistry:InventoryRegistry: get = getInventoryRegistry
 static var pawnRegistry:PawnRegistry: get = getPawnRegistry
 static var dollHolder:DollHolder: get = getDollHolder
 static var sitManager:SitManager: get = getSitManager
@@ -59,6 +60,11 @@ static func getPCPawn() -> CharacterPawn:
 static func getCharacterRegistry() -> CharacterRegistry:
 	if(main != null):
 		return main.getCharacterRegistry()
+	return null
+
+static func getInventoryRegistry() -> InventoryRegistry:
+	if(main != null):
+		return main.getInventoryRegistry()
 	return null
 
 static func getPawnRegistry() -> PawnRegistry:

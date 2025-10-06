@@ -12,6 +12,8 @@ var textureVariants:Dictionary = {}
 var textureVariantsByType:Dictionary = {}
 var sexActivities: Dictionary = {}
 var sexActivityRefs: Dictionary = {}
+var sexSideActivities: Dictionary = {}
+var sexSideActivityRefs: Dictionary = {}
 var sexTypes: Dictionary = {}
 var sexTypeRefs: Dictionary = {}
 var animScenes: Dictionary = {}
@@ -129,6 +131,7 @@ func doInit():
 	registerTextureVariantsFolder("res://Mesh/Parts/SharedTextures/")
 	
 	registerSexActivityFolder("res://Game/Sex/SexActivities/")
+	registerSexSideActivityFolder("res://Game/Sex/SideActivities/")
 	registerSexTypeFolder("res://Game/Sex/SexTypes/")
 	
 	registerAnimSceneFolder("res://AnimScenes/Defs/")
@@ -270,7 +273,7 @@ func registerSexActivity(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()
 	
-	if(object is SexActivityBase):
+	if(object is SexMainActivity):
 		sexActivities[object.id] = loadedClass
 		sexActivityRefs[object.id] = object
 
@@ -279,7 +282,7 @@ func registerSexActivityFolder(folder: String):
 	for scriptPath in scripts:
 		registerSexActivity(scriptPath)
 
-func createSexActivity(id: String) -> SexActivityBase:
+func createSexActivity(id: String) -> SexMainActivity:
 	if(sexActivities.has(id)):
 		return sexActivities[id].new()
 	else:
@@ -289,11 +292,43 @@ func createSexActivity(id: String) -> SexActivityBase:
 func getSexActivities():
 	return sexActivityRefs
 
-func getSexActivityRef(id: String) -> SexActivityBase:
+func getSexActivityRef(id: String) -> SexMainActivity:
 	if(sexActivityRefs.has(id)):
 		return sexActivityRefs[id]
 	else:
 		Log.Printerr("ERROR: sex activity with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+func registerSexSideActivity(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexSideActivity):
+		sexSideActivities[object.id] = loadedClass
+		sexSideActivityRefs[object.id] = object
+
+func registerSexSideActivityFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerSexSideActivity(scriptPath)
+
+func createSexSideActivity(id: String) -> SexSideActivity:
+	if(sexSideActivities.has(id)):
+		return sexSideActivities[id].new()
+	else:
+		Log.Printerr("ERROR: sex side activity with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexSideActivities():
+	return sexSideActivityRefs
+
+func getSexSideActivityRef(id: String) -> SexSideActivity:
+	if(sexSideActivityRefs.has(id)):
+		return sexSideActivityRefs[id]
+	else:
+		Log.Printerr("ERROR: sex side activity with the id "+str(id)+" wasn't found")
 		return null
 
 

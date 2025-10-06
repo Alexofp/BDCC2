@@ -6,6 +6,7 @@ var dollHolder:DollHolder
 var sitManager:SitManager
 var networkedNodes:NetworkedNodes
 var sexManager:SexManager
+var inventoryRegistry:InventoryRegistry
 
 var serverCommandObjects:Dictionary = {}
 var clientCommandObjects:Dictionary = {}
@@ -24,9 +25,11 @@ func _ready():
 func applyFullNetworkData(_data:Bins):
 	Log.Print("(GAME INTERACTOR) Received full data")
 	loadFullNetworkData(_data)
+	_data.checkEnded()
 
 func saveFullNetworkData() -> Bins:
 	var data := Bins.saveStart([
+		Bins.BINS, inventoryRegistry.saveNetworkData(),
 		Bins.BINS, characterRegistry.saveNetworkData(),
 		Bins.BINS, pawnRegistry.saveNetworkData(),
 		Bins.BINS, dollHolder.saveNetworkData(),
@@ -38,6 +41,7 @@ func saveFullNetworkData() -> Bins:
 
 func loadFullNetworkData(_data:Bins):
 	_data.loadStart()
+	inventoryRegistry.loadNetworkData(_data.readBins())
 	characterRegistry.loadNetworkData(_data.readBins())
 	pawnRegistry.loadNetworkData(_data.readBins())
 	dollHolder.loadNetworkData(_data.readBins())
@@ -48,6 +52,7 @@ func loadFullNetworkData(_data:Bins):
 
 func saveFullData() -> Dictionary:
 	return {
+		inventoryRegistry = inventoryRegistry.saveData(),
 		characterRegistry = characterRegistry.saveData(),
 		pawnRegistry = pawnRegistry.saveData(),
 		dolls = dollHolder.saveData(),
@@ -57,6 +62,7 @@ func saveFullData() -> Dictionary:
 	}
 
 func loadFullData(_data:Dictionary):
+	inventoryRegistry.loadNetworkData(SAVE.loadVar(_data, "inventoryRegistry", {}))
 	characterRegistry.loadNetworkData(SAVE.loadVar(_data, "characterRegistry", {}))
 	pawnRegistry.loadNetworkData(SAVE.loadVar(_data, "pawnRegistry", {}))
 	dollHolder.loadNetworkData(SAVE.loadVar(_data, "dolls", {}))

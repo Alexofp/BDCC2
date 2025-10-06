@@ -42,6 +42,12 @@ func isDom() -> bool:
 func isSub() -> bool:
 	return role == SexRole.Sub
 
+func canDoDomActions() -> bool:
+	return isDom() || getSexEngine().canDoDomActions(id)
+
+func getID() -> String:
+	return id
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.I8, role,

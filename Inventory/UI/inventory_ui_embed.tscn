@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nex6xlb2bqnf"]
+[gd_scene load_steps=3 format=3 uid="uid://nex6xlb2bqnf"]
 
 [ext_resource type="Script" uid="uid://c7jun2qq7us4r" path="res://Inventory/UI/inventory_ui_embed.gd" id="1_v6mls"]
+[ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="2_87hiv"]
 
 [node name="InventoryUIEmbed" type="VBoxContainer"]
 anchors_preset = 15
@@ -18,3 +19,28 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="DescContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="DescRichLabel" type="RichTextLabel" parent="DescContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="SmartButtonGrid" parent="." instance=ExtResource("2_87hiv")]
+unique_name_in_owner = true
+layout_mode = 2
+buttonAmountInitial = 6
+gridColumnsInitial = 3
+
+[node name="TestButton" type="Button" parent="."]
+layout_mode = 2
+text = "Test"
+
+[connection signal="onButtonPressed" from="SmartButtonGrid" to="." method="_on_smart_button_grid_on_button_pressed"]
+[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]

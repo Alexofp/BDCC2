@@ -17,8 +17,8 @@ const STATE_CONSENT = 2 # We're waiting for someone to agree
 @export var transitionTimerFull:float = 0.0
 @export var transitionText:String = ""
 
-const ACTION_SEXTYPE = 0
-const ACTION_SEXACTIVITY = 1
+const ACTION_START_ACTION = 0
+const ACTION_SEX_ACTION = 1
 const ACTION_CONSENT = 2
 const ACTION_DENY_CONSENT = 3
 const ACTION_CANCEL = 4
@@ -30,8 +30,9 @@ var actionsCache:Dictionary = {}
 # char id = sex info
 var participants:Dictionary = {}
 
-var sexActivity:SexActivityBase
+var sexActivity:SexMainActivity
 var sexType:SexTypeBase
+var sideActivities:Array[SexSideActivity] = []
 
 var consensual:bool = false
 
@@ -58,6 +59,8 @@ const QUEUE_CANCEL_STOPPER = 5
 const QUEUE_CANCEL_CATCHER = 6
 const QUEUE_SET_STATE = 7
 const QUEUE_CONSENT_CHECK = 8
+const QUEUE_START_MAIN_ACTIVITY = 9
+const QUEUE_START_SIDE_ACTIVITY = 10
 
 const JUST_SKIP_QUEUE_TYPES = [
 	QUEUE_CANCEL_STOPPER,
@@ -141,7 +144,12 @@ func processEventQueue(_dt:float):
 				continue
 			else:
 				break
-			
+		elif(queueType == QUEUE_START_MAIN_ACTIVITY):
+			startMainActivity(queueEntry[1], queueEntry[2], queueEntry[3])
+			eventQueue.pop_front()
+		elif(queueType == QUEUE_START_SIDE_ACTIVITY):
+			startSideActivity(queueEntry[1], queueEntry[2], queueEntry[3])
+			eventQueue.pop_front()
 		elif(queueType in JUST_SKIP_QUEUE_TYPES):
 			eventQueue.pop_front()
 		else:
@@ -317,37 +325,45 @@ func calculateActions(charID:String) -> Array:
 				})
 			#var _role:String = _entryObj.getRoleFromID(charID)
 			
-	
-	if(!isSexEngineBusy && sexType):
-		var theActions := sexType.getActionsForCharID(charID)
+	if(!isSexEngineBusy):
+		var toProcess:Array[SexEngineActivityBase] = [sexType, sexActivity]
+		for theSexActivity in toProcess:
+			if(!theSexActivity):
+				continue
+			var theActions := theSexActivity.getActionsForCharID(charID)
+			for actionEntry in theActions:
+				result.append({
+					id = ACTION_SEX_ACTION,
+					activity = theSexActivity,
+					name = actionEntry.actionName,
+					action = actionEntry,
+					category = actionEntry.category,
+				})
 		
-		for actionEntry in theActions:
-			#if(!shouldKeepAction(charID, actionEntry, sexType)):
-			#	continue
+		var theInfo:SexParticipantInfo = getInfo(charID)
+		for theSexActivityID in GlobalRegistry.getSexActivities():
+			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
+			internal_AddSexActivityActions(theActivityRef, theInfo, result)
+		for theSexActivityID in GlobalRegistry.getSexSideActivities():
+			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexSideActivityRef(theSexActivityID)
+			internal_AddSexActivityActions(theActivityRef, theInfo, result)
 			
-			result.append({
-				id = ACTION_SEXTYPE,
-				name = actionEntry.actionName,
-				action = actionEntry,
-				category = actionEntry.category,
-				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
-			})
-	if(!isSexEngineBusy && sexActivity):
-		var theActions := sexActivity.getActionsForCharID(charID)
-		
-		for actionEntry in theActions:
-			#if(!shouldKeepAction(charID, actionEntry, sexActivity)):
-			#	continue
-			
-			result.append({
-				id = ACTION_SEXACTIVITY,
-				name = actionEntry.actionName,
-				action = actionEntry,
-				category = actionEntry.category,
-				#mods = actionEntry["mods"] if actionEntry.has("mods") else {},
-			})
-	
 	return result
+
+func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array):
+	for otherCharID in participants: #TODO: Replace this with target-based approach
+		var otherInfo:SexParticipantInfo = getInfo(otherCharID)
+		
+		var theActions := theActivityRef.getStartActionsFinal(self, theInfo, otherInfo)
+		for actionEntry in theActions:
+			result.append({
+				id = ACTION_START_ACTION,
+				activity = theActivityRef,
+				target = otherCharID,
+				name = actionEntry.actionName,
+				action = actionEntry,
+				category = actionEntry.category,
+			})
 
 func hasAutoConsent(_charID:String) -> bool:
 	var theInfo := getInfo(_charID)
@@ -376,13 +392,13 @@ func hasEveryoneConsent(_activity, _consented:Array[String]) -> bool:
 			return false
 	return true
 
-#func shouldKeepAction(charID:String, actionEntry:Dictionary, sexActivityBase:SexEngineActivityBase) -> bool:
+#func shouldKeepAction(charID:String, actionEntry:Dictionary, SexMainActivity:SexEngineActivityBase) -> bool:
 	#var theMods:Dictionary = actionEntry["mods"] if actionEntry.has("mods") else {}
 	#
 	#if(theMods.has(SexActionMod.ROLES)):
 		#if(isConsensual()):
 			#pass
-		#elif(!(sexActivityBase.getRoleFromID(charID) in theMods[SexActionMod.ROLES])):
+		#elif(!(SexMainActivity.getRoleFromID(charID) in theMods[SexActionMod.ROLES])):
 			#return false
 	#
 	#return true
@@ -442,12 +458,25 @@ func doActionInternal(charID:String, action:Dictionary):
 	# all id checks go here
 	
 	var actionID:int = action["id"]
-	if(actionID == ACTION_SEXTYPE):
+	if(actionID == ACTION_SEX_ACTION):
 		var theAction:SexAction = action["action"]
-		sexType.doSexActionForCharID(charID, theAction)
-	if(actionID == ACTION_SEXACTIVITY):
+		var theActivity:SexEngineActivityBase = action["activity"]
+		if(!theActivity):
+			Log.Printerr("Tried to do a sex action that isn't attached to a sex activity! action="+str(action))
+			return
+		theActivity.doSexActionForCharID(charID, theAction)
+	if(actionID == ACTION_START_ACTION):
 		var theAction:SexAction = action["action"]
-		sexActivity.doSexActionForCharID(charID, theAction)
+		var theActivityRef:SexEngineActivityBase = action["activity"]
+		var targetID:String = action["target"]
+		
+		var theInfo:SexParticipantInfo = getInfo(charID)
+		var theTarget:SexParticipantInfo = getInfo(targetID)
+		
+		if(!theInfo || !theTarget):
+			Log.Printerr("Can't start a sex activity, target or starter are missing.")
+			return
+		theActivityRef.doStartSexAction(self, theInfo, theTarget, theAction)
 	if(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
 		addActionText("Someone decides to cancel the action!")
@@ -496,10 +525,10 @@ func cancelQueue(_charID:String = ""):
 			_entryObj.doEventFinal(queueEntry[1], queueEntry[2])
 			break
 
-func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexActivityBase:
+func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexMainActivity:
 	if(sexActivity):
 		stopMainActivity()
-	var theActivity:SexActivityBase = GlobalRegistry.createSexActivity(activityID)
+	var theActivity:SexMainActivity = GlobalRegistry.createSexActivity(activityID)
 	if(!theActivity):
 		return null
 	theActivity.setSexEngine(self)
@@ -516,8 +545,37 @@ func stopMainActivity():
 	sexActivity = null
 	sexType.onMainActivityEnded(savedActivityID)
 
-func getSexActivity() -> SexActivityBase:
+func getSexActivity() -> SexMainActivity:
 	return sexActivity
+
+func hasMainActivity() -> bool:
+	if(sexActivity):
+		return true
+	return false
+
+func startSideActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexSideActivity:
+	var theActivity:SexSideActivity = GlobalRegistry.createSexSideActivity(activityID)
+	if(!theActivity):
+		return null
+	theActivity.setSexEngine(self)
+	sideActivities.append(theActivity)
+	theActivity.start(_roles, _args)
+	# TODO some syncing here?
+	theActivity.onStartFinal()
+	return theActivity
+
+func stopActivity(theActivity:SexEngineActivityBase):
+	if(!theActivity):
+		return
+	if(theActivity == sexActivity):
+		stopMainActivity()
+		return
+	if(!sideActivities.has(theActivity)):
+		return
+	#var savedActivityID:String = sexActivity.id
+	#sexActivity = null
+	#sexType.onMainActivityEnded(savedActivityID)
+	sideActivities.erase(theActivity) #onSideActivityEnded?
 
 func getSexType() -> SexTypeBase:
 	return sexType

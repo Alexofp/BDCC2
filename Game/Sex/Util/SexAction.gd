@@ -5,6 +5,7 @@ const ACTION_ACTION = 0
 const ACTION_DELAY = 1
 const ACTION_DELAY_CANCANCEL = 2
 const ACTION_CONSENT_CHECK = 3
+const ACTION_START = 4
 
 #var id:String = ""
 var actionName:String = ""
@@ -32,6 +33,10 @@ func delayCancel(_delay:float) -> SexAction:
 
 func consent(_delay:float) -> SexAction:
 	payload.append([ACTION_CONSENT_CHECK, _delay])
+	return self
+
+func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:
+	payload.append([ACTION_START, _roles, _args])
 	return self
 
 func setScore(_score:float) -> SexAction:

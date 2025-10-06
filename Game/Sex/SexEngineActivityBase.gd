@@ -1,6 +1,10 @@
 extends RefCounted
 class_name SexEngineActivityBase
 
+const ACTIVITY_SEXTYPE = 0
+const ACTIVITY_MAIN = 1
+const ACTIVITY_SIDE = 2
+
 var id:String = "error"
 var engineRef:WeakRef
 
@@ -9,6 +13,9 @@ var roleToID:Dictionary = {}
 var idToRole:Dictionary = {}
 
 var state:String = ""
+
+func getActivityType() -> int:
+	return ACTIVITY_SEXTYPE
 
 func setSexEngine(theEngine:SexEngine):
 	engineRef = weakref(theEngine)
@@ -27,6 +34,42 @@ func onStartFinal():
 
 func onStart():
 	pass
+
+func getStartActionsFinal(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo) -> Array[SexAction]:
+	tempActions = []
+	getStartActions(_sexEngine, _info, _target)
+	return tempActions
+
+func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
+	if(_sexEngine.hasMainActivity() || _info == _target):
+		return
+	addAction(action("TEST TEST!").delay(0.3).start({dom=_info, sub=_target}))
+	#addAction(action("AAAA!").delay(3.0))
+	pass
+
+#func addStartAction():
+#	pass
+func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
+	for payloadEntry in _action.payload:
+		var entryType:int = payloadEntry[0]
+		
+		#if(entryType == SexAction.ACTION_ACTION):
+		#	pushAutoAction(_role, payloadEntry[1], payloadEntry[2])
+		if(entryType == SexAction.ACTION_DELAY):
+			_sexEngine.pushToQueue(id, _sexEngine.createQueueDelay(payloadEntry[1]))
+		elif(entryType == SexAction.ACTION_START):
+			var _roles:Dictionary = payloadEntry[1].duplicate()
+			for theRole in _roles:
+				if(_roles[theRole] is SexParticipantInfo):
+					_roles[theRole] = _roles[theRole].getID()
+			var _args:Dictionary = payloadEntry[2]
+			_sexEngine.pushToQueue(id, [SexEngine.QUEUE_START_MAIN_ACTIVITY if getActivityType() == ACTIVITY_MAIN else SexEngine.QUEUE_START_SIDE_ACTIVITY, id, _roles, _args])
+		#elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
+		#	pushDelayCanCancel(payloadEntry[1], _role)
+		#elif(entryType == SexAction.ACTION_CONSENT_CHECK):
+		#	pushConsentCheck(payloadEntry[1], [getRoleID(_role)])
+		else:
+			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doStartSexAction()")
 
 func getStateFuncPrefixRaw(_state:String) -> String:
 	if(_state.is_empty()):
@@ -170,14 +213,16 @@ func doSexActionFinal(_role:String, _action:SexAction):
 			pushDelayCanCancel(payloadEntry[1], _role)
 		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
 			pushConsentCheck(payloadEntry[1], [getRoleID(_role)])
+		else:
+			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doSexActionFinal()")
 
 func doSexActionForCharID(_charID:String, _action:SexAction):
 	doSexActionFinal(getRoleFromID(_charID), _action)
 
 func endActivity():
 	var sexEngine:SexEngine = getSexEngine()
-	if(sexEngine.getSexActivity() == self):
-		sexEngine.stopMainActivity()
+	if(sexEngine):
+		sexEngine.stopActivity(self)
 
 # playAnim(AnimScene.TestSex, "sex", {top="dom", bottom="sub"})
 func playAnim(theAnimID:String, theStateID:String, theAnimSeats:Dictionary):

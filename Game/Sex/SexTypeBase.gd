@@ -1,10 +1,13 @@
 extends SexEngineActivityBase
 class_name SexTypeBase
 
+func getActivityType() -> int:
+	return ACTIVITY_SEXTYPE
+
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, ["dom", "sub"])
 
-func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexActivityBase:
+func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexMainActivity:
 	var sexEngine:SexEngine = getSexEngine()
 	
 	return sexEngine.startMainActivity(activityID, _roles, _args)

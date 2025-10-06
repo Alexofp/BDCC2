@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://ibsmjn6x45e8"]
+
+[ext_resource type="Script" uid="uid://cn25jqiait002" path="res://Inventory/UI/inventory_entry_ui.gd" id="1_o2hgj"]
+[ext_resource type="Texture2D" uid="uid://cmgd1c1qbdsxp" path="res://icon.svg" id="1_u0hjb"]
+[ext_resource type="StyleBox" uid="uid://d2to5pl1b8rok" path="res://Inventory/UI/PanelSelected.tres" id="1_vf016"]
+
+[node name="InventoryEntryUI" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = ExtResource("1_vf016")
+script = ExtResource("1_o2hgj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_u0hjb")
+expand_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Item name"
+
+[node name="PostFixLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(Equipped)"
+
+[node name="Presser" type="TextureButton" parent="."]
+layout_mode = 2
+
+[connection signal="pressed" from="Presser" to="." method="_on_presser_pressed"]

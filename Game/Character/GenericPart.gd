@@ -129,31 +129,10 @@ func loadNetworkData(_data:Bins):
 
 func saveData() -> Dictionary:
 	var _data:Dictionary = {}
-	
-	#if(supportsSkinTypes()):
-		#_data["skinType"] = skinType
-		#
-		#if(skinDataOverride):
-			#_data["skinDataOverride"] = skinDataOverride.saveNetworkData()
-		#else:
-			#_data["skinDataOverride"] = null
-	
+
 	_data["options"] = saveOptionsData()
 	
 	return _data
 
 func loadData(_data:Dictionary):
-	#if(supportsSkinTypes()):
-		#var skinTypeA = SAVE.loadVar(_data, "skinType", SkinType.None)
-		#if(skinTypeA is String):
-			#skinTypeA = SkinType.stringToType(skinTypeA)
-		#skinType = skinTypeA
-		#
-		#var newSkinDataOverride = SAVE.loadVar(_data, "skinDataOverride", null)
-		#if(newSkinDataOverride == null || !(newSkinDataOverride is Dictionary)):
-			#skinDataOverride = null
-		#else:
-			#skinDataOverride = SkinTypeData.new()
-			#skinDataOverride.loadNetworkData(newSkinDataOverride)
-	
 	loadOptionsData(SAVE.loadVar(_data, "options", {}))

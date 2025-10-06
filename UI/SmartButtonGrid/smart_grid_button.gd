@@ -18,7 +18,7 @@ func setIsDisabled(_dis:bool):
 
 func setEmptyEntry():
 	setIsDisabled(true)
-	setText("")
+	setText(" ")
 	buttonEntry = null
 
 func setEntry(_entry:SmartGridButtonEntry):

@@ -20,6 +20,8 @@ var buttonEntries:Array[SmartGridButtonEntry] = []
 
 var buttonScene := preload("res://UI/SmartButtonGrid/smart_grid_button.tscn")
 
+@export var addTestButtons:bool = false
+
 func _ready() -> void:
 	button_grid_container.columns = gridColumnsInitial
 	
@@ -30,10 +32,11 @@ func _ready() -> void:
 		theButton.onPressedActually.connect(onGridButtonPressed.bind(theButton))
 		buttons.append(theButton)
 	
-	for _i in range(17):
-		addButton(SmartGridButtonEntry.make("Button"+str(_i), "asd"))
-	for _i in range(17):
-		addButton(SmartGridButtonEntry.make("Button"+str(_i), "asd", [], ["asd", "meow"]))
+	if(addTestButtons):
+		for _i in range(17):
+			addButton(SmartGridButtonEntry.make("Button"+str(_i), "asd"))
+		for _i in range(17):
+			addButton(SmartGridButtonEntry.make("Button"+str(_i), "asd", [], ["asd", "meow"]))
 	
 	markDirty()
 
@@ -83,7 +86,7 @@ func updateButtons():
 		button.setEntry(theGrid[buttonIndx])
 	
 	page_prev_button.visible = (page > 0)
-	page_next_button.visible = (highestGridIndx >= (page+1)*buttonsAmount)
+	page_next_button.visible = (highestGridIndx > (page+1)*buttonsAmount)
 	
 	needsUpdate = false
 
@@ -173,6 +176,7 @@ func calcGridDictionary(_out:Array=[]) -> Dictionary[int, SmartGridButtonEntry]:
 		backButton.buttonType = SmartGridButtonEntry.BUTTON_BACK
 		result[checkSpot] = backButton
 		checkSpot += 1
+		hasAnyActions = true
 		
 	var theCats := getPossibleCategories()
 	for categoryName in theCats:
@@ -182,6 +186,7 @@ func calcGridDictionary(_out:Array=[]) -> Dictionary[int, SmartGridButtonEntry]:
 		catButton.buttonType = SmartGridButtonEntry.BUTTON_CATEGORY
 		result[checkSpot] = catButton
 		checkSpot += 1
+		hasAnyActions = true
 	
 	for entry in buttonEntries:
 		if(entry.buttonIndx >= 0):

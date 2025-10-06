@@ -225,10 +225,14 @@ func endLoad():
 	openCounter -= 1
 	if(openCounter < 0):
 		assert(false, "TOO MANY endLoad() CALLS")
+
+func checkEnded():
 	if(openCounter == 0):
 		if(bytes.get_size() != bytes.get_position()):
 			assert(false, "BAD READ SOMEWHERE! FORGOT TO READ "+str(bytes.get_size() - bytes.get_position())+" BYTES!")
-
+	else:
+		assert(false, "BAD! openCounter IS NOT ZERO: "+str(openCounter))
+	
 func seek(_spot:int):
 	bytes.seek(_spot)
 

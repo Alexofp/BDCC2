@@ -4,8 +4,8 @@ class_name CharacterRegistry
 var characters:Dictionary[String, BaseCharacter] = {}
 var lastUniqueID:int = 0
 
-signal characterAdded(charID, character)
-signal characterRemoved(charID, character)
+signal characterAdded(charID:String, character:BaseCharacter)
+signal characterRemoved(charID:String, character:BaseCharacter)
 
 func _ready():
 	GameInteractor.characterRegistry = self
@@ -198,6 +198,7 @@ func removeCharacterID(theCharID:String):
 	characterRemoved.emit(theCharID, theCharInfo)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(removeCharacter_RPC.bind(theCharID))
+	theCharInfo.deinit()
 
 func clearCharacters():
 	for charID in characters.keys():

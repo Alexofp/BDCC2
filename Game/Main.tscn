@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cd67yc3o3sghc"]
+[gd_scene load_steps=17 format=3 uid="uid://cd67yc3o3sghc"]
 
 [ext_resource type="Script" uid="uid://bs0iekltipukv" path="res://Game/Main.gd" id="1_3tq7c"]
+[ext_resource type="Script" uid="uid://cuxgeihdcj4xt" path="res://Inventory/InventoryRegistry.gd" id="2_b3cwe"]
 [ext_resource type="PackedScene" uid="uid://gu1fuum5hwy1" path="res://Game/PawnRegistry/sit_manager.tscn" id="2_eg2md"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="3_b3cwe"]
 [ext_resource type="Script" uid="uid://7gh515vs5ir8" path="res://Game/CharacterRegistry/CharacterRegistry.gd" id="4_eru0w"]
@@ -18,6 +19,11 @@
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_3tq7c")
+
+[node name="InventoryRegistry" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_b3cwe")
+metadata/_custom_type_script = "uid://cuxgeihdcj4xt"
 
 [node name="SitManager" parent="." instance=ExtResource("2_eg2md")]
 unique_name_in_owner = true

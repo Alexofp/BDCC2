@@ -1,4 +1,4 @@
-extends SexActivityBase
+extends SexMainActivity
 
 const SEX_SPEED_SLOW = 0
 const SEX_SPEED_NORMAL = 1
