@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwkgvn3gtbnd1"]
+
+[ext_resource type="Script" uid="uid://cm4u0mmyts5ue" path="res://UI/Util/test_ui.gd" id="1_fnt08"]
+
+[node name="TestUI" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 191.0
+offset_top = 120.0
+offset_right = -191.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fnt08")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_right = 104.0
+offset_bottom = 45.0
+grow_horizontal = 2
+text = "Test ui"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.5
+offset_top = -41.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[connection signal="pressed" from="Control/CloseButton" to="." method="_on_close_button_pressed"]

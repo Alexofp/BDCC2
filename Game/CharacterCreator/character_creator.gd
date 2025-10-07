@@ -351,7 +351,7 @@ func _on_confirm_button_pressed() -> void:
 	onConfirmPressed.emit()
 
 func _enter_tree() -> void:
-	UIHandler.addUI(self)
+	UIHandler.addUI(self, UIHandler.CLOSE_TRYCLOSEMENU_FUNC)
 	UIHandler.addWindow(save_preset_dialog)
 	UIHandler.addWindow(load_preset_dialog)
 

@@ -15,7 +15,7 @@ signal onSandboxMenuButton
 var settingsScene = preload("res://UI/Settings/in_game_settings.tscn")
 
 func _enter_tree() -> void:
-	UIHandler.addUI(self)
+	UIHandler.addUI(self, UIHandler.CLOSE_TRYCLOSEMENU_FUNC)
 
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)

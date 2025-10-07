@@ -4,7 +4,7 @@ extends Control
 @onready var chat_widget: VBoxContainer = %ChatWidget
 
 func _enter_tree() -> void:
-	UIHandler.addUI(self)
+	UIHandler.addUI(self, UIHandler.CLOSE_TRYCLOSEMENU_FUNC)
 
 func _exit_tree() -> void:
 	UIHandler.removeUI(self)

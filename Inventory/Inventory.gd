@@ -173,6 +173,12 @@ func shouldHobbleLegs() -> bool:
 			return true
 	return false
 
+func getPickupName() -> String:
+	var result:Array[String] = []
+	for theItem in items:
+		result.append(theItem.getName())
+	return Util.join(result, ", ")
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I32, uniqueID,

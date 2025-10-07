@@ -170,7 +170,16 @@ func doActionFinal(_id:String, _args:Array):
 	elif(_id == "unequip"):
 		getInventory().unequipSlot(currentSlot)
 	elif(_id == "drop"):
+		if(!getInventory()):
+			removeSelf()
+			return
+		var theChar := getInventory().getChar()
 		removeSelf()
+		if(theChar):
+			var theCharID:String = theChar.getID()
+			var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
+			if(thePawn):
+				GM.inventoryRegistry.spawnItem(thePawn.global_position, self)
 	else:
 		doAction(_id, _args)
 

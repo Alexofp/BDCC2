@@ -1,5 +1,12 @@
 extends Node
 
+const CLOSE_QUEUE_FREE = 0
+const CLOSE_HIDE = 1
+const CLOSE_TRYCLOSEMENU_FUNC = 2
+const CLOSE_BLOCK = 3
+
+const META_CLOSE_NAME = "UIHandelrClose"
+
 var UIs:Array[Control] = []
 var mouseCaptures:Array[Node] = []
 var windows:Array[Window] = []
@@ -11,12 +18,13 @@ var menuInputBlocked:bool = false
 #func _ready() -> void:
 #	get_viewport().gui_focus_changed.connect(onGuiFocusChanged)
 
-func addUI(theUI:Control):
+func addUI(theUI:Control, tryCloseLogic:int = CLOSE_QUEUE_FREE):
 	if(theUI == null || !is_instance_valid(theUI)):
 		return
 	if(UIs.has(theUI)):
 		return
 	UIs.append(theUI)
+	theUI.set_meta(META_CLOSE_NAME, tryCloseLogic)
 	theUI.tree_exiting.connect(removeUI.bind(theUI))
 
 func removeUI(theUI:Control):
@@ -116,9 +124,24 @@ func internal_isUIVisible(theUI:Control) -> bool:
 
 func tryCloseMenu():
 	for theUI in UIs:
-		if(internal_isUIVisible(theUI) && theUI.has_method("tryCloseMenu")):
-			if(theUI.tryCloseMenu()):
+		if(internal_isUIVisible(theUI)):
+			var theLogic:int = theUI.get_meta(META_CLOSE_NAME, CLOSE_QUEUE_FREE)
+			
+			if(theLogic == CLOSE_TRYCLOSEMENU_FUNC):
+				if(theUI.has_method("tryCloseMenu")):
+					if(theUI.tryCloseMenu()):
+						return true
+				else:
+					assert(false, "MISSING tryCloseMenu() func")
+			elif(theLogic == CLOSE_HIDE):
+				theUI.visible = false
 				return true
+			elif(theLogic == CLOSE_QUEUE_FREE):
+				theUI.queue_free()
+				return true
+			else:
+				return false
+			
 	return false
 
 func releaseUIFocus():

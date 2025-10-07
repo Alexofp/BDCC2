@@ -189,6 +189,9 @@ func showCharacterCreator():
 	if(gameMode):
 		gameMode.onCharacterCreatorAppear()
 
+func addUINode(_ui:Control):
+	main_ui_layer.add_child(_ui)
+
 func onCharCreatorConfirmButton():
 	hideCharacterCreator()
 	

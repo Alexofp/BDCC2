@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://digfqres74loo"]
+
+[ext_resource type="Script" uid="uid://5r5rspy00tqn" path="res://UI/Util/debug_item_giver_ui.gd" id="1_r2ki6"]
+
+[node name="DebugItemGiverUI" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 85.333374
+offset_top = 48.0
+offset_right = -85.333374
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r2ki6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Debug item giver"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Close"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GiveButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Give"
+
+[connection signal="pressed" from="VBoxContainer/Label/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GiveButton" to="." method="_on_give_button_pressed"]

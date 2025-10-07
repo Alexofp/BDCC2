@@ -1,15 +1,26 @@
 extends Node3D
 class_name NetworkedNodes
 
+const NETWORKED_GROUP = "Networked"
+
+func makeNodeNetworked(_node:Node):
+	if(!Network.isServer()):
+		return
+	if(_node.is_in_group(NETWORKED_GROUP)):
+		return
+	_node.add_to_group(NETWORKED_GROUP)
+	if(Network.isServerNotSingleplayer()):
+		notifySpawned(_node)
+
 func notifySpawned(_node:Node):
-	if(!_node.is_in_group("Networked")):
+	if(!_node.is_in_group(NETWORKED_GROUP)):
 		assert(false, "Node is not in the Networked group")
 		return
 	if(!_node.is_inside_tree()):
 		assert(false, "Node is not inside the tree")
 		return
 
-	_node.tree_exiting.connect(onNetworkedNodeDeleted.bind(_node))
+	_node.tree_exiting.connect(onNetworkedNodeDeleted.bind(_node)) #Should this be done always?
 	if(!Network.isServerNotSingleplayer()):
 		return
 	var nodeData:Dictionary = _node.saveData() if _node.has_method("saveData") else {}
@@ -33,7 +44,7 @@ func notifySpawned(_node:Node):
 	
 func getAllNetworkedNodesOfRecursive(_node:Node, _ar:Array):
 	for child in _node.get_children():
-		if(child.is_in_group("Networked")):
+		if(child.is_in_group(NETWORKED_GROUP)):
 			_ar.append(child)
 		
 		if(child.get_child_count() > 0):
@@ -106,12 +117,15 @@ func _exit_tree() -> void:
 	GI.networkedNodes = null
 
 func gatherGroupList() -> Array[Node]:
-	var theNodes := get_tree().get_nodes_in_group("Networked")
+	var theNodes := get_tree().get_nodes_in_group(NETWORKED_GROUP)
 	
 	return theNodes
 
 # Sends an event to every client (and server too)
 func sendGlobalEvent(_node:Node, _eventID:String, _args:Array=[]):
+	if(!Network.isServer()):
+		assert(false, "THIS FUNCTION CAN ONLY BE CALLED FROM A SERVER")
+		return
 	var theNodeRef = GI.getUniqueIDOf(_node)
 	
 	# Call it locally
@@ -128,6 +142,26 @@ func handleNodeGlobalEvent_RPC(_nodeID, _eventID:String, _args:Array):
 		return
 	if(theNode.has_method("handleGlobalEvent")):
 		theNode.call("handleGlobalEvent", _eventID, _args)
+
+# Sends an event to the server
+func sendServerEvent(_node:Node, _eventID:String, _args:Array=[]):
+	var theNodeRef = GI.getUniqueIDOf(_node)
+	
+	if(Network.isServer()):
+		# Call it locally
+		if(_node.has_method("handleServerEvent")):
+			_node.call("handleServerEvent", _eventID, _args)
+	else:
+		handleNodeServerEvent_RPC.rpc_id(1, theNodeRef, _eventID, _args)
+
+@rpc("any_peer", "call_remote", "reliable")
+func handleNodeServerEvent_RPC(_nodeID, _eventID:String, _args:Array):
+	var theNode:Node= GI.getNodeByUniqueID(_nodeID)
+	if(!theNode):
+		Log.Printerr("Node not found for a server event. ID="+str(_nodeID)+" event="+str(_eventID))
+		return
+	if(theNode.has_method("handleServerEvent")):
+		theNode.call("handleServerEvent", _eventID, _args)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

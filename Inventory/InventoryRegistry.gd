@@ -188,8 +188,13 @@ func askTest_SERVERRPC(_uid:int):
 	if(!theInv):
 		return
 	#theInv.setEquippedItem(InventorySlot.Mouth, GlobalRegistry.createItem("BallGag"))
-	theInv.addItem(GlobalRegistry.createItem("BallGag"))
-
+	#theInv.addItem(GlobalRegistry.createItem("BallGag"))
+	var theChar := theInv.getChar()
+	if(theChar):
+		var theCharID:String = theChar.getID()
+		var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
+		if(thePawn):
+			spawnItem(thePawn.global_position, GlobalRegistry.createItem("BallGag"))
 
 #func createInventory(_uid:int=-1) -> InventoryRef:
 	#if(_uid < 0):
@@ -232,6 +237,16 @@ func getNewUniqueID() -> int:
 	while(inventories.has(lastUniqueID)):
 		lastUniqueID += 1
 	return lastUniqueID
+
+func spawnItem(_pos:Vector3, _item:ItemBase):
+	if(!Network.isServer()):
+		return
+	var theItem:Node3D = preload("res://Inventory/Util/dropped_item.tscn").instantiate()
+	GM.main.add_child(theItem, true)
+	theItem.global_position = _pos
+	
+	GM.netNodes.makeNodeNetworked(theItem)
+	theItem.inventory.addItem(_item)
 
 func saveNetworkData() -> Bins:
 	var theAr:Array = [
