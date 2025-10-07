@@ -78,7 +78,7 @@ func doSelectedAction():
 	if(selectedActionIndex >= 0 && selectedActionIndex < theActions.size()):
 		var anAction:InteractActionBaked = theActions[selectedActionIndex]
 		#anAction.interactable.doInteract(getUser(), anAction)
-		GameInteractor.askDoAction(getUser(), anAction)
+		GI.askDoAction(getUser(), anAction)
 
 func updateSelectedAction():
 	actions_list.clear()

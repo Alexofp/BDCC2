@@ -6,7 +6,7 @@ var sexEngines:Array[SexEngine] = []
 var sexEngineScene := preload("res://Game/Sex/SexEngine.tscn")
 
 func _init() -> void:
-	GameInteractor.sexManager = self
+	GI.sexManager = self
 
 func addSexInternal(theNode:SexEngine):
 	sexEngines.append(theNode)
@@ -43,7 +43,7 @@ func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector
 
 	newSexEngine.start(sexTypeID, roleToID, args)
 	
-	#GameInteractor.networkedNodes.notifySpawned(newSexEngine)
+	#GI.networkedNodes.notifySpawned(newSexEngine)
 	
 	return newSexEngine
 

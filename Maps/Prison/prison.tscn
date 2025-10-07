@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://cqxqisi1jql0h"]
+[gd_scene load_steps=80 format=3 uid="uid://cqxqisi1jql0h"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_207vj"]
 [ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_3wh73"]
@@ -59,6 +59,7 @@
 [ext_resource type="PackedScene" uid="uid://c24n0yg58dmg" path="res://Game/MappingElements/Lights/MappingSpotlight.tscn" id="72_ksl72"]
 [ext_resource type="PackedScene" uid="uid://b1ol5t7lbo3gu" path="res://Mapping/Railings/FancyRailing1.tscn" id="72_xqwcl"]
 [ext_resource type="PackedScene" uid="uid://d0pvhwsbtsdjh" path="res://Mapping/Railings/FancyRailing2Stairs.tscn" id="73_1ynqf"]
+[ext_resource type="PackedScene" uid="uid://n5lfxsha6av7" path="res://Mapping/Special/any_item_giver.tscn" id="73_q1g3e"]
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="74_47uhn"]
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="76_anb54"]
 [ext_resource type="PackedScene" uid="uid://1bhqsabmydss" path="res://Mapping/Walls/SlopedWindowA20x8.tscn" id="78_3f2s3"]
@@ -3912,3 +3913,6 @@ directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 10.0
 sky_mode = 1
+
+[node name="AnyItemGiver" parent="." instance=ExtResource("73_q1g3e")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.405624, 0, 6.4874525)

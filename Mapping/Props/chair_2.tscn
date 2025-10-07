@@ -9,7 +9,7 @@ size = Vector3(0.65022, 0.490939, 0.559775)
 [sub_resource type="BoxShape3D" id="BoxShape3D_q4n32"]
 size = Vector3(0.65022, 0.582577, 0.100856)
 
-[node name="Chair2" instance=ExtResource("1_6pqlf")]
+[node name="Chair2" groups=["Networked"] instance=ExtResource("1_6pqlf")]
 script = ExtResource("2_s1gpe")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)

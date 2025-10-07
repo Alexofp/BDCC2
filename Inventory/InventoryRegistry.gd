@@ -8,17 +8,12 @@ var inventories:Dictionary[int, WeakRef] = {}
 var lastUniqueID:int = 0
 
 func _ready():
-	GameInteractor.inventoryRegistry = self
+	GI.inventoryRegistry = self
 
 func inventoryOnChange(_invChange:InventoryChange):
 	if(!Network.isServerNotSingleplayer()):
 		return
 	
-#const EQUIPPED = 0
-#const UNEQUIPPED = 1
-#const ITEM_ADDED = 2
-#const ITEM_REMOVED = 3
-#const OPTION_CHANGED = 4
 	var theChangeType := _invChange.getType()
 	if(theChangeType == InventoryChange.ITEM_ADDED):
 		var theItem := _invChange.addedGetItem()
@@ -26,6 +21,51 @@ func inventoryOnChange(_invChange:InventoryChange):
 	elif(theChangeType == InventoryChange.ITEM_REMOVED):
 		var theItem := _invChange.removedGetItem()
 		Network.rpcClients(invChangeRemoveItem_RPC.bind(_invChange.getInvUID(), theItem.uniqueID))
+	elif(theChangeType == InventoryChange.ITEM_EQUIPPED):
+		var theItem := _invChange.equippedGetItem()
+		var theSlot := _invChange.getSlot()
+		Network.rpcClients(invChangeEquipItem_RPC.bind(_invChange.getInvUID(), theSlot, theItem.id, theItem.saveNetworkData().getBytesCompressedSimple()))
+	elif(theChangeType == InventoryChange.ITEM_UNEQUIPPED):
+		var theSlot := _invChange.getSlot()
+		Network.rpcClients(invChangeUnequipItem_RPC.bind(_invChange.getInvUID(), theSlot))
+	elif(theChangeType == InventoryChange.ITEM_OPTION_CHANGED):
+		var theItem := _invChange.optionChangedGetPart()
+		var theOptionID := _invChange.optionChangedGetOptionID()
+		var theValue = _invChange.optionChangedGetValue()
+		Network.rpcClients(invChangeItemOption_RPC.bind(_invChange.getInvUID(), theItem.uniqueID, theOptionID, theValue))
+		
+@rpc("authority", "call_remote", "reliable")
+func invChangeItemOption_RPC(_invUID:int, _itemUID:int, _optionID:String, _value:Variant):
+	var theInv := findInventory(_invUID)
+	if(!theInv):
+		Log.Printerr("Couldn't find an inventory with UID: "+str(_invUID))
+		return
+	var newItem:ItemBase = theInv.findItemByUniqueID(_itemUID)
+	if(!newItem):
+		Log.Printerr("Couldn't find an item with unique ID: "+str(_itemUID))
+		return
+	newItem.setOptionValue(_optionID, _value)
+
+@rpc("authority", "call_remote", "reliable")
+func invChangeEquipItem_RPC(_invUID:int, _slot:int, _itemID:String, _bytes:PackedByteArray):
+	var theInv := findInventory(_invUID)
+	if(!theInv):
+		Log.Printerr("Couldn't find an inventory with UID: "+str(_invUID))
+		return
+	var newItem:ItemBase = GlobalRegistry.createItem(_itemID, false)
+	if(!newItem):
+		Log.Printerr("Couldn't make an item with ID: "+str(_itemID))
+		return
+	newItem.loadNetworkData(Bins.readCompressedSimple(_bytes))
+	theInv.equipItem(newItem, _slot)
+	
+@rpc("authority", "call_remote", "reliable")
+func invChangeUnequipItem_RPC(_invUID:int, _slot:int):
+	var theInv := findInventory(_invUID)
+	if(!theInv):
+		Log.Printerr("Couldn't find an inventory with UID: "+str(_invUID))
+		return
+	theInv.clearSlot(_slot)
 
 @rpc("authority", "call_remote", "reliable")
 func invChangeAddItem_RPC(_invUID:int, _itemID:String, _bytes:PackedByteArray):
@@ -93,18 +133,28 @@ func findInventory(_uid:int) -> Inventory:
 		assert(false, "Found a leaked inventory!")
 	return theInv
 
-func askUseItem(_item:ItemBase, _action:String, _args:Array):
-	pass
+# Call this occasionally?
+func checkInventoryRefs():
+	var toRem:Array[int] = []
+	for uid in inventories:
+		var theRef := inventories[uid]
+		if(!theRef.get_ref()):
+			toRem.append(uid)
+	for theRemovedUID in toRem:
+		inventories.erase(theRemovedUID)
 
-@rpc("any_peer", "call_remote", "reliable")
-func askUseItem_SERVERRPC(_invUID:int, _itemSlot:int, _itemUID:int, _action:String, _args:Array):
-	pass
+#func askUseItem(_item:ItemBase, _action:String, _args:Array):
+	#pass
+#
+#@rpc("any_peer", "call_remote", "reliable")
+#func askUseItem_SERVERRPC(_invUID:int, _itemSlot:int, _itemUID:int, _action:String, _args:Array):
+	#pass
 
-func askEquipItem(_character:BaseCharacter, _item:ItemBase, _slot:int):
-	pass
-
-func askUnequipSlot(_character:BaseCharacter, _slot:int):
-	pass
+#func askEquipItem(_character:BaseCharacter, _item:ItemBase, _slot:int):
+	#pass
+#
+#func askUnequipSlot(_character:BaseCharacter, _slot:int):
+	#pass
 
 func askDoActionOnItem(_item:ItemBase, _id:String, _args:Array = []):
 	if(Network.isServer()):

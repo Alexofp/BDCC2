@@ -15,6 +15,7 @@ static var dollHolder:DollHolder: get = getDollHolder
 static var sitManager:SitManager: get = getSitManager
 static var sexManager:SexManager: get = getSexManager
 static var IS:InteractionSystem: get = getInteractionSystem
+static var NetNodes:NetworkedNodes: get = getNetworkedNodes
 static var presets:CharacterPresetHolder
 
 static func getPC() -> BaseCharacter:
@@ -92,13 +93,16 @@ static func getInteractionSystem() -> InteractionSystem:
 		return main.interactionSystem
 	return null
 
+static func getNetworkedNodes() -> NetworkedNodes:
+	return GI.networkedNodes
+
 static func getGameMode() -> GameModeBase:
 	if(main):
 		return main.getGame	
 	return null
 
 static func sendChat(_text:String):
-	GameInteractor.askChatSend(_text)
+	GI.askChatSend(_text)
 
 static var changingScene:bool = false
 
@@ -106,12 +110,12 @@ static func startGame(_map:String, _mode:int, _args:Array = []):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
-	GameInteractor.get_tree().paused = true
-	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
-	await GameInteractor.get_tree().scene_changed
-	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	GI.get_tree().paused = true
+	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GI.get_tree().scene_changed
+	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
 	GM.main.startGame()
-	GameInteractor.get_tree().paused = false
+	GI.get_tree().paused = false
 	changingScene = false
 	LoadingScreen.finishLoad()
 
@@ -120,8 +124,8 @@ static func startMainMenu():
 	changingScene = true
 	#TODO: STOP NETWORK
 	Network.stopMultiplayer()
-	GameInteractor.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
-	await GameInteractor.get_tree().scene_changed
+	GI.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
+	await GI.get_tree().scene_changed
 	changingScene = false
 
 static func isChangingScene() -> bool:
@@ -131,18 +135,18 @@ static func internal_hostGame(hostFunc:Callable, _nickname:String, _map:String, 
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
-	GameInteractor.get_tree().paused = true
-	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
-	await GameInteractor.get_tree().scene_changed
-	await GameInteractor.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	GI.get_tree().paused = true
+	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GI.get_tree().scene_changed
+	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
 	LoadingScreen.setText("Hosting..")
 	var res = await hostFunc.call(_nickname) #Network.hostLAN(_nickname)
 	if(res.isError()):
 		errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
 		return
 	GM.main.startGame()
-	#await GameInteractor.get_tree().create_timer(2.0).timeout
-	GameInteractor.get_tree().paused = false
+	#await GI.get_tree().create_timer(2.0).timeout
+	GI.get_tree().paused = false
 	changingScene = false
 	LoadingScreen.finishLoad()
 
@@ -158,7 +162,7 @@ static func hostNoray(_nickname:String, _map:String, _mode:int, _args:Array = []
 static func internal_joinGame(joinFunc:Callable, _nickname:String):
 	#Network.joinGame(_nickname, _ip)
 	LoadingScreen.startLoad()
-	GameInteractor.get_tree().paused = true
+	GI.get_tree().paused = true
 	LoadingScreen.setText("Connecting..")
 	var res = await joinFunc.call()#Network.connectLAN(_ip)
 	if(res.error):
@@ -173,16 +177,16 @@ static func internal_joinGame(joinFunc:Callable, _nickname:String):
 	var modeToLoad:int = res.result["mode"]
 	var modeArgs:Array = []
 	LoadingScreen.setText("Loading map..")
-	GameInteractor.get_tree().change_scene_to_file("res://Game/Main.tscn")
-	await GameInteractor.get_tree().scene_changed
-	await GameInteractor.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs)
+	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GI.get_tree().scene_changed
+	await GI.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs)
 	LoadingScreen.setText("Loading game state..")
 	res = await Network.clientAskToJoin(_nickname)
 	if(res.error):
 		errorOutToMainMenu(res.result if res.result is String else "Failed to load game state")
 		return
 	GM.main.startGame()
-	GameInteractor.get_tree().paused = false
+	GI.get_tree().paused = false
 	LoadingScreen.finishLoad()
 
 static func joinLANGame(_nickname:String, _ip:String):
@@ -203,6 +207,6 @@ static func errorOutToMainMenu(_errorText:String):
 	if(isInGame()):
 		await startMainMenu()
 	LoadingScreen.showError(_errorText)
-	GameInteractor.get_tree().paused = false
+	GI.get_tree().paused = false
 	changingScene = false
 	LoadingScreen.finishLoad()

@@ -11,9 +11,9 @@ func onUIDSync(newUID:Array):
 		onNodeChanged.emit(getNode())
 
 func setNode(theNode:Node):
-	UID = GameInteractor.getUniqueIDOf(theNode)
+	UID = GI.getUniqueIDOf(theNode)
 
 func getNode() -> Node:
 	if(UID.is_empty()):
 		return null
-	return GameInteractor.getNodeByUniqueID(UID)
+	return GI.getNodeByUniqueID(UID)

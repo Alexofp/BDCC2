@@ -415,7 +415,7 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	var clientAskToJoin_RESULT:FuncResultOrError = timeoutRes.getArg1()
 	
 	Log.Print("Got full game data, applying")
-	GameInteractor.applyFullNetworkData(Bins.readCompressedSimple(clientAskToJoin_RESULT.result))
+	GI.applyFullNetworkData(Bins.readCompressedSimple(clientAskToJoin_RESULT.result))
 	Log.Print("Full game data got applied")
 	
 	multiplayerStarted.emit(false)
@@ -437,15 +437,15 @@ func clientAskToJoin_SERVERRPC(nickname:String):
 	applyJoinGameNetworkData.rpc_id(multiplayer.get_remote_sender_id(), saveNetworkData().getBytesCompressedSimple())
 	
 	Log.Print("Sending full game data to "+str(multiplayer.get_remote_sender_id()))
-	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData().getBytesCompressedSimple())
+	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GI.saveFullNetworkData().getBytesCompressedSimple())
 	
-	#Log.Print("UNCOMPRESSED NEW: "+str(GameInteractor.saveFullNetworkData().getBytes().size()))
-	#Log.Print("COMPRESSION NEW: "+str(GameInteractor.saveFullNetworkData().getBytesCompressedSimple().size()))
-	#Log.Print("COMPRESSION OLD: "+str(var_to_bytes(GameInteractor.saveFullData()).size()))
+	#Log.Print("UNCOMPRESSED NEW: "+str(GI.saveFullNetworkData().getBytes().size()))
+	#Log.Print("COMPRESSION NEW: "+str(GI.saveFullNetworkData().getBytesCompressedSimple().size()))
+	#Log.Print("COMPRESSION OLD: "+str(var_to_bytes(GI.saveFullData()).size()))
 	
 	myInfo.connecting = false
 	
-	#GameInteractor.applyFullNetworkData.rpc_id(multiplayer.get_remote_sender_id(), GameInteractor.saveFullNetworkData())
+	#GI.applyFullNetworkData.rpc_id(multiplayer.get_remote_sender_id(), GI.saveFullNetworkData())
 
 	#notifyMultiplayerStarted.rpc_id(multiplayer.get_remote_sender_id())
 	#Log.Print("SENT NOTIFY MULTIPLAYER STARTED RPC TO "+str(multiplayer.get_remote_sender_id()))
@@ -455,7 +455,7 @@ signal internal_clientAskToJoin(res)
 func clientAskToJoin_RPC(_data:PackedByteArray):
 	internal_clientAskToJoin.emit(FuncResultOrError.createResult(_data))
 	#multiplayerStarted.emit(false)
-	#GameInteractor.applyFullNetworkData(_data)
+	#GI.applyFullNetworkData(_data)
 	#internal_clientAskToJoin.emit()
 
 func hasRoomID() -> bool:

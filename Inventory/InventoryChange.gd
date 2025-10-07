@@ -1,11 +1,11 @@
 extends RefCounted
 class_name InventoryChange
 
-const EQUIPPED = 0
-const UNEQUIPPED = 1
+const ITEM_EQUIPPED = 0
+const ITEM_UNEQUIPPED = 1
 const ITEM_ADDED = 2
 const ITEM_REMOVED = 3
-const OPTION_CHANGED = 4
+const ITEM_OPTION_CHANGED = 4
 
 var invRef:WeakRef
 var invUID:int = -1
@@ -36,7 +36,7 @@ static func makeEquipped(_inv:Inventory, _slot:int, _newItem:ItemBase) -> Invent
 	var newChange := InventoryChange.new()
 	newChange.invUID = _inv.uniqueID
 	newChange.invRef = weakref(_inv)
-	newChange.changeType = EQUIPPED
+	newChange.changeType = ITEM_EQUIPPED
 	newChange.slot = _slot
 	newChange.data = _newItem
 	return newChange
@@ -45,7 +45,7 @@ static func makeUnequipped(_inv:Inventory, _slot:int) -> InventoryChange:
 	var newChange := InventoryChange.new()
 	newChange.invUID = _inv.uniqueID
 	newChange.invRef = weakref(_inv)
-	newChange.changeType = UNEQUIPPED
+	newChange.changeType = ITEM_UNEQUIPPED
 	newChange.slot = _slot
 	return newChange
 
@@ -53,7 +53,7 @@ static func makeOptionChanged(_inv:Inventory, optionID:String, value:Variant, pa
 	var newChange := InventoryChange.new()
 	newChange.invUID = _inv.uniqueID
 	newChange.invRef = weakref(_inv)
-	newChange.changeType = OPTION_CHANGED
+	newChange.changeType = ITEM_OPTION_CHANGED
 	newChange.slot = _slot
 	newChange.data = [optionID, value, part]
 	return newChange

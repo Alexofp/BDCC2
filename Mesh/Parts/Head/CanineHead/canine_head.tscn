@@ -123,3 +123,5 @@ unique_name_in_owner = true
 dollPart = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")
 moanMultiplier = 0.7
+
+[connection signal="onTextureUpdated" from="HeadLayeredTexture" to="." method="_on_head_layered_texture_on_texture_updated"]

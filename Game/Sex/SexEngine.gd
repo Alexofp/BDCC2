@@ -185,7 +185,7 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	sexType = theSexType
 	sexType.start(roles, args)
 	
-	GameInteractor.networkedNodes.notifySpawned(self)
+	GI.networkedNodes.notifySpawned(self)
 	sexType.onStartFinal()
 
 func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:

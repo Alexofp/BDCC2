@@ -12,7 +12,7 @@ func notifySpawned(_node:Node):
 	_node.tree_exiting.connect(onNetworkedNodeDeleted.bind(_node))
 	if(!Network.isServerNotSingleplayer()):
 		return
-	var nodeData:Dictionary = _node.saveNetworkData() if _node.has_method("saveNetworkData") else {}
+	var nodeData:Dictionary = _node.saveData() if _node.has_method("saveData") else {}
 	if(_node is Node3D):
 		nodeData["pos"] = _node.position
 		nodeData["ang"] = _node.rotation
@@ -22,7 +22,7 @@ func notifySpawned(_node:Node):
 	var allNetworked:Array = []
 	getAllNetworkedNodesOfRecursive(_node, allNetworked)
 	for childNode in allNetworked:
-		var childNodeData:Dictionary = childNode.saveNetworkData() if childNode.has_method("saveNetworkData") else {}
+		var childNodeData:Dictionary = childNode.saveData() if childNode.has_method("saveData") else {}
 		if(childNode is Node3D):
 			childNodeData["pos"] = childNode.position
 			childNodeData["ang"] = childNode.rotation
@@ -69,7 +69,16 @@ func spawnNetworkedNode_RPC(filePath:String, nodePath:String, nodeName:String, n
 			tempSceneCache[filePath] = theScene
 	
 	var existingNodePath:String = nodePath.path_join(nodeName)
-	if(get_tree().root.has_node(NodePath(existingNodePath))):
+	
+	var existingNode:Node = get_tree().root.get_node_or_null(NodePath(existingNodePath))
+	
+	if(existingNode && existingNode.scene_file_path != filePath):
+		Log.Print("NETWORKED NODE HAS WRONG SCENE PATH, DELETING "+existingNode.name)
+		existingNode.get_parent().remove_child(existingNode)
+		existingNode.queue_free()
+		existingNode = null
+	
+	if(existingNode):
 		# No need to spawn the node, we have it already
 		var theNode:Node = get_tree().root.get_node(NodePath(existingNodePath))
 		if(theNode.has_method("loadData")):
@@ -90,13 +99,35 @@ func spawnNetworkedNode_RPC(filePath:String, nodePath:String, nodeName:String, n
 		
 		Log.Print("NETWORKED NODE SPAWNED: "+theNode.name)
 
-func _ready() -> void:
-	GameInteractor.networkedNodes = self
+func _enter_tree() -> void:
+	GI.networkedNodes = self
+
+func _exit_tree() -> void:
+	GI.networkedNodes = null
 
 func gatherGroupList() -> Array[Node]:
 	var theNodes := get_tree().get_nodes_in_group("Networked")
 	
 	return theNodes
+
+# Sends an event to every client (and server too)
+func sendGlobalEvent(_node:Node, _eventID:String, _args:Array=[]):
+	var theNodeRef = GI.getUniqueIDOf(_node)
+	
+	# Call it locally
+	if(_node.has_method("handleGlobalEvent")):
+		_node.call("handleGlobalEvent", _eventID, _args)
+	
+	Network.rpcClients(handleNodeGlobalEvent_RPC.bind(theNodeRef, _eventID, _args))
+
+@rpc("authority", "call_remote", "reliable")
+func handleNodeGlobalEvent_RPC(_nodeID, _eventID:String, _args:Array):
+	var theNode:Node= GI.getNodeByUniqueID(_nodeID)
+	if(!theNode):
+		Log.Printerr("Node not found for a global event. ID="+str(_nodeID)+" event="+str(_eventID))
+		return
+	if(theNode.has_method("handleGlobalEvent")):
+		theNode.call("handleGlobalEvent", _eventID, _args)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
@@ -150,14 +181,12 @@ func saveData() -> Dictionary:
 
 func loadData(_data:Dictionary):
 	var currentNodes := gatherGroupList()
-	for node in currentNodes:
-		node.get_parent().remove_child(node)
-	for node in currentNodes:
-		node.queue_free()
 	
 	var pathDict = SAVE.loadVar(_data, "pathDict", {})
 	
 	var tempSceneCache:Dictionary = {}
+	
+	var didLoadDict:Dictionary[NodePath, bool] = {}
 	
 	var nodesData:Array = SAVE.loadVar(_data, "nodes", [])
 	for nodeEntry in nodesData:
@@ -167,4 +196,23 @@ func loadData(_data:Dictionary):
 		var nodeName:String = SAVE.loadVar(nodeEntry, "name", "")
 		var nodeData:Dictionary = SAVE.loadVar(nodeEntry, "data", {})
 		
+		var existingNodePath:NodePath = NodePath(nodePath.path_join(nodeName))
+		didLoadDict[existingNodePath] = true
+		
 		spawnNetworkedNode_RPC(filePath, nodePath, nodeName, nodeData, true, tempSceneCache)
+
+	
+	var toDelete:Array[Node] = []
+	
+	for theNode in currentNodes:
+		if(!theNode || !is_instance_valid(theNode)):
+			continue
+		var thePath:NodePath = theNode.get_path()
+		if(!didLoadDict.has(thePath)):
+			toDelete.append(theNode)
+		
+	for node in toDelete:
+		Log.Print("DELETING "+str(node)+" BECAUSE IT DOESN'T EXIST ON THE SERVER.")
+		node.get_parent().remove_child(node)
+	for node in toDelete:
+		node.queue_free()

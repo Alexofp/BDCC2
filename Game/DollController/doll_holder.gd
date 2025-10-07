@@ -9,7 +9,7 @@ var curDoll:DollController
 signal onCurrentDollSwitch(oldDoll, newDoll)
 
 func _ready() -> void:
-	GameInteractor.dollHolder = self
+	GI.dollHolder = self
 
 var lastUniqueID:int = 0
 func generateUniqueDollID() -> int:
@@ -234,10 +234,10 @@ func askLookAt(_doll:DollController, _node:Node3D, _howLong:float = 10.0):
 	if(Network.isServer()):
 		_doll.getDoll().lookAt(_node, _howLong)
 	if(Network.isServerNotSingleplayer()):
-		var theNode = GameInteractor.getUniqueIDOf(_node)
+		var theNode = GI.getUniqueIDOf(_node)
 		Network.rpcClients(askLookAt_RPC.bind(_doll.uniqueID, theNode, _howLong))
 	elif(Network.isClient()):
-		var theNode = GameInteractor.getUniqueIDOf(_node)
+		var theNode = GI.getUniqueIDOf(_node)
 		askLookAt_ServerRPC.rpc_id(1, _doll.uniqueID, theNode, _howLong)
 
 @rpc("authority", "call_remote", "reliable")
@@ -245,7 +245,7 @@ func askLookAt_RPC(dollUniqueID:int, _nodeData, _howLong:float):
 	var theDoll := findDollWithUniqueID(dollUniqueID)
 	if(!theDoll):
 		return
-	var theNode = GameInteractor.getNodeByUniqueID(_nodeData)
+	var theNode = GI.getNodeByUniqueID(_nodeData)
 	if(!theNode):
 		return
 	theDoll.getDoll().lookAt(theNode, _howLong)
@@ -255,7 +255,7 @@ func askLookAt_ServerRPC(dollUniqueID:int, _nodeData, _howLong:float):
 	var theDoll := findDollWithUniqueID(dollUniqueID)
 	if(!theDoll):
 		return
-	var theNode = GameInteractor.getNodeByUniqueID(_nodeData)
+	var theNode = GI.getNodeByUniqueID(_nodeData)
 	if(!theNode):
 		return
 	askLookAt(theDoll, theNode, _howLong)

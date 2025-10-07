@@ -13,7 +13,7 @@ const GRID_SIZE = 10
 var sparsePawnGrid:Dictionary[Vector2i, Array] = {}
 
 func _ready() -> void:
-	GameInteractor.pawnRegistry = self
+	GI.pawnRegistry = self
 	pass
 
 func hasPawn(charID:String) -> bool:

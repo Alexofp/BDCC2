@@ -7,7 +7,7 @@ var pawnIDs:Array = []
 signal onClosePressed
 
 func _ready():
-	GameInteractor.pawnRegistry.onPawnListChanged.connect(updatePawnMenu)
+	GI.pawnRegistry.onPawnListChanged.connect(updatePawnMenu)
 	Network.playerListUpdated.connect(updatePawnMenu)
 	Network.playerSwitchedCharacter.connect(onPlayerSwitchedCharacter)
 	updatePawnMenu()
@@ -33,14 +33,14 @@ func updatePawnMenu():
 	pawnIDs.clear()
 	
 	var _i:int = 0
-	for pawnID in GameInteractor.pawnRegistry.pawns:
+	for pawnID in GI.pawnRegistry.pawns:
 		var pcInfo:NetworkPlayerInfo = Network.getInfoThatControlsCharID(pawnID)
 		var theName:String = str(pawnID)
 		if(pcInfo):
 			theName += " ("+str(pcInfo.getName())+")"
 		
 		pawnIDs.append(pawnID)
-		var _pawn:CharacterPawn = GameInteractor.pawnRegistry.getPawn(pawnID)
+		var _pawn:CharacterPawn = GI.pawnRegistry.getPawn(pawnID)
 		
 		pawn_list.add_item(theName)
 		if(pcInfo && pcInfo.isUs()):
@@ -77,8 +77,8 @@ func _on_add_pawn_button_pressed() -> void:
 		_on_add_pawn_button_pressed.rpc_id(1)
 		return
 	#TODO Make this a gameinteractor thing?
-	var thePC:BaseCharacter = GameInteractor.characterRegistry.createCharacter()
-	var _thePawn:CharacterPawn = GameInteractor.pawnRegistry.createPawn(thePC.getID())
+	var thePC:BaseCharacter = GI.characterRegistry.createCharacter()
+	var _thePawn:CharacterPawn = GI.pawnRegistry.createPawn(thePC.getID())
 	_thePawn.position.x = RNG.randfRange(-4.0, 4.0)
 	_thePawn.position.z = RNG.randfRange(-2.0, 2.0)
 
@@ -96,7 +96,7 @@ func spawnCubeOnServer(thePos:Vector3):
 	
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
-	GameInteractor.networkedNodes.notifySpawned(theCube)
+	GI.networkedNodes.notifySpawned(theCube)
 
 
 func _on_spawn_bench_button_pressed() -> void:
@@ -113,7 +113,7 @@ func spawnBenchOnServer(thePos:Vector3):
 	
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
-	GameInteractor.networkedNodes.notifySpawned(theCube)
+	GI.networkedNodes.notifySpawned(theCube)
 
 
 func _on_sex_scene_button_pressed() -> void:
@@ -133,7 +133,7 @@ func spawnSexSceneOnServer(thePos:Vector3, theAng:Vector3):
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
 	theCube.global_rotation = theAng
-	GameInteractor.networkedNodes.notifySpawned(theCube)
+	GI.networkedNodes.notifySpawned(theCube)
 
 func _on_start_sex_button_pressed() -> void:
 	if(pawn_list.get_selected_items().is_empty()):

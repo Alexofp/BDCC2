@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://djn63ne4a2q6c"]
+[gd_scene load_steps=30 format=3 uid="uid://djn63ne4a2q6c"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_y08rd"]
 [ext_resource type="Resource" uid="uid://dxmsugrnmgjga" path="res://Maps/window room.res" id="2_0fmwc"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://d4hb6xersc7td" path="res://Mapping/Walls/WallA4x1.tscn" id="25_pwbpm"]
 [ext_resource type="PackedScene" uid="uid://b3cc3kvador1j" path="res://Mapping/Props/inmate_sink.tscn" id="26_cogsi"]
 [ext_resource type="PackedScene" uid="uid://cuw7jyil55scq" path="res://Mapping/Decals/DecalCaution.tscn" id="28_cvdgi"]
+[ext_resource type="PackedScene" uid="uid://n5lfxsha6av7" path="res://Mapping/Special/any_item_giver.tscn" id="28_wvfgn"]
 [ext_resource type="PackedScene" uid="uid://cvu8cxi4wxx30" path="res://Mapping/Decals/DecalNum3.tscn" id="30_1s6xw"]
 [ext_resource type="PackedScene" uid="uid://nlpwsjsb5byb" path="res://Mapping/Decals/DecalNum9.tscn" id="31_6glke"]
 [ext_resource type="PackedScene" uid="uid://csv5rnm3cqwm6" path="res://Mapping/Decals/DecalHazardRed.tscn" id="32_sg2g2"]
@@ -239,3 +240,6 @@ visible = false
 size = Vector3(9.717773, 9.746338, 12.356445)
 ambient_mode = 2
 ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+
+[node name="AnyItemGiver" parent="." instance=ExtResource("28_wvfgn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.6303267, 0, 2.6731272)

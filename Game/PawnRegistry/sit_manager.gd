@@ -5,7 +5,7 @@ var pawnToSeat:Dictionary[CharacterPawn, PoseSpot] = {}
 var seatToPawn:Dictionary[PoseSpot, CharacterPawn] = {}
 
 func _ready() -> void:
-	GameInteractor.sitManager = self
+	GI.sitManager = self
 
 func connectSignals():
 	GM.pawnRegistry.onPawnDeleted.connect(handleDeletionOfPawn)
@@ -38,12 +38,12 @@ func doSit(_pawn:CharacterPawn, _spot:PoseSpot):
 	
 	#print("MEOW MEOW MEOW "+str(pawnToSeat))
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doSitRPC.bind(GameInteractor.getUniqueIDOf(_pawn), GameInteractor.getUniqueIDOf(_spot)))
+		Network.rpcClients(doSitRPC.bind(GI.getUniqueIDOf(_pawn), GI.getUniqueIDOf(_spot)))
 
 @rpc("authority", "call_remote", "reliable")
 func doSitRPC(_pawnID:Array, _spotID:Array):
-	var thePawn = GameInteractor.getNodeByUniqueID(_pawnID)
-	var theSpot = GameInteractor.getNodeByUniqueID(_spotID)
+	var thePawn = GI.getNodeByUniqueID(_pawnID)
+	var theSpot = GI.getNodeByUniqueID(_spotID)
 	if(!thePawn):
 		Log.Printerr("Bad pawn id, "+str(_pawnID))
 		return
@@ -66,11 +66,11 @@ func unsit(_pawn:CharacterPawn):
 	_spot.onPawnChange(null)
 	
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doUnsitRPC.bind(GameInteractor.getUniqueIDOf(_pawn)))
+		Network.rpcClients(doUnsitRPC.bind(GI.getUniqueIDOf(_pawn)))
 
 @rpc("authority", "call_remote", "reliable")
 func doUnsitRPC(_pawnID:Array):
-	var thePawn = GameInteractor.getNodeByUniqueID(_pawnID)
+	var thePawn = GI.getNodeByUniqueID(_pawnID)
 	if(!thePawn):
 		Log.Printerr("Bad pawn id, "+str(_pawnID))
 	unsit(thePawn)
@@ -135,8 +135,8 @@ func saveNetworkData() -> Bins:
 	]
 	for pawn in pawnToSeat:
 		var seat := pawnToSeat[pawn]
-		Ar.append_array([Bins.Var, GameInteractor.getUniqueIDOf(pawn)])
-		Ar.append_array([Bins.Var, GameInteractor.getUniqueIDOf(seat)])
+		Ar.append_array([Bins.Var, GI.getUniqueIDOf(pawn)])
+		Ar.append_array([Bins.Var, GI.getUniqueIDOf(seat)])
 	
 	return Bins.saveStartEnd(Ar)
 
@@ -155,8 +155,8 @@ func saveData() -> Dictionary:
 	for pawn in pawnToSeat:
 		var seat := pawnToSeat[pawn]
 		sittersPairs.append([
-			GameInteractor.getUniqueIDOf(pawn),
-			GameInteractor.getUniqueIDOf(seat),
+			GI.getUniqueIDOf(pawn),
+			GI.getUniqueIDOf(seat),
 		])
 	
 	return {
