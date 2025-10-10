@@ -14,3 +14,6 @@ func getSexHideTags() -> Dictionary:
 		SexHideTag.ArmRestraint: true,
 		SexHideTag.Armbinder: true,
 	}
+
+func isBondageGear() -> bool:
+	return true

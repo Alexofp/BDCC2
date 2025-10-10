@@ -125,11 +125,27 @@ func shouldHobbleLegs() -> bool:
 func getSexHideTags() -> Dictionary:
 	return {}
 
-func removeSelf():
+func removeSelf() -> bool:
 	var theInv:Inventory = getInventory()
 	if(!theInv):
-		return
-	theInv.removeItem(self)
+		return false
+	return theInv.removeItem(self)
+
+func unequipSelf() -> bool:
+	if(!isEquipable() || !isEquipped()):
+		return false
+	var theInv:Inventory = getInventory()
+	if(!theInv):
+		return false
+	return theInv.unequipSlot(currentSlot)
+
+func equipSelf() -> bool:
+	if(!isEquipable() || isEquipped()):
+		return false
+	var theInv:Inventory = getInventory()
+	if(!theInv):
+		return false
+	return getInventory().equipItemFreeSlot(self)
 
 func itemAction(_name:String, _desc:String, _actionID:String, _args:Array = []) -> Array:
 	return [true, _name, _desc, _actionID, _args]
@@ -155,9 +171,10 @@ func getActionsFinal() -> Array:
 				theActions.append(itemActionDisabled("Equip", "You already have something equipped in this slot"))
 		else:
 			theActions.append(itemAction("Unequip", "Take the item off", "unequip"))
+			
 	
 	if(!isEquipped()):
-		theActions.append(itemAction("Drop", "Destroy the item!", "drop"))
+		theActions.append(itemAction("Drop", "Drop the item!", "drop"))
 	
 	theActions.append_array(getActions())
 	
@@ -166,9 +183,9 @@ func getActionsFinal() -> Array:
 #Runs on server
 func doActionFinal(_id:String, _args:Array):
 	if(_id == "equip"):
-		getInventory().equipItemFreeSlot(self)
+		equipSelf()
 	elif(_id == "unequip"):
-		getInventory().unequipSlot(currentSlot)
+		unequipSelf()
 	elif(_id == "drop"):
 		if(!getInventory()):
 			removeSelf()
@@ -182,6 +199,73 @@ func doActionFinal(_id:String, _args:Array):
 				GM.inventoryRegistry.spawnItem(thePawn.global_position, self)
 	else:
 		doAction(_id, _args)
+
+func getDisplaceActions(_context:Dictionary) -> Array[Dictionary]:
+	return []
+
+func doDisplaceAction(_id:String, _args:Array, _context:Dictionary):
+	doActionFinal(_id, _args)
+
+func canUnequipInSex(_context:Dictionary) -> bool:
+	if(!isEquipable()):
+		return false
+	var theEquipSlots := getSlotsToEquipTo()
+	for theSlot in theEquipSlots:
+		if(theSlot in [InventorySlot.Bottom, InventorySlot.Top, InventorySlot.UnderwearBottom, InventorySlot.UnderwearTop, InventorySlot.Suit]):
+			return true
+	return false
+
+func shouldAutoEquipAfterSex() -> bool:
+	return true
+
+func resetEquippedState():
+	pass
+
+func onAutoEquipAfterSex():
+	resetEquippedState()
+
+func isBondageGear() -> bool:
+	return false
+
+const EQUIP_OK = 0
+const EQUIP_SLOT_OCCUPIED = 1
+const EQUIP_MISSING_BODYPART = 2 #Trying to equip a chastity cage onto a character with no penis or something
+const EQUIP_UNABLE_TO = 3 # Generic 'can't equip this item' error
+
+func canBeEquippedOntoReason(theInv:Inventory) -> int:
+	if(!isEquipable() || !theInv):
+		return EQUIP_UNABLE_TO
+	var theSlots := getSlotsToEquipTo()
+	var hasFreeSlotToUse:bool = false
+	var _hasMissingSlots:bool = false
+	for invSlot in theSlots:
+		if(theInv.unableToUseSlot(invSlot)):
+			_hasMissingSlots = true
+			continue
+		if(theInv.hasSlotEquipped(invSlot)):
+			continue
+		hasFreeSlotToUse = true
+		break
+	if(hasFreeSlotToUse):
+		return EQUIP_OK
+	if(_hasMissingSlots):
+		return EQUIP_MISSING_BODYPART
+	return EQUIP_SLOT_OCCUPIED
+
+func getCanBeEquippedOntoReasonText(_reason:int) -> String:
+	if(_reason == EQUIP_OK):
+		return ""
+	if(_reason == EQUIP_MISSING_BODYPART):
+		return "Unable to equip because of a missing required bodypart"
+	if(_reason == EQUIP_SLOT_OCCUPIED):
+		return "Unable to equip because the slot is already occupied"
+	if(_reason == EQUIP_UNABLE_TO):
+		return "Unable to equip this item"
+	
+	return "Unable to equip for an unknown reason"
+
+func canBeEquippedOnto(_theInv:Inventory) -> bool:
+	return canBeEquippedOntoReason(_theInv) == EQUIP_OK
 
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()

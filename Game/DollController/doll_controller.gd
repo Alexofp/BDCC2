@@ -514,7 +514,7 @@ func process_animation(delta):
 			##bodySkeleton.stand()
 			getDoll().animStand()
 	
-	if move_direction != Vector3.ZERO && !isRemote():
+	if move_direction_no_y != Vector3.ZERO && !isRemote():
 		model_root.basis = basis_rotate_toward(model_root.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)
 
 func isRemote() -> bool:

@@ -44,3 +44,36 @@ func getSexHideTags() -> Dictionary:
 		SexHideTag.CoversVagina: !pulledDown,
 		SexHideTag.CoversAnus: !pulledDown,
 	}
+
+func getActions() -> Array:
+	var theActions:Array = []
+	if(isEquipped()):
+		if(!pulledDown):
+			theActions.append(itemAction("Pull down", "Pull the shorts down!", "pullDown"))
+		else:
+			theActions.append(itemAction("Pull up", "Pull the shorts up!", "pullUp"))
+	return theActions
+
+func doAction(_id:String, _args:Array):
+	if(_id == "pullDown"):
+		setOptionValue("pulledDown", true)
+	if(_id == "pullUp"):
+		setOptionValue("pulledDown", false)
+
+func getDisplaceActions(_context:Dictionary) -> Array[Dictionary]:
+	var result:Array[Dictionary]= []
+	if(!pulledDown):
+		result.append({
+			name = "Pull down",
+			desc = "Pull the shorts down.",
+			action = "pullDown",
+			args = [],
+			score = 1.0,
+			message = "{user.You} {user.youVerb('pull')} down {target.your} shorts!",
+			delay = 0.5,
+		})
+	return result
+
+func resetEquippedState():
+	if(pulledDown):
+		setOptionValue("pulledDown", false)

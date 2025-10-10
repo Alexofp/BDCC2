@@ -3,7 +3,7 @@ class_name Bins # Binary Saver
 # Heavily inspired by https://github.com/vysker/bytekruncher with an attempt to make it more perfomant
 
 const DO_CHECKSUMS = true
-const DO_SLOW_CHECKSUMS = true
+const DO_SLOW_CHECKSUMS = false
 
 #var bytes: PackedByteArray = PackedByteArray()
 var bytes: StreamPeerBuffer = StreamPeerBuffer.new()

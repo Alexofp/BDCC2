@@ -20,3 +20,6 @@ func getSexHideTags() -> Dictionary:
 		SexHideTag.CoversVagina: true,
 		SexHideTag.CoversAnus: true,
 	}
+
+func isBondageGear() -> bool:
+	return true

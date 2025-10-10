@@ -140,7 +140,7 @@ func tryCloseMenu():
 				theUI.queue_free()
 				return true
 			else:
-				return false
+				return true
 			
 	return false
 

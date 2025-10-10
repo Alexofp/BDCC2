@@ -356,6 +356,15 @@ func hasEveryoneConsent(_roleList:Array[String]) -> bool:
 			return false
 	return true
 
+func getContext() -> Dictionary:
+	return {}
+
+func addAutoEquipAfterEnd(_role:String, _slot:int, _itemUID:int):
+	var theCharID:String = getRoleID(_role)
+	if(theCharID.is_empty()):
+		return
+	getSexEngine().addAutoEquipAfterEnd(theCharID, _slot, _itemUID)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

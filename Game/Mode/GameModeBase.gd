@@ -42,6 +42,8 @@ func onCharacterCreatorConfirm():
 
 func _process(_delta: float) -> void:
 	processCharacterCreator(_delta)
+	if(canClientsCreateItems()):
+		processDebugMenuGiver(_delta)
 
 func processCharacterCreator(_delta:float):
 	if(!UIHandler.isMenuInputBlocked()):
@@ -51,3 +53,47 @@ func processCharacterCreator(_delta:float):
 					showCharacterCreator()
 			else:
 				hideCharacterCreator()
+
+func processDebugMenuGiver(_delta:float):
+	if(!UIHandler.isMenuInputBlocked()):
+		if(Input.is_action_just_pressed("debug_item_giver")):
+			if(!UIHandler.tryCloseMenu()):
+				var theGiverUI = load("res://UI/Util/debug_item_giver_ui.tscn").instantiate()
+				#theGiverUI.giverNode = weakref(self)
+				theGiverUI.dollUser = GI.getUniqueIDOf(GM.pcDoll)
+				GM.main.addUINode(theGiverUI)
+
+func canClientsCreateItems() -> bool:
+	return true
+
+func askDebugEquipItem(theChar:BaseCharacter, _slot:int, _itemID:String):
+	if(Network.isClient()):
+		askDebugEquipItem_SERVERRPC.rpc_id(1, theChar.getID(), _slot, _itemID)
+	else:
+		askDebugEquipItem_SERVERRPC(theChar.getID(), _slot, _itemID)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askDebugEquipItem_SERVERRPC(_charID:String, _slot:int, _itemID:String):
+	if(!canClientsCreateItems()):
+		Log.Printerr("Client "+str(multiplayer.get_remote_sender_id())+" tried to cheat-create an item.")
+		return
+	var theChar:BaseCharacter = GM.characterRegistry.getCharacter(_charID)
+	if(!theChar):
+		return
+	theChar.getInventory().setEquippedItem(_slot, GlobalRegistry.createItem(_itemID) if !_itemID.is_empty() else null)
+
+func askDebugGiveItem(theChar:BaseCharacter, _itemID:String):
+	if(Network.isClient()):
+		askDebugGiveItem_SERVERRPC.rpc_id(1, theChar.getID(), _itemID)
+	else:
+		askDebugGiveItem_SERVERRPC(theChar.getID(), _itemID)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askDebugGiveItem_SERVERRPC(_charID:String, _itemID:String):
+	if(!canClientsCreateItems()):
+		Log.Printerr("Client "+str(multiplayer.get_remote_sender_id())+" tried to cheat-create an item.")
+		return
+	var theChar:BaseCharacter = GM.characterRegistry.getCharacter(_charID)
+	if(!theChar):
+		return
+	theChar.getInventory().addItem(GlobalRegistry.createItem(_itemID))

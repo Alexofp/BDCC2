@@ -13,3 +13,6 @@ func getSexHideTags() -> Dictionary:
 	return {
 		SexHideTag.NipplesBigPiercing: true,
 	}
+
+func isBondageGear() -> bool:
+	return true

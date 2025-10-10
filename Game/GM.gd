@@ -98,7 +98,7 @@ static func getNetworkedNodes() -> NetworkedNodes:
 
 static func getGameMode() -> GameModeBase:
 	if(main):
-		return main.getGame	
+		return main.getGameMode()
 	return null
 
 static func sendChat(_text:String):

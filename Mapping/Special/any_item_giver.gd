@@ -44,6 +44,13 @@ func handleGlobalEvent(_id:String, _args:Array):
 			theGiverUI.dollUser = _args[1]
 			GM.main.addUINode(theGiverUI)
 
+#func _process(_delta: float) -> void:
+	#if(!UIHandler.hasAnyUIVisible() && Input.is_action_just_pressed("debug_item_giver")):
+		#var theGiverUI = load("res://UI/Util/debug_item_giver_ui.tscn").instantiate()
+		#theGiverUI.giverNode = weakref(self)
+		#theGiverUI.dollUser = GI.getUniqueIDOf(GM.pcDoll)
+		#GM.main.addUINode(theGiverUI)
+
 func handleServerEvent(_id:String, _args:Array):
 	if(_id == "giveItem" && _args.size() >= 2):
 		var _theItemID:String = _args[0]
@@ -54,3 +61,14 @@ func handleServerEvent(_id:String, _args:Array):
 		
 		Log.Print("GIVING ITEM "+str(_theItemID)+" TO NPC "+str(theDoll.getCharacter().getID()))
 		theDoll.getCharacter().getInventory().addItem(GlobalRegistry.createItem(_theItemID))
+	
+	if(_id == "equipItem" && _args.size() >= 3):
+		var _theSlot:int = _args[0]
+		var _theItemID:String = _args[1]
+		var theDoll:DollController = GI.getNodeByUniqueID(_args[2])
+		
+		if(!theDoll):
+			return
+		
+		Log.Print("EQUIPPING ITEM "+str(_theItemID)+" TO NPC "+str(theDoll.getCharacter().getID()))
+		theDoll.getCharacter().getInventory().setEquippedItem(_theSlot, GlobalRegistry.createItem(_theItemID) if !_theItemID.is_empty() else null)

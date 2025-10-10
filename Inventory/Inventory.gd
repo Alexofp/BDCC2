@@ -105,6 +105,8 @@ func equipItemFreeSlot(_item:ItemBase) -> bool:
 func equipItem(_item:ItemBase, _slot:int) -> bool:
 	if(hasSlotEquipped(_slot)):
 		return false
+	if(!_item.canBeEquippedOnto(self)):
+		return false
 	_item.removeSelf()
 	setEquippedItem(_slot, _item)
 	return true
@@ -178,6 +180,19 @@ func getPickupName() -> String:
 	for theItem in items:
 		result.append(theItem.getName())
 	return Util.join(result, ", ")
+
+func unableToUseSlot(_invSlot:int) -> bool:
+	var theChar := getChar()
+	if(!theChar):
+		return false
+	
+	#TODO: Make this work at some point
+	#if(_invSlot == InventorySlot.Penis && !theChar.hasBodypart(BodypartSlot.Penis)):
+	#	return true
+	#if(_invSlot == InventorySlot.Vagina && !theChar.hasVagina()):
+	#	return true
+	
+	return false
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

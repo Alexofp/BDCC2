@@ -17,3 +17,6 @@ func getSexHideTags() -> Dictionary:
 		SexHideTag.LegRestraint: true,
 		SexHideTag.AnkleCuffs: true,
 	}
+
+func isBondageGear() -> bool:
+	return true

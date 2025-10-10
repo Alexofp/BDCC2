@@ -24,3 +24,6 @@ func getSexHideTags() -> Dictionary:
 	return {
 		SexHideTag.Gag: true,
 	}
+
+func isBondageGear() -> bool:
+	return true

@@ -67,6 +67,8 @@ const JUST_SKIP_QUEUE_TYPES = [
 	QUEUE_CANCEL_CATCHER,
 ]
 
+var autoEquipAfterEndItems:Dictionary[String, Array] = {} #charID = [slot, unique item id]
+
 func pushToQueue(_obj, _event:Array):
 	eventQueue.append([_obj, _event])
 
@@ -642,6 +644,8 @@ func _exit_tree() -> void:
 func stopSex():
 	GM.sexManager.removeSexInternal(self)
 	queue_free()
+	if(Network.isServer()):
+		doAutoEquipAfterEnd()
 
 func _on_anim_scene_player_on_scene_switched() -> void:
 	onAnimSceneSwitched.emit()
@@ -855,6 +859,30 @@ func canDoDomActions(_charID:String) -> bool:
 	if(!hasAnyDoms()): # no doms = all subs are also doms
 		return true
 	return false
+
+func addAutoEquipAfterEnd(_charID:String, _slot:int, _itemUID:int):
+	if(!autoEquipAfterEndItems.has(_charID)):
+		autoEquipAfterEndItems[_charID] = [[_slot, _itemUID]]
+	else:
+		autoEquipAfterEndItems[_charID].append([_slot, _itemUID])
+
+func doAutoEquipAfterEnd():
+	for theCharID in autoEquipAfterEndItems:
+		var theChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
+		if(!theChar):
+			continue
+		#TODO: if can't re-equip items because of restraints, you shouldn't!
+		var theInv:Inventory = theChar.getInventory()
+		var theItemsAndSlots:Array = autoEquipAfterEndItems[theCharID]
+		for theItemEntry in theItemsAndSlots:
+			var theSlot:int = theItemEntry[0]
+			var theItemUID:int = theItemEntry[1]
+			
+			var theItem:ItemBase = theInv.findItemByUniqueID(theItemUID)
+			if(!theItem || theItem.isEquipped() || theInv.hasSlotEquipped(theSlot)):
+				continue
+			theInv.equipItem(theItem, theSlot)
+			theItem.onAutoEquipAfterSex()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
