@@ -60,6 +60,12 @@ func himHer() -> String:
 func hasS() -> bool:
 	return getPronoun(PronounType.HasS) != ""
 
+func isAre() -> String:
+	if(hasS()):
+		return "is"
+	else:
+		return "are"
+
 func himselfHerself() -> String:
 	return getPronoun(PronounType.HimselfHerself)
 

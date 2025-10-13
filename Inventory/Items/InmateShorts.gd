@@ -69,7 +69,7 @@ func getDisplaceActions(_context:Dictionary) -> Array[Dictionary]:
 			action = "pullDown",
 			args = [],
 			score = 1.0,
-			message = "{user.You} {user.youVerb('pull')} down {target.your} shorts!",
+			message = "{user.You} {user.youVerb pull} down {target.your} shorts!",
 			delay = 0.5,
 		})
 	return result

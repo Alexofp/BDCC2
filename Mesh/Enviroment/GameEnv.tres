@@ -13,7 +13,6 @@ tonemap_mode = 4
 tonemap_exposure = 0.66
 ssao_intensity = 3.0
 ssil_intensity = 10.0
-sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 2

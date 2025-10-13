@@ -3,7 +3,8 @@ extends Node
 const CLOSE_QUEUE_FREE = 0
 const CLOSE_HIDE = 1
 const CLOSE_TRYCLOSEMENU_FUNC = 2
-const CLOSE_BLOCK = 3
+const CLOSE_IGNORE = 3
+const CLOSE_BLOCK = 4
 
 const META_CLOSE_NAME = "UIHandelrClose"
 
@@ -139,6 +140,8 @@ func tryCloseMenu():
 			elif(theLogic == CLOSE_QUEUE_FREE):
 				theUI.queue_free()
 				return true
+			elif(theLogic == CLOSE_IGNORE):
+				continue
 			else:
 				return true
 			

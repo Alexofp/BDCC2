@@ -128,20 +128,20 @@ func processEventQueue(_dt:float):
 			_entryObj.doActionFinalCustomState(queueEntry[1], queueEntry[2], queueEntry[3], queueEntry[4])
 		elif(queueType == QUEUE_ACTIONTEXT):
 			eventQueue.pop_front()
-			addActionText(queueEntry[1])
+			_entryObj.addActionText(queueEntry[1])
 		elif(queueType == QUEUE_SET_STATE):
 			eventQueue.pop_front()
 			_entryObj.setState(queueEntry[1])
 		elif(queueType == QUEUE_CONSENT_CHECK):
 			if(hasEveryoneConsent(_entryObj, queueEntry[2])):
 				eventQueue.pop_front()
-				addActionText("Consent gotten!")
+				addActionTextRaw("Consent gotten!")
 				continue
 			
 			queueEntry[1] -= _dt
 			if(queueEntry[1] <= 0):
 				eventQueue.pop_front()
-				addActionText("Couldn't get consent!")
+				addActionTextRaw("Couldn't get consent!")
 				cancelQueue()
 				continue
 			else:
@@ -481,7 +481,7 @@ func doActionInternal(charID:String, action:Dictionary):
 		theActivityRef.doStartSexAction(self, theInfo, theTarget, theAction)
 	if(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
-		addActionText("Someone decides to cancel the action!")
+		addActionText("{user.You} {user.youVerb decide} to cancel the action!", {user=charID})
 	if(actionID == ACTION_CONSENT):
 		if(eventQueue.is_empty()):
 			return
@@ -492,7 +492,7 @@ func doActionInternal(charID:String, action:Dictionary):
 		if(queueType != QUEUE_CONSENT_CHECK):
 			return
 		queueEntry[2].append(charID)
-		addActionText("SOMEONE CONSENTS!")
+		addActionText("{user.You} {user.youVerb consent}!", {user=charID})
 	if(actionID == ACTION_DENY_CONSENT):
 		if(eventQueue.is_empty()):
 			return
@@ -503,7 +503,8 @@ func doActionInternal(charID:String, action:Dictionary):
 		if(queueType != QUEUE_CONSENT_CHECK):
 			return
 		cancelQueue(charID)
-		addActionText("Someone didn't consent!")
+		addActionText("{user.You} didn't consent!", {user=charID})
+		
 	if(actionID == ACTION_CONSENT_ALWAYS):
 		#var theInfo := getInfo(charID)
 		#if(theInfo):
@@ -726,7 +727,10 @@ func rotateCamera(theCamera:Node3D, roty:float, rotx:float):
 	rot.y -= roty
 	theCamera.rotation_degrees = rot
 
-func addActionText(theText:String):
+func addActionText(theText:String, replacers:Dictionary[String, String]):
+	addActionTextRaw(parseText(theText, replacers))
+
+func addActionTextRaw(theText:String):
 	if(Network.isServer()):
 		actionTexts.append([
 			theText, 5.0,
@@ -883,6 +887,17 @@ func doAutoEquipAfterEnd():
 				continue
 			theInv.equipItem(theItem, theSlot)
 			theItem.onAutoEquipAfterSex()
+
+func parseText(_text:String, _replacers:Dictionary[String, String]) -> String:
+	return GM.textParser.parseString(_text, getSimpleGameTextParserText, _replacers).text
+
+func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
+	var theResult:SGTPResult = null
+	if(!theResult):
+		if(participants.has(_id)):
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(_id, _command, _arg)
+	
+	return theResult
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

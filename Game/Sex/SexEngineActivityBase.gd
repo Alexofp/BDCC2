@@ -43,7 +43,7 @@ func getStartActionsFinal(_sexEngine:SexEngine, _info:SexParticipantInfo, _targe
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_sexEngine.hasMainActivity() || _info == _target):
 		return
-	addAction(action("TEST TEST!").delay(0.3).start({dom=_info, sub=_target}))
+	#addAction(action("TEST TEST!").delay(0.3).start({dom=_info, sub=_target}))
 	#addAction(action("AAAA!").delay(3.0))
 	pass
 
@@ -94,7 +94,7 @@ func doRun():
 func addActionText(theText:String):
 	var sexEngine:SexEngine = getSexEngine()
 	if(sexEngine):
-		sexEngine.addActionText(theText)
+		sexEngine.addActionTextRaw(parseText(theText))
 
 func setupRoles(_roles:Dictionary, _need:Array):
 	for needRole in _need:
@@ -364,6 +364,17 @@ func addAutoEquipAfterEnd(_role:String, _slot:int, _itemUID:int):
 	if(theCharID.is_empty()):
 		return
 	getSexEngine().addAutoEquipAfterEnd(theCharID, _slot, _itemUID)
+
+func parseText(_text:String) -> String:
+	return GM.textParser.parseString(_text, getSimpleGameTextParserText).text
+
+func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
+	var theResult:SGTPResult = null
+	if(!theResult):
+		if(roleToID.has(_id)):
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(roleToID[_id], _command, _arg)
+	
+	return theResult
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

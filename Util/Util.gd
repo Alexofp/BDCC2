@@ -195,22 +195,6 @@ static func folderExists(path:String) -> bool:
 		return true
 	return false
 
-## input splitOnFirst("Test.Meow.Woof", ".")
-## output ["Test", "Meow.Woof"]
-## Always returns a pair of strings
-static func splitOnFirst(text: String, separator: String) -> Array[String]:
-	var stuff:PackedStringArray = text.split(separator)
-	
-	if(stuff.is_empty()):
-		return ["", ""]
-	if(stuff.size() <= 1):
-		return [stuff[0], ""]
-	
-	var firstEntry:String = stuff[0]
-	stuff.remove_at(0)
-	
-	return [firstEntry, join(stuff, separator)]
-
 static func createFolder(_path:String):
 	DirAccess.make_dir_recursive_absolute(_path)
 
@@ -295,3 +279,32 @@ static func separateIPPort(address:String) -> Array:
 		return [host, port]
 	else:
 		return [address]
+
+## input splitOnFirst("Test.Meow.Woof", ".")
+## output ["Test", "Meow.Woof"]
+## Might either return a one element array or a 2 element array
+static func splitOnFirst(theText: String, sep: String) -> Array[String]:
+	if sep.is_empty():
+		return [theText]
+
+	var idx := theText.find(sep)
+	if idx == -1:
+		return [theText]
+
+	var before := theText.substr(0, idx)
+	var after := theText.substr(idx + sep.length(), theText.length() - (idx + sep.length()))
+	return [before, after]
+
+# Always return sa 2-element array
+static func splitOnFirstOLD(text: String, separator: String) -> Array[String]:
+	var stuff:PackedStringArray = text.split(separator)
+	
+	if(stuff.is_empty()):
+		return ["", ""]
+	if(stuff.size() <= 1):
+		return [stuff[0], ""]
+	
+	var firstEntry:String = stuff[0]
+	stuff.remove_at(0)
+	
+	return [firstEntry, join(stuff, separator)]

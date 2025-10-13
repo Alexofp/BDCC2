@@ -22,7 +22,7 @@ var actionTextCache:String = ""
 var controllingCamera:bool = false
 
 func _enter_tree() -> void:
-	UIHandler.addUI(self)
+	UIHandler.addUI(self, UIHandler.CLOSE_IGNORE)
 	UIHandler.addMouseCapturer(self)
 
 func _exit_tree() -> void:

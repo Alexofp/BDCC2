@@ -32,7 +32,7 @@ static func getPronoun(_pronouns:int, _pronounType:int) -> String:
 	if(_pronounType == PronounType.HimHer):
 		return himHer(_pronouns)
 	if(_pronounType == PronounType.HasS):
-		return hasS(_pronouns)
+		return getSEnd(_pronouns)
 	if(_pronounType == PronounType.HimselfHerself):
 		return himselfHerself(_pronouns)
 	
@@ -70,7 +70,17 @@ static func himHer(_pronouns:int) -> String:
 
 # He writes (s required)
 # They write (no s required)
-static func hasS(_pronouns:int) -> String:
+static func hasS(_pronouns:int) -> bool:
+	if(_pronouns == HeHim):
+		return true
+	if(_pronouns == SheHer):
+		return true
+	if(_pronouns == TheyThem):
+		return false
+	
+	return true
+
+static func getSEnd(_pronouns:int) -> String:
 	if(_pronouns == HeHim):
 		return "s"
 	if(_pronouns == SheHer):

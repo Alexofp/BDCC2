@@ -567,6 +567,61 @@ func isPartialGesturesBlocked() -> bool:
 func notifyPresetApplied():
 	onChange.emit(BaseCharChange.createPresetApplied())
 
+func isUs() -> bool:
+	var myInfo := Network.getMyPlayerInfo()
+	if(!myInfo):
+		return false
+	var thePlayerCharID:String = myInfo.charID
+	return getID() == thePlayerCharID
+
+func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
+	if(_command == "name"):
+		return SGTPResult.make(getName())
+	if(_command == "nameS"):
+		return SGTPResult.make(getName()+"'s")
+	elif(_command == "you"):
+		return SGTPResult.make("you" if isUs() else getName())
+	elif(_command == "your"):
+		return SGTPResult.make("your" if isUs() else getName()+"'s")
+		
+	elif(_command == "he"):
+		return SGTPResult.make(gender.heShe())
+	elif(_command == "youHe"):
+		return SGTPResult.make("you" if isUs() else gender.heShe())
+		
+	elif(_command == "isAre"):
+		return SGTPResult.make(gender.isAre())
+	elif(_command == "youAre"):
+		return SGTPResult.make("are" if isUs() else gender.isAre())
+		
+	elif(_command == "his"):
+		return SGTPResult.make(gender.hisHer())
+	elif(_command == "yourHis"):
+		return SGTPResult.make("your" if isUs() else gender.hisHer())
+		
+	elif(_command == "him"):
+		return SGTPResult.make(gender.himHer())
+	elif(_command == "youHim"):
+		return SGTPResult.make("you" if isUs() else gender.himHer())
+		
+	elif(_command == "himself"):
+		return SGTPResult.make(gender.himselfHerself())
+	elif(_command == "yourself"):
+		return SGTPResult.make("yourself" if isUs() else gender.himselfHerself())
+		
+	elif(_command == "verb"):
+		var verbSplit := Util.splitOnFirst(_arg, "|")
+		if(gender.hasS()):
+			return SGTPResult.make(verbSplit[1] if verbSplit.size() > 1 else (verbSplit[0]+"s"))
+		return SGTPResult.make(verbSplit[0])
+	elif(_command == "youVerb"):
+		var verbSplit := Util.splitOnFirst(_arg, "|")
+		if(!isUs() && gender.hasS()):
+			return SGTPResult.make(verbSplit[1] if verbSplit.size() > 1 else (verbSplit[0]+"s"))
+		return SGTPResult.make(verbSplit[0])
+	
+	return null
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

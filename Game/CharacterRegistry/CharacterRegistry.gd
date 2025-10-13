@@ -290,6 +290,11 @@ func syncBodyMess_RPC(_characterID:String, _data:Dictionary):
 		return
 	theCharacter.getBodyMess().loadData(_data)
 
+func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
+	if(characters.has(_id)):
+		return characters[_id].getSimpleGameTextParserText(_id, _command, _arg)
+	return null
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I32, characters.size(),

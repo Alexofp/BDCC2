@@ -247,7 +247,7 @@ func handleChatSend(_playerInfo:NetworkPlayerInfo, _text:String):
 	if(_text.begins_with("/")):
 		var commandPair := Util.splitOnFirst(_text, " ")
 		var commandType:String = commandPair[0].substr(1)
-		var commandArgText:String = commandPair[1] if commandPair.size() >= 1 else ""
+		var commandArgText:String = commandPair[1] if commandPair.size() > 1 else ""
 		
 		#TODO: Setup a system for kicking and other stuff
 		if(commandType == "meow"):

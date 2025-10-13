@@ -17,6 +17,7 @@ static var sexManager:SexManager: get = getSexManager
 static var IS:InteractionSystem: get = getInteractionSystem
 static var netNodes:NetworkedNodes: get = getNetworkedNodes
 static var presets:CharacterPresetHolder
+static var textParser:SimpleGameTextParser = SimpleGameTextParser.new()
 
 static func getPC() -> BaseCharacter:
 	var myNetworkPlayer:NetworkPlayerInfo = Network.getMyPlayerInfo()
