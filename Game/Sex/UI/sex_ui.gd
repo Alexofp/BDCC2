@@ -9,6 +9,9 @@ class_name SexUI
 @onready var participants_list: VBoxContainer = %ParticipantsList
 @onready var chat_widget: VBoxContainer = %ChatWidget
 @onready var smart_button_grid: SmartButtonGrid = %SmartButtonGrid
+@onready var forcing_check: CheckBox = %ForcingCheck
+@onready var resist_minigame: ResistMinigame = %ResistMinigame
+@onready var grip_bar: ProgressBar = %GripBar
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -39,17 +42,29 @@ func onActionButtonPressed(_indx:int):
 	var theAction:Dictionary = buttonsCache[_indx]
 	sexEngine.askSelectAction(pawn.getCharID(), theAction)
 
+func getResist() -> ResistMinigameNode:
+	return sexEngine.resistMinigame if sexEngine else null
+
 func setEngine(theEngine:SexEngine):
 	if(sexEngine):
 		sexEngine.onAnimSceneSwitched.disconnect(onSexEngineAnimSceneSwitched)
 		sexEngine.onParticipantUpdate.disconnect(onSexEngineParticipantUpdate)
+		sexEngine.onSexChange.disconnect(onSexEngineChange)
+		sexEngine.resistMinigame.onUpdate.disconnect(onResistMinigameUpdate)
 	sexEngine = theEngine
 	if(sexEngine):
 		sexEngine.onAnimSceneSwitched.connect(onSexEngineAnimSceneSwitched)
 		sexEngine.onParticipantUpdate.connect(onSexEngineParticipantUpdate)
+		sexEngine.onSexChange.connect(onSexEngineChange)
+		sexEngine.resistMinigame.onUpdate.connect(onResistMinigameUpdate)
 		playQuickFade()
 	
 	updateSexParticipantsList()
+	updateResistMinigame()
+
+func onSexEngineChange(_change:SexEngineChange):
+	if(_change.type == SexEngineChange.MODE_CHANGE):
+		updateSexSettingsUI()
 
 func onSexEngineParticipantUpdate(_charID:String):
 	if(!pawn || !getEngine()):
@@ -58,13 +73,37 @@ func onSexEngineParticipantUpdate(_charID:String):
 	var ourID:String = pawn.getCharID()
 	if(ourID != _charID):
 		return
-	updateAutoConsentCheckbox()
+	updateSexSettingsUI()
 
-func updateAutoConsentCheckbox():
+func getSexParticipantInfo() -> SexParticipantInfo:
 	if(!pawn || !getEngine()):
 		return
 	var ourID:String = pawn.getCharID()
 	var participant:SexParticipantInfo = getEngine().getParticipant(ourID)
+	if(!participant):
+		return null
+	return participant
+
+func getSexParticipantID() -> String:
+	if(!pawn || !getEngine()):
+		return ""
+	var ourID:String = pawn.getCharID()
+	return ourID
+
+func updateRightPanel():
+	updateSexSettingsUI()
+	updateSexParticipantsList()
+
+func updateSexSettingsUI():
+	var theEngine := getEngine()
+	if(!theEngine):
+		return
+	updateAutoConsentCheckbox()
+	forcing_check.set_pressed_no_signal(theEngine.isForced())
+	updateResistMinigame()
+	
+func updateAutoConsentCheckbox():
+	var participant:SexParticipantInfo = getSexParticipantInfo()
 	if(!participant):
 		return
 	var hasAutoConsent:bool = participant.isAutoConsentToggledOn()
@@ -76,7 +115,7 @@ func onSexEngineAnimSceneSwitched():
 
 func setPawn(thePawn:CharacterPawn):
 	pawn = thePawn
-	updateAutoConsentCheckbox()
+	updateSexSettingsUI()
 
 func getEngine() -> SexEngine:
 	return sexEngine
@@ -108,7 +147,7 @@ func _process(_delta: float) -> void:
 		setEngine(newSexEngine)
 		if(newSexEngine):
 			visible = true
-			updateAutoConsentCheckbox()
+			updateSexSettingsUI()
 		else:
 			visible = false
 	if(!sexEngine):
@@ -136,7 +175,10 @@ func _process(_delta: float) -> void:
 		action_text_label.text = actionText
 		actionTextCache = actionText
 		action_text_label.visible = !action_text_label.text.is_empty()
-
+	
+	if(resist_minigame.visible):
+		processResistMinigame(_delta)
+	grip_bar.value = clamp(sexEngine.getGripLevel(), 0.0, 1.0)
 
 func _on_free_camera_button_pressed() -> void:
 	sexEngine.setCameraMode(SexEngine.CAMERA_FREE)
@@ -181,12 +223,19 @@ func playQuickFade():
 func _on_auto_consent_check_box_toggled(toggled_on: bool) -> void:
 	if(!getEngine() || !pawn):
 		return
-	getEngine().askSetParticipantAutoConsent(pawn.getCharID(), toggled_on)
+	var theInfo := getSexParticipantInfo()
+	if(!theInfo):
+		return
+	
+	theInfo.autoConsent = toggled_on
+	theInfo.syncUserOptions()
+	#getEngine().askSetParticipantAutoConsent(pawn.getCharID(), toggled_on)
 
 func updateSexParticipantsList():
 	Util.delete_children(participants_list)
 	
-	if(!getEngine()):
+	var theEngine := getEngine()
+	if(!theEngine):
 		return
 	for charID in getEngine().participants:
 		var character:BaseCharacter = GM.characterRegistry.getCharacter(charID)
@@ -195,7 +244,7 @@ func updateSexParticipantsList():
 		
 		var newEntry:SexParticipantUIEntry = sexParticipantUIEntryScene.instantiate()
 		participants_list.add_child(newEntry)
-		newEntry.setCharID(charID)
+		newEntry.setInfo(theEngine.getInfo(charID))
 		
 func _on_smart_button_grid_on_button_pressed(_buttonEntry: SmartGridButtonEntry) -> void:
 	if(_buttonEntry.actionID == "act"):
@@ -203,3 +252,81 @@ func _on_smart_button_grid_on_button_pressed(_buttonEntry: SmartGridButtonEntry)
 	
 	smart_button_grid.clearButtons()
 	buttonsCache.clear()
+
+func _on_forcing_check_toggled(_toggled_on: bool) -> void:
+	getEngine().askSetSexMode(SexEngine.MODE_FORCED if _toggled_on else SexEngine.MODE_NORMAL)
+
+func processResistMinigame(_dt:float):
+	#var theID:String = pawn.getCharID() if pawn else ""
+	#var theMinigame := getResist()
+	#if(!theMinigame):
+	#	return
+	
+	#resist_minigame.setTimeRaw(theMinigame.getCurTime(theID))
+	#resist_minigame.setSpeedRaw(theMinigame.getCurSpeed(theID))
+	pass
+	
+func updateResistMinigame():
+	var theMinigame := getResist()
+	if(!theMinigame || theMinigame.isDisabled()):
+		resist_minigame.visible = false
+		smart_button_grid.visible = true
+		return
+	resist_minigame.visible = true
+	smart_button_grid.visible = false
+	
+	resist_minigame.setResultLabel(theMinigame.resultText)
+	resist_minigame.setState(theMinigame.state)
+	resist_minigame.setTimerBar(theMinigame.timeFull, theMinigame.time)
+	resist_minigame.setRedZone(theMinigame.target, theMinigame.yellowZone)
+	
+	resist_minigame.setIsFrozen(theMinigame.resultMarks.has(pawn.getCharID()))
+	
+	resist_minigame.clearSmallMarkers()
+	for theCharID in theMinigame.resultMarks:
+		var thePos:float = theMinigame.resultMarks[theCharID]
+		
+		var theCharName:String = theCharID
+		if(theCharID == pawn.getCharID()):
+			theCharName = "you"
+		else:
+			var theChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
+			if(theChar):
+				theCharName = theChar.getName()
+		
+		resist_minigame.addSmallMarker(thePos, theCharName)
+	
+	#processResistMinigame(0.0)
+	#updateRunningMarksForResistMinigame()
+
+func onResistMinigameUpdate(_updateType:int):
+	if(_updateType == ResistMinigameNode.RESIST_START):
+		var theMinigame := getResist()
+		if(theMinigame):
+			var theID:String = pawn.getCharID() if pawn else ""
+			resist_minigame.setTimeRaw(theMinigame.getCurTime(theID))
+			resist_minigame.setSpeedRaw(theMinigame.getCurSpeed(theID))
+			
+			#updateRunningMarksForResistMinigame()
+				
+			#resist_minigame.setMainMarkerPos(RNG.randfRange(0.0, 1.0))
+	updateResistMinigame()
+
+#unused
+func updateRunningMarksForResistMinigame():
+	var theMinigame := getResist()
+	if(!theMinigame):
+		return
+	var theID:String = pawn.getCharID() if pawn else ""
+	var theRunningMarks:Array = []
+	for theCharID in theMinigame.times:
+		if(theCharID == theID || theMinigame.resultMarks.has(theCharID)):
+			continue
+		theRunningMarks.append([theCharID, theMinigame.times[theCharID], theMinigame.speeds[theCharID]])
+	resist_minigame.setRunningMarkers(theRunningMarks)
+
+func _on_resist_minigame_on_click(_pos: float) -> void:
+	var theResist := getResist()
+	if(!theResist):
+		return
+	theResist.pushResult(pawn.getCharID(), _pos)

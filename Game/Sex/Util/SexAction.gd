@@ -31,8 +31,8 @@ func delayCancel(_delay:float) -> SexAction:
 	payload.append([ACTION_DELAY_CANCANCEL, _delay])
 	return self
 
-func consent(_delay:float) -> SexAction:
-	payload.append([ACTION_CONSENT_CHECK, _delay])
+func consent(_delay:float = 5.0, _delayForced:float = 3.0) -> SexAction:
+	payload.append([ACTION_CONSENT_CHECK, _delay, _delayForced])
 	return self
 
 func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:

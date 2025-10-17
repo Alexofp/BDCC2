@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cetxt6ypnfvxp"]
+[gd_scene load_steps=8 format=3 uid="uid://cetxt6ypnfvxp"]
 
 [ext_resource type="Script" uid="uid://cj2cjhp518yo6" path="res://Game/Sex/SexEngine.gd" id="1_ki4rl"]
 [ext_resource type="Script" uid="uid://bgimnbbr8c0eo" path="res://Game/Systems/Camera/PriorityCamera.gd" id="2_h647o"]
 [ext_resource type="PackedScene" uid="uid://ffmxaf82tmg8" path="res://Game/Sex/anim_scene_player.tscn" id="3_2xedl"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="4_o3r2a"]
+[ext_resource type="PackedScene" uid="uid://k1bg86vgu58t" path="res://Game/Sex/Util/ResistMinigameNode.tscn" id="5_hdgrd"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hdgrd"]
 properties/0/path = NodePath(".:state")
@@ -21,6 +22,9 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:actionText")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:gripLevel")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o3r2a"]
 length = 0.001
@@ -64,7 +68,11 @@ script = ExtResource("2_h647o")
 cameraPriority = 99999.0
 metadata/_custom_type_script = "uid://bgimnbbr8c0eo"
 
+[node name="ResistMinigameNode" parent="." instance=ExtResource("5_hdgrd")]
+unique_name_in_owner = true
+
 [connection signal="onAnimEvent" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_event"]
 [connection signal="onAnimPlay" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_play"]
 [connection signal="onSceneSwitched" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_scene_switched"]
 [connection signal="timeout" from="ProcessTimer" to="." method="_on_process_timer_timeout"]
+[connection signal="onResult" from="ResistMinigameNode" to="." method="_on_resist_minigame_node_on_result"]

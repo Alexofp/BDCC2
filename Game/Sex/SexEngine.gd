@@ -16,6 +16,7 @@ const STATE_CONSENT = 2 # We're waiting for someone to agree
 @export var transitionTimer:float = 0.0
 @export var transitionTimerFull:float = 0.0
 @export var transitionText:String = ""
+@export var gripLevel:float = 0.5
 
 const ACTION_START_ACTION = 0
 const ACTION_SEX_ACTION = 1
@@ -23,18 +24,24 @@ const ACTION_CONSENT = 2
 const ACTION_DENY_CONSENT = 3
 const ACTION_CANCEL = 4
 const ACTION_CONSENT_ALWAYS = 5
+const ACTION_RESIST = 6
 
 var actionsCache:Dictionary = {}
 @export var actionsNetworked:Dictionary = {}
 
+@onready var resistMinigame: ResistMinigameNode = %ResistMinigameNode
+
 # char id = sex info
-var participants:Dictionary = {}
+var participants:Dictionary[String, SexParticipantInfo] = {}
 
 var sexActivity:SexMainActivity
 var sexType:SexTypeBase
 var sideActivities:Array[SexSideActivity] = []
 
-var consensual:bool = false
+const MODE_NORMAL = 0
+const MODE_FORCED = 1
+
+var sexMode:int = MODE_NORMAL
 
 const CAMERA_LOCKED = 0
 const CAMERA_FREE = 1
@@ -43,6 +50,7 @@ var cameraMode:int = CAMERA_LOCKED
 
 signal onAnimSceneSwitched
 signal onParticipantUpdate(charID)
+signal onSexChange(_change:SexEngineChange)
 
 var actionTexts:Array = []
 @export var actionText:String = ""
@@ -79,10 +87,10 @@ func createCancelCatcher(_state:String, _event:SexEvent):
 	return [QUEUE_CANCEL_CATCHER, _state, _event]
 
 func createQueueDelay(_time:float) -> Array:
-	return [QUEUE_DELAY, _time, _time]
+	return [QUEUE_DELAY, 0.0, _time]
 
 func createQueueDelayCanCancel(_time:float, _role:String) -> Array:
-	return [QUEUE_DELAY_CANCANCEL, _time, _time, _role]
+	return [QUEUE_DELAY_CANCANCEL, 0.0, _time, _role]
 	
 func createSetState(_state:String) -> Array:
 	return [QUEUE_SET_STATE, _state]
@@ -96,8 +104,9 @@ func createAutoAction(_state:String, _role:String, _actionID:String, _args:Array
 func createActionText(_text:String):
 	return [QUEUE_ACTIONTEXT, _text]
 
-func createConsentCheck(_delay:float, _consented:Array[String]):
-	return [QUEUE_CONSENT_CHECK, _delay, _consented, _delay]
+func createConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
+	#				0			  1			2		3			4		  5
+	return [QUEUE_CONSENT_CHECK, 0.0, _consented, _delay, _delayForced, false]
 
 func isQueueBusy() -> bool:
 	return !eventQueue.is_empty()
@@ -113,8 +122,8 @@ func processEventQueue(_dt:float):
 		var queueType:int = queueEntry[0]
 		
 		if(queueType in [QUEUE_DELAY, QUEUE_DELAY_CANCANCEL]):
-			queueEntry[1] -= _dt
-			if(queueEntry[1] <= 0):
+			queueEntry[1] += _dt
+			if(queueEntry[1] >= queueEntry[2]):
 				eventQueue.pop_front()
 				continue
 			else:
@@ -138,12 +147,22 @@ func processEventQueue(_dt:float):
 				addActionTextRaw("Consent gotten!")
 				continue
 			
-			queueEntry[1] -= _dt
-			if(queueEntry[1] <= 0):
-				eventQueue.pop_front()
-				addActionTextRaw("Couldn't get consent!")
-				cancelQueue()
-				continue
+			if(queueEntry[5]):
+				resistMinigame.updateMinigame(_dt)
+				break
+			var theMaxTimer:float = queueEntry[3] if !isForced() else queueEntry[4]
+			
+			queueEntry[1] += _dt
+			if(queueEntry[1] >= theMaxTimer):
+				if(hasEveryoneConsentEndCheck(_entryObj, queueEntry[2])):
+					eventQueue.pop_front()
+					addActionTextRaw("Consent gotten!")
+					continue
+				else:
+					eventQueue.pop_front()
+					addActionTextRaw("Couldn't get consent!")
+					cancelQueue()
+					continue
 			else:
 				break
 		elif(queueType == QUEUE_START_MAIN_ACTIVITY):
@@ -172,15 +191,18 @@ func calcTransitionTimer():
 			transitionTimerFull += max(queueEntry[2], 0.0)
 			return
 		if(queueType in [QUEUE_CONSENT_CHECK]):
+			if(queueEntry[5]):
+				return
 			transitionTimer += max(queueEntry[1], 0.0)
-			transitionTimerFull += max(queueEntry[3], 0.0)
+			var theMaxTimer:float = queueEntry[3] if !isForced() else queueEntry[4]
+			transitionTimerFull += max(theMaxTimer, 0.0)
 			return
 # event queue stuff end
 
 
 func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
-	if(args.has("consensual")):
-		consensual = args["consensual"]
+	if(args.has("sexMode")):
+		sexMode = args["sexMode"]
 	
 	var theSexType:SexTypeBase = GlobalRegistry.createSexType(sexTypeID)
 	theSexType.setSexEngine(self)
@@ -202,6 +224,7 @@ func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 func addParticipantInfo(_info:SexParticipantInfo):
 	participants[_info.id] = _info
 	onParticipantUpdate.emit(_info.id)
+	onSexChange.emit(SexEngineChange.makeParticipantUpdate(_info.id))
 
 func getParticipant(theID:String) -> SexParticipantInfo:
 	if(!participants.has(theID)):
@@ -224,7 +247,8 @@ func _process(_delta: float) -> void:
 			#sexActivity.doProcessFinal(_delta)
 
 func doProcess(_delta: float) -> void:
-	if(Network.isServer()):
+	var theIsServer:bool = Network.isServer()
+	if(theIsServer):
 		for charID in participants:
 			if(!GM.pawnRegistry.hasPawn(charID)):
 				Log.Printerr("Pawn doesn't exist: "+str(charID)+". Stopping sex.")
@@ -235,17 +259,22 @@ func doProcess(_delta: float) -> void:
 			#var theDoll:DollController = thePawn.getDoll()
 			#if(theDoll):
 				#theDoll.setExpressionState(getExpressionState(charID))
-	
+		
+		if(resistMinigame.isDisabled()):
+			gripLevel += 0.03 * _delta
+			if(gripLevel >= 1.0):
+				gripLevel = 1.0
+		
 	if(sexType):
 		sexType.doProcessFinal(_delta)
 	if(sexActivity):
 		sexActivity.doProcessFinal(_delta)
 	
 	processEventQueue(_delta)
-	if(Network.isServer()):
+	if(theIsServer):
 		calcTransitionTimer()
 	
-	if(Network.isServer()):
+	if(theIsServer):
 		# action cache update
 		var newNetworkActions:Dictionary = {}
 		actionsCache.clear()
@@ -263,7 +292,9 @@ func doProcess(_delta: float) -> void:
 				actionTexts.remove_at(textsAmount - _i - 1)
 			
 		actionText = calculateActionText()
-
+	
+		checkGripLevel()
+	
 func calculateNetworkActions(theActions:Array) -> Array:
 	var result:Array = []
 	
@@ -286,6 +317,7 @@ func calculateActions(charID:String) -> Array:
 	if(!participants.has(charID)):
 		return []
 	var isSexEngineBusy:bool = isBusy()
+	var _charCanDoDomActions:bool = canDoDomActions(charID)
 	
 	var result:Array = []
 	
@@ -317,13 +349,19 @@ func calculateActions(charID:String) -> Array:
 					id = ACTION_CONSENT,
 					name = "Allow",
 				})
-				result.append({
-					id = ACTION_DENY_CONSENT,
-					name = "Deny",
-				})
+				if(_charCanDoDomActions || !isForced()):
+					result.append({
+						id = ACTION_DENY_CONSENT,
+						name = "Deny",
+					})
+				else:
+					result.append({
+						id = ACTION_RESIST,
+						name = "Resist!",
+					})
 				result.append({
 					id = ACTION_CONSENT_ALWAYS,
-					name = "Always consent",
+					name = "Always allow",
 				})
 			#var _role:String = _entryObj.getRoleFromID(charID)
 			
@@ -367,6 +405,15 @@ func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInf
 				category = actionEntry.category,
 			})
 
+# Subs consent if no answer if forced
+func hasConsentIfNoAnswer(_charID:String) -> bool:
+	if(!isForced()):
+		return false
+	var theInfo := getInfo(_charID)
+	if(!theInfo):
+		return false
+	return !theInfo.canDoDomActions()
+
 func hasAutoConsent(_charID:String) -> bool:
 	var theInfo := getInfo(_charID)
 	if(!theInfo):
@@ -390,6 +437,14 @@ func shouldConsent(_charID:String) -> bool:
 	
 func hasEveryoneConsent(_activity, _consented:Array[String]) -> bool:
 	for _charID in _activity.idToRole:
+		if(!_consented.has(_charID) && shouldConsent(_charID)):
+			return false
+	return true
+	
+func hasEveryoneConsentEndCheck(_activity, _consented:Array[String]) -> bool:
+	for _charID in _activity.idToRole:
+		if(hasConsentIfNoAnswer(_charID)):
+			continue
 		if(!_consented.has(_charID) && shouldConsent(_charID)):
 			return false
 	return true
@@ -504,11 +559,38 @@ func doActionInternal(charID:String, action:Dictionary):
 			return
 		cancelQueue(charID)
 		addActionText("{user.You} didn't consent!", {user=charID})
+	if(actionID == ACTION_RESIST):
+		if(eventQueue.is_empty()):
+			return
+		var currentEntry:Array = eventQueue.front()
+		var _entryObj = currentEntry[0]
+		var queueEntry:Array = currentEntry[1]
+		var queueType:int = queueEntry[0]
+		if(queueType != QUEUE_CONSENT_CHECK):
+			return
+		#cancelQueue(charID)
+		queueEntry[5] = true
+		addActionText("{user.You} {user.youVerb resist}!", {user=charID})
+		
+		var _doms:Array[String] = []
+		var _subs:Array[String] = []
+		
+		for theCharID in participants:
+			#var theInfo:SexParticipantInfo = participants[theCharID]
+			if(canDoDomActions(theCharID)):
+				_doms.append(theCharID)
+			else:
+				_subs.append(theCharID)
+		
+		resistMinigame.setTeams("Doms", _doms, "Subs", _subs)
+		resistMinigame.startMinigame()
 		
 	if(actionID == ACTION_CONSENT_ALWAYS):
-		#var theInfo := getInfo(charID)
-		#if(theInfo):
-		askSetParticipantAutoConsent(charID, true)
+		var theInfo := getInfo(charID)
+		if(theInfo):
+			theInfo.autoConsent = true
+			theInfo.syncUserOptions()
+		#askSetParticipantAutoConsent(charID, true)
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
 
@@ -588,7 +670,7 @@ func isBusy() -> bool:
 
 func getProgressBarValue() -> float:
 	if(transitionTimerFull > 0.0):
-		return (1.0 - transitionTimer/transitionTimerFull)
+		return transitionTimer/transitionTimerFull
 	return -1.0
 
 func getFreeCameraMode() -> int:
@@ -650,6 +732,7 @@ func stopSex():
 
 func _on_anim_scene_player_on_scene_switched() -> void:
 	onAnimSceneSwitched.emit()
+	onSexChange.emit(SexEngineChange.makeSceneChange())
 
 @onready var process_timer: Timer = %ProcessTimer
 func _on_process_timer_timeout() -> void:
@@ -775,6 +858,21 @@ func sendSexTypeEvent_RPC(_eventID:String, _args:Array = []):
 	else:
 		Log.Printerr("We received a '"+str(_eventID)+"' sex type event but no sex type is currently running.")
 
+func askSetParticipantUserPickedOptions(_charID:String, _options:Dictionary):
+	if(Network.isClient()):
+		askSetParticipantUserPickedOptions_SERVERRPC.rpc_id(1, _charID, _options)
+	else:
+		askSetParticipantUserPickedOptions_SERVERRPC(_charID, _options)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askSetParticipantUserPickedOptions_SERVERRPC(_charID:String, _options:Dictionary):
+	if(!participants.has(_charID)):
+		return
+	participants[_charID].applyUserPickedOptions(_options)
+	onParticipantUpdate.emit(_charID)
+	onSexChange.emit(SexEngineChange.makeParticipantUpdate(_charID))
+	syncParticipant(_charID)
+
 func askSetParticipantAutoConsent(_charID:String, _newAutoConsent:bool):
 	if(Network.isClient()):
 		askSetParticipantAutoConsent_SERVERRPC.rpc_id(1, _charID, _newAutoConsent)
@@ -787,6 +885,7 @@ func askSetParticipantAutoConsent_SERVERRPC(_charID:String, _newAutoConsent:bool
 		return
 	participants[_charID].autoConsent = _newAutoConsent
 	onParticipantUpdate.emit(_charID)
+	onSexChange.emit(SexEngineChange.makeParticipantUpdate(_charID))
 	syncParticipant(_charID)
 
 func syncParticipant(_charID:String):
@@ -814,9 +913,13 @@ func syncParticipant_RPC(_charID:String, _data:Dictionary):
 	# Updated participant
 	participants[_charID].loadData(_data) #TODO: Change to load/saveNetworkData
 	onParticipantUpdate.emit(_charID)
+	onSexChange.emit(SexEngineChange.makeParticipantUpdate(_charID))
 
 func isConsensual() -> bool:
-	return consensual
+	return sexMode != MODE_FORCED
+
+func isForced() -> bool:
+	return sexMode == MODE_FORCED
 
 func isRPMode() -> bool:
 	return false
@@ -899,6 +1002,67 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 	
 	return theResult
 
+func setSexMode(_mode:int):
+	if(_mode == sexMode):
+		return
+	sexMode = _mode
+	onSexChange.emit(SexEngineChange.makeModeChange(sexMode))
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(setSexMode_RPC.bind(_mode))
+
+@rpc("authority", "call_remote", "reliable")
+func setSexMode_RPC(_mode:int):
+	setSexMode(_mode)
+
+func askSetSexMode(_mode:int):
+	if(Network.isClient()):
+		askSetSexMode_SERVERRPC.rpc_id(1, _mode)
+	else:
+		askSetSexMode_SERVERRPC(_mode)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askSetSexMode_SERVERRPC(_mode:int):
+	setSexMode(_mode)
+
+# Runs on server
+func _on_resist_minigame_node_on_result(_result: Dictionary) -> void:
+	resistMinigame.syncMinigame()
+
+	if(eventQueue.is_empty()):
+		return
+	
+	var didDomsWin:bool = _result["team1won"] if _result.has("team1won") else true
+	
+	var currentEntry:Array = eventQueue.front()
+	var _entryObj = currentEntry[0]
+	var queueEntry:Array = currentEntry[1]
+	var queueType:int = queueEntry[0]
+	if(queueType == QUEUE_CONSENT_CHECK):
+		#queueEntry[5] = false
+		
+		if(!didDomsWin):
+			cancelQueue()
+			addActionTextRaw("The subs managed to resist the action!")
+			addGrip(-0.4)
+		else:
+			eventQueue.pop_front()
+			addActionTextRaw("The doms managed to force the action!")
+			#queueEntry[5] = false
+		
+		#Log.Print("LET'S GOOO!")
+
+func getGripLevel() -> float:
+	return gripLevel
+
+func addGrip(_grip:float):
+	gripLevel += _grip
+	if(gripLevel >= 1.0):
+		gripLevel = 1.0
+
+func checkGripLevel():
+	if(gripLevel <= 0.0):
+		stopSex()
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),
@@ -909,6 +1073,7 @@ func loadNetworkData(_data:Bins):
 	loadData(_data.readVar())
 	_data.endLoad()
 
+#TODO: Finish this
 func saveData() -> Dictionary:
 	var sexActivityData = null
 	if(sexActivity):
@@ -928,9 +1093,12 @@ func saveData() -> Dictionary:
 		},
 		sexActivity = sexActivityData,
 		animPlayer = anim_scene_player.saveData(),
+		sexMode = sexMode,
 	}
 
 func loadData(_data:Dictionary):
+	sexMode = SAVE.loadVar(_data, "sexMode", MODE_NORMAL)
+	
 	participants.clear()
 	var participantsData:Dictionary = SAVE.loadVar(_data, "participants", {})
 	for charID in participantsData:

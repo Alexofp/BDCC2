@@ -212,7 +212,7 @@ func doSexActionFinal(_role:String, _action:SexAction):
 		elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
 			pushDelayCanCancel(payloadEntry[1], _role)
 		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
-			pushConsentCheck(payloadEntry[1], [getRoleID(_role)])
+			pushConsentCheck(payloadEntry[1], payloadEntry[2], [getRoleID(_role)])
 		else:
 			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doSexActionFinal()")
 
@@ -329,8 +329,8 @@ func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
 func pushActionText(_text:String):
 	getSexEngine().pushToQueue(self, getSexEngine().createActionText(_text))
 
-func pushConsentCheck(_delay:float, _consented:Array[String]):
-	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _consented))
+func pushConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
+	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _delayForced, _consented))
 
 func isReadyToCum(_role:String) -> bool:
 	var theChar := getRoleChar(_role)

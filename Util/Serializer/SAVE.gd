@@ -7,6 +7,7 @@ static func loadVar(_data:Dictionary, _theKey:String, _default):
 		
 	if(_default != null && typeof(_data[_theKey]) != typeof(_default) && !(typeof(_data[_theKey]) == TYPE_FLOAT && typeof(_default) == TYPE_INT)):
 		Log.Printerr("Value mismatch when loading. Key is "+str(_theKey)+" Value is '"+str(_data[_theKey])+"' Default is '"+str(_default)+"'")
+		#return _default #TODO: Uncomment this?
 		
 	# Do type checks here. Type of _default must be the same as the type of data[_theKey]
 	return _data[_theKey]

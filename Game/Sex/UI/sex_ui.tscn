@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://p4m1d4oacfut"]
+[gd_scene load_steps=10 format=3 uid="uid://p4m1d4oacfut"]
 
 [ext_resource type="Script" uid="uid://cjfeedoi3xti4" path="res://Game/Sex/UI/sex_ui.gd" id="1_e8tk3"]
 [ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="3_6jvax"]
+[ext_resource type="PackedScene" uid="uid://d1vf3oqhh0mf1" path="res://Game/UI/ResistMinigame/resist_minigame.tscn" id="3_px13k"]
 [ext_resource type="PackedScene" uid="uid://c2fc3kupmxgw0" path="res://Game/Sex/UI/sex_participant_ui_entry.tscn" id="3_schvr"]
 [ext_resource type="PackedScene" uid="uid://g7hlt44gtx1w" path="res://UI/FullScreenChat/chat_widget.tscn" id="4_8pvey"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jvax"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_px13k"]
+bg_color = Color(0.48280004, 0.50909334, 0.68, 1)
 
 [sub_resource type="Animation" id="Animation_n3q0f"]
 resource_name = "QuickFade"
@@ -99,6 +106,11 @@ layout_mode = 2
 
 [node name="SmartButtonGrid" parent="HBoxContainer/VBoxContainer/BottomPanel" instance=ExtResource("3_6jvax")]
 unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="ResistMinigame" parent="HBoxContainer/VBoxContainer/BottomPanel" instance=ExtResource("3_px13k")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="RightPanel" type="PanelContainer" parent="HBoxContainer"]
@@ -134,35 +146,65 @@ text = "First person"
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Auto-consent"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
 [node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Enabled"
+text = "Auto-Allow"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 112)
+[node name="ForcingCheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+text = "Forcing"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3"]
+[node name="GripBar" type="ProgressBar" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6jvax")
+theme_override_styles/fill = SubResource("StyleBoxFlat_px13k")
+max_value = 1.0
+value = 0.17
+show_percentage = false
+
+[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/GripBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Grip"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ParticipantsList" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3/ScrollContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ParticipantsList" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SexParticipantUIEntry" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer3/ScrollContainer/ParticipantsList" instance=ExtResource("3_schvr")]
+[node name="SexParticipantUIEntry" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer/ParticipantsList" instance=ExtResource("3_schvr")]
 layout_mode = 2
 
-[node name="ChatWidget" parent="HBoxContainer/RightPanel/VBoxContainer" instance=ExtResource("4_8pvey")]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChatWidget" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/PanelContainer" instance=ExtResource("4_8pvey")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -175,6 +217,8 @@ libraries = {
 
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/EmptySpace" to="." method="_on_empty_space_gui_input"]
 [connection signal="onButtonPressed" from="HBoxContainer/VBoxContainer/BottomPanel/SmartButtonGrid" to="." method="_on_smart_button_grid_on_button_pressed"]
+[connection signal="onClick" from="HBoxContainer/VBoxContainer/BottomPanel/ResistMinigame" to="." method="_on_resist_minigame_on_click"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/LockedCameraButton" to="." method="_on_locked_camera_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/FreeCameraButton" to="." method="_on_free_camera_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/ForcingCheck" to="." method="_on_forcing_check_toggled"]

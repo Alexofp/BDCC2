@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://k1bg86vgu58t"]
+
+[ext_resource type="Script" uid="uid://miic4dltnor" path="res://Game/Sex/Util/resist_minigame_node.gd" id="1_ox5c1"]
+
+[node name="ResistMinigameNode" type="Node"]
+script = ExtResource("1_ox5c1")

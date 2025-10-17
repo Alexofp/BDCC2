@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://d06l8aoh2u2ci"]
+
+[ext_resource type="Script" uid="uid://caho5cil4cda0" path="res://Game/UI/ResistMinigame/other_marker.gd" id="1_7jdiv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clten"]
+bg_color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="OtherMarker" type="Panel"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -0.9999695
+offset_right = 1.0000305
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_clten")
+script = ExtResource("1_7jdiv")
+
+[node name="TextLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -14.0
+offset_top = -11.0
+offset_right = 68.0
+offset_bottom = 12.0
+rotation = -1.1013027
+mouse_filter = 1
+text = "You"

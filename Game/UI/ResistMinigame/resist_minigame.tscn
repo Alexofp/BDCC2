@@ -1,0 +1,178 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1vf3oqhh0mf1"]
+
+[ext_resource type="Script" uid="uid://usktsyncbc4k" path="res://Game/UI/ResistMinigame/resist_minigame.gd" id="1_fmc2d"]
+[ext_resource type="PackedScene" uid="uid://d06l8aoh2u2ci" path="res://Game/UI/ResistMinigame/other_marker.tscn" id="2_clten"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6gmu"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3jla"]
+bg_color = Color(0.66, 0.40744004, 0.11880001, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0t8bx"]
+bg_color = Color(0.66, 0.09239999, 0.09239999, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmc2d"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clten"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0, 0, 0.3882353)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[node name="ResistMinigame" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -524.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fmc2d")
+
+[node name="MainControl" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MainPanel" type="Panel" parent="MainControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.43
+anchor_right = 1.0
+anchor_bottom = 0.43
+offset_left = 26.0
+offset_top = -23.0
+offset_right = -26.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_c6gmu")
+
+[node name="YellowPanel" type="Panel" parent="MainControl/MainPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.315
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_f3jla")
+
+[node name="OtherMarker" parent="MainControl/MainPanel" instance=ExtResource("2_clten")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_right = 2.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="RedPanel" type="Panel" parent="MainControl/MainPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_right = 0.3
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_0t8bx")
+
+[node name="MainMarker" type="Panel" parent="MainControl/MainPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -39.0
+offset_right = 2.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_fmc2d")
+
+[node name="TimeBar" type="ProgressBar" parent="MainControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_clten")
+max_value = 1.0
+value = 0.33
+show_percentage = false
+
+[node name="ResultLabel" type="Label" parent="MainControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "XXX won!"
+horizontal_alignment = 1
+
+[node name="IntroControl" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IntroControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="IntroControl/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Resist!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="IntroControl/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+text = "Click when the marker is as close to the red zone as possible"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="IntroTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="gui_input" from="MainControl" to="." method="_on_main_control_gui_input"]
+[connection signal="timeout" from="IntroTimer" to="." method="_on_intro_timer_timeout"]

@@ -14,7 +14,26 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "NAME"
 
+[node name="DebugSwitchButton" type="Button" parent="NameLabel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "SwitchTo"
+
+[node name="StatusLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
 [node name="ArousalBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
+
+[connection signal="pressed" from="NameLabel/DebugSwitchButton" to="." method="_on_debug_switch_button_pressed"]

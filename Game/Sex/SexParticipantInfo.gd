@@ -33,8 +33,17 @@ func isAutoConsent() -> bool:
 	return isAutoConsentToggledOn()
 
 func syncMe():
+	var theEngine := getSexEngine()
+	if(!theEngine):
+		return
 	if(Network.isServerNotSingleplayer()):
-		getSexEngine().syncParticipant(id)
+		theEngine.syncParticipant(id)
+
+func syncUserOptions():
+	var theEngine := getSexEngine()
+	if(!theEngine):
+		return
+	theEngine.askSetParticipantUserPickedOptions(getID(), getUserPickedOptions())
 
 func isDom() -> bool:
 	return role == SexRole.Dom
@@ -47,6 +56,29 @@ func canDoDomActions() -> bool:
 
 func getID() -> String:
 	return id
+
+func getUserPickedOptions() -> Dictionary:
+	return {
+		autoConsent = autoConsent,
+	}
+
+func applyUserPickedOptions(_data:Dictionary):
+	autoConsent = SAVE.loadVar(_data, "autoConsent", false)
+
+func getStatusTextArray() -> Array[String]:
+	var result:Array[String] = []
+	
+	if(role == SexRole.Dom):
+		result.append("Dominant")
+	if(role == SexRole.Sub):
+		if(canDoDomActions()):
+			result.append("Submissive (acts as dom)")
+		else:
+			result.append("Submissive")
+	if(autoConsent):
+		result.append("Auto-allow")
+	
+	return result
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

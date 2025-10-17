@@ -97,3 +97,27 @@ func askDebugGiveItem_SERVERRPC(_charID:String, _itemID:String):
 	if(!theChar):
 		return
 	theChar.getInventory().addItem(GlobalRegistry.createItem(_itemID))
+
+
+func canClientSwitchCharacters(_nid:int) -> bool:
+	return true
+
+func askSwitchToCharID(_charID:String) -> void:
+	if(Network.isClient()):
+		askSwitchToCharID_SERVERRPC.rpc_id(1, _charID)
+		return
+	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
+	if(!myInfo):
+		return
+	if(!canClientSwitchCharacters(myInfo.id)):
+		return
+	myInfo.charID = _charID
+
+@rpc("any_peer", "call_remote", "reliable")
+func askSwitchToCharID_SERVERRPC(newPawnID:String):
+	var myInfo:NetworkPlayerInfo = Network.getPlayerInfo(multiplayer.get_remote_sender_id())
+	if(!myInfo):
+		return
+	if(!canClientSwitchCharacters(myInfo.id)):
+		return
+	myInfo.charID = newPawnID
