@@ -13,6 +13,9 @@ var actionName:String = ""
 var score:float = 0.0
 var category:Array[String] = []
 var payload:Array = []
+var cooldownID:String = ""
+var cooldownTime:float = 0.0
+var disabled:bool = false
 
 static func make(_name:String) -> SexAction:
 	var theAction:SexAction = SexAction.new()
@@ -45,4 +48,13 @@ func setScore(_score:float) -> SexAction:
 
 func setCat(_category:Array[String]) -> SexAction:
 	category = _category
+	return self
+
+func setCooldown(_cooldownID:String, _cooldownTime:float = 0.0) -> SexAction:
+	cooldownID = _cooldownID
+	cooldownTime = _cooldownTime
+	return self
+
+func setDisabled(_dis:bool) -> SexAction:
+	disabled = _dis
 	return self

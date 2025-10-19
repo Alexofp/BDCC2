@@ -25,6 +25,7 @@ const ACTION_DENY_CONSENT = 3
 const ACTION_CANCEL = 4
 const ACTION_CONSENT_ALWAYS = 5
 const ACTION_RESIST = 6
+const ACTION_FORCE = 7
 
 var actionsCache:Dictionary = {}
 @export var actionsNetworked:Dictionary = {}
@@ -55,6 +56,8 @@ signal onSexChange(_change:SexEngineChange)
 var actionTexts:Array = []
 @export var actionText:String = ""
 
+var cooldowns:Dictionary[String, float] = {}
+
 var eventQueue:Array = []
 
 # event queue stuff
@@ -69,6 +72,7 @@ const QUEUE_SET_STATE = 7
 const QUEUE_CONSENT_CHECK = 8
 const QUEUE_START_MAIN_ACTIVITY = 9
 const QUEUE_START_SIDE_ACTIVITY = 10
+const QUEUE_RESIST_MINIGAME = 11
 
 const JUST_SKIP_QUEUE_TYPES = [
 	QUEUE_CANCEL_STOPPER,
@@ -107,6 +111,9 @@ func createActionText(_text:String):
 func createConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
 	#				0			  1			2		3			4		  5
 	return [QUEUE_CONSENT_CHECK, 0.0, _consented, _delay, _delayForced, false]
+
+func createResistMinigame(_state:String):
+	return [QUEUE_RESIST_MINIGAME, false, _state]
 
 func isQueueBusy() -> bool:
 	return !eventQueue.is_empty()
@@ -171,6 +178,12 @@ func processEventQueue(_dt:float):
 		elif(queueType == QUEUE_START_SIDE_ACTIVITY):
 			startSideActivity(queueEntry[1], queueEntry[2], queueEntry[3])
 			eventQueue.pop_front()
+		elif(queueType == QUEUE_RESIST_MINIGAME):
+			if(!queueEntry[1]):
+				startResistMinigame(1.0, 2.0)
+				queueEntry[1] = true
+			resistMinigame.updateMinigame(_dt)
+			break
 		elif(queueType in JUST_SKIP_QUEUE_TYPES):
 			eventQueue.pop_front()
 		else:
@@ -273,6 +286,7 @@ func doProcess(_delta: float) -> void:
 	processEventQueue(_delta)
 	if(theIsServer):
 		calcTransitionTimer()
+		processCooldowns(_delta)
 	
 	if(theIsServer):
 		# action cache update
@@ -300,7 +314,7 @@ func calculateNetworkActions(theActions:Array) -> Array:
 	
 	var _i:int = 0
 	for actionEntry in theActions:
-		result.append({i=_i,name=actionEntry["name"],cat=(actionEntry["category"] if actionEntry.has("category") else [])})
+		result.append({i=_i,name=actionEntry["name"],dis=actionEntry["disabled"] if actionEntry.has("disabled") else false,cat=(actionEntry["category"] if actionEntry.has("category") else [])})
 		_i += 1
 	
 	return result
@@ -344,6 +358,11 @@ func calculateActions(charID:String) -> Array:
 					name = "Cancel",
 				})
 		if(queueType == QUEUE_CONSENT_CHECK):
+			if(!isForced() && canDoDomActions(charID)):
+				result.append({
+					id = ACTION_FORCE,
+					name = "Force",
+				})
 			if(shouldConsent(charID)):
 				result.append({
 					id = ACTION_CONSENT,
@@ -375,9 +394,10 @@ func calculateActions(charID:String) -> Array:
 				result.append({
 					id = ACTION_SEX_ACTION,
 					activity = theSexActivity,
-					name = actionEntry.actionName,
+					name = actionEntry.actionName if !hasCooldown(actionEntry.cooldownID) else ("("+str(int(ceil(getCooldown(actionEntry.cooldownID))))+") "+actionEntry.actionName),
 					action = actionEntry,
 					category = actionEntry.category,
+					disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
 				})
 		
 		var theInfo:SexParticipantInfo = getInfo(charID)
@@ -400,9 +420,10 @@ func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInf
 				id = ACTION_START_ACTION,
 				activity = theActivityRef,
 				target = otherCharID,
-				name = actionEntry.actionName,
+				name = actionEntry.actionName if !hasCooldown(actionEntry.cooldownID) else ("("+str(int(ceil(getCooldown(actionEntry.cooldownID))))+") "+actionEntry.actionName),
 				action = actionEntry,
 				category = actionEntry.category,
+				disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
 			})
 
 # Subs consent if no answer if forced
@@ -509,6 +530,8 @@ func doAction(charID:String, action:Dictionary):
 	doActionInternal(charID, action)
 
 func doActionInternal(charID:String, action:Dictionary):
+	if(action.has("disabled") && action["disabled"]):
+		return
 	actionsCache.clear()
 	actionsNetworked.clear()
 	
@@ -559,6 +582,17 @@ func doActionInternal(charID:String, action:Dictionary):
 			return
 		cancelQueue(charID)
 		addActionText("{user.You} didn't consent!", {user=charID})
+	if(actionID == ACTION_FORCE):
+		if(canDoDomActions(charID)):
+			setSexMode(MODE_FORCED)
+			if(eventQueue.is_empty()):
+				return
+			var currentEntry:Array = eventQueue.front()
+			var _entryObj = currentEntry[0]
+			var queueEntry:Array = currentEntry[1]
+			var queueType:int = queueEntry[0]
+			if(queueType == QUEUE_CONSENT_CHECK):
+				queueEntry[1] = 0.0
 	if(actionID == ACTION_RESIST):
 		if(eventQueue.is_empty()):
 			return
@@ -572,18 +606,7 @@ func doActionInternal(charID:String, action:Dictionary):
 		queueEntry[5] = true
 		addActionText("{user.You} {user.youVerb resist}!", {user=charID})
 		
-		var _doms:Array[String] = []
-		var _subs:Array[String] = []
-		
-		for theCharID in participants:
-			#var theInfo:SexParticipantInfo = participants[theCharID]
-			if(canDoDomActions(theCharID)):
-				_doms.append(theCharID)
-			else:
-				_subs.append(theCharID)
-		
-		resistMinigame.setTeams("Doms", _doms, "Subs", _subs)
-		resistMinigame.startMinigame()
+		startResistMinigame(1.0, 2.0)
 		
 	if(actionID == ACTION_CONSENT_ALWAYS):
 		var theInfo := getInfo(charID)
@@ -593,6 +616,20 @@ func doActionInternal(charID:String, action:Dictionary):
 		#askSetParticipantAutoConsent(charID, true)
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
+
+func startResistMinigame(_domSpeedMult:float, _subSpeedMult:float):
+	var _doms:Array[String] = []
+	var _subs:Array[String] = []
+	
+	for theCharID in participants:
+		#var theInfo:SexParticipantInfo = participants[theCharID]
+		if(canDoDomActions(theCharID)):
+			_doms.append(theCharID)
+		else:
+			_subs.append(theCharID)
+	resistMinigame.setTeams("Doms" if _doms.size() != 1 else "Dom", _doms, "Subs" if _subs.size() != 1 else "Sub", _subs)
+	resistMinigame.startMinigame(_domSpeedMult, _subSpeedMult)
+	
 
 func cancelQueue(_charID:String = ""):
 	while(!eventQueue.is_empty()):
@@ -1022,16 +1059,22 @@ func askSetSexMode(_mode:int):
 
 @rpc("any_peer", "call_remote", "reliable")
 func askSetSexMode_SERVERRPC(_mode:int):
+	var theInfo := Network.getSenderPlayerInfo()
+	if(!theInfo):
+		return
+	var theID:String = theInfo.getCharID()
+	if(theID.is_empty() || !isCharIDInvolved(theID) || !canDoDomActions(theID)):
+		return
 	setSexMode(_mode)
 
 # Runs on server
-func _on_resist_minigame_node_on_result(_result: Dictionary) -> void:
+func _on_resist_minigame_node_on_result(_result: ResistMinigameResult) -> void:
 	resistMinigame.syncMinigame()
 
 	if(eventQueue.is_empty()):
 		return
 	
-	var didDomsWin:bool = _result["team1won"] if _result.has("team1won") else true
+	var didDomsWin:bool = _result.didDomsWin()
 	
 	var currentEntry:Array = eventQueue.front()
 	var _entryObj = currentEntry[0]
@@ -1042,14 +1085,31 @@ func _on_resist_minigame_node_on_result(_result: Dictionary) -> void:
 		
 		if(!didDomsWin):
 			cancelQueue()
-			addActionTextRaw("The subs managed to resist the action!")
+			addActionTextRaw("The sub"+("s" if getSubAmount() != 1 else "")+" managed to resist the action! The dom"+("s" if getDomAmount() != 1 else "")+" have lost grip.")
 			addGrip(-0.4)
 		else:
 			eventQueue.pop_front()
-			addActionTextRaw("The doms managed to force the action!")
+			addActionTextRaw("The dom"+("s" if getDomAmount() != 1 else "")+" managed to force the action!")
 			#queueEntry[5] = false
 		
 		#Log.Print("LET'S GOOO!")
+	elif(queueType == QUEUE_RESIST_MINIGAME):
+		_entryObj.handleResistMinigame(queueEntry[2], _result)
+		eventQueue.pop_front()
+	
+func getSubAmount() -> int:
+	var result:int = 0
+	for charID in participants:
+		if(isSub(charID)):
+			result += 1
+	return result
+
+func getDomAmount() -> int:
+	var result:int = 0
+	for charID in participants:
+		if(isDom(charID)):
+			result += 1
+	return result
 
 func getGripLevel() -> float:
 	return gripLevel
@@ -1062,6 +1122,25 @@ func addGrip(_grip:float):
 func checkGripLevel():
 	if(gripLevel <= 0.0):
 		stopSex()
+
+func addCooldown(_cooldownID:String, _time:float):
+	cooldowns[_cooldownID] = _time
+
+func processCooldowns(_dt:float):
+	for cooldownID in cooldowns.keys():
+		cooldowns[cooldownID] -= _dt
+		if(cooldowns[cooldownID] <= 0.0):
+			cooldowns.erase(cooldownID)
+
+func hasCooldown(_cooldownID:String) -> bool:
+	if(cooldowns.has(_cooldownID)):
+		return cooldowns[_cooldownID] > 0.0
+	return false
+
+func getCooldown(_cooldownID:String) -> float:
+	if(cooldowns.has(_cooldownID)):
+		return cooldowns[_cooldownID]
+	return 0.0
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

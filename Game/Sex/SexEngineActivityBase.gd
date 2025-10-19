@@ -50,6 +50,9 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 #func addStartAction():
 #	pass
 func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
+	if(!_action.cooldownID.is_empty() && _action.cooldownTime > 0.0):
+		_sexEngine.addCooldown(_action.cooldownID, _action.cooldownTime)
+	
 	for payloadEntry in _action.payload:
 		var entryType:int = payloadEntry[0]
 		
@@ -201,7 +204,17 @@ func getActionsForCharID(_charID:String) -> Array[SexAction]:
 func doActionForCharID(_charID:String, _id:String, _args:Array):
 	doActionFinal(getRoleFromID(_charID), _id, _args)
 
+func addCooldown(_cooldownID:String, _time:float):
+	getSexEngine().addCooldown(_cooldownID, _time)
+
+#func doActionStuff(_action:SexAction):
+	#if(!_action.cooldownID.is_empty() && _action.cooldownTime > 0.0):
+		#addCooldown(_action.cooldownID, _action.cooldownTime)
+
 func doSexActionFinal(_role:String, _action:SexAction):
+	if(!_action.cooldownID.is_empty() && _action.cooldownTime > 0.0):
+		addCooldown(_action.cooldownID, _action.cooldownTime)
+	
 	for payloadEntry in _action.payload:
 		var entryType:int = payloadEntry[0]
 		
@@ -331,6 +344,16 @@ func pushActionText(_text:String):
 
 func pushConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
 	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _delayForced, _consented))
+
+func pushResistMinigame():
+	getSexEngine().pushToQueue(self, getSexEngine().createResistMinigame(state))
+
+func handleResistMinigame(_state:String, _result:ResistMinigameResult):
+	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_resistMinigame"
+	if(has_method(theFuncName)):
+		call(theFuncName, _result)
+		return
+	#doEvent(_event)
 
 func isReadyToCum(_role:String) -> bool:
 	var theChar := getRoleChar(_role)

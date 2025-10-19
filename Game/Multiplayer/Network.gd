@@ -98,8 +98,19 @@ func getMyPlayerInfo() -> NetworkPlayerInfo:
 		return null
 	return players[theID]
 
+func getSenderPlayerInfo() -> NetworkPlayerInfo:
+	var theID :int = multiplayer.get_remote_sender_id()
+	if(theID == 0):
+		theID = getHostID()
+	if(!players.has(theID)):
+		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
+		return null
+	return players[theID]
+
 func getRPCPlayerInfo() -> NetworkPlayerInfo:
 	var theID :int = multiplayer.get_remote_sender_id()
+	if(theID == 0):
+		theID = getHostID()
 	if(!players.has(theID)):
 		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
 		return null

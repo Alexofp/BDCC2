@@ -35,7 +35,7 @@ var times:Dictionary[String, float] = {}
 var shouldShowIntro:bool = true
 
 signal onUpdate(updateType:int)
-signal onResult(_result:Dictionary)
+signal onResult(_result:ResistMinigameResult)
 
 # runs on server
 func updateMinigame(_dt:float):
@@ -74,7 +74,11 @@ func updateMinigame(_dt:float):
 		endTime -= _dt
 		if(endTime <= 0.0):
 			state = STATE_DISABLED
-			onResult.emit({team1won=didTeam1Win()})
+			
+			var resistResult:ResistMinigameResult = ResistMinigameResult.new()
+			resistResult.team1win = didTeam1Win()
+			
+			onResult.emit(resistResult)
 
 func isDisabled() -> bool:
 	return state == STATE_DISABLED
@@ -155,15 +159,19 @@ func getCurSpeed(_charID:String) -> float:
 		return speeds[_charID]
 	return 1.0
 
-func startMinigame():
+func startMinigame(_speedDom:float, _speedSub:float):
 	var newTarget:float = RNG.randfRange(0.0, 1.0)
 	var newYellowZone:float = 0.1
 	
 	var theIntroTime:float = 2.0 if shouldShowIntro else 0.5
 	shouldShowIntro = false
 	
-	for charID in (team1 + team2):
-		speeds[charID] = RNG.randfRange(0.8, 1.2)
+	for charID in team1:
+		speeds[charID] = RNG.randfRange(0.8, 1.2) * _speedDom
+		times[charID] = RNG.randfRange(0.0, 20.0)
+	
+	for charID in team2:
+		speeds[charID] = RNG.randfRange(0.8, 1.2) * _speedSub
 		times[charID] = RNG.randfRange(0.0, 20.0)
 	
 	startMinigame_RPC(theIntroTime, newTarget, newYellowZone, times, speeds)

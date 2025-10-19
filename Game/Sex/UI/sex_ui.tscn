@@ -159,6 +159,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Forcing"
 
+[node name="SexDescLabel" type="RichTextLabel" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
 [node name="GripBar" type="ProgressBar" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)

@@ -24,6 +24,9 @@ func changeNickname(newName:String):
 	if(is_inside_tree()):
 		Network.notifyNameChanged(self)
 
+func getCharID() -> String:
+	return charID
+
 func saveNetworkData() -> Bins:
 	var data := Bins.saveStart([
 		Bins.I32, id,

@@ -12,6 +12,7 @@ class_name SexUI
 @onready var forcing_check: CheckBox = %ForcingCheck
 @onready var resist_minigame: ResistMinigame = %ResistMinigame
 @onready var grip_bar: ProgressBar = %GripBar
+@onready var sex_desc_label: RichTextLabel = %SexDescLabel
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -136,7 +137,10 @@ func updateButtons():
 	smart_button_grid.clearButtons(false)
 	var _i:int = 0
 	for buttonEntry in buttonsCache:
-		smart_button_grid.addButton(SmartGridButtonEntry.make(buttonEntry["name"], "act", [_i], buttonEntry["cat"]))
+		if(buttonEntry.has("dis") && buttonEntry["dis"]):
+			smart_button_grid.addButton(SmartGridButtonEntry.makeDisabled(buttonEntry["name"], buttonEntry["cat"]))
+		else:
+			smart_button_grid.addButton(SmartGridButtonEntry.make(buttonEntry["name"], "act", [_i], buttonEntry["cat"]))
 		_i += 1
 	
 func _process(_delta: float) -> void:
@@ -178,7 +182,8 @@ func _process(_delta: float) -> void:
 	
 	if(resist_minigame.visible):
 		processResistMinigame(_delta)
-	grip_bar.value = clamp(sexEngine.getGripLevel(), 0.0, 1.0)
+	
+	updateSexControlButtonsAndText()
 
 func _on_free_camera_button_pressed() -> void:
 	sexEngine.setCameraMode(SexEngine.CAMERA_FREE)
@@ -257,13 +262,13 @@ func _on_forcing_check_toggled(_toggled_on: bool) -> void:
 	getEngine().askSetSexMode(SexEngine.MODE_FORCED if _toggled_on else SexEngine.MODE_NORMAL)
 
 func processResistMinigame(_dt:float):
-	#var theID:String = pawn.getCharID() if pawn else ""
-	#var theMinigame := getResist()
-	#if(!theMinigame):
-	#	return
+	var theID:String = pawn.getCharID() if pawn else ""
+	var theMinigame := getResist()
+	if(!theMinigame):
+		return
 	
 	#resist_minigame.setTimeRaw(theMinigame.getCurTime(theID))
-	#resist_minigame.setSpeedRaw(theMinigame.getCurSpeed(theID))
+	resist_minigame.setSpeedRaw(theMinigame.getCurSpeed(theID))
 	pass
 	
 func updateResistMinigame():
@@ -330,3 +335,37 @@ func _on_resist_minigame_on_click(_pos: float) -> void:
 	if(!theResist):
 		return
 	theResist.pushResult(pawn.getCharID(), _pos)
+
+func canDoDomActions() -> bool:
+	var theEngine:= getEngine()
+	if(!theEngine || !pawn):
+		return false
+	return theEngine.canDoDomActions(pawn.getCharID())
+
+func canDoAnyActions() -> bool:
+	var theEngine:= getEngine()
+	if(!theEngine || !pawn):
+		return false
+	return theEngine.isCharIDInvolved(pawn.getCharID())
+
+var savedSexDescText:String = " "
+func updateSexControlButtonsAndText():
+	var theEngine := getEngine()
+	if(!theEngine):
+		return
+	grip_bar.value = clamp(theEngine.getGripLevel(), 0.0, 1.0)
+	
+	var _canDoDomActions:bool = canDoDomActions()
+	forcing_check.visible = _canDoDomActions
+	
+	var sexDescs:Array[String] = []
+	
+	if(!_canDoDomActions):
+		if(theEngine.isForced()):
+			sexDescs.append("[color=red]Forcing mode[/color]")
+	
+	var newSavedSexDescText:String = Util.join(sexDescs, "\n")
+	if(newSavedSexDescText != savedSexDescText):
+		savedSexDescText = newSavedSexDescText
+		sex_desc_label.text = newSavedSexDescText
+		sex_desc_label.visible = !newSavedSexDescText.is_empty()
