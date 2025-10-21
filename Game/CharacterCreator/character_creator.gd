@@ -19,6 +19,12 @@ var zoneFilter:int = CharCreatorZone.ALL
 @onready var char_tab: VBoxContainer = %CharTab
 @onready var char_var_list: VarList = %CharVarList
 
+@onready var info_tab: VBoxContainer = %InfoTab
+@onready var info_sel_button: Button = %InfoSelButton
+
+@onready var personality_label: Label = %PersonalityLabel
+
+
 var dropdownVarScene := preload("res://UI/VarList/Vars/dropdown_var.tscn")
 
 var collapseRegionScene := preload("res://UI/collapsable_region.tscn")
@@ -103,12 +109,14 @@ func updateSelectedTab():
 	parts_sel_button.text = "[ Parts ]" if currentTab == "parts" else "Parts"
 	options_sel_button.text = "[ Options ]" if currentTab == "options" else "Options"
 	skin_sel_button.text = "[ Skin&Colors ]" if currentTab == "skin" else "Skin&Colors"
-	char_sel_button.text = "[ Character ]" if currentTab == "char" else "Character"
+	char_sel_button.text = "[ Base ]" if currentTab == "char" else "Base"
+	info_sel_button.text = "[ Info ]" if currentTab == "info" else "Info"
 	
 	parts_tab.visible = (currentTab == "parts")
 	options_tab.visible = (currentTab == "options")
 	skin_tab.visible = (currentTab == "skin")
 	char_tab.visible = (currentTab == "char")
+	info_tab.visible = (currentTab == "info")
 
 func setTab(_newTab:String):
 	currentTab = _newTab
@@ -118,6 +126,8 @@ func setTab(_newTab:String):
 		updateSkinTab()
 	if(currentTab == "char"):
 		updateCharTab()
+	if(currentTab == "info"):
+		updateInfoTab()
 	updateCategoryOptions()
 	updateCategoryButtonsList()
 	setZoneFilter(CharCreatorZone.ALL)
@@ -591,3 +601,32 @@ func resetCharacterPose():
 	GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "")
 	if(doll):
 		doll.setMouthOpenTemporary(false)
+
+func _on_info_sel_button_pressed() -> void:
+	setTab("info")
+
+func updateInfoTab():
+	if(!character):
+		return
+	var thePersAr:Array[String] = []
+	for statID in GlobalRegistry.getPersonalityStatIDsSorted():
+		var thePersStat:PersonalityStatBase = GlobalRegistry.getPersonalityStat(statID)
+		if(!thePersStat):
+			continue
+		thePersAr.append(thePersStat.getVisibleName()+": "+str(Util.roundF(character.personality.getStat(statID), 2)))
+	personality_label.text = Util.join(thePersAr, "\n")
+
+const PERSONALITY_EDIT_PANEL = preload("res://Game/CharacterCreator/PersonalityEditUI/personality_edit_panel.tscn")
+
+func _on_edit_personality_button_pressed() -> void:
+	var newPanel := PERSONALITY_EDIT_PANEL.instantiate()
+	add_child(newPanel)
+	newPanel.setPersonalityCopy(character.personality)
+	newPanel.onCancel.connect(func(): newPanel.queue_free())
+	newPanel.onSave.connect(onPersEditApply.bind(newPanel))
+
+func onPersEditApply(_pers:Personality, _control:Control):
+	_control.queue_free()
+	GM.characterRegistry.askCharacterSetPersonality(character, _pers)
+	#character.personality.loadData(_pers.saveData().duplicate(true))
+	updateInfoTab()

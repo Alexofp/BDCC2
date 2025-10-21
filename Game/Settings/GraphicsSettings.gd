@@ -49,6 +49,14 @@ enum FPSCAP {
 }
 var fpsCap:int
 
+enum LIGHTSDISTANCE {
+	LOW,
+	MEDIUM,
+	FAR,
+	UNLIMITED,
+}
+var lightsDistance:int
+
 enum TEXTURESCHARACTERS {
 	MAX,
 	MEDIUM,
@@ -167,6 +175,18 @@ func getSettings() -> Dictionary:
 			],
 			default = FPSCAP.FPS60,
 			addSeparator = true,
+		},
+		"lightsDistance": {
+			name = "Lights distance",
+			type = "selector",
+			values = [
+				[LIGHTSDISTANCE.LOW, "Low"],
+				[LIGHTSDISTANCE.MEDIUM, "Medium"],
+				[LIGHTSDISTANCE.FAR, "Far"],
+				[LIGHTSDISTANCE.UNLIMITED, "Unlimited"],
+			],
+			default = LIGHTSDISTANCE.FAR,
+			addSeparator = false,
 		},
 		"texturesChar": {
 			name = "Character textures",
@@ -331,6 +351,8 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			OPTIONS.triggerCharTextureQualityChange()
 		"texturesCompression":
 			OPTIONS.triggerCharTextureQualityChange()
+		"lightsDistance":
+			OPTIONS.triggerLightsQualityChange()
 	
 	#print("APPLIED: "+_settingID)
 	pass

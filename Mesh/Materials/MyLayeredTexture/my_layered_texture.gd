@@ -68,7 +68,7 @@ func updateTexture():
 	#	cache_timer.stop()
 	#	if(!cachedTexture):
 	#		_on_cache_timer_timeout()
-	
+	@warning_ignore("integer_division")
 	sub_viewport.size = (resolution / resDivider) if textureSpawned else Vector2i(32, 32)
 	color_rect.color = clearColor
 	

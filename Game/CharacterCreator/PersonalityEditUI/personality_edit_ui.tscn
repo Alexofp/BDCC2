@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvorprfmq1dbf"]
+
+[ext_resource type="PackedScene" uid="uid://ckla4qab3dkvh" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_ui_entry.tscn" id="1_iom7c"]
+[ext_resource type="Script" uid="uid://1fnvuy1k26du" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_ui.gd" id="1_npi2u"]
+
+[node name="PersonalityEditUI" type="VBoxContainer" unique_id=247247983]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_npi2u")
+
+[node name="Label" type="Label" parent="." unique_id=890140217]
+layout_mode = 2
+text = "Personality"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=346039664]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PersEntryList" type="VBoxContainer" parent="ScrollContainer" unique_id=1973490691]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PersonalityEditUIEntry" parent="ScrollContainer/PersEntryList" unique_id=1337827564 instance=ExtResource("1_iom7c")]
+layout_mode = 2

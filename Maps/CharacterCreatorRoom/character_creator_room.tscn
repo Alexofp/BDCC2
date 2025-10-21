@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://djn63ne4a2q6c"]
+[gd_scene load_steps=32 format=3 uid="uid://djn63ne4a2q6c"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_y08rd"]
 [ext_resource type="Resource" uid="uid://dxmsugrnmgjga" path="res://Maps/window room.res" id="2_0fmwc"]
@@ -38,168 +38,174 @@ geometry_source_geometry_mode = 1
 geometry_source_group_name = &"Navmesh"
 agent_max_climb = 0.55
 
-[node name="CharacterCreatorRoom" type="Node3D"]
+[sub_resource type="SphereMesh" id="SphereMesh_wvfgn"]
 
-[node name="PCSceneLoader" type="Node3D" parent="." groups=["Navmesh"]]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4847"]
+metallic = 1.0
+roughness = 0.0
+
+[node name="CharacterCreatorRoom" type="Node3D" unique_id=1450141424]
+
+[node name="PCSceneLoader" type="Node3D" parent="." unique_id=800498339 groups=["Navmesh"]]
 script = ExtResource("1_y08rd")
 mapToLoad = ExtResource("2_0fmwc")
 metadata/_custom_type_script = "uid://bpd4f6ganr5gx"
 
-[node name="WindowA8x4" parent="PCSceneLoader" instance=ExtResource("3_sffmd")]
+[node name="WindowA8x4" parent="PCSceneLoader" unique_id=984705562 instance=ExtResource("3_sffmd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
-[node name="WindowA8x5" parent="PCSceneLoader" instance=ExtResource("3_sffmd")]
+[node name="WindowA8x5" parent="PCSceneLoader" unique_id=671482420 instance=ExtResource("3_sffmd")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, 0)
 
-[node name="WindowA8x6" parent="PCSceneLoader" instance=ExtResource("3_sffmd")]
+[node name="WindowA8x6" parent="PCSceneLoader" unique_id=1742051126 instance=ExtResource("3_sffmd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 0, 0)
 
-[node name="Chair1" parent="PCSceneLoader" instance=ExtResource("5_jnemp")]
+[node name="Chair1" parent="PCSceneLoader" unique_id=1788700502 instance=ExtResource("5_jnemp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.114818, 2.2351742e-08, -1.8708153)
 
-[node name="Chair2" parent="PCSceneLoader" instance=ExtResource("5_jnemp")]
+[node name="Chair2" parent="PCSceneLoader" unique_id=1237164271 instance=ExtResource("5_jnemp")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -3.0975108, -9.685755e-08, -1.1003667)
 
-[node name="ConstructionLightBoth" parent="PCSceneLoader" instance=ExtResource("7_vv8gu")]
+[node name="ConstructionLightBoth" parent="PCSceneLoader" unique_id=1057556328 instance=ExtResource("7_vv8gu")]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 2.7321763, 2.2351742e-08, -2.6983352)
 color3 = Color(1, 0.98833334, 0.93, 1)
 
-[node name="FloorPanelA8x4" parent="PCSceneLoader" instance=ExtResource("9_1pncw")]
+[node name="FloorPanelA8x4" parent="PCSceneLoader" unique_id=905370878 instance=ExtResource("9_1pncw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)
 roughness = 0.6
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
-[node name="FloorPanelA8x5" parent="PCSceneLoader" instance=ExtResource("9_1pncw")]
+[node name="FloorPanelA8x5" parent="PCSceneLoader" unique_id=1001508200 instance=ExtResource("9_1pncw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 roughness = 0.6
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
-[node name="FloorPanelA8x6" parent="PCSceneLoader" instance=ExtResource("9_1pncw")]
+[node name="FloorPanelA8x6" parent="PCSceneLoader" unique_id=1317720538 instance=ExtResource("9_1pncw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -2)
 roughness = 0.75
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
-[node name="FloorPanelA8x7" parent="PCSceneLoader" instance=ExtResource("9_1pncw")]
+[node name="FloorPanelA8x7" parent="PCSceneLoader" unique_id=1482661778 instance=ExtResource("9_1pncw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 2)
 roughness = 0.75
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
-[node name="Bench" parent="PCSceneLoader" instance=ExtResource("11_17xuh")]
+[node name="Bench" parent="PCSceneLoader" unique_id=715235153 instance=ExtResource("11_17xuh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2.8)
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(0.709804, 0.439216, 0.0901961, 1)
 
-[node name="WallLight" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
+[node name="WallLight" parent="PCSceneLoader" unique_id=1456807830 instance=ExtResource("13_gd2pe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4770758, 3.0313854, -3.6893072)
 color3 = Color(0.72, 0.9673333, 1, 1)
 
-[node name="InmateBed" parent="PCSceneLoader" instance=ExtResource("15_8kyni")]
+[node name="InmateBed" parent="PCSceneLoader" unique_id=2016924102 instance=ExtResource("15_8kyni")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 4)
 
-[node name="BackWallA4x4" parent="PCSceneLoader" instance=ExtResource("17_0do1b")]
+[node name="BackWallA4x4" parent="PCSceneLoader" unique_id=532121913 instance=ExtResource("17_0do1b")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 2, 4)
 
-[node name="WallA1x2" parent="PCSceneLoader" instance=ExtResource("19_yba32")]
+[node name="WallA1x2" parent="PCSceneLoader" unique_id=339692117 instance=ExtResource("19_yba32")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3, 2, 4)
 
-[node name="WallA2x2C" parent="PCSceneLoader" instance=ExtResource("21_384v0")]
+[node name="WallA2x2C" parent="PCSceneLoader" unique_id=356682532 instance=ExtResource("21_384v0")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0, 4)
 
-[node name="WallA2x4" parent="PCSceneLoader" instance=ExtResource("22_welvo")]
+[node name="WallA2x4" parent="PCSceneLoader" unique_id=1919920346 instance=ExtResource("22_welvo")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 0, 4)
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WallA1x4" parent="PCSceneLoader" instance=ExtResource("23_k54iv")]
+[node name="WallA1x4" parent="PCSceneLoader" unique_id=1387457020 instance=ExtResource("23_k54iv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4, 0, 4)
 
-[node name="WallA2x1B" parent="PCSceneLoader" instance=ExtResource("24_kcot6")]
+[node name="WallA2x1B" parent="PCSceneLoader" unique_id=1260156163 instance=ExtResource("24_kcot6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 2, 4)
 
-[node name="WallA4x1" parent="PCSceneLoader" instance=ExtResource("25_pwbpm")]
+[node name="WallA4x1" parent="PCSceneLoader" unique_id=1324082425 instance=ExtResource("25_pwbpm")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 3, 4)
 
-[node name="InmateSink" parent="PCSceneLoader" instance=ExtResource("26_cogsi")]
+[node name="InmateSink" parent="PCSceneLoader" unique_id=257458864 instance=ExtResource("26_cogsi")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.1, 1, 3.7)
 
-[node name="WallLight2" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
+[node name="WallLight2" parent="PCSceneLoader" unique_id=480873215 instance=ExtResource("13_gd2pe")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 2.5, 3.7)
 visible = false
 color3 = Color(1, 1, 1, 1)
 
-[node name="WallLight3" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
+[node name="WallLight3" parent="PCSceneLoader" unique_id=2121720391 instance=ExtResource("13_gd2pe")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 2.5, 3.8)
 color3 = Color(1, 1, 1, 1)
 
-[node name="Chair3" parent="PCSceneLoader" instance=ExtResource("5_jnemp")]
+[node name="Chair3" parent="PCSceneLoader" unique_id=98768857 instance=ExtResource("5_jnemp")]
 transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, -2.2, 0, 2.7)
 
-[node name="DecalCaution" parent="PCSceneLoader" instance=ExtResource("28_cvdgi")]
+[node name="DecalCaution" parent="PCSceneLoader" unique_id=1612914948 instance=ExtResource("28_cvdgi")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.8293073, 0.6108146, -2.1447864)
 
-[node name="DecalNum3" parent="PCSceneLoader" instance=ExtResource("30_1s6xw")]
+[node name="DecalNum3" parent="PCSceneLoader" unique_id=1406408604 instance=ExtResource("30_1s6xw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.4159603, 3.3634334, 3.748479)
 
-[node name="DecalNum9" parent="PCSceneLoader" instance=ExtResource("31_6glke")]
+[node name="DecalNum9" parent="PCSceneLoader" unique_id=637076802 instance=ExtResource("31_6glke")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.4131126, 2.790024, 3.748479)
 
-[node name="DecalHazardRed" parent="PCSceneLoader" instance=ExtResource("32_sg2g2")]
+[node name="DecalHazardRed" parent="PCSceneLoader" unique_id=1931512703 instance=ExtResource("32_sg2g2")]
 transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, -3.5779505, 0.0015413761, -3.2626772)
 
-[node name="DecalHazardRed2" parent="PCSceneLoader" instance=ExtResource("32_sg2g2")]
+[node name="DecalHazardRed2" parent="PCSceneLoader" unique_id=377826939 instance=ExtResource("32_sg2g2")]
 transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, -3.5674407, 0.0015412569, -2.2689102)
 
-[node name="DecalWarningMagneticField" parent="PCSceneLoader" instance=ExtResource("33_5tnom")]
+[node name="DecalWarningMagneticField" parent="PCSceneLoader" unique_id=1391988239 instance=ExtResource("33_5tnom")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.6421075, 0.20578298, 3.7484784)
 
-[node name="DecalHazardOrange1" parent="PCSceneLoader" instance=ExtResource("34_o5dig")]
+[node name="DecalHazardOrange1" parent="PCSceneLoader" unique_id=396552122 instance=ExtResource("34_o5dig")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.2897882, 0.0015412569, 3.4867496)
 
-[node name="DecalHazardOrange2" parent="PCSceneLoader" instance=ExtResource("34_o5dig")]
+[node name="DecalHazardOrange2" parent="PCSceneLoader" unique_id=1457837436 instance=ExtResource("34_o5dig")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.29481834, 0.0015412569, 3.484315)
 
-[node name="DecalHazardOrange3" parent="PCSceneLoader" instance=ExtResource("34_o5dig")]
+[node name="DecalHazardOrange3" parent="PCSceneLoader" unique_id=772433205 instance=ExtResource("34_o5dig")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7031989, 0.0015412569, 3.4866066)
 
-[node name="DecalHazardOrange4" parent="PCSceneLoader" instance=ExtResource("34_o5dig")]
+[node name="DecalHazardOrange4" parent="PCSceneLoader" unique_id=490458531 instance=ExtResource("34_o5dig")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.3592317, 0.3868143, 3.7484784)
 
-[node name="DecalHazardOrange5" parent="PCSceneLoader" instance=ExtResource("34_o5dig")]
+[node name="DecalHazardOrange5" parent="PCSceneLoader" unique_id=151292947 instance=ExtResource("34_o5dig")]
 transform = Transform3D(-1.1924881e-08, 1, -8.742278e-08, 1, 1.1924881e-08, 0, 1.0425061e-15, -8.742278e-08, -1, 3.6209195, 0.74335086, 3.7484787)
 
-[node name="DecalLineWhite1" parent="PCSceneLoader" instance=ExtResource("35_qllx6")]
+[node name="DecalLineWhite1" parent="PCSceneLoader" unique_id=278744061 instance=ExtResource("35_qllx6")]
 transform = Transform3D(1.1924881e-08, -1, 0, -4.371139e-08, -5.2125306e-16, 1, -1, -1.1924881e-08, -4.371139e-08, -3.4518237, 0.0015412569, 2.7303252)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="DecalLineWhite2" parent="PCSceneLoader" instance=ExtResource("35_qllx6")]
+[node name="DecalLineWhite2" parent="PCSceneLoader" unique_id=1296680609 instance=ExtResource("35_qllx6")]
 transform = Transform3D(1.1924881e-08, -1, 0, -4.371139e-08, -5.2125306e-16, 1, -1, -1.1924881e-08, -4.371139e-08, -3.4504118, 0.0015412569, 1.7296718)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="DecalArrow2White" parent="PCSceneLoader" instance=ExtResource("36_apfeb")]
+[node name="DecalArrow2White" parent="PCSceneLoader" unique_id=124527349 instance=ExtResource("36_apfeb")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.9568269, 0.0015412569, 3.1830971)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="DecalArrow2White2" parent="PCSceneLoader" instance=ExtResource("36_apfeb")]
+[node name="DecalArrow2White2" parent="PCSceneLoader" unique_id=1027057687 instance=ExtResource("36_apfeb")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.5790179, 0.0015412569, 3.1818156)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="DecalArrow2White3" parent="PCSceneLoader" instance=ExtResource("36_apfeb")]
+[node name="DecalArrow2White3" parent="PCSceneLoader" unique_id=1005772893 instance=ExtResource("36_apfeb")]
 transform = Transform3D(4.371139e-08, -1, -8.742278e-08, -1, -4.371139e-08, 0, -3.821371e-15, 8.742278e-08, -1, 1.235768, 0.5391222, 3.748478)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="DecalArrow2White4" parent="PCSceneLoader" instance=ExtResource("36_apfeb")]
+[node name="DecalArrow2White4" parent="PCSceneLoader" unique_id=1418830028 instance=ExtResource("36_apfeb")]
 transform = Transform3D(-1.1924881e-08, 1, 8.742278e-08, 1, 1.1924881e-08, 0, -1.0425061e-15, 8.742278e-08, -1, -2.262062, 1.4813709, 3.7484782)
 colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="WallLight4" parent="PCSceneLoader" instance=ExtResource("13_gd2pe")]
+[node name="WallLight4" parent="PCSceneLoader" unique_id=266683796 instance=ExtResource("13_gd2pe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6904244, 0.25075552, -3.689307)
 visible = false
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=102036623]
 transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
 visible = false
 light_energy = 0.2
@@ -210,8 +216,9 @@ directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 10.0
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1082418092]
 transform = Transform3D(1.0000001, 0, 0, 0, -4.3711424e-08, 0.9999995, 0, -1.0000008, -4.3711367e-08, 0, 2.95159, 0)
+visible = false
 light_energy = 0.5
 light_indirect_energy = 0.2
 light_volumetric_fog_energy = 0.0
@@ -220,26 +227,30 @@ directional_shadow_mode = 0
 directional_shadow_fade_start = 0.1
 directional_shadow_max_distance = 10.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1299310120]
 environment = ExtResource("37_nbq4c")
 compositor = ExtResource("38_8tcj0")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=459260097]
 navigation_mesh = SubResource("NavigationMesh_dsa3d")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=793298394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, 2.1955385)
-visible = false
 size = Vector3(9.717773, 9.746338, 12.356445)
 ambient_mode = 2
 ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
 
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="."]
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="." unique_id=1945774047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, -2.3732486)
 visible = false
 size = Vector3(9.717773, 9.746338, 12.356445)
 ambient_mode = 2
 ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
 
-[node name="AnyItemGiver" parent="." instance=ExtResource("28_wvfgn")]
+[node name="AnyItemGiver" parent="." unique_id=572385010 instance=ExtResource("28_wvfgn")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.6303267, 0, 2.6731272)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1672862030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5008078, 0.53154224, 2.5128837)
+mesh = SubResource("SphereMesh_wvfgn")
+surface_material_override/0 = SubResource("StandardMaterial3D_m4847")

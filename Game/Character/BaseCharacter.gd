@@ -17,6 +17,8 @@ var walkAnim:String = Doll.WALK_UNISEX
 var idleAnim:String = Doll.IDLE_NORMAL1
 var idlePose:String = ""
 var poseArms:String = ""
+var personality:Personality = Personality.new()
+var fetishHolder:FetishHolder = FetishHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -44,6 +46,15 @@ func _init():
 	#inventory.setEquippedItem(InventorySlot.Eyes, GlobalRegistry.createItem("Blindfold"))
 	
 	charState.setCharacter(self)
+	
+	personality.setChar(self)
+	personality.onStatsUpdated.connect(func():
+		onChange.emit(BaseCharChange.createPersonalityUpdate())
+		)
+	fetishHolder.setChar(self)
+	fetishHolder.onFetishesUpdated.connect(func():
+		onChange.emit(BaseCharChange.createFetishesUpdate())
+		)
 	
 	var body:BodypartBodyBase = load("res://Game/Character/Bodyparts/Body/FeminineBody.gd").new()
 	addBodypart(BodypartSlot.Body, body)
@@ -567,6 +578,14 @@ func isPartialGesturesBlocked() -> bool:
 func notifyPresetApplied():
 	onChange.emit(BaseCharChange.createPresetApplied())
 
+func isControlledByAnyPlayer() -> bool:
+	var theOurID := getID()
+	for playerID in Network.players:
+		var info:NetworkPlayerInfo = Network.players[playerID]
+		if(info.charID == theOurID):
+			return true
+	return false
+
 func isUs() -> bool:
 	var myInfo := Network.getMyPlayerInfo()
 	if(!myInfo):
@@ -637,6 +656,8 @@ func saveNetworkData() -> Bins:
 	
 	ar.append_array([Bins.BINS, charState.saveNetworkData()])
 	ar.append_array([Bins.BINS, inventory.saveNetworkData()])
+	ar.append_array([Bins.BINS, personality.saveNetworkData()])
+	ar.append_array([Bins.BINS, fetishHolder.saveNetworkData()])
 	
 	return Bins.saveStartEnd(ar)
 
@@ -665,6 +686,8 @@ func loadNetworkData(_data:Bins):
 	
 	charState.loadNetworkData(_data.readBins())
 	inventory.loadNetworkData(_data.readBins())
+	personality.loadNetworkData(_data.readBins())
+	fetishHolder.loadNetworkData(_data.readBins())
 	
 	_data.endLoad()
 
@@ -686,6 +709,8 @@ func saveData() -> Dictionary:
 		charData = charData,
 		charState = charState.saveData(),
 		inventory = inventory.saveData(),
+		personality = personality.saveData(),
+		fetishHolder = fetishHolder.saveData(),
 	}
 
 func loadData(_data:Dictionary):
@@ -716,3 +741,9 @@ func loadData(_data:Dictionary):
 	
 	if(_data.has("inventory")):
 		inventory.loadData(SAVE.loadVar(_data, "inventory", {}))
+	
+	if(_data.has("personality")):
+		personality.loadData(SAVE.loadVar(_data, "personality", {}))
+	
+	if(_data.has("fetishHolder")):
+		fetishHolder.loadData(SAVE.loadVar(_data, "fetishHolder", {}))

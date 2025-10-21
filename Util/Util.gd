@@ -308,3 +308,12 @@ static func splitOnFirstOLD(text: String, separator: String) -> Array[String]:
 	stuff.remove_at(0)
 	
 	return [firstEntry, join(stuff, separator)]
+
+## Rounds a float number up to the specified amount of digits after the dot
+## round(123.456, 1) returns 123.5
+static func roundF(number: float, digitsAmount: int = 0) -> float:
+	var mult:float = 1.0
+	for _i in range(digitsAmount):
+		mult *= 10.0
+	
+	return round(number*mult)/mult

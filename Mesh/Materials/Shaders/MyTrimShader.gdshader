@@ -11,6 +11,7 @@ uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, 
 //uniform float normal_scale : hint_range(-16.0, 16.0);
 
 uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01) = 1.0;
 
 instance uniform float roughness_mult : hint_range(0.0, 1.0, 0.01) = 0.5;
 instance uniform vec3 trim_color_main : source_color = vec3(1.0);
@@ -78,7 +79,7 @@ void fragment() {
 
 	float roughnessRemapped = (roughness_mult - 0.5)*2.0; // -1.0, 1.0
 	ROUGHNESS = (orm_tex.g * (0.5 - abs(roughness_mult-0.5))*2.0) + max(0.0, roughnessRemapped);
- 	METALLIC = orm_tex.b;
+ 	METALLIC = orm_tex.b * metallic;
 
 	// Normal Map: Enabled
 	NORMAL_MAP = texture(texture_normal, base_uv).rgb;

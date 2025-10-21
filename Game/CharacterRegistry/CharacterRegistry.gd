@@ -93,7 +93,23 @@ func onCharacterSyncOptionChange_SERVERRPC(charID:String, optionID:String, theVa
 	if(optionID in theCharacter.getSyncOptions()):
 		theCharacter.applyCharChange(optionID, theValue)
 
-
+func askCharacterSetPersonality(character:BaseCharacter, personality:Personality):
+	if(Network.isServer()):
+		character.personality.loadNetworkData(personality.saveNetworkData().prepareToRead())
+	else:
+		onCharacterSetPersonality_SERVERRPC.rpc_id(1, character.getID(), personality.saveNetworkData().getBytesCompressedSimple())
+		
+@rpc("any_peer", "call_remote", "reliable")
+func onCharacterSetPersonality_SERVERRPC(charID:String, personalityData:PackedByteArray):
+	# Do server checks here
+	var theCharacter:BaseCharacter = getCharacter(charID)
+	if(!theCharacter):
+		return
+	theCharacter.personality.loadNetworkData(Bins.readCompressedSimple(personalityData))
+	
+	
+	
+	
 func getCharacter(theID:String) -> BaseCharacter:
 	if(!characters.has(theID)):
 		return null
@@ -138,6 +154,28 @@ func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 			pass
 		BaseCharChange.PART_FILTER:
 			pass
+		BaseCharChange.PERSONALITY_UPDATE:
+			if(Network.isServerNotSingleplayer()):
+				Network.rpcClients(characterPersonalityUpdate_RPC.bind(_theChar.getID(), _theChar.personality.saveNetworkData().getBytesCompressedSimple()))
+			pass
+		BaseCharChange.FETISHES_UPDATE:
+			if(Network.isServerNotSingleplayer()):
+				Network.rpcClients(characterFetishesUpdate_RPC.bind(_theChar.getID(), _theChar.fetishHolder.saveNetworkData().getBytesCompressedSimple()))
+			pass
+
+@rpc("authority", "call_remote", "reliable")
+func characterFetishesUpdate_RPC(_id:String, _fetishData:PackedByteArray):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.fetishHolder.loadNetworkData(Bins.readCompressedSimple(_fetishData))
+
+@rpc("authority", "call_remote", "reliable")
+func characterPersonalityUpdate_RPC(_id:String, _persData:PackedByteArray):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.personality.loadNetworkData(Bins.readCompressedSimple(_persData))
 
 @rpc("authority", "call_remote", "reliable")
 func characterOptionChange_RPC(_id:String, _optionID:String, _value:Variant):

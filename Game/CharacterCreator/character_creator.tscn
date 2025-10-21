@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c2hmfb1ww5ps8" path="res://Game/Character/Preset/UI/character_preset_selector.tscn" id="4_h7akw"]
 [ext_resource type="PackedScene" uid="uid://bwv5juyft3osa" path="res://Game/CharacterCreator/character_creator_camera_setup.tscn" id="5_jh7ml"]
 
-[node name="CharacterCreator" type="Control"]
+[node name="CharacterCreator" type="Control" unique_id=1462646805]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_8ciux")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=90184601]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,39 +27,39 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1586765068]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer" unique_id=976338200]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.01
 mouse_filter = 2
 
-[node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=828966064]
 layout_mode = 2
 text = "Wizard"
 
-[node name="LoadPresetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="LoadPresetButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1319166611]
 layout_mode = 2
 text = "Load preset"
 
-[node name="SavePresetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="SavePresetButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1161693285]
 layout_mode = 2
 text = "Save preset"
 
-[node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=2117437613]
 layout_mode = 2
 text = "Confirm"
 
-[node name="DraggerControl" type="Control" parent="HBoxContainer"]
+[node name="DraggerControl" type="Control" parent="HBoxContainer" unique_id=601094995]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="FilterPanel" type="PanelContainer" parent="HBoxContainer/DraggerControl"]
+[node name="FilterPanel" type="PanelContainer" parent="HBoxContainer/DraggerControl" unique_id=507006162]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -74,150 +74,180 @@ offset_bottom = 179.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FilterList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel"]
+[node name="FilterList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel" unique_id=38002468]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList"]
+[node name="Label" type="Label" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList" unique_id=1522111642]
 layout_mode = 2
 text = "Categories"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList" unique_id=1607869464]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="CategoryButtonsList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList/ScrollContainer"]
+[node name="CategoryButtonsList" type="VBoxContainer" parent="HBoxContainer/DraggerControl/FilterPanel/FilterList/ScrollContainer" unique_id=780472474]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=294353900]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=793116710]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1941771347]
 layout_mode = 2
 
-[node name="CharSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CharSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1689772953]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Character"
+size_flags_horizontal = 3
+text = "Base"
 
-[node name="PartsSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PartsSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=603796391]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Parts"
 
-[node name="OptionsSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionsSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=522038817]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Options"
 
-[node name="SkinSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InfoSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=934992521]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Info"
+
+[node name="SkinSelButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=350708697]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Skin&Colors"
 
-[node name="CharTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="CharTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=699763173]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab" unique_id=415174887]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer" unique_id=1839597540]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CharVarList" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer" instance=ExtResource("2_vxsh1")]
+[node name="CharVarList" parent="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer" unique_id=378938980 instance=ExtResource("2_vxsh1")]
 unique_name_in_owner = true
 layout_mode = 2
 addSeparators = true
 
-[node name="PartsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PartsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1920670537]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab" unique_id=1152159272]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PartsList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab/ScrollContainer"]
+[node name="PartsList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab/ScrollContainer" unique_id=768543355]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DropdownVar" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab/ScrollContainer/PartsList" instance=ExtResource("2_n4n5s")]
+[node name="DropdownVar" parent="HBoxContainer/PanelContainer/VBoxContainer/PartsTab/ScrollContainer/PartsList" unique_id=400339786 instance=ExtResource("2_n4n5s")]
 layout_mode = 2
 
-[node name="OptionsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="OptionsTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1079833653]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/OptionsTab"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/OptionsTab" unique_id=1406380222]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OptionsBigList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/OptionsTab/ScrollContainer"]
+[node name="OptionsBigList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/OptionsTab/ScrollContainer" unique_id=936181062]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SkinTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="SkinTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=436639395]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab" unique_id=1552386950]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SkinOptionsBigList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab/ScrollContainer"]
+[node name="SkinOptionsBigList" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/SkinTab/ScrollContainer" unique_id=1627395186]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SavePresetDialog" type="ConfirmationDialog" parent="."]
+[node name="InfoTab" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1925494179]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab" unique_id=1468118993]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer" unique_id=1948706291]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PersonalityLabel" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=737403071]
+unique_name_in_owner = true
+layout_mode = 2
+text = "INFO TABBBB"
+
+[node name="EditPersonalityButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=98072370]
+layout_mode = 2
+text = "Edit Personality"
+
+[node name="SavePresetDialog" type="ConfirmationDialog" parent="." unique_id=1279813252]
 unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Save preset"
 size = Vector2i(360, 88)
 
-[node name="SavePresetLineEdit" type="LineEdit" parent="SavePresetDialog"]
+[node name="SavePresetLineEdit" type="LineEdit" parent="SavePresetDialog" unique_id=39150303]
 unique_name_in_owner = true
-anchors_preset = -1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 352.0
 offset_bottom = 39.0
 
-[node name="LoadPresetDialog" type="ConfirmationDialog" parent="."]
+[node name="LoadPresetDialog" type="ConfirmationDialog" parent="." unique_id=1351193538]
 unique_name_in_owner = true
 oversampling_override = 1.0
 title = "Load preset"
 size = Vector2i(360, 338)
 
-[node name="CharacterPresetSelector" parent="LoadPresetDialog" instance=ExtResource("4_h7akw")]
+[node name="CharacterPresetSelector" parent="LoadPresetDialog" unique_id=601299819 instance=ExtResource("4_h7akw")]
 unique_name_in_owner = true
-anchors_preset = -1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -49.0
 
-[node name="CharacterCreatorCameraSetup" parent="." instance=ExtResource("5_jh7ml")]
+[node name="CharacterCreatorCameraSetup" parent="." unique_id=1739060936 instance=ExtResource("5_jh7ml")]
 unique_name_in_owner = true
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
@@ -228,7 +258,9 @@ unique_name_in_owner = true
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CharSelButton" to="." method="_on_char_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionsSelButton" to="." method="_on_options_sel_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/InfoSelButton" to="." method="_on_info_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]
 [connection signal="onVarChange" from="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer/CharVarList" to="." method="_on_char_var_list_on_var_change"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditPersonalityButton" to="." method="_on_edit_personality_button_pressed"]
 [connection signal="confirmed" from="SavePresetDialog" to="." method="_on_save_preset_dialog_confirmed"]
 [connection signal="confirmed" from="LoadPresetDialog" to="." method="_on_load_preset_dialogue_confirmed"]

@@ -214,6 +214,10 @@ func endSave() -> Bins:
 		assert(false, "TOO MANY endSave() CALLS")
 	return self
 	
+func prepareToRead() -> Bins:
+	seek(0)
+	return self
+	
 func loadStart():
 	openCounter += 1
 	if(DO_CHECKSUMS && readI8() != 123):

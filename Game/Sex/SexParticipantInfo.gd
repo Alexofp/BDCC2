@@ -3,6 +3,7 @@ class_name SexParticipantInfo
 
 var id:String = ""
 var sexRef:WeakRef
+var ai:SexParticipantAI
 
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
@@ -12,7 +13,14 @@ func setupInfo(_infoDict:Dictionary) -> bool:
 		return false
 	id = _infoDict["id"]
 	role = _infoDict["role"] if _infoDict.has("role") else SexRole.Dom
+	if(Network.isServer()):
+		ai = SexParticipantAI.new()
+		ai.setParticipant(self)
 	return true
+
+func onSexStart():
+	if(ai):
+		ai.onSexStart()
 
 func setSexEngine(theSexEngine:SexEngine):
 	sexRef = weakref(theSexEngine)

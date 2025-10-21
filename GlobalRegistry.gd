@@ -31,6 +31,8 @@ var soloGoalRefs:Dictionary = {}
 var interactions:Dictionary = {}
 var interactionRefs:Dictionary = {}
 var dollGestures:Dictionary = {}
+var personalityStats:Dictionary[String, PersonalityStatBase] = {}
+var fetishes:Dictionary[String, FetishBase] = {}
 
 signal initialized
 
@@ -133,6 +135,8 @@ func doInit():
 	registerSexActivityFolder("res://Game/Sex/SexActivities/")
 	registerSexSideActivityFolder("res://Game/Sex/SideActivities/")
 	registerSexTypeFolder("res://Game/Sex/SexTypes/")
+	registerPersonalityStatFolder("res://Game/SexInfo/PersonalityStats/")
+	registerFetishFolder("res://Game/SexInfo/Fetishes/")
 	
 	registerAnimSceneFolder("res://AnimScenes/Defs/")
 	
@@ -728,4 +732,57 @@ func getDollGesture(id: String) -> DollGestureBase:
 		return dollGestures[id]
 	else:
 		Log.Printerr("ERROR: doll gesture with the id "+str(id)+" wasn't found")
+		return null
+
+
+
+
+func registerPersonalityStat(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is PersonalityStatBase):
+		personalityStats[object.id] = object
+
+func registerPersonalityStatFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerPersonalityStat(scriptPath)
+
+func getPersonalityStats() -> Dictionary[String, PersonalityStatBase]:
+	return personalityStats
+
+func getPersonalityStatIDsSorted() -> Array[String]:
+	var theIDs:Array[String] = personalityStats.keys()
+	theIDs.sort_custom(func(a:String, b:String): return getPersonalityStat(a).priority > getPersonalityStat(b).priority)
+	return theIDs
+
+func getPersonalityStat(id: String) -> PersonalityStatBase:
+	if(personalityStats.has(id)):
+		return personalityStats[id]
+	else:
+		Log.Printerr("ERROR: personality stat with the id "+str(id)+" wasn't found")
+		return null
+
+
+func registerFetish(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is FetishBase):
+		fetishes[object.id] = object
+
+func registerFetishFolder(folder: String):
+	var scripts = Util.getScriptsInFolder(folder)
+	for scriptPath in scripts:
+		registerFetish(scriptPath)
+
+func getFetishes() -> Dictionary[String, FetishBase]:
+	return fetishes
+
+func getFetish(id: String) -> FetishBase:
+	if(fetishes.has(id)):
+		return fetishes[id]
+	else:
+		Log.Printerr("ERROR: fetish with the id "+str(id)+" wasn't found")
 		return null

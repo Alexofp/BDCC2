@@ -9,6 +9,8 @@ enum {
 	PART_FILTER,
 	AUTO_SKIN_UPDATE,
 	PRESET_APPLIED,
+	PERSONALITY_UPDATE,
+	FETISHES_UPDATE,
 }
 
 var changeType:int = NOTHING
@@ -21,6 +23,16 @@ var value:Variant
 
 func getType() -> int:
 	return changeType
+
+static func createFetishesUpdate() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = FETISHES_UPDATE
+	return result
+
+static func createPersonalityUpdate() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = PERSONALITY_UPDATE
+	return result
 
 static func createPartChange(theGenericType:int, theSlot:int) -> BaseCharChange:
 	var result := BaseCharChange.new()
