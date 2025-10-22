@@ -8,6 +8,7 @@ var sounds:SoundSettings = SoundSettings.new()
 
 signal changedCharTextureQuality
 signal changedLightsQuality
+signal changedGISetting
 
 #func _init() -> void:
 	#GlobalRegistry.doInit()
@@ -89,3 +90,6 @@ func triggerCharTextureQualityChange():
 
 func triggerLightsQualityChange():
 	changedLightsQuality.emit()
+
+func triggerGIChange():
+	changedGISetting.emit()

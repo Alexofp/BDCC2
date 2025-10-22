@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://cqxqisi1jql0h"]
+[gd_scene load_steps=81 format=3 uid="uid://cqxqisi1jql0h"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_207vj"]
 [ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_3wh73"]
@@ -61,6 +61,7 @@
 [ext_resource type="PackedScene" uid="uid://d0pvhwsbtsdjh" path="res://Mapping/Railings/FancyRailing2Stairs.tscn" id="73_1ynqf"]
 [ext_resource type="PackedScene" uid="uid://n5lfxsha6av7" path="res://Mapping/Special/any_item_giver.tscn" id="73_q1g3e"]
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="74_47uhn"]
+[ext_resource type="PackedScene" uid="uid://bdck01gkxevp1" path="res://Game/Systems/ReflectionProbeHandler/ReflectionProbeHandler.tscn" id="74_x6buo"]
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="76_anb54"]
 [ext_resource type="PackedScene" uid="uid://1bhqsabmydss" path="res://Mapping/Walls/SlopedWindowA20x8.tscn" id="78_3f2s3"]
 [ext_resource type="PackedScene" uid="uid://1yg72aupmiqd" path="res://Mapping/Walls/SlopedWindowWallA8Left.tscn" id="80_2w4ak"]
@@ -3846,6 +3847,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.975914, 1.1024301, 0)
 mesh = SubResource("SphereMesh_kb7ll")
 surface_material_override/0 = SubResource("ShaderMaterial_wrhh4")
 
+[node name="MirrorTest4" type="MeshInstance3D" parent="." unique_id=1076962041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.605687, 6.3673744, 17.329962)
+mesh = SubResource("SphereMesh_kb7ll")
+surface_material_override/0 = SubResource("ShaderMaterial_wrhh4")
+
 [node name="MirrorTest3" type="MeshInstance3D" parent="." unique_id=1789726034]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.206, 2.0308704, 7.2)
 mesh = SubResource("BoxMesh_gwxin")
@@ -3855,20 +3861,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_wrhh4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.975914, 1.1024301, -1.0028977)
 mesh = SubResource("SphereMesh_kb7ll")
 surface_material_override/0 = SubResource("ShaderMaterial_lxt44")
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=226263578]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634766)
-max_distance = 50.0
-size = Vector3(72.52002, 12.402954, 21.512695)
-ambient_mode = 2
-ambient_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
-
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="." unique_id=81010323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8863955, 2.071372, 6.6171894)
-size = Vector3(10.773254, 6.8201904, 13.176331)
-box_projection = true
-ambient_mode = 2
-ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
 
 [node name="MappingSpotlight" parent="." unique_id=248278491 instance=ExtResource("72_ksl72")]
 transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, -4.5975895, 36.913902, -39.079666)
@@ -3917,3 +3909,23 @@ sky_mode = 1
 
 [node name="AnyItemGiver" parent="." unique_id=1604111002 instance=ExtResource("73_q1g3e")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.405624, 0, 6.4874525)
+
+[node name="ReflectionProbeHandler" parent="." unique_id=738502720 instance=ExtResource("74_x6buo")]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=226263578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634766)
+max_distance = 50.0
+size = Vector3(72.52002, 12.402954, 21.512695)
+ambient_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
+
+[node name="ReflectionProbe3" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=2024868773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 6.6149116, 17.50774)
+max_distance = 50.0
+size = Vector3(72.52002, 12.402954, 21.512695)
+ambient_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=81010323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8863955, 2.071372, 6.6171894)
+size = Vector3(10.773254, 6.8201904, 13.176331)
+box_projection = true
+ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://djn63ne4a2q6c"]
+[gd_scene load_steps=33 format=3 uid="uid://djn63ne4a2q6c"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_y08rd"]
 [ext_resource type="Resource" uid="uid://dxmsugrnmgjga" path="res://Maps/window room.res" id="2_0fmwc"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://b3cc3kvador1j" path="res://Mapping/Props/inmate_sink.tscn" id="26_cogsi"]
 [ext_resource type="PackedScene" uid="uid://cuw7jyil55scq" path="res://Mapping/Decals/DecalCaution.tscn" id="28_cvdgi"]
 [ext_resource type="PackedScene" uid="uid://n5lfxsha6av7" path="res://Mapping/Special/any_item_giver.tscn" id="28_wvfgn"]
+[ext_resource type="PackedScene" uid="uid://bdck01gkxevp1" path="res://Game/Systems/ReflectionProbeHandler/ReflectionProbeHandler.tscn" id="29_m4847"]
 [ext_resource type="PackedScene" uid="uid://cvu8cxi4wxx30" path="res://Mapping/Decals/DecalNum3.tscn" id="30_1s6xw"]
 [ext_resource type="PackedScene" uid="uid://nlpwsjsb5byb" path="res://Mapping/Decals/DecalNum9.tscn" id="31_6glke"]
 [ext_resource type="PackedScene" uid="uid://csv5rnm3cqwm6" path="res://Mapping/Decals/DecalHazardRed.tscn" id="32_sg2g2"]
@@ -234,19 +235,6 @@ compositor = ExtResource("38_8tcj0")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=459260097]
 navigation_mesh = SubResource("NavigationMesh_dsa3d")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=793298394]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, 2.1955385)
-size = Vector3(9.717773, 9.746338, 12.356445)
-ambient_mode = 2
-ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
-
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="." unique_id=1945774047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8625946, -2.3732486)
-visible = false
-size = Vector3(9.717773, 9.746338, 12.356445)
-ambient_mode = 2
-ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
-
 [node name="AnyItemGiver" parent="." unique_id=572385010 instance=ExtResource("28_wvfgn")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.6303267, 0, 2.6731272)
 
@@ -254,3 +242,11 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.63
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5008078, 0.53154224, 2.5128837)
 mesh = SubResource("SphereMesh_wvfgn")
 surface_material_override/0 = SubResource("StandardMaterial3D_m4847")
+
+[node name="ReflectionProbeHandler" parent="." unique_id=738502720 instance=ExtResource("29_m4847")]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=793298394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.135025, 0.6783495)
+size = Vector3(9.717773, 7.125061, 11.736679)
+box_projection = true
+ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)

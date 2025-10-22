@@ -5,12 +5,7 @@
 [resource]
 background_mode = 2
 sky = ExtResource("1_kbo3f")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.05
 tonemap_mode = 4
-tonemap_exposure = 0.66
 ssao_intensity = 3.0
 ssil_intensity = 10.0
 sdfgi_use_occlusion = true
@@ -19,7 +14,6 @@ sdfgi_cascades = 2
 sdfgi_y_scale = 2
 glow_normalized = true
 glow_strength = 0.58
-glow_blend_mode = 1
 fog_mode = 1
 fog_light_color = Color(0.1224, 0.1714, 0.24, 1)
 fog_density = 1.0

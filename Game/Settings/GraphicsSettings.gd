@@ -285,6 +285,7 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			#gameEnv.sdfgi_energy = (5.0 if (newVal==GI.ENABLED) else 2.0)
 			RenderingServer.gi_set_use_half_resolution((newVal in [GI.DISABLED, GI.REDUCED]))
 			RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128 if (newVal == GI.ENABLED) else RenderingServer.ENV_SDFGI_RAY_COUNT_32)
+			OPTIONS.triggerGIChange()
 		"ssaa":
 			#var gameCompositor :Compositor= load("res://Mesh/Enviroment/GameCompositor.tres")
 			#gameCompositor.compositor_effects[0].enabled = false
@@ -356,3 +357,16 @@ func applySettingValue(_settingID:String, newVal:Variant):
 	
 	#print("APPLIED: "+_settingID)
 	pass
+
+func isDynamicGIEnabled() -> bool:
+	return gi == GI.REDUCED || gi == GI.ENABLED
+
+func updateDynamicGI():
+	if(!isDynamicGIEnabled() || !gameEnv):
+		return
+	gameEnv.sdfgi_enabled = false
+	await OPTIONS.get_tree().process_frame
+	await OPTIONS.get_tree().process_frame
+	if(!isDynamicGIEnabled() || !gameEnv):
+		return
+	gameEnv.sdfgi_enabled = true

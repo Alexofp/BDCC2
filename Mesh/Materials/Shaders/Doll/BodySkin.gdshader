@@ -2,7 +2,6 @@ shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
-#define MY_PBR_ANISOTROPY
 #define MY_BACKLIGHT
 #define MY_RIMLIGHT
 #define MY_SUBSURFACESCATTER

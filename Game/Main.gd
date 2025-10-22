@@ -50,6 +50,7 @@ func loadModeOnMap(_map:String, _mode:int, _args:Array):
 	var theMapNode:Node3D = theMap.instantiate()
 	add_child(theMapNode)
 	building_platform_8x_8.queue_free()
+	OPTIONS.graphics.updateDynamicGI()
 
 func startGame():
 	if(gameMode):
