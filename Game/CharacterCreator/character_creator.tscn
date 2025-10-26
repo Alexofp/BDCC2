@@ -221,6 +221,10 @@ text = "INFO TABBBB"
 layout_mode = 2
 text = "Edit Personality"
 
+[node name="EditFetishesButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=1527449734]
+layout_mode = 2
+text = "Edit Fetishes"
+
 [node name="SavePresetDialog" type="ConfirmationDialog" parent="." unique_id=1279813252]
 unique_name_in_owner = true
 oversampling_override = 1.0
@@ -262,5 +266,6 @@ unique_name_in_owner = true
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]
 [connection signal="onVarChange" from="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer/CharVarList" to="." method="_on_char_var_list_on_var_change"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditPersonalityButton" to="." method="_on_edit_personality_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditFetishesButton" to="." method="_on_edit_fetishes_button_pressed"]
 [connection signal="confirmed" from="SavePresetDialog" to="." method="_on_save_preset_dialog_confirmed"]
 [connection signal="confirmed" from="LoadPresetDialog" to="." method="_on_load_preset_dialogue_confirmed"]

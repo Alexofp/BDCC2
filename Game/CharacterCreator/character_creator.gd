@@ -630,3 +630,17 @@ func onPersEditApply(_pers:Personality, _control:Control):
 	GM.characterRegistry.askCharacterSetPersonality(character, _pers)
 	#character.personality.loadData(_pers.saveData().duplicate(true))
 	updateInfoTab()
+
+const FETISHES_EDIT_PANEL = preload("res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_panel.tscn")
+
+func _on_edit_fetishes_button_pressed() -> void:
+	var newPanel := FETISHES_EDIT_PANEL.instantiate()
+	add_child(newPanel)
+	newPanel.setFetishHolderCopy(character.fetishHolder)
+	newPanel.onCancel.connect(func(): newPanel.queue_free())
+	newPanel.onSave.connect(onFetishEditApply.bind(newPanel))
+
+func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
+	_control.queue_free()
+	GM.characterRegistry.askCharacterSetFetishHolder(character, _fetishes)
+	updateInfoTab()

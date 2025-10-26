@@ -3,12 +3,27 @@ class_name FetishHolder
 
 var charRef:WeakRef
 
-var performing:Dictionary[String, float] = {}
-var receiving:Dictionary[String, float] = {}
+var performing:FetishSet = FetishSet.new()
+var receiving:FetishSet = FetishSet.new()
 
 signal onFetishUpdate(fetishID:String, isPerforming:bool, value:float)
 signal onFetishesUpdated
 signal onFetishFullUpdate
+
+func _init() -> void:
+	performing.onFetishChange.connect(func(fetishID:String, val:float):
+		onFetishUpdate.emit(fetishID, true, val))
+	performing.onUpdate.connect(func():
+		onFetishesUpdated.emit())
+	performing.onFullUpdate.connect(func():
+		onFetishFullUpdate.emit())
+	
+	receiving.onFetishChange.connect(func(fetishID:String, val:float):
+		onFetishUpdate.emit(fetishID, false, val))
+	receiving.onUpdate.connect(func():
+		onFetishesUpdated.emit())
+	receiving.onFullUpdate.connect(func():
+		onFetishFullUpdate.emit())
 
 func setChar(_char:BaseCharacter):
 	charRef = weakref(_char) if _char else null
@@ -17,69 +32,37 @@ func getChar() -> BaseCharacter:
 	return charRef.get_ref() if charRef else null
 
 func setPerforming(_fetishID:String, _val:float):
-	if(!GlobalRegistry.getFetish(_fetishID)):
-		return
-	_val = clamp(_val, -1.0, 1.0)
-	performing[_fetishID] = _val
-	onFetishUpdate.emit(_fetishID, true, _val)
-	onFetishesUpdated.emit()
+	performing.setFetish(_fetishID, _val)
 
 func setReceiving(_fetishID:String, _val:float):
-	if(!GlobalRegistry.getFetish(_fetishID)):
-		return
-	_val = clamp(_val, -1.0, 1.0)
-	receiving[_fetishID] = _val
-	onFetishUpdate.emit(_fetishID, false, _val)
-	onFetishesUpdated.emit()
+	receiving.setFetish(_fetishID, _val)
 
 func getPerforming(_fetishID:String) -> float:
-	if(!performing.has(_fetishID)):
-		return 0.0
-	return performing[_fetishID]
+	return performing.getFetish(_fetishID)
 
 func getReceiving(_fetishID:String) -> float:
-	if(!receiving.has(_fetishID)):
-		return 0.0
-	return receiving[_fetishID]
+	return receiving.getFetish(_fetishID)
 
 func saveNetworkData() -> Bins:
 	var Ar:Array = [
-		Bins.I8, performing.size(),
-		Bins.I8, receiving.size(),
+		Bins.BINS, performing.saveNetworkData(),
+		Bins.BINS, receiving.saveNetworkData(),
 	]
-	for fetishID in performing:
-		Ar.append_array([Bins.StrShort, fetishID, Bins.Float, performing[fetishID]])
-	for fetishID in receiving:
-		Ar.append_array([Bins.StrShort, fetishID, Bins.Float, receiving[fetishID]])
-	
+
 	return Bins.saveStartEnd(Ar)
 
 func loadNetworkData(data:Bins):
-	performing.clear()
-	receiving.clear()
 	data.loadStart()
-	var _perfAm:int = data.readI8()
-	var _receivAm:int = data.readI8()
-	for _i in range(_perfAm):
-		var theFetishID:String = data.readStrShort()
-		var theFetishVal:float = data.readFloat()
-		performing[theFetishID] = theFetishVal
-	for _i in range(_receivAm):
-		var theFetishID:String = data.readStrShort()
-		var theFetishVal:float = data.readFloat()
-		receiving[theFetishID] = theFetishVal
+	performing.loadNetworkData(data.readBins())
+	receiving.loadNetworkData(data.readBins())
 	data.endLoad()
-	onFetishFullUpdate.emit()
-	onFetishesUpdated.emit()
 
 func saveData() -> Dictionary:
 	return {
-		performing = performing,
-		receiving = receiving,
+		performing = performing.saveData(),
+		receiving = receiving.saveData(),
 	}
 
 func loadData(_data:Dictionary):
-	performing = SAVE.loadVar(_data, "performing", {})
-	receiving = SAVE.loadVar(_data, "receiving", {})
-	onFetishFullUpdate.emit()
-	onFetishesUpdated.emit()
+	performing.loadData(SAVE.loadVar(_data, "performing", {}))
+	receiving.loadData(SAVE.loadVar(_data, "receiving", {}))

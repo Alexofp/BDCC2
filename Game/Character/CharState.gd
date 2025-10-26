@@ -1,4 +1,4 @@
-extends DirtyState
+extends RefCounted
 class_name CharState
 
 ## Anything that's character related and changes semi-often should go here.
@@ -8,12 +8,13 @@ var arousal:float = 0.0
 var arousalFade:float = 0.0
 var autoMoan:float = 0.0
 
+var syncState:SyncState = SyncState.new(self,
+	["arousal", "arousalFade", "autoMoan"],
+	[Bins.Float, Bins.Float, Bins.Float],
+)
+
 func _init() -> void:
-	fieldToVarName = {
-		SyncOption.Arousal: "arousal",
-		SyncOption.ArousalFade: "arousalFade",
-		SyncOption.AutoMoan: "autoMoan",
-	}
+	pass
 
 func setCharacter(_theChar:BaseCharacter):
 	charID = _theChar.getID() if _theChar else ""
@@ -23,23 +24,20 @@ func getCharacter() -> BaseCharacter:
 
 func setArousal(_newVal:float):
 	_newVal = clamp(_newVal, 0.0, 1.0)
-	if(arousal == _newVal):
-		return
 	arousal = _newVal
-	markDirty(SyncOption.Arousal)
 
 func getArousal() -> float:
 	return arousal
 
 func addArousal(_howMuch:float):
-	setCheckDirty(SyncOption.ArousalFade, 0.0)
-	setArousal(getArousal() + _howMuch)
+	arousalFade = 0.0
+	arousal += _howMuch
 
 func setAutoMoan(_val:float):
-	setCheckDirty(SyncOption.AutoMoan, _val)
+	autoMoan = _val
 
 func addAutoMoan(_val:float):
-	setAutoMoan(autoMoan+_val)
+	autoMoan += _val
 
 func addAutoMoanCappedMax(_val:float, maxAutomoan:float):
 	if(autoMoan >= maxAutomoan):
@@ -61,20 +59,20 @@ func getAutoMoan() -> float:
 	return autoMoan
 
 func processTime(_dt:float):
-	processDirty(_dt)
-	
 	if(arousal > 0.0):
-		setCheckDirty(SyncOption.ArousalFade, min(arousalFade + _dt, 5.0))
+		arousalFade = min(arousalFade + _dt, 5.0)
 		if(arousalFade >= 2.0):
 			setArousal(getArousal() - _dt*0.005*arousalFade)
 			
 			if(arousal <= 0.0):
-				setCheckDirty(SyncOption.ArousalFade, 0.0)
+				arousalFade = 0.0
 	else:
-		setCheckDirty(SyncOption.ArousalFade, 0.0)
+		arousalFade = 0.0
 
 	if(shouldAutoMoan()):
 		addAutoMoanCappedMin(-_dt, 0.0)
+	
+	syncState.processSyncState(_dt)
 
 func shouldAutoMoan() -> bool:
 	# Only auto-moan if we haven't received stimulation in a bit
@@ -86,20 +84,24 @@ func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Float, arousal,
 		Bins.Float, arousalFade,
+		Bins.Float, autoMoan,
 	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
 	arousal = _data.readFloat()
 	arousalFade = _data.readFloat()
+	autoMoan = _data.readFloat()
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	return {
 		arousal = arousal,
 		arousalFade = arousalFade,
+		autoMoan = autoMoan,
 	}
 
 func loadData(_data:Dictionary):
 	arousal = SAVE.loadVar(_data, "arousal", 0.0)
 	arousalFade = SAVE.loadVar(_data, "arousalFade", 0.0)
+	autoMoan = SAVE.loadVar(_data, "autoMoan", 0.0)

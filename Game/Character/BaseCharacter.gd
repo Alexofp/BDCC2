@@ -641,6 +641,24 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 	
 	return null
 
+func hasPenis() -> bool:
+	return hasBodypart(BodypartSlot.Penis)
+
+func hasReachablePenis() -> bool:
+	return hasPenis()
+
+func hasVagina() -> bool:
+	return true #TODO: Implement me
+	
+func hasReachableVagina() -> bool:
+	return hasVagina()
+
+func hasAnus() -> bool:
+	return true
+
+func hasReachableAnus() -> bool:
+	return hasAnus()
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

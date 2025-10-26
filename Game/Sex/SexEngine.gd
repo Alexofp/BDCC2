@@ -188,7 +188,10 @@ func processEventQueue(_dt:float):
 			eventQueue.pop_front()
 		else:
 			assert(false, "Unknown queue element type: "+str(queueType))
-		
+	
+	if(eventQueue.is_empty()):
+		notifyThingHappened()
+	
 func calcTransitionTimer():
 	transitionTimer = 0.0
 	transitionTimerFull = 0.0
@@ -244,6 +247,9 @@ func getParticipant(theID:String) -> SexParticipantInfo:
 		return null
 	return participants[theID]
 
+func getParticipants() -> Dictionary[String, SexParticipantInfo]:
+	return participants
+
 func getInfo(theID:String) -> SexParticipantInfo:
 	if(!participants.has(theID)):
 		return null
@@ -287,6 +293,10 @@ func doProcess(_delta: float) -> void:
 	if(theIsServer):
 		calcTransitionTimer()
 		processCooldowns(_delta)
+		
+		for charID in participants:
+			var theInfo := participants[charID]
+			theInfo.processInfo(_delta)
 	
 	if(theIsServer):
 		# action cache update
@@ -616,6 +626,8 @@ func doActionInternal(charID:String, action:Dictionary):
 		#askSetParticipantAutoConsent(charID, true)
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
+	
+	notifyThingHappened()
 
 func startResistMinigame(_domSpeedMult:float, _subSpeedMult:float):
 	var _doms:Array[String] = []
@@ -1067,6 +1079,9 @@ func askSetSexMode_SERVERRPC(_mode:int):
 		return
 	setSexMode(_mode)
 
+func isResistMinigameRunning() -> bool:
+	return !resistMinigame.isDisabled()
+
 # Runs on server
 func _on_resist_minigame_node_on_result(_result: ResistMinigameResult) -> void:
 	resistMinigame.syncMinigame()
@@ -1141,6 +1156,16 @@ func getCooldown(_cooldownID:String) -> float:
 	if(cooldowns.has(_cooldownID)):
 		return cooldowns[_cooldownID]
 	return 0.0
+
+# Makes AI react better
+func notifyThingHappened():
+	for charID in participants:
+		participants[charID].notifyThingHappened()
+
+# Makes AI react faster
+func notifyThingHappenedNeedsReaction():
+	for charID in participants:
+		participants[charID].notifyThingHappened()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

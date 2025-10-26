@@ -70,10 +70,13 @@ func processGame(_delta:float):
 func setMainMarkerPos(_pos:float):
 	#if(_pos < 0.5):
 	#	_pos = -_pos
-	_pos = clamp(_pos, -1.0, 1.0)
-	markerTime = asin(_pos*2.0 - 1.0)
+	markerTime = calcTimeFromPos(_pos)
 	#print(_pos, " ", markerTime)
 	#TODO: some way to flip the direction?
+
+static func calcTimeFromPos(_pos:float) -> float:
+	_pos = clamp(_pos, -1.0, 1.0)
+	return asin(_pos*2.0 - 1.0)
 
 func setMarkerPos(_pos:float):
 	main_marker.anchor_left = _pos

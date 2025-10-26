@@ -5,6 +5,8 @@ var id:String = ""
 var sexRef:WeakRef
 var ai:SexParticipantAI
 
+
+
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
 
@@ -21,6 +23,22 @@ func setupInfo(_infoDict:Dictionary) -> bool:
 func onSexStart():
 	if(ai):
 		ai.onSexStart()
+
+func notifyThingHappened():
+	if(ai):
+		ai.notifyThingHappened()
+
+func notifyThingHappenedNeedsReaction():
+	if(ai):
+		ai.notifyThingHappenedNeedsReaction()
+
+
+
+func isPlayer() -> bool:
+	var theChar := getChar()
+	if(!theChar):
+		return false
+	return theChar.isControlledByAnyPlayer()
 
 func setSexEngine(theSexEngine:SexEngine):
 	sexRef = weakref(theSexEngine)
@@ -87,6 +105,10 @@ func getStatusTextArray() -> Array[String]:
 		result.append("Auto-allow")
 	
 	return result
+
+func processInfo(_dt:float):
+	if(ai):
+		ai.processAI(_dt)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

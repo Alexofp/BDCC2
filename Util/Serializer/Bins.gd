@@ -27,6 +27,8 @@ enum { # The most-used types should go first
 	BINS, #Bins
 	Var, #Variant
 	I8,
+	U8,
+	U16,
 	Ignore,
 }
 
@@ -59,6 +61,10 @@ func getSizeOf(_ar:Array) -> int:
 			pointer += var_to_bytes(_ar[_indx+1]).size() + 4
 		elif(_type == I8):
 			pointer += 1
+		elif(_type == U8):
+			pointer += 1
+		elif(_type == U16):
+			pointer += 2
 		elif(_type == Ignore):
 			pointer += 0
 			
@@ -121,6 +127,10 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 			bytes.put_var(_value)
 		elif(_type == I8):
 			bytes.put_8(_value)
+		elif(_type == U8):
+			bytes.put_u8(_value)
+		elif(_type == U16):
+			bytes.put_u16(_value)
 		elif(_type == Ignore):
 			pass
 			
@@ -135,6 +145,36 @@ func saveVar(_var:Variant):
 
 # Start of read functions
 
+func read(_readType:int) -> Variant:
+	if(_readType == I64):
+		return readI64()
+	if(_readType == I32):
+		return readI32()
+	if(_readType == I8):
+		return readI8()
+	if(_readType == U8):
+		return readU8()
+	if(_readType == U16):
+		return readU16()
+	if(_readType == Double):
+		return readDouble()
+	if(_readType == Float):
+		return readFloat()
+	if(_readType == Str):
+		return readStr()
+	if(_readType == StrShort):
+		return readStrShort()
+	if(_readType == Bool):
+		return readBool()
+	if(_readType == ByteArray):
+		return readByteArray()
+	if(_readType == BINS):
+		return readBins()
+	if(_readType == Var):
+		return readVar()
+	assert(false, "Unhandled read type: "+str(_readType))
+	return null
+
 func readI64() -> int:
 	return bytes.get_64()
 
@@ -143,6 +183,12 @@ func readI32() -> int:
 
 func readI8() -> int:
 	return bytes.get_8()
+
+func readU8() -> int:
+	return bytes.get_u8()
+
+func readU16() -> int:
+	return bytes.get_u16()
 
 func readDouble() -> float:
 	return bytes.get_double()

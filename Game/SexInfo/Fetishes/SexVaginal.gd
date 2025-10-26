@@ -7,7 +7,7 @@ func getVisibleName() -> String:
 	return "Vaginal sex"
 
 func getNamePerforming() -> String:
-	return "Vaginal sex (Performing)"
+	return "Topping"
 
 func getNameReceiving() -> String:
-	return "Vaginal sex (Receiving)"
+	return "Bottoming"

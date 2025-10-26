@@ -107,6 +107,21 @@ func onCharacterSetPersonality_SERVERRPC(charID:String, personalityData:PackedBy
 		return
 	theCharacter.personality.loadNetworkData(Bins.readCompressedSimple(personalityData))
 	
+
+func askCharacterSetFetishHolder(character:BaseCharacter, fetishHolder:FetishHolder):
+	if(Network.isServer()):
+		character.fetishHolder.loadNetworkData(fetishHolder.saveNetworkData().prepareToRead())
+	else:
+		onCharacterSetFetishHolder_SERVERRPC.rpc_id(1, character.getID(), fetishHolder.saveNetworkData().getBytesCompressedSimple())
+		
+@rpc("any_peer", "call_remote", "reliable")
+func onCharacterSetFetishHolder_SERVERRPC(charID:String, fetishHolderData:PackedByteArray):
+	# Do server checks here
+	var theCharacter:BaseCharacter = getCharacter(charID)
+	if(!theCharacter):
+		return
+	theCharacter.fetishHolder.loadNetworkData(Bins.readCompressedSimple(fetishHolderData))
+	
 	
 	
 	
@@ -300,12 +315,13 @@ func _physics_process(_delta: float) -> void:
 		for charID in characters:
 			var character:BaseCharacter = characters[charID]
 			var charState:CharState = character.getCharState()
-			if(charState.getDirtyTime() >= 0.5):
+			var charSyncState:SyncState = charState.syncState
+			if(charSyncState.getDirtyTime() >= 0.5):
 				#print("DIRTY!")
-				var dirtyData:=charState.getDirtyFieldsData()
+				var dirtyData:=charSyncState.getDelta()
 				Network.rpcClients(syncCharState_RPC.bind(charID, dirtyData))
 				
-				charState.clearDirty()
+				charSyncState.resetDelta()
 
 			var bodyMess := character.getBodyMess()
 			if(bodyMess.dirty > 0.0):
@@ -315,11 +331,11 @@ func _physics_process(_delta: float) -> void:
 					Network.rpcClients(syncBodyMess_RPC.bind(charID, bodyMess.saveData()))
 
 @rpc("authority", "call_remote", "reliable")
-func syncCharState_RPC(_characterID:String, _data:Dictionary):
+func syncCharState_RPC(_characterID:String, _data:PackedByteArray):
 	var theCharacter:BaseCharacter = getCharacter(_characterID)
 	if(!theCharacter):
 		return
-	theCharacter.getCharState().applyDirtyFieldsData(_data)
+	theCharacter.getCharState().syncState.applyDelta(_data)
 
 @rpc("authority", "call_remote", "reliable")
 func syncBodyMess_RPC(_characterID:String, _data:Dictionary):

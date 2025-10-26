@@ -33,6 +33,8 @@ var interactionRefs:Dictionary = {}
 var dollGestures:Dictionary = {}
 var personalityStats:Dictionary[String, PersonalityStatBase] = {}
 var fetishes:Dictionary[String, FetishBase] = {}
+var sexGoalRefs:Dictionary[String, SexGoalBase] = {}
+var sexGoals:Dictionary = {}
 
 signal initialized
 
@@ -137,6 +139,7 @@ func doInit():
 	registerSexTypeFolder("res://Game/Sex/SexTypes/")
 	registerPersonalityStatFolder("res://Game/SexInfo/PersonalityStats/")
 	registerFetishFolder("res://Game/SexInfo/Fetishes/")
+	registerSexGoalFolder("res://Game/SexInfo/SexGoals/")
 	
 	registerAnimSceneFolder("res://AnimScenes/Defs/")
 	
@@ -786,3 +789,50 @@ func getFetish(id: String) -> FetishBase:
 	else:
 		Log.Printerr("ERROR: fetish with the id "+str(id)+" wasn't found")
 		return null
+
+
+func registerSexGoal(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexGoalBase):
+		sexGoals[object.id] = loadedClass
+		sexGoalRefs[object.id] = object
+
+func registerSexGoalFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerSexGoal(scriptPath)
+
+func createSexGoal(id: String) -> SexGoalBase:
+	if(sexGoals.has(id)):
+		return sexGoals[id].new()
+	else:
+		Log.Printerr("ERROR: sex goal with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexGoalRefs() -> Dictionary[String, SexGoalBase]:
+	return sexGoalRefs
+
+func getSexGoalRef(id: String) -> SexGoalBase:
+	if(sexGoalRefs.has(id)):
+		return sexGoalRefs[id]
+	else:
+		Log.Printerr("ERROR: sex goal with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexGoalRefsForFetishPerforming(_fetishID:String) -> Array[SexGoalBase]:
+	var result:Array[SexGoalBase] = []
+	for goalID in sexGoalRefs:
+		var theGoal:SexGoalBase = sexGoalRefs[goalID]
+		if(theGoal.fetishesPerformer.has(_fetishID)):
+			result.append(theGoal)
+	return result
+
+func getSexGoalRefsForFetishReceiving(_fetishID:String) -> Array[SexGoalBase]:
+	var result:Array[SexGoalBase] = []
+	for goalID in sexGoalRefs:
+		var theGoal:SexGoalBase = sexGoalRefs[goalID]
+		if(theGoal.fetishesReceiver.has(_fetishID)):
+			result.append(theGoal)
+	return result

@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bedoglhyloar7"]
+
+[ext_resource type="Script" uid="uid://dyhy0ut1jpg50" path="res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_ui.gd" id="1_ekpr0"]
+
+[node name="FetishesEditUI" type="VBoxContainer" unique_id=630642112]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ekpr0")
+
+[node name="Label" type="Label" parent="." unique_id=1571521843]
+layout_mode = 2
+text = "Fetishes"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=366918128]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FetishList" type="VBoxContainer" parent="ScrollContainer" unique_id=1149453177]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

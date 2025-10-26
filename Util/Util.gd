@@ -317,3 +317,46 @@ static func roundF(number: float, digitsAmount: int = 0) -> float:
 		mult *= 10.0
 	
 	return round(number*mult)/mult
+
+static func setBit(mask: int, bit: int, on: bool) -> int:
+	if bit < 0:
+		push_error("set_bit: bit index must be >= 0")
+		return mask
+	var bitmask: int = 1 << bit
+	if on:
+		return mask | bitmask
+	else:
+		# & ~bitmask clears that bit
+		return mask & ~bitmask
+
+static func setBitOn(mask: int, bit: int) -> int:
+	if bit < 0:
+		push_error("set_bit: bit index must be >= 0")
+		return mask
+	var bitmask: int = 1 << bit
+	return mask | bitmask
+
+static func setBitOff(mask: int, bit: int) -> int:
+	if bit < 0:
+		push_error("set_bit: bit index must be >= 0")
+		return mask
+	var bitmask: int = 1 << bit
+	return mask & ~bitmask
+
+static func getBit(mask: int, bit: int) -> bool:
+	if bit < 0:
+		push_error("get_bit: bit index must be >= 0")
+		return false
+	return (mask & (1 << bit)) != 0
+
+#static func countBits(mask: int) -> int:
+	#var x: int = mask
+	## Normalize negative values to their 64-bit two's-complement representation
+	## so counting works predictably. Adjust mask width if needed.
+	#if x < 0:
+		#x = mask & 0xFFFFFFFFFFFFFFFF
+	#var count: int = 0
+	#while x != 0:
+		#x &= x - 1
+		#count += 1
+	#return count

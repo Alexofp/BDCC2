@@ -218,3 +218,9 @@ func pushResult_SERVERRPC(_charID:String, _result:float):
 		return
 	resultMarks[_charID] = _result
 	syncMinigame()
+
+func hasResultOf(_charID:String) -> bool:
+	return resultMarks.has(_charID)
+
+func isInvolved(_charID:String) -> bool:
+	return team1.has(_charID) || team2.has(_charID)
