@@ -5,8 +5,6 @@ var id:String = ""
 var sexRef:WeakRef
 var ai:SexParticipantAI
 
-
-
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
 
@@ -103,6 +101,10 @@ func getStatusTextArray() -> Array[String]:
 			result.append("Submissive")
 	if(autoConsent):
 		result.append("Auto-allow")
+	
+	var theAiInfo := ai.getVisibleAIInfo()
+	if(!theAiInfo.is_empty()):
+		result.append(Util.join(theAiInfo, ", "))
 	
 	return result
 

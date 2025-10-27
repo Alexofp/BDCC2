@@ -112,11 +112,11 @@ func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Varia
 			var _dt:float = 1.0
 			
 			#if(state == "slow"):
-			processVaginalSex(_dt, "dom", "sub", 0.5)
+			processVaginalSex("dom", "sub", 0.5)
 			addAutomoan("sub", _dt*2.0, 25.0)
 			#if(state == "sex"):
-				#processVaginalSex(_dt, "dom", "sub", 1.0)
+				#processVaginalSex("dom", "sub", 1.0)
 				#addAutomoan("sub", _dt*2.0, 25.0)
 			#if(state == "fast" || state == "inside"):
-				#processVaginalSex(_dt, "dom", "sub", 1.5)
+				#processVaginalSex("dom", "sub", 1.5)
 				#addAutomoan("sub", _dt*2.0, 25.0)

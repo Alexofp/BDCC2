@@ -5,6 +5,20 @@ const ACTIVITY_SEXTYPE = 0
 const ACTIVITY_MAIN = 1
 const ACTIVITY_SIDE = 2
 
+const S_PENIS = 0
+const S_VAGINA = 1
+const S_ANUS = 2
+const S_MOUTH = 3
+const S_HANDS = 4
+const S_FEET = 5
+
+const I_TEASE = 0
+const I_NORMAL = 1
+const I_HIGH = 2
+
+const CONSENT_RESISTANCE = 0
+const CONSENT_FETISH = 1
+
 var id:String = "error"
 var engineRef:WeakRef
 
@@ -67,6 +81,15 @@ func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Se
 					_roles[theRole] = _roles[theRole].getID()
 			var _args:Dictionary = payloadEntry[2]
 			_sexEngine.pushToQueue(id, [SexEngine.QUEUE_START_MAIN_ACTIVITY if getActivityType() == ACTIVITY_MAIN else SexEngine.QUEUE_START_SIDE_ACTIVITY, id, _roles, _args])
+		elif(entryType == SexAction.ACTION_EXPOSE):
+			var _giverInfo:SexParticipantInfo = payloadEntry[1]
+			var _receiverInfo:SexParticipantInfo = payloadEntry[2]
+			var _fetishID:String = payloadEntry[3]
+			var _intensity:float = payloadEntry[4]
+			_sexEngine.pushToQueue(id, _sexEngine.createExpose(_giverInfo.getID(), _receiverInfo.getID(), _fetishID, _intensity))
+		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
+			_sexEngine.pushToQueue(id, _sexEngine.createConsentCheck(payloadEntry[1], payloadEntry[2], [_info.getID()], payloadEntry[3], payloadEntry[4]))
+			
 		#elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
 		#	pushDelayCanCancel(payloadEntry[1], _role)
 		#elif(entryType == SexAction.ACTION_CONSENT_CHECK):
@@ -225,7 +248,9 @@ func doSexActionFinal(_role:String, _action:SexAction):
 		elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
 			pushDelayCanCancel(payloadEntry[1], _role)
 		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
-			pushConsentCheck(payloadEntry[1], payloadEntry[2], [getRoleID(_role)])
+			pushConsentCheck(payloadEntry[1], payloadEntry[2], [getRoleID(_role)], payloadEntry[3], payloadEntry[4])
+		elif(entryType == SexAction.ACTION_EXPOSE):
+			pushExpose(payloadEntry[1], payloadEntry[2], payloadEntry[3], payloadEntry[4])
 		else:
 			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doSexActionFinal()")
 
@@ -307,13 +332,14 @@ func addAutomoan(_theRole:String, _howMuch:float, _maxValue:float):
 		return
 	theChar.getCharState().addAutoMoanCappedMax(_howMuch, _maxValue)
 
-func processVaginalSex(_dt:float, topRole:String, bottomRole:String, mult:float = 1.0):
-	addArousal(topRole, _dt*mult*0.05*randf_range(0.9, 1.1))
-	addArousal(bottomRole, _dt*mult*0.05*randf_range(0.9, 1.1))
 
-func processAnalSex(_dt:float, topRole:String, bottomRole:String, mult:float = 1.0):
-	addArousal(topRole, _dt*mult*0.1)
-	addArousal(bottomRole, _dt*mult*0.1)
+
+func processVaginalSex(topRole:String, bottomRole:String, mult:float = 1.0):
+	stimulate(topRole, S_PENIS, bottomRole, S_VAGINA, I_NORMAL, Fetish.SexVaginal, 0.05*mult)
+
+#func processAnalSex(_dt:float, topRole:String, bottomRole:String, mult:float = 1.0):
+	#addArousal(topRole, _dt*mult*0.1)
+	#addArousal(bottomRole, _dt*mult*0.1)
 
 func doOrgasm(_role:String, _causerRole:String = "", _orgasmType:int = SexOrgasmType.Generic, _orgasmCause:int = SexOrgasmCause.Generic, _intensity:int = SexOrgasmIntensity.Normal):
 	setArousal(_role, 0.0)
@@ -342,11 +368,31 @@ func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
 func pushActionText(_text:String):
 	getSexEngine().pushToQueue(self, getSexEngine().createActionText(_text))
 
-func pushConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
-	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _delayForced, _consented))
+func pushConsentCheck(_delay:float, _delayForced:float, _consented:Array[String], _consentStrategy:int, _consentArgs:Array):
+	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _delayForced, _consented, _consentStrategy, _consentArgs))
 
 func pushResistMinigame():
 	getSexEngine().pushToQueue(self, getSexEngine().createResistMinigame(state))
+
+func pushExpose(_rolePerfomer:String, _roleReceiver:String, _fetishID:String, _intensity:float = 1.0):
+	getSexEngine().pushToQueue(self, getSexEngine().createExpose(getRoleID(_rolePerfomer), getRoleID(_roleReceiver), _fetishID, _intensity))
+
+func exposeFetish(_rolePerfomer:String, _roleReceiver:String, _fetishID:String, _intensity:float = 1.0):
+	getSexEngine().doExposeFetish(getRoleID(_rolePerfomer), getRoleID(_roleReceiver), _fetishID, _intensity)
+
+func pleasureModFromZone(_role:String, _zone:int) -> float:
+	if(_zone == S_PENIS || _zone == S_VAGINA || _zone == S_ANUS):
+		return 1.0
+	return 0.0
+
+func stimulate(_rolePerformer:String, _perfZone:int, _roleReceiver:String, _recZone:int, _intensity:int, _fetishID:String, _arousalBase:float):
+	var perfPleasure:float = pleasureModFromZone(_rolePerformer, _perfZone)
+	if(perfPleasure != 0.0):
+		addArousal(_rolePerformer, perfPleasure*_arousalBase*randf_range(0.9, 1.1))
+	
+	var recPleasure:float = pleasureModFromZone(_roleReceiver, _recZone)
+	if(recPleasure != 0.0):
+		addArousal(_roleReceiver, recPleasure*_arousalBase*randf_range(0.9, 1.1))
 
 func handleResistMinigame(_state:String, _result:ResistMinigameResult):
 	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_resistMinigame"
@@ -398,6 +444,19 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 			theResult = GM.characterRegistry.getSimpleGameTextParserText(roleToID[_id], _command, _arg)
 	
 	return theResult
+
+func calcConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isForced:bool) -> float:
+	var ai:SexParticipantAI = _info.ai
+	if(_strategy == CONSENT_RESISTANCE):
+		if(_info.canDoDomActions()):
+			return 1.0
+		return 1.0 - ai.getSmoothResistScore()
+	
+	Log.Printerr("BAD CONSENT STRATEGY: "+str(_strategy))
+	return 1.0
+
+func calcNoConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isForced:bool) -> float:
+	return 1.0 - calcConsentScore(_strategy, _args, _info, _isForced)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

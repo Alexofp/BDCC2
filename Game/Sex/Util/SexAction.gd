@@ -6,6 +6,7 @@ const ACTION_DELAY = 1
 const ACTION_DELAY_CANCANCEL = 2
 const ACTION_CONSENT_CHECK = 3
 const ACTION_START = 4
+const ACTION_EXPOSE = 5
 
 #var id:String = ""
 var actionName:String = ""
@@ -34,8 +35,8 @@ func delayCancel(_delay:float) -> SexAction:
 	payload.append([ACTION_DELAY_CANCANCEL, _delay])
 	return self
 
-func consent(_delay:float = 5.0, _delayForced:float = 3.0) -> SexAction:
-	payload.append([ACTION_CONSENT_CHECK, _delay, _delayForced])
+func consent(_scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
+	payload.append([ACTION_CONSENT_CHECK, 5.0, 3.0, _scoringStrategy, _strategyArgs])
 	return self
 
 func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:
@@ -57,4 +58,8 @@ func setCooldown(_cooldownID:String, _cooldownTime:float = 0.0) -> SexAction:
 
 func setDisabled(_dis:bool) -> SexAction:
 	disabled = _dis
+	return self
+
+func expose(_giver:Variant, _receiver:Variant, _fetishID:String, _intensity:float = 1.0) -> SexAction:
+	payload.append([ACTION_EXPOSE, _giver, _receiver, _fetishID, _intensity])
 	return self

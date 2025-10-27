@@ -12,6 +12,10 @@ var syncState:SyncState = SyncState.new(self,
 	["arousal", "arousalFade", "autoMoan"],
 	[Bins.Float, Bins.Float, Bins.Float],
 )
+func setSyncVar(_var:String, _val:Variant):
+	set(_var, _val)
+func getSyncVar(_var:String) -> Variant:
+	return get(_var)
 
 func _init() -> void:
 	pass

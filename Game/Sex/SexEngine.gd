@@ -73,6 +73,7 @@ const QUEUE_CONSENT_CHECK = 8
 const QUEUE_START_MAIN_ACTIVITY = 9
 const QUEUE_START_SIDE_ACTIVITY = 10
 const QUEUE_RESIST_MINIGAME = 11
+const QUEUE_EXPOSE = 12
 
 const JUST_SKIP_QUEUE_TYPES = [
 	QUEUE_CANCEL_STOPPER,
@@ -108,12 +109,15 @@ func createAutoAction(_state:String, _role:String, _actionID:String, _args:Array
 func createActionText(_text:String):
 	return [QUEUE_ACTIONTEXT, _text]
 
-func createConsentCheck(_delay:float, _delayForced:float, _consented:Array[String]):
-	#				0			  1			2		3			4		  5
-	return [QUEUE_CONSENT_CHECK, 0.0, _consented, _delay, _delayForced, false]
+func createConsentCheck(_delay:float, _delayForced:float, _consented:Array[String], _consentStrategy:int, _consentArgs:Array):
+	#				0			  1			2		3			4		  5				6				7
+	return [QUEUE_CONSENT_CHECK, 0.0, _consented, _delay, _delayForced, false, _consentStrategy, _consentArgs]
 
 func createResistMinigame(_state:String):
 	return [QUEUE_RESIST_MINIGAME, false, _state]
+
+func createExpose(_giverID:String, _receiverID:String, _fetishID:String, _intensity:float):
+	return [QUEUE_EXPOSE, _giverID, _receiverID, _fetishID, _intensity]
 
 func isQueueBusy() -> bool:
 	return !eventQueue.is_empty()
@@ -184,6 +188,14 @@ func processEventQueue(_dt:float):
 				queueEntry[1] = true
 			resistMinigame.updateMinigame(_dt)
 			break
+		elif(queueType == QUEUE_EXPOSE):
+			var _performerID:String = queueEntry[1]
+			var _receiverID:String = queueEntry[2]
+			var _fetishID:String = queueEntry[3]
+			var _intensity:float = queueEntry[4]
+			
+			doExposeFetish(_performerID, _receiverID, _fetishID, _intensity)
+			eventQueue.pop_front()
 		elif(queueType in JUST_SKIP_QUEUE_TYPES):
 			eventQueue.pop_front()
 		else:
@@ -297,6 +309,16 @@ func doProcess(_delta: float) -> void:
 		for charID in participants:
 			var theInfo := participants[charID]
 			theInfo.processInfo(_delta)
+			
+	if(Network.isServerNotSingleplayer()):
+		for charID in participants:
+			var theInfo := participants[charID]
+			if(theInfo.ai):
+				var aiSyncState := theInfo.ai.syncState
+				if(aiSyncState.getDirtyTime() > 0.5):
+					var theDelta := aiSyncState.getDelta()
+					Network.rpcClients(syncInfoAIState_RPC.bind(charID, theDelta))
+					aiSyncState.resetDelta()
 	
 	if(theIsServer):
 		# action cache update
@@ -318,6 +340,13 @@ func doProcess(_delta: float) -> void:
 		actionText = calculateActionText()
 	
 		checkGripLevel()
+	
+@rpc("authority", "call_remote", "reliable")
+func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
+	var theInfo := getInfo(_charID)
+	if(!theInfo):
+		return
+	theInfo.ai.syncState.applyDelta(_delta)
 	
 func calculateNetworkActions(theActions:Array) -> Array:
 	var result:Array = []
@@ -357,6 +386,7 @@ func calculateActions(charID:String) -> Array:
 	if(!eventQueue.is_empty()):
 		var currentEntry:Array = eventQueue.front()
 		var _entryObj = currentEntry[0]
+		var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getAnySexActivityRef(_entryObj)
 		var queueEntry:Array = currentEntry[1]
 		var queueType:int = queueEntry[0]
 		
@@ -366,31 +396,50 @@ func calculateActions(charID:String) -> Array:
 				result.append({
 					id = ACTION_CANCEL,
 					name = "Cancel",
+					activity = theActivity,
 				})
 		if(queueType == QUEUE_CONSENT_CHECK):
+			var consentStrategy:int = queueEntry[6]
+			var consentArgs:Array = queueEntry[7]
+			
 			if(!isForced() && canDoDomActions(charID)):
 				result.append({
 					id = ACTION_FORCE,
 					name = "Force",
+					activity = theActivity,
+					consentStrategy = consentStrategy,
+					consentArgs = consentArgs,
 				})
 			if(shouldConsent(charID)):
 				result.append({
 					id = ACTION_CONSENT,
 					name = "Allow",
+					activity = theActivity,
+					consentStrategy = consentStrategy,
+					consentArgs = consentArgs,
 				})
 				if(_charCanDoDomActions || !isForced()):
 					result.append({
 						id = ACTION_DENY_CONSENT,
 						name = "Deny",
+						activity = theActivity,
+						consentStrategy = consentStrategy,
+						consentArgs = consentArgs,
 					})
 				else:
 					result.append({
 						id = ACTION_RESIST,
 						name = "Resist!",
+						activity = theActivity,
+						consentStrategy = consentStrategy,
+						consentArgs = consentArgs,
 					})
 				result.append({
 					id = ACTION_CONSENT_ALWAYS,
 					name = "Always allow",
+					activity = theActivity,
+					consentStrategy = consentStrategy,
+					consentArgs = consentArgs,
 				})
 			#var _role:String = _entryObj.getRoleFromID(charID)
 			
@@ -467,12 +516,26 @@ func shouldConsent(_charID:String) -> bool:
 	return false
 	
 func hasEveryoneConsent(_activity, _consented:Array[String]) -> bool:
+	if(_activity is String): #TODO: handle this differently?
+		for _charID in participants:
+			if(!_consented.has(_charID) && shouldConsent(_charID)):
+				return false
+		return true
+	
 	for _charID in _activity.idToRole:
 		if(!_consented.has(_charID) && shouldConsent(_charID)):
 			return false
 	return true
 	
 func hasEveryoneConsentEndCheck(_activity, _consented:Array[String]) -> bool:
+	if(_activity is String):
+		for _charID in participants:
+			if(hasConsentIfNoAnswer(_charID)):
+				continue
+			if(!_consented.has(_charID) && shouldConsent(_charID)):
+				return false
+		return true
+	
 	for _charID in _activity.idToRole:
 		if(hasConsentIfNoAnswer(_charID)):
 			continue
@@ -1166,6 +1229,13 @@ func notifyThingHappened():
 func notifyThingHappenedNeedsReaction():
 	for charID in participants:
 		participants[charID].notifyThingHappened()
+
+func doExposeFetish(_performerID:String, _receiverID:String, _fetishID:String, _intensity:float = 1.0):
+	var _infoPerf:SexParticipantInfo = getInfo(_performerID)
+	var _infoReceiver:SexParticipantInfo = getInfo(_receiverID)
+	if(!_infoPerf && !_infoReceiver):
+		return
+	Log.Print("EXPOSING: "+_performerID+" "+_receiverID+" FETISH="+_fetishID+" INTENSITY: "+str(_intensity))
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

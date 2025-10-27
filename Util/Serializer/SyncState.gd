@@ -1,7 +1,7 @@
 extends RefCounted
 class_name SyncState
 
-var obj:Object
+var obj:Object #Requires getSyncVar and setSyncVar
 var fields:Array[String] = []
 var fieldToIndx:Dictionary[String, int] = {}
 var cachedValues:Dictionary[int, Variant] = {}
@@ -10,6 +10,11 @@ var saveTypes:Array[int] = []
 var dirtyTime:float = 0.0
 
 const UPDATE_FULL = 65535
+
+func setSyncVar(_var:String, _val:Variant):
+	set(_var, _val)
+func getSyncVar(_var:String) -> Variant:
+	return get(_var)
 
 func _init(_obj:Object, _fields:Array[String], _saveTypes:Array[int]):
 	assert(_fields.size() <= 15, "SyncState supports only up to 15 fields")
@@ -27,7 +32,7 @@ func processSyncState(_dt:float):
 	
 	for _i in range(fields.size()):
 		var field:String = fields[_i]
-		var theValue:Variant = obj.get(field)
+		var theValue:Variant = obj.getSyncVar(field)
 		
 		if(!cachedValues.has(_i) || cachedValues[_i] != theValue):
 			cachedValues[_i] = theValue
@@ -78,13 +83,13 @@ func applyDelta(_delta:PackedByteArray, isCompressed:bool=false):
 		for _i in range(fields.size()):
 			var theType := saveTypes[_i]
 			var theVal:Variant = theBins.read(theType)
-			obj.set(fields[_i], theVal)
+			obj.setSyncVar(fields[_i], theVal)
 	else:
 		for _i in range(fields.size()):
 			if(!Util.getBit(theUpdateMask, _i)):
 				continue
 			var theType := saveTypes[_i]
 			var theVal:Variant = theBins.read(theType)
-			obj.set(fields[_i], theVal)
+			obj.setSyncVar(fields[_i], theVal)
 			
 	theBins.endLoad()

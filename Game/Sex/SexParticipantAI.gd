@@ -12,6 +12,10 @@ var fear:float = 0.0
 var goals:Array[SexGoalBase] = []
 var goalsGenerated:bool = false
 
+var syncState:SyncState = SyncState.new(self,
+	["anger", "resistance", "fear"],
+	[Bins.Float, Bins.Float, Bins.Float],)
+
 func onSexStart():
 	checkGoals()
 	ticker = 1.0
@@ -30,6 +34,8 @@ func processAI(_dt:float):
 	if(ticker <= 0.0):
 		ticker = RNG.randfRange(0.8, 1.2)
 		tickAI()
+	
+	syncState.processSyncState(_dt)
 
 # Main thinking func. Gets called sometimes
 func tickAI():
@@ -76,15 +82,16 @@ func calcActionScore(_actionEntry:Dictionary) -> float:
 	var isTheActionDisabled:bool = _actionEntry["disabled"] if _actionEntry.has("disabled") else false
 	if(isTheActionDisabled):
 		return 0.0
+	var theActivity:SexEngineActivityBase = _actionEntry["activity"] if _actionEntry.has("activity") else null
+	var theInfo := getInfo()
 	
-	if(actionID == SexEngine.ACTION_CONSENT):
-		if(theSex.isForced()):
-			return 0.0
-		return 0.0
-	elif(actionID == SexEngine.ACTION_DENY_CONSENT):
-		return 1.0
-	elif(actionID == SexEngine.ACTION_RESIST):
-		return 1.0
+	if(actionID in [SexEngine.ACTION_CONSENT, SexEngine.ACTION_DENY_CONSENT, SexEngine.ACTION_RESIST]):
+		var consentStrategy:int = _actionEntry["consentStrategy"] if _actionEntry.has("consentStrategy") else 0
+		var consentArgs:Array = _actionEntry["consentArgs"] if _actionEntry.has("consentArgs") else []
+		if(actionID == SexEngine.ACTION_CONSENT):
+			return theActivity.calcConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
+		else:
+			return theActivity.calcNoConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
 	elif(actionID == SexEngine.ACTION_SEX_ACTION):
 		return 0.0
 	elif(actionID == SexEngine.ACTION_START_ACTION):
@@ -146,6 +153,79 @@ func checkGoals():
 	goals = generateGoals(2)
 	goalsGenerated = true
 
+func getFinalResistance() -> float:
+	return resistance * (1.0 - clamp(fear, 0.0, 1.0))
+
+func getSlightlyResistingScore() -> float:
+	if(getFinalResistance() >= 0.2):
+		return 1.0
+	return 0.0
+
+func getSmoothResistScore() -> float:
+	var theFinalResistance := getFinalResistance()
+	if(theFinalResistance >= 0.5):
+		return 1.0
+	if(theFinalResistance <= 0.2):
+		return 0.0
+	return remap(theFinalResistance, 0.2, 0.5, 0.0, 1.0)
+
+func getResistScore() -> float:
+	if(getFinalResistance() >= 0.5):
+		return 1.0
+	return 0.0
+
+func addAnger(_howMuch:float):
+	var theMean:float = personality(PersonalityStat.Mean)
+	if(_howMuch > 0.0):
+		addAngerRaw(_howMuch * (1.0 + theMean*0.5))
+	if(_howMuch < 0.0):
+		addAngerRaw(_howMuch * (1.0 - theMean*0.3))
+
+func addResistance(_howMuch:float):
+	var theDommy:float = personality(PersonalityStat.Dominant)
+	if(_howMuch > 0.0):
+		addResistanceRaw(_howMuch * (1.0 + theDommy*0.2))
+	if(_howMuch < 0.0):
+		addResistanceRaw(_howMuch * (1.0 - theDommy*0.3))
+
+func addFear(_howMuch:float):
+	var theBrave:float = personality(PersonalityStat.Brave)
+	if(_howMuch > 0.0):
+		addFearRaw(_howMuch * (1.0 - theBrave*0.5))
+	if(_howMuch < 0.0):
+		addFearRaw(_howMuch * (1.0 + theBrave*0.5))
+
+func addAngerRaw(_howMuch:float):
+	anger += _howMuch
+	anger = clamp(anger, 0.0, 1.0)
+
+func addResistanceRaw(_howMuch:float):
+	resistance += _howMuch
+	resistance = clamp(resistance, 0.0, 1.0)
+
+func addFearRaw(_howMuch:float):
+	fear += _howMuch
+	fear = clamp(fear, 0.0, 1.0)
+
+func personality(_persID:String) -> float:
+	var theChar := getChar()
+	if(!theChar):
+		return 0.0
+	return theChar.personality.getStat(_persID)
+
+func fetishDo(_fetishID:String) -> float:
+	var theChar := getChar()
+	if(!theChar):
+		return 0.0
+	return theChar.fetishHolder.getPerforming(_fetishID)
+
+func fetishFeel(_fetishID:String) -> float:
+	var theChar := getChar()
+	if(!theChar):
+		return 0.0
+	return theChar.fetishHolder.getReceiving(_fetishID)
+
+
 func isPlayer() -> bool:
 	return getChar().isControlledByAnyPlayer()
 
@@ -172,3 +252,16 @@ func canDoDomActions() -> bool:
 
 func getID() -> String:
 	return getInfo().getID()
+
+func getVisibleAIInfo() -> Array[String]:
+	if(isPlayer()):
+		return []
+	if(canDoDomActions()):
+		return [
+			"Anger: "+str(int(round(anger*100.0)))+"%",
+		]
+	else:
+		return [
+			"Resistance: "+str(int(round(resistance*100.0)))+"%",
+			"Fear: "+str(int(round(fear*100.0)))+"%",
+		]

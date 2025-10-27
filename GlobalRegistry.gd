@@ -306,6 +306,16 @@ func getSexActivityRef(id: String) -> SexMainActivity:
 		Log.Printerr("ERROR: sex activity with the id "+str(id)+" wasn't found")
 		return null
 
+func getAnySexActivityRef(id: String) -> SexEngineActivityBase:
+	if(sexActivityRefs.has(id)):
+		return sexActivityRefs[id]
+	elif(sexSideActivityRefs.has(id)):
+		return sexSideActivityRefs[id]
+	elif(sexTypeRefs.has(id)):
+		return sexTypeRefs[id]
+	else:
+		Log.Printerr("ERROR: sex activity with the id "+str(id)+" wasn't found")
+		return null
 
 
 func registerSexSideActivity(path: String):

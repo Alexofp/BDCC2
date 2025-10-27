@@ -21,7 +21,12 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 				continue
 			if(!theItem.canBeEquippedOnto(theTargetInv)):
 				continue # Show a disabled button instead?
-			addAction(action(theItem.getName()).setCat(["Bondage", theCharName]).start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID}))
+			addAction(action(theItem.getName()).
+				setCat(["Bondage", theCharName]).
+				expose(_info, _target, Fetish.Bondage).
+				consent().
+				start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
+			)
 		
 		#addAction(action("GAG!").setCat(["Bondage"]).start({main=_info, target=_target}))
 	

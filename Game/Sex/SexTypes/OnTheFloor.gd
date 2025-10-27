@@ -18,7 +18,7 @@ func start_run():
 func start_actions(_role:String):
 	if(!hasMainActivity()):
 		if(canDoDomActions(_role)):
-			addAction(action("Standing sex").consent(5.0).do("startSex_pre").delayCancel(0.5).do("startSex"))
+			addAction(action("Standing sex").expose("dom", "sub", Fetish.SexVaginal).consent().do("startSex_pre").delayCancel(0.5).do("startSex"))
 			addAction(action("Stop").delayCancel(0.5).do("stopSex"))
 
 func start_do(_role:String, _id:String, _args:Array):
