@@ -45,7 +45,7 @@ _data = {
 &"QuickFade": SubResource("Animation_n3q0f")
 }
 
-[node name="SexUI" type="Control"]
+[node name="SexUI" type="Control" unique_id=1991073795]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_e8tk3")
 
-[node name="FadeRect" type="ColorRect" parent="."]
+[node name="FadeRect" type="ColorRect" parent="." unique_id=1549417054]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -66,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1800621921]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,98 +74,103 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=314254305]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EmptySpace" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="EmptySpace" type="Control" parent="HBoxContainer/VBoxContainer" unique_id=1550015930]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=896115166]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer" unique_id=1766346251]
 layout_mode = 2
 
-[node name="ActionTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ActionTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1138499001]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
-[node name="ActionProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ActionProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1212673650]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 
-[node name="BottomPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="BottomPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=124988603]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="SmartButtonGrid" parent="HBoxContainer/VBoxContainer/BottomPanel" instance=ExtResource("3_6jvax")]
+[node name="SmartButtonGrid" parent="HBoxContainer/VBoxContainer/BottomPanel" unique_id=550415100 instance=ExtResource("3_6jvax")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="ResistMinigame" parent="HBoxContainer/VBoxContainer/BottomPanel" instance=ExtResource("3_px13k")]
+[node name="ResistMinigame" parent="HBoxContainer/VBoxContainer/BottomPanel" unique_id=61273463 instance=ExtResource("3_px13k")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="RightPanel" type="PanelContainer" parent="HBoxContainer"]
+[node name="RightPanel" type="PanelContainer" parent="HBoxContainer" unique_id=507341499]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel" unique_id=1905996067]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer" unique_id=554879720]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer" unique_id=1309667638]
 layout_mode = 2
 text = "Camera"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer" unique_id=598326561]
 layout_mode = 2
 
-[node name="LockedCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LockedCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1192843146]
 layout_mode = 2
 text = "Locked"
 
-[node name="FreeCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="FreeCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1241083743]
 layout_mode = 2
 text = "Free"
 
-[node name="FPSCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="FPSCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1534710331]
 layout_mode = 2
 text = "First person"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer" unique_id=1588903756]
 layout_mode = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2" unique_id=114280828]
 layout_mode = 2
 
-[node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1430021150]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Auto-Allow"
 
-[node name="ForcingCheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="ForcingCheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=816547160]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Forcing"
 
-[node name="SexDescLabel" type="RichTextLabel" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="AICheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=423456123]
+unique_name_in_owner = true
+layout_mode = 2
+text = "AI"
+
+[node name="SexDescLabel" type="RichTextLabel" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1272906630]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
-[node name="GripBar" type="ProgressBar" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2"]
+[node name="GripBar" type="ProgressBar" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2" unique_id=1866752000]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -175,7 +180,7 @@ max_value = 1.0
 value = 0.17
 show_percentage = false
 
-[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/GripBar"]
+[node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/GripBar" unique_id=1130805468]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,36 +191,36 @@ text = "Grip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSplitContainer" type="VSplitContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="HBoxContainer/RightPanel/VBoxContainer" unique_id=992779489]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer" unique_id=425417972]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3" unique_id=1724924133]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ParticipantsList" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer"]
+[node name="ParticipantsList" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer" unique_id=954961208]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SexParticipantUIEntry" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer/ParticipantsList" instance=ExtResource("3_schvr")]
+[node name="SexParticipantUIEntry" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/VBoxContainer3/ScrollContainer/ParticipantsList" unique_id=1969719082 instance=ExtResource("3_schvr")]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer" unique_id=95117474]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ChatWidget" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/PanelContainer" instance=ExtResource("4_8pvey")]
+[node name="ChatWidget" parent="HBoxContainer/RightPanel/VBoxContainer/VSplitContainer/PanelContainer" unique_id=38580630 instance=ExtResource("4_8pvey")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="FadeAnimPlayer" type="AnimationPlayer" parent="."]
+[node name="FadeAnimPlayer" type="AnimationPlayer" parent="." unique_id=56116038]
 unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_8pvey")
@@ -228,3 +233,4 @@ libraries = {
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/FreeCameraButton" to="." method="_on_free_camera_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]
 [connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/ForcingCheck" to="." method="_on_forcing_check_toggled"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AICheck" to="." method="_on_ai_check_toggled"]

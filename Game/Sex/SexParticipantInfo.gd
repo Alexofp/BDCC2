@@ -7,6 +7,7 @@ var ai:SexParticipantAI
 
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
+var pcAuto:bool = false # Process AI even if we are the player
 
 func setupInfo(_infoDict:Dictionary) -> bool:
 	if(!_infoDict.has("id")):
@@ -84,10 +85,12 @@ func getID() -> String:
 func getUserPickedOptions() -> Dictionary:
 	return {
 		autoConsent = autoConsent,
+		pcAuto = pcAuto,
 	}
 
 func applyUserPickedOptions(_data:Dictionary):
 	autoConsent = SAVE.loadVar(_data, "autoConsent", false)
+	pcAuto = SAVE.loadVar(_data, "pcAuto", false)
 
 func getStatusTextArray() -> Array[String]:
 	var result:Array[String] = []
@@ -101,6 +104,8 @@ func getStatusTextArray() -> Array[String]:
 			result.append("Submissive")
 	if(autoConsent):
 		result.append("Auto-allow")
+	if(pcAuto && isPlayer()):
+		result.append("AI-controlled player")
 	
 	var theAiInfo := ai.getVisibleAIInfo()
 	if(!theAiInfo.is_empty()):
@@ -112,24 +117,42 @@ func processInfo(_dt:float):
 	if(ai):
 		ai.processAI(_dt)
 
+func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:bool):
+	if(ai):
+		ai.exposeToFetish(_fetishID, _intensity, _isPerf, _isReceiv)
+
+func taskScore(_taskID:String, _args:Array = []) -> float:
+	if(!ai || !ai.shouldProcessAI()):
+		return 0.0
+	return ai.taskScore(_taskID, _args)
+
+func sendTaskEvent(_taskID:String, _taskArray:Array):
+	if(!ai):
+		return
+	ai.sendTaskEvent(_taskID, _taskArray)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.I8, role,
 		Bins.Bool, autoConsent,
+		Bins.Bool, pcAuto,
 	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
 	role = _data.readI8()
 	autoConsent = _data.readBool()
+	pcAuto = _data.readBool()
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	return {
 		role = role,
 		autoConsent = autoConsent,
+		pcAuto = pcAuto,
 	}
 
 func loadData(_data:Dictionary):
 	role = SAVE.loadVar(_data, "role", SexRole.Dom)
 	autoConsent = SAVE.loadVar(_data, "autoConsent", false)
+	pcAuto = SAVE.loadVar(_data, "pcAuto", false)

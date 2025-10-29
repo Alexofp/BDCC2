@@ -11,7 +11,8 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	if(!_sexEngine.isForced() || _info.canDoDomActions()):
 		return
-	addAction(action("Resist").setCooldown("subResist").start({ROLE_USER:_info}))
+	var resistScore:float = _info.ai.getSmoothResistScore()
+	addAction(action("Resist").setScore(resistScore).setCooldown("subResist").start({ROLE_USER:_info}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER])
@@ -20,5 +21,5 @@ func start(_roles:Dictionary, _args:Dictionary):
 func start_resistMinigame(_result:ResistMinigameResult):
 	if(_result.didSubsWin()):
 		getSexEngine().addGrip(-0.4)
-	addCooldown("subResist", 20.0)
+	addCooldown("subResist", 10.0)
 	endActivity()

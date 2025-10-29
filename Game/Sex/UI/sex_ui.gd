@@ -13,6 +13,7 @@ class_name SexUI
 @onready var resist_minigame: ResistMinigame = %ResistMinigame
 @onready var grip_bar: ProgressBar = %GripBar
 @onready var sex_desc_label: RichTextLabel = %SexDescLabel
+@onready var ai_check: CheckBox = %AICheck
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -110,6 +111,7 @@ func updateAutoConsentCheckbox():
 	var hasAutoConsent:bool = participant.isAutoConsentToggledOn()
 	
 	auto_consent_check_box.set_pressed_no_signal(hasAutoConsent)
+	ai_check.set_pressed_no_signal(participant.pcAuto)
 
 func onSexEngineAnimSceneSwitched():
 	playQuickFade()
@@ -369,3 +371,10 @@ func updateSexControlButtonsAndText():
 		savedSexDescText = newSavedSexDescText
 		sex_desc_label.text = newSavedSexDescText
 		sex_desc_label.visible = !newSavedSexDescText.is_empty()
+
+func _on_ai_check_toggled(_toggled_on: bool) -> void:
+	var theInfo := getSexParticipantInfo()
+	if(!theInfo):
+		return
+	theInfo.pcAuto = _toggled_on
+	theInfo.syncUserOptions()

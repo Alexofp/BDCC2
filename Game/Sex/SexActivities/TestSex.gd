@@ -4,6 +4,9 @@ const SEX_SPEED_SLOW = 0
 const SEX_SPEED_NORMAL = 1
 const SEX_SPEED_FAST = 2
 
+const ROLE_TOP = "top"
+const ROLE_BOTTOM = "bottom"
+
 const SEX_SPEEDS = [
 	SEX_SPEED_SLOW, SEX_SPEED_NORMAL, SEX_SPEED_FAST
 ]
@@ -16,13 +19,16 @@ func _init():
 	id = SexActivity.TestSex
 
 func start(_roles:Dictionary, _args:Dictionary):
-	setupRoles(_roles, ["dom", "sub"])
+	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
 	
 func start_run():
-	playAnim(AnimScene.TestSex, "tease", {dom={id="dom"}, sub="sub"})
+	playAnim(AnimScene.TestSex, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM})
 
 func start_actions(_role:String):
-	addActionEasy("Penetrate", 1.0, "startSex")
+	if(!canDoDomActions(_role)):
+		return
+	var penetrateScore:float = taskScore(ROLE_TOP, SexTask.CumInsideVaginal, [getRoleID(ROLE_BOTTOM)])
+	addAction(action("Penetrate").setScore(penetrateScore).consent().do("startSex"))
 
 func start_do(_role:String, _id:String, _args:Array):
 	if(_id == "startSex"):
@@ -31,17 +37,19 @@ func start_do(_role:String, _id:String, _args:Array):
 		pushSetState("sex")
 
 func playCurrentSexAnim():
-	playAnim(AnimScene.TestSex, SEX_SPEEDS_ANIM[sexSpeed], {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
+	playAnim(AnimScene.TestSex, SEX_SPEEDS_ANIM[sexSpeed], {dom={id=ROLE_TOP, guidePenisVag="sub"}, sub=ROLE_BOTTOM})
 
 func sex_run():
 	playCurrentSexAnim()
 
 func sex_actions(_role:String):
+	if(!canDoDomActions(_role)):
+		return
 	if(sexSpeed < SEX_SPEED_FAST):
-		addActionEasy("Faster", 1.0, "sex_faster")
+		addAction(action("Faster").setScore(0.1).do("sex_faster"))
 	if(sexSpeed > SEX_SPEED_SLOW):
-		addActionEasy("Slower", 1.0, "sex_slower")
-	addActionEasy("Pause", 0.0, "pause")
+		addAction(action("Slower").do("sex_slower"))
+	addAction(action("Pause").do("pause"))
 
 func sex_do(_role:String, _id:String, _args:Array):
 	if(_id == "sex_slower"):
@@ -54,31 +62,51 @@ func sex_do(_role:String, _id:String, _args:Array):
 		setState("inside")
 
 func subDoCum():
-	doOrgasm("sub", "dom", SexOrgasmType.Vaginal, SexOrgasmCause.Penis, SexOrgasmIntensity.Normal)
+	doOrgasm(ROLE_BOTTOM, ROLE_TOP, SexOrgasmType.Vaginal, SexOrgasmCause.Penis, SexOrgasmIntensity.Normal)
 	playOneShot("bottomCum")
 
 func domDoCum():
 	sexSpeed = SEX_SPEED_SLOW
-	doOrgasm("dom", "sub", SexOrgasmType.Penile, SexOrgasmCause.Vagina, SexOrgasmIntensity.Normal)
+	doOrgasm(ROLE_TOP, ROLE_BOTTOM, SexOrgasmType.Penile, SexOrgasmCause.Vagina, SexOrgasmIntensity.Normal)
 	setState("cuminside")
 	pushDelay(5.0)
 	pushSetState("inside")
+	
+	completeTask(ROLE_TOP, SexTask.CumInsideVaginal, [getRoleID(ROLE_BOTTOM)])
+	#taskScore(ROLE_TOP, SexTask.CumInsideVaginal, [getRoleID(ROLE_BOTTOM)])
+	#taskScore(ROLE_TOP, SexTask.Undress, [getRoleID(ROLE_BOTTOM)])
+	#scoreStop(ROLE_TOP)
+
+func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
+	if(_taskID == SexTask.CumInsideVaginal && _args[0] == getRoleID(ROLE_BOTTOM)):
+		return true
+	return false
+
+func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
+	if(_taskID == SexTask.CumInsideVaginal):
+		return [
+			task(SexTask.Undress, [_info.getID()]),
+			task(SexTask.Undress, [_args[0]]),
+		]
+	return []
 
 func sex_process(_dt:float):
-	if(isReadyToCum("sub")):
+	if(isReadyToCum(ROLE_BOTTOM)):
 		subDoCum()
-	if(!isQueueBusy() && isReadyToCum("dom")):
+	if(!isQueueBusy() && isReadyToCum(ROLE_TOP)):
 		domDoCum()
 
 func cuminside_run():
-	playAnim(AnimScene.TestSex, "cum", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
+	playAnim(AnimScene.TestSex, "cum", {dom={id=ROLE_TOP, guidePenisVag="sub"}, sub=ROLE_BOTTOM})
 
 func inside_run():
-	playAnim(AnimScene.TestSex, "inside", {dom={id="dom", guidePenisVag="sub"}, sub="sub"})
+	playAnim(AnimScene.TestSex, "inside", {dom={id=ROLE_TOP, guidePenisVag="sub"}, sub=ROLE_BOTTOM})
 	
 func inside_actions(_role:String):
-	addActionEasy("Fuck more", 1.0, "fuckmore")
-	addActionEasy("Pull out", 1.0, "pullout")
+	if(!canDoDomActions(_role)):
+		return
+	addAction(action("Fuck more").setScore(1.0-scoreStop(ROLE_TOP)).do("fuckmore"))
+	addAction(action("Pull out").setScore(scoreStop(ROLE_TOP)).do("pullout"))
 
 func inside_do(_role:String, _id:String, _args:Array):
 	if(_id == "pullout"):
@@ -87,7 +115,9 @@ func inside_do(_role:String, _id:String, _args:Array):
 		setState("sex")
 
 func getActions(_role:String):
-	addActionEasy("Stop sex", 0.0, "stopSex")
+	if(!canDoDomActions(_role)):
+		return
+	addAction(action("Stop sex").setScore(scoreStop(ROLE_TOP)).do("stopSex"))
 
 func doAction(_role:String, _id:String, _args:Array):
 	if(_id == "stopSex"):
@@ -101,7 +131,7 @@ func doEvent(_event:SexEvent):
 
 func getExpressionState(_role:String) -> int:
 	if(state in ["sex"]):
-		if(_role == "dom"):
+		if(_role == ROLE_TOP):
 			return DollExpressionState.SexGiving
 		return DollExpressionState.SexReceiving
 	return DollExpressionState.Normal
@@ -112,11 +142,18 @@ func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Varia
 			var _dt:float = 1.0
 			
 			#if(state == "slow"):
-			processVaginalSex("dom", "sub", 0.5)
-			addAutomoan("sub", _dt*2.0, 25.0)
+			processVaginalSex(ROLE_TOP, ROLE_BOTTOM, 0.5)
+			addAutomoan(ROLE_BOTTOM, _dt*2.0, 25.0)
 			#if(state == "sex"):
-				#processVaginalSex("dom", "sub", 1.0)
-				#addAutomoan("sub", _dt*2.0, 25.0)
+				#processVaginalSex(ROLE_TOP, ROLE_BOTTOM, 1.0)
+				#addAutomoan(ROLE_BOTTOM, _dt*2.0, 25.0)
 			#if(state == "fast" || state == "inside"):
-				#processVaginalSex("dom", "sub", 1.5)
-				#addAutomoan("sub", _dt*2.0, 25.0)
+				#processVaginalSex(ROLE_TOP, ROLE_BOTTOM, 1.5)
+				#addAutomoan(ROLE_BOTTOM, _dt*2.0, 25.0)
+
+func doProcess(_dt:float):
+	if(state == "sex"):
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal, _dt*0.02)
+	else:
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal, _dt*0.01)
+	

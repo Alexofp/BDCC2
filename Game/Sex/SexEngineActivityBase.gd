@@ -154,6 +154,12 @@ func getRolePawn(theRole:String) -> CharacterPawn:
 func getRoleChar(_theRole:String) -> BaseCharacter:
 	return GM.characterRegistry.getCharacter(getRoleID(_theRole))
 
+func getRoleInfo(_role:String) -> SexParticipantInfo:
+	var theEngine := getSexEngine()
+	if(!theEngine):
+		return null
+	return theEngine.getInfo(getRoleID(_role))
+
 func addArousal(_theRole:String, _howMuch:float):
 	var theChar:=getRoleChar(_theRole)
 	if(!theChar):
@@ -393,6 +399,8 @@ func stimulate(_rolePerformer:String, _perfZone:int, _roleReceiver:String, _recZ
 	var recPleasure:float = pleasureModFromZone(_roleReceiver, _recZone)
 	if(recPleasure != 0.0):
 		addArousal(_roleReceiver, recPleasure*_arousalBase*randf_range(0.9, 1.1))
+	
+	exposeFetish(_rolePerformer, _roleReceiver, _fetishID, _arousalBase*2.0)
 
 func handleResistMinigame(_state:String, _result:ResistMinigameResult):
 	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_resistMinigame"
@@ -457,6 +465,52 @@ func calcConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isF
 
 func calcNoConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isForced:bool) -> float:
 	return 1.0 - calcConsentScore(_strategy, _args, _info, _isForced)
+
+func completeGoals(_role:String):
+	pass
+
+func failGoals(_role:String):
+	pass
+
+func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
+	return false
+
+func taskScore(_role:String, _taskID:String, _args:Array=[]) -> float:
+	var theInfo := getRoleInfo(_role)
+	if(!theInfo):
+		return 0.0
+	return theInfo.taskScore(_taskID, _args)
+
+func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
+	return []
+
+func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
+	return [_taskID, _taskArgs, _score]
+
+func scoreStop(_role:String) -> float:
+	#var theInfo := getRoleInfo(_role)
+	#if(!theInfo):
+	#	return 0.0
+	var theEngine := getSexEngine()
+	if(!theEngine):
+		return 0.0
+	for charID in idToRole:
+		var theInfo := theEngine.getInfo(charID)
+		if(!theInfo):
+			continue
+		if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
+			continue
+		var theTasks := theInfo.ai.tasks
+		for taskEntry in theTasks:
+			if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
+				return 0.0
+	return 1.0
+
+func completeTask(_role:String, _taskID:String, _taskArray:Array):
+	var theInfo := getRoleInfo(_role)
+	if(!theInfo):
+		return
+	theInfo.sendTaskEvent(_taskID, _taskArray)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

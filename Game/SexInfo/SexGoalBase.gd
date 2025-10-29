@@ -11,6 +11,34 @@ var infoRef:WeakRef
 
 var completed:bool = false
 
+func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
+	return [_taskID, _taskArgs, _score]
+
+#func prepareForSex(_targetID:String, _taskID:String, _args:Array) -> float:
+	#if(_taskID == SexTask.Undress && _args.size() > 0 && _args[0] == _targetID):
+		#return 0.5
+	#if(_taskID == SexTask.Undress && _args.size() > 0 && _args[0] == getInfo().getID()):
+		#return 0.5
+	#return 0.0
+
+#func getRequiredPossibleTasks() -> Array[String]:
+#	return ["cuminside"]
+
+#func getTaskScore(_taskID:String, _args:Array) -> float:
+#	return 0.0
+
+func handleTaskEvent(_taskID:String, _args:Array) -> bool:
+	return false
+
+func getTasks() -> Array:
+	return []
+
+func completeSelf():
+	if(completed):
+		return
+	completed = true
+	Log.Print("TASK COMPLETED: "+id)
+
 func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 	return true
 
@@ -33,7 +61,7 @@ func tryGenerateGoals(_info:SexParticipantInfo, _sex:SexEngine) -> Array[Diction
 	
 	var hasAnySubs:bool = _sex.hasAnySubs()
 	
-	var result:Array = []
+	var result:Array[Dictionary] = []
 	for charID in _sex.getParticipants():
 		var theTargetInfo := _sex.getParticipant(charID)
 		
@@ -59,9 +87,6 @@ func getSexEngine() -> SexEngine:
 	if(theInfo):
 		return theInfo.getSexEngine()
 	return null
-
-func markCompleted():
-	completed = true
 
 func isCompleted() -> bool:
 	return completed

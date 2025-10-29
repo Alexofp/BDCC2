@@ -24,7 +24,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			addAction(action(theItem.getName()).
 				setCat(["Bondage", theCharName]).
 				expose(_info, _target, Fetish.Bondage).
-				consent().
+				#consent().
 				start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
 			)
 		

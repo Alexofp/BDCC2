@@ -232,7 +232,7 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	if(args.has("sexMode")):
 		sexMode = args["sexMode"]
 	
-	var theSexType:SexTypeBase = GlobalRegistry.createSexType(sexTypeID)
+	var theSexType:SexTypeBase = GlobalRegistry.createSexActivity(sexTypeID)
 	theSexType.setSexEngine(self)
 	sexType = theSexType
 	sexType.start(roles, args)
@@ -386,7 +386,7 @@ func calculateActions(charID:String) -> Array:
 	if(!eventQueue.is_empty()):
 		var currentEntry:Array = eventQueue.front()
 		var _entryObj = currentEntry[0]
-		var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getAnySexActivityRef(_entryObj)
+		var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getSexActivityRef(_entryObj)
 		var queueEntry:Array = currentEntry[1]
 		var queueType:int = queueEntry[0]
 		
@@ -457,14 +457,12 @@ func calculateActions(charID:String) -> Array:
 					action = actionEntry,
 					category = actionEntry.category,
 					disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
+					score = actionEntry.score,
 				})
 		
 		var theInfo:SexParticipantInfo = getInfo(charID)
 		for theSexActivityID in GlobalRegistry.getSexActivities():
 			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
-			internal_AddSexActivityActions(theActivityRef, theInfo, result)
-		for theSexActivityID in GlobalRegistry.getSexSideActivities():
-			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexSideActivityRef(theSexActivityID)
 			internal_AddSexActivityActions(theActivityRef, theInfo, result)
 			
 	return result
@@ -483,6 +481,7 @@ func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInf
 				action = actionEntry,
 				category = actionEntry.category,
 				disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
+				score = actionEntry.score,
 			})
 
 # Subs consent if no answer if forced
@@ -751,7 +750,7 @@ func hasMainActivity() -> bool:
 	return false
 
 func startSideActivity(activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexSideActivity:
-	var theActivity:SexSideActivity = GlobalRegistry.createSexSideActivity(activityID)
+	var theActivity:SexSideActivity = GlobalRegistry.createSexActivity(activityID)
 	if(!theActivity):
 		return null
 	theActivity.setSexEngine(self)
@@ -1235,8 +1234,15 @@ func doExposeFetish(_performerID:String, _receiverID:String, _fetishID:String, _
 	var _infoReceiver:SexParticipantInfo = getInfo(_receiverID)
 	if(!_infoPerf && !_infoReceiver):
 		return
-	Log.Print("EXPOSING: "+_performerID+" "+_receiverID+" FETISH="+_fetishID+" INTENSITY: "+str(_intensity))
-
+	#Log.Print("EXPOSING: "+_performerID+" "+_receiverID+" FETISH="+_fetishID+" INTENSITY: "+str(_intensity))
+	if(_infoPerf == _infoReceiver):
+		_infoPerf.exposeToFetish(_fetishID, _intensity, true, true)
+	else:
+		if(_infoPerf):
+			_infoPerf.exposeToFetish(_fetishID, _intensity, true, false)
+		if(_infoReceiver):
+			_infoReceiver.exposeToFetish(_fetishID, _intensity, false, true)
+		
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),
@@ -1259,6 +1265,8 @@ func saveData() -> Dictionary:
 	for charID in participants:
 		participantsData[charID] = participants[charID].saveData()
 	
+	#TODO: FORGOT TO SAVE SIDE SEX ACTIVITIES
+	
 	return {
 		participants = participantsData,
 		sexType = {
@@ -1279,7 +1287,7 @@ func loadData(_data:Dictionary):
 		syncParticipant_RPC(charID, participantsData[charID])
 	
 	var sexTypeData:Dictionary = SAVE.loadVar(_data, "sexType", {})
-	sexType = GlobalRegistry.createSexType(SAVE.loadVar(sexTypeData, "id", ""))
+	sexType = GlobalRegistry.createSexActivity(SAVE.loadVar(sexTypeData, "id", ""))
 	sexType.setSexEngine(self)
 	sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
 	

@@ -5,16 +5,23 @@ var info:WeakRef
 
 var ticker:float = 0.0
 
-var anger:float = 0.0
-var resistance:float = 0.0
-var fear:float = 0.0
+var lust:float = 0.0 # How much does this person enjoy it
+
+var anger:float = 0.0 # Dom only
+
+var resistance:float = 0.0 #Sub only
+var fear:float = 0.0 # Sub only
+
+var timerLastStimulation:float = 0.0
 
 var goals:Array[SexGoalBase] = []
 var goalsGenerated:bool = false
 
+var tasks:Array = []
+
 var syncState:SyncState = SyncState.new(self,
-	["anger", "resistance", "fear"],
-	[Bins.Float, Bins.Float, Bins.Float],)
+	["lust", "anger", "resistance", "fear"],
+	[Bins.Float, Bins.Float, Bins.Float, Bins.Float],)
 
 func onSexStart():
 	checkGoals()
@@ -26,8 +33,14 @@ func notifyThingHappened():
 func notifyThingHappenedNeedsReaction():
 	ticker = RNG.randfRange(0.4, 0.6)
 
+func isForced() -> bool:
+	return getSexEngine().isForced()
+
+func getArousal() -> float:
+	return getChar().getArousal()
+
 func processAI(_dt:float):
-	if(isPlayer()):
+	if(!shouldProcessAI()):
 		ticker = 1.0
 		return
 	ticker -= _dt
@@ -35,11 +48,24 @@ func processAI(_dt:float):
 		ticker = RNG.randfRange(0.8, 1.2)
 		tickAI()
 	
+	
+	if(isForced()):
+		addResistance(_dt*0.05)
+	else:
+		if(timerLastStimulation > 1.0):
+			addResistance(-_dt*0.02)
+	
+	if(getArousal() <= 0.0 && timerLastStimulation > 5.0):
+		addLust(-0.05*_dt)
+	
+	timerLastStimulation += _dt
+	
 	syncState.processSyncState(_dt)
 
 # Main thinking func. Gets called sometimes
 func tickAI():
 	checkGoals()
+	tasks = calcAllTasks()
 	
 	var theChar := getChar()
 	var theID := theChar.getID()
@@ -93,9 +119,11 @@ func calcActionScore(_actionEntry:Dictionary) -> float:
 		else:
 			return theActivity.calcNoConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
 	elif(actionID == SexEngine.ACTION_SEX_ACTION):
-		return 0.0
+		return _actionEntry["score"] if _actionEntry.has("score") else 0.0
 	elif(actionID == SexEngine.ACTION_START_ACTION):
-		return 0.0
+		return _actionEntry["score"] if _actionEntry.has("score") else 0.0
+	elif(actionID == SexEngine.ACTION_FORCE):
+		return anger*0.2 if anger > 0.5 else 0.0
 	
 	return 0.0
 
@@ -114,7 +142,15 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 		var _fetishPerf := theGoalRef.fetishesPerformer
 		var _fetishReceiver := theGoalRef.fetishesReceiver
 		
-		#TODO: Check if this char has the fetishes
+		var canUseGoal:bool = false
+		for theFetish in _fetishPerf:
+			if(fetishDo(theFetish) >= 0.0):
+				canUseGoal = true
+		for theFetish in _fetishReceiver:
+			if(fetishFeel(theFetish) >= 0.0):
+				canUseGoal = true
+		if(!canUseGoal):
+			continue
 		
 		var goalEntries := theGoalRef.tryGenerateGoals(theInfo, theSex)
 		for entry in goalEntries:
@@ -141,6 +177,7 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 		if(!newGoal.setupGoal(goalArgs)):
 			continue
 		result.append(newGoal)
+		Log.Print("GAVE GOAL "+goalID+" TO "+getID()+" ARGS="+str(goalArgs))
 		_goalAmount -= 1
 	
 	return result
@@ -148,13 +185,13 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 func checkGoals():
 	if(goalsGenerated):
 		return
-	if(isPlayer()):
+	if(!shouldProcessAI()):
 		return
 	goals = generateGoals(2)
 	goalsGenerated = true
 
 func getFinalResistance() -> float:
-	return resistance * (1.0 - clamp(fear, 0.0, 1.0))
+	return resistance * (1.0 - clamp(fear, 0.0, 1.0)) * (1.0 - clamp(lust, 0.0, 1.0)*0.5)
 
 func getSlightlyResistingScore() -> float:
 	if(getFinalResistance() >= 0.2):
@@ -184,7 +221,8 @@ func addAnger(_howMuch:float):
 func addResistance(_howMuch:float):
 	var theDommy:float = personality(PersonalityStat.Dominant)
 	if(_howMuch > 0.0):
-		addResistanceRaw(_howMuch * (1.0 + theDommy*0.2))
+		var lustMod:float = (1.0 - lust*0.5)
+		addResistanceRaw(_howMuch * lustMod * (1.0 + theDommy*0.2))
 	if(_howMuch < 0.0):
 		addResistanceRaw(_howMuch * (1.0 - theDommy*0.3))
 
@@ -194,6 +232,9 @@ func addFear(_howMuch:float):
 		addFearRaw(_howMuch * (1.0 - theBrave*0.5))
 	if(_howMuch < 0.0):
 		addFearRaw(_howMuch * (1.0 + theBrave*0.5))
+
+func addLust(_howMuch:float):
+	addLustRaw(_howMuch)
 
 func addAngerRaw(_howMuch:float):
 	anger += _howMuch
@@ -206,6 +247,10 @@ func addResistanceRaw(_howMuch:float):
 func addFearRaw(_howMuch:float):
 	fear += _howMuch
 	fear = clamp(fear, 0.0, 1.0)
+
+func addLustRaw(_howMuch:float):
+	lust += _howMuch
+	lust = clamp(lust, 0.0, 1.0)
 
 func personality(_persID:String) -> float:
 	var theChar := getChar()
@@ -228,6 +273,11 @@ func fetishFeel(_fetishID:String) -> float:
 
 func isPlayer() -> bool:
 	return getChar().isControlledByAnyPlayer()
+
+func shouldProcessAI() -> bool:
+	if(isPlayer() && !getInfo().pcAuto):
+		return false
+	return true
 
 func setParticipant(_info:SexParticipantInfo):
 	info = weakref(_info)
@@ -254,14 +304,113 @@ func getID() -> String:
 	return getInfo().getID()
 
 func getVisibleAIInfo() -> Array[String]:
-	if(isPlayer()):
-		return []
+	if(!shouldProcessAI()):
+		return ["Lust: "+str(int(round(lust*100.0)))+"%",]
 	if(canDoDomActions()):
 		return [
+			"Lust: "+str(int(round(lust*100.0)))+"%",
 			"Anger: "+str(int(round(anger*100.0)))+"%",
 		]
 	else:
 		return [
+			"Lust: "+str(int(round(lust*100.0)))+"%",
 			"Resistance: "+str(int(round(resistance*100.0)))+"%",
 			"Fear: "+str(int(round(fear*100.0)))+"%",
 		]
+
+func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:bool):
+	if(_isPerf):
+		exposeToGenericFetishValue(fetishDo(_fetishID), _intensity)
+	if(_isReceiv):
+		exposeToGenericFetishValue(fetishFeel(_fetishID), _intensity)
+
+func exposeToGenericFetishValue(myFetishLike:float, _intensity:float):
+	timerLastStimulation = 0.0
+	if(!isForced()):
+		myFetishLike += lust*0.5+getArousal()*0.3
+	else:
+		myFetishLike -= 0.3
+	myFetishLike = Util.unclampValue(myFetishLike, 0.1)
+	myFetishLike = clamp(myFetishLike, -1.0, 1.0)
+	
+	if(myFetishLike > 0.0):
+		addLust(_intensity*myFetishLike)
+		addResistance(-_intensity)
+	if(myFetishLike < 0.0):
+		addLust(_intensity*myFetishLike)
+		addResistance(-_intensity)
+
+func taskScore(_taskID:String, _args:Array) -> float:
+	var maxScore:float = 0.0
+	
+	if(tasks.is_empty()):
+		return 0.0
+	
+	var theContext:Dictionary = {
+		ai = self,
+	}
+	
+	#TODO: Split tasks by task id?
+	for taskEntry in tasks:
+		var _cachedTaskID:String = taskEntry[0]
+		if(_cachedTaskID != _taskID):
+			continue
+		var _cachedTaskArgs:Array = taskEntry[1]
+		var _cachedTaskScore:float = taskEntry[2]
+		
+		var theHandler:SexTaskBase = GlobalRegistry.getSexTaskForTaskID(_taskID)
+		if(!theHandler):
+			continue
+		var newScore:float = theHandler.getActionScore(_args, _taskID, _cachedTaskArgs, theContext)
+		newScore *= _cachedTaskScore
+		
+		if(newScore > maxScore):
+			maxScore = newScore
+	
+	return maxScore
+
+func calcAllTasks() -> Array:
+	var theInfo := getInfo()
+	var result:Array = []
+	
+	for goal in goals:
+		if(goal.isCompleted()):
+			continue
+		var theTasks := goal.getTasks()
+		result.append_array(internal_getSubTasksReq(theInfo, theTasks))
+		
+	return result
+
+func internal_getSubTasks(theInfo:SexParticipantInfo, _taskID:String, _taskArgs:Array) -> Array:
+	var result:Array = []
+
+	# Needs a way to get activities by task?
+	for sexActivityID in GlobalRegistry.getSexActivities():
+		var sexActivity:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(sexActivityID)
+		
+		#TODO: add is possible check of some sorts
+		var subTasks:Array = sexActivity.getSubTasks(theInfo, _taskID, _taskArgs)
+		result.append_array(subTasks)
+	
+	return result
+
+func internal_getSubTasksReq(theInfo:SexParticipantInfo, theTasks:Array) -> Array:
+	var result:Array = []
+	result.append_array(theTasks)
+	
+	for theTaskEntry in theTasks:
+		var _taskID:String = theTaskEntry[0]
+		var _taskArgs:Array = theTaskEntry[1]
+		#var _taskScore:float = theTaskEntry[2]
+		
+		var theSubTasks := internal_getSubTasks(theInfo, _taskID, _taskArgs)
+		result.append_array(internal_getSubTasksReq(theInfo, theSubTasks))
+	
+	return result
+		
+func sendTaskEvent(_taskID:String, _taskArray:Array):
+	for goal in goals:
+		if(goal.isCompleted()):
+			continue
+		if(goal.handleTaskEvent(_taskID, _taskArray)):
+			return

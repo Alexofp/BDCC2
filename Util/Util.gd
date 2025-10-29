@@ -360,3 +360,14 @@ static func getBit(mask: int, bit: int) -> bool:
 		#x &= x - 1
 		#count += 1
 	#return count
+
+# Moves the value away from 0
+# unclampValue(0.02, 0.2) = 0.2
+# unclampValue(-0.01, 0.3) = -0.3
+# unclampValue(0.0, 0.1) = 0.1 (zero treated as possitive)
+static func unclampValue(_val:float, _minValue:float) -> float:
+	if(_val >= 0.0 && _val < _minValue):
+		return _minValue
+	if(_val < 0.0 && _val > -_minValue):
+		return -_minValue
+	return _val
