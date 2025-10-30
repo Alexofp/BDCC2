@@ -78,3 +78,10 @@ func getDisplaceActions(_context:Dictionary) -> Array[Dictionary]:
 func resetEquippedState():
 	if(pulledUp):
 		setOptionValue("pulledUp", false)
+
+func getCoveredZones() -> Dictionary[int, bool]:
+	return {
+		ZoneCover.Anything: true,
+		ZoneCover.Breasts: !pulledUp,
+		ZoneCover.Nipples: !pulledUp,
+	}

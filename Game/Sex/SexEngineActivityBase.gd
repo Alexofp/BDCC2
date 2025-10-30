@@ -466,12 +466,6 @@ func calcConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isF
 func calcNoConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isForced:bool) -> float:
 	return 1.0 - calcConsentScore(_strategy, _args, _info, _isForced)
 
-func completeGoals(_role:String):
-	pass
-
-func failGoals(_role:String):
-	pass
-
 func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
 	return false
 
@@ -500,10 +494,11 @@ func scoreStop(_role:String) -> float:
 			continue
 		if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
 			continue
-		var theTasks := theInfo.ai.tasks
-		for taskEntry in theTasks:
-			if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
-				return 0.0
+		var theTasksByID := theInfo.ai.tasksByID
+		for theTaskID in theTasksByID:
+			for taskEntry in theTasksByID[theTaskID]:
+				if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
+					return 0.0
 	return 1.0
 
 func completeTask(_role:String, _taskID:String, _taskArray:Array):
@@ -511,6 +506,31 @@ func completeTask(_role:String, _taskID:String, _taskArray:Array):
 	if(!theInfo):
 		return
 	theInfo.sendTaskEvent(_taskID, _taskArray)
+
+func isReadyToPenetrate(_role:String) -> bool:
+	var theChar := getRoleChar(_role)
+	if(!theChar):
+		return false
+	if(!theChar.hasReachablePenisOrStrapon()):
+		return false
+	if(theChar.isZoneCovered(ZoneCover.Penis)):
+		return false
+	return true
+
+func isZoneReadyToBePenetrated(_role:String, _zone:int) -> bool:
+	var theChar := getRoleChar(_role)
+	if(!theChar):
+		return false
+	if(theChar.isZoneCovered(_zone)):
+		return false
+	
+	if(_zone == ZoneCover.Mouth):
+		return true
+	if(_zone == ZoneCover.Vagina):
+		return theChar.hasReachableVagina()
+	if(_zone == ZoneCover.Anus):
+		return theChar.hasReachableAnus()
+	return false
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

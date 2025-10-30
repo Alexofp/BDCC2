@@ -267,6 +267,25 @@ func getCanBeEquippedOntoReasonText(_reason:int) -> String:
 func canBeEquippedOnto(_theInv:Inventory) -> bool:
 	return canBeEquippedOntoReason(_theInv) == EQUIP_OK
 
+func getCoveredZones() -> Dictionary[int, bool]:
+	return {}
+
+func isZoneCovered(_zone:int) -> bool:
+	var theZones := getCoveredZones()
+	if(theZones.has(_zone)):
+		return theZones[_zone]
+	return false
+
+func getZoneLayer() -> float:
+	var theSlot := getSlot()
+	if(theSlot >= 0):
+		return ZoneLayer.getDefaultFromInvSlot(theSlot)
+	
+	var theSlots := getSlotsToEquipTo()
+	if(theSlots.is_empty()):
+		return -1.0
+	return ZoneLayer.getDefaultFromInvSlot(theSlots[0])
+
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()
 	data.saveContinue([

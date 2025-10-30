@@ -27,9 +27,10 @@ func start_run():
 func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
 		return
+	var penetrateEnabled:bool = isReadyToPenetrate(ROLE_TOP) && isZoneReadyToBePenetrated(ROLE_BOTTOM, ZoneCover.Vagina)
 	var penetrateScore:float = taskScore(ROLE_TOP, SexTask.CumInsideVaginal, [getRoleID(ROLE_BOTTOM)])
-	addAction(action("Penetrate").setScore(penetrateScore).consent().do("startSex"))
-
+	addAction(action("Penetrate").setEnabled(penetrateEnabled).setScore(penetrateScore).consent().do("startSex"))
+	
 func start_do(_role:String, _id:String, _args:Array):
 	if(_id == "startSex"):
 		sexSpeed = SEX_SPEED_SLOW
@@ -78,16 +79,22 @@ func domDoCum():
 	#scoreStop(ROLE_TOP)
 
 func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
-	if(_taskID == SexTask.CumInsideVaginal && _args[0] == getRoleID(ROLE_BOTTOM)):
+	if(_taskID == SexTask.CumInsideVaginal && _args.size()>0 && _args[0] == getRoleID(ROLE_BOTTOM)):
 		return true
 	return false
 
 func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
 	if(_taskID == SexTask.CumInsideVaginal):
-		return [
-			task(SexTask.Undress, [_info.getID()]),
-			task(SexTask.Undress, [_args[0]]),
-		]
+		var result:Array = []
+		var theChar := _info.getChar()
+		var theTarget := GM.characterRegistry.getCharacter(_args[0])
+		
+		if(theChar && theChar.isZoneCovered(ZoneCover.Penis)):
+			result.append(task(SexTask.Undress, [_info.getID()]))
+		if(theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
+			result.append(task(SexTask.Undress, [_args[0]]))
+		
+		return result
 	return []
 
 func sex_process(_dt:float):

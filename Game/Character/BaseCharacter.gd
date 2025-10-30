@@ -644,20 +644,35 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 func hasPenis() -> bool:
 	return hasBodypart(BodypartSlot.Penis)
 
+## Should return true if the character has a penis and it's not blocked by something like a chastity cage
 func hasReachablePenis() -> bool:
 	return hasPenis()
+
+func isWearingStrapon() -> bool:
+	return true #TODO: Fix me when strapons are added
+
+func hasReachablePenisOrStrapon() -> bool:
+	return hasReachablePenis() || isWearingStrapon()
 
 func hasVagina() -> bool:
 	return true #TODO: Implement me
 	
+## Should return true if the character has a vagina and it's not blocked by something like chastity belt or chastity piercings
 func hasReachableVagina() -> bool:
 	return hasVagina()
 
 func hasAnus() -> bool:
 	return true
 
+## Should return true if the character has an anus (always true) and it's not blocked by something like a pear of anguish or whatever
 func hasReachableAnus() -> bool:
 	return hasAnus()
+
+func isZoneCovered(_zone:int) -> bool:
+	return inventory.isZoneCovered(_zone)
+
+func getFirstItemThatCovers(_zone:int) -> ItemBase:
+	return inventory.getFirstItemThatCovers(_zone)
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

@@ -60,6 +60,10 @@ func setDisabled(_dis:bool) -> SexAction:
 	disabled = _dis
 	return self
 
+func setEnabled(_dis:bool) -> SexAction:
+	disabled = !_dis
+	return self
+
 func expose(_giver:Variant, _receiver:Variant, _fetishID:String, _intensity:float = 1.0) -> SexAction:
 	payload.append([ACTION_EXPOSE, _giver, _receiver, _fetishID, _intensity])
 	return self

@@ -23,3 +23,14 @@ func getSexHideTags() -> Dictionary:
 
 func isBondageGear() -> bool:
 	return true
+
+func getCoveredZones() -> Dictionary[int, bool]:
+	return {
+		ZoneCover.Anything: true,
+		ZoneCover.Body: true,
+		ZoneCover.Breasts: true,
+		ZoneCover.Nipples: true,
+		ZoneCover.Penis: true,
+		ZoneCover.Vagina: true,
+		ZoneCover.Anus: true,
+	}

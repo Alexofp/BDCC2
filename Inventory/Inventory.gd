@@ -194,6 +194,57 @@ func unableToUseSlot(_invSlot:int) -> bool:
 	
 	return false
 
+func getCoveredZones() -> Dictionary[int, bool]:
+	var result:Dictionary[int, bool] = {}
+	for slot in equipped:
+		var theItem := equipped[slot]
+		var theZones := theItem.getCoveredZones()
+		for theZone in theZones:
+			if(theZones[theZone]):
+				result[theZone] = true
+	return result
+
+func isZoneCovered(_zone:int) -> bool:
+	for slot in equipped:
+		var theItem := equipped[slot]
+		if(theItem.isZoneCovered(_zone)):
+			return true
+	return false
+
+func getEquippedSlotsSortedByLayerTopFirst() -> Array[int]:
+	var theSlots := equipped.keys()
+	theSlots.sort_custom(func(a:int, b:int):
+		return equipped[a].getZoneLayer() > equipped[b].getZoneLayer())
+	return theSlots
+
+func getEquippedSlotsSortedByLayerLowestFirst() -> Array[int]:
+	var theSlots := equipped.keys()
+	theSlots.sort_custom(func(a:int, b:int):
+		return equipped[a].getZoneLayer() < equipped[b].getZoneLayer())
+	return theSlots
+
+func getInvSlotsThatCover(_zone:int) -> Array[int]:
+	var result:Array[int] = []
+	for invSlot in equipped:
+		var theItem:ItemBase = equipped[invSlot]
+		if(theItem.isZoneCovered(_zone)):
+			result.append(invSlot)
+	return result
+
+func getFirstItemThatCovers(_zone:int) -> ItemBase:
+	var theSlots := getInvSlotsThatCover(_zone)
+	if(theSlots.is_empty()):
+		return null
+	var maxLayer:float = -9999.9
+	var maxLayerItem:ItemBase = null
+	for theSlot in theSlots:
+		var theItem:ItemBase = equipped[theSlot]
+		var theLayer:float = theItem.getZoneLayer()
+		if(theLayer > maxLayer):
+			maxLayer = theLayer
+			maxLayerItem = theItem
+	return maxLayerItem
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I32, uniqueID,

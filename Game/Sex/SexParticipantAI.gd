@@ -17,7 +17,7 @@ var timerLastStimulation:float = 0.0
 var goals:Array[SexGoalBase] = []
 var goalsGenerated:bool = false
 
-var tasks:Array = []
+var tasksByID:Dictionary[String, Array] = {}
 
 var syncState:SyncState = SyncState.new(self,
 	["lust", "anger", "resistance", "fear"],
@@ -65,7 +65,7 @@ func processAI(_dt:float):
 # Main thinking func. Gets called sometimes
 func tickAI():
 	checkGoals()
-	tasks = calcAllTasks()
+	tasksByID = calcAllTasksDict()
 	
 	var theChar := getChar()
 	var theID := theChar.getID()
@@ -343,18 +343,18 @@ func exposeToGenericFetishValue(myFetishLike:float, _intensity:float):
 func taskScore(_taskID:String, _args:Array) -> float:
 	var maxScore:float = 0.0
 	
-	if(tasks.is_empty()):
+	if(!tasksByID.has(_taskID) || tasksByID[_taskID].is_empty()):
 		return 0.0
 	
 	var theContext:Dictionary = {
 		ai = self,
 	}
 	
-	#TODO: Split tasks by task id?
-	for taskEntry in tasks:
-		var _cachedTaskID:String = taskEntry[0]
-		if(_cachedTaskID != _taskID):
-			continue
+	var theTasks:Array = tasksByID[_taskID]
+	for taskEntry in theTasks:
+		#var _cachedTaskID:String = taskEntry[0]
+		#if(_cachedTaskID != _taskID):
+		#	continue
 		var _cachedTaskArgs:Array = taskEntry[1]
 		var _cachedTaskScore:float = taskEntry[2]
 		
@@ -379,6 +379,26 @@ func calcAllTasks() -> Array:
 		var theTasks := goal.getTasks()
 		result.append_array(internal_getSubTasksReq(theInfo, theTasks))
 		
+	return result
+
+func calcAllTasksDict() -> Dictionary[String, Array]:
+	var theInfo := getInfo()
+	var _allTasks:Array = []
+	var result:Dictionary[String, Array] = {}
+	
+	for goal in goals:
+		if(goal.isCompleted()):
+			continue
+		var theTasks := goal.getTasks()
+		_allTasks.append_array(internal_getSubTasksReq(theInfo, theTasks))
+	
+	for taskEntry in _allTasks:
+		var theID:String = taskEntry[0]
+		if(!result.has(theID)):
+			result[theID] = [taskEntry]
+		else:
+			result[theID].append(taskEntry)
+	
 	return result
 
 func internal_getSubTasks(theInfo:SexParticipantInfo, _taskID:String, _taskArgs:Array) -> Array:

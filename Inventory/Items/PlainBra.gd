@@ -26,7 +26,47 @@ func getOptions() -> Dictionary:
 		},
 	}
 
+func getActions() -> Array:
+	var theActions:Array = []
+	if(isEquipped()):
+		if(pulledDown):
+			theActions.append(itemAction("Pull up", "Pull the bra down!", "pullUp"))
+		else:
+			theActions.append(itemAction("Pull down", "Pull the bra up!", "pullDown"))
+	return theActions
+
+func doAction(_id:String, _args:Array):
+	if(_id == "pullUp"):
+		setOptionValue("pulledDown", false)
+	if(_id == "pullDown"):
+		setOptionValue("pulledDown", true)
+
+func getDisplaceActions(_context:Dictionary) -> Array[Dictionary]:
+	var result:Array[Dictionary]= []
+	if(!pulledDown):
+		result.append({
+			name = "Pull down",
+			desc = "Pull the bra down.",
+			action = "pullDown",
+			args = [],
+			score = 1.0,
+			message = "{user.You} {user.youVerb pull} down {target.your} bra!",
+			delay = 0.5,
+		})
+	return result
+
+func resetEquippedState():
+	if(pulledDown):
+		setOptionValue("pulledDown", false)
+
 func getSexHideTags() -> Dictionary:
 	return {
 		SexHideTag.CoversBreasts: !pulledDown,
+	}
+
+func getCoveredZones() -> Dictionary[int, bool]:
+	return {
+		ZoneCover.Anything: true,
+		ZoneCover.Breasts: !pulledDown,
+		ZoneCover.Nipples: !pulledDown,
 	}

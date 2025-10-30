@@ -21,14 +21,16 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		var finalCat:Array[String] = ["Inventory", charCatName, itemCatName]
 		
 		if(theItem.canUnequipInSex(theContext)):
-			addAction(action("Take off").setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
+			var takeOffScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
+			addAction(action("Take off").setScore(takeOffScore).setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
 		
 		var displaceActions := theItem.getDisplaceActions(theContext)
 		for actionEntry in displaceActions:
 			var actionName:String = actionEntry["name"]
 			
 			#var actionID:String = actionEntry["action"]
-			addAction(action(actionName).setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
+			var displaceScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
+			addAction(action(actionName).setScore(displaceScore).setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER, ROLE_TARGET])
