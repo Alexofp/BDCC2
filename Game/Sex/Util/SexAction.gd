@@ -35,8 +35,8 @@ func delayCancel(_delay:float) -> SexAction:
 	payload.append([ACTION_DELAY_CANCANCEL, _delay])
 	return self
 
-func consent(_scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
-	payload.append([ACTION_CONSENT_CHECK, 5.0, 3.0, _scoringStrategy, _strategyArgs])
+func consent(_consenters:Array = [], _scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
+	payload.append([ACTION_CONSENT_CHECK, 5.0, 3.0, _scoringStrategy, _strategyArgs, _consenters])
 	return self
 
 func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:

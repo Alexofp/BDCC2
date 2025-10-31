@@ -76,7 +76,7 @@ func _on_interactable_on_interact(user: DollController, action: InteractAction) 
 func playStateLocal(resetAnim:bool = false):
 	if(anim_scene_spawner.isSpawned()):
 		anim_scene_spawner.getScene().playState(state, resetAnim)
-		anim_scene_spawner.getScene().alignPenisToSitterHole("dom", "sub", AnimSceneBase.HOLE_VAGINA if isVag else AnimSceneBase.HOLE_ANUS)
+		anim_scene_spawner.getScene().alignPenisToSitterHole("dom", "sub", AnimSceneHole.Vagina if isVag else AnimSceneHole.Anus)
 
 func playState(theState:String, resetAnim:bool = false):
 	state = theState

@@ -53,7 +53,7 @@ func start_event(_event:SexEvent):
 	var targetInv:Inventory = targetChar.getInventory()
 	var theItem:ItemBase = targetInv.getEquippedItem(invSlot)
 	
-	addActionText(theUndressMessage if !theUndressMessage.is_empty() else "{user.You} undressed {target.you}!")
+	doText(ROLE_TARGET, theUndressMessage if !theUndressMessage.is_empty() else "{user.You} undressed {target.you}!")
 	
 	if(theItem):
 		if(actionID == "unequip"):

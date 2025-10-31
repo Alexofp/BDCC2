@@ -15,9 +15,6 @@ var currentStateSpeed:float = 1.0
 var animLibraries:Dictionary = {}
 var animData:Dictionary = {}
 
-const HOLE_VAGINA = 0
-const HOLE_ANUS = 1
-
 const PENISTARGET_SITTER_HOLE = 0
 
 signal onAnimUpdate
@@ -530,7 +527,7 @@ func updatePenisTargetFor(sitterID:String):
 				var ourDoll:Doll = sitDoll.getDoll()
 				var otherDoll:Doll = otherDollController.getDoll()
 				
-				if(holeID == HOLE_VAGINA):
+				if(holeID == AnimSceneHole.Vagina):
 					ourDoll.alignPenisToVagina(otherDoll)
 				else:
 					ourDoll.alignPenisToAnus(otherDoll)
@@ -567,7 +564,7 @@ func doCharChecksAfterPlay():
 		var theChar:BaseCharacter = theSitter.getCharacter()
 		theChar.triggerUpdatePartFilter()
 
-func playState(newState:String, setToState:bool=false):
+func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = {}):
 	setStateSpeed(state, 1.0)
 	
 	state = newState
@@ -577,7 +574,7 @@ func playState(newState:String, setToState:bool=false):
 	
 	if(setToState):
 		updateAnim()
-		onPlayState(newState)
+		onPlayState(newState, theAnimArgs)
 		return
 	for sitterID in sitters:
 		var sitterInfo:Dictionary = sitters[sitterID]
@@ -587,7 +584,7 @@ func playState(newState:String, setToState:bool=false):
 		animTreePlayback.travel(newState)
 	var mainAnimTreePlayback:AnimationNodeStateMachinePlayback = mainAnimTree["parameters/blendtree/statemachine/playback"]
 	mainAnimTreePlayback.travel(newState)
-	onPlayState(newState)
+	onPlayState(newState, theAnimArgs)
 	doCharChecksAfterPlay()
 
 func getRoleByCharID(_charID:String) -> String:
@@ -610,7 +607,7 @@ func getSexHideTagsFor(_charID:String) -> Array:
 	return theHideTags[theRole]
 	
 # Maybe this isn't needed?
-func onPlayState(_state:String):
+func onPlayState(_state:String, _args:Dictionary):
 	onAnimPlay.emit(state)
 	
 func playOneShot(oneshotID:String):

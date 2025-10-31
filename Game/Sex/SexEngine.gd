@@ -109,9 +109,9 @@ func createAutoAction(_state:String, _role:String, _actionID:String, _args:Array
 func createActionText(_text:String):
 	return [QUEUE_ACTIONTEXT, _text]
 
-func createConsentCheck(_delay:float, _delayForced:float, _consented:Array[String], _consentStrategy:int, _consentArgs:Array):
-	#				0			  1			2		3			4		  5				6				7
-	return [QUEUE_CONSENT_CHECK, 0.0, _consented, _delay, _delayForced, false, _consentStrategy, _consentArgs]
+func createConsentCheck(_delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array):
+	#				0			  1			2			3			4		  5				6				7
+	return [QUEUE_CONSENT_CHECK, 0.0, _needToConsent, _delay, _delayForced, false, _consentStrategy, _consentArgs]
 
 func createResistMinigame(_state:String):
 	return [QUEUE_RESIST_MINIGAME, false, _state]
@@ -463,6 +463,8 @@ func calculateActions(charID:String) -> Array:
 		var theInfo:SexParticipantInfo = getInfo(charID)
 		for theSexActivityID in GlobalRegistry.getSexActivities():
 			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
+			if(!theActivityRef.isActivitySupported(self)):
+				continue
 			internal_AddSexActivityActions(theActivityRef, theInfo, result)
 			
 	return result
@@ -509,36 +511,30 @@ func shouldConsent(_charID:String) -> bool:
 		var queueType:int = queueEntry[0]
 		
 		if(queueType == QUEUE_CONSENT_CHECK):
-			if(!queueEntry[2].has(_charID)):
+			if(queueEntry[2].has(_charID) && !queueEntry[2][_charID]):
 				return true
 			#if(!_entryObj.hasCharIDConsent(charID, queueEntry[2])):
 	return false
 	
-func hasEveryoneConsent(_activity, _consented:Array[String]) -> bool:
-	if(_activity is String): #TODO: handle this differently?
-		for _charID in participants:
-			if(!_consented.has(_charID) && shouldConsent(_charID)):
-				return false
-		return true
-	
-	for _charID in _activity.idToRole:
-		if(!_consented.has(_charID) && shouldConsent(_charID)):
+func hasEveryoneConsent(_activity, _needConsent:Dictionary[String, bool]) -> bool:
+	for _charID in _needConsent:
+		if(!participants.has(_charID)): # Char went away
+			continue
+		if(_needConsent[_charID]): # We've gotten consent from this char id
+			continue
+		if(shouldConsent(_charID)):
 			return false
 	return true
 	
-func hasEveryoneConsentEndCheck(_activity, _consented:Array[String]) -> bool:
-	if(_activity is String):
-		for _charID in participants:
-			if(hasConsentIfNoAnswer(_charID)):
-				continue
-			if(!_consented.has(_charID) && shouldConsent(_charID)):
-				return false
-		return true
-	
-	for _charID in _activity.idToRole:
+func hasEveryoneConsentEndCheck(_activity, _needConsent:Dictionary[String, bool]) -> bool:
+	for _charID in _needConsent:
+		if(!participants.has(_charID)): # Char went away
+			continue
+		if(_needConsent[_charID]): # We've gotten consent from this char id
+			continue
 		if(hasConsentIfNoAnswer(_charID)):
 			continue
-		if(!_consented.has(_charID) && shouldConsent(_charID)):
+		if(shouldConsent(_charID)):
 			return false
 	return true
 
@@ -641,7 +637,7 @@ func doActionInternal(charID:String, action:Dictionary):
 		var queueType:int = queueEntry[0]
 		if(queueType != QUEUE_CONSENT_CHECK):
 			return
-		queueEntry[2].append(charID)
+		queueEntry[2][charID] = true
 		addActionText("{user.You} {user.youVerb consent}!", {user=charID})
 	if(actionID == ACTION_DENY_CONSENT):
 		if(eventQueue.is_empty()):
@@ -776,6 +772,9 @@ func stopActivity(theActivity:SexEngineActivityBase):
 func getSexType() -> SexTypeBase:
 	return sexType
 
+func getSexTypeID() -> String:
+	return sexType.id if sexType else ""
+
 func isBusy() -> bool:
 	return isQueueBusy()
 
@@ -811,8 +810,8 @@ func processCamera(_dt:float):
 	if(isPCInvolved && fixed_camera.cameraActive && GM.pcDoll):
 		fixed_camera_pivot.global_position = GM.pcDoll.getGlobalChestBonePosition()#CameraPivot.global_position
 
-func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
-	anim_scene_player.playAnim(theAnimID, theStateID, thePawns)
+func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary):
+	anim_scene_player.playAnim(theAnimID, theStateID, thePawns, theAnimArgs)
 
 func playOneShot(oneShotID:String):
 	anim_scene_player.playOneShot(oneShotID)
@@ -1242,7 +1241,23 @@ func doExposeFetish(_performerID:String, _receiverID:String, _fetishID:String, _
 			_infoPerf.exposeToFetish(_fetishID, _intensity, true, false)
 		if(_infoReceiver):
 			_infoReceiver.exposeToFetish(_fetishID, _intensity, false, true)
-		
+
+func doText(_activity:SexEngineActivityBase, _role:String, _text:String):
+	#TODO: Send the unparsed text to clients? To support different languages
+	var theCharID:String = _activity.getRoleID(_role)
+	var theFinalText:String = _activity.parseText(_text)
+	_activity.addActionText(_text)
+	doText_RPC(theCharID, theFinalText)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doText_RPC.bind(theCharID, theFinalText))
+
+@rpc("authority", "call_remote", "reliable")
+func doText_RPC(_pawnID:String, _text:String):
+	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		return
+	thePawn.addHoverText(_text)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

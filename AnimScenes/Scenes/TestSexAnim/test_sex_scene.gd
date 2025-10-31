@@ -161,8 +161,13 @@ func onAnimationEvent(_eventID:String):
 		doSquirtVagina("sub")
 		doSquirtVagina("sub", 0.1, 0.3, 2.0, 15.0)
 	
-func onPlayState(_state:String):
-	pass
+func onPlayState(_state:String, _args:Dictionary):
+	super.onPlayState(_state, _args)
+	if(_state != "tease"):
+		var theHole:int = _args["hole"] if _args.has("hole") else AnimSceneHole.Anus
+		alignPenisToSitterHole("dom", "sub", theHole)
+	else:
+		alignPenisReset("dom")
 
 func onOneShot(_oneshotID:String):
 	if(_oneshotID == "bottomCum"):

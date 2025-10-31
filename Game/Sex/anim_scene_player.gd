@@ -21,7 +21,7 @@ func playOneShot(oneshotID:String):
 		Network.rpcClients(playOneShot_RPC.bind(oneshotID))
 
 @rpc("authority", "call_remote", "reliable")
-func playAnim_RPC(theAnimID:String, theStateID:String, thePawns:Dictionary):
+func playAnim_RPC(theAnimID:String, theStateID:String, _thePawns:Dictionary, theAnimArgs:Dictionary):
 	if(animID == theAnimID && state == theStateID):
 		return
 	animID = theAnimID
@@ -29,19 +29,20 @@ func playAnim_RPC(theAnimID:String, theStateID:String, thePawns:Dictionary):
 	if(animID == ""):
 		return
 	if(anim_scene_spawner.isSpawned()):
-		anim_scene_spawner.getScene().playState(state)
+		anim_scene_spawner.getScene().playState(state, false, theAnimArgs)
 		
-		for role in thePawns:
-			var pawnInfo:Dictionary = thePawns[role]
-			if(pawnInfo.has("guidePenisVag")):
-				anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisVag"], AnimSceneBase.HOLE_VAGINA)
-			elif(pawnInfo.has("guidePenisAnus")):
-				anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisAnus"], AnimSceneBase.HOLE_ANUS)
-			else:
-				anim_scene_spawner.getScene().alignPenisReset(role)
+		#for role in thePawns:
+			#var pawnInfo:Dictionary = thePawns[role]
+			#if(pawnInfo.has("guidePenisVag")):
+				#anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisVag"], AnimSceneHole.Vagina)
+			#elif(pawnInfo.has("guidePenisAnus")):
+				#anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisAnus"], AnimSceneHole.Anus)
+			#else:
+				#anim_scene_spawner.getScene().alignPenisReset(role)
+				
 	#playAnim(theAnimID, theStateID, thePawns)
 
-func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
+func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary):
 	# TODO Check pawns
 	#if(animID == theAnimID && state == theStateID):
 		#sitPawns(thePawns)
@@ -50,9 +51,9 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
 		# TODO play on current
 		state = theStateID
 		sitPawns(thePawns)
-		anim_scene_spawner.getScene().playState(state)
+		anim_scene_spawner.getScene().playState(state, false, theAnimArgs)
 		if(Network.isServerNotSingleplayer()):
-			Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns))
+			Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns, theAnimArgs))
 		return
 	
 	if(animID != theAnimID):
@@ -70,9 +71,9 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary):
 	anim_scene_spawner.spawn()
 	
 	sitPawns(thePawns)
-	anim_scene_spawner.getScene().playState(state, true)
+	anim_scene_spawner.getScene().playState(state, true, theAnimArgs)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns))
+		Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns, theAnimArgs))
 
 func sitPawns(thePawns:Dictionary):
 	if(!anim_scene_spawner.isSpawned()):
@@ -85,15 +86,15 @@ func sitPawns(thePawns:Dictionary):
 			if(anim_scene_spawner.getSitter(role) != thePawn):
 				anim_scene_spawner.setSitter(role, thePawn)
 
-	if(anim_scene_spawner.isSpawned()):
-		for role in thePawns:
-			var pawnInfo:Dictionary = thePawns[role]
-			if(pawnInfo.has("guidePenisVag")):
-				anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisVag"], AnimSceneBase.HOLE_VAGINA)
-			elif(pawnInfo.has("guidePenisAnus")):
-				anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisAnus"], AnimSceneBase.HOLE_ANUS)
-			else:
-				anim_scene_spawner.getScene().alignPenisReset(role)
+	#if(anim_scene_spawner.isSpawned()):
+		#for role in thePawns:
+			#var pawnInfo:Dictionary = thePawns[role]
+			#if(pawnInfo.has("guidePenisVag")):
+				#anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisVag"], AnimSceneHole.Vagina)
+			#elif(pawnInfo.has("guidePenisAnus")):
+				#anim_scene_spawner.getScene().alignPenisToSitterHole(role, pawnInfo["guidePenisAnus"], AnimSceneHole.Anus)
+			#else:
+				#anim_scene_spawner.getScene().alignPenisReset(role)
 
 func _on_anim_scene_spawner_on_anim_event(eventID: String, args: Variant) -> void:
 	onAnimEvent.emit(animID, state, eventID, args)

@@ -13,39 +13,13 @@ func onStart():
 	pass
 
 func start_run():
-	playAnim(AnimScene.SexStart, "start", {dom="dom", sub="sub"})
+	playAnim(AnimScene.SexStart, "start", {dom=ROLE_DOM, sub=ROLE_SUB})
 
 func start_actions(_role:String):
 	if(!hasMainActivity()):
 		if(canDoDomActions(_role)):
-			var sexScore:float = taskScore(_role, SexTask.CumInsideVaginal, [getRoleID("sub")])
-			addAction(action("Standing sex").setScore(sexScore).expose("dom", "sub", Fetish.SexVaginal).consent().do("startSex_pre").delayCancel(0.5).do("startSex"))
 			addAction(action("Stop").delayCancel(0.5).do("stopSex"))
 
 func start_do(_role:String, _id:String, _args:Array):
-	if(_id == "startSex_pre"):
-		Log.Print("STARTING SEX")
-		addActionText("SEX IS STARTING")
-		#pushDelay(0.5)
-		
-		#pushDelayCanCancel(0.5, _role)
-		#pushAutoAction(_role, "startSex_actually")
-		#pushCancelCatcher("startSex_cancel")
-		
-		#pushCancelStopper()
-#		pushEventCanCancel(0.5, _role, "eventID", [], "eventIDCancel")
-#		pushEventSmart(smartEvent(0.5, "eventID", []).canCancel(true).canceledBy([_role]).orElse("eventID2").requiresConsent(true))
-		
-		#pushActionText("ALMOST THERE!")
-		#pushDelay(0.5)
-		#pushEvent(SexEvent.make("startSex"))
-		#pushAutoAction(_role, "startSex_actually")
-	if(_id == "startSex"):
-		addActionText("SEX HAS STARTED")
-		startMainActivity(SexActivity.TestSex, {top=getRoleID("dom"), bottom=getRoleID("sub")})
 	if(_id == "stopSex"):
 		getSexEngine().stopSex()
-
-func start_event(_eventID:String, _args:Array):
-	if(_eventID == "startSex"):
-		startMainActivity(SexActivity.TestSex, {top=getRoleID("dom"), bottom=getRoleID("sub")})
