@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dkb1debrkhae6"]
+
+[node name="HoverText" type="Label3D" unique_id=590944479]
+pixel_size = 0.0007
+billboard = 1
+fixed_size = true
+vertical_alignment = 2
+autowrap_mode = 3
+width = 600.0

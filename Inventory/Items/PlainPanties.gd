@@ -68,7 +68,7 @@ func getSexHideTags() -> Dictionary:
 
 func getCoveredZones() -> Dictionary[int, bool]:
 	return {
-		ZoneCover.Anything: true,
+		#ZoneCover.Anything: true,
 		ZoneCover.Penis: !shifted,
 		ZoneCover.Vagina: !shifted,
 		ZoneCover.Anus: !shifted,

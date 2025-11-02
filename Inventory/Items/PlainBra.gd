@@ -66,7 +66,7 @@ func getSexHideTags() -> Dictionary:
 
 func getCoveredZones() -> Dictionary[int, bool]:
 	return {
-		ZoneCover.Anything: true,
+		#ZoneCover.Anything: true,
 		ZoneCover.Breasts: !pulledDown,
 		ZoneCover.Nipples: !pulledDown,
 	}

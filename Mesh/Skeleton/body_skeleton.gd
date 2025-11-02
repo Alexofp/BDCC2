@@ -36,7 +36,7 @@ func resetBones():
 
 func getChestBoneAttachment() -> BoneAttachment3D:
 	return chest_bone_attachment
-#
+
 #func _ready() -> void:
 	#for particleGPU in squirtParticles:
 		#particleGPU.process_material = particleGPU.process_material.duplicate(true)

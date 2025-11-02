@@ -209,6 +209,8 @@ func doDisplaceAction(_id:String, _args:Array, _context:Dictionary):
 func canUnequipInSex(_context:Dictionary) -> bool:
 	if(!isEquipable()):
 		return false
+	if(isBondageGear()):
+		return false
 	var theEquipSlots := getSlotsToEquipTo()
 	for theSlot in theEquipSlots:
 		if(theSlot in [InventorySlot.Bottom, InventorySlot.Top, InventorySlot.UnderwearBottom, InventorySlot.UnderwearTop, InventorySlot.Suit]):

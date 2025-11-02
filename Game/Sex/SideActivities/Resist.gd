@@ -20,6 +20,7 @@ func start(_roles:Dictionary, _args:Dictionary):
 
 func start_resistMinigame(_result:ResistMinigameResult):
 	if(_result.didSubsWin()):
+		doText(ROLE_USER, "{user.You} {user.youVerb manage} to lower the grip on {user.youHim}!")
 		getSexEngine().addGrip(-0.4)
 	addCooldown("subResist", 10.0)
 	endActivity()

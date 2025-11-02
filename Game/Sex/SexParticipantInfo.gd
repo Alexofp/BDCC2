@@ -121,7 +121,7 @@ func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:
 	if(ai):
 		ai.exposeToFetish(_fetishID, _intensity, _isPerf, _isReceiv)
 
-func taskScore(_taskID:String, _args:Array = []) -> float:
+func taskScore(_taskID:String, _args:Array) -> float:
 	if(!ai || !ai.shouldProcessAI()):
 		return 0.0
 	return ai.taskScore(_taskID, _args)

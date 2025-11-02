@@ -15,7 +15,6 @@ const STATE_CONSENT = 2 # We're waiting for someone to agree
 @export var state:int = STATE_NORMAL
 @export var transitionTimer:float = 0.0
 @export var transitionTimerFull:float = 0.0
-@export var transitionText:String = ""
 @export var gripLevel:float = 0.5
 
 const ACTION_START_ACTION = 0
@@ -31,6 +30,8 @@ var actionsCache:Dictionary = {}
 @export var actionsNetworked:Dictionary = {}
 
 @onready var resistMinigame: ResistMinigameNode = %ResistMinigameNode
+@onready var hover_text: Label3D = %HoverText
+@onready var hover_text_poser: Node3D = %HoverTextPoser
 
 # char id = sex info
 var participants:Dictionary[String, SexParticipantInfo] = {}
@@ -55,6 +56,8 @@ signal onSexChange(_change:SexEngineChange)
 
 var actionTexts:Array = []
 @export var actionText:String = ""
+@export var cachedHoverText:String = ""
+var hoverTextLocalTargetPos:Vector3 = Vector3()
 
 var cooldowns:Dictionary[String, float] = {}
 
@@ -109,9 +112,9 @@ func createAutoAction(_state:String, _role:String, _actionID:String, _args:Array
 func createActionText(_text:String):
 	return [QUEUE_ACTIONTEXT, _text]
 
-func createConsentCheck(_delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array):
-	#				0			  1			2			3			4		  5				6				7
-	return [QUEUE_CONSENT_CHECK, 0.0, _needToConsent, _delay, _delayForced, false, _consentStrategy, _consentArgs]
+func createConsentCheck(_delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array):
+	#				0			  1			2			3			4		  5				6				7			8
+	return [QUEUE_CONSENT_CHECK, 0.0, _needToConsent, _delay, _delayForced, false, _consentStrategy, _consentArgs, _hoverTexts]
 
 func createResistMinigame(_state:String):
 	return [QUEUE_RESIST_MINIGAME, false, _state]
@@ -155,7 +158,7 @@ func processEventQueue(_dt:float):
 		elif(queueType == QUEUE_CONSENT_CHECK):
 			if(hasEveryoneConsent(_entryObj, queueEntry[2])):
 				eventQueue.pop_front()
-				addActionTextRaw("Consent gotten!")
+				#addActionTextRaw("Consent gotten!")
 				continue
 			
 			if(queueEntry[5]):
@@ -167,7 +170,7 @@ func processEventQueue(_dt:float):
 			if(queueEntry[1] >= theMaxTimer):
 				if(hasEveryoneConsentEndCheck(_entryObj, queueEntry[2])):
 					eventQueue.pop_front()
-					addActionTextRaw("Consent gotten!")
+					#addActionTextRaw("Consent gotten!")
 					continue
 				else:
 					eventQueue.pop_front()
@@ -269,6 +272,7 @@ func getInfo(theID:String) -> SexParticipantInfo:
 
 func _process(_delta: float) -> void:
 	processCamera(_delta)
+	hover_text_poser.position = hover_text_poser.position*0.9 + hoverTextLocalTargetPos*0.1
 	
 #func _physics_process(_delta: float) -> void:
 	#if(Network.isServer()):
@@ -338,8 +342,13 @@ func doProcess(_delta: float) -> void:
 				actionTexts.remove_at(textsAmount - _i - 1)
 			
 		actionText = calculateActionText()
+		
+		cachedHoverText = calculateHoverText()
 	
 		checkGripLevel()
+	
+	hover_text.text = cachedHoverText
+	hoverTextLocalTargetPos = to_local(anim_scene_player.getAverageBodyPos())
 	
 @rpc("authority", "call_remote", "reliable")
 func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
@@ -579,22 +588,6 @@ func doActionNetworked(charID:String, networkedAction:Dictionary):
 	doAction(charID, action)
 
 func doAction(charID:String, action:Dictionary):
-	#var theMods:Dictionary = action["mods"] if action.has("mods") else {}
-	
-	#var requiresConsent:bool = theMods[SexActionMod.CONSENT_ALL] if theMods.has(SexActionMod.CONSENT_ALL) else false
-	#if(requiresConsent):
-		#transitionText = theMods[SexActionMod.CONSENT_TEXT] if theMods.has(SexActionMod.CONSENT_TEXT) else ""
-		#theMods[SexActionMod.CONSENT_ALL] = false
-		#doConsentAction(charID, action)
-		#return
-	#
-	#var delay:float = theMods[SexActionMod.DELAY] if theMods.has(SexActionMod.DELAY) else 0.0
-	#if(delay > 0.0):
-		#transitionText = theMods[SexActionMod.ACTION_TEXT] if theMods.has(SexActionMod.ACTION_TEXT) else ""
-		#theMods[SexActionMod.DELAY] = 0.0
-		#doDelayedAction(delay, charID, action)
-		#return
-	
 	doActionInternal(charID, action)
 
 func doActionInternal(charID:String, action:Dictionary):
@@ -931,18 +924,6 @@ func addActionTextRaw(theText:String):
 		if(actionTexts.size() > 5):
 			actionTexts.pop_front()
 
-func calculateActionText() -> String:
-	var result:String = ""
-	for textEntry in actionTexts:
-		if(result != ""):
-			result += "\n"
-		result += textEntry[0]
-	if(transitionText != "" && (state in [STATE_BUSY, STATE_CONSENT])):
-		if(result != ""):
-			result += "\n"
-		result += "[b]"+transitionText+"[/b]"
-	return result
-
 func getActionText() -> String:
 	return actionText
 
@@ -1257,6 +1238,49 @@ func doText_RPC(_pawnID:String, _text:String):
 	if(!thePawn):
 		return
 	thePawn.addHoverText(_text)
+
+func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> String:
+	var result:Array[String] = []
+	
+	var _isForced:bool = isForced()
+	
+	if(_actions):
+		for textEntry in actionTexts:
+			result.append(textEntry[0])
+	
+	if(_eventQueue && !eventQueue.is_empty()):
+		var currentEntry:Array = eventQueue.front()
+		var _entryObj = currentEntry[0]
+		var _isActualActivity:bool = (_entryObj is SexEngineActivityBase)
+		var queueEntry:Array = currentEntry[1]
+		var queueType:int = queueEntry[0]
+		
+		if(queueType == QUEUE_CONSENT_CHECK):
+			var theTexts:Array = queueEntry[8]
+			if(theTexts.size() >= 2):
+				var consentActionText:String = theTexts[0] if !_isForced else theTexts[1]
+				
+				if(!_isActualActivity):
+					var theReplacers:Dictionary[String, String] = {}
+					var theOfferedReplacers:Dictionary = theTexts[2] if theTexts.size()>2 else {}
+					for replacerID in theOfferedReplacers:
+						if(theOfferedReplacers[replacerID] is String):
+							theReplacers[replacerID] = theOfferedReplacers[replacerID]
+						elif(theOfferedReplacers[replacerID] is SexParticipantInfo):
+							theReplacers[replacerID] = theOfferedReplacers[replacerID].getID()
+					result.append(parseText(consentActionText, theReplacers))
+				else:
+					result.append(_entryObj.parseText(consentActionText))
+	
+	return Util.join(result, "\n")
+
+func calculateActionText() -> String:
+	return calculateEngineText()
+
+# Ran on server, gets synced to the clients?
+# Alternative = sync the whole sex engine and run this function localy (can localize then)
+func calculateHoverText() -> String:
+	return calculateEngineText()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

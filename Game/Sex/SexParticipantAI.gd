@@ -28,10 +28,10 @@ func onSexStart():
 	ticker = 1.0
 
 func notifyThingHappened():
-	ticker = max(RNG.randfRange(0.4, 0.6), ticker)
+	ticker = max(RNG.randfRange(2.0, 3.0), ticker)
 
 func notifyThingHappenedNeedsReaction():
-	ticker = RNG.randfRange(0.4, 0.6)
+	ticker = RNG.randfRange(0.8, 1.5)
 
 func isForced() -> bool:
 	return getSexEngine().isForced()

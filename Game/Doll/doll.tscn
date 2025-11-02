@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://y65ir3supv5s"]
+[gd_scene load_steps=22 format=3 uid="uid://y65ir3supv5s"]
 
 [ext_resource type="Script" uid="uid://cy0ulaqjxe5e3" path="res://Game/Doll/doll.gd" id="1_x8ebr"]
 [ext_resource type="PackedScene" uid="uid://c56fqxox0e0ia" path="res://Mesh/Skeleton/body_skeleton.tscn" id="2_k7aqf"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dyx0lcoi6r0tp" path="res://Game/Doll/FaceAnimator/voice_handler.tscn" id="3_l2cwv"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="4_avrwx"]
 [ext_resource type="AnimationLibrary" uid="uid://nn3cjmcfumow" path="res://Anims/Raw/BasicAnims.glb" id="5_avrwx"]
+[ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="6_yn8uc"]
 [ext_resource type="AnimationLibrary" uid="uid://dqms0sfsng4i8" path="res://Anims/Raw/GestureAnims.glb" id="7_5l1g8"]
 [ext_resource type="AnimationLibrary" uid="uid://cmuxw6uiifp2h" path="res://Anims/Raw/LocomotionAnims.glb" id="7_l2cwv"]
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
@@ -57,27 +58,26 @@ scale_max = 2.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_5l1g8"]
 
-[node name="Doll" type="Node3D"]
+[node name="Doll" type="Node3D" unique_id=777326594]
 script = ExtResource("1_x8ebr")
 
-[node name="Parts" type="Node3D" parent="."]
+[node name="Parts" type="Node3D" parent="." unique_id=2083330098]
 unique_name_in_owner = true
 
-[node name="BodySkeleton" parent="Parts" instance=ExtResource("2_k7aqf")]
+[node name="BodySkeleton" parent="Parts" unique_id=1490678536 instance=ExtResource("2_k7aqf")]
 unique_name_in_owner = true
 
 [node name="BoneAttachment3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="1"]
 transform = Transform3D(1, -2.3825046e-15, -1.9344623e-15, 2.479612e-15, 0.99865484, 0.051856153, 1.8083095e-15, -0.051856156, 0.9986547, 3.738823e-15, 1.6004182, -0.039354894)
 
-[node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" instance=ExtResource("3_l2cwv")]
+[node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" unique_id=1380823105 instance=ExtResource("3_l2cwv")]
 unique_name_in_owner = true
 
-[node name="LookAtEyes" type="Node3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="2"]
+[node name="LookAtEyes" type="Node3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="2" unique_id=1705788857]
 unique_name_in_owner = true
 transform = Transform3D(1, 5.9557004e-23, 0, 5.9557004e-23, 1, 0, -6.352747e-22, 0, 1, 1.452509e-16, 0.03637588, 0.024326924)
 
-[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="2"]
-_import_path = NodePath("")
+[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="2" unique_id=1873600430]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -100,8 +100,7 @@ properties = SubResource("Resource_l2cwv")
 enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="3"]
-_import_path = NodePath("")
+[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="3" unique_id=563262781]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -124,8 +123,7 @@ properties = SubResource("Resource_l2cwv")
 enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="4"]
-_import_path = NodePath("")
+[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="4" unique_id=412586149]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -147,8 +145,7 @@ bone_name = "butt.L"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="5"]
-_import_path = NodePath("")
+[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="5" unique_id=1045547123]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -170,8 +167,7 @@ bone_name = "butt.R"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="6"]
-_import_path = NodePath("")
+[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="6" unique_id=932123868]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -199,15 +195,9 @@ transform = Transform3D(1, 1.4995202e-14, -1.257985e-14, -1.2583044e-14, 0.98480
 [node name="BoneAttachment3D3" parent="Parts/BodySkeleton/rig/Skeleton3D" index="8"]
 transform = Transform3D(1, 1.591379e-14, -5.9927285e-15, -1.6021515e-14, 0.99983037, -0.01842612, 5.6984802e-15, 0.01842612, 0.99983037, 2.6645746e-15, 1.5329254, -0.040598713)
 
-[node name="HoverText" type="Label3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" index="1"]
+[node name="HoverText" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" index="1" unique_id=590944479 instance=ExtResource("6_yn8uc")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.343, -0.095)
-pixel_size = 0.0007
-billboard = 1
-fixed_size = true
-vertical_alignment = 2
-autowrap_mode = 3
-width = 600.0
 
 [node name="ChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" index="15"]
 transform = Transform3D(1, 7.206556e-18, -3.3025815e-18, -6.5006073e-18, 0.98401076, 0.17810988, 4.5324733e-18, -0.17810988, 0.98401076, 4.2351647e-22, 1.2023741, 0.018412834)
@@ -227,7 +217,7 @@ process_material = SubResource("ParticleProcessMaterial_q8qd3")
 [node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2"]
 process_material = SubResource("ParticleProcessMaterial_i5c51")
 
-[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="18"]
+[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="18" unique_id=1226392226]
 unique_name_in_owner = true
 influence = 0.5
 target_node = NodePath("../../../../../LookAtTarget")
@@ -241,7 +231,7 @@ symmetry_limitation = true
 primary_limit_angle = 1.5707964
 primary_damp_threshold = 1.0
 
-[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="19"]
+[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="19" unique_id=676757426]
 unique_name_in_owner = true
 influence = 0.75
 target_node = NodePath("../../../../../LookAtTarget")
@@ -256,7 +246,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.6981317
 secondary_damp_threshold = 1.0
 
-[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="20"]
+[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="20" unique_id=1796183666]
 unique_name_in_owner = true
 target_node = NodePath("../../../../../LookAtTarget")
 bone_name = "head"
@@ -271,7 +261,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.5235988
 secondary_damp_threshold = 1.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
 active = false
 libraries = {
@@ -280,17 +270,11 @@ libraries = {
 &"LocomotionAnims": ExtResource("7_l2cwv"),
 &"RestraintAnims": ExtResource("8_yudco")
 }
-autoplay = "BodyAnims/Idle"
+autoplay = &"BodyAnims/Idle"
 
-[node name="AnimationTree" type="AnimationTree" parent="Parts/BodySkeleton"]
+[node name="AnimationTree" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=1452688011]
 unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/..")
-libraries = {
-&"BasicAnims": ExtResource("5_avrwx"),
-&"GestureAnims": ExtResource("7_5l1g8"),
-&"LocomotionAnims": ExtResource("7_l2cwv"),
-&"RestraintAnims": ExtResource("8_yudco")
-}
 tree_root = ExtResource("9_1pahp")
 anim_player = NodePath("../AnimationPlayer")
 parameters/ArmBinder_Blend/blend_amount = 0.0
@@ -321,21 +305,18 @@ parameters/Locomotion/Walk/Walk_Selector/transition_request = ""
 parameters/Locomotion/Walk/Walk_Selector/current_index = -1
 script = ExtResource("10_1pahp")
 
-[node name="AnimationPlayerRestraints" type="AnimationPlayer" parent="Parts/BodySkeleton"]
+[node name="AnimationPlayerRestraints" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=956429807]
 unique_name_in_owner = true
 active = false
 libraries = {
 &"RestraintAnims": ExtResource("8_yudco")
 }
-autoplay = "BodyAnims/Idle"
+autoplay = &"BodyAnims/Idle"
 
-[node name="AnimationTreeRestraints" type="AnimationTree" parent="Parts/BodySkeleton"]
+[node name="AnimationTreeRestraints" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=1210289492]
 unique_name_in_owner = true
 active = false
 root_node = NodePath("%AnimationTreeRestraints/..")
-libraries = {
-&"RestraintAnims": ExtResource("8_yudco")
-}
 tree_root = ExtResource("10_yn8uc")
 anim_player = NodePath("../AnimationPlayerRestraints")
 parameters/ArmBinder_Blend/blend_amount = 0.0
@@ -365,30 +346,30 @@ parameters/BodyGesture_Selector/current_state = ""
 parameters/BodyGesture_Selector/transition_request = ""
 parameters/BodyGesture_Selector/current_index = -1
 
-[node name="AlphaMaskTexture" parent="." instance=ExtResource("10_ehs3x")]
+[node name="AlphaMaskTexture" parent="." unique_id=1493821731 instance=ExtResource("10_ehs3x")]
 unique_name_in_owner = true
 resolution = Vector2i(256, 256)
 clearColor = Color(0, 0, 0, 0)
 
-[node name="LookAtTarget" type="Node3D" parent="."]
+[node name="LookAtTarget" type="Node3D" parent="." unique_id=802048310]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LookAtTarget"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LookAtTarget" unique_id=465984967]
 transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_5l1g8")
 
-[node name="LookAtTargetDefault" type="Node3D" parent="."]
+[node name="LookAtTargetDefault" type="Node3D" parent="." unique_id=1746492495]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
 
-[node name="LookAtTargetCustom" type="Node3D" parent="."]
+[node name="LookAtTargetCustom" type="Node3D" parent="." unique_id=1083907531]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.700643, 1.8907907)
 top_level = true
 
-[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="." unique_id=184477159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88834, 0)
 aabb = AABB(-1, -1.1234647, -1, 2, 2.2469294, 2)
 

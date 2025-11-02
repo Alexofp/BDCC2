@@ -7,8 +7,8 @@ func _init():
 	id = "Undress"
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
-	#if(_info != _target):
-	#	return
+	if(!_info.canDoDomActions() && _info != _target):
+		return
 	#addAction(action("UNDRESS!").delay(0.3).start({main=_info}))
 	var targetChar:BaseCharacter = _target.getChar()
 	var targetInv:Inventory = targetChar.getInventory()
@@ -17,12 +17,20 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	var theContext := getContext()
 	for invSlot in targetInv.getEquippedItems():
 		var theItem := targetInv.getEquippedItem(invSlot)
+		var theItemName := theItem.getName()
 		var itemCatName:String = theItem.getName()
 		var finalCat:Array[String] = ["Inventory", charCatName, itemCatName]
 		
+		if(targetInv.isItemCoveredUpByOtherItems(theItem)):
+			continue
+		
 		if(theItem.canUnequipInSex(theContext)):
 			var takeOffScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
-			addAction(action("Take off").setScore(takeOffScore).setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
+			addAction(action("Take off")
+			.setScore(takeOffScore)
+			.setCat(finalCat)
+			.consent([_target], conTexts("{dom.You} {dom.youVerb try|tries} to take off {sub.your} "+theItemName+".", "{dom.You} {dom.youVerb try|tries} to forcefully take off {sub.your} "+theItemName+"!", {dom=_info,sub=_target}))
+			.start({ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
 		
 		var displaceActions := theItem.getDisplaceActions(theContext)
 		for actionEntry in displaceActions:
@@ -30,7 +38,11 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			
 			#var actionID:String = actionEntry["action"]
 			var displaceScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
-			addAction(action(actionName).setScore(displaceScore).setCat(finalCat).start({ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
+			addAction(action(actionName)
+			.setScore(displaceScore)
+			.setCat(finalCat)
+			.consent([_target], conTexts("{dom.You} {dom.youVerb try|tries} to displace {sub.your} "+theItemName+".", "{dom.You} {dom.youVerb try|tries} to forcefully displace {sub.your} "+theItemName+"!", {dom=_info,sub=_target}))
+			.start({ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER, ROLE_TARGET])
@@ -39,7 +51,7 @@ func start(_roles:Dictionary, _args:Dictionary):
 	var actionEntry:Dictionary = _args["action"]
 	var actionDelay:float = actionEntry["delay"] if actionEntry.has("delay") else 0.0
 	
-	addActionText("STARTED THE UNDRESS!")
+	#addActionText("STARTED THE UNDRESS!")
 	pushDelay(actionDelay)
 	pushEvent(SexEvent.make("DoUndress", [invSlot, actionEntry["action"], actionEntry["args"], actionEntry["message"] if actionEntry.has("message") else ""]))
 
@@ -53,7 +65,7 @@ func start_event(_event:SexEvent):
 	var targetInv:Inventory = targetChar.getInventory()
 	var theItem:ItemBase = targetInv.getEquippedItem(invSlot)
 	
-	doText(ROLE_TARGET, theUndressMessage if !theUndressMessage.is_empty() else "{user.You} undressed {target.you}!")
+	doText(ROLE_TARGET, theUndressMessage if !theUndressMessage.is_empty() else "{user.You} {user.youVerb take} off {target.your} "+theItem.getName()+"!")
 	
 	if(theItem):
 		if(actionID == "unequip"):

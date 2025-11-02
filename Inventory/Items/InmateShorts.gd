@@ -80,7 +80,7 @@ func resetEquippedState():
 
 func getCoveredZones() -> Dictionary[int, bool]:
 	return {
-		ZoneCover.Anything: true,
+		#ZoneCover.Anything: true,
 		ZoneCover.Penis: !pulledDown,
 		ZoneCover.Vagina: !pulledDown,
 		ZoneCover.Anus: !pulledDown,

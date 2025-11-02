@@ -16,16 +16,18 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		var theTargetInv:Inventory = theTargetChar.getInventory()
 		var theCharName:String = theTargetChar.getName()
 		
-		for theItem in theInv.getItems():
-			if(!theItem.isEquipable() || !theItem.isBondageGear()):
-				continue
+		var tieUpScore:float = _info.taskScore(SexTask.TieUp, [_target.getID()])
+		
+		for theItem in theInv.getBDSMGearToEquipToOthers():
 			if(!theItem.canBeEquippedOnto(theTargetInv)):
 				continue # Show a disabled button instead?
-			addAction(action(theItem.getName()).
-				setCat(["Bondage", theCharName]).
-				expose(_info, _target, Fetish.Bondage).
-				#consent().
-				start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
+			var theItemName:String = theItem.getName()
+			addAction(action(theItemName)
+				.setCat(["Bondage", theCharName])
+				.setScore(tieUpScore)
+				.expose(_info, _target, Fetish.Bondage)
+				.consent([_target], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
+				.start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
 			)
 		
 		#addAction(action("GAG!").setCat(["Bondage"]).start({main=_info, target=_target}))
@@ -38,7 +40,7 @@ func start(_roles:Dictionary, _args:Dictionary):
 		endActivity()
 		return
 	
-	addActionText("STARTED THE BONDAGE!")
+	#addActionText("STARTED THE BONDAGE!")
 	pushDelay(0.5)
 	pushEvent(SexEvent.make("bondage", [_args["itemID"]]))
 
@@ -63,5 +65,12 @@ func start_event(_event:SexEvent):
 		if(!theTargetInv.equipItemFreeSlot(theItem)):
 			theActorInv.addItem(theItem) # Cancel
 		
-		addActionText("ENDED THE BONDAGE!")
+		var theItemName:String = theItem.getName()
+		if(isForced()):
+			doText(ROLE_MAIN, "{main.You} {main.youVerb manage} to force "+theItemName+" on {target.you}!")
+		else:
+			doText(ROLE_MAIN, "{main.You} {main.youVerb lock} "+theItemName+" on {target.you}.")
+		
+		completeTask(ROLE_MAIN, SexTask.TieUp, [getRoleID(ROLE_TARGET)])
+		
 		endActivity()

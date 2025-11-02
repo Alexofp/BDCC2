@@ -24,6 +24,14 @@ func getEquippedItems() -> Dictionary[int, ItemBase]:
 func getItems() -> Array[ItemBase]:
 	return items
 
+func getBDSMGearToEquipToOthers() -> Array[ItemBase]:
+	var result:Array[ItemBase] = []
+	for theItem in items:
+		if(!theItem.isEquipable() || !theItem.isBondageGear()):
+			continue
+		result.append(theItem)
+	return result
+
 func hasSlotEquipped(_slot:int) -> bool:
 	if(!equipped.has(_slot)):
 		return false
@@ -138,14 +146,14 @@ func onItemOptionChangeCallback(optionID:String, value, _part:ItemBase, slot:int
 	onEquippedItemOptionChange.emit(optionID, value, _part, slot)
 	onChange.emit(InventoryChange.makeOptionChanged(self, optionID, value, _part, slot))
 
-func canEquipReason(_slot:int, _item:ItemBase) -> Array:
-	if(hasSlotEquipped(_slot)):
-		return [false, "This slot already has something in it"]
-	if(_item == null):
-		return [false, "Unable to equip non-existant item"]
-	if(!(_slot in _item.getSlotsToEquipTo())):
-		return [false, "This item can not be equipped into this slot"]
-	return [true, ""]
+#func canEquipReason(_slot:int, _item:ItemBase) -> Array:
+	#if(hasSlotEquipped(_slot)):
+		#return [false, "This slot already has something in it"]
+	#if(_item == null):
+		#return [false, "Unable to equip non-existant item"]
+	#if(!(_slot in _item.getSlotsToEquipTo())):
+		#return [false, "This item can not be equipped into this slot"]
+	#return [true, ""]
 
 func setCharacter(_character:BaseCharacter):
 	if(_character == null):
@@ -244,6 +252,34 @@ func getFirstItemThatCovers(_zone:int) -> ItemBase:
 			maxLayer = theLayer
 			maxLayerItem = theItem
 	return maxLayerItem
+
+func isItemCoveredUpByOtherItems(theItem:ItemBase) -> bool:
+	return !getUncoveredItems().has(theItem)
+
+func getUncoveredItems() -> Array[ItemBase]:
+	var result:Array[ItemBase] = []
+	
+	var theSlots := getEquippedSlotsSortedByLayerTopFirst()
+	var coveredZones:Dictionary[int, bool] = {}
+	
+	for invSlot in theSlots:
+		var theItem:ItemBase = equipped[invSlot]
+		var theItemZones:=theItem.getCoveredZones()
+		
+		var isThisItemCovered:bool = false
+		for theZone in theItemZones:
+			if(theItemZones[theZone] && coveredZones.has(theZone) && coveredZones[theZone]):
+				isThisItemCovered = true
+				break
+		
+		if(!isThisItemCovered):
+			result.append(theItem)
+		
+		for theZone in theItemZones:
+			if(theItemZones[theZone]):
+				coveredZones[theZone] = true
+	
+	return result
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

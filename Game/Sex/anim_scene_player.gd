@@ -116,6 +116,9 @@ func getSexHideTagsFor(_charID:String) -> Array:
 		return []
 	return anim_scene_spawner.getScene().getSexHideTagsFor(_charID)
 
+func getAverageBodyPos() -> Vector3:
+	return anim_scene_spawner.getAverageBodyPos()
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.StrShort, animID,

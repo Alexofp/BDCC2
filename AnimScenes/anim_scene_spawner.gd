@@ -102,6 +102,11 @@ func updateAnim():
 	if(spawnedScene):
 		spawnedScene.updateAnim()
 
+func getAverageBodyPos() -> Vector3:
+	if(!spawnedScene):
+		return global_position
+	return spawnedScene.getAverageBodyPos()
+
 func saveNetworkData() -> Bins:
 	var data := Bins.saveStart([
 		Bins.Bool, isSpawned(),

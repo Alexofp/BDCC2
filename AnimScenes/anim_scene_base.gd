@@ -1,7 +1,7 @@
 extends Node3D
 class_name AnimSceneBase
 
-var sitters:Dictionary = {}
+var sitters:Dictionary[String, Dictionary] = {}
 var penisTarget:Dictionary = {}
 
 var states:Dictionary = {}
@@ -621,6 +621,32 @@ func playOneShot(oneshotID:String):
 
 func onOneShot(_oneshotID:String):
 	pass
+
+func getAverageBodyPos(_calcMaxY:bool = true) -> Vector3:
+	var poses:Array[Vector3] = []
+	for sitterID in sitters:
+		var theSitterPawn := getSitter(sitterID)
+		var theSitterDoll := getSitterDoll(sitterID)
+		
+		if(theSitterDoll):
+			poses.append(theSitterDoll.getGlobalChestBonePosition())
+		elif(theSitterPawn):
+			poses.append(theSitterPawn.global_position)
+	
+	if(poses.is_empty()):
+		return global_position
+	if(poses.size() == 1):
+		return poses[0]
+	var theDiv:float = 1.0/float(poses.size())
+	var finalPos:Vector3 = Vector3()
+	var maxY:float = poses[0].y
+	for thePos in poses:
+		finalPos += thePos*theDiv
+		if(thePos.y > maxY):
+			maxY = thePos.y
+	if(_calcMaxY):
+		finalPos.y = maxY
+	return finalPos
 	
 func setState(newState:String):
 	state = newState
