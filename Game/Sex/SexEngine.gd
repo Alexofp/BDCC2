@@ -342,8 +342,7 @@ func doProcess(_delta: float) -> void:
 				actionTexts.remove_at(textsAmount - _i - 1)
 			
 		actionText = calculateActionText()
-		
-		cachedHoverText = calculateHoverText()
+		cachedHoverText = actionText#calculateHoverText()
 	
 		checkGripLevel()
 	
@@ -914,7 +913,7 @@ func rotateCamera(theCamera:Node3D, roty:float, rotx:float):
 	theCamera.rotation_degrees = rot
 
 func addActionText(theText:String, replacers:Dictionary[String, String]):
-	addActionTextRaw(parseText(theText, replacers))
+	addActionTextRaw(GM.textParser.applyObjReplacers(theText, replacers))
 
 func addActionTextRaw(theText:String):
 	if(Network.isServer()):
@@ -1082,7 +1081,7 @@ func doAutoEquipAfterEnd():
 			theInv.equipItem(theItem, theSlot)
 			theItem.onAutoEquipAfterSex()
 
-func parseText(_text:String, _replacers:Dictionary[String, String]) -> String:
+func parseText(_text:String, _replacers:Dictionary[String, String] = {}) -> String:
 	return GM.textParser.parseString(_text, getSimpleGameTextParserText, _replacers).text
 
 func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
@@ -1223,22 +1222,6 @@ func doExposeFetish(_performerID:String, _receiverID:String, _fetishID:String, _
 		if(_infoReceiver):
 			_infoReceiver.exposeToFetish(_fetishID, _intensity, false, true)
 
-func doText(_activity:SexEngineActivityBase, _role:String, _text:String):
-	#TODO: Send the unparsed text to clients? To support different languages
-	var theCharID:String = _activity.getRoleID(_role)
-	var theFinalText:String = _activity.parseText(_text)
-	_activity.addActionText(_text)
-	doText_RPC(theCharID, theFinalText)
-	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doText_RPC.bind(theCharID, theFinalText))
-
-@rpc("authority", "call_remote", "reliable")
-func doText_RPC(_pawnID:String, _text:String):
-	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
-	if(!thePawn):
-		return
-	thePawn.addHoverText(_text)
-
 func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> String:
 	var result:Array[String] = []
 	
@@ -1268,19 +1251,19 @@ func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> Strin
 							theReplacers[replacerID] = theOfferedReplacers[replacerID]
 						elif(theOfferedReplacers[replacerID] is SexParticipantInfo):
 							theReplacers[replacerID] = theOfferedReplacers[replacerID].getID()
-					result.append(parseText(consentActionText, theReplacers))
+					result.append(GM.textParser.applyObjReplacers(consentActionText, theReplacers))
 				else:
-					result.append(_entryObj.parseText(consentActionText))
+					result.append(_entryObj.applyObjReplacers(consentActionText))
 	
 	return Util.join(result, "\n")
 
 func calculateActionText() -> String:
-	return calculateEngineText()
+	return parseText(calculateEngineText())
 
 # Ran on server, gets synced to the clients?
 # Alternative = sync the whole sex engine and run this function localy (can localize then)
 func calculateHoverText() -> String:
-	return calculateEngineText()
+	return parseText(calculateEngineText())
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

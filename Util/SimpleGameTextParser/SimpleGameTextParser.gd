@@ -9,6 +9,56 @@ class Result:
 func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SGTPResult:
 	return SGTPResult.make("")
 
+func applyObjReplacers(_inputStr:String, replacers:Dictionary[String, String] = {}) -> String:
+	var errors:Array[String] = []
+	var hadError:bool = false
+	var finalText:String = ""
+	
+	var thePartsResult := stringToParts(_inputStr)
+	if(thePartsResult[1]):
+		hadError = true
+		errors.append(thePartsResult[2])
+	
+	var theParts:Array = thePartsResult[0]
+	
+	for theEntry in theParts:
+		var entryType:int = theEntry[0]
+		var entryText:String = theEntry[1]
+	
+		if(entryType == 0):
+			finalText += entryText
+		elif(entryType == 1):
+			var theArgSplit := Util.splitOnFirst(entryText, " ")
+			var theCommandEntry:String = theArgSplit[0]
+			var theArg:String = theArgSplit[1] if theArgSplit.size() > 1 else ""
+			
+			var theCommandSplit := Util.splitOnFirst(theCommandEntry, ".")
+			
+			var theObjKey:String = ""
+			var theCommand:String = ""
+			if(theCommandSplit.size() == 1):
+				#theCommand = theCommandSplit[0]
+				finalText += "{"+entryText+"}"
+			else:
+				theObjKey = theCommandSplit[0]
+				theCommand = theCommandSplit[1]
+			
+			if(replacers.has(theObjKey)):
+				theObjKey = replacers[theObjKey]
+			
+			finalText += "{"+theObjKey+"."+theCommand+" "+theArg+"}"
+		else:
+			hadError = true
+			errors.append("UNKNOWN ERROR.")
+	
+	#var theFinalResult:Result = Result.new()
+	#theFinalResult.text = finalText
+	#theFinalResult.hadError = hadError
+	#theFinalResult.errorText = Util.join(errors, "\n")
+	if(hadError):
+		Log.Printerr(Util.join(errors, "\n"))
+	return finalText
+
 func parseString(_inputStr:String, _callable:Callable, replacers:Dictionary[String, String] = {}, textOverrides:Dictionary[String, String] = {}) -> Result:
 	var errors:Array[String] = []
 	var hadError:bool = false

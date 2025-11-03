@@ -23,8 +23,8 @@ var id:String = "error"
 var engineRef:WeakRef
 
 # role = id
-var roleToID:Dictionary = {}
-var idToRole:Dictionary = {}
+var roleToID:Dictionary[String, String] = {}
+var idToRole:Dictionary[String, String] = {}
 
 var state:String = ""
 
@@ -137,7 +137,7 @@ func doRun():
 func addActionText(theText:String):
 	var sexEngine:SexEngine = getSexEngine()
 	if(sexEngine):
-		sexEngine.addActionTextRaw(parseText(theText))
+		sexEngine.addActionTextRaw(applyObjReplacers(theText))
 
 func setupRoles(_roles:Dictionary, _need:Array):
 	for needRole in _need:
@@ -487,6 +487,12 @@ func addAutoEquipAfterEnd(_role:String, _slot:int, _itemUID:int):
 	if(theCharID.is_empty()):
 		return
 	getSexEngine().addAutoEquipAfterEnd(theCharID, _slot, _itemUID)
+
+func applyObjReplacers(_text:String) -> String:
+	return GM.textParser.applyObjReplacers(_text, getObjReplacers())
+
+func getObjReplacers() -> Dictionary[String, String]:
+	return roleToID
 
 func parseText(_text:String) -> String:
 	return GM.textParser.parseString(_text, getSimpleGameTextParserText).text
