@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://y65ir3supv5s"]
+[gd_scene load_steps=23 format=3 uid="uid://y65ir3supv5s"]
 
 [ext_resource type="Script" uid="uid://cy0ulaqjxe5e3" path="res://Game/Doll/doll.gd" id="1_x8ebr"]
 [ext_resource type="PackedScene" uid="uid://c56fqxox0e0ia" path="res://Mesh/Skeleton/body_skeleton.tscn" id="2_k7aqf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="6_yn8uc"]
 [ext_resource type="AnimationLibrary" uid="uid://dqms0sfsng4i8" path="res://Anims/Raw/GestureAnims.glb" id="7_5l1g8"]
 [ext_resource type="AnimationLibrary" uid="uid://cmuxw6uiifp2h" path="res://Anims/Raw/LocomotionAnims.glb" id="7_l2cwv"]
+[ext_resource type="Script" uid="uid://d0xtmwcqewrrd" path="res://Mesh/Skeleton/Modifiers/SkeletonHitModifier.gd" id="7_olppk"]
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://d0u4pnrvut856" path="res://Game/Doll/Util/DollBlendTree.tres" id="9_1pahp"]
 [ext_resource type="Script" uid="uid://b31n7ytm4vmec" path="res://Game/Systems/ProcessBalancer/StaggeredAnimationTree.gd" id="10_1pahp"]
@@ -72,6 +73,7 @@ transform = Transform3D(1, -2.3825046e-15, -1.9344623e-15, 2.479612e-15, 0.99865
 
 [node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" unique_id=1380823105 instance=ExtResource("3_l2cwv")]
 unique_name_in_owner = true
+process_mode = 3
 
 [node name="LookAtEyes" type="Node3D" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="2" unique_id=1705788857]
 unique_name_in_owner = true
@@ -260,6 +262,25 @@ primary_limit_angle = 1.134464
 primary_damp_threshold = 1.0
 secondary_limit_angle = 0.5235988
 secondary_damp_threshold = 1.0
+
+[node name="SkeletonHitModifier" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="21" unique_id=939944890]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_olppk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true

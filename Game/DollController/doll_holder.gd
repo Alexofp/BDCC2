@@ -259,3 +259,17 @@ func askLookAt_ServerRPC(dollUniqueID:int, _nodeData, _howLong:float):
 	if(!theNode):
 		return
 	askLookAt(theDoll, theNode, _howLong)
+
+func applyHitRandom(_doll:DollController, _strength:float):
+	if(!_doll):
+		return
+	_doll.applyHitRandom(_strength)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(applyHitRandom_RPC.bind(_doll.uniqueID, _strength))
+
+@rpc("authority", "call_remote", "reliable")
+func applyHitRandom_RPC(dollUniqueID:int, _strength:float):
+	var theDoll := findDollWithUniqueID(dollUniqueID)
+	if(!theDoll):
+		return
+	theDoll.applyHitRandom(_strength)

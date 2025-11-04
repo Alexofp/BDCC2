@@ -66,6 +66,7 @@ func start_event(_event:SexEvent):
 	var theItem:ItemBase = targetInv.getEquippedItem(invSlot)
 	
 	doText(ROLE_TARGET, theUndressMessage if !theUndressMessage.is_empty() else "{user.You} {user.youVerb take} off {target.your} "+theItem.getName()+"!")
+	doHitAnimationRandom(ROLE_TARGET, 0.5)
 	
 	if(theItem):
 		if(actionID == "unequip"):

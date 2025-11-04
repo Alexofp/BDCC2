@@ -346,6 +346,20 @@ func doProcess(_delta: float) -> void:
 	
 		checkGripLevel()
 	
+	if(isResistMinigameRunning()):
+		for charID in participants:
+			var theInfo := participants[charID]
+			if(!theInfo):
+				continue
+			var theID := theInfo.getID()
+			var thePawn := GM.pawnRegistry.getPawn(theID)
+			if(!thePawn):
+				continue
+			var theDoll := thePawn.getDoll()
+			if(!theDoll):
+				continue
+			theDoll.doStruggleAnimFor(0.5)
+	
 	hover_text.text = cachedHoverText
 	hoverTextLocalTargetPos = to_local(anim_scene_player.getAverageBodyPos())
 	
@@ -605,6 +619,7 @@ func doActionInternal(charID:String, action:Dictionary):
 			Log.Printerr("Tried to do a sex action that isn't attached to a sex activity! action="+str(action))
 			return
 		theActivity.doSexActionForCharID(charID, theAction)
+		notifyThingHappened()
 	if(actionID == ACTION_START_ACTION):
 		var theAction:SexAction = action["action"]
 		var theActivityRef:SexEngineActivityBase = action["activity"]
@@ -617,9 +632,11 @@ func doActionInternal(charID:String, action:Dictionary):
 			Log.Printerr("Can't start a sex activity, target or starter are missing.")
 			return
 		theActivityRef.doStartSexAction(self, theInfo, theTarget, theAction)
+		notifyThingHappened()
 	if(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
 		addActionText("{user.You} {user.youVerb decide} to cancel the action!", {user=charID})
+		notifyThingHappened()
 	if(actionID == ACTION_CONSENT):
 		if(eventQueue.is_empty()):
 			return
@@ -642,6 +659,7 @@ func doActionInternal(charID:String, action:Dictionary):
 			return
 		cancelQueue(charID)
 		addActionText("{user.You} didn't consent!", {user=charID})
+		notifyThingHappened()
 	if(actionID == ACTION_FORCE):
 		if(canDoDomActions(charID)):
 			setSexMode(MODE_FORCED)
@@ -653,6 +671,7 @@ func doActionInternal(charID:String, action:Dictionary):
 			var queueType:int = queueEntry[0]
 			if(queueType == QUEUE_CONSENT_CHECK):
 				queueEntry[1] = 0.0
+			notifyThingHappenedNeedsReaction()
 	if(actionID == ACTION_RESIST):
 		if(eventQueue.is_empty()):
 			return
@@ -667,6 +686,7 @@ func doActionInternal(charID:String, action:Dictionary):
 		addActionText("{user.You} {user.youVerb resist}!", {user=charID})
 		
 		startResistMinigame(1.0, 2.0)
+		notifyThingHappenedNeedsReaction()
 		
 	if(actionID == ACTION_CONSENT_ALWAYS):
 		var theInfo := getInfo(charID)
@@ -677,7 +697,6 @@ func doActionInternal(charID:String, action:Dictionary):
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
 	
-	notifyThingHappened()
 
 func startResistMinigame(_domSpeedMult:float, _subSpeedMult:float):
 	var _doms:Array[String] = []
@@ -1206,7 +1225,7 @@ func notifyThingHappened():
 # Makes AI react faster
 func notifyThingHappenedNeedsReaction():
 	for charID in participants:
-		participants[charID].notifyThingHappened()
+		participants[charID].notifyThingHappenedNeedsReaction()
 
 func doExposeFetish(_performerID:String, _receiverID:String, _fetishID:String, _intensity:float = 1.0):
 	var _infoPerf:SexParticipantInfo = getInfo(_performerID)

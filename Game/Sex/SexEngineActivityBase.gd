@@ -606,6 +606,15 @@ func zoneLewdName(_role:String, _zone:int) -> String:
 		return "anus"
 	return "ERROR"
 
+func doHitAnimationRandom(_role:String, _strength:float):
+	var thePawn := getRolePawn(_role)
+	if(!thePawn):
+		return
+	var theDoll := thePawn.getDoll()
+	if(!theDoll):
+		return
+	GM.dollHolder.applyHitRandom(theDoll, _strength)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

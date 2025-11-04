@@ -71,6 +71,7 @@ func start_event(_event:SexEvent):
 		else:
 			doText(ROLE_MAIN, "{main.You} {main.youVerb lock} "+theItemName+" on {target.you}.")
 		
+		doHitAnimationRandom(ROLE_TARGET, 1.0)
 		completeTask(ROLE_MAIN, SexTask.TieUp, [getRoleID(ROLE_TARGET)])
 		
 		endActivity()

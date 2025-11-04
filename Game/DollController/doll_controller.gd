@@ -339,6 +339,7 @@ func processMove(delta:float):
 				#velocity.z = move_direction_no_y.z * move_speed
 			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
 				velocity.y = JUMP_FORCE * getJumpHeight()
+				#applyHitRandom(10.0) #Funny
 				#addHoverText("JUMP!")
 	
 	if !noclip_on:
@@ -729,3 +730,9 @@ func lookAtDoll(_doll:DollController):
 		lookAt(null)
 	else:
 		lookAt(_doll.getDoll().getEyesNode())
+
+func applyHitRandom(_strength:float):
+	doll.applyHitRandom(_strength)
+
+func doStruggleAnimFor(_time:float):
+	doll.doStruggleAnimFor(_time)

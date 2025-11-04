@@ -19,6 +19,7 @@ class_name Doll
 @onready var look_at_target: Node3D = %LookAtTarget
 @onready var look_at_eyes: Node3D = %LookAtEyes
 @onready var look_at_target_default: Node3D = %LookAtTargetDefault
+@onready var skeleton_hit_modifier: SkeletonHitModifier = %SkeletonHitModifier
 
 var lookAtNode:Node3D = null
 
@@ -58,6 +59,7 @@ const IDLE_PICKABLE_ANIMS:Array = [
 static var addedPosesToTree:bool = false
 
 var openMouthTemp:bool = false
+var struggleTimer:float = 0.0
 
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
@@ -366,6 +368,12 @@ func _physics_process(_delta: float) -> void:
 			partUpdateQueueTimer = 0.3
 			var theEntry:Array = partUpdateQueue.pop_front()
 			updatePartFromCharacter(theEntry[0], theEntry[1])
+	
+	if(struggleTimer > 0.0):
+		struggleTimer -= _delta
+		if(struggleTimer <= 0.0):
+			struggleTimer = 0.0
+			skeleton_hit_modifier.stopStruggle()
 
 func _process(_delta: float) -> void:
 	processLookAt(_delta)
@@ -868,6 +876,9 @@ func _on_visible_on_screen_enabler_3d_screen_entered() -> void:
 func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
 	parts_node.visible = false
 
+func isDollEnabled() -> bool:
+	return parts_node.visible
+
 func getHoverText() -> Label3D:
 	return hover_text
 
@@ -1006,3 +1017,16 @@ func getBonePos(boneName:String, theOffset:Vector3) -> Vector3:
 func setMouthOpenTemporary(_newOpen:bool):
 	openMouthTemp = _newOpen
 	updateExpressionState()
+
+func applyHitRandom(_strength:float):
+	if(!isDollEnabled()):
+		return
+	skeleton_hit_modifier.applyHit("chest", Vector3(randf_range(-1.0, 1.0),randf_range(-1.0, 1.0),randf_range(-1.0, 1.0)).normalized(), _strength)
+
+func doStruggleAnimFor(_time:float):
+	if(!isDollEnabled()):
+		return
+	struggleTimer = max(_time, struggleTimer)
+	if(!skeleton_hit_modifier.isStruggling()):
+		skeleton_hit_modifier.startStruggle(0.3, 0.5, 1.2, 1.8)
+	
