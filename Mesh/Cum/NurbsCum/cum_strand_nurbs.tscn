@@ -5,20 +5,20 @@
 [ext_resource type="Script" uid="uid://cqktblqqkub2j" path="res://Mesh/Cum/NurbsCum/BoneFollowNodeSkeletonModifier.gd" id="2_pcqtq"]
 [ext_resource type="Material" uid="uid://3mphb5x2ctsk" path="res://Mesh/Cum/NurbsCum/CumNurbsMat.tres" id="3_ysnyh"]
 
-[node name="CumStrandNurbs" type="Node3D"]
+[node name="CumStrandNurbs" type="Node3D" unique_id=928232579]
 script = ExtResource("1_pcqtq")
 
-[node name="NurbsCumStrand" parent="." instance=ExtResource("1_q6oho")]
+[node name="NurbsCumStrand" parent="." unique_id=544339365 instance=ExtResource("1_q6oho")]
 
 [node name="NurbsPath_004" parent="NurbsCumStrand/CumRig/Skeleton3D" index="0"]
 cast_shadow = 0
 visibility_range_end = 15.0
 visibility_range_end_margin = 2.0
 visibility_range_fade_mode = 1
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("3_ysnyh")
 
-[node name="BoneFollowNodeSkeletonModifier" type="SkeletonModifier3D" parent="NurbsCumStrand/CumRig/Skeleton3D" index="1"]
-_import_path = NodePath("")
+[node name="BoneFollowNodeSkeletonModifier" type="SkeletonModifier3D" parent="NurbsCumStrand/CumRig/Skeleton3D" index="1" unique_id=1896611573]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

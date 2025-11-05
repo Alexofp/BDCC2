@@ -15,7 +15,7 @@ linear_scale = 1065.882
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[node name="Ponytail2" instance=ExtResource("1_hluix")]
+[node name="Ponytail2" unique_id=1931632876 instance=ExtResource("1_hluix")]
 script = ExtResource("2_jv8h1")
 
 [node name="Ponytail2Rig" parent="." index="0"]
@@ -24,11 +24,11 @@ attachPoint = "hair"
 
 [node name="Ponytail2" parent="Ponytail2Rig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("2_ke2gs")
 surface_material_override/1 = ExtResource("3_jv8h1")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="1"]
-_import_path = NodePath("")
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="1" unique_id=1504233478]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -50,8 +50,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_77wm5")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="2"]
-_import_path = NodePath("")
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="2" unique_id=616222399]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

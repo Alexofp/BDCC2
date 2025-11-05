@@ -77,6 +77,12 @@ enum SSAO {
 }
 var ssao:int
 
+enum SSR {
+	DISABLED,
+	ENABLED,
+}
+var ssr:int
+
 enum GI {
 	DISABLED,
 	REDUCED,
@@ -232,7 +238,7 @@ func getSettings() -> Dictionary:
 			addSeparator = true,
 		},
 		"ssao": {
-			name = "SSAO",
+			name = "Screen-space Ambient Occlusion",
 			type = "selector",
 			values = [
 				[SSAO.DISABLED, "Disabled (Fast)"],
@@ -240,6 +246,15 @@ func getSettings() -> Dictionary:
 				[SSAO.ENABLED_SSIL, "SSAO+SSIL (Slow)"],
 			],
 			default = SSAO.ENABLED,
+		},
+		"ssr": {
+			name = "Screen-space Reflections",
+			type = "selector",
+			values = [
+				[SSR.DISABLED, "Disabled (Fast)"],
+				[SSR.ENABLED, "Enabled (Average)"],
+			],
+			default = SSR.DISABLED,
 		},
 		"glow": {
 			name = "Glow",
@@ -280,6 +295,8 @@ func applySettingValue(_settingID:String, newVal:Variant):
 		"ssao":
 			gameEnv.ssao_enabled = (newVal in [SSAO.ENABLED, SSAO.ENABLED_SSIL])
 			gameEnv.ssil_enabled = (newVal == SSAO.ENABLED_SSIL)
+		"ssr":
+			gameEnv.ssr_enabled = (newVal in [SSR.ENABLED])
 		"gi":
 			gameEnv.sdfgi_enabled = (newVal in [GI.ENABLED, GI.REDUCED])
 			#gameEnv.sdfgi_energy = (5.0 if (newVal==GI.ENABLED) else 2.0)

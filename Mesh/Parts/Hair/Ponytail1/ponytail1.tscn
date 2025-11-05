@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_elktu"]
 
-[node name="Ponytail" instance=ExtResource("1_cb8oa")]
+[node name="Ponytail" unique_id=1734872151 instance=ExtResource("1_cb8oa")]
 script = ExtResource("2_xqaau")
 
 [node name="HairRig" parent="." index="0"]
@@ -27,11 +27,11 @@ attachPoint = "hair"
 
 [node name="Ponytail" parent="HairRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_hblm6")
 surface_material_override/1 = ExtResource("5_elktu")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
-_import_path = NodePath("")
+[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -56,8 +56,7 @@ properties = SubResource("Resource_tj25j")
 enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
-_import_path = NodePath("")
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="2" unique_id=1646994683 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -81,11 +80,11 @@ bone_name = "Tail2"
 properties = SubResource("Resource_tj25j")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairCollision" type="Node3D" parent="." index="1"]
+[node name="HairCollision" type="Node3D" parent="." index="1" unique_id=1625754519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
 script = ExtResource("6_1k6or")
 attachPoint = "upperchest"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=1949496003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
 shape = SubResource("SphereShape3D_elktu")

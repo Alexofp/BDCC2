@@ -30,7 +30,7 @@ force_scale = 454.51
 linear_scale = 2399.216
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[node name="CoolBangsHair" instance=ExtResource("1_njult")]
+[node name="CoolBangsHair" unique_id=506344367 instance=ExtResource("1_njult")]
 script = ExtResource("2_mjd73")
 
 [node name="CoolBangsHairRig" parent="." index="0"]
@@ -39,10 +39,10 @@ attachPoint = "hair"
 
 [node name="CoolBangsHair" parent="CoolBangsHairRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_q5e7s")
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="1"]
-_import_path = NodePath("")
+[node name="Wiggle2" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="1" unique_id=37109063]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -66,8 +66,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_kw6ne")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="2"]
-_import_path = NodePath("")
+[node name="Wiggle3" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="2" unique_id=286265484]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -91,8 +90,7 @@ bone_name = "Back.R"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle4" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="3"]
-_import_path = NodePath("")
+[node name="Wiggle4" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="3" unique_id=1453375840]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -116,8 +114,7 @@ bone_name = "Bang.L"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle5" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="4"]
-_import_path = NodePath("")
+[node name="Wiggle5" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="4" unique_id=388220129]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -141,8 +138,7 @@ bone_name = "Bang.R"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle6" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="5"]
-_import_path = NodePath("")
+[node name="Wiggle6" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" index="5" unique_id=885116570]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

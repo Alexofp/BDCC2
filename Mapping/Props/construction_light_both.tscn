@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ta3ub"]
 size = Vector3(1.10869, 1.96713, 0.99803)
 
-[node name="ConstructionLightBoth" instance=ExtResource("1_eedrb")]
+[node name="ConstructionLightBoth" unique_id=1644774559 instance=ExtResource("1_eedrb")]
 script = ExtResource("2_7ursy")
 roughness = 0.5
 colorbase = Color(0.84705883, 0.6392157, 0, 1)
@@ -20,18 +20,17 @@ instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
 instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0" unique_id=315086225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.988704, -3.27826e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ConstructionLightBoth/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConstructionLightBoth/StaticBody3D" index="0" unique_id=1687151608]
 shape = SubResource("BoxShape3D_ta3ub")
 
-[node name="SpotLight3D2" parent="." index="1" instance=ExtResource("3_8ldnr")]
+[node name="SpotLight3D2" parent="." index="1" unique_id=538846847 instance=ExtResource("3_8ldnr")]
 transform = Transform3D(1, 0, 0, 0, -0.90644777, 0.42231792, 0, -0.42231792, -0.90644777, 0, 1.793, 0.126)
 light_color = Color(1, 0.99607843, 0.6431373, 1)
 light_energy = 2.0
 light_indirect_energy = 1.0
-light_volumetric_fog_energy = 3.0
 spot_range = 15.0
 spot_angle = 53.69
 

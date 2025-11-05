@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_mtj6j"]
 size = Vector3(0.638991, 0.292259, 0.177679)
 
-[node name="WallLight" instance=ExtResource("1_scw0o")]
+[node name="WallLight" unique_id=1410158991 instance=ExtResource("1_scw0o")]
 script = ExtResource("2_1etw4")
 color3 = Color(0, 0.8784314, 1, 1)
 
@@ -17,22 +17,21 @@ instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.52549
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="WallLight" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallLight" index="0" unique_id=1455284768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0115328, 0.0862158)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLight/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLight/StaticBody3D" index="0" unique_id=1985347103]
 shape = SubResource("BoxShape3D_mtj6j")
 
-[node name="SpotLight3D" parent="WallLight" index="1" instance=ExtResource("3_kcc8m")]
+[node name="SpotLight3D" parent="WallLight" index="1" unique_id=832595725 instance=ExtResource("3_kcc8m")]
 transform = Transform3D(-1, -4.9703117e-14, 8.742278e-08, 4.31313e-08, 0.8698223, 0.49336517, -7.60423e-08, 0.49336517, -0.8698223, 0, -0.0199243, 0.267862)
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 5.0
-light_volumetric_fog_energy = 2.0
 spot_range = 10.0
 spot_attenuation = 1.5
 spot_angle = 96.8
 
-[node name="OmniLight3D" type="OmniLight3D" parent="WallLight" index="2"]
+[node name="OmniLight3D" type="OmniLight3D" parent="WallLight" index="2" unique_id=1235529423]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.043479, 0.372732)
 visible = false
 light_color = Color(0.0431373, 1, 1, 1)

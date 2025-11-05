@@ -16,7 +16,7 @@
 transparency = 1
 albedo_color = Color(0.27, 0.27, 0.27, 0.501961)
 
-[node name="FelineHead" instance=ExtResource("1_qhi50")]
+[node name="FelineHead" unique_id=167883299 instance=ExtResource("1_qhi50")]
 script = ExtResource("2_0kujj")
 
 [node name="MyHeadRig" parent="." index="0"]
@@ -67,64 +67,71 @@ bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.707106
 
 [node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_4wgvr")
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_3i52i")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_a88nv")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("8_4wgvr")
 surface_material_override/1 = ExtResource("8_4wgvr")
 
-[node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="4" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1078476666 instance=ExtResource("4_0v4py")]
 pointName = "hair"
 
-[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="5" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="5" unique_id=975186238 instance=ExtResource("4_0v4py")]
 pointName = "head_items"
 
-[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" unique_id=1586125774 instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0547889, 0.153346, 0.00886823)
 pointName = "ear.L"
 
-[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="7" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="7" unique_id=1737079386 instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0237597, 0.168494, 0.0774401)
 pointName = "horn.L"
 
-[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="8" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="8" unique_id=958527845 instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024, 0.168, 0.077)
 pointName = "horn.R"
 
-[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="9" instance=ExtResource("4_0v4py")]
+[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="9" unique_id=1615634271 instance=ExtResource("4_0v4py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
 [node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_4wgvr")
 
 [node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("9_3i52i")
 
 [node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12"]
 visibility_range_end = 3.0
+skeleton = NodePath("..")
 surface_material_override/0 = SubResource("StandardMaterial3D_a88nv")
 
 [node name="AnimationPlayer" parent="." index="1"]
 active = false
-autoplay = "HeadTPose"
+autoplay = &"HeadTPose"
 
-[node name="HeadLayeredTexture" parent="." index="2" instance=ExtResource("14_ew517")]
+[node name="HeadLayeredTexture" parent="." index="2" unique_id=702583670 instance=ExtResource("14_ew517")]
 unique_name_in_owner = true
 resolution = Vector2i(1024, 1024)
 clearColor = Color(1, 1, 1, 1)
 graphicsOptionAutoScale = 1
 
-[node name="FaceAnimator" parent="." index="3" node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("15_4wgvr")]
+[node name="FaceAnimator" parent="." index="3" unique_id=969757294 node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("15_4wgvr")]
 unique_name_in_owner = true
 dollPart = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")

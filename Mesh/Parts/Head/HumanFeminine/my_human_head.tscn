@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="14_l4a0u"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="16_o81br"]
 
-[node name="MyHumanHead" instance=ExtResource("1_ab4oe")]
+[node name="MyHumanHead" unique_id=1803871471 instance=ExtResource("1_ab4oe")]
 script = ExtResource("2_l4a0u")
 
 [node name="MyHeadRig" parent="." index="0"]
@@ -69,50 +69,55 @@ bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.707106
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("10_o81br")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_ivnxr")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("12_l4a0u")
 surface_material_override/1 = ExtResource("12_l4a0u")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("12_k178j")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_ivnxr")
 
-[node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 instance=ExtResource("16_o81br")]
 pointName = "hair"
 
-[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" unique_id=280089982 instance=ExtResource("16_o81br")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0547889, 0.153346, 0.00886823)
 pointName = "ear.L"
 
-[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="7" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="7" unique_id=605388948 instance=ExtResource("16_o81br")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="8" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="8" unique_id=97471147 instance=ExtResource("16_o81br")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0237597, 0.168494, 0.0774401)
 pointName = "horn.L"
 
-[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="9" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="9" unique_id=1626104585 instance=ExtResource("16_o81br")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024, 0.168, 0.077)
 pointName = "horn.R"
 
-[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="10" instance=ExtResource("16_o81br")]
+[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="10" unique_id=1050185184 instance=ExtResource("16_o81br")]
 pointName = "head_items"
 
 [node name="AnimationPlayer" parent="." index="1"]
 active = false
-autoplay = "HeadTPose"
+autoplay = &"HeadTPose"
 
-[node name="FaceAnimator" parent="." index="2" node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("14_l4a0u")]
+[node name="FaceAnimator" parent="." index="2" unique_id=423090408 node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("14_l4a0u")]
 unique_name_in_owner = true
 dollPart = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")

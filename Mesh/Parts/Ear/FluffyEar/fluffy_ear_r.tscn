@@ -24,7 +24,7 @@ linear_scale = 652.683
 swing_span = 1.5708
 metadata/_custom_type_script = ExtResource("6_5qead")
 
-[node name="FluffyEarR" node_paths=PackedStringArray("ear", "earFluff", "piercingsTwoRings", "tassels") instance=ExtResource("1_f2ikk")]
+[node name="FluffyEarR" unique_id=1538406943 node_paths=PackedStringArray("ear", "earFluff", "piercingsTwoRings", "tassels") instance=ExtResource("1_f2ikk")]
 script = ExtResource("2_4j26o")
 ear = NodePath("EarRigR/Skeleton3D/FelineEarR")
 earFluff = NodePath("EarRigR/Skeleton3D/FelineEarFluffR")
@@ -36,10 +36,10 @@ script = ExtResource("3_i0l10")
 attachPoint = "ear.R"
 
 [node name="FelineEarFluffR" parent="EarRigR/Skeleton3D" index="0"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_m6moc")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="1"]
-_import_path = NodePath("")
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="1" unique_id=788194418]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -61,8 +61,7 @@ bone_name = "DEF-Ear.R"
 properties = SubResource("Resource_ldeaw")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="2"]
-_import_path = NodePath("")
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" index="2" unique_id=1313146927]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -86,10 +85,13 @@ metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="FelineEarPiercedTwoRingsR" parent="EarRigR/Skeleton3D" index="3"]
 visibility_range_end = 10.0
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("7_mo4o3")
 
 [node name="FelineEarR" parent="EarRigR/Skeleton3D" index="4"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("8_eg5tj")
 
 [node name="FelineEarTasselsR" parent="EarRigR/Skeleton3D" index="5"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("9_6hfqw")

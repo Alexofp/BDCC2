@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qytl1"]
 size = Vector3(1.49655, 0.170361, 0.5)
 
-[node name="LampCeiling" instance=ExtResource("1_85uqx")]
+[node name="LampCeiling" unique_id=1557387894 instance=ExtResource("1_85uqx")]
 script = ExtResource("2_00xts")
 roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -21,14 +21,14 @@ instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.52549
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LampCeiling" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="LampCeiling" index="0" unique_id=934750625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460984, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LampCeiling/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LampCeiling/StaticBody3D" index="0" unique_id=660914526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.393772, 0.00161344)
 shape = SubResource("BoxShape3D_qytl1")
 
-[node name="SpotLight3D" parent="LampCeiling" index="1" instance=ExtResource("3_yp53l")]
+[node name="SpotLight3D" parent="LampCeiling" index="1" unique_id=1147814369 instance=ExtResource("3_yp53l")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.977766, 0)
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 2.0

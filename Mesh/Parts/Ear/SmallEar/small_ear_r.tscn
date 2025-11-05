@@ -16,7 +16,7 @@ linear_scale = 652.683
 swing_span = 1.5708
 metadata/_custom_type_script = ExtResource("8_gnb5r")
 
-[node name="SmallEarR" node_paths=PackedStringArray("ear", "earFluff", "tassels") instance=ExtResource("1_rg4w6")]
+[node name="SmallEarR" unique_id=1333369309 node_paths=PackedStringArray("ear", "earFluff", "tassels") instance=ExtResource("1_rg4w6")]
 script = ExtResource("2_7flo5")
 ear = NodePath("SmallEarR/Skeleton3D/EarR")
 earFluff = NodePath("SmallEarR/Skeleton3D/InnerFluffR")
@@ -28,16 +28,18 @@ script = ExtResource("3_i7w7m")
 attachPoint = "ear.R"
 
 [node name="EarR" parent="SmallEarR/Skeleton3D" index="0"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_v1vpb")
 
 [node name="InnerFluffR" parent="SmallEarR/Skeleton3D" index="1"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_gnb5r")
 
 [node name="TasselsR" parent="SmallEarR/Skeleton3D" index="2"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_4a3g4")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" index="3"]
-_import_path = NodePath("")
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" index="3" unique_id=516388925]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

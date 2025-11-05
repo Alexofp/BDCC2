@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ai62"]
 
-[node name="ShortHair2" instance=ExtResource("1_clymu")]
+[node name="ShortHair2" unique_id=1264989772 instance=ExtResource("1_clymu")]
 script = ExtResource("2_ukiar")
 
 [node name="ShortHair2Rig" parent="." index="0"]
@@ -34,10 +34,10 @@ attachPoint = "hair"
 
 [node name="ShortHair2" parent="ShortHair2Rig/Skeleton3D" index="0"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_4ai62")
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="1" node_paths=PackedStringArray("collider_nodes")]
-_import_path = NodePath("")
+[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="1" unique_id=1471605326 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -62,8 +62,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_vip7s")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="2" node_paths=PackedStringArray("collider_nodes")]
-_import_path = NodePath("")
+[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHair2Rig/Skeleton3D" index="2" unique_id=750979650 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -88,11 +87,11 @@ bone_name = "Back.R"
 properties = SubResource("Resource_q40by")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairCollision" type="Node3D" parent="." index="1"]
+[node name="HairCollision" type="Node3D" parent="." index="1" unique_id=282493825]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
 script = ExtResource("3_unpj0")
 attachPoint = "upperchest"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=1097943360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.113, 0.387)
 shape = SubResource("SphereShape3D_4ai62")

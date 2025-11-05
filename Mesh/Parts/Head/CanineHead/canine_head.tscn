@@ -12,7 +12,7 @@
 [ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="6_3axi8"]
 [ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="6_l32rm"]
 
-[node name="CanineHead" instance=ExtResource("1_mumah")]
+[node name="CanineHead" unique_id=1179252613 instance=ExtResource("1_mumah")]
 script = ExtResource("2_gedrh")
 
 [node name="MyCanineHeadRig" parent="." index="0"]
@@ -65,60 +65,66 @@ bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.707106
 bones/42/rotation = Quaternion(0.7071068, 2.8968927e-06, 2.8968927e-06, 0.7071068)
 
 [node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_3axi8")
 
 [node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_l32rm")
 
 [node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_3axi8")
 
 [node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_yb4lr")
 
 [node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4"]
 unique_name_in_owner = true
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_3axi8")
 
 [node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5"]
+skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_l32rm")
 surface_material_override/1 = ExtResource("6_l32rm")
 
-[node name="DollAttachPoint" parent="MyCanineHeadRig/Skeleton3D" index="6" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint" parent="MyCanineHeadRig/Skeleton3D" index="6" unique_id=1787516446 instance=ExtResource("4_eq6bc")]
 pointName = "hair"
 
-[node name="DollAttachPoint6" parent="MyCanineHeadRig/Skeleton3D" index="7" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint6" parent="MyCanineHeadRig/Skeleton3D" index="7" unique_id=497206106 instance=ExtResource("4_eq6bc")]
 pointName = "head_items"
 
-[node name="DollAttachPoint2" parent="MyCanineHeadRig/Skeleton3D" index="8" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint2" parent="MyCanineHeadRig/Skeleton3D" index="8" unique_id=732489167 instance=ExtResource("4_eq6bc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0547889, 0.153346, 0.00886823)
 pointName = "ear.L"
 
-[node name="DollAttachPoint4" parent="MyCanineHeadRig/Skeleton3D" index="9" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint4" parent="MyCanineHeadRig/Skeleton3D" index="9" unique_id=216643389 instance=ExtResource("4_eq6bc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0237597, 0.168494, 0.0774401)
 pointName = "horn.L"
 
-[node name="DollAttachPoint5" parent="MyCanineHeadRig/Skeleton3D" index="10" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint5" parent="MyCanineHeadRig/Skeleton3D" index="10" unique_id=1944356898 instance=ExtResource("4_eq6bc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024, 0.168, 0.077)
 pointName = "horn.R"
 
-[node name="DollAttachPoint3" parent="MyCanineHeadRig/Skeleton3D" index="11" instance=ExtResource("4_eq6bc")]
+[node name="DollAttachPoint3" parent="MyCanineHeadRig/Skeleton3D" index="11" unique_id=1544820089 instance=ExtResource("4_eq6bc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
 [node name="AnimationPlayer" parent="." index="1"]
 active = false
 
-[node name="HeadLayeredTexture" parent="." index="2" instance=ExtResource("4_qelme")]
+[node name="HeadLayeredTexture" parent="." index="2" unique_id=1149174210 instance=ExtResource("4_qelme")]
 unique_name_in_owner = true
 resolution = Vector2i(1024, 1024)
 clearColor = Color(1, 1, 1, 1)
 graphicsOptionAutoScale = 1
 
-[node name="FaceAnimator" parent="." index="3" node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("5_eq6bc")]
+[node name="FaceAnimator" parent="." index="3" unique_id=1789587346 node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("5_eq6bc")]
 unique_name_in_owner = true
 dollPart = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")
