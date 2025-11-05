@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bsvcqb56uvnho" path="res://Game/PawnRegistry/pawn_registry.gd" id="1_22nx3"]
 
-[node name="PawnRegistry" type="Node3D"]
+[node name="PawnRegistry" type="Node3D" unique_id=381334533]
 script = ExtResource("1_22nx3")

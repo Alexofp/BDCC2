@@ -4,21 +4,21 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="1_v2lw4"]
 [ext_resource type="PackedScene" uid="uid://bgt2li4nf7yr2" path="res://Mesh/Clothing/NippleClampsWeight/nipple_clamp_weight.tscn" id="4_qd1sm"]
 
-[node name="NippleClampsWeight" type="Node3D"]
+[node name="NippleClampsWeight" type="Node3D" unique_id=1930503881]
 script = ExtResource("1_7wv02")
 
-[node name="NippleL" type="Node3D" parent="."]
+[node name="NippleL" type="Node3D" parent="." unique_id=656195315]
 unique_name_in_owner = true
 script = ExtResource("1_v2lw4")
 attachPoint = "nipple.L"
 
-[node name="NippleClampWeightL" parent="NippleL" instance=ExtResource("4_qd1sm")]
+[node name="NippleClampWeightL" parent="NippleL" unique_id=1397389947 instance=ExtResource("4_qd1sm")]
 unique_name_in_owner = true
 
-[node name="NippleR" type="Node3D" parent="."]
+[node name="NippleR" type="Node3D" parent="." unique_id=256512690]
 unique_name_in_owner = true
 script = ExtResource("1_v2lw4")
 attachPoint = "nipple.R"
 
-[node name="NippleClampWeightR" parent="NippleR" instance=ExtResource("4_qd1sm")]
+[node name="NippleClampWeightR" parent="NippleR" unique_id=1788648202 instance=ExtResource("4_qd1sm")]
 unique_name_in_owner = true

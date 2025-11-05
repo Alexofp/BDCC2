@@ -24,22 +24,22 @@ properties/3/path = NodePath(".:angular_velocity")
 properties/3/spawn = true
 properties/3/replication_mode = 2
 
-[node name="DroppedItem" type="RigidBody3D"]
+[node name="DroppedItem" type="RigidBody3D" unique_id=1380201766]
 script = ExtResource("1_atdrf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=738776128]
 mesh = SubResource("BoxMesh_2egym")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2083478887]
 shape = SubResource("BoxShape3D_atdrf")
 
-[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1392425733]
 delta_interval = 0.1
 replication_config = SubResource("SceneReplicationConfig_fksqb")
 script = ExtResource("2_dfky5")
 metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
 
-[node name="Interactable" parent="." instance=ExtResource("3_fksqb")]
+[node name="Interactable" parent="." unique_id=1462583728 instance=ExtResource("3_fksqb")]
 unique_name_in_owner = true
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

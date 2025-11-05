@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" uid="uid://b6fu1vluvuqli" path="res://Game/Sex/UI/sex_participant_ui_entry.gd" id="1_axb4f"]
 
-[node name="SexParticipantUIEntry" type="VBoxContainer"]
+[node name="SexParticipantUIEntry" type="VBoxContainer" unique_id=872508986]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 54.0
 grow_horizontal = 2
 script = ExtResource("1_axb4f")
 
-[node name="NameLabel" type="Label" parent="."]
+[node name="NameLabel" type="Label" parent="." unique_id=1849880356]
 unique_name_in_owner = true
 layout_mode = 2
 text = "NAME"
 
-[node name="DebugSwitchButton" type="Button" parent="NameLabel"]
+[node name="DebugSwitchButton" type="Button" parent="NameLabel" unique_id=1861922491]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -25,13 +25,13 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "SwitchTo"
 
-[node name="StatusLabel" type="RichTextLabel" parent="."]
+[node name="StatusLabel" type="RichTextLabel" parent="." unique_id=287949972]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
-[node name="ArousalBar" type="ProgressBar" parent="."]
+[node name="ArousalBar" type="ProgressBar" parent="." unique_id=1738272620]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0

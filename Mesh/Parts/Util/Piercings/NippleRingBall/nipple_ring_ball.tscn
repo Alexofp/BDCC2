@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://rmw0pgghdojq" path="res://Mesh/Parts/Util/Piercings/NippleRingBall/nipple_ring_ball.gd" id="2_n2ev7"]
 [ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="3_uq1os"]
 
-[node name="NippleRingBall" instance=ExtResource("1_aqwjc")]
+[node name="NippleRingBall" unique_id=1622023056 instance=ExtResource("1_aqwjc")]
 script = ExtResource("2_n2ev7")
 
-[node name="RingBall" parent="." index="0"]
+[node name="RingBall" parent="." index="0" unique_id=1982778209]
 unique_name_in_owner = true
 transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, -0.005)
 surface_material_override/0 = ExtResource("3_uq1os")

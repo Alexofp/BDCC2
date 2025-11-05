@@ -8,22 +8,22 @@ size = Vector3(4, 0.10704, 0.500001)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_7kyk7"]
 size = Vector2(4, 0.500001)
 
-[node name="TileTrimLights4x05Bumpy" instance=ExtResource("1_lk4vc")]
+[node name="TileTrimLights4x05Bumpy" unique_id=227362022 instance=ExtResource("1_lk4vc")]
 
-[node name="TileTrimLights4x05Bumpy" parent="." index="0"]
+[node name="TileTrimLights4x05Bumpy" parent="." index="0" unique_id=1035369832]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TileTrimLights4x05Bumpy" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TileTrimLights4x05Bumpy" index="0" unique_id=1663861671]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0338814, 0.25)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TileTrimLights4x05Bumpy/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileTrimLights4x05Bumpy/StaticBody3D" index="0" unique_id=431161849]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0201947, 0)
 shape = SubResource("BoxShape3D_bshxs")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileTrimLights4x05Bumpy" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileTrimLights4x05Bumpy" index="1" unique_id=134168067]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0338814, 0.25)
 occluder = SubResource("QuadOccluder3D_7kyk7")

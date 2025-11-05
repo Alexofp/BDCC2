@@ -6,17 +6,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qd2qv"]
 size = Vector3(0.8, 0.105696, 3.36)
 
-[node name="MiddlePieceCutout1x3" instance=ExtResource("1_t41q5")]
+[node name="MiddlePieceCutout1x3" unique_id=1677271231 instance=ExtResource("1_t41q5")]
 script = ExtResource("2_sdloa")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 
-[node name="MiddlePieceCutout1x3" parent="." index="0"]
+[node name="MiddlePieceCutout1x3" parent="." index="0" unique_id=915799230]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MiddlePieceCutout1x3" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="MiddlePieceCutout1x3" index="0" unique_id=176866083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000601791, -1.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MiddlePieceCutout1x3/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiddlePieceCutout1x3/StaticBody3D" index="0" unique_id=1005470821]
 shape = SubResource("BoxShape3D_qd2qv")

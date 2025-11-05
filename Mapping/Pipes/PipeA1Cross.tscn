@@ -5,21 +5,21 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ubptb"]
 size = Vector3(0.4, 0.4, 1)
 
-[node name="PipeA1Cross" instance=ExtResource("1_skoi2")]
+[node name="PipeA1Cross" unique_id=309553324 instance=ExtResource("1_skoi2")]
 
-[node name="PipeA1Cross" parent="." index="0"]
+[node name="PipeA1Cross" parent="." index="0" unique_id=1465289047]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Cross" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Cross" index="0" unique_id=1009141706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.98023e-08, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="0" unique_id=1545316394]
 shape = SubResource("BoxShape3D_ubptb")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1Cross/StaticBody3D" index="1" unique_id=1606934562]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 shape = SubResource("BoxShape3D_ubptb")

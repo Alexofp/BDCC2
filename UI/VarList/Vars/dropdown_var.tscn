@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://ch7m871l7feql" path="res://UI/VarList/Vars/dropdown_var.gd" id="1_pvjin"]
 
-[node name="DropdownVar" type="VBoxContainer"]
+[node name="DropdownVar" type="VBoxContainer" unique_id=266116462]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_pvjin")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=738207871]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=511757861]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer" unique_id=757005515]
 layout_mode = 2
 size_flags_horizontal = 3
 

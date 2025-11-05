@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cd3knq35muy7y" path="res://AnimScenes/anim_scene_spawner.gd" id="1_ni7nc"]
 
-[node name="AnimSceneSpawner" type="Node3D"]
+[node name="AnimSceneSpawner" type="Node3D" unique_id=178850829]
 script = ExtResource("1_ni7nc")

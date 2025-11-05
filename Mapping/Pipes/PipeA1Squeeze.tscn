@@ -5,17 +5,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlc4n"]
 size = Vector3(0.4, 0.4, 1)
 
-[node name="PipeA1Squeeze" instance=ExtResource("1_y5ltt")]
+[node name="PipeA1Squeeze" unique_id=1169433134 instance=ExtResource("1_y5ltt")]
 
-[node name="PipeA1Squeeze" parent="." index="0"]
+[node name="PipeA1Squeeze" parent="." index="0" unique_id=1576313532]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Squeeze" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1Squeeze" index="0" unique_id=837366089]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49012e-08, -2.98023e-08, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Squeeze/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1Squeeze/StaticBody3D" index="0" unique_id=755721826]
 shape = SubResource("BoxShape3D_jlc4n")

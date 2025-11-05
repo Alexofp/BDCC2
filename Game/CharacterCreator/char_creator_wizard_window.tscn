@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_7ajhi"]
 [ext_resource type="Script" uid="uid://7yn8pc5re2qc" path="res://Game/CharacterCreator/char_creator_wizard_window.gd" id="1_sflvd"]
 
-[node name="CharCreatorWizardWindow" type="ConfirmationDialog"]
+[node name="CharCreatorWizardWindow" type="ConfirmationDialog" unique_id=1800277371]
 auto_translate_mode = 1
 oversampling_override = 1.0
 title = "Character Creator Wizard"
@@ -11,8 +11,8 @@ size = Vector2i(400, 300)
 visible = true
 script = ExtResource("1_sflvd")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-anchors_preset = -1
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=455225691]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -22,11 +22,11 @@ offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1154821093]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CharWizardVarList" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_7ajhi")]
+[node name="CharWizardVarList" parent="ScrollContainer/VBoxContainer" unique_id=446198234 instance=ExtResource("1_7ajhi")]
 unique_name_in_owner = true
 layout_mode = 2
 

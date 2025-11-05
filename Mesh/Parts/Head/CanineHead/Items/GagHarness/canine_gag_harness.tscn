@@ -5,23 +5,23 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_kirqq"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_surox"]
 
-[node name="CanineGagHarness" type="Node3D"]
+[node name="CanineGagHarness" type="Node3D" unique_id=2066724838]
 script = ExtResource("1_loih6")
 
-[node name="Gag" parent="." instance=ExtResource("2_6sqcq")]
+[node name="Gag" parent="." unique_id=1333695797 instance=ExtResource("2_6sqcq")]
 script = ExtResource("3_kirqq")
 attachPoint = "head_items"
 
-[node name="HeadHarness" parent="Gag" index="0"]
+[node name="HeadHarness" parent="Gag" index="0" unique_id=383319361]
 surface_material_override/0 = ExtResource("4_surox")
 
-[node name="BallGagModule" parent="Gag" index="1"]
+[node name="BallGagModule" parent="Gag" index="1" unique_id=194564865]
 surface_material_override/0 = ExtResource("4_surox")
 
-[node name="RingGagModule" parent="Gag" index="2"]
+[node name="RingGagModule" parent="Gag" index="2" unique_id=582835881]
 surface_material_override/0 = ExtResource("4_surox")
 
-[node name="BottomStrap" parent="Gag" index="3"]
+[node name="BottomStrap" parent="Gag" index="3" unique_id=718747012]
 surface_material_override/0 = ExtResource("4_surox")
 
 [editable path="Gag"]

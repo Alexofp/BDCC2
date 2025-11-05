@@ -17,16 +17,15 @@ metadata/_custom_type_script = ExtResource("6_1rmel")
 [node name="FluffyTail" unique_id=1069024568 instance=ExtResource("1_8mtt8")]
 script = ExtResource("2_t05te")
 
-[node name="FluffyTailRig" parent="." index="0"]
+[node name="FluffyTailRig" parent="." index="0" unique_id=330302509]
 script = ExtResource("2_mv6ag")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="FluffyTailRig" index="0"]
+[node name="Skeleton3D" parent="FluffyTailRig" index="0" unique_id=1707329259]
 bones/0/rotation = Quaternion(-0.7071068, 0, 0, 0.7071068)
 
-[node name="FluffyTail" parent="FluffyTailRig/Skeleton3D" index="0"]
+[node name="FluffyTail" parent="FluffyTailRig/Skeleton3D" index="0" unique_id=601993890]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_yqbby")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="FluffyTailRig/Skeleton3D" index="1" unique_id=1555290975]
@@ -183,6 +182,6 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_tcgpt")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="1" unique_id=362648927]
 unique_name_in_owner = true
 autoplay = &"TailTPose"

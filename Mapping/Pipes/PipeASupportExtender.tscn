@@ -5,17 +5,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_xarj0"]
 size = Vector3(0.277632, 1, 0.0289002)
 
-[node name="PipeASupportExtender" instance=ExtResource("1_teps1")]
+[node name="PipeASupportExtender" unique_id=1533786840 instance=ExtResource("1_teps1")]
 
-[node name="PipeASupportExtender" parent="." index="0"]
+[node name="PipeASupportExtender" parent="." index="0" unique_id=1044136954]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PipeASupportExtender" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeASupportExtender" index="0" unique_id=1317544014]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, -0.5, 1.95578e-08)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeASupportExtender/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeASupportExtender/StaticBody3D" index="0" unique_id=381297470]
 shape = SubResource("BoxShape3D_xarj0")

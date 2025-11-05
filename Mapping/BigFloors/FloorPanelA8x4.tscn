@@ -9,7 +9,7 @@ size = Vector3(8, 0.0685424, 4)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_65xol"]
 size = Vector2(8, 4)
 
-[node name="FloorPanelA8x4" instance=ExtResource("1_muayf")]
+[node name="FloorPanelA8x4" unique_id=36933533 instance=ExtResource("1_muayf")]
 script = ExtResource("2_fy7h1")
 roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -17,19 +17,19 @@ color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.13333334, 0.13333334, 0.13333334, 1)
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="FloorPanelA8x4" parent="." index="0"]
+[node name="FloorPanelA8x4" parent="." index="0" unique_id=842681093]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="FloorPanelA8x4" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="FloorPanelA8x4" index="0" unique_id=27323086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0327302, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorPanelA8x4/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorPanelA8x4/StaticBody3D" index="0" unique_id=1513834310]
 shape = SubResource("BoxShape3D_i0ilp")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="FloorPanelA8x4" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="FloorPanelA8x4" index="1" unique_id=2094236530]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0327302, 0)
 occluder = SubResource("QuadOccluder3D_65xol")

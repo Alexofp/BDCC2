@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cv0j0e44rm1ss" path="res://UI/VarList/Util/texture_variant_selector_window.gd" id="1_b1iij"]
 
-[node name="TextureVariantSelectorWindow" type="ConfirmationDialog"]
+[node name="TextureVariantSelectorWindow" type="ConfirmationDialog" unique_id=1228414530]
 oversampling_override = 1.0
 title = "Select texture"
 size = Vector2i(400, 500)
 visible = true
 script = ExtResource("1_b1iij")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1903451864]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 392.0
 offset_bottom = 451.0
 
-[node name="TextureVariantList" type="ItemList" parent="VBoxContainer"]
+[node name="TextureVariantList" type="ItemList" parent="VBoxContainer" unique_id=2122309850]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

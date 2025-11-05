@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b0nggqit6xbyk" path="res://Game/Doll/FaceAnimator/face_animator.gd" id="1_3wsd5"]
 
-[node name="FaceAnimator" type="Node"]
+[node name="FaceAnimator" type="Node" unique_id=687877106]
 script = ExtResource("1_3wsd5")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=62332123]
 unique_name_in_owner = true

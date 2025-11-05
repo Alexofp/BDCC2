@@ -42,51 +42,51 @@ properties/6/replication_mode = 2
 height = 2.6
 radius = 1.6
 
-[node name="DollController" type="CharacterBody3D"]
+[node name="DollController" type="CharacterBody3D" unique_id=1734871238]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_k0gws")
 
-[node name="CollisionShape" type="CollisionShape3D" parent="."]
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1613469533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_n8w0r")
 
-[node name="ModelRoot" type="Node3D" parent="."]
+[node name="ModelRoot" type="Node3D" parent="." unique_id=1539038295]
 unique_name_in_owner = true
 
-[node name="Doll" parent="ModelRoot" instance=ExtResource("1_n8w0r")]
+[node name="Doll" parent="ModelRoot" unique_id=1671944277 instance=ExtResource("1_n8w0r")]
 unique_name_in_owner = true
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1267164480]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
 
-[node name="SpringArm" type="SpringArm3D" parent="CameraPivot"]
+[node name="SpringArm" type="SpringArm3D" parent="CameraPivot" unique_id=770331540]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 shape = SubResource("SeparationRayShape3D_k0gws")
 
-[node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm" node_paths=PackedStringArray("doll")]
+[node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm" unique_id=1873960681 node_paths=PackedStringArray("doll")]
 unique_name_in_owner = true
 fov = 60.0
 script = ExtResource("3_5wuau")
 doll = NodePath("../../..")
 cameraActive = true
 
-[node name="Interactor" parent="." node_paths=PackedStringArray("user") instance=ExtResource("3_qvvrb")]
+[node name="Interactor" parent="." unique_id=1587867208 node_paths=PackedStringArray("user") instance=ExtResource("3_qvvrb")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809213, 0)
 user = NodePath("..")
 
-[node name="DollControls" parent="." instance=ExtResource("5_5o600")]
+[node name="DollControls" parent="." unique_id=565376115 instance=ExtResource("5_5o600")]
 unique_name_in_owner = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=282587935]
 replication_config = SubResource("SceneReplicationConfig_gv77k")
 public_visibility = false
 script = ExtResource("7_pwrse")
 
-[node name="OtherDollsArea" type="Area3D" parent="."]
+[node name="OtherDollsArea" type="Area3D" parent="." unique_id=758608662]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809, 0)
 collision_layer = 0
@@ -94,7 +94,7 @@ collision_mask = 2
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OtherDollsArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OtherDollsArea" unique_id=1849079194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_l1oh5")
 

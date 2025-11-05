@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://cgyfp5c3x3xeh" path="res://Mesh/Parts/Util/Piercings/NippleCross/nipple_cross.gd" id="2_qth4p"]
 [ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="2_qwwrx"]
 
-[node name="NippleCross" instance=ExtResource("1_aay42")]
+[node name="NippleCross" unique_id=718442020 instance=ExtResource("1_aay42")]
 script = ExtResource("2_qth4p")
 
-[node name="Cross" parent="." index="0"]
+[node name="Cross" parent="." index="0" unique_id=1818476304]
 unique_name_in_owner = true
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, -0.004)
 surface_material_override/0 = ExtResource("2_qwwrx")

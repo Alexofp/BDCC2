@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7kucjg7jcmue" path="res://Game/UI/CharacterMenu/posing_menu.gd" id="1_c3i6e"]
 
-[node name="PosingMenu" type="VBoxContainer"]
+[node name="PosingMenu" type="VBoxContainer" unique_id=1505609008]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,39 +12,39 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_c3i6e")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1404999002]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1339451724]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1551660085]
 layout_mode = 2
 text = "Poses"
 
-[node name="FullBodyAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="FullBodyAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=1779849484]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=340662428]
 layout_mode = 2
 text = "Arm poses"
 
-[node name="ArmAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="ArmAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=1811833082]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=112939341]
 layout_mode = 2
 text = "Gestures"
 
-[node name="GestureAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="GestureAnimList" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=1183114323]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="StopAllButton" type="Button" parent="."]
+[node name="StopAllButton" type="Button" parent="." unique_id=550988200]
 layout_mode = 2
 text = "Stop all"
 

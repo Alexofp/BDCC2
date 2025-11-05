@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" uid="uid://b450p6gvto5on" path="res://UI/VarList/Vars/slider_var.gd" id="1_actpp"]
 
-[node name="SliderVar" type="VBoxContainer"]
+[node name="SliderVar" type="VBoxContainer" unique_id=1124961091]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_actpp")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1620444735]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1571030126]
 layout_mode = 2
 text = "Label"
 
-[node name="HSlider" type="HSlider" parent="HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="HBoxContainer" unique_id=278351227]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -26,7 +26,7 @@ allow_greater = true
 allow_lesser = true
 scrollable = false
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=440133248]
 layout_mode = 2
 min_value = -100.0
 step = 0.01

@@ -2,19 +2,19 @@
 
 [ext_resource type="PackedScene" uid="uid://r2upk7vpgdgp" path="res://Mapping/Walls/DoorA2x3.tscn" id="1_v6ahl"]
 
-[node name="DoorA2x3Closed" instance=ExtResource("1_v6ahl")]
+[node name="DoorA2x3Closed" unique_id=207578750 instance=ExtResource("1_v6ahl")]
 
-[node name="DoorCollision" parent="DoorFrameA2x3/StaticBody3D" index="4"]
+[node name="DoorCollision" parent="DoorFrameA2x3/StaticBody3D" parent_id_path=PackedInt32Array(452666378) index="4" unique_id=862252277]
 disabled = false
 
-[node name="DoorA2x3" parent="." index="1"]
+[node name="DoorA2x3" parent="." index="1" unique_id=647310646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA2x3_lod1" parent="." index="5"]
+[node name="DoorA2x3_lod1" parent="." index="5" unique_id=896434561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA2x3_lod2" parent="." index="6"]
+[node name="DoorA2x3_lod2" parent="." index="6" unique_id=1150043411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA2x3_lod3" parent="." index="7"]
+[node name="DoorA2x3_lod3" parent="." index="7" unique_id=1146427675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

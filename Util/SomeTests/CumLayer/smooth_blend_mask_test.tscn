@@ -12,9 +12,10 @@ shader = ExtResource("1_ydsvb")
 shader_parameter/cutoff = 0.5
 shader_parameter/smooth_size = 0.2
 shader_parameter/mask = SubResource("NoiseTexture2D_pmf4c")
+shader_parameter/alpha_mask_scroll = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 
-[node name="SmoothBlendMaskTest" type="Control"]
+[node name="SmoothBlendMaskTest" type="Control" unique_id=570543853]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=350519166]
 material = SubResource("ShaderMaterial_rrq33")
 layout_mode = 1
 anchors_preset = 15

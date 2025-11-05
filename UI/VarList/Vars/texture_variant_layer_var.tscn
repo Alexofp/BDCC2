@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1d7bqikjwtrm" path="res://UI/VarList/Vars/texture_variant_layer_var.gd" id="1_2lgvh"]
 
-[node name="texture_variant_layer_var" type="HBoxContainer"]
+[node name="texture_variant_layer_var" type="HBoxContainer" unique_id=1863011291]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
@@ -10,20 +10,20 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_2lgvh")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=43714342]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=758072735]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SelectTextureIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+[node name="SelectTextureIcon" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=2015218659]
 unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 2
 
-[node name="SelectTextureButton" type="TextureButton" parent="MarginContainer/HBoxContainer/SelectTextureIcon"]
+[node name="SelectTextureButton" type="TextureButton" parent="MarginContainer/HBoxContainer/SelectTextureIcon" unique_id=476743388]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,44 +31,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SelectTextureVarButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="SelectTextureVarButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=589741940]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="TexSelectorButton" type="OptionButton" parent="."]
+[node name="TexSelectorButton" type="OptionButton" parent="." unique_id=2085269641]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 autowrap_mode = 3
 
-[node name="ColorRectR" type="ColorPickerButton" parent="."]
+[node name="ColorRectR" type="ColorPickerButton" parent="." unique_id=389897885]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="ColorRectG" type="ColorPickerButton" parent="."]
+[node name="ColorRectG" type="ColorPickerButton" parent="." unique_id=2032060523]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="ColorRectB" type="ColorPickerButton" parent="."]
+[node name="ColorRectB" type="ColorPickerButton" parent="." unique_id=631602908]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="UpButton" type="Button" parent="."]
+[node name="UpButton" type="Button" parent="." unique_id=9190658]
 layout_mode = 2
 text = "^"
 
-[node name="DownButton" type="Button" parent="."]
+[node name="DownButton" type="Button" parent="." unique_id=757735612]
 layout_mode = 2
 text = "v"
 
-[node name="DeleteButton" type="Button" parent="."]
+[node name="DeleteButton" type="Button" parent="." unique_id=287687770]
 layout_mode = 2
 text = "x"
 

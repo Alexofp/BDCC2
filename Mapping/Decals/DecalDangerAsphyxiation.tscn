@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://doyfv6foo6511" path="res://Mapping/Decals/Raw/DecalDangerAsphyxiation.glb" id="1_0o2jt"]
 
-[node name="DecalDangerAsphyxiation" instance=ExtResource("1_0o2jt")]
+[node name="DecalDangerAsphyxiation" unique_id=1114502252 instance=ExtResource("1_0o2jt")]
 
-[node name="DecalDangerAsphyxiation" parent="." index="0"]
+[node name="DecalDangerAsphyxiation" parent="." index="0" unique_id=1144568844]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

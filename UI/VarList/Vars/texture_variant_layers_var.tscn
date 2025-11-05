@@ -3,32 +3,32 @@
 [ext_resource type="Script" uid="uid://daxngot57ha8d" path="res://UI/VarList/Vars/texture_variant_layers_var.gd" id="1_ipda3"]
 [ext_resource type="PackedScene" uid="uid://bvfase7g7yitn" path="res://UI/VarList/Vars/texture_variant_layer_var.tscn" id="2_bkwga"]
 
-[node name="TextureVariantLayersVar" type="VBoxContainer"]
+[node name="TextureVariantLayersVar" type="VBoxContainer" unique_id=1485306375]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_ipda3")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1356919431]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1117891315]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="LayerList" type="VBoxContainer" parent="ScrollContainer"]
+[node name="LayerList" type="VBoxContainer" parent="ScrollContainer" unique_id=474402406]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="texture_variant_layer_var" parent="ScrollContainer/LayerList" instance=ExtResource("2_bkwga")]
+[node name="texture_variant_layer_var" parent="ScrollContainer/LayerList" unique_id=1715399150 instance=ExtResource("2_bkwga")]
 layout_mode = 2
 
-[node name="AddButton" type="Button" parent="."]
+[node name="AddButton" type="Button" parent="." unique_id=189710654]
 layout_mode = 2
 text = "Add layer"
 

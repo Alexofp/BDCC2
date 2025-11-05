@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://iqhr5j8jn2v5" path="res://Game/Character/Preset/UI/character_preset_selector.gd" id="1_ew84b"]
 
-[node name="CharacterPresetSelector" type="VBoxContainer"]
+[node name="CharacterPresetSelector" type="VBoxContainer" unique_id=2101549601]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,11 +10,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ew84b")
 
-[node name="PresetPackSelector" type="OptionButton" parent="."]
+[node name="PresetPackSelector" type="OptionButton" parent="." unique_id=1890902971]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PresetList" type="ItemList" parent="."]
+[node name="PresetList" type="ItemList" parent="." unique_id=1428653219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

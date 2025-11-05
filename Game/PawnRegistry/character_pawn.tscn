@@ -20,25 +20,25 @@ properties/3/path = NodePath("DollNode:UID")
 properties/3/spawn = true
 properties/3/replication_mode = 2
 
-[node name="CharacterPawn" type="Node3D"]
+[node name="CharacterPawn" type="Node3D" unique_id=1874192382]
 script = ExtResource("1_7fod6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1206652010]
 transform = Transform3D(0.311408, 0, 0, 0, 0.311408, 0, 0, 0, 0.311408, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_7fod6")
 
-[node name="DollNode" type="Node" parent="."]
+[node name="DollNode" type="Node" parent="." unique_id=1622404266]
 unique_name_in_owner = true
 script = ExtResource("2_274nk")
 metadata/_custom_type_script = "uid://624kjj0em1a2"
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1544359923]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_1pxof")
 public_visibility = false
 script = ExtResource("2_1pxof")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=154456708]
 unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5

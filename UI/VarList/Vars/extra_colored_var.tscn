@@ -2,42 +2,42 @@
 
 [ext_resource type="Script" uid="uid://dnq3unur1ch6g" path="res://UI/VarList/Vars/extra_colored_var.gd" id="1_7hqh2"]
 
-[node name="ExtraColoredVar" type="VBoxContainer"]
+[node name="ExtraColoredVar" type="VBoxContainer" unique_id=1758931048]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_7hqh2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2090451436]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1347453665]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer" unique_id=2104503454]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorPicker1" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="ColorPicker1" type="ColorPickerButton" parent="HBoxContainer" unique_id=1840391720]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="ColorPicker2" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="ColorPicker2" type="ColorPickerButton" parent="HBoxContainer" unique_id=949142582]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="ColorPicker3" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="ColorPicker3" type="ColorPickerButton" parent="HBoxContainer" unique_id=108518906]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="ColorPicker4" type="ColorPickerButton" parent="HBoxContainer"]
+[node name="ColorPicker4" type="ColorPickerButton" parent="HBoxContainer" unique_id=580559379]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2

@@ -20,10 +20,10 @@ properties/4/path = NodePath(".:move_direction_no_y")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 
-[node name="DollControls" type="Node"]
+[node name="DollControls" type="Node" unique_id=349811379]
 script = ExtResource("1_llr63")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1781765980]
 replication_config = SubResource("SceneReplicationConfig_llr63")
 public_visibility = false
 script = ExtResource("2_uhpff")

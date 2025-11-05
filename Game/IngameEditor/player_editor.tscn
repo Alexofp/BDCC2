@@ -27,27 +27,27 @@ bg_color = Color(1, 1, 1, 0.117647)
 [sub_resource type="BoxMesh" id="BoxMesh_ns5e5"]
 size = Vector3(0.01, 0.01, 0.01)
 
-[node name="PlayerEditor" type="CharacterBody3D"]
+[node name="PlayerEditor" type="CharacterBody3D" unique_id=2012755303]
 script = ExtResource("1_hrol8")
 
-[node name="StandCollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="StandCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1801254229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_edok2")
 
-[node name="CrotchCollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CrotchCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1422640402]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 shape = SubResource("CapsuleShape3D_xp027")
 disabled = true
 
-[node name="HeadPivot" type="Node3D" parent="."]
+[node name="HeadPivot" type="Node3D" parent="." unique_id=1460638015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="Camera3D" type="Camera3D" parent="HeadPivot"]
+[node name="Camera3D" type="Camera3D" parent="HeadPivot" unique_id=231865769]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 current = true
 
-[node name="FlashlightLight" type="SpotLight3D" parent="HeadPivot/Camera3D"]
+[node name="FlashlightLight" type="SpotLight3D" parent="HeadPivot/Camera3D" unique_id=1483983143]
 unique_name_in_owner = true
 visible = false
 light_energy = 3.0
@@ -55,32 +55,32 @@ light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 spot_range = 15.0
 
-[node name="OmniFlashlight" type="OmniLight3D" parent="HeadPivot/Camera3D"]
+[node name="OmniFlashlight" type="OmniLight3D" parent="HeadPivot/Camera3D" unique_id=1040221366]
 unique_name_in_owner = true
 visible = false
 light_energy = 7.871
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HeadPivot/Camera3D" unique_id=1423218062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228998, 0, -1.02298)
 visible = false
 mesh = SubResource("SphereMesh_7180x")
 surface_material_override/0 = SubResource("StandardMaterial3D_mk3i1")
 
-[node name="UncrouchArea" type="Area3D" parent="."]
+[node name="UncrouchArea" type="Area3D" parent="." unique_id=634608396]
 collision_layer = 0
 collision_mask = 255
 input_ray_pickable = false
 
-[node name="StandCollisionShape3D" type="CollisionShape3D" parent="UncrouchArea"]
+[node name="StandCollisionShape3D" type="CollisionShape3D" parent="UncrouchArea" unique_id=121992423]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91, 0)
 shape = SubResource("CapsuleShape3D_edok2")
 
-[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+[node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=977128483]
 unique_name_in_owner = true
 
-[node name="EditorUI" type="Control" parent="UICanvasLayer"]
+[node name="EditorUI" type="Control" parent="UICanvasLayer" unique_id=76416779]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,7 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ToolRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI"]
+[node name="ToolRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI" unique_id=376692071]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 29.0
@@ -99,7 +99,7 @@ offset_bottom = 108.0
 bbcode_enabled = true
 fit_content = true
 
-[node name="MessagesRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI"]
+[node name="MessagesRichText" type="RichTextLabel" parent="UICanvasLayer/EditorUI" unique_id=1582916680]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -121,10 +121,10 @@ asd
 asd"
 scroll_active = false
 
-[node name="EditorCanvasLayer" type="CanvasLayer" parent="."]
+[node name="EditorCanvasLayer" type="CanvasLayer" parent="." unique_id=351873466]
 unique_name_in_owner = true
 
-[node name="EditorUI" type="Control" parent="EditorCanvasLayer"]
+[node name="EditorUI" type="Control" parent="EditorCanvasLayer" unique_id=801397729]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -133,7 +133,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI"]
+[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI" unique_id=923041444]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -145,13 +145,13 @@ offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer" unique_id=1891581871]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer" unique_id=710678903]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+[node name="File" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar" unique_id=1708594825]
 item_count = 9
 item_0/text = "Clear map"
 item_0/id = 0
@@ -172,7 +172,7 @@ item_7/separator = true
 item_8/text = "Exit"
 item_8/id = 8
 
-[node name="View" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+[node name="View" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar" unique_id=245718142]
 auto_translate_mode = 1
 item_count = 6
 item_0/text = "Regenerate icons"
@@ -188,7 +188,7 @@ item_4/id = 4
 item_5/text = "Toggle Global Illumination"
 item_5/id = 5
 
-[node name="Editor" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar"]
+[node name="Editor" type="PopupMenu" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar" unique_id=1842484418]
 auto_translate_mode = 1
 item_count = 3
 item_0/text = "Toggle platform"
@@ -198,46 +198,46 @@ item_1/id = 1
 item_2/text = "Open maps folder"
 item_2/id = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer" unique_id=1923743210]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer" unique_id=58956782]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="Label" type="Label" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1425119395]
 layout_mode = 2
 text = "Tools"
 
-[node name="ToolItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ToolItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=288452137]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer" unique_id=62588221]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=31417243]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VSplitContainer" type="VSplitContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=2083209848]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PropBrowser" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer"]
+[node name="PropBrowser" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer" unique_id=736067594]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CategoryButtonsList" type="HFlowContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser"]
+[node name="CategoryButtonsList" type="HFlowContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser" unique_id=1371663455]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PropItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser"]
+[node name="PropItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/PropBrowser" unique_id=1496851507]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -247,46 +247,46 @@ fixed_column_width = 128
 icon_mode = 0
 fixed_icon_size = Vector2i(128, 128)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer" unique_id=1909752320]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer" unique_id=1659250401]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PanelContainer2" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=617240273]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3nmtm")
 
-[node name="PropVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer2" instance=ExtResource("2_xl10o")]
+[node name="PropVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer2" unique_id=137441738 instance=ExtResource("2_xl10o")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1035757556]
 layout_mode = 2
 
-[node name="ResetPropSettingsButton" type="Button" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="ResetPropSettingsButton" type="Button" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1257187599]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset prop settings"
 
-[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1921970924]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3nmtm")
 
-[node name="ToolVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer" instance=ExtResource("2_xl10o")]
+[node name="ToolVarList" parent="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/VSplitContainer/ScrollContainer/VBoxContainer/PanelContainer" unique_id=1220226680 instance=ExtResource("2_xl10o")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SaveFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+[node name="SaveFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI" unique_id=1160836800]
 unique_name_in_owner = true
 size = Vector2i(567, 430)
 access = 2
 filters = PackedStringArray("*.res")
 
-[node name="OpenFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+[node name="OpenFileDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI" unique_id=1884721963]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open a File"
@@ -296,7 +296,7 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.res")
 
-[node name="OpenTemplateDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI"]
+[node name="OpenTemplateDialog" type="FileDialog" parent="EditorCanvasLayer/EditorUI" unique_id=1630953375]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open a File"
@@ -306,34 +306,33 @@ file_mode = 0
 root_subfolder = "res://Game/IngameEditor/Templates"
 filters = PackedStringArray("*.res")
 
-[node name="MyTemplateDialog" type="ConfirmationDialog" parent="EditorCanvasLayer/EditorUI"]
+[node name="MyTemplateDialog" type="ConfirmationDialog" parent="EditorCanvasLayer/EditorUI" unique_id=235576534]
 unique_name_in_owner = true
 title = "Select template"
 size = Vector2i(400, 300)
 ok_button_text = "Load"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog"]
-anchors_preset = -1
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog" unique_id=1765221623]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 392.0
 offset_bottom = 251.0
 size_flags_vertical = 3
 
-[node name="TemplateItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog/VBoxContainer"]
+[node name="TemplateItemList" type="ItemList" parent="EditorCanvasLayer/EditorUI/MyTemplateDialog/VBoxContainer" unique_id=1589839556]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CursorTarget" type="Node3D" parent="."]
+[node name="CursorTarget" type="Node3D" parent="." unique_id=688553186]
 top_level = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CursorTarget"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CursorTarget" unique_id=1116419998]
 gi_mode = 2
 mesh = SubResource("BoxMesh_ns5e5")
 skeleton = NodePath("../..")
 
-[node name="PCEditorAssetStash" parent="." instance=ExtResource("2_mo0es")]
+[node name="PCEditorAssetStash" parent="." unique_id=213754926 instance=ExtResource("2_mo0es")]
 
 [connection signal="id_pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar/File" to="." method="_on_file_id_pressed"]
 [connection signal="id_pressed" from="EditorCanvasLayer/EditorUI/PanelContainer/VBoxContainer/MenuBar/View" to="." method="_on_view_id_pressed"]

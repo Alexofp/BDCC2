@@ -21,29 +21,29 @@ properties/0/path = NodePath(".:isVag")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="TestSexHandler" type="Node3D" groups=["Networked"]]
+[node name="TestSexHandler" type="Node3D" unique_id=774165347 groups=["Networked"]]
 script = ExtResource("1_i7yjc")
 
-[node name="AnimSceneSpawner" parent="." instance=ExtResource("2_3cg0x")]
+[node name="AnimSceneSpawner" parent="." unique_id=1050778130 instance=ExtResource("2_3cg0x")]
 unique_name_in_owner = true
 scene = ExtResource("3_bmayg")
 
-[node name="Interactable" parent="." instance=ExtResource("4_fyd4t")]
+[node name="Interactable" parent="." unique_id=1008103184 instance=ExtResource("4_fyd4t")]
 unique_name_in_owner = true
 
-[node name="BallTop" type="MeshInstance3D" parent="."]
+[node name="BallTop" type="MeshInstance3D" parent="." unique_id=1684872228]
 unique_name_in_owner = true
 transform = Transform3D(0.283393, 0, 0, 0, 0.283393, 0, 0, 0, 0.283393, 0, 0.489418, 0)
 mesh = SubResource("SphereMesh_i7yjc")
 surface_material_override/0 = SubResource("StandardMaterial3D_3cg0x")
 
-[node name="BallBottom" type="MeshInstance3D" parent="."]
+[node name="BallBottom" type="MeshInstance3D" parent="." unique_id=1915686]
 unique_name_in_owner = true
 transform = Transform3D(0.283393, 0, 0, 0, 0.283393, 0, 0, 0, 0.283393, 0, 0.784748, 0)
 mesh = SubResource("SphereMesh_i7yjc")
 surface_material_override/0 = SubResource("StandardMaterial3D_bmayg")
 
-[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1851541253]
 replication_config = SubResource("SceneReplicationConfig_bmayg")
 script = ExtResource("5_3cg0x")
 metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

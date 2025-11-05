@@ -2,33 +2,33 @@
 
 [ext_resource type="Script" uid="uid://y2hggbfsr4cw" path="res://UI/VarList/Vars/gender_profile_var.gd" id="1_cwu47"]
 
-[node name="GenderProfileVar" type="VBoxContainer"]
+[node name="GenderProfileVar" type="VBoxContainer" unique_id=1171791531]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_cwu47")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1114873399]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2139387904]
 layout_mode = 2
 text = "Gender"
 
-[node name="GenderSelector" type="OptionButton" parent="HBoxContainer"]
+[node name="GenderSelector" type="OptionButton" parent="HBoxContainer" unique_id=554511659]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1083409116]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=113661648]
 layout_mode = 2
 text = "Pronouns"
 
-[node name="PronounsSelector" type="OptionButton" parent="HBoxContainer2"]
+[node name="PronounsSelector" type="OptionButton" parent="HBoxContainer2" unique_id=1576385204]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

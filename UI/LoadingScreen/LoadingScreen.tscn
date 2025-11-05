@@ -41,14 +41,14 @@ _data = {
 &"Spin": SubResource("Animation_5i65a")
 }
 
-[node name="LoadingScreen" type="Node"]
+[node name="LoadingScreen" type="Node" unique_id=871661573]
 script = ExtResource("1_5i65a")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1666874487]
 unique_name_in_owner = true
 layer = 4001
 
-[node name="Screen" type="Control" parent="CanvasLayer"]
+[node name="Screen" type="Control" parent="CanvasLayer" unique_id=953206716]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -57,7 +57,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Screen"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Screen" unique_id=155185537]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Screen/ColorRect"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Screen/ColorRect" unique_id=614110154]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -83,7 +83,7 @@ pivot_offset = Vector2(32, 32)
 texture = ExtResource("1_7d0bf")
 expand_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Screen"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Screen" unique_id=1147157780]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,15 +91,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Screen/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Screen/CenterContainer" unique_id=555587350]
 layout_mode = 2
 
-[node name="LoadLabel" type="Label" parent="CanvasLayer/Screen/CenterContainer/VBoxContainer"]
+[node name="LoadLabel" type="Label" parent="CanvasLayer/Screen/CenterContainer/VBoxContainer" unique_id=412135152]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Loading.."
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Screen"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Screen" unique_id=710460668]
 unique_name_in_owner = true
 process_mode = 3
 libraries = {

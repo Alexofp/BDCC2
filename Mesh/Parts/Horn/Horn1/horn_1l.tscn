@@ -5,16 +5,16 @@
 [ext_resource type="Material" uid="uid://f308xgf67sd7" path="res://Mesh/Parts/Horn/Horn1/HornMat.tres" id="3_r28gr"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="4_1oqmp"]
 
-[node name="Horn1L" type="Node3D" node_paths=PackedStringArray("hornMesh")]
+[node name="Horn1L" type="Node3D" unique_id=1605557887 node_paths=PackedStringArray("hornMesh")]
 script = ExtResource("2_obt2w")
 hornMesh = NodePath("Horn1L2/Horn1L")
 isLeft = true
 
-[node name="Horn1L2" parent="." instance=ExtResource("1_obt2w")]
+[node name="Horn1L2" parent="." unique_id=1694186064 instance=ExtResource("1_obt2w")]
 script = ExtResource("4_1oqmp")
 attachPoint = "horn.L"
 
-[node name="Horn1L" parent="Horn1L2" index="0"]
+[node name="Horn1L" parent="Horn1L2" index="0" unique_id=988707446]
 surface_material_override/0 = ExtResource("3_r28gr")
 
 [editable path="Horn1L2"]

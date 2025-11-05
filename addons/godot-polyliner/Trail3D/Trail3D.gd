@@ -70,7 +70,7 @@ func set_max_points(val):
 	
 	points.resize(val)
 	if diff == 0: return
-	print(diff)
+	#print(diff)
 	if diff > 0:
 		refill_points(old_size-1)
 

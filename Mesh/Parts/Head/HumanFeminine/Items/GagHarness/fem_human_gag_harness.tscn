@@ -5,20 +5,20 @@
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="2_xjc5y"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_35ast"]
 
-[node name="FemHumanGagHarness" type="Node3D"]
+[node name="FemHumanGagHarness" type="Node3D" unique_id=872465733]
 script = ExtResource("1_uywra")
 
-[node name="FemHumanHarnessGag" parent="." instance=ExtResource("1_6360v")]
+[node name="FemHumanHarnessGag" parent="." unique_id=1353204126 instance=ExtResource("1_6360v")]
 script = ExtResource("3_35ast")
 attachPoint = "head_items"
 
-[node name="FemHumanGagHarness" parent="FemHumanHarnessGag" index="0"]
+[node name="FemHumanGagHarness" parent="FemHumanHarnessGag" index="0" unique_id=1912473481]
 surface_material_override/0 = ExtResource("2_xjc5y")
 
-[node name="BallGagModule" parent="FemHumanHarnessGag" index="1"]
+[node name="BallGagModule" parent="FemHumanHarnessGag" index="1" unique_id=1148601012]
 surface_material_override/0 = ExtResource("2_xjc5y")
 
-[node name="RingGagModule" parent="FemHumanHarnessGag" index="2"]
+[node name="RingGagModule" parent="FemHumanHarnessGag" index="2" unique_id=271648725]
 surface_material_override/0 = ExtResource("2_xjc5y")
 
 [editable path="FemHumanHarnessGag"]

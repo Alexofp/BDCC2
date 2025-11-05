@@ -8,45 +8,45 @@ size = Vector3(1.00879, 1.52257, 0.999756)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_bao8n"]
 size = Vector3(0.955033, 1.52257, 0.908588)
 
-[node name="ColumnA2Corner" instance=ExtResource("1_ul2db")]
+[node name="ColumnA2Corner" unique_id=1358855551 instance=ExtResource("1_ul2db")]
 
-[node name="ColumnA2Corner" parent="." index="0"]
+[node name="ColumnA2Corner" parent="." index="0" unique_id=120758376]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ColumnA2Corner" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnA2Corner" index="0" unique_id=1066136670]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnA2Corner/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnA2Corner/StaticBody3D" index="0" unique_id=422243481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739, 0)
 shape = SubResource("BoxShape3D_e4jw3")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnA2Corner/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnA2Corner/StaticBody3D" index="1" unique_id=860921626]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.239, 1, 0)
 shape = SubResource("BoxShape3D_e4jw3")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="ColumnA2Corner" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="ColumnA2Corner" index="1" unique_id=1765793836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.738717, 0)
 occluder = SubResource("BoxOccluder3D_bao8n")
 
-[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="ColumnA2Corner" index="2"]
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="ColumnA2Corner" index="2" unique_id=1153623884]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.239, 1, 0)
 occluder = SubResource("BoxOccluder3D_bao8n")
 
-[node name="ColumnA2Corner_lod1" parent="." index="1"]
+[node name="ColumnA2Corner_lod1" parent="." index="1" unique_id=91093309]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnA2Corner_lod2" parent="." index="2"]
+[node name="ColumnA2Corner_lod2" parent="." index="2" unique_id=1343907681]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnA2Corner_lod3" parent="." index="3"]
+[node name="ColumnA2Corner_lod3" parent="." index="3" unique_id=1617022314]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

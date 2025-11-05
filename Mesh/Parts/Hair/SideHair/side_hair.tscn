@@ -16,16 +16,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="SideHair" unique_id=24833503 instance=ExtResource("1_ltlex")]
 script = ExtResource("2_ltlex")
 
-[node name="SideHairRig" parent="." index="0"]
+[node name="SideHairRig" parent="." index="0" unique_id=1289984794]
 script = ExtResource("2_tr3pq")
 attachPoint = "hair"
 
-[node name="SideHair" parent="SideHairRig/Skeleton3D" index="0"]
+[node name="SideHair" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1577204280) index="0" unique_id=892911015]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_l64sr")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" index="1" unique_id=1946202714]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1577204280) index="1" unique_id=1946202714]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -47,7 +46,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_l64sr")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" index="2" unique_id=1434147404]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1577204280) index="2" unique_id=1434147404]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

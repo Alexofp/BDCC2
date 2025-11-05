@@ -5,24 +5,24 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_ny126"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_ulxw8"]
 
-[node name="feline_gag_harness" type="Node3D"]
+[node name="feline_gag_harness" type="Node3D" unique_id=1091862232]
 script = ExtResource("1_ulxw8")
 
-[node name="FelineGagHarness" parent="." instance=ExtResource("2_ulxw8")]
+[node name="FelineGagHarness" parent="." unique_id=581880160 instance=ExtResource("2_ulxw8")]
 script = ExtResource("3_ny126")
 attachPoint = "head_items"
 
-[node name="FelineGagHarness" parent="FelineGagHarness" index="0"]
+[node name="FelineGagHarness" parent="FelineGagHarness" index="0" unique_id=300161471]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="BallGagModule" parent="FelineGagHarness" index="1"]
+[node name="BallGagModule" parent="FelineGagHarness" index="1" unique_id=1284599343]
 instance_shader_parameters/trim_color_main = Color(0.75, 0, 0, 1)
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="RingGagModule" parent="FelineGagHarness" index="2"]
+[node name="RingGagModule" parent="FelineGagHarness" index="2" unique_id=281188624]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="BottomStrap" parent="FelineGagHarness" index="3"]
+[node name="BottomStrap" parent="FelineGagHarness" index="3" unique_id=601656882]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
 [editable path="FelineGagHarness"]

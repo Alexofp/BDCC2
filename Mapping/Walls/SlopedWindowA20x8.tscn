@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cm7ir0pwevknn" path="res://Mapping/Walls/Raw/SlopedWindowA20x8.glb" id="1_qvryd"]
 [ext_resource type="Script" uid="uid://e7rm5u5snayn" path="res://Mapping/Walls/sloped_windowA20x8.gd" id="2_apcyb"]
 
-[node name="SlopedWindowA20x8" instance=ExtResource("1_qvryd")]
+[node name="SlopedWindowA20x8" unique_id=522710926 instance=ExtResource("1_qvryd")]
 script = ExtResource("2_apcyb")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
@@ -11,14 +11,14 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="SlopedWindowA20x8" parent="." index="0"]
+[node name="SlopedWindowA20x8" parent="." index="0" unique_id=1517838082]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SlopedWindowA20x8_lod1" parent="." index="2"]
+[node name="SlopedWindowA20x8_lod1" parent="." index="2" unique_id=631094782]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)

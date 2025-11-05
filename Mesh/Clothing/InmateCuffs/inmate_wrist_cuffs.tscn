@@ -10,7 +10,7 @@
 resource_local_to_scene = true
 bake_interval = 0.01
 _data = {
-"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.1, 0, 0.0907618, 0, 0.00159595, 0, -0.1, 0, 0, 0, 0, -0.0437978, 0, 0.000452533),
+"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.1, 0, 0.09076185, 0, 0.001595948, 0, -0.1, 0, 0, 0, 0, -0.043797843, 0, 0.00045253348),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -30,34 +30,34 @@ shader_parameter/roughness = 0.25
 shader_parameter/metallic = 1.0
 shader_parameter/color = Color(0.9, 0.9, 0.9, 1)
 
-[node name="InmateWristCuffs" type="Node3D"]
+[node name="InmateWristCuffs" type="Node3D" unique_id=1241729235]
 script = ExtResource("1_s5f2n")
 
-[node name="LeftWrist" type="Node3D" parent="."]
+[node name="LeftWrist" type="Node3D" parent="." unique_id=1468550072]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.156032, 0, -1.10329e-08)
 script = ExtResource("2_kg8ds")
 attachPoint = "wrist.L"
 
-[node name="InmateCuffL" parent="LeftWrist" instance=ExtResource("3_6eew5")]
+[node name="InmateCuffL" parent="LeftWrist" unique_id=1766175273 instance=ExtResource("3_6eew5")]
 unique_name_in_owner = true
 transform = Transform3D(-0.604576, 0, 0.604576, 0, 0.855, 0, -0.604576, 0, -0.604576, 0, 0, 0)
 
-[node name="CuffLoc" type="Node3D" parent="LeftWrist/InmateCuffL"]
+[node name="CuffLoc" type="Node3D" parent="LeftWrist/InmateCuffL" unique_id=649235753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0526602, 0, -0.0553)
 
-[node name="RightWrist" type="Node3D" parent="."]
+[node name="RightWrist" type="Node3D" parent="." unique_id=1170246689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109743, 0, 7.57199e-09)
 script = ExtResource("2_kg8ds")
 attachPoint = "wrist.R"
 
-[node name="InmateCuffR" parent="RightWrist" instance=ExtResource("3_6eew5")]
+[node name="InmateCuffR" parent="RightWrist" unique_id=1267651857 instance=ExtResource("3_6eew5")]
 unique_name_in_owner = true
 transform = Transform3D(-0.604576, 0, 0.604576, 0, 0.855, 0, -0.604576, 0, -0.604576, 0, 0, 0)
 
-[node name="CuffLoc" type="Node3D" parent="RightWrist/InmateCuffR"]
+[node name="CuffLoc" type="Node3D" parent="RightWrist/InmateCuffR" unique_id=1375280270]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0549126, 0, 0.0541641)
 
-[node name="Chain" parent="." node_paths=PackedStringArray("nodeA", "nodeB") instance=ExtResource("4_kau36")]
+[node name="Chain" parent="." unique_id=1494544982 node_paths=PackedStringArray("nodeA", "nodeB") instance=ExtResource("4_kau36")]
 unique_name_in_owner = true
 curve = SubResource("Curve3D_fddo3")
 nodeA = NodePath("../LeftWrist/InmateCuffL/CuffLoc")

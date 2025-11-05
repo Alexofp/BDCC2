@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dr6dd3jknro4a" path="res://Mapping/Decals/Raw/DecalHazardOrange2.glb" id="1_5ht45"]
 
-[node name="DecalHazardOrange2" instance=ExtResource("1_5ht45")]
+[node name="DecalHazardOrange2" unique_id=1413376212 instance=ExtResource("1_5ht45")]
 
-[node name="DecalHazardOrange2" parent="." index="0"]
+[node name="DecalHazardOrange2" parent="." index="0" unique_id=1791471093]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

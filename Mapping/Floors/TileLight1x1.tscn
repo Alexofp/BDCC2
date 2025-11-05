@@ -7,21 +7,21 @@ size = Vector3(1, 0.01, 1)
 
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_iyo3v"]
 
-[node name="TileLight1x1" instance=ExtResource("1_i6njr")]
+[node name="TileLight1x1" unique_id=1046689289 instance=ExtResource("1_i6njr")]
 
-[node name="TileLight1x1" parent="." index="0"]
+[node name="TileLight1x1" parent="." index="0" unique_id=1496284933]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TileLight1x1" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TileLight1x1" index="0" unique_id=2095516568]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.005, -0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TileLight1x1/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileLight1x1/StaticBody3D" index="0" unique_id=181021149]
 shape = SubResource("BoxShape3D_bily0")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileLight1x1" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="TileLight1x1" index="1" unique_id=787963506]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, -0.005, -0.5)
 occluder = SubResource("QuadOccluder3D_iyo3v")

@@ -11,22 +11,22 @@ size = Vector2(2.02003, 2.02)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2fdl"]
 size = Vector3(2, 2, 0.2)
 
-[node name="TestWall" instance=ExtResource("1_581p3")]
+[node name="TestWall" unique_id=245382751 instance=ExtResource("1_581p3")]
 script = ExtResource("2_wix3n")
 
-[node name="Panel2x2Det2" parent="." index="0"]
+[node name="Panel2x2Det2" parent="." index="0" unique_id=1778886881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
 surface_material_override/0 = ExtResource("2_qwdnl")
 surface_material_override/1 = ExtResource("3_5cgxr")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Panel2x2Det2" index="0"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Panel2x2Det2" index="0" unique_id=1543510306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70469e-05, 1, -0.0975003)
 occluder = SubResource("QuadOccluder3D_4ball")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1576279332]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=939752478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.1)
 shape = SubResource("BoxShape3D_d2fdl")

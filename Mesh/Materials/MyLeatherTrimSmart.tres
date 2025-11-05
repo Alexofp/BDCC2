@@ -12,3 +12,4 @@ shader_parameter/texture_albedo = ExtResource("2_vqnl7")
 shader_parameter/texture_orm = ExtResource("4_iwqhf")
 shader_parameter/texture_normal = ExtResource("3_x2dxp")
 shader_parameter/ao_light_affect = 1.0
+shader_parameter/metallic = 1.0

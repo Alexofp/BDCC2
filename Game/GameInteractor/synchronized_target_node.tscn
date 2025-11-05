@@ -8,10 +8,10 @@ properties/0/path = NodePath(".:UID")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="SynchronizedTargetNode" type="Node"]
+[node name="SynchronizedTargetNode" type="Node" unique_id=689716614]
 script = ExtResource("1_kkgqf")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1599177114]
 replication_config = SubResource("SceneReplicationConfig_wsggn")
 public_visibility = false
 script = ExtResource("2_wsggn")

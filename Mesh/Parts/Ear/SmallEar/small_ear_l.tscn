@@ -22,24 +22,21 @@ ear = NodePath("SmallEarL/Skeleton3D/EarL")
 earFluff = NodePath("SmallEarL/Skeleton3D/InnerFluffL")
 tassels = NodePath("SmallEarL/Skeleton3D/TasselsL")
 
-[node name="SmallEarL" parent="." index="0"]
+[node name="SmallEarL" parent="." index="0" unique_id=1357601870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_e1wlb")
 attachPoint = "ear.L"
 
-[node name="EarL" parent="SmallEarL/Skeleton3D" index="0"]
-skeleton = NodePath("..")
+[node name="EarL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="0" unique_id=854815820]
 surface_material_override/0 = ExtResource("4_f2te7")
 
-[node name="InnerFluffL" parent="SmallEarL/Skeleton3D" index="1"]
-skeleton = NodePath("..")
+[node name="InnerFluffL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="1" unique_id=1868464207]
 surface_material_override/0 = ExtResource("5_2gg5g")
 
-[node name="TasselsL" parent="SmallEarL/Skeleton3D" index="2"]
-skeleton = NodePath("..")
+[node name="TasselsL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="2" unique_id=2141435473]
 surface_material_override/0 = ExtResource("5_olbh1")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarL/Skeleton3D" index="3" unique_id=1516373241]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="3" unique_id=1516373241]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

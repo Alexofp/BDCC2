@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bgdhmqjgbrm0h" path="res://Mapping/Decals/Raw/DecalBioWarning.glb" id="1_64hmg"]
 
-[node name="DecalBioWarning" instance=ExtResource("1_64hmg")]
+[node name="DecalBioWarning" unique_id=1152052803 instance=ExtResource("1_64hmg")]
 
-[node name="DecalBioWarning" parent="." index="0"]
+[node name="DecalBioWarning" parent="." index="0" unique_id=1324891118]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

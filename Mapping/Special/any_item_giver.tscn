@@ -9,19 +9,19 @@ size = Vector3(1, 1, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4vivo"]
 size = Vector3(1, 1, 0.5)
 
-[node name="AnyItemGiver" type="Node3D"]
+[node name="AnyItemGiver" type="Node3D" unique_id=1440128157]
 script = ExtResource("1_n3c1m")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1542119922]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_i6fwj")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=481440934]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=485803795]
 shape = SubResource("BoxShape3D_4vivo")
 
-[node name="Interactable" parent="." instance=ExtResource("2_eigjr")]
+[node name="Interactable" parent="." unique_id=1422060638 instance=ExtResource("2_eigjr")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 

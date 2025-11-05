@@ -17,7 +17,7 @@ scale_max = 2.0
 [sub_resource type="QuadMesh" id="QuadMesh_i5c51"]
 size = Vector2(0.025, 0.05)
 
-[node name="SquirtParticles" type="GPUParticles3D"]
+[node name="SquirtParticles" type="GPUParticles3D" unique_id=227569085]
 material_override = SubResource("StandardMaterial3D_q8qd3")
 emitting = false
 one_shot = true

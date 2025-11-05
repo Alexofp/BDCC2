@@ -5,17 +5,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_deghl"]
 size = Vector3(1, 0.01, 0.999999)
 
-[node name="TileFrameFancy1x1" instance=ExtResource("1_4tmgu")]
+[node name="TileFrameFancy1x1" unique_id=102742867 instance=ExtResource("1_4tmgu")]
 
-[node name="TileFrameFancy1x1" parent="." index="0"]
+[node name="TileFrameFancy1x1" parent="." index="0" unique_id=1819759200]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TileFrameFancy1x1" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TileFrameFancy1x1" index="0" unique_id=450133057]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.00663722, -0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TileFrameFancy1x1/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TileFrameFancy1x1/StaticBody3D" index="0" unique_id=1036631787]
 shape = SubResource("BoxShape3D_deghl")

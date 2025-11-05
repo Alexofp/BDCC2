@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://dmjixnki75tax" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealMat.tres" id="1_nh41g"]
 [ext_resource type="Script" uid="uid://c1fye7au2y53m" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealTextureRect.gd" id="2_mfb8b"]
 
-[node name="SmoothRevealTextureRect" type="ColorRect"]
+[node name="SmoothRevealTextureRect" type="ColorRect" unique_id=1429744257]
 material = ExtResource("1_nh41g")
 anchors_preset = 15
 anchor_right = 1.0

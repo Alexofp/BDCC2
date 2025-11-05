@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://67f38sc7t4ku" path="res://UI/FullScreenChat/fullscreen_chat.gd" id="1_vx7ov"]
 
-[node name="FullscreenChat" type="Node"]
+[node name="FullscreenChat" type="Node" unique_id=1283662782]
 script = ExtResource("1_vx7ov")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1968383856]
 layer = -5
 
-[node name="MainControl" type="Control" parent="CanvasLayer"]
+[node name="MainControl" type="Control" parent="CanvasLayer" unique_id=810553840]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ChatLabel" type="RichTextLabel" parent="CanvasLayer/MainControl"]
+[node name="ChatLabel" type="RichTextLabel" parent="CanvasLayer/MainControl" unique_id=2096420661]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -31,7 +31,7 @@ grow_vertical = 0
 bbcode_enabled = true
 scroll_following = true
 
-[node name="RemoveMessageTimer" type="Timer" parent="."]
+[node name="RemoveMessageTimer" type="Timer" parent="." unique_id=1549377024]
 unique_name_in_owner = true
 
 [connection signal="timeout" from="RemoveMessageTimer" to="." method="_on_remove_message_timer_timeout"]

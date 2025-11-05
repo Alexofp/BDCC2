@@ -22,7 +22,7 @@ glow_enabled = true
 [sub_resource type="Curve3D" id="Curve3D_y5bcb"]
 bake_interval = 0.01
 _data = {
-"points": PackedVector3Array(0, 0, -0.1, 0, 0, 0.41, 0, 0.0238022, 0.00858939, 0, -0.157182, -0.123668, 0, 0.157182, 0.123668, 0, 0.100281, 0.599298, 0, -0.0990144, -0.0140055, 0, -0.0497739, -0.00474973, 0, 0.43348, 0.75385),
+"points": PackedVector3Array(0, 0, -0.1, 0, 0, 0.41, 0, 0.0238022, 0.00858939, 0, -0.15718217, -0.12366798, 0, 0.15718217, 0.12366798, 0, 0.100281, 0.599298, 0, -0.09901438, -0.014005494, 0, -0.0497739, -0.00474973, 0, 0.43348, 0.75385),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -34,31 +34,31 @@ point_count = 8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1rine"]
 albedo_color = Color(1, 0.49, 0.49, 1)
 
-[node name="CaninePenisGuideTest" instance=ExtResource("1_v5nas")]
+[node name="CaninePenisGuideTest" unique_id=392912331 instance=ExtResource("1_v5nas")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0" unique_id=2140991462]
 environment = SubResource("Environment_y5bcb")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1" unique_id=1853654229]
 transform = Transform3D(0.570943, -0.278101, 0.772453, 7.85059e-09, 0.94088, 0.338739, -0.820989, -0.1934, 0.537189, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CaninePenisRig" index="0"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CaninePenisRig" parent_id_path=PackedInt32Array(1319044729) index="0" unique_id=1770079553]
 transform = Transform3D(-0.0615654, -4.43832e-10, -7.82067e-09, -5.00028e-09, 0.0495352, 0.0365537, 6.02944e-09, 0.0365537, -0.0495352, 0, 0.101593, 0.599293)
 visible = false
 mesh = SubResource("TorusMesh_y5bcb")
 skeleton = NodePath("../Skeleton3D/GuidePath/PathFollow3D2")
 
-[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" index="0"]
+[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="0" unique_id=172471355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0238022, 0.00858939)
 
-[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="1"]
+[node name="Balls" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="1" unique_id=1779178530]
 surface_material_override/0 = SubResource("StandardMaterial3D_y5bcb")
 
-[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="3"]
+[node name="Shaft" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="3" unique_id=661682796]
 surface_material_override/0 = SubResource("StandardMaterial3D_wuwq1")
 
-[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" index="4" node_paths=PackedStringArray("shaftNode", "holeNode", "insideNode")]
+[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="4" unique_id=1390067979 node_paths=PackedStringArray("shaftNode", "holeNode", "insideNode")]
 curve = SubResource("Curve3D_y5bcb")
 script = ExtResource("2_7cdkb")
 shaftNode = NodePath("../ShaftNode")
@@ -67,17 +67,16 @@ insideNode = NodePath("../../../InsideNode")
 blendDistance = 0.54
 straightness = 0.41
 
-[node name="PathFollow3D2" type="PathFollow3D" parent="CaninePenisRig/Skeleton3D/GuidePath" index="0"]
-transform = Transform3D(-0.999827, -6.34608e-08, -6.01098e-08, 0, 0.687576, -0.725907, 8.74077e-08, -0.725907, -0.687576, 0, 0.0679865, 0.571657)
+[node name="PathFollow3D2" type="PathFollow3D" parent="CaninePenisRig/Skeleton3D/GuidePath" index="0" unique_id=65190813]
+transform = Transform3D(-0.999827, -6.346081e-08, -6.01098e-08, 0, 0.68757594, -0.7259071, 8.7407656e-08, -0.7259071, -0.68757594, 0, 0.06798645, 0.57165676)
 progress = 0.582639
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CaninePenisRig/Skeleton3D/GuidePath/PathFollow3D2" index="0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CaninePenisRig/Skeleton3D/GuidePath/PathFollow3D2" index="0" unique_id=1330215079]
 transform = Transform3D(0.0615661, 5.2878e-09, 5.47513e-09, -5.47513e-09, -3.72529e-09, 0.0615661, 5.2878e-09, -0.0615661, -3.72529e-09, 0, 0, 0)
 visible = false
 mesh = SubResource("TorusMesh_y5bcb")
 
-[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="5"]
-_import_path = NodePath("")
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="5" unique_id=1256355775]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -100,8 +99,7 @@ chainLength = 5
 ballsBone = "balls"
 metadata/_custom_type_script = "uid://clc1kuop8qcgb"
 
-[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="6" node_paths=PackedStringArray("targetPath", "holeNode")]
-_import_path = NodePath("")
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="6" unique_id=2142040060 node_paths=PackedStringArray("targetPath", "holeNode")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -126,35 +124,35 @@ thicknessCurve = SubResource("Curve_wuwq1")
 holeNode = NodePath("../../../HoleNode")
 metadata/_custom_type_script = "uid://ddp3batfh4dqr"
 
-[node name="Camera3D" type="Camera3D" parent="." index="3"]
+[node name="Camera3D" type="Camera3D" parent="." index="3" unique_id=694898038]
 transform = Transform3D(0.0881608, -0.382377, 0.919791, 0.0364832, 0.924006, 0.380633, -0.995438, 0, 0.0954115, 0.645507, 0.285864, 0.450621)
 visible = false
 current = true
 
-[node name="InsideNode" type="Marker3D" parent="." index="4"]
+[node name="InsideNode" type="Marker3D" parent="." index="4" unique_id=585435310]
 transform = Transform3D(1, 0, 0, 0, 0.140055, 0.990144, 0, -0.990144, 0.140055, 0, 0.43348, 0.75385)
 
-[node name="TorusCloseable" parent="InsideNode" index="0" node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
+[node name="TorusCloseable" parent="InsideNode" index="0" unique_id=1437725570 node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
 transform = Transform3D(0.0601211, 1.56749e-09, -5.18656e-10, 2.9401e-10, -0.0287481, -0.0528024, -1.62468e-09, 0.0528024, -0.0287481, 0, 0.103571, -0.347666)
 script = ExtResource("6_w8wci")
 opener = NodePath("../../CaninePenisRig/Skeleton3D/FollowSplineSkeletonModifier")
 openValueMult = 1.155
 
-[node name="TorusCloseable" parent="InsideNode/TorusCloseable" index="0"]
+[node name="TorusCloseable" parent="InsideNode/TorusCloseable" index="0" unique_id=299167443]
 blend_shapes/Close = 1.0
 surface_material_override/0 = SubResource("StandardMaterial3D_1rine")
 
-[node name="TorusCloseable2" parent="InsideNode" index="1" node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
+[node name="TorusCloseable2" parent="InsideNode" index="1" unique_id=1213281894 node_paths=PackedStringArray("opener") instance=ExtResource("5_1rine")]
 transform = Transform3D(-2.62798e-09, 0.0595285, -0.00842026, -0.0595285, 0.0011793, 0.00833727, 0.00842026, 0.00833726, 0.0589418, 0, 0.136018, -0.184653)
 script = ExtResource("6_w8wci")
 opener = NodePath("../../CaninePenisRig/Skeleton3D/FollowSplineSkeletonModifier")
 openValueMult = 1.155
 
-[node name="TorusCloseable" parent="InsideNode/TorusCloseable2" index="0"]
+[node name="TorusCloseable" parent="InsideNode/TorusCloseable2" index="0" unique_id=299167443]
 blend_shapes/Close = 1.0
 surface_material_override/0 = SubResource("StandardMaterial3D_1rine")
 
-[node name="HoleNode" type="Marker3D" parent="." index="5"]
+[node name="HoleNode" type="Marker3D" parent="." index="5" unique_id=1910150202]
 transform = Transform3D(1, 0, 0, 0, 0.61834, 0.785911, 0, -0.785911, 0.61834, 0, 0.100281, 0.599298)
 
 [editable path="InsideNode/TorusCloseable"]

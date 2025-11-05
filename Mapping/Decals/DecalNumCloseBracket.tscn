@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dltpikhphc6kd" path="res://Mapping/Decals/Raw/DecalNumCloseBracket.glb" id="1_056dv"]
 
-[node name="DecalNumCloseBracket" instance=ExtResource("1_056dv")]
+[node name="DecalNumCloseBracket" unique_id=1825571006 instance=ExtResource("1_056dv")]
 
-[node name="DecalNumCloseBracket" parent="." index="0"]
+[node name="DecalNumCloseBracket" parent="." index="0" unique_id=776409585]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

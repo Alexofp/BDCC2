@@ -10,26 +10,26 @@ size = Vector3(1.84, 1.02, 0.0818561)
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjg8i"]
 size = Vector3(0.053689, 1.02, 0.697832)
 
-[node name="RailStand2" instance=ExtResource("1_inmm2")]
+[node name="RailStand2" unique_id=1454428914 instance=ExtResource("1_inmm2")]
 script = ExtResource("2_716vs")
 
-[node name="Tube_Tube_029" parent="." index="0"]
+[node name="Tube_Tube_029" parent="." index="0" unique_id=1905276506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_ry7ff")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Tube_Tube_029" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Tube_Tube_029" index="0" unique_id=1006798354]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0.346158)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="0" unique_id=2114728794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.32523)
 shape = SubResource("BoxShape3D_jmwfl")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="1" unique_id=1643412736]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.893156, 0, 0.00533786)
 shape = SubResource("BoxShape3D_jjg8i")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="2"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="2" unique_id=1694075871]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.893, 0, 0.005)
 shape = SubResource("BoxShape3D_jjg8i")

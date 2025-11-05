@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://uff2x13dsp0v" path="res://Game/CharacterCreator/Util/char_creator_base_skin_types_list.gd" id="1_wmr3p"]
 
-[node name="CharCreatorBaseSkinTypesList" type="VBoxContainer"]
+[node name="CharCreatorBaseSkinTypesList" type="VBoxContainer" unique_id=1885611787]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

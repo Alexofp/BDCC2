@@ -14,43 +14,43 @@ size = Vector2(2, 2)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_j3of2"]
 size = Vector2(1.2, 1.4)
 
-[node name="BackWallA1x1TriCornerOuter" instance=ExtResource("1_kq06s")]
+[node name="BackWallA1x1TriCornerOuter" unique_id=1349525626 instance=ExtResource("1_kq06s")]
 
-[node name="BackWallA1x1TriCornerOuter" parent="." index="0"]
+[node name="BackWallA1x1TriCornerOuter" parent="." index="0" unique_id=246427979]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA1x1TriCornerOuter" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA1x1TriCornerOuter" index="0" unique_id=1379381367]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.19209e-07, 0.600001, 8.34465e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="0" unique_id=392953843]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_vmbdx")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="1" unique_id=454716263]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.500001, -1.19209e-06, -0.1)
 shape = SubResource("BoxShape3D_v7viy")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="2"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BackWallA1x1TriCornerOuter/StaticBody3D" index="2" unique_id=1874042284]
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0.100001, -1.19209e-06, -0.5)
 shape = SubResource("BoxShape3D_v7viy")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA1x1TriCornerOuter" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA1x1TriCornerOuter" index="1" unique_id=591301645]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.19209e-07, 1, 8.34465e-07)
 occluder = SubResource("QuadOccluder3D_jb8yy")
 
-[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="BackWallA1x1TriCornerOuter" index="2"]
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="BackWallA1x1TriCornerOuter" index="2" unique_id=776793305]
 transform = Transform3D(3.09086e-08, 0.707107, -0.707107, 1, 1.91069e-15, 4.37114e-08, 3.09086e-08, -0.707107, -0.707107, -0.5, 0.600001, -0.499999)
 occluder = SubResource("QuadOccluder3D_j3of2")
 
-[node name="BackWallA1x1TriCornerOuter_lod1" parent="." index="1"]
+[node name="BackWallA1x1TriCornerOuter_lod1" parent="." index="1" unique_id=1885910665]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x1TriCornerOuter_lod2" parent="." index="2"]
+[node name="BackWallA1x1TriCornerOuter_lod2" parent="." index="2" unique_id=1009132391]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x1TriCornerOuter_lod3" parent="." index="3"]
+[node name="BackWallA1x1TriCornerOuter_lod3" parent="." index="3" unique_id=1611132229]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

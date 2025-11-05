@@ -15,7 +15,7 @@ size = Vector3(5, 4, 0.409701)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_nuuvg"]
 size = Vector3(5, 4, 0.409701)
 
-[node name="DoorA6x4" instance=ExtResource("1_4lnll")]
+[node name="DoorA6x4" unique_id=2023699424 instance=ExtResource("1_4lnll")]
 script = ExtResource("2_0oh33")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
@@ -23,26 +23,26 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA6x4" parent="." index="0"]
+[node name="DoorFrameA6x4" parent="." index="0" unique_id=2082317192]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="DoorFrameA6x4" index="0"]
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="DoorFrameA6x4" index="0" unique_id=1343033176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70746, 2, -2.38419e-07)
 occluder = SubResource("BoxOccluder3D_ts3gs")
 
-[node name="OccluderInstance3D3" type="OccluderInstance3D" parent="DoorFrameA6x4" index="1"]
+[node name="OccluderInstance3D3" type="OccluderInstance3D" parent="DoorFrameA6x4" index="1" unique_id=185625365]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.707, 2, 0)
 occluder = SubResource("BoxOccluder3D_ts3gs")
 
-[node name="OccluderInstance3D4" type="OccluderInstance3D" parent="DoorFrameA6x4" index="2"]
+[node name="OccluderInstance3D4" type="OccluderInstance3D" parent="DoorFrameA6x4" index="2" unique_id=501054501]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 3.51732, 0)
 occluder = SubResource("BoxOccluder3D_m4iqk")
 
-[node name="DoorA6x4" parent="." index="1"]
+[node name="DoorA6x4" parent="." index="1" unique_id=1195003211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
@@ -50,38 +50,38 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="DoorA6x4" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorA6x4" index="0" unique_id=15337986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.38419e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorA6x4/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorA6x4/StaticBody3D" index="0" unique_id=207173872]
 shape = SubResource("BoxShape3D_av7rc")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="DoorA6x4" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="DoorA6x4" index="1" unique_id=1037629466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.38419e-07)
 occluder = SubResource("BoxOccluder3D_nuuvg")
 
-[node name="DoorFrameA6x4_lod1" parent="." index="3"]
+[node name="DoorFrameA6x4_lod1" parent="." index="3" unique_id=1454435135]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA6x4_lod2" parent="." index="4"]
+[node name="DoorFrameA6x4_lod2" parent="." index="4" unique_id=201740659]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA6x4_lod3" parent="." index="5"]
+[node name="DoorFrameA6x4_lod3" parent="." index="5" unique_id=569194802]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA6x4_lod1" parent="." index="6"]
+[node name="DoorA6x4_lod1" parent="." index="6" unique_id=1341609508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
@@ -89,7 +89,7 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA6x4_lod2" parent="." index="7"]
+[node name="DoorA6x4_lod2" parent="." index="7" unique_id=316719438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
@@ -97,7 +97,7 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA6x4_lod3" parent="." index="8"]
+[node name="DoorA6x4_lod3" parent="." index="8" unique_id=1525967911]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)

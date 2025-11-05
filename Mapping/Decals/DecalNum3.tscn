@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dx004ic5xc87j" path="res://Mapping/Decals/Raw/DecalNum3.glb" id="1_hjt2u"]
 
-[node name="DecalNum3" instance=ExtResource("1_hjt2u")]
+[node name="DecalNum3" unique_id=1093184808 instance=ExtResource("1_hjt2u")]
 
-[node name="DecalNum3" parent="." index="0"]
+[node name="DecalNum3" parent="." index="0" unique_id=336837063]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

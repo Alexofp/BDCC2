@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dm8skaxfgtntb" path="res://Mapping/Decals/Raw/DecalArrow2White.glb" id="1_kaaxd"]
 
-[node name="DecalArrow2White" instance=ExtResource("1_kaaxd")]
+[node name="DecalArrow2White" unique_id=1794569476 instance=ExtResource("1_kaaxd")]
 
-[node name="DecalArrow2White" parent="." index="0"]
+[node name="DecalArrow2White" parent="." index="0" unique_id=1889580604]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)

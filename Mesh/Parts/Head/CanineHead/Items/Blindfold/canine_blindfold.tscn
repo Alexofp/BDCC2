@@ -5,14 +5,14 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_j18kb"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="3_i0a1u"]
 
-[node name="CanineBlindfold" type="Node3D"]
+[node name="CanineBlindfold" type="Node3D" unique_id=599405106]
 script = ExtResource("1_j18kb")
 
-[node name="CanineBlindfold" parent="." instance=ExtResource("1_n1ccu")]
+[node name="CanineBlindfold" parent="." unique_id=330791245 instance=ExtResource("1_n1ccu")]
 script = ExtResource("2_j18kb")
 attachPoint = "head_items"
 
-[node name="CanineBlindfold" parent="CanineBlindfold" index="0"]
+[node name="CanineBlindfold" parent="CanineBlindfold" index="0" unique_id=455848165]
 surface_material_override/0 = ExtResource("3_i0a1u")
 
 [editable path="CanineBlindfold"]

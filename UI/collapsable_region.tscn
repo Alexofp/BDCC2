@@ -2,36 +2,36 @@
 
 [ext_resource type="Script" uid="uid://cnsvhip2rybmw" path="res://UI/collapsable_region.gd" id="1_bj2s3"]
 
-[node name="CollapsableRegion" type="PanelContainer"]
+[node name="CollapsableRegion" type="PanelContainer" unique_id=313399728]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 27.0
 grow_horizontal = 2
 script = ExtResource("1_bj2s3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1600305633]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1125613499]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1087113959]
 layout_mode = 2
 
-[node name="CollapseLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="CollapseLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=921952545]
 unique_name_in_owner = true
 layout_mode = 2
 text = "> "
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=594376536]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Collapsable region"
 
-[node name="ToggleButton" type="TextureButton" parent="VBoxContainer/MarginContainer"]
+[node name="ToggleButton" type="TextureButton" parent="VBoxContainer/MarginContainer" unique_id=577020322]
 layout_mode = 2
 
-[node name="InsideContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="InsideContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=2114479236]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

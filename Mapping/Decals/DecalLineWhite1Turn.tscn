@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b03pguussywpm" path="res://Mapping/Decals/Raw/DecalLineWhite1Turn.glb" id="1_5ckut"]
 
-[node name="DecalLineWhite1Turn" instance=ExtResource("1_5ckut")]
+[node name="DecalLineWhite1Turn" unique_id=1164841580 instance=ExtResource("1_5ckut")]
 
-[node name="DecalLineWhite1Turn" parent="." index="0"]
+[node name="DecalLineWhite1Turn" parent="." index="0" unique_id=2061275137]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

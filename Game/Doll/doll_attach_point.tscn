@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ddgaijwajnrbv" path="res://Game/Doll/doll_attach_point.gd" id="1_kry0d"]
 
-[node name="DollAttachPoint" type="Node3D"]
+[node name="DollAttachPoint" type="Node3D" unique_id=202182828]
 process_priority = 9999
 script = ExtResource("1_kry0d")

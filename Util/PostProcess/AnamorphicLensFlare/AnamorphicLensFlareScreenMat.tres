@@ -5,7 +5,7 @@
 [resource]
 shader = ExtResource("1_wr6tl")
 shader_parameter/threshold = 1.0
-shader_parameter/lower_threshold = 0.9799999999959255
-shader_parameter/intensity = 0.09999999999126885
+shader_parameter/lower_threshold = 0.9799999999959256
+shader_parameter/intensity = 0.09999999999126884
 shader_parameter/flare_color = Color(0.19333762, 0.22771487, 1, 1)
 shader_parameter/width = 0.04

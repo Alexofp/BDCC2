@@ -12,7 +12,7 @@ _data = {
 }
 point_count = 2
 
-[node name="SimpleChain" type="Path3D"]
+[node name="SimpleChain" type="Path3D" unique_id=1778020447]
 curve = SubResource("Curve3D_qlw4l")
 script = ExtResource("1_qgs43")
 curve_mode = 1

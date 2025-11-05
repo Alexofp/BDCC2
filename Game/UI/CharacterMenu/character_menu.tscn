@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://nex6xlb2bqnf" path="res://Inventory/UI/inventory_ui_embed.tscn" id="3_7l853"]
 [ext_resource type="PackedScene" uid="uid://bn1nx7qh0s4io" path="res://Game/UI/CharacterMenu/posing_menu.tscn" id="4_aaxik"]
 
-[node name="CharacterMenu" type="Control"]
+[node name="CharacterMenu" type="Control" unique_id=910594457]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5rlio")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=79207326]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -27,65 +27,65 @@ offset_bottom = -149.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1453419099]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1975921044]
 layout_mode = 2
 
-[node name="CharacterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CharacterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=831905121]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character"
 
-[node name="InventoryButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InventoryButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=347604705]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Inventory"
 
-[node name="PoseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PoseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=199460017]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Pose"
 
-[node name="InteractButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InteractButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=837940425]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Interact"
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1441146586]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=102920683]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InteractionMenuEmbedded" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_clhsb")]
+[node name="InteractionMenuEmbedded" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=562291251 instance=ExtResource("2_clhsb")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="InventoryUIEmbed" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_7l853")]
+[node name="InventoryUIEmbed" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=646442593 instance=ExtResource("3_7l853")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PosingMenu" parent="PanelContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4_aaxik")]
+[node name="PosingMenu" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=376303401 instance=ExtResource("4_aaxik")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CloseControlSpace" type="Control" parent="PanelContainer"]
+[node name="CloseControlSpace" type="Control" parent="PanelContainer" unique_id=228650181]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CloseButton" type="Button" parent="PanelContainer/CloseControlSpace"]
+[node name="CloseButton" type="Button" parent="PanelContainer/CloseControlSpace" unique_id=99251081]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

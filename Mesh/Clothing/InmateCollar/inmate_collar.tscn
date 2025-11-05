@@ -5,14 +5,14 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_redhd"]
 [ext_resource type="Material" uid="uid://rppd8rmsx1nv" path="res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres" id="4_xg6at"]
 
-[node name="InmateCollar" type="Node3D"]
+[node name="InmateCollar" type="Node3D" unique_id=587197804]
 script = ExtResource("1_jdp3t")
 
-[node name="InmateCollar" parent="." instance=ExtResource("2_et3qn")]
+[node name="InmateCollar" parent="." unique_id=457010506 instance=ExtResource("2_et3qn")]
 script = ExtResource("3_redhd")
 attachPoint = "collar"
 
-[node name="InmateCollar" parent="InmateCollar" index="0"]
+[node name="InmateCollar" parent="InmateCollar" index="0" unique_id=1499983699]
 transform = Transform3D(0.069, 0, 0, 0, 0.069, 0, 0, 0, 0.069, 0, 0, 0)
 surface_material_override/0 = ExtResource("4_xg6at")
 

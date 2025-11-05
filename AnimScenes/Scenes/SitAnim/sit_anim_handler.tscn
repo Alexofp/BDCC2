@@ -5,17 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="3_aqipv"]
 [ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="4_2pl3n"]
 
-[node name="SitAnimHandler" type="Node3D" groups=["Networked"]]
+[node name="SitAnimHandler" type="Node3D" unique_id=1469755165 groups=["Networked"]]
 script = ExtResource("1_hkxcb")
 
-[node name="Interactable" parent="." instance=ExtResource("3_aqipv")]
+[node name="Interactable" parent="." unique_id=1748332436 instance=ExtResource("3_aqipv")]
 unique_name_in_owner = true
 
-[node name="StandSpot" type="Marker3D" parent="."]
+[node name="StandSpot" type="Marker3D" parent="." unique_id=91680705]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54)
 
-[node name="SitSpawner" parent="." instance=ExtResource("1_r2mff")]
+[node name="SitSpawner" parent="." unique_id=905607107 instance=ExtResource("1_r2mff")]
 scene = ExtResource("4_2pl3n")
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

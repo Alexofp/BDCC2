@@ -17,23 +17,23 @@ glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_xllde"]
 
-[node name="DragTestA" type="Node3D"]
+[node name="DragTestA" type="Node3D" unique_id=1516859355]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1265237974]
 environment = SubResource("Environment_76ocn")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448873036]
 transform = Transform3D(0.760406, -0.562439, 0.324724, 0, 0.5, 0.866025, -0.649448, -0.658531, 0.380203, 0, 0, 0)
 shadow_enabled = true
 
-[node name="DragTest" type="MeshInstance3D" parent="."]
+[node name="DragTest" type="MeshInstance3D" parent="." unique_id=1408281060]
 mesh = SubResource("BoxMesh_xllde")
 script = ExtResource("1_xgqtf")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=571823094]
 transform = Transform3D(0.873084, -0.191597, 0.448347, 0, 0.919554, 0.392963, -0.48757, -0.34309, 0.802848, 2.02313, 1.74799, 3.4662)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1578426363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.26793, 0)
 use_collision = true
 size = Vector3(6.48853, 1, 8.82788)

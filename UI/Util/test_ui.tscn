@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cm4u0mmyts5ue" path="res://UI/Util/test_ui.gd" id="1_fnt08"]
 
-[node name="TestUI" type="PanelContainer"]
+[node name="TestUI" type="PanelContainer" unique_id=1220758861]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,10 +14,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fnt08")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1066889971]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Control" unique_id=265626960]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -29,7 +29,7 @@ grow_horizontal = 2
 text = "Test ui"
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="Control"]
+[node name="CloseButton" type="Button" parent="Control" unique_id=1122676286]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

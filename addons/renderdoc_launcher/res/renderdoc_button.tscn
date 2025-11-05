@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://1qp4s87d4dpp" path="res://addons/renderdoc_launcher/res/renderdoc_logo.png" id="1_ieckf"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1503514446]
 custom_minimum_size = Vector2(30, 24)
 layout_mode = 3
 anchors_preset = 15
@@ -13,7 +13,7 @@ offset_bottom = -624.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RenderDocButton" type="TextureButton" parent="."]
+[node name="RenderDocButton" type="TextureButton" parent="." unique_id=271883168]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
 anchors_preset = 4
@@ -27,7 +27,7 @@ texture_normal = ExtResource("1_ieckf")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=170463262]
 title = "Open a File"
 initial_position = 1
 size = Vector2i(500, 600)

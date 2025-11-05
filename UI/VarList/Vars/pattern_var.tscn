@@ -3,42 +3,42 @@
 [ext_resource type="Script" uid="uid://cvykw0qv8mp3g" path="res://UI/VarList/Vars/pattern_var.gd" id="1_qxyxh"]
 [ext_resource type="PackedScene" uid="uid://dfyh8pivegiu0" path="res://UI/VarList/Vars/dropdown_var.tscn" id="2_qxyxh"]
 
-[node name="PatternVar" type="VBoxContainer"]
+[node name="PatternVar" type="VBoxContainer" unique_id=1963759136]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_qxyxh")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=327628892]
 layout_mode = 2
 
-[node name="DropdownVar" parent="HBoxContainer" instance=ExtResource("2_qxyxh")]
+[node name="DropdownVar" parent="HBoxContainer" unique_id=1626365621 instance=ExtResource("2_qxyxh")]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=159329478]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=1795403155]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorList" type="HBoxContainer" parent="HBoxContainer2"]
+[node name="ColorList" type="HBoxContainer" parent="HBoxContainer2" unique_id=1173407262]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorPickerR" type="ColorPickerButton" parent="HBoxContainer2/ColorList"]
+[node name="ColorPickerR" type="ColorPickerButton" parent="HBoxContainer2/ColorList" unique_id=1198548281]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="ColorPickerG" type="ColorPickerButton" parent="HBoxContainer2/ColorList"]
+[node name="ColorPickerG" type="ColorPickerButton" parent="HBoxContainer2/ColorList" unique_id=1165207296]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="ColorPickerB" type="ColorPickerButton" parent="HBoxContainer2/ColorList"]
+[node name="ColorPickerB" type="ColorPickerButton" parent="HBoxContainer2/ColorList" unique_id=1258047100]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2

@@ -17,32 +17,28 @@ metadata/_custom_type_script = ExtResource("6_fn4g7")
 [node name="DragonTail" unique_id=1814831176 instance=ExtResource("1_nw76p")]
 script = ExtResource("2_m0kbu")
 
-[node name="DragonTailRig" parent="." index="0"]
+[node name="DragonTailRig" parent="." index="0" unique_id=367511106]
 script = ExtResource("3_5phsq")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="DragonTailRig" index="0"]
+[node name="Skeleton3D" parent="DragonTailRig" index="0" unique_id=1746178033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025510669, 0)
 
-[node name="DragonTail" parent="DragonTailRig/Skeleton3D" index="0"]
+[node name="DragonTail" parent="DragonTailRig/Skeleton3D" index="0" unique_id=360143763]
 unique_name_in_owner = true
 lod_bias = 5.0
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_a1f5f")
 
-[node name="Ridges" parent="DragonTailRig/Skeleton3D" index="1"]
+[node name="Ridges" parent="DragonTailRig/Skeleton3D" index="1" unique_id=577526848]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_a1f5f")
 
-[node name="TailFluff" parent="DragonTailRig/Skeleton3D" index="2"]
+[node name="TailFluff" parent="DragonTailRig/Skeleton3D" index="2" unique_id=1937625424]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_a1f5f")
 
-[node name="UnderFluff" parent="DragonTailRig/Skeleton3D" index="3"]
+[node name="UnderFluff" parent="DragonTailRig/Skeleton3D" index="3" unique_id=359819372]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_a1f5f")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="4" unique_id=418645456]
@@ -199,9 +195,9 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_mfacx")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Plane_008" parent="." index="1"]
+[node name="Plane_008" parent="." index="1" unique_id=162664002]
 visible = false
 
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="2" unique_id=294470627]
 unique_name_in_owner = true
 autoplay = &"TailWag"

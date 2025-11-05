@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bo1445eamj5w6"]
 
-[ext_resource type="Script" path="res://Game/IngameEditor/pc_editor_asset_stash.gd" id="1_hl3au"]
+[ext_resource type="Script" uid="uid://bg513agnqt26r" path="res://Game/IngameEditor/pc_editor_asset_stash.gd" id="1_hl3au"]
 
-[node name="PCEditorAssetStash" type="Node3D"]
+[node name="PCEditorAssetStash" type="Node3D" unique_id=694558368]
 script = ExtResource("1_hl3au")

@@ -2,41 +2,41 @@
 
 [ext_resource type="Script" uid="uid://bsyn4b7230i1y" path="res://UI/VarList/Vars/species_var.gd" id="1_g3uow"]
 
-[node name="SpeciesVar" type="VBoxContainer"]
+[node name="SpeciesVar" type="VBoxContainer" unique_id=1662529910]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_g3uow")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=296486525]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1633523240]
 layout_mode = 2
 text = "Label"
 vertical_alignment = 1
 
-[node name="SpeciesSelector" type="OptionButton" parent="HBoxContainer"]
+[node name="SpeciesSelector" type="OptionButton" parent="HBoxContainer" unique_id=107935618]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HybridHBox" type="HBoxContainer" parent="."]
+[node name="HybridHBox" type="HBoxContainer" parent="." unique_id=1205867614]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HybridHBox"]
+[node name="Label" type="Label" parent="HybridHBox" unique_id=255051067]
 layout_mode = 2
 text = "Second species"
 
-[node name="SecondSpeciesSelector" type="OptionButton" parent="HybridHBox"]
+[node name="SecondSpeciesSelector" type="OptionButton" parent="HybridHBox" unique_id=1458750876]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HybridCheckBox" type="CheckBox" parent="."]
+[node name="HybridCheckBox" type="CheckBox" parent="." unique_id=518817733]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Hybrid species"

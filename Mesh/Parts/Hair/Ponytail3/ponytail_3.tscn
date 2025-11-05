@@ -20,17 +20,16 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="Ponytail3" unique_id=2059753563 instance=ExtResource("1_dot7r")]
 script = ExtResource("2_vmulo")
 
-[node name="Ponytail3Rig" parent="." index="0"]
+[node name="Ponytail3Rig" parent="." index="0" unique_id=109026543]
 script = ExtResource("3_6wrer")
 attachPoint = "hair"
 
-[node name="Ponytail3" parent="Ponytail3Rig/Skeleton3D" index="0"]
+[node name="Ponytail3" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="0" unique_id=1322859326]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_7drtq")
 surface_material_override/1 = ExtResource("5_iw3yv")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="1" unique_id=1212941259 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="1" unique_id=1212941259 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -55,7 +54,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_oanuy")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" index="2" unique_id=2066610959 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="2" unique_id=2066610959 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

@@ -25,16 +25,15 @@ albedo_color = Color(1, 1, 1, 0.13333334)
 [node name="LongHair" unique_id=934040182 instance=ExtResource("1_3b5iq")]
 script = ExtResource("2_3b5iq")
 
-[node name="LongHairRig" parent="." index="0"]
+[node name="LongHairRig" parent="." index="0" unique_id=1309474834]
 script = ExtResource("3_7kvhl")
 attachPoint = "hair"
 
-[node name="LongHair" parent="LongHairRig/Skeleton3D" index="0"]
+[node name="LongHair" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1937520402) index="0" unique_id=1594260510]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_5iffy")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="1" unique_id=746202202 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1937520402) index="1" unique_id=746202202 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -43,7 +42,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.998089, 0.05961822, 0.016247168, 0.05046311, -0.93815976, 0.34250498, 0.03566197, -0.34103057, -0.93937546, 0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.9982452, 0.056630507, 0.017307075, 0.0479342, -0.94438106, 0.3253407, 0.034768682, -0.3239402, -0.9454383, 0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -58,7 +57,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_7kvhl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="2" unique_id=1594384544 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1937520402) index="2" unique_id=1594384544 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -67,7 +66,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.998089, -0.05961823, -0.016247107, -0.050463144, -0.93815976, 0.34250498, -0.03566192, -0.3410306, -0.93937546, -0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.9982452, -0.05663052, -0.017307011, -0.047934227, -0.94438094, 0.32534072, -0.034768626, -0.32394025, -0.9454383, -0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false

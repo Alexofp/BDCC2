@@ -6,29 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://nqxy5s7ye680" path="res://AnimScenes/Scenes/SitAnim/bench_cuddle_scene.tscn" id="6_il50t"]
 [ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="6_ud5bg"]
 
-[node name="BenchAnimHandler" type="Node3D" groups=["Networked"]]
+[node name="BenchAnimHandler" type="Node3D" unique_id=1764538836 groups=["Networked"]]
 script = ExtResource("2_34f0x")
 
-[node name="Interactable" parent="." instance=ExtResource("3_ud5bg")]
+[node name="Interactable" parent="." unique_id=1030036536 instance=ExtResource("3_ud5bg")]
 unique_name_in_owner = true
 
-[node name="StandSpotLeft" type="Marker3D" parent="."]
+[node name="StandSpotLeft" type="Marker3D" parent="." unique_id=526192901]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526, 0, 0.540104)
 
-[node name="StandSpotRight" type="Marker3D" parent="."]
+[node name="StandSpotRight" type="Marker3D" parent="." unique_id=1411404719]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526, 0, 0.54)
 
-[node name="SitSpawnerLeft" parent="." instance=ExtResource("1_k7pa1")]
+[node name="SitSpawnerLeft" parent="." unique_id=1960037179 instance=ExtResource("1_k7pa1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526443, 0, -0.169801)
 scene = ExtResource("6_ud5bg")
 
-[node name="SitSpawnerRight" parent="." instance=ExtResource("1_k7pa1")]
+[node name="SitSpawnerRight" parent="." unique_id=7507938 instance=ExtResource("1_k7pa1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526, 0, -0.17)
 scene = ExtResource("6_ud5bg")
 
-[node name="SitSpawnerCuddle" parent="." instance=ExtResource("1_k7pa1")]
+[node name="SitSpawnerCuddle" parent="." unique_id=549286799 instance=ExtResource("1_k7pa1")]
 scene = ExtResource("6_il50t")
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

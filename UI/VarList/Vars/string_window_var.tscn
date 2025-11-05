@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" uid="uid://c0bq4hqtct0t6" path="res://UI/VarList/Vars/string_window_var.gd" id="1_uidb8"]
 
-[node name="StringWindowVar" type="VBoxContainer"]
+[node name="StringWindowVar" type="VBoxContainer" unique_id=1813120058]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_uidb8")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=868695933]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2031419518]
 layout_mode = 2
 text = "Label"
 
-[node name="ChangeButton" type="Button" parent="HBoxContainer"]
+[node name="ChangeButton" type="Button" parent="HBoxContainer" unique_id=1729943245]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

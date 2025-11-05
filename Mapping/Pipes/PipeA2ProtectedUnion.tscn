@@ -5,17 +5,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ae16r"]
 size = Vector3(0.6, 0.6, 2.2)
 
-[node name="PipeA2ProtectedUnion" instance=ExtResource("1_tgld1")]
+[node name="PipeA2ProtectedUnion" unique_id=763957633 instance=ExtResource("1_tgld1")]
 
-[node name="PipeA2ProtectedUnion" parent="." index="0"]
+[node name="PipeA2ProtectedUnion" parent="." index="0" unique_id=1022812304]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PipeA2ProtectedUnion" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA2ProtectedUnion" index="0" unique_id=1955217675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08616e-07, -3.8445e-06, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA2ProtectedUnion/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA2ProtectedUnion/StaticBody3D" index="0" unique_id=1622567189]
 shape = SubResource("BoxShape3D_ae16r")

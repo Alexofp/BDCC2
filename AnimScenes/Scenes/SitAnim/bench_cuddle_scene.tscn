@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://cxa8yxskebhye" path="res://AnimScenes/Scenes/SitAnim/bench_cuddle_scene.gd" id="2_umhgl"]
 [ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="3_d1oeu"]
 
-[node name="BenchCuddleScene" instance=ExtResource("1_5l8ft")]
+[node name="BenchCuddleScene" unique_id=869996585 instance=ExtResource("1_5l8ft")]
 script = ExtResource("2_umhgl")
 
-[node name="SitSpot" parent="." index="0" instance=ExtResource("3_d1oeu")]
+[node name="SitSpot" parent="." index="0" unique_id=1163222868 instance=ExtResource("3_d1oeu")]
 unique_name_in_owner = true
 
-[node name="SitSpot2" parent="." index="1" instance=ExtResource("3_d1oeu")]
+[node name="SitSpot2" parent="." index="1" unique_id=1340615861 instance=ExtResource("3_d1oeu")]
 unique_name_in_owner = true

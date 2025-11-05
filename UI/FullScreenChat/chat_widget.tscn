@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://n51kco8yolw0" path="res://UI/FullScreenChat/chat_widget.gd" id="1_106ru"]
 [ext_resource type="PackedScene" uid="uid://bbkxnnphcdqnp" path="res://UI/FullScreenChat/chat_widget_message.tscn" id="1_qfu1i"]
 
-[node name="ChatWidget" type="VBoxContainer"]
+[node name="ChatWidget" type="VBoxContainer" unique_id=754980621]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,21 +11,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_106ru")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1080918860]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MessagesList" type="VBoxContainer" parent="ScrollContainer"]
+[node name="MessagesList" type="VBoxContainer" parent="ScrollContainer" unique_id=397629085]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ChatWidgetMessage" parent="ScrollContainer/MessagesList" instance=ExtResource("1_qfu1i")]
+[node name="ChatWidgetMessage" parent="ScrollContainer/MessagesList" unique_id=1238810659 instance=ExtResource("1_qfu1i")]
 layout_mode = 2
 bbcode_enabled = false
 
-[node name="ChatLineEdit" type="LineEdit" parent="."]
+[node name="ChatLineEdit" type="LineEdit" parent="." unique_id=1210133840]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Chat"

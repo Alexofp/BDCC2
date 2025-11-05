@@ -8,22 +8,22 @@ size = Vector3(2, 0.238267, 0.222192)
 [sub_resource type="BoxShape3D" id="BoxShape3D_oytmw"]
 size = Vector3(2, 0.241326, 1.47831)
 
-[node name="Stairs2" instance=ExtResource("1_5dc44")]
+[node name="Stairs2" unique_id=250418288 instance=ExtResource("1_5dc44")]
 
-[node name="Stairs2" parent="." index="0"]
+[node name="Stairs2" parent="." index="0" unique_id=1600260139]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs2" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stairs2" index="0" unique_id=1893926793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.500502, 0.604433)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs2/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs2/StaticBody3D" index="0" unique_id=619928571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.500425, 0.380364, -0.493337)
 shape = SubResource("BoxShape3D_4061a")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Stairs2/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Stairs2/StaticBody3D" index="1" unique_id=2015052147]
 transform = Transform3D(1, 0, 0, 0, 0.737053, -0.675835, 0, 0.675835, 0.737053, -0.500425, -0.0865029, 0.0829877)
 shape = SubResource("BoxShape3D_oytmw")

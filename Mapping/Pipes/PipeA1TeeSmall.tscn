@@ -8,22 +8,22 @@ size = Vector3(0.4, 0.4, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_epqky"]
 size = Vector3(0.2, 0.5, 0.2)
 
-[node name="PipeA1TeeSmall" instance=ExtResource("1_lxbsf")]
+[node name="PipeA1TeeSmall" unique_id=1784057057 instance=ExtResource("1_lxbsf")]
 
-[node name="PipeA1TeeSmall" parent="." index="0"]
+[node name="PipeA1TeeSmall" parent="." index="0" unique_id=692758626]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1TeeSmall" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="PipeA1TeeSmall" index="0" unique_id=1976270986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0.15, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="0" unique_id=815679768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 shape = SubResource("BoxShape3D_bmehh")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PipeA1TeeSmall/StaticBody3D" index="1" unique_id=53751033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("BoxShape3D_epqky")

@@ -5,20 +5,20 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_be2dl"]
 [ext_resource type="Material" uid="uid://c6ywib8afnxbd" path="res://Mesh/Clothing/PlainPanties/plain_panties_fem.tres" id="4_2so7p"]
 
-[node name="PlainPantiesFem" instance=ExtResource("1_461fv")]
+[node name="PlainPantiesFem" unique_id=2094186892 instance=ExtResource("1_461fv")]
 script = ExtResource("2_461fv")
 
-[node name="rig" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1523531590 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_be2dl")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainPanties"), NodePath("Skeleton3D/PlainPantiesShifted")]
 
-[node name="PlainPanties" parent="rig/Skeleton3D" index="0"]
+[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(874688703) index="0" unique_id=1116476256]
 unique_name_in_owner = true
 lod_bias = 3.0
 surface_material_override/0 = ExtResource("4_2so7p")
 
-[node name="PlainPantiesShifted" parent="rig/Skeleton3D" index="1"]
+[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(874688703) index="1" unique_id=620186227]
 unique_name_in_owner = true
 lod_bias = 3.0
 surface_material_override/0 = ExtResource("4_2so7p")

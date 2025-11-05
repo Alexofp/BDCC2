@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bf5num4svw1x6" path="res://UI/Control3D/control_3d.gd" id="1_7ng3w"]
 
-[node name="Control3D" type="Node3D"]
+[node name="Control3D" type="Node3D" unique_id=1684165897]
 physics_interpolation_mode = 2
 script = ExtResource("1_7ng3w")

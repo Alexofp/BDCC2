@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://cy38bqq4oeq17" path="res://UI/VarList/Vars/skin_type_override_var.gd" id="1_psqk2"]
 
-[node name="SkinTypeOverrideVar" type="VBoxContainer"]
+[node name="SkinTypeOverrideVar" type="VBoxContainer" unique_id=1306366121]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_psqk2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1650609349]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=326844222]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Inherit base color"
 
-[node name="LabelButton" type="TextureButton" parent="HBoxContainer/Label"]
+[node name="LabelButton" type="TextureButton" parent="HBoxContainer/Label" unique_id=790592777]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,27 +26,27 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
 
-[node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer" unique_id=2075420776]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OverrideDataList" type="VBoxContainer" parent="."]
+[node name="OverrideDataList" type="VBoxContainer" parent="." unique_id=2029696045]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="OverrideDataList"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="OverrideDataList" unique_id=367633964]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OverrideDataList/HBoxContainer2"]
+[node name="Label" type="Label" parent="OverrideDataList/HBoxContainer2" unique_id=1223747233]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Custom base color"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="OverrideDataList/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="OverrideDataList/HBoxContainer2" unique_id=55008391]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CustomColorPicker" type="ColorPickerButton" parent="OverrideDataList/HBoxContainer2/HBoxContainer"]
+[node name="CustomColorPicker" type="ColorPickerButton" parent="OverrideDataList/HBoxContainer2/HBoxContainer" unique_id=724962875]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2

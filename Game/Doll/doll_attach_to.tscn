@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="1_h454m"]
 
-[node name="DollAttachTo" type="Node3D"]
+[node name="DollAttachTo" type="Node3D" unique_id=1878486558]
 script = ExtResource("1_h454m")

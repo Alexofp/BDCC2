@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://bgimnbbr8c0eo" path="res://Game/Systems/Camera/PriorityCamera.gd" id="1_135to"]
 [ext_resource type="Script" uid="uid://jmdxogbhdo25" path="res://Game/CharacterCreator/character_creator_camera_setup.gd" id="1_y72er"]
 
-[node name="CharacterCreatorCameraSetup" type="Node3D"]
+[node name="CharacterCreatorCameraSetup" type="Node3D" unique_id=2013687957]
 script = ExtResource("1_y72er")
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1900415903]
 unique_name_in_owner = true
 transform = Transform3D(0.90068305, 0, -0.4344767, 0, 1, 0, 0.4344767, 0, 0.90068305, 0, 1.336, 0)
 
-[node name="PriorityCamera" type="Camera3D" parent="CameraPivot"]
+[node name="PriorityCamera" type="Camera3D" parent="CameraPivot" unique_id=1054434077]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
 fov = 60.0

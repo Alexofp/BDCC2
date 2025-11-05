@@ -11,10 +11,10 @@ properties/1/path = NodePath(".:charID")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 
-[node name="NetworkPlayerInfo" type="Node"]
+[node name="NetworkPlayerInfo" type="Node" unique_id=1811112659]
 script = ExtResource("1_ucnn4")
 
-[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=605687037]
 replication_config = SubResource("SceneReplicationConfig_1uxpe")
 public_visibility = false
 script = ExtResource("2_3regm")

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cn6vhem5otnfl" path="res://Game/Multiplayer/NetworkedNode/networked_nodes.gd" id="1_5i831"]
 
-[node name="NetworkedNodes" type="Node3D"]
+[node name="NetworkedNodes" type="Node3D" unique_id=2029230167]
 script = ExtResource("1_5i831")

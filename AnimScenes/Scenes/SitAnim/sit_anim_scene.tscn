@@ -4,12 +4,12 @@
 [ext_resource type="Script" uid="uid://cbcacg0hofk1j" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.gd" id="2_wah76"]
 [ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="4_na0af"]
 
-[node name="SitAnimScene" instance=ExtResource("1_a1rgy")]
+[node name="SitAnimScene" unique_id=1155249647 instance=ExtResource("1_a1rgy")]
 script = ExtResource("2_wah76")
 
-[node name="SitSpot" parent="." index="0" instance=ExtResource("4_na0af")]
+[node name="SitSpot" parent="." index="0" unique_id=1513181109 instance=ExtResource("4_na0af")]
 unique_name_in_owner = true
 
-[node name="StandSpot" type="Marker3D" parent="." index="1"]
+[node name="StandSpot" type="Marker3D" parent="." index="1" unique_id=1733448779]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.707047)

@@ -5,18 +5,18 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_g06s3"]
 [ext_resource type="Material" uid="uid://ravkpurwk0ho" path="res://Mesh/Clothing/Shorts/shortsMat.tres" id="4_xotcu"]
 
-[node name="Shorts" instance=ExtResource("1_fe205")]
+[node name="Shorts" unique_id=563789288 instance=ExtResource("1_fe205")]
 script = ExtResource("2_rmhub")
 
-[node name="rig" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=282183994 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_g06s3")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Shorts"), NodePath("Skeleton3D/Shorts_PulledDown")]
 
-[node name="Shorts" parent="rig/Skeleton3D" index="0"]
+[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1242448269) index="0" unique_id=382814717]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_xotcu")
 
-[node name="Shorts_PulledDown" parent="rig/Skeleton3D" index="1"]
+[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1242448269) index="1" unique_id=531339940]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_xotcu")

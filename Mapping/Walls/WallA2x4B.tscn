@@ -8,30 +8,30 @@ size = Vector3(2, 4, 0.253977)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_8sg3c"]
 size = Vector2(4.02, 2.02)
 
-[node name="WallA2x4B" instance=ExtResource("1_twq65")]
+[node name="WallA2x4B" unique_id=1887925568 instance=ExtResource("1_twq65")]
 
-[node name="WallA2x4B" parent="." index="0"]
+[node name="WallA2x4B" parent="." index="0" unique_id=1084915126]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="WallA2x4B" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WallA2x4B" index="0" unique_id=243031824]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, 2, 0.162058)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA2x4B/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallA2x4B/StaticBody3D" index="0" unique_id=1076981148]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0350696)
 shape = SubResource("BoxShape3D_pr5hi")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallA2x4B" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallA2x4B" index="1" unique_id=1421059993]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.19209e-07, 2, 0)
 occluder = SubResource("QuadOccluder3D_8sg3c")
 
-[node name="WallA2x4B_lod1" parent="." index="1"]
+[node name="WallA2x4B_lod1" parent="." index="1" unique_id=1714591178]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WallA2x4B_lod2" parent="." index="2"]
+[node name="WallA2x4B_lod2" parent="." index="2" unique_id=1663883994]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

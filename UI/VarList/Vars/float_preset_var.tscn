@@ -1,27 +1,27 @@
 [gd_scene load_steps=2 format=3 uid="uid://bbh2u6di1xoaa"]
 
-[ext_resource type="Script" path="res://UI/VarList/Vars/float_preset_var.gd" id="1_mkkbd"]
+[ext_resource type="Script" uid="uid://ye77ikooy67o" path="res://UI/VarList/Vars/float_preset_var.gd" id="1_mkkbd"]
 
-[node name="FloatPresetsVar" type="VBoxContainer"]
+[node name="FloatPresetsVar" type="VBoxContainer" unique_id=183878423]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_mkkbd")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=645108626]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1177178828]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer" unique_id=1672165355]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer/HFlowContainer"]
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer/HFlowContainer" unique_id=199529643]
 layout_mode = 2
 size_flags_horizontal = 3
 step = 0.1

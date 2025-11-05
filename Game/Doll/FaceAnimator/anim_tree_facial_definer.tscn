@@ -539,9 +539,9 @@ backlight = true
 outline = true
 globalDetailMask = true
 
-[node name="AnimTreeFacialDefiner" instance=ExtResource("1_pulm7")]
+[node name="AnimTreeFacialDefiner" unique_id=150675421 instance=ExtResource("1_pulm7")]
 
-[node name="Skeleton3D" parent="MyHeadRig" index="0"]
+[node name="Skeleton3D" parent="MyHeadRig" parent_id_path=PackedInt32Array(78571029) index="0" unique_id=215666108]
 bones/1/rotation = Quaternion(6.65569e-08, 0.47204772, 0.88157296, 3.563858e-08)
 bones/2/position = Vector3(4.2572275e-09, 0.09072916, 0.028194368)
 bones/3/position = Vector3(-0.009845255, 0.08823079, 0.028799769)
@@ -590,23 +590,23 @@ bones/41/rotation = Quaternion(0.7071068, -1.7167819e-06, -1.7167819e-06, 0.7071
 bones/44/rotation = Quaternion(0.7071068, 1.1267261e-06, 1.1267261e-06, 0.7071068)
 bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.7071068)
 
-[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0"]
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=933146486]
 surface_material_override/0 = ExtResource("2_1sqg3")
 
-[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1"]
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=1341279448]
 surface_material_override/0 = ExtResource("3_rkdx2")
 
-[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2"]
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1086904737]
 surface_material_override/0 = ExtResource("4_2e0eg")
 surface_material_override/1 = ExtResource("4_2e0eg")
 
-[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3"]
+[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=1274998474]
 surface_material_override/0 = ExtResource("5_ucdhx")
 
-[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4"]
+[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=2104752484]
 surface_material_override/0 = SubResource("ShaderMaterial_mdxkv")
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1231524279]
 tree_root = ExtResource("11_2e0n2")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Brows_Add/add_amount = 1.0

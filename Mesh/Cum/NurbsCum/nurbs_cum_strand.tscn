@@ -2,4 +2,4 @@
 
 [ext_resource type="PackedScene" uid="uid://crgijtfh57a8b" path="res://Mesh/Cum/NurbsCum/NurbsCumStrand.glb" id="1_dma0m"]
 
-[node name="NurbsCumStrand" instance=ExtResource("1_dma0m")]
+[node name="NurbsCumStrand" unique_id=1506900681 instance=ExtResource("1_dma0m")]

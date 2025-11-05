@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dr0mdxdwkhpoj" path="res://Mapping/Decals/Raw/DecalPull.glb" id="1_ccewd"]
 
-[node name="DecalPull" instance=ExtResource("1_ccewd")]
+[node name="DecalPull" unique_id=28795011 instance=ExtResource("1_ccewd")]
 
-[node name="DecalPull" parent="." index="0"]
+[node name="DecalPull" parent="." index="0" unique_id=1381090549]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

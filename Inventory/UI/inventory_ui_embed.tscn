@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c7jun2qq7us4r" path="res://Inventory/UI/inventory_ui_embed.gd" id="1_v6mls"]
 [ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="2_87hiv"]
 
-[node name="InventoryUIEmbed" type="VBoxContainer"]
+[node name="InventoryUIEmbed" type="VBoxContainer" unique_id=192583184]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,34 +11,34 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v6mls")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1359714353]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InvEntriesList" type="VBoxContainer" parent="ScrollContainer"]
+[node name="InvEntriesList" type="VBoxContainer" parent="ScrollContainer" unique_id=1651582401]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DescContainer" type="PanelContainer" parent="."]
+[node name="DescContainer" type="PanelContainer" parent="." unique_id=2035159274]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="DescRichLabel" type="RichTextLabel" parent="DescContainer"]
+[node name="DescRichLabel" type="RichTextLabel" parent="DescContainer" unique_id=1355975285]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 
-[node name="SmartButtonGrid" parent="." instance=ExtResource("2_87hiv")]
+[node name="SmartButtonGrid" parent="." unique_id=200208307 instance=ExtResource("2_87hiv")]
 unique_name_in_owner = true
 layout_mode = 2
 buttonAmountInitial = 6
 gridColumnsInitial = 3
 
-[node name="TestButton" type="Button" parent="."]
+[node name="TestButton" type="Button" parent="." unique_id=1895875898]
 layout_mode = 2
 text = "Test"
 

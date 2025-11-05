@@ -7,9 +7,9 @@ emission_enabled = true
 emission = Color(0.489906, 0.622259, 0.960257, 1)
 emission_energy_multiplier = 16.0
 
-[node name="GlowCube" type="MeshInstance3D"]
+[node name="GlowCube" type="MeshInstance3D" unique_id=1290955018]
 transform = Transform3D(0.389951, 0, 0, 0, 0.389951, 0, 0, 0, 0.389951, 0, 0, 0)
 mesh = SubResource("BoxMesh_tm36j")
 surface_material_override/0 = SubResource("StandardMaterial3D_reck3")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=265217569]

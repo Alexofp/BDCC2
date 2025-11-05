@@ -5,15 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://dsc45k35ubsed" path="res://Mesh/Parts/Head/HumanFeminine/Items/Blindfold/FemHumanBlindfold.glb" id="2_57gbo"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="3_gqujn"]
 
-[node name="FemHumanBlindfold" type="Node3D"]
+[node name="FemHumanBlindfold" type="Node3D" unique_id=850586216]
 script = ExtResource("1_57gbo")
 
-[node name="DollAttachTo" parent="." instance=ExtResource("1_yaqt4")]
+[node name="DollAttachTo" parent="." unique_id=1579502542 instance=ExtResource("1_yaqt4")]
 attachPoint = "head_items"
 
-[node name="FemHumanBlindfold" parent="DollAttachTo" instance=ExtResource("2_57gbo")]
+[node name="FemHumanBlindfold" parent="DollAttachTo" unique_id=1564159816 instance=ExtResource("2_57gbo")]
 
-[node name="FemHumanBlindfold" parent="DollAttachTo/FemHumanBlindfold" index="0"]
+[node name="FemHumanBlindfold" parent="DollAttachTo/FemHumanBlindfold" index="0" unique_id=415291024]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
 surface_material_override/0 = ExtResource("3_gqujn")

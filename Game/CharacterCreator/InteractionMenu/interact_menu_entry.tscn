@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_hes2x"]
 [ext_resource type="Script" uid="uid://8r5aiad8r8sw" path="res://Game/CharacterCreator/InteractionMenu/interact_menu_entry.gd" id="1_r1qg5"]
 
-[node name="InteractMenuEntry" type="PanelContainer"]
+[node name="InteractMenuEntry" type="PanelContainer" unique_id=2129213291]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,15 +11,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r1qg5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2035406313]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="VBoxContainer"]
+[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=429901335]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Something"
 
-[node name="InteractVarList" parent="VBoxContainer" instance=ExtResource("1_hes2x")]
+[node name="InteractVarList" parent="VBoxContainer" unique_id=602809564 instance=ExtResource("1_hes2x")]
 unique_name_in_owner = true
 layout_mode = 2

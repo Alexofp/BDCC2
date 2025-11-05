@@ -14,7 +14,7 @@ shader_parameter/colorR = Color(0.933333, 1, 0, 0)
 shader_parameter/colorG = Color(1, 0, 0, 1)
 shader_parameter/colorB = Color(1, 0, 0, 1)
 
-[node name="TestColorMask" type="Control"]
+[node name="TestColorMask" type="Control" unique_id=1037677795]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,10 +23,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oj8yj")
 
-[node name="MyLayeredTexture" parent="." instance=ExtResource("2_tu0ye")]
+[node name="MyLayeredTexture" parent="." unique_id=1446674936 instance=ExtResource("2_tu0ye")]
 clearColor = Color(1, 0, 1, 1)
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1176723843]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorMaskTextureRect" parent="." instance=ExtResource("3_tu0ye")]
+[node name="ColorMaskTextureRect" parent="." unique_id=621942924 instance=ExtResource("3_tu0ye")]
 material = SubResource("ShaderMaterial_g3oq7")
 layout_mode = 1
 offset_right = -468.0

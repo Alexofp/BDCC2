@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://md67hxaxs4bi" path="res://UI/VarList/Vars/bool_var.gd" id="1_arbfc"]
 
-[node name="BoolVar" type="VBoxContainer"]
+[node name="BoolVar" type="VBoxContainer" unique_id=332416122]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_arbfc")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=520696486]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1039967206]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="LabelButton" type="TextureButton" parent="HBoxContainer/Label"]
+[node name="LabelButton" type="TextureButton" parent="HBoxContainer/Label" unique_id=776775521]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
 
-[node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer" unique_id=583053341]
 layout_mode = 2
 size_flags_horizontal = 3
 

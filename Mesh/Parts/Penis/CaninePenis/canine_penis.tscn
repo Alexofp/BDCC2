@@ -121,14 +121,14 @@ furTuft = NodePath("CaninePenisRig/Skeleton3D/FurPath_001")
 penisModifier = NodePath("CaninePenisRig/Skeleton3D/PenisSkeletonModifier")
 jiggleModifiers = [NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D2"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D3"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D4"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D5"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D6"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D7"), NodePath("CaninePenisRig/Skeleton3D/DMWBWiggleRotationModifier3D8")]
 
-[node name="CaninePenisRig" parent="." index="0"]
+[node name="CaninePenisRig" parent="." index="0" unique_id=1319044729]
 script = ExtResource("3_hkkiv")
 attachPoint = "penis"
 
-[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" index="0" unique_id=1827077696]
+[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="0" unique_id=1827077696]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027741, 0.00991312)
 
-[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" index="1" unique_id=1004302683 node_paths=PackedStringArray("shaftNode")]
+[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="1" unique_id=1004302683 node_paths=PackedStringArray("shaftNode")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029868, 0.082137)
 curve = SubResource("Curve3D_nabfd")
@@ -146,7 +146,7 @@ transform = Transform3D(0.0615661, 5.2878e-09, 5.47513e-09, -5.47513e-09, -3.725
 visible = false
 mesh = SubResource("TorusMesh_5uh76")
 
-[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="2" unique_id=1351944422]
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="2" unique_id=1351944422]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -169,7 +169,7 @@ chainLength = 4
 ballsBone = "balls"
 metadata/_custom_type_script = "uid://clc1kuop8qcgb"
 
-[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="3" unique_id=1808914217 node_paths=PackedStringArray("targetPath")]
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="3" unique_id=1808914217 node_paths=PackedStringArray("targetPath")]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -193,15 +193,13 @@ targetPath = NodePath("../GuidePath")
 thicknessCurve = SubResource("Curve_5uh76")
 metadata/_custom_type_script = "uid://ddp3batfh4dqr"
 
-[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="4"]
-skeleton = NodePath("..")
+[node name="Balls" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="4" unique_id=1779178530]
 surface_material_override/0 = ExtResource("4_vlnjl")
 
-[node name="FurPath_001" parent="CaninePenisRig/Skeleton3D" index="5"]
-skeleton = NodePath("..")
+[node name="FurPath_001" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="5" unique_id=120798344]
 surface_material_override/0 = ExtResource("5_5uh76")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="6" unique_id=240060054]
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="6" unique_id=240060054]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -223,7 +221,7 @@ bone_name = "balls"
 properties = SubResource("Resource_5uh76")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="7" unique_id=135017121]
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="7" unique_id=135017121]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -232,7 +230,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.0658141e-14, 1.192093e-06, 1.1909849e-06, -0.04310769, 0.9990704, 5.1388383e-08, 0.9990704, 0.04310769, 1.5135965e-15, 0.027374681, 0.10353082)
+transform = Transform3D(-1, 6.3948846e-14, 1.192093e-06, 1.1909558e-06, -0.043670114, 0.999046, 5.20589e-08, 0.999046, 0.043670114, 1.5135965e-15, 0.027374681, 0.10353082)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -245,7 +243,7 @@ bone_name = "penis"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="8" unique_id=25678635]
+[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="8" unique_id=25678635]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -254,7 +252,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 5.684342e-14, 1.192093e-06, 1.1875908e-06, -0.086828634, 0.9962232, 1.0350786e-07, 0.9962232, 0.086828634, 1.8998034e-15, 0.02539061, 0.14951397)
+transform = Transform3D(-1, -7.460699e-14, 1.192093e-06, 1.1874096e-06, -0.08855604, 0.9960712, 1.0556696e-07, 0.9960712, 0.08855604, 4.3525584e-15, 0.025364723, 0.14951286)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -267,7 +265,7 @@ bone_name = "penis.001"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D4" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="9" unique_id=1732920655]
+[node name="DMWBWiggleRotationModifier3D4" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="9" unique_id=1732920655]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -276,7 +274,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 2.7355895e-13, 1.1920931e-06, 1.1819168e-06, -0.13038343, 0.9914636, 1.5542945e-07, 0.9914636, 0.13038343, 4.411729e-15, 0.021394243, 0.19536605)
+transform = Transform3D(-1, -2.4868996e-14, 1.192093e-06, 1.1814068e-06, -0.13359769, 0.9910357, 1.5926085e-07, 0.9910357, 0.13359769, 8.1436077e-16, 0.021288851, 0.19535793)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -289,7 +287,7 @@ bone_name = "penis.002"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D5" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="10" unique_id=1455534110]
+[node name="DMWBWiggleRotationModifier3D5" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="10" unique_id=1455534110]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -298,7 +296,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.6697754e-13, 1.1920931e-06, 1.1740223e-06, -0.17345801, 0.9848412, 2.0677824e-07, 0.9848412, 0.17345801, 1.6898199e-14, 0.015393221, 0.24099912)
+transform = Transform3D(-1, -6.039613e-14, 1.192093e-06, 1.1731014e-06, -0.17778936, 0.9840687, 2.1194141e-07, 0.9840687, 0.17778936, -4.3460265e-16, 0.015139889, 0.2409713)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -311,7 +309,7 @@ bone_name = "penis.003"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D6" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="11" unique_id=1567559222]
+[node name="DMWBWiggleRotationModifier3D6" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="11" unique_id=1567559222]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -320,7 +318,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 8.1712415e-14, 1.1920931e-06, 1.1639945e-06, -0.21583681, 0.9764294, 2.5729761e-07, 0.9764294, 0.21583681, 2.4479157e-14, 0.007409649, 0.2863274)
+transform = Transform3D(-1, -4.973799e-14, 1.192093e-06, 1.16276e-06, -0.220471, 0.9753937, 2.628219e-07, 0.9753937, 0.220471, -3.3187367e-15, 0.006956963, 0.286264)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -333,7 +331,7 @@ bone_name = "penis.004"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D7" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="12" unique_id=2089291089]
+[node name="DMWBWiggleRotationModifier3D7" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="12" unique_id=2089291089]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -342,7 +340,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.314504e-13, 1.1920931e-06, 1.1519592e-06, -0.25729284, 0.9663334, 3.067171e-07, 0.9663334, 0.25729284, 2.81357e-14, -0.0025244346, 0.33126843)
+transform = Transform3D(-1, -8.1712415e-14, 1.192093e-06, 1.1506775e-06, -0.26129848, 0.9652582, 3.1149204e-07, 0.9652582, 0.26129848, -5.7123165e-15, -0.0031904131, 0.3311574)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -355,7 +353,7 @@ bone_name = "penis.005"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D8" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="13" unique_id=1997978448]
+[node name="DMWBWiggleRotationModifier3D8" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="13" unique_id=1997978448]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -364,7 +362,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -3.5527137e-14, 1.1920931e-06, 1.1380802e-06, -0.29759923, 0.9546908, 3.5476594e-07, 0.9546908, 0.29759923, 3.4081485e-14, -0.014366577, 0.37574482)
+transform = Transform3D(-1, -4.2632564e-14, 1.192093e-06, 1.1371254e-06, -0.3001569, 0.95388997, 3.578149e-07, 0.95388997, 0.3001569, -9.577551e-15, -0.015216919, 0.3755843)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -377,12 +375,11 @@ bone_name = "penis.006"
 properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="14"]
-skeleton = NodePath("..")
+[node name="Shaft" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="14" unique_id=661682796]
 surface_material_override/0 = ExtResource("4_hkkiv")
 
-[node name="TipCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" index="15" unique_id=669412364]
-transform = Transform3D(-1, -3.5527137e-14, 1.1920931e-06, 1.1380802e-06, -0.29759923, 0.9546908, 3.5476594e-07, 0.9546908, 0.29759923, 3.4081485e-14, -0.014366577, 0.37574482)
+[node name="TipCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="15" unique_id=669412364]
+transform = Transform3D(-1, -4.2632564e-14, 1.192093e-06, 1.1371254e-06, -0.3001569, 0.95388997, 3.578149e-07, 0.95388997, 0.3001569, -9.577551e-15, -0.015216919, 0.3755843)
 bone_name = "penis.006"
 bone_idx = 9
 
@@ -422,8 +419,8 @@ trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_mor6m")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
-[node name="BackCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" index="16" unique_id=1226043414]
-transform = Transform3D(-1, 1.6697754e-13, 1.1920931e-06, 1.1740223e-06, -0.17345801, 0.9848412, 2.0677824e-07, 0.9848412, 0.17345801, 1.6898199e-14, 0.015393221, 0.24099912)
+[node name="BackCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="16" unique_id=1226043414]
+transform = Transform3D(-1, -6.039613e-14, 1.192093e-06, 1.1731014e-06, -0.17778936, 0.9840687, 2.1194141e-07, 0.9840687, 0.17778936, -4.3460265e-16, 0.015139889, 0.2409713)
 bone_name = "penis.003"
 bone_idx = 6
 

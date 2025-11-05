@@ -5,10 +5,10 @@
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dilbs"]
 
-[node name="PoseSpot" type="Marker3D"]
+[node name="PoseSpot" type="Marker3D" unique_id=336751143]
 script = ExtResource("1_4drwq")
 
-[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1039072771]
 replication_config = SubResource("SceneReplicationConfig_dilbs")
 script = ExtResource("3_oii2k")
 metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

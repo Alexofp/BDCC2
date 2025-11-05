@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://cxd05ed1amipb" path="res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/piercings_1.gd" id="2_atn76"]
 [ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="3_atn76"]
 
-[node name="Piercings1" instance=ExtResource("1_7yqvv")]
+[node name="Piercings1" unique_id=1546471870 instance=ExtResource("1_7yqvv")]
 script = ExtResource("2_atn76")
 
-[node name="BallPiercing" parent="MyCanineHeadRig/Skeleton3D" index="0"]
+[node name="BallPiercing" parent="MyCanineHeadRig/Skeleton3D" parent_id_path=PackedInt32Array(1879695732) index="0" unique_id=1296170672]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("3_atn76")

@@ -334,7 +334,7 @@ void fragment() {
 	
 	if (rounded && abs(is_end) > 0.0001) {
 		// pure heuristics
-		float softner = magic_aa(6000.0,VERTEX,VIEWPORT_SIZE);
+		float softner = magic_aa(VERTEX,VIEWPORT_SIZE); //6000.0,
 		softner *= (1.0/line_width) * (min(abs(is_end)*2.0,1.0));
 		ALPHA *= smoothstep(1.0,1.0+softner,getDistToLineCenter(UV,is_end));
 	}
@@ -362,6 +362,18 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a854b"]
 render_priority = 0
 shader = SubResource("Shader_kmium")
+shader_parameter/line_width = 0.03
+shader_parameter/tangent_facing = false
+shader_parameter/rounded = false
+shader_parameter/tube_normal = true
+shader_parameter/uv_matches_width = true
+shader_parameter/tex_scale = Vector2(1, 1)
+shader_parameter/tex_stretch = true
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/roughness = 0.5
+shader_parameter/layerrr = 100.0
 
 [sub_resource type="Curve3D" id="32"]
 bake_interval = 1.67
@@ -477,8 +489,8 @@ void fragment(){
 [sub_resource type="FastNoiseLite" id="24"]
 
 [sub_resource type="NoiseTexture2D" id="25"]
-seamless = true
 noise = SubResource("24")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="26"]
 render_priority = 0
@@ -497,7 +509,7 @@ render_mode skip_vertex_transform, cull_disabled;
 render_mode unshaded;
 //render_mode blend_add;
 
-#include \"include/polyliner_inc.gdshaderinc\"
+#include \"res://addons/godot-polyliner/shaders/include/polyliner_inc.gdshaderinc\"
 
 // Shader for swooshy sword effects.
 // Only really makes sense to use this
@@ -514,7 +526,7 @@ void vertex() {
 	TANGENT = mat3(MODELVIEW_MATRIX) * TANGENT;
 	
 	float is_end;
-	quick_line(line_width,false);
+	quick_line(line_width,false,false);
 	
 	VERTEX += TANGENT * tangent_offset;
 }
@@ -532,6 +544,11 @@ void fragment(){
 [sub_resource type="ShaderMaterial" id="39"]
 render_priority = 0
 shader = SubResource("Shader_4y0tk")
+shader_parameter/line_width = 0.4
+shader_parameter/tangent_facing = true
+shader_parameter/tangent_offset = 0.5
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/alpha_curve = 0.5
 
 [sub_resource type="Shader" id="40"]
 code = "shader_type spatial;
@@ -656,42 +673,42 @@ shader_parameter/roughness = 0.25
 shader_parameter/metallic = 1.0
 shader_parameter/color = Color(0.1, 0.1, 0.1, 1)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=566196193]
 
-[node name="wormspinner" type="Node3D" parent="."]
-transform = Transform3D(-0.265037, 0, 0.964229, 0, 0.999999, 0, -0.964223, 0, -0.265039, 0.136397, 0.016, 3.531)
+[node name="wormspinner" type="Node3D" parent="." unique_id=1641192624]
+transform = Transform3D(-0.4152671, 0, 0.9096891, 0, 0.999999, 0, -0.9096834, 0, -0.4152697, 0.3147177, 0.016, 3.531)
 script = SubResource("1")
 mul = 1.59
 
-[node name="worm" type="Node3D" parent="wormspinner"]
+[node name="worm" type="Node3D" parent="wormspinner" unique_id=797774266]
 transform = Transform3D(1.47814e-08, 0.338162, -0.941088, 1, -4.37114e-08, -4.41775e-14, -4.11363e-08, -0.941088, -0.338162, 0.636846, 0.0686262, 0.206937)
 script = ExtResource("4")
 max_points = 150
 material = SubResource("11")
 
-[node name="MeshInstance2" type="MeshInstance3D" parent="wormspinner/worm"]
+[node name="MeshInstance2" type="MeshInstance3D" parent="wormspinner/worm" unique_id=630987254]
 transform = Transform3D(0.05, 4.44089e-16, -1.11022e-16, 0, 0.05, 0, -2.35922e-16, -1.39698e-09, 0.05, 0.0469999, 0, 0.033)
 mesh = SubResource("36")
 
-[node name="MeshInstance3" type="MeshInstance3D" parent="wormspinner/worm"]
+[node name="MeshInstance3" type="MeshInstance3D" parent="wormspinner/worm" unique_id=1517527208]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.047, 0, -0.026)
 mesh = SubResource("36")
 
-[node name="wire" type="Path3D" parent="."]
+[node name="wire" type="Path3D" parent="." unique_id=311855669]
 transform = Transform3D(-0.422618, 0, 0.906308, 0, 1, 0, -0.906308, 0, -0.422618, 1.0615, 0.0552319, 3.14501)
 curve = SubResource("6")
 script = ExtResource("3")
 iter_min_dist = 0.077
 material = SubResource("7")
 
-[node name="wireframe" type="Path3D" parent="."]
+[node name="wireframe" type="Path3D" parent="." unique_id=1503132094]
 transform = Transform3D(0.991497, 0, 0.130128, 0, 1, 0, -0.130128, 0, 0.991497, -0.815953, 0.738032, 3.27186)
 curve = SubResource("8")
 script = ExtResource("3")
 iter_add_last_point = false
 material = SubResource("9")
 
-[node name="rope8" type="Path3D" parent="."]
+[node name="rope8" type="Path3D" parent="." unique_id=1825042068]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964948, 0.2, 0.623746)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -699,7 +716,7 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_eq0cb")
 
-[node name="dashed" type="Path3D" parent="."]
+[node name="dashed" type="Path3D" parent="." unique_id=19252487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964948, 0.2, -2.47625)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -707,21 +724,21 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_5byre")
 
-[node name="arrow" type="Path3D" parent="."]
+[node name="arrow" type="Path3D" parent="." unique_id=983004704]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964948, 0.2, -3.27625)
 curve = SubResource("10")
 script = ExtResource("3")
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_he72r")
 
-[node name="arrow2" type="Path3D" parent="."]
+[node name="arrow2" type="Path3D" parent="." unique_id=879852708]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964948, 0.2, -4.07625)
 curve = SubResource("10")
 script = ExtResource("3")
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_tc703")
 
-[node name="rope" type="Path3D" parent="."]
+[node name="rope" type="Path3D" parent="." unique_id=657003789]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964948, 0.2, -0.277496)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -729,7 +746,7 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_qq25h")
 
-[node name="rope2" type="Path3D" parent="."]
+[node name="rope2" type="Path3D" parent="." unique_id=1592907610]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.151, -0.721456)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -738,7 +755,7 @@ iter_add_last_point = false
 uv_size = 1.012
 material = SubResource("57")
 
-[node name="rope4" type="Path3D" parent="."]
+[node name="rope4" type="Path3D" parent="." unique_id=1651270704]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.151, -1.22146)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -746,7 +763,7 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_g5nd2")
 
-[node name="dp" type="Path3D" parent="."]
+[node name="dp" type="Path3D" parent="." unique_id=454262817]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.151, -1.62146)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -754,7 +771,7 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_52kpf")
 
-[node name="rope6" type="Path3D" parent="."]
+[node name="rope6" type="Path3D" parent="." unique_id=1412121172]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.151, -2.02146)
 curve = SubResource("10")
 script = ExtResource("3")
@@ -762,7 +779,7 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_be6ii")
 
-[node name="rope7" type="Path3D" parent="."]
+[node name="rope7" type="Path3D" parent="." unique_id=1037632882]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0964947, 0.2, 0.709972)
 curve = SubResource("Curve3D_s2qhu")
 script = ExtResource("3")
@@ -771,7 +788,7 @@ iter_min_dist = 0.035
 iter_add_last_point = false
 material = SubResource("ShaderMaterial_a854b")
 
-[node name="glow" type="Path3D" parent="."]
+[node name="glow" type="Path3D" parent="." unique_id=1980824754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.05833, 0.672881, 0.492809)
 curve = SubResource("32")
 script = ExtResource("3")
@@ -779,46 +796,46 @@ curve_mode = 1
 iter_min_dist = 0.236
 material = SubResource("33")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=1453345683]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 1.39, 0.857196, 4.73432)
 
-[node name="Path3" type="Path3D" parent="Node3D"]
+[node name="Path3" type="Path3D" parent="Node3D" unique_id=423734765]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0142488, 0.272145, -0.678472)
 curve = SubResource("12")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="Path4" type="Path3D" parent="Node3D"]
+[node name="Path4" type="Path3D" parent="Node3D" unique_id=500955555]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0111256, 0.274852, 0.128072)
 curve = SubResource("14")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="Path5" type="Path3D" parent="Node3D"]
+[node name="Path5" type="Path3D" parent="Node3D" unique_id=1767668473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0111256, 0.274852, 0.624882)
 curve = SubResource("15")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="Path6" type="Path3D" parent="Node3D"]
+[node name="Path6" type="Path3D" parent="Node3D" unique_id=2035156794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0111256, 0.274852, 1.86555)
 curve = SubResource("16")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="Path7" type="Path3D" parent="Node3D"]
+[node name="Path7" type="Path3D" parent="Node3D" unique_id=170413838]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00908566, -1.25051, -0.907288)
 curve = SubResource("17")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="Path8" type="Path3D" parent="Node3D"]
+[node name="Path8" type="Path3D" parent="Node3D" unique_id=306370994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00962734, -1.24589, 0.182642)
 curve = SubResource("18")
 script = ExtResource("3")
 material = SubResource("13")
 
-[node name="2" type="OmniLight3D" parent="Node3D"]
+[node name="2" type="OmniLight3D" parent="Node3D" unique_id=841899268]
 transform = Transform3D(-0.0435529, 0.282734, 1.97944, -0.598798, 1.88719, -0.282734, -1.90776, -0.598798, 0.0435537, 1.14294, 0.783725, -0.465719)
 visible = false
 light_color = Color(1, 0.94, 1, 1)
@@ -828,15 +845,15 @@ shadow_bias = 0.035
 omni_range = 20.0
 omni_attenuation = 2.0
 
-[node name="MeshInstance3" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3" type="MeshInstance3D" parent="." unique_id=908613680]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.104476, 0.491065, 5.4924)
 mesh = SubResource("19")
 
-[node name="MeshInstance4" type="MeshInstance3D" parent="."]
+[node name="MeshInstance4" type="MeshInstance3D" parent="." unique_id=1351154126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023256, -0.016975, 0.0210711)
 mesh = SubResource("19")
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=339179657]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.14351, 1.42591, 1.30462)
 visible = false
 cast_shadow = 0
@@ -848,7 +865,7 @@ emission_sphere_radius = 1.0
 spread = 180.0
 gravity = Vector3(0, 0, 0)
 
-[node name="3" type="DirectionalLight3D" parent="."]
+[node name="3" type="DirectionalLight3D" parent="." unique_id=1118431868]
 transform = Transform3D(1, 0, 0, 0, -0.667832, 0.744312, 0, -0.744312, -0.667832, 1.62286, 5.84881, -3.08045)
 light_color = Color(1, 0.94, 1, 1)
 light_angular_distance = 1.27
@@ -857,30 +874,30 @@ directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 20.0
 directional_shadow_pancake_size = 10.3
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1810090634]
 transform = Transform3D(-0.932721, 0, 0.360599, 0, 1, 0, -0.360599, 0, -0.932721, 0.808431, 0.807191, -0.232107)
 visible = false
 
-[node name="MeshInstance5" type="MeshInstance3D" parent="."]
+[node name="MeshInstance5" type="MeshInstance3D" parent="." unique_id=1643316186]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.42868, 0.805756, 2.64459)
 visible = false
 mesh = SubResource("28")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2141155122]
 environment = ExtResource("1")
 
-[node name="Trail3D" type="Node3D" parent="."]
+[node name="Trail3D" type="Node3D" parent="." unique_id=1790583673]
 transform = Transform3D(0.0465687, -0.818761, -0.572242, -0.986043, 0.0539839, -0.157484, 0.159833, 0.57159, -0.804821, -0.545116, 1.10295, 1.43626)
 script = ExtResource("4")
 material = SubResource("39")
 
-[node name="Trail3D2" type="Node3D" parent="."]
+[node name="Trail3D2" type="Node3D" parent="." unique_id=163082410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55701, 3.18345)
 script = ExtResource("4")
 damping = 0.738
 material = SubResource("41")
 
-[node name="LinePath3D" type="Path3D" parent="."]
+[node name="LinePath3D" type="Path3D" parent="." unique_id=788405360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53022, 1.1862, 3.69593)
 curve = SubResource("42")
 script = ExtResource("3")
@@ -888,19 +905,19 @@ curve_mode = 1
 iter_add_last_point = false
 material = SubResource("52")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=887299949]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.153023, 1.20027, 3.35399)
 visible = false
 
-[node name="OmniLight2" type="OmniLight3D" parent="."]
+[node name="OmniLight2" type="OmniLight3D" parent="." unique_id=1322673560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.442994, 0.503658, 2.12577)
 visible = false
 
-[node name="OmniLight3" type="OmniLight3D" parent="."]
+[node name="OmniLight3" type="OmniLight3D" parent="." unique_id=765613664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101659, 0.201528, 1.76163)
 visible = false
 shadow_enabled = true
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=985445442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22816, 1.89413)
 visible = false

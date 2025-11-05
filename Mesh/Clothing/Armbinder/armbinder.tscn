@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_xbjo8"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_wdpr0"]
 
-[node name="ArmBinder" instance=ExtResource("1_bisdq")]
+[node name="ArmBinder" unique_id=739154577 instance=ExtResource("1_bisdq")]
 script = ExtResource("2_bisdq")
 
-[node name="rigArmbinder" parent="." index="0" node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rigArmbinder" parent="." index="0" unique_id=2068225097 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_xbjo8")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Armbinder")]
 
-[node name="Armbinder" parent="rigArmbinder/Skeleton3D" index="0"]
+[node name="Armbinder" parent="rigArmbinder/Skeleton3D" parent_id_path=PackedInt32Array(2020028307) index="0" unique_id=216413778]
 surface_material_override/0 = ExtResource("4_wdpr0")

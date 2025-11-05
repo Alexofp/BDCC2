@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ds37w03w0raty" path="res://UI/MainMenu/main_menu.gd" id="1_jld46"]
 [ext_resource type="PackedScene" uid="uid://bl3xkx2qr7pgs" path="res://UI/Settings/settings_ui.tscn" id="2_t17p2"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=764239672]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jld46")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=187168725]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,165 +20,165 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainList" type="VBoxContainer" parent="CenterContainer"]
+[node name="MainList" type="VBoxContainer" parent="CenterContainer" unique_id=963388035]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="CenterContainer/MainList"]
+[node name="PlayButton" type="Button" parent="CenterContainer/MainList" unique_id=1232881407]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Play"
 
-[node name="MultiplayerButton" type="Button" parent="CenterContainer/MainList"]
+[node name="MultiplayerButton" type="Button" parent="CenterContainer/MainList" unique_id=1049563296]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Multiplayer"
 
-[node name="CharEditorButton" type="Button" parent="CenterContainer/MainList"]
+[node name="CharEditorButton" type="Button" parent="CenterContainer/MainList" unique_id=115823259]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Character Editor"
 
-[node name="SettingsButton" type="Button" parent="CenterContainer/MainList"]
+[node name="SettingsButton" type="Button" parent="CenterContainer/MainList" unique_id=598882119]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="CenterContainer/MainList"]
+[node name="ExitButton" type="Button" parent="CenterContainer/MainList" unique_id=1007269358]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Exit"
 
-[node name="MultiplayerList" type="VBoxContainer" parent="CenterContainer"]
+[node name="MultiplayerList" type="VBoxContainer" parent="CenterContainer" unique_id=749892393]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="NicknameEdit" type="LineEdit" parent="CenterContainer/MultiplayerList"]
+[node name="NicknameEdit" type="LineEdit" parent="CenterContainer/MultiplayerList" unique_id=7436720]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Nickname..."
 
-[node name="LanButton" type="Button" parent="CenterContainer/MultiplayerList"]
+[node name="LanButton" type="Button" parent="CenterContainer/MultiplayerList" unique_id=2043245922]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Direct Connect (LAN)"
 
-[node name="NodeTunnelButton" type="Button" parent="CenterContainer/MultiplayerList"]
+[node name="NodeTunnelButton" type="Button" parent="CenterContainer/MultiplayerList" unique_id=480729589]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "NodeTunnel (Internet)"
 
-[node name="NorayTunnelButton" type="Button" parent="CenterContainer/MultiplayerList"]
+[node name="NorayTunnelButton" type="Button" parent="CenterContainer/MultiplayerList" unique_id=415895331]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Relay Server (Internet)"
 
-[node name="BackButton" type="Button" parent="CenterContainer/MultiplayerList"]
+[node name="BackButton" type="Button" parent="CenterContainer/MultiplayerList" unique_id=1666856817]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
-[node name="LanList" type="VBoxContainer" parent="CenterContainer"]
+[node name="LanList" type="VBoxContainer" parent="CenterContainer" unique_id=301150479]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="LanHostButton" type="Button" parent="CenterContainer/LanList"]
+[node name="LanHostButton" type="Button" parent="CenterContainer/LanList" unique_id=1928152912]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Host"
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/LanList"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/LanList" unique_id=1213074829]
 layout_mode = 2
 
-[node name="LanIPEdit" type="LineEdit" parent="CenterContainer/LanList"]
+[node name="LanIPEdit" type="LineEdit" parent="CenterContainer/LanList" unique_id=1437123942]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "IP Address"
 
-[node name="LanJoinButton" type="Button" parent="CenterContainer/LanList"]
+[node name="LanJoinButton" type="Button" parent="CenterContainer/LanList" unique_id=1822501436]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Connect"
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/LanList"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/LanList" unique_id=900362512]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="CenterContainer/LanList"]
+[node name="BackButton" type="Button" parent="CenterContainer/LanList" unique_id=845832584]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
-[node name="NodeTunnelList" type="VBoxContainer" parent="CenterContainer"]
+[node name="NodeTunnelList" type="VBoxContainer" parent="CenterContainer" unique_id=930301270]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="NTHostButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+[node name="NTHostButton" type="Button" parent="CenterContainer/NodeTunnelList" unique_id=89007307]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Create room"
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/NodeTunnelList"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/NodeTunnelList" unique_id=1553703696]
 layout_mode = 2
 
-[node name="NTRoomEdit" type="LineEdit" parent="CenterContainer/NodeTunnelList"]
+[node name="NTRoomEdit" type="LineEdit" parent="CenterContainer/NodeTunnelList" unique_id=1430853134]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Room ID"
 
-[node name="NTJoinButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+[node name="NTJoinButton" type="Button" parent="CenterContainer/NodeTunnelList" unique_id=767275681]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Join room"
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NodeTunnelList"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NodeTunnelList" unique_id=905932553]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="CenterContainer/NodeTunnelList"]
+[node name="BackButton" type="Button" parent="CenterContainer/NodeTunnelList" unique_id=1834923388]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
-[node name="NorayTunnelList" type="VBoxContainer" parent="CenterContainer"]
+[node name="NorayTunnelList" type="VBoxContainer" parent="CenterContainer" unique_id=1618989062]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="NorayHostButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+[node name="NorayHostButton" type="Button" parent="CenterContainer/NorayTunnelList" unique_id=1548926084]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Create room"
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/NorayTunnelList"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/NorayTunnelList" unique_id=627921883]
 layout_mode = 2
 
-[node name="NorayRoomEdit" type="LineEdit" parent="CenterContainer/NorayTunnelList"]
+[node name="NorayRoomEdit" type="LineEdit" parent="CenterContainer/NorayTunnelList" unique_id=1582940790]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Room ID"
 
-[node name="NorayJoinButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+[node name="NorayJoinButton" type="Button" parent="CenterContainer/NorayTunnelList" unique_id=568388786]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Join room"
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NorayTunnelList"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/NorayTunnelList" unique_id=1722411456]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="CenterContainer/NorayTunnelList"]
+[node name="BackButton" type="Button" parent="CenterContainer/NorayTunnelList" unique_id=2106628339]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
-[node name="SettingsTab" type="MarginContainer" parent="."]
+[node name="SettingsTab" type="MarginContainer" parent="." unique_id=1754380864]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -192,10 +192,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="SettingsUI" parent="SettingsTab" instance=ExtResource("2_t17p2")]
+[node name="SettingsUI" parent="SettingsTab" unique_id=1842395409 instance=ExtResource("2_t17p2")]
 layout_mode = 2
 
-[node name="NTRelayBottomList" type="VBoxContainer" parent="."]
+[node name="NTRelayBottomList" type="VBoxContainer" parent="." unique_id=562433949]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(200, 0)
@@ -212,17 +212,17 @@ offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="NTRelayBottomList"]
+[node name="Label" type="Label" parent="NTRelayBottomList" unique_id=1825741947]
 layout_mode = 2
 text = "Relay server:"
 horizontal_alignment = 1
 
-[node name="NTRelayServerEdit" type="LineEdit" parent="NTRelayBottomList"]
+[node name="NTRelayServerEdit" type="LineEdit" parent="NTRelayBottomList" unique_id=1985366242]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Relay Server"
 
-[node name="NorayRelayBottomList" type="VBoxContainer" parent="."]
+[node name="NorayRelayBottomList" type="VBoxContainer" parent="." unique_id=512308833]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
@@ -238,21 +238,21 @@ offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="NorayRelayBottomList"]
+[node name="Label" type="Label" parent="NorayRelayBottomList" unique_id=1927291454]
 layout_mode = 2
 text = "Relay server:"
 horizontal_alignment = 1
 
-[node name="NorayRelayList" type="OptionButton" parent="NorayRelayBottomList"]
+[node name="NorayRelayList" type="OptionButton" parent="NorayRelayBottomList" unique_id=1095863894]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="NorayRelayServerEdit" type="LineEdit" parent="NorayRelayBottomList"]
+[node name="NorayRelayServerEdit" type="LineEdit" parent="NorayRelayBottomList" unique_id=832881739]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Relay Server"
 
-[node name="ToolsContainer" type="PanelContainer" parent="."]
+[node name="ToolsContainer" type="PanelContainer" parent="." unique_id=1856360669]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -268,19 +268,19 @@ offset_bottom = -33.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ToolsContainer" unique_id=1579316221]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ToolsContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ToolsContainer/VBoxContainer" unique_id=119633033]
 layout_mode = 2
 text = "Dev tools"
 horizontal_alignment = 1
 
-[node name="EditorButton" type="Button" parent="ToolsContainer/VBoxContainer"]
+[node name="EditorButton" type="Button" parent="ToolsContainer/VBoxContainer" unique_id=17003116]
 layout_mode = 2
 text = "Map Editor"
 
-[node name="PreviewMaker" type="Button" parent="ToolsContainer/VBoxContainer"]
+[node name="PreviewMaker" type="Button" parent="ToolsContainer/VBoxContainer" unique_id=171480536]
 layout_mode = 2
 text = "Preview Maker"
 

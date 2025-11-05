@@ -33,16 +33,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="LongCuteHair" unique_id=607595082 instance=ExtResource("1_b8m2i")]
 script = ExtResource("2_smkm8")
 
-[node name="LongCuteHairRig" parent="." index="0"]
+[node name="LongCuteHairRig" parent="." index="0" unique_id=159095685]
 script = ExtResource("3_g8hfx")
 attachPoint = "hair"
 
-[node name="LongCuteHair" parent="LongCuteHairRig/Skeleton3D" index="0"]
+[node name="LongCuteHair" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="0" unique_id=444470008]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("2_yc25h")
 
-[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="1" unique_id=1777350708 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="1" unique_id=1777350708 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -51,7 +50,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9967108, 0.08085648, -0.005459195, -0.078311525, -0.97829306, -0.19185919, -0.020853752, -0.1908006, 0.9814073, 0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9971986, 0.07450426, -0.0066540213, -0.07215924, -0.98160064, -0.17678638, -0.019702926, -0.17581095, 0.98422676, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -66,7 +65,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_2rrcj")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="2" unique_id=1440739795 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="2" unique_id=1440739795 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -75,7 +74,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.9967108, -0.08085648, 0.005459195, 0.078311525, -0.97829306, -0.19185919, 0.020853752, -0.1908006, 0.9814073, -0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9971986, -0.07450426, 0.0066540213, 0.07215924, -0.98160064, -0.17678638, 0.019702926, -0.17581095, 0.98422676, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -90,7 +89,7 @@ bone_name = "Back.R"
 properties = SubResource("Resource_2rrcj")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="3" unique_id=929599675]
+[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="3" unique_id=929599675]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -115,7 +114,7 @@ bone_name = "Front.L"
 properties = SubResource("Resource_wml73")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="4" unique_id=242738293]
+[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="4" unique_id=242738293]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -140,7 +139,7 @@ bone_name = "Front.R"
 properties = SubResource("Resource_wml73")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="5" unique_id=480970721]
+[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="5" unique_id=480970721]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -165,7 +164,7 @@ bone_name = "Side.L"
 properties = SubResource("Resource_rl78q")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle6" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" index="6" unique_id=2048746553]
+[node name="HairWiggle6" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(154610900) index="6" unique_id=2048746553]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

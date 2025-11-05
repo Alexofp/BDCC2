@@ -3,15 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://c0l5o6pdjqudg" path="res://Game/Mode/GameModeBase.tscn" id="1_d3wav"]
 [ext_resource type="Script" uid="uid://j5uvc6cdr43e" path="res://Game/Mode/Modes/CharacterCreator/CharacterCreator.gd" id="2_spf3o"]
 
-[node name="CharacterCreator" instance=ExtResource("1_d3wav")]
+[node name="CharacterCreator" unique_id=485135258 instance=ExtResource("1_d3wav")]
 script = ExtResource("2_spf3o")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0" unique_id=1707284834]
 
-[node name="HelpfulLabel" type="Label" parent="CanvasLayer" index="0"]
+[node name="HelpfulLabel" type="Label" parent="CanvasLayer" index="0" unique_id=859634321]
 unique_name_in_owner = true
 visible = false
-anchors_preset = -1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 28.0
@@ -21,7 +21,7 @@ offset_bottom = -51.0
 grow_vertical = 0
 text = "Press Q to open the character creator again"
 
-[node name="HideLabelTimer" type="Timer" parent="." index="1"]
+[node name="HideLabelTimer" type="Timer" parent="." index="1" unique_id=1245123190]
 unique_name_in_owner = true
 
 [connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]

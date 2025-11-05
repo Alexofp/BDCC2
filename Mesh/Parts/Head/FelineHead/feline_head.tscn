@@ -19,11 +19,11 @@ albedo_color = Color(0.27, 0.27, 0.27, 0.501961)
 [node name="FelineHead" unique_id=167883299 instance=ExtResource("1_qhi50")]
 script = ExtResource("2_0kujj")
 
-[node name="MyHeadRig" parent="." index="0"]
+[node name="MyHeadRig" parent="." index="0" unique_id=451282135]
 script = ExtResource("3_0v4py")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyHeadRig" index="0"]
+[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=576179774]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
 bones/1/rotation = Quaternion(4.762884e-07, 0.5063647, 0.8623194, 2.796824e-07)
 bones/2/position = Vector3(2.9042639e-08, 0.09612138, 0.026290748)
@@ -65,23 +65,19 @@ bones/37/rotation = Quaternion(0.7071068, -2.6440123e-06, -2.6440123e-06, 0.7071
 bones/40/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.7071068)
 bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.7071068)
 
-[node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0"]
+[node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1334886565]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_4wgvr")
 
-[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1"]
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1" unique_id=822189490]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_3i52i")
 
-[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2"]
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1828988855]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_a88nv")
 
-[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3"]
-skeleton = NodePath("..")
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3" unique_id=1484023918]
 surface_material_override/0 = ExtResource("8_4wgvr")
 surface_material_override/1 = ExtResource("8_4wgvr")
 
@@ -107,21 +103,18 @@ pointName = "horn.R"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10"]
-skeleton = NodePath("..")
+[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10" unique_id=1162160795]
 surface_material_override/0 = ExtResource("4_4wgvr")
 
-[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11"]
+[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11" unique_id=721895150]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("9_3i52i")
 
-[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12"]
+[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12" unique_id=1308615509]
 visibility_range_end = 3.0
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("StandardMaterial3D_a88nv")
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="1" unique_id=430603652]
 active = false
 autoplay = &"HeadTPose"
 

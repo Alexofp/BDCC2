@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbavpf1recv8n" path="res://UI/InGameMenu/in_game_menu.gd" id="1_eycxj"]
 [ext_resource type="PackedScene" uid="uid://c3simn20mij3o" path="res://Game/Multiplayer/UI/multiplayer_info_list.tscn" id="2_qr8r0"]
 
-[node name="InGameMenu" type="Control"]
+[node name="InGameMenu" type="Control" unique_id=1194714149]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_eycxj")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1896164403]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,63 +22,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1555829986]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1659413978]
 layout_mode = 2
 
-[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=2074875478]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 
-[node name="CharCreatorButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="CharCreatorButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1628086607]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Character Creator"
 
-[node name="SandboxMenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="SandboxMenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1589771074]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Sandbox Menu"
 
-[node name="SettingsButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1214364848]
 layout_mode = 2
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=877833237]
 layout_mode = 2
 text = "Exit"
 
-[node name="RoomIDPanel" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="RoomIDPanel" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1605787216]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel" unique_id=1016161305]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer" unique_id=1020253631]
 layout_mode = 2
 text = "Share this room ID
 to let others join"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer" unique_id=155361626]
 layout_mode = 2
 
-[node name="CopyRoomIDButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer"]
+[node name="CopyRoomIDButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer" unique_id=1385575346]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "COPY ROOM ID"
 
-[node name="RoomIDLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer"]
+[node name="RoomIDLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer" unique_id=1984622195]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MultiplayerInfoList" parent="." instance=ExtResource("2_qr8r0")]
+[node name="MultiplayerInfoList" parent="." unique_id=1441483213 instance=ExtResource("2_qr8r0")]
 custom_minimum_size = Vector2(222, 111)
 layout_mode = 1
 anchors_preset = -1

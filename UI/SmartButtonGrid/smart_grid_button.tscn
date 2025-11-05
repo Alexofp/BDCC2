@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c221hrfr20mmh" path="res://UI/SmartButtonGrid/smart_grid_button.gd" id="1_hvjvk"]
 
-[node name="SmartGridButton" type="Button"]
+[node name="SmartGridButton" type="Button" unique_id=336706303]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

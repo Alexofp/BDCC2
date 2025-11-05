@@ -17,59 +17,59 @@
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
 
-[node name="InventoryRegistry" type="Node" parent="."]
+[node name="InventoryRegistry" type="Node" parent="." unique_id=1095951585]
 unique_name_in_owner = true
 script = ExtResource("2_b3cwe")
 metadata/_custom_type_script = "uid://cuxgeihdcj4xt"
 
-[node name="SitManager" parent="." instance=ExtResource("2_eg2md")]
+[node name="SitManager" parent="." unique_id=1659491122 instance=ExtResource("2_eg2md")]
 unique_name_in_owner = true
 
-[node name="BuildingPlatform8x8" parent="." instance=ExtResource("3_b3cwe")]
+[node name="BuildingPlatform8x8" parent="." unique_id=1003524080 instance=ExtResource("3_b3cwe")]
 unique_name_in_owner = true
 
-[node name="CharacterRegistry" type="Node" parent="."]
+[node name="CharacterRegistry" type="Node" parent="." unique_id=950243137]
 unique_name_in_owner = true
 script = ExtResource("4_eru0w")
 metadata/_custom_type_script = "uid://7gh515vs5ir8"
 
-[node name="PawnRegistry" parent="." instance=ExtResource("5_mdl5u")]
+[node name="PawnRegistry" parent="." unique_id=574487217 instance=ExtResource("5_mdl5u")]
 unique_name_in_owner = true
 
-[node name="DollHolder" parent="." instance=ExtResource("6_tc76r")]
+[node name="DollHolder" parent="." unique_id=931885807 instance=ExtResource("6_tc76r")]
 unique_name_in_owner = true
 
-[node name="NetworkedNodes" parent="." instance=ExtResource("7_ijdku")]
+[node name="NetworkedNodes" parent="." unique_id=1988449197 instance=ExtResource("7_ijdku")]
 unique_name_in_owner = true
 
-[node name="SexManager" parent="." instance=ExtResource("8_wo11f")]
+[node name="SexManager" parent="." unique_id=168999541 instance=ExtResource("8_wo11f")]
 unique_name_in_owner = true
 
-[node name="AnamorphicLensFlare" parent="." instance=ExtResource("9_eg2md")]
+[node name="AnamorphicLensFlare" parent="." unique_id=1402818243 instance=ExtResource("9_eg2md")]
 
-[node name="MainUILayer" type="CanvasLayer" parent="."]
+[node name="MainUILayer" type="CanvasLayer" parent="." unique_id=1966723740]
 unique_name_in_owner = true
 
-[node name="ChatWidgetFullscreeen" parent="MainUILayer" instance=ExtResource("9_qvna0")]
-unique_name_in_owner = true
-metadata/_edit_use_anchors_ = true
-
-[node name="InteractUI" parent="MainUILayer" instance=ExtResource("10_w1287")]
+[node name="ChatWidgetFullscreeen" parent="MainUILayer" unique_id=800156309 instance=ExtResource("9_qvna0")]
 unique_name_in_owner = true
 metadata/_edit_use_anchors_ = true
 
-[node name="SexUI" parent="MainUILayer" instance=ExtResource("11_ijkwl")]
+[node name="InteractUI" parent="MainUILayer" unique_id=1310660262 instance=ExtResource("10_w1287")]
+unique_name_in_owner = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SexUI" parent="MainUILayer" unique_id=1310099305 instance=ExtResource("11_ijkwl")]
 unique_name_in_owner = true
 visible = false
 
-[node name="CharacterMenu" parent="MainUILayer" instance=ExtResource("12_paojk")]
+[node name="CharacterMenu" parent="MainUILayer" unique_id=1459442367 instance=ExtResource("12_paojk")]
 unique_name_in_owner = true
 metadata/_edit_use_anchors_ = true
 
-[node name="SandboxMenu" parent="MainUILayer" instance=ExtResource("13_hoyip")]
+[node name="SandboxMenu" parent="MainUILayer" unique_id=1409425611 instance=ExtResource("13_hoyip")]
 unique_name_in_owner = true
 visible = false
 offset_left = 219.0
@@ -77,7 +77,7 @@ offset_top = 89.0
 offset_right = -219.0
 offset_bottom = -89.0
 
-[node name="InGameMenu" parent="MainUILayer" instance=ExtResource("14_ccwv3")]
+[node name="InGameMenu" parent="MainUILayer" unique_id=787939063 instance=ExtResource("14_ccwv3")]
 unique_name_in_owner = true
 visible = false
 showCharCreatorButton = true

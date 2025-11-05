@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmgd1c1qbdsxp" path="res://icon.svg" id="1_u0hjb"]
 [ext_resource type="StyleBox" uid="uid://d2to5pl1b8rok" path="res://Inventory/UI/PanelSelected.tres" id="1_vf016"]
 
-[node name="InventoryEntryUI" type="PanelContainer"]
+[node name="InventoryEntryUI" type="PanelContainer" unique_id=1362201632]
 custom_minimum_size = Vector2(0, 50)
 anchors_preset = 10
 anchor_right = 1.0
@@ -12,25 +12,25 @@ grow_horizontal = 2
 theme_override_styles/panel = ExtResource("1_vf016")
 script = ExtResource("1_o2hgj")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=249034812]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=238416832]
 layout_mode = 2
 texture = ExtResource("1_u0hjb")
 expand_mode = 2
 
-[node name="NameLabel" type="Label" parent="HBoxContainer"]
+[node name="NameLabel" type="Label" parent="HBoxContainer" unique_id=1273966322]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Item name"
 
-[node name="PostFixLabel" type="Label" parent="HBoxContainer"]
+[node name="PostFixLabel" type="Label" parent="HBoxContainer" unique_id=1776166220]
 unique_name_in_owner = true
 layout_mode = 2
 text = "(Equipped)"
 
-[node name="Presser" type="TextureButton" parent="."]
+[node name="Presser" type="TextureButton" parent="." unique_id=153170983]
 layout_mode = 2
 
 [connection signal="pressed" from="Presser" to="." method="_on_presser_pressed"]

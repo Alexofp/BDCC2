@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://xiy6neovbi42" path="res://Game/Mode/GameModeBase.gd" id="1_0acrq"]
 
-[node name="GameModeBase" type="Node3D"]
+[node name="GameModeBase" type="Node3D" unique_id=2045778778]
 script = ExtResource("1_0acrq")

@@ -14,7 +14,7 @@ albedo_color = Color(1, 0, 0, 0.32549)
 [sub_resource type="SphereShape3D" id="SphereShape3D_5ey8l"]
 radius = 0.0157068
 
-[node name="StickyRigid" type="RigidBody3D"]
+[node name="StickyRigid" type="RigidBody3D" unique_id=1294594623]
 collision_layer = 0
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_5ey8l")
@@ -23,15 +23,15 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_5ey8l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=987670970]
 transform = Transform3D(0.0318735, 0, 0, 0, 0.0318735, 0, 0, 0, 0.0318735, 0, 0, 0)
 visible = false
 mesh = SubResource("SphereMesh_5ey8l")
 surface_material_override/0 = SubResource("StandardMaterial3D_5ey8l")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1651283495]
 shape = SubResource("SphereShape3D_5ey8l")
 
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="."]
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=1534109521]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

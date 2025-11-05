@@ -15,11 +15,11 @@
 [node name="CanineHead" unique_id=1179252613 instance=ExtResource("1_mumah")]
 script = ExtResource("2_gedrh")
 
-[node name="MyCanineHeadRig" parent="." index="0"]
+[node name="MyCanineHeadRig" parent="." index="0" unique_id=515565166]
 script = ExtResource("3_p4cjj")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyCanineHeadRig" index="0"]
+[node name="Skeleton3D" parent="MyCanineHeadRig" index="0" unique_id=1777279956]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
 bones/1/rotation = Quaternion(1.7584181e-06, 0.547932, 0.8365229, 1.1517811e-06)
@@ -64,32 +64,26 @@ bones/40/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.707106
 bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.7071068)
 bones/42/rotation = Quaternion(0.7071068, 2.8968927e-06, 2.8968927e-06, 0.7071068)
 
-[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0"]
-skeleton = NodePath("..")
+[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=612867781]
 surface_material_override/0 = ExtResource("4_3axi8")
 
-[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1"]
+[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=741067917]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("5_l32rm")
 
-[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2"]
+[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=913932255]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_3axi8")
 
-[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3"]
+[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=975089646]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_yb4lr")
 
-[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4"]
+[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=2033683950]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("6_3axi8")
 
-[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5"]
-skeleton = NodePath("..")
+[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=1194826044]
 surface_material_override/0 = ExtResource("6_l32rm")
 surface_material_override/1 = ExtResource("6_l32rm")
 
@@ -115,7 +109,7 @@ pointName = "horn.R"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1839979941]
 active = false
 
 [node name="HeadLayeredTexture" parent="." index="2" unique_id=1149174210 instance=ExtResource("4_qelme")]

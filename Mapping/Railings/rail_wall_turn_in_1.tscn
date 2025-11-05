@@ -7,21 +7,21 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_e1qik"]
 size = Vector3(0.930895, 1.21657, 0.339169)
 
-[node name="RailWallTurnIn1" instance=ExtResource("1_urris")]
+[node name="RailWallTurnIn1" unique_id=1340946310 instance=ExtResource("1_urris")]
 script = ExtResource("2_usp0s")
 
-[node name="RailWallTurnIn1" parent="." index="0"]
+[node name="RailWallTurnIn1" parent="." index="0" unique_id=1701670139]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_148fb")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="RailWallTurnIn1" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="RailWallTurnIn1" index="0" unique_id=1400827087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.454553, 0.608284, 0.454553)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RailWallTurnIn1/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailWallTurnIn1/StaticBody3D" index="0" unique_id=92734527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.295863)
 shape = SubResource("BoxShape3D_e1qik")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="RailWallTurnIn1/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RailWallTurnIn1/StaticBody3D" index="1" unique_id=1929729414]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.296, 0, 0)
 shape = SubResource("BoxShape3D_e1qik")

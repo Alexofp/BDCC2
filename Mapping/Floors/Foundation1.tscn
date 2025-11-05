@@ -8,35 +8,35 @@ size = Vector3(1, 0.95, 0.674)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_btxhh"]
 size = Vector3(1, 0.955935, 0.272789)
 
-[node name="Foundation1" instance=ExtResource("1_o3xgf")]
+[node name="Foundation1" unique_id=2126278231 instance=ExtResource("1_o3xgf")]
 
-[node name="Foundation1" parent="." index="0"]
+[node name="Foundation1" parent="." index="0" unique_id=580736671]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Foundation1" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Foundation1" index="0" unique_id=697829862]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.530519, -0.20016)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation1/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation1/StaticBody3D" index="0" unique_id=2108503470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0417553, 0)
 shape = SubResource("BoxShape3D_3350c")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation1" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation1" index="1" unique_id=801214710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.483127, -0.40016)
 occluder = SubResource("BoxOccluder3D_btxhh")
 
-[node name="Foundation1_lod1" parent="." index="1"]
+[node name="Foundation1_lod1" parent="." index="1" unique_id=771138161]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation1_lod2" parent="." index="2"]
+[node name="Foundation1_lod2" parent="." index="2" unique_id=1807983535]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation1_lod3" parent="." index="3"]
+[node name="Foundation1_lod3" parent="." index="3" unique_id=833824395]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -1,6 +1,10 @@
 @tool
 extends Node3D
 
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var multi_mesh_instance_3d: MultiMeshInstance3D = $MultiMeshInstance3D
+
+
 var lg = LineGen3D.new()
 
 @export var pinchyness = 0.1 :
@@ -26,7 +30,7 @@ var lg = LineGen3D.new()
 func get_chain_curve():
 	var c = Curve3D.new()
 	var o = Vector3()
-	print("making chain curve")
+	#print("making chain curve")
 	
 	var eds = [
 		Vector3(1.0,0.0,0.0),
@@ -87,12 +91,14 @@ func _update_multimesh(mesh):
 			
 			mm.set_instance_transform(j+(i*vert),t)
 	
-	$MultiMeshInstance3D.multimesh = mm
+	if(multi_mesh_instance_3d):
+		multi_mesh_instance_3d.multimesh = mm
 
 func _update():
 	var m = _update_line_mesh()
 	
-	$"MeshInstance3D".mesh = m
+	if(mesh_instance_3d):
+		mesh_instance_3d.mesh = m
 	
 	_update_multimesh(m)
 	

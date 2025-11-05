@@ -4,13 +4,13 @@
 [ext_resource type="Resource" uid="uid://w1j4t8o6j6cu" path="res://Util/SomeTests/CollisionShapekeys/TestShapeKeyCol.tres" id="2_melry"]
 [ext_resource type="PackedScene" uid="uid://1g0mkw532f63" path="res://Util/SomeTests/CollisionShapekeys/CollisionShapeKeys.glb" id="2_tv7ie"]
 
-[node name="TestCollisionMaker" type="Node3D"]
+[node name="TestCollisionMaker" type="Node3D" unique_id=1674528271]
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("meshInstance")]
+[node name="Node" type="Node" parent="." unique_id=1220822475 node_paths=PackedStringArray("meshInstance")]
 script = ExtResource("1_abu2l")
 meshInstance = NodePath("../CollisionShapeKeys/Cube")
 result = ExtResource("2_melry")
 
-[node name="CollisionShapeKeys" parent="." instance=ExtResource("2_tv7ie")]
+[node name="CollisionShapeKeys" parent="." unique_id=1396240044 instance=ExtResource("2_tv7ie")]
 
 [editable path="CollisionShapeKeys"]

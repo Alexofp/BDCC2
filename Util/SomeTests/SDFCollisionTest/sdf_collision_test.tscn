@@ -81,7 +81,7 @@ shader = SubResource("Shader_saiye")
 shader_parameter/albedo = Color(0.53, 0, 0, 1)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = null
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
@@ -94,13 +94,13 @@ shader_parameter/box_size = Vector3(1, 2, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_fr0jv"]
 size = Vector3(1, 2, 2)
 
-[node name="SDFCollisionTest" type="Node3D"]
+[node name="SDFCollisionTest" type="Node3D" unique_id=814918490]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=802628655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.917408, -0.0786916, -0.26364)
 mesh = SubResource("SphereMesh_lhctw")
 surface_material_override/0 = SubResource("ShaderMaterial_y4l71")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=840262439]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 mesh = SubResource("BoxMesh_fr0jv")

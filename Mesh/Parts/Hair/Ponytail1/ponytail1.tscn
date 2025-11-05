@@ -21,17 +21,16 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="Ponytail" unique_id=1734872151 instance=ExtResource("1_cb8oa")]
 script = ExtResource("2_xqaau")
 
-[node name="HairRig" parent="." index="0"]
+[node name="HairRig" parent="." index="0" unique_id=386530538]
 script = ExtResource("6_1k6or")
 attachPoint = "hair"
 
-[node name="Ponytail" parent="HairRig/Skeleton3D" index="0"]
+[node name="Ponytail" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(145141909) index="0" unique_id=1322176650]
 unique_name_in_owner = true
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("4_hblm6")
 surface_material_override/1 = ExtResource("5_elktu")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(145141909) index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -56,7 +55,7 @@ properties = SubResource("Resource_tj25j")
 enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="2" unique_id=1646994683 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(145141909) index="2" unique_id=1646994683 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

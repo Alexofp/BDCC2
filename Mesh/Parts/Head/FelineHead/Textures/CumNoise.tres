@@ -11,5 +11,5 @@ noise_type = 0
 resource_local_to_scene = true
 width = 256
 height = 256
-color_ramp = SubResource("Gradient_xiv15")
 noise = SubResource("FastNoiseLite_v0iag")
+color_ramp = SubResource("Gradient_xiv15")

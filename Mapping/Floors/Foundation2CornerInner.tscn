@@ -8,43 +8,43 @@ size = Vector3(1.5, 0.95, 0.674)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_5vai6"]
 size = Vector3(1.51505, 0.955935, 0.272789)
 
-[node name="Foundation2CornerInner" instance=ExtResource("1_o4yyv")]
+[node name="Foundation2CornerInner" unique_id=1464241061 instance=ExtResource("1_o4yyv")]
 
-[node name="Foundation2CornerInner" parent="." index="0"]
+[node name="Foundation2CornerInner" parent="." index="0" unique_id=49425962]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Foundation2CornerInner" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Foundation2CornerInner" index="0" unique_id=1558512986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.530519, -0.20016)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="0" unique_id=913421294]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.0417553, 0)
 shape = SubResource("BoxShape3D_2at84")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="1"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Foundation2CornerInner/StaticBody3D" index="1" unique_id=192430026]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.696, -0.042, 0.45)
 shape = SubResource("BoxShape3D_2at84")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation2CornerInner" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="Foundation2CornerInner" index="1" unique_id=620944033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.230322, 0.483, -0.4)
 occluder = SubResource("BoxOccluder3D_5vai6")
 
-[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="Foundation2CornerInner" index="2"]
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="Foundation2CornerInner" index="2" unique_id=1394153812]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.391548, 0.483, 0.236852)
 occluder = SubResource("BoxOccluder3D_5vai6")
 
-[node name="Foundation2CornerInner_lod1" parent="." index="1"]
+[node name="Foundation2CornerInner_lod1" parent="." index="1" unique_id=85898144]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2CornerInner_lod2" parent="." index="2"]
+[node name="Foundation2CornerInner_lod2" parent="." index="2" unique_id=1594155526]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2CornerInner_lod3" parent="." index="3"]
+[node name="Foundation2CornerInner_lod3" parent="." index="3" unique_id=1393480930]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

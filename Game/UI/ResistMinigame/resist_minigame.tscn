@@ -27,7 +27,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
-[node name="ResistMinigame" type="PanelContainer"]
+[node name="ResistMinigame" type="PanelContainer" unique_id=2003440769]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -36,11 +36,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmc2d")
 
-[node name="MainControl" type="Control" parent="."]
+[node name="MainControl" type="Control" parent="." unique_id=678446554]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MainPanel" type="Panel" parent="MainControl"]
+[node name="MainPanel" type="Panel" parent="MainControl" unique_id=4870803]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -56,7 +56,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_c6gmu")
 
-[node name="YellowPanel" type="Panel" parent="MainControl/MainPanel"]
+[node name="YellowPanel" type="Panel" parent="MainControl/MainPanel" unique_id=1212381450]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -68,7 +68,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_f3jla")
 
-[node name="OtherMarker" parent="MainControl/MainPanel" instance=ExtResource("2_clten")]
+[node name="OtherMarker" parent="MainControl/MainPanel" unique_id=291536152 instance=ExtResource("2_clten")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -81,7 +81,7 @@ offset_right = 2.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="RedPanel" type="Panel" parent="MainControl/MainPanel"]
+[node name="RedPanel" type="Panel" parent="MainControl/MainPanel" unique_id=957111373]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 1
@@ -94,7 +94,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_0t8bx")
 
-[node name="MainMarker" type="Panel" parent="MainControl/MainPanel"]
+[node name="MainMarker" type="Panel" parent="MainControl/MainPanel" unique_id=241589282]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -111,7 +111,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_fmc2d")
 
-[node name="TimeBar" type="ProgressBar" parent="MainControl"]
+[node name="TimeBar" type="ProgressBar" parent="MainControl" unique_id=642734863]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
@@ -128,7 +128,7 @@ max_value = 1.0
 value = 0.33
 show_percentage = false
 
-[node name="ResultLabel" type="Label" parent="MainControl"]
+[node name="ResultLabel" type="Label" parent="MainControl" unique_id=1532614549]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -141,12 +141,12 @@ grow_vertical = 0
 text = "XXX won!"
 horizontal_alignment = 1
 
-[node name="IntroControl" type="Control" parent="."]
+[node name="IntroControl" type="Control" parent="." unique_id=73471700]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="IntroControl"]
+[node name="VBoxContainer" type="VBoxContainer" parent="IntroControl" unique_id=1483573264]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -154,7 +154,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="IntroControl/VBoxContainer"]
+[node name="Label" type="Label" parent="IntroControl/VBoxContainer" unique_id=1972721533]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
@@ -162,7 +162,7 @@ text = "Resist!"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Label2" type="Label" parent="IntroControl/VBoxContainer"]
+[node name="Label2" type="Label" parent="IntroControl/VBoxContainer" unique_id=1806372933]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -170,7 +170,7 @@ text = "Click when the marker is as close to the red zone as possible"
 horizontal_alignment = 1
 clip_text = true
 
-[node name="IntroTimer" type="Timer" parent="."]
+[node name="IntroTimer" type="Timer" parent="." unique_id=1652288302]
 unique_name_in_owner = true
 one_shot = true
 

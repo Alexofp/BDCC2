@@ -10,15 +10,14 @@ script = ExtResource("1_pcqtq")
 
 [node name="NurbsCumStrand" parent="." unique_id=544339365 instance=ExtResource("1_q6oho")]
 
-[node name="NurbsPath_004" parent="NurbsCumStrand/CumRig/Skeleton3D" index="0"]
+[node name="NurbsPath_004" parent="NurbsCumStrand/CumRig/Skeleton3D" parent_id_path=PackedInt32Array(544339365, 1176359166) index="0" unique_id=2100457409]
 cast_shadow = 0
 visibility_range_end = 15.0
 visibility_range_end_margin = 2.0
 visibility_range_fade_mode = 1
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("3_ysnyh")
 
-[node name="BoneFollowNodeSkeletonModifier" type="SkeletonModifier3D" parent="NurbsCumStrand/CumRig/Skeleton3D" index="1" unique_id=1896611573]
+[node name="BoneFollowNodeSkeletonModifier" type="SkeletonModifier3D" parent="NurbsCumStrand/CumRig/Skeleton3D" parent_id_path=PackedInt32Array(544339365, 1176359166) index="1" unique_id=1896611573]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

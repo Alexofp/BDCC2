@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://baubg8xit2sn7" path="res://UI/SmartButtonGrid/smart_button_grid.gd" id="1_xbl1x"]
 
-[node name="SmartButtonGrid" type="VBoxContainer"]
+[node name="SmartButtonGrid" type="VBoxContainer" unique_id=609891175]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,12 +10,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xbl1x")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=172196256]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 1
 
-[node name="PagePrevButton" type="Button" parent="HBoxContainer"]
+[node name="PagePrevButton" type="Button" parent="HBoxContainer" unique_id=201246068]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
@@ -23,7 +23,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.03
 text = "<"
 
-[node name="ButtonGridContainer" type="GridContainer" parent="HBoxContainer"]
+[node name="ButtonGridContainer" type="GridContainer" parent="HBoxContainer" unique_id=1848213715]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -31,7 +31,7 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 5
 
-[node name="PageNextButton" type="Button" parent="HBoxContainer"]
+[node name="PageNextButton" type="Button" parent="HBoxContainer" unique_id=2045375062]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2

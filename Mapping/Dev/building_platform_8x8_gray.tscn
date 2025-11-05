@@ -9,10 +9,10 @@ albedo_texture = ExtResource("2_21e6j")
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_qo4gf"]
 size = Vector2(8, 8)
 
-[node name="BuildingPlatform8x8Gray" instance=ExtResource("1_eqqia")]
+[node name="BuildingPlatform8x8Gray" unique_id=942335379 instance=ExtResource("1_eqqia")]
 
-[node name="BuildingPlatform8x8" parent="." index="0"]
+[node name="BuildingPlatform8x8" parent="." index="0" unique_id=488678283]
 surface_material_override/0 = SubResource("StandardMaterial3D_f0atf")
 
-[node name="OccluderInstance3D" parent="BuildingPlatform8x8" index="1"]
+[node name="OccluderInstance3D" parent="BuildingPlatform8x8" index="1" unique_id=1622190599]
 occluder = SubResource("QuadOccluder3D_qo4gf")

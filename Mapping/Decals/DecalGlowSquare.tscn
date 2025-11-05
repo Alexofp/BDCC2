@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bumd48uuuxgh2" path="res://Mapping/Decals/Raw/DecalGlowSquare.glb" id="1_d6h4f"]
 
-[node name="DecalGlowSquare" instance=ExtResource("1_d6h4f")]
+[node name="DecalGlowSquare" unique_id=1162873181 instance=ExtResource("1_d6h4f")]
 
-[node name="DecalGlowSquare" parent="." index="0"]
+[node name="DecalGlowSquare" parent="." index="0" unique_id=1844820468]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

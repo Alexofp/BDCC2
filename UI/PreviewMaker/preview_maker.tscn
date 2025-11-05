@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1h5kjtpyahi3" path="res://UI/PreviewMaker/preview_maker.gd" id="1_nljnl"]
 
-[node name="PreviewMaker" type="Control"]
+[node name="PreviewMaker" type="Control" unique_id=1552316131]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nljnl")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=625665057]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,24 +19,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1578047382]
 layout_mode = 2
 
-[node name="PreviewItemList" type="ItemList" parent="CenterContainer/VBoxContainer"]
+[node name="PreviewItemList" type="ItemList" parent="CenterContainer/VBoxContainer" unique_id=750697218]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 select_mode = 2
 
-[node name="DoPreviewsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="DoPreviewsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1553270020]
 layout_mode = 2
 text = "Render previews"
 
-[node name="OpenFolderButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="OpenFolderButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=910785059]
 layout_mode = 2
 text = "Open folder"
 
-[node name="CloseButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=4245713]
 layout_mode = 2
 text = "Close"
 

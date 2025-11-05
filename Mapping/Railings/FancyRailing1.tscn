@@ -5,36 +5,36 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_u7w27"]
 size = Vector3(0.911578, 1.10679, 0.120384)
 
-[node name="FancyRailing1" instance=ExtResource("1_boptc")]
+[node name="FancyRailing1" unique_id=865916768 instance=ExtResource("1_boptc")]
 
-[node name="FancyRailing1" parent="." index="0"]
+[node name="FancyRailing1" parent="." index="0" unique_id=9329048]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing1" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing1" index="0" unique_id=1151403958]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.502406, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing1/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing1/StaticBody3D" index="0" unique_id=1484810299]
 shape = SubResource("BoxShape3D_u7w27")
 
-[node name="FancyRailing1_lod1" parent="." index="1"]
+[node name="FancyRailing1_lod1" parent="." index="1" unique_id=1305716052]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="FancyRailing1_lod2" parent="." index="2"]
+[node name="FancyRailing1_lod2" parent="." index="2" unique_id=739766240]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="FancyRailing1_lod3" parent="." index="3"]
+[node name="FancyRailing1_lod3" parent="." index="3" unique_id=529811041]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

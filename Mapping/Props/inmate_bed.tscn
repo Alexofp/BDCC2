@@ -32,14 +32,14 @@ size = Vector3(0.316412, 1.98963, 1.49873)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_tviax"]
 size = Vector3(3.00002, 2.00359, 0.110807)
 
-[node name="InmateBed" instance=ExtResource("1_jab1v")]
+[node name="InmateBed" unique_id=1701535503 instance=ExtResource("1_jab1v")]
 script = ExtResource("2_oud35")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="InmateBed" parent="." index="0"]
+[node name="InmateBed" parent="." index="0" unique_id=832386892]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -47,41 +47,41 @@ instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="InmateBed" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="InmateBed" index="0" unique_id=1681952839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.0018, -0.600178)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="0" unique_id=355865452]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.675541, -0.0491205)
 shape = SubResource("BoxShape3D_8nlfx")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="1"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="1" unique_id=1948722314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0205437, -0.575115)
 shape = SubResource("BoxShape3D_n33a1")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="2"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="2" unique_id=1265314741]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862308, -0.0491205)
 shape = SubResource("BoxShape3D_xt8hd")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="3"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="3" unique_id=1591867224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34181, -0.000162005, -0.0491205)
 shape = SubResource("BoxShape3D_tc78r")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="4"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="4" unique_id=895917245]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33943, -0.000162005, -0.0491205)
 shape = SubResource("BoxShape3D_tc78r")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="InmateBed" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="InmateBed" index="1" unique_id=2120921647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.0018, -1.33462)
 occluder = SubResource("BoxOccluder3D_tviax")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="InmateBed" index="2"]
+[node name="SpotLight3D" type="SpotLight3D" parent="InmateBed" index="2" unique_id=140069999]
 transform = Transform3D(0.707107, 3.09086e-08, -0.707107, 0.707107, -3.09086e-08, 0.707107, 0, -1, -4.37114e-08, -0.93904, 1.83021, -0.521522)
 light_color = Color(1, 1, 0.87, 1)
 light_volumetric_fog_energy = 3.0
 spot_range = 1.0
 spot_angle = 57.41
 
-[node name="OmniLight3D" type="OmniLight3D" parent="InmateBed" index="3"]
+[node name="OmniLight3D" type="OmniLight3D" parent="InmateBed" index="3" unique_id=1043815327]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495329, 1.55528, -0.505849)
 visible = false
 light_color = Color(1, 1, 0.59, 1)
@@ -89,21 +89,21 @@ light_energy = 0.194
 light_volumetric_fog_energy = 3.0
 omni_range = 0.680816
 
-[node name="InmateBed_lod1" parent="." index="1"]
+[node name="InmateBed_lod1" parent="." index="1" unique_id=407210811]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
-[node name="InmateBed_lod2" parent="." index="2"]
+[node name="InmateBed_lod2" parent="." index="2" unique_id=1314443234]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
-[node name="InmateBed_lod3" parent="." index="3"]
+[node name="InmateBed_lod3" parent="." index="3" unique_id=595418779]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)

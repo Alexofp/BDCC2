@@ -4,10 +4,10 @@
 [ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="2_n48xt"]
 [ext_resource type="Script" uid="uid://c1a34yd50li4t" path="res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.gd" id="2_nmmll"]
 
-[node name="NippleDumbbell" instance=ExtResource("1_ypr5n")]
+[node name="NippleDumbbell" unique_id=81668510 instance=ExtResource("1_ypr5n")]
 script = ExtResource("2_nmmll")
 
-[node name="Dumbbell" parent="." index="0"]
+[node name="Dumbbell" parent="." index="0" unique_id=301826698]
 unique_name_in_owner = true
 transform = Transform3D(0.05338602, 0, 0, 0, 0.05338602, 0, 0, 0, 0.05338602, 0, 0, -0.004)
 surface_material_override/0 = ExtResource("2_n48xt")

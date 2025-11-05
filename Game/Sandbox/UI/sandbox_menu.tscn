@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3asq68g4eqb0" path="res://Game/Sandbox/UI/sandbox_menu.gd" id="1_3wu7w"]
 
-[node name="SandboxMenu" type="PanelContainer"]
+[node name="SandboxMenu" type="PanelContainer" unique_id=145542320]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,15 +10,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3wu7w")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1701896087]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=726986694]
 layout_mode = 2
 text = "Sandbox menu"
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/Label"]
+[node name="CloseButton" type="Button" parent="VBoxContainer/Label" unique_id=671825399]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -32,70 +32,70 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "Close"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=87715823]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=514727818]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=721431906]
 layout_mode = 2
 text = "Actions"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1736405875]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer" unique_id=652460221]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TestButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+[node name="TestButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer" unique_id=1287457359]
 layout_mode = 2
 text = "Test button"
 
-[node name="SpawnCubeButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+[node name="SpawnCubeButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer" unique_id=1229027236]
 layout_mode = 2
 text = "Spawn cube"
 
-[node name="SpawnBenchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+[node name="SpawnBenchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer" unique_id=986656028]
 layout_mode = 2
 text = "Spawn bench"
 
-[node name="SexSceneButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer"]
+[node name="SexSceneButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer" unique_id=466995573]
 layout_mode = 2
 text = "Spawn sex scene"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=975566920]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1309555980]
 layout_mode = 2
 text = "Pawn list"
 horizontal_alignment = 1
 
-[node name="PawnList" type="ItemList" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PawnList" type="ItemList" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1793336971]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SwitchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="SwitchButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=786629817]
 layout_mode = 2
 text = "Switch to"
 
-[node name="StartSexButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="StartSexButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=33491527]
 layout_mode = 2
 text = "Start sex with"
 
-[node name="DeletePawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="DeletePawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1166932939]
 layout_mode = 2
 text = "Delete pawn"
 
-[node name="AddPawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="AddPawnButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=138003862]
 layout_mode = 2
 text = "Add new pawn"
 

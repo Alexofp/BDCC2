@@ -9,23 +9,23 @@ size = Vector3(6, 0.165968, 6.00001)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_rjlw4"]
 size = Vector2(6.00001, 6)
 
-[node name="BigFloorSci6x6" instance=ExtResource("1_7snvu")]
+[node name="BigFloorSci6x6" unique_id=1263684236 instance=ExtResource("1_7snvu")]
 script = ExtResource("2_lcd3k")
 
-[node name="BigFloorSci6x6" parent="." index="0"]
+[node name="BigFloorSci6x6" parent="." index="0" unique_id=1443788435]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BigFloorSci6x6" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="BigFloorSci6x6" index="0" unique_id=1883934177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.15256e-07, -0.0307377, -3)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BigFloorSci6x6/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigFloorSci6x6/StaticBody3D" index="0" unique_id=2019401374]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.067, 0)
 shape = SubResource("BoxShape3D_aendw")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BigFloorSci6x6" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BigFloorSci6x6" index="1" unique_id=1845542888]
 transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 7.15256e-07, -0.0518218, -3)
 occluder = SubResource("QuadOccluder3D_rjlw4")

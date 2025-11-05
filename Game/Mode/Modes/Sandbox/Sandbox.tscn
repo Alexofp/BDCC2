@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://c0l5o6pdjqudg" path="res://Game/Mode/GameModeBase.tscn" id="1_40jqb"]
 [ext_resource type="Script" uid="uid://ctvqsf6u1c3ak" path="res://Game/Mode/Modes/Sandbox/Sandbox.gd" id="2_g68c4"]
 
-[node name="Sandbox" instance=ExtResource("1_40jqb")]
+[node name="Sandbox" unique_id=698160557 instance=ExtResource("1_40jqb")]
 script = ExtResource("2_g68c4")

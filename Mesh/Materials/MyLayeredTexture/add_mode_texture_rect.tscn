@@ -3,7 +3,7 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5faqw"]
 blend_mode = 1
 
-[node name="AddModeTextureRect" type="TextureRect"]
+[node name="AddModeTextureRect" type="TextureRect" unique_id=2024523571]
 material = SubResource("CanvasItemMaterial_5faqw")
 anchors_preset = 15
 anchor_right = 1.0

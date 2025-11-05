@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3yb2lg32ilmo" path="res://Util/Serializer/bins_test.gd" id="1_bkem7"]
 
-[node name="BinsTest" type="Control"]
+[node name="BinsTest" type="Control" unique_id=462407274]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,23 +1,23 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvntqp6scp6l5"]
 
-[ext_resource type="Script" path="res://UI/VarList/Vars/int_var.gd" id="1_pb4ju"]
+[ext_resource type="Script" uid="uid://bobliyfjgpv4b" path="res://UI/VarList/Vars/int_var.gd" id="1_pb4ju"]
 
-[node name="IntVar" type="VBoxContainer"]
+[node name="IntVar" type="VBoxContainer" unique_id=787677838]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_pb4ju")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1492979556]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=854757697]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=427540075]
 layout_mode = 2
 size_flags_horizontal = 3
 rounded = true

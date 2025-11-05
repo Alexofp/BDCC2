@@ -8,31 +8,31 @@ size = Vector3(4, 4, 0.2)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_2ktcl"]
 size = Vector2(4.02, 4.02)
 
-[node name="BackWallA4x4" instance=ExtResource("1_ju7c6")]
+[node name="BackWallA4x4" unique_id=419300533 instance=ExtResource("1_ju7c6")]
 
-[node name="BackWallA4x4" parent="." index="0"]
+[node name="BackWallA4x4" parent="." index="0" unique_id=1533074686]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 instance_shader_parameters/trim_color_main = Color(0.340339, 0.340339, 0.340339, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA4x4" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="BackWallA4x4" index="0" unique_id=1160764073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA4x4/StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWallA4x4/StaticBody3D" index="0" unique_id=625633651]
 shape = SubResource("BoxShape3D_2d15v")
 
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA4x4" index="1"]
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="BackWallA4x4" index="1" unique_id=822131542]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.1)
 occluder = SubResource("QuadOccluder3D_2ktcl")
 
-[node name="BackWallA4x4_lod1" parent="." index="1"]
+[node name="BackWallA4x4_lod1" parent="." index="1" unique_id=1350200153]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA4x4_lod2" parent="." index="2"]
+[node name="BackWallA4x4_lod2" parent="." index="2" unique_id=872191244]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA4x4_lod3" parent="." index="3"]
+[node name="BackWallA4x4_lod3" parent="." index="3" unique_id=731146222]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
