@@ -157,57 +157,57 @@ blendshapesData = Dictionary[String, Vector3]({
 "ThinVery": Vector3(0.00087488, 0.0042176, -0.0120793)
 })
 
-[node name="BodySize" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="0" unique_id=1088059675]
+[node name="BodySize" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="0" unique_id=1088059675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00201949, -0.0127878, 0.0285344)
 visible = false
 gizmo_extents = 0.1
 
-[node name="Muscles" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="1" unique_id=1106992839]
+[node name="Muscles" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="1" unique_id=1106992839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00830813, -0.000765995, 0.0174012)
 visible = false
 gizmo_extents = 0.1
 
-[node name="ThinVery" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="2" unique_id=158596886]
+[node name="ThinVery" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="2" unique_id=158596886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00087488, 0.0042176, -0.0120793)
 visible = false
 gizmo_extents = 0.1
 
-[node name="Fat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="3" unique_id=411443397]
+[node name="Fat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="3" unique_id=411443397]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00087488, -0.00857871, 0.0168519)
 visible = false
 gizmo_extents = 0.1
 
-[node name="Thick" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="4" unique_id=2064939449]
+[node name="Thick" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="4" unique_id=2064939449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00281418, -0.00213891, 0.00469473)
 visible = false
 gizmo_extents = 0.1
 
-[node name="BreastsBig" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="5" unique_id=157713834]
+[node name="BreastsBig" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="5" unique_id=157713834]
 transform = Transform3D(1, -1.49012e-08, 2.98023e-08, 1.49012e-08, 1, 2.98023e-08, 0, 0, 1, -0.000253007, -0.0162516, 0.0380869)
 visible = false
 gizmo_extents = 0.1
 
-[node name="BreastsCleavage" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="6" unique_id=688760831]
+[node name="BreastsCleavage" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="6" unique_id=688760831]
 transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.0193616, 0.00542237, 0.00740767)
 visible = false
 gizmo_extents = 0.1
 
-[node name="BreastsFlat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="7" unique_id=4190622]
+[node name="BreastsFlat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="7" unique_id=4190622]
 transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.002, 0.007, -0.03)
 visible = false
 gizmo_extents = 0.1
 
-[node name="BreastsShape" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="8" unique_id=1497370831]
+[node name="BreastsShape" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="8" unique_id=1497370831]
 transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.001814, 0.00188494, 0.00267816)
 visible = false
 gizmo_extents = 0.1
 
-[node name="BreastsHuge" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" index="9" unique_id=1122758976]
+[node name="BreastsHuge" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="9" unique_id=1122758976]
 transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.004, -0.052, 0.116)
 visible = false
 gizmo_extents = 0.1
 
-[node name="DollAttachPoint" parent="BreastLAttach/MarkerBlendshaped/Target" index="0" unique_id=1523681200 instance=ExtResource("11_uprqo")]
+[node name="DollAttachPoint" parent="BreastLAttach/MarkerBlendshaped/Target" parent_id_path=PackedInt32Array(2002273322, 164994705) index="0" unique_id=1523681200 instance=ExtResource("11_uprqo")]
 pointName = "nipple.L"
 
 [node name="NippleL" type="Node3D" parent="BreastLAttach/MarkerBlendshaped/Target/DollAttachPoint" index="0" unique_id=1649953659]
@@ -245,14 +245,94 @@ blendshapesData = Dictionary[String, Vector3]({
 "ThinVery": Vector3(0.00087488, 0.0042176, -0.0120793)
 })
 
-[node name="DollAttachPoint" parent="BreastRAttach/MarkerBlendshaped/Target" index="0" unique_id=514517780 instance=ExtResource("11_uprqo")]
+[node name="DollAttachPoint" parent="BreastRAttach/MarkerBlendshaped/Target" parent_id_path=PackedInt32Array(2102311808, 164994705) index="0" unique_id=514517780 instance=ExtResource("11_uprqo")]
 pointName = "nipple.R"
 
 [node name="NippleR" type="Node3D" parent="BreastRAttach/MarkerBlendshaped/Target/DollAttachPoint" index="0" unique_id=1912837232]
 unique_name_in_owner = true
+
+[node name="HipsAttach" type="Node3D" parent="." index="8" unique_id=36950301]
+transform = Transform3D(1, 7.105429e-15, -8.5574485e-15, -8.557446e-15, 0.9829584, -0.18382908, 7.10543e-15, 0.18382908, 0.9829584, 1.1107461e-17, 0.9076568, -0.01598972)
+script = ExtResource("2_i5sai")
+attachPoint = "hips"
+
+[node name="MarkerBlendshaped" parent="HipsAttach" index="0" unique_id=320661550 instance=ExtResource("11_d17xq")]
+transform = Transform3D(1, -6.5734483e-15, 8.972559e-15, 7.105427e-15, 0.99815995, -0.060637936, -8.55745e-15, 0.060637936, 0.99815995, 6.0774445e-16, 0.056599498, 0.11931271)
+blendshapes = Dictionary[String, float]({
+"BodySize": 0.0,
+"Fat": 0.0,
+"HipsThick": 0.0,
+"Muscles": 0.0,
+"Pregnant": 0.0,
+"Thick": 0.0,
+"ThickFurry": 0.0,
+"ThighsSize": 0.0,
+"ThinVery": 0.0
+})
+blendshapesData = Dictionary[String, Vector3]({
+"BodySize": Vector3(1.2078735e-23, -0.005785644, 0.0058640987),
+"Fat": Vector3(9.036403e-23, -0.030396461, 0.046691954),
+"HipsThick": Vector3(5.1515015e-24, -0.0015823841, 0.0026944354),
+"Muscles": Vector3(-1.32239846e-23, -0.0004861951, -0.00791277),
+"Pregnant": Vector3(4.906841e-23, -0.03395009, 0.021537676),
+"Thick": Vector3(9.0373925e-24, -0.006558299, 0.0038999766),
+"ThickFurry": Vector3(3.4815903e-24, -0.0031460524, 0.0013668761),
+"ThighsSize": Vector3(6.0132153e-24, -0.0013762116, 0.003248565),
+"ThinVery": Vector3(-3.2311743e-24, 0.0005585551, -0.0017853454)
+})
+
+[node name="BodySize" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="0" unique_id=960682726]
+transform = Transform3D(1, 1.009742e-28, 4.038968e-28, 2.019484e-28, 1, 0, 8.077936e-28, 0, 1, 1.2078735e-23, -0.005785644, 0.0058640987)
+visible = false
+gizmo_extents = 0.1
+
+[node name="Muscles" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="1" unique_id=364577123]
+transform = Transform3D(1, 7.5730647e-29, 3.0292259e-28, 1.5146129e-28, 1, 0, 6.0584518e-28, 0, 1, -1.32239846e-23, -0.0004861951, -0.00791277)
+visible = false
+gizmo_extents = 0.1
+
+[node name="ThinVery" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="2" unique_id=401156143]
+transform = Transform3D(1, 5.04871e-29, 2.019484e-28, 1.009742e-28, 1, 0, 4.038968e-28, 0, 1, -3.2311743e-24, 0.0005585551, -0.0017853454)
+visible = false
+gizmo_extents = 0.1
+
+[node name="Fat" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="3" unique_id=1070002758]
+transform = Transform3D(1, 7.5730647e-29, 3.0292259e-28, 1.5146129e-28, 1, 0, 6.0584518e-28, 0, 1, 9.036403e-23, -0.030396461, 0.046691954)
+visible = false
+gizmo_extents = 0.1
+
+[node name="Thick" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="4" unique_id=2092507880]
+transform = Transform3D(1, 5.04871e-29, 2.019484e-28, 1.009742e-28, 1, 0, 4.038968e-28, 0, 1, 9.0373925e-24, -0.006558299, 0.0038999766)
+visible = false
+gizmo_extents = 0.1
+
+[node name="HipsThick" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="5" unique_id=1954949070]
+transform = Transform3D(1, 7.5730647e-29, 3.0292259e-28, 1.5146129e-28, 1, 0, 6.0584518e-28, 0, 1, 5.1515015e-24, -0.0015823841, 0.0026944354)
+visible = false
+gizmo_extents = 0.1
+
+[node name="Pregnant" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="6" unique_id=1023468372]
+transform = Transform3D(1, 1.5146129e-28, 6.0584518e-28, 3.0292259e-28, 1, 0, 1.21169035e-27, 0, 1, 4.906841e-23, -0.03395009, 0.021537676)
+visible = false
+gizmo_extents = 0.1
+
+[node name="ThighsSize" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="7" unique_id=1422606207]
+transform = Transform3D(1, 7.5730647e-29, 3.0292259e-28, 1.5146129e-28, 1, 0, 6.0584518e-28, 0, 1, 6.0132153e-24, -0.0013762116, 0.003248565)
+visible = false
+gizmo_extents = 0.1
+
+[node name="ThickFurry" type="Marker3D" parent="HipsAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(320661550, 1749740615) index="8" unique_id=1735043019]
+transform = Transform3D(1, 5.04871e-29, 2.019484e-28, 1.009742e-28, 1, 0, 4.038968e-28, 0, 1, 3.4815903e-24, -0.0031460524, 0.0013668761)
+visible = false
+gizmo_extents = 0.1
+
+[node name="DollAttachPoint3" parent="HipsAttach/MarkerBlendshaped/Target" parent_id_path=PackedInt32Array(320661550, 164994705) index="0" unique_id=202182828 instance=ExtResource("11_uprqo")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+pointName = "strapon"
 
 [connection signal="onTextureUpdated" from="BodyLayeredTexture" to="." method="_on_body_layered_texture_on_texture_updated"]
 [connection signal="onTextureUpdated" from="CumLayer" to="." method="_on_cum_layer_on_texture_updated"]
 
 [editable path="BreastLAttach/MarkerBlendshaped"]
 [editable path="BreastRAttach/MarkerBlendshaped"]
+[editable path="HipsAttach/MarkerBlendshaped"]
