@@ -27,6 +27,7 @@ var pubicHairMat:ShaderMaterial
 @onready var nipple_l: Node3D = %NippleL
 @onready var nipple_r: Node3D = %NippleR
 @onready var pubic_hair: MeshInstance3D = %PubicHair
+@onready var flat_crotch: MeshInstance3D = %FlatCrotch
 
 @onready var skeleton_3d: Skeleton3D = %Skeleton3D
 
@@ -57,6 +58,7 @@ func setBodyMat(_mat:ShaderMaterial):
 	neck_connector.set_surface_override_material(0, _mat)
 	neck_connector_furry.set_surface_override_material(0, _mat)
 	planti_legs.set_surface_override_material(0, _mat)
+	flat_crotch.set_surface_override_material(0, _mat)
 
 func updateThickness():
 	updateThicknessBody()
@@ -294,6 +296,9 @@ func updateCrotch():
 	var hasVag:bool = getOptionValue("vagina", true) if !hideVagina else false
 	var vagType:int = getOptionValue("vaginaType", VaginaType.Normal) if !forceNormalVagina else VaginaType.Normal
 	var vagSize:float = getOptionValue("vaginaSize", 0.0) if !forceNormalVagina else 0.0
+	
+	flat_crotch.visible = false #TODO: Flat crotch support
+	pubic_hair.visible = !hideVagina
 	
 	if(hasVag):
 		if(vagType == VaginaType.Spade):

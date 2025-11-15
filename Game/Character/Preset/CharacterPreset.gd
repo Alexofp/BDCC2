@@ -7,8 +7,11 @@ var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
 var species:SpeciesProfile = SpeciesProfile.new()
-var thickness:float = 1.0
-var weightDistribution:float = 0.0
+var bodySize:float = 0.0
+var thickness:float = 1.0 #0 = thin, 2 = thick
+var chubbyness:float = 0.0
+var buttSize:float = 0.0
+var smoothBody:float = 0.0
 var muscles:float = 0.0
 var voice:VoiceProfile = VoiceProfile.new()
 var walkAnim:String = Doll.WALK_UNISEX
@@ -41,8 +44,11 @@ func loadFromCharacter(_char:BaseCharacter):
 	charName = _char.charName
 	gender.loadData(_char.gender.saveData())
 	species.loadData(_char.species.saveData())
+	bodySize = _char.bodySize
 	thickness = _char.thickness
-	weightDistribution = _char.weightDistribution
+	chubbyness = _char.chubbyness
+	buttSize = _char.buttSize
+	smoothBody = _char.smoothBody
 	muscles = _char.muscles
 	voice.loadData(_char.voice.saveData())
 	walkAnim = _char.walkAnim
@@ -52,8 +58,11 @@ func applyToCharacter(_char:BaseCharacter):
 	_char.applyCharChange(CharOption.name, charName)
 	_char.applyCharChange(CharOption.gender, gender.saveData())
 	_char.applyCharChange(CharOption.species, species.saveData())
+	_char.applyCharChange(CharOption.bodySize, bodySize)
 	_char.applyCharChange(CharOption.thickness, thickness)
-	_char.applyCharChange(CharOption.weightDistribution, weightDistribution)
+	_char.applyCharChange(CharOption.chubbyness, chubbyness)
+	_char.applyCharChange(CharOption.buttSize, buttSize)
+	_char.applyCharChange(CharOption.smoothBody, smoothBody)
 	_char.applyCharChange(CharOption.muscles, muscles)
 	_char.applyCharChange(CharOption.voice, voice.saveData())
 	_char.applyCharChange(CharOption.walkAnim, walkAnim)
@@ -88,8 +97,11 @@ func saveData() -> Dictionary:
 		charName = charName,
 		gender = gender.saveData(),
 		species = species.saveData(),
+		bodySize = bodySize,
 		thickness = thickness,
-		weightDistribution = weightDistribution,
+		chubbyness = chubbyness,
+		buttSize = buttSize,
+		smoothBody = smoothBody,
 		muscles = muscles,
 		voice = voice.saveData(),
 		walkAnim = walkAnim,
@@ -103,8 +115,11 @@ func loadData(_data:Dictionary):
 	charName = SAVE.loadVar(_data, "charName", "New character")
 	gender.loadData(SAVE.loadVar(_data, "gender", {}))
 	species.loadData(SAVE.loadVar(_data, "species", {}))
+	bodySize = SAVE.loadVar(_data, "bodySize", 0.0)
 	thickness = SAVE.loadVar(_data, "thickness", 1.0)
-	weightDistribution = SAVE.loadVar(_data, "weightDistribution", 0.0)
+	chubbyness = SAVE.loadVar(_data, "chubbyness", 0.0)
+	buttSize = SAVE.loadVar(_data, "buttSize", 0.0)
+	smoothBody = SAVE.loadVar(_data, "smoothBody", 0.0)
 	muscles = SAVE.loadVar(_data, "muscles", 0.0)
 	voice.loadData(SAVE.loadVar(_data, "voice", {}))
 	walkAnim = SAVE.loadVar(_data, "walkAnim", Doll.WALK_UNISEX)

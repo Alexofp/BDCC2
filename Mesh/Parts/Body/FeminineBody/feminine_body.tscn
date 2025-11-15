@@ -21,32 +21,32 @@
 [node name="FeminineBody" unique_id=2091505893 instance=ExtResource("1_y7j6w")]
 script = ExtResource("2_3rtfg")
 
-[node name="rig" parent="." index="0" unique_id=1496898999 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1518907054 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("2_i5sai")
 attachPoint = "body"
-skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/FemaleCrotchSpade"), NodePath("Skeleton3D/HandPads"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair")]
+skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/FemaleCrotchSpade"), NodePath("Skeleton3D/HandPads"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair"), NodePath("Skeleton3D/FlatCrotch")]
 
-[node name="Skeleton3D" parent="rig" index="0" unique_id=1503123188]
+[node name="Skeleton3D" parent="rig" index="0" unique_id=492571046]
 unique_name_in_owner = true
 
-[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=290456336]
+[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=2109910544]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_7ldx5")
 
-[node name="DigiLegs" parent="rig/Skeleton3D" index="1" unique_id=756101289]
+[node name="DigiLegs" parent="rig/Skeleton3D" index="1" unique_id=1256212362]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("6_18t5l")
 surface_material_override/2 = ExtResource("7_sep4h")
 
-[node name="FemaleCrotch" parent="rig/Skeleton3D" index="2" unique_id=1882852551]
+[node name="FemaleCrotch" parent="rig/Skeleton3D" index="2" unique_id=427990165]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_e373p")
 
-[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="3" unique_id=818903306]
+[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="3" unique_id=1236605067]
 unique_name_in_owner = true
 visible = false
 blend_shapes/CaninePussyClose = 1.0
@@ -54,42 +54,46 @@ surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_e373p")
 surface_material_override/2 = ExtResource("9_5vrlx")
 
-[node name="HandPads" parent="rig/Skeleton3D" index="4" unique_id=1456368163]
+[node name="FlatCrotch" parent="rig/Skeleton3D" index="4" unique_id=1522258270]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_f00mj")
+
+[node name="HandPads" parent="rig/Skeleton3D" index="5" unique_id=2110417029]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("6_d17xq")
 
-[node name="MaleCrotch" parent="rig/Skeleton3D" index="5" unique_id=1890151455]
+[node name="MaleCrotch" parent="rig/Skeleton3D" index="6" unique_id=1675298034]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("5_e373p")
 
-[node name="NeckConnector" parent="rig/Skeleton3D" index="6" unique_id=214581127]
+[node name="NeckConnector" parent="rig/Skeleton3D" index="7" unique_id=2101362374]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
 
-[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="7" unique_id=2006722179]
+[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="8" unique_id=1410584337]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
 
-[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="8" unique_id=31284460]
+[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="9" unique_id=1688190159]
 visible = false
 surface_material_override/0 = ExtResource("4_f00mj")
 
-[node name="Nipples" parent="rig/Skeleton3D" index="9" unique_id=931142647]
+[node name="Nipples" parent="rig/Skeleton3D" index="10" unique_id=1018927791]
 unique_name_in_owner = true
 lod_bias = 100.0
 blend_shapes/NipplesNormal = 1.0
 surface_material_override/0 = ExtResource("6_87rsm")
 
-[node name="PlantiLegs" parent="rig/Skeleton3D" index="10" unique_id=1185072201]
+[node name="PlantiLegs" parent="rig/Skeleton3D" index="11" unique_id=666043235]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_f00mj")
 surface_material_override/1 = ExtResource("6_18t5l")
 
-[node name="PubicHair" parent="rig/Skeleton3D" index="11" unique_id=1316804784]
+[node name="PubicHair" parent="rig/Skeleton3D" index="12" unique_id=1443472669]
 unique_name_in_owner = true
 lod_bias = 100.0
 surface_material_override/0 = ExtResource("7_e373p")

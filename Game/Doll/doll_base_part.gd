@@ -128,19 +128,19 @@ func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	
 
 func updateThicknessBody(_optionID:String = ""):
-	if(!(_optionID in ["", CharOption.thickness, CharOption.weightDistribution, CharOption.muscles])):
+	if(!(_optionID in ["", CharOption.bodySize, CharOption.pregnantTest, CharOption.thickness, CharOption.chubbyness, CharOption.buttSize, CharOption.smoothBody, CharOption.muscles])):
 		return
 	var theThickness:float = getCharValue(CharOption.thickness, 1.0)
-	var theWeightDistribution:float = getCharValue(CharOption.weightDistribution, 0.0)
+	var chubbyness:float = getCharValue(CharOption.chubbyness, 0.0)
 
-	var thinValue:float = max(1.0-theThickness, 0.0)
-	var thickValue:float = max(0.0, theThickness-1.0)
-
-	setBlendshape("ThinVery", thinValue * max(1.0 - theWeightDistribution, 0.0))
-	setBlendshape("BodySize", -thinValue * max(theWeightDistribution, 0.0))
-	setBlendshape("ThickFurry", thickValue * max(1.0 - theWeightDistribution, 0.0))
-	setBlendshape("Fat", thickValue * max(theWeightDistribution, 0.0))
+	setBlendshape("Thin", max(1.0-theThickness, 0.0))
+	setBlendshape("Thick", max(theThickness-1.0, 0.0))
+	setBlendshape("Chubby", chubbyness)
+	setBlendshape("ButtSize", getCharValue(CharOption.buttSize, 0.0))
+	setBlendshape("BodySmooth", getCharValue(CharOption.smoothBody, 0.0))
+	setBlendshape("BodyBigger", getCharValue(CharOption.bodySize, 0.0))
 	setBlendshape("Muscles", getCharValue(CharOption.muscles, 1.0))
+	setBlendshape("Pregnant", getCharValue(CharOption.pregnantTest, 1.0))
 	
 func triggerDollPartFlagsUpdate():
 	var theDoll := getDoll()

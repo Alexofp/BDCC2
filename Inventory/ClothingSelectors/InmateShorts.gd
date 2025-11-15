@@ -5,5 +5,5 @@ func _init() -> void:
 	itemID = "InmateShorts"
 	
 	sceneByBodypartID = {
-		"FeminineBody": "res://Mesh/Clothing/Shorts/shorts.tscn",
+		"FeminineBody": "res://Mesh/Clothing/InmateShorts/InmateShorts.tscn",
 	}

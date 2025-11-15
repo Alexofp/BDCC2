@@ -8,9 +8,13 @@ var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 var charName:String = "New character"
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
 var species:SpeciesProfile = SpeciesProfile.new()
-var thickness:float = 1.0
-var weightDistribution:float = 0.0
+var bodySize:float = 0.0
+var thickness:float = 1.0 #0 = thin, 2 = thick
+var chubbyness:float = 0.0
+var buttSize:float = 0.0
+var smoothBody:float = 0.0
 var muscles:float = 0.0
+var pregnantTest:float = 0.0
 var voice:VoiceProfile = VoiceProfile.new()
 var inventory:Inventory = Inventory.new()
 var walkAnim:String = Doll.WALK_UNISEX
@@ -307,6 +311,13 @@ func getCharOptions() -> Dictionary:
 			type = "speciesProfile",
 			value = species.saveData(),
 		},
+		CharOption.bodySize: {
+			name = "Body size",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = bodySize,
+		},
 		CharOption.thickness: {
 			name = "Thickness",
 			type = "slider",
@@ -314,12 +325,26 @@ func getCharOptions() -> Dictionary:
 			max = 2.0,
 			value = thickness,
 		},
-		CharOption.weightDistribution: {
-			name = "Weight distribution",
+		CharOption.chubbyness: {
+			name = "Chubbyness",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
-			value = weightDistribution,
+			value = chubbyness,
+		},
+		CharOption.buttSize: {
+			name = "Butt size",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = buttSize,
+		},
+		CharOption.smoothBody: {
+			name = "Smooth body",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = smoothBody,
 		},
 		CharOption.muscles: {
 			name = "Muscles",
@@ -327,6 +352,13 @@ func getCharOptions() -> Dictionary:
 			min = 0.0,
 			max = 1.0,
 			value = muscles,
+		},
+		CharOption.pregnantTest: {
+			name = "Pregnant (test)",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			value = pregnantTest,
 		},
 		CharOption.voice: {
 			name = "Voice",
@@ -360,9 +392,13 @@ func getSyncOptions() -> Array[String]:
 		CharOption.name,
 		CharOption.gender,
 		CharOption.species,
+		CharOption.bodySize,
 		CharOption.thickness,
-		CharOption.weightDistribution,
+		CharOption.chubbyness,
+		CharOption.buttSize,
+		CharOption.smoothBody,
 		CharOption.muscles,
+		CharOption.pregnantTest,
 		CharOption.voice,
 		CharOption.idleAnim,
 		CharOption.walkAnim,
@@ -379,12 +415,20 @@ func getSyncOptionValue(_id:String):
 		return gender.saveData()
 	elif(_id == CharOption.species):
 		return species.saveData()
+	elif(_id == CharOption.bodySize):
+		return bodySize
 	elif(_id == CharOption.thickness):
 		return thickness
-	elif(_id == CharOption.weightDistribution):
-		return weightDistribution
+	elif(_id == CharOption.chubbyness):
+		return chubbyness
+	elif(_id == CharOption.buttSize):
+		return buttSize
+	elif(_id == CharOption.smoothBody):
+		return smoothBody
 	elif(_id == CharOption.muscles):
 		return muscles
+	elif(_id == CharOption.pregnantTest):
+		return pregnantTest
 	elif(_id == CharOption.voice):
 		return voice.saveData()
 	elif(_id == CharOption.idleAnim):
@@ -407,12 +451,20 @@ func applyCharChange(_id:String, _value):
 		gender.loadData(_value)
 	elif(_id == CharOption.species):
 		species.loadData(_value)
+	elif(_id == CharOption.bodySize):
+		bodySize = _value
 	elif(_id == CharOption.thickness):
 		thickness = _value
-	elif(_id == CharOption.weightDistribution):
-		weightDistribution = _value
+	elif(_id == CharOption.chubbyness):
+		chubbyness = _value
+	elif(_id == CharOption.buttSize):
+		buttSize = _value
+	elif(_id == CharOption.smoothBody):
+		smoothBody = _value
 	elif(_id == CharOption.muscles):
 		muscles = _value
+	elif(_id == CharOption.pregnantTest):
+		pregnantTest = _value
 	elif(_id == CharOption.voice):
 		voice.loadData(_value)
 	elif(_id == CharOption.idleAnim):

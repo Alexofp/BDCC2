@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://birjh62bm1tlv"
-path="res://.godot/imported/Shorts.glb-1df140e70214ccc64a13903c4529b3c5.scn"
+path="res://.godot/imported/InmateShorts.glb-9f14547fb9d0e7c86bc1bc8d2d7c758a.scn"
 
 [deps]
 
-source_file="res://Mesh/Clothing/Shorts/Shorts.glb"
-dest_files=["res://.godot/imported/Shorts.glb-1df140e70214ccc64a13903c4529b3c5.scn"]
+source_file="res://Mesh/Clothing/InmateShorts/InmateShorts.glb"
+dest_files=["res://.godot/imported/InmateShorts.glb-9f14547fb9d0e7c86bc1bc8d2d7c758a.scn"]
 
 [params]
 

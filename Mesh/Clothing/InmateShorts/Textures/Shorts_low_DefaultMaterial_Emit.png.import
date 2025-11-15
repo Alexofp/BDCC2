@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btr155epfxli3"
-path.bptc="res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-389df3b6fbcd7f38dd3207e562e14741.bptc.ctex"
-path.astc="res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-389df3b6fbcd7f38dd3207e562e14741.astc.ctex"
+path.bptc="res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-b14eee8be97eef3b06b7a9bf2f265111.bptc.ctex"
+path.astc="res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-b14eee8be97eef3b06b7a9bf2f265111.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Clothing/Shorts/Textures/Shorts_low_DefaultMaterial_Emit.png"
-dest_files=["res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-389df3b6fbcd7f38dd3207e562e14741.bptc.ctex", "res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-389df3b6fbcd7f38dd3207e562e14741.astc.ctex"]
+source_file="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_Emit.png"
+dest_files=["res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-b14eee8be97eef3b06b7a9bf2f265111.bptc.ctex", "res://.godot/imported/Shorts_low_DefaultMaterial_Emit.png-b14eee8be97eef3b06b7a9bf2f265111.astc.ctex"]
 
 [params]
 

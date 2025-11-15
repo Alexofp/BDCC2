@@ -529,11 +529,11 @@ func connectNodeTunnel(_hostID:String, relayServer:String = NODETUNNEL_SERVER, r
 # NODE TUNNEL END
 
 # NORAY
-const NORAY_SERVER = "213.183.61.83"#"tomfol.io"
+const NORAY_SERVER = "tomfol.io"#"213.183.61.83"#"tomfol.io"
 const NORAY_PORT = 8890
 
 const NORAY_SERVERS = [
-	"213.183.61.83:8890",
+	#"213.183.61.83:8890",
 	"tomfol.io:8890",
 ]
 
