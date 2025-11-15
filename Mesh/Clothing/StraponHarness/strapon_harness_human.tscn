@@ -39,7 +39,7 @@ script = ExtResource("3_7vug8")
 attachPoint = "body"
 skeletonMeshes = [NodePath("rig/Skeleton3D/StraponHarness")]
 
-[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 103726322) index="0" unique_id=1048394893]
+[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 1167882742) index="0" unique_id=2022128696]
 surface_material_override/0 = ExtResource("4_7vug8")
 
 [node name="StraponBasic" parent="." unique_id=1755005206 instance=ExtResource("2_4b6sp")]

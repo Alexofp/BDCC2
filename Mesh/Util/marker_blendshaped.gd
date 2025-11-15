@@ -28,7 +28,7 @@ func onApplyBlendshapesButton(_val:bool):
 
 var isUpdating:bool = false
 func setBlendshape(_name:String, _val:float):
-	if(!blendshapes.has(_name)):
+	if(!blendshapesData.has(_name)):
 		return
 	blendshapes[_name] = _val
 	if(isUpdating):

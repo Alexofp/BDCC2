@@ -30,7 +30,7 @@ scale_max = 2.0
 [node name="BodySkeleton" unique_id=1570233952 instance=ExtResource("1_v7x4s")]
 script = ExtResource("2_8p8i6")
 
-[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1015525668) index="0" unique_id=636336279]
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1908881827) index="0" unique_id=867039682]
 unique_name_in_owner = true
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D" index="0" unique_id=936458657 node_paths=PackedStringArray("skeleton") instance=ExtResource("2_8r017")]
@@ -60,7 +60,7 @@ transform = Transform3D(1, -1.75604e-15, -1.27497e-15, 1.79189e-15, 0.99959, 0.0
 pointName = "collar"
 
 [node name="AttachAnkle" type="BoneAttachment3D" parent="rig/Skeleton3D" index="4" unique_id=2133875173]
-transform = Transform3D(-0.99294406, 0.11831404, 0.007995279, -0.118513875, -0.98778427, -0.10118075, -0.0040734867, -0.101414375, 0.994836, 0.14590687, 0.52598596, -0.008924003)
+transform = Transform3D(-0.99356216, 0.11313916, 0.0058082566, -0.11323192, -0.9901489, -0.08236868, -0.0035680798, -0.0824961, 0.9965851, 0.14590687, 0.52598596, -0.008924003)
 bone_name = "shin.L"
 bone_idx = 3
 
@@ -69,7 +69,7 @@ transform = Transform3D(-1, -8.98641e-09, 8.69597e-08, 0, -0.994703, -0.102793, 
 pointName = "ankle.L"
 
 [node name="AttachAnkle2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="5" unique_id=1280309688]
-transform = Transform3D(-0.99294406, -0.11831404, -0.007995279, 0.118513875, -0.98778427, -0.10118075, 0.0040734867, -0.101414375, 0.994836, -0.14590687, 0.52598596, -0.008924003)
+transform = Transform3D(-0.99356216, -0.11313916, -0.0058082566, 0.11323192, -0.9901489, -0.08236868, 0.0035680798, -0.0824961, 0.9965851, -0.14590687, 0.52598596, -0.008924003)
 bone_name = "shin.R"
 bone_idx = 12
 
