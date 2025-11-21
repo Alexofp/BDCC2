@@ -1,5 +1,7 @@
 extends DollPart
 
+var breastWigglePhysics:float = 1.0
+
 @onready var body: MeshInstance3D = %Body
 @onready var digi_legs: MeshInstance3D = %DigiLegs
 @onready var planti_legs: MeshInstance3D = %PlantiLegs
@@ -106,7 +108,8 @@ func applyOption(_optionID:String, _value:Variant):
 		genitalsMat.set_shader_parameter("color_mask_r", _value)
 		spadeMat.set_shader_parameter("color_mask_r", _value)
 	if(_optionID == "breasts"):
-		getDoll().setBreastWiggleMod(clamp(_value, 0.0, 1.0))
+		calcBreastPhysics(_value)
+		getDoll().setBreastWiggleMod(breastWigglePhysics)
 	if(_optionID == "vagina"):
 		updateCrotch()
 		triggerDollPartFlagsUpdate()
@@ -329,3 +332,9 @@ func getNodeToAttachExtras(_slot:int) -> Node3D:
 	if(_slot == 1):
 		return nipple_r
 	return skeleton_3d
+
+func calcBreastPhysics(_breasts:float):
+	breastWigglePhysics = clamp(_breasts, 0.0, 1.0)
+
+func getBreastsWigglePhysics() -> float:
+	return breastWigglePhysics

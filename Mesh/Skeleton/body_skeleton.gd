@@ -1,6 +1,9 @@
 extends Node3D
 class_name BodySkeleton
 
+@onready var arm_move_l: MoveBoneModifier = %ArmMoveL
+@onready var arm_move_r: MoveBoneModifier = %ArmMoveR
+
 @onready var vagina_hole: DollOpenableHole = %VaginaHole
 @onready var vagina_inside: Marker3D = %VaginaInside
 
@@ -37,9 +40,13 @@ func resetBones():
 func getChestBoneAttachment() -> BoneAttachment3D:
 	return chest_bone_attachment
 
-#func _ready() -> void:
+func _ready() -> void:
 	#for particleGPU in squirtParticles:
 		#particleGPU.process_material = particleGPU.process_material.duplicate(true)
+	arm_move_l.translation = Vector3(0.0, 0.0294, 0.0)
+	arm_move_r.translation = Vector3(0.0, 0.0294, 0.0)
+	arm_move_l.influence = 0.0
+	arm_move_r.influence = 0.0
 
 func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:float = 1.0, spreadMult:float = 1.0):
 	var currentParticles:GPUParticles3D = squirtParticles[currentSquirtParticlesIndx]
@@ -57,3 +64,7 @@ func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:floa
 	currentSquirtParticlesIndx += 1
 	if(currentSquirtParticlesIndx >= squirtParticles.size()):
 		currentSquirtParticlesIndx = 0
+
+func setShoulderWidthInfluence(_f:float):
+	arm_move_l.influence = _f
+	arm_move_r.influence = _f

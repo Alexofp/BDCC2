@@ -66,3 +66,6 @@ func getOptions() -> Dictionary:
 
 func getDefaultEditorZone() -> int:
 	return CharCreatorZone.Head
+
+func supportsPropertyCopyOnBodypartSwitch() -> bool:
+	return true

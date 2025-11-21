@@ -216,3 +216,6 @@ func getOptions() -> Dictionary:
 
 func getDefaultEditorZone() -> int:
 	return CharCreatorZone.Body
+
+func supportsPropertyCopyOnBodypartSwitch() -> bool:
+	return true

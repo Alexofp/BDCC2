@@ -374,6 +374,8 @@ func _physics_process(_delta: float) -> void:
 		if(struggleTimer <= 0.0):
 			struggleTimer = 0.0
 			skeleton_hit_modifier.stopStruggle()
+	
+	updateBodyStuff()
 
 func _process(_delta: float) -> void:
 	processLookAt(_delta)
@@ -811,8 +813,10 @@ func doCumVisible(cumForward:bool):
 @onready var breast_r_wiggle: DMWBWiggleRotationModifier3D = %BreastRWiggle
 
 func setBreastWiggleMod(_mod:float):
-	breast_l_wiggle.influence = _mod
-	breast_r_wiggle.influence = _mod
+	breast_l_wiggle.influenceActualMax = _mod
+	breast_l_wiggle.active = _mod > 0.0
+	breast_r_wiggle.influenceActualMax = _mod
+	breast_r_wiggle.active = _mod > 0.0
 
 func _on_alpha_mask_texture_on_texture_updated(newTexture: Texture2D) -> void:
 	var theBody:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
@@ -1030,3 +1034,16 @@ func doStruggleAnimFor(_time:float):
 	if(!skeleton_hit_modifier.isStruggling()):
 		skeleton_hit_modifier.startStruggle(0.3, 0.5, 1.2, 1.8)
 	
+func updateBodyStuff():
+	#var theBreastWiggle:float = 0.0
+	var theWidth:float = 0.0
+	var theBody:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
+	if(theBody):
+		theWidth = theBody.getShouldersWidth()
+		#theBreastWiggle = theBody.getBreastsWigglePhysics()
+	
+	body_skeleton.setShoulderWidthInfluence(theWidth)
+	#breast_l_wiggle.influence = theBreastWiggle
+	#breast_l_wiggle.active = (theBreastWiggle > 0.0)
+	#breast_r_wiggle.influence = theBreastWiggle
+	#breast_r_wiggle.active = (theBreastWiggle > 0.0)

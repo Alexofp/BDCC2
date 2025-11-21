@@ -8,15 +8,15 @@
 [node name="InmateShorts" unique_id=563789288 instance=ExtResource("1_fe205")]
 script = ExtResource("2_rmhub")
 
-[node name="rig" parent="." index="0" unique_id=1027700105 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1383904879 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_g06s3")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Shorts"), NodePath("Skeleton3D/Shorts_PulledDown")]
 
-[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(220531051) index="0" unique_id=481710686]
+[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1439923325) index="0" unique_id=1299934292]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_xotcu")
 
-[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(220531051) index="1" unique_id=1549006870]
+[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1439923325) index="1" unique_id=240075165]
 unique_name_in_owner = true
 surface_material_override/0 = ExtResource("4_xotcu")

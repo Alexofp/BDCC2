@@ -43,7 +43,8 @@ func askCharacterPartChange(character:BaseCharacter, genericType:int, partSlot:i
 		var bodypart:GenericPart = GlobalRegistry.createGenericPart(genericType, _newPartID) if _newPartID != "" else null
 		if(bodypart):
 			bodypart.loadData(_newPartData)
-		character.addGenericPart(genericType, partSlot, bodypart)
+		#character.addGenericPart(genericType, partSlot, bodypart)
+		character.addGenericPartTryKeepProperties(genericType, partSlot, bodypart)
 	else:
 		askCharacterPartChange_SERVERRPC.rpc_id(1, character.getID(), genericType, partSlot, _newPartID, _newPartData)
 

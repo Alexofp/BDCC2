@@ -84,6 +84,9 @@ func setCharacter(theCharacter:BaseCharacter):
 func shouldBeFilteredOut() -> bool:
 	return internalHidePart
 
+func supportsPropertyCopyOnBodypartSwitch() -> bool:
+	return false
+
 func saveOptionsNetworkData() -> Bins:
 	var theAr:Array = []
 	var theOptions:Dictionary = getOptionsFinal()

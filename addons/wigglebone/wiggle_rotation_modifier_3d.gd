@@ -103,18 +103,19 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 var manualTurnOff:bool = false
+var influenceActualMax:float = 1.0
 func _process_modification() -> void:
 	if _bone_idx < 0:
 		return
 		
 	# BDCC2 EDIT
 	if(manualTurnOff):
-		influence = clamp(influence-0.05, 0.0, 1.0)
+		influence = clamp(influence-0.05, 0.0, influenceActualMax)
 		if(influence <= 0.01):
 			return
 		#return
 	else:
-		influence = clamp(influence+0.05, 0.0, 1.0)
+		influence = clamp(influence+0.05, 0.0, influenceActualMax)
 	var gravScale:float = 1.0
 	if(enableGravityHelper):
 		var curRot:=(basis * Vector3.UP).normalized()

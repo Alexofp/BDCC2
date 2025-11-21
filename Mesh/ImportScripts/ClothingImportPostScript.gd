@@ -14,6 +14,9 @@ func _post_import(scene):
 # (for demonstration purposes; EditorScenePostImport only requires a `_post_import(scene)` function).
 func iterate(node):
 	if node != null:
+		if(node.name.ends_with("_001")):
+			node.name = node.name.replace("_001", "")
+		
 		for child in node.get_children():
 			iterate(child)
 

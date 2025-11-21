@@ -159,6 +159,13 @@ func addGenericPart(_genericType:int, slot:int, part:GenericPart):
 		return
 	Log.Printerr("Trying to add a generic part of unknown type: "+str(_genericType))
 
+func addGenericPartTryKeepProperties(_genericType:int, slot:int, part:GenericPart):
+	var curPart := getGenericPart(_genericType, slot)
+	if(part && curPart && part.supportsPropertyCopyOnBodypartSwitch() && curPart.supportsPropertyCopyOnBodypartSwitch()):
+		var curData := curPart.saveData()
+		part.loadData(curData.duplicate(true))
+	addGenericPart(_genericType, slot, part)
+
 func removeGenericPart(_genericType:int, slot:int):
 	if(_genericType == GENERIC_BODYPARTS):
 		clearBodypart(slot)

@@ -207,3 +207,9 @@ func setExtra(_slot:int, _path:String):
 		theExtraDollScene.applyCharOptionFinal(syncOptionID, theChar.getSyncOptionValue(syncOptionID))
 	
 	theExtraDollScene.applyPartFlagsFinal(getDoll().cachedPartFlags)
+
+func getShouldersWidth() -> float:
+	return 0.0
+
+func getBreastsWigglePhysics() -> float:
+	return 0.0

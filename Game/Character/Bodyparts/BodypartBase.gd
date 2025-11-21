@@ -157,3 +157,6 @@ func getTextureVariantsValues(texType:String, texSubType:String) -> Array:
 
 func getDefaultEditorZone() -> int:
 	return CharCreatorZone.NOTHING
+
+func supportsPropertyCopyOnBodypartSwitch() -> bool:
+	return false
