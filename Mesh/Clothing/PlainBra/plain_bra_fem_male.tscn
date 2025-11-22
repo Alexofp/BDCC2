@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bes56e80lqmir"]
+
+[ext_resource type="PackedScene" uid="uid://385hh531uvbw" path="res://Mesh/Clothing/PlainBra/PlainBraMale.glb" id="1_frv7c"]
+[ext_resource type="Script" uid="uid://c4vuust7s0wkv" path="res://Mesh/Clothing/PlainBra/plain_bra_fem.gd" id="2_s1hdl"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q8dgw"]
+[ext_resource type="Material" uid="uid://bouxov0qki3uu" path="res://Mesh/Clothing/PlainBra/plain_bra_fem.tres" id="4_4xqmi"]
+
+[node name="PlainBraFemMale" unique_id=258978249 instance=ExtResource("1_frv7c")]
+script = ExtResource("2_s1hdl")
+
+[node name="rig" parent="." index="0" unique_id=309334738 node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("3_q8dgw")
+attachPoint = "body"
+skeletonMeshes = [NodePath("Skeleton3D/PlainBra"), NodePath("Skeleton3D/PlainBraPulledDown")]
+
+[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(503498047) index="0" unique_id=2138641066]
+unique_name_in_owner = true
+lod_bias = 3.0
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_4xqmi")
+
+[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(503498047) index="1" unique_id=1185437696]
+unique_name_in_owner = true
+lod_bias = 3.0
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_4xqmi")

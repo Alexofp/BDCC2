@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1vw23tojwp1l"]
+
+[ext_resource type="PackedScene" uid="uid://b5pplgn5lfsgr" path="res://Mesh/Clothing/PlainPanties/PlainPantiesMale.glb" id="1_bdhb1"]
+[ext_resource type="Script" uid="uid://cairtxrgv7o6k" path="res://Mesh/Clothing/PlainPanties/plain_panties.gd" id="2_3suvy"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q3c7q"]
+[ext_resource type="Material" uid="uid://c6ywib8afnxbd" path="res://Mesh/Clothing/PlainPanties/plain_panties_fem.tres" id="4_f5tfa"]
+
+[node name="PlainPantiesFemMale" unique_id=2094186892 instance=ExtResource("1_bdhb1")]
+script = ExtResource("2_3suvy")
+
+[node name="rig" parent="." index="0" unique_id=115442529 node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("3_q3c7q")
+attachPoint = "body"
+skeletonMeshes = [NodePath("Skeleton3D/PlainPanties"), NodePath("Skeleton3D/PlainPantiesShifted")]
+
+[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(41186243) index="0" unique_id=1249994080]
+unique_name_in_owner = true
+lod_bias = 3.0
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_f5tfa")
+
+[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(41186243) index="1" unique_id=742943718]
+unique_name_in_owner = true
+lod_bias = 3.0
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_f5tfa")
