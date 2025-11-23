@@ -1,0 +1,248 @@
+[gd_scene load_steps=15 format=3 uid="uid://rktqy7p1snrg"]
+
+[ext_resource type="Script" uid="uid://it52bin8p6ms" path="res://Mesh/Clothing/StraponHarness/strapon_harness_human.gd" id="1_tsvrv"]
+[ext_resource type="PackedScene" uid="uid://dlpokxxgqp10l" path="res://Mesh/Clothing/StraponHarness/StraponHarnessMale.glb" id="2_y380b"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_op3r0"]
+[ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_iffww"]
+[ext_resource type="PackedScene" uid="uid://mwfkv3uynts6" path="res://Mesh/Clothing/StraponHarness/StraponHuman.glb" id="5_a13pa"]
+[ext_resource type="Material" uid="uid://caw1jetfbejfr" path="res://Mesh/Clothing/StraponHarness/StraponMat.tres" id="6_81mu0"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="7_n3vo0"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_g6fj4"]
+[ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="9_inkhp"]
+[ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="10_bxc8v"]
+[ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="11_jh51p"]
+
+[sub_resource type="Resource" id="Resource_lh7kc"]
+script = ExtResource("8_g6fj4")
+spring_freq = 5.0
+angular_damp = 50.0
+swing_span = 0.08726646259971647
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="Curve3D" id="Curve3D_socsx"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, -0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.44, 0, 0, -0.1, 0, -0.0497739, -0.00474973, 0, 0, 0.76),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_0j2gv"]
+_data = [Vector2(0, 0), 0.0, 3.3095, 0, 1, Vector2(0.10185184, 0.3370787), 0.0, 0.0, 0, 0, Vector2(0.18518516, 0.29213488), -0.33495, -0.33495, 0, 0, Vector2(0.27314815, 0.26966298), 0.0, 0.0, 0, 0, Vector2(0.44444442, 0.28089893), 0.0, 0.0, 0, 0, Vector2(0.6203704, 0.28089893), 0.303144, 0.303144, 0, 0, Vector2(0.8611111, 0.30337083), 0.0, 0.0, 0, 0, Vector2(1, 0.30337083), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[node name="StraponHarnessHumanMale" type="Node3D" unique_id=900339721]
+script = ExtResource("1_tsvrv")
+
+[node name="StraponHarness" parent="." unique_id=1004565577 node_paths=PackedStringArray("skeletonMeshes") instance=ExtResource("2_y380b")]
+script = ExtResource("3_op3r0")
+attachPoint = "body"
+skeletonMeshes = [NodePath("rig/Skeleton3D/StraponHarness")]
+
+[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 1446230573) index="0" unique_id=1665734338]
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_iffww")
+
+[node name="StraponBasic" parent="." unique_id=1755005206 instance=ExtResource("5_a13pa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.450581e-09)
+
+[node name="StraponPenisRig" parent="StraponBasic" index="0" unique_id=688525745]
+script = ExtResource("3_op3r0")
+attachPoint = "strapon"
+
+[node name="HumanDildo" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="0" unique_id=684812650]
+surface_material_override/0 = ExtResource("6_81mu0")
+
+[node name="Wiggle1" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="1" unique_id=1659369926]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.1920929e-06, 0, 1, 5.684342e-14, 1, 0, 9.509779e-14, -0.00715667, 0.044553608)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.001"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle2" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="2" unique_id=913026460]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.192093e-06, 0, 1, 5.684342e-14, 1, 0, 9.427234e-14, -0.007156551, 0.07793787)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.002"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle3" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="3" unique_id=921238103]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.192093e-06, 0, 1, 5.684342e-14, 1, 0, 1.8315289e-13, -0.00715667, 0.111322194)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.003"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle4" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="4" unique_id=1558519616]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.192093e-06, 0, 1, 5.684342e-14, 1, 0, 2.2318364e-13, -0.007156551, 0.14470655)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.004"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle5" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="5" unique_id=625046860]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.192093e-06, 0, 1, 5.684342e-14, 1, 0, 3.0939967e-13, -0.0071566105, 0.17809083)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.005"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="Wiggle6" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="6" unique_id=140660369]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, 2.842171e-14, 1.1920931e-06, 1.192093e-06, 0, 1, 5.684342e-14, 1, 0, 3.2633775e-13, -0.00715667, 0.2114751)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_n3vo0")
+bone_name = "penis.006"
+properties = SubResource("Resource_lh7kc")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="ShaftNode" type="Marker3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="7" unique_id=862818939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0031350255, 0.0010337234)
+
+[node name="GuidePath" type="Path3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="8" unique_id=319134830 node_paths=PackedStringArray("shaftNode")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0028793216, 0.0101404935)
+curve = SubResource("Curve3D_socsx")
+script = ExtResource("9_inkhp")
+shaftNode = NodePath("../ShaftNode")
+blendDistance = 1.225
+straightness = 0.41
+
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="9" unique_id=2126508561]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("10_bxc8v")
+lenModificationBone = "penis.006"
+chainLength = 6
+ballsBone = "root"
+metadata/_custom_type_script = "uid://clc1kuop8qcgb"
+
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="10" unique_id=1331931281 node_paths=PackedStringArray("targetPath")]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = false
+influence = 1.0
+script = ExtResource("11_jh51p")
+bone = "penis.006"
+chainLength = 6
+targetPath = NodePath("../GuidePath")
+thicknessCurve = SubResource("Curve_0j2gv")
+metadata/_custom_type_script = "uid://ddp3batfh4dqr"
+
+[editable path="StraponHarness"]
+[editable path="StraponBasic"]

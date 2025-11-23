@@ -148,7 +148,7 @@ script = ExtResource("3_gpk52")
 attachPoint = "breast.L"
 
 [node name="MarkerBlendshaped" parent="BreastLAttach" index="0" unique_id=2002273322 instance=ExtResource("16_pmoi6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.249)
+transform = Transform3D(0.98633164, 3.7252903e-09, 0.16477215, 0.05494243, 0.9427695, -0.32888722, -0.1553422, 0.3334449, 0.9298835, 0.019013269, -0.011014266, 0.24498326)
 blendshapes = Dictionary[String, float]({
 "BreastsCleavage": 0.0,
 "BreastsFlat": 0.0,
@@ -156,29 +156,29 @@ blendshapes = Dictionary[String, float]({
 "NipplesAreolas": 0.0
 })
 blendshapesData = Dictionary[String, Vector3]({
-"BreastsCleavage": Vector3(-0.0193616, 0.00542237, 0.00740767),
-"BreastsFlat": Vector3(-0.0020000003, 0.007, -0.031134909),
-"BreastsHuge": Vector3(-0.009542095, -0.0525367, 0.12385633),
-"NipplesAreolas": Vector3(-2.910383e-11, 0, 0.005698378)
+"BreastsCleavage": Vector3(-0.010284178, 0.003647089, 0.0023820251),
+"BreastsFlat": Vector3(0.001484137, -0.002585411, -0.014523417),
+"BreastsHuge": Vector3(-0.029999211, -0.004643917, 0.12744728),
+"NipplesAreolas": Vector3(0, 0, 0.005896976)
 })
 
 [node name="NipplesAreolas" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="0" unique_id=158596886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.910383e-11, 0, 0.005698378)
+transform = Transform3D(1, 0, 0, 0, 1, 0, -2.9802322e-08, 0, 1, 0, 0, 0.005896976)
 visible = false
 gizmo_extents = 0.1
 
 [node name="BreastsCleavage" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="1" unique_id=688760831]
-transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.0193616, 0.00542237, 0.00740767)
+transform = Transform3D(1, -7.543713e-08, 1.4901161e-07, 1.4901161e-08, 1, 2.9802322e-08, -2.9802322e-08, 2.9802322e-08, 1, -0.010284178, 0.003647089, 0.0023820251)
 visible = false
 gizmo_extents = 0.1
 
 [node name="BreastsFlat" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="2" unique_id=4190622]
-transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.0020000003, 0.007, -0.031134909)
+transform = Transform3D(1, -7.543713e-08, 1.4901161e-07, 1.4901161e-08, 1, 2.9802322e-08, -2.9802322e-08, 2.9802322e-08, 1, 0.001484137, -0.002585411, -0.014523417)
 visible = false
 gizmo_extents = 0.1
 
 [node name="BreastsHuge" type="Marker3D" parent="BreastLAttach/MarkerBlendshaped/BlendshapesMarkers" parent_id_path=PackedInt32Array(2002273322, 1749740615) index="3" unique_id=1122758976]
-transform = Transform3D(1, -7.45058e-08, 1.49012e-07, 1.49012e-08, 1, 2.98023e-08, 0, 2.98023e-08, 1, -0.009542095, -0.0525367, 0.12385633)
+transform = Transform3D(1, -7.543713e-08, 1.4901161e-07, 1.4901161e-08, 1, 2.9802322e-08, -2.9802322e-08, 2.9802322e-08, 1, -0.029999211, -0.004643917, 0.12744728)
 visible = false
 gizmo_extents = 0.1
 
@@ -193,7 +193,7 @@ script = ExtResource("3_gpk52")
 attachPoint = "breast.R"
 
 [node name="MarkerBlendshaped" parent="BreastRAttach" index="0" unique_id=2102311808 instance=ExtResource("16_pmoi6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.249)
+transform = Transform3D(0.98646206, -0.00032289696, -0.16398923, -0.054362103, 0.94281024, -0.32886663, 0.15471694, 0.3333292, 0.93002915, -0.019, -0.011, 0.245)
 blendshapes = Dictionary[String, float]({
 "BreastsCleavage": 0.0,
 "BreastsFlat": 0.0,
@@ -202,10 +202,10 @@ blendshapes = Dictionary[String, float]({
 })
 mirrorX = true
 blendshapesData = Dictionary[String, Vector3]({
-"BreastsCleavage": Vector3(-0.0193616, 0.00542237, 0.00740767),
-"BreastsFlat": Vector3(-0.0020000003, 0.007, -0.031134909),
-"BreastsHuge": Vector3(-0.009542095, -0.0525367, 0.12385633),
-"NipplesAreolas": Vector3(-2.910383e-11, 0, 0.005698378)
+"BreastsCleavage": Vector3(-0.010284178, 0.003647089, 0.0023820251),
+"BreastsFlat": Vector3(0.001484137, -0.002585411, -0.014523417),
+"BreastsHuge": Vector3(-0.029999211, -0.004643917, 0.12744728),
+"NipplesAreolas": Vector3(0, 0, 0.005896976)
 })
 
 [node name="DollAttachPoint" parent="BreastRAttach/MarkerBlendshaped/Target" parent_id_path=PackedInt32Array(2102311808, 164994705) index="0" unique_id=514517780 instance=ExtResource("17_a3ha1")]

@@ -167,6 +167,7 @@ func updateAnimPlayerFor(seatID:String):
 	var animPlayer:AnimationPlayer = seatInfo["anim"]
 	
 	animPlayer.add_animation_library("RestraintAnims", preload("res://Anims/Raw/RestraintAnims.glb"))
+	animPlayer.add_animation_library("ArmbinderAnimMale", preload("res://Anims/Raw/ArmbinderAnimMale.glb"))
 	animPlayer.add_animation_library("GestureAnims", preload("res://Anims/Raw/GestureAnims.glb"))
 	for animLibraryID in animLibraries:
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))

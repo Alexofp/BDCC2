@@ -68,3 +68,6 @@ func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:floa
 func setShoulderWidthInfluence(_f:float):
 	arm_move_l.influence = _f
 	arm_move_r.influence = _f
+
+func getShoulderWidthInfluence() -> float:
+	return arm_move_l.influence

@@ -605,7 +605,12 @@ func animFall():
 var animArmbinder:bool = false
 func setArmbinderPoseEnabled(_en:bool):
 	animArmbinder = _en
-	animation_tree["parameters/ArmBinder_Blend/blend_amount"] = 1.0 if _en else 0.0
+	if(body_skeleton.getShoulderWidthInfluence() > 0.5):
+		animation_tree["parameters/ArmBinderMale_Blend/blend_amount"] = 1.0 if _en else 0.0
+		animation_tree["parameters/ArmBinder_Blend/blend_amount"] = 0.0
+	else:
+		animation_tree["parameters/ArmBinder_Blend/blend_amount"] = 1.0 if _en else 0.0
+		animation_tree["parameters/ArmBinderMale_Blend/blend_amount"] = 0.0
 func isArmbinderPoseEnabled() -> bool:
 	return animArmbinder
 

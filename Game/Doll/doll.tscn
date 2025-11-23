@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://y65ir3supv5s"]
+[gd_scene load_steps=24 format=3 uid="uid://y65ir3supv5s"]
 
 [ext_resource type="Script" uid="uid://cy0ulaqjxe5e3" path="res://Game/Doll/doll.gd" id="1_x8ebr"]
 [ext_resource type="PackedScene" uid="uid://c56fqxox0e0ia" path="res://Mesh/Skeleton/body_skeleton.tscn" id="2_k7aqf"]
@@ -10,6 +10,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://dqms0sfsng4i8" path="res://Anims/Raw/GestureAnims.glb" id="7_5l1g8"]
 [ext_resource type="AnimationLibrary" uid="uid://cmuxw6uiifp2h" path="res://Anims/Raw/LocomotionAnims.glb" id="7_l2cwv"]
 [ext_resource type="Script" uid="uid://d0xtmwcqewrrd" path="res://Mesh/Skeleton/Modifiers/SkeletonHitModifier.gd" id="7_olppk"]
+[ext_resource type="AnimationLibrary" uid="uid://em4khdpq3sdg" path="res://Anims/Raw/ArmbinderAnimMale.glb" id="8_cpvxs"]
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://d0u4pnrvut856" path="res://Game/Doll/Util/DollBlendTree.tres" id="9_1pahp"]
 [ext_resource type="Script" uid="uid://b31n7ytm4vmec" path="res://Game/Systems/ProcessBalancer/StaggeredAnimationTree.gd" id="10_1pahp"]
@@ -286,6 +287,7 @@ process_material = SubResource("ParticleProcessMaterial_i5c51")
 unique_name_in_owner = true
 active = false
 libraries = {
+&"ArmbinderAnimMale": ExtResource("8_cpvxs"),
 &"BasicAnims": ExtResource("5_avrwx"),
 &"GestureAnims": ExtResource("7_5l1g8"),
 &"LocomotionAnims": ExtResource("7_l2cwv"),
@@ -324,12 +326,14 @@ parameters/Locomotion/Idle/FullBodyGesture_Selector/current_index = -1
 parameters/Locomotion/Walk/Walk_Selector/current_state = ""
 parameters/Locomotion/Walk/Walk_Selector/transition_request = ""
 parameters/Locomotion/Walk/Walk_Selector/current_index = -1
+parameters/ArmBinderMale_Blend/blend_amount = 0.0
 script = ExtResource("10_1pahp")
 
 [node name="AnimationPlayerRestraints" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=956429807]
 unique_name_in_owner = true
 active = false
 libraries = {
+&"ArmbinderAnimMale": ExtResource("8_cpvxs"),
 &"RestraintAnims": ExtResource("8_yudco")
 }
 autoplay = &"BodyAnims/Idle"
@@ -342,9 +346,9 @@ tree_root = ExtResource("10_yn8uc")
 anim_player = NodePath("../AnimationPlayerRestraints")
 parameters/ArmBinder_Blend/blend_amount = 0.0
 parameters/Arms_Blend/blend_amount = 0.0
-parameters/Arms_Selector/current_state = ""
-parameters/Arms_Selector/transition_request = "state_0"
-parameters/Arms_Selector/current_index = -1
+parameters/Arms_Selector/current_state = "state_0"
+parameters/Arms_Selector/transition_request = ""
+parameters/Arms_Selector/current_index = 0
 parameters/CuffedBehindBack_Blend/blend_amount = 0.0
 parameters/CuffedFront_Blend/blend_amount = 0.0
 parameters/Locomotion/Idle/Idle_Selector/current_state = ""
@@ -366,6 +370,7 @@ parameters/BodyGesture/request = 0
 parameters/BodyGesture_Selector/current_state = ""
 parameters/BodyGesture_Selector/transition_request = ""
 parameters/BodyGesture_Selector/current_index = -1
+parameters/ArmBinderMale_Blend/blend_amount = 0.0
 
 [node name="AlphaMaskTexture" parent="." unique_id=1493821731 instance=ExtResource("10_ehs3x")]
 unique_name_in_owner = true

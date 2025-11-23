@@ -6,4 +6,5 @@ func _init() -> void:
 	
 	sceneByBodypartID = {
 		"FeminineBody": "res://Mesh/Clothing/Armbinder/armbinder.tscn",
+		"MasculineBody": "res://Mesh/Clothing/Armbinder/armbinder_male.tscn",
 	}
