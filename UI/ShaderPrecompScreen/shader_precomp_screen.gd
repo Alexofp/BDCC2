@@ -57,6 +57,7 @@ func doStuff():
 	#get_tree().change_scene_to_file(_theCurrentScenePath)
 
 func compileShaders():
+	GlobalRegistry.shaderTracker.setShouldCheck(false)
 	LoadingScreen.setText("Loading..")
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
@@ -117,6 +118,8 @@ func compileShaders():
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
 			theNode.queue_free()
+	
+	GlobalRegistry.shaderTracker.setShouldCheck(true)
 
 func updateProgress(current:int, total:int):
 	if(total <= 0):

@@ -35,6 +35,8 @@ var sexTaskRefs:Dictionary[String, SexTaskBase] = {}
 
 signal initialized
 
+var shaderTracker:ShaderCompilationTracker
+
 class CustomLogger extends Logger:
 	func _log_message(message: String, _error: bool) -> void:
 		_log_message_defer.call_deferred(message, _error)
@@ -106,6 +108,8 @@ func _init() -> void:
 	OS.add_logger(CustomLogger.new())
 
 func _ready() -> void:
+	shaderTracker = ShaderCompilationTracker.new()
+	add_child(shaderTracker)
 	Console.enable_on_release_build = true
 	Console.canvas_layer.layer = 4009
 	doInit()
