@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhpjjl3mm2s2i"]
+
+[ext_resource type="PackedScene" uid="uid://birdadm2tfo6u" path="res://Mesh/Clothing/InmateTankTop/InmateTankTopMale.glb" id="1_87dcs"]
+[ext_resource type="Script" uid="uid://t7dl6rwl66pb" path="res://Mesh/Clothing/InmateTankTop/inmate_tank_top.gd" id="2_ycj2r"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_x6auf"]
+[ext_resource type="Material" uid="uid://cvpisoidxvsxv" path="res://Mesh/Clothing/InmateTankTop/InmateTankTopMat.tres" id="4_0lx4j"]
+
+[node name="InmateTankTopMale" unique_id=623990681 instance=ExtResource("1_87dcs")]
+script = ExtResource("2_ycj2r")
+
+[node name="rig" parent="." index="0" unique_id=1917166199 node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("3_x6auf")
+attachPoint = "body"
+skeletonMeshes = [NodePath("Skeleton3D/TankTop"), NodePath("Skeleton3D/TankTopPulledUp")]
+
+[node name="TankTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1168326506) index="0" unique_id=775652499]
+unique_name_in_owner = true
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_0lx4j")
+
+[node name="TankTopPulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1168326506) index="1" unique_id=926124098]
+unique_name_in_owner = true
+blend_shapes/FML = 1.0
+surface_material_override/0 = ExtResource("4_0lx4j")
