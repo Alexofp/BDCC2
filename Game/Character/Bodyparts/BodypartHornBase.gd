@@ -2,6 +2,7 @@ extends BodypartBase
 class_name BodypartHornBase
 
 var hornColor:Color = Color(0.2, 0.2, 0.2)
+var hornRoughness:float = 1.0
 var hornScale:float = 1.0
 var hornSideShift:float = 0.0
 var hornForwardShift:float = 0.0
@@ -30,6 +31,13 @@ func getOptions() -> Dictionary:
 			type = "slider",
 			min = -0.2,
 			max = 0.2,
+			editors = [EDITOR_PART],
+		},
+		"hornRoughness": {
+			name = "Roughness",
+			type = "slider",
+			min = 0.0,
+			max = 2.0,
 			editors = [EDITOR_PART],
 		},
 		"hornColor": {

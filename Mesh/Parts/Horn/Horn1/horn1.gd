@@ -11,6 +11,9 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "hornColor"):
 		if(hornMat):
 			hornMat.set_shader_parameter("albedo", _value)
+	if(_optionID == "hornRoughness"):
+		if(hornMat):
+			hornMat.set_shader_parameter("roughness", _value)
 	if(_optionID == "hornScale"):
 		if(hornMesh):
 			hornMesh.scale = Vector3(_value, _value, _value)

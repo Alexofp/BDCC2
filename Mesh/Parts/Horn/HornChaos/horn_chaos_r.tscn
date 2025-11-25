@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c06kh1m3ehtcp"]
+
+[ext_resource type="Script" uid="uid://km478dwj2c27" path="res://Mesh/Parts/Horn/Horn1/horn1.gd" id="1_1qxlh"]
+[ext_resource type="PackedScene" uid="uid://nl0005t5vkgj" path="res://Mesh/Parts/Horn/HornChaos/HornChaosR.glb" id="2_1ixpu"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_7ilw4"]
+[ext_resource type="Material" uid="uid://bbpuaid6txlg4" path="res://Mesh/Parts/Horn/HornChaos/HornChaosMat.tres" id="4_1ixpu"]
+
+[node name="HornChaosR" type="Node3D" unique_id=755143564 node_paths=PackedStringArray("hornMesh")]
+script = ExtResource("1_1qxlh")
+hornMesh = NodePath("Horn/HornChaos_001")
+
+[node name="Horn" parent="." unique_id=1293920476 instance=ExtResource("2_1ixpu")]
+unique_name_in_owner = true
+script = ExtResource("3_7ilw4")
+attachPoint = "horn.R"
+
+[node name="HornChaos_001" parent="Horn" index="0" unique_id=167433426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = ExtResource("4_1ixpu")
+
+[editable path="Horn"]
