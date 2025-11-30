@@ -446,10 +446,16 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		if(dollScene.scene_file_path != cachedPart.getScenePath(bodypartSlot)):
 			dollScene.queue_free()
 			return
+		#dollScene.visible = false
+		parts_node.add_child(dollScene)
+		#await get_tree().create_timer(0.2).timeout
+		if(!dollScene):
+			return
 		parts[genericType][bodypartSlot] = dollScene
 		partPaths[genericType][bodypartSlot] = dollScene.scene_file_path
-		parts_node.add_child(dollScene)
+
 		if(dollScene is DollPart):
+			#dollScene.visible = true
 			dollScene.setDoll(self)
 			dollScene.setPart(part)
 			

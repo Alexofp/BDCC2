@@ -34,6 +34,15 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Muzzle3": {
+			name = "Muzzle 3",
+			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Muzzle3.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 		"Ferri": {
 			name = "Ferri",
 			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/Ferri.png",
@@ -91,6 +100,15 @@ func _init():
 		"WeirdMarkings": {
 			name = "Weird markings",
 			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/WeirdMarkings.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"EyeShadow": {
+			name = "Eye shadow",
+			colormask = "res://Mesh/Parts/Head/FelineHead/Textures/Layers/EyeShadow.png",
 			flags = {
 				hasR=true,
 				hasG=true,

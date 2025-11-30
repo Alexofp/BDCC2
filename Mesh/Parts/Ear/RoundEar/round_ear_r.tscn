@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccechufk8xr0r"]
+
+[ext_resource type="PackedScene" uid="uid://ds5bbumpv6dyh" path="res://Mesh/Parts/Ear/RoundEar/RoundEarR.glb" id="1_d0wia"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_41o5j"]
+[ext_resource type="Script" uid="uid://y8tcssdecwwp" path="res://Mesh/Parts/Ear/RoundEar/round_ear.gd" id="2_jb07o"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="3_ly50i"]
+[ext_resource type="Material" uid="uid://ctb18ly6e8ug5" path="res://Mesh/Parts/Ear/RoundEar/EarMat.tres" id="4_5oak5"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="4_jb07o"]
+[ext_resource type="Material" uid="uid://dhs44blxi450c" path="res://Mesh/Parts/Ear/RoundEar/FluffMat.tres" id="6_lebs8"]
+
+[sub_resource type="Resource" id="Resource_lebs8"]
+script = ExtResource("4_jb07o")
+spring_freq = 2.0
+linear_scale = 652.683
+swing_span = 1.5708
+metadata/_custom_type_script = ExtResource("4_jb07o")
+
+[node name="RoundEarR" unique_id=2074402283 node_paths=PackedStringArray("ear", "earFluff") instance=ExtResource("1_d0wia")]
+script = ExtResource("2_jb07o")
+ear = NodePath("RoundEarRig_001/Skeleton3D/RoundEar_001")
+earFluff = NodePath("RoundEarRig_001/Skeleton3D/RoundEarFluff_001")
+
+[node name="RoundEarRig_001" parent="." index="0" unique_id=294399468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("2_41o5j")
+attachPoint = "ear.R"
+
+[node name="RoundEar_001" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(219167920) index="0" unique_id=416263634]
+surface_material_override/0 = ExtResource("4_5oak5")
+
+[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(219167920) index="1" unique_id=1498311409]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(0.7425196, -0.5153153, -0.42791933, 0.30232874, 0.82790995, -0.47240108, 0.597714, 0.22139473, 0.7705339, -0.018704643, 0.032457918, 0.0039877836)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("3_ly50i")
+bone_name = "Ear.R"
+properties = SubResource("Resource_lebs8")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="RoundEarFluff_001" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(219167920) index="2" unique_id=1489983524]
+surface_material_override/0 = ExtResource("6_lebs8")

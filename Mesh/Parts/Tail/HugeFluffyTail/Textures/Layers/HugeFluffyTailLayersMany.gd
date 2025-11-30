@@ -24,4 +24,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Chaos": {
+			name = "Chaos",
+			colormask = "res://Mesh/Parts/Tail/HugeFluffyTail/Textures/Layers/Chaos.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

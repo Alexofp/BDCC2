@@ -61,6 +61,15 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Belly7": {
+			name = "Belly 7",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Belly7.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 		"FeetFur": {
 			name = "Feet fur",
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/FeetFur.png",
@@ -195,6 +204,33 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+		},
+		"ChaosStripes": {
+			name = "Chaos stripes",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/ChaosStripes.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"FeetPlain": {
+			name = "Feet plain",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/FeetPlain.png",
+			flags = {
+				hasR=true,
+				hasG=false,
+				hasB=false,
+			},
+		},
+		"HandsPlain": {
+			name = "Hands plain",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/HandsPlain.png",
+			flags = {
+				hasR=true,
+				hasG=false,
+				hasB=false,
 			},
 		},
 	}

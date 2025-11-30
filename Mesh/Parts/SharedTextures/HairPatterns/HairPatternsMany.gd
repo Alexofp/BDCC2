@@ -107,4 +107,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"LongChaosHair_Chaos": {
+			name = "Chaos",
+			subType = "LongChaosHair",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/LongChaosHair/Chaos.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}
