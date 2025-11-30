@@ -11,27 +11,35 @@ var errorStatus:int = ERROR_NOERROR
 
 signal requestFinished
 
+var isLoadingSomething:bool = false
+
 func doLoad(_path:String, _tryAgainCount:int = 0):
 	loadPath = _path
-	await ThreadedResourceLoader.get_tree().process_frame
+	while(isLoadingSomething):
+		await ThreadedResourceLoader.get_tree().process_frame
+	isLoadingSomething = true
 	if(loadPath == ""):
 		errorStatus = ERROR_EMPTY_PATH
 		result = "Trying to load an empty path"
 		requestFinished.emit()
+		isLoadingSomething = false
 		return
 	
 	if(ResourceLoader.has_cached(loadPath)):
 		result = ResourceLoader.load(loadPath)
 		requestFinished.emit()
+		isLoadingSomething = false
 		return
 
 	var err:= ResourceLoader.load_threaded_request(loadPath)
 	if(err != OK):
 		if(_tryAgainCount > 0):
+			isLoadingSomething = false 
 			doLoad(loadPath, _tryAgainCount-1)
 			return
 		errorStatus = ERROR_FAILED
 		requestFinished.emit()
+		isLoadingSomething = false
 		return
 	
 	var loadStatus := ResourceLoader.load_threaded_get_status(loadPath)
@@ -41,17 +49,21 @@ func doLoad(_path:String, _tryAgainCount:int = 0):
 	
 	if(loadStatus != ResourceLoader.THREAD_LOAD_LOADED):
 		if(_tryAgainCount > 0):
+			isLoadingSomething = false
 			doLoad(loadPath, _tryAgainCount-1)
 			return
 		errorStatus = ERROR_FAILED
 		requestFinished.emit()
+		isLoadingSomething = false
 		return
 	
 	result = ResourceLoader.load_threaded_get(loadPath)
 	if(!result && _tryAgainCount > 0):
+		isLoadingSomething = false
 		doLoad(loadPath, _tryAgainCount-1)
 		return
 	requestFinished.emit()
+	isLoadingSomething = false
 	
 
 func isError() -> bool:
