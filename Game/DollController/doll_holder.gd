@@ -89,6 +89,14 @@ func findDollWithUniqueID(theID:int) -> DollController:
 			#return doll
 	return null
 
+func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = Vector3(0.0, 0.0, 0.0)):
+	for doll in dolls.get_children():
+		if(!(doll is DollController)):
+			continue
+		if(doll is DollController):
+			if(doll.global_position.y < _lowPoint):
+				doll.global_position = _resetPoint
+
 func _process(_delta: float) -> void:
 	if(curDoll && !is_instance_valid(curDoll)):
 		notifyCurrentDollSwitch(null)

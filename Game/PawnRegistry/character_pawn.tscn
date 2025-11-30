@@ -43,6 +43,5 @@ unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_height_offset = 0.25
-debug_enabled = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

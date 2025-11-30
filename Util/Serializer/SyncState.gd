@@ -18,6 +18,8 @@ func getSyncVar(_var:String) -> Variant:
 
 func _init(_obj:Object, _fields:Array[String], _saveTypes:Array[int]):
 	assert(_fields.size() <= 15, "SyncState supports only up to 15 fields")
+	assert(_obj.has_method("setSyncVar"), "Object needs a setSyncVar method")
+	assert(_obj.has_method("getSyncVar"), "Object needs a getSyncVar method")
 	obj = _obj
 	fields = _fields
 	saveTypes = _saveTypes

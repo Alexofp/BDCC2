@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpka2h2ypy0r7"]
+[gd_scene load_steps=4 format=3 uid="uid://dpka2h2ypy0r7"]
 
 [ext_resource type="Script" uid="uid://ds37w03w0raty" path="res://UI/MainMenu/main_menu.gd" id="1_jld46"]
 [ext_resource type="PackedScene" uid="uid://bl3xkx2qr7pgs" path="res://UI/Settings/settings_ui.tscn" id="2_t17p2"]
+[ext_resource type="PackedScene" uid="uid://c50js2bfmbaqi" path="res://UI/Util/controls_help_text_label.tscn" id="3_3jj5y"]
 
 [node name="MainMenu" type="Control" unique_id=764239672]
 layout_mode = 3
@@ -283,6 +284,20 @@ text = "Map Editor"
 [node name="PreviewMaker" type="Button" parent="ToolsContainer/VBoxContainer" unique_id=171480536]
 layout_mode = 2
 text = "Preview Maker"
+
+[node name="ControlsPanelContainer" type="PanelContainer" parent="." unique_id=1915749977]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = -167.0
+offset_right = 232.0
+offset_bottom = -40.0
+grow_vertical = 0
+
+[node name="ControlsHelpTextLabel" parent="ControlsPanelContainer" unique_id=1590074628 instance=ExtResource("3_3jj5y")]
+layout_mode = 2
 
 [connection signal="pressed" from="CenterContainer/MainList/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]

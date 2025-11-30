@@ -159,11 +159,23 @@ func addGenericPart(_genericType:int, slot:int, part:GenericPart):
 		return
 	Log.Printerr("Trying to add a generic part of unknown type: "+str(_genericType))
 
+# This method is much slower but it keeps properties between parts
 func addGenericPartTryKeepProperties(_genericType:int, slot:int, part:GenericPart):
 	var curPart := getGenericPart(_genericType, slot)
 	if(part && curPart && part.supportsPropertyCopyOnBodypartSwitch() && curPart.supportsPropertyCopyOnBodypartSwitch()):
-		var curData := curPart.saveData()
-		part.loadData(curData.duplicate(true))
+		#var curData := curPart.saveData().duplicate(true)
+		
+		var curPList:Array[String] = curPart.getListOfPropertiesToCopy()
+		var newPList:Array[String] = part.getListOfPropertiesToCopy()
+		
+		#var newData:Dictionary = {}
+		for theNewProperty in newPList:
+			if(!curPList.has(theNewProperty)):
+				continue
+			part.applyOption(theNewProperty, curPart.getOptionValue(theNewProperty))
+			#newData["options"][theNewProperty] = curData["options"][theNewProperty]
+		
+		#part.loadData(newData)
 	addGenericPart(_genericType, slot, part)
 
 func removeGenericPart(_genericType:int, slot:int):

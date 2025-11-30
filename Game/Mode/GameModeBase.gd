@@ -40,6 +40,10 @@ func onCharacterCreatorAppear():
 func onCharacterCreatorConfirm():
 	pass
 
+func _physics_process(_delta: float) -> void:
+	if(Network.isServer()):
+		checkOutOfBoundsCharacters()
+
 func _process(_delta: float) -> void:
 	processCharacterCreator(_delta)
 	if(canClientsCreateItems()):
@@ -98,7 +102,6 @@ func askDebugGiveItem_SERVERRPC(_charID:String, _itemID:String):
 		return
 	theChar.getInventory().addItem(GlobalRegistry.createItem(_itemID))
 
-
 func canClientSwitchCharacters(_nid:int) -> bool:
 	return true
 
@@ -106,18 +109,23 @@ func askSwitchToCharID(_charID:String) -> void:
 	if(Network.isClient()):
 		askSwitchToCharID_SERVERRPC.rpc_id(1, _charID)
 		return
-	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
-	if(!myInfo):
-		return
-	if(!canClientSwitchCharacters(myInfo.id)):
-		return
-	myInfo.charID = _charID
+	askSwitchToCharID_SERVERRPC(_charID)
 
 @rpc("any_peer", "call_remote", "reliable")
 func askSwitchToCharID_SERVERRPC(newPawnID:String):
-	var myInfo:NetworkPlayerInfo = Network.getPlayerInfo(multiplayer.get_remote_sender_id())
+	var myInfo:NetworkPlayerInfo = Network.getSenderPlayerInfo()
 	if(!myInfo):
 		return
 	if(!canClientSwitchCharacters(myInfo.id)):
 		return
-	myInfo.charID = newPawnID
+	
+	var curInfo := Network.getPlayerInfoControllingCharID(newPawnID)
+	if(!curInfo):
+		myInfo.charID = newPawnID
+	elif(curInfo == myInfo):
+		pass
+	else:
+		myInfo.sendToChat("This character is already controlled by another player.")
+
+func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = Vector3(0.0, 0.0, 0.0)):
+	GM.dollHolder.checkOutOfBoundsCharacters(_lowPoint, _resetPoint)

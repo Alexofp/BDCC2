@@ -176,7 +176,7 @@ func _process(_delta: float) -> void:
 	
 	sexEngine.processCameraControl(_delta, controllingCamera)
 	
-	var actionText:String = sexEngine.getActionText()
+	var actionText:String = sexEngine.parseText(sexEngine.getActionText())
 	if(actionText != actionTextCache):
 		action_text_label.text = actionText
 		actionTextCache = actionText

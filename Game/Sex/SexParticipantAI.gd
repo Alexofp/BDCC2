@@ -23,6 +23,11 @@ var syncState:SyncState = SyncState.new(self,
 	["lust", "anger", "resistance", "fear"],
 	[Bins.Float, Bins.Float, Bins.Float, Bins.Float],)
 
+func setSyncVar(_var:String, _val:Variant):
+	set(_var, _val)
+func getSyncVar(_var:String) -> Variant:
+	return get(_var)
+
 func onSexStart():
 	checkGoals()
 	ticker = 1.0

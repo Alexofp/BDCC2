@@ -55,21 +55,7 @@ func _on_switch_button_pressed() -> void:
 		return
 	var newPawnID:String = pawnIDs[theIndx]
 	
-	#TODO Make this a gameinteractor thing?
-	if(Network.isClient()):
-		switchInfoSelectedCharID.rpc_id(1, newPawnID)
-		return
-	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
-	if(!myInfo):
-		return
-	myInfo.charID = newPawnID
-
-@rpc("any_peer", "call_remote", "reliable")
-func switchInfoSelectedCharID(newPawnID:String):
-	var myInfo:NetworkPlayerInfo = Network.getPlayerInfo(multiplayer.get_remote_sender_id())
-	if(!myInfo):
-		return
-	myInfo.charID = newPawnID
+	GM.game.askSwitchToCharID(newPawnID)
 	
 @rpc("any_peer", "call_remote", "reliable")
 func _on_add_pawn_button_pressed() -> void:

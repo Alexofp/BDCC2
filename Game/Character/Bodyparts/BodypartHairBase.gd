@@ -69,3 +69,10 @@ func getDefaultEditorZone() -> int:
 
 func supportsPropertyCopyOnBodypartSwitch() -> bool:
 	return true
+
+func getListOfPropertiesToCopy() -> Array[String]:
+	return [
+		"colorRoot",
+		"colorTip",
+		"shading",
+	]

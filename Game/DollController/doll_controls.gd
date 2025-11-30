@@ -20,9 +20,9 @@ signal multiplayerAuthorityUpdate
 #func _ready():
 #	NetworkTime.before_tick_loop.connect(doInputGather)
 
-func doInputGather():
-	resetInput()
-	processInput()
+#func doInputGather():
+	#resetInput()
+	#processInput()
 
 func setPID(newPid:int):
 	pid = newPid

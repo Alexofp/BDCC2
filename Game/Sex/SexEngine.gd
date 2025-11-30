@@ -360,7 +360,7 @@ func doProcess(_delta: float) -> void:
 				continue
 			theDoll.doStruggleAnimFor(0.5)
 	
-	hover_text.text = cachedHoverText
+	hover_text.text = parseText(cachedHoverText)
 	hoverTextLocalTargetPos = to_local(anim_scene_player.getAverageBodyPos())
 	
 @rpc("authority", "call_remote", "reliable")
@@ -368,7 +368,8 @@ func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
 	var theInfo := getInfo(_charID)
 	if(!theInfo):
 		return
-	theInfo.ai.syncState.applyDelta(_delta)
+	if(theInfo.ai):
+		theInfo.ai.syncState.applyDelta(_delta)
 	
 func calculateNetworkActions(theActions:Array) -> Array:
 	var result:Array = []
@@ -1277,12 +1278,14 @@ func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> Strin
 	return Util.join(result, "\n")
 
 func calculateActionText() -> String:
-	return parseText(calculateEngineText())
+	#return parseText(calculateEngineText())
+	return calculateEngineText()
 
 # Ran on server, gets synced to the clients?
 # Alternative = sync the whole sex engine and run this function localy (can localize then)
 func calculateHoverText() -> String:
-	return parseText(calculateEngineText())
+	#return parseText(calculateEngineText())
+	return calculateEngineText()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

@@ -281,9 +281,7 @@ func _process(delta:float):
 	if(theIsControlledByUs):
 		process_camera_pivot()
 	process_movement()
-	if(hasAuthority):
-		if(doll_controls.noclip_isdown):
-			noclip_on = !noclip_on
+
 	if(getState() == STATE_NORMAL):
 		process_animation(delta)
 	process_noclip(delta)
@@ -362,7 +360,12 @@ func _physics_process(_delta:float):
 	
 	if(getState() == STATE_NORMAL):
 		processMove(_delta)
-		
+
+	var hasAuthority:bool = !isRemote()
+	if(hasAuthority):
+		if(doll_controls.noclip_isdown):
+			noclip_on = !noclip_on
+
 	input_velocity = velocity
 	move_and_slide()
 	

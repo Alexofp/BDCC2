@@ -46,6 +46,13 @@ func _ready() -> void:
 	#updatePartOptionsList()
 	character_creator_camera_setup.setCharCreator(self)
 	setTab("char")
+	
+	UIHandler.addWindow(save_preset_dialog)
+	UIHandler.addWindow(load_preset_dialog)
+	tree_exiting.connect(func():
+		UIHandler.removeWindow(save_preset_dialog)
+		UIHandler.removeWindow(load_preset_dialog)
+	)
 	pass
 
 func setCharacter(newChar:BaseCharacter):
@@ -362,14 +369,10 @@ func _on_confirm_button_pressed() -> void:
 
 func _enter_tree() -> void:
 	UIHandler.addUI(self, UIHandler.CLOSE_TRYCLOSEMENU_FUNC)
-	UIHandler.addWindow(save_preset_dialog)
-	UIHandler.addWindow(load_preset_dialog)
 
 func _exit_tree() -> void:
 	resetCharacterPose()
 	UIHandler.removeUI(self)
-	UIHandler.removeWindow(save_preset_dialog)
-	UIHandler.removeWindow(load_preset_dialog)
 
 func tryCloseMenu() -> bool:
 	onConfirmPressed.emit()

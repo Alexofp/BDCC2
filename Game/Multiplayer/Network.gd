@@ -99,22 +99,25 @@ func getMyPlayerInfo() -> NetworkPlayerInfo:
 	return players[theID]
 
 func getSenderPlayerInfo() -> NetworkPlayerInfo:
-	var theID :int = multiplayer.get_remote_sender_id()
-	if(theID == 0):
-		theID = getHostID()
+	var theID :int = getSenderID()
 	if(!players.has(theID)):
 		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
 		return null
 	return players[theID]
 
 func getRPCPlayerInfo() -> NetworkPlayerInfo:
-	var theID :int = multiplayer.get_remote_sender_id()
-	if(theID == 0):
-		theID = getHostID()
+	var theID :int = getSenderID()
 	if(!players.has(theID)):
 		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
 		return null
 	return players[theID]
+
+func getPlayerInfoControllingCharID(_charID:String) -> NetworkPlayerInfo:
+	for playerID in players:
+		var theInfo:NetworkPlayerInfo = players[playerID]
+		if(theInfo.charID == _charID):
+			return theInfo
+	return null
 
 func saveNetworkData() -> Bins:
 	var data := Bins.saveStart([
@@ -262,6 +265,12 @@ func getMultiplayerID() -> int:
 		return 1
 	return multiplayer.get_unique_id()
 
+func getSenderID() -> int:
+	var theSenderID:int = multiplayer.get_remote_sender_id()
+	if(theSenderID <= 0):
+		return getMultiplayerID()
+	return theSenderID
+
 func isMultiplayer() -> bool:
 	if(!multiplayer.multiplayer_peer):
 		return false
@@ -315,13 +324,15 @@ func rpcClientsArgs(callable:Callable, args:Array = [], skipUs:bool = true):
 			continue
 		theCallable.rpc_id(playerID)
 
+func sentToChat(_id:int, _text:String):
+	if(_id == getMultiplayerID()):
+		sendToChat_RPC(_id, _text)
+	elif(isServer()):
+		sendToChat_RPC.rpc_id(_id, _id, _text)
+
 @rpc("authority", "call_remote", "reliable")
 func sendToChat_RPC(_id:int, _text:String):
-	var theInfo := getPlayerInfo(_id)
-	if(theInfo):
-		theInfo.sendToChat(_text)
-
-
+	GameChat.addChat(_text)
 
 func hostLAN(hostNickname:String = "host") -> FuncResultOrError:
 	preMultiplayerStarted.emit(true)

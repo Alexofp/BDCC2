@@ -14,9 +14,9 @@ func setupInfo(_infoDict:Dictionary) -> bool:
 		return false
 	id = _infoDict["id"]
 	role = _infoDict["role"] if _infoDict.has("role") else SexRole.Dom
-	if(Network.isServer()):
-		ai = SexParticipantAI.new()
-		ai.setParticipant(self)
+	#if(Network.isServer()):
+	ai = SexParticipantAI.new()
+	ai.setParticipant(self)
 	return true
 
 func onSexStart():
@@ -107,9 +107,10 @@ func getStatusTextArray() -> Array[String]:
 	if(pcAuto && isPlayer()):
 		result.append("AI-controlled player")
 	
-	var theAiInfo := ai.getVisibleAIInfo()
-	if(!theAiInfo.is_empty()):
-		result.append(Util.join(theAiInfo, ", "))
+	if(ai):
+		var theAiInfo := ai.getVisibleAIInfo()
+		if(!theAiInfo.is_empty()):
+			result.append(Util.join(theAiInfo, ", "))
 	
 	return result
 

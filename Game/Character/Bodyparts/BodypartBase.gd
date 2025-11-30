@@ -160,3 +160,9 @@ func getDefaultEditorZone() -> int:
 
 func supportsPropertyCopyOnBodypartSwitch() -> bool:
 	return false
+
+func getListOfPropertiesToCopy() -> Array[String]:
+	var theList:Array[String] = []
+	for optionID in getOptionsFinal():
+		theList.append(optionID)
+	return theList
