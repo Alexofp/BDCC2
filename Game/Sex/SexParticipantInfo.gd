@@ -9,6 +9,8 @@ var role:int = SexRole.Dom
 var autoConsent:bool = false #false
 var pcAuto:bool = false # Process AI even if we are the player
 
+var freeStraponUniqueID:int = -1
+
 func setupInfo(_infoDict:Dictionary) -> bool:
 	if(!_infoDict.has("id")):
 		return false
@@ -131,6 +133,29 @@ func sendTaskEvent(_taskID:String, _taskArray:Array):
 	if(!ai):
 		return
 	ai.sendTaskEvent(_taskID, _taskArray)
+
+func canWearFreeStrapon() -> bool:
+	var theSexEngine:SexEngine = getSexEngine()
+	if(!theSexEngine):
+		return false
+	
+	if(freeStraponUniqueID < 0):
+		return true
+	
+	for charID in theSexEngine.participants:
+		var theInfo:SexParticipantInfo = theSexEngine.participants[charID]
+		var theChar := theInfo.getChar()
+		if(!theChar):
+			continue
+		var theInv:Inventory = theChar.getInventory()
+		
+		var theItem := theInv.findItemByUniqueID(freeStraponUniqueID)
+		if(theItem):
+			return false
+	return true
+
+func setFreeStraponUniqueID(_uid:int):
+	freeStraponUniqueID = _uid
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

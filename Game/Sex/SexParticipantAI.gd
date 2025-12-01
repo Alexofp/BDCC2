@@ -178,7 +178,7 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 		var newGoal := GlobalRegistry.createSexGoal(goalID)
 		if(!newGoal):
 			continue
-		newGoal.infoRef = weakref(self)
+		newGoal.infoRef = weakref(getInfo())
 		if(!newGoal.setupGoal(goalArgs)):
 			continue
 		result.append(newGoal)

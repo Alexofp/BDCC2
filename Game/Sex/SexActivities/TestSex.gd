@@ -104,13 +104,14 @@ func sex_actions(_role:String):
 	if(sexSpeed > SEX_SPEED_SLOW):
 		addAction(action("Slower").do("sex_slower"))
 	addAction(action("Pause").do("pause"))
-
-	#TODO: PRIORITY, SUPER PRIORITY
+	
 	if(isReadyToCum(_role)):
 		addAction(action("Cum inside!")
+			.setOverridePriority(OVERRIDE_PRIORITY_ORGASM)
 			.setScore(0.2 if didSubJustCumTimer <= 0.0 else 1.0)
 			.do("cumInside"))
 		addAction(action("Delay orgasm")
+			.setOverridePriority(OVERRIDE_PRIORITY_ORGASM)
 			.setScore(0.0)
 			.do("delayCum"))
 

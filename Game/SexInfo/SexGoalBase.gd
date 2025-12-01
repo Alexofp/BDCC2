@@ -90,3 +90,12 @@ func getSexEngine() -> SexEngine:
 
 func isCompleted() -> bool:
 	return completed
+
+func shouldDomWearStraponToFuck() -> bool:
+	var theInfo := getInfo()
+	assert(theInfo != null)
+	var theChar := theInfo.getChar()
+	return !theChar.hasReachablePenis() && theChar.canWearStrapon()
+
+func getCharID() -> String:
+	return getInfo().getID()

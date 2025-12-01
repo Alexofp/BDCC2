@@ -26,6 +26,9 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		
 		if(theItem.canUnequipInSex(theContext)):
 			var takeOffScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
+			if(theItem.isStrapon()):
+				#TODO: This seems weird. Can we soft-lock because of this somehow?
+				takeOffScore = 1.0 - _info.taskScore(SexTask.WearStrapon, [_target.getID()])
 			addAction(action("Take off")
 			.setScore(takeOffScore)
 			.setCat(finalCat)
@@ -61,6 +64,7 @@ func start_event(_event:SexEvent):
 	var actionArgs:Array = _event.args[2]
 	var theUndressMessage:String = _event.args[3]
 	
+	var userChar:BaseCharacter = getRoleChar(ROLE_USER)
 	var targetChar:BaseCharacter = getRoleChar(ROLE_TARGET)
 	var targetInv:Inventory = targetChar.getInventory()
 	var theItem:ItemBase = targetInv.getEquippedItem(invSlot)
@@ -73,5 +77,11 @@ func start_event(_event:SexEvent):
 			if(theItem.shouldAutoEquipAfterSex()):
 				addAutoEquipAfterEnd(ROLE_TARGET, invSlot, theItem.uniqueID)
 		theItem.doDisplaceAction(actionID, actionArgs, getContext())
+		if(theItem && !theItem.isEquipped()):
+			if(getSexEngine().isItemTemporary(theItem)):
+				theItem.removeSelf()
+			elif(theItem.isInInventory() && getSexEngine().doesItemBelongTo(theItem, userChar.getID())):
+				if(targetInv.removeItem(theItem)):
+					userChar.getInventory().addItem(theItem)
 	
 	endActivity()

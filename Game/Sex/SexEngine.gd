@@ -60,6 +60,8 @@ var actionTexts:Array = []
 var hoverTextLocalTargetPos:Vector3 = Vector3()
 
 var cooldowns:Dictionary[String, float] = {}
+var tempItemUIDs:Array[int] = []
+var itemBelong:Dictionary[int, String] = {} # item uid = char id
 
 var eventQueue:Array = []
 
@@ -396,6 +398,7 @@ func calculateActions(charID:String) -> Array:
 	var _charCanDoDomActions:bool = canDoDomActions(charID)
 	
 	var result:Array = []
+	var curOverridePrio:int = 0
 	
 	#if(doesCharIDNeedsToConsent(charID)):
 		#result.append({
@@ -473,6 +476,13 @@ func calculateActions(charID:String) -> Array:
 				continue
 			var theActions := theSexActivity.getActionsForCharID(charID)
 			for actionEntry in theActions:
+				var theOverridePrio:int = actionEntry.overridePriority
+				if(theOverridePrio > curOverridePrio):
+					curOverridePrio = theOverridePrio
+					result.clear()
+				
+				if(theOverridePrio < curOverridePrio):
+					continue
 				result.append({
 					id = ACTION_SEX_ACTION,
 					activity = theSexActivity,
@@ -488,16 +498,24 @@ func calculateActions(charID:String) -> Array:
 			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
 			if(!theActivityRef.isActivitySupported(self)):
 				continue
-			internal_AddSexActivityActions(theActivityRef, theInfo, result)
+			curOverridePrio = internal_AddSexActivityActions(theActivityRef, theInfo, result, curOverridePrio)
 			
 	return result
 
-func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array):
+func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array, curOverridePrio:int) -> int:
 	for otherCharID in participants: #TODO: Replace this with target-based approach
 		var otherInfo:SexParticipantInfo = getInfo(otherCharID)
 		
 		var theActions := theActivityRef.getStartActionsFinal(self, theInfo, otherInfo)
 		for actionEntry in theActions:
+			var theOverridePrio:int = actionEntry.overridePriority
+			if(theOverridePrio > curOverridePrio):
+				curOverridePrio = theOverridePrio
+				result.clear()
+			
+			if(theOverridePrio < curOverridePrio):
+				continue
+			
 			result.append({
 				id = ACTION_START_ACTION,
 				activity = theActivityRef,
@@ -508,6 +526,7 @@ func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInf
 				disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
 				score = actionEntry.score,
 			})
+	return curOverridePrio
 
 # Subs consent if no answer if forced
 func hasConsentIfNoAnswer(_charID:String) -> bool:
@@ -850,6 +869,7 @@ func stopSex():
 	GM.sexManager.removeSexInternal(self)
 	queue_free()
 	if(Network.isServer()):
+		deleteAllTemporaryItems()
 		doAutoEquipAfterEnd()
 
 func _on_anim_scene_player_on_scene_switched() -> void:
@@ -1286,6 +1306,52 @@ func calculateActionText() -> String:
 func calculateHoverText() -> String:
 	#return parseText(calculateEngineText())
 	return calculateEngineText()
+
+func markItemBelongsTo(_item:ItemBase, _charID:String):
+	if(!_item):
+		return
+	itemBelong[_item.uniqueID] = _charID
+
+func doesItemBelongTo(_item:ItemBase, _charID:String) -> bool:
+	if(!_item):
+		return false
+	return itemBelong.has(_item.uniqueID) && itemBelong[_item.uniqueID] == _charID
+
+func markItemAsTemporary(_item:ItemBase):
+	if(!_item):
+		return
+	tempItemUIDs.append(_item.uniqueID)
+
+func isItemTemporary(_item:ItemBase):
+	if(!_item):
+		return false
+	return tempItemUIDs.has(_item.uniqueID)
+
+func shouldItemBeDeletedOnUnequipOrSexEnd(_item:ItemBase) -> bool:
+	if(tempItemUIDs.has(_item.uniqueID)):
+		return true
+	for charID in participants:
+		var theInfo:SexParticipantInfo = participants[charID]
+		if(theInfo.freeStraponUniqueID == _item.uniqueID):
+			return true
+	return false
+
+func deleteAllTemporaryItemsFor(charID:String):
+	if(!participants.has(charID)):
+		return
+	var theInfo:SexParticipantInfo = participants[charID]
+	var theChar:BaseCharacter = theInfo.getChar()
+	if(!theChar):
+		return
+	var theInv:Inventory = theChar.getInventory()
+	for itemUID in tempItemUIDs:
+		var theItem:ItemBase = theInv.findItemByUniqueID(itemUID)
+		if(theItem):
+			theItem.removeSelf()
+	
+func deleteAllTemporaryItems():
+	for charID in participants:
+		deleteAllTemporaryItemsFor(charID)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

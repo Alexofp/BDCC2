@@ -19,6 +19,8 @@ const I_HIGH = 2
 const CONSENT_RESISTANCE = 0
 const CONSENT_FETISH = 1
 
+const OVERRIDE_PRIORITY_ORGASM = 10
+
 var id:String = "error"
 var engineRef:WeakRef
 

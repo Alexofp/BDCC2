@@ -7,10 +7,8 @@ func _init() -> void:
 	fetishesReceiver = []
 
 func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
-	if(true):
-		return true #TODO: REMOVE ME
 	var theChar := _info.getChar()
-	if(!theChar.hasReachablePenis()):
+	if(!theChar.hasReachablePenis() && !theChar.canWearStrapon()):
 		return false
 	return true
 
@@ -39,5 +37,7 @@ func handleTaskEvent(_taskID:String, _args:Array) -> bool:
 func getTasks() -> Array:
 	var result:Array = []
 	#prepareForSex(result, target)
+	if(shouldDomWearStraponToFuck()):
+		result.append(task(SexTask.WearStrapon, [getCharID()]))
 	result.append(task(SexTask.CumInsideVaginal, [target]))
 	return result

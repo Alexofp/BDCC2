@@ -32,6 +32,14 @@ func getBDSMGearToEquipToOthers() -> Array[ItemBase]:
 		result.append(theItem)
 	return result
 
+func getStraponsToEquipToOthers() -> Array[ItemBase]:
+	var result:Array[ItemBase] = []
+	for theItem in items:
+		if(!theItem.isEquipable() || !theItem.isStrapon()):
+			continue
+		result.append(theItem)
+	return result
+
 func hasSlotEquipped(_slot:int) -> bool:
 	if(!equipped.has(_slot)):
 		return false
@@ -280,6 +288,12 @@ func getUncoveredItems() -> Array[ItemBase]:
 				coveredZones[theZone] = true
 	
 	return result
+
+func isWearingStrapon() -> bool:
+	var theItem := getEquippedItem(InventorySlot.UnderwearBottom)
+	if(!theItem):
+		return false
+	return theItem.isStrapon()
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

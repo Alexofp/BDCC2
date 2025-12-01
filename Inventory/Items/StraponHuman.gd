@@ -9,6 +9,9 @@ func _init():
 func getName() -> String:
 	return "Strapon (basic)"
 
+func isStrapon() -> bool:
+	return true
+
 func getSlot() -> int:
 	return InventorySlot.UnderwearBottom
 

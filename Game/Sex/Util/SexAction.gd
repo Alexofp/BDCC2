@@ -17,6 +17,7 @@ var payload:Array = []
 var cooldownID:String = ""
 var cooldownTime:float = 0.0
 var disabled:bool = false
+var overridePriority:int = 0
 
 static func make(_name:String) -> SexAction:
 	var theAction:SexAction = SexAction.new()
@@ -66,4 +67,8 @@ func setEnabled(_dis:bool) -> SexAction:
 
 func expose(_giver:Variant, _receiver:Variant, _fetishID:String, _intensity:float = 1.0) -> SexAction:
 	payload.append([ACTION_EXPOSE, _giver, _receiver, _fetishID, _intensity])
+	return self
+
+func setOverridePriority(_overridePriority:int) -> SexAction:
+	overridePriority = _overridePriority
 	return self

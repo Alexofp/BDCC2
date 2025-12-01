@@ -62,6 +62,11 @@ func isEquipable() -> bool:
 func isEquipped() -> bool:
 	return currentSlot >= 0
 
+func isInInventory() -> bool:
+	if(getInventory()):
+		return true
+	return false
+
 func canBeEquippedToAnySlot() -> bool:
 	if(isEquipped()):
 		return false
@@ -227,6 +232,9 @@ func onAutoEquipAfterSex():
 	resetEquippedState()
 
 func isBondageGear() -> bool:
+	return false
+
+func isStrapon() -> bool:
 	return false
 
 const EQUIP_OK = 0

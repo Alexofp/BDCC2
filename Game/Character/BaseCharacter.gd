@@ -720,7 +720,7 @@ func hasReachablePenis() -> bool:
 	return hasPenis()
 
 func isWearingStrapon() -> bool:
-	return true #TODO: Fix me when strapons are added
+	return getInventory().isWearingStrapon()
 
 func hasReachablePenisOrStrapon() -> bool:
 	return hasReachablePenis() || isWearingStrapon()
@@ -744,6 +744,11 @@ func isZoneCovered(_zone:int) -> bool:
 
 func getFirstItemThatCovers(_zone:int) -> ItemBase:
 	return inventory.getFirstItemThatCovers(_zone)
+
+func canWearStrapon() -> bool:
+	if(!hasReachablePenis()):
+		return true
+	return false
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [
