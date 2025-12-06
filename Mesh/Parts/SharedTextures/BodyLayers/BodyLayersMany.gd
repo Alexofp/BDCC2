@@ -233,4 +233,40 @@ func _init():
 				hasB=false,
 			},
 		},
+		"Wild": {
+			name = "Wild",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/Wild.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"WildMarks": {
+			name = "Wild marks",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/WildMarks.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"WildBack": {
+			name = "Wild back",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/WildBack.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
+		"WildTattoo": {
+			name = "Wild tattoo",
+			colormask = "res://Mesh/Parts/SharedTextures/BodyLayers/WildTattoo.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=false,
+			},
+		},
 	}

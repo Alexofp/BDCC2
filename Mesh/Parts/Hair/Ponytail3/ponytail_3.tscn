@@ -63,7 +63,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 1.09628046e-13, 8.026786e-07, -6.1784663e-14, -0.99999994, 5.960465e-08, 8.026785e-07, 5.960465e-08, 0.99999994, 3.5527137e-15, -0.018366983, -0.1294829)
+transform = Transform3D(-1, 7.105433e-15, 3.8941437e-07, 1.6105478e-14, -0.99999994, 5.960466e-08, 3.8941434e-07, 5.960466e-08, 0.99999994, 1.8348706e-14, -0.18239184, -0.1294829)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -75,7 +75,7 @@ script = ExtResource("6_7drtq")
 collider_enabled = true
 collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
 collider_bone_radius = 0.02999999999883584
-bone_name = "Tail1"
+bone_name = "Tail2"
 properties = SubResource("Resource_oanuy")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 

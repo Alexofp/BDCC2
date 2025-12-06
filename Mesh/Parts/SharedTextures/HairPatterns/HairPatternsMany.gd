@@ -117,4 +117,14 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Ponytail4_Northstar": {
+			name = "Northstar",
+			subType = "Ponytail4",
+			colormask = "res://Mesh/Parts/SharedTextures/HairPatterns/Ponytail4/Northstar.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

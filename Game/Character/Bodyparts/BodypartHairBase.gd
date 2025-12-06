@@ -7,6 +7,7 @@ class_name BodypartHairBase
 var colorRoot:Color = Color("db1c1c")
 var colorTip:Color = Color("750000")
 var shading:float = 0.5
+var shine:float = 0.3
 
 var pattern:Dictionary = {
 	id = "",
@@ -32,6 +33,13 @@ func getOptions() -> Dictionary:
 		},
 		"shading": {
 			name = "Shading",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		},
+		"shine": {
+			name = "Shine",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,

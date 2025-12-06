@@ -1,0 +1,115 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyqvchqibvpoy"]
+
+[ext_resource type="PackedScene" uid="uid://bg57rm7rltc5n" path="res://Mesh/Parts/Hair/Ponytail4/Ponytail4.glb" id="1_id2ad"]
+[ext_resource type="Script" uid="uid://8fs1pf505olb" path="res://Mesh/Parts/Hair/Ponytail4/ponytail_4.gd" id="2_hp4t2"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_lsyer"]
+[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_5uigo"]
+[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/Parts/SharedMaterials/RubberBandMat.tres" id="5_brrdx"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_0soje"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_0gky6"]
+
+[sub_resource type="Resource" id="Resource_37ivq"]
+script = ExtResource("7_0gky6")
+spring_freq = 2.0
+linear_scale = 1065.882
+gravity = Vector3(0, -10, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hu058"]
+
+[node name="Ponytail4" unique_id=264754687 instance=ExtResource("1_id2ad")]
+script = ExtResource("2_hp4t2")
+
+[node name="Ponytail4Rig" parent="." index="0" unique_id=321661873]
+script = ExtResource("2_lsyer")
+attachPoint = "hair"
+
+[node name="Ponytail4" parent="Ponytail4Rig/Skeleton3D" parent_id_path=PackedInt32Array(41772752) index="0" unique_id=1332255201]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("4_5uigo")
+
+[node name="Ponytail4Bow" parent="Ponytail4Rig/Skeleton3D" parent_id_path=PackedInt32Array(41772752) index="1" unique_id=1521080440]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("5_brrdx")
+
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail4Rig/Skeleton3D" parent_id_path=PackedInt32Array(41772752) index="2" unique_id=312819998 node_paths=PackedStringArray("collider_nodes")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 4.2341983e-23, -1.5099579e-07, 4.2341983e-23, -1, -3.19673e-30, -1.5099579e-07, -3.1967307e-30, -1, 5.9433043e-18, 0.17547657, -0.18037772)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_0soje")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.02999999999883584
+bone_name = "Tail1"
+properties = SubResource("Resource_37ivq")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail4Rig/Skeleton3D" parent_id_path=PackedInt32Array(41772752) index="3" unique_id=319049444 node_paths=PackedStringArray("collider_nodes")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -9.4663316e-30, 0, 9.4663316e-30, -0.99999976, 7.523164e-37, 0, 7.523164e-37, -1, -1.7644702e-15, 0.019190952, -0.18037772)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_0soje")
+collider_enabled = true
+collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bone_radius = 0.02999999999883584
+bone_name = "Tail2"
+properties = SubResource("Resource_37ivq")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="TailWiggle3" type="SkeletonModifier3D" parent="Ponytail4Rig/Skeleton3D" parent_id_path=PackedInt32Array(41772752) index="4" unique_id=642504162]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -9.944043e-08, -9.94404e-08, -9.94404e-08, -1, 3.279746e-07, -9.944043e-08, -3.279746e-07, -1, 0.09905549, 0.11961494, 0.07299225)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_0soje")
+collider_bone_radius = 0.02999999999883584
+bone_name = "Side.L"
+properties = SubResource("Resource_37ivq")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="HairCollision" type="Node3D" parent="." index="1" unique_id=2076055978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37486658, 0.2792923)
+script = ExtResource("2_lsyer")
+attachPoint = "upperchest"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=403864596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+shape = SubResource("SphereShape3D_hu058")

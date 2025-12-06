@@ -183,6 +183,8 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 			_hairMat.set_shader_parameter("root_color", _value)
 		elif(_optionID == "shading"):
 			_hairMat.set_shader_parameter("ambient_occlusion", _value)
+		elif(_optionID == "shine"):
+			_hairMat.set_shader_parameter("specular_scale", _value)
 		elif(_optionID == "colorTip"):
 			_hairMat.set_shader_parameter("tip_color", _value)
 			

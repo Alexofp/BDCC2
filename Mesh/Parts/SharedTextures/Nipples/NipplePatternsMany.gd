@@ -33,4 +33,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"SmoothSmall": {
+			name = "SmoothSmall",
+			colormask = "res://Mesh/Parts/SharedTextures/Nipples/smoothSmall.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}
