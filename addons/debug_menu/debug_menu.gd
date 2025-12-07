@@ -35,6 +35,7 @@ const GRAPH_MAX_FRAMETIME = 1.0 / GRAPH_MAX_FPS
 ## Debug menu display style.
 enum Style {
 	HIDDEN,  ## Debug menu is hidden.
+	JUST_FPS,
 	VISIBLE_COMPACT,  ## Debug menu is visible, with only the FPS, FPS cap (if any) and time taken to render the last frame.
 	VISIBLE_DETAILED,  ## Debug menu is visible with full information, including graphs.
 	MAX,  ## Represents the size of the Style enum.
@@ -44,10 +45,11 @@ enum Style {
 var style := Style.HIDDEN:
 	set(value):
 		style = value
+		frame_time.visible = (style != Style.JUST_FPS)
 		match style:
 			Style.HIDDEN:
 				visible = false
-			Style.VISIBLE_COMPACT, Style.VISIBLE_DETAILED:
+			Style.VISIBLE_COMPACT, Style.VISIBLE_DETAILED, Style.JUST_FPS:
 				visible = true
 				frame_number.visible = style == Style.VISIBLE_DETAILED
 				$VBoxContainer/FrameTimeHistory.visible = style == Style.VISIBLE_DETAILED
@@ -134,13 +136,18 @@ func _ready() -> void:
 			update_settings_label()
 	)
 	
-	style = Style.VISIBLE_COMPACT
+	if(OS.is_debug_build()):
+		style = Style.VISIBLE_COMPACT
+	else:
+		style = Style.JUST_FPS
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("cycle_debug_menu"):
 		style = wrapi(style + 1, 0, Style.MAX) as Style
 
+func setStyle(_newStyle:int):
+	style = _newStyle
 
 func _exit_tree() -> void:
 	thread.wait_to_finish()
@@ -404,6 +411,8 @@ func _process(_delta: float) -> void:
 
 		fps.text = str(int(floor(frames_per_second))) + " FPS"
 		var frame_time_color := frame_time_gradient.sample(remap(frames_per_second, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
+		if(style == Style.JUST_FPS):
+			frame_time_color.a = 0.3
 		fps.modulate = frame_time_color
 
 		frame_time.text = str(frametime).pad_decimals(2) + " mspf"
