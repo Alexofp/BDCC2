@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3 uid="uid://duyumy7yb55jo"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 data = {
+&"bodySize": 0.0,
 &"bodyparts": {
 "Body": {
 &"data": {
@@ -31,6 +32,7 @@ data = {
 "breastsCleavage": 0.0,
 "claws": 1.0,
 "clawsColor": Color(0.39453125, 0.25582886, 0.18647766, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0.9453125, 0.52647746, 0.50219727, 1),
 "hindPawPadColor": Color(0.94509804, 0.5254902, 0.5019608, 1),
@@ -73,7 +75,8 @@ data = {
 &"id": "",
 &"r": Color(0.7, 0.7, 0.7, 1)
 },
-"shading": 0.5
+"shading": 0.5,
+"shine": 0.3
 }
 },
 &"id": "Ponytail1"
@@ -184,7 +187,9 @@ data = {
 &"id": "LongTail"
 }
 },
+&"buttSize": 0.0,
 &"charName": "Rahi",
+&"chubbyness": 0.0,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
@@ -192,6 +197,7 @@ data = {
 &"pronouns": 0
 },
 &"idleAnim": "normal1",
+&"lastCharName": "Haj'jar",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -200,6 +206,7 @@ data = {
 }
 }
 },
+&"smoothBody": 0.0,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",
@@ -210,6 +217,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex",
-&"weightDistribution": 0.0
+&"walkAnim": "unisex"
 }

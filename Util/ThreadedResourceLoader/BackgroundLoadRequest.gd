@@ -17,6 +17,7 @@ func doLoad(_path:String, _tryAgainCount:int = 0):
 	loadPath = _path
 	while(isLoadingSomething):
 		await ThreadedResourceLoader.get_tree().process_frame
+		await ThreadedResourceLoader.get_tree().process_frame
 	isLoadingSomething = true
 	if(loadPath == ""):
 		errorStatus = ERROR_EMPTY_PATH
@@ -62,6 +63,8 @@ func doLoad(_path:String, _tryAgainCount:int = 0):
 		isLoadingSomething = false
 		doLoad(loadPath, _tryAgainCount-1)
 		return
+	#TODO: Might fix uniform bug
+	await ThreadedResourceLoader.get_tree().process_frame
 	requestFinished.emit()
 	isLoadingSomething = false
 	

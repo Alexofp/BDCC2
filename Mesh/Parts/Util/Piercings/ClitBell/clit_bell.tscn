@@ -11,7 +11,7 @@ script = ExtResource("5_c747f")
 spring_freq = 1.0
 linear_scale = 3600.0
 swing_span = 2.0943951023931953
-gravity = Vector3(0, -150, 0)
+gravity = Vector3(0, -100, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4f1xy"]

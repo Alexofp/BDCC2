@@ -1,6 +1,6 @@
 extends ItemBase
 
-var color:Color = Color.WHITE
+var color:Color = Color("ff7070")
 var shifted:bool = false
 
 func _init():
