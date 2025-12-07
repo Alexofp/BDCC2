@@ -30,6 +30,8 @@ var pubicHairMat:ShaderMaterial
 @onready var nipple_r: Node3D = %NippleR
 @onready var pubic_hair: MeshInstance3D = %PubicHair
 @onready var flat_crotch: MeshInstance3D = %FlatCrotch
+@onready var clit_point: DollAttachPoint = %ClitPoint
+@onready var clit_marker: MarkerBlendshaped = %ClitMarker
 
 @onready var skeleton_3d: Skeleton3D = %Skeleton3D
 
@@ -134,7 +136,15 @@ func applyOption(_optionID:String, _value:Variant):
 		else:
 			setExtra(0, "")
 			setExtra(1, "")
-	
+	if(_optionID == "clitPiercing"):
+		var theVal:String = _value[0] if _value.size() > 0 else ""
+		if(theVal == "ring"):
+			setExtra(2, "res://Mesh/Parts/Util/Piercings/ClitRing/clit_ring.tscn")
+		elif(theVal == "bell"):
+			setExtra(2, "res://Mesh/Parts/Util/Piercings/ClitBell/clit_bell.tscn")
+		else:
+			setExtra(2, "")
+
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	updateSkinEverything()
 
@@ -303,12 +313,17 @@ func updateCrotch():
 	flat_crotch.visible = false #TODO: Flat crotch support
 	pubic_hair.visible = !hideVagina
 	
+	clit_marker.setBlendshape("PussyClosedTight", 0.0)
+	clit_marker.setBlendshape("ClitCanineVag", 0.0)
+	clit_marker.setBlendshape("CaninePussySize", 0.0)
+	
 	if(hasVag):
 		if(vagType == VaginaType.Spade):
 			female_crotch_spade.visible = true
 			female_crotch.visible = false
 			male_crotch.visible = false
 			setBlendshape("CaninePussySize", vagSize)
+			clit_marker.setBlendshape("ClitCanineVag", 1.0)
 		else:
 			female_crotch.visible = true
 			male_crotch.visible = false
@@ -331,6 +346,8 @@ func getNodeToAttachExtras(_slot:int) -> Node3D:
 		return nipple_l
 	if(_slot == 1):
 		return nipple_r
+	if(_slot == 2):
+		return clit_point
 	return skeleton_3d
 
 func calcBreastPhysics(_breasts:float):

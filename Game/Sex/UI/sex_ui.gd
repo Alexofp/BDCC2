@@ -221,7 +221,8 @@ func _on_empty_space_gui_input(event: InputEvent) -> void:
 func _input(event: InputEvent) -> void:
 	if(controllingCamera && event is InputEventMouseMotion):
 		var mouseD:Vector2 = event.relative
-		sexEngine.processCameraMouseMotion(mouseD)
+		if(sexEngine):
+			sexEngine.processCameraMouseMotion(mouseD)
 
 func playQuickFade():
 	fade_anim_player.play("QuickFade")

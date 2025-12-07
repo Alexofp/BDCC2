@@ -228,3 +228,12 @@ process_material = SubResource("ParticleProcessMaterial_q8qd3")
 [node name="SquirtParticles3" parent="rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2" unique_id=1339676236 instance=ExtResource("5_q8qd3")]
 unique_name_in_owner = true
 process_material = SubResource("ParticleProcessMaterial_i5c51")
+
+[node name="VaginaBoneAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="15" unique_id=294877745]
+transform = Transform3D(1, 3.2433728e-16, 2.3841856e-07, -4.2632564e-14, -1.0000002, 1.7881393e-07, 2.384186e-07, -1.7881393e-07, -1.0000001, 5.1500927e-19, 0.9383855, 0.016255796)
+bone_name = "vagina"
+bone_idx = 75
+
+[node name="DollAttachPoint5" parent="rig/Skeleton3D/VaginaBoneAttach" index="0" unique_id=2088518263 instance=ExtResource("2_8r017")]
+transform = Transform3D(1, -8.742277e-08, -8.742278e-08, -8.742278e-08, -0.99999994, 0, -8.742278e-08, 7.642741e-15, -1, -7.687927e-09, 0.030728698, 0.03224551)
+pointName = "vagina"

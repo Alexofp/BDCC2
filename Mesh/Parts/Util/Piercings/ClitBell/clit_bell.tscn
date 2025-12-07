@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3 uid="uid://kgkql6heiufw"]
+
+[ext_resource type="PackedScene" uid="uid://ghdixunhp1nl" path="res://Mesh/Parts/Util/Piercings/ClitBell/ClitBell.glb" id="1_dkfq6"]
+[ext_resource type="Script" uid="uid://e88e3hq15x45" path="res://Mesh/Parts/Util/Piercings/ClitBell/clit_bell.gd" id="2_3x5fo"]
+[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="2_ufndw"]
+[ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_4f1xy"]
+[ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_c747f"]
+
+[sub_resource type="Resource" id="Resource_ltgt8"]
+script = ExtResource("5_c747f")
+spring_freq = 1.0
+linear_scale = 3600.0
+swing_span = 2.0943951023931953
+gravity = Vector3(0, -150, 0)
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4f1xy"]
+radius = 0.2
+
+[node name="ClitBell" unique_id=257745390 instance=ExtResource("1_dkfq6")]
+script = ExtResource("2_3x5fo")
+
+[node name="ClitBellRig" parent="." index="0" unique_id=1541004762]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ClitBell" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="0" unique_id=1877124775]
+unique_name_in_owner = true
+surface_material_override/0 = ExtResource("2_ufndw")
+
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="1" unique_id=2018350790]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 1.8774273e-28, 0, -1.4809015e-28, -1, 1.14177965e-08, 0, -1.14177965e-08, -1, 1.9411538e-23, -0.0055899685, 8.707808e-08)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_4f1xy")
+bone_name = "Chain"
+properties = SubResource("Resource_ltgt8")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="2" unique_id=455930460 node_paths=PackedStringArray("collider_nodes")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, -3.3583288e-28, -1, 1.14177965e-08, -2.1436084e-36, -1.14177965e-08, -1, 1.9411541e-23, -0.02433968, 8.6864e-08)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_4f1xy")
+collider_enabled = true
+collider_nodes = [NodePath("../../CollisionShape3D")]
+collider_bone_offset = 0.01
+collider_bone_radius = 0.01
+bone_name = "Chain2"
+properties = SubResource("Resource_ltgt8")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="3" unique_id=1381584040 node_paths=PackedStringArray("collider_nodes")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -6.018531e-36, 0, -3.3583288e-28, -1, 1.14177965e-08, -2.1436084e-36, -1.14177965e-08, -1, 1.9411541e-23, -0.033161227, 8.676328e-08)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("4_4f1xy")
+collider_enabled = true
+collider_nodes = [NodePath("../../CollisionShape3D")]
+collider_bone_offset = 0.02
+collider_bone_radius = 0.01
+bone_name = "Chain3"
+properties = SubResource("Resource_ltgt8")
+metadata/_custom_type_script = "uid://1n0mqd1c34ui"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClitBellRig" index="1" unique_id=1225662408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20515162, -0.007884353)
+shape = SubResource("SphereShape3D_4f1xy")

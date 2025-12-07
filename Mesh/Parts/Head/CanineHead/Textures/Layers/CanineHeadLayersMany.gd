@@ -62,4 +62,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Wild": {
+			name = "Wild",
+			colormask = "res://Mesh/Parts/Head/CanineHead/Textures/Layers/Wild.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

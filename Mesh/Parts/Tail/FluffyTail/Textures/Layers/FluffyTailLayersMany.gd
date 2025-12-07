@@ -15,4 +15,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Wild": {
+			name = "Wild",
+			colormask = "res://Mesh/Parts/Tail/FluffyTail/Textures/Layers/Wild.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}

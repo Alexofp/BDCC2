@@ -14,6 +14,7 @@ var nipples:Dictionary = {
 }
 
 var nipplePiercing:Array = [""]
+var clitPiercing:Array = [""]
 
 var claws:float = 0.0
 var clawsColor:Color = Color("855a5a")
@@ -188,6 +189,17 @@ func getOptions() -> Dictionary:
 		"vaginaInColor": {
 			name = "Vagina (inside) color",
 			type = "color",
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Crotch,
+		},
+		"clitPiercing": {
+			name = "Clit piercing",
+			type = "extraColored",
+			values = [
+				["", "No piercings", 0],
+				["ring", "Ring", 2],
+				["bell", "Bell", 3],
+			],
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Crotch,
 		},

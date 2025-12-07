@@ -60,6 +60,7 @@ surface_material_override/2 = ExtResource("9_jb71j")
 
 [node name="FlatCrotch" parent="rig/Skeleton3D" index="4" unique_id=1528436637]
 unique_name_in_owner = true
+visible = false
 blend_shapes/FML = 1.0
 surface_material_override/0 = ExtResource("4_8i07x")
 
@@ -230,9 +231,47 @@ blendshapesData = Dictionary[String, Vector3]({
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 pointName = "strapon"
 
+[node name="VaginaAttach" type="Node3D" parent="." index="9" unique_id=863841079]
+transform = Transform3D(1, -8.742277e-08, -3.2584134e-07, 8.742274e-08, 1.0000001, -1.7881393e-07, 3.2584143e-07, 1.7881389e-07, 1.0000001, 8.886934e-16, 0.9076568, -0.01598972)
+script = ExtResource("3_gpk52")
+attachPoint = "vagina"
+metadata/_custom_type_script = "uid://b17qxyq8oh4kq"
+
+[node name="ClitMarker" parent="VaginaAttach" index="0" unique_id=1717252943 instance=ExtResource("16_pmoi6")]
+unique_name_in_owner = true
+transform = Transform3D(1, 1.4583199e-07, 3.042176e-07, -8.742279e-08, 0.9829583, -0.18382889, -3.2584134e-07, 0.18382889, 0.9829583, 1.69033e-08, -0.025843143, 0.05880955)
+blendshapes = Dictionary[String, float]({
+"CaninePussySize": 0.0,
+"ClitCanineVag": 0.0,
+"PussyClosedTight": 0.0
+})
+blendshapesData = Dictionary[String, Vector3]({
+"CaninePussySize": Vector3(4.975112e-23, -0.0005952616, 0.014231158),
+"ClitCanineVag": Vector3(1.1622914e-22, -0.004199632, 0.03342281),
+"PussyClosedTight": Vector3(1.3651963e-24, 0.005867642, 0.00031758842)
+})
+
+[node name="PussyClosedTight" type="Marker3D" parent="VaginaAttach/ClitMarker/BlendshapesMarkers" parent_id_path=PackedInt32Array(1717252943, 1749740615) index="0" unique_id=114830674]
+transform = Transform3D(1, 0, 1.6940659e-21, 0, 1, 0, 0, 0, 1, 1.3651963e-24, 0.005867642, 0.00031758842)
+gizmo_extents = 0.02
+
+[node name="ClitCanineVag" type="Marker3D" parent="VaginaAttach/ClitMarker/BlendshapesMarkers" parent_id_path=PackedInt32Array(1717252943, 1749740615) index="1" unique_id=472875994]
+transform = Transform3D(1, 0, 1.6940659e-21, 0, 1, 0, 0, 0, 1, 1.1622914e-22, -0.004199632, 0.03342281)
+gizmo_extents = 0.02
+
+[node name="CaninePussySize" type="Marker3D" parent="VaginaAttach/ClitMarker/BlendshapesMarkers" parent_id_path=PackedInt32Array(1717252943, 1749740615) index="2" unique_id=755743638]
+transform = Transform3D(1, 0, 1.6940659e-21, 0, 1, 0, 0, 0, 1, 4.975112e-23, -0.0005952616, 0.014231158)
+gizmo_extents = 0.02
+
+[node name="ClitPoint" parent="VaginaAttach/ClitMarker/Target" parent_id_path=PackedInt32Array(1717252943, 164994705) index="0" unique_id=1997833325 instance=ExtResource("17_a3ha1")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+pointName = "clit"
+
 [connection signal="onTextureUpdated" from="BodyLayeredTexture" to="." method="_on_body_layered_texture_on_texture_updated"]
 [connection signal="onTextureUpdated" from="CumLayer" to="." method="_on_cum_layer_on_texture_updated"]
 
 [editable path="BreastLAttach/MarkerBlendshaped"]
 [editable path="BreastRAttach/MarkerBlendshaped"]
 [editable path="HipsAttach/MarkerBlendshaped"]
+[editable path="VaginaAttach/ClitMarker"]
