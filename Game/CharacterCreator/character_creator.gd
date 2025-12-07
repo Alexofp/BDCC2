@@ -439,7 +439,7 @@ func _on_save_preset_button_pressed() -> void:
 		return
 	save_preset_dialog.popup_centered()
 	if(save_preset_line_edit.text == ""):
-		save_preset_line_edit.text = Util.sanitizeFileName(character.charName)
+		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
 
 func _on_save_preset_dialog_confirmed() -> void:
 	if(!character):
@@ -466,6 +466,8 @@ func _on_load_preset_dialogue_confirmed() -> void:
 	#	return
 	GM.characterRegistry.askCharacterLoadPreset(character, newPreset)
 	save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())
+	#print(save_preset_line_edit.text)
+	pass
 
 func _process(_delta: float) -> void:
 	if(character):
@@ -647,3 +649,6 @@ func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
 	_control.queue_free()
 	GM.characterRegistry.askCharacterSetFetishHolder(character, _fetishes)
 	updateInfoTab()
+
+func _on_open_preset_button_pressed() -> void:
+	OS.shell_open(ProjectSettings.globalize_path(CharacterPresetHolder.USERPRESETS_FOLDER))

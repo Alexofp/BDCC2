@@ -6,6 +6,7 @@ var bodyparts:Dictionary[int, BodypartBase] = {}
 var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 
 var charName:String = "New character"
+var lastCharName:String = ""
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
 var species:SpeciesProfile = SpeciesProfile.new()
 var bodySize:float = 0.0
@@ -300,6 +301,12 @@ func getGenderName() -> String:
 func getName() -> String:
 	return charName
 
+func getLastName() -> String:
+	return lastCharName
+
+func getFullName() -> String:
+	return charName + ((" "+lastCharName) if !lastCharName.is_empty() else "")
+
 func getSexVoiceID() -> String:
 	return voice.getSexVoiceID()
 
@@ -318,6 +325,12 @@ func getCharOptions() -> Dictionary:
 			name = "Name",
 			type = "stringWindow",
 			value = charName,
+			charNameFilter = true,
+		},
+		CharOption.lastName: {
+			name = "Last name (optional)",
+			type = "stringWindow",
+			value = lastCharName,
 			charNameFilter = true,
 		},
 		CharOption.gender: {
@@ -409,6 +422,7 @@ func getCharOptions() -> Dictionary:
 func getSyncOptions() -> Array[String]:
 	return [
 		CharOption.name,
+		CharOption.lastName,
 		CharOption.gender,
 		CharOption.species,
 		CharOption.bodySize,
@@ -430,6 +444,8 @@ func getSyncOptions() -> Array[String]:
 func getSyncOptionValue(_id:String):
 	if(_id == CharOption.name):
 		return charName
+	elif(_id == CharOption.lastName):
+		return lastCharName
 	elif(_id == CharOption.gender):
 		return gender.saveData()
 	elif(_id == CharOption.species):
@@ -466,6 +482,8 @@ func getSyncOptionValue(_id:String):
 func applyCharChange(_id:String, _value):
 	if(_id == CharOption.name):
 		charName = _value
+	elif(_id == CharOption.lastName):
+		lastCharName = _value
 	elif(_id == CharOption.gender):
 		gender.loadData(_value)
 	elif(_id == CharOption.species):

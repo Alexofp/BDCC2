@@ -2,6 +2,7 @@ extends Object
 class_name CharOption
 
 const name = "charName"
+const lastName = "lastName"
 const gender = "gender"
 const species = "species"
 const bodySize = "bodySize"

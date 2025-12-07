@@ -5,6 +5,7 @@ var bodyparts:Dictionary = {}
 var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 
 var charName:String = "New character"
+var lastCharName:String = ""
 var gender:GenderPronounsProfile = GenderPronounsProfile.new()
 var species:SpeciesProfile = SpeciesProfile.new()
 var bodySize:float = 0.0
@@ -42,6 +43,7 @@ func loadFromCharacter(_char:BaseCharacter):
 	skinTypes.loadData(_char.skinTypes.saveData().duplicate(true))
 	
 	charName = _char.charName
+	lastCharName = _char.lastCharName
 	gender.loadData(_char.gender.saveData())
 	species.loadData(_char.species.saveData())
 	bodySize = _char.bodySize
@@ -56,6 +58,7 @@ func loadFromCharacter(_char:BaseCharacter):
 
 func applyToCharacter(_char:BaseCharacter):
 	_char.applyCharChange(CharOption.name, charName)
+	_char.applyCharChange(CharOption.lastName, lastCharName)
 	_char.applyCharChange(CharOption.gender, gender.saveData())
 	_char.applyCharChange(CharOption.species, species.saveData())
 	_char.applyCharChange(CharOption.bodySize, bodySize)
@@ -95,6 +98,7 @@ func saveData() -> Dictionary:
 		skinTypes = skinTypes.saveData(),
 		
 		charName = charName,
+		lastCharName = lastCharName,
 		gender = gender.saveData(),
 		species = species.saveData(),
 		bodySize = bodySize,
@@ -113,6 +117,7 @@ func loadData(_data:Dictionary):
 	skinTypes.loadData(SAVE.loadVar(_data, "skinTypes", {}))
 	
 	charName = SAVE.loadVar(_data, "charName", "New character")
+	lastCharName = SAVE.loadVar(_data, "lastCharName", "")
 	gender.loadData(SAVE.loadVar(_data, "gender", {}))
 	species.loadData(SAVE.loadVar(_data, "species", {}))
 	bodySize = SAVE.loadVar(_data, "bodySize", 0.0)
