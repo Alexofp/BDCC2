@@ -30,6 +30,7 @@ func gatherPartFlags(_theFlags:Dictionary):
 		_theFlags["HidePenis"] = true
 		_theFlags["HidePanties"] = true
 		_theFlags["NormalVagina"] = true
+		_theFlags["VaginaCovered"] = true
 
 func applyPartFlags(_theFlags:Dictionary):
 	if(_theFlags.has("CrotchBulge") && _theFlags["CrotchBulge"]):

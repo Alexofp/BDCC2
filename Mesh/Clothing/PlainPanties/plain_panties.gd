@@ -24,6 +24,7 @@ func gatherPartFlags(_theFlags:Dictionary):
 	if(!getOptionValue("shifted", false)):
 		_theFlags["HidePenis"] = true
 		_theFlags["NormalVagina"] = true
+		_theFlags["VaginaCovered"] = true
 
 func applyPartFlags(_theFlags:Dictionary):
 	if(_theFlags.has("HidePanties") && _theFlags["HidePanties"]):

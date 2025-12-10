@@ -44,8 +44,9 @@ func applyOption(_optionID:String, _value:Variant):
 #
 func applyPartFlags(_theFlags:Dictionary):
 	var theHide:bool = (_theFlags.has("HideVagina") && _theFlags["HideVagina"])
-	var theNormal:bool = (_theFlags.has("NormalVagina") && _theFlags["NormalVagina"])
-	if(theHide || theNormal):
+	var theHidePiercings:bool = (_theFlags.has("VaginaCovered") && _theFlags["VaginaCovered"])
+	#var theNormal:bool = (_theFlags.has("NormalVagina") && _theFlags["NormalVagina"])
+	if(theHide || theHidePiercings):
 		clit_bell_rig.visible = false
 	else:
 		clit_bell_rig.visible = true

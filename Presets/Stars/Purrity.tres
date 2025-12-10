@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_0q5r1"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
 
 [resource]
-script = ExtResource("1_0q5r1")
+script = ExtResource("1")
 data = {
 &"bodySize": 0.0,
 &"bodyparts": {
@@ -33,10 +33,11 @@ data = {
 &"id": "Body_HandsPlain",
 &"r": Color(0.8, 0.8117647, 0.8392157, 1)
 }],
-"breasts": 1.66,
-"breastsCleavage": 0.0,
+"breasts": 1.8,
+"breastsCleavage": 0.4,
 "claws": 1.0,
 "clawsColor": Color(0.13725491, 0.12156863, 0.12156863, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0.7294118, 0.43529412, 0.45882353, 1),
 "hindPawPadColor": Color(0.7294118, 0.43529412, 0.45882353, 1),
@@ -78,7 +79,8 @@ data = {
 &"id": "LongChaosHair_Chaos",
 &"r": Color(0.8235294, 0.6039216, 1, 1)
 },
-"shading": 0.0
+"shading": 0.25,
+"shine": 0.3
 }
 },
 &"id": "LongChaosHair"
@@ -113,7 +115,7 @@ data = {
 "fluff": true,
 "fluffDown": 0.0,
 "fluffShort": 1.0,
-"fluffWide": -1.0,
+"fluffWide": 0.0,
 "headLayers": [{
 &"b": Color(0, 0, 0, 0.41568628),
 &"g": Color(0.85882354, 0.87058824, 0.90588236, 1),
@@ -127,7 +129,7 @@ data = {
 }],
 "lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.78431374, 0.47843137, 0.47843137, 1),
-"shapeRound": 0.27,
+"shapeRound": 0.15,
 "skinDataOverride": null,
 "smallMuzzle": 0.0,
 "snout": Color(0.7254902, 0.42745098, 0.45490196, 1),
@@ -203,17 +205,17 @@ data = {
 &"r": Color(0.5176471, 0.5882353, 0.9372549, 1)
 },
 "skinDataOverride": null,
-"tailLenMod": 1.0,
+"tailLenMod": 0.75,
 "tailType": 3,
-"taper": 1.0,
-"thickness": 1.0,
-"tip": 0.14
+"taper": 0.5,
+"thickness": -0.5,
+"tip": 0.0
 }
 },
 &"id": "HugeFluffyTail"
 }
 },
-&"buttSize": 0.38,
+&"buttSize": 0.3,
 &"charName": "Purrity",
 &"chubbyness": 0.0,
 &"gender": {
@@ -223,6 +225,7 @@ data = {
 &"pronouns": 0
 },
 &"idleAnim": "normal1",
+&"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -231,16 +234,16 @@ data = {
 }
 }
 },
-&"smoothBody": 0.0,
+&"smoothBody": 0.5,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",
 &"secondarySpecies": ""
 },
-&"thickness": 1.67,
+&"thickness": 1.7,
 &"voice": {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex"
+&"walkAnim": "fem"
 }
