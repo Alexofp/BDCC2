@@ -52,7 +52,6 @@ func onPlayGestureButton(_gestureID:String):
 	var theChar := getCharacter()
 	if(!theChar):
 		return
-	#TODO SYNC THIS IN MULTIPLAYER
 	if(GM.pcDoll):
 		GM.pcDoll.playGesture(_gestureID)
 		#GM.pcDoll.getDoll().playGesture(_gestureID)

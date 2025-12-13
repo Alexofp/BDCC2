@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3 uid="uid://beu7ixkwt2hct"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_svrj4"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_svrj4"]
 
 [resource]
 script = ExtResource("1_svrj4")
 data = {
+&"bodySize": 0.0,
 &"bodyparts": {
 "Body": {
 &"data": {
@@ -31,6 +32,7 @@ data = {
 "breastsCleavage": 0.0,
 "claws": 1.0,
 "clawsColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
 "hindPawPadColor": Color(0.08235294, 0.8117647, 0.9098039, 1),
@@ -72,7 +74,8 @@ data = {
 &"id": "CoolBangsHair_Kidlat",
 &"r": Color(0.3372549, 0.92156863, 1, 1)
 },
-"shading": 0.5
+"shading": 0.5,
+"shine": 0.3
 }
 },
 &"id": "CoolBangsHair"
@@ -115,6 +118,7 @@ data = {
 "mouthColor": Color(0.24313726, 0.8784314, 0.9764706, 1),
 "shapeRound": 0.29,
 "skinDataOverride": null,
+"smallMuzzle": 0.0,
 "snout": Color(0.30588236, 0.83137256, 0.84313726, 1),
 "teethColor": Color(1, 1, 1, 1),
 "tongueColor": Color(0.24313726, 0.8784314, 0.9764706, 1)
@@ -180,14 +184,17 @@ data = {
 &"id": "PaintbrushTail"
 }
 },
+&"buttSize": 0.0,
 &"charName": "Kidlat",
+&"chubbyness": 0.0,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
+&"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -196,6 +203,7 @@ data = {
 }
 }
 },
+&"smoothBody": 0.0,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",
@@ -206,6 +214,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex",
-&"weightDistribution": 0.0
+&"walkAnim": "WalkUnisex"
 }

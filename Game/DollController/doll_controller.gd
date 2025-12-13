@@ -256,6 +256,7 @@ func processChar(_delta:float):
 	if(!theChar):
 		return
 	#TODO: Make this work using signals rather than constant pulling?
+	doll.setIdleAnim(theChar.getIdleAnim())
 	doll.setWalkAnim(theChar.getWalkAnim())
 	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
 	#doll.setIdleAnim(theChar.getIdleAnim())

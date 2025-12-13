@@ -32,10 +32,17 @@ var fetishes:Dictionary[String, FetishBase] = {}
 var sexGoalRefs:Dictionary[String, SexGoalBase] = {}
 var sexGoals:Dictionary = {}
 var sexTaskRefs:Dictionary[String, SexTaskBase] = {}
+var dollAnims:Dictionary[String, DollAnimBase] = {}
+var dollAnimsByType:Dictionary[int, Array] = {}
 
 signal initialized
 
 var shaderTracker:ShaderCompilationTracker
+
+var dollAnimTreeCache:Dictionary[String, AnimationNode] = {}
+var dollAnimTreeLayerCache:Dictionary[String, Dictionary] = {}
+var mainSkeletonBoneData:MainSkeletonBoneData = MainSkeletonBoneData.new()
+var dollAnimLibraries:Dictionary[String, String] = {}
 
 class CustomLogger extends Logger:
 	func _log_message(message: String, _error: bool) -> void:
@@ -108,6 +115,7 @@ func _init() -> void:
 	OS.add_logger(CustomLogger.new())
 
 func _ready() -> void:
+	mainSkeletonBoneData.doCalc()
 	shaderTracker = ShaderCompilationTracker.new()
 	add_child(shaderTracker)
 	Console.enable_on_release_build = true
@@ -122,8 +130,6 @@ func doInit():
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var start := Time.get_ticks_usec()
-	
-	GM.presets = CharacterPresetHolder.new()
 	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
@@ -155,12 +161,15 @@ func doInit():
 	registerClothingSelectorFolder("res://Inventory/ClothingSelectors/")
 	sortClothingSelectors()
 	
+	registerDollAnimFolder("res://Anims/DollAnim/")
 	registerDollPoseFolder("res://Game/Doll/Posing/Poses/")
 	registerDollGestureFolder("res://Game/Doll/Posing/Gestures/")
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
+	
+	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
 	
 	var end := Time.get_ticks_usec()
 	var worker_time:float = (end-start)/1000000.0
@@ -809,3 +818,58 @@ func getSexTaskForTaskID(id: String) -> SexTaskBase:
 	else:
 		Log.Printerr("ERROR: sex task with the id "+str(id)+" wasn't found")
 		return null
+
+
+func registerDollAnim(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is DollAnimBase):
+		object.calcFinalAnimName()
+		dollAnims[object.id] = object
+		
+		if(!object.animLibraryName.is_empty() && !object.animLibraryPath.is_empty()):
+			if(!dollAnimLibraries.has(object.animLibraryName)):
+				dollAnimLibraries[object.animLibraryName] = object.animLibraryPath
+		
+		if(!dollAnimsByType.has(object.animType)):
+			var newAr:Array[DollAnimBase] = [object]
+			dollAnimsByType[object.animType] = newAr
+		else:
+			dollAnimsByType[object.animType].append(object)
+
+func registerDollAnimFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerDollAnim(scriptPath)
+
+func getDollAnim(id: String) -> DollAnimBase:
+	if(dollAnims.has(id)):
+		return dollAnims[id]
+	else:
+		Log.Printerr("ERROR: doll anim with the id "+str(id)+" wasn't found")
+		return null
+
+func getDollAnims() -> Dictionary[String, DollAnimBase]:
+	return dollAnims
+
+func hasDollAnim(_id:String) -> bool:
+	if(!dollAnims.has(_id)):
+		return false
+	return true
+
+func getDollAnimsByType(_type:int) -> Array[DollAnimBase]: #Array[DollAnimBase]
+	if(!dollAnimsByType.has(_type)):
+		return []
+	return dollAnimsByType[_type]
+
+func getPickableAnimsFor(_type:int) -> Array[Array]:
+	var result:Array[Array] = []
+	
+	var allTheAnims :=getDollAnimsByType(_type)
+	for theAnim in allTheAnims:
+		if(!theAnim.animCanPick):
+			continue
+		result.append([theAnim.id, theAnim.animVisibleName])
+	
+	return result

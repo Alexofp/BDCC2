@@ -18,8 +18,8 @@ var muscles:float = 0.0
 var pregnantTest:float = 0.0
 var voice:VoiceProfile = VoiceProfile.new()
 var inventory:Inventory = Inventory.new()
-var walkAnim:String = Doll.WALK_UNISEX
-var idleAnim:String = Doll.IDLE_NORMAL1
+var idleAnim:String = "IdleUnisex"
+var walkAnim:String = "WalkUnisex"
 var idlePose:String = ""
 var poseArms:String = ""
 var personality:Personality = Personality.new()
@@ -401,14 +401,14 @@ func getCharOptions() -> Dictionary:
 			name = "Idle style",
 			type = "selector",
 			value = idleAnim,
-			values = Doll.IDLE_PICKABLE_ANIMS,
+			values = GlobalRegistry.getPickableAnimsFor(DollAnimBase.TYPE_IDLE),
 			editors = [GenericPart.EDITOR_PART, GenericPart.EDITOR_INTERACT],
 		},
 		CharOption.walkAnim: {
 			name = "Walk style",
 			type = "selector",
 			value = walkAnim,
-			values = Doll.WALK_PICKABLE_ANIMS,
+			values = GlobalRegistry.getPickableAnimsFor(DollAnimBase.TYPE_WALK),
 			editors = [GenericPart.EDITOR_PART, GenericPart.EDITOR_INTERACT],
 		},
 		"bodyMess": {
@@ -573,14 +573,22 @@ func getWalkAnim() -> String:
 	if(idlePose != ""):
 		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
 		if(theDollPose):
-			if(theDollPose.getWalkAnimName() != ""):
-				return idlePose
-		
+			var theWalkAnim := theDollPose.getWalkAnimName()
+			if(!theWalkAnim.is_empty()):
+				return theWalkAnim
+	
 	if(inventory.shouldHobbleLegs()):
-		return Doll.WALK_HOBBLED
+		return "WalkHobbled"
 	return walkAnim
 	
 func getIdleAnim() -> String:
+	if(idlePose != ""):
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
+		if(theDollPose):
+			var theIdleAnim := theDollPose.getAnimName()
+			if(!theIdleAnim.is_empty()):
+				return theIdleAnim
+	
 	return idleAnim
 
 func getWalkSpeed() -> float:

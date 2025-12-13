@@ -224,7 +224,7 @@ data = {
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
 &"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
@@ -245,5 +245,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "fem"
+&"walkAnim": "WalkFem"
 }

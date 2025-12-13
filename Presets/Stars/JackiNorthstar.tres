@@ -200,7 +200,7 @@ data = {
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
 &"lastCharName": "Northstar",
 &"muscles": 0.35,
 &"skinTypes": {
@@ -221,5 +221,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex"
+&"walkAnim": "WalkUnisex"
 }

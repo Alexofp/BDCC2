@@ -15,8 +15,8 @@ var buttSize:float = 0.0
 var smoothBody:float = 0.0
 var muscles:float = 0.0
 var voice:VoiceProfile = VoiceProfile.new()
-var walkAnim:String = Doll.WALK_UNISEX
-var idleAnim:String = Doll.IDLE_NORMAL1
+var idleAnim:String = "IdleUnisex"
+var walkAnim:String = "WalkUnisex"
 
 # no sync
 var embedded:bool = false
@@ -127,8 +127,12 @@ func loadData(_data:Dictionary):
 	smoothBody = SAVE.loadVar(_data, "smoothBody", 0.0)
 	muscles = SAVE.loadVar(_data, "muscles", 0.0)
 	voice.loadData(SAVE.loadVar(_data, "voice", {}))
-	walkAnim = SAVE.loadVar(_data, "walkAnim", Doll.WALK_UNISEX)
-	idleAnim = SAVE.loadVar(_data, "idleAnim", Doll.IDLE_NORMAL1)
+	idleAnim = SAVE.loadVar(_data, "idleAnim", "IdleUnisex")
+	if(!GlobalRegistry.getDollAnim(idleAnim)):
+		idleAnim = "IdleUnisex"
+	walkAnim = SAVE.loadVar(_data, "walkAnim", "WalkUnisex")
+	if(!GlobalRegistry.getDollAnim(walkAnim)):
+		walkAnim = "WalkUnisex"
 
 func saveToFile(path:String) -> bool:
 	var newPreset:CharacterPresetResource = CharacterPresetResource.new()

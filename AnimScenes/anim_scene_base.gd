@@ -1,6 +1,8 @@
 extends Node3D
 class_name AnimSceneBase
 
+var id:String = "" # Used for anim tree caching
+
 var sitters:Dictionary[String, Dictionary] = {}
 var penisTarget:Dictionary = {}
 
@@ -35,8 +37,6 @@ const CONF_TIMEDSPEEDSWITCH_MIN = "timedSpeedSwitchMin"
 const CONF_TIMEDSPEEDSWITCH_MAX = "timedSpeedSwitchMax"
 const CONF_ANIMEVENTS = "animEvents"
 const CONF_HIDETAGS = "hideTags"
-
-var dollBlendTreeBase:AnimationNodeBlendTree = preload("res://Game/Doll/Util/DollBlendTreeBase.tres")
 
 # Anim support toggles
 var supportsArmbinderAnim:bool = true
@@ -166,9 +166,6 @@ func updateAnimPlayerFor(seatID:String):
 	var seatInfo:Dictionary = sitters[seatID]
 	var animPlayer:AnimationPlayer = seatInfo["anim"]
 	
-	animPlayer.add_animation_library("RestraintAnims", preload("res://Anims/Raw/RestraintAnims.glb"))
-	animPlayer.add_animation_library("ArmbinderAnimMale", preload("res://Anims/Raw/ArmbinderAnimMale.glb"))
-	animPlayer.add_animation_library("GestureAnims", preload("res://Anims/Raw/GestureAnims.glb"))
 	for animLibraryID in animLibraries:
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
@@ -283,6 +280,9 @@ func updateAnimTreeFor(seatID:String):
 	var animTree:AnimationTree
 	var isMain:bool = false
 	
+	var supportsCache:bool = !id.is_empty()
+	var cacheKey:String = id+"_"+seatID
+	
 	if(seatID == "MAIN"):
 		animTree = mainAnimTree
 		isMain = true
@@ -290,112 +290,119 @@ func updateAnimTreeFor(seatID:String):
 		var seatInfo:Dictionary = sitters[seatID]
 		animTree = seatInfo["tree"]
 	
-	var theStateMachine := AnimationNodeStateMachine.new()
-	for stateID in states:
-		var stateInfo:Dictionary = states[stateID]
+	if(!supportsCache || !GlobalRegistry.dollAnimTreeCache.has(cacheKey)):
+		var theStateMachine := AnimationNodeStateMachine.new()
+		for stateID in states:
+			var stateInfo:Dictionary = states[stateID]
+			
+			var blendTreeNode := AnimationNodeBlendTree.new()
+			theStateMachine.add_node(stateID, blendTreeNode)
+			
+			var timeScaleNode := AnimationNodeTimeScale.new()
+			blendTreeNode.add_node("timeScale", timeScaleNode)
+			
+			var animNode := AnimationNodeAnimation.new()
+			animNode.animation = stateInfo["anims"][seatID] if !isMain else ("main/"+stateID)
+			blendTreeNode.add_node("anim", animNode)
+			
+			blendTreeNode.connect_node("timeScale", 0, "anim")
+			blendTreeNode.connect_node("output", 0, "timeScale")
+			#theStateMachine.add_node(stateID, animNode)
 		
-		var blendTreeNode := AnimationNodeBlendTree.new()
-		theStateMachine.add_node(stateID, blendTreeNode)
+		var startTrans := AnimationNodeStateMachineTransition.new()
+		startTrans.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
+		theStateMachine.add_transition("Start", startState, startTrans)
 		
-		var timeScaleNode := AnimationNodeTimeScale.new()
-		blendTreeNode.add_node("timeScale", timeScaleNode)
+		for stateID in states:
+			var stateInfo:Dictionary = states[stateID]
+			var stateConnections:Dictionary = stateInfo["connections"]
+			
+			for otherStateID in stateConnections:
+				var connectionInfo:Dictionary = stateConnections[otherStateID]
+				var interpolationTime:float = connectionInfo["time"]
+				var autoAdvanceAtEnd:bool = connectionInfo["auto"] if connectionInfo.has("auto") else false
+				var stateTrans := AnimationNodeStateMachineTransition.new()
+				stateTrans.xfade_time = interpolationTime
+				stateTrans.xfade_curve = preload("res://AnimScenes/SmoothInterpolation.tres")
+				if(autoAdvanceAtEnd):
+					stateTrans.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
+					stateTrans.switch_mode = AnimationNodeStateMachineTransition.SWITCH_MODE_AT_END
+				#stateTrans.switch_mode = AnimationNodeStateMachineTransition.SWITCH_MODE_SYNC
+				theStateMachine.add_transition(stateID, otherStateID, stateTrans)
 		
-		var animNode := AnimationNodeAnimation.new()
-		animNode.animation = stateInfo["anims"][seatID] if !isMain else ("main/"+stateID)
-		blendTreeNode.add_node("anim", animNode)
+		var finalBlendTree:AnimationNodeBlendTree = AnimationNodeBlendTree.new()
 		
-		blendTreeNode.connect_node("timeScale", 0, "anim")
-		blendTreeNode.connect_node("output", 0, "timeScale")
-		#theStateMachine.add_node(stateID, animNode)
-	
-	var startTrans := AnimationNodeStateMachineTransition.new()
-	startTrans.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
-	theStateMachine.add_transition("Start", startState, startTrans)
-	
-	for stateID in states:
-		var stateInfo:Dictionary = states[stateID]
-		var stateConnections:Dictionary = stateInfo["connections"]
+		finalBlendTree.add_node("statemachine", theStateMachine)
 		
-		for otherStateID in stateConnections:
-			var connectionInfo:Dictionary = stateConnections[otherStateID]
-			var interpolationTime:float = connectionInfo["time"]
-			var autoAdvanceAtEnd:bool = connectionInfo["auto"] if connectionInfo.has("auto") else false
-			var stateTrans := AnimationNodeStateMachineTransition.new()
-			stateTrans.xfade_time = interpolationTime
-			stateTrans.xfade_curve = preload("res://AnimScenes/SmoothInterpolation.tres")
-			if(autoAdvanceAtEnd):
-				stateTrans.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
-				stateTrans.switch_mode = AnimationNodeStateMachineTransition.SWITCH_MODE_AT_END
-			#stateTrans.switch_mode = AnimationNodeStateMachineTransition.SWITCH_MODE_SYNC
-			theStateMachine.add_transition(stateID, otherStateID, stateTrans)
-	
-	var finalBlendTree:AnimationNodeBlendTree = AnimationNodeBlendTree.new()
-	
-	finalBlendTree.add_node("statemachine", theStateMachine)
-	
-	var currentStateName:String = "statemachine"
-	
-	for oneshotID in oneShots:
-		if(isMain):
-			var oneshotAnimName:String = "main/"+oneshotID
-			if(true):
-				var animNode := AnimationNodeAnimation.new()
-				animNode.animation = oneshotAnimName
-				finalBlendTree.add_node(oneshotID+"_anim", animNode)
-			var oneshotNode := AnimationNodeOneShot.new()
-			oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-			finalBlendTree.add_node(oneshotID, oneshotNode)
-			finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-			finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
+		var currentStateName:String = "statemachine"
+		
+		for oneshotID in oneShots:
+			if(isMain):
+				var oneshotAnimName:String = "main/"+oneshotID
+				if(true):
+					var animNode := AnimationNodeAnimation.new()
+					animNode.animation = oneshotAnimName
+					finalBlendTree.add_node(oneshotID+"_anim", animNode)
+				var oneshotNode := AnimationNodeOneShot.new()
+				oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+				finalBlendTree.add_node(oneshotID, oneshotNode)
+				finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+				finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
+			else:
+				var oneshotData:Dictionary = oneShots[oneshotID]
+				var oneshotAnimName:String = oneshotData["anims"][seatID]
+				var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
+				#var _settings:Dictionary = oneshotData["settings"]
+				
+				if(true):
+					var animNode := AnimationNodeAnimation.new()
+					animNode.animation = oneshotAnimName
+					finalBlendTree.add_node(oneshotID+"_anim", animNode)
+				if(true):
+					var animNode := AnimationNodeAnimation.new()
+					animNode.animation = oneshotBaseAnimName
+					finalBlendTree.add_node(oneshotID+"_base", animNode)
+				
+				var subNode := AnimationNodeSub2.new()
+				finalBlendTree.add_node(oneshotID+"_sub", subNode)
+				finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
+				finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
+				#finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
+				
+				var oneshotNode := AnimationNodeOneShot.new()
+				oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+				finalBlendTree.add_node(oneshotID, oneshotNode)
+				
+				finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+				finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
+				
+			currentStateName = oneshotID
+			
+			
+		finalBlendTree.connect_node("output", 0, currentStateName)
+		
+		var finalFinalBlendTree:AnimationNodeBlendTree
+		if(!isMain):
+			finalFinalBlendTree = animTree.tree_root.duplicate(true)
+			finalFinalBlendTree.add_node("blendtree", finalBlendTree)
+			finalFinalBlendTree.get_node("LayeredAnimPlayerStart").add_input("SEX")
+			finalFinalBlendTree.connect_node("LayeredAnimPlayerStart", 0, "blendtree")
 		else:
-			var oneshotData:Dictionary = oneShots[oneshotID]
-			var oneshotAnimName:String = oneshotData["anims"][seatID]
-			var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
-			#var _settings:Dictionary = oneshotData["settings"]
-			
-			if(true):
-				var animNode := AnimationNodeAnimation.new()
-				animNode.animation = oneshotAnimName
-				finalBlendTree.add_node(oneshotID+"_anim", animNode)
-			if(true):
-				var animNode := AnimationNodeAnimation.new()
-				animNode.animation = oneshotBaseAnimName
-				finalBlendTree.add_node(oneshotID+"_base", animNode)
-			
-			var subNode := AnimationNodeSub2.new()
-			finalBlendTree.add_node(oneshotID+"_sub", subNode)
-			finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
-			finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
-			#finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
-			
-			var oneshotNode := AnimationNodeOneShot.new()
-			oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-			finalBlendTree.add_node(oneshotID, oneshotNode)
-			
-			finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-			finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
-			
-		currentStateName = oneshotID
+			finalFinalBlendTree = AnimationNodeBlendTree.new()
+			finalFinalBlendTree.add_node("blendtree", finalBlendTree)
+			finalFinalBlendTree.connect_node("output", 0, "blendtree")
 		
+		if(supportsCache):
+			GlobalRegistry.dollAnimTreeCache[cacheKey] = finalFinalBlendTree
 		
-	finalBlendTree.connect_node("output", 0, currentStateName)
-	
-	var finalFinalBlendTree:AnimationNodeBlendTree
-	if(!isMain):
-		finalFinalBlendTree = dollBlendTreeBase.duplicate(true)
-		finalFinalBlendTree.add_node("blendtree", finalBlendTree)
-		finalFinalBlendTree.connect_node("RestraintAnims_BRIDGE", 0, "blendtree")
-		
-		Doll.updateAnimTreeWithPoses(finalFinalBlendTree, true)
+		#animTree.tree_root = theStateMachine
+		animTree.tree_root = finalFinalBlendTree
 	else:
-		finalFinalBlendTree = AnimationNodeBlendTree.new()
-		finalFinalBlendTree.add_node("blendtree", finalBlendTree)
-		finalFinalBlendTree.connect_node("output", 0, "blendtree")
-	
-	#animTree.tree_root = theStateMachine
-	animTree.tree_root = finalFinalBlendTree
+		#print("REUSED ANIM TREE FOR CACHE KEY: "+str(cacheKey))
+		animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
 	
 	if(!isMain):
+		animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
 		for oneshotID in oneShots:
 			animTree["parameters/blendtree/"+oneshotID+"_sub/sub_amount"] = 1.0
 		
@@ -420,7 +427,7 @@ func addSeat(theID:String, theSpot:PoseSpot):
 	newAnimPlayer.active = false
 	add_child(newAnimPlayer)
 	
-	var newTree:AnimationTree = AnimationTree.new()
+	var newTree:DollLayeredAnimPlayer = DollLayeredAnimPlayer.new()
 	add_child(newTree)
 	newTree.active = false
 	newTree.anim_player = newTree.get_path_to(newAnimPlayer)
@@ -450,9 +457,13 @@ func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _
 		return
 	var sitterInfo:Dictionary = sitters[_id]
 	var animTree:AnimationTree = sitterInfo["tree"]
-	if(_playPartial):
-		animTree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-		animTree["parameters/BodyGesture_Selector/transition_request"] = _gestureID
+	var sitDoll:DollController = getSitterDoll(_id)
+	if(!sitDoll):
+		return
+	var theDoll:Doll = sitDoll.getDoll()
+	if(!theDoll):
+		return
+	theDoll.playGestureRaw(animTree, _gestureID, false, _playPartial)
 
 func updateAnim():
 	for sitterID in sitters:
@@ -490,17 +501,8 @@ func updateRestraintAnimsFor(sitterID:String):
 		return
 	var sitterInfo:Dictionary = sitters[sitterID]
 	var animTree:AnimationTree = sitterInfo["tree"]
-	if(supportsArmbinderAnim):
-		animTree["parameters/ArmBinder_Blend/blend_amount"] = 1.0 if theDoll.isArmbinderPoseEnabled() else 0.0
-	if(supportsCuffedAnim):
-		animTree["parameters/CuffedBehindBack_Blend/blend_amount"] = 1.0 if theDoll.isCuffedBehindBackPoseEnabled() else 0.0
 	
-	#TODO: Maybe improve this?
-	var theChar:BaseCharacter = theDoll.getChar()
-	if(theChar):
-		var theArmsPoseID:String = theChar.getPoseArms()
-		var theArmsPose:DollPoseBase = GlobalRegistry.getDollPose(theArmsPoseID) if theArmsPoseID != "" else null
-		theDoll.setArmsAnim(theArmsPoseID if theArmsPose else "", animTree)
+	theDoll.updatePose(animTree)
 
 var checkTime:float = 0.0
 func _process(_delta: float) -> void:

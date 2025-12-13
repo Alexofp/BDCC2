@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://y65ir3supv5s"]
+[gd_scene load_steps=45 format=3 uid="uid://y65ir3supv5s"]
 
 [ext_resource type="Script" uid="uid://cy0ulaqjxe5e3" path="res://Game/Doll/doll.gd" id="1_x8ebr"]
 [ext_resource type="PackedScene" uid="uid://c56fqxox0e0ia" path="res://Mesh/Skeleton/body_skeleton.tscn" id="2_k7aqf"]
@@ -12,10 +12,11 @@
 [ext_resource type="Script" uid="uid://d0xtmwcqewrrd" path="res://Mesh/Skeleton/Modifiers/SkeletonHitModifier.gd" id="7_olppk"]
 [ext_resource type="AnimationLibrary" uid="uid://em4khdpq3sdg" path="res://Anims/Raw/ArmbinderAnimMale.glb" id="8_cpvxs"]
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://d0u4pnrvut856" path="res://Game/Doll/Util/DollBlendTree.tres" id="9_1pahp"]
-[ext_resource type="Script" uid="uid://b31n7ytm4vmec" path="res://Game/Systems/ProcessBalancer/StaggeredAnimationTree.gd" id="10_1pahp"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="10_ehs3x"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://snasey7u5o67" path="res://Game/Doll/Util/DollBlendTreeBase.tres" id="10_yn8uc"]
+[ext_resource type="AnimationLibrary" uid="uid://bigpaqbf8omql" path="res://Anims/Raw/Poses.glb" id="12_xxuld"]
+[ext_resource type="Curve" uid="uid://u27a4t7b45fi" path="res://addons/LayeredAnimPlayer/XFadeCurves/Smooth.tres" id="13_cpvxs"]
+[ext_resource type="Script" uid="uid://du64e2ct2nrrm" path="res://Game/Doll/DollAnimTree.gd" id="14_cpvxs"]
 
 [sub_resource type="Resource" id="Resource_l2cwv"]
 script = ExtResource("4_avrwx")
@@ -60,6 +61,160 @@ direction = Vector3(0, 0, 1)
 spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_cpvxs"]
+xfade_time = 0.2
+xfade_curve = ExtResource("13_cpvxs")
+allow_transition_to_self = true
+input_0/name = "0_idle_normal1"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "0_idle_normal2"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "0_idle_sexy"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "0_walk_unisex"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+input_4/name = "0_walk_hobbled"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
+input_5/name = "0_walk_fem"
+input_5/auto_advance = false
+input_5/break_loop_at_end = false
+input_5/reset = true
+input_6/name = "0_run"
+input_6/auto_advance = false
+input_6/break_loop_at_end = false
+input_6/reset = true
+input_7/name = "0_fall"
+input_7/auto_advance = false
+input_7/break_loop_at_end = false
+input_7/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xxuld"]
+animation = &"LocomotionAnims/Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p36ij"]
+animation = &"LocomotionAnims/Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dr03u"]
+animation = &"LocomotionAnims/IdleLong"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l7aga"]
+animation = &"LocomotionAnims/IdleSexy"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_doc38"]
+fadein_curve = ExtResource("13_cpvxs")
+fadeout_curve = ExtResource("13_cpvxs")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lws2c"]
+animation = &"LocomotionAnims/Run"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ce1cx"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nweep"]
+animation = &"LocomotionAnims/WalkFem"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8y2xi"]
+animation = &"LocomotionAnims/WalkHobbled"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gc4t1"]
+animation = &"LocomotionAnims/WalkUnisex"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_0dx6m"]
+xfade_time = 0.2
+xfade_curve = ExtResource("13_cpvxs")
+allow_transition_to_self = true
+input_0/name = "10_cuffedBehindBack"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "10_cuffedFront"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "10_armbinder"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "10_armbinderMale"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yxnr4"]
+animation = &"RestraintAnims/APoseArmbinder"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_llte3"]
+animation = &"ArmbinderAnimMale/APoseArmbinderMale"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i5of3"]
+animation = &"RestraintAnims/CuffedBehindBack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rg1ls"]
+animation = &"RestraintAnims/CuffedFront"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_roiah"]
+filter_enabled = true
+filters = ["rig/Skeleton3D:f_index.2.L", "rig/Skeleton3D:f_index.2.R", "rig/Skeleton3D:f_index.3.L", "rig/Skeleton3D:f_index.3.R", "rig/Skeleton3D:f_index.L", "rig/Skeleton3D:f_index.R", "rig/Skeleton3D:f_middle.2.L", "rig/Skeleton3D:f_middle.2.R", "rig/Skeleton3D:f_middle.3.L", "rig/Skeleton3D:f_middle.3.R", "rig/Skeleton3D:f_middle.L", "rig/Skeleton3D:f_middle.R", "rig/Skeleton3D:f_pinky.2.L", "rig/Skeleton3D:f_pinky.2.R", "rig/Skeleton3D:f_pinky.3.L", "rig/Skeleton3D:f_pinky.3.R", "rig/Skeleton3D:f_pinky.L", "rig/Skeleton3D:f_pinky.R", "rig/Skeleton3D:f_ring.2.L", "rig/Skeleton3D:f_ring.2.R", "rig/Skeleton3D:f_ring.3.L", "rig/Skeleton3D:f_ring.3.R", "rig/Skeleton3D:f_ring.L", "rig/Skeleton3D:f_ring.R", "rig/Skeleton3D:f_thumb.2.L", "rig/Skeleton3D:f_thumb.2.R", "rig/Skeleton3D:f_thumb.3.L", "rig/Skeleton3D:f_thumb.3.R", "rig/Skeleton3D:f_thumb.L", "rig/Skeleton3D:f_thumb.R", "rig/Skeleton3D:forearm.L", "rig/Skeleton3D:forearm.R", "rig/Skeleton3D:forearm_twist1.L", "rig/Skeleton3D:forearm_twist1.R", "rig/Skeleton3D:forearm_twist2.L", "rig/Skeleton3D:forearm_twist2.R", "rig/Skeleton3D:hand.L", "rig/Skeleton3D:hand.R", "rig/Skeleton3D:shoulder.L", "rig/Skeleton3D:shoulder.R", "rig/Skeleton3D:upper_arm.L", "rig/Skeleton3D:upper_arm.R", "rig/Skeleton3D:upper_arm_twist.L", "rig/Skeleton3D:upper_arm_twist.R", "rig/Skeleton3D:weapon.L", "rig/Skeleton3D:weapon.R"]
+fadein_time = 0.2
+fadein_curve = ExtResource("13_cpvxs")
+fadeout_time = 0.2
+fadeout_curve = ExtResource("13_cpvxs")
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_bm0af"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ktxk0"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pj0q3"]
+nodes/output/position = Vector2(2200, 0)
+nodes/LayeredAnimPlayerStart/node = SubResource("AnimationNodeTransition_ktxk0")
+nodes/LayeredAnimPlayerStart/position = Vector2(0, 0)
+nodes/0/node = SubResource("AnimationNodeTransition_cpvxs")
+nodes/0/position = Vector2(600, 0)
+nodes/0_timescale/node = SubResource("AnimationNodeTimeScale_ce1cx")
+nodes/0_timescale/position = Vector2(850, 0)
+nodes/0_oneshot/node = SubResource("AnimationNodeOneShot_doc38")
+nodes/0_oneshot/position = Vector2(1000, -100)
+nodes/0_idle_normal1/node = SubResource("AnimationNodeAnimation_p36ij")
+nodes/0_idle_normal1/position = Vector2(400, 0)
+nodes/0_idle_normal2/node = SubResource("AnimationNodeAnimation_dr03u")
+nodes/0_idle_normal2/position = Vector2(400, 160)
+nodes/0_idle_sexy/node = SubResource("AnimationNodeAnimation_l7aga")
+nodes/0_idle_sexy/position = Vector2(400, 320)
+nodes/0_walk_unisex/node = SubResource("AnimationNodeAnimation_gc4t1")
+nodes/0_walk_unisex/position = Vector2(400, 480)
+nodes/0_walk_hobbled/node = SubResource("AnimationNodeAnimation_8y2xi")
+nodes/0_walk_hobbled/position = Vector2(400, 640)
+nodes/0_walk_fem/node = SubResource("AnimationNodeAnimation_nweep")
+nodes/0_walk_fem/position = Vector2(400, 800)
+nodes/0_run/node = SubResource("AnimationNodeAnimation_lws2c")
+nodes/0_run/position = Vector2(400, 960)
+nodes/0_fall/node = SubResource("AnimationNodeAnimation_xxuld")
+nodes/0_fall/position = Vector2(400, 1120)
+nodes/10/node = SubResource("AnimationNodeTransition_0dx6m")
+nodes/10/position = Vector2(1400, 0)
+nodes/10_timescale/node = SubResource("AnimationNodeTimeScale_bm0af")
+nodes/10_timescale/position = Vector2(1650, 0)
+nodes/10_oneshot/node = SubResource("AnimationNodeOneShot_roiah")
+nodes/10_oneshot/position = Vector2(1800, -100)
+nodes/10_cuffedBehindBack/node = SubResource("AnimationNodeAnimation_i5of3")
+nodes/10_cuffedBehindBack/position = Vector2(1200, 0)
+nodes/10_cuffedFront/node = SubResource("AnimationNodeAnimation_rg1ls")
+nodes/10_cuffedFront/position = Vector2(1200, 160)
+nodes/10_armbinder/node = SubResource("AnimationNodeAnimation_yxnr4")
+nodes/10_armbinder/position = Vector2(1200, 320)
+nodes/10_armbinderMale/node = SubResource("AnimationNodeAnimation_llte3")
+nodes/10_armbinderMale/position = Vector2(1200, 480)
+node_connections = [&"output", 0, &"10_oneshot", &"0", 0, &"0_idle_normal1", &"0", 1, &"0_idle_normal2", &"0", 2, &"0_idle_sexy", &"0", 3, &"0_walk_unisex", &"0", 4, &"0_walk_hobbled", &"0", 5, &"0_walk_fem", &"0", 6, &"0_run", &"0", 7, &"0_fall", &"0_timescale", 0, &"0", &"0_oneshot", 0, &"LayeredAnimPlayerStart", &"0_oneshot", 1, &"0_timescale", &"10", 0, &"10_cuffedBehindBack", &"10", 1, &"10_cuffedFront", &"10", 2, &"10_armbinder", &"10", 3, &"10_armbinderMale", &"10_timescale", 0, &"10", &"10_oneshot", 0, &"0_oneshot", &"10_oneshot", 1, &"10_timescale"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5l1g8"]
 
@@ -293,42 +448,33 @@ libraries/ArmbinderAnimMale = ExtResource("8_cpvxs")
 libraries/BasicAnims = ExtResource("5_avrwx")
 libraries/GestureAnims = ExtResource("7_5l1g8")
 libraries/LocomotionAnims = ExtResource("7_l2cwv")
+libraries/Poses = ExtResource("12_xxuld")
 libraries/RestraintAnims = ExtResource("8_yudco")
 autoplay = &"BodyAnims/Idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=1452688011]
 unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/..")
-tree_root = ExtResource("9_1pahp")
+tree_root = SubResource("AnimationNodeBlendTree_pj0q3")
 anim_player = NodePath("../AnimationPlayer")
-parameters/ArmBinder_Blend/blend_amount = 0.0
-parameters/Arms_Blend/blend_amount = 0.0
-parameters/Arms_Selector/current_state = "state_0"
-parameters/Arms_Selector/transition_request = ""
-parameters/Arms_Selector/current_index = 0
-parameters/CuffedBehindBack_Blend/blend_amount = 0.0
-parameters/CuffedFront_Blend/blend_amount = 0.0
-parameters/BodyGesture_Selector/current_state = ""
-parameters/BodyGesture_Selector/transition_request = ""
-parameters/BodyGesture_Selector/current_index = -1
-parameters/RestraintAnims_BRIDGE/blend_amount = 0.0
-parameters/BodyGesture/active = false
-parameters/BodyGesture/internal_active = false
-parameters/BodyGesture/request = 0
-parameters/Locomotion/Idle/Idle_Selector/current_state = ""
-parameters/Locomotion/Idle/Idle_Selector/transition_request = ""
-parameters/Locomotion/Idle/Idle_Selector/current_index = -1
-parameters/Locomotion/Idle/FullBodyGesture/active = false
-parameters/Locomotion/Idle/FullBodyGesture/internal_active = false
-parameters/Locomotion/Idle/FullBodyGesture/request = 0
-parameters/Locomotion/Idle/FullBodyGesture_Selector/current_state = ""
-parameters/Locomotion/Idle/FullBodyGesture_Selector/transition_request = ""
-parameters/Locomotion/Idle/FullBodyGesture_Selector/current_index = -1
-parameters/Locomotion/Walk/Walk_Selector/current_state = ""
-parameters/Locomotion/Walk/Walk_Selector/transition_request = ""
-parameters/Locomotion/Walk/Walk_Selector/current_index = -1
-parameters/ArmBinderMale_Blend/blend_amount = 0.0
-script = ExtResource("10_1pahp")
+parameters/LayeredAnimPlayerStart/current_state = ""
+parameters/LayeredAnimPlayerStart/transition_request = ""
+parameters/LayeredAnimPlayerStart/current_index = -1
+parameters/0/current_state = ""
+parameters/0/transition_request = ""
+parameters/0/current_index = -1
+parameters/0_timescale/scale = 1.0
+parameters/0_oneshot/active = false
+parameters/0_oneshot/internal_active = false
+parameters/0_oneshot/request = 0
+parameters/10/current_state = ""
+parameters/10/transition_request = ""
+parameters/10/current_index = -1
+parameters/10_timescale/scale = 1.0
+parameters/10_oneshot/active = false
+parameters/10_oneshot/internal_active = false
+parameters/10_oneshot/request = 0
+script = ExtResource("14_cpvxs")
 
 [node name="AnimationPlayerRestraints" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=956429807]
 unique_name_in_owner = true

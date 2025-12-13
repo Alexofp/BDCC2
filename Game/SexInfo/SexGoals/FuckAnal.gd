@@ -16,7 +16,7 @@ func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEn
 	if(true):
 		return true #TODO: REMOVE ME
 	var theTarget := _target.getChar()
-	if(!theTarget.hasReachableVagina()):
+	if(!theTarget.hasReachableAnus()):
 		return false
 	return false
 

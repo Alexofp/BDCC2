@@ -212,7 +212,7 @@ animation = &"RestraintAnims/APose"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_pj0q3"]
 
 [resource]
-graph_offset = Vector2(-711.6979, -174.35335)
+graph_offset = Vector2(-391.6123, -127.53845)
 nodes/output/position = Vector2(1360, 120)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_gc4t1")
 nodes/Animation/position = Vector2(-120, 340)

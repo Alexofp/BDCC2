@@ -2,12 +2,11 @@ extends DollPoseBase
 
 func _init() -> void:
 	id = "FlippingOff"
-	animName = "FlippingOff"
+	animName = "ArmsFlippingOff"
 	visibleName = "Flipping off"
 	
 	poseType = PoseType.Arms
 	
-	animLibrary = preload("res://Anims/Raw/Poses.glb")
 	animLibraryName = "Poses"
 
 	preventsFullbodyGestures = false

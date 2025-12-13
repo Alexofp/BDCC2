@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3 uid="uid://c1qc3dhjayefu"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_u1rnj"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_u1rnj"]
 
 [resource]
 script = ExtResource("1_u1rnj")
 data = {
+&"bodySize": 0.0,
 &"bodyparts": {
 "Body": {
 &"data": {
@@ -21,6 +22,7 @@ data = {
 "breastsCleavage": 0.0,
 "claws": 1.0,
 "clawsColor": Color(0.19215687, 0.24705882, 0.24705882, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
 "hindPawPadColor": Color(0.08235294, 0.9372549, 0.9490196, 1),
@@ -62,7 +64,8 @@ data = {
 &"id": "ShortHair2_Tips",
 &"r": Color(0.08235294, 0.9372549, 0.9490196, 1)
 },
-"shading": 0.5
+"shading": 0.5,
+"shine": 0.3
 }
 },
 &"id": "ShortHair2"
@@ -202,14 +205,17 @@ data = {
 &"id": "LongTail"
 }
 },
+&"buttSize": 0.0,
 &"charName": "Artica",
+&"chubbyness": 0.0,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
+&"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -218,6 +224,7 @@ data = {
 }
 }
 },
+&"smoothBody": 0.0,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Canine",
@@ -228,6 +235,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex",
-&"weightDistribution": 0.0
+&"walkAnim": "WalkUnisex"
 }

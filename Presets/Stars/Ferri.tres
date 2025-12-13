@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3 uid="uid://2cpb41ddxxdt"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_jipxy"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_jipxy"]
 
 [resource]
 script = ExtResource("1_jipxy")
 data = {
+&"bodySize": 0.0,
 &"bodyparts": {
 "Body": {
 &"data": {
@@ -21,6 +22,7 @@ data = {
 "breastsCleavage": 0.0,
 "claws": 1.0,
 "clawsColor": Color(0, 0.043137256, 0.28235295, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0, 0.87058824, 0.8666667, 1),
 "hindPawPadColor": Color(0, 0.8862745, 0.88235295, 1),
@@ -62,7 +64,8 @@ data = {
 &"id": "",
 &"r": Color(0.7, 0.7, 0.7, 1)
 },
-"shading": 0.5
+"shading": 0.5,
+"shine": 0.3
 }
 },
 &"id": "SideHair"
@@ -138,6 +141,7 @@ data = {
 "options": {
 "hornColor": Color(0, 0.03529412, 0.3647059, 1),
 "hornForwardShift": 0.0,
+"hornRoughness": 1.0,
 "hornScale": 1.0,
 "hornSideShift": 0.0
 }
@@ -168,6 +172,7 @@ data = {
 "options": {
 "hornColor": Color(0, 0.03529412, 0.3647059, 1),
 "hornForwardShift": 0.0,
+"hornRoughness": 1.0,
 "hornScale": 1.0,
 "hornSideShift": 0.0
 }
@@ -195,14 +200,17 @@ data = {
 &"id": "DragonTail"
 }
 },
+&"buttSize": 0.0,
 &"charName": "Ferri",
+&"chubbyness": 0.0,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
+&"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -211,6 +219,7 @@ data = {
 }
 }
 },
+&"smoothBody": 0.0,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",
@@ -221,6 +230,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex",
-&"weightDistribution": 0.0
+&"walkAnim": "WalkUnisex"
 }

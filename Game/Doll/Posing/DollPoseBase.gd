@@ -10,7 +10,6 @@ var id:String = ""
 var animName:String = ""
 var walkAnim:String = ""
 var visibleName:String = "Fill me!"
-var animLibrary:AnimationLibrary
 var animLibraryName:String = ""
 
 var noSprint:bool = false
@@ -27,6 +26,10 @@ const CRAWL_SPEED = 0.5
 
 func getAnimName() -> String:
 	return animName
+func getAnimNameFinal() -> String:
+	if(animLibraryName.is_empty()):
+		return animName
+	return animLibraryName+"/"+animName
 func getWalkAnimName() -> String:
 	return walkAnim
 

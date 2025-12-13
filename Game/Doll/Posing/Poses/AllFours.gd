@@ -2,13 +2,12 @@ extends DollPoseBase
 
 func _init() -> void:
 	id = "AllFours"
-	animName = "AllFours"
+	animName = "PoseAllFours"
 	visibleName = "All fours"
-	walkAnim = "CrawlAllFours"
+	walkAnim = "WalkCrawl"
 	
 	poseType = PoseType.Fullbody
 	
-	animLibrary = preload("res://Anims/Raw/Poses.glb")
 	animLibraryName = "Poses"
 	
 	noSprint = true

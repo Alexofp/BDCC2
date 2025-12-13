@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dboi30gsn7dnm"]
+
+[ext_resource type="PackedScene" uid="uid://dhympd3rdrxia" path="res://Mesh/Skeleton/BodySkeleton.glb" id="1_1aexq"]
+[ext_resource type="Script" uid="uid://ujnces3uqsth" path="res://Mesh/Skeleton/body_skeleton_raw.gd" id="2_om33q"]
+
+[node name="BodySkeletonRaw" unique_id=169710636 instance=ExtResource("1_1aexq")]
+script = ExtResource("2_om33q")
+
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1908881827) index="0" unique_id=867039682]
+unique_name_in_owner = true

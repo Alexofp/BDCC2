@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3 uid="uid://w67ff8kmb57s"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_42ahd"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_42ahd"]
 
 [resource]
 script = ExtResource("1_42ahd")
 data = {
+&"bodySize": 0.0,
 &"bodyparts": {
 "Body": {
 &"data": {
@@ -21,6 +22,7 @@ data = {
 "breastsCleavage": 0.0,
 "claws": 1.0,
 "clawsColor": Color(0.5390625, 0.5390625, 0.5390625, 1),
+"clitPiercing": [""],
 "handPads": true,
 "handPadsColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
 "hindPawPadColor": Color(0.6509804, 0.6509804, 0.6509804, 1),
@@ -62,7 +64,8 @@ data = {
 &"id": "ShortHair2_BigStrands",
 &"r": Color(0.058898926, 0.45012823, 0.75390625, 1)
 },
-"shading": 0.5
+"shading": 0.5,
+"shine": 0.3
 }
 },
 &"id": "ShortHair2"
@@ -198,14 +201,17 @@ data = {
 &"id": "FluffyTail"
 }
 },
+&"buttSize": 0.0,
 &"charName": "Nova",
+&"chubbyness": 0.0,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
 &"gender": 1,
 &"pronouns": 0
 },
-&"idleAnim": "normal1",
+&"idleAnim": "IdleUnisex",
+&"lastCharName": "",
 &"muscles": 0.0,
 &"skinTypes": {
 &"skinTypes": {
@@ -214,6 +220,7 @@ data = {
 }
 }
 },
+&"smoothBody": 0.0,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Canine",
@@ -224,6 +231,5 @@ data = {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"
 },
-&"walkAnim": "unisex",
-&"weightDistribution": 0.0
+&"walkAnim": "WalkUnisex"
 }

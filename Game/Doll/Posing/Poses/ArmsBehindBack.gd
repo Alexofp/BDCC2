@@ -7,5 +7,4 @@ func _init() -> void:
 	
 	poseType = PoseType.Arms
 	
-	animLibrary = preload("res://Anims/Raw/Poses.glb")
 	animLibraryName = "Poses"
