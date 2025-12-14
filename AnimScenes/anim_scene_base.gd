@@ -51,6 +51,7 @@ func _ready() -> void:
 	speedSwitchTimer.timeout.connect(onSpeedSwitchTimer)
 	
 	setupScene()
+	setState(startState)
 
 func setupScene() -> void:
 	pass
@@ -467,6 +468,9 @@ func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _
 
 func updateAnim():
 	for sitterID in sitters:
+		var theSpot := getSpot(sitterID)
+		if(theSpot):
+			theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
 		deferUpdateAnimSitter.call_deferred(sitterID)
 	deferUpdateMainAnimTree.call_deferred()
 	
@@ -580,6 +584,9 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 		onPlayState(newState, theAnimArgs)
 		return
 	for sitterID in sitters:
+		var theSpot := getSpot(sitterID)
+		if(theSpot):
+			theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
 		var sitterInfo:Dictionary = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo["tree"]
 		

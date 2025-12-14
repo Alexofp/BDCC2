@@ -8,6 +8,8 @@ signal onPawnSwitch(newPawn)
 signal onDollSwitch(newDoll, oldDoll)
 #@onready var sitter_node: SyncNode = %SitterNode
 
+var dollAnimKey:String = ""
+
 #func checkSitter():
 	#if(hasSitter()):
 		#var theSitter = getSitter()

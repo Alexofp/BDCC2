@@ -18,15 +18,14 @@ const COLLIDE_FORCE = 0.05
 const DIRECTIONAL_FORCE_DIV = 30.0
 const TOGGLE_COOLDOWN = 0.5
 
-var move_direction = Vector3.ZERO
-var move_direction_no_y = Vector3.ZERO
-var camera_rotation = Quaternion.IDENTITY
-var camera_rotation_no_y = Quaternion.IDENTITY
+var move_direction:Vector3 = Vector3.ZERO
+var move_direction_no_y:Vector3 = Vector3.ZERO
+var camera_rotation:Quaternion = Quaternion.IDENTITY
+var camera_rotation_no_y:Quaternion = Quaternion.IDENTITY
 @export var noclip_on:bool = false
-var mousecapture_on = true
-var rigidbody_collisions = []
-var input_velocity = Vector3.ZERO
-var anim_player
+var mousecapture_on:bool = true
+var rigidbody_collisions:Array = []
+var input_velocity:Vector3 = Vector3.ZERO
 
 @export var syncPosition:Vector3 = Vector3.ZERO
 @export var syncRotation:Vector3 = Vector3.ZERO
@@ -150,8 +149,6 @@ func shouldCaptureMouse() -> bool:
 func _ready():
 	basis = Basis.IDENTITY
 	SpringArm.add_excluded_object(self.get_rid())
-	#anim_player = $"ModelRoot/mannequiny-0_3_0/AnimationPlayer"
-	#anim_player.playback_default_blend_time = 0.75
 
 	#if(Network.isMultiplayer()):
 		#doll_controls.set_multiplayer_authority(networkPlayerID)
@@ -464,16 +461,37 @@ func process_camera_pivot():
 func process_camera():
 	if(!camera.isActive()):
 		return
+	print(getCurrentGlobalAnimKey())
+	
+# Gonna be used for anim tweaking
+func getCurrentGlobalAnimKey() -> String:
+	if(state == STATE_NORMAL):
+		var theDoll := getDoll()
+		if(!theDoll):
+			return ""
+		return theDoll.getCurrentLocomotionAnim()
+	if(state == STATE_SITTING):
+		var _theSeat := GM.sitManager.getSeatOfDoll(self)
+		if(_theSeat):
+			return _theSeat.dollAnimKey
+	return ""
+
+func getCurrentLocomotionAnim() -> String:
+	if(state != STATE_NORMAL):
+		return ""
+	var theDoll := getDoll()
+	if(!theDoll):
+		return ""
+	return theDoll.getCurrentLocomotionAnim()
 
 func processDollPoseCamera() -> bool:
-	# Maybe all of this should happen inside the base character
-	var theChar:BaseCharacter = getCharacter()
-	if(!theChar || theChar.getIdlePose() == ""):
+	var theAnimID := getCurrentLocomotionAnim()
+	if(theAnimID.is_empty() || !GlobalRegistry.hasDollAnim(theAnimID)):
 		return false
-	var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(theChar.getIdlePose())
-	if(!theDollPose || !theDollPose.hasCustomCamera()):
+	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(theAnimID)
+	if(!theAnim.hasCustomCamera()):
 		return false
-	var theCameraOffset:Vector2 = theDollPose.processCamera(SpringArm.spring_length)
+	var theCameraOffset:Vector2 = theAnim.processCamera(SpringArm.spring_length)
 	SpringArm.position.x = theCameraOffset.x
 	CameraPivot.position.y = theCameraOffset.y
 	return true

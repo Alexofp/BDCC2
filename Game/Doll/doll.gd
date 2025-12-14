@@ -445,6 +445,10 @@ func getAttachPoint(pointName:String) -> DollAttachPoint:
 func isFirstPerson() -> bool:
 	return false
 
+func getCurrentLocomotionAnim() -> String:
+	return currentLocomotionAnim
+
+var currentLocomotionAnim:String = ""
 var locomotionSupportsArmPoses:bool = true
 func travelLocomotion(_newState:String):
 	#if(_newState != "Idle"):
@@ -457,6 +461,7 @@ func travelLocomotion(_newState:String):
 		locomotionSupportsArmPoses = theAnim.doesAnimSupportArmPoses()
 	else:
 		locomotionSupportsArmPoses = true
+	currentLocomotionAnim = _newState
 	animation_tree.playLayer(animation_tree.LAYER_LOCOMOTION, _newState)
 
 func isWalking() -> bool:

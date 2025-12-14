@@ -21,7 +21,6 @@ var preventsFullbodyGestures:bool = true
 
 var poseType:int = PoseType.Fullbody
 
-const CLOSE_DISTANCE = 1.0
 const CRAWL_SPEED = 0.5
 
 func getAnimName() -> String:
@@ -35,16 +34,6 @@ func getWalkAnimName() -> String:
 
 func getName() -> String:
 	return visibleName
-
-func hasCustomCamera() -> bool:
-	return false
-
-func processCamera(_springLen:float) -> Vector2:
-	if(_springLen <= 0.0):
-		return Vector2(0.0, 0.0)
-	elif(_springLen <= CLOSE_DISTANCE):
-		return Vector2(0.1, 1.525)
-	return Vector2(0.3, 1.125)
 
 func preventsSprint() -> bool:
 	return noSprint

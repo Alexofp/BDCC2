@@ -45,3 +45,15 @@ func calcFinalAnimName():
 
 func doesAnimSupportArmPoses() -> bool:
 	return animSupportsArmPoses
+
+const CLOSE_DISTANCE = 1.0
+
+func hasCustomCamera() -> bool:
+	return false
+
+func processCamera(_springLen:float) -> Vector2:
+	if(_springLen <= 0.0):
+		return Vector2(0.0, 0.0)
+	elif(_springLen <= CLOSE_DISTANCE):
+		return Vector2(0.1, 1.525)
+	return Vector2(0.3, 1.125)

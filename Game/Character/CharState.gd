@@ -72,7 +72,11 @@ func processTime(_dt:float):
 				arousalFade = 0.0
 	else:
 		arousalFade = 0.0
-
+	
+	# Arousal cap after all arousal calculations
+	if(arousal > 1.0):
+		arousal = 1.0
+	
 	if(shouldAutoMoan()):
 		addAutoMoanCappedMin(-_dt, 0.0)
 	
