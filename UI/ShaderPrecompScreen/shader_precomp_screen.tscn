@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdtwkbjfc2yjm"]
+[gd_scene format=3 uid="uid://bdtwkbjfc2yjm"]
 
 [ext_resource type="Script" uid="uid://bgn5eou04l6fw" path="res://UI/ShaderPrecompScreen/shader_precomp_screen.gd" id="1_oki52"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="2_ycgg1"]
 [ext_resource type="Environment" uid="uid://cfeg5fu5v0p4o" path="res://Mesh/Enviroment/GameEnv.tres" id="3_47kto"]
 [ext_resource type="Compositor" uid="uid://c6hes6c0mi07n" path="res://Mesh/Enviroment/GameCompositor.tres" id="4_iby3j"]
 [ext_resource type="PackedScene" uid="uid://cvi0gkfpc8yts" path="res://UI/ShaderPrecompScreen/RiggedShapekeyCube.glb" id="5_egmkk"]
+[ext_resource type="PackedScene" uid="uid://06pfnmb305cv" path="res://Mapping/Props/WallLight.tscn" id="7_47kto"]
+[ext_resource type="PackedScene" uid="uid://clfb0e0x1uxi7" path="res://Mapping/Props/LampCeiling.tscn" id="8_iby3j"]
 [ext_resource type="PackedScene" uid="uid://cjnh3bwuagu50" path="res://UI/ShaderPrecompScreen/RiggedCube.glb" id="11_qm4el"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ycgg1"]
@@ -39,29 +41,12 @@ vertical_alignment = 1
 [node name="BuildingPlatform8x8" parent="." unique_id=740391646 instance=ExtResource("2_ycgg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1279704287]
-transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
-light_energy = 0.2
-light_indirect_energy = 0.2
-light_volumetric_fog_energy = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=841489444]
 environment = ExtResource("3_47kto")
 compositor = ExtResource("4_iby3j")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=14706966]
-transform = Transform3D(1, 0, 0, 0, 0.97897077, 0.20400095, 0, -0.20400095, 0.97897077, 0, 1.1005273, 2.79053)
-light_energy = 2.0
-shadow_enabled = true
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=346600229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796214, 2.50458)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1799820948]
 
 [node name="NormalCube" type="MeshInstance3D" parent="." unique_id=1014805265]
 transform = Transform3D(0.23290843, 0, 0, 0, 0.23290843, 0, 0, 0, 0.23290843, -0.31528366, 0.37256718, 0)
@@ -75,6 +60,15 @@ blend_shapes/AShapekey = 0.64383
 
 [node name="RiggedCube2" parent="." unique_id=2031538453 instance=ExtResource("11_qm4el")]
 transform = Transform3D(0.11317764, 0, 0, 0, 0.11317764, 0, 0, 0, 0.11317764, 0.34626985, 0.36798963, 0)
+
+[node name="WallLight" parent="." unique_id=1410158991 instance=ExtResource("7_47kto")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.296898)
+
+[node name="LampCeiling" parent="." unique_id=1557387894 instance=ExtResource("8_iby3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0276709, -0.8159772)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=1782230171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5787511, -0.8883462)
 
 [editable path="RiggedShapekeyCube2"]
 [editable path="RiggedCube2"]

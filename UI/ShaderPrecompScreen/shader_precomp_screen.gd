@@ -22,6 +22,7 @@ const MATERIALS = [
 ]
 const SCENES = [
 	#"res://Mapping/Decals/DecalArrow2White.tscn",
+	"res://UI/ShaderPrecompScreen/precomp_doll.tscn",
 ]
 
 static var didPrecomp:bool = false
@@ -79,6 +80,20 @@ func compileShaders():
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
 	
+	for scenePath in SCENES:
+		current += 1
+		updateProgress(current, totalCount)
+		
+		var theScene:PackedScene = load(scenePath)
+		if(!theScene):
+			Log.Printerr("[Precompilation screen] Scene is not found: '"+str(scenePath)+"'")
+		else:
+			var theNode = theScene.instantiate()
+			add_child(theNode)
+			await RenderingServer.frame_post_draw
+			await RenderingServer.frame_post_draw
+			theNode.queue_free()
+	
 	for matPath in BASIC_MATERIALS:
 		current += 1
 		updateProgress(current, totalCount)
@@ -104,20 +119,6 @@ func compileShaders():
 		
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
-	
-	for scenePath in SCENES:
-		current += 1
-		updateProgress(current, totalCount)
-		
-		var theScene:PackedScene = load(scenePath)
-		if(!theScene):
-			Log.Printerr("[Precompilation screen] Scene is not found: '"+str(scenePath)+"'")
-		else:
-			var theNode = theScene.instantiate()
-			add_child(theNode)
-			await RenderingServer.frame_post_draw
-			await RenderingServer.frame_post_draw
-			theNode.queue_free()
 	
 	GlobalRegistry.shaderTracker.setShouldCheck(true)
 

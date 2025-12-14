@@ -93,6 +93,8 @@ func setCharID(theCharID:String):
 	charID = theCharID
 
 func getChar() -> BaseCharacter:
+	if(!GM.characterRegistry):
+		return null
 	return GM.characterRegistry.getCharacter(charID)
 
 func getSoundIntensity() -> int:

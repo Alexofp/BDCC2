@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=45 format=3 uid="uid://snasey7u5o67"]
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://snasey7u5o67"]
 
 [ext_resource type="Curve" uid="uid://hi468xaib60v" path="res://AnimScenes/SmoothInterpolation.tres" id="1_5f3vp"]
 

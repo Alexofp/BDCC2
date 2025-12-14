@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d3fw8h55w6qcm"]
+
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_wfau8"]
+[ext_resource type="PackedScene" uid="uid://dnarwr68ysgik" path="res://Mesh/Parts/Head/HumanFeminine/my_human_head.tscn" id="2_h01mn"]
+[ext_resource type="PackedScene" uid="uid://dpwwk30tha2qv" path="res://Mesh/Parts/Hair/Ponytail1/ponytail1.tscn" id="3_7pxy6"]
+[ext_resource type="PackedScene" uid="uid://d32omdfp8acg8" path="res://Mapping/World/feminine_body.tscn" id="4_06p5f"]
+
+[node name="PrecompDoll" type="Node3D" unique_id=1474036527]
+
+[node name="Doll" parent="." unique_id=777326594 instance=ExtResource("1_wfau8")]
+
+[node name="MyHumanHead" parent="Doll" unique_id=1803871471 instance=ExtResource("2_h01mn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16050088, -0.37539428)
+
+[node name="Ponytail" parent="Doll" unique_id=1734872151 instance=ExtResource("3_7pxy6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1650455, 0, -0.54721683)
+
+[node name="FeminineBody" parent="Doll" unique_id=1048120398 instance=ExtResource("4_06p5f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.36899692, -1.7536737)

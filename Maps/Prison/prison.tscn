@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://cqxqisi1jql0h"]
+[gd_scene format=3 uid="uid://cqxqisi1jql0h"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_207vj"]
 [ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_3wh73"]
@@ -3883,29 +3883,6 @@ spot_attenuation = 2.0
 spot_angle = 28.29
 spot_angle_attenuation = 0.044194072
 ignoreLightsDistanceSetting = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1610585065]
-transform = Transform3D(-0.79781187, 0.5409632, -0.26618606, 0.35712096, 0.779735, 0.5142741, 0.48575795, 0.31523335, -0.8152712, 0, 2.95159, 0)
-visible = false
-light_energy = 0.2
-light_indirect_energy = 0.2
-light_volumetric_fog_energy = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1899635673]
-transform = Transform3D(1.0000001, 0, 0, 0, -4.3711424e-08, 0.9999995, 0, -1.0000008, -4.3711367e-08, 0, 2.95159, 0)
-visible = false
-light_energy = 0.5
-light_volumetric_fog_energy = 0.0
-light_specular = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
-sky_mode = 1
 
 [node name="AnyItemGiver" parent="." unique_id=1604111002 instance=ExtResource("73_q1g3e")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.405624, 0, 6.4874525)

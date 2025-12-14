@@ -10,6 +10,9 @@ const LAYER_ARMS_OVERRIDE = 30
 var cacheID:String = "doll"
 
 func doFullSetup() -> void:
+	if(!GlobalRegistry.finishedInit):
+		return
+	
 	if(GlobalRegistry.dollAnimTreeCache.has(cacheID)):
 		tree_root = GlobalRegistry.dollAnimTreeCache[cacheID]
 		layers = GlobalRegistry.dollAnimTreeLayerCache[cacheID]

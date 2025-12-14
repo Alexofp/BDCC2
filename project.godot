@@ -14,7 +14,7 @@ precompile_shaders=false
 
 [application]
 
-config/name="AssetTest"
+config/name="BDCC2"
 run/main_scene="uid://bdtwkbjfc2yjm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=120

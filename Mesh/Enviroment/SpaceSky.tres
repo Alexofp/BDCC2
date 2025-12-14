@@ -1,4 +1,4 @@
-[gd_resource type="Sky" load_steps=3 format=3 uid="uid://caai468y1nhrg"]
+[gd_resource type="Sky" format=3 uid="uid://caai468y1nhrg"]
 
 [ext_resource type="Texture2D" uid="uid://b55y6w4n0fyio" path="res://Mesh/Enviroment/MySky.png" id="1_2vqrb"]
 

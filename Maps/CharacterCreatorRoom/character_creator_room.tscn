@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://djn63ne4a2q6c"]
+[gd_scene format=3 uid="uid://djn63ne4a2q6c"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_y08rd"]
 [ext_resource type="Resource" uid="uid://dxmsugrnmgjga" path="res://Maps/window room.res" id="2_0fmwc"]
@@ -205,28 +205,6 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 [node name="WallLight4" parent="PCSceneLoader" unique_id=266683796 instance=ExtResource("13_gd2pe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6904244, 0.25075552, -3.689307)
 visible = false
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=102036623]
-transform = Transform3D(-0.797812, 0.540963, -0.266187, 0.357121, 0.779736, 0.514273, 0.485758, 0.315234, -0.815271, 0, 2.95159, 0)
-visible = false
-light_energy = 0.2
-light_indirect_energy = 0.2
-light_volumetric_fog_energy = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1082418092]
-transform = Transform3D(1.0000001, 0, 0, 0, -4.3711424e-08, 0.9999995, 0, -1.0000008, -4.3711367e-08, 0, 2.95159, 0)
-visible = false
-light_energy = 0.5
-light_indirect_energy = 0.2
-light_volumetric_fog_energy = 0.0
-shadow_bias = 0.025
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.1
-directional_shadow_max_distance = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1299310120]
 environment = ExtResource("37_nbq4c")

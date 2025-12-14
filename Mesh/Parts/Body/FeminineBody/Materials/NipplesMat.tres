@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=6 format=3 uid="uid://crmsb1gfa4uhb"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://crmsb1gfa4uhb"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_c2p8e"]
 [ext_resource type="Shader" uid="uid://cqv636b3jbclk" path="res://Mesh/Materials/Shaders/Doll/BodyNipples.gdshader" id="2_em13s"]
