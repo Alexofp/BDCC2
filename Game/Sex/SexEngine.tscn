@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cetxt6ypnfvxp"]
+[gd_scene format=3 uid="uid://cetxt6ypnfvxp"]
 
 [ext_resource type="Script" uid="uid://cj2cjhp518yo6" path="res://Game/Sex/SexEngine.gd" id="1_ki4rl"]
 [ext_resource type="Script" uid="uid://bgimnbbr8c0eo" path="res://Game/Systems/Camera/PriorityCamera.gd" id="2_h647o"]

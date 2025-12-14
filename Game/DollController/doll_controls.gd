@@ -50,6 +50,8 @@ func processInput():
 		return
 	if(UIHandler.isGameplayInputBlocked()):
 		return
+	if(!doll_controller.camera.isActive()):
+		return
 	#Log.Print("Meow "+str(get_path()))
 	input_dir = Vector2.ZERO
 	input_dir.x = Input.get_axis("move_left", "move_right")
@@ -74,6 +76,8 @@ func processInput():
 	
 	#if(Input.is_action_just_pressed("move_jump")):
 	#	GI.sendPingToServer()
+	#if(Input.is_action_just_pressed("move_jump")):
+	#	Network.getMyPlayerInfo().changeCurrentCharID("")
 
 func _unhandled_input(event):
 	if(Network.isMultiplayer() && !is_multiplayer_authority()):
@@ -81,6 +85,8 @@ func _unhandled_input(event):
 	if(UIHandler.hasAnyUIVisible()):
 		return
 	if(!doll_controller.isControlledByUs()):
+		return
+	if(!doll_controller.camera.isActive()):
 		return
 	
 	if event is InputEventMouseMotion:

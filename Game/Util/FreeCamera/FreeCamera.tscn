@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bkjxbvvqv2tdg"]
+
+[ext_resource type="Script" uid="uid://byaacd2fw2yqx" path="res://Game/Util/FreeCamera/free_camera.gd" id="1_xwrpp"]
+
+[node name="FreeCamera" type="Camera3D" unique_id=779804260]
+script = ExtResource("1_xwrpp")
+metadata/_custom_type_script = "uid://bgimnbbr8c0eo"

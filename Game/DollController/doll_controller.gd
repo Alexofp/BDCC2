@@ -461,7 +461,7 @@ func process_camera_pivot():
 func process_camera():
 	if(!camera.isActive()):
 		return
-	print(getCurrentGlobalAnimKey())
+	#print(getCurrentGlobalAnimKey())
 	
 # Gonna be used for anim tweaking
 func getCurrentGlobalAnimKey() -> String:

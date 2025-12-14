@@ -22,6 +22,8 @@ var character_creator:Node
 
 @onready var building_platform_8x_8: Node3D = %BuildingPlatform8x8
 
+@onready var free_camera: FreeCamera = %FreeCamera
+
 var interactionSystem:InteractionSystem
 
 var gameMode:GameModeBase
@@ -136,9 +138,13 @@ func _process(_delta: float) -> void:
 	chat_widget_fullscreeen.visible = !sex_ui.visible
 	
 	if(!UIHandler.isMenuInputBlocked()):
+		if(Input.is_action_just_pressed("ui_hide")):
+			main_ui_layer.visible = !main_ui_layer.visible
+		
 		if(Input.is_action_just_pressed("game_menu")):
 			if(!UIHandler.tryCloseMenu()):
 				in_game_menu.visible = true
+				main_ui_layer.visible = true
 			
 		#if(Input.is_action_just_pressed("debug_mousecapture")):
 			#if(!character_creator):

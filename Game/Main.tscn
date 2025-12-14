@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cd67yc3o3sghc"]
+[gd_scene format=3 uid="uid://cd67yc3o3sghc"]
 
 [ext_resource type="Script" uid="uid://bs0iekltipukv" path="res://Game/Main.gd" id="1_3tq7c"]
 [ext_resource type="Script" uid="uid://cuxgeihdcj4xt" path="res://Inventory/InventoryRegistry.gd" id="2_b3cwe"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://w1hpye5t7hjr" path="res://Game/UI/CharacterMenu/character_menu.tscn" id="12_paojk"]
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
+[ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
@@ -81,6 +82,12 @@ offset_bottom = -89.0
 unique_name_in_owner = true
 visible = false
 showCharCreatorButton = true
+
+[node name="FreeCamera" parent="." unique_id=779804260 instance=ExtResource("17_eru0w")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9493737, 0)
+cameraActive = true
+cameraPriority = -1.0
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

@@ -46,8 +46,20 @@ func _physics_process(_delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	processCharacterCreator(_delta)
+	processFreeCam(_delta)
 	if(canClientsCreateItems()):
 		processDebugMenuGiver(_delta)
+
+func processFreeCam(_delta:float) -> void:
+	if(Input.is_action_just_pressed("game_freecam")):
+		if(GM.main.free_camera.cameraPriority > 1.0):
+			GM.main.free_camera.cameraPriority = -1.0
+		else:
+			var curCam := CameraSystem.getActiveCameraWithHighestPriority()
+			if(curCam):
+				GM.main.free_camera.global_rotation = curCam.global_rotation
+				GM.main.free_camera.global_position = curCam.global_position
+			GM.main.free_camera.cameraPriority = 10000.0
 
 func processCharacterCreator(_delta:float):
 	if(!UIHandler.isMenuInputBlocked()):
