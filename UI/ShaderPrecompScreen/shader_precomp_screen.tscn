@@ -50,16 +50,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796214, 2.50458)
 
 [node name="NormalCube" type="MeshInstance3D" parent="." unique_id=1014805265]
 transform = Transform3D(0.23290843, 0, 0, 0, 0.23290843, 0, 0, 0, 0.23290843, -0.31528366, 0.37256718, 0)
+visible = false
 mesh = SubResource("BoxMesh_ycgg1")
 
 [node name="RiggedShapekeyCube2" parent="." unique_id=477841942 instance=ExtResource("5_egmkk")]
 transform = Transform3D(0.11487507, 0, 0, 0, 0.11487507, 0, 0, 0, 0.11487507, 0, 0.3763924, 0)
+visible = false
 
 [node name="Cube" parent="RiggedShapekeyCube2/RiggedShapekeyCube/Skeleton3D" parent_id_path=PackedInt32Array(477841942, 1722266159) index="0" unique_id=309688211]
 blend_shapes/AShapekey = 0.64383
 
 [node name="RiggedCube2" parent="." unique_id=2031538453 instance=ExtResource("11_qm4el")]
 transform = Transform3D(0.11317764, 0, 0, 0, 0.11317764, 0, 0, 0, 0.11317764, 0.34626985, 0.36798963, 0)
+visible = false
 
 [node name="WallLight" parent="." unique_id=1410158991 instance=ExtResource("7_47kto")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.296898)

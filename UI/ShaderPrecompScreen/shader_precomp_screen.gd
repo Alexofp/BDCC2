@@ -3,6 +3,7 @@ class_name ShaderPrecompScreen
 
 const COMPILE_IN_DEBUG = false
 const COMPILE_IN_RELEASE = true
+const ADD_TENMATSPLANE = true
 
 const SHADERS = [
 	"res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader",
@@ -34,6 +35,13 @@ static var didPrecomp:bool = false
 	$RiggedCube2/RiggedCube/Skeleton3D/Cube,
 ]
 @onready var normal_cube: MeshInstance3D = $NormalCube
+
+const TEN_MATS_PLANE = preload("res://UI/ShaderPrecompScreen/TenMatsPlane.tscn")
+var curTenMatIndx:int = 0
+var curTenMat:Node3D
+const TEN_MATS_PLANE_RIGGED = preload("res://UI/ShaderPrecompScreen/TenMatsPlaneRigged.tscn")
+var curTenMatRiggedIndx:int = 0
+var curTenMatRigged:Node3D
 
 func _ready():
 	doStuff()
@@ -89,6 +97,7 @@ func compileShaders():
 			Log.Printerr("[Precompilation screen] Scene is not found: '"+str(scenePath)+"'")
 		else:
 			var theNode = theScene.instantiate()
+			theNode.visible = false
 			add_child(theNode)
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
@@ -130,10 +139,42 @@ func updateProgress(current:int, total:int):
 	LoadingScreen.setText("Loading.. "+percentText+"%")
 
 func setMat(_mat:Material):
+	pushMatToTensPlane(_mat)
+	#pushMatToTensPlaneRigged(_mat)
 	for mesh in CUBES:
 		mesh.set_surface_override_material(0, _mat)
+	
+func pushMatToTensPlane(_mat:Material):
+	if(!ADD_TENMATSPLANE):
+		return
+	if(!curTenMat):
+		curTenMat = TEN_MATS_PLANE.instantiate()
+		curTenMat.visible = false
+		GlobalRegistry.add_child(curTenMat)
+		#print("NEW 10 MAT")
+	curTenMat.get_node("Plane").set_surface_override_material(curTenMatIndx, _mat)
+	curTenMatIndx += 1
+	if(curTenMatIndx >= 10):
+		curTenMatIndx = 0
+		curTenMat = null
+	
+func pushMatToTensPlaneRigged(_mat:Material):
+	if(!ADD_TENMATSPLANE):
+		return
+	if(!curTenMatRigged):
+		curTenMatRigged = TEN_MATS_PLANE_RIGGED.instantiate()
+		curTenMatRigged.visible = false
+		GlobalRegistry.add_child(curTenMatRigged)
+		#print("NEW 10 MAT")
+	curTenMatRigged.get_node("PlaneRig/Skeleton3D/Plane").set_surface_override_material(curTenMatRiggedIndx, _mat)
+	curTenMatRiggedIndx += 1
+	if(curTenMatRiggedIndx >= 10):
+		curTenMatRiggedIndx = 0
+		curTenMatRigged = null
 
 func setMatBasic(_mat:Material):
+	pushMatToTensPlane(_mat)
+	#pushMatToTensPlaneRigged(_mat)
 	normal_cube.set_surface_override_material(0, _mat)
 
 func shouldCompileShaders() -> bool:

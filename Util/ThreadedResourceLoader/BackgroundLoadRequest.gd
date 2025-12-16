@@ -46,6 +46,10 @@ func doLoad(_path:String, _tryAgainCount:int = 0):
 	var loadStatus := ResourceLoader.load_threaded_get_status(loadPath)
 	while(loadStatus == ResourceLoader.THREAD_LOAD_IN_PROGRESS):
 		await ThreadedResourceLoader.get_tree().process_frame
+		await ThreadedResourceLoader.get_tree().process_frame
+		await ThreadedResourceLoader.get_tree().process_frame
+		await ThreadedResourceLoader.get_tree().process_frame
+		await ThreadedResourceLoader.get_tree().process_frame
 		loadStatus = ResourceLoader.load_threaded_get_status(loadPath)
 	
 	if(loadStatus != ResourceLoader.THREAD_LOAD_LOADED):

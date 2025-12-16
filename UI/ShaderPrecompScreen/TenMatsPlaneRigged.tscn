@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bmiuelpvac2re"]
+
+[ext_resource type="PackedScene" uid="uid://dwh26y52bdkm6" path="res://UI/ShaderPrecompScreen/TenMatsPlaneRigged.glb" id="1_cwhuk"]
+
+[node name="TenMatsPlaneRigged" unique_id=1198687367 instance=ExtResource("1_cwhuk")]

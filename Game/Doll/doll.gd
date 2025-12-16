@@ -259,7 +259,7 @@ func _physics_process(_delta: float) -> void:
 	if(!partUpdateQueue.is_empty()):
 		partUpdateQueueTimer -= _delta
 		if(partUpdateQueueTimer <= 0.0):
-			partUpdateQueueTimer = 0.3
+			partUpdateQueueTimer = 0.1
 			var theEntry:Array = partUpdateQueue.pop_front()
 			updatePartFromCharacter(theEntry[0], theEntry[1])
 	
@@ -342,7 +342,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 			return
 		dollScene.visible = false
 		parts_node.add_child(dollScene)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(1.0).timeout
 		if(!dollScene):
 			return
 		parts[genericType][bodypartSlot] = dollScene
