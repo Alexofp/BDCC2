@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cxf5eyw5a4u8v"]
+
+[ext_resource type="Script" uid="uid://bsv6b6s6ryenv" path="res://AnimScenes/Scenes/SoloSex/SoloSexScene.gd" id="1_423yh"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_wgp2k"]
+
+[node name="SoloSexScene" type="Node3D" unique_id=931339248]
+script = ExtResource("1_423yh")
+
+[node name="SitSpot" parent="." unique_id=2056142771 instance=ExtResource("2_wgp2k")]
+unique_name_in_owner = true

@@ -215,9 +215,6 @@ func doAction(_role:String, _id:String, _args:Array):
 		endActivity()
 
 func doEvent(_event:SexEvent):
-	#if(_event.id == "stopSex"):
-		#addActionText("They decide to stop fucking!")
-		#endActivity()
 	pass
 
 func getExpressionState(_role:String) -> int:

@@ -97,6 +97,19 @@ func isCharIDParticipatingInSex(theCharID:String) -> bool:
 func isCharParticipatingInSex(theChar:BaseCharacter) -> bool:
 	return !!getSexEngineOfCharID(theChar.getID())
 
+func askStartMasturbation(_charID:String):
+	if(Network.isClient()):
+		askStartMasturbation_SERVERRPC.rpc_id(1, _charID)
+	else:
+		askStartMasturbation_SERVERRPC(_charID)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askStartMasturbation_SERVERRPC(_pawnID:String):
+	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		return
+	startSex(SexType.Solo, {dom={id=_pawnID,role=SexRole.Dom}}, {}, thePawn.global_position, thePawn.global_rotation)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd()
 

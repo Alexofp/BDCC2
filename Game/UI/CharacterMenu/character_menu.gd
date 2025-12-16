@@ -17,7 +17,7 @@ var currentTab:String = TAB_INVENTORY
 	TAB_INTERACT: %InteractButton,
 }
 @onready var tabToNode:Dictionary = {
-	TAB_CHARACTER: null,
+	TAB_CHARACTER: %CharacterTab,
 	TAB_INVENTORY: %InventoryUIEmbed,
 	TAB_POSE: %PosingMenu,
 	TAB_INTERACT: %InteractionMenuEmbedded,
@@ -139,3 +139,8 @@ func shoot_ray():
 		#print("Raycast hit: ", result)
 		if(GM.pcDoll):
 			GM.dollHolder.askLookAtClear(GM.pcDoll)
+
+func _on_masturbate_button_pressed() -> void:
+	if(GM.pc):
+		GM.sexManager.askStartMasturbation(GM.pc.getID())
+		_on_close_button_pressed()

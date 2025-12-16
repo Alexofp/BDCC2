@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://w1hpye5t7hjr"]
+[gd_scene format=3 uid="uid://w1hpye5t7hjr"]
 
 [ext_resource type="Script" uid="uid://bt2s8v78fqqr5" path="res://Game/UI/CharacterMenu/character_menu.gd" id="1_5rlio"]
 [ext_resource type="PackedScene" uid="uid://bea8vmwiu4vwf" path="res://Game/CharacterCreator/InteractionMenu/interaction_menu_embed.tscn" id="2_clhsb"]
@@ -64,6 +64,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="CharacterTab" type="VBoxContainer" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=586260445]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MasturbateButton" type="Button" parent="PanelContainer/VBoxContainer/VBoxContainer/CharacterTab" unique_id=1481229104]
+layout_mode = 2
+text = "Masturbate"
+
 [node name="InteractionMenuEmbedded" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=562291251 instance=ExtResource("2_clhsb")]
 unique_name_in_owner = true
 visible = false
@@ -77,6 +85,7 @@ size_flags_vertical = 3
 
 [node name="PosingMenu" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=376303401 instance=ExtResource("4_aaxik")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="CloseControlSpace" type="Control" parent="PanelContainer" unique_id=228650181]
@@ -103,4 +112,5 @@ text = "Close"
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PoseButton" to="." method="_on_pose_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InteractButton" to="." method="_on_interact_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/VBoxContainer/CharacterTab/MasturbateButton" to="." method="_on_masturbate_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CloseControlSpace/CloseButton" to="." method="_on_close_button_pressed"]
