@@ -14,6 +14,7 @@ var randomScales:Array = []
 var speedFreq:float = 0.1
 
 func _ready() -> void:
+	visible = false
 	#for boneID in range(skeleton_3d.get_bone_count()):
 	for boneID in range(skeleton_3d.get_bone_count()):
 		var newSticky:Node3D = stickyRigidBodyScene.instantiate()
@@ -53,6 +54,7 @@ func _process(delta: float) -> void:
 	
 	curBodyTime -= delta
 	if(curBodyTime <= 0.0):
+		visible = true
 		curBodyTime += speedFreq
 		
 		var bodyAm:int = bodies.size()

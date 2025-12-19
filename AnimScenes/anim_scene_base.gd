@@ -9,7 +9,12 @@ var penisTarget:Dictionary = {}
 var states:Dictionary = {}
 var startState:String = ""
 
-var oneShots:Dictionary = {}
+const LAYER_ONESHOT = 0
+const LAYER_ADD3 = 1
+
+#var oneShots:Dictionary = {}
+var extraLayers:Array[Dictionary] = []
+var extraLayersByID:Dictionary[String, Dictionary] = {}
 
 var state:String = ""
 var currentStateSpeed:float = 1.0
@@ -18,6 +23,7 @@ var animLibraries:Dictionary = {}
 var animData:Dictionary = {}
 
 const PENISTARGET_SITTER_HOLE = 0
+const PENISTARGET_PENIS_GUIDE = 1
 
 signal onAnimUpdate
 signal onPawnSwitch(id, pawn)
@@ -102,6 +108,12 @@ func onSpeedSwitchTimer():
 	
 	startSpeedSwitchTimer()
 
+func alignPenisToPenisGuides(theID:String):
+	penisTarget[theID] = {
+		type = PENISTARGET_PENIS_GUIDE,
+	}
+	updatePenisTargetFor(theID)
+
 func alignPenisToSitterHole(theID:String, otherID:String, holeID:int):
 	penisTarget[theID] = {
 		type = PENISTARGET_SITTER_HOLE,
@@ -123,11 +135,32 @@ func setStartState(stateID:String):
 	startState = stateID
 
 func addAdditiveOneshot(oneshotID:String, animByPose:Dictionary, baseAnimByPose:Dictionary, _theSettings:Dictionary = {}):
-	oneShots[oneshotID] = {
+	var newLayer:Dictionary = {
+		id = oneshotID,
+		type = LAYER_ONESHOT,
 		anims = animByPose,
 		baseAnims = baseAnimByPose,
 		settings = _theSettings,
 	}
+	extraLayers.append(newLayer)
+	extraLayersByID[oneshotID] = newLayer
+	#oneShots[oneshotID] = {
+		#anims = animByPose,
+		#baseAnims = baseAnimByPose,
+		#settings = _theSettings,
+	#}
+
+func addAdd3Layer(_id:String, animByPosePlus:Dictionary, animByPoseMinus:Dictionary, baseAnimByPose:Dictionary, _theSettings:Dictionary = {}):
+	var newLayer:Dictionary = {
+		id = _id,
+		type = LAYER_ADD3,
+		animsPlus = animByPosePlus,
+		animsMinus = animByPoseMinus,
+		baseAnims = baseAnimByPose,
+		settings = _theSettings,
+	}
+	extraLayers.append(newLayer)
+	extraLayersByID[_id] = newLayer
 
 func addState(stateID:String, animByPose:Dictionary, stateSettings:Dictionary = {}):
 	var theStateInfo:Dictionary = {
@@ -190,16 +223,40 @@ func calculateStateAnimData():
 			step = theAnimation.step,
 		}
 	
-	for oneshotID in oneShots:
-		var oneshotData:Dictionary = oneShots[oneshotID]
-		var oneshotAnimName:String = oneshotData["anims"][seatID]
-		var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
+	for extraLayer in extraLayers:
+		var theType:int = extraLayer["type"]
+		var layerID:String = extraLayer["id"]
 		
-		animData[oneshotID] = {
-			len = theAnimation.length,
-			loop = theAnimation.loop_mode,
-			step = theAnimation.step,
-		}
+		if(theType == LAYER_ONESHOT):
+			var oneshotID:String = layerID
+			var oneshotData := extraLayer
+			
+			var oneshotAnimName:String = oneshotData["anims"][seatID]
+			var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
+			
+			animData[oneshotID] = {
+				len = theAnimation.length,
+				loop = theAnimation.loop_mode,
+				step = theAnimation.step,
+			}
+		elif(theType == LAYER_ADD3):
+			var theAnimName:String = extraLayer["animsPlus"][seatID]
+			var theAnimation:Animation = animPlayer.get_animation(theAnimName)
+			animData[layerID] = {
+				len = theAnimation.length,
+				loop = theAnimation.loop_mode,
+				step = theAnimation.step,
+			}
+	#for oneshotID in oneShots:
+		#var oneshotData:Dictionary = oneShots[oneshotID]
+		#var oneshotAnimName:String = oneshotData["anims"][seatID]
+		#var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
+		#
+		#animData[oneshotID] = {
+			#len = theAnimation.length,
+			#loop = theAnimation.loop_mode,
+			#step = theAnimation.step,
+		#}
 		
 func updateMainAnimTree():
 	if(mainAnimPlayer):
@@ -245,30 +302,66 @@ func updateMainAnimTree():
 		
 		mainAnimationLibrary.add_animation(stateID, newAnim)
 	
-	for oneshotID in oneShots:
-		var oneShotInfo:Dictionary = oneShots[oneshotID]
-		var newAnim:Animation = Animation.new()
-		
-		newAnim.step = animData[oneshotID]["step"]
-		newAnim.length = animData[oneshotID]["len"]
-		newAnim.loop_mode = animData[oneshotID]["loop"]
-		
-		var newTrack = newAnim.add_track(Animation.TYPE_METHOD)
-		newAnim.track_set_path(newTrack, NodePath("."))
-		
-		var theSettings:Dictionary = oneShotInfo["settings"] if oneShotInfo.has("settings") else {}
-		var animEvents:Array = theSettings[CONF_ANIMEVENTS] if theSettings.has(CONF_ANIMEVENTS) else []
-		
-		for theAnimEvent in animEvents:
-			var theTime:float = float(theAnimEvent[0])
-			var theArg:String = theAnimEvent[1]
+	for extraLayer in extraLayers:
+		var layerType:int = extraLayer["type"]
+		var layerID:String = extraLayer["id"]
+		if(layerType == LAYER_ONESHOT):
+			var oneshotID:String = layerID
+			var oneShotInfo := extraLayer
 			
-			newAnim.track_insert_key(newTrack, theTime, {
-				method = "sendAnimationEvent",
-				args = [theArg],
-			})
+			var newAnim:Animation = Animation.new()
+			
+			newAnim.step = animData[oneshotID]["step"]
+			newAnim.length = animData[oneshotID]["len"]
+			newAnim.loop_mode = animData[oneshotID]["loop"]
+			
+			var newTrack = newAnim.add_track(Animation.TYPE_METHOD)
+			newAnim.track_set_path(newTrack, NodePath("."))
+			
+			var theSettings:Dictionary = oneShotInfo["settings"] if oneShotInfo.has("settings") else {}
+			var animEvents:Array = theSettings[CONF_ANIMEVENTS] if theSettings.has(CONF_ANIMEVENTS) else []
+			
+			for theAnimEvent in animEvents:
+				var theTime:float = float(theAnimEvent[0])
+				var theArg:String = theAnimEvent[1]
+				
+				newAnim.track_insert_key(newTrack, theTime, {
+					method = "sendAnimationEvent",
+					args = [theArg],
+				})
+			
+			mainAnimationLibrary.add_animation(oneshotID, newAnim)
+		elif(layerType == LAYER_ADD3):
+			var newAnim:Animation = Animation.new()
+			newAnim.step = animData[layerID]["step"]
+			newAnim.length = animData[layerID]["len"]
+			newAnim.loop_mode = animData[layerID]["loop"]
+			mainAnimationLibrary.add_animation(layerID, newAnim)
 		
-		mainAnimationLibrary.add_animation(oneshotID, newAnim)
+	#for oneshotID in oneShots:
+		#var oneShotInfo:Dictionary = oneShots[oneshotID]
+		#var newAnim:Animation = Animation.new()
+		#
+		#newAnim.step = animData[oneshotID]["step"]
+		#newAnim.length = animData[oneshotID]["len"]
+		#newAnim.loop_mode = animData[oneshotID]["loop"]
+		#
+		#var newTrack = newAnim.add_track(Animation.TYPE_METHOD)
+		#newAnim.track_set_path(newTrack, NodePath("."))
+		#
+		#var theSettings:Dictionary = oneShotInfo["settings"] if oneShotInfo.has("settings") else {}
+		#var animEvents:Array = theSettings[CONF_ANIMEVENTS] if theSettings.has(CONF_ANIMEVENTS) else []
+		#
+		#for theAnimEvent in animEvents:
+			#var theTime:float = float(theAnimEvent[0])
+			#var theArg:String = theAnimEvent[1]
+			#
+			#newAnim.track_insert_key(newTrack, theTime, {
+				#method = "sendAnimationEvent",
+				#args = [theArg],
+			#})
+		#
+		#mainAnimationLibrary.add_animation(oneshotID, newAnim)
 	
 	mainAnimPlayer.add_animation_library("main", mainAnimationLibrary)
 	
@@ -337,48 +430,154 @@ func updateAnimTreeFor(seatID:String):
 		
 		var currentStateName:String = "statemachine"
 		
-		for oneshotID in oneShots:
-			if(isMain):
-				var oneshotAnimName:String = "main/"+oneshotID
-				if(true):
-					var animNode := AnimationNodeAnimation.new()
-					animNode.animation = oneshotAnimName
-					finalBlendTree.add_node(oneshotID+"_anim", animNode)
-				var oneshotNode := AnimationNodeOneShot.new()
-				oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-				finalBlendTree.add_node(oneshotID, oneshotNode)
-				finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-				finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
-			else:
-				var oneshotData:Dictionary = oneShots[oneshotID]
-				var oneshotAnimName:String = oneshotData["anims"][seatID]
-				var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
-				#var _settings:Dictionary = oneshotData["settings"]
-				
-				if(true):
-					var animNode := AnimationNodeAnimation.new()
-					animNode.animation = oneshotAnimName
-					finalBlendTree.add_node(oneshotID+"_anim", animNode)
-				if(true):
-					var animNode := AnimationNodeAnimation.new()
-					animNode.animation = oneshotBaseAnimName
-					finalBlendTree.add_node(oneshotID+"_base", animNode)
-				
-				var subNode := AnimationNodeSub2.new()
-				finalBlendTree.add_node(oneshotID+"_sub", subNode)
-				finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
-				finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
-				#finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
-				
-				var oneshotNode := AnimationNodeOneShot.new()
-				oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-				finalBlendTree.add_node(oneshotID, oneshotNode)
-				
-				finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-				finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
-				
-			currentStateName = oneshotID
+		for extraLayer in extraLayers:
+			var layerType:int = extraLayer["type"]
+			var layerID:String = extraLayer["id"]
 			
+			if(layerType == LAYER_ADD3):
+				if(isMain):
+					var theAnimName:String = "main/"+layerID
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = theAnimName
+						finalBlendTree.add_node(layerID+"_animPlus", animNode)
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = theAnimName
+						finalBlendTree.add_node(layerID+"_animMinus", animNode)
+					var theAdd3Node := AnimationNodeAdd3.new()
+					finalBlendTree.add_node(layerID, theAdd3Node)
+					finalBlendTree.connect_node(layerID, 1, currentStateName)
+					finalBlendTree.connect_node(layerID, 0, layerID+"_animPlus")
+					finalBlendTree.connect_node(layerID, 2, layerID+"_animMinus")
+				else:
+					var add3AnimNamePlus:String = extraLayer["animsPlus"][seatID]
+					var add3AnimNameMinus:String = extraLayer["animsMinus"][seatID]
+					var add3BaseAnimName:String = extraLayer["baseAnims"][seatID]
+					
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = add3AnimNamePlus
+						finalBlendTree.add_node(layerID+"_animPlus", animNode)
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = add3AnimNameMinus
+						finalBlendTree.add_node(layerID+"_animMinus", animNode)
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = add3BaseAnimName
+						finalBlendTree.add_node(layerID+"_basePlus", animNode)
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = add3BaseAnimName
+						finalBlendTree.add_node(layerID+"_baseMinus", animNode)
+					
+					if(true):
+						var subNode := AnimationNodeSub2.new()
+						finalBlendTree.add_node(layerID+"_subPlus", subNode)
+						finalBlendTree.connect_node(layerID+"_subPlus", 0, layerID+"_animPlus")
+						finalBlendTree.connect_node(layerID+"_subPlus", 1, layerID+"_basePlus")
+					if(true):
+						var subNode := AnimationNodeSub2.new()
+						finalBlendTree.add_node(layerID+"_subMinus", subNode)
+						finalBlendTree.connect_node(layerID+"_subMinus", 0, layerID+"_animMinus")
+						finalBlendTree.connect_node(layerID+"_subMinus", 1, layerID+"_baseMinus")
+			
+					var add3Node := AnimationNodeAdd3.new()
+					finalBlendTree.add_node(layerID, add3Node)
+					
+					finalBlendTree.connect_node(layerID, 2, layerID+"_subPlus")
+					finalBlendTree.connect_node(layerID, 1, currentStateName)
+					finalBlendTree.connect_node(layerID, 0, layerID+"_subMinus")
+					
+				currentStateName = layerID
+			
+			if(layerType == LAYER_ONESHOT):
+				var oneshotID:String = layerID
+				var oneshotData := extraLayer
+				
+				if(isMain):
+					var oneshotAnimName:String = "main/"+oneshotID
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = oneshotAnimName
+						finalBlendTree.add_node(oneshotID+"_anim", animNode)
+					var oneshotNode := AnimationNodeOneShot.new()
+					oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+					finalBlendTree.add_node(oneshotID, oneshotNode)
+					finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+					finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
+				else:
+					#var oneshotData:Dictionary = oneShots[oneshotID]
+					var oneshotAnimName:String = oneshotData["anims"][seatID]
+					var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
+					#var _settings:Dictionary = oneshotData["settings"]
+					
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = oneshotAnimName
+						finalBlendTree.add_node(oneshotID+"_anim", animNode)
+					if(true):
+						var animNode := AnimationNodeAnimation.new()
+						animNode.animation = oneshotBaseAnimName
+						finalBlendTree.add_node(oneshotID+"_base", animNode)
+					
+					var subNode := AnimationNodeSub2.new()
+					finalBlendTree.add_node(oneshotID+"_sub", subNode)
+					finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
+					finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
+					#finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
+					
+					var oneshotNode := AnimationNodeOneShot.new()
+					oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+					finalBlendTree.add_node(oneshotID, oneshotNode)
+					
+					finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+					finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
+					
+				currentStateName = oneshotID
+				
+		#for oneshotID in oneShots:
+			#if(isMain):
+				#var oneshotAnimName:String = "main/"+oneshotID
+				#if(true):
+					#var animNode := AnimationNodeAnimation.new()
+					#animNode.animation = oneshotAnimName
+					#finalBlendTree.add_node(oneshotID+"_anim", animNode)
+				#var oneshotNode := AnimationNodeOneShot.new()
+				#oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+				#finalBlendTree.add_node(oneshotID, oneshotNode)
+				#finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+				#finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
+			#else:
+				#var oneshotData:Dictionary = oneShots[oneshotID]
+				#var oneshotAnimName:String = oneshotData["anims"][seatID]
+				#var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
+				##var _settings:Dictionary = oneshotData["settings"]
+				#
+				#if(true):
+					#var animNode := AnimationNodeAnimation.new()
+					#animNode.animation = oneshotAnimName
+					#finalBlendTree.add_node(oneshotID+"_anim", animNode)
+				#if(true):
+					#var animNode := AnimationNodeAnimation.new()
+					#animNode.animation = oneshotBaseAnimName
+					#finalBlendTree.add_node(oneshotID+"_base", animNode)
+				#
+				#var subNode := AnimationNodeSub2.new()
+				#finalBlendTree.add_node(oneshotID+"_sub", subNode)
+				#finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
+				#finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
+				##finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
+				#
+				#var oneshotNode := AnimationNodeOneShot.new()
+				#oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
+				#finalBlendTree.add_node(oneshotID, oneshotNode)
+				#
+				#finalBlendTree.connect_node(oneshotID, 0, currentStateName)
+				#finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
+				#
+			#currentStateName = oneshotID
 			
 		finalBlendTree.connect_node("output", 0, currentStateName)
 		
@@ -395,17 +594,29 @@ func updateAnimTreeFor(seatID:String):
 		
 		if(supportsCache):
 			GlobalRegistry.dollAnimTreeCache[cacheKey] = finalFinalBlendTree
+			GlobalRegistry.dollAnimTreeLayerCache[cacheKey] = extraLayersByID
 		
 		#animTree.tree_root = theStateMachine
 		animTree.tree_root = finalFinalBlendTree
 	else:
 		#print("REUSED ANIM TREE FOR CACHE KEY: "+str(cacheKey))
 		animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
+		extraLayersByID = GlobalRegistry.dollAnimTreeLayerCache[cacheKey]
 	
 	if(!isMain):
 		animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
-		for oneshotID in oneShots:
-			animTree["parameters/blendtree/"+oneshotID+"_sub/sub_amount"] = 1.0
+		for extraLayer in extraLayers:
+			var layerType:int = extraLayer["type"]
+			var layerID:String = extraLayer["id"]
+			
+			if(layerType == LAYER_ONESHOT):
+				var oneshotID:String = layerID
+				animTree["parameters/blendtree/"+oneshotID+"_sub/sub_amount"] = 1.0
+			elif(layerType == LAYER_ADD3):
+				animTree["parameters/blendtree/"+layerID+"_subPlus/sub_amount"] = 1.0
+				animTree["parameters/blendtree/"+layerID+"_subMinus/sub_amount"] = 1.0
+		#for oneshotID in oneShots:
+		#	animTree["parameters/blendtree/"+oneshotID+"_sub/sub_amount"] = 1.0
 		
 	for stateID in states:
 		var stateInfo:Dictionary = states[stateID]
@@ -539,9 +750,16 @@ func updatePenisTargetFor(sitterID:String):
 				else:
 					ourDoll.alignPenisToAnus(otherDoll)
 				foundPenisTarget = true
+		elif(targetType == PENISTARGET_PENIS_GUIDE):
+			var ourDoll:Doll = sitDoll.getDoll()
+			if(ourDoll):
+				ourDoll.alignPenisToPenisGuide()
+				foundPenisTarget = true
+		
 	if(!foundPenisTarget):
 		var ourDoll:Doll = sitDoll.getDoll()
-		ourDoll.alignPenisToAnus(null)
+		if(ourDoll):
+			ourDoll.alignPenisToAnus(null)
 
 func setStateSpeedTween(theSpeed:float, theState:String):
 	setStateSpeed(theState, theSpeed)
@@ -582,6 +800,7 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 	if(setToState):
 		updateAnim()
 		onPlayState(newState, theAnimArgs)
+		updateAnimWhenDollsChange()
 		return
 	for sitterID in sitters:
 		var theSpot := getSpot(sitterID)
@@ -596,6 +815,7 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 	mainAnimTreePlayback.travel(newState)
 	onPlayState(newState, theAnimArgs)
 	doCharChecksAfterPlay()
+	updateAnimWhenDollsChange()
 
 func getRoleByCharID(_charID:String) -> String:
 	for roleID in sitters:
@@ -619,8 +839,32 @@ func getSexHideTagsFor(_charID:String) -> Array:
 # Maybe this isn't needed?
 func onPlayState(_state:String, _args:Dictionary):
 	onAnimPlay.emit(state)
-	
+
+# Should be used for changing stuff that depends on the doll's values or items
+func updateAnimWhenDollsChange():
+	pass
+
+func getExtraLayerType(_id:String) -> int:
+	if(!extraLayersByID.has(_id)):
+		return -1
+	return extraLayersByID[_id]["type"]
+
+func setAdd3Value(_id:String, _val:float):
+	if(getExtraLayerType(_id) != LAYER_ADD3):
+		Log.Printerr("BAD ID FOR ADD 3: "+str(_id))
+		return
+	for sitterID in sitters:
+		var sitterInfo:Dictionary = sitters[sitterID]
+		var animTree:AnimationTree = sitterInfo["tree"]
+
+		animTree["parameters/blendtree/"+_id+"/add_amount"] = _val
+	mainAnimTree["parameters/blendtree/"+_id+"/add_amount"] = _val
+
 func playOneShot(oneshotID:String):
+	if(getExtraLayerType(oneshotID) != LAYER_ONESHOT):
+		Log.Printerr("BAD ID FOR ONE SHOT: "+str(oneshotID))
+		return
+	
 	for sitterID in sitters:
 		var sitterInfo:Dictionary = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo["tree"]
@@ -631,6 +875,15 @@ func playOneShot(oneshotID:String):
 
 func onOneShot(_oneshotID:String):
 	pass
+
+func getDollPenisGirth(_sitterID:String) -> float:
+	var theDoll := getSitterDoll(_sitterID)
+	if(!theDoll):
+		return 1.0
+	var theActualDoll:Doll = theDoll.getDoll()
+	if(theActualDoll):
+		return theActualDoll.getPenisGirth()
+	return 1.0
 
 func getAverageBodyPos(_calcMaxY:bool = true) -> Vector3:
 	var poses:Array[Vector3] = []

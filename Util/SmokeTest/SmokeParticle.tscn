@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d10pkolamasx8"]
+
+[ext_resource type="Texture2D" uid="uid://e0svp86t5pux" path="res://Util/SmokeTest/Smoke15Frames.png" id="1_id7qr"]
+[ext_resource type="Script" uid="uid://b2iu7vke5mmhh" path="res://Util/SmokeTest/smoke_particle.gd" id="2_8y6ll"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_8y6ll"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw1pt"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("1_id7qr")
+billboard_mode = 3
+particles_anim_h_frames = 5
+particles_anim_v_frames = 3
+particles_anim_loop = true
+
+[node name="SmokeParticle" type="MeshInstance3D" unique_id=418940665]
+mesh = SubResource("QuadMesh_8y6ll")
+surface_material_override/0 = SubResource("StandardMaterial3D_jw1pt")
+script = ExtResource("2_8y6ll")

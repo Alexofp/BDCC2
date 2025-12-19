@@ -213,3 +213,9 @@ func getShouldersWidth() -> float:
 
 func getBreastsWigglePhysics() -> float:
 	return 0.0
+
+func supportsPenisGirth() -> bool:
+	return false
+
+func getPenisGirth() -> float:
+	return 1.0

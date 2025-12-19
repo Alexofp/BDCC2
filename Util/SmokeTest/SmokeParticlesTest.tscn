@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b3msb1pg56vy7"]
+
+[ext_resource type="Texture2D" uid="uid://e0svp86t5pux" path="res://Util/SmokeTest/Smoke15Frames.png" id="1_yemjv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktc1g"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 1, 1, 0.13333334)
+albedo_texture = ExtResource("1_yemjv")
+billboard_mode = 3
+particles_anim_h_frames = 5
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_xtmoe"]
+_data = [Vector2(0.03525641, 0), 0.0, 0.0, 0, 0, Vector2(0.32371795, 0.9161291), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vnjed"]
+curve = SubResource("Curve_xtmoe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rd3ts"]
+emission_shape_scale = Vector3(3.815, 0.485, 2.87)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_vnjed")
+
+[sub_resource type="QuadMesh" id="QuadMesh_2jo6k"]
+size = Vector2(2, 2)
+
+[node name="SmokeParticlesTest" type="GPUParticles3D" unique_id=1540941390]
+material_override = SubResource("StandardMaterial3D_ktc1g")
+amount = 55
+lifetime = 10.0
+process_material = SubResource("ParticleProcessMaterial_rd3ts")
+draw_pass_1 = SubResource("QuadMesh_2jo6k")

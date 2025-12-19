@@ -1,16 +1,37 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdek8rbgs0c0b"]
+[gd_scene format=3 uid="uid://bdek8rbgs0c0b"]
 
 [ext_resource type="Script" uid="uid://it52bin8p6ms" path="res://Mesh/Clothing/StraponHarness/strapon_harness_human.gd" id="1_7vug8"]
 [ext_resource type="PackedScene" uid="uid://0bngjja4vlh2" path="res://Mesh/Clothing/StraponHarness/StraponHarness.glb" id="1_51vhb"]
 [ext_resource type="PackedScene" uid="uid://mwfkv3uynts6" path="res://Mesh/Clothing/StraponHarness/StraponHuman.glb" id="2_4b6sp"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_7vug8"]
 [ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_7vug8"]
-[ext_resource type="Material" uid="uid://caw1jetfbejfr" path="res://Mesh/Clothing/StraponHarness/StraponMat.tres" id="6_0j2gv"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_1mgn7"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="6_gy8hh"]
+[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Materials/Shaders/Clothes/Strapon.gdshader" id="7_ouxew"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_wsewm"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="8_socsx"]
 [ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="9_0j2gv"]
 [ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="10_gy8hh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gy8hh"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("7_ouxew")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.374000017765
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/clearcoat = 0.999999977648
+shader_parameter/clearcoat_roughness = 0.07999999821184
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+script = ExtResource("6_gy8hh")
+normalMap = 1
+clearcoat = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_lh7kc"]
 script = ExtResource("7_wsewm")
@@ -39,7 +60,7 @@ script = ExtResource("3_7vug8")
 attachPoint = "body"
 skeletonMeshes = [NodePath("rig/Skeleton3D/StraponHarness")]
 
-[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 1167882742) index="0" unique_id=2022128696]
+[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 916390585) index="0" unique_id=1116093445]
 surface_material_override/0 = ExtResource("4_7vug8")
 
 [node name="StraponBasic" parent="." unique_id=1755005206 instance=ExtResource("2_4b6sp")]
@@ -50,7 +71,7 @@ script = ExtResource("3_7vug8")
 attachPoint = "strapon"
 
 [node name="HumanDildo" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="0" unique_id=684812650]
-surface_material_override/0 = ExtResource("6_0j2gv")
+surface_material_override/0 = SubResource("ShaderMaterial_gy8hh")
 
 [node name="Wiggle1" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="1" unique_id=1659369926]
 unique_name_in_owner = false
@@ -193,8 +214,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0028793216, 0.010140493
 curve = SubResource("Curve3D_socsx")
 script = ExtResource("8_socsx")
 shaftNode = NodePath("../ShaftNode")
-blendDistance = 1.225
-straightness = 0.41
 
 [node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="9" unique_id=2126508561]
 unique_name_in_owner = true
@@ -238,7 +257,7 @@ active = false
 influence = 1.0
 script = ExtResource("10_gy8hh")
 bone = "penis.006"
-chainLength = 6
+chainLength = 7
 targetPath = NodePath("../GuidePath")
 thicknessCurve = SubResource("Curve_0j2gv")
 metadata/_custom_type_script = "uid://ddp3batfh4dqr"

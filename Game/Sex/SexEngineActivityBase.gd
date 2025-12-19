@@ -606,6 +606,8 @@ func zoneLewdName(_role:String, _zone:int) -> String:
 		return "pussy"
 	if(_zone == ZoneCover.Anus):
 		return "anus"
+	if(_zone == ZoneCover.Penis):
+		return "cock"
 	return "ERROR"
 
 func doHitAnimationRandom(_role:String, _strength:float):

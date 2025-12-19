@@ -70,19 +70,94 @@ func setupScene() -> void:
 		},
 	})
 	
+	addState("strokeTease", {
+		dom = "soloSex/StrokeTease_1",
+	}, {
+		CONF_BASESPEED: 1.0,
+	})
+	addState("strokeSlow", {
+		dom = "soloSex/StrokeSlow_1",
+	}, {
+		CONF_BASESPEED: 1.0,
+		CONF_ANIMEVENTS: [
+			animEventOnFrame(26, "moanStroke"),
+		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+		},
+	})
+	addState("stroke", {
+		dom = "soloSex/Stroke_1",
+	}, {
+		CONF_BASESPEED: 1.0,
+		CONF_ANIMEVENTS: [
+			animEventOnFrame(17, "moanStroke"),
+		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+		},
+	})
+	addState("strokeFast", {
+		dom = "soloSex/StrokeFast_1",
+	}, {
+		CONF_BASESPEED: 1.0,
+		CONF_ANIMEVENTS: [
+			animEventOnFrame(13, "moanStroke"),
+		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+		},
+	})
+	addState("strokeOrgasm", {
+		dom = "soloSex/StrokeOrgasm_1",
+	}, {
+		CONF_BASESPEED: 1.0,
+		CONF_ANIMEVENTS: [
+			animEventOnFrame(1, "shootcum"),
+			animEventOnFrame(7, "orgasm"),
+			animEventOnFrame(33, "shootcum"),
+			animEventOnFrame(55, "shootcum"),
+			animEventOnFrame(88, "shootcum"),
+		],
+		CONF_HIDETAGS: {
+			dom = [SexHideTag.ArmRestraint],
+		},
+	})
+	
+	addAdd3Layer("penisGirth", {
+		dom = "soloSex/StrokeHandBig_1",
+	}, {
+		dom = "soloSex/StrokeHandSmall_1",
+	}, {
+		dom = "soloSex/StrokeHandNormal_1",
+	})
+	
 	setStartState("start")
 	connectStates("start", "rubTease", 0.6)
 	connectStates("rubTease", "rubSlow", 0.6)
 	connectStates("rubSlow", "rub", 0.7)
 	connectStates("rub", "rubFast", 0.5)
+	connectStates("rubFast", "rubTease", 0.8, true)
+	connectStates("rub", "rubTease", 0.8, true)
 	
 	connectStates("rubSlow", "rubOrgasm", 0.3)
 	connectStates("rub", "rubOrgasm", 0.3)
 	connectStates("rubFast", "rubOrgasm", 0.3)
 	
-	
 	connectStates("rubOrgasm", "rubTease", 1.5, true, true)
 	
+	
+	connectStates("start", "strokeTease", 0.6)
+	connectStates("strokeTease", "strokeSlow", 0.6)
+	connectStates("strokeSlow", "stroke", 0.7)
+	connectStates("stroke", "strokeFast", 0.5)
+	connectStates("strokeFast", "strokeTease", 0.8, true)
+	connectStates("stroke", "strokeTease", 0.8, true)
+	
+	connectStates("strokeSlow", "strokeOrgasm", 0.3)
+	connectStates("stroke", "strokeOrgasm", 0.3)
+	connectStates("strokeFast", "strokeOrgasm", 0.3)
+	connectStates("strokeOrgasm", "strokeTease", 1.5, true, true)
 	
 	updateAllAnimTrees()
 
@@ -100,3 +175,29 @@ func onAnimationEvent(_eventID:String):
 			doMoan("dom", SexSoundSpeed.Slow, SexSoundMouth.Opened if RNG.chance(95) else SexSoundMouth.Closed, 2)
 		elif(getState() == "rubSlow"):
 			doMoan("dom", SexSoundSpeed.Slow, SexSoundMouth.Opened if RNG.chance(25) else SexSoundMouth.Closed, 2)
+	
+	if(_eventID == "moanStroke"):
+		if(getState() in ["strokeFast", "strokeOrgasm"]):
+			doMoan("dom", SexSoundSpeed.Medium, SexSoundMouth.Opened if RNG.chance(95) else SexSoundMouth.Closed, 2)
+		elif(getState() == "stroke"):
+			doMoan("dom", SexSoundSpeed.Slow, SexSoundMouth.Opened if RNG.chance(95) else SexSoundMouth.Closed, 3)
+		elif(getState() == "strokeSlow"):
+			doMoan("dom", SexSoundSpeed.Slow, SexSoundMouth.Opened if RNG.chance(25) else SexSoundMouth.Closed, 3)
+	
+	if(_eventID == "shootcum"):
+		doCumOutsideEffect("dom")
+	
+func onPlayState(_state:String, _args:Dictionary):
+	super.onPlayState(_state, _args)
+	if(_state in ["stroke", "strokeTease", "strokeFast", "strokeSlow", "strokeOrgasm"]):
+		alignPenisToPenisGuides("dom")
+	else:
+		alignPenisReset("dom")
+
+func updateAnimWhenDollsChange():
+	if(getState() in ["stroke", "strokeTease", "strokeFast", "strokeSlow", "strokeOrgasm"]):
+		var theGirth:float = (getDollPenisGirth("dom")-1.0)
+		theGirth *= 2.0
+		setAdd3Value("penisGirth", clamp(theGirth, -1.0, 1.0))
+	else:
+		setAdd3Value("penisGirth", 0.0)

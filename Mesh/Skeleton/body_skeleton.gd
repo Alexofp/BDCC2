@@ -22,6 +22,11 @@ class_name BodySkeleton
 	]
 var currentSquirtParticlesIndx:int = 0
 
+@onready var penis_guide_1_attach: BoneAttachment3D = %PenisGuide1Attach
+@onready var penis_guide_2_attach: BoneAttachment3D = %PenisGuide2Attach
+@onready var pp_guide_1: Marker3D = %PPGuide1
+@onready var pp_guide_2: Marker3D = %PPGuide2
+
 func getVaginaHoleNode() -> DollOpenableHole:
 	return vagina_hole
 
@@ -71,3 +76,9 @@ func setShoulderWidthInfluence(_f:float):
 
 func getShoulderWidthInfluence() -> float:
 	return arm_move_l.influence
+
+func getPenisGuide1() -> Node3D:
+	return pp_guide_1
+
+func getPenisGuide2() -> Node3D:
+	return pp_guide_2

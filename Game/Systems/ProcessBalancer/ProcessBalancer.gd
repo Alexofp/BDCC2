@@ -22,6 +22,10 @@ func _process(_delta: float) -> void:
 	for wiggleMod in wiggleModifiers:
 		var theDist:float = wiggleMod.global_position.distance_squared_to(camera.global_position)
 		wiggleMod.manualTurnOff = (theDist > 30.0)
+		
+		#TODO: Do the influence calculation here
+		#wiggleMod.active = (wiggleMod.influence > 0.0 && wiggleMod.is_visible_in_tree())
+		wiggleMod.active = wiggleMod.is_visible_in_tree()
 	
 	for animTree in animTrees:
 		var animNode = animTree.get_parent()

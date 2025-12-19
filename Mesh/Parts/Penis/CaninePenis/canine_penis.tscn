@@ -1,18 +1,27 @@
-[gd_scene load_steps=28 format=3 uid="uid://cvdqmlho1jwut"]
+[gd_scene format=3 uid="uid://cvdqmlho1jwut"]
 
 [ext_resource type="PackedScene" uid="uid://dy0oeh56twjk1" path="res://Mesh/Parts/Penis/CaninePenis/CaninePenis.glb" id="1_4oe3s"]
 [ext_resource type="Script" uid="uid://c7jyatc2ye3fo" path="res://Mesh/Parts/Penis/CaninePenis/canine_penis.gd" id="2_vlnjl"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_hkkiv"]
-[ext_resource type="Material" uid="uid://dqf0xlat51vbv" path="res://Mesh/Parts/Penis/CaninePenis/ShaftMat.tres" id="4_hkkiv"]
-[ext_resource type="Material" uid="uid://1qayfq46npmg" path="res://Mesh/Parts/Penis/CaninePenis/PenisBallsFurMat.tres" id="4_vlnjl"]
-[ext_resource type="Material" uid="uid://4muecpokhus3" path="res://Mesh/Parts/Penis/CaninePenis/TuftMat.tres" id="5_5uh76"]
+[ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="6_5tsio"]
 [ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="6_6kaci"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="7_5tsio"]
 [ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="8_nabfd"]
+[ext_resource type="Shader" uid="uid://3dh0xlj13bv7" path="res://Mesh/Materials/Shaders/Doll/PenisBallsFur.gdshader" id="8_t3j7p"]
+[ext_resource type="Texture2D" uid="uid://dm8j5i1ll266u" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_BaseColor.png" id="9_s1t7w"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="9_vlnjl"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="10_nabfd"]
+[ext_resource type="Texture2D" uid="uid://dhr7tu8qw8rfx" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_Normal.png" id="10_qqukv"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="10_vlnjl"]
+[ext_resource type="Texture2D" uid="uid://r220yg3ohbir" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_ORM.png" id="11_31bym"]
+[ext_resource type="Shader" uid="uid://bkhc1v6gqts37" path="res://Mesh/Materials/Shaders/Doll/PenisCanineTuft.gdshader" id="12_3iwr3"]
 [ext_resource type="PackedScene" uid="uid://dek5xh0as01c2" path="res://Game/Doll/Particles/squirt_particles.tscn" id="12_5uh76"]
 [ext_resource type="PackedScene" uid="uid://b11j3m713s4da" path="res://Mesh/Parts/Util/Penis/penis_handler.tscn" id="13_6kaci"]
+[ext_resource type="Shader" uid="uid://cfqmax5hb1sa5" path="res://Mesh/Materials/Shaders/Doll/PenisCanineShaft.gdshader" id="15_b1l85"]
+[ext_resource type="Texture2D" uid="uid://3spdlv5y3gk5" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Penis_BaseColor.png" id="16_3hxya"]
+[ext_resource type="Texture2D" uid="uid://bl85fywgk1jgq" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Penis_Normal.png" id="17_2xpqp"]
+[ext_resource type="Texture2D" uid="uid://6bg2a0rnh0fx" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Penis_ORM.png" id="18_taqct"]
+[ext_resource type="PackedScene" uid="uid://dee8o1kt4bhsi" path="res://Mesh/Util/SimpleChain.tscn" id="20_nd1mr"]
 
 [sub_resource type="Curve3D" id="Curve3D_nabfd"]
 bake_interval = 0.01
@@ -24,9 +33,73 @@ point_count = 3
 
 [sub_resource type="TorusMesh" id="TorusMesh_5uh76"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tsio"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_5tsio")
+shader_parameter/twirl_aspect = 0.5
+shader_parameter/extra_angle = 0.0
+shader_parameter/line_width = 0.027
+shader_parameter/link_radius = 0.15
+shader_parameter/link_thickness = 0.05
+shader_parameter/repeat_size = 1.0
+shader_parameter/repeat_size_b = 0.1
+shader_parameter/roughness = 0.25
+shader_parameter/metallic = 1.0
+shader_parameter/color = Color(0.9, 0.9, 0.9, 1)
+
 [sub_resource type="Curve" id="Curve_5uh76"]
 _data = [Vector2(0, 0), 0.0, 5.14359, 0, 1, Vector2(0.112211, 0.577168), 0.0, 0.0, 0, 0, Vector2(0.181518, 0.535714), -0.33495, -0.33495, 0, 0, Vector2(0.267327, 0.495989), 0.0, 0.0, 0, 0, Vector2(0.442244, 0.47861), 0.0, 0.0, 0, 0, Vector2(0.617162, 0.504679), 1.59577, 1.59577, 0, 0, Vector2(0.867987, 0.878342), 0.0, 0.0, 0, 0, Vector2(1, 0.643717), -1.77729, 0.0, 1, 0]
 point_count = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3j7p"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_t3j7p")
+shader_parameter/texture_albedo = ExtResource("9_s1t7w")
+shader_parameter/texture_normal = ExtResource("10_qqukv")
+shader_parameter/texture_orm = ExtResource("11_31bym")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
+script = ExtResource("7_5tsio")
+normalMap = 1
+pbrSetup = 3
+backlight = true
+outline = true
+uvBasedDiscard = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1t7w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_3iwr3")
+shader_parameter/albedo = Color(0.59, 0.4602, 0.3304, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.558
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.75
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
+script = ExtResource("7_5tsio")
+freshnel = true
+rimlight = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_5uh76"]
 script = ExtResource("10_nabfd")
@@ -45,10 +118,44 @@ swing_span = 0.349066
 gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqukv"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("15_b1l85")
+shader_parameter/texture_albedo = ExtResource("16_3hxya")
+shader_parameter/texture_normal = ExtResource("17_2xpqp")
+shader_parameter/texture_orm = ExtResource("18_taqct")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("7_5tsio")
+normalMap = 1
+pbrSetup = 3
+subsurfaceScattering = 1
+freshnel = true
+rimlight = true
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kaci"]
 use_particle_trails = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_im0a1"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_31bym"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 3.057
@@ -66,7 +173,7 @@ radius = 0.01
 section_length = 0.1
 curve = SubResource("Curve_6kaci")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6kaci"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3iwr3"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 3.057
@@ -75,7 +182,7 @@ initial_velocity_max = 3.0
 collision_mode = 2
 collision_use_scale = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mor6m"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b1l85"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 3.057
@@ -84,7 +191,7 @@ initial_velocity_max = 3.0
 collision_mode = 2
 collision_use_scale = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5uh76"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3hxya"]
 resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 0.05
@@ -94,7 +201,7 @@ flatness = 1.0
 initial_velocity_min = 1.0
 initial_velocity_max = 4.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a6gdu"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2xpqp"]
 resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 0.05
@@ -104,7 +211,7 @@ flatness = 1.0
 initial_velocity_min = 1.0
 initial_velocity_max = 4.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w0gqb"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_taqct"]
 resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 0.05
@@ -134,8 +241,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029868, 0.082137)
 curve = SubResource("Curve3D_nabfd")
 script = ExtResource("10_vlnjl")
 shaftNode = NodePath("../ShaftNode")
-blendDistance = 1.225
-straightness = 0.41
 
 [node name="PathFollow3D2" type="PathFollow3D" parent="CaninePenisRig/Skeleton3D/GuidePath" index="0" unique_id=543318392]
 transform = Transform3D(-0.999826, 0, -8.740975e-08, 0, 0.999858, 0, 8.7407564e-08, 0, -0.999851, 0, 0, 0.5826362)
@@ -145,6 +250,11 @@ progress = 0.582639
 transform = Transform3D(0.0615661, 5.2878e-09, 5.47513e-09, -5.47513e-09, -3.72529e-09, 0.0615661, 5.2878e-09, -0.0615661, -3.72529e-09, 0, 0, 0)
 visible = false
 mesh = SubResource("TorusMesh_5uh76")
+
+[node name="DebugLine" parent="CaninePenisRig/Skeleton3D/GuidePath" index="1" unique_id=1778020447 instance=ExtResource("20_nd1mr")]
+visible = false
+curve = SubResource("Curve3D_nabfd")
+material = SubResource("ShaderMaterial_5tsio")
 
 [node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="2" unique_id=1351944422]
 unique_name_in_owner = true
@@ -194,10 +304,10 @@ thicknessCurve = SubResource("Curve_5uh76")
 metadata/_custom_type_script = "uid://ddp3batfh4dqr"
 
 [node name="Balls" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="4" unique_id=1779178530]
-surface_material_override/0 = ExtResource("4_vlnjl")
+surface_material_override/0 = SubResource("ShaderMaterial_t3j7p")
 
 [node name="FurPath_001" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="5" unique_id=120798344]
-surface_material_override/0 = ExtResource("5_5uh76")
+surface_material_override/0 = SubResource("ShaderMaterial_s1t7w")
 
 [node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="6" unique_id=240060054]
 unique_name_in_owner = false
@@ -230,7 +340,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, 6.3948846e-14, 1.192093e-06, 1.1909558e-06, -0.043670114, 0.999046, 5.20589e-08, 0.999046, 0.043670114, 1.5135965e-15, 0.027374681, 0.10353082)
+transform = Transform3D(-1, 6.039613e-14, 1.192093e-06, 1.1910508e-06, -0.041806165, 0.9991257, 4.98369e-08, 0.9991257, 0.041806165, 1.5135965e-15, 0.027374681, 0.10353082)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -252,7 +362,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -7.460699e-14, 1.192093e-06, 1.1874096e-06, -0.08855604, 0.9960712, 1.0556696e-07, 0.9960712, 0.08855604, 4.3525584e-15, 0.025364723, 0.14951286)
+transform = Transform3D(-1, 7.1054274e-15, 1.192093e-06, 1.1877921e-06, -0.0848694, 0.9963921, 1.01172226e-07, 0.9963921, 0.0848694, 4.1890413e-15, 0.025450513, 0.14951652)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -274,7 +384,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -2.4868996e-14, 1.192093e-06, 1.1814068e-06, -0.13359769, 0.9910357, 1.5926085e-07, 0.9910357, 0.13359769, 8.1436077e-16, 0.021288851, 0.19535793)
+transform = Transform3D(-1, 3.1619152e-13, 1.192093e-06, 1.1823037e-06, -0.12789224, 0.9917881, 1.5245976e-07, 0.9917881, 0.12789224, 4.411731e-15, 0.021544322, 0.19537637)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -296,7 +406,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -6.039613e-14, 1.192093e-06, 1.1731014e-06, -0.17778936, 0.9840687, 2.1194141e-07, 0.9840687, 0.17778936, -4.3460265e-16, 0.015139889, 0.2409713)
+transform = Transform3D(-1, 4.2632564e-14, 1.192093e-06, 1.1745894e-06, -0.17073578, 0.9853169, 2.0353299e-07, 0.9853169, 0.17073578, 1.8860405e-14, 0.01565796, 0.24102437)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -318,7 +428,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -4.973799e-14, 1.192093e-06, 1.16276e-06, -0.220471, 0.9753937, 2.628219e-07, 0.9753937, 0.220471, -3.3187367e-15, 0.006956963, 0.286264)
+transform = Transform3D(-1, 1.4210855e-13, 1.192093e-06, 1.1646885e-06, -0.21318726, 0.9770114, 2.541392e-07, 0.9770114, 0.21318726, 2.0718267e-14, 0.0077996813, 0.28637454)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -340,7 +450,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -8.1712415e-14, 1.192093e-06, 1.1506775e-06, -0.26129848, 0.9652582, 3.1149204e-07, 0.9652582, 0.26129848, -5.7123165e-15, -0.0031904131, 0.3311574)
+transform = Transform3D(-1, 1.7053026e-13, 1.192093e-06, 1.1527321e-06, -0.25484604, 0.96698165, 3.0380033e-07, 0.96698165, 0.25484604, 2.7154597e-14, -0.002012455, 0.33134237)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -362,7 +472,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-1, -4.2632564e-14, 1.192093e-06, 1.1371254e-06, -0.3001569, 0.95388997, 3.578149e-07, 0.95388997, 0.3001569, -9.577551e-15, -0.015216919, 0.3755843)
+transform = Transform3D(-1, 6.750156e-14, 1.192093e-06, 1.1389031e-06, -0.2953763, 0.955381, 3.5211607e-07, 0.955381, 0.2953763, 3.4899065e-14, -0.013741981, 0.3758486)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -376,10 +486,10 @@ properties = SubResource("Resource_vlnjl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="Shaft" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="14" unique_id=661682796]
-surface_material_override/0 = ExtResource("4_hkkiv")
+surface_material_override/0 = SubResource("ShaderMaterial_qqukv")
 
 [node name="TipCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="15" unique_id=669412364]
-transform = Transform3D(-1, -4.2632564e-14, 1.192093e-06, 1.1371254e-06, -0.3001569, 0.95388997, 3.578149e-07, 0.95388997, 0.3001569, -9.577551e-15, -0.015216919, 0.3755843)
+transform = Transform3D(-1, 6.750156e-14, 1.192093e-06, 1.1389031e-06, -0.2953763, 0.955381, 3.5211607e-07, 0.955381, 0.2953763, 3.4899065e-14, -0.013741981, 0.3758486)
 bone_name = "penis.006"
 bone_idx = 9
 
@@ -392,7 +502,7 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.75
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_im0a1")
+process_material = SubResource("ParticleProcessMaterial_31bym")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="CumParticlesForward2" parent="CaninePenisRig/Skeleton3D/TipCumAttach" index="1" unique_id=618618012 instance=ExtResource("12_5uh76")]
@@ -404,7 +514,7 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.75
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_6kaci")
+process_material = SubResource("ParticleProcessMaterial_3iwr3")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="CumParticlesForward3" parent="CaninePenisRig/Skeleton3D/TipCumAttach" index="2" unique_id=909901874 instance=ExtResource("12_5uh76")]
@@ -416,11 +526,11 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.75
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_mor6m")
+process_material = SubResource("ParticleProcessMaterial_b1l85")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="BackCumAttach" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1115842700) index="16" unique_id=1226043414]
-transform = Transform3D(-1, -6.039613e-14, 1.192093e-06, 1.1731014e-06, -0.17778936, 0.9840687, 2.1194141e-07, 0.9840687, 0.17778936, -4.3460265e-16, 0.015139889, 0.2409713)
+transform = Transform3D(-1, 4.2632564e-14, 1.192093e-06, 1.1745894e-06, -0.17073578, 0.9853169, 2.0353299e-07, 0.9853169, 0.17073578, 1.8860405e-14, 0.01565796, 0.24102437)
 bone_name = "penis.003"
 bone_idx = 6
 
@@ -433,7 +543,7 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.84
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_5uh76")
+process_material = SubResource("ParticleProcessMaterial_3hxya")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="CumParticlesBack2" parent="CaninePenisRig/Skeleton3D/BackCumAttach" index="1" unique_id=1665438529 instance=ExtResource("12_5uh76")]
@@ -445,7 +555,7 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.84
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_a6gdu")
+process_material = SubResource("ParticleProcessMaterial_2xpqp")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="CumParticlesBack3" parent="CaninePenisRig/Skeleton3D/BackCumAttach" index="2" unique_id=1453238907 instance=ExtResource("12_5uh76")]
@@ -457,7 +567,7 @@ lifetime = 2.0
 one_shot = false
 explosiveness = 0.84
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_w0gqb")
+process_material = SubResource("ParticleProcessMaterial_taqct")
 draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
 
 [node name="PenisHandler" parent="." index="1" unique_id=689451584 node_paths=PackedStringArray("forwardCumParticles", "insideCumParticles") instance=ExtResource("13_6kaci")]

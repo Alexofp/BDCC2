@@ -91,3 +91,9 @@ func setPenisTargets(holeNode:Node3D, insideNode:Node3D):
 	#for mod in jiggleModifiers:
 	#	mod.active = false
 	#follow_spline_skeleton_modifier.active = true
+
+func supportsPenisGirth() -> bool:
+	return true
+
+func getPenisGirth() -> float:
+	return 0.5

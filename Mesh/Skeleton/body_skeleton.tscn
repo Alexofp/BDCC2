@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c56fqxox0e0ia"]
+[gd_scene format=3 uid="uid://c56fqxox0e0ia"]
 
 [ext_resource type="PackedScene" uid="uid://dhympd3rdrxia" path="res://Mesh/Skeleton/BodySkeleton.glb" id="1_v7x4s"]
 [ext_resource type="Script" uid="uid://40s5d4yyawwa" path="res://Mesh/Skeleton/body_skeleton.gd" id="2_8p8i6"]
@@ -14,14 +14,14 @@ spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q8qd3"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i5c51"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i5c51"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ovfas"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -31,7 +31,7 @@ scale_max = 2.0
 [node name="BodySkeleton" unique_id=1570233952 instance=ExtResource("1_v7x4s")]
 script = ExtResource("2_8p8i6")
 
-[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1908881827) index="0" unique_id=867039682]
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(359703143) index="0" unique_id=1113311591]
 unique_name_in_owner = true
 
 [node name="ArmMoveL" type="SkeletonModifier3D" parent="rig/Skeleton3D" index="0" unique_id=579164549]
@@ -223,11 +223,11 @@ process_material = SubResource("ParticleProcessMaterial_a0xc8")
 
 [node name="SquirtParticles2" parent="rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="1" unique_id=180615130 instance=ExtResource("5_q8qd3")]
 unique_name_in_owner = true
-process_material = SubResource("ParticleProcessMaterial_q8qd3")
+process_material = SubResource("ParticleProcessMaterial_i5c51")
 
 [node name="SquirtParticles3" parent="rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2" unique_id=1339676236 instance=ExtResource("5_q8qd3")]
 unique_name_in_owner = true
-process_material = SubResource("ParticleProcessMaterial_i5c51")
+process_material = SubResource("ParticleProcessMaterial_ovfas")
 
 [node name="VaginaBoneAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="15" unique_id=294877745]
 transform = Transform3D(1, 3.2433728e-16, 2.3841856e-07, -4.2632564e-14, -1.0000002, 1.7881393e-07, 2.384186e-07, -1.7881393e-07, -1.0000001, 5.1500927e-19, 0.9383855, 0.016255796)
@@ -237,3 +237,23 @@ bone_idx = 75
 [node name="DollAttachPoint5" parent="rig/Skeleton3D/VaginaBoneAttach" index="0" unique_id=2088518263 instance=ExtResource("2_8r017")]
 transform = Transform3D(1, -8.742277e-08, -8.742278e-08, -8.742278e-08, -0.99999994, 0, -8.742278e-08, 7.642741e-15, -1, -7.687927e-09, 0.030728698, 0.03224551)
 pointName = "vagina"
+
+[node name="PenisGuide1Attach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="16" unique_id=18289277]
+unique_name_in_owner = true
+transform = Transform3D(-1, -7.10543e-15, 8.742279e-08, 8.7422805e-08, -4.4703484e-08, 1.0000001, -5.3290705e-15, 1, 0, -1.6024794e-16, 0.93155336, 0.29990837)
+bone_name = "penis_guide1"
+bone_idx = 76
+
+[node name="PPGuide1" type="Marker3D" parent="rig/Skeleton3D/PenisGuide1Attach" index="0" unique_id=538222476]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="PenisGuide2Attach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="17" unique_id=1822733779]
+unique_name_in_owner = true
+transform = Transform3D(-1, -3.5527166e-15, 8.74228e-08, 8.742281e-08, -5.9604645e-08, 1.0000001, -3.5527137e-15, 1.0000001, 0, -1.6025239e-16, 0.9315535, 1.6999948)
+bone_name = "penis_guide2"
+bone_idx = 77
+
+[node name="PPGuide2" type="Marker3D" parent="rig/Skeleton3D/PenisGuide2Attach" index="0" unique_id=1903733505]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)

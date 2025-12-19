@@ -575,6 +575,9 @@ func getAnusHoleNode() -> DollOpenableHole:
 func getAnusInsideNode() -> Node3D:
 	return body_skeleton.getAnusInsideNode()
 
+func alignPenisToPenisGuide():
+	setPenisTargets(body_skeleton.getPenisGuide1(), body_skeleton.getPenisGuide2())
+
 func alignPenisToVagina(otherDoll:Doll):
 	if(!otherDoll):
 		setPenisTargets(null, null)
@@ -918,3 +921,13 @@ func updateBodyStuff():
 	#breast_l_wiggle.active = (theBreastWiggle > 0.0)
 	#breast_r_wiggle.influence = theBreastWiggle
 	#breast_r_wiggle.active = (theBreastWiggle > 0.0)
+
+func getPenisGirth() -> float:
+	var theStrapon:DollPart = getDollPart(BaseCharacter.GENERIC_CLOTHING, InventorySlot.UnderwearBottom)
+	if(theStrapon && theStrapon.supportsPenisGirth()):
+		return theStrapon.getPenisGirth()
+	
+	var thePenis:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Penis)
+	if(thePenis && thePenis.supportsPenisGirth()):
+		return thePenis.getPenisGirth()
+	return 1.0

@@ -1,4 +1,4 @@
-[gd_resource type="Environment" load_steps=2 format=3 uid="uid://cfeg5fu5v0p4o"]
+[gd_resource type="Environment" format=3 uid="uid://cfeg5fu5v0p4o"]
 
 [ext_resource type="Sky" uid="uid://caai468y1nhrg" path="res://Mesh/Enviroment/SpaceSky.tres" id="1_kbo3f"]
 
@@ -20,8 +20,8 @@ fog_light_color = Color(0, 0, 0, 1)
 fog_density = 2.0
 fog_sky_affect = 0.0
 fog_depth_begin = 5.0
+volumetric_fog_density = 0.02
 volumetric_fog_anisotropy = 0.6
-volumetric_fog_length = 32.0
 volumetric_fog_ambient_inject = 0.5
 volumetric_fog_sky_affect = 0.4
 adjustment_enabled = true

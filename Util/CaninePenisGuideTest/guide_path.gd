@@ -5,7 +5,7 @@ extends Path3D
 @export var holeNode:Node3D
 @export var insideNode:Node3D
 
-@export var blendDistance:float = 1.0
+@export var blendDistance:float = 2.5
 @export var straightness:float = 0.5
 
 
@@ -25,6 +25,8 @@ func _process(_delta: float) -> void:
 	#holeNode.global_transform.basis.get_scale()
 	
 	var shaftToInsideDistance:float = holePos.distance_to(shaftPos)
+	var holeToInsideDistance:float = holePos.distance_to(insidePos)
+	#print(holeToInsideDistance)
 	var handleMult:float = 1.0
 	if(shaftToInsideDistance < blendDistance):
 		#handleMult *= max((shaftToInsideDistance-blendDistance/2.0)/(blendDistance/2.0), 0.0)
@@ -43,9 +45,11 @@ func _process(_delta: float) -> void:
 	curve.set_point_out(0, getLocalCurveHandlePos(shaftNode.global_transform, -straightness*handleMult)) #/max(shaftNode.global_basis.get_scale().x, 0.01)
 	
 	curve.set_point_in(1, getLocalCurveHandlePos(holeNode.global_transform, 0.2*handleMult))
+	#curve.set_point_out(1, getLocalCurveHandlePos(holeNode.global_transform, -0.2*handleMult))
 	curve.set_point_out(1, getLocalCurveHandlePos(holeNode.global_transform, -0.2*handleMult))
 	
-	curve.set_point_in(2, getLocalCurveHandlePos(insideNode.global_transform, 0.1))
+	var p2f:float = max(0.1, holeToInsideDistance*0.5)
+	curve.set_point_in(2, getLocalCurveHandlePos(insideNode.global_transform, p2f))
 
 func getLocalCurveHandlePos(theGlobalTransform:Transform3D, handlePos:float) -> Vector3:
 	return (global_transform.inverse() * theGlobalTransform).basis.get_rotation_quaternion() * Vector3.FORWARD*handlePos

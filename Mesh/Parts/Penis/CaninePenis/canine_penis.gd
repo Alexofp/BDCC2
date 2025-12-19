@@ -39,6 +39,7 @@ func doEnableSpline(_isEn:bool):
 	follow_spline_skeleton_modifier.active = _isEn
 	for mod in jiggleModifiers:
 		mod.active = !_isEn
+		mod.influenceActualMax = 1.0 if !_isEn else 0.0
 	if(!_isEn):
 		follow_spline_skeleton_modifier.holeNode = null
 		follow_spline_skeleton_modifier.insideNode = null
@@ -113,3 +114,9 @@ func applyPartFlags(_theFlags:Dictionary):
 		setBlendshape("TaintBulgeLess", 1.0)
 	else:
 		setBlendshape("TaintBulgeLess", 0.0)
+
+func supportsPenisGirth() -> bool:
+	return true
+
+func getPenisGirth() -> float:
+	return remap(nodeToScale.scale.x, 0.0, 0.8, 0.0, 1.0)
