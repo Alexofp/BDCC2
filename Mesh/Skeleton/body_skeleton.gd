@@ -53,7 +53,7 @@ func _ready() -> void:
 	arm_move_l.influence = 0.0
 	arm_move_r.influence = 0.0
 
-func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:float = 1.0, spreadMult:float = 1.0):
+func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:float = 1.0, spreadMult:float = 1.0, angle:float = 0.0):
 	var currentParticles:GPUParticles3D = squirtParticles[currentSquirtParticlesIndx]
 	
 	var particleProcessMat:ParticleProcessMaterial = currentParticles.process_material
@@ -65,6 +65,7 @@ func doSquirtVagina(amountMult:float = 1.0, speedMult:float = 1.0, timeMult:floa
 	currentParticles.lifetime = timeMult
 	currentParticles.amount = int(max(round(amountMult * 32), 1.0))
 	currentParticles.restart()
+	currentParticles.rotation_degrees.x = angle
 	
 	currentSquirtParticlesIndx += 1
 	if(currentSquirtParticlesIndx >= squirtParticles.size()):

@@ -107,7 +107,9 @@ var influenceActualMax:float = 1.0
 func _process_modification() -> void:
 	if _bone_idx < 0:
 		return
-		
+	#if(true):
+	#	return
+	
 	# BDCC2 EDIT
 	if(manualTurnOff):
 		influence = clamp(influence-0.05, 0.0, influenceActualMax)

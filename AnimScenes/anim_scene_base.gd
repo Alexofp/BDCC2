@@ -1001,11 +1001,14 @@ func doOrgasmNoise(theRole:String):
 		return
 	theDoll.getDoll().getVoiceHandler().doOrgasm()
 
-func doSquirtVagina(theRole:String, amountMult:float = 1.0, speedMult:float = 1.0, timeMult:float = 1.0, spreadMult:float = 1.0):
+func doSquirtVagina(theRole:String, amountMult:float = 1.0, speedMult:float = 1.0, timeMult:float = 1.0, spreadMult:float = 1.0, angle:float = 0.0):
+	#speedMult = 1.0
+	#spreadMult = 22.0
+	#amountMult = 1.0
 	var theDoll := getSitterDoll(theRole)
 	if(!theDoll):
 		return
-	theDoll.getDoll().getBodySkeleton().doSquirtVagina(amountMult, speedMult, timeMult, spreadMult)
+	theDoll.getDoll().getBodySkeleton().doSquirtVagina(amountMult, speedMult, timeMult, spreadMult, angle)
 
 func saveNetworkData() -> Bins:
 	var data := Bins.saveStart([

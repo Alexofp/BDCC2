@@ -7,6 +7,7 @@ const SexStraponVaginal = "SexStraponVaginal"
 const SexStraponAnal = "SexStraponAnal"
 const OralBlowJob = "OralBlowJob"
 const OralCunnilingus = "OralCunnilingus"
+const Tribadism = "Tribadism"
 
 const Breeding = "Breeding"
 const Condoms = "Condoms"

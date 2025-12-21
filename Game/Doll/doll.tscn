@@ -23,8 +23,7 @@ script = ExtResource("4_avrwx")
 angular_damp = 10.0
 force_scale = 1200.0
 swing_span = 0.349066
-gravity = Vector3(0, -10, 0)
-metadata/_custom_type_script = ExtResource("4_avrwx")
+metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="Resource" id="Resource_ghp2k"]
 script = ExtResource("4_avrwx")
@@ -227,7 +226,7 @@ unique_name_in_owner = true
 [node name="BodySkeleton" parent="Parts" unique_id=1490678536 instance=ExtResource("2_k7aqf")]
 unique_name_in_owner = true
 
-[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="2" unique_id=1873600430]
+[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="2" unique_id=1873600430]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -247,10 +246,9 @@ influence = 1.0
 script = ExtResource("3_ghp2k")
 bone_name = "breast.L"
 properties = SubResource("Resource_l2cwv")
-enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="3" unique_id=563262781]
+[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="3" unique_id=563262781]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -270,10 +268,9 @@ influence = 1.0
 script = ExtResource("3_ghp2k")
 bone_name = "breast.R"
 properties = SubResource("Resource_l2cwv")
-enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="4" unique_id=412586149]
+[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="4" unique_id=412586149]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -295,7 +292,7 @@ bone_name = "butt.L"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="5" unique_id=1045547123]
+[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="5" unique_id=1045547123]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -317,7 +314,7 @@ bone_name = "butt.R"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="6" unique_id=932123868]
+[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="6" unique_id=932123868]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -339,7 +336,7 @@ bone_name = "vagina"
 properties = SubResource("Resource_avrwx")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="BoneAttachment3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="8" unique_id=325523931]
+[node name="BoneAttachment3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="8" unique_id=325523931]
 transform = Transform3D(1, -2.3825031e-15, -1.934464e-15, 2.4796153e-15, 0.9986549, 0.051856153, 1.8083103e-15, -0.051856156, 0.9986548, 3.738824e-15, 1.6004182, -0.039354894)
 
 [node name="VoiceHandler" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D" index="1" unique_id=1380823105 instance=ExtResource("3_l2cwv")]
@@ -350,20 +347,20 @@ process_mode = 3
 unique_name_in_owner = true
 transform = Transform3D(1, 5.9557004e-23, 0, 5.9557004e-23, 1, 0, -6.352747e-22, 0, 1, 1.452509e-16, 0.03637588, 0.024326924)
 
-[node name="HoverTextBoneAttach" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="9" unique_id=1123013807]
+[node name="HoverTextBoneAttach" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="9" unique_id=1123013807]
 transform = Transform3D(1, 1.4995204e-14, -1.2579849e-14, -1.25830454e-14, 0.9848093, 0.17364034, 1.4992522e-14, -0.17364034, 0.9848093, 1.1404725e-18, 1.3580042, -0.009756824)
 
-[node name="BoneAttachment3D3" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="10" unique_id=1943359537]
+[node name="BoneAttachment3D3" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="10" unique_id=1943359537]
 transform = Transform3D(1, 1.5913796e-14, -5.9927285e-15, -1.6021516e-14, 0.9998304, -0.01842609, 5.6984794e-15, 0.01842609, 0.9998304, 2.6645753e-15, 1.5329254, -0.040598713)
 
 [node name="HoverText" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" index="1" unique_id=590944479 instance=ExtResource("6_yn8uc")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.343, -0.095)
 
-[node name="ChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="17" unique_id=1695132856]
+[node name="ChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="17" unique_id=1695132856]
 transform = Transform3D(1, 7.20825e-18, -3.3017344e-18, -6.5022484e-18, 0.98401076, 0.17810988, 4.5307792e-18, -0.17810988, 0.98401076, 4.2351647e-22, 1.2023741, 0.018412834)
 
-[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="18" unique_id=1226392226]
+[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="18" unique_id=1226392226]
 unique_name_in_owner = true
 influence = 0.5
 target_node = NodePath("../../../../../LookAtTarget")
@@ -377,7 +374,7 @@ symmetry_limitation = true
 primary_limit_angle = 1.5707964
 primary_damp_threshold = 1.0
 
-[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="19" unique_id=676757426]
+[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="19" unique_id=676757426]
 unique_name_in_owner = true
 influence = 0.75
 target_node = NodePath("../../../../../LookAtTarget")
@@ -392,7 +389,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.6981317
 secondary_damp_threshold = 1.0
 
-[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="20" unique_id=1796183666]
+[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="20" unique_id=1796183666]
 unique_name_in_owner = true
 target_node = NodePath("../../../../../LookAtTarget")
 bone_name = "head"
@@ -407,7 +404,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.5235988
 secondary_damp_threshold = 1.0
 
-[node name="SkeletonHitModifier" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="21" unique_id=939944890]
+[node name="SkeletonHitModifier" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="21" unique_id=939944890]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -426,7 +423,7 @@ active = true
 influence = 1.0
 script = ExtResource("7_olppk")
 
-[node name="UpperChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 867039682) index="22" unique_id=2115797834]
+[node name="UpperChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1113311591) index="22" unique_id=2115797834]
 transform = Transform3D(1, 1.4995204e-14, -1.2579849e-14, -1.25830454e-14, 0.9848093, 0.17364034, 1.4992522e-14, -0.17364034, 0.9848093, 1.1404725e-18, 1.3580042, -0.009756824)
 
 [node name="DollAttachPoint" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2" parent_id_path=PackedInt32Array(1490678536, 28103149) index="0" unique_id=1244576364]

@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 			howOft = 5
 		if(theDist > 1000.0):
 			howOft = 10
-		
+		howOft = 1 #TODO: FIX THIS?
 		#if(true):
 			#animTree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 			#var animPlayer:AnimationPlayer = animTree.get_node(animTree.anim_player)

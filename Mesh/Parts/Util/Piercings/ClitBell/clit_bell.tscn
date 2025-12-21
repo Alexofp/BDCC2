@@ -1,10 +1,36 @@
-[gd_scene load_steps=8 format=3 uid="uid://kgkql6heiufw"]
+[gd_scene format=3 uid="uid://kgkql6heiufw"]
 
 [ext_resource type="PackedScene" uid="uid://ghdixunhp1nl" path="res://Mesh/Parts/Util/Piercings/ClitBell/ClitBell.glb" id="1_dkfq6"]
 [ext_resource type="Script" uid="uid://e88e3hq15x45" path="res://Mesh/Parts/Util/Piercings/ClitBell/clit_bell.gd" id="2_3x5fo"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/Parts/SharedMaterials/PiercingsMat.tres" id="2_ufndw"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_nkkvy"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_4f1xy"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Materials/Shaders/Doll/Piercings.gdshader" id="4_bnci0"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_c747f"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_e16uj"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_wbyxc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p526v"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_bnci0")
+shader_parameter/texture_orm = ExtResource("6_wbyxc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_e16uj")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_nkkvy")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_ltgt8"]
 script = ExtResource("5_c747f")
@@ -26,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ClitBell" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="0" unique_id=1877124775]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("2_ufndw")
+surface_material_override/0 = SubResource("ShaderMaterial_p526v")
 
 [node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="1" unique_id=2018350790]
 unique_name_in_owner = false
@@ -59,7 +85,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(1, 0, 0, -3.3583288e-28, -1, 1.14177965e-08, -2.1436084e-36, -1.14177965e-08, -1, 1.9411541e-23, -0.02433968, 8.6864e-08)
+transform = Transform3D(1, -5.116258e-24, 5.3943433e-27, -5.1165936e-24, -0.9999978, 0.0021087157, -5.394402e-27, -0.0021087157, -0.9999978, 1.9411541e-23, -0.02433968, 8.6864e-08)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -85,7 +111,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(1, -6.018531e-36, 0, -3.3583288e-28, -1, 1.14177965e-08, -2.1436084e-36, -1.14177965e-08, -1, 1.9411541e-23, -0.033161227, 8.676328e-08)
+transform = Transform3D(1, 9.687743e-25, 1.9371851e-28, 9.684387e-25, -0.99999994, -0.00039912714, -1.9294428e-28, 0.00039912714, -0.99999994, 1.9366407e-23, -0.033161208, -1.851527e-05)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -103,5 +129,5 @@ properties = SubResource("Resource_ltgt8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClitBellRig" index="1" unique_id=1225662408]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20515162, -0.007884353)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.172, -0.008)
 shape = SubResource("SphereShape3D_4f1xy")

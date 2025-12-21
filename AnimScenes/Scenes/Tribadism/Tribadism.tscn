@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://yx1go0uxwsmq"]
+
+[ext_resource type="Script" uid="uid://cof6cnfuo0e8w" path="res://AnimScenes/Scenes/Tribadism/Tribadism.gd" id="1_hdhh3"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_b2q8q"]
+
+[node name="Tribadism" type="Node3D" unique_id=931339248]
+script = ExtResource("1_hdhh3")
+
+[node name="SitSpot" parent="." unique_id=2056142771 instance=ExtResource("2_b2q8q")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." unique_id=643641647 instance=ExtResource("2_b2q8q")]
+unique_name_in_owner = true
