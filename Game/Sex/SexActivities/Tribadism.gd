@@ -33,7 +33,7 @@ func isActivitySupported(_sexEngine:SexEngine) -> bool:
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target || !_info.canDoDomActions() || _sexEngine.hasMainActivity()):
 		return
-	if(!_info.getChar().hasReachableVagina() || _target.getChar().hasReachableVagina()):
+	if(!_info.getChar().hasReachableVagina() || !_target.getChar().hasReachableVagina()):
 		return
 	var theScore:float = _info.taskScore(SexTask.CumTribadism, [_target.getID()])
 	addAction(action("Tribadism")
