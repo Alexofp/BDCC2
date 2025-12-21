@@ -1,9 +1,9 @@
 extends DollPoseBase
 
 func _init() -> void:
-	id = "ArmsBehindBack"
-	animName = "ArmsBehindBack"
-	visibleName = "Arms behind back"
+	id = "ArmsAboveHead"
+	animName = "ArmsAboveHead"
+	visibleName = "Arms above head"
 	
 	poseType = PoseType.Arms
 	

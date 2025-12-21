@@ -10,5 +10,7 @@ text = "Controls:
 Tab - Inventory/poses
 Q - Character creator
 1 - Debug item giver
-V - Noclip"
+V - Noclip
+P - Free cam
+H - Hide UI"
 clip_text = true
