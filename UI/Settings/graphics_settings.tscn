@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx63awl2m4mp1"]
+[gd_scene format=3 uid="uid://dx63awl2m4mp1"]
 
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_2k3el"]
 [ext_resource type="Script" uid="uid://brwg57deouguj" path="res://UI/Settings/graphics_settings.gd" id="1_w8ab8"]
