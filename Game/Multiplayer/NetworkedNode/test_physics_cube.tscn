@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://7lt6qtcqipj"]
+[gd_scene format=3 uid="uid://7lt6qtcqipj"]
 
 [ext_resource type="Script" uid="uid://x60xwh7dgbkt" path="res://Game/Multiplayer/NetworkedNode/test_physics_cube.gd" id="1_oq1o7"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_ssytu"]

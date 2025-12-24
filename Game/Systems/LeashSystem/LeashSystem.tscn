@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://chn282pdnprrq"]
+
+[ext_resource type="Script" uid="uid://dtx1ufbt1gqvf" path="res://Game/Systems/LeashSystem/LeashSystem.gd" id="1_6ihdn"]
+
+[node name="LeashSystem" type="Node3D" unique_id=1838535178]
+script = ExtResource("1_6ihdn")

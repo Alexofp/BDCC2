@@ -30,6 +30,8 @@ func hasDoll() -> bool:
 	return getDoll() != null
 
 func goTowardsRaw(_pos:Vector3, _dt:float, shouldRun:bool=false):
+	if(pawn.isControlledByAnyPlayer()):
+		return
 	pawn.goTowardsRaw(_pos, _dt, shouldRun)
 
 func goTowards(_pos:Vector3, shouldRun:bool=false):

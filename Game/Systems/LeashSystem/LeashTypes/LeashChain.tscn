@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bsdykl0x6qrgq"]
+
+[ext_resource type="Script" uid="uid://rpaxn45h0k6r" path="res://Game/Systems/LeashSystem/LeashTypes/leash_chain.gd" id="1_balmb"]
+[ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="2_mdu81"]
+
+[sub_resource type="Curve3D" id="Curve3D_qlw4l"]
+resource_local_to_scene = true
+bake_interval = 0.1
+_data = {
+"points": PackedVector3Array(-0.314905, 1.41452, 0.0695871, 0, -0.5, 0, 0, 0, 0.252402, 0, -0.2, 0, 0, 0, 0, 0, 0, -0.173227),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wi4sn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_mdu81")
+shader_parameter/twirl_aspect = 0.5
+shader_parameter/extra_angle = 0.0
+shader_parameter/line_width = 0.015
+shader_parameter/link_radius = 0.15
+shader_parameter/link_thickness = 0.05
+shader_parameter/repeat_size = 1.0
+shader_parameter/repeat_size_b = 0.1
+shader_parameter/roughness = 0.25
+shader_parameter/metallic = 1.0
+shader_parameter/color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="LeashChain" type="Path3D" unique_id=1778020447]
+curve = SubResource("Curve3D_qlw4l")
+script = ExtResource("1_balmb")
+material = SubResource("ShaderMaterial_wi4sn")

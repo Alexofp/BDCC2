@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4gfcxs35bota"]
+[gd_scene format=3 uid="uid://d4gfcxs35bota"]
 
 [ext_resource type="Script" uid="uid://bg4x0l07nlv61" path="res://Game/DollController/doll_controller.gd" id="1_k0gws"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_n8w0r"]
 [ext_resource type="Script" uid="uid://be2cul3yhop6t" path="res://Game/Systems/Camera/DollCamera.gd" id="3_5wuau"]
 [ext_resource type="PackedScene" uid="uid://be7cu1ta28jdh" path="res://Game/Interactable/interactor.tscn" id="3_qvvrb"]
 [ext_resource type="PackedScene" uid="uid://b6s2blxqp3ylj" path="res://Game/DollController/doll_controls.tscn" id="5_5o600"]
+[ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="7_5wuau"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="7_pwrse"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n8w0r"]
@@ -37,6 +38,9 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:expressionState")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+properties/7/path = NodePath(".:yankWalkDir")
+properties/7/spawn = true
+properties/7/replication_mode = 2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_l1oh5"]
 height = 2.6
@@ -97,6 +101,14 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OtherDollsArea" unique_id=1849079194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_l1oh5")
+
+[node name="BackupLeashPoint" type="Marker3D" parent="." unique_id=1891633339]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0525576, 0)
+gizmo_extents = 0.05
+script = ExtResource("7_5wuau")
+leashPointID = "backupDoll"
+metadata/_custom_type_script = "uid://cb1eve8v0w436"
 
 [connection signal="onGesturePlay" from="ModelRoot/Doll" to="." method="_on_doll_on_gesture_play"]
 [connection signal="body_entered" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_entered"]

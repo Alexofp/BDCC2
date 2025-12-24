@@ -30,6 +30,9 @@ var input_velocity:Vector3 = Vector3.ZERO
 @export var syncPosition:Vector3 = Vector3.ZERO
 @export var syncRotation:Vector3 = Vector3.ZERO
 
+var isRunning:bool = false
+var yankWalkDir:Vector3 = Vector3.ZERO
+
 @onready var doll_controls: DollControls = %DollControls
 #var mouse_movement = Vector2.ZERO
 #@export var sprint_isdown:bool = false
@@ -38,7 +41,7 @@ var input_velocity:Vector3 = Vector3.ZERO
 #var mousecapture_isdown = false
 #@export var input_dir:Vector2 = Vector2.ZERO
 #@export var camera_dir:Vector2 = Vector2.ZERO
-
+@onready var backup_leash_point: DollLeashPoint = %BackupLeashPoint
 @onready var SpringArm = %SpringArm
 @onready var CameraPivot = %CameraPivot
 @onready var doll: Doll = %Doll
@@ -278,7 +281,7 @@ func _process(delta:float):
 	#	process_mousecapture(delta)
 	if(theIsControlledByUs):
 		process_camera_pivot()
-	process_movement()
+	
 
 	if(getState() == STATE_NORMAL):
 		process_animation(delta)
@@ -306,10 +309,16 @@ func processExpressionState(_delta:float):
 	else:
 		setExpressionState(DollExpressionState.Normal)
 
+func setYankDir(_dir:Vector3):
+	yankWalkDir = _dir
+
 func processMove(delta:float):
+	isRunning = false
+	if(doll_controls.sprint_isdown || yankWalkDir.length_squared()>9.0) && canSprint():
+		isRunning = true
 	if(!isRemote()):
 		var move_speed: = ANIM_MOVE_SPEED * MOVE_MULT * getWalkSpeedMult()
-		if doll_controls.sprint_isdown && canSprint():
+		if(isRunning):
 			move_speed = ANIM_RUN_SPEED * RUN_MULT
 			if(noclip_on):
 				move_speed *= NOCLIP_MULT
@@ -335,6 +344,7 @@ func processMove(delta:float):
 				#velocity.z = move_direction_no_y.z * move_speed
 			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
 				velocity.y = JUMP_FORCE * getJumpHeight()
+				#yankWalkDir = Vector3(10.0, 0.0, 0.0)
 				#applyHitRandom(10.0) #Funny
 				#addHoverText("JUMP!")
 	
@@ -356,6 +366,7 @@ func _physics_process(_delta:float):
 	#if(Input.is_action_pressed("move_jump")):
 	#	print("JUMP")
 	
+	process_movement()
 	if(getState() == STATE_NORMAL):
 		processMove(_delta)
 
@@ -500,18 +511,18 @@ func getGlobalChestBonePosition() -> Vector3:
 	return getBodySkeleton().getChestBoneAttachment().global_position
 
 func process_movement():
-	#var input_direction = Vector3.ZERO
-	#
-	#input_direction.z = doll_controls.input_dir.y
-	#input_direction.x = doll_controls.input_dir.x
-	#
-	#move_direction = camera_rotation * input_direction
-	#move_direction_no_y = camera_rotation_no_y * input_direction
-	#move_direction = move_direction.normalized()
-	#move_direction_no_y = move_direction_no_y.normalized()
-	move_direction = doll_controls.move_direction
-	move_direction_no_y = doll_controls.move_direction_no_y
+	var yankHasPower:bool = yankWalkDir.length_squared() > 0.01
+	
+	if(yankHasPower && !noclip_on && doll_controls.move_direction.length_squared()<0.01):
+		move_direction = yankWalkDir.normalized()
+		move_direction_no_y = Vector3(move_direction.x, 0.0, move_direction.z).normalized()
 
+	else:
+		move_direction = doll_controls.move_direction
+		move_direction_no_y = doll_controls.move_direction_no_y
+
+	if(Network.isServer() && yankHasPower): #Server's job to do this
+		yankWalkDir *= 0.8
 
 var recordedVelocity:Vector3
 func process_animation(delta):
@@ -524,7 +535,7 @@ func process_animation(delta):
 			##playDollAnim(DollAnim.Fall)
 			##bodySkeleton.jump()
 		elif move_direction != Vector3.ZERO:
-			if doll_controls.sprint_isdown && canSprint():
+			if isRunning:
 				##playDollAnim(DollAnim.Run)
 				##bodySkeleton.run()
 				getDoll().animRun()
@@ -563,6 +574,7 @@ func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
 func isControlledByPlayer() -> bool:
 	return GM.pcDoll == self
 
+#TODO: OPTIMIZE THIS?
 func isControlledByAnyPlayer() -> bool:
 	for playerID in Network.players:
 		var info:NetworkPlayerInfo = Network.players[playerID]
@@ -758,3 +770,6 @@ func applyHitRandom(_strength:float):
 
 func doStruggleAnimFor(_time:float):
 	doll.doStruggleAnimFor(_time)
+
+func getBackupDollLeashPoint() -> DollLeashPoint:
+	return backup_leash_point

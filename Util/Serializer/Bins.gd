@@ -29,6 +29,7 @@ enum { # The most-used types should go first
 	I8,
 	U8,
 	U16,
+	U32,
 	Ignore,
 }
 
@@ -65,6 +66,8 @@ func getSizeOf(_ar:Array) -> int:
 			pointer += 1
 		elif(_type == U16):
 			pointer += 2
+		elif(_type == U32):
+			pointer += 4
 		elif(_type == Ignore):
 			pointer += 0
 			
@@ -131,6 +134,8 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 			bytes.put_u8(_value)
 		elif(_type == U16):
 			bytes.put_u16(_value)
+		elif(_type == U32):
+			bytes.put_u32(_value)
 		elif(_type == Ignore):
 			pass
 			
@@ -156,6 +161,8 @@ func read(_readType:int) -> Variant:
 		return readU8()
 	if(_readType == U16):
 		return readU16()
+	if(_readType == U32):
+		return readU32()
 	if(_readType == Double):
 		return readDouble()
 	if(_readType == Float):
@@ -189,6 +196,9 @@ func readU8() -> int:
 
 func readU16() -> int:
 	return bytes.get_u16()
+
+func readU32() -> int:
+	return bytes.get_u32()
 
 func readDouble() -> float:
 	return bytes.get_double()

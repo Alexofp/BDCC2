@@ -102,10 +102,11 @@ static func getFilesInFolderSmart(folder: String, extension:String, includeThisF
 	
 	return result
 
+# Might need to be removed after getResources funcs were added
 static func fix_resource_path(file:String) -> String:
 	if file.ends_with(".remap"):
 		file = file.trim_suffix(".remap")
-	elif file.ends_with(".import"): #TODO: This might be breaking stuff but its required for sounds in exported builds
+	elif file.ends_with(".import"):
 		file = file.trim_suffix(".import")
 	return file
 

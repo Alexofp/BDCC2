@@ -391,7 +391,6 @@ func clientAskGameInfo() -> FuncResultOrError:
 		return FuncResultOrError.createError(ERROR_GENERIC, "Connection lost")
 	Log.Print("Asking for game info")
 	clientAskGameInfo_SERVERRPC.rpc_id(1)
-	#TODO: Some kind of timeout?
 	
 	var timeoutRes := await AsyncUtil.timeout(internal_clientAskGameInfo, 25.0)
 	if(timeoutRes.didTimeout()):
@@ -493,9 +492,6 @@ func asyncCondition(cond: Callable, timeout: float = 10.0) -> Error:
 		if Time.get_ticks_msec() > timeout:
 			return ERR_TIMEOUT
 	return OK
-
-func shouldProcessLocally() -> bool:
-	return NetworkTime._state == NetworkTime._STATE_INACTIVE #TODO: Replace with something less hacky?
 
 # NODE TUNNEL
 const NODETUNNEL_SERVER = "relay.nodetunnel.io"

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d2qus32ast6wb"]
+
+[ext_resource type="PackedScene" uid="uid://7lt6qtcqipj" path="res://Game/Multiplayer/NetworkedNode/test_physics_cube.tscn" id="1_iontr"]
+[ext_resource type="Script" uid="uid://deo3e3icuqm2a" path="res://Game/Systems/LeashSystem/leash_test.gd" id="1_mbql3"]
+[ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="2_mbql3"]
+
+[node name="LeashTest" type="Node3D" unique_id=1599365492]
+script = ExtResource("1_mbql3")
+
+[node name="TestPhysicsCube" parent="." unique_id=869289942 instance=ExtResource("1_iontr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5355972, 0, 0)
+
+[node name="LeashPoint" type="Marker3D" parent="TestPhysicsCube" unique_id=1236437517]
+script = ExtResource("2_mbql3")
+metadata/_custom_type_script = "uid://dii6wngkjc5wn"
+
+[node name="TestPhysicsCube2" parent="." unique_id=1190288691 instance=ExtResource("1_iontr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8473717, 0, 0)
+
+[node name="LeashPoint" type="Marker3D" parent="TestPhysicsCube2" unique_id=147896740]
+script = ExtResource("2_mbql3")
+metadata/_custom_type_script = "uid://dii6wngkjc5wn"

@@ -32,6 +32,10 @@ func _on_interactable_on_interact(user: DollController, action: InteractAction) 
 		if(!sit_spawner.isSpawned()):
 			sit_spawner.spawn()
 		sit_spawner.setSitter("dom", user.getPawn())
+		#GM.leashSystem.connectLeash(
+			#LeashPointConnection.createLeashpoint($LeashPoint),
+			#LeashPointConnection.createPawnLeashpoint(user.getPawn().getCharID(), "leashholder.R")
+		#)
 	if(action.id == "unsit"):
 		if(sit_spawner.getSitter("dom") == user.getPawn()):
 			sit_spawner.despawn()

@@ -59,6 +59,8 @@ func createDollController_RPC(dollData:Dictionary):
 	var theDoll:DollController= dollControllerScene.instantiate()
 	theDoll.name = str(SAVE.loadVar(dollData, "UID", 0))
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
+	theDoll.characterID = SAVE.loadVar(dollData, "charID", theDoll.characterID)
+	theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
 	dolls.add_child(theDoll)
 	theDoll.loadData(dollData)
 

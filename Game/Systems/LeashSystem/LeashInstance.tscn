@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cqp61vmlyv6s0"]
+
+[ext_resource type="Script" uid="uid://dtptmvn1rgeod" path="res://Game/Systems/LeashSystem/LeashInstance.gd" id="1_xk0mu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xk0mu"]
+size = Vector3(0.03, 0.03, 1)
+
+[node name="LeashInstance" type="Node3D" unique_id=1225180453]
+physics_interpolation_mode = 1
+script = ExtResource("1_xk0mu")
+
+[node name="LeashSimpleMesh" type="MeshInstance3D" parent="." unique_id=652524653]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("BoxMesh_xk0mu")

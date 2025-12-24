@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ck05wgk4h16vd"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ck05wgk4h16vd"]
 
 [ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="1_kfrkx"]
 

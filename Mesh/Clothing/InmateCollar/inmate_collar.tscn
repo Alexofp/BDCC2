@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://sjhp8kbtbwrw"]
+[gd_scene format=3 uid="uid://sjhp8kbtbwrw"]
 
 [ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_jdp3t"]
 [ext_resource type="PackedScene" uid="uid://b50jm3rvxohyh" path="res://Mesh/Clothing/InmateCollar/InmateCollar.glb" id="2_et3qn"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_redhd"]
 [ext_resource type="Material" uid="uid://rppd8rmsx1nv" path="res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres" id="4_xg6at"]
+[ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="5_umvcl"]
 
 [node name="InmateCollar" type="Node3D" unique_id=587197804]
 script = ExtResource("1_jdp3t")
@@ -15,5 +16,13 @@ attachPoint = "collar"
 [node name="InmateCollar" parent="InmateCollar" index="0" unique_id=1499983699]
 transform = Transform3D(0.069, 0, 0, 0, 0.069, 0, 0, 0, 0.069, 0, 0, 0)
 surface_material_override/0 = ExtResource("4_xg6at")
+
+[node name="DollLeashPoint" type="Marker3D" parent="InmateCollar" unique_id=1584529880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015821172, 0.081918776)
+script = ExtResource("5_umvcl")
+leashPointID = "collar"
+leashVector = Vector3(0, 0, 0.2)
+leashSag = -0.2
+metadata/_custom_type_script = "uid://cb1eve8v0w436"
 
 [editable path="InmateCollar"]

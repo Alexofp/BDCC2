@@ -19,10 +19,21 @@ func processRare():
 		stopInteraction()
 
 func getActions(_role:int) -> Array:
-	return [
+	var theActions:Array = [
 		action("sex", "Start sex", 0.0),
-		action("stop", "Never mind", 0.0),
 	]
+	
+	if(GM.leashSystem.hasLeash(
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+	)):
+		theActions.append(action("unleash", "Unleash!", 0.0))
+	else:
+		theActions.append(action("leash", "Leash!", 0.0))
+	
+	theActions.append(action("stop", "Never mind", 0.0))
+	
+	return theActions
 
 func doAction(_role:int, _actionID:String, _args:Array):
 	if(_actionID == "stop"):
@@ -35,6 +46,23 @@ func doAction(_role:int, _actionID:String, _args:Array):
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		GM.sexManager.startSex(SexType.OnTheFloor, {dom={id=getCharID(ROLE_MAIN),role=SexRole.Dom}, sub={id=getCharID(ROLE_TARGET),role=SexRole.Sub}}, {}, getPawn(ROLE_MAIN).global_position, getPawn(ROLE_MAIN).global_rotation)
+		stopInteraction()
+	if(_actionID == "leash"):
+		stopLookAt(ROLE_MAIN)
+		stopLookAt(ROLE_TARGET)
+		GM.leashSystem.connectLeash(
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+			LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(1.0),
+		)
+		stopInteraction()
+	if(_actionID == "unleash"):
+		stopLookAt(ROLE_MAIN)
+		stopLookAt(ROLE_TARGET)
+		GM.leashSystem.removeLeash(
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+		)
 		stopInteraction()
 
 func getInterruptActions(_role:int, _newCharID:String) -> Array:

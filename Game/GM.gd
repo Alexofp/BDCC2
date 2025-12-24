@@ -14,6 +14,7 @@ static var pawnRegistry:PawnRegistry: get = getPawnRegistry
 static var dollHolder:DollHolder: get = getDollHolder
 static var sitManager:SitManager: get = getSitManager
 static var sexManager:SexManager: get = getSexManager
+static var leashSystem:LeashSystem: get = getLeashSystem
 static var IS:InteractionSystem: get = getInteractionSystem
 static var netNodes:NetworkedNodes: get = getNetworkedNodes
 static var presets:CharacterPresetHolder
@@ -87,6 +88,11 @@ static func getSitManager() -> SitManager:
 static func getSexManager() -> SexManager:
 	if(main != null):
 		return main.getSexManager()
+	return null
+
+static func getLeashSystem() -> LeashSystem:
+	if(main != null):
+		return main.getLeashSystem()
 	return null
 
 static func getInteractionSystem() -> InteractionSystem:

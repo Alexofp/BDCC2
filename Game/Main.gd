@@ -17,6 +17,7 @@ var character_creator:Node
 @onready var sex_manager: SexManager = %SexManager
 @onready var character_menu: Control = %CharacterMenu
 @onready var chat_widget_fullscreeen: Control = %ChatWidgetFullscreeen
+@onready var leash_system: LeashSystem = %LeashSystem
 
 @onready var sex_ui: SexUI = %SexUI
 
@@ -252,6 +253,9 @@ func _on_in_game_menu_on_sandbox_menu_button() -> void:
 
 func getSexManager() -> SexManager:
 	return sex_manager
+	
+func getLeashSystem() -> LeashSystem:
+	return leash_system
 
 func _on_character_menu_on_close() -> void:
 	hideCharacterMenu()

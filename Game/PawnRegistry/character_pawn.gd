@@ -144,6 +144,14 @@ func isControlledByUs() -> bool:
 		return false
 	return myInfo.charID == id
 
+#TODO: OPTIMIZE THIS?
+func isControlledByAnyPlayer() -> bool:
+	for playerID in Network.players:
+		var info:NetworkPlayerInfo = Network.players[playerID]
+		if(info.charID == id):
+			return true
+	return false
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, position,
@@ -376,3 +384,41 @@ func isPartialGesturesBlocked() -> bool:
 	if(!theChar):
 		return false
 	return theChar.isPartialGesturesBlocked()
+
+# LEASH STUFF
+const LEASH_TYPE_PAWN = 0
+
+@onready var backup_leash_point: LeashPoint = %BackupLeashPoint
+
+var dollLeashPoints:Dictionary[String, DollLeashPoint] = {}
+var leashConnections:Array = []
+
+func registerLeashPoint(_dollLeashPoint:DollLeashPoint):
+	var theID:String = _dollLeashPoint.leashPointID
+	if(dollLeashPoints.has(theID)):
+		#TODO: PROBABLY REMOVE THIS ERROR?
+		Log.Printerr("A LEASH POINT WITH ID '"+str(theID)+"' WAS ALREADY REGISTERED IN PAWN "+str(getCharID()))
+		var curLeashPoint:DollLeashPoint = dollLeashPoints[theID]
+		if(curLeashPoint.leashPointPriority >= _dollLeashPoint.leashPointPriority):
+			return
+		pass
+	
+	dollLeashPoints[theID] = _dollLeashPoint
+	#print(str(self)+" REGISTERED LEASH POINT "+str(_dollLeashPoint))
+	pass
+
+func unregisterLeashPoint(_dollLeashPoint:DollLeashPoint):
+	#print(str(self)+" UN-REGISTERED LEASH POINT "+str(_dollLeashPoint))
+	var theID:String = _dollLeashPoint.leashPointID
+	if(dollLeashPoints.has(theID) && dollLeashPoints[theID] == _dollLeashPoint):
+		dollLeashPoints.erase(theID)
+	pass
+	
+func getLeashPoint(_id:String) -> LeashPoint:
+	if(!dollLeashPoints.has(_id)):
+		if(doll):
+			return doll.getBackupDollLeashPoint()
+		return backup_leash_point
+	return dollLeashPoints[_id]
+
+# LEASH STUFF END

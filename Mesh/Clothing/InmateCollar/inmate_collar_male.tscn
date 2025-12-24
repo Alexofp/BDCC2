@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb4yjarx7bxi2"]
+[gd_scene format=3 uid="uid://cb4yjarx7bxi2"]
 
 [ext_resource type="PackedScene" uid="uid://sjhp8kbtbwrw" path="res://Mesh/Clothing/InmateCollar/inmate_collar.tscn" id="1_qf6uh"]
 
@@ -6,5 +6,8 @@
 
 [node name="InmateCollar" parent="InmateCollar" parent_id_path=PackedInt32Array(457010506) index="0" unique_id=1499983699]
 transform = Transform3D(0.07752742, 0, 0, 0, 0.07752742, 0, 0, 0, 0.07752742, 0, 0.011142537, -0.006952688)
+
+[node name="DollLeashPoint" parent="InmateCollar" parent_id_path=PackedInt32Array(457010506) index="1" unique_id=561485837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0076429453, 0.084274404)
 
 [editable path="InmateCollar"]

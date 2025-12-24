@@ -13,8 +13,6 @@ func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 	return true
 
 func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine) -> bool:
-	if(true):
-		return true #TODO: REMOVE ME
 	var theTarget := _target.getChar()
 	if(!theTarget.hasReachableVagina()):
 		return false

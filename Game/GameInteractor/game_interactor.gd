@@ -7,6 +7,7 @@ var sitManager:SitManager
 var networkedNodes:NetworkedNodes
 var sexManager:SexManager
 var inventoryRegistry:InventoryRegistry
+var leashSystem:LeashSystem
 
 var serverCommandObjects:Dictionary = {}
 var clientCommandObjects:Dictionary = {}
@@ -34,6 +35,7 @@ func saveFullNetworkData() -> Bins:
 		Bins.BINS, pawnRegistry.saveNetworkData(),
 		Bins.BINS, dollHolder.saveNetworkData(),
 		Bins.BINS, sexManager.saveNetworkData(),
+		Bins.BINS, leashSystem.saveNetworkData(),
 		Bins.BINS, networkedNodes.saveNetworkData(),
 		Bins.BINS, sitManager.saveNetworkData(),
 	])
@@ -46,6 +48,7 @@ func loadFullNetworkData(_data:Bins):
 	pawnRegistry.loadNetworkData(_data.readBins())
 	dollHolder.loadNetworkData(_data.readBins())
 	sexManager.loadNetworkData(_data.readBins())
+	leashSystem.loadNetworkData(_data.readBins())
 	networkedNodes.loadNetworkData(_data.readBins())
 	sitManager.loadNetworkData(_data.readBins())
 	_data.endLoad()

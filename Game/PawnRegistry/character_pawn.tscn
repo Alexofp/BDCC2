@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1i48qdkrisvk"]
+[gd_scene format=3 uid="uid://c1i48qdkrisvk"]
 
 [ext_resource type="Script" uid="uid://dvagu8gslisua" path="res://Game/PawnRegistry/character_pawn.gd" id="1_7fod6"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_1pxof"]
 [ext_resource type="Script" uid="uid://624kjj0em1a2" path="res://Game/GameInteractor/SyncNode.gd" id="2_274nk"]
+[ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="4_pbuf5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7fod6"]
 
@@ -43,5 +44,11 @@ unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_height_offset = 0.25
+
+[node name="BackupLeashPoint" type="Marker3D" parent="." unique_id=231612555]
+unique_name_in_owner = true
+gizmo_extents = 0.01
+script = ExtResource("4_pbuf5")
+metadata/_custom_type_script = "uid://dii6wngkjc5wn"
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

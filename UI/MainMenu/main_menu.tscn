@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpka2h2ypy0r7"]
+[gd_scene format=3 uid="uid://dpka2h2ypy0r7"]
 
 [ext_resource type="Script" uid="uid://ds37w03w0raty" path="res://UI/MainMenu/main_menu.gd" id="1_jld46"]
 [ext_resource type="PackedScene" uid="uid://bl3xkx2qr7pgs" path="res://UI/Settings/settings_ui.tscn" id="2_t17p2"]
@@ -286,6 +286,7 @@ layout_mode = 2
 text = "Preview Maker"
 
 [node name="ControlsPanelContainer" type="PanelContainer" parent="." unique_id=1915749977]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

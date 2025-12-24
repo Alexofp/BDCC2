@@ -36,6 +36,7 @@ var currentScreen:int = -1
 @onready var noray_relay_bottom_list: VBoxContainer = %NorayRelayBottomList
 @onready var noray_relay_server_edit: LineEdit = %NorayRelayServerEdit
 @onready var noray_relay_list: OptionButton = %NorayRelayList
+@onready var controls_panel_container: PanelContainer = %ControlsPanelContainer
 
 
 func _ready() -> void:
@@ -55,6 +56,7 @@ func setScreen(_screen:int):
 	currentScreen = _screen
 	main_list.visible = (_screen == SCREEN_MAIN)
 	tools_container.visible = (_screen == SCREEN_MAIN)
+	controls_panel_container.visible = (_screen == SCREEN_MAIN)
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	lan_list.visible = (_screen == SCREEN_MULT_LAN)
 	settings_tab.visible = (_screen == SCREEN_SETTINGS)
