@@ -631,7 +631,8 @@ func setSitter(theSeat:String, thePawn:CharacterPawn):
 		theSitSpot.unSit()
 		return
 	if(theSitSpot.hasSitter()):
-		return
+		theSitSpot.unSit()
+		#return
 	theSitSpot.doSit(thePawn)
 
 func addSeat(theID:String, theSpot:PoseSpot):

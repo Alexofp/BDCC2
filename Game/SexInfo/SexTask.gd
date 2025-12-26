@@ -3,6 +3,8 @@ class_name SexTask
 
 const CumInsideVaginal = "CumInsideVaginal"
 const CumInsideAnal = "CumInsideAnal"
+const ReceiveCumInsideVaginal = "ReceiveCumInsideVaginal"
+const ReceiveCumInsideAnal = "ReceiveCumInsideAnal"
 const Undress = "Undress"
 const TieUp = "TieUp"
 const WearStrapon = "WearStrapon"

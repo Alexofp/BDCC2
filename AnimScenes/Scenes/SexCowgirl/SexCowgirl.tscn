@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c240d302mw2vw"]
+
+[ext_resource type="Script" uid="uid://bd4slo7t3t85f" path="res://AnimScenes/Scenes/SexCowgirl/SexCowgirl.gd" id="1_xfbmf"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_xuc83"]
+
+[node name="SexCowgirl" type="Node3D" unique_id=446914601]
+script = ExtResource("1_xfbmf")
+
+[node name="SitSpot" parent="." unique_id=1788955010 instance=ExtResource("2_xuc83")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." unique_id=401850318 instance=ExtResource("2_xuc83")]
+unique_name_in_owner = true

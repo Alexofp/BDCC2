@@ -736,6 +736,13 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 			return SGTPResult.make(verbSplit[1] if verbSplit.size() > 1 else (verbSplit[0]+"s"))
 		return SGTPResult.make(verbSplit[0])
 	
+	elif(_command == "penis"):
+		if(isWearingStrapon()):
+			return SGTPResult.make("strapon")
+		#TODO: Fix the sex calling this too many times?
+		#return SGTPResult.make(RNG.pick(["penis", "cock", "dick"]))
+		return SGTPResult.make("penis")
+	
 	return null
 
 func hasPenis() -> bool:

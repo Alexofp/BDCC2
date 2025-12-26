@@ -24,6 +24,9 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		if(targetInv.isItemCoveredUpByOtherItems(theItem)):
 			continue
 		
+		if(!_info.canDoDomActions() && !_sexEngine.doesItemBelongTo(theItem, _info.getID())):
+			continue
+		
 		if(theItem.canUnequipInSex(theContext)):
 			var takeOffScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
 			if(theItem.isStrapon()):

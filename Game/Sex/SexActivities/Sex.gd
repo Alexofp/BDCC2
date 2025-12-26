@@ -18,7 +18,7 @@ var isVaginal:bool = false
 var didSubJustCumTimer:float = 0.0
 
 func _init():
-	id = SexActivity.TestSex
+	id = SexActivity.Sex
 
 func getCumInsideTask() -> String:
 	if(isVaginal):
@@ -40,21 +40,25 @@ func isActivitySupported(_sexEngine:SexEngine) -> bool:
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target || !_info.canDoDomActions() || _sexEngine.hasMainActivity()):
 		return
-	var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, [_target.getID()])
-	addAction(action("Vaginal sex")
-	.setScore(vagSexScore)
-	.expose(_info, _target, Fetish.SexVaginal)
-	.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}.", {top=_info,bottom=_target}))
-	.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=true})
-	)
+	if(_target.getChar().hasReachableVagina()):
+		var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, [_target.getID()])
+		addAction(action("Vaginal sex")
+		.setCat(CATEGORY_SEX)
+		.setScore(vagSexScore)
+		.expose(_info, _target, Fetish.SexVaginal)
+		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}.", {top=_info,bottom=_target}))
+		.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=true})
+		)
 
-	var analSexScore:float = _info.taskScore(SexTask.CumInsideAnal, [_target.getID()])
-	addAction(action("Anal sex")
-	.setScore(analSexScore)
-	.expose(_info, _target, Fetish.SexAnal)
-	.consent([_target], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}.", {top=_info,bottom=_target}))
-	.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=false})
-	)
+	if(_target.getChar().hasReachableAnus()):
+		var analSexScore:float = _info.taskScore(SexTask.CumInsideAnal, [_target.getID()])
+		addAction(action("Anal sex")
+		.setCat(CATEGORY_SEX)
+		.setScore(analSexScore)
+		.expose(_info, _target, Fetish.SexAnal)
+		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}.", {top=_info,bottom=_target}))
+		.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=false})
+		)
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
@@ -73,7 +77,7 @@ func start_actions(_role:String):
 	addAction(action("Penetrate")
 	.setEnabled(penetrateEnabled)
 	.setScore(penetrateScore)
-	.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb want} to penetrate {bottom.your} "+zoneName+".", "{top.You} {top.youVerb try|tries} to forcefully penetrate {bottom.your} "+zoneName+"."))
+	.consent([], conTexts("{top.You} {top.youVerb want} to penetrate {bottom.your} "+zoneName+".", "{top.You} {top.youVerb try|tries} to forcefully penetrate {bottom.your} "+zoneName+"."))
 	.do("startSex")
 	)
 	
@@ -105,7 +109,7 @@ func sex_actions(_role:String):
 		addAction(action("Slower").do("sex_slower"))
 	addAction(action("Pause").do("pause"))
 	
-	if(isReadyToCum(_role)):
+	if(isReadyToCum(ROLE_TOP)):
 		addAction(action("Cum inside!")
 			.setOverridePriority(OVERRIDE_PRIORITY_ORGASM)
 			.setScore(0.2 if didSubJustCumTimer <= 0.0 else 1.0)
@@ -130,7 +134,7 @@ func sex_do(_role:String, _id:String, _args:Array):
 	if(_id == "cumInside"):
 		domDoCum()
 	if(_id == "delayCum"):
-		addArousal(_role, -0.5)
+		addArousal(ROLE_TOP, -0.5)
 		doText(_role, "{top.You} {top.youVerb delay} {top.yourHis} orgasm.")
 	
 func subDoCum():
@@ -164,7 +168,9 @@ func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array
 		
 		if(theChar && theChar.isZoneCovered(ZoneCover.Penis)):
 			result.append(task(SexTask.Undress, [_info.getID()]))
-		if(theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
+		if((_taskID == SexTask.CumInsideVaginal) && theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
+			result.append(task(SexTask.Undress, [_args[0]]))
+		if((_taskID == SexTask.CumInsideAnal) && theTarget && theTarget.isZoneCovered(ZoneCover.Anus)):
 			result.append(task(SexTask.Undress, [_args[0]]))
 		
 		return result
@@ -190,8 +196,7 @@ func inside_actions(_role:String):
 
 func inside_do(_role:String, _id:String, _args:Array):
 	if(_id == "pullout"):
-		#TODO: special {top.penis} macros
-		doText(_role, "{top.You} {top.youVerb pull} {top.yourHis} cock out.")
+		doText(_role, "{top.You} {top.youVerb pull} {top.yourHis} {top.penis} out.")
 		setState("")
 	if(_id == "fuckmore"):
 		doText(_role, "{top.You} {top.youVerb continue} to fuck {bottom.your} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")

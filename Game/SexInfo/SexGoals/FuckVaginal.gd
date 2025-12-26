@@ -16,7 +16,7 @@ func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEn
 	var theTarget := _target.getChar()
 	if(!theTarget.hasReachableVagina()):
 		return false
-	return false
+	return true
 
 #func getTaskScore(_taskID:String, _args:Array) -> float:
 	#var theScore:float = 0.0

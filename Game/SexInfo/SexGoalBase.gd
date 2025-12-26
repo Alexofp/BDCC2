@@ -96,6 +96,9 @@ func shouldDomWearStraponToFuck() -> bool:
 	assert(theInfo != null)
 	var theChar := theInfo.getChar()
 	return !theChar.hasReachablePenis() && theChar.canWearStrapon()
+	
+func shouldCharWearStraponToFuck(_theChar:BaseCharacter) -> bool:
+	return !_theChar.hasReachablePenis() && _theChar.canWearStrapon()
 
 func getCharID() -> String:
 	return getInfo().getID()

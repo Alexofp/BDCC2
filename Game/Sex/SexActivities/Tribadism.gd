@@ -37,6 +37,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	var theScore:float = _info.taskScore(SexTask.CumTribadism, [_target.getID()])
 	addAction(action("Tribadism")
+	.setCat(CATEGORY_SEX)
 	.setScore(theScore)
 	.expose(_info, _target, MAINFETISH)
 	.consent([_target], conTexts("{top.You} {top.youVerb ask} to rub pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force tribadism with {bottom.you}.", {top=_info,bottom=_target}))

@@ -21,6 +21,8 @@ const CONSENT_FETISH = 1
 
 const OVERRIDE_PRIORITY_ORGASM = 10
 
+const CATEGORY_SEX:Array[String] = ["Sex"]
+
 var id:String = "error"
 var engineRef:WeakRef
 
@@ -131,10 +133,18 @@ func setState(_newState:String):
 	state = _newState
 	doRun()
 
+func getState() -> String:
+	return state
+
+func run():
+	pass
+
 func doRun():
 	var funcName:String = getStateFuncPrefix()+"_run"
 	if(has_method(funcName)):
 		call(funcName)
+	else:
+		run()
 
 func addActionText(theText:String):
 	var sexEngine:SexEngine = getSexEngine()
@@ -145,6 +155,19 @@ func setupRoles(_roles:Dictionary, _need:Array):
 	for needRole in _need:
 		addRole(needRole, _roles[needRole])
 
+func swapRoles(_role1:String, _role2:String):
+	if(!roleToID.has(_role1) || !roleToID.has(_role2)):
+		Log.Printerr("TRYING TO SWAP ROLES THAT DON'T EXIST: "+_role1+", "+_role2)
+		return
+	var charID1:String = roleToID[_role1]
+	var charID2:String = roleToID[_role2]
+	
+	#Use addRole() instead?
+	roleToID[_role2] = charID1
+	idToRole[charID1] = _role2
+	roleToID[_role1] = charID2
+	idToRole[charID2] = _role1
+	
 #@rpc("authority", "call_remote", "reliable")
 func addRole(theRole:String, charID:String):
 	roleToID[theRole] = charID
@@ -282,7 +305,7 @@ func doSexActionFinal(_role:String, _action:SexAction):
 			var theRolesToConsent:Array = payloadEntry[5]
 			if(theRolesToConsent.is_empty()):
 				theRolesToConsent = roleToID.keys()
-				theRolesToConsent.erase(_role)
+			theRolesToConsent.erase(_role) # Remove the role that called it
 			var finalAr:Array[String] = []
 			finalAr.append_array(theRolesToConsent)
 			pushConsentCheck(payloadEntry[1], payloadEntry[2], finalAr, payloadEntry[3], payloadEntry[4], payloadEntry[6])

@@ -1,10 +1,10 @@
 extends SexGoalBase
 
 func _init() -> void:
-	id = SexGoal.Tribadism
+	id = SexGoal.RideVaginal
 	
-	fetishesPerformer = [Fetish.Tribadism]
-	fetishesReceiver = []
+	fetishesPerformer = []
+	fetishesReceiver = [Fetish.SexVaginal]
 
 func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 	var theChar := _info.getChar()
@@ -14,12 +14,12 @@ func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 
 func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine) -> bool:
 	var theTarget := _target.getChar()
-	if(!theTarget.hasReachableVagina()):
+	if(!theTarget.hasReachablePenis() && !theTarget.canWearStrapon()):
 		return false
 	return true
 
 func handleTaskEvent(_taskID:String, _args:Array) -> bool:
-	if(_taskID == SexTask.CumTribadism && _args.size() > 0 && _args[0] == target):
+	if(_taskID == SexTask.ReceiveCumInsideVaginal && _args.size() > 0 && _args[0] == target):
 		completeSelf()
 		return true
 	return false
@@ -28,6 +28,7 @@ func getTasks() -> Array:
 	var result:Array = []
 	#prepareForSex(result, target)
 	#if(shouldDomWearStraponToFuck()):
-	#	result.append(task(SexTask.WearStrapon, [getCharID()]))
-	result.append(task(SexTask.CumTribadism, [target]))
+	if(shouldCharWearStraponToFuck(GM.characterRegistry.getCharacter(target))):
+		result.append(task(SexTask.WearStrapon, [target]))
+	result.append(task(SexTask.ReceiveCumInsideVaginal, [target]))
 	return result

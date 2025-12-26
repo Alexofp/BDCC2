@@ -16,7 +16,7 @@ func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEn
 	var theTarget := _target.getChar()
 	if(!theTarget.hasReachableAnus()):
 		return false
-	return false
+	return true
 
 func handleTaskEvent(_taskID:String, _args:Array) -> bool:
 	if(_taskID == SexTask.CumInsideAnal && _args.size() > 0 && _args[0] == target):
