@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cdch4m3k7s3xq"]
+
+[ext_resource type="PackedScene" uid="uid://bf5g7hgjv6lyb" path="res://AnimScenes/anim_scene_base.tscn" id="1_svykx"]
+[ext_resource type="Script" uid="uid://bvfxapnfmtlh4" path="res://AnimScenes/Scenes/Stocks/stocks_anim_scene.gd" id="2_citjb"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="3_03id5"]
+
+[node name="StocksAnimScene" unique_id=1155249647 instance=ExtResource("1_svykx")]
+script = ExtResource("2_citjb")
+
+[node name="SitSpot" parent="." index="0" unique_id=1513181109 instance=ExtResource("3_03id5")]
+unique_name_in_owner = true
+
+[node name="StandSpot" type="Marker3D" parent="." index="1" unique_id=1733448779]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.707047)

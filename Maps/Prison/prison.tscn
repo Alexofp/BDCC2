@@ -62,6 +62,7 @@
 [ext_resource type="PackedScene" uid="uid://n5lfxsha6av7" path="res://Mapping/Special/any_item_giver.tscn" id="73_q1g3e"]
 [ext_resource type="PackedScene" uid="uid://dou27ldgaq4cc" path="res://Mapping/Props/bench.tscn" id="74_47uhn"]
 [ext_resource type="PackedScene" uid="uid://bdck01gkxevp1" path="res://Game/Systems/ReflectionProbeHandler/ReflectionProbeHandler.tscn" id="74_x6buo"]
+[ext_resource type="PackedScene" uid="uid://ceitp87f3qhlf" path="res://Mapping/Props/stocks.tscn" id="75_nygfb"]
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="76_anb54"]
 [ext_resource type="PackedScene" uid="uid://1bhqsabmydss" path="res://Mapping/Walls/SlopedWindowA20x8.tscn" id="78_3f2s3"]
 [ext_resource type="PackedScene" uid="uid://1yg72aupmiqd" path="res://Mapping/Walls/SlopedWindowWallA8Left.tscn" id="80_2w4ak"]
@@ -3906,3 +3907,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8863955, 2.071372, 6.61718
 size = Vector3(10.773254, 6.8201904, 13.176331)
 box_projection = true
 ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+
+[node name="Stocks" parent="." unique_id=1580582023 instance=ExtResource("75_nygfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2130446, 0, -1.5212966)
