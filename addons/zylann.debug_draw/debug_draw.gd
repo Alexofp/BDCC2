@@ -210,7 +210,6 @@ func _get_line_material() -> StandardMaterial3D:
 	var mat : StandardMaterial3D
 	if len(_line_material_pool) == 0:
 		mat = StandardMaterial3D.new()
-		mat.flags_unshaded = true
 		mat.vertex_color_use_as_albedo = true
 	else:
 		mat = _line_material_pool[-1]
