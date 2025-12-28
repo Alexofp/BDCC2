@@ -34,7 +34,7 @@ func setupScene() -> void:
 	addState("fast", {
 		dom = "sex/SexFast_1",
 		sub = "sex/SexFast_2",
-	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
+	}).setBaseSpeed(1.5).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(8, "plap"),
 	])
 	
@@ -107,8 +107,6 @@ func setupScene() -> void:
 	]))
 	
 	setStartState("tease")
-	
-	updateAllAnimTrees()
 
 func onAnimationEvent(_eventID:String):
 	if(_eventID == "cumInsideSound"):

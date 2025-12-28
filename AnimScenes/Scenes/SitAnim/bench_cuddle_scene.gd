@@ -19,4 +19,3 @@ func setupScene() -> void:
 	
 	setStartState("cuddle")
 	
-	updateAllAnimTrees()

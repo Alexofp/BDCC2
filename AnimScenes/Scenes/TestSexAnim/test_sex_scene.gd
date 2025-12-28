@@ -99,8 +99,6 @@ func setupScene() -> void:
 	
 	setStartState("tease")
 	
-	updateAllAnimTrees()
-
 func onAnimationEvent(_eventID:String):
 	if(_eventID == "cumInsideSound"):
 		doCumInsideNoise("dom", "sub")

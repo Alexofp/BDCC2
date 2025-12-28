@@ -122,8 +122,6 @@ func setupScene() -> void:
 	connectStates("strokeFast", "strokeOrgasm", 0.3)
 	connectStates("strokeOrgasm", "strokeTease", 1.5, true, true)
 	
-	updateAllAnimTrees()
-
 func onAnimationEvent(_eventID:String):
 	if(_eventID == "orgasm"):
 		doOrgasmNoise("dom")

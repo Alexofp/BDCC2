@@ -17,4 +17,3 @@ func setupScene() -> void:
 	
 	setStartState("sit")
 	
-	updateAllAnimTrees()

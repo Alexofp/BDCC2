@@ -22,4 +22,3 @@ func setupScene() -> void:
 	
 	setStartState("bent")
 	
-	updateAllAnimTrees()

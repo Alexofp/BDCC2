@@ -92,8 +92,6 @@ func setupScene() -> void:
 		connectStates("sex", orgasmID, 0.4, true)
 		connectStates(orgasmID, "tease", 1.0, true, true)
 	
-	updateAllAnimTrees()
-
 const SQUIRT_ANGLE = -40.0
 
 func onAnimationEvent(_eventID:String):
