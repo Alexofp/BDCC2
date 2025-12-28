@@ -15,86 +15,48 @@ func setupScene() -> void:
 	addState("tease", {
 		dom = "sex/SexStandingTease_1",
 		sub = "sex/SexStandingTease_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_HIDETAGS: {
+	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
-		},
 	})
 	addState("slow", {
 		dom = "sex/SexStandingSlow_1",
 		sub = "sex/SexStandingSlow_2",
-	}, {
-		CONF_BASESPEED: 0.7,
-		CONF_SPEEDMULT_MIN: 0.9,
-		CONF_SPEEDMULT_MAX: 1.1,
-		CONF_TIMEDSPEEDSWITCH_MIN: 5.0,
-		CONF_TIMEDSPEEDSWITCH_MAX: 10.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(7, "plap"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-			sub = [SexHideTag.ArmRestraint],
-		},
+	}).setBaseSpeed(0.7).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
+		animEventOnFrame(7, "plap"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
+		sub = [SexHideTag.ArmRestraint],
 	})
 	addState("sex", {
 		dom = "sex/SexStanding_1",
 		sub = "sex/SexStanding_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_SPEEDMULT_MIN: 0.9,
-		CONF_SPEEDMULT_MAX: 1.1,
-		CONF_TIMEDSPEEDSWITCH_MIN: 5.0,
-		CONF_TIMEDSPEEDSWITCH_MAX: 10.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(7, "plap"),
-		],
-		CONF_HIDETAGS: {
+	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
+		animEventOnFrame(7, "plap"),
+	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
-		},
 	})
 	addState("fast", {
 		dom = "sex/SexStandingFast_1",
 		sub = "sex/SexStandingFast_2",
-	}, {
-		CONF_BASESPEED: 1.5,
-		CONF_SPEEDMULT_MIN: 0.8,
-		CONF_SPEEDMULT_MAX: 1.1,
-		CONF_TIMEDSPEEDSWITCH_MIN: 3.0,
-		CONF_TIMEDSPEEDSWITCH_MAX: 10.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(7, "plap"),
-		],
-		CONF_HIDETAGS: {
+	}).setBaseSpeed(1.5).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
+		animEventOnFrame(7, "plap"),
+	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
-		},
 	})
 	addState("inside", {
 		dom = "sex/SexStandingInside_1",
 		sub = "sex/SexStandingInside_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_SPEEDMULT_MIN: 0.8,
-		CONF_SPEEDMULT_MAX: 1.1,
-		CONF_TIMEDSPEEDSWITCH_MIN: 3.0,
-		CONF_TIMEDSPEEDSWITCH_MAX: 10.0,
-		CONF_ANIMEVENTS: [
-		],
-		CONF_HIDETAGS: {
+	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
-		},
 	})
 	addState("cum", {
 		dom = "sex/SexStandingCum_1",
 		sub = "sex/SexStandingCum_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(7, "plap"),
 			animEventOnFrame(10, "cumInsideSound"),
 			animEventOnFrame(22, "cumInsideSound"),
@@ -102,11 +64,9 @@ func setupScene() -> void:
 			animEventOnFrame(35, "cumInsideSound"),
 			animEventOnFrame(77, "plap"),
 			animEventOnFrame(82, "cumInsideSound"),
-		],
-		CONF_HIDETAGS: {
+	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
-		},
 	})
 	
 	connectStates("tease", "inside", 0.5)
@@ -124,20 +84,18 @@ func setupScene() -> void:
 	connectStates("fast", "cum", 0.5, true)
 	connectStates("cum", "inside", 1.0, true, true)
 	
-	addAdditiveOneshot("bottomCum", {
+	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
 		dom = "sex/SexStandingBottomCum_1",
 		sub = "sex/SexStandingBottomCum_2",
 	}, {
 		dom = "sex/SexStandingIn_1",
 		sub = "sex/SexStandingIn_2",
-	}, {
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),
 			animEventOnFrame(5, "squirt"),
 			animEventOnFrame(15, "squirt"),
 			animEventOnFrame(45, "squirt"),
-		],
-	})
+	]))
 	
 	setStartState("tease")
 	

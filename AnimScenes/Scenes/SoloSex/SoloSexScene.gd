@@ -12,125 +12,88 @@ func setupScene() -> void:
 	
 	addState("start", {
 		dom = "soloSex/Start_1",
-	}, {
-		CONF_BASESPEED: 1.0,
 	})
 	addState("rubTease", {
 		dom = "soloSex/RubTease_1",
-	}, {
-		CONF_BASESPEED: 1.0,
 	})
 	addState("rubSlow", {
 		dom = "soloSex/RubSlow_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(26, "moan"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(26, "moan"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
+
 	addState("rub", {
 		dom = "soloSex/Rub_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(17, "moan"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(17, "moan"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("rubFast", {
 		dom = "soloSex/RubFast_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(13, "moan"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(13, "moan"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("rubOrgasm", {
 		dom = "soloSex/RubOrgasm_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(1, "orgasm"),
 			animEventOnFrame(10, "squirt"),
 			animEventOnFrame(33, "squirt"),
 			animEventOnFrame(55, "squirt"),
 			animEventOnFrame(88, "squirt"),
 			animEventOnFrame(111, "squirt"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	
 	addState("strokeTease", {
 		dom = "soloSex/StrokeTease_1",
-	}, {
-		CONF_BASESPEED: 1.0,
 	})
 	addState("strokeSlow", {
 		dom = "soloSex/StrokeSlow_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(26, "moanStroke"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(26, "moanStroke"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("stroke", {
 		dom = "soloSex/Stroke_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(17, "moanStroke"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(17, "moanStroke"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("strokeFast", {
 		dom = "soloSex/StrokeFast_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
-			animEventOnFrame(13, "moanStroke"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	}).setAnimEvents([
+		animEventOnFrame(13, "moanStroke"),
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("strokeOrgasm", {
 		dom = "soloSex/StrokeOrgasm_1",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(1, "shootcum"),
 			animEventOnFrame(7, "orgasm"),
 			animEventOnFrame(33, "shootcum"),
 			animEventOnFrame(55, "shootcum"),
 			animEventOnFrame(88, "shootcum"),
-		],
-		CONF_HIDETAGS: {
-			dom = [SexHideTag.ArmRestraint],
-		},
+	]).setHideTags({
+		dom = [SexHideTag.ArmRestraint],
 	})
 	
-	addAdd3Layer("penisGirth", {
+	addExtraLayer(AnimSceneExtraLayerAdd3.create("penisGirth", {
 		dom = "soloSex/StrokeHandBig_1",
 	}, {
 		dom = "soloSex/StrokeHandSmall_1",
 	}, {
 		dom = "soloSex/StrokeHandNormal_1",
-	})
+	}))
 	
 	setStartState("start")
 	connectStates("start", "rubTease", 0.6)

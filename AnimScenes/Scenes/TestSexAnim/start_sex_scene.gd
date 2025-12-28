@@ -15,8 +15,6 @@ func setupScene() -> void:
 	addState("start", {
 		dom = "sexStart/SexStart_1",
 		sub = "sexStart/SexStart_2",
-	}, {
-		CONF_BASESPEED: 1.0,
 	})
 	
 	setStartState("start")

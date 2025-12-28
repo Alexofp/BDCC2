@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bth5lvcqs0bb6"]
+
+[ext_resource type="Script" uid="uid://dlcgrjcbmye63" path="res://AnimScenes/PropSpot.gd" id="1_2fqb7"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_6ri5g"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dilbs"]
+
+[node name="PropSpot" type="Marker3D" unique_id=336751143]
+script = ExtResource("1_2fqb7")
+
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1039072771]
+replication_config = SubResource("SceneReplicationConfig_dilbs")
+script = ExtResource("2_6ri5g")
+metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

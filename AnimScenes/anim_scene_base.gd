@@ -3,18 +3,103 @@ class_name AnimSceneBase
 
 var id:String = "" # Used for anim tree caching
 
-var sitters:Dictionary[String, Dictionary] = {}
+class Sitter:
+	var spot:PoseSpot
+	var tree:DollLayeredAnimPlayer
+	var anim:AnimationPlayer
+
+var sitters:Dictionary[String, Sitter] = {}
 var penisTarget:Dictionary = {}
 
-var states:Dictionary = {}
+class PropSlot:
+	var spot:PropSpot
+	var tree:AnimationTree
+	var anim:AnimationPlayer
+	
+var props:Dictionary[String, PropSlot] = {}
+
+class AnimSceneState:
+	static func create(_id:String, _anims:Dictionary[String, String]) -> AnimSceneState:
+		var theState:AnimSceneState = AnimSceneState.new()
+		theState.id = _id
+		theState.anims = _anims
+		return theState
+	func setBaseSpeed(_sp:float) -> AnimSceneState:
+		baseSpeed = _sp
+		return self
+	func setAnimEvents(_events:Array) -> AnimSceneState:
+		animEvents = _events
+		return self
+	func setHideTags(_hideTags:Dictionary) -> AnimSceneState:
+		hideTags = _hideTags
+		return self
+	func setSpeedAutoSwitch(_speedMultMin:float, _speedMultMax:float, _timeMin:float, _timeMax:float) -> AnimSceneState:
+		speedMultMin = _speedMultMin
+		speedMultMax = _speedMultMax
+		timedSpeedSwitchMin = _timeMin
+		timedSpeedSwitchMax = _timeMax
+		return self
+	
+	var id:String = ""
+	
+	var anims:Dictionary[String, String]
+	var connections:Dictionary
+	
+	var baseSpeed:float = 1.0
+	var speedMultMin:float = 1.0
+	var speedMultMax:float = 1.0
+	var timedSpeedSwitchMin:float = 0.0
+	var timedSpeedSwitchMax:float = 0.0
+	
+	var animEvents:Array
+	var hideTags:Dictionary
+
+var states:Dictionary[String, AnimSceneState] = {}
 var startState:String = ""
 
 const LAYER_ONESHOT = 0
 const LAYER_ADD3 = 1
 
+class AnimSceneExtraLayerBase:
+	var id:String = ""
+	func getType() -> int:
+		return -1
+
+class AnimSceneExtraLayerOneshot extends AnimSceneExtraLayerBase:
+	func getType() -> int:
+		return LAYER_ONESHOT
+	static func create(_id:String, _animByPose:Dictionary[String, String], _baseAnimByPose:Dictionary[String, String]) -> AnimSceneExtraLayerOneshot:
+		var theLayer := AnimSceneExtraLayerOneshot.new()
+		theLayer.id = _id
+		theLayer.anims = _animByPose
+		theLayer.baseAnims = _baseAnimByPose
+		return theLayer
+	func setAnimEvents(_events:Array) -> AnimSceneExtraLayerOneshot:
+		animEvents = _events
+		return self
+
+	var anims:Dictionary[String, String]
+	var baseAnims:Dictionary[String, String]
+	var animEvents:Array
+
+class AnimSceneExtraLayerAdd3 extends AnimSceneExtraLayerBase:
+	func getType() -> int:
+		return LAYER_ADD3
+	static func create(_id:String, _animByPosePlus:Dictionary[String, String], _animByPoseMinus:Dictionary[String, String], _baseAnimByPose:Dictionary[String, String]) -> AnimSceneExtraLayerAdd3:
+		var theLayer := AnimSceneExtraLayerAdd3.new()
+		theLayer.id = _id
+		theLayer.animsPlus = _animByPosePlus
+		theLayer.animsMinus = _animByPoseMinus
+		theLayer.baseAnims = _baseAnimByPose
+		return theLayer
+		
+	var animsPlus:Dictionary[String, String]
+	var animsMinus:Dictionary[String, String]
+	var baseAnims:Dictionary[String, String]
+
 #var oneShots:Dictionary = {}
-var extraLayers:Array[Dictionary] = []
-var extraLayersByID:Dictionary[String, Dictionary] = {}
+var extraLayers:Array[AnimSceneExtraLayerBase] = []
+var extraLayersByID:Dictionary[String, AnimSceneExtraLayerBase] = {}
 
 var state:String = ""
 var currentStateSpeed:float = 1.0
@@ -35,14 +120,6 @@ var speedSwitchTimer:Timer
 
 var mainAnimPlayer:AnimationPlayer
 var mainAnimTree:AnimationTree
-
-const CONF_BASESPEED = "baseSpeed"
-const CONF_SPEEDMULT_MIN = "speedMultMin"
-const CONF_SPEEDMULT_MAX = "speedMultMax"
-const CONF_TIMEDSPEEDSWITCH_MIN = "timedSpeedSwitchMin"
-const CONF_TIMEDSPEEDSWITCH_MAX = "timedSpeedSwitchMax"
-const CONF_ANIMEVENTS = "animEvents"
-const CONF_HIDETAGS = "hideTags"
 
 # Anim support toggles
 var supportsArmbinderAnim:bool = true
@@ -71,12 +148,12 @@ func onAnimationEvent(_eventID:String):
 
 func startSpeedSwitchTimer():
 	speedSwitchTimer.stop()
-	var currentStateData:Dictionary = getCurrentStateData()
-	if(currentStateData.is_empty()):
+	var currentStateData:AnimSceneState = getCurrentStateData()
+	if(!currentStateData):
 		return
 
-	var theTimedSpeedSwitchMin:float = currentStateData[CONF_TIMEDSPEEDSWITCH_MIN] if currentStateData.has(CONF_TIMEDSPEEDSWITCH_MIN) else 0.0
-	var theTimedSpeedSwitchMax:float = currentStateData[CONF_TIMEDSPEEDSWITCH_MAX] if currentStateData.has(CONF_TIMEDSPEEDSWITCH_MAX) else 0.0
+	var theTimedSpeedSwitchMin:float = currentStateData.timedSpeedSwitchMin
+	var theTimedSpeedSwitchMax:float = currentStateData.timedSpeedSwitchMax
 	if(theTimedSpeedSwitchMin > theTimedSpeedSwitchMax):
 		return
 	var timeNextSwitch:float = RNG.randfRange(theTimedSpeedSwitchMin, theTimedSpeedSwitchMax)
@@ -85,12 +162,12 @@ func startSpeedSwitchTimer():
 	
 var tween:Tween
 func onSpeedSwitchTimer():
-	var currentStateData:Dictionary = getCurrentStateData()
-	if(currentStateData.is_empty()):
+	var currentStateData:AnimSceneState = getCurrentStateData()
+	if(!currentStateData):
 		return
 	
-	var theSpeedMultMin:float = currentStateData[CONF_SPEEDMULT_MIN] if currentStateData.has(CONF_SPEEDMULT_MIN) else 1.0
-	var theSpeedMultMax:float = currentStateData[CONF_SPEEDMULT_MAX] if currentStateData.has(CONF_SPEEDMULT_MAX) else 1.0
+	var theSpeedMultMin:float = currentStateData.speedMultMin
+	var theSpeedMultMax:float = currentStateData.speedMultMax
 	if(theSpeedMultMin > theSpeedMultMax):
 		return
 	
@@ -134,57 +211,25 @@ func addAnimLibrary(theID:String, thePath:String):
 func setStartState(stateID:String):
 	startState = stateID
 
-func addAdditiveOneshot(oneshotID:String, animByPose:Dictionary, baseAnimByPose:Dictionary, _theSettings:Dictionary = {}):
-	var newLayer:Dictionary = {
-		id = oneshotID,
-		type = LAYER_ONESHOT,
-		anims = animByPose,
-		baseAnims = baseAnimByPose,
-		settings = _theSettings,
-	}
-	extraLayers.append(newLayer)
-	extraLayersByID[oneshotID] = newLayer
-	#oneShots[oneshotID] = {
-		#anims = animByPose,
-		#baseAnims = baseAnimByPose,
-		#settings = _theSettings,
-	#}
+func addExtraLayer(_layer:AnimSceneExtraLayerBase):
+	extraLayers.append(_layer)
+	extraLayersByID[_layer.id] = _layer
 
-func addAdd3Layer(_id:String, animByPosePlus:Dictionary, animByPoseMinus:Dictionary, baseAnimByPose:Dictionary, _theSettings:Dictionary = {}):
-	var newLayer:Dictionary = {
-		id = _id,
-		type = LAYER_ADD3,
-		animsPlus = animByPosePlus,
-		animsMinus = animByPoseMinus,
-		baseAnims = baseAnimByPose,
-		settings = _theSettings,
-	}
-	extraLayers.append(newLayer)
-	extraLayersByID[_id] = newLayer
+func addState(_id:String, _anims:Dictionary[String, String]) -> AnimSceneState:
+	var theState := AnimSceneState.create(_id, _anims)
+	addStateRaw(theState)
+	return theState
 
-func addState(stateID:String, animByPose:Dictionary, stateSettings:Dictionary = {}):
-	var theStateInfo:Dictionary = {
-		anims = animByPose,
-		connections = {},
-	}
-	
-	theStateInfo[CONF_BASESPEED] = stateSettings[CONF_BASESPEED] if stateSettings.has(CONF_BASESPEED) else 1.0
-	theStateInfo[CONF_SPEEDMULT_MIN] = stateSettings[CONF_SPEEDMULT_MIN] if stateSettings.has(CONF_SPEEDMULT_MIN) else 1.0
-	theStateInfo[CONF_SPEEDMULT_MAX] = stateSettings[CONF_SPEEDMULT_MAX] if stateSettings.has(CONF_SPEEDMULT_MAX) else 1.0
-	theStateInfo[CONF_TIMEDSPEEDSWITCH_MIN] = stateSettings[CONF_TIMEDSPEEDSWITCH_MIN] if stateSettings.has(CONF_TIMEDSPEEDSWITCH_MIN) else 0.0
-	theStateInfo[CONF_TIMEDSPEEDSWITCH_MAX] = stateSettings[CONF_TIMEDSPEEDSWITCH_MAX] if stateSettings.has(CONF_TIMEDSPEEDSWITCH_MAX) else 0.0
-	theStateInfo[CONF_ANIMEVENTS] = stateSettings[CONF_ANIMEVENTS] if stateSettings.has(CONF_ANIMEVENTS) else []
-	theStateInfo[CONF_HIDETAGS] = stateSettings[CONF_HIDETAGS] if stateSettings.has(CONF_HIDETAGS) else {}
-	
-	states[stateID] = theStateInfo
+func addStateRaw(_animState:AnimSceneState):
+	states[_animState.id] = _animState
 
 func connectStates(state1:String, state2:String, interpolationTime:float = 0.2, isOneWay:bool = false, isAuto:bool = false):
-	var stateinfo1:Dictionary = states[state1]
-	var stateinfo2:Dictionary = states[state2]
+	var stateinfo1:AnimSceneState = states[state1]
+	var stateinfo2:AnimSceneState = states[state2]
 	
-	stateinfo1["connections"][state2] = {time=interpolationTime, auto=isAuto}
+	stateinfo1.connections[state2] = {time=interpolationTime, auto=isAuto}
 	if(!isOneWay):
-		stateinfo2["connections"][state1] = {time=interpolationTime, auto=isAuto}
+		stateinfo2.connections[state1] = {time=interpolationTime, auto=isAuto}
 
 func updateAllAnimTrees():
 	for seatID in sitters:
@@ -197,8 +242,8 @@ func updateAllAnimTrees():
 		updateAnimTreeFor(seatID)
 
 func updateAnimPlayerFor(seatID:String):
-	var seatInfo:Dictionary = sitters[seatID]
-	var animPlayer:AnimationPlayer = seatInfo["anim"]
+	var seatInfo:Sitter = sitters[seatID]
+	var animPlayer:AnimationPlayer = seatInfo.anim
 	
 	for animLibraryID in animLibraries:
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
@@ -209,12 +254,12 @@ func calculateStateAnimData():
 	animData.clear()
 	
 	var seatID:String = sitters.keys()[0]
-	var seatInfo:Dictionary = sitters[seatID]
-	var animPlayer:AnimationPlayer = seatInfo["anim"]
+	var seatInfo:Sitter = sitters[seatID]
+	var animPlayer:AnimationPlayer = seatInfo.anim
 	
 	for stateID in states:
-		var stateInfo:Dictionary = states[stateID]
-		var animName:String = stateInfo["anims"][seatID]
+		var stateInfo:AnimSceneState = states[stateID]
+		var animName:String = stateInfo.anims[seatID]
 		var theAnimation:Animation = animPlayer.get_animation(animName)
 		
 		animData[stateID] = {
@@ -224,14 +269,14 @@ func calculateStateAnimData():
 		}
 	
 	for extraLayer in extraLayers:
-		var theType:int = extraLayer["type"]
-		var layerID:String = extraLayer["id"]
+		var theType:int = extraLayer.getType()
+		var layerID:String = extraLayer.id
 		
 		if(theType == LAYER_ONESHOT):
 			var oneshotID:String = layerID
-			var oneshotData := extraLayer
+			var oneshotData :AnimSceneExtraLayerOneshot= extraLayer
 			
-			var oneshotAnimName:String = oneshotData["anims"][seatID]
+			var oneshotAnimName:String = oneshotData.anims[seatID]
 			var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
 			
 			animData[oneshotID] = {
@@ -240,7 +285,7 @@ func calculateStateAnimData():
 				step = theAnimation.step,
 			}
 		elif(theType == LAYER_ADD3):
-			var theAnimName:String = extraLayer["animsPlus"][seatID]
+			var theAnimName:String = extraLayer.animsPlus[seatID]
 			var theAnimation:Animation = animPlayer.get_animation(theAnimName)
 			animData[layerID] = {
 				len = theAnimation.length,
@@ -279,7 +324,7 @@ func updateMainAnimTree():
 	var mainAnimationLibrary:AnimationLibrary = AnimationLibrary.new()
 	
 	for stateID in states:
-		var stateInfo:Dictionary = states[stateID]
+		var stateInfo:AnimSceneState = states[stateID]
 		var newAnim:Animation = Animation.new()
 		
 		newAnim.step = animData[stateID]["step"]
@@ -289,8 +334,7 @@ func updateMainAnimTree():
 		var newTrack = newAnim.add_track(Animation.TYPE_METHOD)
 		newAnim.track_set_path(newTrack, NodePath("."))
 		
-		var animEvents:Array = stateInfo[CONF_ANIMEVENTS] if stateInfo.has(CONF_ANIMEVENTS) else []
-		for theAnimEvent in animEvents:
+		for theAnimEvent in stateInfo.animEvents:
 			var theTime:float = float(theAnimEvent[0])
 			var theArg:String = theAnimEvent[1]
 			
@@ -303,11 +347,11 @@ func updateMainAnimTree():
 		mainAnimationLibrary.add_animation(stateID, newAnim)
 	
 	for extraLayer in extraLayers:
-		var layerType:int = extraLayer["type"]
-		var layerID:String = extraLayer["id"]
+		var layerType:int = extraLayer.getType()
+		var layerID:String = extraLayer.id
 		if(layerType == LAYER_ONESHOT):
 			var oneshotID:String = layerID
-			var oneShotInfo := extraLayer
+			var oneShotInfo:AnimSceneExtraLayerOneshot = extraLayer
 			
 			var newAnim:Animation = Animation.new()
 			
@@ -318,8 +362,7 @@ func updateMainAnimTree():
 			var newTrack = newAnim.add_track(Animation.TYPE_METHOD)
 			newAnim.track_set_path(newTrack, NodePath("."))
 			
-			var theSettings:Dictionary = oneShotInfo["settings"] if oneShotInfo.has("settings") else {}
-			var animEvents:Array = theSettings[CONF_ANIMEVENTS] if theSettings.has(CONF_ANIMEVENTS) else []
+			var animEvents:Array = oneShotInfo.animEvents
 			
 			for theAnimEvent in animEvents:
 				var theTime:float = float(theAnimEvent[0])
@@ -381,13 +424,13 @@ func updateAnimTreeFor(seatID:String):
 		animTree = mainAnimTree
 		isMain = true
 	else:
-		var seatInfo:Dictionary = sitters[seatID]
-		animTree = seatInfo["tree"]
+		var seatInfo:Sitter = sitters[seatID]
+		animTree = seatInfo.tree
 	
 	if(!supportsCache || !GlobalRegistry.dollAnimTreeCache.has(cacheKey)):
 		var theStateMachine := AnimationNodeStateMachine.new()
 		for stateID in states:
-			var stateInfo:Dictionary = states[stateID]
+			var stateInfo:AnimSceneState = states[stateID]
 			
 			var blendTreeNode := AnimationNodeBlendTree.new()
 			theStateMachine.add_node(stateID, blendTreeNode)
@@ -396,7 +439,7 @@ func updateAnimTreeFor(seatID:String):
 			blendTreeNode.add_node("timeScale", timeScaleNode)
 			
 			var animNode := AnimationNodeAnimation.new()
-			animNode.animation = stateInfo["anims"][seatID] if !isMain else ("main/"+stateID)
+			animNode.animation = stateInfo.anims[seatID] if !isMain else ("main/"+stateID)
 			blendTreeNode.add_node("anim", animNode)
 			
 			blendTreeNode.connect_node("timeScale", 0, "anim")
@@ -408,8 +451,8 @@ func updateAnimTreeFor(seatID:String):
 		theStateMachine.add_transition("Start", startState, startTrans)
 		
 		for stateID in states:
-			var stateInfo:Dictionary = states[stateID]
-			var stateConnections:Dictionary = stateInfo["connections"]
+			var stateInfo:AnimSceneState = states[stateID]
+			var stateConnections:Dictionary = stateInfo.connections
 			
 			for otherStateID in stateConnections:
 				var connectionInfo:Dictionary = stateConnections[otherStateID]
@@ -431,8 +474,8 @@ func updateAnimTreeFor(seatID:String):
 		var currentStateName:String = "statemachine"
 		
 		for extraLayer in extraLayers:
-			var layerType:int = extraLayer["type"]
-			var layerID:String = extraLayer["id"]
+			var layerType:int = extraLayer.getType()
+			var layerID:String = extraLayer.id
 			
 			if(layerType == LAYER_ADD3):
 				if(isMain):
@@ -451,9 +494,9 @@ func updateAnimTreeFor(seatID:String):
 					finalBlendTree.connect_node(layerID, 0, layerID+"_animPlus")
 					finalBlendTree.connect_node(layerID, 2, layerID+"_animMinus")
 				else:
-					var add3AnimNamePlus:String = extraLayer["animsPlus"][seatID]
-					var add3AnimNameMinus:String = extraLayer["animsMinus"][seatID]
-					var add3BaseAnimName:String = extraLayer["baseAnims"][seatID]
+					var add3AnimNamePlus:String = extraLayer.animsPlus[seatID]
+					var add3AnimNameMinus:String = extraLayer.animsMinus[seatID]
+					var add3BaseAnimName:String = extraLayer.baseAnims[seatID]
 					
 					if(true):
 						var animNode := AnimationNodeAnimation.new()
@@ -494,7 +537,7 @@ func updateAnimTreeFor(seatID:String):
 			
 			if(layerType == LAYER_ONESHOT):
 				var oneshotID:String = layerID
-				var oneshotData := extraLayer
+				var oneshotData:AnimSceneExtraLayerOneshot = extraLayer
 				
 				if(isMain):
 					var oneshotAnimName:String = "main/"+oneshotID
@@ -509,8 +552,8 @@ func updateAnimTreeFor(seatID:String):
 					finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
 				else:
 					#var oneshotData:Dictionary = oneShots[oneshotID]
-					var oneshotAnimName:String = oneshotData["anims"][seatID]
-					var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
+					var oneshotAnimName:String = oneshotData.anims[seatID]
+					var oneshotBaseAnimName:String = oneshotData.baseAnims[seatID]
 					#var _settings:Dictionary = oneshotData["settings"]
 					
 					if(true):
@@ -594,20 +637,20 @@ func updateAnimTreeFor(seatID:String):
 		
 		if(supportsCache):
 			GlobalRegistry.dollAnimTreeCache[cacheKey] = finalFinalBlendTree
-			GlobalRegistry.dollAnimTreeLayerCache[cacheKey] = extraLayersByID
+			#GlobalRegistry.dollAnimTreeLayerCache[cacheKey] = extraLayersByID
 		
 		#animTree.tree_root = theStateMachine
 		animTree.tree_root = finalFinalBlendTree
 	else:
 		#print("REUSED ANIM TREE FOR CACHE KEY: "+str(cacheKey))
 		animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
-		extraLayersByID = GlobalRegistry.dollAnimTreeLayerCache[cacheKey]
+		#extraLayersByID = GlobalRegistry.dollAnimTreeLayerCache[cacheKey]
 	
 	if(!isMain):
 		animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
 		for extraLayer in extraLayers:
-			var layerType:int = extraLayer["type"]
-			var layerID:String = extraLayer["id"]
+			var layerType:int = extraLayer.getType()
+			var layerID:String = extraLayer.id
 			
 			if(layerType == LAYER_ONESHOT):
 				var oneshotID:String = layerID
@@ -619,14 +662,14 @@ func updateAnimTreeFor(seatID:String):
 		#	animTree["parameters/blendtree/"+oneshotID+"_sub/sub_amount"] = 1.0
 		
 	for stateID in states:
-		var stateInfo:Dictionary = states[stateID]
-		animTree["parameters/blendtree/statemachine/"+stateID+"/timeScale/scale"] = stateInfo[CONF_BASESPEED] if stateInfo.has(CONF_BASESPEED) else 1.0
+		var stateInfo:AnimSceneState = states[stateID]
+		animTree["parameters/blendtree/statemachine/"+stateID+"/timeScale/scale"] = stateInfo.baseSpeed
 
 func setSitter(theSeat:String, thePawn:CharacterPawn):
 	if(!sitters.has(theSeat)):
 		Log.error("No seat with the id "+theSeat+" found")
 		return
-	var theSitSpot:PoseSpot = sitters[theSeat]["spot"]
+	var theSitSpot:PoseSpot = sitters[theSeat].spot
 	if(!thePawn):
 		theSitSpot.unSit()
 		return
@@ -634,6 +677,28 @@ func setSitter(theSeat:String, thePawn:CharacterPawn):
 		theSitSpot.unSit()
 		#return
 	theSitSpot.doSit(thePawn)
+
+func addPropSpot(_theID:String, _theSpot:PropSpot):
+	var newAnimPlayer:AnimationPlayer = AnimationPlayer.new()
+	newAnimPlayer.active = false
+	add_child(newAnimPlayer)
+	
+	var newTree:AnimationTree = AnimationTree.new()
+	add_child(newTree)
+	newTree.active = false
+	newTree.anim_player = newTree.get_path_to(newAnimPlayer)
+	
+	var newSitter:PropSlot = PropSlot.new()
+	newSitter.spot = _theSpot
+	newSitter.tree = newTree
+	newSitter.anim = newAnimPlayer
+	
+	props[_theID] = newSitter
+	_theSpot.onPropSwitch.connect(onSeatPropSwitchFunc.bind(_theID))
+	
+func onSeatPropSwitchFunc(_newPawn:Node3D, _oldNode:Node3D, _theID:String):
+	updateAnim()
+	pass
 
 func addSeat(theID:String, theSpot:PoseSpot):
 	var newAnimPlayer:AnimationPlayer = AnimationPlayer.new()
@@ -645,11 +710,12 @@ func addSeat(theID:String, theSpot:PoseSpot):
 	newTree.active = false
 	newTree.anim_player = newTree.get_path_to(newAnimPlayer)
 	
-	sitters[theID] = {
-		spot = theSpot,
-		tree = newTree,
-		anim = newAnimPlayer,
-	}
+	var newSitter:Sitter = Sitter.new()
+	newSitter.spot = theSpot
+	newSitter.tree = newTree
+	newSitter.anim = newAnimPlayer
+	
+	sitters[theID] = newSitter
 	theSpot.onPawnSwitch.connect(onSeatPawnSwitchFunc.bind(theID))
 	theSpot.onDollSwitch.connect(onSeatDollSwitchFunc.bind(theID))
 
@@ -668,8 +734,8 @@ func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theI
 func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _id:String):
 	if(!sitters.has(_id)):
 		return
-	var sitterInfo:Dictionary = sitters[_id]
-	var animTree:AnimationTree = sitterInfo["tree"]
+	var sitterInfo:Sitter = sitters[_id]
+	var animTree:AnimationTree = sitterInfo.tree
 	var sitDoll:DollController = getSitterDoll(_id)
 	if(!sitDoll):
 		return
@@ -693,8 +759,8 @@ func deferUpdateMainAnimTree():
 	mainAnimTree["parameters/blendtree/statemachine/playback"].start(state, true)
 
 func deferUpdateAnimSitter(sitterID:String):
-	var sitterInfo:Dictionary = sitters[sitterID]
-	var animTree:AnimationTree = sitterInfo["tree"]
+	var sitterInfo:Sitter = sitters[sitterID]
+	var animTree:AnimationTree = sitterInfo.tree
 	
 	var sitDoll:DollController = getSitterDoll(sitterID)
 	
@@ -715,8 +781,8 @@ func updateRestraintAnimsFor(sitterID:String):
 	var theDoll:Doll = sitDoll.getDoll()
 	if(!theDoll):
 		return
-	var sitterInfo:Dictionary = sitters[sitterID]
-	var animTree:AnimationTree = sitterInfo["tree"]
+	var sitterInfo:Sitter = sitters[sitterID]
+	var animTree:AnimationTree = sitterInfo.tree
 	
 	theDoll.updatePose(animTree)
 
@@ -768,11 +834,11 @@ func setStateSpeedTween(theSpeed:float, theState:String):
 func setStateSpeed(theState:String, theSpeed:float):
 	if(!states.has(theState)):
 		return
-	var stateInfo:Dictionary = states[theState]
-	var baseSpeed:float = (stateInfo[CONF_BASESPEED] if stateInfo.has(CONF_BASESPEED) else 1.0)
+	var stateInfo:AnimSceneState = states[theState]
+	var baseSpeed:float = stateInfo.baseSpeed
 	for sitterID in sitters:
-		var sitterInfo:Dictionary = sitters[sitterID]
-		var animTree:AnimationTree = sitterInfo["tree"]
+		var sitterInfo:Sitter = sitters[sitterID]
+		var animTree:AnimationTree = sitterInfo.tree
 		
 		animTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"] = theSpeed * baseSpeed
 	mainAnimTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"] = theSpeed * baseSpeed
@@ -807,8 +873,8 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 		var theSpot := getSpot(sitterID)
 		if(theSpot):
 			theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
-		var sitterInfo:Dictionary = sitters[sitterID]
-		var animTree:AnimationTree = sitterInfo["tree"]
+		var sitterInfo:Sitter = sitters[sitterID]
+		var animTree:AnimationTree = sitterInfo.tree
 		
 		var animTreePlayback:AnimationNodeStateMachinePlayback = animTree["parameters/blendtree/statemachine/playback"]
 		animTreePlayback.travel(newState)
@@ -831,8 +897,8 @@ func getSexHideTagsFor(_charID:String) -> Array:
 	var theRole:String = getRoleByCharID(_charID)
 	if(theRole == ""):
 		return []
-	var stateInfo:Dictionary = getCurrentStateData() 
-	var theHideTags:Dictionary = stateInfo[CONF_HIDETAGS] if stateInfo.has(CONF_HIDETAGS) else {}
+	var stateInfo:AnimSceneState = getCurrentStateData() 
+	var theHideTags:Dictionary = stateInfo.hideTags
 	if(!theHideTags.has(theRole)):
 		return []
 	return theHideTags[theRole]
@@ -848,15 +914,15 @@ func updateAnimWhenDollsChange():
 func getExtraLayerType(_id:String) -> int:
 	if(!extraLayersByID.has(_id)):
 		return -1
-	return extraLayersByID[_id]["type"]
+	return extraLayersByID[_id].getType()
 
 func setAdd3Value(_id:String, _val:float):
 	if(getExtraLayerType(_id) != LAYER_ADD3):
 		Log.Printerr("BAD ID FOR ADD 3: "+str(_id))
 		return
 	for sitterID in sitters:
-		var sitterInfo:Dictionary = sitters[sitterID]
-		var animTree:AnimationTree = sitterInfo["tree"]
+		var sitterInfo:Sitter = sitters[sitterID]
+		var animTree:AnimationTree = sitterInfo.tree
 
 		animTree["parameters/blendtree/"+_id+"/add_amount"] = _val
 	mainAnimTree["parameters/blendtree/"+_id+"/add_amount"] = _val
@@ -867,8 +933,8 @@ func playOneShot(oneshotID:String):
 		return
 	
 	for sitterID in sitters:
-		var sitterInfo:Dictionary = sitters[sitterID]
-		var animTree:AnimationTree = sitterInfo["tree"]
+		var sitterInfo:Sitter = sitters[sitterID]
+		var animTree:AnimationTree = sitterInfo.tree
 		
 		animTree["parameters/blendtree/"+oneshotID+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	mainAnimTree["parameters/blendtree/"+oneshotID+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
@@ -934,7 +1000,7 @@ func getSitterDoll(theID:String) -> DollController:
 func getSpot(theID:String) -> PoseSpot:
 	if(!sitters.has(theID)):
 		return null
-	return sitters[theID]["spot"]
+	return sitters[theID].spot
 
 func applyAnimPlayer(user: DollController, theAnimPlayer:AnimationMixer):
 	user.getBodySkeleton().resetBones()
@@ -943,14 +1009,12 @@ func applyAnimPlayer(user: DollController, theAnimPlayer:AnimationMixer):
 func getState() -> String:
 	return state
 
-func getCurrentStateData() -> Dictionary:
-	return states[state] if states.has(state) else {}
+func getCurrentStateData() -> AnimSceneState:
+	return states[state] if states.has(state) else null
 
 func getSexHideTags(_role:String) -> Array:
-	var currentStateData:Dictionary = getCurrentStateData()
-	if(!currentStateData.has(CONF_HIDETAGS)):
-		return []
-	var allHideTags:Dictionary = currentStateData[CONF_HIDETAGS]
+	var currentStateData:AnimSceneState = getCurrentStateData()
+	var allHideTags:Dictionary = currentStateData.hideTags
 	return allHideTags[_role] if allHideTags.has(_role) else []
 
 var soundPlap := preload("res://Sounds/Plaps/RandomPlapSound.tres")

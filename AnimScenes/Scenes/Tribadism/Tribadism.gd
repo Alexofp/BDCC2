@@ -15,48 +15,32 @@ func setupScene() -> void:
 	addState("tease", {
 		dom = "sex/TribTease_1",
 		sub = "sex/TribTease_2",
-	}, {
-		CONF_BASESPEED: 1.0,
 	})
 	addState("slow", {
 		dom = "sex/TribSlow_1",
 		sub = "sex/TribSlow_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(35, "moan"),
-		],
-		#CONF_HIDETAGS: {
-		#	dom = [SexHideTag.ArmRestraint],
-		#},
-	})
+	])
 	addState("sex", {
 		dom = "sex/Trib_1",
 		sub = "sex/Trib_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(5, "moan"),
-		],
-	})
+	])
 	addState("fast", {
 		dom = "sex/TribFast_1",
 		sub = "sex/TribFast_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(3, "moan"),
-		],
-	})
+	])
 	addState("orgasmBoth", {
 		dom = "sex/TribOrgasm_1",
 		sub = "sex/TribOrgasm_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(1, "orgasmSub"),
 			animEventOnFrame(5, "orgasm"),
 			animEventOnFrame(10, "squirt2"),
@@ -69,14 +53,11 @@ func setupScene() -> void:
 			animEventOnFrame(88, "squirt1"),
 			animEventOnFrame(121, "squirt2"),
 			animEventOnFrame(111, "squirt1"),
-		],
-	})
+	])
 	addState("orgasm1", {
 		dom = "sex/TribOrgasm_1",
 		sub = "sex/TribOrgasmIdle_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			#animEventOnFrame(1, "orgasmSub"),
 			animEventOnFrame(1, "orgasm"),
 			animEventOnFrame(10, "squirt1"),
@@ -84,14 +65,11 @@ func setupScene() -> void:
 			animEventOnFrame(55, "squirt1"),
 			animEventOnFrame(88, "squirt1"),
 			animEventOnFrame(111, "squirt1"),
-		],
-	})
+	])
 	addState("orgasm2", {
 		dom = "sex/TribOrgasmIdle_1",
 		sub = "sex/TribOrgasm_2",
-	}, {
-		CONF_BASESPEED: 1.0,
-		CONF_ANIMEVENTS: [
+	}).setAnimEvents([
 			animEventOnFrame(1, "orgasmSub"),
 			#animEventOnFrame(1, "orgasm"),
 			animEventOnFrame(10, "squirt2"),
@@ -99,8 +77,7 @@ func setupScene() -> void:
 			animEventOnFrame(55, "squirt2"),
 			animEventOnFrame(88, "squirt2"),
 			animEventOnFrame(111, "squirt2"),
-		],
-	})
+	])
 	
 	setStartState("tease")
 	
