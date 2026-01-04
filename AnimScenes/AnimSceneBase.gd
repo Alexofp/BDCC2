@@ -47,14 +47,22 @@ func calculateStateAnimData():
 			}
 
 func updateAllAnimTrees():
+	#Only needed for sitters (dolls)
 	for seatID in sitters:
 		updateAnimPlayerFor(seatID)
+	for propID in props:
+		var thePropInfo:PropSlot = props[propID]
+		var theAnimPlayer:AnimationPlayer = thePropInfo.anim
+		for animLibraryID in thePropInfo.animLibraries:
+			theAnimPlayer.add_animation_library(animLibraryID, load(thePropInfo.animLibraries[animLibraryID]))
 	
 	calculateStateAnimData()
 	updateMainAnimTree()
 	
 	for seatID in sitters:
-		updateAnimTreeFor(seatID)
+		updateAnimTreeFor(seatID, UPDATE_SITTER)
+	for propID in props:
+		updateAnimTreeFor(propID, UPDATE_PROP)
 
 func updateMainAnimTree():
 	if(mainAnimPlayer):
@@ -136,7 +144,35 @@ func updateMainAnimTree():
 		
 	mainAnimPlayer.add_animation_library("main", mainAnimationLibrary)
 	
-	updateAnimTreeFor("MAIN")
+	updateAnimTreeFor("MAIN", UPDATE_MAIN)
+
+func setAdd3ValueGlobal(_id:String, _val:float):
+	setAdd3Value(_id, _val)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(setAdd3Value_RPC.bind(_id, _val))
+
+@rpc("authority", "call_remote", "reliable")
+func setAdd3Value_RPC(_id:String, _val:float):
+	setAdd3Value(_id, _val)
+
+func playOneShotGlobal(oneshotID:String):
+	playOneShot(oneshotID)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(playOneShot_RPC.bind(oneshotID))
+
+@rpc("authority", "call_remote", "reliable")
+func playOneShot_RPC(oneshotID:String):
+	playOneShot(oneshotID)
+
+# Networked version of playState
+func playStateGlobal(newState:String, setToState:bool=false, theAnimArgs:Dictionary = {}):
+	playState(newState, setToState, theAnimArgs)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(playState_RPC.bind(newState, setToState, theAnimArgs))
+
+@rpc("authority", "call_remote", "reliable")
+func playState_RPC(newState:String, setToState:bool, theAnimArgs:Dictionary):
+	playState(newState, setToState, theAnimArgs)
 
 func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = {}):
 	setStateSpeed(state, 1.0)
@@ -149,7 +185,6 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 	if(setToState):
 		updateAnim()
 		onPlayState(newState, theAnimArgs)
-		updateAnimWhenDollsChange()
 		return
 	for sitterID in sitters:
 		var theSpot := getSpot(sitterID)
@@ -160,25 +195,56 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 		
 		var animTreePlayback:AnimationNodeStateMachinePlayback = animTree["parameters/blendtree/statemachine/playback"]
 		animTreePlayback.travel(newState)
+	for propID in props:
+		var propInfo:PropSlot = props[propID]
+		var animTree:AnimationTree = propInfo.tree
+		
+		var animTreePlayback:AnimationNodeStateMachinePlayback = animTree["parameters/blendtree/statemachine/playback"]
+		animTreePlayback.travel(newState)
+	
+	
+	
 	var mainAnimTreePlayback:AnimationNodeStateMachinePlayback = mainAnimTree["parameters/blendtree/statemachine/playback"]
 	mainAnimTreePlayback.travel(newState)
 	onPlayState(newState, theAnimArgs)
 	doCharChecksAfterPlay()
-	updateAnimWhenDollsChange()
+	afterAnyAnimPlay()#updateAnimWhenDollsChange()
 
-func updateAnimTreeFor(seatID:String):
+func afterAnyAnimPlay():
+	updateAnimWhenDollsChange()
+	
+	var stateInfo:= getCurrentStateData()
+	if(stateInfo):
+		for sitterID in sitters:
+			var theDoll := getSitterDoll(sitterID)
+			if(!theDoll):
+				continue
+			var theFlags:Dictionary = stateInfo.flags.get(sitterID, {})
+			theDoll.getDoll().setAnimationPartFlags(theFlags)
+
+const UPDATE_SITTER = 0
+const UPDATE_MAIN = 1
+const UPDATE_PROP = 2
+
+func updateAnimTreeFor(seatID:String, _mode:int):
 	var animTree:AnimationTree
-	var isMain:bool = false
+	#var isMain:bool = (_mode == UPDATE_MAIN)
+	
+	if(_mode == UPDATE_MAIN):
+		seatID = "MAIN"
+		animTree = mainAnimTree
+		#isMain = true
+	elif(_mode == UPDATE_SITTER):
+		var seatInfo:Sitter = sitters[seatID]
+		animTree = seatInfo.tree
+	elif(_mode == UPDATE_PROP):
+		var propInfo:PropSlot = props[seatID]
+		animTree = propInfo.tree
+	else:
+		assert(false, "UNKNOWN UPDATE MODE")
 	
 	var supportsCache:bool = !id.is_empty()
 	var cacheKey:String = id+"_"+seatID
-	
-	if(seatID == "MAIN"):
-		animTree = mainAnimTree
-		isMain = true
-	else:
-		var seatInfo:Sitter = sitters[seatID]
-		animTree = seatInfo.tree
 	
 	if(!supportsCache || !GlobalRegistry.dollAnimTreeCache.has(cacheKey)):
 		var theStateMachine := AnimationNodeStateMachine.new()
@@ -192,7 +258,17 @@ func updateAnimTreeFor(seatID:String):
 			blendTreeNode.add_node("timeScale", timeScaleNode)
 			
 			var animNode := AnimationNodeAnimation.new()
-			animNode.animation = stateInfo.anims[seatID] if !isMain else ("main/"+stateID)
+			
+			var theAnimName:String = ""
+			if(_mode == UPDATE_SITTER):
+				theAnimName = stateInfo.anims[seatID]
+			elif(_mode == UPDATE_MAIN):
+				theAnimName = "main/"+stateID
+			elif(_mode == UPDATE_PROP):
+				# propAnims?
+				theAnimName = stateInfo.anims[seatID]
+			
+			animNode.animation = theAnimName
 			blendTreeNode.add_node("anim", animNode)
 			
 			blendTreeNode.connect_node("timeScale", 0, "anim")
@@ -231,7 +307,7 @@ func updateAnimTreeFor(seatID:String):
 			var layerID:String = extraLayer.id
 			
 			if(layerType == LAYER_ADD3):
-				if(isMain):
+				if(_mode == UPDATE_MAIN):
 					var theAnimName:String = "main/"+layerID
 					if(true):
 						var animNode := AnimationNodeAnimation.new()
@@ -292,7 +368,7 @@ func updateAnimTreeFor(seatID:String):
 				var oneshotID:String = layerID
 				var oneshotData:AnimSceneExtraLayerOneshot = extraLayer
 				
-				if(isMain):
+				if(_mode == UPDATE_MAIN):
 					var oneshotAnimName:String = "main/"+oneshotID
 					if(true):
 						var animNode := AnimationNodeAnimation.new()
@@ -333,52 +409,10 @@ func updateAnimTreeFor(seatID:String):
 					
 				currentStateName = oneshotID
 				
-		#for oneshotID in oneShots:
-			#if(isMain):
-				#var oneshotAnimName:String = "main/"+oneshotID
-				#if(true):
-					#var animNode := AnimationNodeAnimation.new()
-					#animNode.animation = oneshotAnimName
-					#finalBlendTree.add_node(oneshotID+"_anim", animNode)
-				#var oneshotNode := AnimationNodeOneShot.new()
-				#oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-				#finalBlendTree.add_node(oneshotID, oneshotNode)
-				#finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-				#finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_anim")
-			#else:
-				#var oneshotData:Dictionary = oneShots[oneshotID]
-				#var oneshotAnimName:String = oneshotData["anims"][seatID]
-				#var oneshotBaseAnimName:String = oneshotData["baseAnims"][seatID]
-				##var _settings:Dictionary = oneshotData["settings"]
-				#
-				#if(true):
-					#var animNode := AnimationNodeAnimation.new()
-					#animNode.animation = oneshotAnimName
-					#finalBlendTree.add_node(oneshotID+"_anim", animNode)
-				#if(true):
-					#var animNode := AnimationNodeAnimation.new()
-					#animNode.animation = oneshotBaseAnimName
-					#finalBlendTree.add_node(oneshotID+"_base", animNode)
-				#
-				#var subNode := AnimationNodeSub2.new()
-				#finalBlendTree.add_node(oneshotID+"_sub", subNode)
-				#finalBlendTree.connect_node(oneshotID+"_sub", 0, oneshotID+"_anim")
-				#finalBlendTree.connect_node(oneshotID+"_sub", 1, oneshotID+"_base")
-				##finalBlendTree.connect_node(oneshotID+"_sub", 1, "statemachine")
-				#
-				#var oneshotNode := AnimationNodeOneShot.new()
-				#oneshotNode.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
-				#finalBlendTree.add_node(oneshotID, oneshotNode)
-				#
-				#finalBlendTree.connect_node(oneshotID, 0, currentStateName)
-				#finalBlendTree.connect_node(oneshotID, 1, oneshotID+"_sub")
-				#
-			#currentStateName = oneshotID
-			
 		finalBlendTree.connect_node("output", 0, currentStateName)
 		
 		var finalFinalBlendTree:AnimationNodeBlendTree
-		if(!isMain):
+		if(_mode == UPDATE_SITTER):
 			finalFinalBlendTree = animTree.tree_root.duplicate(true)
 			finalFinalBlendTree.add_node("blendtree", finalBlendTree)
 			finalFinalBlendTree.get_node("LayeredAnimPlayerStart").add_input("SEX")
@@ -399,8 +433,9 @@ func updateAnimTreeFor(seatID:String):
 		animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
 		#extraLayersByID = GlobalRegistry.dollAnimTreeLayerCache[cacheKey]
 	
-	if(!isMain):
-		animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
+	if(_mode != UPDATE_MAIN):
+		if(_mode == UPDATE_SITTER):
+			animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
 		for extraLayer in extraLayers:
 			var layerType:int = extraLayer.getType()
 			var layerID:String = extraLayer.id
@@ -424,13 +459,40 @@ func updateAnim():
 		if(theSpot):
 			theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
 		deferUpdateAnimSitter.call_deferred(sitterID)
+	for propID in props:
+		#var theSpot := getSpotProp(propID)
+		#if(theSpot):
+		#	theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
+		deferUpdateAnimProp.call_deferred(propID)
+		
 	deferUpdateMainAnimTree.call_deferred()
 	
 	onAnimUpdate.emit()
 	doCharChecksAfterPlay()
+	afterAnyAnimPlay()
 
 func deferUpdateMainAnimTree():
 	mainAnimTree["parameters/blendtree/statemachine/playback"].start(state, true)
+
+func deferUpdateAnimProp(propID:String):
+	var propInfo:PropSlot = props[propID]
+	var animTree:AnimationTree = propInfo.tree
+	
+	var theProp := propInfo.spot.getProp()
+	
+	if(theProp):
+#func applyAnimPlayerToProp(user: DollController, theAnimPlayer:AnimationMixer):
+		var theSkeleton:Skeleton3D = theProp.getPropSkeleton()
+		theSkeleton.reset_bone_poses()
+		animTree.root_node = animTree.get_path_to(theProp)#animTree.get_path_to(theSkeleton)
+		#user.getBodySkeleton().resetBones()
+		#theAnimPlayer.root_node = theAnimPlayer.get_path_to(user.getBodySkeleton())
+
+		animTree.active = true
+		animTree["parameters/blendtree/statemachine/playback"].start(state, true)
+	else:
+		animTree.active = false
+		animTree.root_node = NodePath("")
 
 func deferUpdateAnimSitter(sitterID:String):
 	var sitterInfo:Sitter = sitters[sitterID]

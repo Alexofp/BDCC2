@@ -53,6 +53,9 @@ func onStartFinal():
 func onStart():
 	pass
 
+func onSexEnd():
+	pass
+
 func getStartActionsFinal(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo) -> Array[SexAction]:
 	tempActions = []
 	getStartActions(_sexEngine, _info, _target)
@@ -233,6 +236,60 @@ func addActionEasy(_name:String, _score:float, _actionID:String, _args:Array = [
 	
 	addAction(newAction)
 
+func getAllPossiblePoses() -> Array[SexPoseBase]:
+	var result:Array[SexPoseBase] = []
+	var theEngine := getSexEngine()
+	
+	var allPoses := GlobalRegistry.getSexPosesForActivityID(id)
+	for thePose in allPoses:
+		if(!thePose.canBeUsedFinal(theEngine, self)):
+			continue
+		result.append(thePose)
+	
+	return result
+
+func getAllPossiblePosesCanPickRandomly() -> Array[SexPoseBase]:
+	var result:Array[SexPoseBase] = []
+	var theEngine := getSexEngine()
+	
+	var allPoses := GlobalRegistry.getSexPosesForActivityID(id)
+	for thePose in allPoses:
+		if(!thePose.canPickRandomly):
+			continue
+		if(!thePose.canBeUsedFinal(theEngine, self)):
+			continue
+		result.append(thePose)
+	
+	return result
+
+func pickRandomPose() -> String:
+	var allPoses := getAllPossiblePosesCanPickRandomly()
+	if(allPoses.is_empty()):
+		return ""
+	return RNG.pick(allPoses).id
+
+func hasAnyPosesToPick() -> bool:
+	var allPoses := getAllPossiblePosesCanPickRandomly()
+	if(allPoses.is_empty()):
+		return false
+	return true
+
+func addPosePickActions(_poseActionID:String):
+	var allPoses := getAllPossiblePoses()
+	
+	var theCat:Array[String] = ["Pose"]
+	for thePose in allPoses:
+		addAction(action(thePose.getVisibleName()).setCat(theCat).do(_poseActionID, [thePose.id]))
+
+func setPoseFromPickAction(_pose:String, _args:Array) -> String:
+	var newPose:String = _args[0]
+	#if(newPose == _pose):
+	#	return _pose
+	if(!GlobalRegistry.getSexPose(newPose)):
+		return _pose
+	
+	return newPose
+
 func getActionsFinal(_role:String) -> Array[SexAction]:
 	tempActions = []
 	
@@ -322,6 +379,23 @@ func endActivity():
 	if(sexEngine):
 		sexEngine.stopActivity(self)
 
+func playPoseOrAnim(thePoseID:String, theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
+	if(!playPose(thePoseID, theStateID, theAnimSeats, theAnimArgs)):
+		playAnim(theAnimID, theStateID, theAnimSeats, theAnimArgs)
+
+func playPose(thePoseID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}) -> bool:
+	if(thePoseID.is_empty()):
+		return false
+	var thePose:= GlobalRegistry.getSexPose(thePoseID)
+	if(!thePose):
+		Log.Printerr("(Sex Engine Activity) SEX POSE NOT FOUND TO PLAY: "+str(thePoseID))
+		return false
+	var newAnim:String = thePose.getAnim()
+	var newState:String = thePose.getState(theStateID)
+	var newSeats := thePose.getRoles(theAnimSeats)
+	playAnim(newAnim, newState, newSeats, theAnimArgs)
+	return true
+	
 # playAnim(AnimScene.TestSex, "sex", {top="dom", bottom="sub"})
 func playAnim(theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
 	var thePawns:Dictionary = {}

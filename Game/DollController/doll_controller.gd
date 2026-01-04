@@ -605,6 +605,7 @@ func updatePoseSpot():
 	var theSpot := getPoseSpot()
 	
 	if(!theSpot):
+		doll.setAnimationPartFlags({})
 		doll.setAnimPlayerEnabled(true)
 		#if(getState() != STATE_NORMAL):
 		getBodySkeleton().resetBones()

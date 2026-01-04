@@ -3,6 +3,10 @@ class_name AnimSceneBaseFuncs
 
 var id:String = "" # Used for anim tree caching
 
+const TAIL_OUT_OF_THE_WAY_FLAGS = {
+	TailSex = true,
+}
+
 class Sitter:
 	var spot:PoseSpot
 	var tree:DollLayeredAnimPlayer
@@ -15,6 +19,10 @@ class PropSlot:
 	var spot:PropSpot
 	var tree:AnimationTree
 	var anim:AnimationPlayer
+	
+	var animLibraries:Dictionary = {}
+	func addAnimLibrary(theID:String, thePath:String):
+		animLibraries[theID] = thePath
 	
 var props:Dictionary[String, PropSlot] = {}
 
@@ -32,6 +40,9 @@ class AnimSceneState:
 		return self
 	func setHideTags(_hideTags:Dictionary) -> AnimSceneState:
 		hideTags = _hideTags
+		return self
+	func setFlags(_flags:Dictionary) -> AnimSceneState:
+		flags = _flags
 		return self
 	func setSpeedAutoSwitch(_speedMultMin:float, _speedMultMax:float, _timeMin:float, _timeMax:float) -> AnimSceneState:
 		speedMultMin = _speedMultMin
@@ -57,6 +68,7 @@ class AnimSceneState:
 	
 	var animEvents:Array
 	var hideTags:Dictionary
+	var flags:Dictionary
 
 var states:Dictionary[String, AnimSceneState] = {}
 var startState:String = ""
@@ -210,6 +222,11 @@ func alignPenisReset(theID:String):
 func addAnimLibrary(theID:String, thePath:String):
 	animLibraries[theID] = thePath
 
+func addPropAnimLibrary(propID:String, theID:String, thePath:String):
+	if(!props.has(propID)):
+		return
+	props[propID].addAnimLibrary(theID, thePath)
+
 func setStartState(stateID:String):
 	startState = stateID
 
@@ -246,17 +263,17 @@ func updateAnimPlayerFor(seatID:String):
 	
 	Doll.updateAnimPlayerSpecific(animPlayer)
 
-func calculateStateAnimData():
-	pass
+#func calculateStateAnimData():
+#	pass
 		
-func updateMainAnimTree():
-	pass
+#func updateMainAnimTree():
+#	pass
 
 func animEventOnFrame(theFrame:float, theArg:String) -> Array:
 	return [theFrame/30.0, theArg] # Assumes the animation is 30 fps
 
-func updateAnimTreeFor(_seatID:String):
-	pass
+#func updateAnimTreeFor(_seatID:String):
+#	pass
 
 func setSitter(theSeat:String, thePawn:CharacterPawn):
 	if(!sitters.has(theSeat)):
@@ -270,6 +287,24 @@ func setSitter(theSeat:String, thePawn:CharacterPawn):
 		theSitSpot.unSit()
 		#return
 	theSitSpot.doSit(thePawn)
+
+func setProp(theSeat:String, theProp:Node3D):
+	if(!props.has(theSeat)):
+		Log.error("No prop with the id "+theSeat+" found")
+		return
+	var theSitSpot:PropSpot = props[theSeat].spot
+	if(!theProp):
+		#theSitSpot.unSit()
+		theSitSpot.freeSpot()
+		return
+	if(theSitSpot.hasProp()):
+		if(theSitSpot.getProp() == theProp):
+			return
+		#theSitSpot.unSit()
+		theSitSpot.freeSpot()
+		#return
+	theSitSpot.setProp(theProp)
+	#theSitSpot.doSit(thePawn)
 
 func addPropSpot(_theID:String, _theSpot:PropSpot):
 	var newAnimPlayer:AnimationPlayer = AnimationPlayer.new()
@@ -532,6 +567,11 @@ func setState(newState:String):
 func getSeats() -> Dictionary:
 	return sitters
 
+func hasSitter(theID:String) -> bool:
+	if(getSitter(theID)):
+		return true
+	return false
+
 func getSitter(theID:String) -> CharacterPawn:
 	var theSpot:PoseSpot = getSpot(theID)
 	if(!theSpot):
@@ -548,6 +588,11 @@ func getSpot(theID:String) -> PoseSpot:
 	if(!sitters.has(theID)):
 		return null
 	return sitters[theID].spot
+
+func getSpotProp(theID:String) -> PropSpot:
+	if(!props.has(theID)):
+		return null
+	return props[theID].spot
 
 func applyAnimPlayer(user: DollController, theAnimPlayer:AnimationMixer):
 	user.getBodySkeleton().resetBones()

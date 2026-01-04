@@ -16,6 +16,16 @@ const SEX_SPEEDS_ANIM = [
 var sexSpeed:int = SEX_SPEED_SLOW
 var isVaginal:bool = false
 var didSubJustCumTimer:float = 0.0
+const SEX_AROUSAL_GAIN = [
+	1.0, 2.0, 4.0,
+]
+
+func getFetish() -> String:
+	if(isVaginal):
+		return Fetish.SexVaginal
+	return Fetish.SexAnal
+
+var pose:String = ""
 
 func _init():
 	id = SexActivity.Sex
@@ -33,7 +43,7 @@ func getPenetrateZone() -> int:
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
-	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor): #Check if we have 'animations' for this sex type instead?
+	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor && _sexEngine.getSexTypeID() != SexType.InStocks): #Check if we have 'animations' for this sex type instead?
 		return false
 	return true
 
@@ -62,11 +72,12 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
+	pose = pickRandomPose()
 	isVaginal = _args["vaginal"] if _args.has("vaginal") else false
 	doText(ROLE_TOP, "{top.You} {top.youVerb grab} {bottom.your} wrists and {top.youVerb prepare} to fuck {bottom.yourHis} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")
 	
 func start_run():
-	playAnim(AnimScene.TestSex, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
+	playPoseOrAnim(pose, AnimScene.TestSex, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
 
 func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
@@ -89,7 +100,7 @@ func start_do(_role:String, _id:String, _args:Array):
 		doText(ROLE_TOP, "{top.You} {top.youVerb start} fucking {bottom.your} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")
 
 func playCurrentSexAnim():
-	playAnim(AnimScene.TestSex, SEX_SPEEDS_ANIM[sexSpeed], {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
+	playPoseOrAnim(pose, AnimScene.TestSex, SEX_SPEEDS_ANIM[sexSpeed], {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
 
 func sex_run():
 	playCurrentSexAnim()
@@ -183,10 +194,10 @@ func sex_process(_dt:float):
 	#	domDoCum()
 
 func cuminside_run():
-	playAnim(AnimScene.TestSex, "cum", {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
+	playPoseOrAnim(pose, AnimScene.TestSex, "cum", {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
 
 func inside_run():
-	playAnim(AnimScene.TestSex, "inside", {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
+	playPoseOrAnim(pose, AnimScene.TestSex, "inside", {dom=ROLE_TOP, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})
 	
 func inside_actions(_role:String):
 	if(!canDoDomActions(_role)):
@@ -213,11 +224,19 @@ func getActions(_role:String):
 		return
 	if(state != "inside"): #Maybe make it so you can only stop sex if not sexing?
 		addAction(action("Stop sex").setScore(scoreStop(ROLE_TOP)).do("stopSex"))
-
+	
+	if(canDoDomActions(_role) && state == "tease"):
+		addPosePickActions("pickPose")
+	
 func doAction(_role:String, _id:String, _args:Array):
 	if(_id == "stopSex"):
 		doText(_role, "{top.You} decided to stop fucking {bottom.you}.")
 		endActivity()
+
+	if(_id == "pickPose"):
+		pose = setPoseFromPickAction(pose, _args)
+		doText(_role, "{"+_role+".You} {"+_role+".youVerb switch|switches} the pose!")
+		doRun()
 
 func doEvent(_event:SexEvent):
 	pass
@@ -230,10 +249,11 @@ func getExpressionState(_role:String) -> int:
 	return DollExpressionState.Normal
 
 func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Variant):
-	if(_animID == AnimScene.TestSex):
-		if(_eventID == "plap"):
-			processSex(getPenetrateZone(), ROLE_TOP, ROLE_BOTTOM, 0.5)
-			addAutomoan(ROLE_BOTTOM, 2.0, 25.0)
+	#if(_animID == AnimScene.TestSex):
+		#if(_eventID == "plap"):
+			#processSex(getPenetrateZone(), ROLE_TOP, ROLE_BOTTOM, 0.5)
+			#addAutomoan(ROLE_BOTTOM, 2.0, 25.0)
+	pass
 
 func doProcess(_dt:float):
 	if(didSubJustCumTimer > 0.0):
@@ -241,8 +261,15 @@ func doProcess(_dt:float):
 		if(didSubJustCumTimer < 0.0):
 			didSubJustCumTimer = 0.0
 		
-	if(state == "sex"):
-		exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal if isVaginal else Fetish.SexAnal, _dt*0.02)
-	else:
-		exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal if isVaginal else Fetish.SexAnal, _dt*0.01)
+	#if(state == "sex"):
+	#	exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal if isVaginal else Fetish.SexAnal, _dt*0.02)
+	#else:
+	#	exposeFetish(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal if isVaginal else Fetish.SexAnal, _dt*0.01)
 	
+	if(state == "sex"):
+		stimulate(ROLE_TOP, S_PENIS, ROLE_BOTTOM, S_VAGINA if isVaginal else S_ANUS, I_NORMAL, getFetish(), _dt*0.02*SEX_AROUSAL_GAIN[sexSpeed])
+		#addAutomoan(ROLE_TOP, _dt*1.5, 10.0)
+		addAutomoan(ROLE_BOTTOM, _dt*1.5, 25.0)
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, getFetish(), _dt*0.02)
+	else:
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, getFetish(), _dt*0.01)

@@ -42,7 +42,7 @@ func playAnim_RPC(theAnimID:String, theStateID:String, _thePawns:Dictionary, the
 				
 	#playAnim(theAnimID, theStateID, thePawns)
 
-func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary):
+func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary, theProps:Dictionary = {}):
 	# TODO Check pawns
 	#if(animID == theAnimID && state == theStateID):
 		#sitPawns(thePawns)
@@ -50,6 +50,7 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimA
 	if(animID == theAnimID):# && state != theStateID):
 		# TODO play on current
 		state = theStateID
+		sitProps(theProps)
 		sitPawns(thePawns)
 		anim_scene_spawner.getScene().playState(state, false, theAnimArgs)
 		if(Network.isServerNotSingleplayer()):
@@ -70,10 +71,21 @@ func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimA
 	anim_scene_spawner.setScenePath(animPath)
 	anim_scene_spawner.spawn()
 	
+	sitProps(theProps)
 	sitPawns(thePawns)
 	anim_scene_spawner.getScene().playState(state, true, theAnimArgs)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(playAnim_RPC.bind(theAnimID, theStateID, thePawns, theAnimArgs))
+
+func sitProps(theProps:Dictionary):
+	if(!anim_scene_spawner.isSpawned()):
+		return
+	
+	if(Network.isServer()):
+		for propID in theProps:
+			var theProp:Node3D = theProps[propID]
+			
+			anim_scene_spawner.getScene().setProp(propID, theProp)
 
 func sitPawns(thePawns:Dictionary):
 	if(!anim_scene_spawner.isSpawned()):

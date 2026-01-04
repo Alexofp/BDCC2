@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bfxrm5eyd4j3a"]
+
+[ext_resource type="PackedScene" uid="uid://bf5g7hgjv6lyb" path="res://AnimScenes/anim_scene_base.tscn" id="1_tvmix"]
+[ext_resource type="Script" uid="uid://1wysr4ku460a" path="res://AnimScenes/Scenes/Stocks/StocksSexAnimScene.gd" id="2_tvmix"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="3_dxiy3"]
+[ext_resource type="PackedScene" uid="uid://bth5lvcqs0bb6" path="res://AnimScenes/PropSpot.tscn" id="4_xnjiv"]
+
+[node name="StocksSexAnimScene" unique_id=1155249647 instance=ExtResource("1_tvmix")]
+script = ExtResource("2_tvmix")
+
+[node name="SitSpot" parent="." index="0" unique_id=1513181109 instance=ExtResource("3_dxiy3")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." index="1" unique_id=336751143 instance=ExtResource("3_dxiy3")]
+unique_name_in_owner = true
+
+[node name="StandSpot" type="Marker3D" parent="." index="2" unique_id=1733448779]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.707047)
+
+[node name="PropSpot" parent="." index="3" unique_id=250307175 instance=ExtResource("4_xnjiv")]
+unique_name_in_owner = true

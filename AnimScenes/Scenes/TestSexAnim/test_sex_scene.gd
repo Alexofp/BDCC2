@@ -18,6 +18,8 @@ func setupScene() -> void:
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("slow", {
 		dom = "sex/SexStandingSlow_1",
@@ -27,6 +29,8 @@ func setupScene() -> void:
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 		sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("sex", {
 		dom = "sex/SexStanding_1",
@@ -36,6 +40,8 @@ func setupScene() -> void:
 	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("fast", {
 		dom = "sex/SexStandingFast_1",
@@ -45,6 +51,8 @@ func setupScene() -> void:
 	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("inside", {
 		dom = "sex/SexStandingInside_1",
@@ -52,6 +60,8 @@ func setupScene() -> void:
 	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("cum", {
 		dom = "sex/SexStandingCum_1",
@@ -67,6 +77,8 @@ func setupScene() -> void:
 	]).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
+	}).setFlags({
+		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	
 	connectStates("tease", "inside", 0.5)

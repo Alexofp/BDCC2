@@ -19,3 +19,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54)
 scene = ExtResource("4_eqnb6")
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
+[connection signal="onPawnSwitch" from="SitSpawner" to="." method="_on_sit_spawner_on_pawn_switch"]

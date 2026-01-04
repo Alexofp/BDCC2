@@ -36,6 +36,9 @@ var actionsCache:Dictionary = {}
 # char id = sex info
 var participants:Dictionary[String, SexParticipantInfo] = {}
 
+# Replace with nodepaths?
+var props:Dictionary[String, Node3D]
+
 var sexActivity:SexMainActivity
 var sexType:SexTypeBase
 var sideActivities:Array[SexSideActivity] = []
@@ -271,6 +274,14 @@ func getInfo(theID:String) -> SexParticipantInfo:
 	if(!participants.has(theID)):
 		return null
 	return participants[theID]
+
+func addProp(propID:String, theNode:Node3D):
+	props[propID] = theNode
+
+func getProp(_propID:String) -> Node3D:
+	if(!props.has(_propID)):
+		return null
+	return props[_propID]
 
 func _process(_delta: float) -> void:
 	processCamera(_delta)
@@ -842,7 +853,7 @@ func processCamera(_dt:float):
 		fixed_camera_pivot.global_position = GM.pcDoll.getGlobalChestBonePosition()#CameraPivot.global_position
 
 func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary):
-	anim_scene_player.playAnim(theAnimID, theStateID, thePawns, theAnimArgs)
+	anim_scene_player.playAnim(theAnimID, theStateID, thePawns, theAnimArgs, props)
 
 func playOneShot(oneShotID:String):
 	anim_scene_player.playOneShot(oneShotID)
@@ -871,6 +882,8 @@ func stopSex():
 	if(Network.isServer()):
 		deleteAllTemporaryItems()
 		doAutoEquipAfterEnd()
+		if(sexType):
+			sexType.onSexEnd()
 
 func _on_anim_scene_player_on_scene_switched() -> void:
 	onAnimSceneSwitched.emit()

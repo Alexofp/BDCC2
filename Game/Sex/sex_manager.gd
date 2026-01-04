@@ -14,24 +14,28 @@ func addSexInternal(theNode:SexEngine):
 func removeSexInternal(theNode:SexEngine):
 	sexEngines.erase(theNode)
 
-func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector3, theAng:Vector3) -> SexEngine:
-	if(!checkPawnsInternal(roles)):
-		Log.Printerr("Invalid characters setup, can't start sex: "+str(roles))
+#func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector3, theAng:Vector3) -> SexEngine:
+func startSex(_conf:SexStartConf) -> SexEngine:
+	if(!_conf):
+		Log.Printerr("Sex start confing is null!")
 		return null
-	for theRole in roles:
-		var theInfo:Dictionary = roles[theRole]
+	if(!checkPawnsInternal(_conf.roles)):
+		Log.Printerr("Invalid characters setup, can't start sex: "+str(_conf.roles))
+		return null
+	for theRole in _conf.roles:
+		var theInfo:Dictionary = _conf.roles[theRole]
 		if(theInfo.has("id")):
 			stopAnySexWithCharIDInvolved(theInfo["id"])
 	var newSexEngine:SexEngine = sexEngineScene.instantiate()
 	add_child(newSexEngine, true)
-	newSexEngine.global_position = thePos
-	newSexEngine.global_rotation = theAng
+	newSexEngine.global_position = _conf.pos
+	newSexEngine.global_rotation = _conf.ang
 	#sexEngines.append(newSexEngine)
 	
 	var roleToID:Dictionary[String, String] = {}
 	
-	for role in roles:
-		var theInfo:Dictionary = roles[role]
+	for role in _conf.roles:
+		var theInfo:Dictionary = _conf.roles[role]
 		var newParticipant:SexParticipantInfo = SexParticipantInfo.new()
 		newParticipant.setSexEngine(newSexEngine)
 		if(newParticipant.setupInfo(theInfo)):
@@ -40,8 +44,12 @@ func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector
 		else:
 			newSexEngine.stopSex()
 			return null
-
-	newSexEngine.start(sexTypeID, roleToID, args)
+	
+	for propID in _conf.props:
+		var theNode:Node3D = _conf.props[propID]
+		newSexEngine.addProp(propID, theNode)
+	
+	newSexEngine.start(_conf.sexType, roleToID, _conf.args)
 	
 	#GI.networkedNodes.notifySpawned(newSexEngine)
 	
@@ -108,7 +116,12 @@ func askStartMasturbation_SERVERRPC(_pawnID:String):
 	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
 	if(!thePawn):
 		return
-	startSex(SexType.Solo, {dom={id=_pawnID,role=SexRole.Dom}}, {}, thePawn.global_position, thePawn.global_rotation)
+	var newSex := SexStartConf.new()
+	newSex.sexType = SexType.Solo
+	newSex.addRole("dom", _pawnID, SexRole.Dom)
+	newSex.pos = thePawn.global_position
+	newSex.ang = thePawn.global_rotation
+	startSex(newSex)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd()

@@ -73,6 +73,18 @@ func despawn():
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(despawn)
 
+func despawnIfNoSitters() -> bool:
+	if(!Network.isServer()):
+		return false
+	if(!isSpawned()):
+		return false
+	
+	for sitterID in spawnedScene.sitters:
+		if(spawnedScene.hasSitter(sitterID)):
+			return false
+	despawn()
+	return true
+
 func getSitter(_theID:String) -> CharacterPawn:
 	if(!isSpawned()):
 		return null
@@ -87,6 +99,11 @@ func setSitter(_theID:String, _thePawn:CharacterPawn):
 	if(!isSpawned()):
 		return
 	spawnedScene.setSitter(_theID, _thePawn)
+
+func setProp(theSeat:String, theProp:Node3D):
+	if(!isSpawned()):
+		return
+	spawnedScene.setProp(theSeat, theProp)
 
 func getSitterDoll(_theID:String) -> DollController:
 	if(!isSpawned()):

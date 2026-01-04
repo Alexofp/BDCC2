@@ -21,7 +21,11 @@ const SEX_AROUSAL_GAIN = [
 ]
 
 const MAINANIM = AnimScene.SexCowgirl
-const MAINFETISH = Fetish.SexVaginal
+
+func getFetish() -> String:
+	if(isVaginal):
+		return Fetish.SexVaginal
+	return Fetish.SexAnal
 
 func getCumInsideTask() -> String:
 	if(isVaginal):
@@ -277,10 +281,10 @@ func doProcess(_dt:float):
 			didSubJustCumTimer = 0.0
 	
 	if(state == "sex"):
-		stimulate(ROLE_TOP, S_PENIS, ROLE_BOTTOM, S_VAGINA, I_NORMAL, MAINFETISH, _dt*0.02*SEX_AROUSAL_GAIN[sexSpeed])
+		stimulate(ROLE_TOP, S_PENIS, ROLE_BOTTOM, S_VAGINA if isVaginal else S_ANUS, I_NORMAL, getFetish(), _dt*0.02*SEX_AROUSAL_GAIN[sexSpeed])
 		addAutomoan(ROLE_TOP, _dt*1.5, 10.0)
 		addAutomoan(ROLE_BOTTOM, _dt*1.5, 14.0)
-		exposeFetish(ROLE_TOP, ROLE_BOTTOM, MAINFETISH, _dt*0.02)
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, getFetish(), _dt*0.02)
 	else:
-		exposeFetish(ROLE_TOP, ROLE_BOTTOM, MAINFETISH, _dt*0.01)
+		exposeFetish(ROLE_TOP, ROLE_BOTTOM, getFetish(), _dt*0.01)
 	

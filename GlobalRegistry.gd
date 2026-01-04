@@ -34,6 +34,8 @@ var sexGoals:Dictionary = {}
 var sexTaskRefs:Dictionary[String, SexTaskBase] = {}
 var dollAnims:Dictionary[String, DollAnimBase] = {}
 var dollAnimsByType:Dictionary[int, Array] = {}
+var sexPoses:Dictionary[String, SexPoseBase] = {}
+var sexPosesByActivityID:Dictionary[String, Array] = {}
 
 signal initialized
 
@@ -148,6 +150,7 @@ func doInit():
 	registerFetishFolder("res://Game/SexInfo/Fetishes/")
 	registerSexGoalFolder("res://Game/SexInfo/SexGoals/")
 	registerSexTaskFolder("res://Game/SexInfo/SexTask/")
+	registerSexPoseFolder("res://AnimScenes/SexPoses/")
 	
 	registerAnimSceneFolder("res://AnimScenes/Defs/")
 	
@@ -873,3 +876,42 @@ func getPickableAnimsFor(_type:int) -> Array[Array]:
 		result.append([theAnim.id, theAnim.animVisibleName])
 	
 	return result
+
+
+
+
+
+func registerSexPose(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexPoseBase):
+		sexPoses[object.id] = object
+		if(!sexPosesByActivityID.has(object.sexActivityID)):
+			var newAr:Array[SexPoseBase] = [object]
+			sexPosesByActivityID[object.sexActivityID] = newAr
+		else:
+			sexPosesByActivityID[object.sexActivityID].append(object)
+
+func registerSexPoseFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerSexPose(scriptPath)
+
+func getSexPose(id: String) -> SexPoseBase:
+	if(sexPoses.has(id)):
+		return sexPoses[id]
+	else:
+		Log.Printerr("ERROR: sex pose with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexPoseNoError(id: String) -> SexPoseBase:
+	if(sexPoses.has(id)):
+		return sexPoses[id]
+	else:
+		return null
+
+func getSexPosesForActivityID(id: String) -> Array[SexPoseBase]:
+	if(sexPosesByActivityID.has(id)):
+		return sexPosesByActivityID[id]
+	return []

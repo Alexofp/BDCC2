@@ -45,6 +45,7 @@ var partPaths:Dictionary = {
 }
 var attachPoints:Dictionary = {}
 
+var animationPartFlags:Dictionary = {} #Used to make the tail go out of the way during sex for example
 var cachedPartFlags:Dictionary = {}
 
 var openMouthTemp:bool = false
@@ -523,6 +524,12 @@ func updateAlphaMask():
 	
 	dollAlphaMaskDirty = false
 
+func setAnimationPartFlags(_flags:Dictionary):
+	if(animationPartFlags == _flags):
+		return
+	animationPartFlags = _flags
+	triggerDollPartFlagsUpdate()
+
 var dollPartFlagsDirty:bool = false
 func triggerDollPartFlagsUpdate():
 	if(dollPartFlagsDirty):
@@ -538,6 +545,9 @@ func updateDollPartFlags():
 			var dollPart = parts[genericType][partID]
 			if(dollPart is DollPart):
 				dollPart.gatherPartFlags(cachedPartFlags)
+	
+	for flag in animationPartFlags:
+		cachedPartFlags[flag] = animationPartFlags[flag]
 	
 	for genericType in parts:
 		for partID in parts[genericType]:

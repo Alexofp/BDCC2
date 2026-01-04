@@ -26,10 +26,7 @@ func grabMaterials():
 
 func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "idleAnim"):
-		if(TAIL_ANIMS.has(_value)):
-			animation_player.play(TAIL_ANIMS[_value], 0.5)
-		else:
-			animation_player.play("TailRest", 0.5)
+		updateTailAnimation()
 	elif(_optionID == "thickness"):
 		setBlendshape("Thick", _value)
 	elif(_optionID == "width"):
@@ -46,3 +43,14 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	
 	tailMat.set_shader_parameter("albedo", _skinTypeData.color)
 	
+func updateTailAnimation():
+	var theIdleAnim:int = getOptionValue("idleAnim", TAILANIM_WAG) if !getCachedPartFlag("TailSex", false) else TAILANIM_WRAPPEDAROUND
+	
+	var theFinalAnim := theIdleAnim
+	if(TAIL_ANIMS.has(theFinalAnim)):
+		animation_player.play(TAIL_ANIMS[theFinalAnim], 0.5)
+	else:
+		animation_player.play("TailRest", 0.5)
+
+func applyPartFlags(_theFlags:Dictionary):
+	updateTailAnimation()
