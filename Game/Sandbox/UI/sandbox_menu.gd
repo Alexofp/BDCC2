@@ -102,6 +102,7 @@ func spawnBenchOnServer(thePos:Vector3):
 	GI.networkedNodes.notifySpawned(theCube)
 
 
+#TODO: DELETE THIS?
 func _on_sex_scene_button_pressed() -> void:
 	var cubePos := GM.pcDoll.global_position
 	var cubeAng := GM.pcDoll.model_root.global_rotation

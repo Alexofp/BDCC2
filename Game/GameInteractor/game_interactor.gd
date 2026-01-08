@@ -205,6 +205,43 @@ func askDoAction(doll:DollController, action:InteractActionBaked):
 	#doll.getInteractor().doActionByID(action.uniqueID)
 	doOnServer(InteractCommand.CHARACTER_DO_INTERACT, [doll.uniqueID, action.uniqueID])
 
+func askDoPawnAction(_pawn:CharacterPawn, _action:InteractActionBaked):
+	if(Network.isServer()):
+		_pawn.getPawnInteractor().doBakedAction(_action.uniqueID, _action.actionID)
+		return
+	askDoPawnAction_SERVERRPC.rpc_id(1, _pawn.getCharID(), _action.uniqueID, _action.actionID)
+	pass
+
+@rpc("any_peer", "call_remote", "reliable")
+func askDoPawnAction_SERVERRPC(_pawnID:String, _actionIndx:int, _actionID:String):
+	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		#Remove this log?
+		Log.error("Pawn not found to do action. Pawn="+_pawnID+", Action id ="+_actionID)
+		return
+	thePawn.getPawnInteractor().doBakedAction(_actionIndx, _actionID)
+
+func askDoInteractEntryDo(_pawn:CharacterPawn, _action:InteractEntryDo, _category:InteractCategory, _indx:int):
+	if(Network.isServer()):
+		_pawn.doInteractEntryDo(_action, _category.target)
+	else:
+		askDoInteractEntryDo_SERVERRPC.rpc_id(1, _pawn.getCharID(), getUniqueIDOf(_category.target), _indx, _action.action.id)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askDoInteractEntryDo_SERVERRPC(_pawnID:String, _targetArray, _actionIndx:int, _actionID:String):
+	var theTarget := getNodeByUniqueID(_targetArray)
+	if(!theTarget):
+		Log.Printerr("Interact target node not found: "+str(_targetArray))
+		return
+	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		#Remove this log?
+		Log.error("Pawn not found to do interact entry. Pawn="+_pawnID+", Action id ="+_actionID)
+		return
+	#Log.Print(str(_actionIndx))
+	thePawn.pawn_interactor.updateInteractor()
+	thePawn.doInteractEntryDoByIndex(_actionIndx, theTarget, _actionID)
+
 func getUniqueIDOf(thing:Node) -> Array:
 	if(thing is DollController):
 		return [UID_DOLL, thing.uniqueID]
@@ -283,3 +320,28 @@ func sendChatGlobal(_text:String):
 @rpc("authority", "call_remote", "reliable")
 func sendChat_RPC(_text:String):
 	GameChat.addChat(_text)
+
+func askUpdateInteractor(_interactor:PawnInteractor):
+	if(Network.isServer()):
+		_interactor.updateInteractor()
+	else:
+		askUpdateInteractor_SERVER.rpc_id(1, _interactor.pawn.getCharID())
+
+@rpc("any_peer", "call_remote", "reliable")
+func askUpdateInteractor_SERVER(_pawnID:String):
+	var thePawn:CharacterPawn = pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		return
+	var theInteractor := thePawn.getPawnInteractor()
+	theInteractor.updateInteractor()
+	
+	#await get_tree().create_timer(1.0).timeout
+	Network.rpcClients(askUpdateInteractor_RPC.bind(_pawnID, theInteractor.saveCategoriesData().getBytesCompressedSimple()))
+
+@rpc("authority", "call_remote", "reliable")
+func askUpdateInteractor_RPC(_pawnID:String, _data:PackedByteArray):
+	var thePawn:CharacterPawn = pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		return
+	var theBins := Bins.readCompressedSimple(_data)
+	thePawn.getPawnInteractor().loadCategoriesData(theBins)

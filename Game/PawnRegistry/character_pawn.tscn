@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_1pxof"]
 [ext_resource type="Script" uid="uid://624kjj0em1a2" path="res://Game/GameInteractor/SyncNode.gd" id="2_274nk"]
 [ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="4_pbuf5"]
+[ext_resource type="PackedScene" uid="uid://q4bk8h61arww" path="res://Game/Interactable/PawnInteractor.tscn" id="5_1wd8s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7fod6"]
 
@@ -50,5 +51,8 @@ unique_name_in_owner = true
 gizmo_extents = 0.01
 script = ExtResource("4_pbuf5")
 metadata/_custom_type_script = "uid://dii6wngkjc5wn"
+
+[node name="PawnInteractor" parent="." unique_id=1577025676 instance=ExtResource("5_1wd8s")]
+unique_name_in_owner = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

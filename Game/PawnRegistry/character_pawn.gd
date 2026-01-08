@@ -17,6 +17,7 @@ var doll:DollController
 #@onready var sit_node: SyncNode = %SitNode
 
 @onready var navigation_agent_3d: NavigationAgent3D = %NavigationAgent3D
+@onready var pawn_interactor: PawnInteractor = %PawnInteractor
 
 var ai:PawnAI
 var interaction:InteractionBase
@@ -27,7 +28,13 @@ signal dollSwitched(newdoll, olddoll)
 
 var gridPos:Vector2i
 
+var pawnActionContext:PawnActionContext
+
 func _ready() -> void:
+	pawnActionContext = PawnActionContext.new()
+	pawnActionContext.pawn = self
+	pawn_interactor.setPawn(self)
+	
 	ai = PawnAI.new()
 	ai.setPawn(self)
 	
@@ -422,3 +429,105 @@ func getLeashPoint(_id:String) -> LeashPoint:
 	return dollLeashPoints[_id]
 
 # LEASH STUFF END
+
+# INTERACTOR STUFF BEGINS
+func getPawnInteractor() -> PawnInteractor:
+	return pawn_interactor
+
+func getQuickActionsSelf() -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	
+	#var theContext := pawnActionContext
+	#theContext.clearContext()
+	for pawnAction in GlobalRegistry.pawnQuickActionsAlwaysSelf:
+		#if(!pawnAction.canDoAction(theContext)):
+		#	continue
+		result.append(InteractEntryDo.create(pawnAction.id))
+	
+	return result
+
+# self is target in this case
+func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	
+	#var theContext := _actor.pawnActionContext
+	#theContext.clearContext()
+	#theContext.target = self
+	for pawnAction in GlobalRegistry.pawnQuickActionsAlwaysOtherPawn:
+		#if(!pawnAction.canDoAction(theContext)):
+		#	continue
+		result.append(InteractEntryDo.create(pawnAction.id))
+	#theContext.target = null
+	
+	return result
+
+func getInteractEntriesSelf() -> Array[InteractEntryBase]:
+	var result:Array[InteractEntryBase] = []
+	
+	result.append(InteractEntryText.create("YOU ARE "+str(getCharacter().getFullName())))
+	
+	#var theContext := pawnActionContext
+	#theContext.clearContext()
+	for pawnAction in GlobalRegistry.pawnActionsAlwaysSelf:
+		#if(!pawnAction.canDoAction(theContext)):
+		#	continue
+		result.append(InteractEntryDo.create(pawnAction.id))
+	
+	return result
+
+# self is target in this case
+func getInteractEntries(_actor:CharacterPawn) -> Array[InteractEntryBase]:
+	var result:Array[InteractEntryBase] = []
+	
+	#var theContext := _actor.pawnActionContext
+	#theContext.clearContext()
+	#theContext.target = self
+	for pawnAction in GlobalRegistry.pawnActionsAlwaysOtherPawn:
+		#if(!pawnAction.canDoAction(theContext)):
+		#	continue
+		result.append(InteractEntryDo.create(pawnAction.id))
+	#theContext.target = null
+	
+	#result.append(InteractEntryDo.create(
+		#"Leash", "leash"
+	#))
+	#result.append(InteractEntryDo.create(
+		#"Start sex", "startSex"
+	#))
+	
+	return result
+
+func askDoInteractEntryDo(_entry:InteractEntryDo, _target):
+	doInteractEntryDo(_entry, _target)
+
+func doInteractEntryDoByIndex(_indx:int, _target, _actionID:String):
+	var theEntry:InteractEntryDo = pawn_interactor.findInteractEntryDo(_indx, _target, _actionID)
+	if(!theEntry):
+		Log.Printerr("Interact entry not found: Indx="+str(_indx)+", Action id="+_actionID)
+		return
+	
+	doInteractEntryDo(theEntry, _target)
+	pass
+
+func doInteractEntryDo(_entry:InteractEntryDo, _target):
+	#Only support self actions for now
+	#if(_entry.user != self):
+		#_entry.user.askDoInteractEntryDo(_entry)
+		#return
+	var theAction:PawnActionBase = _entry.action
+	
+	if(!theAction):
+		return
+	
+	pawnActionContext.args = _entry.args
+	pawnActionContext.target = _target#_entry.target
+		
+	if(!theAction.canDoAction(pawnActionContext)):
+		pawnActionContext.args = []
+		pawnActionContext.target = null
+		return
+	Log.Print("DOING AN ACTION!!!")
+	theAction.doAction(pawnActionContext)
+	pawnActionContext.clearContext()
+
+# INTERACTOR STUFF ENDS

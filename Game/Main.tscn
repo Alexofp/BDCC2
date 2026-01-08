@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://w1hpye5t7hjr" path="res://Game/UI/CharacterMenu/character_menu.tscn" id="12_paojk"]
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
+[ext_resource type="Script" uid="uid://dfpjp84thxs6o" path="res://Game/Interactable/interact_pawn_ui.gd" id="14_ijdku"]
+[ext_resource type="PackedScene" uid="uid://heeo5nvmwnmk" path="res://Game/Interactable/UI/InteractMenu.tscn" id="16_tc76r"]
 [ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
@@ -64,6 +66,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="InteractUI" parent="MainUILayer" unique_id=1310660262 instance=ExtResource("10_w1287")]
 unique_name_in_owner = true
+script = ExtResource("14_ijdku")
 metadata/_edit_use_anchors_ = true
 
 [node name="SexUI" parent="MainUILayer" unique_id=1310099305 instance=ExtResource("11_ijkwl")]
@@ -73,6 +76,10 @@ visible = false
 [node name="CharacterMenu" parent="MainUILayer" unique_id=1459442367 instance=ExtResource("12_paojk")]
 unique_name_in_owner = true
 metadata/_edit_use_anchors_ = true
+
+[node name="InteractMenu" parent="MainUILayer" unique_id=749901978 instance=ExtResource("16_tc76r")]
+unique_name_in_owner = true
+visible = false
 
 [node name="SandboxMenu" parent="MainUILayer" unique_id=1409425611 instance=ExtResource("13_hoyip")]
 unique_name_in_owner = true
@@ -95,6 +102,7 @@ cameraPriority = -1.0
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]
+[connection signal="onClose" from="MainUILayer/InteractMenu" to="." method="_on_interact_menu_on_close"]
 [connection signal="onClosePressed" from="MainUILayer/SandboxMenu" to="." method="_on_sandbox_menu_on_close_pressed"]
 [connection signal="onCharCreatorButton" from="MainUILayer/InGameMenu" to="." method="_on_in_game_menu_on_char_creator_button"]
 [connection signal="onExitButton" from="MainUILayer/InGameMenu" to="." method="_on_in_game_menu_on_exit_button"]

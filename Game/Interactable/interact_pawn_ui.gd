@@ -1,47 +1,44 @@
 extends Control
-class_name InteractUI_OLD
+class_name InteractUI
 
 @onready var actions_list: ItemList = %ActionsList
 
 var selectedActionIndex:int = 0
 
 var interactorRef:WeakRef
-var userRef:WeakRef
 
-@export var interactor:Interactor
-@export var user:Node3D
+#@export var interactor:Interactor
+#@export var user:Node3D
 
 var cachedActions:Array[InteractActionBaked] = []
 
-func _ready():
-	setInteractorAndUser(interactor, user)
-	interactor = null
-	user = null
+#func _ready():
+	#setInteractorAndUser(interactor, user)
+	#interactor = null
+	#user = null
 
-func setInteractorAndUser(_newInteractor:Interactor, _newUser):
+func setInteractor(_newInteractor:PawnInteractor):
 	if(!_newInteractor):
 		interactorRef = null
-		userRef = null
 		return
 	interactorRef = weakref(_newInteractor)
-	userRef = weakref(_newUser)
 
-func getInteractor() -> Interactor:
+func getInteractor() -> PawnInteractor:
 	if(interactorRef == null):
 		return null
 	return interactorRef.get_ref()
 
-func getUser():
-	if(userRef == null):
+func getPawn() -> CharacterPawn:
+	if(interactorRef == null):
 		return null
-	return userRef.get_ref()
+	return getInteractor().pawn
 
 func calculateActions() -> Array[InteractActionBaked]:
-	var theInteractor:Interactor = getInteractor()
+	var theInteractor := getInteractor()
 	#var theUser = getUser()
 	if(theInteractor == null):
 		return []
-	return theInteractor.getActionsFinal()
+	return theInteractor.getQuickActionsFinal()
 
 func getActions() -> Array[InteractActionBaked]:
 	return cachedActions
@@ -77,8 +74,10 @@ func doSelectedAction():
 	var theActions := getActions()
 	if(selectedActionIndex >= 0 && selectedActionIndex < theActions.size()):
 		var anAction:InteractActionBaked = theActions[selectedActionIndex]
-		#anAction.interactable.doInteract(getUser(), anAction)
-		GI.askDoAction(getUser(), anAction)
+		
+		#print("DO QUICK ACTION!!!")
+		GI.askDoPawnAction(getPawn(), anAction)
+		#GI.askDoAction(getUser(), anAction)
 
 func updateSelectedAction():
 	actions_list.clear()

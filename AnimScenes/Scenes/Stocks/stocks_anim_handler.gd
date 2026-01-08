@@ -2,11 +2,59 @@ extends Node3D
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
 @onready var interactable: Interactable = %Interactable
+@onready var pawn_interactable: PawnInteractable = %PawnInteractable
 
 @export var stocks:Node3D
 
 func _ready():
 	interactable.dynamicActionsFunc = getActions
+	
+	pawn_interactable.setTarget(self)
+
+func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
+	var category := InteractCategory.new()
+	
+	category.categoryName = "Stocks"
+	category.interactEntries.append(
+		InteractEntryText.create("STOCKSSS")
+	)
+	category.interactEntries.append(
+		InteractEntryDo.create("SitProp", [
+			"dom", "Lock yourself",
+		])
+	)
+	
+	return category
+
+func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	
+	result.append(
+		InteractEntryDo.create("SitProp", [
+			"dom", "Lock yourself",
+		])
+	)
+	result.append(
+		InteractEntryDo.create("Generic", [
+			"test",
+		])
+	)
+	
+	return result
+
+func getSitterSlot(_slot:String) -> CharacterPawn:
+	return sit_spawner.getSitter(_slot)
+
+func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
+	if(!_pawn):
+		sit_spawner.despawn()
+		return true
+	if(!sit_spawner.isSpawned()):
+		sit_spawner.spawn()
+		sit_spawner.setProp("stocks", stocks)
+	sit_spawner.setSitter(_slot, _pawn)
+	#sit_spawner.despawnIfNoSitters()
+	return true
 
 func getActions(_interactor:Interactor, _user:DollController) -> Array[InteractAction]:
 	if(!_user):

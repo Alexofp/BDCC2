@@ -6,6 +6,7 @@ class_name MainScene
 @onready var doll_holder: DollHolder = %DollHolder
 @onready var interact_ui: InteractUI = %InteractUI
 @onready var sandbox_menu: PanelContainer = %SandboxMenu
+@onready var interact_menu: Control = %InteractMenu
 
 var character_creator:Node
 
@@ -153,9 +154,13 @@ func _process(_delta: float) -> void:
 					#_on_in_game_menu_on_char_creator_button()
 			#else:
 				#onCharCreatorConfirmButton()
-		if(Input.is_action_just_pressed("game_interact_menu") || Input.is_action_just_pressed("game_inventory")):
+		if(Input.is_action_just_pressed("game_character_menu")):
 			if(!UIHandler.tryCloseMenu()):
 				toggleCharacterMenu()
+			
+		if(Input.is_action_just_pressed("game_interact_menu")):
+			if(!UIHandler.tryCloseMenu()):
+				toggleInteractMenu()
 
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)
@@ -165,6 +170,12 @@ func toggleCharacterMenu():
 		hideCharacterMenu()
 	else:
 		showCharacterMenu()
+
+func toggleInteractMenu():
+	if(interact_menu.visible):
+		hideInteractMenu()
+	else:
+		showInteractMenu()
 
 func showCharacterMenu():
 	if(character_menu.visible):
@@ -233,16 +244,18 @@ func getInventoryRegistry() -> InventoryRegistry:
 	return inventory_registry
 
 func _on_doll_holder_on_current_doll_switch(_oldDoll: Variant, _newDoll: DollController) -> void:
-	if(!_newDoll):
-		interact_ui.setInteractorAndUser(null, null)
-	else:
-		interact_ui.setInteractorAndUser(_newDoll.getInteractor(), _newDoll)
+	var newPawn:CharacterPawn
+	if(_newDoll):
+		newPawn = _newDoll.getPawn()
 	
-	if(!Network.getMyPlayerInfo()):
-		sex_ui.setPawn(null)
+	if(!newPawn):
+		#interact_ui.setInteractorAndUser(null, null)
+		interact_ui.setInteractor(null)
 	else:
-		var currentCharID:String = Network.getMyPlayerInfo().charID
-		sex_ui.setPawn(GM.pawnRegistry.getPawn(currentCharID))
+		#interact_ui.setInteractorAndUser(_newDoll.getInteractor(), _newDoll)
+		interact_ui.setInteractor(newPawn.getPawnInteractor())
+	
+	sex_ui.setPawn(newPawn)
 
 func _on_sandbox_menu_on_close_pressed() -> void:
 	sandbox_menu.visible = false
@@ -262,3 +275,16 @@ func _on_character_menu_on_close() -> void:
 
 func getGameMode() -> GameModeBase:
 	return gameMode
+
+func showInteractMenu():
+	interact_menu.visible = true
+	interact_menu.setPawn(GM.pcPawn)
+	#interact_menu.updateMenu() #setPawn will do it
+
+func hideInteractMenu():
+	interact_menu.visible = false
+	interact_menu.setPawn(null)
+	#interact_menu.clearMenu()
+
+func _on_interact_menu_on_close() -> void:
+	hideInteractMenu()

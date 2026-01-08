@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://q4bk8h61arww"]
+
+[ext_resource type="Script" uid="uid://dt1242sjbkn1o" path="res://Game/Interactable/PawnInteractor.gd" id="1_6gdyk"]
+[ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_b31d6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6gdyk"]
+height = 2.6
+radius = 1.6
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pp2xn"]
+properties/0/path = NodePath(".:actionsSync")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="PawnInteractor" type="Area3D" unique_id=1577025676]
+collision_layer = 1024
+collision_mask = 3072
+script = ExtResource("1_6gdyk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1694358015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CylinderShape3D_6gdyk")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=298054369]
+replication_config = SubResource("SceneReplicationConfig_pp2xn")
+public_visibility = false
+script = ExtResource("2_b31d6")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

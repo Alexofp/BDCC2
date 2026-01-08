@@ -36,6 +36,11 @@ var dollAnims:Dictionary[String, DollAnimBase] = {}
 var dollAnimsByType:Dictionary[int, Array] = {}
 var sexPoses:Dictionary[String, SexPoseBase] = {}
 var sexPosesByActivityID:Dictionary[String, Array] = {}
+var pawnActions:Dictionary[String, PawnActionBase] = {}
+var pawnActionsAlwaysSelf:Array[PawnActionBase] = []
+var pawnActionsAlwaysOtherPawn:Array[PawnActionBase] = []
+var pawnQuickActionsAlwaysSelf:Array[PawnActionBase] = []
+var pawnQuickActionsAlwaysOtherPawn:Array[PawnActionBase] = []
 
 signal initialized
 
@@ -151,6 +156,8 @@ func doInit():
 	registerSexGoalFolder("res://Game/SexInfo/SexGoals/")
 	registerSexTaskFolder("res://Game/SexInfo/SexTask/")
 	registerSexPoseFolder("res://AnimScenes/SexPoses/")
+	
+	registerPawnAcitonFolder("res://Game/Interactable/PawnActions/")
 	
 	registerAnimSceneFolder("res://AnimScenes/Defs/")
 	
@@ -915,3 +922,31 @@ func getSexPosesForActivityID(id: String) -> Array[SexPoseBase]:
 	if(sexPosesByActivityID.has(id)):
 		return sexPosesByActivityID[id]
 	return []
+
+
+func registerPawnAction(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is PawnActionBase):
+		pawnActions[object.id] = object
+		if(object.alwaysCheckedSelf):
+			pawnActionsAlwaysSelf.append(object)
+		if(object.alwaysCheckedOtherPawn):
+			pawnActionsAlwaysOtherPawn.append(object)
+		if(object.alwaysCheckedSelfQuickAction):
+			pawnQuickActionsAlwaysSelf.append(object)
+		if(object.alwaysCheckedOtherPawnQuickAction):
+			pawnQuickActionsAlwaysOtherPawn.append(object)
+
+func registerPawnAcitonFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerPawnAction(scriptPath)
+
+func getPawnAction(id: String) -> PawnActionBase:
+	if(pawnActions.has(id)):
+		return pawnActions[id]
+	else:
+		Log.Printerr("ERROR: pawn action with the id "+str(id)+" wasn't found")
+		return null

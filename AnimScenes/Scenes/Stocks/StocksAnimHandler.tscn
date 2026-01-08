@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="2_x6cx1"]
 [ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="3_s3d1w"]
 [ext_resource type="PackedScene" uid="uid://cdch4m3k7s3xq" path="res://AnimScenes/Scenes/Stocks/StocksAnimScene.tscn" id="4_eqnb6"]
+[ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="5_y0o15"]
 
 [node name="StocksAnimHandler" type="Node3D" unique_id=1469755165 groups=["Networked"]]
 script = ExtResource("1_eqnb6")
@@ -17,6 +18,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54)
 
 [node name="SitSpawner" parent="." unique_id=905607107 instance=ExtResource("3_s3d1w")]
 scene = ExtResource("4_eqnb6")
+
+[node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("5_y0o15")]
+unique_name_in_owner = true
 
 [connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
 [connection signal="onPawnSwitch" from="SitSpawner" to="." method="_on_sit_spawner_on_pawn_switch"]
