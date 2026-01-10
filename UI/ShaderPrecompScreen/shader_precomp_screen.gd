@@ -4,6 +4,7 @@ class_name ShaderPrecompScreen
 const COMPILE_IN_DEBUG = false
 const COMPILE_IN_RELEASE = true
 const ADD_TENMATSPLANE = true
+const ADD_ONE_GIANT_PLANE = true
 
 const SHADERS = [
 	"res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader",
@@ -53,6 +54,8 @@ func doStuff():
 	
 	if(shouldCompileShaders()):
 		await compileShaders()
+	elif(ADD_ONE_GIANT_PLANE):
+		await addBigPlane()
 	
 	#get_tree().change_scene_to_file(ProjectSettings.get_setting("application/run/main_scene"))
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
@@ -64,6 +67,18 @@ func doStuff():
 	GM.startMainMenu()
 	LoadingScreen.finishLoad()
 	#get_tree().change_scene_to_file(_theCurrentScenePath)
+
+func addBigPlane():
+	GlobalRegistry.shaderTracker.setShouldCheck(false)
+	LoadingScreen.setText("Loading..")
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	var theBigPlane:Node3D = preload("res://UI/ShaderPrecompScreen/GiantShaderPrecompPlane.tscn").instantiate()
+	theBigPlane.visible = false
+	GlobalRegistry.add_child(theBigPlane)
+	GlobalRegistry.shaderTracker.setShouldCheck(true)
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
 
 func compileShaders():
 	GlobalRegistry.shaderTracker.setShouldCheck(false)
