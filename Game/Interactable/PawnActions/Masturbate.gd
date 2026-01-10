@@ -14,4 +14,9 @@ func canDoAction(_context:PawnActionContext) -> bool:
 
 func doAction(_context:PawnActionContext) -> bool:
 	GM.sexManager.askStartMasturbation(_context.pawn.getCharID())
+	#startDelayedAction(_context, 2.0)
 	return true
+
+#func doDelayedAction(_context:PawnActionContext) -> bool:
+	#GM.sexManager.askStartMasturbation(_context.pawn.getCharID())
+	#return true

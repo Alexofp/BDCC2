@@ -26,8 +26,8 @@ func supplyContextCheckCanDo(_context:PawnActionContext):
 		if(entry is InteractEntryDo):
 			_context.args = entry.args
 			
-			if(!entry.action || !entry.action.canDoAction(_context)):
-				interactEntries.remove_at(_i)
+			if(!entry.action || !entry.action.canStartAction(_context)):
+				interactEntries.remove_at(_indx)
 				continue
 			
 			entry.calcCachedName(_context)

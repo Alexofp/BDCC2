@@ -86,15 +86,22 @@ func updateQuickActionsInteractor():
 			newQuickAction.target = otherPawn
 			newQuickAction.action = entry
 			newQuickActions.append(newQuickAction)
-		
+	
+	var theContext := pawn.pawnActionContext
 	for theInteractable in interactables:
 		var theInteractableActions := theInteractable.getQuickInteractActions(pawn)
 		for entry in theInteractableActions:
+			theContext.target = theInteractable.target
+			theContext.args = entry.args
+			if(!entry.action.canStartAction(theContext)):
+				continue
+			
 			var newQuickAction := InteractQuickAction.new()
 			newQuickAction.target = theInteractable.target
 			newQuickAction.action = entry
 			newQuickActions.append(newQuickAction)
-		
+	theContext.clearContext()
+	
 	cachedQuickActions = newQuickActions
 
 func getQuickActions() -> Array[InteractQuickAction]:

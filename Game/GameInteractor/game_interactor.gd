@@ -8,6 +8,7 @@ var networkedNodes:NetworkedNodes
 var sexManager:SexManager
 var inventoryRegistry:InventoryRegistry
 var leashSystem:LeashSystem
+var actionSystem:ActionSystem
 
 var serverCommandObjects:Dictionary = {}
 var clientCommandObjects:Dictionary = {}

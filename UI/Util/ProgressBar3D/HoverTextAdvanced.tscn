@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cp6xjo2jexanl"]
+
+[ext_resource type="PackedScene" uid="uid://js86ac6behcr" path="res://UI/Util/ProgressBar3D/ProgressBar3DSimple.tscn" id="1_cemct"]
+[ext_resource type="Script" uid="uid://cgc3gccowremm" path="res://UI/Util/ProgressBar3D/HoverTextAdvanced.gd" id="1_m164g"]
+[ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="2_m164g"]
+
+[node name="HoverTextAdvanced" type="Node3D" unique_id=861588921]
+script = ExtResource("1_m164g")
+
+[node name="ProgressBar3DSimple" parent="." unique_id=860250692 instance=ExtResource("1_cemct")]
+unique_name_in_owner = true
+
+[node name="ProgressBar3DSimple2" parent="." unique_id=629739442 instance=ExtResource("1_cemct")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03858608, 0)
+
+[node name="ProgressBar3DSimple3" parent="." unique_id=954536074 instance=ExtResource("1_cemct")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07416755, 0)
+
+[node name="HoverText" parent="." unique_id=590944479 instance=ExtResource("2_m164g")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11042635, 0)
+text = "Hello world"

@@ -748,8 +748,14 @@ func processHoverText(_dt:float):
 		finalText += theEntry[0] + "\n"
 	
 	var hover_text := doll.getHoverText()
-	if(hover_text.text != finalText):
-		hover_text.text = finalText
+	hover_text.setHoverText(finalText)
+	
+	#hover_text.setProgressInfos(["Doing something"], [0.3])
+	hover_text.setProgressInfos([], [])
+	
+	#var thePawn := getPawn()
+	#if(thePawn):
+		
 
 func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial: bool) -> void:
 	onGesturePlay.emit(gestureID, playFullBody, playPartial)

@@ -19,6 +19,7 @@ var character_creator:Node
 @onready var character_menu: Control = %CharacterMenu
 @onready var chat_widget_fullscreeen: Control = %ChatWidgetFullscreeen
 @onready var leash_system: LeashSystem = %LeashSystem
+@onready var action_system: ActionSystem = %ActionSystem
 
 @onready var sex_ui: SexUI = %SexUI
 
@@ -269,6 +270,9 @@ func getSexManager() -> SexManager:
 	
 func getLeashSystem() -> LeashSystem:
 	return leash_system
+	
+func getActionSystem() -> ActionSystem:
+	return action_system
 
 func _on_character_menu_on_close() -> void:
 	hideCharacterMenu()

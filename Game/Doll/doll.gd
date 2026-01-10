@@ -11,7 +11,7 @@ class_name Doll
 @onready var alpha_mask_texture: MyLayeredTexture = %AlphaMaskTexture
 
 @export var disableInternalAnimPlayer:bool = false
-@onready var hover_text: Label3D = %HoverText
+@onready var hover_text_advanced: HoverTextAdvanced = %HoverTextAdvanced
 
 @onready var look_at_modifier_chest: LookAtModifier3D = %LookAtModifierChest
 @onready var look_at_modifier_neck: LookAtModifier3D = %LookAtModifierNeck
@@ -767,8 +767,8 @@ func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
 func isDollEnabled() -> bool:
 	return parts_node.visible
 
-func getHoverText() -> Label3D:
-	return hover_text
+func getHoverText() -> HoverTextAdvanced:
+	return hover_text_advanced
 
 func setLookAtModifiersInfluence(_inf:float):
 	look_at_modifier_head.active = (_inf > 0.0)

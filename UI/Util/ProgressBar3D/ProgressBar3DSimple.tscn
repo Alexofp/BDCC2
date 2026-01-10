@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://js86ac6behcr"]
+
+[ext_resource type="Script" uid="uid://dnnlk5wsy8k1j" path="res://UI/Util/ProgressBar3D/ProgressBar3DSimple.gd" id="1_4ytng"]
+[ext_resource type="Texture2D" uid="uid://baqqopu0keb4m" path="res://UI/Util/ProgressBar3D/ProgressBarOutline.png" id="1_t6gxg"]
+[ext_resource type="Texture2D" uid="uid://bgy24282f86w7" path="res://UI/Util/ProgressBar3D/ProgressBarFill.png" id="2_4ytng"]
+
+[node name="ProgressBar3DSimple" type="Node3D" unique_id=860250692]
+script = ExtResource("1_4ytng")
+
+[node name="HoverText" type="Label3D" parent="." unique_id=590944479]
+unique_name_in_owner = true
+pixel_size = 0.0007
+billboard = 1
+text = "Hello World asd asd as da sda sdas d"
+autowrap_mode = 3
+width = 600.0
+
+[node name="OutlineSprite" type="Sprite3D" parent="." unique_id=1119384073]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.001
+billboard = 1
+render_priority = -3
+texture = ExtResource("1_t6gxg")
+
+[node name="FillSprite" type="Sprite3D" parent="." unique_id=2056176069]
+unique_name_in_owner = true
+modulate = Color(0.59, 0.59, 0.59, 0.62352943)
+pixel_size = 0.001
+billboard = 1
+render_priority = -4
+texture = ExtResource("2_4ytng")
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 32)

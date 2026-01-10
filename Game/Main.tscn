@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://chn282pdnprrq" path="res://Game/Systems/LeashSystem/LeashSystem.tscn" id="10_mdl5u"]
 [ext_resource type="PackedScene" uid="uid://c0jdqoifihgii" path="res://Game/Interactable/interact_ui.tscn" id="10_w1287"]
 [ext_resource type="PackedScene" uid="uid://p4m1d4oacfut" path="res://Game/Sex/UI/sex_ui.tscn" id="11_ijkwl"]
+[ext_resource type="PackedScene" uid="uid://bginaapibuebf" path="res://Game/Systems/ActionSystem/ActionSystem.tscn" id="11_wo11f"]
 [ext_resource type="PackedScene" uid="uid://w1hpye5t7hjr" path="res://Game/UI/CharacterMenu/character_menu.tscn" id="12_paojk"]
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
@@ -53,6 +54,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="LeashSystem" parent="." unique_id=1838535178 instance=ExtResource("10_mdl5u")]
+unique_name_in_owner = true
+
+[node name="ActionSystem" parent="." unique_id=1958182635 instance=ExtResource("11_wo11f")]
 unique_name_in_owner = true
 
 [node name="AnamorphicLensFlare" parent="." unique_id=1402818243 instance=ExtResource("9_eg2md")]

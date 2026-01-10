@@ -99,6 +99,7 @@ func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):
 	#	if(isDollSpawned()):
 	#		getDoll().reset_input()
+	updateDelayedActionCache()
 	ai.processAI(_delta)
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
@@ -437,12 +438,31 @@ func getPawnInteractor() -> PawnInteractor:
 func getQuickActionsSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
+	var currentDelayedActions := GM.actionSystem.getAllActionsOfUser(self)
+	for entry in currentDelayedActions:
+		if(entry.cancelType != ActionSystemEntry.CANCEL_ALLOW):
+			continue
+		result.append(InteractEntryDo.create("ActionCancel", [entry.uniqueID]))
+	
 	#var theContext := pawnActionContext
 	#theContext.clearContext()
 	for pawnAction in GlobalRegistry.pawnQuickActionsAlwaysSelf:
 		#if(!pawnAction.canDoAction(theContext)):
 		#	continue
 		result.append(InteractEntryDo.create(pawnAction.id))
+	
+	var theContext := pawnActionContext
+	theContext.target = self
+	
+	var resAm:int = result.size()
+	for _i in resAm:
+		var _indx:int = resAm - _i - 1
+		var theEntry := result[_indx]
+		theContext.args = theEntry.args
+		
+		if(!theEntry.action.canStartAction(theContext)):
+			result.remove_at(_indx)
+	theContext.clearContext()
 	
 	return result
 
@@ -458,6 +478,19 @@ func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
 		#	continue
 		result.append(InteractEntryDo.create(pawnAction.id))
 	#theContext.target = null
+	
+	var theContext := _actor.pawnActionContext
+	theContext.target = self
+	
+	var resAm:int = result.size()
+	for _i in resAm:
+		var _indx:int = resAm - _i - 1
+		var theEntry := result[_indx]
+		theContext.args = theEntry.args
+		
+		if(!theEntry.action.canStartAction(theContext)):
+			result.remove_at(_indx)
+	theContext.clearContext()
 	
 	return result
 
@@ -519,15 +552,54 @@ func doInteractEntryDo(_entry:InteractEntryDo, _target):
 	if(!theAction):
 		return
 	
+	updateDelayedActionCache()
+	
 	pawnActionContext.args = _entry.args
 	pawnActionContext.target = _target#_entry.target
-		
-	if(!theAction.canDoAction(pawnActionContext)):
+	
+	if(!theAction.canStartAction(pawnActionContext)):
 		pawnActionContext.args = []
 		pawnActionContext.target = null
 		return
 	Log.Print("DOING AN ACTION!!!")
 	theAction.doAction(pawnActionContext)
 	pawnActionContext.clearContext()
+
+func isInInteractRangeOf(_node:Node) -> bool:
+	if(!_node):
+		return false
+	if(_node == self):
+		return true
+	
+	if(_node is CharacterPawn):
+		var otherPawnInteractor:PawnInteractor = _node.pawn_interactor
+		if(pawn_interactor.nearbyPawns.has(otherPawnInteractor)):
+			return true
+	
+	if(_node is Node3D):
+		for interactable in pawn_interactor.interactables:
+			if(interactable.target == _node):
+				return true
+	
+	return false
+
+func getActionSystemSpeed() -> Vector3:
+	var theDoll := getDoll()
+	if(!theDoll):
+		return Vector3(0.0, 0.0, 0.0)
+	return theDoll.velocity
+
+var isDoingAnyDelayedActionCached:bool = false
+var isTargetOfAnyDelayedActionsCached:bool = false
+
+func updateDelayedActionCache():
+	isDoingAnyDelayedActionCached = !GM.actionSystem.getAllActionsOfUser(self).is_empty()
+	isTargetOfAnyDelayedActionsCached = !GM.actionSystem.getAllActionsOfTarget(self).is_empty()
+
+func isDoingAnyDelayedActions() -> bool:
+	return isDoingAnyDelayedActionCached
+
+func isTargetOfAnyDelayedActions() -> bool:
+	return isTargetOfAnyDelayedActionsCached
 
 # INTERACTOR STUFF ENDS

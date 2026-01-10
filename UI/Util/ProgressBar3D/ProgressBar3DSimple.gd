@@ -1,0 +1,22 @@
+extends Node3D
+
+var value:float = 1.0
+
+@onready var hover_text: Label3D = %HoverText
+@onready var outline_sprite: Sprite3D = %OutlineSprite
+@onready var fill_sprite: Sprite3D = %FillSprite
+
+const SPRITE_SIZE:float = 256.0
+
+func setValue(_val:float):
+	_val = clamp(_val, 0.0, 1.0)
+	if(abs(_val - value)<0.01):
+		return
+	value = _val
+	fill_sprite.region_rect.size.x = value * SPRITE_SIZE
+	fill_sprite.offset.x = -(-value+1.0) * SPRITE_SIZE * 0.5
+
+func setText(_str:String):
+	if(hover_text.text == _str):
+		return
+	hover_text.text = _str
