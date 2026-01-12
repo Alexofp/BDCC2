@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0jdqoifihgii"]
+[gd_scene format=3 uid="uid://c0jdqoifihgii"]
 
-[ext_resource type="Script" uid="uid://cu2k4jidl0qv1" path="res://Game/Interactable/interact_ui.gd" id="1_jxy44"]
+[ext_resource type="Script" uid="uid://dfpjp84thxs6o" path="res://Game/Interactable/interact_pawn_ui.gd" id="1_jxy44"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxy44"]
 

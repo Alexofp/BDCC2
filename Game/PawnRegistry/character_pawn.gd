@@ -101,6 +101,7 @@ func _physics_process(_delta: float) -> void:
 	#		getDoll().reset_input()
 	updateDelayedActionCache()
 	ai.processAI(_delta)
+	calcHoverTextProgressBarInfo()
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):
@@ -438,11 +439,21 @@ func getPawnInteractor() -> PawnInteractor:
 func getQuickActionsSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
-	var currentDelayedActions := GM.actionSystem.getAllActionsOfUser(self)
-	for entry in currentDelayedActions:
-		if(entry.cancelType != ActionSystemEntry.CANCEL_ALLOW):
-			continue
-		result.append(InteractEntryDo.create("ActionCancel", [entry.uniqueID]))
+	if(true):
+		var currentDelayedActions := GM.actionSystem.getAllActionsOfUser(self)
+		for entry in currentDelayedActions:
+			if(entry.cancelType != ActionSystemEntry.CANCEL_ALLOW):
+				continue
+			result.append(InteractEntryDo.create("ActionCancel", [entry.uniqueID]))
+	
+	if(true):
+		var currentDelayedActions := GM.actionSystem.getAllActionsOfTarget(self)
+		for entry in currentDelayedActions:
+			if(entry.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+				result.append(InteractEntryDo.create("ActionAllow", [entry.uniqueID]))
+				result.append(InteractEntryDo.create("ActionDeny", [entry.uniqueID]))
+			elif(entry.timerType == ActionSystemEntry.TIMER_CAN_DENY):
+				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
 	
 	#var theContext := pawnActionContext
 	#theContext.clearContext()
@@ -497,7 +508,7 @@ func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
 func getInteractEntriesSelf() -> Array[InteractEntryBase]:
 	var result:Array[InteractEntryBase] = []
 	
-	result.append(InteractEntryText.create("YOU ARE "+str(getCharacter().getFullName())))
+	result.append(InteractEntryText.create("You are "+str(getCharacter().getFullName())))
 	
 	#var theContext := pawnActionContext
 	#theContext.clearContext()
@@ -523,9 +534,6 @@ func getInteractEntries(_actor:CharacterPawn) -> Array[InteractEntryBase]:
 	
 	#result.append(InteractEntryDo.create(
 		#"Leash", "leash"
-	#))
-	#result.append(InteractEntryDo.create(
-		#"Start sex", "startSex"
 	#))
 	
 	return result
@@ -561,7 +569,7 @@ func doInteractEntryDo(_entry:InteractEntryDo, _target):
 		pawnActionContext.args = []
 		pawnActionContext.target = null
 		return
-	Log.Print("DOING AN ACTION!!!")
+	#Log.Print("DOING AN ACTION!!!")
 	theAction.doAction(pawnActionContext)
 	pawnActionContext.clearContext()
 
@@ -587,7 +595,9 @@ func getActionSystemSpeed() -> Vector3:
 	var theDoll := getDoll()
 	if(!theDoll):
 		return Vector3(0.0, 0.0, 0.0)
-	return theDoll.velocity
+	var theResult := theDoll.velocity
+	theResult.y = 0.0
+	return theResult
 
 var isDoingAnyDelayedActionCached:bool = false
 var isTargetOfAnyDelayedActionsCached:bool = false
@@ -602,4 +612,57 @@ func isDoingAnyDelayedActions() -> bool:
 func isTargetOfAnyDelayedActions() -> bool:
 	return isTargetOfAnyDelayedActionsCached
 
+var progressBarsValuesCached:Array[float]
+var progressBarsTextsCached:Array[String]
+
+@export var progressBarsData:PackedByteArray: set = onSyncProgressData
+
+func onSyncProgressData(_data:PackedByteArray):
+	progressBarsData = _data
+	
+	var newProgressBarsValues:Array[float]
+	var newProgressBarsTexts:Array[String]
+	
+	var theData := Bins.readUncompressed(_data)
+	theData.loadStart()
+	var theAm:int = theData.readU16()
+	for _i in theAm:
+		var theValue := theData.readFloat()
+		var theText := theData.readStrShort()
+		newProgressBarsValues.append(theValue)
+		newProgressBarsTexts.append(theText)
+	theData.endLoad()
+
+	progressBarsValuesCached = newProgressBarsValues
+	progressBarsTextsCached = newProgressBarsTexts
+
+func calcHoverTextProgressBarInfo():
+	if(!Network.isServer()):
+		return
+	var newProgressBarsValues:Array[float]
+	var newProgressBarsTexts:Array[String]
+	
+	var theActions := GM.actionSystem.getAllActionsOfUser(self)
+	for theAction in theActions:
+		var theValue := theAction.getProgressValue()
+		var theText := theAction.getActionText()
+		
+		newProgressBarsValues.append(theValue)
+		newProgressBarsTexts.append(theText)
+	
+	progressBarsValuesCached = newProgressBarsValues
+	progressBarsTextsCached = newProgressBarsTexts
+	
+	if(Network.isServerNotSingleplayer()):
+		var theData:Array = [
+			Bins.U16, progressBarsValuesCached.size(),
+		]
+		for _i in progressBarsValuesCached.size():
+			theData.append_array([
+				Bins.Float, progressBarsValuesCached[_i],
+				Bins.StrShort, progressBarsTextsCached[_i],
+			])
+		var theBins:Bins = Bins.saveStartEnd(theData)
+		progressBarsData = theBins.getBytes()
+	
 # INTERACTOR STUFF ENDS

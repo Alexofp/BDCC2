@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl3v7y82tywxt"]
+[gd_scene format=3 uid="uid://bl3v7y82tywxt"]
 
 [ext_resource type="Script" uid="uid://c81yhjtlx400p" path="res://Inventory/Util/dropped_item.gd" id="1_atdrf"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_dfky5"]
-[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="3_fksqb"]
+[ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="4_dgfaj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2egym"]
 size = Vector3(0.4, 0.3, 0.4)
@@ -39,7 +39,5 @@ replication_config = SubResource("SceneReplicationConfig_fksqb")
 script = ExtResource("2_dfky5")
 metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
 
-[node name="Interactable" parent="." unique_id=1462583728 instance=ExtResource("3_fksqb")]
+[node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("4_dgfaj")]
 unique_name_in_owner = true
-
-[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

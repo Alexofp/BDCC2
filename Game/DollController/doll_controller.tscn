@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bg4x0l07nlv61" path="res://Game/DollController/doll_controller.gd" id="1_k0gws"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_n8w0r"]
 [ext_resource type="Script" uid="uid://be2cul3yhop6t" path="res://Game/Systems/Camera/DollCamera.gd" id="3_5wuau"]
-[ext_resource type="PackedScene" uid="uid://be7cu1ta28jdh" path="res://Game/Interactable/interactor.tscn" id="3_qvvrb"]
 [ext_resource type="PackedScene" uid="uid://b6s2blxqp3ylj" path="res://Game/DollController/doll_controls.tscn" id="5_5o600"]
 [ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="7_5wuau"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="7_pwrse"]
@@ -76,11 +75,6 @@ fov = 60.0
 script = ExtResource("3_5wuau")
 doll = NodePath("../../..")
 cameraActive = true
-
-[node name="Interactor" parent="." unique_id=1587867208 node_paths=PackedStringArray("user") instance=ExtResource("3_qvvrb")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.809213, 0)
-user = NodePath("..")
 
 [node name="DollControls" parent="." unique_id=565376115 instance=ExtResource("5_5o600")]
 unique_name_in_owner = true

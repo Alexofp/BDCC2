@@ -8,6 +8,11 @@ var value:float = 1.0
 
 const SPRITE_SIZE:float = 256.0
 
+var keyText:String = ""
+
+func _ready() -> void:
+	hover_text.text = ""
+
 func setValue(_val:float):
 	_val = clamp(_val, 0.0, 1.0)
 	if(abs(_val - value)<0.01):
@@ -16,7 +21,10 @@ func setValue(_val:float):
 	fill_sprite.region_rect.size.x = value * SPRITE_SIZE
 	fill_sprite.offset.x = -(-value+1.0) * SPRITE_SIZE * 0.5
 
-func setText(_str:String):
-	if(hover_text.text == _str):
+func setText(_str:String, _actualText:String = ""):
+	if(_actualText.is_empty()):
+		_actualText = _str
+	if(keyText == _str):
 		return
-	hover_text.text = _str
+	keyText = _str
+	hover_text.text = _actualText

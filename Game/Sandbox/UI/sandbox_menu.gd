@@ -101,27 +101,6 @@ func spawnBenchOnServer(thePos:Vector3):
 	theCube.global_position = thePos
 	GI.networkedNodes.notifySpawned(theCube)
 
-
-#TODO: DELETE THIS?
-func _on_sex_scene_button_pressed() -> void:
-	var cubePos := GM.pcDoll.global_position
-	var cubeAng := GM.pcDoll.model_root.global_rotation
-	if(Network.isClient()):
-		spawnSexSceneOnServer.rpc_id(1, cubePos, cubeAng)
-		return
-	spawnSexSceneOnServer(cubePos, cubeAng)
-
-
-var theSexScene := preload("res://AnimScenes/Scenes/TestSexAnim/test_sex_handler.tscn")
-@rpc("any_peer", "call_remote", "reliable")
-func spawnSexSceneOnServer(thePos:Vector3, theAng:Vector3):
-	var theCube:Node3D = theSexScene.instantiate()
-	
-	GM.main.add_child(theCube, true)
-	theCube.global_position = thePos
-	theCube.global_rotation = theAng
-	GI.networkedNodes.notifySpawned(theCube)
-
 func _on_start_sex_button_pressed() -> void:
 	if(pawn_list.get_selected_items().is_empty()):
 		return

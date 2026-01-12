@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://csx44p553o58b"]
 
 [ext_resource type="Script" uid="uid://2vsq4k1dbauc" path="res://AnimScenes/Scenes/Stocks/stocks_anim_handler.gd" id="1_eqnb6"]
-[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="2_x6cx1"]
 [ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="3_s3d1w"]
 [ext_resource type="PackedScene" uid="uid://cdch4m3k7s3xq" path="res://AnimScenes/Scenes/Stocks/StocksAnimScene.tscn" id="4_eqnb6"]
 [ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="5_y0o15"]
 
 [node name="StocksAnimHandler" type="Node3D" unique_id=1469755165 groups=["Networked"]]
 script = ExtResource("1_eqnb6")
-
-[node name="Interactable" parent="." unique_id=1748332436 instance=ExtResource("2_x6cx1")]
-unique_name_in_owner = true
 
 [node name="StandSpot" type="Marker3D" parent="." unique_id=91680705]
 unique_name_in_owner = true
@@ -22,5 +18,4 @@ scene = ExtResource("4_eqnb6")
 [node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("5_y0o15")]
 unique_name_in_owner = true
 
-[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
 [connection signal="onPawnSwitch" from="SitSpawner" to="." method="_on_sit_spawner_on_pawn_switch"]

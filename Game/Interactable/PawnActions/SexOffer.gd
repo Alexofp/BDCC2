@@ -1,12 +1,12 @@
 extends PawnActionBase
 
 func _init() -> void:
-	id = "StartSex"
+	id = "SexOffer"
 	alwaysCheckedOtherPawn = true
-	alwaysCheckedOtherPawnQuickAction = true
+	#alwaysCheckedOtherPawnQuickAction = true
 
 func getVisibleName(_context:PawnActionContext) -> String:
-	return "Start sex"
+	return "Offer sex"
 
 func canDoAction(_context:PawnActionContext) -> bool:
 	if(!_context.isTargetAPawn()):
@@ -20,6 +20,11 @@ func canDoAction(_context:PawnActionContext) -> bool:
 func doAction(_context:PawnActionContext) -> bool:
 	#GM.sexManager.askStartMasturbation(_context.pawn.getCharID())
 	
+	startDelayedAction("{user.You} {user.youVerb ask} to have sex with {target.you}!", _context, 10.0, _context.args
+	).setTimerType(ActionSystemEntry.TIMER_MUST_CONSENT)
+	return true
+
+func doDelayedAction(_context:PawnActionContext) -> bool:
 	var newSex := SexStartConf.new()
 	newSex.sexType = SexType.OnTheFloor
 	newSex.addRole("dom", _context.pawn.getCharID(), SexRole.Dom)

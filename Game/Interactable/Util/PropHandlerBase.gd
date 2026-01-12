@@ -1,0 +1,48 @@
+extends Node3D
+class_name PropHandlerBase
+
+func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
+	var category := InteractCategory.new()
+	
+	category.categoryName = "Prop"
+	#category.interactEntries.append(InteractEntryDo.create("SitProp", ["dom"]))
+	#category.interactEntries.append_array(getQuickInteractActions(_pawn))
+	
+	return category
+
+func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	#result.append(InteractEntryDo.create("SitProp", ["dom",]))
+	return result
+
+func getGenericActionName(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> String:
+	return "ERROR!"
+
+func canDoGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	return true
+
+func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	return true
+
+func canDoGenericDelayedAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	return canDoGenericAction(_id, _args, _context, _action)
+
+func doGenericDelayedAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	return true
+
+func canUseSitterSlot(_slot:String) -> bool:
+	return true
+
+func getSitterSlot(_slot:String) -> CharacterPawn:
+	#return sit_spawner.getSitter(_slot)
+	return null
+
+func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
+	#if(!_pawn):
+		#sit_spawner.despawn()
+		#return true
+	#if(!sit_spawner.isSpawned()):
+		#sit_spawner.spawn()
+		##sit_spawner.setProp("stocks", stocks)
+	#sit_spawner.setSitter(_slot, _pawn)
+	return false

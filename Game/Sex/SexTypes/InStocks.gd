@@ -28,7 +28,7 @@ func onSexEnd():
 	if(!theSub):
 		return
 	var theHandler = theProp.getStocksHandler()
-	theHandler.sitPawn(theSub)
+	theHandler.setSitter("dom", theSub)
 
 func start_run():
 	playPoseOrAnim(pose, AnimScene.StocksStart, "normal", {dom=ROLE_DOM, sub=ROLE_SUB})

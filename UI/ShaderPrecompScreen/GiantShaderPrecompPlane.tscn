@@ -1408,33 +1408,9 @@ surface_material_override/9 = SubResource("ShaderMaterial_hkuyp")
 [node name="TenMatsPlaneRigged" parent="." unique_id=1198687367 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Skeleton3D" parent="TenMatsPlaneRigged/PlaneRig" parent_id_path=PackedInt32Array(1198687367, 1867632124) index="0" unique_id=446704141]
-bones/0/name = "Root"
-bones/0/parent = -1
-bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/0/scale = Vector3(1, 1, 1)
-bones/1/name = "Root1"
-bones/1/parent = 0
-bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-bones/1/enabled = true
-bones/1/position = Vector3(0, 1, 0)
-bones/1/rotation = Quaternion(0, 0, 0, 1)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/name = "Root2"
-bones/2/parent = 0
-bones/2/rest = Transform3D(0, 1, -3.5527137e-15, -1, 0, 7.549791e-08, 7.549791e-08, -3.5527137e-15, 1, 0, 1, 0)
-bones/2/enabled = true
-bones/2/position = Vector3(0, 1, 0)
-bones/2/rotation = Quaternion(-2.6692542e-08, -2.6692542e-08, -0.70710677, 0.70710677)
-bones/2/scale = Vector3(1, 1, 1)
-
-[node name="Plane" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1198687367, 446704141) index="0" unique_id=1744966010]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_av0u3")
 surface_material_override/1 = SubResource("ShaderMaterial_mmg3t")
 surface_material_override/2 = SubResource("ShaderMaterial_6mpxr")
@@ -1465,33 +1441,9 @@ surface_material_override/9 = SubResource("ShaderMaterial_pvddk")
 [node name="TenMatsPlaneRigged2" parent="." unique_id=1618984099 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Skeleton3D" parent="TenMatsPlaneRigged2/PlaneRig" parent_id_path=PackedInt32Array(1618984099, 1867632124) index="0" unique_id=446704141]
-bones/0/name = "Root"
-bones/0/parent = -1
-bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/0/scale = Vector3(1, 1, 1)
-bones/1/name = "Root1"
-bones/1/parent = 0
-bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-bones/1/enabled = true
-bones/1/position = Vector3(0, 1, 0)
-bones/1/rotation = Quaternion(0, 0, 0, 1)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/name = "Root2"
-bones/2/parent = 0
-bones/2/rest = Transform3D(0, 1, -3.5527137e-15, -1, 0, 7.549791e-08, 7.549791e-08, -3.5527137e-15, 1, 0, 1, 0)
-bones/2/enabled = true
-bones/2/position = Vector3(0, 1, 0)
-bones/2/rotation = Quaternion(-2.6692542e-08, -2.6692542e-08, -0.70710677, 0.70710677)
-bones/2/scale = Vector3(1, 1, 1)
-
-[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1618984099, 446704141) index="0" unique_id=1744966010]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_01jdv")
 surface_material_override/1 = SubResource("ShaderMaterial_1uqjq")
 surface_material_override/2 = SubResource("ShaderMaterial_ve1hr")
@@ -1522,33 +1474,9 @@ surface_material_override/9 = SubResource("ShaderMaterial_i07gs")
 [node name="TenMatsPlaneRigged3" parent="." unique_id=185375133 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Skeleton3D" parent="TenMatsPlaneRigged3/PlaneRig" parent_id_path=PackedInt32Array(185375133, 1867632124) index="0" unique_id=446704141]
-bones/0/name = "Root"
-bones/0/parent = -1
-bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/0/scale = Vector3(1, 1, 1)
-bones/1/name = "Root1"
-bones/1/parent = 0
-bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-bones/1/enabled = true
-bones/1/position = Vector3(0, 1, 0)
-bones/1/rotation = Quaternion(0, 0, 0, 1)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/name = "Root2"
-bones/2/parent = 0
-bones/2/rest = Transform3D(0, 1, -3.5527137e-15, -1, 0, 7.549791e-08, 7.549791e-08, -3.5527137e-15, 1, 0, 1, 0)
-bones/2/enabled = true
-bones/2/position = Vector3(0, 1, 0)
-bones/2/rotation = Quaternion(-2.6692542e-08, -2.6692542e-08, -0.70710677, 0.70710677)
-bones/2/scale = Vector3(1, 1, 1)
-
-[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(185375133, 446704141) index="0" unique_id=1744966010]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_un5la")
 surface_material_override/1 = SubResource("ShaderMaterial_6e8nt")
 surface_material_override/2 = SubResource("ShaderMaterial_x210n")
@@ -1579,33 +1507,9 @@ surface_material_override/9 = SubResource("ShaderMaterial_4nybh")
 [node name="TenMatsPlaneRigged4" parent="." unique_id=1675335702 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Skeleton3D" parent="TenMatsPlaneRigged4/PlaneRig" parent_id_path=PackedInt32Array(1675335702, 1867632124) index="0" unique_id=446704141]
-bones/0/name = "Root"
-bones/0/parent = -1
-bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/0/scale = Vector3(1, 1, 1)
-bones/1/name = "Root1"
-bones/1/parent = 0
-bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-bones/1/enabled = true
-bones/1/position = Vector3(0, 1, 0)
-bones/1/rotation = Quaternion(0, 0, 0, 1)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/name = "Root2"
-bones/2/parent = 0
-bones/2/rest = Transform3D(0, 1, -3.5527137e-15, -1, 0, 7.549791e-08, 7.549791e-08, -3.5527137e-15, 1, 0, 1, 0)
-bones/2/enabled = true
-bones/2/position = Vector3(0, 1, 0)
-bones/2/rotation = Quaternion(-2.6692542e-08, -2.6692542e-08, -0.70710677, 0.70710677)
-bones/2/scale = Vector3(1, 1, 1)
-
-[node name="Plane" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1675335702, 446704141) index="0" unique_id=1744966010]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_guf5f")
 surface_material_override/1 = SubResource("ShaderMaterial_mushm")
 surface_material_override/2 = SubResource("ShaderMaterial_col1n")
@@ -1635,33 +1539,9 @@ surface_material_override/8 = SubResource("ShaderMaterial_btr6s")
 [node name="TenMatsPlaneRigged5" parent="." unique_id=295129587 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Skeleton3D" parent="TenMatsPlaneRigged5/PlaneRig" parent_id_path=PackedInt32Array(295129587, 1867632124) index="0" unique_id=446704141]
-bones/0/name = "Root"
-bones/0/parent = -1
-bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/0/scale = Vector3(1, 1, 1)
-bones/1/name = "Root1"
-bones/1/parent = 0
-bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-bones/1/enabled = true
-bones/1/position = Vector3(0, 1, 0)
-bones/1/rotation = Quaternion(0, 0, 0, 1)
-bones/1/scale = Vector3(1, 1, 1)
-bones/2/name = "Root2"
-bones/2/parent = 0
-bones/2/rest = Transform3D(0, 1, -3.5527137e-15, -1, 0, 7.549791e-08, 7.549791e-08, -3.5527137e-15, 1, 0, 1, 0)
-bones/2/enabled = true
-bones/2/position = Vector3(0, 1, 0)
-bones/2/rotation = Quaternion(-2.6692542e-08, -2.6692542e-08, -0.70710677, 0.70710677)
-bones/2/scale = Vector3(1, 1, 1)
-
-[node name="Plane" parent="TenMatsPlaneRigged5/PlaneRig/Skeleton3D" index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged5/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(295129587, 446704141) index="0" unique_id=1744966010]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_5hslw")
 surface_material_override/1 = SubResource("ShaderMaterial_5h1ea")
 surface_material_override/2 = SubResource("ShaderMaterial_iafas")

@@ -163,9 +163,12 @@ func updateInteractor():
 		var otherPawn := otherPawnInteractor.pawn
 		if(!otherPawn):
 			continue
+		var theChar := otherPawn.getCharacter()
+		if(!theChar):
+			continue
 		#theContext.target = otherPawn
 		var newCategory := InteractCategory.new()
-		newCategory.categoryName = otherPawn.getCharID()
+		newCategory.categoryName = theChar.getFullName() + getDistanceSuffix(self, otherPawnInteractor)#otherPawn.getCharID()
 		newCategory.target = otherPawn
 		newCategory.interactEntries = otherPawn.getInteractEntries(pawn)
 		newCategory.supplyContextCheckCanDo(pawn.pawnActionContext)
@@ -177,10 +180,18 @@ func updateInteractor():
 		if(!newCategory):
 			continue
 		newCategory.supplyContextCheckCanDo(pawn.pawnActionContext)
+		newCategory.categoryName += getDistanceSuffix(self, theInteractable)
 		cachedCategories.append(newCategory)
 		targetToCachedCategory[newCategory.target] = newCategory
 	
 	onCachedCategoriesUpdate.emit()
+
+func getDistanceSuffix(_node1:Node3D, _node2:Node3D) -> String:
+	if(!_node1 || !_node2):
+		return ""
+	var theDist:float = _node1.global_position.distance_to(_node2.global_position)
+	
+	return " ("+str(Util.roundF(theDist, 1))+"m)"
 
 func askUpdateInteractor():
 	if(Network.isServer()):
@@ -226,7 +237,7 @@ func _on_area_entered(area: Area3D) -> void:
 		if(!nearbyPawns.has(area)):
 			nearbyPawns.append(area)
 			area.tree_exiting.connect(onPawnInteractorExitedTree.bind(area))
-			print("NEW PAWN NEARBY: "+str(area))
+			#print("NEW PAWN NEARBY: "+str(area))
 	elif(area is PawnInteractable):
 		if(!interactables.has(area)):
 			interactables.append(area)
@@ -238,7 +249,7 @@ func _on_area_exited(area: Area3D) -> void:
 		if(nearbyPawns.has(area)):
 			nearbyPawns.erase(area)
 			area.tree_exiting.disconnect(onPawnInteractorExitedTree.bind(area))
-			print("NO MORE PAWN NEARBY: "+str(area))
+			#print("NO MORE PAWN NEARBY: "+str(area))
 	elif(area is PawnInteractable):
 		if(interactables.has(area)):
 			interactables.erase(area)

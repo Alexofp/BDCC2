@@ -7,9 +7,6 @@ var selectedActionIndex:int = 0
 
 var interactorRef:WeakRef
 
-#@export var interactor:Interactor
-#@export var user:Node3D
-
 var cachedActions:Array[InteractActionBaked] = []
 
 #func _ready():

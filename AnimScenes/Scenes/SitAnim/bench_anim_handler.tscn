@@ -1,16 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0isfr4f1lemd"]
+[gd_scene format=3 uid="uid://c0isfr4f1lemd"]
 
 [ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="1_k7pa1"]
-[ext_resource type="Script" uid="uid://5yhekbdxljs1" path="res://AnimScenes/Scenes/SitAnim/bench_anim_handler..gd" id="2_34f0x"]
-[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="3_ud5bg"]
+[ext_resource type="Script" uid="uid://5yhekbdxljs1" path="res://AnimScenes/Scenes/SitAnim/bench_anim_handler.gd" id="2_34f0x"]
 [ext_resource type="PackedScene" uid="uid://nqxy5s7ye680" path="res://AnimScenes/Scenes/SitAnim/bench_cuddle_scene.tscn" id="6_il50t"]
+[ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="6_ra3ow"]
 [ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="6_ud5bg"]
 
 [node name="BenchAnimHandler" type="Node3D" unique_id=1764538836 groups=["Networked"]]
 script = ExtResource("2_34f0x")
-
-[node name="Interactable" parent="." unique_id=1030036536 instance=ExtResource("3_ud5bg")]
-unique_name_in_owner = true
 
 [node name="StandSpotLeft" type="Marker3D" parent="." unique_id=526192901]
 unique_name_in_owner = true
@@ -31,4 +28,5 @@ scene = ExtResource("6_ud5bg")
 [node name="SitSpawnerCuddle" parent="." unique_id=549286799 instance=ExtResource("1_k7pa1")]
 scene = ExtResource("6_il50t")
 
-[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]
+[node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("6_ra3ow")]
+unique_name_in_owner = true

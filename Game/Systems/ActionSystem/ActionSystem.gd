@@ -35,8 +35,25 @@ func deleteAction(_actionEntry:ActionSystemEntry) -> bool:
 	return true
 
 func cancelAction(_actionEntry:ActionSystemEntry) -> bool:
-	Log.Print("CANCELLED AN ACTION! "+str(_actionEntry))
+	#Log.Print("CANCELLED AN ACTION! "+str(_actionEntry))
 	return deleteAction(_actionEntry)
+
+func allowAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
+	if(theEntry.target != _target):
+		return false
+	if(theEntry.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+		return false
+	return doAction(theEntry)
+
+func denyAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
+	if(theEntry.target != _target):
+		return false
+	if(theEntry.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+		return false
+	return cancelAction(theEntry)
+
+func resistAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
+	return denyAction(theEntry, _target)
 
 func doAction(_actionEntry:ActionSystemEntry) -> bool:
 	var theUser := _actionEntry.user
@@ -54,7 +71,7 @@ func doAction(_actionEntry:ActionSystemEntry) -> bool:
 	theContext.target = theTarget
 	theContext.args = theArgs
 	
-	Log.Print("DOING THE DELAYED ACTION!")
+	#Log.Print("DOING THE DELAYED ACTION!")
 	var theRes := theAction.doDelayedAction(theContext)
 	
 	theContext.clearContext()
@@ -153,7 +170,10 @@ func processActions(_delta:float):
 		theAction.timePassed += _delta
 		if(theAction.timePassed >= theAction.timeFull):
 			theContext.clearContext()
-			doAction(theAction)
+			if(theAction.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+				cancelAction(theAction)
+			else:
+				doAction(theAction)
 			continue
 		theContext.clearContext()
 

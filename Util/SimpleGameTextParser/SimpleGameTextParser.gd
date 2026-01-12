@@ -128,6 +128,16 @@ func parseString(_inputStr:String, _callable:Callable, replacers:Dictionary[Stri
 		Log.Printerr(theFinalResult.errorText)
 	return theFinalResult
 
+func parseStringDefault(_inputStr:String, replacers:Dictionary[String, String] = {}, textOverrides:Dictionary[String, String] = {}) -> Result:
+	return parseString(_inputStr, getSimpleGameTextParserTextSimple, replacers, textOverrides)
+
+func getSimpleGameTextParserTextSimple(_id:String, _command:String, _arg:String) -> SGTPResult:
+	var theResult:SGTPResult = null
+	if(!theResult):
+		theResult = GM.characterRegistry.getSimpleGameTextParserText(_id, _command, _arg)
+	
+	return theResult
+
 func stringToParts(_inputStr:String) -> Array:
 	var result:Array = []
 	var hadErrors:bool = false

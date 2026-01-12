@@ -21,4 +21,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07416755, 0)
 [node name="HoverText" parent="." unique_id=590944479 instance=ExtResource("2_m164g")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11042635, 0)
+render_priority = 6
+outline_render_priority = 5
 text = "Hello world"

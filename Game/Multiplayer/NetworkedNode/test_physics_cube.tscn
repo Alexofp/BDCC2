@@ -39,3 +39,4 @@ metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
 
 [node name="SitAnimHandler" parent="." unique_id=98422264 instance=ExtResource("3_6b1jw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.196948)
+categoryName = "Debug cube"

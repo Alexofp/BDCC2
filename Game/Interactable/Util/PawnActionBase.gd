@@ -33,14 +33,16 @@ func canDoDelayedAction(_context:PawnActionContext) -> bool:
 func doDelayedAction(_context:PawnActionContext) -> bool:
 	return true
 
-func startDelayedAction(_context:PawnActionContext, _timer:float, _args:Array = []) -> ActionSystemEntry:
+func startDelayedAction(_text:String, _context:PawnActionContext, _timer:float, _args:Array = []) -> ActionSystemEntry:
 	var newEntry := ActionSystemEntry.new()
 	
+	#newEntry.actionText = _text
 	newEntry.user = _context.pawn
 	newEntry.target = _context.target
 	newEntry.action = self
 	newEntry.timeFull = _timer
 	newEntry.args = _args
+	newEntry.setActionText(_text)
 	
 	GM.actionSystem.startAction(newEntry)
 	

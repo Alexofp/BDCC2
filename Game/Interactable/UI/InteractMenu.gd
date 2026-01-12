@@ -81,6 +81,23 @@ func onInteractorUpdate():
 	updateMenu()
 	pass
 
+#TODO: MAKE THIS WORK IN MULTIPLAYER
+func setTarget(_node:Node3D) -> bool:
+	if(!pawn):
+		return false
+	var _pawnInteractor := pawn.getPawnInteractor()
+	var cachedCategories := _pawnInteractor.cachedCategories
+	
+	var _catAm:int = cachedCategories.size()
+	for _i in _catAm:
+		var theCategory := cachedCategories[_i]
+		
+		if(theCategory.target == _node):
+			category_list.select(_i)
+			updateInteractEntriesList()
+			return true
+	return false
+	
 func _on_close_button_pressed() -> void:
 	onClose.emit()
 

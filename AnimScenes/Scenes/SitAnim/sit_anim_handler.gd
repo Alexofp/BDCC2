@@ -1,45 +1,42 @@
-extends Node3D
+extends PropHandlerBase
+
+@export var categoryName:String = "Chair"
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
-@onready var interactable: Interactable = %Interactable
+@onready var pawn_interactable: PawnInteractable = %PawnInteractable
 
 func _ready():
-	interactable.dynamicActionsFunc = getActions
+	pawn_interactable.setTarget(self)
 
-func getActions(_interactor:Interactor, _user:DollController) -> Array[InteractAction]:
-	if(!_user):
-		return []
-	var thePawn:CharacterPawn = _user.getPawn()
-	if(!thePawn):
-		return []
+func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
+	var category := InteractCategory.new()
+	
+	category.categoryName = categoryName
+	category.interactEntries.append(InteractEntryDo.create("SitProp", ["dom",]))
+	
+	return category
 
-	var result:Array[InteractAction] = []
+func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
 	
-	if(sit_spawner.getSitter("dom") == thePawn):
-		result.append(InteractAction.create(
-			"unsit", "Get up",
-		))
-	
-	if(!sit_spawner.hasSitter("dom") && thePawn.canSit()):
-		result.append(InteractAction.create(
-			"sit", "Sit",
-		))
+	result.append(InteractEntryDo.create("SitProp", ["dom",]))
 	
 	return result
 
-func _on_interactable_on_interact(user: DollController, action: InteractAction) -> void:
-	if(action.id == "sit"):
-		if(!sit_spawner.isSpawned()):
-			sit_spawner.spawn()
-		sit_spawner.setSitter("dom", user.getPawn())
-		#GM.leashSystem.connectLeash(
-			#LeashPointConnection.createLeashpoint($LeashPoint),
-			#LeashPointConnection.createPawnLeashpoint(user.getPawn().getCharID(), "leashholder.R")
-		#)
-	if(action.id == "unsit"):
-		if(sit_spawner.getSitter("dom") == user.getPawn()):
-			sit_spawner.despawn()
-			
+func getSitterSlot(_slot:String) -> CharacterPawn:
+	return sit_spawner.getSitter(_slot)
+
+func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
+	if(!_pawn):
+		sit_spawner.despawn()
+		return true
+	if(!sit_spawner.isSpawned()):
+		sit_spawner.spawn()
+		#sit_spawner.setProp("stocks", stocks)
+	sit_spawner.setSitter(_slot, _pawn)
+	#sit_spawner.despawnIfNoSitters()
+	return true
+	
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.BINS, sit_spawner.saveNetworkData(),

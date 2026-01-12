@@ -162,6 +162,8 @@ func _process(_delta: float) -> void:
 		if(Input.is_action_just_pressed("game_interact_menu")):
 			if(!UIHandler.tryCloseMenu()):
 				toggleInteractMenu()
+				if(interact_menu.visible):
+					showInteractMenuSpecific(GM.pcPawn)
 
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)
@@ -177,6 +179,10 @@ func toggleInteractMenu():
 		hideInteractMenu()
 	else:
 		showInteractMenu()
+
+func showInteractMenuSpecific(_target:Node3D):
+	showInteractMenu()
+	interact_menu.setTarget(_target)
 
 func showCharacterMenu():
 	if(character_menu.visible):
@@ -250,10 +256,8 @@ func _on_doll_holder_on_current_doll_switch(_oldDoll: Variant, _newDoll: DollCon
 		newPawn = _newDoll.getPawn()
 	
 	if(!newPawn):
-		#interact_ui.setInteractorAndUser(null, null)
 		interact_ui.setInteractor(null)
 	else:
-		#interact_ui.setInteractorAndUser(_newDoll.getInteractor(), _newDoll)
 		interact_ui.setInteractor(newPawn.getPawnInteractor())
 	
 	sex_ui.setPawn(newPawn)

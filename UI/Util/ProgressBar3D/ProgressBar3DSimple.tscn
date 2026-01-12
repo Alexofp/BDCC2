@@ -9,26 +9,33 @@ script = ExtResource("1_4ytng")
 
 [node name="HoverText" type="Label3D" parent="." unique_id=590944479]
 unique_name_in_owner = true
-pixel_size = 0.0007
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+pixel_size = 0.001
 billboard = 1
+render_priority = 3
+outline_render_priority = 2
 text = "Hello World asd asd as da sda sdas d"
+font_size = 64
+outline_size = 24
+vertical_alignment = 2
 autowrap_mode = 3
-width = 600.0
+width = 1200.0
 
 [node name="OutlineSprite" type="Sprite3D" parent="." unique_id=1119384073]
 unique_name_in_owner = true
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 modulate = Color(0, 0, 0, 1)
 pixel_size = 0.001
 billboard = 1
-render_priority = -3
+render_priority = 1
 texture = ExtResource("1_t6gxg")
 
 [node name="FillSprite" type="Sprite3D" parent="." unique_id=2056176069]
 unique_name_in_owner = true
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 modulate = Color(0.59, 0.59, 0.59, 0.62352943)
 pixel_size = 0.001
 billboard = 1
-render_priority = -4
 texture = ExtResource("2_4ytng")
 region_enabled = true
 region_rect = Rect2(0, 0, 256, 32)

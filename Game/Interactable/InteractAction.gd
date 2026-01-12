@@ -11,7 +11,6 @@ class_name InteractAction
 
 var allowedUsers:Array = []
 
-var interactable:Interactable
 var customInteractNode
 var customTargetNode
 

@@ -1,29 +1,42 @@
-extends Node3D
+extends PropHandlerBase
 
-@onready var interactable: Interactable = %Interactable
+@onready var pawn_interactable: PawnInteractable = %PawnInteractable
 
 func _ready() -> void:
-	interactable.dynamicActionsFunc = getActions
+	pawn_interactable.setTarget(self)
 
-func getActions(_interactor:Interactor, _user:DollController) -> Array[InteractAction]:
-	if(!_user):
-		return []
-	var thePawn:CharacterPawn = _user.getPawn()
-	if(!thePawn):
-		return []
+func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
+	var category := InteractCategory.new()
 	
-	var result:Array[InteractAction] = []
+	category.categoryName = "Debug item giver"
+	category.interactEntries.append(InteractEntryDo.create("Generic", ["openUI"]))
+	#category.interactEntries.append_array(getQuickInteractActions(_pawn))
 	
-	result.append(InteractAction.create("openUI", "Get any item menu"))
-	
+	return category
+
+func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	result.append(InteractEntryDo.create("Generic", ["openUI"]))
+	#result.append(InteractEntryDo.create("SitProp", ["dom",]))
 	return result
 
-func _on_interactable_on_interact(_user: DollController, _action: InteractAction) -> void:
-	if(_action.id == "openUI"):
-		var nid := _user.getNetworkPlayerID()
+func getGenericActionName(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> String:
+	if(_id == "openUI"):
+		return "Get any item menu"
+	return "ERROR!"
+
+func canDoGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	return true
+
+func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	if(_id == "openUI"):
+		var theDoll := _context.pawn.getDoll()
+		if(!theDoll):
+			return false
+		var nid := theDoll.getNetworkPlayerID()
 		if(nid < 0):
-			return
-		GM.netNodes.sendGlobalEvent(self, "openUI", [nid, GI.getUniqueIDOf(_user)])
+			return false
+		GM.netNodes.sendGlobalEvent(self, "openUI", [nid, GI.getUniqueIDOf(theDoll)])
 		# get player net id from the doll controller
 		# send a rpc (or a local call if we are the server) to open the menu. RPC how?
 		# That rpc contains this object?
@@ -31,7 +44,8 @@ func _on_interactable_on_interact(_user: DollController, _action: InteractAction
 		# This sends an RPC to a server (or a local call) to this object
 		# This object checks if the player is 'allowed' to get an item and gives them if they do
 		# This (automatically) syncs everything
-		pass
+		return true
+	return true
 
 func handleGlobalEvent(_id:String, _args:Array):
 	#Log.Print("GLOBAL EVENT: "+_id)

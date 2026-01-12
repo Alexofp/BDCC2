@@ -129,11 +129,6 @@ func internalDoOnServer(_command:int, _data:Array = []):
 		else:
 			assert(false, "UNKNOWN CALL TYPE "+str(theCallType))
 		
-	elif(_command == InteractCommand.CHARACTER_DO_INTERACT):
-		if(_data.size() == 2 && (_data[0] is int) && (_data[1] is int)):
-			var doll:DollController = dollHolder.findDollWithUniqueID(_data[0])
-			if(doll):
-				doll.getInteractor().doActionByID(_data[1])
 	elif(_command == InteractCommand.PING):
 		Log.Print("PING-PING from client "+str(clientID))
 		#await get_tree().create_timer(0.1).timeout
@@ -201,10 +196,6 @@ func doOnClientList(_clients:Array, _command:int, _data:Array = []):
 
 func sendPingToServer():
 	doOnServer(InteractCommand.PING)
-
-func askDoAction(doll:DollController, action:InteractActionBaked):
-	#doll.getInteractor().doActionByID(action.uniqueID)
-	doOnServer(InteractCommand.CHARACTER_DO_INTERACT, [doll.uniqueID, action.uniqueID])
 
 func askDoPawnAction(_pawn:CharacterPawn, _action:InteractActionBaked):
 	if(Network.isServer()):
@@ -346,3 +337,23 @@ func askUpdateInteractor_RPC(_pawnID:String, _data:PackedByteArray):
 		return
 	var theBins := Bins.readCompressedSimple(_data)
 	thePawn.getPawnInteractor().loadCategoriesData(theBins)
+
+func makePawnOpenInteractMenuSpecific(_pawn:CharacterPawn, _target:Node3D):
+	if(_pawn.isControlledByUs()):
+		GM.main.showInteractMenuSpecific(_target)
+		return
+	if(Network.isServerNotSingleplayer()):
+		var theInfo := Network.getInfoThatControlsCharID(_pawn.getCharID())
+		if(!theInfo):
+			return
+		#Log.Print(str(theInfo.id))
+		makePawnOpenInteractMenuSpecific_RPC.rpc_id(theInfo.id, getUniqueIDOf(_target))
+		return
+
+@rpc("authority", "call_remote", "reliable")
+func makePawnOpenInteractMenuSpecific_RPC(_targetAr:Array):
+	var _target:Node3D = getNodeByUniqueID(_targetAr)
+	if(!_target):
+		return
+	#print(_target is CharacterPawn)
+	GM.main.showInteractMenuSpecific(_target)

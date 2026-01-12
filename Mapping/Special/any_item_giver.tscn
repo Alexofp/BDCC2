@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://n5lfxsha6av7"]
+[gd_scene format=3 uid="uid://n5lfxsha6av7"]
 
 [ext_resource type="Script" uid="uid://bfcfh23qsj8cq" path="res://Mapping/Special/any_item_giver.gd" id="1_n3c1m"]
-[ext_resource type="PackedScene" uid="uid://0uk6764im4ph" path="res://Game/Interactable/interactable.tscn" id="2_eigjr"]
+[ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="3_eigjr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_i6fwj"]
 size = Vector3(1, 1, 0.5)
@@ -21,8 +21,5 @@ mesh = SubResource("BoxMesh_i6fwj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=485803795]
 shape = SubResource("BoxShape3D_4vivo")
 
-[node name="Interactable" parent="." unique_id=1422060638 instance=ExtResource("2_eigjr")]
+[node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("3_eigjr")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[connection signal="onInteract" from="Interactable" to="." method="_on_interactable_on_interact"]

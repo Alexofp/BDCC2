@@ -46,7 +46,6 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 @onready var CameraPivot = %CameraPivot
 @onready var doll: Doll = %Doll
 @onready var model_root: Node3D = %ModelRoot
-@onready var interactor: Interactor = %Interactor
 @onready var camera: PriorityCamera = %Camera
 
 const STATE_NORMAL = "normal"
@@ -598,9 +597,6 @@ func onLoseControl():
 	#updateControlsMultiplayerAuthority()
 	pass
 
-func getInteractor() -> Interactor:
-	return interactor
-
 func updatePoseSpot():
 	var theSpot := getPoseSpot()
 	
@@ -750,12 +746,12 @@ func processHoverText(_dt:float):
 	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)
 	
-	#hover_text.setProgressInfos(["Doing something"], [0.3])
-	hover_text.setProgressInfos([], [])
-	
-	#var thePawn := getPawn()
-	#if(thePawn):
-		
+	#hover_text.setProgressInfos(["Doing something", "asd"], [0.3, 0.5])
+	var thePawn := getPawn()
+	if(thePawn):
+		hover_text.setProgressInfos(thePawn.progressBarsTextsCached, thePawn.progressBarsValuesCached)
+	else:
+		hover_text.setProgressInfos([], [])
 
 func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial: bool) -> void:
 	onGesturePlay.emit(gestureID, playFullBody, playPartial)

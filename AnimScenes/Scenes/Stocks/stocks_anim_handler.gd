@@ -1,14 +1,11 @@
-extends Node3D
+extends PropHandlerBase
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
-@onready var interactable: Interactable = %Interactable
 @onready var pawn_interactable: PawnInteractable = %PawnInteractable
 
 @export var stocks:Node3D
 
 func _ready():
-	interactable.dynamicActionsFunc = getActions
-	
 	pawn_interactable.setTarget(self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
@@ -16,7 +13,7 @@ func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	
 	category.categoryName = "Stocks"
 	category.interactEntries.append(
-		InteractEntryText.create("STOCKSSS")
+		InteractEntryText.create("Stocks can be used for sex!")
 	)
 	category.interactEntries.append(
 		InteractEntryDo.create("SitProp", [
@@ -24,23 +21,29 @@ func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 		])
 	)
 	
+	category.interactEntries.append(InteractEntryDo.create("Generic", ["pose"]))
+	category.interactEntries.append(InteractEntryDo.create("Generic", ["use"]))
+	category.interactEntries.append(InteractEntryDo.create("Generic", ["unlock"]))
+	
 	return category
 
 func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
-	result.append(
-		InteractEntryDo.create("SitProp", [
-			"dom", "Lock yourself",
-		])
-	)
-	result.append(
-		InteractEntryDo.create("Generic", [
-			"test",
-		])
-	)
+	#result.append(
+		#InteractEntryDo.create("SitProp", [
+			#"dom", "Lock yourself",
+		#])
+	#)
+	result.append(InteractEntryDo.create("Interact", ["Stocks"]))
 	
 	return result
+
+func canUseSitterSlot(_slot:String) -> bool:
+	if(_slot == "dom"):
+		if(GM.sitManager.getSpotOfProp(stocks)):
+			return false
+	return true
 
 func getSitterSlot(_slot:String) -> CharacterPawn:
 	return sit_spawner.getSitter(_slot)
@@ -56,72 +59,58 @@ func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	#sit_spawner.despawnIfNoSitters()
 	return true
 
-func getActions(_interactor:Interactor, _user:DollController) -> Array[InteractAction]:
-	if(!_user):
-		return []
-	var thePawn:CharacterPawn = _user.getPawn()
-	if(!thePawn):
-		return []
-
-	var result:Array[InteractAction] = []
+func getGenericActionName(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> String:
+	if(_id == "pose"):
+		return "Change pose"
+	if(_id == "use"):
+		return "Use in stocks"
+	if(_id == "unlock"):
+		return "Unlock"
 	
-	if(sit_spawner.getSitter("dom") == thePawn):
-		result.append(InteractAction.create(
-			"unsit", "Get up",
-		))
-	if(sit_spawner.getSitter("dom")):
-		result.append(InteractAction.create(
-			"pose", "Switch pose",
-		))
-		if(sit_spawner.getSitter("dom") != thePawn):
-			result.append(InteractAction.create(
-				"use", "Use in stocks!",
-			))
-	
-	if(!sit_spawner.hasSitter("dom") && thePawn.canSit()):
-		result.append(InteractAction.create(
-			"sit", "Sit",
-		))
-	
-	return result
+	return "ERROR!"
 
-func sitPawn(_pawn:CharacterPawn):
-	if(!sit_spawner.isSpawned()):
-		sit_spawner.spawn()
-	sit_spawner.setSitter("dom", _pawn)
-	sit_spawner.setProp("stocks", stocks)
+func canDoGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	if(_id == "pose"):
+		# Has bound arms check or something
+		if(!sit_spawner.getSitter("dom")):
+			return false
+		return true
+	if(_id == "unlock"):
+		# Has bound arms check or something
+		if(sit_spawner.getSitter("dom") && sit_spawner.getSitter("dom") != _context.pawn):
+			return true
+		return false
+	if(_id == "use"):
+		#TODO: Can start sex check or something. _context.pawn can't be sitting or be in sex
+		if(sit_spawner.getSitter("dom") && sit_spawner.getSitter("dom") != _context.pawn):
+			return true
+		return false
 
-func _on_interactable_on_interact(user: DollController, action: InteractAction) -> void:
-	if(action.id == "sit"):
-		sitPawn(user.getPawn())
-		#if(!sit_spawner.isSpawned()):
-		#	sit_spawner.spawn()
-		#sit_spawner.setSitter("dom", user.getPawn())
-		#sit_spawner.setProp("stocks", stocks)
-		
-		#GM.leashSystem.connectLeash(
-			#LeashPointConnection.createLeashpoint($LeashPoint),
-			#LeashPointConnection.createPawnLeashpoint(user.getPawn().getCharID(), "leashholder.R")
-		#)
-	if(action.id == "unsit"):
-		if(sit_spawner.getSitter("dom") == user.getPawn()):
-			sit_spawner.despawn()
-	if(action.id == "pose"):
+	return true
+
+func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
+	if(_id == "pose"):
 		if(sit_spawner.isSpawned()):
 			if(sit_spawner.getScene().getState() == "standing"):
 				sit_spawner.getScene().playStateGlobal("bent")
 			else:
 				sit_spawner.getScene().playStateGlobal("standing")
-	if(action.id == "use"):
+	if(_id == "use"):
 		var newSex := SexStartConf.new()
 		newSex.sexType = SexType.InStocks
-		newSex.addRole("dom", user.getCharacter().getID(), SexRole.Dom)
+		newSex.addRole("dom", _context.pawn.getCharID(), SexRole.Dom)
 		newSex.addRole("sub", sit_spawner.getSitter("dom").getCharID(), SexRole.Sub)
 		newSex.pos = stocks.global_position
 		newSex.ang = stocks.global_rotation
 		newSex.addProp("stocks", stocks)
 		GM.sexManager.startSex(newSex)
-	
+		return true
+	if(_id == "unlock"):
+		setSitter("dom", null)
+		return true
+
+	return true
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.BINS, sit_spawner.saveNetworkData(),
