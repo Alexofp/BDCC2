@@ -212,6 +212,8 @@ func triggerCheckSkinTypesList():
 ## For example, adds fur skin type data if we add cat ears to a human.
 ## Will also automatically remove any skin types that aren't in use.
 func checkSkinTypesList():
+	if(Network.isClient()):
+		return
 	var whatWeShouldHave:Dictionary = calculateAllUsedSkinTypes()
 	
 	for ourSkinType in skinTypes.skinTypes.keys():
