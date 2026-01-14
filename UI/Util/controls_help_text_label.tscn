@@ -8,6 +8,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Controls:
 Tab - Inventory/poses
+G - Interact menu
 Q - Character creator
 1 - Debug item giver
 V - Noclip

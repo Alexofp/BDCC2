@@ -4,14 +4,14 @@ func _init() -> void:
 	id = "Leash"
 	alwaysCheckedOtherPawn = true
 
-func hasLeash(_char1:String, _char2:String) -> bool:
+func hasLeash(_char1:CharacterPawn, _char2:CharacterPawn) -> bool:
 	return GM.leashSystem.hasLeash(
 			LeashPointConnection.createPawnLeashpoint(_char1, "leashholder.R"),
 			LeashPointConnection.createPawnLeashpoint(_char2, "collar"),
 	)
 
 func getVisibleName(_context:PawnActionContext) -> String:
-	if(hasLeash(_context.pawn.getCharID(), _context.target.getCharID())):
+	if(hasLeash(_context.pawn, _context.target)):
 		return "Unleash"
 	return "Leash"
 
@@ -21,10 +21,10 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
-	if(hasLeash(_context.pawn.getCharID(), _context.target.getCharID())):
+	if(hasLeash(_context.pawn, _context.target)):
 		GM.leashSystem.removeLeash(
-			LeashPointConnection.createPawnLeashpoint(_context.pawn.getCharID(), "leashholder.R"),
-			LeashPointConnection.createPawnLeashpoint(_context.target.getCharID(), "collar"),
+			LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(_context.target, "collar"),
 		)
 		GM.pawnRegistry.addHoverTextGlobal(_context.pawn, "{user.You} {user.youVerb unleash|unleashes} {target.you}!", {user=_context.pawn.getCharID(), target=_context.target.getCharID()})
 		return true
@@ -33,11 +33,11 @@ func doAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doDelayedAction(_context:PawnActionContext) -> bool:
-	if(hasLeash(_context.pawn.getCharID(), _context.target.getCharID())):
+	if(hasLeash(_context.pawn, _context.target)):
 		return false
 	GM.leashSystem.connectLeash(
-		LeashPointConnection.createPawnLeashpoint(_context.pawn.getCharID(), "leashholder.R"),
-		LeashPointConnection.createPawnLeashpoint(_context.target.getCharID(), "collar"),
+		LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
+		LeashPointConnection.createPawnLeashpoint(_context.target, "collar"),
 		LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(1.0),
 	)
 	var theTargetChar:BaseCharacter = _context.target.getCharacter()

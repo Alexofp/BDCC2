@@ -2,6 +2,8 @@ extends Marker3D
 class_name LeashPoint
 
 @export var leashPointID:String = ""
+@export var leashPointName:String = "Leash point"
+@export var leashCanLeash:bool = true
 @export var leashPointPriority:int = 0
 @export var leashVector:Vector3 = Vector3(0.0, 0.0, 0.0)
 @export var leashSag:float = -0.5

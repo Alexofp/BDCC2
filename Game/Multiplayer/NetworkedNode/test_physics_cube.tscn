@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://x60xwh7dgbkt" path="res://Game/Multiplayer/NetworkedNode/test_physics_cube.gd" id="1_oq1o7"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_ssytu"]
 [ext_resource type="PackedScene" uid="uid://fdc6jyseehm2" path="res://AnimScenes/Scenes/SitAnim/sit_anim_handler.tscn" id="3_6b1jw"]
+[ext_resource type="PackedScene" uid="uid://jypbwiqno6x0" path="res://Mesh/Props/LeashAnchor/LeashAnchor.tscn" id="4_wm0yd"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fl8to"]
 
@@ -40,3 +41,6 @@ metadata/_custom_type_script = "uid://dhdvxyoxg4m31"
 [node name="SitAnimHandler" parent="." unique_id=98422264 instance=ExtResource("3_6b1jw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.196948)
 categoryName = "Debug cube"
+
+[node name="LeashAnchor" parent="." unique_id=2107844049 instance=ExtResource("4_wm0yd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49808407, 0)

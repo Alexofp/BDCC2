@@ -121,8 +121,8 @@ func _physics_process(_delta: float) -> void:
 		if(Network.isServer()):
 			queue_free()
 		return
-	if(!p1.physicsNode || !p2.physicsNode):
-		return
+	#if(!p1.physicsNode || !p2.physicsNode):
+	#	return
 	
 	if(Network.isClient()):
 		if(visibleLeash):
@@ -168,6 +168,8 @@ func pullTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _m
 		if(_node is DollController):
 			_node.setYankDir(theVelAdd*0.2)
 
+func isTargetAPawn() -> bool:
+	return p2con.getCacheNode() is CharacterPawn
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

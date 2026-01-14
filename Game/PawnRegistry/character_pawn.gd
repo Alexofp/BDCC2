@@ -430,6 +430,11 @@ func getLeashPoint(_id:String) -> LeashPoint:
 		return backup_leash_point
 	return dollLeashPoints[_id]
 
+func getDollLeashPointName(_id:String) -> String:
+	if(!dollLeashPoints.has(_id)):
+		return _id
+	return dollLeashPoints[_id].leashPointName
+
 # LEASH STUFF END
 
 # INTERACTOR STUFF BEGINS

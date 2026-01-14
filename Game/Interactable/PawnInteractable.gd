@@ -6,6 +6,17 @@ var target:Node
 var foundGetInteractCategoryFunc:bool = false
 var foundGetQuickInteractActionsFunc:bool = false
 
+#Example
+#func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
+	#var category := InteractCategory.new()
+	#category.categoryName = categoryName
+	#category.interactEntries.append(InteractEntryDo.create("SitProp", ["dom",]))
+	#return category
+#func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	#var result:Array[InteractEntryDo] = []
+	#result.append(InteractEntryDo.create("SitProp", ["dom",]))
+	#return result
+
 func setTarget(_target:Node):
 	target = _target
 	

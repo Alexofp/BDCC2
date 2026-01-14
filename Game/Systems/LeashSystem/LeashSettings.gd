@@ -16,6 +16,15 @@ static func createSimple(_type:int = TYPE_CHAIN, _distance:float = 3.0, _breakDi
 	theSettings.breakDistance = _breakDistance
 	return theSettings
 
+func makeCopy() -> LeashSettings:
+	var theSettings := LeashSettings.new()
+	theSettings.type = type
+	theSettings.distance = distance
+	theSettings.breakDistance = breakDistance
+	theSettings.sourcePull = sourcePull
+	theSettings.targetPull = targetPull
+	return theSettings
+
 func setSourcePull(_mult:float) -> LeashSettings:
 	sourcePull = _mult
 	return self

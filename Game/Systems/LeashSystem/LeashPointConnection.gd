@@ -7,7 +7,8 @@ const MODE_PAWN_LEASHPOINT = 1
 var mode:int = MODE_LEASHPOINT
 
 var leashPoint:LeashPoint
-var pawnID:String = ""
+#var pawnID:String = ""
+var pawn:CharacterPawn
 var pawnLeashPoint:String = ""
 
 signal onLeashPointChange(newLeashPoint:LeashPoint)
@@ -18,19 +19,26 @@ static func createLeashpoint(_leashPoint:LeashPoint) -> LeashPointConnection:
 	theCon.leashPoint = _leashPoint
 	return theCon
 
-static func createPawnLeashpoint(_pawnID:String, _pawnLeashPoint:String) -> LeashPointConnection:
+static func createPawnLeashpoint(_pawn:CharacterPawn, _pawnLeashPoint:String) -> LeashPointConnection:
 	var theCon := LeashPointConnection.new()
 	theCon.mode = MODE_PAWN_LEASHPOINT
-	theCon.pawnID = _pawnID
+	theCon.pawn = _pawn
 	theCon.pawnLeashPoint = _pawnLeashPoint
 	return theCon
+
+func getCacheNode() -> Node3D:
+	if(mode == MODE_LEASHPOINT):
+		return leashPoint
+	if(mode == MODE_PAWN_LEASHPOINT):
+		return pawn
+	return null
 
 func isSameAs(_other:LeashPointConnection) -> bool:
 	if(mode != _other.mode):
 		return false
 	
 	if(mode == MODE_PAWN_LEASHPOINT):
-		if(pawnID != _other.pawnID || pawnLeashPoint != _other.pawnLeashPoint):
+		if(pawn != _other.pawn || pawnLeashPoint != _other.pawnLeashPoint):
 			return false
 	
 	return true
@@ -50,7 +58,7 @@ func checkPoint():
 			setLeashpoint(null)
 		
 		if(true):#leashPoint == null):
-			var thePawn := GM.pawnRegistry.getPawn(pawnID)
+			var thePawn := pawn#GM.pawnRegistry.getPawn(pawnID)
 			if(!thePawn):
 				return
 			var theLeashPoint := thePawn.getLeashPoint(pawnLeashPoint)
@@ -70,7 +78,7 @@ func saveNetworkData() -> Bins:
 		ar.append(str(leashPoint.get_path()))
 	if(mode == MODE_PAWN_LEASHPOINT):
 		ar.append_array([
-			Bins.StrShort, pawnID, Bins.StrShort, pawnLeashPoint,
+			Bins.StrShort, pawn.getCharID() if pawn else "", Bins.StrShort, pawnLeashPoint,
 		])
 	
 	return Bins.saveStartEnd(ar)
@@ -82,7 +90,8 @@ func loadNetworkData(_data:Bins):
 	if(mode == MODE_LEASHPOINT):
 		leashPoint = GlobalRegistry.get_tree().root.get_node_or_null(NodePath(_data.readStrShort()))
 	if(mode == MODE_PAWN_LEASHPOINT):
-		pawnID = _data.readStrShort()
+		var _pawnID:String = _data.readStrShort()
+		pawn = GM.pawnRegistry.getPawn(_pawnID)
 		pawnLeashPoint = _data.readStrShort()
 	_data.endLoad()
 
@@ -93,7 +102,7 @@ func saveData() -> Dictionary:
 	if(mode == MODE_LEASHPOINT):
 		_data["leashPoint"] = str(leashPoint.get_path())
 	if(mode == MODE_PAWN_LEASHPOINT):
-		_data["pawnID"] = pawnID
+		_data["pawnID"] = pawn.getCharID() if pawn else ""
 		_data["pawnLeashPoint"] = pawnLeashPoint
 	return _data
 
@@ -103,7 +112,8 @@ func loadData(_data:Dictionary):
 	if(mode == MODE_LEASHPOINT):
 		leashPoint = GlobalRegistry.get_tree().root.get_node_or_null(NodePath(SAVE.loadVar(_data, "leashPoint", "")))
 	if(mode == MODE_PAWN_LEASHPOINT):
-		pawnID = SAVE.loadVar(_data, "pawnID", "")
+		var _pawnID:String = SAVE.loadVar(_data, "pawnID", "")
+		pawn = GM.pawnRegistry.getPawn(_pawnID)
 		pawnLeashPoint = SAVE.loadVar(_data, "pawnLeashPoint", "")
 		
 	pass

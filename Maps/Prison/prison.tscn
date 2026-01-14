@@ -64,6 +64,7 @@
 [ext_resource type="PackedScene" uid="uid://bdck01gkxevp1" path="res://Game/Systems/ReflectionProbeHandler/ReflectionProbeHandler.tscn" id="74_x6buo"]
 [ext_resource type="PackedScene" uid="uid://ceitp87f3qhlf" path="res://Mapping/Props/stocks.tscn" id="75_nygfb"]
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="76_anb54"]
+[ext_resource type="PackedScene" uid="uid://jypbwiqno6x0" path="res://Mesh/Props/LeashAnchor/LeashAnchor.tscn" id="76_ktc1g"]
 [ext_resource type="PackedScene" uid="uid://1bhqsabmydss" path="res://Mapping/Walls/SlopedWindowA20x8.tscn" id="78_3f2s3"]
 [ext_resource type="PackedScene" uid="uid://1yg72aupmiqd" path="res://Mapping/Walls/SlopedWindowWallA8Left.tscn" id="80_2w4ak"]
 [ext_resource type="PackedScene" uid="uid://b7ndftji8ma1o" path="res://Mapping/Columns/ColumnA1.tscn" id="82_jx3e4"]
@@ -3910,3 +3911,9 @@ ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
 
 [node name="Stocks" parent="." unique_id=1580582023 instance=ExtResource("75_nygfb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2130446, 0, -1.5212966)
+
+[node name="LeashAnchor" parent="." unique_id=2107844049 instance=ExtResource("76_ktc1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78906566, 1.185009, -3.8595257)
+
+[node name="LeashAnchor2" parent="." unique_id=793720883 instance=ExtResource("76_ktc1g")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -7.9090734, 1.8674967, 8.899645)

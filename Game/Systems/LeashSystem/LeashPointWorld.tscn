@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dalsmnppj5hw0"]
+
+[ext_resource type="Script" uid="uid://buwy16rful48f" path="res://Game/Systems/LeashSystem/LeashPointWorld.gd" id="1_on733"]
+[ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="2_uwkah"]
+
+[node name="LeashPointWorld" type="Marker3D" unique_id=1148941597]
+script = ExtResource("1_on733")
+
+[node name="PawnInteractable" parent="." unique_id=1185841991 instance=ExtResource("2_uwkah")]
+unique_name_in_owner = true

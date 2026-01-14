@@ -21,6 +21,7 @@ surface_material_override/0 = ExtResource("4_xg6at")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015821172, 0.081918776)
 script = ExtResource("5_umvcl")
 leashPointID = "collar"
+leashPointName = "Collar"
 leashVector = Vector3(0, 0, 0.2)
 leashSag = -0.2
 metadata/_custom_type_script = "uid://cb1eve8v0w436"

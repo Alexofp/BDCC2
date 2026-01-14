@@ -24,8 +24,8 @@ func getActions(_role:int) -> Array:
 	]
 	
 	if(GM.leashSystem.hasLeash(
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_TARGET), "collar"),
 	)):
 		theActions.append(action("unleash", "Unleash!", 0.0))
 	else:
@@ -57,8 +57,8 @@ func doAction(_role:int, _actionID:String, _args:Array):
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		GM.leashSystem.connectLeash(
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_TARGET), "collar"),
 			LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(1.0),
 		)
 		stopInteraction()
@@ -66,8 +66,8 @@ func doAction(_role:int, _actionID:String, _args:Array):
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		GM.leashSystem.removeLeash(
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_MAIN), "leashholder.R"),
-			LeashPointConnection.createPawnLeashpoint(getCharID(ROLE_TARGET), "collar"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_MAIN), "leashholder.R"),
+			LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_TARGET), "collar"),
 		)
 		stopInteraction()
 

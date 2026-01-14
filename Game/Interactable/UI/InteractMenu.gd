@@ -6,9 +6,11 @@ extends Control
 signal onClose
 
 var pawn:CharacterPawn
+var target:Node
 
 func clearMenu():
-	pass
+	category_list.clear()
+	Util.delete_children(action_list)
 
 func updateMenu():
 	if(!pawn):
@@ -19,7 +21,7 @@ func updateMenu():
 	category_list.clear()
 	for cachedCategory in _pawnInteractor.cachedCategories:
 		category_list.add_item(cachedCategory.categoryName)
-	updateInteractEntriesList()
+	updateListSelectedTargetEntry()
 
 func updateInteractEntriesList():
 	Util.delete_children(action_list)
@@ -83,6 +85,11 @@ func onInteractorUpdate():
 
 #TODO: MAKE THIS WORK IN MULTIPLAYER
 func setTarget(_node:Node3D) -> bool:
+	target = _node
+	updateMenu()
+	return true
+
+func updateListSelectedTargetEntry():
 	if(!pawn):
 		return false
 	var _pawnInteractor := pawn.getPawnInteractor()
@@ -92,7 +99,7 @@ func setTarget(_node:Node3D) -> bool:
 	for _i in _catAm:
 		var theCategory := cachedCategories[_i]
 		
-		if(theCategory.target == _node):
+		if(theCategory.target == target):
 			category_list.select(_i)
 			updateInteractEntriesList()
 			return true
@@ -112,4 +119,15 @@ func tryCloseMenu() -> bool:
 	return true
 
 func _on_category_list_item_selected(_index: int) -> void:
+	if(pawn):
+		var _pawnInteractor:PawnInteractor = pawn.getPawnInteractor()
+		var cachedCategories := _pawnInteractor.cachedCategories
+			
+		var selectedCategoryIndx:int = category_list.get_selected_items()[0]
+		if(selectedCategoryIndx < 0 || selectedCategoryIndx >= cachedCategories.size()):
+			return
+		
+		var selectedCategory := cachedCategories[selectedCategoryIndx]
+		target = selectedCategory.target
+	
 	updateInteractEntriesList()

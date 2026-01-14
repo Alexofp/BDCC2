@@ -6,6 +6,8 @@ const LEASH_INSTANCE = preload("res://Game/Systems/LeashSystem/LeashInstance.tsc
 var lastNetworkID:int = 0 # Doesn't get saved anywhere, always gets counted from zero after any restart
 
 var leashes:Array[LeashInstance] = []
+var sourceToLeashes:Dictionary[Node3D, Array]
+var targetToLeashes:Dictionary[Node3D, Array]
 # Could probably have dictionaries to help find leashes faster
 # a dictionary by leash point (serialized to node path)
 # a dictionary of source by pawn id and zone
@@ -25,6 +27,9 @@ func connectLeash(_source:LeashPointConnection, _target:LeashPointConnection, _l
 	newLeash.setLeashSettings(_leashSettings)
 	newLeash.setPoints(_source, _target)
 	newLeash.name = str(lastNetworkID)
+	
+	doCachePoint(sourceToLeashes, _source, newLeash)
+	doCachePoint(targetToLeashes, _target, newLeash)
 	
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(connectLeash_RPC.bind(newLeash.saveNetworkData().getBytes()))
@@ -46,6 +51,9 @@ func connectLeash_BINS(theBins:Bins):
 	if(newLeash.networkID > lastNetworkID):
 		lastNetworkID = newLeash.networkID
 	
+	doCachePoint(sourceToLeashes, newLeash.p1con, newLeash)
+	doCachePoint(targetToLeashes, newLeash.p2con, newLeash)
+	
 func connectLeash_DATA(_data:Dictionary):
 	var newLeash:LeashInstance= LEASH_INSTANCE.instantiate()
 	leashes.append(newLeash)
@@ -55,10 +63,26 @@ func connectLeash_DATA(_data:Dictionary):
 	
 	if(newLeash.networkID > lastNetworkID):
 		lastNetworkID = newLeash.networkID
-	
+
+	doCachePoint(sourceToLeashes, newLeash.p1con, newLeash)
+	doCachePoint(targetToLeashes, newLeash.p2con, newLeash)
+
+func getAllLeashesOfSourceNode(_node:Node3D) -> Array[LeashInstance]:
+	if(!sourceToLeashes.has(_node)):
+		return []
+	return sourceToLeashes[_node]
+
+func getAllLeashesOfTargetNode(_node:Node3D) -> Array[LeashInstance]:
+	if(!targetToLeashes.has(_node)):
+		return []
+	return targetToLeashes[_node]
 
 func getLeash(_source:LeashPointConnection, _target:LeashPointConnection) -> LeashInstance:
-	for leash in leashes:
+	var theCachePoint := _source.getCacheNode()
+	if(!sourceToLeashes.has(theCachePoint)):
+		return null
+	var leashesToCheck:Array[LeashInstance] = sourceToLeashes[theCachePoint]
+	for leash in leashesToCheck:
 		if(leash.p1con.isSameAs(_source) && leash.p2con.isSameAs(_target)):
 			return leash
 	
@@ -70,6 +94,15 @@ func hasLeash(_source:LeashPointConnection, _target:LeashPointConnection) -> boo
 	
 	return false
 
+func findPawnLeashSimple(_sourcePawn:CharacterPawn, _sourcePoint:String, _targetPawn:CharacterPawn, _targetPoint:String) -> LeashInstance:
+	if(!sourceToLeashes.has(_sourcePawn)):
+		return null
+	var leashesToCheck:Array[LeashInstance] = sourceToLeashes[_sourcePawn]
+	for leash in leashesToCheck:
+		if(leash.p1con.pawnLeashPoint == _sourcePoint && leash.p2con.getCacheNode() == _targetPawn && leash.p2con.pawnLeashPoint == _targetPoint):
+			return leash
+	return null
+	
 func removeLeash(_source:LeashPointConnection, _target:LeashPointConnection) -> bool:
 	var theLeash := getLeash(_source, _target)
 	if(theLeash && !theLeash.is_queued_for_deletion()):
@@ -88,13 +121,18 @@ func clearupLeashInstance(_leash:LeashInstance):
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(removeLeash_RPC.bind(_leash.networkID))
 	leashes.erase(_leash)
+	removePointFromCache(sourceToLeashes, _leash.p1con, _leash)
+	removePointFromCache(targetToLeashes, _leash.p2con, _leash)
 
 func clearLeashes():
 	var leashesToClear := leashes.duplicate()
 	for leash in leashesToClear:
 		leash.queue_free()
+	sourceToLeashes.clear()
+	targetToLeashes.clear()
+	leashes.clear()
 
-func deleteAllSourceLeashes(_connection:LeashPointConnection):
+func deleteAllSourceLeashes_SLOW(_connection:LeashPointConnection):
 	var toDelete:Array[LeashInstance] = []
 	for leash in leashes:
 		if(leash.p1con && leash.p1con.isSameAs(_connection)):
@@ -102,13 +140,56 @@ func deleteAllSourceLeashes(_connection:LeashPointConnection):
 	for leash in toDelete:
 		leash.queue_free()
 
-func deleteAllTargetLeashes(_connection:LeashPointConnection):
+func deleteAllSourceLeashes(_connection:LeashPointConnection):
+	var theCachePoint := _connection.getCacheNode()
+	if(!theCachePoint || !sourceToLeashes.has(theCachePoint)):
+		return
+	
+	var toDelete:Array[LeashInstance] = sourceToLeashes[theCachePoint]
+	var toDeleteAm:int = toDelete.size()
+	for _i in toDeleteAm:
+		var _indx:int = toDeleteAm - 1 - _i
+		toDelete[_indx].queue_free()
+
+func deleteAllTargetLeashes_SLOW(_connection:LeashPointConnection):
 	var toDelete:Array[LeashInstance] = []
 	for leash in leashes:
 		if(leash.p2con && leash.p2con.isSameAs(_connection)):
 			toDelete.append(leash)
 	for leash in toDelete:
 		leash.queue_free()
+
+func deleteAllTargetLeashes(_connection:LeashPointConnection):
+	var theCachePoint := _connection.getCacheNode()
+	if(!theCachePoint || !targetToLeashes.has(theCachePoint)):
+		return
+	
+	var toDelete:Array[LeashInstance] = targetToLeashes[theCachePoint]
+	var toDeleteAm:int = toDelete.size()
+	for _i in toDeleteAm:
+		var _indx:int = toDeleteAm - 1 - _i
+		toDelete[_indx].queue_free()
+
+func doCachePoint(_cache:Dictionary[Node3D, Array], _point:LeashPointConnection, _leash:LeashInstance) -> bool:
+	var theCachePoint := _point.getCacheNode()
+	if(!theCachePoint):
+		return false
+	
+	if(!_cache.has(theCachePoint)):
+		var newAr:Array[LeashInstance] = [_leash]
+		_cache[theCachePoint] = newAr
+	else:
+		_cache[theCachePoint].append(_leash)
+	return true
+
+func removePointFromCache(_cache:Dictionary[Node3D, Array], _point:LeashPointConnection, _leash:LeashInstance) -> bool:
+	var theCachePoint := _point.getCacheNode()
+	if(!theCachePoint):
+		return false
+	if(!_cache.has(theCachePoint)):
+		return false
+	_cache[theCachePoint].erase(_leash)
+	return true
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [Bins.U32, leashes.size()]
