@@ -104,4 +104,4 @@ func _on_search_controls_text_changed(_new_text: String) -> void:
 
 func _on_visibility_changed() -> void:
 	if(is_visible_in_tree()):
-		updateMap()
+		updateMap.call_deferred() # Crashes if you don't do call_deferred for some reason
