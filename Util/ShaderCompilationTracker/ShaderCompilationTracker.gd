@@ -44,6 +44,13 @@ func _process(_delta: float) -> void:
 		reportTexts.append(pipelineName+" (+"+str(newStuff[pipelineID])+")")
 	
 	wave += 1
-	var finalReportText:String = "(wave "+str(wave)+") NEW SHADERS: " + Util.join(reportTexts, ", ")
+	var finalReportText:String = "(wave "+str(wave)+") NEW SHADERS: " + join(reportTexts, ", ")
 	
 	Log.Print(finalReportText)
+
+func join(arr: Array, separator: String = "") -> String:
+	var output = ""
+	for s in arr:
+		output += str(s) + separator
+	output = output.left( output.length() - separator.length() )
+	return output

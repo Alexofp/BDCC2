@@ -63,7 +63,7 @@ func processFreeCam(_delta:float) -> void:
 
 func processCharacterCreator(_delta:float):
 	if(!UIHandler.isMenuInputBlocked()):
-		if(Input.is_action_just_pressed("debug_mousecapture")):
+		if(Input.is_action_just_pressed("game_charactercreator")):
 			if(!isCharacterCreatorVisible()):
 				if(!UIHandler.tryCloseMenu()):
 					showCharacterCreator()

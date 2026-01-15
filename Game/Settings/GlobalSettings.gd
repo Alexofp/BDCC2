@@ -5,6 +5,7 @@ const SettingsPath = "user://settings.bdcc2"
 
 var graphics:GraphicsSettings = GraphicsSettings.new()
 var sounds:SoundSettings = SoundSettings.new()
+var controls:ControlSettings = ControlSettings.new()
 
 signal changedCharTextureQuality
 signal changedLightsQuality
@@ -27,14 +28,17 @@ func saveData() -> Dictionary:
 	return {
 		graphics = graphics.saveData(),
 		sounds = sounds.saveData(),
+		controls = controls.saveData(),
 	}
 
 func loadData(_data:Dictionary):
 	graphics.loadData(loadVar(_data, "graphics", {}))
 	sounds.loadData(loadVar(_data, "sounds", {}))
+	controls.loadData(loadVar(_data, "controls", {}))
 	
 	graphics.applyAllSettings()
 	sounds.applyAllSettings()
+	controls.applyAllSettings()
 
 func loadVar(_data:Dictionary, keyID:String, defaultValue:Variant):
 	if(!_data.has(keyID)):

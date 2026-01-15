@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://co5r4pawp4ffu"]
+
+[ext_resource type="Script" uid="uid://u3bim05ya4ob" path="res://UI/Settings/Controls/input_ui_map.gd" id="1_k3vsp"]
+
+[node name="InputUIMap" type="VBoxContainer" unique_id=2083146485]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k3vsp")
+
+[node name="SearchControls" type="LineEdit" parent="." unique_id=773186082]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Search controls"
+
+[node name="InputEntriesList" type="VBoxContainer" parent="." unique_id=180802441]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="text_changed" from="SearchControls" to="." method="_on_search_controls_text_changed"]

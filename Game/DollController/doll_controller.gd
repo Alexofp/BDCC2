@@ -38,7 +38,6 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 #@export var sprint_isdown:bool = false
 #var jump_isdown = false
 #var noclip_isdown = false
-#var mousecapture_isdown = false
 #@export var input_dir:Vector2 = Vector2.ZERO
 #@export var camera_dir:Vector2 = Vector2.ZERO
 @onready var backup_leash_point: DollLeashPoint = %BackupLeashPoint
@@ -166,7 +165,6 @@ func reset_input():
 	
 	#jump_isdown = false
 	#noclip_isdown = false
-	#mousecapture_isdown = false
 	#if(isRemote()):
 		#return
 	#sprint_isdown = false
@@ -187,7 +185,6 @@ func process_input_human():
 	#sprint_isdown = Input.is_action_pressed("move_sprint")
 	#
 	#noclip_isdown = Input.is_action_just_pressed("debug_noclip")
-	#mousecapture_isdown = Input.is_action_just_pressed("debug_mousecapture")
 
 func syncVec3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.9, autoSnapDist:float=0.02, tooBigSnapDist:float=3.0) -> Vector3:
 	var result: Vector3 = ourVec3*howSmooth + remoteVec3*(1.0 - howSmooth)

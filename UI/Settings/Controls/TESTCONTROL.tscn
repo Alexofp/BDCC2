@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://xlnsjnkj4nm1"]
+
+[ext_resource type="PackedScene" uid="uid://co5r4pawp4ffu" path="res://UI/Settings/Controls/input_ui_map.tscn" id="1_y0kyd"]
+[ext_resource type="PackedScene" uid="uid://dkf13do3vii0" path="res://UI/Settings/Controls/input_ui_listener.tscn" id="2_chlwk"]
+
+[node name="Control" type="Control" unique_id=185198411]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputUIMap" parent="." unique_id=1662854852 instance=ExtResource("1_y0kyd")]
+layout_mode = 1
+
+[node name="InputUIListener" parent="." unique_id=1864362804 instance=ExtResource("2_chlwk")]
+layout_mode = 1

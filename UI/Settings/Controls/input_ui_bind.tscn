@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://be1dx6oyjr74w"]
+
+[ext_resource type="Script" uid="uid://dka0e5bqlx5rw" path="res://UI/Settings/Controls/input_ui_bind.gd" id="1_5oa56"]
+[ext_resource type="Texture2D" uid="uid://dtapmer5wwyi8" path="res://UI/Settings/Controls/Icons/DPad.png" id="2_laej1"]
+
+[node name="InputUIBind" type="HBoxContainer" unique_id=1627612310]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = ExtResource("1_5oa56")
+
+[node name="DeviceIcon" type="TextureRect" parent="." unique_id=1471887808]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_laej1")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Control" type="Control" parent="." unique_id=534582121]
+visible = false
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="." unique_id=890635858]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "D"
+
+[node name="EditKeyButton" type="Button" parent="." unique_id=1934590836]
+layout_mode = 2
+text = "Change"
+
+[node name="DeleteKeyButton" type="Button" parent="." unique_id=1647138845]
+layout_mode = 2
+text = "Delete"
+
+[connection signal="pressed" from="EditKeyButton" to="." method="_on_edit_key_button_pressed"]
+[connection signal="pressed" from="DeleteKeyButton" to="." method="_on_delete_key_button_pressed"]

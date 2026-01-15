@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b2rg438ksbnmw"]
+
+[ext_resource type="Script" uid="uid://bs2vrje63jd0k" path="res://UI/Settings/Controls/input_ui_entry.gd" id="1_25iws"]
+[ext_resource type="PackedScene" uid="uid://be1dx6oyjr74w" path="res://UI/Settings/Controls/input_ui_bind.tscn" id="1_hrkjy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_25iws"]
+
+[node name="InputUIEntry" type="PanelContainer" unique_id=136327098]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_25iws")
+script = ExtResource("1_25iws")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1582110933]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=969866090]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1907460210]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=676499820]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=770925020]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MOVE LEFT"
+
+[node name="AddButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=377415357]
+layout_mode = 2
+text = "Add button"
+
+[node name="DefaultButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=435826450]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Default"
+
+[node name="InputBindList" type="VBoxContainer" parent="VBoxContainer" unique_id=666179966]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InputUIBind" parent="VBoxContainer/InputBindList" unique_id=1627612310 instance=ExtResource("1_hrkjy")]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HBoxContainer/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/HBoxContainer/DefaultButton" to="." method="_on_default_button_pressed"]

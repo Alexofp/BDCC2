@@ -2,11 +2,10 @@ extends Node
 class_name DollControls
 @onready var doll_controller: DollController = $".."
 
-var mouse_movement = Vector2.ZERO
+var mouse_movement:Vector2 = Vector2.ZERO
 @export var sprint_isdown:bool = false
 @export var jump_isdown = false
 @export var noclip_isdown = false
-var mousecapture_isdown = false
 @export var input_dir:Vector2 = Vector2.ZERO
 @export var camera_dir:Vector2 = Vector2.ZERO
 
@@ -34,7 +33,6 @@ func resetInput():
 		return
 	jump_isdown = false
 	noclip_isdown = false
-	mousecapture_isdown = false
 	sprint_isdown = false
 	input_dir = Vector2.ZERO
 	camera_dir = Vector2.ZERO
@@ -57,13 +55,12 @@ func processInput():
 	input_dir.x = Input.get_axis("move_left", "move_right")
 	input_dir.y = Input.get_axis("move_forward", "move_back")
 	camera_dir = Vector2.ZERO
-	camera_dir.x = Input.get_axis("camera_left", "camera_right")
-	camera_dir.y = Input.get_axis("camera_up", "camera_down")
+	camera_dir.x = Input.get_axis("camera_left", "camera_right") * OPTIONS.controls.cameraSensitivityGamepad
+	camera_dir.y = Input.get_axis("camera_up", "camera_down")  * OPTIONS.controls.cameraSensitivityGamepad * (-1.0 if OPTIONS.controls.invertYGamepad else 1.0)
 	jump_isdown = Input.is_action_pressed("move_jump") || Input.is_action_just_pressed("move_jump")
 	sprint_isdown = Input.is_action_pressed("move_sprint")
 	
 	noclip_isdown = Input.is_action_just_pressed("debug_noclip")
-	mousecapture_isdown = Input.is_action_just_pressed("debug_mousecapture")
 	#print(input_dir)
 
 	var input_direction: = Vector3.ZERO
@@ -90,4 +87,4 @@ func _unhandled_input(event):
 		return
 	
 	if event is InputEventMouseMotion:
-		mouse_movement -= event.relative
+		mouse_movement -= event.relative * OPTIONS.controls.cameraSensitivity * Vector2(1.0, -1.0 if OPTIONS.controls.invertY else 1.0)
