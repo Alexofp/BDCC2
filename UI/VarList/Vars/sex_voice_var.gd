@@ -85,3 +85,6 @@ func _on_pitch_slider_on_value_change(_id: Variant, newValue: float) -> void:
 	voiceProfile.setVoicePitch(newValue)
 	
 	triggerChange(voiceProfile.saveData().duplicate(true))
+
+func getValue():
+	return voiceProfile.saveData().duplicate(true)

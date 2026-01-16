@@ -10,6 +10,7 @@ func shouldShowDefaultsButton() -> bool:
 	return true
 
 func _ready():
+	settings_list.setListFilter(OPTIONS.graphics.getHiddenVars)
 	updateSettingsList()
 	last_tick = Time.get_ticks_usec()
 

@@ -193,3 +193,6 @@ func onTexVarSelWindowApply(_window, _id:String):
 	updateTexSelector()
 	updateColors()
 	triggerChange(getFinalData())
+
+func getValue():
+	return getFinalData()

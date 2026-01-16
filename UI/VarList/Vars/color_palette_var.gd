@@ -67,6 +67,9 @@ func setData(_data:Dictionary):
 func _on_color_picker_button_color_changed(color: Color) -> void:
 	triggerChange(color)
 
+func getValue():
+	return color_picker_button.color
+
 func setPalette(newColors:Array):
 	if(addBDCC):
 		newColors.append_array(BDCCColor)

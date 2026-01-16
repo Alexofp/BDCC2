@@ -52,4 +52,6 @@ func _on_option_button_item_selected(index: int) -> void:
 	if(selectedValue is Array):
 		selectedValue = selectedValue[0]
 	triggerChange(selectedValue)
-	
+
+func getValue():
+	return selectedValue

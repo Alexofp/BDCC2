@@ -17,3 +17,6 @@ func _on_label_button_pressed() -> void:
 	if(check_box.disabled):
 		return
 	check_box.button_pressed = !check_box.button_pressed
+
+func getValue():
+	return check_box.pressed

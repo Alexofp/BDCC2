@@ -23,3 +23,6 @@ func setData(_data:Dictionary):
 
 func _on_spin_box_value_changed(_value: float) -> void:
 	triggerChange(Vector3(spin_box.value, spin_box_2.value, spin_box_3.value))
+
+func getValue():
+	return Vector3(spin_box.value, spin_box_2.value, spin_box_3.value)

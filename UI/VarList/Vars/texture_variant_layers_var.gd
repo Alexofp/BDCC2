@@ -86,3 +86,6 @@ func _on_add_button_pressed() -> void:
 	updateLayers()
 	
 	triggerChange(layers.duplicate(true))
+
+func getValue():
+	return layers.duplicate(true)

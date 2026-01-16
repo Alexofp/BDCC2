@@ -89,3 +89,6 @@ func _on_color_picker_g_color_changed(color: Color) -> void:
 func _on_color_picker_b_color_changed(color: Color) -> void:
 	data["b"] = color
 	triggerChange(data.duplicate())
+
+func getValue():
+	return data.duplicate()

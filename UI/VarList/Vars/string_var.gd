@@ -12,3 +12,6 @@ func setData(_data:Dictionary):
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	triggerChange(new_text)
+
+func getValue():
+	return line_edit.text

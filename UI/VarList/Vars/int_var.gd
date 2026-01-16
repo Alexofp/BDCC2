@@ -15,3 +15,6 @@ func setData(_data:Dictionary):
 
 func _on_spin_box_value_changed(value: float) -> void:
 	triggerChange(value)
+
+func getValue():
+	return spin_box.value

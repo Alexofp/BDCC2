@@ -29,3 +29,6 @@ func _on_spin_box_value_changed(value: float) -> void:
 func _on_h_slider_value_changed(value: float) -> void:
 	spin_box.value = value
 	triggerChange(value)
+
+func getValue():
+	return spin_box.value

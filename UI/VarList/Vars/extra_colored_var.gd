@@ -90,3 +90,6 @@ func _on_color_picker_3_color_changed(_color: Color) -> void:
 
 func _on_color_picker_4_color_changed(_color: Color) -> void:
 	triggerChange(getFinalValue())
+
+func getValue():
+	return getFinalValue()

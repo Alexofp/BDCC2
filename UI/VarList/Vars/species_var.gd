@@ -74,3 +74,6 @@ func _on_second_species_selector_item_selected(index: int) -> void:
 	species.setSecondarySpecies(secondarySpecies[index])
 	triggerChange(species.saveData().duplicate(true))
 	updateValue()
+
+func getValue():
+	return species.saveData().duplicate(true)

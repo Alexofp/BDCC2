@@ -39,3 +39,6 @@ func _on_change_button_pressed() -> void:
 	window.onClose.connect(onWindowClose)
 	
 	window.popup_centered()
+
+func getValue():
+	return change_button.text

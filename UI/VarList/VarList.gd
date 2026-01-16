@@ -4,11 +4,47 @@ class_name VarList
 signal onVarChange(id, value)
 
 @export var addSeparators:bool = false
-var widgets:Array = []
+var widgetByID:Dictionary[String, Control]
+var hiddenIDs:Array[String]
+
+var listFilterCallable:Callable
+#func getHiddenVars(_varList:VarList) -> Array[String]:
+#	return ["var1", "somevar2"]
+
+func setListFilter(_callable:Callable):
+	listFilterCallable = _callable
+
+func getWidget(_id:String) -> Control:
+	if(!widgetByID.has(_id)):
+		return null
+	return widgetByID[_id]
+
+func getValue(_id:String, _defaultValue = null) -> Variant:
+	var theWid := getWidget(_id)
+	if(!theWid):
+		return _defaultValue
+	if(!theWid.has_method("getValue")):
+		return _defaultValue
+	return theWid.getValue()
+
+func updateFilter():
+	for hidID in hiddenIDs:
+		var theWid := getWidget(hidID)
+		if(theWid):
+			theWid.visible = true
+	hiddenIDs.clear()
+	if(!listFilterCallable):
+		return
+	#func getHiddenVars(_varList:VarList) -> Array[String]:
+	hiddenIDs = listFilterCallable.call(self)
+	for hidID in hiddenIDs:
+		var theWid := getWidget(hidID)
+		if(theWid):
+			theWid.visible = false
 
 func setVars(_vars:Dictionary):
 	delete_children(self)
-	widgets.clear()
+	widgetByID.clear()
 	
 	for dataID in _vars:
 		var varLine:Dictionary = _vars[dataID]
@@ -70,16 +106,23 @@ func setVars(_vars:Dictionary):
 		newWidget.onValueChange.connect(onWidgetValueChange)
 		newWidget.setData(varLine)
 		
+		widgetByID[dataID] = newWidget
+		
 		if((varLine.has("addSeparator") && varLine["addSeparator"]) || (addSeparators && (!varLine.has("noSeparator") || !varLine["noSeparator"]))):
 			var newSep:HSeparator = HSeparator.new()
 			add_child(newSep)
+	
+	updateFilter()
 
 func onWidgetValueChange(id, value):
 	onVarChange.emit(id, value)
+	updateFilter()
 
 func checkWidgetsFinished():
-	for widget in widgets:
-		widget.onEditorClose()
+	for widgetID in widgetByID:
+		var theWidget:Control = widgetByID[widgetID]
+		if(theWidget.has_method("onEditorClose")):
+			theWidget.onEditorClose()
 	return true
 
 static func delete_children(node: Node):

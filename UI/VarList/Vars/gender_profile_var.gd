@@ -44,3 +44,6 @@ func _on_pronouns_selector_item_selected(index: int) -> void:
 		return
 	genderProfile.pronouns = Pronouns.getAll()[index]
 	triggerChange(genderProfile.saveData().duplicate(true))
+
+func getValue():
+	return genderProfile.saveData().duplicate(true)

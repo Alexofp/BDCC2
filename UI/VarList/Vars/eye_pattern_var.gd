@@ -101,3 +101,6 @@ func _on_pattern_right_eye_on_value_change(_id: Variant, _newValue: Dictionary) 
 	data["g2"] = _newValue["g"]
 	data["b2"] = _newValue["b"]
 	triggerChange(data.duplicate(true))
+
+func getValue():
+	return data.duplicate(true)

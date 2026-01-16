@@ -55,3 +55,6 @@ func _on_custom_color_picker_color_changed(newColor: Color) -> void:
 		return
 	skinTypeData.color = newColor
 	triggerChange(skinTypeData.saveData().duplicate(true) if skinTypeData else {})
+
+func getValue():
+	return skinTypeData.saveData().duplicate(true) if skinTypeData else {}

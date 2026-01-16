@@ -39,4 +39,6 @@ func setData(_data:Dictionary):
 	if(_data.has("value")):
 		messProfile.loadData(_data["value"].duplicate(true))
 	updateSliders()
-	
+
+func getValue():
+	return messProfile.saveData().duplicate(true)

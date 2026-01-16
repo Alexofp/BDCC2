@@ -428,3 +428,10 @@ func updateDynamicGI():
 	if(!isDynamicGIEnabled() || !gameEnv):
 		return
 	gameEnv.sdfgi_enabled = true
+
+func getHiddenVars(_varList:VarList) -> Array[String]:
+	var result:Array[String]
+	
+	if(upscaler != UPSCALER.FSR1):
+		result.append("fsrSharpness")
+	return result

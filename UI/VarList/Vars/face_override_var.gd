@@ -91,3 +91,6 @@ func onOverrideVec2YValueChange(_id:String, _val:float, _faceID:int):
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	triggerChange(new_text)
+
+func getValue():
+	return faceOverrideProfile.saveData().duplicate(true)
