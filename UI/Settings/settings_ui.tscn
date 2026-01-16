@@ -20,6 +20,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=1984517919]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 2
@@ -50,9 +51,11 @@ layout_mode = 2
 text = "Cancel"
 
 [node name="DefaultSettingsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=611682657]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Defaults"
 
+[connection signal="tab_changed" from="VBoxContainer/TabContainer" to="." method="_on_tab_container_tab_changed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/DefaultSettingsButton" to="." method="_on_default_settings_button_pressed"]

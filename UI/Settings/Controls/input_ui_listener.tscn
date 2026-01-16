@@ -86,14 +86,13 @@ text = "Cancel"
 
 [node name="ButtonCatcher" type="ColorRect" parent="CanvasLayer" unique_id=1484362358]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
-color = Color(0, 0, 0, 0.47058824)
+color = Color(0, 0, 0, 0.8392157)
 
 [node name="Label" type="Label" parent="CanvasLayer/ButtonCatcher" unique_id=1184947774]
 layout_mode = 1
@@ -106,9 +105,16 @@ text = "Press a key"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CancelCatcherButton" type="Button" parent="CanvasLayer/ButtonCatcher" unique_id=962077000]
+layout_mode = 1
+offset_right = 177.0
+offset_bottom = 42.0
+text = "Cancel"
+
 [connection signal="pressed" from="CanvasLayer/PopupWindow/VBoxContainer/DetectButton" to="." method="_on_detect_button_pressed"]
 [connection signal="item_selected" from="CanvasLayer/PopupWindow/VBoxContainer/InputTypeSelector" to="." method="_on_input_type_selector_item_selected"]
 [connection signal="item_selected" from="CanvasLayer/PopupWindow/VBoxContainer/InputSelector" to="." method="_on_input_selector_item_selected"]
 [connection signal="pressed" from="CanvasLayer/PopupWindow/VBoxContainer/HBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PopupWindow/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/ButtonCatcher" to="." method="_on_button_catcher_gui_input"]
+[connection signal="pressed" from="CanvasLayer/ButtonCatcher/CancelCatcherButton" to="." method="_on_cancel_catcher_button_pressed"]

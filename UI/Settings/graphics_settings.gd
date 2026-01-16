@@ -6,6 +6,9 @@ var last_tick:int = 0
 var frametimes:Array = []
 var gpuFrametimes:Array = []
 
+func shouldShowDefaultsButton() -> bool:
+	return true
+
 func _ready():
 	updateSettingsList()
 	last_tick = Time.get_ticks_usec()

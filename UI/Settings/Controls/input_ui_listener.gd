@@ -73,20 +73,23 @@ func _ready() -> void:
 	updateInputSelector()
 	#popup_window.popup_centered()
 
-func setInput(_inputEvent:InputEvent):
+func setInput(_inputEvent:InputEvent, _openAutodetect:bool = true):
 	inputEvent = _inputEvent.duplicate(true)
 	updateSelectedOptionBasedOnCurrentInputEvent()
+	
+	if(_openAutodetect):
+		_on_detect_button_pressed.call_deferred()
 
 func updateInputSelector():
 	input_selector.clear()
 	input_label.text = ""
 	input_selector.visible = false
 	input_label.visible = false
-	detect_button.disabled = true
+	detect_button.disabled = false
 	
 	if(inputEvent is InputEventKey):
 		input_label.visible = true
-		detect_button.disabled = false
+		#detect_button.disabled = false
 		
 		var theKey:int = inputEvent.physical_keycode
 		if(theKey == KEY_NONE):
@@ -108,7 +111,7 @@ func updateInputSelector():
 				input_selector.select(_i)
 	elif(inputEvent is InputEventJoypadButton):
 		input_label.visible = true
-		detect_button.disabled = false
+		#detect_button.disabled = false
 		var curMouseButton:int = inputEvent.button_index
 		
 		var theStrKey:String = InputEventHelper.JOY_BUTTON_NAMES.get(curMouseButton, "Unknown_button:"+str(curMouseButton))
@@ -118,7 +121,7 @@ func updateInputSelector():
 		input_label.text = "Selected button: "+theStrKey
 	elif(inputEvent is InputEventJoypadMotion):
 		input_label.visible = true
-		detect_button.disabled = false
+		#detect_button.disabled = false
 		var theAxis:int = inputEvent.axis
 		var theAxisVal:float = inputEvent.axis_value
 		var theAxisValueText:String = "Neutral"
@@ -168,6 +171,13 @@ func _on_button_catcher_gui_input(_event: InputEvent) -> void:
 
 			updateSelectedOptionBasedOnCurrentInputEvent()
 			button_catcher.visible = false
+	if(_event is InputEventMouseButton):
+		if(_event.pressed):
+			inputEvent = InputEventMouseButton.new()
+			inputEvent.button_index = _event.button_index
+
+			updateSelectedOptionBasedOnCurrentInputEvent()
+			button_catcher.visible = false
 
 func _on_detect_button_pressed() -> void:
 	button_catcher.visible = true
@@ -202,3 +212,6 @@ func _on_input_selector_item_selected(_index: int) -> void:
 			return
 		inputEvent = InputEventMouseButton.new()
 		inputEvent.button_index = MOUSE_BUTTONS[_index]
+
+func _on_cancel_catcher_button_pressed() -> void:
+	button_catcher.visible = false

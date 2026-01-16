@@ -5,12 +5,21 @@ const INPUT_UI_ENTRY = preload("res://UI/Settings/Controls/input_ui_entry.tscn")
 @onready var input_entries_list: VBoxContainer = %InputEntriesList
 @onready var search_controls: LineEdit = %SearchControls
 
+var isUpdatingMap:bool = false
+
 func _ready() -> void:
-	updateMap()
+	triggerUpdateMap()
 	#print(InputMap.action_get_events("ui_down")[2])
 	#print(InputMap.action_get_events("ui_up")[2])
 
+func triggerUpdateMap():
+	if(isUpdatingMap):
+		return
+	isUpdatingMap = true
+	updateMap.call_deferred()
+
 func updateMap():
+	isUpdatingMap = false
 	Util.delete_children(input_entries_list)
 	
 	var filterText:String = search_controls.text.to_lower()
@@ -100,8 +109,8 @@ func inputMapReplaceEvent(_actionID:String, _oldEvent:InputEvent, _newEvent:Inpu
 		InputMap.action_add_event(_actionID, theEvent)
 	
 func _on_search_controls_text_changed(_new_text: String) -> void:
-	updateMap()
+	triggerUpdateMap()
 
 func _on_visibility_changed() -> void:
 	if(is_visible_in_tree()):
-		updateMap.call_deferred() # Crashes if you don't do call_deferred for some reason
+		triggerUpdateMap()
