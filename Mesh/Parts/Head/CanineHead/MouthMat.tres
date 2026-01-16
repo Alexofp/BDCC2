@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://2x7f3l3k1dnr"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://2x7f3l3k1dnr"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_m4emj"]
 [ext_resource type="Texture2D" uid="uid://cypxpcqle02xc" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_BaseColor.png" id="2_ccjn3"]
-[ext_resource type="Shader" uid="uid://cnyvi1x7k8ams" path="res://Mesh/Materials/Shaders/Doll/HeadCanineMouth.gdshader" id="2_im77e"]
+[ext_resource type="Shader" uid="uid://cnyvi1x7k8ams" path="res://Mesh/Shaders/Doll_skeleton/HeadCanineMouth.gdshader" id="2_im77e"]
 [ext_resource type="Texture2D" uid="uid://jgf05togs6c7" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Emit.png" id="3_im77e"]
 [ext_resource type="Texture2D" uid="uid://ce2olbj4piybd" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Normal.png" id="4_o3aw8"]
 [ext_resource type="Texture2D" uid="uid://cri0hl4a72srf" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_ORM.png" id="5_r11wk"]

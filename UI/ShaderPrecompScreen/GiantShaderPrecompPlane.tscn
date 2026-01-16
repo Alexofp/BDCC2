@@ -1,57 +1,62 @@
-[gd_scene format=3 uid="uid://in4l22f1an8f"]
+[gd_scene format=4 uid="uid://in4l22f1an8f"]
 
 [ext_resource type="Script" uid="uid://bpjhwpr3xmw3l" path="res://UI/ShaderPrecompScreen/GiantShaderPrecompPlane.gd" id="1_dpj63"]
 [ext_resource type="PackedScene" uid="uid://bmiuelpvac2re" path="res://UI/ShaderPrecompScreen/TenMatsPlaneRigged.tscn" id="2_1vqgx"]
 [ext_resource type="PackedScene" uid="uid://tf6i1ovbctfj" path="res://UI/ShaderPrecompScreen/TenMatsPlane.tscn" id="2_xewdt"]
-[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Materials/Shaders/AnimatedProps/StocksShader.gdshader" id="3_ffuxf"]
-[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/SharedMaterials/Hair/Shaders/KajiyaKayHair.gdshader" id="3_ibmfc"]
-[ext_resource type="Shader" uid="uid://ckovujc5k2nin" path="res://Mesh/SharedMaterials/Hair/Shaders/MarschnerHair.gdshader" id="4_6cnux"]
-[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Materials/Shaders/Clothes/InmateShorts.gdshader" id="4_uc4w4"]
-[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Materials/Shaders/Clothes/InmateTop.gdshader" id="5_q2vm8"]
-[ext_resource type="Shader" uid="uid://b2clhpeyknd4n" path="res://Mesh/Materials/Shaders/Clothes/PlainBra.gdshader" id="6_xewdt"]
-[ext_resource type="Shader" uid="uid://dke80lao8xrva" path="res://Mesh/Materials/Shaders/Clothes/PlainPanties.gdshader" id="7_ibmfc"]
-[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Materials/Shaders/Clothes/Strapon.gdshader" id="8_6cnux"]
-[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Materials/Shaders/Doll/BodyClaws.gdshader" id="9_2yfch"]
-[ext_resource type="Shader" uid="uid://duoji0nw4xn7a" path="res://Mesh/Materials/Shaders/Doll/BodyDigiClaws.gdshader" id="10_qljka"]
-[ext_resource type="Shader" uid="uid://wr87alfar7m0" path="res://Mesh/Materials/Shaders/Doll/BodyDigiPads.gdshader" id="11_o6lyj"]
-[ext_resource type="Shader" uid="uid://bokponwooaa73" path="res://Mesh/Materials/Shaders/Doll/BodyFur.gdshader" id="12_av0u3"]
-[ext_resource type="Shader" uid="uid://be8ljffaleeof" path="res://Mesh/Materials/Shaders/Doll/BodyFurExtraLayer.gdshader" id="13_mmg3t"]
-[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Materials/Shaders/Doll/BodyGenitals.gdshader" id="14_6mpxr"]
-[ext_resource type="Shader" uid="uid://w4jn1ycgrbhu" path="res://Mesh/Materials/Shaders/Doll/BodyGenitalsSpade.gdshader" id="15_02wu4"]
-[ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Materials/Shaders/Doll/BodyHandPads.gdshader" id="16_um420"]
-[ext_resource type="Shader" uid="uid://cqv636b3jbclk" path="res://Mesh/Materials/Shaders/Doll/BodyNipples.gdshader" id="17_dny75"]
-[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Materials/Shaders/Doll/BodyPubicHair.gdshader" id="18_hkuyp"]
-[ext_resource type="Shader" uid="uid://bsek5iakp4f5e" path="res://Mesh/Materials/Shaders/Doll/BodySkin.gdshader" id="19_swmyh"]
-[ext_resource type="Shader" uid="uid://bq7ku447rl7jy" path="res://Mesh/Materials/Shaders/Doll/BodySkinExtraLayer.gdshader" id="20_ei5ws"]
-[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Materials/Shaders/Doll/Bow.gdshader" id="21_vd55d"]
-[ext_resource type="Shader" uid="uid://uupc5dub4op6" path="res://Mesh/Materials/Shaders/Doll/EarFeline.gdshader" id="22_01jdv"]
-[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Materials/Shaders/Doll/EarFelineTassels.gdshader" id="23_1uqjq"]
-[ext_resource type="Shader" uid="uid://bumxglka3nt4r" path="res://Mesh/Materials/Shaders/Doll/EarFluffOpaqueSimple.gdshader" id="24_ve1hr"]
-[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Materials/Shaders/Doll/HairRubberBand.gdshader" id="25_03bl2"]
-[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Materials/Shaders/Doll/HeadBrows.gdshader" id="26_xf1dt"]
-[ext_resource type="Shader" uid="uid://cnyvi1x7k8ams" path="res://Mesh/Materials/Shaders/Doll/HeadCanineMouth.gdshader" id="27_lsqh8"]
-[ext_resource type="Shader" uid="uid://cglnclksujx7a" path="res://Mesh/Materials/Shaders/Doll/HeadEyelashes.gdshader" id="28_pvddk"]
-[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Materials/Shaders/Doll/HeadFeline.gdshader" id="29_xtwsl"]
-[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Materials/Shaders/Doll/HeadFelineMouth.gdshader" id="30_k2br2"]
-[ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Materials/Shaders/Doll/HeadHuman.gdshader" id="31_if0v3"]
-[ext_resource type="Shader" uid="uid://bnpynidnei454" path="res://Mesh/Materials/Shaders/Doll/HeadHumanMouth.gdshader" id="32_un5la"]
-[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Materials/Shaders/Doll/Horn.gdshader" id="33_6e8nt"]
-[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Materials/Shaders/Doll/MyEyeShader.gdshader" id="34_x210n"]
-[ext_resource type="Shader" uid="uid://3dh0xlj13bv7" path="res://Mesh/Materials/Shaders/Doll/PenisBallsFur.gdshader" id="35_e3w3s"]
-[ext_resource type="Shader" uid="uid://cfqmax5hb1sa5" path="res://Mesh/Materials/Shaders/Doll/PenisCanineShaft.gdshader" id="36_jbf5k"]
-[ext_resource type="Shader" uid="uid://bkhc1v6gqts37" path="res://Mesh/Materials/Shaders/Doll/PenisCanineTuft.gdshader" id="37_er18s"]
-[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Materials/Shaders/Doll/Piercings.gdshader" id="38_i07gs"]
-[ext_resource type="Shader" uid="uid://dj5fl64ocui62" path="res://Mesh/Materials/Shaders/Doll/PiercingsBasic.gdshader" id="39_o6c0e"]
-[ext_resource type="Shader" uid="uid://b63113p4ry7jq" path="res://Mesh/Materials/Shaders/Doll/TailDragon.gdshader" id="40_imsog"]
-[ext_resource type="Shader" uid="uid://b6sb1gwyt7u3d" path="res://Mesh/Materials/Shaders/Doll/TailFluffy.gdshader" id="41_l0876"]
-[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Materials/Shaders/Doll/TailLong.gdshader" id="42_guf5f"]
-[ext_resource type="Shader" uid="uid://chpqrfn28svnd" path="res://Mesh/Materials/Shaders/MyDecalShader.gdshader" id="43_mushm"]
-[ext_resource type="Shader" uid="uid://deia42tlwqhy4" path="res://Mesh/Materials/Shaders/MyFloorShader.gdshader" id="44_col1n"]
-[ext_resource type="Shader" uid="uid://b0g1klco8q8eq" path="res://Mesh/Materials/Shaders/MyFloorTileNoParallax.gdshader" id="45_o2xsh"]
-[ext_resource type="Shader" uid="uid://b6iwarsw00s7q" path="res://Mesh/Materials/Shaders/MyFloorTileParallax.gdshader" id="46_cjvwj"]
-[ext_resource type="Shader" uid="uid://cjao3lt0s6j1p" path="res://Mesh/Materials/Shaders/MyPipeShader.gdshader" id="47_ygrpv"]
-[ext_resource type="Shader" uid="uid://bd80ttoh4kacj" path="res://Mesh/Materials/Shaders/MyTrimShader.gdshader" id="48_4nybh"]
-[ext_resource type="Shader" uid="uid://bv4irnq03ofma" path="res://Mesh/Materials/Shaders/Preview.gdshader" id="49_heu62"]
+[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_skeleton/StocksShader.gdshader" id="3_ffuxf"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="3_ibmfc"]
+[ext_resource type="Shader" uid="uid://ckovujc5k2nin" path="res://Mesh/Shaders/Hair_all/MarschnerHair.gdshader" id="4_6cnux"]
+[ext_resource type="Shader" uid="uid://b2clhpeyknd4n" path="res://Mesh/Shaders/DollClothes_skeleton/PlainBra.gdshader" id="6_xewdt"]
+[ext_resource type="Material" uid="uid://c855y56v3e0mp" path="res://Mesh/MaterialsPrecompile/Mats_static/SquirtMat.tres" id="7_6cnux"]
+[ext_resource type="Shader" uid="uid://sp8jjvbtsbcq" path="res://Mesh/Shaders/Prop_all/NoShader.gdshader" id="7_av0u3"]
+[ext_resource type="Shader" uid="uid://dke80lao8xrva" path="res://Mesh/Shaders/DollClothes_skeleton/PlainPanties.gdshader" id="7_ibmfc"]
+[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Shaders/DollClothes_skeleton/Strapon.gdshader" id="8_6cnux"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BodyClaws.gdshader" id="9_2yfch"]
+[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_static/LeashAnchorShader.gdshader" id="9_6cnux"]
+[ext_resource type="Shader" uid="uid://duoji0nw4xn7a" path="res://Mesh/Shaders/Doll_skeleton/BodyDigiClaws.gdshader" id="10_qljka"]
+[ext_resource type="Shader" uid="uid://wr87alfar7m0" path="res://Mesh/Shaders/Doll_skeleton/BodyDigiPads.gdshader" id="11_o6lyj"]
+[ext_resource type="Shader" uid="uid://bokponwooaa73" path="res://Mesh/Shaders/Doll_skeleton/BodyFur.gdshader" id="12_av0u3"]
+[ext_resource type="Shader" uid="uid://be8ljffaleeof" path="res://Mesh/Shaders/Doll_skeleton/BodyFurExtraLayer.gdshader" id="13_mmg3t"]
+[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="14_6mpxr"]
+[ext_resource type="Shader" uid="uid://w4jn1ycgrbhu" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitalsSpade.gdshader" id="15_02wu4"]
+[ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Shaders/Doll_skeleton/BodyHandPads.gdshader" id="16_um420"]
+[ext_resource type="Shader" uid="uid://cqv636b3jbclk" path="res://Mesh/Shaders/Doll_skeleton/BodyNipples.gdshader" id="17_dny75"]
+[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/BodyPubicHair.gdshader" id="18_hkuyp"]
+[ext_resource type="Shader" uid="uid://bsek5iakp4f5e" path="res://Mesh/Shaders/Doll_skeleton/BodySkin.gdshader" id="19_swmyh"]
+[ext_resource type="Shader" uid="uid://bq7ku447rl7jy" path="res://Mesh/Shaders/Doll_skeleton/BodySkinExtraLayer.gdshader" id="20_ei5ws"]
+[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/Bow.gdshader" id="21_vd55d"]
+[ext_resource type="Shader" uid="uid://uupc5dub4op6" path="res://Mesh/Shaders/Doll_skeleton/EarFeline.gdshader" id="22_01jdv"]
+[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Shaders/Doll_skeleton/EarFelineTassels.gdshader" id="23_1uqjq"]
+[ext_resource type="Shader" uid="uid://bumxglka3nt4r" path="res://Mesh/Shaders/Doll_skeleton/EarFluffOpaqueSimple.gdshader" id="24_ve1hr"]
+[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/HairRubberBand.gdshader" id="25_03bl2"]
+[ext_resource type="Shader" uid="uid://3fapa07lsijd" path="res://Mesh/Shaders/Doll_skeleton/FluffyEarFluffInner.gdshader" id="26_q2vm8"]
+[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Shaders/Doll_skeleton/HeadBrows.gdshader" id="26_xf1dt"]
+[ext_resource type="Shader" uid="uid://cnyvi1x7k8ams" path="res://Mesh/Shaders/Doll_skeleton/HeadCanineMouth.gdshader" id="27_lsqh8"]
+[ext_resource type="Shader" uid="uid://cglnclksujx7a" path="res://Mesh/Shaders/Doll_skeleton/HeadEyelashes.gdshader" id="28_pvddk"]
+[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Shaders/Doll_skeleton/HeadFeline.gdshader" id="29_xtwsl"]
+[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/HeadFelineMouth.gdshader" id="30_k2br2"]
+[ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Shaders/Doll_skeleton/HeadHuman.gdshader" id="31_if0v3"]
+[ext_resource type="Shader" uid="uid://bnpynidnei454" path="res://Mesh/Shaders/Doll_skeleton/HeadHumanMouth.gdshader" id="32_un5la"]
+[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Shaders/Doll_static/Horn.gdshader" id="33_6e8nt"]
+[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Shaders/Doll_skeleton/MyEyeShader.gdshader" id="34_x210n"]
+[ext_resource type="Shader" uid="uid://3dh0xlj13bv7" path="res://Mesh/Shaders/Doll_skeleton/PenisBallsFur.gdshader" id="35_e3w3s"]
+[ext_resource type="Shader" uid="uid://cfqmax5hb1sa5" path="res://Mesh/Shaders/Doll_skeleton/PenisCanineShaft.gdshader" id="36_jbf5k"]
+[ext_resource type="Shader" uid="uid://bkhc1v6gqts37" path="res://Mesh/Shaders/Doll_skeleton/PenisCanineTuft.gdshader" id="37_er18s"]
+[ext_resource type="Shader" uid="uid://b6i6sxvjxnqhf" path="res://Mesh/Shaders/Doll_skeleton/SmallEarEar.gdshader" id="39_xewdt"]
+[ext_resource type="Shader" uid="uid://3dxwmp8girm1" path="res://Mesh/Shaders/Doll_skeleton/SmallEarInnerFluff.gdshader" id="40_ibmfc"]
+[ext_resource type="Shader" uid="uid://b63113p4ry7jq" path="res://Mesh/Shaders/Doll_skeleton/TailDragon.gdshader" id="40_imsog"]
+[ext_resource type="Shader" uid="uid://b6sb1gwyt7u3d" path="res://Mesh/Shaders/Doll_skeleton/TailFluffy.gdshader" id="41_l0876"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/TailLong.gdshader" id="42_guf5f"]
+[ext_resource type="Shader" uid="uid://chpqrfn28svnd" path="res://Mesh/Shaders/Unique_unique/MyDecalShader.gdshader" id="43_mushm"]
+[ext_resource type="Shader" uid="uid://deia42tlwqhy4" path="res://Mesh/Shaders/Unique_unique/MyFloorShader.gdshader" id="44_col1n"]
+[ext_resource type="Shader" uid="uid://b0g1klco8q8eq" path="res://Mesh/Shaders/Unique_unique/MyFloorTileNoParallax.gdshader" id="45_o2xsh"]
+[ext_resource type="Shader" uid="uid://b6iwarsw00s7q" path="res://Mesh/Shaders/Unique_unique/MyFloorTileParallax.gdshader" id="46_cjvwj"]
+[ext_resource type="Material" uid="uid://c8oy4fjdew4vl" path="res://Mesh/MaterialsPrecompile/Mats_particle/SquirtParticlesForwardMat.tres" id="47_2yfch"]
+[ext_resource type="Shader" uid="uid://cjao3lt0s6j1p" path="res://Mesh/Shaders/Unique_unique/MyPipeShader.gdshader" id="47_ygrpv"]
+[ext_resource type="PackedScene" uid="uid://dqgtirue86ecm" path="res://UI/ShaderPrecompScreen/Util/unique_shader_precomp_plane.tscn" id="48_2yfch"]
+[ext_resource type="Shader" uid="uid://bd80ttoh4kacj" path="res://Mesh/Shaders/Unique_unique/MyTrimShader.gdshader" id="48_4nybh"]
+[ext_resource type="Material" uid="uid://brg3o1ed87r0d" path="res://Mesh/MaterialsPrecompile/Mats_particle/SquirtParticlesMat.tres" id="48_qljka"]
+[ext_resource type="Shader" uid="uid://bv4irnq03ofma" path="res://Mesh/Shaders/Prop_all/Preview.gdshader" id="49_heu62"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udnea"]
 resource_name = "Material.001"
@@ -118,102 +123,102 @@ _surfaces = [{
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAAP//AAD//wAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.002",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("//8AAP//AAAAAAAAAAAAAP//AAAAAAAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.003",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAAP//AAD//wAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.004",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("//8AAP//AAAAAAAAAAAAAP//AAAAAAAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.005",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAAP//AAD//wAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.006",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("//8AAP//AAAAAAAAAAAAAP//AAAAAAAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.007",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAAP//AAD//wAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.008",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("//8AAP//AAAAAAAAAAAAAP//AAAAAAAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.009",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0)
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAAP//AAD//wAA")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
 "format": 34896613377,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "name": "Material.010",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("//8AAP//AAAAAAAAAAAAAP//AAAAAAAA")
 }]
 blend_shape_mode = 0
 
@@ -221,129 +226,129 @@ blend_shape_mode = 0
 resource_name = "TenMatsPlane_Plane"
 _surfaces = [{
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255),
+"attribute_data": PackedByteArray("AAD//wAAAAD/////"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_udnea"),
 "name": "Material.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/v///AAD///+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("/////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_hlq14"),
 "name": "Material.002",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("//8AAP///78AAAAAAAD/v///AAAAAP+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255),
+"attribute_data": PackedByteArray("AAD//wAAAAD/////"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_5do7w"),
 "name": "Material.003",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/v///AAD///+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("/////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_wk5oe"),
 "name": "Material.004",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("//8AAP///78AAAAAAAD/v///AAAAAP+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255),
+"attribute_data": PackedByteArray("AAD//wAAAAD/////"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_rq8k0"),
 "name": "Material.005",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/v///AAD///+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("/////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_c4e11"),
 "name": "Material.006",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("//8AAP///78AAAAAAAD/v///AAAAAP+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255),
+"attribute_data": PackedByteArray("AAD//wAAAAD/////"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_ko6kq"),
 "name": "Material.007",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/v///AAD///+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("/////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_ix5l1"),
 "name": "Material.008",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("//8AAP///78AAAAAAAD/v///AAAAAP+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255),
+"attribute_data": PackedByteArray("AAD//wAAAAD/////"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_3r0hy"),
 "name": "Material.009",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("AAAAAP///78AAAAAAAD/v///AAD///+/////f////3////9/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("/////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_m2gdg"),
 "name": "Material.010",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+"vertex_data": PackedByteArray("//8AAP///78AAAAAAAD/v///AAAAAP+/////f////3////9/")
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2waa7")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2yfch"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6lyj"]
 render_priority = 0
 shader = ExtResource("3_ibmfc")
 shader_parameter/root_color = Color(0, 0, 0, 1)
@@ -362,7 +367,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qljka"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_av0u3"]
 render_priority = 0
 shader = ExtResource("4_6cnux")
 shader_parameter/root_color = Color(0, 0, 0, 1)
@@ -374,63 +379,24 @@ shader_parameter/use_flow_map = false
 shader_parameter/specular = 0.5
 shader_parameter/roughness = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6lyj"]
-render_priority = 0
-shader = ExtResource("3_ffuxf")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/emission = Color(1, 1, 1, 1)
-shader_parameter/emission_energy = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_av0u3"]
-render_priority = 0
-shader = ExtResource("4_uc4w4")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmg3t"]
 render_priority = 0
-shader = ExtResource("5_q2vm8")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.5
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader = ExtResource("7_av0u3")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6mpxr"]
 render_priority = 0
-shader = ExtResource("6_xewdt")
+shader = ExtResource("49_heu62")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -438,14 +404,15 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_02wu4"]
 render_priority = 0
-shader = ExtResource("7_ibmfc")
+shader = ExtResource("33_6e8nt")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -453,42 +420,15 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_um420"]
 render_priority = 0
-shader = ExtResource("8_6cnux")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/clearcoat = 1.0
-shader_parameter/clearcoat_roughness = 0.5
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dny75"]
-render_priority = 0
-shader = ExtResource("9_2yfch")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hkuyp"]
-render_priority = 0
-shader = ExtResource("10_qljka")
+shader = ExtResource("9_6cnux")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -563,144 +503,144 @@ roughness = 0.5
 resource_name = "TenMatsPlaneRigged_Plane"
 _surfaces = [{
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
 "bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_36p11"),
 "name": "Material.001",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
 "bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_yfn33"),
 "name": "Material.002",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
 "bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_sv43t"),
 "name": "Material.003",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
 "bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_gmcfd"),
 "name": "Material.004",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
 "bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_78ku2"),
 "name": "Material.005",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
 "bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_brlx2"),
 "name": "Material.006",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
 "bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_kx6ht"),
 "name": "Material.007",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
 "bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_lx6go"),
 "name": "Material.008",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
 "bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_yvkho"),
 "name": "Material.009",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
 }, {
 "aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
-"attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
 "bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
 "format": 34359745559,
 "index_count": 3,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0),
+"index_data": PackedByteArray("AAABAAIA"),
 "material": SubResource("StandardMaterial3D_v3btv"),
 "name": "Material.010",
 "primitive": 3,
-"skin_data": PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 255, 127, 255, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0),
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 3,
-"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
 }]
 blend_shape_mode = 0
 
@@ -709,15 +649,86 @@ resource_name = "Skin"
 bind_count = 3
 bind/0/name = &"Root"
 bind/0/bone = -1
-bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bind/0/pose = Transform3D(1, -1.1715933e-15, -3.4228545e-08, 1.1715933e-15, 1, -4.0101933e-23, 3.4228545e-08, 3.4228545e-08, 1, 0, 0, 0)
 bind/1/name = &"Root1"
 bind/1/bone = -1
-bind/1/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+bind/1/pose = Transform3D(1, -1.1715933e-15, -3.4228545e-08, 1.1715933e-15, 1, 5.2764684e-16, 3.4228545e-08, 3.4228545e-08, 1, 1.0587912e-22, -0.9999999, -3.5527137e-15)
 bind/2/name = &"Root2"
 bind/2/bone = -1
-bind/2/pose = Transform3D(0, -1, 7.54979e-08, 1, 0, 0, 0, 7.54979e-08, 1, 1, 0, -7.54979e-08)
+bind/2/pose = Transform3D(2.3841858e-07, -1, 7.5497894e-08, 1, 2.3841858e-07, -2.3653226e-16, -1.9055395e-14, 1.0972644e-07, 1, 0.9999999, -2.3841855e-07, -7.5497894e-08)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dny75"]
+render_priority = 0
+shader = ExtResource("6_xewdt")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hkuyp"]
+render_priority = 0
+shader = ExtResource("7_ibmfc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_swmyh"]
+render_priority = 0
+shader = ExtResource("8_6cnux")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/clearcoat = 1.0
+shader_parameter/clearcoat_roughness = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ei5ws"]
+render_priority = 0
+shader = ExtResource("9_2yfch")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd55d"]
+render_priority = 0
+shader = ExtResource("10_qljka")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01jdv"]
 render_priority = 0
 shader = ExtResource("11_o6lyj")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -730,7 +741,7 @@ shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ei5ws"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uqjq"]
 render_priority = 0
 shader = ExtResource("12_av0u3")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -753,7 +764,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd55d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve1hr"]
 render_priority = 0
 shader = ExtResource("13_mmg3t")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -781,7 +792,7 @@ shader_parameter/extra_albedo = Color(1, 1, 1, 1)
 shader_parameter/extra_rim = 1.0
 shader_parameter/extra_rim_tint = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_01jdv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_03bl2"]
 render_priority = 0
 shader = ExtResource("14_6mpxr")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -801,7 +812,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uqjq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf1dt"]
 render_priority = 0
 shader = ExtResource("15_02wu4")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -820,7 +831,166 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve1hr"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_8cb23"]
+resource_name = "TenMatsPlaneRigged_Plane_001"
+_blend_shape_names = PackedStringArray("Key1", "Key2")
+_surfaces = [{
+"aabb": AABB(-1, 0, -1.057914, 2, 0.5536045, 2.057914),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
+"blend_shapes": PackedByteArray("AACAv5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIA//3///////7//f///////v/9///////+//zhhvwa5DT+o6bg+3cUsv6DG4z26aYe/7f8WP3BSzD6CGx8/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_36p11"),
+"name": "Material.001",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, -0.043319345, -1.057914, 2, 0.4423858, 2.057914),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
+"blend_shapes": PackedByteArray("AACAP5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIC//3///////7//f///////v/9///////+/7f8WP3BSzD6CGx8/3cUsv6DG4z26aYe/D3NLP6BvMb3GLEy/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_yfn33"),
+"name": "Material.002",
+"primitive": 3,
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, 0, -1.057914, 2, 0.5536045, 2.057914),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
+"blend_shapes": PackedByteArray("AACAv5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIA//3///////7//f///////v/9///////+//zhhvwa5DT+o6bg+3cUsv6DG4z26aYe/7f8WP3BSzD6CGx8/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_sv43t"),
+"name": "Material.003",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, -0.043319345, -1.057914, 2, 0.4423858, 2.057914),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
+"blend_shapes": PackedByteArray("AACAP5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIC//3///////7//f///////v/9///////+/7f8WP3BSzD6CGx8/3cUsv6DG4z26aYe/D3NLP6BvMb3GLEy/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_gmcfd"),
+"name": "Material.004",
+"primitive": 3,
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, 0, -1.057914, 2, 0.5536045, 2.057914),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
+"blend_shapes": PackedByteArray("AACAv5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIA//3///////7//f///////v/9///////+//zhhvwa5DT+o6bg+3cUsv6DG4z26aYe/7f8WP3BSzD6CGx8/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_78ku2"),
+"name": "Material.005",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, -0.043319345, -1.057914, 2, 0.4423858, 2.057914),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
+"blend_shapes": PackedByteArray("AACAP5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIC//3///////7//f///////v/9///////+/7f8WP3BSzD6CGx8/3cUsv6DG4z26aYe/D3NLP6BvMb3GLEy/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_brlx2"),
+"name": "Material.006",
+"primitive": 3,
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, 0, -1.057914, 2, 0.5536045, 2.057914),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
+"blend_shapes": PackedByteArray("AACAv5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIA//3///////7//f///////v/9///////+//zhhvwa5DT+o6bg+3cUsv6DG4z26aYe/7f8WP3BSzD6CGx8/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_kx6ht"),
+"name": "Material.007",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, -0.043319345, -1.057914, 2, 0.4423858, 2.057914),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
+"blend_shapes": PackedByteArray("AACAP5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIC//3///////7//f///////v/9///////+/7f8WP3BSzD6CGx8/3cUsv6DG4z26aYe/D3NLP6BvMb3GLEy/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_lx6go"),
+"name": "Material.008",
+"primitive": 3,
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, 0, -1.057914, 2, 0.5536045, 2.057914),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/"),
+"blend_shapes": PackedByteArray("AACAv5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIA//3///////7//f///////v/9///////+//zhhvwa5DT+o6bg+3cUsv6DG4z26aYe/7f8WP3BSzD6CGx8/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_yvkho"),
+"name": "Material.009",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAEAAAAAAP9//38AAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIA//3///////7//f///////v/9///////+/")
+}, {
+"aabb": AABB(-1, -0.043319345, -1.057914, 2, 0.4423858, 2.057914),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAA"),
+"blend_shapes": PackedByteArray("AACAP5KQVD4AAIA/AACAv5KQVD4AAIC/AACAP5KQVD4AAIC//3///////7//f///////v/9///////+/7f8WP3BSzD6CGx8/3cUsv6DG4z26aYe/D3NLP6BvMb3GLEy/c6cl8s/jv7pzpyXyz+O/unOnJfLP47+6"),
+"bone_aabbs": [AABB(-1, 0, -1, 2.00001, 1e-05, 2.00001), AABB(1, 0, 1, 1e-05, 1e-05, 1e-05)],
+"format": 34359745559,
+"index_count": 3,
+"index_data": PackedByteArray("AAABAAIA"),
+"material": SubResource("StandardMaterial3D_v3btv"),
+"name": "Material.010",
+"primitive": 3,
+"skin_data": PackedByteArray("AAABAAAAAAD/f/9/AAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAA"),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 3,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAAAAAIC//3///////7//f///////v/9///////+/")
+}]
+blend_shape_mode = 0
+metadata/extras = {
+"targetNames": ["Key1", "Key2"]
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lsqh8"]
 render_priority = 0
 shader = ExtResource("16_um420")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -838,7 +1008,7 @@ shader_parameter/freshnel_color = Color(0, 0, 0, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_thickness = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_03bl2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvddk"]
 render_priority = 0
 shader = ExtResource("17_dny75")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -857,7 +1027,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf1dt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtwsl"]
 render_priority = 0
 shader = ExtResource("18_hkuyp")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -873,7 +1043,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lsqh8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2br2"]
 render_priority = 0
 shader = ExtResource("19_swmyh")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -901,7 +1071,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvddk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_if0v3"]
 render_priority = 0
 shader = ExtResource("20_ei5ws")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -932,7 +1102,7 @@ shader_parameter/extra_albedo = Color(1, 1, 1, 1)
 shader_parameter/extra_rim = 1.0
 shader_parameter/extra_rim_tint = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtwsl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_un5la"]
 render_priority = 0
 shader = ExtResource("21_vd55d")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -947,7 +1117,7 @@ shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2br2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e8nt"]
 render_priority = 0
 shader = ExtResource("22_01jdv")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -966,7 +1136,7 @@ shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_thickness = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_if0v3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x210n"]
 render_priority = 0
 shader = ExtResource("23_1uqjq")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -979,7 +1149,7 @@ shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_un5la"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3w3s"]
 render_priority = 0
 shader = ExtResource("24_ve1hr")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -989,7 +1159,22 @@ shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e8nt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbf5k"]
+render_priority = 0
+shader = ExtResource("26_q2vm8")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_er18s"]
 render_priority = 0
 shader = ExtResource("25_03bl2")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1005,7 +1190,7 @@ shader_parameter/freshnel_width = 5.0
 shader_parameter/freshnel_mod = 0.1
 shader_parameter/freshnel_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x210n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i07gs"]
 render_priority = 0
 shader = ExtResource("26_xf1dt")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1022,7 +1207,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3w3s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6c0e"]
 render_priority = 0
 shader = ExtResource("27_lsqh8")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1038,7 +1223,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbf5k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imsog"]
 render_priority = 0
 shader = ExtResource("28_pvddk")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1055,7 +1240,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_er18s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0876"]
 render_priority = 0
 shader = ExtResource("29_xtwsl")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1077,7 +1262,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i07gs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_guf5f"]
 render_priority = 0
 shader = ExtResource("30_k2br2")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1096,7 +1281,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6c0e"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mushm"]
 render_priority = 0
 shader = ExtResource("31_if0v3")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1121,7 +1306,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_imsog"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_col1n"]
 render_priority = 0
 shader = ExtResource("32_un5la")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1137,23 +1322,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0876"]
-render_priority = 0
-shader = ExtResource("33_6e8nt")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_guf5f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2xsh"]
 render_priority = 0
 shader = ExtResource("34_x210n")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -1172,7 +1341,7 @@ shader_parameter/glowR = 0.5
 shader_parameter/glowG = 1.0
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mushm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjvwj"]
 render_priority = 0
 shader = ExtResource("35_e3w3s")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1188,7 +1357,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_thickness = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_col1n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygrpv"]
 render_priority = 0
 shader = ExtResource("36_jbf5k")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1210,7 +1379,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2xsh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nybh"]
 render_priority = 0
 shader = ExtResource("37_er18s")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -1228,57 +1397,9 @@ shader_parameter/freshnel_width = 5.0
 shader_parameter/freshnel_mod = 0.1
 shader_parameter/freshnel_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjvwj"]
-render_priority = 0
-shader = ExtResource("38_i07gs")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygrpv"]
-render_priority = 0
-shader = ExtResource("39_o6c0e")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nybh"]
-render_priority = 0
-shader = ExtResource("40_imsog")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_thickness = 0.8
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_heu62"]
 render_priority = 0
-shader = ExtResource("41_l0876")
+shader = ExtResource("39_xewdt")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -1297,6 +1418,57 @@ shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmxyb"]
 render_priority = 0
+shader = ExtResource("40_ibmfc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6iyv"]
+render_priority = 0
+shader = ExtResource("40_imsog")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hslw"]
+render_priority = 0
+shader = ExtResource("41_l0876")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5h1ea"]
+render_priority = 0
 shader = ExtResource("42_guf5f")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
@@ -1314,7 +1486,27 @@ shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_thickness = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6iyv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iafas"]
+render_priority = 0
+shader = ExtResource("3_ffuxf")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gxwal"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hvmt"]
 render_priority = 0
 shader = ExtResource("43_mushm")
 shader_parameter/emission_energy = 0.0
@@ -1324,7 +1516,7 @@ shader_parameter/heightmap_min_layers = 0
 shader_parameter/heightmap_max_layers = 0
 shader_parameter/heightmap_flip = Vector2(0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hslw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v50r"]
 render_priority = 0
 shader = ExtResource("44_col1n")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -1336,13 +1528,13 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5h1ea"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_btr6s"]
 render_priority = 0
 shader = ExtResource("45_o2xsh")
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/uv1_scale_final = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iafas"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px750"]
 render_priority = 0
 shader = ExtResource("46_cjvwj")
 shader_parameter/ao_light_affect = 0.0
@@ -1352,7 +1544,7 @@ shader_parameter/heightmap_max_layers = 0
 shader_parameter/heightmap_flip = Vector2(0, 0)
 shader_parameter/uv1_scale_final = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hvmt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c7vqx"]
 render_priority = 0
 shader = ExtResource("47_ygrpv")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -1364,27 +1556,11 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v50r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kh0x"]
 render_priority = 0
 shader = ExtResource("48_4nybh")
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/metallic = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_btr6s"]
-render_priority = 0
-shader = ExtResource("49_heu62")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [node name="GiantShaderPrecompPlane" type="Node3D" unique_id=132876780]
 script = ExtResource("1_dpj63")
@@ -1394,168 +1570,290 @@ visible = false
 
 [node name="Plane" parent="TenMatsPlane" index="0" unique_id=1874121185]
 mesh = SubResource("ArrayMesh_wpa0c")
-surface_material_override/0 = SubResource("ShaderMaterial_2yfch")
-surface_material_override/1 = SubResource("ShaderMaterial_qljka")
-surface_material_override/2 = SubResource("ShaderMaterial_o6lyj")
-surface_material_override/3 = SubResource("ShaderMaterial_av0u3")
-surface_material_override/4 = SubResource("ShaderMaterial_mmg3t")
-surface_material_override/5 = SubResource("ShaderMaterial_6mpxr")
-surface_material_override/6 = SubResource("ShaderMaterial_02wu4")
-surface_material_override/7 = SubResource("ShaderMaterial_um420")
-surface_material_override/8 = SubResource("ShaderMaterial_dny75")
-surface_material_override/9 = SubResource("ShaderMaterial_hkuyp")
+surface_material_override/0 = SubResource("ShaderMaterial_o6lyj")
+surface_material_override/1 = SubResource("ShaderMaterial_av0u3")
+surface_material_override/2 = SubResource("ShaderMaterial_mmg3t")
+surface_material_override/3 = SubResource("ShaderMaterial_6mpxr")
+surface_material_override/4 = SubResource("ShaderMaterial_02wu4")
+surface_material_override/5 = SubResource("ShaderMaterial_um420")
+surface_material_override/6 = ExtResource("7_6cnux")
 
 [node name="TenMatsPlaneRigged" parent="." unique_id=1198687367 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1198687367, 446704141) index="0" unique_id=1744966010]
+[node name="Skeleton3D" parent="TenMatsPlaneRigged/PlaneRig" parent_id_path=PackedInt32Array(1198687367, 866241445) index="0" unique_id=1474960375]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 2.9289833e-16, 3.4228545e-08, -8.78695e-16, 1, 1.7114273e-08, -3.4228545e-08, -1.7114273e-08, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(-8.557136e-09, 1.7114273e-08, -2.9289833e-16, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Root1"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 7.862551e-24, 2.0050967e-23, -7.862551e-24, 1, -2.6382345e-16, -2.0050967e-23, 2.6382345e-16, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/enabled = true
+bones/1/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/rotation = Quaternion(1.3191172e-16, 1.0025483e-23, -3.9312753e-24, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Root2"
+bones/2/parent = 0
+bones/2/rest = Transform3D(3.5762787e-07, 0.99999994, -3.422857e-08, -0.99999994, 3.5762787e-07, 7.549789e-08, 7.54979e-08, 3.4228542e-08, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/enabled = true
+bones/2/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/rotation = Quaternion(-1.4590915e-08, -3.8794163e-08, -0.70710665, 0.7071069)
+bones/2/scale = Vector3(0.99999994, 0.99999994, 1)
+
+[node name="Plane" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" index="0" unique_id=771959226]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-surface_material_override/0 = SubResource("ShaderMaterial_av0u3")
-surface_material_override/1 = SubResource("ShaderMaterial_mmg3t")
-surface_material_override/2 = SubResource("ShaderMaterial_6mpxr")
-surface_material_override/3 = SubResource("ShaderMaterial_02wu4")
-surface_material_override/4 = SubResource("ShaderMaterial_um420")
-surface_material_override/5 = SubResource("ShaderMaterial_dny75")
-surface_material_override/6 = SubResource("ShaderMaterial_hkuyp")
-surface_material_override/7 = SubResource("ShaderMaterial_swmyh")
-surface_material_override/8 = SubResource("ShaderMaterial_ei5ws")
-surface_material_override/9 = SubResource("ShaderMaterial_vd55d")
+skeleton = NodePath("..")
+surface_material_override/0 = SubResource("ShaderMaterial_dny75")
+surface_material_override/1 = SubResource("ShaderMaterial_hkuyp")
+surface_material_override/2 = SubResource("ShaderMaterial_swmyh")
+surface_material_override/3 = SubResource("ShaderMaterial_ei5ws")
+surface_material_override/4 = SubResource("ShaderMaterial_vd55d")
+surface_material_override/5 = SubResource("ShaderMaterial_01jdv")
+surface_material_override/6 = SubResource("ShaderMaterial_1uqjq")
+surface_material_override/7 = SubResource("ShaderMaterial_ve1hr")
+surface_material_override/8 = SubResource("ShaderMaterial_03bl2")
+surface_material_override/9 = SubResource("ShaderMaterial_xf1dt")
 
-[node name="TenMatsPlane2" parent="." unique_id=397228503 instance=ExtResource("2_xewdt")]
+[node name="PlaneShapes" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" index="1" unique_id=1912597259]
+mesh = SubResource("ArrayMesh_8cb23")
+skin = SubResource("Skin_8r7nw")
+skeleton = NodePath("..")
+blend_shapes/Key1 = 0.0
+blend_shapes/Key2 = 0.0
+surface_material_override/0 = SubResource("ShaderMaterial_dny75")
+surface_material_override/1 = SubResource("ShaderMaterial_hkuyp")
+surface_material_override/2 = SubResource("ShaderMaterial_swmyh")
+surface_material_override/3 = SubResource("ShaderMaterial_ei5ws")
+surface_material_override/4 = SubResource("ShaderMaterial_vd55d")
+surface_material_override/5 = SubResource("ShaderMaterial_01jdv")
+surface_material_override/6 = SubResource("ShaderMaterial_1uqjq")
+surface_material_override/7 = SubResource("ShaderMaterial_ve1hr")
+surface_material_override/8 = SubResource("ShaderMaterial_03bl2")
+surface_material_override/9 = SubResource("ShaderMaterial_xf1dt")
+
+[node name="TenMatsPlaneRigged2" parent="." unique_id=1676700309 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlane2" index="0" unique_id=1874121185]
-mesh = SubResource("ArrayMesh_wpa0c")
-surface_material_override/0 = SubResource("ShaderMaterial_swmyh")
-surface_material_override/1 = SubResource("ShaderMaterial_ei5ws")
-surface_material_override/2 = SubResource("ShaderMaterial_vd55d")
-surface_material_override/3 = SubResource("ShaderMaterial_01jdv")
-surface_material_override/4 = SubResource("ShaderMaterial_1uqjq")
-surface_material_override/5 = SubResource("ShaderMaterial_ve1hr")
-surface_material_override/6 = SubResource("ShaderMaterial_03bl2")
-surface_material_override/7 = SubResource("ShaderMaterial_xf1dt")
-surface_material_override/8 = SubResource("ShaderMaterial_lsqh8")
-surface_material_override/9 = SubResource("ShaderMaterial_pvddk")
+[node name="Skeleton3D" parent="TenMatsPlaneRigged2/PlaneRig" parent_id_path=PackedInt32Array(1676700309, 866241445) index="0" unique_id=1474960375]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 2.9289833e-16, 3.4228545e-08, -8.78695e-16, 1, 1.7114273e-08, -3.4228545e-08, -1.7114273e-08, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(-8.557136e-09, 1.7114273e-08, -2.9289833e-16, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Root1"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 7.862551e-24, 2.0050967e-23, -7.862551e-24, 1, -2.6382345e-16, -2.0050967e-23, 2.6382345e-16, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/enabled = true
+bones/1/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/rotation = Quaternion(1.3191172e-16, 1.0025483e-23, -3.9312753e-24, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Root2"
+bones/2/parent = 0
+bones/2/rest = Transform3D(3.5762787e-07, 0.99999994, -3.422857e-08, -0.99999994, 3.5762787e-07, 7.549789e-08, 7.54979e-08, 3.4228542e-08, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/enabled = true
+bones/2/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/rotation = Quaternion(-1.4590915e-08, -3.8794163e-08, -0.70710665, 0.7071069)
+bones/2/scale = Vector3(0.99999994, 0.99999994, 1)
 
-[node name="TenMatsPlaneRigged2" parent="." unique_id=1618984099 instance=ExtResource("2_1vqgx")]
-visible = false
-
-[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1618984099, 446704141) index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" index="0" unique_id=771959226]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-surface_material_override/0 = SubResource("ShaderMaterial_01jdv")
-surface_material_override/1 = SubResource("ShaderMaterial_1uqjq")
-surface_material_override/2 = SubResource("ShaderMaterial_ve1hr")
-surface_material_override/3 = SubResource("ShaderMaterial_03bl2")
-surface_material_override/4 = SubResource("ShaderMaterial_xf1dt")
-surface_material_override/5 = SubResource("ShaderMaterial_lsqh8")
-surface_material_override/6 = SubResource("ShaderMaterial_pvddk")
-surface_material_override/7 = SubResource("ShaderMaterial_xtwsl")
-surface_material_override/8 = SubResource("ShaderMaterial_k2br2")
-surface_material_override/9 = SubResource("ShaderMaterial_if0v3")
+skeleton = NodePath("..")
+surface_material_override/0 = SubResource("ShaderMaterial_lsqh8")
+surface_material_override/1 = SubResource("ShaderMaterial_pvddk")
+surface_material_override/2 = SubResource("ShaderMaterial_xtwsl")
+surface_material_override/3 = SubResource("ShaderMaterial_k2br2")
+surface_material_override/4 = SubResource("ShaderMaterial_if0v3")
+surface_material_override/5 = SubResource("ShaderMaterial_un5la")
+surface_material_override/6 = SubResource("ShaderMaterial_6e8nt")
+surface_material_override/7 = SubResource("ShaderMaterial_x210n")
+surface_material_override/8 = SubResource("ShaderMaterial_e3w3s")
+surface_material_override/9 = SubResource("ShaderMaterial_jbf5k")
 
-[node name="TenMatsPlane3" parent="." unique_id=1390308884 instance=ExtResource("2_xewdt")]
+[node name="PlaneShapes" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" index="1" unique_id=1912597259]
+mesh = SubResource("ArrayMesh_8cb23")
+skin = SubResource("Skin_8r7nw")
+skeleton = NodePath("..")
+blend_shapes/Key1 = 0.0
+blend_shapes/Key2 = 0.0
+surface_material_override/0 = SubResource("ShaderMaterial_lsqh8")
+surface_material_override/1 = SubResource("ShaderMaterial_pvddk")
+surface_material_override/2 = SubResource("ShaderMaterial_xtwsl")
+surface_material_override/3 = SubResource("ShaderMaterial_k2br2")
+surface_material_override/4 = SubResource("ShaderMaterial_if0v3")
+surface_material_override/5 = SubResource("ShaderMaterial_un5la")
+surface_material_override/6 = SubResource("ShaderMaterial_6e8nt")
+surface_material_override/7 = SubResource("ShaderMaterial_x210n")
+surface_material_override/8 = SubResource("ShaderMaterial_e3w3s")
+surface_material_override/9 = SubResource("ShaderMaterial_jbf5k")
+
+[node name="TenMatsPlaneRigged3" parent="." unique_id=992245986 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlane3" index="0" unique_id=1874121185]
-mesh = SubResource("ArrayMesh_wpa0c")
-surface_material_override/0 = SubResource("ShaderMaterial_xtwsl")
-surface_material_override/1 = SubResource("ShaderMaterial_k2br2")
-surface_material_override/2 = SubResource("ShaderMaterial_if0v3")
-surface_material_override/3 = SubResource("ShaderMaterial_un5la")
-surface_material_override/4 = SubResource("ShaderMaterial_6e8nt")
-surface_material_override/5 = SubResource("ShaderMaterial_x210n")
-surface_material_override/6 = SubResource("ShaderMaterial_e3w3s")
-surface_material_override/7 = SubResource("ShaderMaterial_jbf5k")
-surface_material_override/8 = SubResource("ShaderMaterial_er18s")
-surface_material_override/9 = SubResource("ShaderMaterial_i07gs")
+[node name="Skeleton3D" parent="TenMatsPlaneRigged3/PlaneRig" parent_id_path=PackedInt32Array(992245986, 866241445) index="0" unique_id=1474960375]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 2.9289833e-16, 3.4228545e-08, -8.78695e-16, 1, 1.7114273e-08, -3.4228545e-08, -1.7114273e-08, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(-8.557136e-09, 1.7114273e-08, -2.9289833e-16, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Root1"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 7.862551e-24, 2.0050967e-23, -7.862551e-24, 1, -2.6382345e-16, -2.0050967e-23, 2.6382345e-16, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/enabled = true
+bones/1/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/rotation = Quaternion(1.3191172e-16, 1.0025483e-23, -3.9312753e-24, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Root2"
+bones/2/parent = 0
+bones/2/rest = Transform3D(3.5762787e-07, 0.99999994, -3.422857e-08, -0.99999994, 3.5762787e-07, 7.549789e-08, 7.54979e-08, 3.4228542e-08, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/enabled = true
+bones/2/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/rotation = Quaternion(-1.4590915e-08, -3.8794163e-08, -0.70710665, 0.7071069)
+bones/2/scale = Vector3(0.99999994, 0.99999994, 1)
 
-[node name="TenMatsPlaneRigged3" parent="." unique_id=185375133 instance=ExtResource("2_1vqgx")]
-visible = false
-
-[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(185375133, 446704141) index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" index="0" unique_id=771959226]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-surface_material_override/0 = SubResource("ShaderMaterial_un5la")
-surface_material_override/1 = SubResource("ShaderMaterial_6e8nt")
-surface_material_override/2 = SubResource("ShaderMaterial_x210n")
-surface_material_override/3 = SubResource("ShaderMaterial_e3w3s")
-surface_material_override/4 = SubResource("ShaderMaterial_jbf5k")
-surface_material_override/5 = SubResource("ShaderMaterial_er18s")
-surface_material_override/6 = SubResource("ShaderMaterial_i07gs")
-surface_material_override/7 = SubResource("ShaderMaterial_o6c0e")
-surface_material_override/8 = SubResource("ShaderMaterial_imsog")
-surface_material_override/9 = SubResource("ShaderMaterial_l0876")
+skeleton = NodePath("..")
+surface_material_override/0 = SubResource("ShaderMaterial_er18s")
+surface_material_override/1 = SubResource("ShaderMaterial_i07gs")
+surface_material_override/2 = SubResource("ShaderMaterial_o6c0e")
+surface_material_override/3 = SubResource("ShaderMaterial_imsog")
+surface_material_override/4 = SubResource("ShaderMaterial_l0876")
+surface_material_override/5 = SubResource("ShaderMaterial_guf5f")
+surface_material_override/6 = SubResource("ShaderMaterial_mushm")
+surface_material_override/7 = SubResource("ShaderMaterial_col1n")
+surface_material_override/8 = SubResource("ShaderMaterial_o2xsh")
+surface_material_override/9 = SubResource("ShaderMaterial_cjvwj")
 
-[node name="TenMatsPlane4" parent="." unique_id=728873852 instance=ExtResource("2_xewdt")]
+[node name="PlaneShapes" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" index="1" unique_id=1912597259]
+mesh = SubResource("ArrayMesh_8cb23")
+skin = SubResource("Skin_8r7nw")
+skeleton = NodePath("..")
+blend_shapes/Key1 = 0.0
+blend_shapes/Key2 = 0.0
+surface_material_override/0 = SubResource("ShaderMaterial_er18s")
+surface_material_override/1 = SubResource("ShaderMaterial_i07gs")
+surface_material_override/2 = SubResource("ShaderMaterial_o6c0e")
+surface_material_override/3 = SubResource("ShaderMaterial_imsog")
+surface_material_override/4 = SubResource("ShaderMaterial_l0876")
+surface_material_override/5 = SubResource("ShaderMaterial_guf5f")
+surface_material_override/6 = SubResource("ShaderMaterial_mushm")
+surface_material_override/7 = SubResource("ShaderMaterial_col1n")
+surface_material_override/8 = SubResource("ShaderMaterial_o2xsh")
+surface_material_override/9 = SubResource("ShaderMaterial_cjvwj")
+
+[node name="TenMatsPlaneRigged4" parent="." unique_id=2037782303 instance=ExtResource("2_1vqgx")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlane4" index="0" unique_id=1874121185]
-mesh = SubResource("ArrayMesh_wpa0c")
-surface_material_override/0 = SubResource("ShaderMaterial_o6c0e")
-surface_material_override/1 = SubResource("ShaderMaterial_imsog")
-surface_material_override/2 = SubResource("ShaderMaterial_l0876")
-surface_material_override/3 = SubResource("ShaderMaterial_guf5f")
-surface_material_override/4 = SubResource("ShaderMaterial_mushm")
-surface_material_override/5 = SubResource("ShaderMaterial_col1n")
-surface_material_override/6 = SubResource("ShaderMaterial_o2xsh")
-surface_material_override/7 = SubResource("ShaderMaterial_cjvwj")
-surface_material_override/8 = SubResource("ShaderMaterial_ygrpv")
-surface_material_override/9 = SubResource("ShaderMaterial_4nybh")
+[node name="Skeleton3D" parent="TenMatsPlaneRigged4/PlaneRig" parent_id_path=PackedInt32Array(2037782303, 866241445) index="0" unique_id=1474960375]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 2.9289833e-16, 3.4228545e-08, -8.78695e-16, 1, 1.7114273e-08, -3.4228545e-08, -1.7114273e-08, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(-8.557136e-09, 1.7114273e-08, -2.9289833e-16, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Root1"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 7.862551e-24, 2.0050967e-23, -7.862551e-24, 1, -2.6382345e-16, -2.0050967e-23, 2.6382345e-16, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/enabled = true
+bones/1/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/1/rotation = Quaternion(1.3191172e-16, 1.0025483e-23, -3.9312753e-24, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Root2"
+bones/2/parent = 0
+bones/2/rest = Transform3D(3.5762787e-07, 0.99999994, -3.422857e-08, -0.99999994, 3.5762787e-07, 7.549789e-08, 7.54979e-08, 3.4228542e-08, 1, -1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/enabled = true
+bones/2/position = Vector3(-1.0587912e-22, 0.9999999, 3.5527137e-15)
+bones/2/rotation = Quaternion(-1.4590915e-08, -3.8794163e-08, -0.70710665, 0.7071069)
+bones/2/scale = Vector3(0.99999994, 0.99999994, 1)
 
-[node name="TenMatsPlaneRigged4" parent="." unique_id=1675335702 instance=ExtResource("2_1vqgx")]
-visible = false
-
-[node name="Plane" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1675335702, 446704141) index="0" unique_id=1744966010]
+[node name="Plane" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" index="0" unique_id=771959226]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-surface_material_override/0 = SubResource("ShaderMaterial_guf5f")
-surface_material_override/1 = SubResource("ShaderMaterial_mushm")
-surface_material_override/2 = SubResource("ShaderMaterial_col1n")
-surface_material_override/3 = SubResource("ShaderMaterial_o2xsh")
-surface_material_override/4 = SubResource("ShaderMaterial_cjvwj")
-surface_material_override/5 = SubResource("ShaderMaterial_ygrpv")
-surface_material_override/6 = SubResource("ShaderMaterial_4nybh")
-surface_material_override/7 = SubResource("ShaderMaterial_heu62")
-surface_material_override/8 = SubResource("ShaderMaterial_mmxyb")
-surface_material_override/9 = SubResource("ShaderMaterial_e6iyv")
+skeleton = NodePath("..")
+surface_material_override/0 = SubResource("ShaderMaterial_ygrpv")
+surface_material_override/1 = SubResource("ShaderMaterial_4nybh")
+surface_material_override/2 = SubResource("ShaderMaterial_heu62")
+surface_material_override/3 = SubResource("ShaderMaterial_mmxyb")
+surface_material_override/4 = SubResource("ShaderMaterial_e6iyv")
+surface_material_override/5 = SubResource("ShaderMaterial_5hslw")
+surface_material_override/6 = SubResource("ShaderMaterial_5h1ea")
+surface_material_override/7 = SubResource("ShaderMaterial_iafas")
 
-[node name="TenMatsPlane5" parent="." unique_id=10248510 instance=ExtResource("2_xewdt")]
-visible = false
-
-[node name="Plane" parent="TenMatsPlane5" index="0" unique_id=1874121185]
-mesh = SubResource("ArrayMesh_wpa0c")
-surface_material_override/0 = SubResource("ShaderMaterial_heu62")
-surface_material_override/1 = SubResource("ShaderMaterial_mmxyb")
-surface_material_override/2 = SubResource("ShaderMaterial_e6iyv")
-surface_material_override/3 = SubResource("ShaderMaterial_5hslw")
-surface_material_override/4 = SubResource("ShaderMaterial_5h1ea")
-surface_material_override/5 = SubResource("ShaderMaterial_iafas")
-surface_material_override/6 = SubResource("ShaderMaterial_6hvmt")
-surface_material_override/7 = SubResource("ShaderMaterial_2v50r")
-surface_material_override/8 = SubResource("ShaderMaterial_btr6s")
-
-[node name="TenMatsPlaneRigged5" parent="." unique_id=295129587 instance=ExtResource("2_1vqgx")]
-visible = false
-
-[node name="Plane" parent="TenMatsPlaneRigged5/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(295129587, 446704141) index="0" unique_id=1744966010]
-mesh = SubResource("ArrayMesh_5tir0")
+[node name="PlaneShapes" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" index="1" unique_id=1912597259]
+mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
-surface_material_override/0 = SubResource("ShaderMaterial_5hslw")
-surface_material_override/1 = SubResource("ShaderMaterial_5h1ea")
-surface_material_override/2 = SubResource("ShaderMaterial_iafas")
-surface_material_override/3 = SubResource("ShaderMaterial_6hvmt")
-surface_material_override/4 = SubResource("ShaderMaterial_2v50r")
-surface_material_override/5 = SubResource("ShaderMaterial_btr6s")
+skeleton = NodePath("..")
+blend_shapes/Key1 = 0.0
+blend_shapes/Key2 = 0.0
+surface_material_override/0 = SubResource("ShaderMaterial_ygrpv")
+surface_material_override/1 = SubResource("ShaderMaterial_4nybh")
+surface_material_override/2 = SubResource("ShaderMaterial_heu62")
+surface_material_override/3 = SubResource("ShaderMaterial_mmxyb")
+surface_material_override/4 = SubResource("ShaderMaterial_e6iyv")
+surface_material_override/5 = SubResource("ShaderMaterial_5hslw")
+surface_material_override/6 = SubResource("ShaderMaterial_5h1ea")
+surface_material_override/7 = SubResource("ShaderMaterial_iafas")
+
+[node name="UniqueShaderPrecompPlane" parent="." unique_id=966973847 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_6hvmt")
+
+[node name="UniqueShaderPrecompPlane2" parent="." unique_id=1068301906 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_2v50r")
+
+[node name="UniqueShaderPrecompPlane3" parent="." unique_id=213944015 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_btr6s")
+
+[node name="UniqueShaderPrecompPlane4" parent="." unique_id=240791901 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_px750")
+
+[node name="UniqueShaderPrecompPlane5" parent="." unique_id=1706151037 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_c7vqx")
+
+[node name="UniqueShaderPrecompPlane6" parent="." unique_id=1607370747 instance=ExtResource("48_2yfch")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_7kh0x")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1846898971]
+visible = false
+emitting = false
+process_material = ExtResource("47_2yfch")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1283620314]
+visible = false
+emitting = false
+process_material = ExtResource("48_qljka")
 
 [editable path="TenMatsPlane"]
 [editable path="TenMatsPlaneRigged"]
-[editable path="TenMatsPlane2"]
 [editable path="TenMatsPlaneRigged2"]
-[editable path="TenMatsPlane3"]
 [editable path="TenMatsPlaneRigged3"]
-[editable path="TenMatsPlane4"]
 [editable path="TenMatsPlaneRigged4"]
-[editable path="TenMatsPlane5"]
-[editable path="TenMatsPlaneRigged5"]
+[editable path="UniqueShaderPrecompPlane"]
+[editable path="UniqueShaderPrecompPlane2"]
+[editable path="UniqueShaderPrecompPlane3"]
+[editable path="UniqueShaderPrecompPlane4"]
+[editable path="UniqueShaderPrecompPlane5"]
+[editable path="UniqueShaderPrecompPlane6"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://7o7xfhhrhotd"]
+[gd_scene format=3 uid="uid://7o7xfhhrhotd"]
 
 [ext_resource type="PackedScene" uid="uid://bqoo34hnqa1sr" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarR.glb" id="1_f2ikk"]
 [ext_resource type="Script" uid="uid://b3jfi6whvapna" path="res://Mesh/Parts/Ear/FluffyEar/fluffy_ear.gd" id="2_4j26o"]
@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dtn3jcvaheois" path="res://Mesh/Parts/Ear/FluffyEar/FluffMat.tres" id="4_m6moc"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_5qfrl"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_5qead"]
-[ext_resource type="Material" uid="uid://btoejf7edmi2l" path="res://Mesh/Parts/SharedMaterials/PiercingsMatOLD.tres" id="7_mo4o3"]
+[ext_resource type="Material" uid="uid://slnc37bhrpd1" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarPiercingMat.tres" id="7_5qead"]
 [ext_resource type="Material" uid="uid://bglin3n8wnb0d" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarMat.tres" id="8_eg5tj"]
 [ext_resource type="Material" uid="uid://x3h3oqedoupd" path="res://Mesh/Parts/Ear/FluffyEar/TasselsMat.tres" id="9_6hfqw"]
 
@@ -84,7 +84,7 @@ metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
 [node name="FelineEarPiercedTwoRingsR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="3" unique_id=1626965039]
 visibility_range_end = 10.0
-surface_material_override/0 = ExtResource("7_mo4o3")
+surface_material_override/0 = ExtResource("7_5qead")
 
 [node name="FelineEarR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="4" unique_id=149984203]
 surface_material_override/0 = ExtResource("8_eg5tj")

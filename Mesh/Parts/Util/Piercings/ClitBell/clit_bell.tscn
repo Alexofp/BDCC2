@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://e88e3hq15x45" path="res://Mesh/Parts/Util/Piercings/ClitBell/clit_bell.gd" id="2_3x5fo"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_nkkvy"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_4f1xy"]
-[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Materials/Shaders/Doll/Piercings.gdshader" id="4_bnci0"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_bnci0"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_c747f"]
 [ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_e16uj"]
 [ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_wbyxc"]

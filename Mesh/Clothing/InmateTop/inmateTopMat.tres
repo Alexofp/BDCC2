@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://cy5ku31rbarkv"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://cy5ku31rbarkv"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_01lk7"]
 [ext_resource type="Texture2D" uid="uid://bftci7hrdk8rq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_BaseColor.png" id="2_kym5q"]
-[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Materials/Shaders/Clothes/InmateTop.gdshader" id="2_odg20"]
+[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Shaders/DollClothes_skeleton/InmateTop.gdshader" id="2_odg20"]
 [ext_resource type="Texture2D" uid="uid://bckwvs0pckpsm" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Emit.png" id="3_odg20"]
 [ext_resource type="Texture2D" uid="uid://bmy4bgb43cuuq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Normal.png" id="4_3ooie"]
 [ext_resource type="Texture2D" uid="uid://hcu5o103lkx4" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png" id="5_lkc1y"]

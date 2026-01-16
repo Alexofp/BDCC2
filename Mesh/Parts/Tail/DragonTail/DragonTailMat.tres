@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=6 format=3 uid="uid://dk4duadyugft7"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://dk4duadyugft7"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_y8esf"]
-[ext_resource type="Shader" uid="uid://b63113p4ry7jq" path="res://Mesh/Materials/Shaders/Doll/TailDragon.gdshader" id="2_7eyqc"]
+[ext_resource type="Shader" uid="uid://b63113p4ry7jq" path="res://Mesh/Shaders/Doll_skeleton/TailDragon.gdshader" id="2_7eyqc"]
 [ext_resource type="Texture2D" uid="uid://u1gwis85khkm" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_BaseColor.png" id="2_d5w22"]
 [ext_resource type="Texture2D" uid="uid://dg3pbqa65p83f" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_Normal.png" id="3_7eyqc"]
 [ext_resource type="Texture2D" uid="uid://c73cktj5msep3" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_ORM.png" id="4_qv86r"]

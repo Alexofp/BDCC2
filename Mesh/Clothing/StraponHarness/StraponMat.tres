@@ -1,12 +1,12 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://caw1jetfbejfr"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://caw1jetfbejfr"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_rkle1"]
-[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Materials/Shaders/Clothes/Strapon.gdshader" id="2_uluco"]
+[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Shaders/DollClothes_skeleton/Strapon.gdshader" id="2_rkle1"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_uluco")
+shader = ExtResource("2_rkle1")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0

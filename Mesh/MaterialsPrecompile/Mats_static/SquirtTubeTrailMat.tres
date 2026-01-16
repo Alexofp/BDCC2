@@ -1,0 +1,4 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c78mbisnx6xk2"]
+
+[resource]
+use_particle_trails = true

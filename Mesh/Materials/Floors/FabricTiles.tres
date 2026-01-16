@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bd2q60jlvjce"]
 
-[ext_resource type="Shader" uid="uid://b0g1klco8q8eq" path="res://Mesh/Materials/Shaders/MyFloorTileNoParallax.gdshader" id="1_75716"]
+[ext_resource type="Shader" uid="uid://b0g1klco8q8eq" path="res://Mesh/Shaders/Unique_unique/MyFloorTileNoParallax.gdshader" id="1_75716"]
 [ext_resource type="Texture2D" uid="uid://uxolfp1icg1i" path="res://Mesh/Textures/Tileable/fabric_tiles/fabrictiles_color.png" id="2_ouu6f"]
 [ext_resource type="Texture2D" uid="uid://bmnhbg4u4ru5t" path="res://Mesh/Textures/Tileable/fabric_tiles/fabrictiles_normal.png" id="3_206rf"]
 [ext_resource type="Texture2D" uid="uid://cmkr7m66qh5i5" path="res://Mesh/Textures/Tileable/fabric_tiles/fabrictiles_orm.png" id="4_6nka3"]

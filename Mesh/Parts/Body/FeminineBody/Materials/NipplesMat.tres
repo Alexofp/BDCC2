@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://crmsb1gfa4uhb"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_c2p8e"]
-[ext_resource type="Shader" uid="uid://cqv636b3jbclk" path="res://Mesh/Materials/Shaders/Doll/BodyNipples.gdshader" id="2_em13s"]
+[ext_resource type="Shader" uid="uid://cqv636b3jbclk" path="res://Mesh/Shaders/Doll_skeleton/BodyNipples.gdshader" id="2_em13s"]
 [ext_resource type="Texture2D" uid="uid://koeafwqjw4b7" path="res://Mesh/Parts/SharedTextures/Nipples/nippleSmall.png" id="3_em13s"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_d17xq"]

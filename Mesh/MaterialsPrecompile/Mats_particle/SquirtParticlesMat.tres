@@ -1,0 +1,11 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://brg3o1ed87r0d"]
+
+[resource]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, 1)
+spread = 35.971
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0

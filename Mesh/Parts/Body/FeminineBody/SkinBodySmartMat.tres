@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=6 format=3 uid="uid://c8vrimhqhhto8"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://c8vrimhqhhto8"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_thp74"]
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="2_dqa3g"]
-[ext_resource type="Shader" uid="uid://bsek5iakp4f5e" path="res://Mesh/Materials/Shaders/Doll/BodySkin.gdshader" id="2_k5qwb"]
+[ext_resource type="Shader" uid="uid://bsek5iakp4f5e" path="res://Mesh/Shaders/Doll_skeleton/BodySkin.gdshader" id="2_k5qwb"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="3_h0f5k"]
 [ext_resource type="Texture2D" uid="uid://b83kq63ukpntb" path="res://Mesh/Textures/EmptyTexture.png" id="5_nib48"]
 

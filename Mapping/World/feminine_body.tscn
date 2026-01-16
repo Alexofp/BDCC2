@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d32omdfp8acg8"]
+[gd_scene format=3 uid="uid://d32omdfp8acg8"]
 
 [ext_resource type="PackedScene" uid="uid://ctlxdll74pd6e" path="res://Mesh/Parts/Body/FeminineBody/feminine_body.tscn" id="1_2qxtl"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="2_r3sbk"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://7ne7eqfxlf7p" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_Normal.png" id="11_j7cgs"]
 [ext_resource type="Texture2D" uid="uid://bqtclt7pb1ydi" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_ORM.png" id="12_nbb86"]
 [ext_resource type="Texture2D" uid="uid://bp8akkr6nye5k" path="res://Mesh/Parts/SharedTextures/Nipples/OLD/nippleSmallWhite.png" id="13_onmki"]
-[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Materials/Shaders/Doll/BodyPubicHair.gdshader" id="14_22aea"]
+[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/BodyPubicHair.gdshader" id="14_22aea"]
 [ext_resource type="Texture2D" uid="uid://beno0wktxhj0m" path="res://Mesh/Parts/SharedTextures/PubicHair/cute.png" id="15_0a5da"]
 
 [sub_resource type="Shader" id="Shader_dtpa5"]

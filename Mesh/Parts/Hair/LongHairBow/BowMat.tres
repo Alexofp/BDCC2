@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://gjmecdaviinn"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://gjmecdaviinn"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_rd0bk"]
-[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Materials/Shaders/Doll/Bow.gdshader" id="2_5sprl"]
+[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/Bow.gdshader" id="2_5sprl"]
 
 [resource]
 resource_local_to_scene = true

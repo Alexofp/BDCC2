@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=8 format=3 uid="uid://5ypm6rky47xe"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://5ypm6rky47xe"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_pc8ad"]
 [ext_resource type="Texture2D" uid="uid://cvaiqtu6j2dk8" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png" id="2_5pkl0"]
-[ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Materials/Shaders/Doll/HeadHuman.gdshader" id="2_wn7nk"]
+[ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Shaders/Doll_skeleton/HeadHuman.gdshader" id="2_wn7nk"]
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="3_wn7nk"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="4_voov3"]
 [ext_resource type="Texture2D" uid="uid://cq0hn1n6r44g1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_Normal.png" id="5_f0bxi"]

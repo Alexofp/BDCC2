@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://x3h3oqedoupd"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://x3h3oqedoupd"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_0n6bj"]
-[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Materials/Shaders/Doll/EarFelineTassels.gdshader" id="2_k42ia"]
+[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Shaders/Doll_skeleton/EarFelineTassels.gdshader" id="2_k42ia"]
 
 [resource]
 resource_local_to_scene = true

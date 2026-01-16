@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=5 format=3 uid="uid://dvkj4usha6csj"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://dvkj4usha6csj"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_mcgku"]
-[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Materials/Shaders/Doll/HeadFelineMouth.gdshader" id="2_d3y70"]
+[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/HeadFelineMouth.gdshader" id="2_d3y70"]
 [ext_resource type="Texture2D" uid="uid://ddr3ya0h40vym" path="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineMouth_BaseColor.png" id="2_rj75c"]
 [ext_resource type="Texture2D" uid="uid://ctjw3n1h35bah" path="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineMouth_Emit.png" id="3_d3y70"]
 

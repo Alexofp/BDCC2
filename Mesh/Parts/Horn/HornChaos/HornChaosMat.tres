@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bbpuaid6txlg4"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bbpuaid6txlg4"]
 
-[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Materials/Shaders/Doll/Horn.gdshader" id="1_7elfv"]
+[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Shaders/Doll_static/Horn.gdshader" id="1_7elfv"]
 [ext_resource type="Texture2D" uid="uid://q3sjvtw8cinf" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_BaseColor.png" id="2_k5s3k"]
 [ext_resource type="Texture2D" uid="uid://b1414x0tg03d5" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_Normal.png" id="3_u12mx"]
 [ext_resource type="Texture2D" uid="uid://d4gim8rwamfdn" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_ORM.png" id="4_8yy6d"]

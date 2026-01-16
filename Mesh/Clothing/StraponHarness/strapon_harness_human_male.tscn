@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://mwfkv3uynts6" path="res://Mesh/Clothing/StraponHarness/StraponHuman.glb" id="5_a13pa"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="6_y380b"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="7_n3vo0"]
-[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Materials/Shaders/Clothes/Strapon.gdshader" id="7_op3r0"]
+[ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Shaders/DollClothes_skeleton/Strapon.gdshader" id="7_op3r0"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_g6fj4"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="9_inkhp"]
 [ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="10_bxc8v"]

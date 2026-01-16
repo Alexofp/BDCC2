@@ -7,7 +7,7 @@ var piercingsMat:ShaderMaterial
 @export var piercingsTwoRings:MeshInstance3D = null
 @export var tassels:MeshInstance3D = null
 var tasselsMat:ShaderMaterial
-var fluffMat:StandardMaterial3D
+var fluffMat:ShaderMaterial
 
 func grabMaterials():
 	earMat = ear.get_surface_override_material(0)
@@ -32,7 +32,7 @@ func applyOption(_optionID:String, _value:Variant):
 		applyColormaskPatternToMyMat(earMat, _value)
 	if(_optionID == "fluffColor"):
 		if(fluffMat):
-			fluffMat.albedo_color = _value
+			fluffMat.set_shader_parameter("albedo", _value)
 
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(earMat == null):

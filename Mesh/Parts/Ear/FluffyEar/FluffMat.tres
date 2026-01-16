@@ -1,8 +1,21 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dtn3jcvaheois"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dtn3jcvaheois"]
 
 [ext_resource type="Texture2D" uid="uid://ub0mhktr6dw7" path="res://Mesh/Parts/Ear/FluffyEar/Textures/Fur/MyFelineEarSubstanceIn_EarInnerFluff_BaseColor.png" id="1_chyfm"]
+[ext_resource type="Shader" uid="uid://3fapa07lsijd" path="res://Mesh/Shaders/Doll_skeleton/FluffyEarFluffInner.gdshader" id="1_kx4n6"]
 
 [resource]
 resource_local_to_scene = true
-transparency = 1
-albedo_texture = ExtResource("1_chyfm")
+render_priority = 0
+shader = ExtResource("1_kx4n6")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("1_chyfm")
+shader_parameter/albedo_texture_size = Vector2i(256, 256)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)

@@ -1,0 +1,8 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://c8oy4fjdew4vl"]
+
+[resource]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0

@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://b62crf0202w1j"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://b62crf0202w1j"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_fskcs"]
-[ext_resource type="Shader" uid="uid://bv4irnq03ofma" path="res://Mesh/Materials/Shaders/Preview.gdshader" id="2_hd1xu"]
+[ext_resource type="Shader" uid="uid://bv4irnq03ofma" path="res://Mesh/Shaders/Prop_all/Preview.gdshader" id="2_hd1xu"]
 
 [resource]
 render_priority = 0

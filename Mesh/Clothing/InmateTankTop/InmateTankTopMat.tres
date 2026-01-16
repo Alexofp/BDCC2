@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cvpisoidxvsxv"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cvpisoidxvsxv"]
 
-[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Materials/Shaders/Clothes/InmateTop.gdshader" id="1_i3r4g"]
+[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Shaders/DollClothes_skeleton/InmateTop.gdshader" id="1_i3r4g"]
 [ext_resource type="Texture2D" uid="uid://doo8txu64fs72" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_BaseColor.png" id="2_6135u"]
 [ext_resource type="Texture2D" uid="uid://3cjda23ejj81" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Emit.png" id="3_w26u1"]
 [ext_resource type="Texture2D" uid="uid://7g7vg3fhkgm" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Normal.png" id="4_5u2ec"]

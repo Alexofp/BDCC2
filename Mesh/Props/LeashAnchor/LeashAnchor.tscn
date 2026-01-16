@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://l4lfjy6ra0gd" path="res://Mesh/Props/LeashAnchor/LeashAnchor.glb" id="1_yieaa"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="2_5y13q"]
 [ext_resource type="PackedScene" uid="uid://dalsmnppj5hw0" path="res://Game/Systems/LeashSystem/LeashPointWorld.tscn" id="2_v4qmy"]
-[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Materials/Shaders/Static/LeashAnchorShader.gdshader" id="3_3cona"]
+[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_static/LeashAnchorShader.gdshader" id="3_3cona"]
 [ext_resource type="Texture2D" uid="uid://b46eq481ape2v" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_BaseColor.png" id="4_0e2fc"]
 [ext_resource type="Texture2D" uid="uid://1ei2gish0ho6" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_Normal.png" id="5_pglof"]
 [ext_resource type="Texture2D" uid="uid://diif38r7d0hw4" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_ORM.png" id="6_04aui"]

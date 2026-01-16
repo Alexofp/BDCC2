@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dqgtirue86ecm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gxwal"]
+
+[node name="UniqueShaderPrecompPlane" type="MeshInstance3D" unique_id=966973847]
+mesh = SubResource("PlaneMesh_gxwal")

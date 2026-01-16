@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=4 format=3 uid="uid://dj84k4ovj7x3j"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://dj84k4ovj7x3j"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_v7tr7"]
 [ext_resource type="Texture2D" uid="uid://beno0wktxhj0m" path="res://Mesh/Parts/SharedTextures/PubicHair/cute.png" id="2_30gue"]
-[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Materials/Shaders/Doll/BodyPubicHair.gdshader" id="2_b13kd"]
+[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/BodyPubicHair.gdshader" id="2_b13kd"]
 
 [resource]
 resource_local_to_scene = true

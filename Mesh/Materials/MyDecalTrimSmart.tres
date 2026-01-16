@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bujf7ilpnya1s"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bujf7ilpnya1s"]
 
 [ext_resource type="Texture2D" uid="uid://lurqdnu5uqwi" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_BaseColor.png" id="1_1tj3m"]
-[ext_resource type="Shader" uid="uid://chpqrfn28svnd" path="res://Mesh/Materials/Shaders/MyDecalShader.gdshader" id="1_d78bo"]
+[ext_resource type="Shader" uid="uid://chpqrfn28svnd" path="res://Mesh/Shaders/Unique_unique/MyDecalShader.gdshader" id="1_d78bo"]
 [ext_resource type="Texture2D" uid="uid://cm67xnsxvsthb" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Emit.png" id="2_6nhin"]
 [ext_resource type="Texture2D" uid="uid://csn355fwuuxlc" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Height.png" id="3_gt8tq"]
 [ext_resource type="Texture2D" uid="uid://b6bunks6pg07e" path="res://Mesh/Textures/TrimSheets/MyDecalsTrim/MyTrim Lowpoly_DefaultMaterial_Normal.png" id="4_ugvnt"]

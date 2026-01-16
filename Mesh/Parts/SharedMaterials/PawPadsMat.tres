@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=3 format=3 uid="uid://jdhk7tfypoi4"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://jdhk7tfypoi4"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_prfex"]
-[ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Materials/Shaders/Doll/BodyHandPads.gdshader" id="2_6uho0"]
+[ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Shaders/Doll_skeleton/BodyHandPads.gdshader" id="2_6uho0"]
 
 [resource]
 resource_local_to_scene = true

@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cs1v7vba6gfkw"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cs1v7vba6gfkw"]
 
-[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/SharedMaterials/Hair/Shaders/KajiyaKayHair.gdshader" id="1_1grf4"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="1_1grf4"]
 [ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="2_apkeq"]
 [ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="4_1grf4"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="5_d2wym"]

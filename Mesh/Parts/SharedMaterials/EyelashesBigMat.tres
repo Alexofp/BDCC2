@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=4 format=3 uid="uid://bukykanm7r26f"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bukykanm7r26f"]
 
 [ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="1_a6p2q"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_eeiox"]
-[ext_resource type="Shader" uid="uid://cglnclksujx7a" path="res://Mesh/Materials/Shaders/Doll/HeadEyelashes.gdshader" id="2_532vy"]
+[ext_resource type="Shader" uid="uid://cglnclksujx7a" path="res://Mesh/Shaders/Doll_skeleton/HeadEyelashes.gdshader" id="2_532vy"]
 
 [resource]
 resource_local_to_scene = true

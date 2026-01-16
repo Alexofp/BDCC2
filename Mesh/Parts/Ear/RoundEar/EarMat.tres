@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ctb18ly6e8ug5"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ctb18ly6e8ug5"]
 
-[ext_resource type="Shader" uid="uid://uupc5dub4op6" path="res://Mesh/Materials/Shaders/Doll/EarFeline.gdshader" id="1_jsfdm"]
+[ext_resource type="Shader" uid="uid://uupc5dub4op6" path="res://Mesh/Shaders/Doll_skeleton/EarFeline.gdshader" id="1_jsfdm"]
 [ext_resource type="Texture2D" uid="uid://crvw0lmdeurxi" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_BaseColor.png" id="2_np67l"]
 [ext_resource type="Texture2D" uid="uid://b8s7g2q4ltxko" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_Normal.png" id="3_ej8sw"]
 [ext_resource type="Texture2D" uid="uid://dl14ic1hmluk6" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_ORM.png" id="4_3jubl"]

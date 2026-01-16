@@ -66,9 +66,11 @@ visible = false
 
 [node name="WallLight" parent="." unique_id=1410158991 instance=ExtResource("7_47kto")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.296898)
+color3 = Color(0, 0, 0, 1)
 
 [node name="LampCeiling" parent="." unique_id=1557387894 instance=ExtResource("8_iby3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0276709, -0.8159772)
+color3 = Color(0, 0, 0, 1)
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=1782230171]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5787511, -0.8883462)

@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bd2q60jlvjce" path="res://Mesh/Materials/Floors/FabricTiles.tres" id="3_js7ct"]
 [ext_resource type="PackedScene" uid="uid://csx44p553o58b" path="res://AnimScenes/Scenes/Stocks/StocksAnimHandler.tscn" id="3_we5c1"]
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="4_go1qq"]
-[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Materials/Shaders/AnimatedProps/StocksShader.gdshader" id="5_ovm8m"]
+[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_skeleton/StocksShader.gdshader" id="5_ovm8m"]
 [ext_resource type="Texture2D" uid="uid://bb60umefhh4j8" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_BaseColor.png" id="6_oon18"]
 [ext_resource type="Texture2D" uid="uid://bbb0uytcpvlrq" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ColorMap.png" id="7_02tyr"]
 [ext_resource type="Texture2D" uid="uid://bf51nesicr31n" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Emit.png" id="8_1ag0j"]

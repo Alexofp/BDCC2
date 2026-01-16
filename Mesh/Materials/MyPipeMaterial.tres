@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cdh2f40jlasny"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cdh2f40jlasny"]
 
-[ext_resource type="Shader" uid="uid://cjao3lt0s6j1p" path="res://Mesh/Materials/Shaders/MyPipeShader.gdshader" id="1_7txar"]
+[ext_resource type="Shader" uid="uid://cjao3lt0s6j1p" path="res://Mesh/Shaders/Unique_unique/MyPipeShader.gdshader" id="1_7txar"]
 [ext_resource type="Texture2D" uid="uid://bgoqh0en2n5cj" path="res://Mesh/Textures/Tileable/hexatris/HexaTris_normals.png" id="2_vvf66"]
 [ext_resource type="Texture2D" uid="uid://smit14gauqxo" path="res://Mesh/Textures/Tileable/hexatris/HexaTris_OCH.png" id="3_rn2eo"]
 

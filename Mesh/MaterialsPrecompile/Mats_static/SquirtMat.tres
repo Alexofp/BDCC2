@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c855y56v3e0mp"]
+
+[ext_resource type="Texture2D" uid="uid://36644a5ieqsh" path="res://Mesh/Textures/Particles/Generic/trace_01s.png" id="1_7tv8w"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_7tv8w")
+rim_enabled = true

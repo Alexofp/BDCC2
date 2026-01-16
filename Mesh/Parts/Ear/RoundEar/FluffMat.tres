@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dhs44blxi450c"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dhs44blxi450c"]
 
-[ext_resource type="Shader" uid="uid://bumxglka3nt4r" path="res://Mesh/Materials/Shaders/Doll/EarFluffOpaqueSimple.gdshader" id="1_pm0vi"]
+[ext_resource type="Shader" uid="uid://bumxglka3nt4r" path="res://Mesh/Shaders/Doll_skeleton/EarFluffOpaqueSimple.gdshader" id="1_pm0vi"]
 
 [resource]
 resource_local_to_scene = true

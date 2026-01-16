@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://ravkpurwk0ho"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://ravkpurwk0ho"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_yytri"]
-[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Materials/Shaders/Clothes/InmateShorts.gdshader" id="2_hi3kd"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/InmateShorts.gdshader" id="2_hi3kd"]
 [ext_resource type="Texture2D" uid="uid://dqjpupjq5lkng" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_BaseColor.png" id="2_t01qc"]
 [ext_resource type="Texture2D" uid="uid://btr155epfxli3" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_Emit.png" id="3_hi3kd"]
 [ext_resource type="Texture2D" uid="uid://d2lavghuqbe41" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_Normal.png" id="4_vrep4"]

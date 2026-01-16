@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" load_steps=7 format=3 uid="uid://1axcwsr088nr"]
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://1axcwsr088nr"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_3bds6"]
-[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Materials/Shaders/Doll/BodyGenitals.gdshader" id="2_imvpy"]
+[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="2_imvpy"]
 [ext_resource type="Texture2D" uid="uid://bojwpmm21iiad" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_BaseColor.png" id="2_yeao7"]
 [ext_resource type="Texture2D" uid="uid://igl5v6apxqua" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ColorMask.png" id="3_a13qe"]
 [ext_resource type="Texture2D" uid="uid://c0x6jdd6xefwi" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_Normal.png" id="3_vkwg5"]

@@ -1,7 +1,7 @@
 extends Node3D
 class_name ShaderPrecompScreen
 
-const COMPILE_IN_DEBUG = false
+const COMPILE_IN_DEBUG = true
 const COMPILE_IN_RELEASE = true
 const ADD_TENMATSPLANE = true
 const ADD_ONE_GIANT_PLANE = true
@@ -43,6 +43,7 @@ var curTenMat:Node3D
 const TEN_MATS_PLANE_RIGGED = preload("res://UI/ShaderPrecompScreen/TenMatsPlaneRigged.tscn")
 var curTenMatRiggedIndx:int = 0
 var curTenMatRigged:Node3D
+const UNIQUE_SHADER_PRECOMP_PLANE = preload("res://UI/ShaderPrecompScreen/Util/unique_shader_precomp_plane.tscn")
 
 func _ready():
 	doStuff()
@@ -86,22 +87,94 @@ func compileShaders():
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
 	
-	var hairShaderPaths:Array[String] = Util.getResourcesFromFolderRecursive("res://Mesh/SharedMaterials/Hair/Shaders/", ["gdshader"])
+	var allShaders := GiantShaderPrecompPlane.getShaderPathsByType(GiantShaderPrecompPlane.SHADERS_FOLDER)
+	var totS:int = 0
+	for _shaderType in allShaders:
+		totS += allShaders[_shaderType].size()
 	
+	var allMats := GiantShaderPrecompPlane.getMaterialPathsByType(GiantShaderPrecompPlane.MATERIALS_FOLDER)
+	for _shaderType in allMats:
+		totS += allMats[_shaderType].size()
 	
-	var shaderPaths:Array[String] = Util.getResourcesFromFolderRecursive("res://Mesh/Materials/Shaders/", ["gdshader"])
-	
-	var totalCount:int = MATERIALS.size() + SCENES.size() + BASIC_MATERIALS.size() + shaderPaths.size() + hairShaderPaths.size() + SHADERS.size()
+	var totalCount:int = MATERIALS.size() + SCENES.size() + BASIC_MATERIALS.size() + totS + SHADERS.size()
 	var current:int = 0
 	
-	for shaderPath in (hairShaderPaths+shaderPaths+SHADERS):
+	for shaderPath in allShaders[GiantShaderPrecompPlane.SHADER_BOTH]:
 		current += 1
 		updateProgress(current, totalCount)
 		var shaderMat:ShaderMaterial = ShaderMaterial.new()
 		shaderMat.shader = load(shaderPath)
-		setMat(shaderMat)
+		pushMatToTensPlane(shaderMat)
+		pushMatToTensPlaneRigged(shaderMat)
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
+	for shaderPath in allShaders[GiantShaderPrecompPlane.SHADER_SKELETON]:
+		current += 1
+		updateProgress(current, totalCount)
+		var shaderMat:ShaderMaterial = ShaderMaterial.new()
+		shaderMat.shader = load(shaderPath)
+		pushMatToTensPlaneRigged(shaderMat)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for shaderPath in allShaders[GiantShaderPrecompPlane.SHADER_STATIC]:
+		current += 1
+		updateProgress(current, totalCount)
+		var shaderMat:ShaderMaterial = ShaderMaterial.new()
+		shaderMat.shader = load(shaderPath)
+		pushMatToTensPlane(shaderMat)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for shaderPath in allShaders[GiantShaderPrecompPlane.SHADER_UNIQUE]:
+		current += 1
+		updateProgress(current, totalCount)
+		var shaderMat:ShaderMaterial = ShaderMaterial.new()
+		shaderMat.shader = load(shaderPath)
+		pushMatToUniquePlane(shaderMat)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+		
+	for matPath in allMats[GiantShaderPrecompPlane.SHADER_BOTH]:
+		current += 1
+		updateProgress(current, totalCount)
+		var theMat:Material = load(matPath)
+		pushMatToTensPlane(theMat)
+		pushMatToTensPlaneRigged(theMat)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for matPath in allMats[GiantShaderPrecompPlane.SHADER_SKELETON]:
+		current += 1
+		updateProgress(current, totalCount)
+		pushMatToTensPlaneRigged(load(matPath))
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for matPath in allMats[GiantShaderPrecompPlane.SHADER_STATIC]:
+		current += 1
+		updateProgress(current, totalCount)
+		pushMatToTensPlane(load(matPath))
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for matPath in allMats[GiantShaderPrecompPlane.SHADER_UNIQUE]:
+		current += 1
+		updateProgress(current, totalCount)
+		pushMatToUniquePlane(load(matPath))
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+	for theMat in allMats[GiantShaderPrecompPlane.SHADER_PARTICLE]:
+		var newGpuParticles:GPUParticles3D = GPUParticles3D.new()
+		newGpuParticles.visible = false
+		newGpuParticles.process_material = load(theMat)
+		newGpuParticles.emitting = false
+		add_child(newGpuParticles, true)
+		newGpuParticles.owner = self
+	
+	#for shaderPath in (hairShaderPaths+shaderPaths+SHADERS):
+		#current += 1
+		#updateProgress(current, totalCount)
+		#var shaderMat:ShaderMaterial = ShaderMaterial.new()
+		#shaderMat.shader = load(shaderPath)
+		#setMat(shaderMat)
+		#await RenderingServer.frame_post_draw
+		#await RenderingServer.frame_post_draw
 	
 	for scenePath in SCENES:
 		current += 1
@@ -146,6 +219,14 @@ func compileShaders():
 	
 	GlobalRegistry.shaderTracker.setShouldCheck(true)
 
+func pushMatToUniquePlane(_mat:Material):
+	var newPlane:MeshInstance3D = UNIQUE_SHADER_PRECOMP_PLANE.instantiate()
+	newPlane.visible = false
+	add_child(newPlane, true)
+	newPlane.owner = self
+	set_editable_instance(newPlane, true)
+	newPlane.set_surface_override_material(0, _mat)
+
 func updateProgress(current:int, total:int):
 	if(total <= 0):
 		return
@@ -182,6 +263,7 @@ func pushMatToTensPlaneRigged(_mat:Material):
 		GlobalRegistry.add_child(curTenMatRigged)
 		#print("NEW 10 MAT")
 	curTenMatRigged.get_node("PlaneRig/Skeleton3D/Plane").set_surface_override_material(curTenMatRiggedIndx, _mat)
+	curTenMatRigged.get_node("PlaneRig/Skeleton3D/PlaneShapes").set_surface_override_material(curTenMatRiggedIndx, _mat)
 	curTenMatRiggedIndx += 1
 	if(curTenMatRiggedIndx >= 10):
 		curTenMatRiggedIndx = 0
