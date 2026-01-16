@@ -1,7 +1,7 @@
 extends Control
 class_name VarUIBase
 
-var id:String = ""
+var id
 signal onValueChange(id:String, newValue:Variant)
 
 func setData(_data:Dictionary):
