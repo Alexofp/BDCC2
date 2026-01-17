@@ -266,6 +266,10 @@ func _process(delta:float):
 	#camera.current = theIsControlledByUs
 	#print(camera.current)
 	
+	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_4")):
+		ShaderNodeChecker.checkNode(self)
+		#ShaderNodeChecker.checkNode(get_tree().root)
+	
 	#if(theIsControlledByUs && hasAuthority):
 		#reset_input()
 	#if(theIsControlledByUs):

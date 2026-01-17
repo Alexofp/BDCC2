@@ -1,29 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0l6erkveqgyk"]
+[gd_scene format=3 uid="uid://b0l6erkveqgyk"]
 
 [ext_resource type="PackedScene" uid="uid://cw3gpucq3d0vb" path="res://Mesh/Parts/Head/FelineHead/FelineHead.glb" id="1_qhi50"]
 [ext_resource type="Script" uid="uid://c4elfen018uyc" path="res://Mesh/Parts/Head/FelineHead/feline_head.gd" id="2_0kujj"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_0v4py"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="4_0v4py"]
-[ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_4wgvr"]
-[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="5_3i52i"]
-[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="6_a88nv"]
-[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="8_4wgvr"]
-[ext_resource type="Material" uid="uid://dvkj4usha6csj" path="res://Mesh/Parts/Head/FelineHead/MouthMat.tres" id="9_3i52i"]
+[ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_uaaub"]
+[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="5_a88nv"]
+[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="6_p6sel"]
+[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="7_ew517"]
+[ext_resource type="Material" uid="uid://dvkj4usha6csj" path="res://Mesh/Parts/Head/FelineHead/MouthMat.tres" id="14_7uv5r"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="14_ew517"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="15_4wgvr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a88nv"]
-transparency = 1
-albedo_color = Color(0.27, 0.27, 0.27, 0.501961)
+[ext_resource type="Material" uid="uid://x4hrc67q4uh5" path="res://Mesh/MaterialsPrecompile/Mats_skeleton/FelineWhiskers.tres" id="19_sx6w4"]
 
 [node name="FelineHead" unique_id=167883299 instance=ExtResource("1_qhi50")]
 script = ExtResource("2_0kujj")
 
-[node name="MyHeadRig" parent="." index="0" unique_id=451282135]
+[node name="MyHeadRig" parent="." index="0" unique_id=389336527]
 script = ExtResource("3_0v4py")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=576179774]
+[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=2090704184]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
 bones/1/rotation = Quaternion(4.762884e-07, 0.5063647, 0.8623194, 2.796824e-07)
 bones/2/position = Vector3(2.9042639e-08, 0.09612138, 0.026290748)
@@ -65,21 +62,21 @@ bones/37/rotation = Quaternion(0.7071068, -2.6440123e-06, -2.6440123e-06, 0.7071
 bones/40/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.7071068)
 bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.7071068)
 
-[node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1334886565]
+[node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0" unique_id=742426618]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_4wgvr")
+surface_material_override/0 = ExtResource("4_uaaub")
 
-[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1" unique_id=822189490]
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1" unique_id=104461534]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("5_3i52i")
+surface_material_override/0 = ExtResource("5_a88nv")
 
-[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1828988855]
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1534215689]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("6_a88nv")
+surface_material_override/0 = ExtResource("6_p6sel")
 
-[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3" unique_id=1484023918]
-surface_material_override/0 = ExtResource("8_4wgvr")
-surface_material_override/1 = ExtResource("8_4wgvr")
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3" unique_id=222388768]
+surface_material_override/0 = ExtResource("7_ew517")
+surface_material_override/1 = ExtResource("7_ew517")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1078476666 instance=ExtResource("4_0v4py")]
 pointName = "hair"
@@ -103,18 +100,18 @@ pointName = "horn.R"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10" unique_id=1162160795]
-surface_material_override/0 = ExtResource("4_4wgvr")
+[node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10" unique_id=1426740707]
+surface_material_override/0 = ExtResource("4_uaaub")
 
-[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11" unique_id=721895150]
+[node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11" unique_id=1081371334]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("9_3i52i")
+surface_material_override/0 = ExtResource("14_7uv5r")
 
-[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12" unique_id=1308615509]
+[node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12" unique_id=889722625]
 visibility_range_end = 3.0
-surface_material_override/0 = SubResource("StandardMaterial3D_a88nv")
+surface_material_override/0 = ExtResource("19_sx6w4")
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=430603652]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1812000445]
 active = false
 autoplay = &"HeadTPose"
 

@@ -1,7 +1,7 @@
 extends Node3D
 class_name ShaderPrecompScreen
 
-const COMPILE_IN_DEBUG = true
+const COMPILE_IN_DEBUG = false
 const COMPILE_IN_RELEASE = true
 const ADD_TENMATSPLANE = true
 const ADD_ONE_GIANT_PLANE = true
@@ -23,8 +23,7 @@ const MATERIALS = [
 	
 ]
 const SCENES = [
-	#"res://Mapping/Decals/DecalArrow2White.tscn",
-	"res://UI/ShaderPrecompScreen/precomp_doll.tscn",
+	#"res://UI/ShaderPrecompScreen/precomp_doll.tscn",
 ]
 
 static var didPrecomp:bool = false
@@ -74,7 +73,7 @@ func addBigPlane():
 	LoadingScreen.setText("Loading..")
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw
-	var theBigPlane:Node3D = preload("res://UI/ShaderPrecompScreen/GiantShaderPrecompPlane.tscn").instantiate()
+	var theBigPlane:Node3D = load("res://UI/ShaderPrecompScreen/GiantShaderPrecompPlane.tscn").instantiate()
 	theBigPlane.visible = false
 	GlobalRegistry.add_child(theBigPlane)
 	GlobalRegistry.shaderTracker.setShouldCheck(true)
@@ -222,9 +221,9 @@ func compileShaders():
 func pushMatToUniquePlane(_mat:Material):
 	var newPlane:MeshInstance3D = UNIQUE_SHADER_PRECOMP_PLANE.instantiate()
 	newPlane.visible = false
-	add_child(newPlane, true)
-	newPlane.owner = self
-	set_editable_instance(newPlane, true)
+	GlobalRegistry.add_child(newPlane, true)
+	#newPlane.owner = self
+	#set_editable_instance(newPlane, true)
 	newPlane.set_surface_override_material(0, _mat)
 
 func updateProgress(current:int, total:int):
@@ -237,8 +236,8 @@ func updateProgress(current:int, total:int):
 func setMat(_mat:Material):
 	pushMatToTensPlane(_mat)
 	#pushMatToTensPlaneRigged(_mat)
-	for mesh in CUBES:
-		mesh.set_surface_override_material(0, _mat)
+	#for mesh in CUBES:
+	#	mesh.set_surface_override_material(0, _mat)
 	
 func pushMatToTensPlane(_mat:Material):
 	if(!ADD_TENMATSPLANE):
@@ -246,7 +245,7 @@ func pushMatToTensPlane(_mat:Material):
 	if(!curTenMat):
 		curTenMat = TEN_MATS_PLANE.instantiate()
 		curTenMat.visible = false
-		GlobalRegistry.add_child(curTenMat)
+		GlobalRegistry.add_child(curTenMat, true)
 		#print("NEW 10 MAT")
 	curTenMat.get_node("Plane").set_surface_override_material(curTenMatIndx, _mat)
 	curTenMatIndx += 1
@@ -260,7 +259,7 @@ func pushMatToTensPlaneRigged(_mat:Material):
 	if(!curTenMatRigged):
 		curTenMatRigged = TEN_MATS_PLANE_RIGGED.instantiate()
 		curTenMatRigged.visible = false
-		GlobalRegistry.add_child(curTenMatRigged)
+		GlobalRegistry.add_child(curTenMatRigged, true)
 		#print("NEW 10 MAT")
 	curTenMatRigged.get_node("PlaneRig/Skeleton3D/Plane").set_surface_override_material(curTenMatRiggedIndx, _mat)
 	curTenMatRigged.get_node("PlaneRig/Skeleton3D/PlaneShapes").set_surface_override_material(curTenMatRiggedIndx, _mat)

@@ -1,12 +1,4 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://df0pk310l2ktn"]
-
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_6b6rs"]
-[ext_resource type="Texture2D" uid="uid://blsu2hqv4axac" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_BaseColor.png" id="2_6b6rs"]
-[ext_resource type="Texture2D" uid="uid://b83w5hlmvbtj5" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_Normal.png" id="3_ybnun"]
-[ext_resource type="Texture2D" uid="uid://tgx7fp83n8ng" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_ORM.png" id="4_weqmp"]
-
-[sub_resource type="Shader" id="Shader_qvcow"]
-code = "shader_type spatial;
+shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
@@ -508,35 +500,4 @@ void light(){
 	vec3 add2 = add1 + smoothed * rimlight_color.rgb;
 	DIFFUSE_LIGHT += ALBEDO * add2;
 }
-#endif"
-
-[resource]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_qvcow")
-shader_parameter/texture_albedo = ExtResource("2_6b6rs")
-shader_parameter/texture_normal = ExtResource("3_ybnun")
-shader_parameter/texture_orm = ExtResource("4_weqmp")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/color_mask_r = Color(1, 0, 0, 1)
-shader_parameter/color_mask_g = Color(0, 1, 0, 1)
-shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
-shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_6b6rs")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-doubleSided = true
-colorMask = true
-uvBasedDiscard = true
+#endif
