@@ -11,6 +11,7 @@ var curTenMatRigged:Node3D
 const UNIQUE_SHADER_PRECOMP_PLANE = preload("res://UI/ShaderPrecompScreen/Util/unique_shader_precomp_plane.tscn")
 
 @export_tool_button("DoTheThing", "Callable") var makePlaneAction = makePlane
+@export_tool_button("Clear all", "Callable") var makePlaneAction2 = clearPlane
 
 const SHADER_STATIC = 0
 const SHADER_SKELETON = 1
@@ -76,6 +77,9 @@ static func getStuffPathsByType(_folder:String, _fileTypes:Array[String]) -> Dic
 	result[SHADER_PARTICLE] = particlePaths
 	return result
 
+func clearPlane():
+	Util.delete_children(self)
+	
 func makePlane():
 	Util.delete_children(self)
 	

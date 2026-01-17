@@ -1,8 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://2x7f3l3k1dnr"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://2x7f3l3k1dnr"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_m4emj"]
+[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/Mouth.gdshader" id="1_m4emj"]
 [ext_resource type="Texture2D" uid="uid://cypxpcqle02xc" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_BaseColor.png" id="2_ccjn3"]
-[ext_resource type="Shader" uid="uid://cnyvi1x7k8ams" path="res://Mesh/Shaders/Doll_skeleton/HeadCanineMouth.gdshader" id="2_im77e"]
 [ext_resource type="Texture2D" uid="uid://jgf05togs6c7" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Emit.png" id="3_im77e"]
 [ext_resource type="Texture2D" uid="uid://ce2olbj4piybd" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Normal.png" id="4_o3aw8"]
 [ext_resource type="Texture2D" uid="uid://cri0hl4a72srf" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_ORM.png" id="5_r11wk"]
@@ -10,7 +9,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_im77e")
+shader = ExtResource("1_m4emj")
 shader_parameter/texture_albedo = ExtResource("2_ccjn3")
 shader_parameter/texture_normal = ExtResource("4_o3aw8")
 shader_parameter/texture_orm = ExtResource("5_r11wk")
@@ -27,8 +26,4 @@ shader_parameter/texture_color_mask = ExtResource("3_im77e")
 shader_parameter/color_mask_r = Color(0.78, 0.21059999, 0.21059999, 1)
 shader_parameter/color_mask_g = Color(0.78039217, 0.21176471, 0.21176471, 1)
 shader_parameter/color_mask_b = Color(1, 1, 1, 1)
-script = ExtResource("1_m4emj")
-normalMap = 1
-pbrSetup = 3
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

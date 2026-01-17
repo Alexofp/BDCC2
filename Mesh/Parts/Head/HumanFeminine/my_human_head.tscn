@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnarwr68ysgik"]
+[gd_scene format=3 uid="uid://dnarwr68ysgik"]
 
 [ext_resource type="PackedScene" uid="uid://bdr7rn7vpdopq" path="res://Mesh/Parts/Head/HumanFeminine/MyHumanHead.glb" id="1_ab4oe"]
 [ext_resource type="Script" uid="uid://c4lbfd4esakpr" path="res://Mesh/Parts/Head/HumanFeminine/my_human_head.gd" id="2_l4a0u"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_pdg8m"]
 [ext_resource type="Material" uid="uid://5ypm6rky47xe" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanHeadMat.tres" id="4_ivnxr"]
-[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="5_ivnxr"]
-[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="10_o81br"]
+[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/SharedMaterials/Doll/EyelashesBigMat.tres" id="5_ivnxr"]
+[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/SharedMaterials/Doll/EyeBrowsMat.tres" id="10_o81br"]
 [ext_resource type="Material" uid="uid://bit1p64srkgtb" path="res://Mesh/Parts/Head/HumanFeminine/Materials/HumanMouthMat.tres" id="12_k178j"]
-[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="12_l4a0u"]
+[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/SharedMaterials/Doll/EyeMat.tres" id="12_l4a0u"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="14_l4a0u"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="16_o81br"]
 

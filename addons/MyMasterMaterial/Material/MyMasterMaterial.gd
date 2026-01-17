@@ -384,7 +384,7 @@ func updateShader():
 func updateShader_internal():
 	isUpdating = false
 	var theShaderCode := calculateShaderResource()
-	if(shader == null):
+	if(!shader):
 		shader = Shader.new()
 		shader.code = theShaderCode
 	else:

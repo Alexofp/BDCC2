@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpwwk30tha2qv"]
+[gd_scene format=3 uid="uid://dpwwk30tha2qv"]
 
 [ext_resource type="PackedScene" uid="uid://dlvl0ehqwdfxm" path="res://Mesh/Parts/Hair/Ponytail1/Ponytail1.glb" id="1_cb8oa"]
 [ext_resource type="Script" uid="uid://ujys1vsfvwyr" path="res://Mesh/Parts/Hair/Ponytail1/ponytail1.gd" id="2_xqaau"]
 [ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_hblm6"]
-[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/Parts/SharedMaterials/RubberBandMat.tres" id="5_elktu"]
+[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/SharedMaterials/Doll/RubberBandMat.tres" id="5_elktu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="6_1k6or"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_wcud1"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_bo6te"]

@@ -1,6 +1,5 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://43r531eotqt8"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://43r531eotqt8"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_vfean"]
 [ext_resource type="Texture2D" uid="uid://b7b81qrifjid6" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_BaseColor.png" id="2_1f2o0"]
 [ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/Bow.gdshader" id="2_baaty"]
 [ext_resource type="Texture2D" uid="uid://ccrvvq6swogls" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_Normal.png" id="3_baaty"]
@@ -24,8 +23,4 @@ shader_parameter/rim = 1.0
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("1_vfean")
-normalMap = 1
-pbrSetup = 3
-rimlight = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jonts3hbhbyk"]
+[gd_scene format=3 uid="uid://jonts3hbhbyk"]
 
 [ext_resource type="PackedScene" uid="uid://ctgsof4ffmbcx" path="res://Mesh/Parts/Head/CanineHead/CanineHead.glb" id="1_mumah"]
 [ext_resource type="Script" uid="uid://b1ogwre4e5ios" path="res://Mesh/Parts/Head/CanineHead/canine_head.gd" id="2_gedrh"]
@@ -6,11 +6,11 @@
 [ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_3axi8"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="4_eq6bc"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="4_qelme"]
-[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/Parts/SharedMaterials/EyeBrowsMat.tres" id="4_yb4lr"]
+[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/SharedMaterials/Doll/EyeBrowsMat.tres" id="4_yb4lr"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="5_eq6bc"]
 [ext_resource type="Material" uid="uid://2x7f3l3k1dnr" path="res://Mesh/Parts/Head/CanineHead/MouthMat.tres" id="5_l32rm"]
-[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/Parts/SharedMaterials/EyelashesBigMat.tres" id="6_3axi8"]
-[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/Parts/SharedMaterials/EyeMat.tres" id="6_l32rm"]
+[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/SharedMaterials/Doll/EyelashesBigMat.tres" id="6_3axi8"]
+[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/SharedMaterials/Doll/EyeMat.tres" id="6_l32rm"]
 
 [node name="CanineHead" unique_id=1179252613 instance=ExtResource("1_mumah")]
 script = ExtResource("2_gedrh")
