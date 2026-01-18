@@ -262,7 +262,10 @@ func _physics_process(_delta: float) -> void:
 		if(partUpdateQueueTimer <= 0.0):
 			partUpdateQueueTimer = 0.1
 			var theEntry:Array = partUpdateQueue.pop_front()
-			updatePartFromCharacter(theEntry[0], theEntry[1])
+			if(isPartUpdateHappening(theEntry[0], theEntry[1])):
+				partUpdateQueue.append([theEntry[0], theEntry[1]])
+			else:
+				updatePartFromCharacter(theEntry[0], theEntry[1])
 	
 	if(struggleTimer > 0.0):
 		struggleTimer -= _delta
@@ -277,6 +280,23 @@ func _process(_delta: float) -> void:
 	
 var partUpdateQueue:Array = []
 var partUpdateQueueTimer:float = 0.0
+var partUpdateHappening:Array = []
+
+func addPartUpdateHappening(_genericType:int, _slot:int):
+	partUpdateHappening.append([_genericType, _slot])
+func isPartUpdateHappening(_genericType:int, _slot:int) -> bool:
+	for _entry in partUpdateHappening:
+		if(_entry[0] == _genericType && _entry[1] == _slot):
+			return true
+	return false
+func removePartUpdateHappening(_genericType:int, _slot:int):
+	for _i in partUpdateHappening.size():
+		var theEntry:Array = partUpdateHappening[_i]
+		if(theEntry[0] == _genericType && theEntry[1] == _slot):
+			partUpdateHappening.remove_at(_i)
+			return
+	return
+
 func updateFromCharacter():
 	clear()
 	var character := getChar()
@@ -321,30 +341,38 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		return
 	partPaths[genericType][bodypartSlot] = partScenePath
 	
+	addPartUpdateHappening(genericType, bodypartSlot)
+	
 	var cachedPart := part
 	var dollSceneScene:PackedScene = await ThreadedResourceLoader.asyncLoadRequest(partScenePath)
 	#var theCallback := func(dollSceneScene:PackedScene, cachedPart):
 	if(true):
 		if(shouldBeFilteredOut(genericType, bodypartSlot)):
+			removePartUpdateHappening(genericType, bodypartSlot)
 			return
 		if(!getChar() || getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
 			#print("SWITCHERUUU")
-			return
-		if(!self || !is_instance_valid(self)):
+			removePartUpdateHappening(genericType, bodypartSlot)
 			return
 		#print(dollSceneScene)
-		if(dollSceneScene == null):
-			return
-		if(dollSceneScene.resource_path != cachedPart.getScenePath(bodypartSlot)):
+		if(!self || !is_instance_valid(self) || dollSceneScene == null || dollSceneScene.resource_path != cachedPart.getScenePath(bodypartSlot)):
+			removePartUpdateHappening(genericType, bodypartSlot)
 			return
 		var dollScene := dollSceneScene.instantiate()
 		if(dollScene.scene_file_path != cachedPart.getScenePath(bodypartSlot)):
 			dollScene.queue_free()
+			removePartUpdateHappening(genericType, bodypartSlot)
 			return
 		dollScene.visible = false
 		parts_node.add_child(dollScene)
-		await get_tree().create_timer(1.0).timeout
+		
+		await get_tree().create_timer(0.1).timeout
 		if(!dollScene):
+			removePartUpdateHappening(genericType, bodypartSlot)
+			return
+		if(!getChar() || getChar().getGenericPart(genericType, bodypartSlot) != cachedPart):
+			dollScene.queue_free()
+			removePartUpdateHappening(genericType, bodypartSlot)
 			return
 		parts[genericType][bodypartSlot] = dollScene
 		partPaths[genericType][bodypartSlot] = dollScene.scene_file_path
@@ -387,6 +415,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 				updateExtraLayer()
 					
 		triggerDollPartFlagsUpdate()
+		removePartUpdateHappening(genericType, bodypartSlot)
 		
 	#ThreadedResourceLoader.loadCallback(partScenePath, theCallback.bind(part))
 	
