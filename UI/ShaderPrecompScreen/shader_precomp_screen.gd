@@ -11,7 +11,7 @@ const SHADERS = [
 ]
 
 const BASIC_MATERIALS = [ # Won't be used for skeletal meshes 100%
-	"res://Mesh/Materials/GlassMat.tres",
+	"res://Mesh/Materials/GlassMat.tres",	
 ]
 
 const MATERIALS = [

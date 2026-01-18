@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bijydxoq8lmhf"]
+[gd_scene format=3 uid="uid://bijydxoq8lmhf"]
 
 [ext_resource type="PackedScene" uid="uid://bg3je281l0gb2" path="res://Mesh/Clothing/InmateShorts/InmateShortsMale.glb" id="1_w7mfk"]
 [ext_resource type="Script" uid="uid://b548st4e24ufb" path="res://Mesh/Clothing/InmateShorts/InmateShorts.gd" id="2_tx314"]
@@ -8,17 +8,17 @@
 [node name="InmateShortsMale" unique_id=563789288 instance=ExtResource("1_w7mfk")]
 script = ExtResource("2_tx314")
 
-[node name="rig" parent="." index="0" unique_id=1875489882 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=614393804 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_qg5u6")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Shorts"), NodePath("Skeleton3D/Shorts_PulledDown")]
 
-[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1611730337) index="0" unique_id=1348497866]
+[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(491260173) index="0" unique_id=2064155141]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
 surface_material_override/0 = ExtResource("4_opru2")
 
-[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1611730337) index="1" unique_id=897802143]
+[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(491260173) index="1" unique_id=327499196]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
 surface_material_override/0 = ExtResource("4_opru2")

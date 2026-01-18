@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bqrhnn81pvihm"]
 
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="2_3dfcg"]
-[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Shaders/Doll_skeleton/FurryHead.gdshader" id="2_7fppw"]
+[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Shaders/Doll_skeleton/FurryMessShader.gdshader" id="2_7fppw"]
 [ext_resource type="Texture2D" uid="uid://727s74chbogh" path="res://Mesh/Parts/Head/FelineHead/Textures/CumMask_Face.png" id="3_7fppw"]
 
 [resource]

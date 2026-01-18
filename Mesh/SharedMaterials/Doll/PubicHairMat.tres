@@ -1,13 +1,12 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://dj84k4ovj7x3j"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dj84k4ovj7x3j"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_v7tr7"]
-[ext_resource type="Texture2D" uid="uid://beno0wktxhj0m" path="res://Mesh/Parts/SharedTextures/PubicHair/cute.png" id="2_30gue"]
-[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/BodyPubicHair.gdshader" id="2_b13kd"]
+[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/CutOutTransparent.gdshader" id="2_m2hw0"]
+[ext_resource type="Texture2D" uid="uid://beno0wktxhj0m" path="res://Mesh/Parts/SharedTextures/PubicHair/cute.png" id="3_tf4er"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_b13kd")
+shader = ExtResource("2_m2hw0")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -17,11 +16,8 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = ExtResource("2_30gue")
+shader_parameter/texture_color_mask = ExtResource("3_tf4er")
 shader_parameter/color_mask_r = Color(0, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-script = ExtResource("1_v7tr7")
-alphaTransparency = true
-colorMaskAsAlbedo = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

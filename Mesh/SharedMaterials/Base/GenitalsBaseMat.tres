@@ -1,0 +1,33 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://qknk4i5dbny2"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_rg0ru"]
+[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="2_va63w"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_va63w")
+shader_parameter/albedo = Color(0.960784, 0.54902, 0.54902, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.999999977648
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("1_rg0ru")
+normalMap = 1
+pbrSetup = 3
+subsurfaceScattering = 2
+backlight = true
+rimlight = true
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

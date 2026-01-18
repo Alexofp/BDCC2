@@ -1,12 +1,11 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://blyihc0xrip4l"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://blyihc0xrip4l"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_b72ed"]
-[ext_resource type="Shader" uid="uid://duoji0nw4xn7a" path="res://Mesh/Shaders/Doll_skeleton/BodyDigiClaws.gdshader" id="2_8auci"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="2_1lvjo"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_8auci")
+shader = ExtResource("2_1lvjo")
 shader_parameter/albedo = Color(0.52, 0.3536, 0.3536, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -16,5 +15,4 @@ shader_parameter/specular = 0.6899999845771201
 shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("1_b72ed")
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

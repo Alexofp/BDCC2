@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://jypbwiqno6x0"]
 
 [ext_resource type="PackedScene" uid="uid://l4lfjy6ra0gd" path="res://Mesh/Props/LeashAnchor/LeashAnchor.glb" id="1_yieaa"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="2_5y13q"]
 [ext_resource type="PackedScene" uid="uid://dalsmnppj5hw0" path="res://Game/Systems/LeashSystem/LeashPointWorld.tscn" id="2_v4qmy"]
-[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_static/LeashAnchorShader.gdshader" id="3_3cona"]
+[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_all/ORMShader.gdshader" id="3_3cona"]
 [ext_resource type="Texture2D" uid="uid://b46eq481ape2v" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_BaseColor.png" id="4_0e2fc"]
 [ext_resource type="Texture2D" uid="uid://1ei2gish0ho6" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_Normal.png" id="5_pglof"]
 [ext_resource type="Texture2D" uid="uid://diif38r7d0hw4" path="res://Mesh/Props/LeashAnchor/LeashAnchor_low_DefaultMaterial_ORM.png" id="6_04aui"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qmqr2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wuo06"]
 render_priority = 0
 shader = ExtResource("3_3cona")
 shader_parameter/texture_albedo = ExtResource("4_0e2fc")
@@ -23,15 +22,11 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("2_5y13q")
-normalMap = 1
-pbrSetup = 3
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="LeashAnchor" unique_id=2107844049 instance=ExtResource("1_yieaa")]
 
-[node name="LeashAnchor" parent="." index="0" unique_id=1946525586]
-surface_material_override/0 = SubResource("ShaderMaterial_qmqr2")
+[node name="LeashAnchor" parent="." index="0" unique_id=1787808362]
+surface_material_override/0 = SubResource("ShaderMaterial_wuo06")
 
 [node name="LeashPointWorld" parent="." index="1" unique_id=1148941597 instance=ExtResource("2_v4qmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045836408, 0)

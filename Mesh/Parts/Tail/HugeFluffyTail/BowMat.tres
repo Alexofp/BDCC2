@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://43r531eotqt8"]
 
 [ext_resource type="Texture2D" uid="uid://b7b81qrifjid6" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_BaseColor.png" id="2_1f2o0"]
-[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/Bow.gdshader" id="2_baaty"]
+[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/ORMFreshnelRimlightShader.gdshader" id="2_baaty"]
 [ext_resource type="Texture2D" uid="uid://ccrvvq6swogls" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_Normal.png" id="3_baaty"]
 [ext_resource type="Texture2D" uid="uid://d1st1m4vvtior" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_ORM.png" id="4_i7jhq"]
 
@@ -23,4 +23,7 @@ shader_parameter/rim = 1.0
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0, 0, 0, 0)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

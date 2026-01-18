@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chrl2qcntr834"]
 
 [ext_resource type="PackedScene" uid="uid://dfkb6emvdp2qc" path="res://Mesh/Parts/Util/Piercings/ClitRing/ClitRing.glb" id="1_0fc08"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Doll/PiercingsMat.tres" id="2_6aoxy"]
+[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="2_6aoxy"]
 [ext_resource type="Script" uid="uid://cpynygkuhri5u" path="res://Mesh/Parts/Util/Piercings/ClitRing/clit_ring.gd" id="2_bpxts"]
 
 [node name="ClitRing" unique_id=680983331 instance=ExtResource("1_0fc08")]

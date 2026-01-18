@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://detbqftsbtywa"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://detbqftsbtywa"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_5gww0"]
-[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_skeleton/StocksShader.gdshader" id="2_fp0e8"]
+[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_all/ORMColorMaskShader.gdshader" id="2_5gww0"]
 [ext_resource type="Texture2D" uid="uid://bb60umefhh4j8" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_BaseColor.png" id="3_7wfui"]
 [ext_resource type="Texture2D" uid="uid://bbb0uytcpvlrq" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ColorMap.png" id="4_hf01b"]
 [ext_resource type="Texture2D" uid="uid://bf51nesicr31n" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Emit.png" id="5_aofqj"]
@@ -11,7 +10,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_fp0e8")
+shader = ExtResource("2_5gww0")
 shader_parameter/texture_albedo = ExtResource("3_7wfui")
 shader_parameter/texture_normal = ExtResource("6_4nm0n")
 shader_parameter/texture_orm = ExtResource("7_wpt00")
@@ -31,8 +30,4 @@ shader_parameter/texture_color_mask = ExtResource("4_hf01b")
 shader_parameter/color_mask_r = Color(0.7294118, 0.41960785, 0.18431373, 1)
 shader_parameter/color_mask_g = Color(0.55, 0.5269, 0.50049996, 1)
 shader_parameter/color_mask_b = Color(1, 0.74509805, 0.61960787, 1)
-script = ExtResource("1_5gww0")
-normalMap = 1
-pbrSetup = 5
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

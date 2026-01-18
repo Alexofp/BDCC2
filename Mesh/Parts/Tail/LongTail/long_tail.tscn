@@ -1,12 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://dguma6op74xwp"]
+[gd_scene format=3 uid="uid://dguma6op74xwp"]
 
 [ext_resource type="PackedScene" uid="uid://dgmbw0x8pnbvm" path="res://Mesh/Parts/Tail/LongTail/FelineTail.glb" id="1_hpuhi"]
 [ext_resource type="Script" uid="uid://c78v7i5euoayi" path="res://Mesh/Parts/Tail/LongTail/long_tail.gd" id="2_ks0ik"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_ro6fy"]
-[ext_resource type="Material" uid="uid://d4ckvbx5va5nn" path="res://Mesh/Parts/Tail/LongTail/TailMat.tres" id="4_ks0ik"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_tach6"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_ywkq7"]
 [ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/LongTail/TailSkeletonModifier.gd" id="5_4lk77"]
+[ext_resource type="Texture2D" uid="uid://d2md3inu0x7kr" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_BaseColor.png" id="5_k1sj5"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_ks0ik"]
+[ext_resource type="Texture2D" uid="uid://1joujbtxuyvo" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_Normal.png" id="6_cc2g5"]
+[ext_resource type="Texture2D" uid="uid://dljytstq2umf6" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_ORM.png" id="7_q6k2j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d8j4t"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ywkq7")
+shader_parameter/texture_albedo = ExtResource("5_k1sj5")
+shader_parameter/texture_normal = ExtResource("6_cc2g5")
+shader_parameter/texture_orm = ExtResource("7_q6k2j")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="Resource" id="Resource_4lk77"]
 script = ExtResource("5_ks0ik")
@@ -17,11 +43,11 @@ metadata/_custom_type_script = ExtResource("5_ks0ik")
 [node name="LongTail" unique_id=562306450 instance=ExtResource("1_hpuhi")]
 script = ExtResource("2_ks0ik")
 
-[node name="FelineTailRig" parent="." index="0" unique_id=62646262]
+[node name="FelineTailRig" parent="." index="0" unique_id=333024885]
 script = ExtResource("3_ro6fy")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="FelineTailRig" index="0" unique_id=729912878]
+[node name="Skeleton3D" parent="FelineTailRig" index="0" unique_id=1454381761]
 bones/0/rotation = Quaternion(-0.8853029, -4.6661328e-17, 4.6661334e-17, 0.465015)
 bones/1/rotation = Quaternion(-0.29718843, -6.598909e-17, 2.5989661e-24, 0.95481884)
 bones/2/rotation = Quaternion(0.15822394, 3.5132766e-17, 3.6860264e-23, 0.9874033)
@@ -29,9 +55,9 @@ bones/3/rotation = Quaternion(0.15822378, 3.513278e-17, 4.4818732e-23, 0.9874033
 bones/4/rotation = Quaternion(0.1582243, 3.5132783e-17, 6.178284e-23, 0.9874032)
 bones/5/rotation = Quaternion(0.15822385, 3.513279e-17, 2.8692367e-23, 0.9874033)
 
-[node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0" unique_id=1862867895]
+[node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0" unique_id=2144498153]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_ks0ik")
+surface_material_override/0 = SubResource("ShaderMaterial_d8j4t")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="FelineTailRig/Skeleton3D" index="1" unique_id=1893088912]
 unique_name_in_owner = true
@@ -187,15 +213,15 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_4lk77")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="FelineTailFuzz" parent="FelineTailRig/Skeleton3D" index="8" unique_id=1460643446]
+[node name="FelineTailFuzz" parent="FelineTailRig/Skeleton3D" index="8" unique_id=944342994]
 unique_name_in_owner = true
 visible = false
-surface_material_override/0 = ExtResource("4_ks0ik")
+surface_material_override/0 = SubResource("ShaderMaterial_d8j4t")
 
-[node name="FelineTailLionTip" parent="FelineTailRig/Skeleton3D" index="9" unique_id=777433422]
+[node name="FelineTailLionTip" parent="FelineTailRig/Skeleton3D" index="9" unique_id=1900162321]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_ks0ik")
+surface_material_override/0 = SubResource("ShaderMaterial_d8j4t")
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=791016528]
+[node name="AnimationPlayer" parent="." index="1" unique_id=2131957955]
 unique_name_in_owner = true
 autoplay = &"TailRest"

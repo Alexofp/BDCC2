@@ -1,12 +1,15 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://dhs44blxi450c"]
 
-[ext_resource type="Shader" uid="uid://bumxglka3nt4r" path="res://Mesh/Shaders/Doll_skeleton/EarFluffOpaqueSimple.gdshader" id="1_pm0vi"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="1_pm0vi"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_pm0vi")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0

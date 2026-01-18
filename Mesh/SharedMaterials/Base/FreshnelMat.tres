@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://d1flhqbdaukrc"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_ct2wr"]
+[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="2_eq7k4"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_eq7k4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0, 0, 0, 1)
+script = ExtResource("1_ct2wr")
+freshnel = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

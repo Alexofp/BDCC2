@@ -3,12 +3,29 @@
 [ext_resource type="PackedScene" uid="uid://bqoo34hnqa1sr" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarR.glb" id="1_f2ikk"]
 [ext_resource type="Script" uid="uid://b3jfi6whvapna" path="res://Mesh/Parts/Ear/FluffyEar/fluffy_ear.gd" id="2_4j26o"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_i0l10"]
-[ext_resource type="Material" uid="uid://dtn3jcvaheois" path="res://Mesh/Parts/Ear/FluffyEar/FluffMat.tres" id="4_m6moc"]
+[ext_resource type="Shader" uid="uid://btqudu3i7uyey" path="res://Mesh/Shaders/Doll_skeleton/BasicTransparentShader.gdshader" id="4_i0l10"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_5qfrl"]
+[ext_resource type="Texture2D" uid="uid://ub0mhktr6dw7" path="res://Mesh/Parts/Ear/FluffyEar/Textures/Fur/MyFelineEarSubstanceIn_EarInnerFluff_BaseColor.png" id="5_m6moc"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_5qead"]
-[ext_resource type="Material" uid="uid://slnc37bhrpd1" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarPiercingMat.tres" id="7_5qead"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="7_5qead"]
 [ext_resource type="Material" uid="uid://bglin3n8wnb0d" path="res://Mesh/Parts/Ear/FluffyEar/FelineEarMat.tres" id="8_eg5tj"]
-[ext_resource type="Material" uid="uid://x3h3oqedoupd" path="res://Mesh/Parts/Ear/FluffyEar/TasselsMat.tres" id="9_6hfqw"]
+[ext_resource type="Shader" uid="uid://dj5fl64ocui62" path="res://Mesh/Shaders/Doll_all/PiercingsBasic.gdshader" id="8_mo4o3"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="14_6tdoa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qfrl"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_i0l10")
+shader_parameter/texture_albedo = ExtResource("5_m6moc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_ldeaw"]
 script = ExtResource("6_5qead")
@@ -24,6 +41,37 @@ linear_scale = 652.683
 swing_span = 1.5708
 metadata/_custom_type_script = ExtResource("6_5qead")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qead"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_mo4o3")
+shader_parameter/albedo = Color(0.5729883, 0.5729883, 0.5729883, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.30000001425
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.999999955296
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+script = ExtResource("7_5qead")
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mo4o3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("14_6tdoa")
+shader_parameter/albedo = Color(0.329158, 0.329158, 0.329158, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.692
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
 [node name="FluffyEarR" unique_id=1538406943 node_paths=PackedStringArray("ear", "earFluff", "piercingsTwoRings", "tassels") instance=ExtResource("1_f2ikk")]
 script = ExtResource("2_4j26o")
 ear = NodePath("EarRigR/Skeleton3D/FelineEarR")
@@ -31,14 +79,14 @@ earFluff = NodePath("EarRigR/Skeleton3D/FelineEarFluffR")
 piercingsTwoRings = NodePath("EarRigR/Skeleton3D/FelineEarPiercedTwoRingsR")
 tassels = NodePath("EarRigR/Skeleton3D/FelineEarTasselsR")
 
-[node name="EarRigR" parent="." index="0" unique_id=1124060928]
+[node name="EarRigR" parent="." index="0" unique_id=1318480380]
 script = ExtResource("3_i0l10")
 attachPoint = "ear.R"
 
-[node name="FelineEarFluffR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="0" unique_id=1932865207]
-surface_material_override/0 = ExtResource("4_m6moc")
+[node name="FelineEarFluffR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="0" unique_id=1677223328]
+surface_material_override/0 = SubResource("ShaderMaterial_5qfrl")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="1" unique_id=788194418]
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="1" unique_id=788194418]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -60,7 +108,7 @@ bone_name = "DEF-Ear.R"
 properties = SubResource("Resource_ldeaw")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="2" unique_id=1313146927]
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="2" unique_id=1313146927]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -82,12 +130,12 @@ bone_name = "DEF-Root.R"
 properties = SubResource("Resource_67nuq")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="FelineEarPiercedTwoRingsR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="3" unique_id=1626965039]
+[node name="FelineEarPiercedTwoRingsR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="3" unique_id=1819898132]
 visibility_range_end = 10.0
-surface_material_override/0 = ExtResource("7_5qead")
+surface_material_override/0 = SubResource("ShaderMaterial_5qead")
 
-[node name="FelineEarR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="4" unique_id=149984203]
+[node name="FelineEarR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="4" unique_id=1967593054]
 surface_material_override/0 = ExtResource("8_eg5tj")
 
-[node name="FelineEarTasselsR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1061938795) index="5" unique_id=1867671396]
-surface_material_override/0 = ExtResource("9_6hfqw")
+[node name="FelineEarTasselsR" parent="EarRigR/Skeleton3D" parent_id_path=PackedInt32Array(1784702546) index="5" unique_id=1198070696]
+surface_material_override/0 = SubResource("ShaderMaterial_mo4o3")

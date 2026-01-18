@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b7u7xkk3jpswo" path="res://Mesh/Parts/Util/Piercings/NippleSpikes/NippleSpikes.glb" id="1_vebti"]
 [ext_resource type="Script" uid="uid://brk32dvpdk3nr" path="res://Mesh/Parts/Util/Piercings/NippleSpikes/nipple_spikes.gd" id="2_41whb"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Doll/PiercingsMat.tres" id="3_w04wh"]
+[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="3_w04wh"]
 
 [node name="NippleSpikes" unique_id=756725753 instance=ExtResource("1_vebti")]
 script = ExtResource("2_41whb")

@@ -1,13 +1,12 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bukykanm7r26f"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bukykanm7r26f"]
 
 [ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="1_a6p2q"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_eeiox"]
-[ext_resource type="Shader" uid="uid://cglnclksujx7a" path="res://Mesh/Shaders/Doll_skeleton/HeadEyelashes.gdshader" id="2_532vy"]
+[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Shaders/Doll_skeleton/CutOutFeature.gdshader" id="2_5gd4k"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_532vy")
+shader = ExtResource("2_5gd4k")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -22,7 +21,4 @@ shader_parameter/texture_color_mask = ExtResource("1_a6p2q")
 shader_parameter/color_mask_r = Color(0, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-script = ExtResource("1_eeiox")
-alphaMask = true
-colorMaskAsAlbedo = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

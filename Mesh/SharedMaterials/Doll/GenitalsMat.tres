@@ -1,19 +1,18 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://1axcwsr088nr"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://1axcwsr088nr"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_3bds6"]
-[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="2_imvpy"]
-[ext_resource type="Texture2D" uid="uid://bojwpmm21iiad" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_BaseColor.png" id="2_yeao7"]
-[ext_resource type="Texture2D" uid="uid://igl5v6apxqua" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ColorMask.png" id="3_a13qe"]
-[ext_resource type="Texture2D" uid="uid://c0x6jdd6xefwi" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_Normal.png" id="3_vkwg5"]
-[ext_resource type="Texture2D" uid="uid://boe50shxdmajp" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png" id="4_o4x7g"]
+[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="2_tc65s"]
+[ext_resource type="Texture2D" uid="uid://bojwpmm21iiad" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_BaseColor.png" id="3_dj3fn"]
+[ext_resource type="Texture2D" uid="uid://igl5v6apxqua" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ColorMask.png" id="4_e6n0l"]
+[ext_resource type="Texture2D" uid="uid://c0x6jdd6xefwi" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_Normal.png" id="5_q7nhu"]
+[ext_resource type="Texture2D" uid="uid://boe50shxdmajp" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/MyBodyGenitalsSubstancePainter_PussyAnus_ORM.png" id="6_wwx23"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_imvpy")
-shader_parameter/texture_albedo = ExtResource("2_yeao7")
-shader_parameter/texture_normal = ExtResource("3_vkwg5")
-shader_parameter/texture_orm = ExtResource("4_o4x7g")
+shader = ExtResource("2_tc65s")
+shader_parameter/texture_albedo = ExtResource("3_dj3fn")
+shader_parameter/texture_normal = ExtResource("5_q7nhu")
+shader_parameter/texture_orm = ExtResource("6_wwx23")
 shader_parameter/albedo = Color(0.960784, 0.54902, 0.54902, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -21,21 +20,14 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/clearcoat = 0.999999977648
-shader_parameter/clearcoat_roughness = 0.08999999798832001
+shader_parameter/rim = 0.07999999821184
+shader_parameter/rim_tint = 0.5
 shader_parameter/subsurface_scattering_strength = 0.999999977648
 shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = ExtResource("3_a13qe")
+shader_parameter/texture_color_mask = ExtResource("4_e6n0l")
 shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-script = ExtResource("1_3bds6")
-normalMap = 1
-pbrSetup = 3
-subsurfaceScattering = 2
-clearcoat = true
-backlight = true
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

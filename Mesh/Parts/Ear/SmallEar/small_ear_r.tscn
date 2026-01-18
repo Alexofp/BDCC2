@@ -3,21 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://ctvrdanreyx4t" path="res://Mesh/Parts/Ear/SmallEar/SmallEarR.glb" id="1_rg4w6"]
 [ext_resource type="Script" uid="uid://dh6tbq33dntqj" path="res://Mesh/Parts/Ear/SmallEar/small_ear.gd" id="2_7flo5"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_i7w7m"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="4_nkw3c"]
-[ext_resource type="Shader" uid="uid://b6i6sxvjxnqhf" path="res://Mesh/Shaders/Doll_skeleton/SmallEarEar.gdshader" id="5_xuqlt"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_i17as"]
 [ext_resource type="Texture2D" uid="uid://d2664iuab5iqd" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_BaseColor.png" id="6_wximp"]
 [ext_resource type="Texture2D" uid="uid://vb43fi1ed11a" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_Normal.png" id="7_2uy08"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="7_v1vpb"]
 [ext_resource type="Texture2D" uid="uid://cyrt1ec2yoal5" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_ORM.png" id="8_2ny43"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_gnb5r"]
-[ext_resource type="Texture2D" uid="uid://cdy7hljqsp63n" path="res://Mesh/Parts/Ear/SmallEar/Textures/Fluff.png" id="9_pf78f"]
-[ext_resource type="Shader" uid="uid://3dxwmp8girm1" path="res://Mesh/Shaders/Doll_skeleton/SmallEarInnerFluff.gdshader" id="9_xuqlt"]
-[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Shaders/Doll_skeleton/EarFelineTassels.gdshader" id="10_xi188"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="8_i17as"]
+[ext_resource type="Material" uid="uid://bjg5e34tcybd" path="res://Mesh/Parts/Ear/SmallEar/SmallEarFluffMat.tres" id="8_nkw3c"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aqurt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xuqlt"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("5_xuqlt")
+shader = ExtResource("4_i17as")
 shader_parameter/texture_albedo = ExtResource("6_wximp")
 shader_parameter/texture_normal = ExtResource("7_2uy08")
 shader_parameter/texture_orm = ExtResource("8_2ny43")
@@ -36,36 +34,11 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("4_nkw3c")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-colorMask = true
-uvBasedDiscard = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hpr1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wximp"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("9_xuqlt")
-shader_parameter/texture_albedo = ExtResource("9_pf78f")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("4_nkw3c")
-alphaTransparency = true
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cnd45"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("10_xi188")
+shader = ExtResource("8_i17as")
 shader_parameter/albedo = Color(0.329158, 0.329158, 0.329158, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -75,7 +48,6 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("4_nkw3c")
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_4a3g4"]
@@ -91,21 +63,21 @@ ear = NodePath("SmallEarR/Skeleton3D/EarR")
 earFluff = NodePath("SmallEarR/Skeleton3D/InnerFluffR")
 tassels = NodePath("SmallEarR/Skeleton3D/TasselsR")
 
-[node name="SmallEarR" parent="." index="0" unique_id=1950868302]
+[node name="SmallEarR" parent="." index="0" unique_id=412147674]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_i7w7m")
 attachPoint = "ear.R"
 
-[node name="EarR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(138895304) index="0" unique_id=446376275]
-surface_material_override/0 = SubResource("ShaderMaterial_aqurt")
+[node name="EarR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="0" unique_id=1658818523]
+surface_material_override/0 = SubResource("ShaderMaterial_xuqlt")
 
-[node name="InnerFluffR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(138895304) index="1" unique_id=1363591719]
-surface_material_override/0 = SubResource("ShaderMaterial_4hpr1")
+[node name="InnerFluffR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="1" unique_id=957608739]
+surface_material_override/0 = ExtResource("8_nkw3c")
 
-[node name="TasselsR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(138895304) index="2" unique_id=318833530]
-surface_material_override/0 = SubResource("ShaderMaterial_cnd45")
+[node name="TasselsR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="2" unique_id=518476247]
+surface_material_override/0 = SubResource("ShaderMaterial_wximp")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(138895304) index="3" unique_id=516388925]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="3" unique_id=516388925]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

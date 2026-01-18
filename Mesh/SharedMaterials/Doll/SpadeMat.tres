@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://dy26tu8l4mifv"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dy26tu8l4mifv"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_f7g45"]
-[ext_resource type="Shader" uid="uid://w4jn1ycgrbhu" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitalsSpade.gdshader" id="2_nju1j"]
+[ext_resource type="Shader" uid="uid://co78b101n0dhj" path="res://Mesh/Shaders/Doll_skeleton/BodyGenitals.gdshader" id="2_mfgo1"]
 [ext_resource type="Texture2D" uid="uid://f6winsxrd67l" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_BaseColor.png" id="2_nr535"]
 [ext_resource type="Texture2D" uid="uid://7ne7eqfxlf7p" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_Normal.png" id="3_nju1j"]
 [ext_resource type="Texture2D" uid="uid://b51714k1ckc0w" path="res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/Spade/MyBodyCookie_CaninePussy_ColorMask.png" id="3_nr535"]
@@ -10,7 +9,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_nju1j")
+shader = ExtResource("2_mfgo1")
 shader_parameter/texture_albedo = ExtResource("2_nr535")
 shader_parameter/texture_normal = ExtResource("3_nju1j")
 shader_parameter/texture_orm = ExtResource("4_adba1")
@@ -21,8 +20,9 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 0.06999999843536
-shader_parameter/rim_tint = 0.5
+shader_parameter/clearcoat = 0.999999977648
+shader_parameter/clearcoat_roughness = 0.08999999798832
+shader_parameter/subsurface_scattering_strength = 0.5
 shader_parameter/backlight = Color(0.33, 0.33, 0.33, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
@@ -30,10 +30,4 @@ shader_parameter/texture_color_mask = ExtResource("3_nr535")
 shader_parameter/color_mask_r = Color(0, 1, 0.9166665, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-script = ExtResource("1_f7g45")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-rimlight = true
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

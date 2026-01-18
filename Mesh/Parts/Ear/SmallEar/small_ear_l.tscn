@@ -3,21 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://b6xw6s5tygcr" path="res://Mesh/Parts/Ear/SmallEar/SmallEarL.glb" id="1_o2cim"]
 [ext_resource type="Script" uid="uid://dh6tbq33dntqj" path="res://Mesh/Parts/Ear/SmallEar/small_ear.gd" id="2_2gg5g"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_e1wlb"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="4_7kgrj"]
-[ext_resource type="Shader" uid="uid://b6i6sxvjxnqhf" path="res://Mesh/Shaders/Doll_skeleton/SmallEarEar.gdshader" id="5_ksuku"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_xjkm2"]
 [ext_resource type="Texture2D" uid="uid://d2664iuab5iqd" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_BaseColor.png" id="6_k8cwi"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="7_f2te7"]
 [ext_resource type="Texture2D" uid="uid://vb43fi1ed11a" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_Normal.png" id="7_tg04x"]
 [ext_resource type="Texture2D" uid="uid://cyrt1ec2yoal5" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_ORM.png" id="8_1ihcb"]
+[ext_resource type="Material" uid="uid://bjg5e34tcybd" path="res://Mesh/Parts/Ear/SmallEar/SmallEarFluffMat.tres" id="8_7kgrj"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_olbh1"]
-[ext_resource type="Texture2D" uid="uid://cdy7hljqsp63n" path="res://Mesh/Parts/Ear/SmallEar/Textures/Fluff.png" id="9_ayl6l"]
-[ext_resource type="Shader" uid="uid://3dxwmp8girm1" path="res://Mesh/Shaders/Doll_skeleton/SmallEarInnerFluff.gdshader" id="9_ksuku"]
-[ext_resource type="Shader" uid="uid://cqa1dgr82s3ip" path="res://Mesh/Shaders/Doll_skeleton/EarFelineTassels.gdshader" id="10_wnmnt"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="8_xjkm2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3reop"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ksuku"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("5_ksuku")
+shader = ExtResource("4_xjkm2")
 shader_parameter/texture_albedo = ExtResource("6_k8cwi")
 shader_parameter/texture_normal = ExtResource("7_tg04x")
 shader_parameter/texture_orm = ExtResource("8_1ihcb")
@@ -36,36 +34,11 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("4_7kgrj")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-colorMask = true
-uvBasedDiscard = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7hc0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8cwi"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("9_ksuku")
-shader_parameter/texture_albedo = ExtResource("9_ayl6l")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("4_7kgrj")
-alphaTransparency = true
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_es54x"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("10_wnmnt")
+shader = ExtResource("8_xjkm2")
 shader_parameter/albedo = Color(0.329158, 0.329158, 0.329158, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
@@ -75,7 +48,6 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("4_7kgrj")
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_kevxp"]
@@ -91,21 +63,21 @@ ear = NodePath("SmallEarL/Skeleton3D/EarL")
 earFluff = NodePath("SmallEarL/Skeleton3D/InnerFluffL")
 tassels = NodePath("SmallEarL/Skeleton3D/TasselsL")
 
-[node name="SmallEarL" parent="." index="0" unique_id=1357601870]
+[node name="SmallEarL" parent="." index="0" unique_id=1323532137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_e1wlb")
 attachPoint = "ear.L"
 
-[node name="EarL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="0" unique_id=854815820]
-surface_material_override/0 = SubResource("ShaderMaterial_3reop")
+[node name="EarL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1350010239) index="0" unique_id=1598887475]
+surface_material_override/0 = SubResource("ShaderMaterial_ksuku")
 
-[node name="InnerFluffL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="1" unique_id=1868464207]
-surface_material_override/0 = SubResource("ShaderMaterial_o7hc0")
+[node name="InnerFluffL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1350010239) index="1" unique_id=1865153453]
+surface_material_override/0 = ExtResource("8_7kgrj")
 
-[node name="TasselsL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="2" unique_id=2141435473]
-surface_material_override/0 = SubResource("ShaderMaterial_es54x")
+[node name="TasselsL" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1350010239) index="2" unique_id=331745628]
+surface_material_override/0 = SubResource("ShaderMaterial_k8cwi")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1156200862) index="3" unique_id=1516373241]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarL/Skeleton3D" parent_id_path=PackedInt32Array(1350010239) index="3" unique_id=1516373241]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

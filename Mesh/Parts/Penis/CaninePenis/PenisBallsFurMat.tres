@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://1qayfq46npmg"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://1qayfq46npmg"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_wun6q"]
-[ext_resource type="Shader" uid="uid://3dh0xlj13bv7" path="res://Mesh/Shaders/Doll_skeleton/PenisBallsFur.gdshader" id="2_5x4dl"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="1_01cm6"]
 [ext_resource type="Texture2D" uid="uid://dm8j5i1ll266u" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_BaseColor.png" id="3_g62nl"]
 [ext_resource type="Texture2D" uid="uid://dhr7tu8qw8rfx" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_Normal.png" id="4_be5mn"]
 [ext_resource type="Texture2D" uid="uid://r220yg3ohbir" path="res://Mesh/Parts/Penis/CaninePenis/Textures/CaninePenisLowpoly_Sheath_ORM.png" id="5_jfg7i"]
@@ -9,7 +8,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_5x4dl")
+shader = ExtResource("1_01cm6")
 shader_parameter/texture_albedo = ExtResource("3_g62nl")
 shader_parameter/texture_normal = ExtResource("4_be5mn")
 shader_parameter/texture_orm = ExtResource("5_jfg7i")
@@ -23,11 +22,8 @@ shader_parameter/metallic = 1.0
 shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_wun6q")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-uvBasedDiscard = true

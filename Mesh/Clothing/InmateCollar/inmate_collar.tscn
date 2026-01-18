@@ -3,8 +3,31 @@
 [ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_jdp3t"]
 [ext_resource type="PackedScene" uid="uid://b50jm3rvxohyh" path="res://Mesh/Clothing/InmateCollar/InmateCollar.glb" id="2_et3qn"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_redhd"]
-[ext_resource type="Material" uid="uid://rppd8rmsx1nv" path="res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres" id="4_xg6at"]
+[ext_resource type="Shader" uid="uid://bv7l0oq1fwokp" path="res://Mesh/Shaders/DollClothes_skeleton/ORMEmissive.gdshader" id="5_dfkxa"]
+[ext_resource type="Texture2D" uid="uid://dxbryfh8kriow" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_BaseColor.png" id="5_redhd"]
 [ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="5_umvcl"]
+[ext_resource type="Texture2D" uid="uid://cfgk36801tss7" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_Emit.png" id="6_o0nlm"]
+[ext_resource type="Texture2D" uid="uid://6xdf7kv3y5mm" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_Normal.png" id="7_xl5u1"]
+[ext_resource type="Texture2D" uid="uid://yspi8dxmwhoh" path="res://Mesh/Clothing/InmateCollar/Textures/CollarCuff lowpoly_Collar_ORM.png" id="8_1fh28"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg6at"]
+render_priority = 0
+shader = ExtResource("5_dfkxa")
+shader_parameter/texture_albedo = ExtResource("5_redhd")
+shader_parameter/texture_normal = ExtResource("7_xl5u1")
+shader_parameter/texture_orm = ExtResource("8_1fh28")
+shader_parameter/texture_emission = ExtResource("6_o0nlm")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 10.999999754128
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [node name="InmateCollar" type="Node3D" unique_id=587197804]
 script = ExtResource("1_jdp3t")
@@ -13,9 +36,9 @@ script = ExtResource("1_jdp3t")
 script = ExtResource("3_redhd")
 attachPoint = "collar"
 
-[node name="InmateCollar" parent="InmateCollar" index="0" unique_id=1499983699]
+[node name="InmateCollar" parent="InmateCollar" index="0" unique_id=1315284661]
 transform = Transform3D(0.069, 0, 0, 0, 0.069, 0, 0, 0, 0.069, 0, 0, 0)
-surface_material_override/0 = ExtResource("4_xg6at")
+surface_material_override/0 = SubResource("ShaderMaterial_xg6at")
 
 [node name="DollLeashPoint" type="Marker3D" parent="InmateCollar" unique_id=1584529880]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015821172, 0.081918776)

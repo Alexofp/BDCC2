@@ -4,42 +4,7 @@
 [ext_resource type="Script" uid="uid://cxnldy2ofpc6t" path="res://Mapping/Props/stocks.gd" id="2_bcm5a"]
 [ext_resource type="Material" uid="uid://bd2q60jlvjce" path="res://Mesh/Materials/Floors/FabricTiles.tres" id="3_js7ct"]
 [ext_resource type="PackedScene" uid="uid://csx44p553o58b" path="res://AnimScenes/Scenes/Stocks/StocksAnimHandler.tscn" id="3_we5c1"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="4_go1qq"]
-[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_skeleton/StocksShader.gdshader" id="5_ovm8m"]
-[ext_resource type="Texture2D" uid="uid://bb60umefhh4j8" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_BaseColor.png" id="6_oon18"]
-[ext_resource type="Texture2D" uid="uid://bbb0uytcpvlrq" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ColorMap.png" id="7_02tyr"]
-[ext_resource type="Texture2D" uid="uid://bf51nesicr31n" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Emit.png" id="8_1ag0j"]
-[ext_resource type="Texture2D" uid="uid://cigut3sgo1vfg" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Normal.png" id="9_sw5vb"]
-[ext_resource type="Texture2D" uid="uid://cojghc27u1r8w" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ORM.png" id="10_edrce"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_js7ct"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_ovm8m")
-shader_parameter/texture_albedo = ExtResource("6_oon18")
-shader_parameter/texture_normal = ExtResource("9_sw5vb")
-shader_parameter/texture_orm = ExtResource("10_edrce")
-shader_parameter/texture_emission = ExtResource("8_1ag0j")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/normal_scale = 1.0
-shader_parameter/ao_light_affect = 0.0
-shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 1.0
-shader_parameter/emission = Color(1, 0.4666667, 0, 1)
-shader_parameter/emission_energy = 19.99999955296
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_color_mask = ExtResource("7_02tyr")
-shader_parameter/color_mask_r = Color(0.7294118, 0.41960785, 0.18431373, 1)
-shader_parameter/color_mask_g = Color(0.55, 0.5269, 0.50049996, 1)
-shader_parameter/color_mask_b = Color(1, 0.74509805, 0.61960787, 1)
-script = ExtResource("4_go1qq")
-normalMap = 1
-pbrSetup = 5
-colorMask = true
-metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+[ext_resource type="Material" uid="uid://detbqftsbtywa" path="res://Mesh/Materials/Props/StocksMat.tres" id="4_10kxm"]
 
 [node name="Stocks" unique_id=1580582023 instance=ExtResource("1_wfhsi")]
 script = ExtResource("2_bcm5a")
@@ -58,7 +23,7 @@ instance_shader_parameters/trim_color_base = Color(0.2, 0.2, 0.2, 1)
 surface_material_override/0 = ExtResource("3_js7ct")
 
 [node name="StocksTest" parent="StocksRig/Skeleton3D" index="1" unique_id=1656501151]
-surface_material_override/0 = SubResource("ShaderMaterial_js7ct")
+surface_material_override/0 = ExtResource("4_10kxm")
 
 [node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") instance=ExtResource("3_we5c1")]
 unique_name_in_owner = true

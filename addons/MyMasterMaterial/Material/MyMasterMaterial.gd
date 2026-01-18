@@ -200,8 +200,8 @@ enum SubsurfaceScatteringType {
 			#continue
 		#set_shader_parameter(theUniformName, otherShader.get_shader_parameter(theUniformName))
 
-func _init():
-	updateShader()
+#func _init():
+#	updateShader()
 
 func calculateShaderVariantString() -> String:
 	var theFlags:Array = []

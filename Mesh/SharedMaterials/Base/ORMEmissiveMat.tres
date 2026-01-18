@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://cusf7ry4ah5gx"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_2l78w"]
+[ext_resource type="Shader" uid="uid://bv7l0oq1fwokp" path="res://Mesh/Shaders/DollClothes_skeleton/ORMEmissive.gdshader" id="2_460ih"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("2_460ih")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+script = ExtResource("1_2l78w")
+normalMap = 1
+pbrSetup = 5
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

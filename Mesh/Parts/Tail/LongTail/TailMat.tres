@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://d4ckvbx5va5nn"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d4ckvbx5va5nn"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_3bnwk"]
-[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/TailLong.gdshader" id="2_8jp7o"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="2_8jp7o"]
 [ext_resource type="Texture2D" uid="uid://d2md3inu0x7kr" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_BaseColor.png" id="2_km3mg"]
 [ext_resource type="Texture2D" uid="uid://1joujbtxuyvo" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_Normal.png" id="3_tv0hu"]
 [ext_resource type="Texture2D" uid="uid://dljytstq2umf6" path="res://Mesh/Parts/Tail/LongTail/Textures/MyFelineTailSubstance_Tail_ORM.png" id="4_pg2yj"]
@@ -28,11 +27,3 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_3bnwk")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-doubleSided = true
-colorMask = true
-uvBasedDiscard = true

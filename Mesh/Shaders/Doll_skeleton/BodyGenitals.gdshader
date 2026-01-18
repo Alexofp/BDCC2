@@ -2,8 +2,8 @@ shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
-#define MY_PBR_CLEARCOAT
 #define MY_BACKLIGHT
+#define MY_RIMLIGHT
 #define MY_SUBSURFACESCATTER
 #define MY_SUBSURFACESCATTER_SKIN
 #define MY_COLORMASK

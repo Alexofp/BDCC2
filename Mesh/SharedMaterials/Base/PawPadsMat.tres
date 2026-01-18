@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://jdhk7tfypoi4"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_fyqmw"]
+[ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Shaders/Doll_skeleton/PawPads.gdshader" id="2_momlj"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_momlj")
+shader_parameter/albedo = Color(0.74, 0.41884, 0.2812, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 0.8
+script = ExtResource("1_fyqmw")
+freshnel = true
+outline = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"

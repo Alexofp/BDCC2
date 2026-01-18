@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bglin3n8wnb0d"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bglin3n8wnb0d"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_km8jn"]
-[ext_resource type="Shader" uid="uid://uupc5dub4op6" path="res://Mesh/Shaders/Doll_skeleton/EarFeline.gdshader" id="2_hihi6"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="2_hihi6"]
 [ext_resource type="Texture2D" uid="uid://c52i58defv1gq" path="res://Mesh/Parts/Ear/FluffyEar/Textures/Fur/MyFelineEarSubstanceIn_FelineEar_BaseColor.png" id="2_qefqd"]
 [ext_resource type="Texture2D" uid="uid://cxkrrecmxtde3" path="res://Mesh/Parts/Ear/FluffyEar/Textures/Fur/MyFelineEarSubstanceIn_FelineEar_Normal.png" id="3_i100y"]
 [ext_resource type="Texture2D" uid="uid://nakct1m8cdom" path="res://Mesh/Parts/Ear/FluffyEar/Textures/Patterns/JustInnerEar.png" id="3_rmqwm"]
@@ -30,10 +29,3 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_km8jn")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-colorMask = true
-uvBasedDiscard = true

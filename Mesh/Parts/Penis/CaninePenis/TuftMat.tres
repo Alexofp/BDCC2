@@ -1,27 +1,21 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://4muecpokhus3"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://4muecpokhus3"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_yuf7f"]
-[ext_resource type="Shader" uid="uid://bkhc1v6gqts37" path="res://Mesh/Shaders/Doll_skeleton/PenisCanineTuft.gdshader" id="2_21mip"]
+[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="2_yuf7f"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_21mip")
+shader = ExtResource("2_yuf7f")
 shader_parameter/albedo = Color(0.59, 0.4602, 0.3304, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
-shader_parameter/roughness = 0.558
+shader_parameter/roughness = 0.882000041895
 shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.75
+shader_parameter/metallic = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/freshnel_width = 5.0
 shader_parameter/freshnel_mod = 0.1
 shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
-script = ExtResource("1_yuf7f")
-freshnel = true
-rimlight = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

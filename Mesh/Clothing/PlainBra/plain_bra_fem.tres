@@ -1,15 +1,14 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bouxov0qki3uu"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bouxov0qki3uu"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_6ssoa"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="1_6ssoa"]
 [ext_resource type="Texture2D" uid="uid://dkbjre0ntq3oq" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_BaseColor.png" id="2_6ssoa"]
-[ext_resource type="Shader" uid="uid://b2clhpeyknd4n" path="res://Mesh/Shaders/DollClothes_skeleton/PlainBra.gdshader" id="2_581e5"]
 [ext_resource type="Texture2D" uid="uid://cilu0a8egis1u" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_Normal.png" id="3_581e5"]
 [ext_resource type="Texture2D" uid="uid://dkpbtmesjifn2" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_ORM.png" id="4_35r5g"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_581e5")
+shader = ExtResource("1_6ssoa")
 shader_parameter/texture_albedo = ExtResource("2_6ssoa")
 shader_parameter/texture_normal = ExtResource("3_581e5")
 shader_parameter/texture_orm = ExtResource("4_35r5g")
@@ -24,8 +23,7 @@ shader_parameter/rim = 0.3
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("1_6ssoa")
-normalMap = 1
-pbrSetup = 3
-rimlight = true
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

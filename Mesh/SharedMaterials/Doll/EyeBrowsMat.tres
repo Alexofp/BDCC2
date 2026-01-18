@@ -1,8 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://c2hc7l0jpere0"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c2hc7l0jpere0"]
 
 [ext_resource type="Texture2D" uid="uid://jhs5mw3w2y3p" path="res://Mesh/Parts/SharedTextures/Brows/brow1.png" id="1_0i0ds"]
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_yxr2x"]
-[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Shaders/Doll_skeleton/HeadBrows.gdshader" id="2_igibe"]
+[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Shaders/Doll_skeleton/CutOutFeature.gdshader" id="2_igibe"]
 
 [resource]
 resource_local_to_scene = true
@@ -22,7 +21,4 @@ shader_parameter/texture_color_mask = ExtResource("1_0i0ds")
 shader_parameter/color_mask_r = Color(0, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
-script = ExtResource("1_yxr2x")
-alphaMask = true
-colorMaskAsAlbedo = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

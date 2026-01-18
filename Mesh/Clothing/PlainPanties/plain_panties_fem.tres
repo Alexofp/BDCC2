@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://c6ywib8afnxbd"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c6ywib8afnxbd"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_8q3uu"]
-[ext_resource type="Shader" uid="uid://dke80lao8xrva" path="res://Mesh/Shaders/DollClothes_skeleton/PlainPanties.gdshader" id="2_8q3uu"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="1_p6kbs"]
 [ext_resource type="Texture2D" uid="uid://3wxcdtyhhvfc" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_BaseColor.png" id="3_ylvv8"]
 [ext_resource type="Texture2D" uid="uid://b0xtn1u1eqw3t" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_Normal.png" id="4_khirf"]
 [ext_resource type="Texture2D" uid="uid://boutdhv2e52jj" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_ORM.png" id="5_rnekg"]
@@ -9,7 +8,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_8q3uu")
+shader = ExtResource("1_p6kbs")
 shader_parameter/texture_albedo = ExtResource("3_ylvv8")
 shader_parameter/texture_normal = ExtResource("4_khirf")
 shader_parameter/texture_orm = ExtResource("5_rnekg")
@@ -24,8 +23,7 @@ shader_parameter/rim = 0.3
 shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-script = ExtResource("1_8q3uu")
-normalMap = 1
-pbrSetup = 3
-rimlight = true
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"

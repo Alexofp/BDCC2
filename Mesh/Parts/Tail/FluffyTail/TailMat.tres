@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bi83ksstl8ahc"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bi83ksstl8ahc"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_dufp2"]
-[ext_resource type="Shader" uid="uid://b6sb1gwyt7u3d" path="res://Mesh/Shaders/Doll_skeleton/TailFluffy.gdshader" id="2_4wd8q"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="2_4wd8q"]
 [ext_resource type="Texture2D" uid="uid://dd7jm87vr6fsf" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_BaseColor.png" id="2_dufp2"]
 [ext_resource type="Texture2D" uid="uid://cwwnf2p0lqday" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_Normal.png" id="3_4wd8q"]
 [ext_resource type="Texture2D" uid="uid://bpo1k3wgrb32b" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_ORM.png" id="4_twvu5"]
@@ -28,11 +27,3 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
-script = ExtResource("1_dufp2")
-normalMap = 1
-pbrSetup = 3
-backlight = true
-outline = true
-doubleSided = true
-colorMask = true
-uvBasedDiscard = true

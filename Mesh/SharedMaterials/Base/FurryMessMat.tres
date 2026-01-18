@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://bxiokgx0vb3wf"]
+
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_bygb8"]
+[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Shaders/Doll_skeleton/FurryMessShader.gdshader" id="2_ueyii"]
+[ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="3_m5m38"]
+[ext_resource type="Texture2D" uid="uid://727s74chbogh" path="res://Mesh/Parts/Head/FelineHead/Textures/CumMask_Face.png" id="4_5lpub"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_ueyii")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3019608, 0.3019608, 0.3019608, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
+shader_parameter/texture_mess_layer = ExtResource("3_m5m38")
+shader_parameter/messLayerScale = 1.0
+shader_parameter/texture_mess_mask = ExtResource("4_5lpub")
+shader_parameter/messColor = Color(1, 1, 1, 1)
+shader_parameter/messRoughness = 0.0
+shader_parameter/messScroll = 0.0
+shader_parameter/messCutoff = 0.0
+shader_parameter/messSmoothSize = 0.1
+script = ExtResource("1_bygb8")
+normalMap = 1
+pbrSetup = 3
+backlight = true
+outline = true
+messLayer = true

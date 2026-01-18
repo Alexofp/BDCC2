@@ -1,8 +1,7 @@
-[gd_resource type="ShaderMaterial" script_class="MyMasterMaterial" format=3 uid="uid://cy5ku31rbarkv"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cy5ku31rbarkv"]
 
-[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_01lk7"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="1_01lk7"]
 [ext_resource type="Texture2D" uid="uid://bftci7hrdk8rq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_BaseColor.png" id="2_kym5q"]
-[ext_resource type="Shader" uid="uid://dos7gwur02sh1" path="res://Mesh/Shaders/DollClothes_skeleton/InmateTop.gdshader" id="2_odg20"]
 [ext_resource type="Texture2D" uid="uid://bckwvs0pckpsm" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Emit.png" id="3_odg20"]
 [ext_resource type="Texture2D" uid="uid://bmy4bgb43cuuq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Normal.png" id="4_3ooie"]
 [ext_resource type="Texture2D" uid="uid://hcu5o103lkx4" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png" id="5_lkc1y"]
@@ -10,7 +9,7 @@
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_odg20")
+shader = ExtResource("1_01lk7")
 shader_parameter/texture_albedo = ExtResource("2_kym5q")
 shader_parameter/texture_normal = ExtResource("4_3ooie")
 shader_parameter/texture_orm = ExtResource("5_lkc1y")
@@ -29,10 +28,4 @@ shader_parameter/texture_color_mask = ExtResource("3_odg20")
 shader_parameter/color_mask_r = Color(0.26, 0.26, 0.26, 1)
 shader_parameter/color_mask_g = Color(0.32, 0.117333, 0, 1)
 shader_parameter/color_mask_b = Color(1, 0.4, 0, 1)
-script = ExtResource("1_01lk7")
-normalMap = 1
-pbrSetup = 3
-rimlight = true
-doubleSided = true
-colorMask = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
