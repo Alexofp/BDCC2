@@ -1350,7 +1350,6 @@ visible = false
 [node name="Plane" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1198687367, 159607269) index="0" unique_id=1887201256]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/1 = SubResource("ShaderMaterial_ysher")
 surface_material_override/2 = SubResource("ShaderMaterial_3ln6k")
 surface_material_override/3 = SubResource("ShaderMaterial_ffuxf")
@@ -1364,9 +1363,6 @@ surface_material_override/9 = SubResource("ShaderMaterial_qljka")
 [node name="PlaneShapes" parent="TenMatsPlaneRigged/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1198687367, 159607269) index="1" unique_id=1590709285]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
-blend_shapes/Key1 = 0.0
-blend_shapes/Key2 = 0.0
 surface_material_override/1 = SubResource("ShaderMaterial_ysher")
 surface_material_override/2 = SubResource("ShaderMaterial_3ln6k")
 surface_material_override/3 = SubResource("ShaderMaterial_ffuxf")
@@ -1383,7 +1379,6 @@ visible = false
 [node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(592754825, 159607269) index="0" unique_id=1887201256]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_o6lyj")
 surface_material_override/1 = SubResource("ShaderMaterial_av0u3")
 surface_material_override/2 = SubResource("ShaderMaterial_mmg3t")
@@ -1398,9 +1393,6 @@ surface_material_override/9 = SubResource("ShaderMaterial_ei5ws")
 [node name="PlaneShapes" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(592754825, 159607269) index="1" unique_id=1590709285]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
-blend_shapes/Key1 = 0.0
-blend_shapes/Key2 = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_o6lyj")
 surface_material_override/1 = SubResource("ShaderMaterial_av0u3")
 surface_material_override/2 = SubResource("ShaderMaterial_mmg3t")
@@ -1418,7 +1410,6 @@ visible = false
 [node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1312122167, 159607269) index="0" unique_id=1887201256]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_vd55d")
 surface_material_override/1 = SubResource("ShaderMaterial_01jdv")
 surface_material_override/2 = SubResource("ShaderMaterial_1uqjq")
@@ -1433,9 +1424,6 @@ surface_material_override/9 = SubResource("ShaderMaterial_k2br2")
 [node name="PlaneShapes" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1312122167, 159607269) index="1" unique_id=1590709285]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
-blend_shapes/Key1 = 0.0
-blend_shapes/Key2 = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_vd55d")
 surface_material_override/1 = SubResource("ShaderMaterial_01jdv")
 surface_material_override/2 = SubResource("ShaderMaterial_1uqjq")
@@ -1483,15 +1471,11 @@ visible = false
 [node name="Plane" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(443596318, 159607269) index="0" unique_id=1887201256]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("50_c4n6e")
 
 [node name="PlaneShapes" parent="TenMatsPlaneRigged4/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(443596318, 159607269) index="1" unique_id=1590709285]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
-skeleton = NodePath("..")
-blend_shapes/Key1 = 0.0
-blend_shapes/Key2 = 0.0
 surface_material_override/0 = ExtResource("50_c4n6e")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1906834621]

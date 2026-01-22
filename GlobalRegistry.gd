@@ -179,7 +179,13 @@ func doInit():
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	
+	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
+	
+	sortPawnActionsArrayByPriority(pawnActionsAlwaysSelf)
+	sortPawnActionsArrayByPriority(pawnActionsAlwaysOtherPawn)
+	sortPawnActionsArrayByPriority(pawnQuickActionsAlwaysSelf)
+	sortPawnActionsArrayByPriority(pawnQuickActionsAlwaysOtherPawn)
 	
 	var end := Time.get_ticks_usec()
 	var worker_time:float = (end-start)/1000000.0
@@ -923,6 +929,10 @@ func getSexPosesForActivityID(id: String) -> Array[SexPoseBase]:
 		return sexPosesByActivityID[id]
 	return []
 
+
+
+func sortPawnActionsArrayByPriority(_ar:Array[PawnActionBase]):
+	_ar.sort_custom(func(a:PawnActionBase, b:PawnActionBase): return a.alwaysPriority > b.alwaysPriority)
 
 func registerPawnAction(path: String):
 	var loadedClass = load(path)

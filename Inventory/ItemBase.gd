@@ -296,6 +296,12 @@ func getZoneLayer() -> float:
 		return -1.0
 	return ZoneLayer.getDefaultFromInvSlot(theSlots[0])
 
+func getLeashTargets() -> Array[String]:
+	return []
+
+func getLeashTargetName(_id:String) -> String:
+	return _id
+
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()
 	data.saveContinue([

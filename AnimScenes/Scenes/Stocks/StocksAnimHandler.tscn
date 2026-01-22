@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://csx44p553o58b"]
 
-[ext_resource type="Script" uid="uid://2vsq4k1dbauc" path="res://AnimScenes/Scenes/Stocks/stocks_anim_handler.gd" id="1_eqnb6"]
+[ext_resource type="Script" uid="uid://2vsq4k1dbauc" path="res://AnimScenes/Scenes/Stocks/StocksAnimHandler.gd" id="1_eqnb6"]
 [ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="3_s3d1w"]
 [ext_resource type="PackedScene" uid="uid://cdch4m3k7s3xq" path="res://AnimScenes/Scenes/Stocks/StocksAnimScene.tscn" id="4_eqnb6"]
 [ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="5_y0o15"]

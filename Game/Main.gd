@@ -26,6 +26,7 @@ var character_creator:Node
 @onready var building_platform_8x_8: Node3D = %BuildingPlatform8x8
 
 @onready var free_camera: FreeCamera = %FreeCamera
+@onready var wall_checker: WallChecker = %WallChecker
 
 var interactionSystem:InteractionSystem
 
@@ -296,3 +297,8 @@ func hideInteractMenu():
 
 func _on_interact_menu_on_close() -> void:
 	hideInteractMenu()
+
+func checkCanLean(_globalPos:Vector3, _globalRot:Vector3) -> bool:
+	wall_checker.global_position = _globalPos
+	wall_checker.global_rotation = _globalRot
+	return wall_checker.checkCanLean()

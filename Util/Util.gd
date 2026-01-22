@@ -372,3 +372,19 @@ static func unclampValue(_val:float, _minValue:float) -> float:
 	if(_val < 0.0 && _val > -_minValue):
 		return -_minValue
 	return _val
+
+# Util.getNextInArray(["one", "two", "three"], "one") -> returns "two"
+# Util.getNextInArray(["one", "two", "three"], "two") -> returns "three"
+# Util.getNextInArray(["one", "two", "three"], "three") -> returns "one"
+static func getNextInArray(_ar:Array, _val:Variant) -> Variant:
+	if(_ar.is_empty()):
+		return _val
+	
+	var _indx:int = _ar.find(_val)
+	var _arAm:int = _ar.size()
+	
+	_indx += 1
+	if(_indx < 0 || _indx >= _arAm):
+		_indx = 0
+	
+	return _ar[_indx]

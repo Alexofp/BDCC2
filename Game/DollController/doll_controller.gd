@@ -117,6 +117,8 @@ func processPoseSpot():
 		return
 	global_position = thePoseSpot.global_position
 	model_root.global_rotation = thePoseSpot.global_rotation
+	velocity = Vector3(0.0, 0.0, 0.0)
+	#move_and_slide()
 
 #func getBodySkeleton():
 #	return getDoll().getBodySkeleton()
@@ -268,6 +270,8 @@ func _process(delta:float):
 	
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_4")):
 		ShaderNodeChecker.checkNode(self)
+	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
+		print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 		#ShaderNodeChecker.checkNode(get_tree().root)
 	
 	#if(theIsControlledByUs && hasAuthority):

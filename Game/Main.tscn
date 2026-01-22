@@ -18,9 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://w1hpye5t7hjr" path="res://Game/UI/CharacterMenu/character_menu.tscn" id="12_paojk"]
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
-[ext_resource type="Script" uid="uid://dfpjp84thxs6o" path="res://Game/Interactable/interact_pawn_ui.gd" id="14_ijdku"]
 [ext_resource type="PackedScene" uid="uid://heeo5nvmwnmk" path="res://Game/Interactable/UI/InteractMenu.tscn" id="16_tc76r"]
 [ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
+[ext_resource type="PackedScene" uid="uid://bm38mwknxmqbe" path="res://Game/GameInteractor/Util/wall_checker.tscn" id="21_wo11f"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
@@ -70,7 +70,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="InteractUI" parent="MainUILayer" unique_id=1310660262 instance=ExtResource("10_w1287")]
 unique_name_in_owner = true
-script = ExtResource("14_ijdku")
 metadata/_edit_use_anchors_ = true
 
 [node name="SexUI" parent="MainUILayer" unique_id=1310099305 instance=ExtResource("11_ijkwl")]
@@ -103,6 +102,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9493737, 0)
 cameraActive = true
 cameraPriority = -1.0
+
+[node name="WallChecker" parent="." unique_id=1636613646 instance=ExtResource("21_wo11f")]
+unique_name_in_owner = true
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

@@ -25,6 +25,10 @@ func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	category.interactEntries.append(InteractEntryDo.create("Generic", ["use"]))
 	category.interactEntries.append(InteractEntryDo.create("Generic", ["unlock"]))
 	
+	#for leashedPawn in _pawn.getLeashedPawns():
+		#category.interactEntries.append(InteractEntryDo.create("SitPropLeashed", ["dom", "Lock $$$", leashedPawn.getCharID()]))
+	category.addSitPropLeashedActions(_pawn, "dom", "Lock $$$")
+	
 	return category
 
 func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:

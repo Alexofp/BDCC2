@@ -20,7 +20,7 @@ func canDoAction(_context:PawnActionContext) -> bool:
 func doAction(_context:PawnActionContext) -> bool:
 	#GM.sexManager.askStartMasturbation(_context.pawn.getCharID())
 	
-	startDelayedAction("{user.You} {user.youVerb try|tries} to force sex with {target.you}!", _context, 3.0, _context.args
+	startDelayedAction("{user.You} {user.youVerb try|tries} to force sex with {target.you}!", _context, 1.0, _context.args
 	).setTimerType(ActionSystemEntry.TIMER_CAN_DENY)
 	return true
 

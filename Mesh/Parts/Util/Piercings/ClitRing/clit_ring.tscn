@@ -1,13 +1,46 @@
 [gd_scene format=3 uid="uid://chrl2qcntr834"]
 
 [ext_resource type="PackedScene" uid="uid://dfkb6emvdp2qc" path="res://Mesh/Parts/Util/Piercings/ClitRing/ClitRing.glb" id="1_0fc08"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="2_6aoxy"]
 [ext_resource type="Script" uid="uid://cpynygkuhri5u" path="res://Mesh/Parts/Util/Piercings/ClitRing/clit_ring.gd" id="2_bpxts"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_ct8sa"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_hhsdt"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_7lvy4"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_lnpqy"]
+[ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="7_tc5k0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_437mc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_hhsdt")
+shader_parameter/texture_orm = ExtResource("6_lnpqy")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_7lvy4")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_ct8sa")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="ClitRing" unique_id=680983331 instance=ExtResource("1_0fc08")]
 script = ExtResource("2_bpxts")
 
-[node name="ClitRing" parent="." index="0" unique_id=481560353]
+[node name="ClitRing" parent="." index="0" unique_id=452409869]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-surface_material_override/0 = ExtResource("2_6aoxy")
+surface_material_override/0 = SubResource("ShaderMaterial_437mc")
+
+[node name="DollLeashPoint" type="Marker3D" parent="." index="1" unique_id=1272508308]
+script = ExtResource("7_tc5k0")
+leashPointID = "clitpiercing"
+leashPointName = "Clit piercing"
+metadata/_custom_type_script = "uid://cb1eve8v0w436"

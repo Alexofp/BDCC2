@@ -231,3 +231,22 @@ func getDefaultEditorZone() -> int:
 
 func supportsPropertyCopyOnBodypartSwitch() -> bool:
 	return true
+
+func getLeashTargets() -> Array[String]:
+	var possible:Array[String] = ["collar"]
+	if(!clitPiercing.is_empty() && !clitPiercing[0].is_empty()):
+		possible.append("clitpiercing")
+	return possible
+
+func getLeashTargetName(_id:String) -> String:
+	if(_id == "clitpiercing"):
+		return "clit piercing"
+	return _id
+
+func applyOption(_optionID:String, _value:Variant):
+	super.applyOption(_optionID, _value)
+	
+	if(_optionID == "clitPiercing"):
+		var theChar := getCharacter()
+		if(theChar):
+			theChar.triggerLeashpointUpdate()

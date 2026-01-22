@@ -166,3 +166,9 @@ func getListOfPropertiesToCopy() -> Array[String]:
 	for optionID in getOptionsFinal():
 		theList.append(optionID)
 	return theList
+
+func getLeashTargets() -> Array[String]:
+	return []
+
+func getLeashTargetName(_id:String) -> String:
+	return _id

@@ -120,7 +120,7 @@ func setupScene() -> void:
 			animEventOnFrame(45, "squirt"),
 	]))
 	
-	setStartState("sex")
+	setStartState("tease")
 
 func onAnimationEvent(_eventID:String):
 	if(_eventID == "cumInsideSound"):

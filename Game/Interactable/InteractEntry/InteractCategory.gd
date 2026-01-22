@@ -34,6 +34,12 @@ func supplyContextCheckCanDo(_context:PawnActionContext):
 	
 	_context.clearContext()
 
+
+func addSitPropLeashedActions(_pawn:CharacterPawn, _seatID:String, _actionName:String):
+	for leashedPawn in _pawn.getLeashedPawns():
+		interactEntries.append(InteractEntryDo.create("SitPropLeashed", [_seatID, _actionName, leashedPawn.getCharID()]))
+
+
 func saveNetworkData() -> Bins:
 	var Ar:Array = [
 		Bins.StrShort, categoryName,

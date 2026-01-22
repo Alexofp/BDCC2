@@ -8,8 +8,9 @@
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_c747f"]
 [ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_e16uj"]
 [ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_wbyxc"]
+[ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="9_bnci0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p526v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e16uj"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_bnci0")
@@ -46,15 +47,15 @@ radius = 0.2
 [node name="ClitBell" unique_id=257745390 instance=ExtResource("1_dkfq6")]
 script = ExtResource("2_3x5fo")
 
-[node name="ClitBellRig" parent="." index="0" unique_id=1541004762]
+[node name="ClitBellRig" parent="." index="0" unique_id=1015552469]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="ClitBell" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="0" unique_id=1877124775]
+[node name="ClitBell" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(547507301) index="0" unique_id=1387762164]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_p526v")
+surface_material_override/0 = SubResource("ShaderMaterial_e16uj")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="1" unique_id=2018350790]
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(547507301) index="1" unique_id=2018350790]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -76,7 +77,7 @@ bone_name = "Chain"
 properties = SubResource("Resource_ltgt8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="2" unique_id=455930460 node_paths=PackedStringArray("collider_nodes")]
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(547507301) index="2" unique_id=455930460 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -85,7 +86,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(1, -5.116258e-24, 5.3943433e-27, -5.1165936e-24, -0.9999978, 0.0021087157, -5.394402e-27, -0.0021087157, -0.9999978, 1.9411541e-23, -0.02433968, 8.6864e-08)
+transform = Transform3D(1, -1.618906e-23, 5.400834e-26, -1.6189396e-23, -0.99997777, 0.0066721393, -5.400852e-26, -0.0066721393, -0.99997777, 1.9411541e-23, -0.02433968, 8.6864e-08)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -102,7 +103,7 @@ bone_name = "Chain2"
 properties = SubResource("Resource_ltgt8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(212542249) index="3" unique_id=1381584040 node_paths=PackedStringArray("collider_nodes")]
+[node name="DMWBWiggleRotationModifier3D3" type="SkeletonModifier3D" parent="ClitBellRig/Skeleton3D" parent_id_path=PackedInt32Array(547507301) index="3" unique_id=1381584040 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -111,7 +112,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(1, 9.687743e-25, 1.9371851e-28, 9.684387e-25, -0.99999994, -0.00039912714, -1.9294428e-28, 0.00039912714, -0.99999994, 1.9366407e-23, -0.033161208, -1.851527e-05)
+transform = Transform3D(1, -1.3623994e-24, 3.8366373e-28, -1.3627342e-24, -0.9999999, 0.00056164106, -3.8150977e-28, -0.00056164106, -0.9999999, 1.9268729e-23, -0.03316103, -5.877172e-05)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -131,3 +132,9 @@ metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClitBellRig" index="1" unique_id=1225662408]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.172, -0.008)
 shape = SubResource("SphereShape3D_4f1xy")
+
+[node name="DollLeashPoint" type="Marker3D" parent="." index="1" unique_id=628683518]
+script = ExtResource("9_bnci0")
+leashPointID = "clitpiercing"
+leashPointName = "Clit piercing"
+metadata/_custom_type_script = "uid://cb1eve8v0w436"

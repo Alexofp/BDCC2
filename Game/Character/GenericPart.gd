@@ -5,7 +5,7 @@ var id:String = "error"
 var charRef:WeakRef
 var internalHidePart:bool = false # Should the doll not spawn this part
 
-signal onOptionChanged(optionID, newValue)
+signal onOptionChanged(optionID:String, newValue:Variant)
 
 #const EDITOR_SKIN = "skin"
 const EDITOR_PART = "part"

@@ -11,6 +11,7 @@ enum {
 	PRESET_APPLIED,
 	PERSONALITY_UPDATE,
 	FETISHES_UPDATE,
+	LEASHPOINTS_UPDATE,
 }
 
 var changeType:int = NOTHING
@@ -23,6 +24,11 @@ var value:Variant
 
 func getType() -> int:
 	return changeType
+
+static func createLeashPointsUpdate() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = LEASHPOINTS_UPDATE
+	return result
 
 static func createFetishesUpdate() -> BaseCharChange:
 	var result := BaseCharChange.new()

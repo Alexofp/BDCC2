@@ -540,6 +540,9 @@ func getInteractEntries(_actor:CharacterPawn) -> Array[InteractEntryBase]:
 	#result.append(InteractEntryDo.create(
 		#"Leash", "leash"
 	#))
+	var theChar := getCharacter()
+	for leashpointID in theChar.getAllLeashingPoints():
+		result.append(InteractEntryDo.create("LeashSpecific", [leashpointID]))
 	
 	return result
 
@@ -669,5 +672,15 @@ func calcHoverTextProgressBarInfo():
 			])
 		var theBins:Bins = Bins.saveStartEnd(theData)
 		progressBarsData = theBins.getBytes()
+
+func getLeashedPawns() -> Array[CharacterPawn]:
+	var result:Array[CharacterPawn]
 	
+	var allLeashes := GM.leashSystem.getAllLeashesOfSourceNode(self)
+	for theLeash in allLeashes:
+		if(theLeash.isTargetAPawn()):
+			result.append(theLeash.getTargetPawn())
+
+	return result
+
 # INTERACTOR STUFF ENDS

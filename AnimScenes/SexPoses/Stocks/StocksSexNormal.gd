@@ -8,7 +8,7 @@ func _init() -> void:
 	anim = AnimScene.StocksSex
 
 func getVisibleName() -> String:
-	return "Normal"
+	return "Bent forward"
 
 func getState(_stateRaw:String) -> String:
 	#if(_stateRaw == "tease"):

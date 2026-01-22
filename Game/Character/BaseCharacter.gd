@@ -78,7 +78,8 @@ func onSkinTypeChanged(_skinType:int, _skinTypeData:SkinTypeData):
 func onInventoryEquipItemChange(_slot:int, _item:ItemBase):
 	updatePartFilter()
 	onChange.emit(BaseCharChange.createPartChange(GENERIC_CLOTHING, _slot))
-
+	triggerLeashpointUpdate()
+	
 func onInventoryEquipItemOptionChangeCallback(optionID:String, value, _part:ItemBase, slot:int):
 	onChange.emit(BaseCharChange.createPartOptionChange(GENERIC_CLOTHING, slot, optionID, value))
 
@@ -98,6 +99,7 @@ func addBodypart(slot:int, part:BodypartBase):
 	triggerCheckSkinTypesList()
 	onChange.emit(BaseCharChange.createPartChange(GENERIC_BODYPARTS, slot))
 	updateAllAutoSkinTypes(slot)
+	triggerLeashpointUpdate()
 
 func clearBodypart(slot:int):
 	if(!bodyparts.has(slot)):
@@ -110,6 +112,7 @@ func clearBodypart(slot:int):
 	triggerCheckSkinTypesList()
 	onChange.emit(BaseCharChange.createPartChange(GENERIC_BODYPARTS, slot))
 	updateAllAutoSkinTypes(slot)
+	triggerLeashpointUpdate()
 
 func getBodypart(slot:int) -> BodypartBase:
 	if(!bodyparts.has(slot)):
@@ -206,12 +209,25 @@ func triggerCheckSkinTypesList():
 		return
 	checkingSkinTypesList = true
 	checkSkinTypesList.call_deferred()
-	checkingSkinTypesList = false
+
+var updatingLeashpoints:bool = false
+var cachedLeashpoints:Dictionary[String, Array]
+func triggerLeashpointUpdate():
+	if(updatingLeashpoints):
+		return
+	updatingLeashpoints = true
+	updateLeashPoints.call_deferred()
+
+func updateLeashPoints():
+	updatingLeashpoints = false
+	cachedLeashpoints = calculateAllLeashingPoints()
+	onChange.emit(BaseCharChange.createLeashPointsUpdate())
 
 ## Gathers the list of all currently used skin types and then makes sure all skin types have an entry in our base skin types dictionary.
 ## For example, adds fur skin type data if we add cat ears to a human.
 ## Will also automatically remove any skin types that aren't in use.
 func checkSkinTypesList():
+	checkingSkinTypesList = false
 	if(Network.isClient()):
 		return
 	var whatWeShouldHave:Dictionary = calculateAllUsedSkinTypes()
@@ -784,6 +800,41 @@ func canWearStrapon() -> bool:
 	if(!hasReachablePenis()):
 		return true
 	return false
+
+func hasLeashingPoint(_point:String) -> bool:
+	if(updatingLeashpoints):
+		cachedLeashpoints = calculateAllLeashingPoints()
+		updatingLeashpoints = false
+	return cachedLeashpoints.has(_point)
+
+func getAllLeashingPoints() -> Dictionary[String, Array]:
+	if(updatingLeashpoints):
+		cachedLeashpoints = calculateAllLeashingPoints()
+		updatingLeashpoints = false
+	return cachedLeashpoints
+
+func calculateAllLeashingPoints() -> Dictionary[String, Array]:
+	var result:Dictionary[String, Array]
+	
+	for bodypartSlot in bodyparts:
+		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
+		var theTargets := theBodypart.getLeashTargets()
+		if(theTargets.is_empty()):
+			continue
+		var theAr:Array[int] = [GENERIC_BODYPARTS, bodypartSlot]
+		for leashPointID in theTargets:
+			result[leashPointID] = theAr
+	
+	for invSlot in inventory.equipped:
+		var theItem := inventory.getEquippedItem(invSlot)
+		if(!theItem):
+			continue
+		var theTargets := theItem.getLeashTargets()
+		var theAr:Array[int] = [GENERIC_CLOTHING, invSlot]
+		for leashPointID in theTargets:
+			result[leashPointID] = theAr
+	
+	return result
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

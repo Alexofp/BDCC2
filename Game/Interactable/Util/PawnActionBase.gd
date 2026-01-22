@@ -6,6 +6,7 @@ var alwaysCheckedSelf:bool = false
 var alwaysCheckedOtherPawn:bool = false
 var alwaysCheckedSelfQuickAction:bool = false
 var alwaysCheckedOtherPawnQuickAction:bool = false
+var alwaysPriority:int = 0 # Higher priority -> higher in the list
 
 var checkDoingAnyActions:bool = true
 var checkIsTargetOfAnyAciton:bool = true

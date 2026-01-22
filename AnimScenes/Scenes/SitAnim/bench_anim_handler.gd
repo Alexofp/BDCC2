@@ -18,6 +18,9 @@ func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 		#]))
 	category.interactEntries.append_array(getQuickInteractActions(_pawn))
 	
+	category.addSitPropLeashedActions(_pawn, "left", "Make $$$ sit (left)")
+	category.addSitPropLeashedActions(_pawn, "right", "Make $$$ sit (right)")
+	
 	return category
 
 func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:

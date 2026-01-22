@@ -69,6 +69,18 @@ func checkPoint():
 func getLeashPoint() -> LeashPoint:
 	return leashPoint
 
+func shouldConnectionBreak() -> bool:
+	if(mode == MODE_PAWN_LEASHPOINT):
+		if(!pawn):
+			return true
+		var theChar := pawn.getCharacter()
+		if(theChar && !theChar.hasLeashingPoint(pawnLeashPoint)):
+			return true
+	elif(mode == MODE_LEASHPOINT):
+		if(!leashPoint || !is_instance_valid(leashPoint)):
+			return true
+	return false
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.U8, mode,

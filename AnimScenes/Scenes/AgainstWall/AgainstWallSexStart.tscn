@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dgmbk4qnmcw6y"]
+
+[ext_resource type="Script" uid="uid://cq3rpvkxjrxq7" path="res://AnimScenes/Scenes/AgainstWall/AgainstWallSexStart.gd" id="1_mrqix"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_532e0"]
+
+[node name="AgainstWallSexStart" type="Node3D" unique_id=931339248]
+script = ExtResource("1_mrqix")
+
+[node name="SitSpot" parent="." unique_id=2056142771 instance=ExtResource("2_532e0")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." unique_id=643641647 instance=ExtResource("2_532e0")]
+unique_name_in_owner = true

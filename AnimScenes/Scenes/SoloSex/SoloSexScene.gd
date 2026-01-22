@@ -3,7 +3,7 @@ extends AnimSceneBase
 @onready var sit_spot: PoseSpot = %SitSpot
 
 func _init() -> void:
-	id = "solo_sex"
+	id = "SoloSexScene"
 
 func setupScene() -> void:
 	addSeat("dom", sit_spot)

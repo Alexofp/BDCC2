@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bm38mwknxmqbe"]
+
+[ext_resource type="Script" uid="uid://de2gru2u2d37a" path="res://Game/GameInteractor/Util/wall_checker.gd" id="1_ig7oy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_da8av"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="PrismMesh" id="PrismMesh_ig7oy"]
+size = Vector3(0.195, 0.195, 0.195)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1j87y"]
+albedo_color = Color(0.67058825, 0.31764707, 0.34901962, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7oy"]
+albedo_color = Color(0.67058825, 0.9843137, 0.34901962, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7oy"]
+size = Vector3(0.67285156, 1.7608643, 0.6793213)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_da8av"]
+radius = 0.05
+height = 0.641
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1j87y"]
+size = Vector3(0.673, 0.5957468, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vo776"]
+size = Vector3(0.673, 0.61816406, 0.05)
+
+[node name="WallChecker" type="Node3D" unique_id=1636613646]
+script = ExtResource("1_ig7oy")
+
+[node name="WallCheckerEnd" type="Marker3D" parent="." unique_id=1158430660]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.216, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallCheckerEnd" unique_id=1882896616]
+visible = false
+mesh = SubResource("SphereMesh_da8av")
+
+[node name="WallCheckerStart" type="Marker3D" parent="." unique_id=214453364]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.216, -0.107)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="WallCheckerStart" unique_id=1602780667]
+visible = false
+mesh = SubResource("SphereMesh_da8av")
+
+[node name="WallPointMesh" type="MeshInstance3D" parent="." unique_id=1559573356]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("PrismMesh_ig7oy")
+surface_material_override/0 = SubResource("StandardMaterial3D_1j87y")
+
+[node name="FloorMarker" type="Marker3D" parent="." unique_id=863776626]
+unique_name_in_owner = true
+
+[node name="FloorPointMesh" type="MeshInstance3D" parent="FloorMarker" unique_id=1742677731]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("PrismMesh_ig7oy")
+surface_material_override/0 = SubResource("StandardMaterial3D_ig7oy")
+
+[node name="FreeSpaceShape" type="CollisionShape3D" parent="FloorMarker" unique_id=1413187772]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.906, -0.375)
+shape = SubResource("BoxShape3D_ig7oy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloorMarker/FreeSpaceShape" unique_id=1673312855]
+visible = false
+mesh = SubResource("CapsuleMesh_da8av")
+
+[node name="MustBeFilledSpace" type="CollisionShape3D" parent="FloorMarker" unique_id=853050524]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.206, 0.042)
+shape = SubResource("BoxShape3D_1j87y")
+
+[node name="MustBeFilledSpace2" type="CollisionShape3D" parent="FloorMarker" unique_id=2011792543]
+unique_name_in_owner = true
+transform = Transform3D(1, -4.371139e-08, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, -4.371139e-08, -1, -4.3711385e-08, 0, -0.018, -0.376)
+shape = SubResource("BoxShape3D_vo776")
+
+[node name="FinalPosMarker" type="Marker3D" parent="FloorMarker" unique_id=1435564439]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

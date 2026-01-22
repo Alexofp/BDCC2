@@ -40,10 +40,17 @@ func getPenetrateZone() -> int:
 		return ZoneCover.Vagina
 	return ZoneCover.Anus
 
+# Do this based on pose availability instead
+const SUPPORTED_ACTIVITIES = [
+	SexType.OnTheFloor,
+	SexType.InStocks,
+	SexType.AgainstWall,
+]
+
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
-	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor && _sexEngine.getSexTypeID() != SexType.InStocks): #Check if we have 'animations' for this sex type instead?
+	if(!SUPPORTED_ACTIVITIES.has(_sexEngine.getSexTypeID())):
 		return false
 	return true
 

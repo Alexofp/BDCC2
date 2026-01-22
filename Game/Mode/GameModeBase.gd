@@ -139,5 +139,7 @@ func askSwitchToCharID_SERVERRPC(newPawnID:String):
 	else:
 		myInfo.sendToChat("This character is already controlled by another player.")
 
+
+
 func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = Vector3(0.0, 0.0, 0.0)):
 	GM.dollHolder.checkOutOfBoundsCharacters(_lowPoint, _resetPoint)

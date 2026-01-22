@@ -14,6 +14,8 @@ func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	category.categoryName = categoryName
 	category.interactEntries.append(InteractEntryDo.create("SitProp", ["dom",]))
 	
+	category.addSitPropLeashedActions(_pawn, "dom", "Make $$$ sit")
+	
 	return category
 
 func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:

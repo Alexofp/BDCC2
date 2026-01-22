@@ -117,7 +117,8 @@ func updateLeashPoints():
 		visibleLeash.setPoints(p1, p2)
 
 func _physics_process(_delta: float) -> void:
-	if(!p1 || !p2 || !is_instance_valid(p1) || !is_instance_valid(p2)):
+	# || p1con.shouldConnectionBreak() # Should be added back?
+	if(!p1 || !p2 || !is_instance_valid(p1) || !is_instance_valid(p2) || p2con.shouldConnectionBreak()):
 		if(Network.isServer()):
 			queue_free()
 		return
@@ -170,6 +171,21 @@ func pullTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _m
 
 func isTargetAPawn() -> bool:
 	return p2con.getCacheNode() is CharacterPawn
+
+func getTargetPawn() -> CharacterPawn:
+	var thePawn := p2con.getCacheNode()
+	if(thePawn is CharacterPawn):
+		return thePawn
+	return null
+
+func isSourceAPawn() -> bool:
+	return p1con.getCacheNode() is CharacterPawn
+
+func getSourcePawn() -> CharacterPawn:
+	var thePawn := p1con.getCacheNode()
+	if(thePawn is CharacterPawn):
+		return thePawn
+	return null
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

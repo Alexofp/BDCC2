@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cdiabd85ajb0x"]
+
+[ext_resource type="Script" uid="uid://cdu16x243jacc" path="res://AnimScenes/Scenes/SoloSex/AgainstWallSolo.gd" id="1_3gty4"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_bms8v"]
+
+[node name="AgainstWallSolo" type="Node3D" unique_id=931339248]
+script = ExtResource("1_3gty4")
+
+[node name="SitSpot" parent="." unique_id=2056142771 instance=ExtResource("2_bms8v")]
+unique_name_in_owner = true
