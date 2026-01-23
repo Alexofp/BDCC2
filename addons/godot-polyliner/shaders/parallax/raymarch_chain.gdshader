@@ -47,6 +47,16 @@ vec3 opRep( in vec3 p, in vec3 c )
     vec3 q = mod(p+0.5*c,c)-0.5*c;
     return q;
 }
+// BDCC2 FIX. THIS MAKES THE SHADER WORK FOR AMD GPUS
+// https://github.com/godotengine/godot/issues/110425
+// https://github.com/godotengine/godot/pull/110437
+vec3 opRep_safe_compact(in vec3 p, in vec3 c)
+{
+    const float EPS = 1e-6;
+    vec3 denom = max(abs(c), vec3(EPS)); // never zero
+    vec3 flo = floor((p + 0.5 * c) / denom);
+    return p - c * flo;
+}
 
 uniform float link_radius = 0.15;
 uniform float link_thickness = 0.05;
@@ -60,7 +70,7 @@ float sdLink( vec3 p, float le ) {
 }
 
 float scene(vec3 p){
-	p = opRep(p,vec3(repeat_size+repeat_size_b,0.0,0.0));
+	p = opRep_safe_compact(p,vec3(repeat_size+repeat_size_b,0.0,0.0));
 	p.x = p.x - clamp(p.x,-repeat_size_b,repeat_size_b);
 	p.x = clamp(p.x,-0.5,0.5);
 	
