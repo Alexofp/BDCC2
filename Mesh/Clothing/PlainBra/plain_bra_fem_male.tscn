@@ -1,26 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://bes56e80lqmir"]
+[gd_scene format=3 uid="uid://bes56e80lqmir"]
 
 [ext_resource type="PackedScene" uid="uid://385hh531uvbw" path="res://Mesh/Clothing/PlainBra/PlainBraMale.glb" id="1_frv7c"]
 [ext_resource type="Script" uid="uid://c4vuust7s0wkv" path="res://Mesh/Clothing/PlainBra/plain_bra_fem.gd" id="2_s1hdl"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q8dgw"]
-[ext_resource type="Material" uid="uid://bouxov0qki3uu" path="res://Mesh/Clothing/PlainBra/plain_bra_fem.tres" id="4_4xqmi"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="4_4xqmi"]
+[ext_resource type="Texture2D" uid="uid://dkbjre0ntq3oq" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_BaseColor.png" id="5_j03ge"]
+[ext_resource type="Texture2D" uid="uid://cilu0a8egis1u" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_Normal.png" id="6_kq1ge"]
+[ext_resource type="Texture2D" uid="uid://dkpbtmesjifn2" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_ORM.png" id="7_s7ywq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxdol"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_4xqmi")
+shader_parameter/texture_albedo = ExtResource("5_j03ge")
+shader_parameter/texture_normal = ExtResource("6_kq1ge")
+shader_parameter/texture_orm = ExtResource("7_s7ywq")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.3
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="PlainBraFemMale" unique_id=258978249 instance=ExtResource("1_frv7c")]
 script = ExtResource("2_s1hdl")
 
-[node name="rig" parent="." index="0" unique_id=309334738 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=894403087 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_q8dgw")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainBra"), NodePath("Skeleton3D/PlainBraPulledDown")]
 
-[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(503498047) index="0" unique_id=2138641066]
+[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(62731452) index="0" unique_id=2064018507]
 unique_name_in_owner = true
 lod_bias = 3.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_4xqmi")
+surface_material_override/0 = SubResource("ShaderMaterial_vxdol")
 
-[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(503498047) index="1" unique_id=1185437696]
+[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(62731452) index="1" unique_id=511897631]
 unique_name_in_owner = true
 lod_bias = 3.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_4xqmi")
+surface_material_override/0 = SubResource("ShaderMaterial_vxdol")

@@ -3,11 +3,63 @@
 [ext_resource type="PackedScene" uid="uid://dnn0u208ujvi4" path="res://Mesh/Parts/Tail/HugeFluffyTail/HugeFluffyTail.glb" id="1_8st76"]
 [ext_resource type="Script" uid="uid://dqg35qyqe1kyj" path="res://Mesh/Parts/Tail/HugeFluffyTail/huge_fluffy_tail.gd" id="2_f7yk4"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_2idjp"]
+[ext_resource type="Shader" uid="uid://cdb2moas3j24i" path="res://Mesh/Shaders/Doll_skeleton/ORMFreshnelRimlightShader.gdshader" id="4_4o8jh"]
 [ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/LongTail/TailSkeletonModifier.gd" id="4_08j2m"]
-[ext_resource type="Material" uid="uid://43r531eotqt8" path="res://Mesh/Parts/Tail/HugeFluffyTail/BowMat.tres" id="4_itf7j"]
-[ext_resource type="Material" uid="uid://df0pk310l2ktn" path="res://Mesh/Parts/Tail/HugeFluffyTail/HugeTailMat.tres" id="5_itf7j"]
+[ext_resource type="Texture2D" uid="uid://b7b81qrifjid6" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_BaseColor.png" id="5_e1usu"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_n5p55"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_itf7j"]
+[ext_resource type="Texture2D" uid="uid://ccrvvq6swogls" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_Normal.png" id="6_mc123"]
+[ext_resource type="Texture2D" uid="uid://d1st1m4vvtior" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Bow_ORM.png" id="7_30ne1"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="8_fxdt6"]
+[ext_resource type="Texture2D" uid="uid://blsu2hqv4axac" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_BaseColor.png" id="9_x6dtw"]
+[ext_resource type="Texture2D" uid="uid://b83w5hlmvbtj5" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_Normal.png" id="10_t5cjm"]
+[ext_resource type="Texture2D" uid="uid://tgx7fp83n8ng" path="res://Mesh/Parts/Tail/HugeFluffyTail/Textures/HugeFluffyTail_low_Tail_ORM.png" id="11_un1k1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7ybt"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_4o8jh")
+shader_parameter/texture_albedo = ExtResource("5_e1usu")
+shader_parameter/texture_normal = ExtResource("6_mc123")
+shader_parameter/texture_orm = ExtResource("7_30ne1")
+shader_parameter/albedo = Color(1, 0.39607844, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.5690000270275
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0, 0, 0, 0)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n7dtc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_fxdt6")
+shader_parameter/texture_albedo = ExtResource("9_x6dtw")
+shader_parameter/texture_normal = ExtResource("10_t5cjm")
+shader_parameter/texture_orm = ExtResource("11_un1k1")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="Resource" id="Resource_nm3h4"]
 script = ExtResource("6_itf7j")
@@ -24,15 +76,15 @@ attachPoint = "tail"
 
 [node name="Band" parent="HugeFluffyTailRig/Skeleton3D" parent_id_path=PackedInt32Array(1397639983) index="0" unique_id=1879561653]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_itf7j")
+surface_material_override/0 = SubResource("ShaderMaterial_k7ybt")
 
 [node name="Bow" parent="HugeFluffyTailRig/Skeleton3D" parent_id_path=PackedInt32Array(1397639983) index="1" unique_id=771559276]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_itf7j")
+surface_material_override/0 = SubResource("ShaderMaterial_k7ybt")
 
 [node name="HugeFluffyTail" parent="HugeFluffyTailRig/Skeleton3D" parent_id_path=PackedInt32Array(1397639983) index="2" unique_id=1015443147]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("5_itf7j")
+surface_material_override/0 = SubResource("ShaderMaterial_n7dtc")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="HugeFluffyTailRig/Skeleton3D" parent_id_path=PackedInt32Array(1397639983) index="3" unique_id=694827424]
 unique_name_in_owner = true

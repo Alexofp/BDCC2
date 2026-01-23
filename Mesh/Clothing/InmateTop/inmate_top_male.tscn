@@ -1,24 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://byrvy8044bapd"]
+[gd_scene format=3 uid="uid://byrvy8044bapd"]
 
 [ext_resource type="PackedScene" uid="uid://cobwbuad4o486" path="res://Mesh/Clothing/InmateTop/InmateTopMale.glb" id="1_1ct3h"]
 [ext_resource type="Script" uid="uid://bgrf3cjus0c1m" path="res://Mesh/Clothing/InmateTop/inmate_top.gd" id="2_bjk5y"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_aeq1g"]
-[ext_resource type="Material" uid="uid://cy5ku31rbarkv" path="res://Mesh/Clothing/InmateTop/inmateTopMat.tres" id="4_wisyt"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="4_h2vwb"]
+[ext_resource type="Texture2D" uid="uid://bftci7hrdk8rq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_BaseColor.png" id="5_6a8di"]
+[ext_resource type="Texture2D" uid="uid://bckwvs0pckpsm" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Emit.png" id="6_0rhlh"]
+[ext_resource type="Texture2D" uid="uid://bmy4bgb43cuuq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Normal.png" id="7_bek7f"]
+[ext_resource type="Texture2D" uid="uid://hcu5o103lkx4" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png" id="8_g562p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tn35a"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_h2vwb")
+shader_parameter/texture_albedo = ExtResource("5_6a8di")
+shader_parameter/texture_normal = ExtResource("7_bek7f")
+shader_parameter/texture_orm = ExtResource("8_g562p")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.41999999061216
+shader_parameter/rim_tint = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("6_0rhlh")
+shader_parameter/color_mask_r = Color(0.26, 0.26, 0.26, 1)
+shader_parameter/color_mask_g = Color(0.32, 0.117333, 0, 1)
+shader_parameter/color_mask_b = Color(1, 0.4, 0, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="InmateTopMale" unique_id=382904118 instance=ExtResource("1_1ct3h")]
 script = ExtResource("2_bjk5y")
 
-[node name="rig" parent="." index="0" unique_id=1280556275 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=995480913 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_aeq1g")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/InmateTop"), NodePath("Skeleton3D/InmateTop_PulledUp")]
 
-[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1103241819) index="0" unique_id=898916909]
+[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(2048781190) index="0" unique_id=2139419013]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_wisyt")
+surface_material_override/0 = SubResource("ShaderMaterial_tn35a")
 
-[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1103241819) index="1" unique_id=338971247]
+[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(2048781190) index="1" unique_id=116014835]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_wisyt")
+surface_material_override/0 = SubResource("ShaderMaterial_tn35a")

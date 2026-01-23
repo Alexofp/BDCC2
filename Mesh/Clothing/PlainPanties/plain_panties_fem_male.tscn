@@ -1,26 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1vw23tojwp1l"]
+[gd_scene format=3 uid="uid://c1vw23tojwp1l"]
 
 [ext_resource type="PackedScene" uid="uid://b5pplgn5lfsgr" path="res://Mesh/Clothing/PlainPanties/PlainPantiesMale.glb" id="1_bdhb1"]
 [ext_resource type="Script" uid="uid://cairtxrgv7o6k" path="res://Mesh/Clothing/PlainPanties/plain_panties.gd" id="2_3suvy"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q3c7q"]
-[ext_resource type="Material" uid="uid://c6ywib8afnxbd" path="res://Mesh/Clothing/PlainPanties/plain_panties_fem.tres" id="4_f5tfa"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="4_f5tfa"]
+[ext_resource type="Texture2D" uid="uid://3wxcdtyhhvfc" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_BaseColor.png" id="5_75lon"]
+[ext_resource type="Texture2D" uid="uid://b0xtn1u1eqw3t" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_Normal.png" id="6_uk14b"]
+[ext_resource type="Texture2D" uid="uid://boutdhv2e52jj" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_ORM.png" id="7_d8pr2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_io0wg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_f5tfa")
+shader_parameter/texture_albedo = ExtResource("5_75lon")
+shader_parameter/texture_normal = ExtResource("6_uk14b")
+shader_parameter/texture_orm = ExtResource("7_d8pr2")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.3
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="PlainPantiesFemMale" unique_id=2094186892 instance=ExtResource("1_bdhb1")]
 script = ExtResource("2_3suvy")
 
-[node name="rig" parent="." index="0" unique_id=115442529 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=425410232 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_q3c7q")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainPanties"), NodePath("Skeleton3D/PlainPantiesShifted")]
 
-[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(41186243) index="0" unique_id=1249994080]
+[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1193030178) index="0" unique_id=941934034]
 unique_name_in_owner = true
 lod_bias = 3.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_f5tfa")
+surface_material_override/0 = SubResource("ShaderMaterial_io0wg")
 
-[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(41186243) index="1" unique_id=742943718]
+[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1193030178) index="1" unique_id=471357592]
 unique_name_in_owner = true
 lod_bias = 3.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = ExtResource("4_f5tfa")
+surface_material_override/0 = SubResource("ShaderMaterial_io0wg")

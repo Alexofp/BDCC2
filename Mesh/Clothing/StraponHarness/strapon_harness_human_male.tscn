@@ -60,21 +60,21 @@ script = ExtResource("3_op3r0")
 attachPoint = "body"
 skeletonMeshes = [NodePath("rig/Skeleton3D/StraponHarness")]
 
-[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 1446230573) index="0" unique_id=1665734338]
+[node name="StraponHarness" parent="StraponHarness/rig/Skeleton3D" parent_id_path=PackedInt32Array(1004565577, 138216542) index="0" unique_id=297807550]
 blend_shapes/FML = 1.0
 surface_material_override/0 = ExtResource("4_iffww")
 
 [node name="StraponBasic" parent="." unique_id=1755005206 instance=ExtResource("5_a13pa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.450581e-09)
 
-[node name="StraponPenisRig" parent="StraponBasic" index="0" unique_id=688525745]
+[node name="StraponPenisRig" parent="StraponBasic" index="0" unique_id=635808753]
 script = ExtResource("3_op3r0")
 attachPoint = "strapon"
 
-[node name="HumanDildo" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="0" unique_id=684812650]
+[node name="HumanDildo" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="0" unique_id=820598359]
 surface_material_override/0 = SubResource("ShaderMaterial_y380b")
 
-[node name="Wiggle1" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="1" unique_id=1659369926]
+[node name="Wiggle1" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="1" unique_id=1659369926]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -96,7 +96,7 @@ bone_name = "penis.001"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="2" unique_id=913026460]
+[node name="Wiggle2" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="2" unique_id=913026460]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -118,7 +118,7 @@ bone_name = "penis.002"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="3" unique_id=921238103]
+[node name="Wiggle3" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="3" unique_id=921238103]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -140,7 +140,7 @@ bone_name = "penis.003"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle4" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="4" unique_id=1558519616]
+[node name="Wiggle4" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="4" unique_id=1558519616]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -162,7 +162,7 @@ bone_name = "penis.004"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle5" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="5" unique_id=625046860]
+[node name="Wiggle5" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="5" unique_id=625046860]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -184,7 +184,7 @@ bone_name = "penis.005"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle6" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="6" unique_id=140660369]
+[node name="Wiggle6" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="6" unique_id=140660369]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -206,17 +206,17 @@ bone_name = "penis.006"
 properties = SubResource("Resource_lh7kc")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ShaftNode" type="Marker3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="7" unique_id=862818939]
+[node name="ShaftNode" type="Marker3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="7" unique_id=862818939]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0031350255, 0.0010337234)
 
-[node name="GuidePath" type="Path3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="8" unique_id=319134830 node_paths=PackedStringArray("shaftNode")]
+[node name="GuidePath" type="Path3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="8" unique_id=319134830 node_paths=PackedStringArray("shaftNode")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0028793216, 0.0101404935)
 curve = SubResource("Curve3D_socsx")
 script = ExtResource("9_inkhp")
 shaftNode = NodePath("../ShaftNode")
 
-[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="9" unique_id=2126508561]
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="9" unique_id=2126508561]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -239,7 +239,7 @@ chainLength = 6
 ballsBone = "root"
 metadata/_custom_type_script = "uid://clc1kuop8qcgb"
 
-[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 1176689442) index="10" unique_id=1331931281 node_paths=PackedStringArray("targetPath")]
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 842522079) index="10" unique_id=1331931281 node_paths=PackedStringArray("targetPath")]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0

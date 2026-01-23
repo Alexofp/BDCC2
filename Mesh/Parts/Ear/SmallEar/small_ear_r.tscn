@@ -10,9 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cyrt1ec2yoal5" path="res://Mesh/Parts/Ear/SmallEar/Textures/SmallEarSubstance_Ear_ORM.png" id="8_2ny43"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="8_gnb5r"]
 [ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="8_i17as"]
-[ext_resource type="Material" uid="uid://bjg5e34tcybd" path="res://Mesh/Parts/Ear/SmallEar/SmallEarFluffMat.tres" id="8_nkw3c"]
+[ext_resource type="Shader" uid="uid://btqudu3i7uyey" path="res://Mesh/Shaders/Doll_skeleton/BasicTransparentShader.gdshader" id="8_nkw3c"]
+[ext_resource type="Texture2D" uid="uid://cdy7hljqsp63n" path="res://Mesh/Parts/Ear/SmallEar/Textures/Fluff.png" id="9_xuqlt"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xuqlt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wximp"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_i17as")
@@ -35,7 +36,23 @@ shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wximp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2uy08"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_nkw3c")
+shader_parameter/texture_albedo = ExtResource("9_xuqlt")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ny43"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("8_i17as")
@@ -69,13 +86,13 @@ script = ExtResource("3_i7w7m")
 attachPoint = "ear.R"
 
 [node name="EarR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="0" unique_id=1658818523]
-surface_material_override/0 = SubResource("ShaderMaterial_xuqlt")
+surface_material_override/0 = SubResource("ShaderMaterial_wximp")
 
 [node name="InnerFluffR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="1" unique_id=957608739]
-surface_material_override/0 = ExtResource("8_nkw3c")
+surface_material_override/0 = SubResource("ShaderMaterial_2uy08")
 
 [node name="TasselsR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="2" unique_id=518476247]
-surface_material_override/0 = SubResource("ShaderMaterial_wximp")
+surface_material_override/0 = SubResource("ShaderMaterial_2ny43")
 
 [node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(1464082483) index="3" unique_id=516388925]
 unique_name_in_owner = false

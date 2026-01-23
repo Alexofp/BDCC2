@@ -1,9 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://c06kh1m3ehtcp"]
+[gd_scene format=3 uid="uid://c06kh1m3ehtcp"]
 
 [ext_resource type="Script" uid="uid://km478dwj2c27" path="res://Mesh/Parts/Horn/Horn1/horn1.gd" id="1_1qxlh"]
 [ext_resource type="PackedScene" uid="uid://nl0005t5vkgj" path="res://Mesh/Parts/Horn/HornChaos/HornChaosR.glb" id="2_1ixpu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_7ilw4"]
-[ext_resource type="Material" uid="uid://bbpuaid6txlg4" path="res://Mesh/Parts/Horn/HornChaos/HornChaosMat.tres" id="4_1ixpu"]
+[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Shaders/Doll_static/Horn.gdshader" id="4_j3fcd"]
+[ext_resource type="Texture2D" uid="uid://q3sjvtw8cinf" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_BaseColor.png" id="5_kl48n"]
+[ext_resource type="Texture2D" uid="uid://b1414x0tg03d5" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_Normal.png" id="6_3mir3"]
+[ext_resource type="Texture2D" uid="uid://d4gim8rwamfdn" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_ORM.png" id="7_n5rer"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oefnt"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_j3fcd")
+shader_parameter/texture_albedo = ExtResource("5_kl48n")
+shader_parameter/texture_normal = ExtResource("6_3mir3")
+shader_parameter/texture_orm = ExtResource("7_n5rer")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [node name="HornChaosR" type="Node3D" unique_id=755143564 node_paths=PackedStringArray("hornMesh")]
 script = ExtResource("1_1qxlh")
@@ -14,8 +37,8 @@ unique_name_in_owner = true
 script = ExtResource("3_7ilw4")
 attachPoint = "horn.R"
 
-[node name="HornChaos_001" parent="Horn" index="0" unique_id=167433426]
+[node name="HornChaos_001" parent="Horn" index="0" unique_id=1994476646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-surface_material_override/0 = ExtResource("4_1ixpu")
+surface_material_override/0 = SubResource("ShaderMaterial_oefnt")
 
 [editable path="Horn"]

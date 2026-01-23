@@ -3,7 +3,35 @@
 [ext_resource type="PackedScene" uid="uid://birjh62bm1tlv" path="res://Mesh/Clothing/InmateShorts/InmateShorts.glb" id="1_fe205"]
 [ext_resource type="Script" uid="uid://b548st4e24ufb" path="res://Mesh/Clothing/InmateShorts/InmateShorts.gd" id="2_rmhub"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_g06s3"]
-[ext_resource type="Material" uid="uid://ravkpurwk0ho" path="res://Mesh/Clothing/InmateShorts/shortsMat.tres" id="4_xotcu"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="4_6e24e"]
+[ext_resource type="Texture2D" uid="uid://dqjpupjq5lkng" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_BaseColor.png" id="5_78lmt"]
+[ext_resource type="Texture2D" uid="uid://btr155epfxli3" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_Emit.png" id="6_umut4"]
+[ext_resource type="Texture2D" uid="uid://d2lavghuqbe41" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_Normal.png" id="7_6khts"]
+[ext_resource type="Texture2D" uid="uid://bvuii28kgnhae" path="res://Mesh/Clothing/InmateShorts/Textures/Shorts_low_DefaultMaterial_ORM.png" id="8_imn5u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_msc5v"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_6e24e")
+shader_parameter/texture_albedo = ExtResource("5_78lmt")
+shader_parameter/texture_normal = ExtResource("7_6khts")
+shader_parameter/texture_orm = ExtResource("8_imn5u")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 1.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("6_umut4")
+shader_parameter/color_mask_r = Color(0.26, 0.26, 0.26, 1)
+shader_parameter/color_mask_g = Color(0.32, 0.117333, 0, 1)
+shader_parameter/color_mask_b = Color(1, 0.4, 0, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="InmateShorts" unique_id=563789288 instance=ExtResource("1_fe205")]
 script = ExtResource("2_rmhub")
@@ -15,8 +43,8 @@ skeletonMeshes = [NodePath("Skeleton3D/Shorts"), NodePath("Skeleton3D/Shorts_Pul
 
 [node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1692129254) index="0" unique_id=1769538655]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_xotcu")
+surface_material_override/0 = SubResource("ShaderMaterial_msc5v")
 
 [node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1692129254) index="1" unique_id=355179158]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_xotcu")
+surface_material_override/0 = SubResource("ShaderMaterial_msc5v")

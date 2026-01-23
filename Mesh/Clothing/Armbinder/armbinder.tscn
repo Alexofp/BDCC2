@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgx8p2f48oa1j"]
+[gd_scene format=3 uid="uid://bgx8p2f48oa1j"]
 
 [ext_resource type="PackedScene" uid="uid://sgbo8xpu1ebd" path="res://Mesh/Clothing/Armbinder/Armbinder.glb" id="1_bisdq"]
 [ext_resource type="Script" uid="uid://w4hu85iubrvn" path="res://Mesh/Clothing/Armbinder/armbinder.gd" id="2_bisdq"]
@@ -8,10 +8,10 @@
 [node name="ArmBinder" unique_id=739154577 instance=ExtResource("1_bisdq")]
 script = ExtResource("2_bisdq")
 
-[node name="rigArmbinder" parent="." index="0" unique_id=130147558 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rigArmbinder" parent="." index="0" unique_id=1931939321 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_xbjo8")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Armbinder")]
 
-[node name="Armbinder" parent="rigArmbinder/Skeleton3D" parent_id_path=PackedInt32Array(834307282) index="0" unique_id=1032107869]
+[node name="Armbinder" parent="rigArmbinder/Skeleton3D" parent_id_path=PackedInt32Array(1637218567) index="0" unique_id=1763648838]
 surface_material_override/0 = ExtResource("4_wdpr0")

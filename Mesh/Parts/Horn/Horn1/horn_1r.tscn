@@ -1,9 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdj7r5t7gvkwk"]
+[gd_scene format=3 uid="uid://cdj7r5t7gvkwk"]
 
 [ext_resource type="PackedScene" uid="uid://dkvfphn15jtlx" path="res://Mesh/Parts/Horn/Horn1/Horn1R.glb" id="1_n8bxl"]
 [ext_resource type="Script" uid="uid://km478dwj2c27" path="res://Mesh/Parts/Horn/Horn1/horn1.gd" id="2_n8bxl"]
-[ext_resource type="Material" uid="uid://f308xgf67sd7" path="res://Mesh/Parts/Horn/Horn1/HornMat.tres" id="3_1mly8"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="4_43nay"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="4_rms7k"]
+[ext_resource type="Shader" uid="uid://cucinopi73ecg" path="res://Mesh/Shaders/Doll_static/Horn.gdshader" id="5_4sft5"]
+[ext_resource type="Texture2D" uid="uid://boxgf5yrh6o5g" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_BaseColor.png" id="6_j8e48"]
+[ext_resource type="Texture2D" uid="uid://my7dgwrf0lsh" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_Normal.png" id="7_1tecc"]
+[ext_resource type="Texture2D" uid="uid://vtq3g40f7u27" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_ORM.png" id="8_ojpdu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1ybl"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_4sft5")
+shader_parameter/texture_albedo = ExtResource("6_j8e48")
+shader_parameter/texture_normal = ExtResource("7_1tecc")
+shader_parameter/texture_orm = ExtResource("8_ojpdu")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("4_rms7k")
+normalMap = 1
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="Horn1R" type="Node3D" unique_id=318816727 node_paths=PackedStringArray("hornMesh")]
 script = ExtResource("2_n8bxl")
@@ -13,7 +42,7 @@ hornMesh = NodePath("Horn1R2/Horn1R")
 script = ExtResource("4_43nay")
 attachPoint = "horn.R"
 
-[node name="Horn1R" parent="Horn1R2" index="0" unique_id=1975150690]
-surface_material_override/0 = ExtResource("3_1mly8")
+[node name="Horn1R" parent="Horn1R2" index="0" unique_id=509742790]
+surface_material_override/0 = SubResource("ShaderMaterial_r1ybl")
 
 [editable path="Horn1R2"]

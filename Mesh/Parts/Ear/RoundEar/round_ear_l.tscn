@@ -1,12 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://da8aqtm5ct3qj"]
+[gd_scene format=3 uid="uid://da8aqtm5ct3qj"]
 
 [ext_resource type="PackedScene" uid="uid://dgf1ivcgdlqkn" path="res://Mesh/Parts/Ear/RoundEar/RoundEarL.glb" id="1_kcilx"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_el3go"]
 [ext_resource type="Script" uid="uid://y8tcssdecwwp" path="res://Mesh/Parts/Ear/RoundEar/round_ear.gd" id="2_oh0h5"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="3_oh0h5"]
-[ext_resource type="Material" uid="uid://ctb18ly6e8ug5" path="res://Mesh/Parts/Ear/RoundEar/EarMat.tres" id="4_60tp3"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_eb2vy"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="4_qygs0"]
-[ext_resource type="Material" uid="uid://dhs44blxi450c" path="res://Mesh/Parts/Ear/RoundEar/FluffMat.tres" id="6_qygs0"]
+[ext_resource type="Texture2D" uid="uid://crvw0lmdeurxi" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_BaseColor.png" id="5_iwnlp"]
+[ext_resource type="Texture2D" uid="uid://b8s7g2q4ltxko" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_Normal.png" id="6_k1aok"]
+[ext_resource type="Texture2D" uid="uid://dl14ic1hmluk6" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_ORM.png" id="7_2gftf"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="10_p1hm4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6bsp"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_eb2vy")
+shader_parameter/texture_albedo = ExtResource("5_iwnlp")
+shader_parameter/texture_normal = ExtResource("6_k1aok")
+shader_parameter/texture_orm = ExtResource("7_2gftf")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3019608, 0.3019608, 0.3019608, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="Resource" id="Resource_60tp3"]
 script = ExtResource("4_qygs0")
@@ -15,20 +41,34 @@ linear_scale = 652.683
 swing_span = 1.5708
 metadata/_custom_type_script = ExtResource("4_qygs0")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3t0o"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("10_p1hm4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
 [node name="RoundEarL" unique_id=47224418 node_paths=PackedStringArray("ear", "earFluff") instance=ExtResource("1_kcilx")]
 script = ExtResource("2_oh0h5")
 ear = NodePath("RoundEarRig/Skeleton3D/RoundEar")
 earFluff = NodePath("RoundEarRig/Skeleton3D/RoundEarFluff")
 
-[node name="RoundEarRig" parent="." index="0" unique_id=343048540]
+[node name="RoundEarRig" parent="." index="0" unique_id=1916240614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_el3go")
 attachPoint = "ear.L"
 
-[node name="RoundEar" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2016377667) index="0" unique_id=1743307456]
-surface_material_override/0 = ExtResource("4_60tp3")
+[node name="RoundEar" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="0" unique_id=1178953878]
+surface_material_override/0 = SubResource("ShaderMaterial_l6bsp")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2016377667) index="1" unique_id=847200829]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="1" unique_id=847200829]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -50,5 +90,5 @@ bone_name = "Ear.L"
 properties = SubResource("Resource_60tp3")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="RoundEarFluff" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2016377667) index="2" unique_id=946456764]
-surface_material_override/0 = ExtResource("6_qygs0")
+[node name="RoundEarFluff" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="2" unique_id=1869998559]
+surface_material_override/0 = SubResource("ShaderMaterial_i3t0o")

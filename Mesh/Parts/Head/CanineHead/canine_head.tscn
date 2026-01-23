@@ -3,23 +3,141 @@
 [ext_resource type="PackedScene" uid="uid://ctgsof4ffmbcx" path="res://Mesh/Parts/Head/CanineHead/CanineHead.glb" id="1_mumah"]
 [ext_resource type="Script" uid="uid://b1ogwre4e5ios" path="res://Mesh/Parts/Head/CanineHead/canine_head.gd" id="2_gedrh"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_p4cjj"]
-[ext_resource type="Material" uid="uid://bqrhnn81pvihm" path="res://Mesh/Parts/Head/FelineHead/HeadMat.tres" id="4_3axi8"]
+[ext_resource type="Shader" uid="uid://bs45qah1yi1l1" path="res://Mesh/Shaders/Doll_skeleton/FurryMessShader.gdshader" id="4_ducgx"]
 [ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="4_eq6bc"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="4_qelme"]
-[ext_resource type="Material" uid="uid://c2hc7l0jpere0" path="res://Mesh/SharedMaterials/Doll/EyeBrowsMat.tres" id="4_yb4lr"]
 [ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="5_eq6bc"]
-[ext_resource type="Material" uid="uid://2x7f3l3k1dnr" path="res://Mesh/Parts/Head/CanineHead/MouthMat.tres" id="5_l32rm"]
-[ext_resource type="Material" uid="uid://bukykanm7r26f" path="res://Mesh/SharedMaterials/Doll/EyelashesBigMat.tres" id="6_3axi8"]
-[ext_resource type="Material" uid="uid://crsv57v2tbwqk" path="res://Mesh/SharedMaterials/Doll/EyeMat.tres" id="6_l32rm"]
+[ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="5_hincg"]
+[ext_resource type="Texture2D" uid="uid://727s74chbogh" path="res://Mesh/Parts/Head/FelineHead/Textures/CumMask_Face.png" id="6_2ruk7"]
+[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/Mouth.gdshader" id="7_nar23"]
+[ext_resource type="Texture2D" uid="uid://cypxpcqle02xc" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_BaseColor.png" id="8_p4m0d"]
+[ext_resource type="Texture2D" uid="uid://jgf05togs6c7" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Emit.png" id="9_pb1sg"]
+[ext_resource type="Texture2D" uid="uid://ce2olbj4piybd" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_Normal.png" id="10_hmd81"]
+[ext_resource type="Texture2D" uid="uid://cri0hl4a72srf" path="res://Mesh/Parts/Head/CanineHead/Textures/Mouth/MyCanineMouthV2_low_CanineMouth_ORM.png" id="11_5okuk"]
+[ext_resource type="Shader" uid="uid://v0qxdwifa301" path="res://Mesh/Shaders/Doll_skeleton/CutOutFeature.gdshader" id="12_cr01f"]
+[ext_resource type="Texture2D" uid="uid://jhs5mw3w2y3p" path="res://Mesh/Parts/SharedTextures/Brows/brow1.png" id="13_3itjt"]
+[ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="14_0l81f"]
+[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Shaders/Doll_skeleton/MyEyeShader.gdshader" id="15_u6ifj"]
+[ext_resource type="Texture2D" uid="uid://72gdnq0laick" path="res://Mesh/Parts/SharedTextures/Eyes/eye_colormask.png" id="16_r16q6"]
+[ext_resource type="Texture2D" uid="uid://b5qsa2fvvk5x0" path="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_Normal.png" id="17_734ie"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w36s5"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ducgx")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3019608, 0.3019608, 0.3019608, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
+shader_parameter/texture_mess_layer = ExtResource("5_hincg")
+shader_parameter/messLayerScale = 1.0
+shader_parameter/texture_mess_mask = ExtResource("6_2ruk7")
+shader_parameter/messColor = Color(1, 1, 1, 1)
+shader_parameter/messRoughness = 0.0
+shader_parameter/messScroll = 0.0
+shader_parameter/messCutoff = 0.0
+shader_parameter/messSmoothSize = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1p34a"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("7_nar23")
+shader_parameter/texture_albedo = ExtResource("8_p4m0d")
+shader_parameter/texture_normal = ExtResource("10_hmd81")
+shader_parameter/texture_orm = ExtResource("11_5okuk")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.000000807500001
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("9_pb1sg")
+shader_parameter/color_mask_r = Color(0.78, 0.21059999, 0.21059999, 1)
+shader_parameter/color_mask_g = Color(0.78039217, 0.21176471, 0.21176471, 1)
+shader_parameter/color_mask_b = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iybec"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_cr01f")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("13_3itjt")
+shader_parameter/color_mask_r = Color(0, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1am2"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_cr01f")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("14_0l81f")
+shader_parameter/color_mask_r = Color(0, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2iaa"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("15_u6ifj")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/texture_normal = ExtResource("17_734ie")
+shader_parameter/normal_scale = 1.0
+shader_parameter/clearcoat = 1.0
+shader_parameter/clearcoat_roughness = 0.5
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("16_r16q6")
+shader_parameter/colorR = Color(0, 0.4, 0.918, 1)
+shader_parameter/colorG = Color(0, 0.631, 1, 1)
+shader_parameter/colorB = Color(1, 1, 1, 1)
+shader_parameter/glowR = 0.0499999988824
+shader_parameter/glowG = 0.3999999910592
+shader_parameter/glowB = 0.0
 
 [node name="CanineHead" unique_id=1179252613 instance=ExtResource("1_mumah")]
 script = ExtResource("2_gedrh")
 
-[node name="MyCanineHeadRig" parent="." index="0" unique_id=515565166]
+[node name="MyCanineHeadRig" parent="." index="0" unique_id=886968673]
 script = ExtResource("3_p4cjj")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyCanineHeadRig" index="0" unique_id=1777279956]
+[node name="Skeleton3D" parent="MyCanineHeadRig" index="0" unique_id=262484149]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
 bones/1/rotation = Quaternion(1.7584181e-06, 0.547932, 0.8365229, 1.1517811e-06)
@@ -64,28 +182,28 @@ bones/40/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.707106
 bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.7071068)
 bones/42/rotation = Quaternion(0.7071068, 2.8968927e-06, 2.8968927e-06, 0.7071068)
 
-[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=612867781]
-surface_material_override/0 = ExtResource("4_3axi8")
+[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=1649993765]
+surface_material_override/0 = SubResource("ShaderMaterial_w36s5")
 
-[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=741067917]
+[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=1755137828]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("5_l32rm")
+surface_material_override/0 = SubResource("ShaderMaterial_1p34a")
 
-[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=913932255]
+[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=204498410]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_3axi8")
+surface_material_override/0 = SubResource("ShaderMaterial_w36s5")
 
-[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=975089646]
+[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=24805799]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_yb4lr")
+surface_material_override/0 = SubResource("ShaderMaterial_iybec")
 
-[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=2033683950]
+[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=2132640373]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("6_3axi8")
+surface_material_override/0 = SubResource("ShaderMaterial_y1am2")
 
-[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=1194826044]
-surface_material_override/0 = ExtResource("6_l32rm")
-surface_material_override/1 = ExtResource("6_l32rm")
+[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=752095348]
+surface_material_override/0 = SubResource("ShaderMaterial_q2iaa")
+surface_material_override/1 = SubResource("ShaderMaterial_q2iaa")
 
 [node name="DollAttachPoint" parent="MyCanineHeadRig/Skeleton3D" index="6" unique_id=1787516446 instance=ExtResource("4_eq6bc")]
 pointName = "hair"
@@ -109,7 +227,7 @@ pointName = "horn.R"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1839979941]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1434039981]
 active = false
 
 [node name="HeadLayeredTexture" parent="." index="2" unique_id=1149174210 instance=ExtResource("4_qelme")]

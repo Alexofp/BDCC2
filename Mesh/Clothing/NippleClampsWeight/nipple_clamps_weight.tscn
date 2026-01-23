@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcp4yuay0fool"]
+[gd_scene format=3 uid="uid://bcp4yuay0fool"]
 
 [ext_resource type="Script" uid="uid://cu3dsflnhcmfl" path="res://Mesh/Clothing/NippleClampsWeight/nipple_clamps_weight.gd" id="1_7wv02"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="1_v2lw4"]

@@ -1,12 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmbvmavkg6ml0"]
+[gd_scene format=3 uid="uid://bmbvmavkg6ml0"]
 
 [ext_resource type="PackedScene" uid="uid://c7wjcss6gwwbp" path="res://Mesh/Parts/Tail/DragonTail/DragonTail.glb" id="1_nw76p"]
 [ext_resource type="Script" uid="uid://8r8v11gi2rqv" path="res://Mesh/Parts/Tail/DragonTail/dragon_tail.gd" id="2_m0kbu"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_5phsq"]
-[ext_resource type="Material" uid="uid://dk4duadyugft7" path="res://Mesh/Parts/Tail/DragonTail/DragonTailMat.tres" id="4_a1f5f"]
 [ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/LongTail/TailSkeletonModifier.gd" id="4_m0kbu"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_ndwsl"]
+[ext_resource type="Texture2D" uid="uid://u1gwis85khkm" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_BaseColor.png" id="5_1ttgh"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_a1f5f"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_fn4g7"]
+[ext_resource type="Texture2D" uid="uid://dg3pbqa65p83f" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_Normal.png" id="6_jedmc"]
+[ext_resource type="Texture2D" uid="uid://c73cktj5msep3" path="res://Mesh/Parts/Tail/DragonTail/Textures/MyDragonTailSubstance_DefaultMaterial_ORM.png" id="7_p7el1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwnhx"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ndwsl")
+shader_parameter/texture_albedo = ExtResource("5_1ttgh")
+shader_parameter/texture_normal = ExtResource("6_jedmc")
+shader_parameter/texture_orm = ExtResource("7_p7el1")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="Resource" id="Resource_mfacx"]
 script = ExtResource("6_fn4g7")
@@ -17,29 +43,29 @@ metadata/_custom_type_script = ExtResource("6_fn4g7")
 [node name="DragonTail" unique_id=1814831176 instance=ExtResource("1_nw76p")]
 script = ExtResource("2_m0kbu")
 
-[node name="DragonTailRig" parent="." index="0" unique_id=367511106]
+[node name="DragonTailRig" parent="." index="0" unique_id=1841216730]
 script = ExtResource("3_5phsq")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="DragonTailRig" index="0" unique_id=1746178033]
+[node name="Skeleton3D" parent="DragonTailRig" index="0" unique_id=739971378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025510669, 0)
 
-[node name="DragonTail" parent="DragonTailRig/Skeleton3D" index="0" unique_id=360143763]
+[node name="DragonTail" parent="DragonTailRig/Skeleton3D" index="0" unique_id=980913654]
 unique_name_in_owner = true
 lod_bias = 5.0
-surface_material_override/0 = ExtResource("4_a1f5f")
+surface_material_override/0 = SubResource("ShaderMaterial_pwnhx")
 
-[node name="Ridges" parent="DragonTailRig/Skeleton3D" index="1" unique_id=577526848]
+[node name="Ridges" parent="DragonTailRig/Skeleton3D" index="1" unique_id=1741789107]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_a1f5f")
+surface_material_override/0 = SubResource("ShaderMaterial_pwnhx")
 
-[node name="TailFluff" parent="DragonTailRig/Skeleton3D" index="2" unique_id=1937625424]
+[node name="TailFluff" parent="DragonTailRig/Skeleton3D" index="2" unique_id=1339188548]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_a1f5f")
+surface_material_override/0 = SubResource("ShaderMaterial_pwnhx")
 
-[node name="UnderFluff" parent="DragonTailRig/Skeleton3D" index="3" unique_id=359819372]
+[node name="UnderFluff" parent="DragonTailRig/Skeleton3D" index="3" unique_id=1849435607]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_a1f5f")
+surface_material_override/0 = SubResource("ShaderMaterial_pwnhx")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="DragonTailRig/Skeleton3D" index="4" unique_id=418645456]
 unique_name_in_owner = true
@@ -195,9 +221,9 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_mfacx")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Plane_008" parent="." index="1" unique_id=162664002]
+[node name="Plane_008" parent="." index="1" unique_id=818322166]
 visible = false
 
-[node name="AnimationPlayer" parent="." index="2" unique_id=294470627]
+[node name="AnimationPlayer" parent="." index="2" unique_id=1810288078]
 unique_name_in_owner = true
 autoplay = &"TailWag"

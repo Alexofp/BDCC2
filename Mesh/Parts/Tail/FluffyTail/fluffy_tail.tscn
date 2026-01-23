@@ -1,12 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8xm6udaygk4m"]
+[gd_scene format=3 uid="uid://b8xm6udaygk4m"]
 
 [ext_resource type="PackedScene" uid="uid://bjd63oim4s7sy" path="res://Mesh/Parts/Tail/FluffyTail/FluffyTail.glb" id="1_8mtt8"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_mv6ag"]
 [ext_resource type="Script" uid="uid://8wepsljv8efk" path="res://Mesh/Parts/Tail/FluffyTail/fluffy_tail.gd" id="2_t05te"]
 [ext_resource type="Script" uid="uid://586q2vbietnv" path="res://Mesh/Parts/Tail/LongTail/TailSkeletonModifier.gd" id="4_5hy1w"]
-[ext_resource type="Material" uid="uid://bi83ksstl8ahc" path="res://Mesh/Parts/Tail/FluffyTail/TailMat.tres" id="4_yqbby"]
+[ext_resource type="Shader" uid="uid://cr4281bttp5iv" path="res://Mesh/Shaders/Doll_skeleton/FurryPartShader.gdshader" id="4_tcgpt"]
+[ext_resource type="Texture2D" uid="uid://dd7jm87vr6fsf" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_BaseColor.png" id="5_3j1ks"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_yqbby"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_1rmel"]
+[ext_resource type="Texture2D" uid="uid://cwwnf2p0lqday" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_Normal.png" id="6_363dy"]
+[ext_resource type="Texture2D" uid="uid://bpo1k3wgrb32b" path="res://Mesh/Parts/Tail/FluffyTail/Textures/FluffyTail_low_DefaultMaterial_ORM.png" id="7_c4u5g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4rv0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_tcgpt")
+shader_parameter/texture_albedo = ExtResource("5_3j1ks")
+shader_parameter/texture_normal = ExtResource("6_363dy")
+shader_parameter/texture_orm = ExtResource("7_c4u5g")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
 
 [sub_resource type="Resource" id="Resource_tcgpt"]
 script = ExtResource("6_1rmel")
@@ -17,16 +43,16 @@ metadata/_custom_type_script = ExtResource("6_1rmel")
 [node name="FluffyTail" unique_id=1069024568 instance=ExtResource("1_8mtt8")]
 script = ExtResource("2_t05te")
 
-[node name="FluffyTailRig" parent="." index="0" unique_id=330302509]
+[node name="FluffyTailRig" parent="." index="0" unique_id=530173048]
 script = ExtResource("2_mv6ag")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="FluffyTailRig" index="0" unique_id=1707329259]
+[node name="Skeleton3D" parent="FluffyTailRig" index="0" unique_id=1619053837]
 bones/0/rotation = Quaternion(-0.7071068, 0, 0, 0.7071068)
 
-[node name="FluffyTail" parent="FluffyTailRig/Skeleton3D" index="0" unique_id=601993890]
+[node name="FluffyTail" parent="FluffyTailRig/Skeleton3D" index="0" unique_id=1186402978]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_yqbby")
+surface_material_override/0 = SubResource("ShaderMaterial_u4rv0")
 
 [node name="TailSkeletonModifier" type="SkeletonModifier3D" parent="FluffyTailRig/Skeleton3D" index="1" unique_id=1555290975]
 unique_name_in_owner = true
@@ -182,6 +208,6 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_tcgpt")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=362648927]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1281027223]
 unique_name_in_owner = true
 autoplay = &"TailTPose"
