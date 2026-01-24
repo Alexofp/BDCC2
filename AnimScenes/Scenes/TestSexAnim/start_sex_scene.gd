@@ -16,6 +16,16 @@ func setupScene() -> void:
 		dom = "sexStart/SexStart_1",
 		sub = "sexStart/SexStart_2",
 	})
+	addState("cuddle", {
+		dom = "sexStart/Cuddle_1",
+		sub = "sexStart/Cuddle_2",
+	})
+	
+	connectStates("start", "cuddle", 0.0)
 	
 	setStartState("start")
 	
+func onPlayState(_state:String, _args:Dictionary):
+	super.onPlayState(_state, _args)
+	if(_state == "cuddle"):
+		alignPenisToPenisGuides("dom")

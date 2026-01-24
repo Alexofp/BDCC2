@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dt0wb0fi3cunx"]
+
+[ext_resource type="Script" uid="uid://ca40qxmoo3arg" path="res://AnimScenes/Scenes/OnTheFloor/SexSideways.gd" id="1_8t53f"]
+[ext_resource type="PackedScene" uid="uid://b47fsvv0ro6dw" path="res://AnimScenes/pose_spot.tscn" id="2_m327e"]
+
+[node name="SexSideways" type="Node3D" unique_id=446914601]
+script = ExtResource("1_8t53f")
+
+[node name="SitSpot" parent="." unique_id=1788955010 instance=ExtResource("2_m327e")]
+unique_name_in_owner = true
+
+[node name="SitSpot2" parent="." unique_id=401850318 instance=ExtResource("2_m327e")]
+unique_name_in_owner = true

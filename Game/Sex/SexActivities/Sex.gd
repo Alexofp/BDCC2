@@ -232,7 +232,7 @@ func getActions(_role:String):
 	if(state != "inside"): #Maybe make it so you can only stop sex if not sexing?
 		addAction(action("Stop sex").setScore(scoreStop(ROLE_TOP)).do("stopSex"))
 	
-	if(canDoDomActions(_role) && state == "tease"):
+	if(canDoDomActions(_role)):# && state == "tease"):
 		addPosePickActions("pickPose")
 	
 func doAction(_role:String, _id:String, _args:Array):

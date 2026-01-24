@@ -277,6 +277,9 @@ func hasAnyPosesToPick() -> bool:
 func addPosePickActions(_poseActionID:String):
 	var allPoses := getAllPossiblePoses()
 	
+	#if(allPoses.size() <= 1):
+	#	return
+	
 	var theCat:Array[String] = ["Pose"]
 	for thePose in allPoses:
 		addAction(action(thePose.getVisibleName()).setCat(theCat).do(_poseActionID, [thePose.id]))
