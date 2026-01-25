@@ -18,6 +18,9 @@ func canBeUsedFinal(_sexEngine:SexEngine, _sexActivity:SexEngineActivityBase) ->
 	
 	return canBeUsed(_sexEngine, _sexActivity)
 
+func getPoseText(_poseName:String) -> String:
+	return ""
+
 func canBeUsed(_sexEngine:SexEngine, _sexActivity:SexEngineActivityBase) -> bool:
 	#if(_sexEngine.getSexTypeID() != sexTypeID):
 	#	return false

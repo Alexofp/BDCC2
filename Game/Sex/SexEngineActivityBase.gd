@@ -274,11 +274,11 @@ func hasAnyPosesToPick() -> bool:
 		return false
 	return true
 
-func addPosePickActions(_poseActionID:String):
+func addPosePickActions(_poseActionID:String, _addIfOne:bool = false):
 	var allPoses := getAllPossiblePoses()
 	
-	#if(allPoses.size() <= 1):
-	#	return
+	if(!_addIfOne && allPoses.size() <= 1):
+		return
 	
 	var theCat:Array[String] = ["Pose"]
 	for thePose in allPoses:
@@ -689,6 +689,20 @@ func isZoneReadyToBePenetrated(_role:String, _zone:int) -> bool:
 func doText(_role:String, _text:String):
 	#getSexEngine().doText(self, _role, _text)
 	addActionText(_text)
+
+func getPoseText(_poseID:String, _poseName:String, _args:Dictionary, _defaultStr:String) -> String:
+	var thePose := GlobalRegistry.getSexPose(_poseID)
+	
+	var theStr:String = _defaultStr
+	if(thePose):
+		theStr = thePose.getPoseText(_poseName)
+		if(theStr.is_empty()):
+			theStr = _defaultStr
+	
+	return theStr.format(_args, "%%_%%")
+
+func doPoseText(_role:String, _poseID:String, _poseName:String, _args:Dictionary, _defaultStr:String):
+	doText(_role, getPoseText(_poseID, _poseName, _args, _defaultStr))
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	return true

@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
 		processDebugMenuGiver(_delta)
 
 func processFreeCam(_delta:float) -> void:
-	if(Input.is_action_just_pressed("game_freecam")):
+	if(Input.is_action_just_pressed("game_freecam") && !UIHandler.isMenuInputBlocked()):
 		if(GM.main.free_camera.cameraPriority > 1.0):
 			GM.main.free_camera.cameraPriority = -1.0
 		else:
@@ -62,22 +62,20 @@ func processFreeCam(_delta:float) -> void:
 			GM.main.free_camera.cameraPriority = 10000.0
 
 func processCharacterCreator(_delta:float):
-	if(!UIHandler.isMenuInputBlocked()):
-		if(Input.is_action_just_pressed("game_charactercreator")):
-			if(!isCharacterCreatorVisible()):
-				if(!UIHandler.tryCloseMenu()):
-					showCharacterCreator()
-			else:
-				hideCharacterCreator()
+	if(Input.is_action_just_pressed("game_charactercreator") && !UIHandler.isMenuInputBlocked()):
+		if(!isCharacterCreatorVisible()):
+			if(!UIHandler.tryCloseMenu()):
+				showCharacterCreator()
+		else:
+			hideCharacterCreator()
 
 func processDebugMenuGiver(_delta:float):
-	if(!UIHandler.isMenuInputBlocked()):
-		if(Input.is_action_just_pressed("debug_item_giver")):
-			if(!UIHandler.tryCloseMenu()):
-				var theGiverUI = load("res://UI/Util/debug_item_giver_ui.tscn").instantiate()
-				#theGiverUI.giverNode = weakref(self)
-				theGiverUI.dollUser = GI.getUniqueIDOf(GM.pcDoll)
-				GM.main.addUINode(theGiverUI)
+	if(Input.is_action_just_pressed("debug_item_giver") && !UIHandler.isMenuInputBlocked()):
+		if(!UIHandler.tryCloseMenu()):
+			var theGiverUI = load("res://UI/Util/debug_item_giver_ui.tscn").instantiate()
+			#theGiverUI.giverNode = weakref(self)
+			theGiverUI.dollUser = GI.getUniqueIDOf(GM.pcDoll)
+			GM.main.addUINode(theGiverUI)
 
 func canClientsCreateItems() -> bool:
 	return true

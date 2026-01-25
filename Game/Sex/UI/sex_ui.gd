@@ -34,6 +34,9 @@ func _exit_tree() -> void:
 	UIHandler.removeUI(self)
 	UIHandler.removeMouseCapturer(self)
 
+#func isUIVisible() -> bool:
+#	return true#false
+
 func _ready():
 	fade_rect.visible = false
 	updateButtons()

@@ -81,7 +81,9 @@ func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
 	pose = pickRandomPose()
 	isVaginal = _args["vaginal"] if _args.has("vaginal") else false
-	doText(ROLE_TOP, "{top.You} {top.youVerb grab} {bottom.your} wrists and {top.youVerb prepare} to fuck {bottom.yourHis} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")
+	
+	doPoseText(ROLE_TOP, pose, "start", {zone=zoneLewdName(ROLE_BOTTOM, getPenetrateZone())},
+	"{top.You} {top.youVerb grab} {bottom.your} wrists and {top.youVerb prepare} to fuck {bottom.yourHis} %%zone%%!")
 	
 func start_run():
 	playPoseOrAnim(pose, AnimScene.TestSex, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM}, {hole=(AnimSceneHole.Vagina if isVaginal else AnimSceneHole.Anus)})

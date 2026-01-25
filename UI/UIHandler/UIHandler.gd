@@ -62,33 +62,18 @@ func shouldMouseBeCaptured() -> bool:
 	return false
 
 func isGameplayInputBlocked() -> bool:
-	if(Console.is_visible()):
-		return true
 	return gameplayInputBlocked
 
 func isMenuInputBlocked() -> bool:
-	var theViewport := get_viewport()
-	if(theViewport):
-		var theControl := theViewport.gui_get_focus_owner()
-		if(theControl):
-			if((theControl is LineEdit) && theControl.is_editing()):
-				return true
-	
-	for window in windows:
-		if(is_instance_valid(window) && window.is_inside_tree()):
-			var windowViewport := window.get_viewport()
-			if(windowViewport):
-				var theControl := windowViewport.gui_get_focus_owner()
-				if(theControl):
-					if((theControl is LineEdit) && theControl.is_editing()):
-						return true
-	
 	return menuInputBlocked
 
 func _process(_delta: float) -> void:
 	uiVisible = false
 	gameplayInputBlocked = false
 	menuInputBlocked = false
+	
+	if(Console.is_visible()):
+		gameplayInputBlocked = true
 	
 	var UIAmount:int = UIs.size()
 	for _i in range(UIAmount):
@@ -109,6 +94,25 @@ func _process(_delta: float) -> void:
 		if(theUI.has_method("isMenuInputBlocked")):
 			if(theUI.isMenuInputBlocked()):
 				menuInputBlocked = true
+
+	if(!menuInputBlocked):
+		var theViewport := get_viewport()
+		if(theViewport):
+			var theControl := theViewport.gui_get_focus_owner()
+			if(theControl):
+				if((theControl is LineEdit) && theControl.is_editing()):
+					menuInputBlocked = true
+	
+	if(!menuInputBlocked):
+		for window in windows:
+			if(is_instance_valid(window) && window.is_inside_tree()):
+				var windowViewport := window.get_viewport()
+				if(windowViewport):
+					var theControl := windowViewport.gui_get_focus_owner()
+					if(theControl):
+						if((theControl is LineEdit) && theControl.is_editing()):
+							menuInputBlocked = true
+							break
 
 	if(shouldMouseBeCaptured()):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

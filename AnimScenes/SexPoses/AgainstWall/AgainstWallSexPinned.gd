@@ -18,5 +18,7 @@ func getState(_stateRaw:String) -> String:
 	
 	return _stateRaw
 
-#func canBeUsed(_sexEngine:SexEngine, _sexActivity:SexEngineActivityBase) -> bool:
-#	return false # Disabled
+func getPoseText(_poseName:String) -> String:
+	if(_poseName == "start"):
+		return "{top.You} {top.youVerb grab} {bottom.you} and {top.youVerb pin} {bottom.youHim} against a wall, about to fuck {bottom.yourHis} %%zone%%!"
+	return ""

@@ -16,3 +16,8 @@ func getState(_stateRaw:String) -> String:
 	
 	return _stateRaw
 	#return "tease"
+
+func getPoseText(_poseName:String) -> String:
+	if(_poseName == "start"):
+		return "{top.You} {top.youVerb grab} {bottom.your} wrists and {top.youVerb prepare} to fuck {bottom.yourHis} %%zone%%!"
+	return ""

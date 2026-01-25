@@ -13,14 +13,12 @@ func _exit_tree() -> void:
 	UIHandler.removeMouseCapturer(self)
 
 func shouldCaptureMouse() -> bool:
-	if(!UIHandler.hasAnyUIVisible()):
+	if(!UIHandler.hasAnyUIVisible() && isActive()):
 		return true
 	return false
 
 func _process(_delta: float) -> void:
-	if(UIHandler.isMenuInputBlocked()):
-		return
-	if(UIHandler.hasAnyUIVisible()):
+	if(UIHandler.hasAnyUIVisible() || UIHandler.isMenuInputBlocked()):
 		return
 	if(!isActive()):
 		return
