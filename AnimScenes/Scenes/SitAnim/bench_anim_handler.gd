@@ -4,6 +4,8 @@ extends PropHandlerBase
 @onready var sit_spawner_right: AnimSceneSpawner = $SitSpawnerRight
 @onready var sit_spawner_cuddle: AnimSceneSpawner = $SitSpawnerCuddle
 @onready var pawn_interactable: PawnInteractable = %PawnInteractable
+@onready var stand_spot_left: Marker3D = %StandSpotLeft
+@onready var stand_spot_right: Marker3D = %StandSpotRight
 
 func _ready():
 	pawn_interactable.setTarget(self)
@@ -96,6 +98,7 @@ func getSitterSlot(_slot:String) -> CharacterPawn:
 func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	if(_slot == "left"):
 		if(!_pawn):
+			sit_spawner_left.unsitToStandSpot("dom", stand_spot_left)
 			sit_spawner_left.despawn()
 			return true
 		if(!sit_spawner_left.isSpawned()):
@@ -103,6 +106,7 @@ func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 		sit_spawner_left.setSitter("dom", _pawn)
 	if(_slot == "right"):
 		if(!_pawn):
+			sit_spawner_right.unsitToStandSpot("dom", stand_spot_right)
 			sit_spawner_right.despawn()
 			return true
 		if(!sit_spawner_right.isSpawned()):

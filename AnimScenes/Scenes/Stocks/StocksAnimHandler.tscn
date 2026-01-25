@@ -10,7 +10,7 @@ script = ExtResource("1_eqnb6")
 
 [node name="StandSpot" type="Marker3D" parent="." unique_id=91680705]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13727616, -0.7682989)
 
 [node name="SitSpawner" parent="." unique_id=905607107 instance=ExtResource("3_s3d1w")]
 scene = ExtResource("4_eqnb6")

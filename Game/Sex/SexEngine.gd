@@ -65,6 +65,7 @@ var hoverTextLocalTargetPos:Vector3 = Vector3()
 var cooldowns:Dictionary[String, float] = {}
 var tempItemUIDs:Array[int] = []
 var itemBelong:Dictionary[int, String] = {} # item uid = char id
+var savedCharPositions:Dictionary[String, Vector3]
 
 var eventQueue:Array = []
 
@@ -258,6 +259,12 @@ func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 	return newInfo
 
 func addParticipantInfo(_info:SexParticipantInfo):
+	var thePawn := GM.pawnRegistry.getPawn(_info.id)
+	if(!thePawn):
+		Log.error("SexEngine.addParticipantInfo() can't find pawn! ID="+str(_info.id))
+		return
+	
+	savedCharPositions[_info.id] = thePawn.global_position
 	participants[_info.id] = _info
 	onParticipantUpdate.emit(_info.id)
 	onSexChange.emit(SexEngineChange.makeParticipantUpdate(_info.id))
@@ -882,6 +889,16 @@ func stopSex():
 	if(Network.isServer()):
 		deleteAllTemporaryItems()
 		doAutoEquipAfterEnd()
+		
+		for charID in savedCharPositions:
+			var thePos:Vector3 = savedCharPositions[charID]
+			var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(charID)
+			if(thePawn):
+				thePawn.global_position = thePos
+				var theDoll := thePawn.getDoll()
+				if(theDoll):
+					theDoll.global_position = thePos
+		
 		if(sexType):
 			sexType.onSexEnd()
 
@@ -911,9 +928,12 @@ func getSexHideTagsFor(_charID:String) -> Array:
 	result.append_array(anim_scene_player.getSexHideTagsFor(_charID))
 	return result
 
+#TODO: Somehow fix ability to scroll while other menus are opened
 func processCameraControl(_delta:float, _controllingCamera:bool):
 	if(UIHandler.isMenuInputBlocked()):
 		return
+	#if(UIHandler.hasAnyUIVisible() || UIHandler.isMenuInputBlocked()):
+	#	return
 	
 	if(cameraMode == CAMERA_FREE):
 		const speed := 2.0

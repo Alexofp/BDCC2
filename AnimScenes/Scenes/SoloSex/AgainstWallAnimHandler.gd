@@ -4,6 +4,7 @@ extends PropHandlerBase
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
 @onready var pawn_interactable: PawnInteractable = %PawnInteractable
+@onready var stand_spot: Marker3D = %StandSpot
 
 const POSES = [
 	"backLegUp",
@@ -47,6 +48,7 @@ func getSitterSlot(_slot:String) -> CharacterPawn:
 
 func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	if(!_pawn):
+		sit_spawner.unsitToStandSpot(_slot, stand_spot)
 		sit_spawner.despawn()
 		if(Network.isServer()):
 			queue_free()
@@ -123,6 +125,7 @@ func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _actio
 		newSex.addRole("sub", sit_spawner.getSitter("dom").getCharID(), SexRole.Sub)
 		newSex.pos = global_position
 		newSex.ang = global_rotation
+		sit_spawner.unsitToStandSpot("dom", stand_spot) # places the character in the right spot
 		GM.sexManager.startSex(newSex)
 		queue_free()
 		return true

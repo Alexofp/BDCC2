@@ -2,6 +2,7 @@ extends PropHandlerBase
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
 @onready var pawn_interactable: PawnInteractable = %PawnInteractable
+@onready var stand_spot: Marker3D = %StandSpot
 
 @export var stocks:Node3D
 
@@ -54,6 +55,7 @@ func getSitterSlot(_slot:String) -> CharacterPawn:
 
 func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	if(!_pawn):
+		sit_spawner.unsitToStandSpot("dom", stand_spot)
 		sit_spawner.despawn()
 		return true
 	if(!sit_spawner.isSpawned()):

@@ -62,6 +62,22 @@ func onSpawnSceneAnimPlay(_state:String):
 func getScene() -> AnimSceneBase:
 	return spawnedScene
 
+func unsitToStandSpot(_theID:String, _marker:Node3D) -> bool:
+	if(!Network.isServer()):
+		return false
+	if(!isSpawned()):
+		return false
+	var thePawn := spawnedScene.getSitter(_theID)
+	var theDoll := spawnedScene.getSitterDoll(_theID)
+	if(!thePawn):
+		return false
+	spawnedScene.setSitter(_theID, null)
+	var thePos := _marker.global_position
+	thePawn.global_position = thePos
+	if(theDoll):
+		theDoll.global_position = thePos
+	return true
+
 @rpc("authority", "call_remote", "reliable")
 func despawn():
 	if(!isSpawned()):
