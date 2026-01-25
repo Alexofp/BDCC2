@@ -104,6 +104,12 @@ script = ExtResource("7_5wuau")
 leashPointID = "backupDoll"
 metadata/_custom_type_script = "uid://cb1eve8v0w436"
 
+[node name="TypingStatusResetTimer" type="Timer" parent="." unique_id=1444636207]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
 [connection signal="onGesturePlay" from="ModelRoot/Doll" to="." method="_on_doll_on_gesture_play"]
 [connection signal="body_entered" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_entered"]
 [connection signal="body_exited" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_exited"]
+[connection signal="timeout" from="TypingStatusResetTimer" to="." method="_on_typing_status_reset_timer_timeout"]

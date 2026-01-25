@@ -11,7 +11,8 @@ var max_scroll_length:float = 0.0
 
 var messages:Array[Control] = []
 
-signal onMessageSent(text)
+signal onMessageSent(text:String)
+signal onTyping(text:String)
 
 func _ready() -> void:
 	GameChat.onMessage.connect(onGameChatMessage)
@@ -68,3 +69,7 @@ func hasLineEditFocus() -> bool:
 func releaseLineEditFocus():
 	chat_line_edit.release_focus()
 	chat_line_edit.unedit()
+
+func _on_chat_line_edit_text_changed(_new_text: String) -> void:
+	GI.notifyTyping(_new_text)
+	onTyping.emit(_new_text)

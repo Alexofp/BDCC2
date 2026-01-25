@@ -46,10 +46,12 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 @onready var doll: Doll = %Doll
 @onready var model_root: Node3D = %ModelRoot
 @onready var camera: PriorityCamera = %Camera
+@onready var typing_status_reset_timer: Timer = %TypingStatusResetTimer
 
 const STATE_NORMAL = "normal"
 const STATE_SITTING = "sitting"
 
+var typingStatus:int = GI.TYPING_NONE
 @export var state:String = STATE_NORMAL
 @export var characterID:String: set = setCharacterID
 var uniqueID:int = -1
@@ -145,7 +147,7 @@ func _exit_tree() -> void:
 	UIHandler.removeMouseCapturer(self)
 
 func shouldCaptureMouse() -> bool:
-	if mousecapture_on && !UIHandler.hasAnyUIVisible():
+	if mousecapture_on && !UIHandler.hasAnyUIVisible() && isControlledByUs():
 		return true
 	return false
 
@@ -268,11 +270,12 @@ func _process(delta:float):
 	#camera.current = theIsControlledByUs
 	#print(camera.current)
 	
-	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_4")):
-		ShaderNodeChecker.checkNode(self)
-	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
-		print(GM.main.checkCanLean(global_position, model_root.global_rotation))
-		#ShaderNodeChecker.checkNode(get_tree().root)
+	#DEBUG: debug stuff
+	#if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_4")):
+	#	ShaderNodeChecker.checkNode(self)
+	#if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
+		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
+	#end of debug stuff
 	
 	#if(theIsControlledByUs && hasAuthority):
 		#reset_input()
@@ -281,8 +284,6 @@ func _process(delta:float):
 	
 	processCharacterID()
 
-	#if(theIsControlledByUs):
-	#	process_mousecapture(delta)
 	if(theIsControlledByUs):
 		process_camera_pivot()
 	
@@ -416,16 +417,6 @@ func canScrollDown() -> bool:
 	if(!interact_ui.canScrollDown() || interact_ui.didScrollThisFrame()):
 		return false
 	return true
-
-func process_mousecapture(_delta:float):
-	#if(doll_controls.mousecapture_isdown):
-	#	mousecapture_on = !mousecapture_on
-	
-	#if mousecapture_on && !UIHandler.hasAnyUIVisible():
-	#	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#else:
-	#	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	pass
 
 func process_camera_pivot():
 	if(!camera.isActive()):
@@ -748,6 +739,11 @@ func processHoverText(_dt:float):
 	for theEntry in hoverTexts:
 		finalText += theEntry[0] + "\n"
 	
+	if(typingStatus == GI.TYPING_ACTION):
+		finalText += "( Acting )" + "\n"
+	elif(typingStatus == GI.TYPING_CHAT):
+		finalText += "( Typing )" + "\n"
+	
 	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)
 	
@@ -757,6 +753,14 @@ func processHoverText(_dt:float):
 		hover_text.setProgressInfos(thePawn.progressBarsTextsCached, thePawn.progressBarsValuesCached)
 	else:
 		hover_text.setProgressInfos([], [])
+
+func pushTypingStatus(_status:int):
+	typingStatus = _status
+	typing_status_reset_timer.start()
+
+func resetTypingStatus():
+	typingStatus = GI.TYPING_NONE
+	typing_status_reset_timer.stop()
 
 func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial: bool) -> void:
 	onGesturePlay.emit(gestureID, playFullBody, playPartial)
@@ -781,3 +785,6 @@ func doStruggleAnimFor(_time:float):
 
 func getBackupDollLeashPoint() -> DollLeashPoint:
 	return backup_leash_point
+
+func _on_typing_status_reset_timer_timeout() -> void:
+	typingStatus = GI.TYPING_NONE

@@ -276,6 +276,9 @@ func handleChatSend(_playerInfo:NetworkPlayerInfo, _text:String):
 	if(!_playerInfo):
 		return
 	
+	var thePawn := GM.pawnRegistry.getPawn(_playerInfo.charID)
+	var theDoll:DollController = thePawn.getDoll() if thePawn else null
+	
 	if(_text.begins_with("/")):
 		var commandPair := Util.splitOnFirst(_text, " ")
 		var commandType:String = commandPair[0].substr(1)
@@ -287,16 +290,71 @@ func handleChatSend(_playerInfo:NetworkPlayerInfo, _text:String):
 		elif(commandType == "echo"):
 			_playerInfo.sendToChat("Echoing back: "+commandArgText)
 		elif(commandType == "me"):
-			var thePawn := GM.pawnRegistry.getPawn(_playerInfo.charID)
 			if(thePawn):
 				thePawn.sayAdvanced(CharacterPawn.parseMeTextToArray(commandArgText))
 		else:
 			_playerInfo.sendToChat("Unknown command: "+commandType)
 	else:
-		var thePawn := GM.pawnRegistry.getPawn(_playerInfo.charID)
 		if(thePawn):
 			thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
 		#sendChatGlobal(_playerInfo.getName()+": "+_text)
+	
+	if(theDoll):
+		theDoll.resetTypingStatus()
+		if(Network.isServerNotSingleplayer()):
+			Network.rpcClients(notifyDollResetTypingStatus_RPC.bind(theDoll.uniqueID))
+	
+const TYPING_NONE = 0
+const TYPING_CHAT = 1
+const TYPING_ACTION = 2
+
+func getTypingStatusFromText(_text:String) -> int:
+	if(_text.is_empty()):
+		return TYPING_NONE
+	if(_text.begins_with("*") || _text.begins_with("/me ")):
+		return TYPING_ACTION
+	if(_text.begins_with("/")):
+		return TYPING_NONE
+	
+	return TYPING_CHAT
+
+func notifyTyping(_new_text:String):
+	var theStatus:int = getTypingStatusFromText(_new_text)
+	if(theStatus == TYPING_CHAT || theStatus == TYPING_ACTION):
+		if(Network.isClient()):
+			notifyTyping_SERVERRPC.rpc_id(1, theStatus)
+		else:
+			notifyTyping_SERVERRPC(theStatus)
+
+@rpc("any_peer", "call_remote", "unreliable")
+func notifyTyping_SERVERRPC(_status:int):
+	var theInfo := Network.getSenderPlayerInfo()
+	if(!theInfo):
+		return
+	var theCharID:String = theInfo.getCharID()
+	var thePawn := GM.pawnRegistry.getPawn(theCharID)
+	if(!thePawn):
+		return
+	var theDoll := thePawn.getDoll()
+	if(!theDoll):
+		return
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(notifyDollTypingStatus_RPC.bind(theDoll.uniqueID, _status))
+	theDoll.pushTypingStatus(_status)
+
+@rpc("authority", "call_remote", "unreliable")
+func notifyDollTypingStatus_RPC(_dollID:int, _status:int):
+	var theDoll := GM.dollHolder.findDollWithUniqueID(_dollID)
+	if(!theDoll):
+		return
+	theDoll.pushTypingStatus(_status)
+
+@rpc("authority", "call_remote", "unreliable")
+func notifyDollResetTypingStatus_RPC(_dollID:int):
+	var theDoll := GM.dollHolder.findDollWithUniqueID(_dollID)
+	if(!theDoll):
+		return
+	theDoll.resetTypingStatus()
 
 func askChatSend(_text:String):
 	if(Network.isClient()):

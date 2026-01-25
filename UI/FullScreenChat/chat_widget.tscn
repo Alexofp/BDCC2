@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://g7hlt44gtx1w"]
+[gd_scene format=3 uid="uid://g7hlt44gtx1w"]
 
 [ext_resource type="Script" uid="uid://n51kco8yolw0" path="res://UI/FullScreenChat/chat_widget.gd" id="1_106ru"]
 [ext_resource type="PackedScene" uid="uid://bbkxnnphcdqnp" path="res://UI/FullScreenChat/chat_widget_message.tscn" id="1_qfu1i"]
@@ -30,4 +30,5 @@ unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Chat"
 
+[connection signal="text_changed" from="ChatLineEdit" to="." method="_on_chat_line_edit_text_changed"]
 [connection signal="text_submitted" from="ChatLineEdit" to="." method="_on_chat_line_edit_text_submitted"]
