@@ -234,6 +234,9 @@ func onAutoEquipAfterSex():
 func isBondageGear() -> bool:
 	return false
 
+func shouldBlindCharacter() -> bool:
+	return false
+
 func isStrapon() -> bool:
 	return false
 

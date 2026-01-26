@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://4uvyacycvxbs"]
+
+[ext_resource type="Shader" uid="uid://cdt4js05mbnft" path="res://Mesh/Shaders/Prop_static/BlindnessEffectShader.gdshader" id="1_1qsbb"]
+[ext_resource type="Script" uid="uid://b0sghltrrckr7" path="res://Util/SomeTests/DepthFogTest/BlindnessQuadEffect.gd" id="1_wsx0y"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_b3fdh"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwqas"]
+render_priority = 0
+shader = ExtResource("1_1qsbb")
+shader_parameter/fog_radius = -2.095
+shader_parameter/fog_falloff = 5.0
+shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/fog_strength = 1.0
+
+[node name="BlindnessQuadEffect" type="MeshInstance3D" unique_id=168273867]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
+sorting_offset = 10000000.0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_b3fdh")
+surface_material_override/0 = SubResource("ShaderMaterial_hwqas")
+script = ExtResource("1_wsx0y")

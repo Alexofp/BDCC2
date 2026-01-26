@@ -790,6 +790,14 @@ func hasAnus() -> bool:
 func hasReachableAnus() -> bool:
 	return hasAnus()
 
+func isBlind() -> bool:
+	if(inventory.hasSlotEquipped(InventorySlot.Eyes)):
+		var theItem := inventory.getEquippedItem(InventorySlot.Eyes)
+		if(theItem.shouldBlindCharacter()):
+			return true
+	
+	return false
+
 func isZoneCovered(_zone:int) -> bool:
 	return inventory.isZoneCovered(_zone)
 

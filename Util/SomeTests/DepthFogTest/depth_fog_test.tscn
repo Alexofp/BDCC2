@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://tn82vasls7l"]
+
+[ext_resource type="PackedScene" uid="uid://4uvyacycvxbs" path="res://Util/SomeTests/DepthFogTest/BlindnessQuadEffect.tscn" id="1_v0p4m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b3fdh"]
+
+[node name="DepthFogTest" type="Node3D" unique_id=182766855]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=742438896]
+current = true
+
+[node name="BlindnessQuadEffect" parent="." unique_id=168273867 instance=ExtResource("1_v0p4m")]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1543443942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16956902, 0.095541835, 1.4757711)
+mesh = SubResource("BoxMesh_b3fdh")

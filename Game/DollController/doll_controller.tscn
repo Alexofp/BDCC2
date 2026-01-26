@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_n8w0r"]
 [ext_resource type="Script" uid="uid://be2cul3yhop6t" path="res://Game/Systems/Camera/DollCamera.gd" id="3_5wuau"]
 [ext_resource type="PackedScene" uid="uid://b6s2blxqp3ylj" path="res://Game/DollController/doll_controls.tscn" id="5_5o600"]
+[ext_resource type="PackedScene" uid="uid://4uvyacycvxbs" path="res://Util/SomeTests/DepthFogTest/BlindnessQuadEffect.tscn" id="7_2msec"]
 [ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="7_5wuau"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="7_pwrse"]
 
@@ -108,6 +109,11 @@ metadata/_custom_type_script = "uid://cb1eve8v0w436"
 unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
+
+[node name="BlindnessQuadEffect" parent="." unique_id=168273867 instance=ExtResource("7_2msec")]
+unique_name_in_owner = true
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 1.4789996, 0)
+visible = false
 
 [connection signal="onGesturePlay" from="ModelRoot/Doll" to="." method="_on_doll_on_gesture_play"]
 [connection signal="body_entered" from="OtherDollsArea" to="." method="_on_other_dolls_area_body_entered"]

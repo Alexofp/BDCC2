@@ -16,3 +16,6 @@ func getSexHideTags() -> Dictionary:
 
 func isBondageGear() -> bool:
 	return true
+
+func shouldBlindCharacter() -> bool:
+	return true
