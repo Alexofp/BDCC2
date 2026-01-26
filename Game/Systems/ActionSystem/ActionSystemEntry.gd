@@ -21,17 +21,15 @@ const CANCEL_ALLOW = 1
 
 var uniqueID:int = -1
 
-var timerType:int = TIMER_ONLY
-var conditionType:int = CONDITION_DISTANCE
 var userMove:int = USER_CANMOVE
-var targetMove:int = TARGET_CANMOVE
 var cancelType:int = CANCEL_ALLOW
 
 var timeFull:float = 1.0
 var timePassed:float = 0.0
 
 var user:CharacterPawn
-var target:Node
+var target:ActionSystemTarget
+var extraTargets:Array[ActionSystemTarget]
 
 var action:PawnActionBase
 var args:Array
@@ -41,9 +39,12 @@ var actionText:String = ""
 static func create(_text:String, _user:CharacterPawn, _target:Node, _timer:float, _action:PawnActionBase, _args:Array = []) -> ActionSystemEntry:
 	var newEntry := ActionSystemEntry.new()
 	
+	var mainTarget := ActionSystemTarget.new()
+	mainTarget.node = _target
+	
 	#newEntry.actionText = _text
 	newEntry.user = _user
-	newEntry.target = _target
+	newEntry.target = mainTarget
 	newEntry.timeFull = _timer
 	newEntry.action = _action
 	newEntry.args = _args
@@ -52,12 +53,38 @@ static func create(_text:String, _user:CharacterPawn, _target:Node, _timer:float
 	
 	return newEntry
 
+func addExtraTarget(_extraTarget:ActionSystemTarget) -> ActionSystemEntry:
+	extraTargets.append(_extraTarget)
+	return self
+
+func getTargetSpecific(_node:Node) -> ActionSystemTarget:
+	if(target.node == _node):
+		return target
+	for extra in extraTargets:
+		if(extra.node == _node):
+			return extra
+	return null
+
+func didEveryoneConsent() -> bool:
+	if(target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT && !target.didConsent):
+		return false
+	
+	for extraTarget in extraTargets:
+		if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT && !extraTarget.didConsent):
+			return false
+	
+	return true
+
 func getProgressValue() -> float:
 	if(timeFull <= 0.0):
 		return 1.0
 	var theVal:float = clamp(timePassed / timeFull, 0.0, 1.0)
-	if(timerType == TIMER_MUST_CONSENT):
+	
+	if(target.timerType == TIMER_MUST_CONSENT):
 		return 1.0 - theVal
+	for extra in extraTargets:
+		if(extra.timerType == TIMER_MUST_CONSENT):
+			return 1.0 - theVal
 	return theVal
 
 func setActionText(_text:String, _doParse:bool = true):
@@ -67,8 +94,13 @@ func setActionText(_text:String, _doParse:bool = true):
 	var theReplacers:Dictionary[String, String]
 	if(user):
 		theReplacers["user"] = user.getCharID()
-	if(target && (target is CharacterPawn)):
-		theReplacers["target"] = target.getCharID()
+	if(target && (target.node is CharacterPawn)):
+		theReplacers["target"] = target.node.getCharID()
+	var _i:int = 0
+	for extra in extraTargets:
+		if(extra.node is CharacterPawn):
+			theReplacers["extra"+str(_i)] = extra.node.getCharID()
+		_i += 1
 	
 	actionText = GM.textParser.applyObjReplacers(_text, theReplacers)
 	#actionText = GM.textParser.parseString(actionText, getSimpleGameTextParserText).text
@@ -84,11 +116,11 @@ func getActionText() -> String:
 	return actionText
 
 func setTimerType(_type:int) -> ActionSystemEntry:
-	timerType = _type
+	target.timerType = _type
 	return self
 
 func setConditionType(_type:int) -> ActionSystemEntry:
-	conditionType = _type
+	target.conditionType = _type
 	return self
 
 func setUserMove(_type:int) -> ActionSystemEntry:
@@ -96,9 +128,12 @@ func setUserMove(_type:int) -> ActionSystemEntry:
 	return self
 
 func setTargetMove(_type:int) -> ActionSystemEntry:
-	targetMove = _type
+	target.targetMove = _type
 	return self
 
 func setCancelType(_type:int) -> ActionSystemEntry:
 	cancelType = _type
 	return self
+
+func deleteMe():
+	GM.actionSystem.deleteAction(self)

@@ -4,6 +4,7 @@ class_name ActionSystem
 var actions:Array[ActionSystemEntry]
 var userToActions:Dictionary[CharacterPawn, Array]
 var targetToActions:Dictionary[Node, Array]
+var extraTargetToActions:Dictionary[Node, Array]
 var actionByUniqueID:Dictionary[int, ActionSystemEntry]
 
 var lastUniqueID:int = 0
@@ -11,12 +12,31 @@ var lastUniqueID:int = 0
 func _ready() -> void:
 	GI.actionSystem = self
 
+func internal_deleteListofActionsSafe(theActions:Array[ActionSystemEntry]):
+	var actAm:int = theActions.size()
+	for _i in actAm:
+		var _indx:int = actAm - 1 - _i
+		deleteAction(theActions[_indx])
+
+func deleteAllActionsRelatedTo(_node:Node):
+	if(_node is CharacterPawn):
+		var thePawn:CharacterPawn = _node
+		if(userToActions.has(_node)):
+			internal_deleteListofActionsSafe(userToActions[thePawn])
+			userToActions.erase(_node)
+	if(targetToActions.has(_node)):
+		internal_deleteListofActionsSafe(targetToActions[_node])
+		targetToActions.erase(_node)
+	if(extraTargetToActions.has(_node)):
+		internal_deleteListofActionsSafe(extraTargetToActions[_node])
+		extraTargetToActions.erase(_node)
+
 func deleteAction(_actionEntry:ActionSystemEntry) -> bool:
 	if(!actions.has(_actionEntry)):
 		return false
 	
 	var theUser := _actionEntry.user
-	var theTarget := _actionEntry.target
+	var theTarget := _actionEntry.target.node if _actionEntry.target else null
 	
 	if(userToActions.has(theUser)):
 		userToActions[theUser].erase(_actionEntry)
@@ -27,6 +47,14 @@ func deleteAction(_actionEntry:ActionSystemEntry) -> bool:
 		targetToActions[theTarget].erase(_actionEntry)
 		if(targetToActions[theTarget].is_empty()):
 			targetToActions.erase(theTarget)
+	
+	for extra in _actionEntry.extraTargets:
+		var theExtraTarget:Node = extra.node
+		if(!extraTargetToActions.has(theExtraTarget)):
+			continue
+		extraTargetToActions[theExtraTarget].erase(_actionEntry)
+		if(extraTargetToActions[theExtraTarget].is_empty()):
+			extraTargetToActions.erase(theExtraTarget)
 	
 	if(actionByUniqueID.has(_actionEntry.uniqueID)):
 		actionByUniqueID.erase(_actionEntry.uniqueID)
@@ -39,16 +67,24 @@ func cancelAction(_actionEntry:ActionSystemEntry) -> bool:
 	return deleteAction(_actionEntry)
 
 func allowAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
-	if(theEntry.target != _target):
+	var theTarget := theEntry.getTargetSpecific(_target)
+	if(!theTarget):
 		return false
-	if(theEntry.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+	
+	if(theTarget.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+		return false
+	theTarget.markDidConsent()
+	
+	if(!theEntry.didEveryoneConsent()):
 		return false
 	return doAction(theEntry)
 
 func denyAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
-	if(theEntry.target != _target):
+	var theTarget := theEntry.getTargetSpecific(_target)
+	if(!theTarget):
 		return false
-	if(theEntry.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+	
+	if(theTarget.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
 		return false
 	return cancelAction(theEntry)
 
@@ -57,12 +93,21 @@ func resistAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
 
 func doAction(_actionEntry:ActionSystemEntry) -> bool:
 	var theUser := _actionEntry.user
-	var theTarget := _actionEntry.target
+	var theTarget := _actionEntry.target.node
 	var theAction := _actionEntry.action
 	var theArgs := _actionEntry.args
+	var theExtraTargets := _actionEntry.extraTargets
+	var theExtraTargetsNodes:Array[Node]
 	
 	if(!deleteAction(_actionEntry)):
 		return false
+		
+	for extra in theExtraTargets:
+		if(!extra.node || !is_instance_valid(extra.node)):
+			Log.Printerr("SOMETHING WENT WRONG IN THE ACTION SYSTEM. ONE OF THE EXTRA TARGETS DOESN'T EXIST ANYMORE. ACTION="+str(theAction)+", USER="+str(theUser))
+			return false
+		theExtraTargetsNodes.append(extra.node)
+		
 	if(!theAction || !theUser):
 		Log.Printerr("SOMETHING WENT WRONG IN THE ACTION SYSTEM. ACTION="+str(theAction)+", USER="+str(theUser))
 		return false
@@ -70,7 +115,8 @@ func doAction(_actionEntry:ActionSystemEntry) -> bool:
 	var theContext := theUser.pawnActionContext
 	theContext.target = theTarget
 	theContext.args = theArgs
-	
+	theContext.extraTargets = theExtraTargetsNodes
+
 	#Log.Print("DOING THE DELAYED ACTION!")
 	var theRes := theAction.doDelayedAction(theContext)
 	
@@ -84,7 +130,7 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 	#	return false
 	
 	var theUser := _actionEntry.user
-	var theTarget := _actionEntry.target
+	var theTarget := _actionEntry.target.node if _actionEntry.target else null
 	
 	if(!theUser):
 		return false
@@ -92,6 +138,14 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 		return false
 	if(!_actionEntry.action):
 		return false
+	for extraTarget in _actionEntry.extraTargets:
+		if(!extraTarget.node):
+			return false
+	
+	theUser.tree_exiting.connect(_actionEntry.deleteMe)
+	theTarget.tree_exiting.connect(_actionEntry.deleteMe)
+	for extraTarget in _actionEntry.extraTargets:
+		extraTarget.node.tree_exiting.connect(_actionEntry.deleteMe)
 	
 	lastUniqueID += 1
 	_actionEntry.uniqueID = lastUniqueID
@@ -110,53 +164,53 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 	else:
 		targetToActions[theTarget].append(_actionEntry)
 	
+	for extraTargetEntry in _actionEntry.extraTargets:
+		var extraTarget:Node = extraTargetEntry.node
+		if(!extraTargetToActions.has(extraTarget)):
+			var newAr:Array[ActionSystemEntry] = [_actionEntry]
+			extraTargetToActions[extraTarget] = newAr
+		else:
+			extraTargetToActions[extraTarget].append(_actionEntry)
+	
 	return true
 	
 func processActions(_delta:float):
 	var actionsAm:int = actions.size()
 	
+	#TODO: CHECK EXTRAS
 	for _i in actionsAm: # Going backwards over actions so you can delete them while iterating over them
 		var _indx:int = actionsAm - 1 - _i
 		var theAction := actions[_indx]
 		var theUser := theAction.user
-		var theTarget := theAction.target
+		var theTarget := theAction.target.node
 		
 		# Better way to check if the pawn was deleted?
-		if(!theUser || !is_instance_valid(theUser) || !theTarget || !is_instance_valid(theTarget)):
+		if(!theUser || !is_instance_valid(theUser)):
 			# Cancel instead?
 			deleteAction(theAction)
 			continue
 		
-		# Do the condition checks here
-		if(theAction.conditionType != ActionSystemEntry.CONDITION_NONE):
-			if(!theUser.isInInteractRangeOf(theTarget)):
-				cancelAction(theAction)
-				continue
-		
-		#print(theUser.getActionSystemSpeed()," ", theUser.getActionSystemSpeed().length())
-		if(theAction.targetMove == ActionSystemEntry.TARGET_CANMOVE && theAction.userMove == ActionSystemEntry.USER_CANMOVE):
-			pass
-		else:
+		if(theAction.userMove != ActionSystemEntry.USER_CANMOVE):
 			var speedUser := getSpeedOf(theUser)
-			var speedTarget := getSpeedOf(theTarget)
-			
-			if(theAction.targetMove == ActionSystemEntry.TARGET_NO_MOVEMENT && speedTarget.length_squared() >= 1.0):
-				cancelAction(theAction)
-				continue
-			if(theAction.targetMove == ActionSystemEntry.TARGET_NO_RUNNING && speedTarget.length_squared() >= 16.0):
-				cancelAction(theAction)
-				continue
 			if(theAction.userMove == ActionSystemEntry.USER_NO_MOVEMENT && speedUser.length_squared() >= 1.0):
 				cancelAction(theAction)
 				continue
 			if(theAction.userMove == ActionSystemEntry.USER_NO_RUNNING && speedUser.length_squared() >= 16.0):
 				cancelAction(theAction)
 				continue
-			
-			#var relativeSpeed:float = (speedTarget - speedUser).length_squared()
-			#if(relativeSpeed >= 16.0): # 4.0 squared
-			#	cancelAction(theAction)
-			#	continue
+		
+		if(theAction.target.shouldCancelAction(theAction)):
+			cancelAction(theAction)
+			continue
+		
+		var didCancel:bool = false
+		for extraTarget in theAction.extraTargets:
+			if(extraTarget.shouldCancelAction(theAction)):
+				cancelAction(theAction)
+				didCancel = true
+				break
+		if(didCancel):
+			continue
 		
 		var thePawnAction := theAction.action
 		var theContext := theAction.user.pawnActionContext
@@ -170,10 +224,19 @@ func processActions(_delta:float):
 		theAction.timePassed += _delta
 		if(theAction.timePassed >= theAction.timeFull):
 			theContext.clearContext()
-			if(theAction.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-				cancelAction(theAction)
-			else:
+			
+			var shouldDoTheAction:bool = true
+			if(theAction.target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+				shouldDoTheAction = false
+			for extraTarget in theAction.extraTargets:
+				if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+					shouldDoTheAction = false
+					break
+			
+			if(shouldDoTheAction):
 				doAction(theAction)
+			else:
+				cancelAction(theAction)
 			continue
 		theContext.clearContext()
 
@@ -197,6 +260,20 @@ func cancelAllActionsOfTarget(_target:Node):
 		var _indx:int = theAm - _i - 1
 		cancelAction(theActionsToCancel[_indx])
 
+func cancelAllActionsOfExtraTarget(_target:Node):
+	if(!extraTargetToActions.has(_target)):
+		return
+	var theActionsToCancel := extraTargetToActions[_target]
+	var theAm:int = theActionsToCancel.size()
+	
+	for _i in theAm:
+		var _indx:int = theAm - _i - 1
+		cancelAction(theActionsToCancel[_indx])
+
+func cancelAllActionsOfTargetAll(_target:Node):
+	cancelAllActionsOfTarget(_target)
+	cancelAllActionsOfExtraTarget(_target)
+
 func getAllActionsOfUser(_user:CharacterPawn) -> Array[ActionSystemEntry]:
 	if(!userToActions.has(_user)):
 		return []
@@ -207,7 +284,21 @@ func getAllActionsOfTarget(_target:Node) -> Array[ActionSystemEntry]:
 		return []
 	return targetToActions[_target]
 
-func getSpeedOf(_node:Node) -> Vector3:
+func getAllActionsOfExtraTarget(_target:Node) -> Array[ActionSystemEntry]:
+	if(!extraTargetToActions.has(_target)):
+		return []
+	return extraTargetToActions[_target]
+
+func getAllActionsOfTargetAll(_target:Node) -> Array[ActionSystemEntry]:
+	var _l1 := getAllActionsOfTarget(_target)
+	var _l2 := getAllActionsOfExtraTarget(_target)
+	if(_l1.is_empty()):
+		return _l2
+	if(_l2.is_empty()):
+		return _l1
+	return _l1 + _l2
+
+static func getSpeedOf(_node:Node) -> Vector3:
 	if(!_node):
 		return Vector3(0.0, 0.0, 0.0)
 	if(_node is CharacterPawn):

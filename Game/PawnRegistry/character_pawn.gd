@@ -452,12 +452,13 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 			result.append(InteractEntryDo.create("ActionCancel", [entry.uniqueID]))
 	
 	if(true):
-		var currentDelayedActions := GM.actionSystem.getAllActionsOfTarget(self)
+		var currentDelayedActions := GM.actionSystem.getAllActionsOfTargetAll(self)
 		for entry in currentDelayedActions:
-			if(entry.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+			var theTarget := entry.getTargetSpecific(self)
+			if(theTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
 				result.append(InteractEntryDo.create("ActionAllow", [entry.uniqueID]))
 				result.append(InteractEntryDo.create("ActionDeny", [entry.uniqueID]))
-			elif(entry.timerType == ActionSystemEntry.TIMER_CAN_DENY):
+			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY):
 				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
 	
 	#var theContext := pawnActionContext

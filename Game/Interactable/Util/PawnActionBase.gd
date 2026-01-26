@@ -34,17 +34,23 @@ func canDoDelayedAction(_context:PawnActionContext) -> bool:
 func doDelayedAction(_context:PawnActionContext) -> bool:
 	return true
 
-func startDelayedAction(_text:String, _context:PawnActionContext, _timer:float, _args:Array = []) -> ActionSystemEntry:
+func startDelayedAction(_text:String, _context:PawnActionContext, _timer:float, _args:Array = [], _extras:Array[ActionSystemTarget] = []) -> ActionSystemEntry:
 	var newEntry := ActionSystemEntry.new()
+	
+	var mainTarget := ActionSystemTarget.new()
+	mainTarget.node = _context.target
 	
 	#newEntry.actionText = _text
 	newEntry.user = _context.pawn
-	newEntry.target = _context.target
+	newEntry.target = mainTarget
 	newEntry.action = self
 	newEntry.timeFull = _timer
 	newEntry.args = _args
-	newEntry.setActionText(_text)
 	
+	for extra in _extras:
+		newEntry.addExtraTarget(extra)
+	
+	newEntry.setActionText(_text)
 	GM.actionSystem.startAction(newEntry)
 	
 	return newEntry

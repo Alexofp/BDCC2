@@ -2,8 +2,8 @@ extends RefCounted
 class_name PawnActionContext
 
 var pawn:CharacterPawn
-var target
-
+var target:Node
+var extraTargets:Array[Node]
 var args:Array
 
 func getTargetPawn() -> CharacterPawn:
@@ -19,6 +19,8 @@ func isTargetAPawn() -> bool:
 func clearContext():
 	target = null
 	args = []
+	if(!extraTargets.is_empty()):
+		extraTargets = []
 
 func loadFromInteractEntryDo(_entry:InteractEntryDo, _target):
 	target = _target#_entry.target
