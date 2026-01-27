@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://i7sgfftnoe4w"]
+[gd_scene format=3 uid="uid://i7sgfftnoe4w"]
 
 [ext_resource type="PackedScene" uid="uid://65csyqkfwkbo" path="res://Mapping/Floors/Raw/Foundation2.glb" id="1_2tfb4"]
 
@@ -10,7 +10,7 @@ size = Vector3(2, 0.955935, 0.272789)
 
 [node name="Foundation2" unique_id=96039470 instance=ExtResource("1_2tfb4")]
 
-[node name="Foundation2" parent="." index="0" unique_id=1665416976]
+[node name="Foundation2" parent="." index="0" unique_id=512649431]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -26,17 +26,17 @@ shape = SubResource("BoxShape3D_l2hoq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.483, -0.4)
 occluder = SubResource("BoxOccluder3D_7qt46")
 
-[node name="Foundation2_lod1" parent="." index="1" unique_id=811266300]
+[node name="Foundation2_lod1" parent="." index="1" unique_id=1686891523]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2_lod2" parent="." index="2" unique_id=1581506556]
+[node name="Foundation2_lod2" parent="." index="2" unique_id=1841301166]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2_lod3" parent="." index="3" unique_id=779470008]
+[node name="Foundation2_lod3" parent="." index="3" unique_id=1226221178]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

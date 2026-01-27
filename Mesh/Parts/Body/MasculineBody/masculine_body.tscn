@@ -29,7 +29,7 @@
 [ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/CutOutTransparent.gdshader" id="22_najqo"]
 [ext_resource type="Texture2D" uid="uid://beno0wktxhj0m" path="res://Mesh/Parts/SharedTextures/PubicHair/cute.png" id="23_mbce6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lsirv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_njm0v"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_y1m6o")
@@ -72,7 +72,7 @@ uvBasedDiscard = true
 globalDetailMask = true
 messLayer = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4q47"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1m6o"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("9_a3ha1")
@@ -87,7 +87,7 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kc054"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrlh0"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("9_a3ha1")
@@ -102,7 +102,7 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_alywl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wilir"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_en425")
@@ -122,7 +122,7 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_thickness = 0.8
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_84dpi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmoi6"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("11_fp2nx")
@@ -148,7 +148,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_02rms"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3ha1"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("11_fp2nx")
@@ -174,7 +174,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o21ya"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_en425"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_en425")
@@ -208,7 +208,7 @@ noise = SubResource("FastNoiseLite_d17xq")
 as_normal_map = true
 bump_strength = 0.4
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_devmw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fp2nx"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("20_fsnn8")
@@ -237,7 +237,7 @@ alphaTransparency = true
 colorMaskAsAlbedo = true
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5x15"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mm1lp"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("22_najqo")
@@ -259,95 +259,95 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="MasculineBody" unique_id=2091505893 instance=ExtResource("1_2dffs")]
 script = ExtResource("2_2dffs")
 
-[node name="rig" parent="." index="0" unique_id=252767386 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=468402947 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_gpk52")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/FemaleCrotchSpade"), NodePath("Skeleton3D/HandPads"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair"), NodePath("Skeleton3D/FlatCrotch")]
 
-[node name="Skeleton3D" parent="rig" index="0" unique_id=1489497821]
+[node name="Skeleton3D" parent="rig" index="0" unique_id=631669726]
 unique_name_in_owner = true
 
-[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=249465509]
+[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=2048517211]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_y4q47")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_y1m6o")
 
-[node name="DigiLegs" parent="rig/Skeleton3D" index="1" unique_id=100425653]
+[node name="DigiLegs" parent="rig/Skeleton3D" index="1" unique_id=1945531664]
 unique_name_in_owner = true
 visible = false
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_kc054")
-surface_material_override/2 = SubResource("ShaderMaterial_alywl")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_hrlh0")
+surface_material_override/2 = SubResource("ShaderMaterial_wilir")
 
-[node name="FemaleCrotch" parent="rig/Skeleton3D" index="2" unique_id=1913838924]
+[node name="FemaleCrotch" parent="rig/Skeleton3D" index="2" unique_id=2129669172]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_84dpi")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_pmoi6")
 
-[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="3" unique_id=379579751]
+[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="3" unique_id=234716893]
 unique_name_in_owner = true
 visible = false
 blend_shapes/CaninePussyClose = 1.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_84dpi")
-surface_material_override/2 = SubResource("ShaderMaterial_02rms")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_pmoi6")
+surface_material_override/2 = SubResource("ShaderMaterial_a3ha1")
 
-[node name="FlatCrotch" parent="rig/Skeleton3D" index="4" unique_id=2104871878]
+[node name="FlatCrotch" parent="rig/Skeleton3D" index="4" unique_id=273427119]
 unique_name_in_owner = true
 visible = false
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
 
-[node name="HandPads" parent="rig/Skeleton3D" index="5" unique_id=1652712773]
+[node name="HandPads" parent="rig/Skeleton3D" index="5" unique_id=732569781]
 unique_name_in_owner = true
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_o21ya")
+surface_material_override/0 = SubResource("ShaderMaterial_en425")
 
-[node name="MaleCrotch" parent="rig/Skeleton3D" index="6" unique_id=834989642]
-unique_name_in_owner = true
-visible = false
-blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_84dpi")
-
-[node name="NeckConnector" parent="rig/Skeleton3D" index="7" unique_id=632589899]
+[node name="MaleCrotch" parent="rig/Skeleton3D" index="6" unique_id=1030064410]
 unique_name_in_owner = true
 visible = false
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_pmoi6")
 
-[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="8" unique_id=712238537]
+[node name="NeckConnector" parent="rig/Skeleton3D" index="7" unique_id=112805657]
 unique_name_in_owner = true
-blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-
-[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="9" unique_id=1925053656]
 visible = false
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
 
-[node name="Nipples" parent="rig/Skeleton3D" index="10" unique_id=295946836]
+[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="8" unique_id=521579374]
+unique_name_in_owner = true
+blend_shapes/FML = 1.0
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+
+[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="9" unique_id=1840031746]
+visible = false
+blend_shapes/FML = 1.0
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+
+[node name="Nipples" parent="rig/Skeleton3D" index="10" unique_id=1071735051]
 unique_name_in_owner = true
 lod_bias = 100.0
 blend_shapes/NipplesNormal = 1.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_devmw")
+surface_material_override/0 = SubResource("ShaderMaterial_fp2nx")
 
-[node name="PlantiLegs" parent="rig/Skeleton3D" index="11" unique_id=931258785]
+[node name="PlantiLegs" parent="rig/Skeleton3D" index="11" unique_id=90557860]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_lsirv")
-surface_material_override/1 = SubResource("ShaderMaterial_kc054")
+surface_material_override/0 = SubResource("ShaderMaterial_njm0v")
+surface_material_override/1 = SubResource("ShaderMaterial_hrlh0")
 
-[node name="PubicHair" parent="rig/Skeleton3D" index="12" unique_id=957066204]
+[node name="PubicHair" parent="rig/Skeleton3D" index="12" unique_id=244388278]
 unique_name_in_owner = true
 lod_bias = 100.0
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_y5x15")
+surface_material_override/0 = SubResource("ShaderMaterial_mm1lp")
 
 [node name="BodyLayeredTexture" parent="." index="1" unique_id=1059670360 instance=ExtResource("13_y1m6o")]
 unique_name_in_owner = true

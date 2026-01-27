@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbt4nw6g7n4ua"]
+[gd_scene format=3 uid="uid://bbt4nw6g7n4ua"]
 
 [ext_resource type="Script" uid="uid://baubg8xit2sn7" path="res://UI/SmartButtonGrid/smart_button_grid.gd" id="1_xbl1x"]
 

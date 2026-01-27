@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CollisionWithShapeKeys" load_steps=2 format=3 uid="uid://w1j4t8o6j6cu"]
+[gd_resource type="Resource" script_class="CollisionWithShapeKeys" format=3 uid="uid://w1j4t8o6j6cu"]
 
 [ext_resource type="Script" uid="uid://soh4rbuw3qs0" path="res://Util/SomeTests/CollisionShapekeys/CollisionWithShapeKeys.gd" id="1_wkb3r"]
 

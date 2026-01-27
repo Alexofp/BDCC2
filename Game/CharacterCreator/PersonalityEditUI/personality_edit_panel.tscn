@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj548uhla3r7q"]
+[gd_scene format=3 uid="uid://bj548uhla3r7q"]
 
 [ext_resource type="PackedScene" uid="uid://cvorprfmq1dbf" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_ui.tscn" id="1_74ws1"]
 [ext_resource type="Script" uid="uid://cyjl300ipdyr7" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_panel.gd" id="1_fvvf0"]

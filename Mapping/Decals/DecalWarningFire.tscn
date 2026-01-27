@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://tmbrj00iq5yu"]
+[gd_scene format=3 uid="uid://tmbrj00iq5yu"]
 
 [ext_resource type="PackedScene" uid="uid://bnnbxpcl507jg" path="res://Mapping/Decals/Raw/DecalWarningFire.glb" id="1_6ke6b"]
 
 [node name="DecalWarningFire" unique_id=2103441258 instance=ExtResource("1_6ke6b")]
 
-[node name="DecalWarningFire" parent="." index="0" unique_id=1502669651]
+[node name="DecalWarningFire" parent="." index="0" unique_id=1869006308]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

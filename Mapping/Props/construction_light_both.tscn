@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c010jg28no6wu"]
+[gd_scene format=3 uid="uid://c010jg28no6wu"]
 
 [ext_resource type="PackedScene" uid="uid://cf0hnmn4nnbuy" path="res://Mapping/Props/Raw/ConstructionLightBoth.glb" id="1_eedrb"]
 [ext_resource type="Script" uid="uid://bmvufvlt0fpcs" path="res://Mapping/Props/construction_light_both.gd" id="2_7ursy"]
@@ -14,7 +14,7 @@ colorbase = Color(0.84705883, 0.6392157, 0, 1)
 color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
 color3 = Color(1, 0.99607843, 0.6431373, 1)
 
-[node name="ConstructionLightBoth" parent="." index="0" unique_id=735165152]
+[node name="ConstructionLightBoth" parent="." index="0" unique_id=288279935]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
@@ -34,19 +34,19 @@ light_indirect_energy = 1.0
 spot_range = 15.0
 spot_angle = 53.69
 
-[node name="ConstructionLightBoth_lod1" parent="." index="2" unique_id=1897649011]
+[node name="ConstructionLightBoth_lod1" parent="." index="2" unique_id=3305846]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
 instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
 
-[node name="ConstructionLightBoth_lod2" parent="." index="3" unique_id=225024431]
+[node name="ConstructionLightBoth_lod2" parent="." index="3" unique_id=1178537485]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
 instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
 
-[node name="ConstructionLightBoth_lod3" parent="." index="4" unique_id=1802033028]
+[node name="ConstructionLightBoth_lod3" parent="." index="4" unique_id=1283024618]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)

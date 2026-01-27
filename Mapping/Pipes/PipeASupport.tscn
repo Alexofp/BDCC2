@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://2qjuesygwem0"]
+[gd_scene format=3 uid="uid://2qjuesygwem0"]
 
 [ext_resource type="PackedScene" uid="uid://cfpsq5m7nb0of" path="res://Mapping/Pipes/Raw/PipeASupport.glb" id="1_p42bv"]
 
@@ -10,7 +10,7 @@ size = Vector3(0.28125, 0.756152, 0.03125)
 
 [node name="PipeASupport" unique_id=1807179261 instance=ExtResource("1_p42bv")]
 
-[node name="PipeASupport" parent="." index="0" unique_id=2090044408]
+[node name="PipeASupport" parent="." index="0" unique_id=922459333]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

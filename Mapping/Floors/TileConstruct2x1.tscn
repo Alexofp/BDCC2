@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjuvvm6vd6qpi"]
+[gd_scene format=3 uid="uid://bjuvvm6vd6qpi"]
 
 [ext_resource type="PackedScene" uid="uid://bojh66pv6u6q2" path="res://Mapping/Floors/Raw/TileConstruct2x1.glb" id="1_5aavf"]
 
@@ -10,7 +10,7 @@ size = Vector2(2, 0.999999)
 
 [node name="TileConstruct2x1" unique_id=763322979 instance=ExtResource("1_5aavf")]
 
-[node name="TileConstruct2x1" parent="." index="0" unique_id=1652672007]
+[node name="TileConstruct2x1" parent="." index="0" unique_id=669621357]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

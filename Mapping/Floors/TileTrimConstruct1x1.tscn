@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0clwi8436eb1"]
+[gd_scene format=3 uid="uid://d0clwi8436eb1"]
 
 [ext_resource type="PackedScene" uid="uid://8xu4rrogg4at" path="res://Mapping/Floors/Raw/TileTrimConstruct1x1.glb" id="1_jntxx"]
 
@@ -10,7 +10,7 @@ size = Vector2(1, 0.999999)
 
 [node name="TileTrimConstruct1x1" unique_id=1261135138 instance=ExtResource("1_jntxx")]
 
-[node name="TileTrimConstruct1x1" parent="." index="0" unique_id=694835045]
+[node name="TileTrimConstruct1x1" parent="." index="0" unique_id=61697349]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

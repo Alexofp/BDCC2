@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://god1xit5rdh4"]
+[gd_scene format=3 uid="uid://god1xit5rdh4"]
 
 [ext_resource type="Script" uid="uid://cnsvhip2rybmw" path="res://UI/collapsable_region.gd" id="1_bj2s3"]
 

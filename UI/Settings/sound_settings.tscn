@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://crptnf04fy3x8"]
+[gd_scene format=3 uid="uid://crptnf04fy3x8"]
 
 [ext_resource type="Script" uid="uid://de4vhk1njbcdy" path="res://UI/Settings/sound_settings.gd" id="1_tmw34"]
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_yx5i8"]

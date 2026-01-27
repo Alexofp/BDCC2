@@ -3,10 +3,54 @@
 [ext_resource type="PackedScene" uid="uid://dguqodx0xhekt" path="res://Mesh/Parts/Hair/Ponytail3/Ponytail3.glb" id="1_dot7r"]
 [ext_resource type="Script" uid="uid://cnfh10io1ev0o" path="res://Mesh/Parts/Hair/Ponytail3/ponytail_3.gd" id="2_vmulo"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_6wrer"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_7drtq"]
-[ext_resource type="Material" uid="uid://bet888gim5akj" path="res://Mesh/SharedMaterials/Doll/RubberBandMat.tres" id="5_iw3yv"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="4_nkg7x"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="5_rhvk3"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="6_7drtq"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_r5fxh"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="7_iw3yv"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_mrrsk"]
+[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="8_814yg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoh5w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_nkg7x")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("7_mrrsk")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("6_r5fxh")
+shader_parameter/hair_normal_map = ExtResource("5_rhvk3")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e2cp"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_814yg")
+shader_parameter/albedo = Color(0.089999996, 0.089999996, 0.089999996, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.8370000397575
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 2.6000000387431204
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0, 0, 0, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [sub_resource type="Resource" id="Resource_oanuy"]
 script = ExtResource("7_iw3yv")
@@ -20,16 +64,16 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="Ponytail3" unique_id=2059753563 instance=ExtResource("1_dot7r")]
 script = ExtResource("2_vmulo")
 
-[node name="Ponytail3Rig" parent="." index="0" unique_id=109026543]
+[node name="Ponytail3Rig" parent="." index="0" unique_id=1267665079]
 script = ExtResource("3_6wrer")
 attachPoint = "hair"
 
-[node name="Ponytail3" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="0" unique_id=1322859326]
+[node name="Ponytail3" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(2102327096) index="0" unique_id=984339787]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_7drtq")
-surface_material_override/1 = ExtResource("5_iw3yv")
+surface_material_override/0 = SubResource("ShaderMaterial_xoh5w")
+surface_material_override/1 = SubResource("ShaderMaterial_7e2cp")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="1" unique_id=1212941259 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(2102327096) index="1" unique_id=1212941259 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -54,7 +98,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_oanuy")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(743525465) index="2" unique_id=2066610959 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail3Rig/Skeleton3D" parent_id_path=PackedInt32Array(2102327096) index="2" unique_id=2066610959 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

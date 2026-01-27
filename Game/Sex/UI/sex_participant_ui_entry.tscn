@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2fc3kupmxgw0"]
+[gd_scene format=3 uid="uid://c2fc3kupmxgw0"]
 
 [ext_resource type="Script" uid="uid://b6fu1vluvuqli" path="res://Game/Sex/UI/sex_participant_ui_entry.gd" id="1_axb4f"]
 

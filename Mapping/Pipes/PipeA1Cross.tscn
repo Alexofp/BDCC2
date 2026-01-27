@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6gcwy2480ax3"]
+[gd_scene format=3 uid="uid://c6gcwy2480ax3"]
 
 [ext_resource type="PackedScene" uid="uid://55uhqr1cndp3" path="res://Mapping/Pipes/Raw/PipeA1Cross.glb" id="1_skoi2"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.4, 0.4, 1)
 
 [node name="PipeA1Cross" unique_id=309553324 instance=ExtResource("1_skoi2")]
 
-[node name="PipeA1Cross" parent="." index="0" unique_id=1465289047]
+[node name="PipeA1Cross" parent="." index="0" unique_id=2140815539]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

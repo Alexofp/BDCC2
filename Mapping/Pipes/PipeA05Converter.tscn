@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpp48s45j2fa0"]
+[gd_scene format=3 uid="uid://cpp48s45j2fa0"]
 
 [ext_resource type="PackedScene" uid="uid://dt5mjxjopkwoi" path="res://Mapping/Pipes/Raw/PipeA05Converter.glb" id="1_7eqm4"]
 
@@ -10,7 +10,7 @@ size = Vector3(0.2, 0.2, 0.3)
 
 [node name="PipeA05Converter" unique_id=895240341 instance=ExtResource("1_7eqm4")]
 
-[node name="PipeA05Converter" parent="." index="0" unique_id=119299072]
+[node name="PipeA05Converter" parent="." index="0" unique_id=1305404115]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

@@ -4,12 +4,42 @@
 [ext_resource type="Script" uid="uid://cxnldy2ofpc6t" path="res://Mapping/Props/stocks.gd" id="2_bcm5a"]
 [ext_resource type="Material" uid="uid://bd2q60jlvjce" path="res://Mesh/Materials/Floors/FabricTiles.tres" id="3_js7ct"]
 [ext_resource type="PackedScene" uid="uid://csx44p553o58b" path="res://AnimScenes/Scenes/Stocks/StocksAnimHandler.tscn" id="3_we5c1"]
-[ext_resource type="Material" uid="uid://detbqftsbtywa" path="res://Mesh/Materials/Props/StocksMat.tres" id="4_10kxm"]
+[ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_all/ORMColorMaskShader.gdshader" id="4_bgnum"]
+[ext_resource type="Texture2D" uid="uid://bb60umefhh4j8" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_BaseColor.png" id="5_js7ct"]
+[ext_resource type="Texture2D" uid="uid://bbb0uytcpvlrq" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ColorMap.png" id="6_go1qq"]
+[ext_resource type="Texture2D" uid="uid://bf51nesicr31n" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Emit.png" id="7_ovm8m"]
+[ext_resource type="Texture2D" uid="uid://cigut3sgo1vfg" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_Normal.png" id="8_oon18"]
+[ext_resource type="Texture2D" uid="uid://cojghc27u1r8w" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_ORM.png" id="9_02tyr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ag0j"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_bgnum")
+shader_parameter/texture_albedo = ExtResource("5_js7ct")
+shader_parameter/texture_normal = ExtResource("8_oon18")
+shader_parameter/texture_orm = ExtResource("9_02tyr")
+shader_parameter/texture_emission = ExtResource("7_ovm8m")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission = Color(1, 0.4666667, 0, 1)
+shader_parameter/emission_energy = 19.99999955296
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("6_go1qq")
+shader_parameter/color_mask_r = Color(0.7294118, 0.41960785, 0.18431373, 1)
+shader_parameter/color_mask_g = Color(0.55, 0.5269, 0.50049996, 1)
+shader_parameter/color_mask_b = Color(1, 0.74509805, 0.61960787, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="Stocks" unique_id=1580582023 instance=ExtResource("1_wfhsi")]
 script = ExtResource("2_bcm5a")
 
-[node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(167189357) index="0" unique_id=32039205]
+[node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(1072732740) index="0" unique_id=665573649]
 unique_name_in_owner = true
 bones/3/position = Vector3(0.355232, 7.7163384e-07, 7.019003e-15)
 bones/4/position = Vector3(-0.355232, 7.7163384e-07, 7.019003e-15)
@@ -18,17 +48,17 @@ bones/5/rotation = Quaternion(1, -8.7422706e-08, -7.54979e-08, -2.6871746e-07)
 bones/6/position = Vector3(0.35523197, -7.628688e-07, -1.4847445e-08)
 bones/7/position = Vector3(-0.35523203, -6.6764267e-07, 9.24296e-08)
 
-[node name="Carpet" parent="StocksRig/Skeleton3D" index="0" unique_id=793690842]
+[node name="Carpet" parent="StocksRig/Skeleton3D" index="0" unique_id=1947929535]
 instance_shader_parameters/trim_color_base = Color(0.2, 0.2, 0.2, 1)
 surface_material_override/0 = ExtResource("3_js7ct")
 
-[node name="StocksTest" parent="StocksRig/Skeleton3D" index="1" unique_id=1656501151]
-surface_material_override/0 = ExtResource("4_10kxm")
+[node name="StocksTest" parent="StocksRig/Skeleton3D" index="1" unique_id=464837204]
+surface_material_override/0 = SubResource("ShaderMaterial_1ag0j")
 
 [node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") instance=ExtResource("3_we5c1")]
 unique_name_in_owner = true
 stocks = NodePath("..")
 
-[node name="AnimationPlayer" parent="." index="3" unique_id=1034297604]
+[node name="AnimationPlayer" parent="." index="3" unique_id=2061692146]
 unique_name_in_owner = true
 autoplay = &"Stocks_Open"

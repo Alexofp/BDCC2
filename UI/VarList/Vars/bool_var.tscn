@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://j3e10d4s7cfd"]
+[gd_scene format=3 uid="uid://j3e10d4s7cfd"]
 
 [ext_resource type="Script" uid="uid://md67hxaxs4bi" path="res://UI/VarList/Vars/bool_var.gd" id="1_arbfc"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbvw7l6uulb16"]
+[gd_scene format=3 uid="uid://dbvw7l6uulb16"]
 
 [ext_resource type="Script" uid="uid://ogyvak3dokgn" path="res://addons/godot-polyliner/demos/osc/Oscer.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://dcy5gtd26nqec" path="res://addons/godot-polyliner/demos/osc/jobinterview.ogg" id="2"]

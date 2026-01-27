@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://wsgfgwch4oft"]
+[gd_scene format=3 uid="uid://wsgfgwch4oft"]
 
 [ext_resource type="PackedScene" uid="uid://cakxf6x1gv6pt" path="res://Mapping/Walls/Raw/BackWallA1x4.glb" id="1_j8dxw"]
 
@@ -10,7 +10,7 @@ size = Vector2(4.1, 1.1)
 
 [node name="BackWallA1x4" unique_id=589687846 instance=ExtResource("1_j8dxw")]
 
-[node name="BackWallA1x4" parent="." index="0" unique_id=1324951320]
+[node name="BackWallA1x4" parent="." index="0" unique_id=1246552059]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
@@ -24,14 +24,14 @@ shape = SubResource("BoxShape3D_8yi6x")
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 2, -0.1)
 occluder = SubResource("QuadOccluder3D_461as")
 
-[node name="BackWallA1x4_lod1" parent="." index="1" unique_id=2065307263]
+[node name="BackWallA1x4_lod1" parent="." index="1" unique_id=978835905]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x4_lod2" parent="." index="2" unique_id=152533034]
+[node name="BackWallA1x4_lod2" parent="." index="2" unique_id=690575052]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x4_lod3" parent="." index="3" unique_id=244891575]
+[node name="BackWallA1x4_lod3" parent="." index="3" unique_id=1779308624]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

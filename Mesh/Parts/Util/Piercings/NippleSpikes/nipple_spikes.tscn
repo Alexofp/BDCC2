@@ -2,12 +2,38 @@
 
 [ext_resource type="PackedScene" uid="uid://b7u7xkk3jpswo" path="res://Mesh/Parts/Util/Piercings/NippleSpikes/NippleSpikes.glb" id="1_vebti"]
 [ext_resource type="Script" uid="uid://brk32dvpdk3nr" path="res://Mesh/Parts/Util/Piercings/NippleSpikes/nipple_spikes.gd" id="2_41whb"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="3_w04wh"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_mhv8j"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_dsrc8"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_grra5"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_amvvr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c0pvg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_dsrc8")
+shader_parameter/texture_orm = ExtResource("6_amvvr")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_grra5")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_mhv8j")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="NippleSpikes" unique_id=756725753 instance=ExtResource("1_vebti")]
 script = ExtResource("2_41whb")
 
-[node name="Spikes" parent="." index="0" unique_id=723024832]
+[node name="Spikes" parent="." index="0" unique_id=1234569994]
 unique_name_in_owner = true
 transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, -0.004)
-surface_material_override/0 = ExtResource("3_w04wh")
+surface_material_override/0 = SubResource("ShaderMaterial_c0pvg")

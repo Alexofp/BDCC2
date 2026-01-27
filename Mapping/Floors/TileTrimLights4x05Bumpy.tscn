@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5v31otqkbji8"]
+[gd_scene format=3 uid="uid://b5v31otqkbji8"]
 
 [ext_resource type="PackedScene" uid="uid://dffktwgb0ag70" path="res://Mapping/Floors/Raw/TileTrimLights4x05Bumpy.glb" id="1_lk4vc"]
 
@@ -10,7 +10,7 @@ size = Vector2(4, 0.500001)
 
 [node name="TileTrimLights4x05Bumpy" unique_id=227362022 instance=ExtResource("1_lk4vc")]
 
-[node name="TileTrimLights4x05Bumpy" parent="." index="0" unique_id=1035369832]
+[node name="TileTrimLights4x05Bumpy" parent="." index="0" unique_id=976170385]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

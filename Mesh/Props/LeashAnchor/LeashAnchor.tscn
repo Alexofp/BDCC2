@@ -25,7 +25,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [node name="LeashAnchor" unique_id=2107844049 instance=ExtResource("1_yieaa")]
 
-[node name="LeashAnchor" parent="." index="0" unique_id=1787808362]
+[node name="LeashAnchor" parent="." index="0" unique_id=1371047846]
 surface_material_override/0 = SubResource("ShaderMaterial_wuo06")
 
 [node name="LeashPointWorld" parent="." index="1" unique_id=1148941597 instance=ExtResource("2_v4qmy")]

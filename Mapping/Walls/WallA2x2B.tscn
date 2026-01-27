@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxq4ts68xtdca"]
+[gd_scene format=3 uid="uid://bxq4ts68xtdca"]
 
 [ext_resource type="PackedScene" uid="uid://dvodcoyw4o7vk" path="res://Mapping/Walls/Raw/WallA2x2B.glb" id="1_j7ewf"]
 
@@ -10,7 +10,7 @@ size = Vector2(2.02, 2.02)
 
 [node name="WallA2x2B" unique_id=575988097 instance=ExtResource("1_j7ewf")]
 
-[node name="WallA2x2B" parent="." index="0" unique_id=634942211]
+[node name="WallA2x2B" parent="." index="0" unique_id=529935076]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -25,12 +25,12 @@ shape = SubResource("BoxShape3D_dt8dd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, 1, 0)
 occluder = SubResource("QuadOccluder3D_jax33")
 
-[node name="WallA2x2B_lod1" parent="." index="1" unique_id=372840766]
+[node name="WallA2x2B_lod1" parent="." index="1" unique_id=2061043229]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WallA2x2B_lod2" parent="." index="2" unique_id=602239136]
+[node name="WallA2x2B_lod2" parent="." index="2" unique_id=971512624]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

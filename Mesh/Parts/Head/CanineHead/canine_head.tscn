@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://72gdnq0laick" path="res://Mesh/Parts/SharedTextures/Eyes/eye_colormask.png" id="16_r16q6"]
 [ext_resource type="Texture2D" uid="uid://b5qsa2fvvk5x0" path="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_Normal.png" id="17_734ie"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w36s5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ducgx"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_ducgx")
@@ -46,7 +46,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1p34a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hincg"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_nar23")
@@ -68,7 +68,7 @@ shader_parameter/color_mask_g = Color(0.78039217, 0.21176471, 0.21176471, 1)
 shader_parameter/color_mask_b = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iybec"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ruk7"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_cr01f")
@@ -88,7 +88,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1am2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nar23"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_cr01f")
@@ -108,7 +108,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2iaa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4m0d"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_u6ifj")
@@ -133,11 +133,11 @@ shader_parameter/glowB = 0.0
 [node name="CanineHead" unique_id=1179252613 instance=ExtResource("1_mumah")]
 script = ExtResource("2_gedrh")
 
-[node name="MyCanineHeadRig" parent="." index="0" unique_id=886968673]
+[node name="MyCanineHeadRig" parent="." index="0" unique_id=140280399]
 script = ExtResource("3_p4cjj")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyCanineHeadRig" index="0" unique_id=262484149]
+[node name="Skeleton3D" parent="MyCanineHeadRig" index="0" unique_id=1271592442]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, -0.01)
 bones/1/rotation = Quaternion(1.7584181e-06, 0.547932, 0.8365229, 1.1517811e-06)
@@ -182,28 +182,28 @@ bones/40/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.707106
 bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.7071068)
 bones/42/rotation = Quaternion(0.7071068, 2.8968927e-06, 2.8968927e-06, 0.7071068)
 
-[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=1649993765]
-surface_material_override/0 = SubResource("ShaderMaterial_w36s5")
+[node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=765772491]
+surface_material_override/0 = SubResource("ShaderMaterial_ducgx")
 
-[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=1755137828]
+[node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=1033195942]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_1p34a")
+surface_material_override/0 = SubResource("ShaderMaterial_hincg")
 
-[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=204498410]
+[node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=123841991]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_w36s5")
+surface_material_override/0 = SubResource("ShaderMaterial_ducgx")
 
-[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=24805799]
+[node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=1498749128]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_iybec")
+surface_material_override/0 = SubResource("ShaderMaterial_2ruk7")
 
-[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=2132640373]
+[node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=1619920631]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_y1am2")
+surface_material_override/0 = SubResource("ShaderMaterial_nar23")
 
-[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=752095348]
-surface_material_override/0 = SubResource("ShaderMaterial_q2iaa")
-surface_material_override/1 = SubResource("ShaderMaterial_q2iaa")
+[node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=1540687650]
+surface_material_override/0 = SubResource("ShaderMaterial_p4m0d")
+surface_material_override/1 = SubResource("ShaderMaterial_p4m0d")
 
 [node name="DollAttachPoint" parent="MyCanineHeadRig/Skeleton3D" index="6" unique_id=1787516446 instance=ExtResource("4_eq6bc")]
 pointName = "hair"
@@ -227,7 +227,7 @@ pointName = "horn.R"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1434039981]
+[node name="AnimationPlayer" parent="." index="1" unique_id=310277401]
 active = false
 
 [node name="HeadLayeredTexture" parent="." index="2" unique_id=1149174210 instance=ExtResource("4_qelme")]

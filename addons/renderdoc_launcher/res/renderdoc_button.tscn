@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cs1q7xvewlwx5"]
+[gd_scene format=3 uid="uid://cs1q7xvewlwx5"]
 
 [ext_resource type="Texture2D" uid="uid://1qp4s87d4dpp" path="res://addons/renderdoc_launcher/res/renderdoc_logo.png" id="1_ieckf"]
 

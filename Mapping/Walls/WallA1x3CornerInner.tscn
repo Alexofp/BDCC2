@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmkxbgc4jjeka"]
+[gd_scene format=3 uid="uid://cmkxbgc4jjeka"]
 
 [ext_resource type="PackedScene" uid="uid://dnh5s7irjmt1q" path="res://Mapping/Walls/Raw/WallA1x3CornerInner.glb" id="1_xqcs6"]
 
@@ -7,7 +7,7 @@ points = PackedVector3Array(-0.897709, 0.989918, 0, -0.880677, 0.989918, -0.0071
 
 [node name="WallA1x3CornerInner" unique_id=1176915329 instance=ExtResource("1_xqcs6")]
 
-[node name="WallA1x3CornerInner" parent="." index="0" unique_id=1099923615]
+[node name="WallA1x3CornerInner" parent="." index="0" unique_id=2114202758]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -25,12 +25,12 @@ shape = SubResource("ConvexPolygonShape3D_1ocng")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("ConvexPolygonShape3D_1ocng")
 
-[node name="WallA1x3CornerInner_lod1" parent="." index="1" unique_id=1629947219]
+[node name="WallA1x3CornerInner_lod1" parent="." index="1" unique_id=1420151176]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WallA1x3CornerInner_lod2" parent="." index="2" unique_id=1237023759]
+[node name="WallA1x3CornerInner_lod2" parent="." index="2" unique_id=497321310]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

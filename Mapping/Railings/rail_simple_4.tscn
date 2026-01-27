@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://do0tmvbvfrrmu"]
+[gd_scene format=3 uid="uid://do0tmvbvfrrmu"]
 
 [ext_resource type="PackedScene" uid="uid://cwyy2hl3q8wsb" path="res://Mapping/Railings/Raw/RailSimple4.glb" id="1_p1ms2"]
 [ext_resource type="Script" uid="uid://b7dbefviswt4e" path="res://Mapping/Railings/rail.gd" id="2_ce61m"]
@@ -10,7 +10,7 @@ size = Vector3(3.84, 1.01983, 0.0400003)
 [node name="RailSimple4" unique_id=68313760 instance=ExtResource("1_p1ms2")]
 script = ExtResource("2_ce61m")
 
-[node name="RailSimple4" parent="." index="0" unique_id=369589411]
+[node name="RailSimple4" parent="." index="0" unique_id=389146769]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_mfpc3")

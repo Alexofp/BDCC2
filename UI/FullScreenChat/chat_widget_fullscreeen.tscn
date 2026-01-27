@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c21kjx7fu1d7j"]
+[gd_scene format=3 uid="uid://c21kjx7fu1d7j"]
 
 [ext_resource type="PackedScene" uid="uid://g7hlt44gtx1w" path="res://UI/FullScreenChat/chat_widget.tscn" id="1_7hwcb"]
 [ext_resource type="Script" uid="uid://bt0372ocxlyie" path="res://UI/FullScreenChat/chat_widget_fullscreeen.gd" id="1_iqoxc"]

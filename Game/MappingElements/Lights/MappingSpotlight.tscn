@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c24n0yg58dmg"]
+[gd_scene format=3 uid="uid://c24n0yg58dmg"]
 
 [ext_resource type="Script" uid="uid://b0en1s1ut5ji2" path="res://Game/MappingElements/Lights/mapping_spotlight.gd" id="1_yhfny"]
 

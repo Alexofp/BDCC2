@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d22nb5qh4tlor"]
+[gd_scene format=3 uid="uid://d22nb5qh4tlor"]
 
 [ext_resource type="Script" uid="uid://bg6c7oprbl6l" path="res://Util/SomeTests/DollTest/doll_test.gd" id="1_n6qcd"]
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_uejsk"]
@@ -114,7 +114,7 @@ transform = Transform3D(0.760406, -0.219992, 0.611053, 0, 0.940881, 0.338738, -0
 [node name="Doll" parent="." unique_id=2000748516 instance=ExtResource("1_uejsk")]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=556115760]
-transform = Transform3D(0.96944505, -0.040065113, 0.24201375, 0, 0.9865721, 0.16332607, -0.24530756, -0.15833561, 0.95642805, 1.07501, 1.57707, 2.6871)
+transform = Transform3D(0.969445, -0.040065113, 0.24201375, 0, 0.9865721, 0.16332607, -0.24530755, -0.15833561, 0.95642805, 1.07501, 1.57707, 2.6871)
 current = true
 fov = 30.0
 
@@ -124,6 +124,4 @@ fov = 30.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1768354182]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_mhs7p")
-}
+libraries/ = SubResource("AnimationLibrary_mhs7p")

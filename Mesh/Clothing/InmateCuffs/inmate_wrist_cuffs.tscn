@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://1rej4olu07lf"]
+[gd_scene format=3 uid="uid://1rej4olu07lf"]
 
 [ext_resource type="Script" uid="uid://dl5jqb0bvxu48" path="res://Mesh/Clothing/InmateCuffs/inmate_wrist_cuffs.gd" id="1_s5f2n"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_kg8ds"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dee8o1kt4bhsi" path="res://Mesh/Util/SimpleChain.tscn" id="4_kau36"]
 [ext_resource type="Shader" uid="uid://eyiae72cpwot" path="res://addons/godot-polyliner/shaders/parallax/raymarch_chain.gdshader" id="5_b18bc"]
 
-[sub_resource type="Curve3D" id="Curve3D_fddo3"]
+[sub_resource type="Curve3D" id="Curve3D_s5f2n"]
 resource_local_to_scene = true
 bake_interval = 0.01
 _data = {
@@ -15,7 +15,7 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3wf7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kg8ds"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_b18bc")
@@ -59,9 +59,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0549126, 0, 0.0541641)
 
 [node name="Chain" parent="." unique_id=1494544982 node_paths=PackedStringArray("nodeA", "nodeB") instance=ExtResource("4_kau36")]
 unique_name_in_owner = true
-curve = SubResource("Curve3D_fddo3")
+curve = SubResource("Curve3D_s5f2n")
 nodeA = NodePath("../LeftWrist/InmateCuffL/CuffLoc")
 nodeB = NodePath("../RightWrist/InmateCuffR/CuffLoc")
 curve_mode = 0
 iter_min_dist = 0.021
-material = SubResource("ShaderMaterial_q3wf7")
+material = SubResource("ShaderMaterial_kg8ds")

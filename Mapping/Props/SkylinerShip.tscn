@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3bwrh344rby2"]
+[gd_scene format=3 uid="uid://c3bwrh344rby2"]
 
 [ext_resource type="PackedScene" uid="uid://7h7r67l527dc" path="res://Mapping/Props/Raw/SkylinerShip.glb" id="1_gdd3b"]
 [ext_resource type="Script" uid="uid://byvon3qs6eoj6" path="res://Mapping/Props/skyliner_ship.gd" id="2_64itc"]
@@ -17,14 +17,14 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerShip" parent="." index="0" unique_id=1736150141]
+[node name="SkylinerShip" parent="." index="0" unique_id=520489511]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerDoor" parent="SkylinerShip" index="0" unique_id=660149638]
+[node name="SkylinerDoor" parent="SkylinerShip" index="0" unique_id=1243625391]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -38,14 +38,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, -0.0674205, -0.9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187416, -0.17905)
 shape = SubResource("BoxShape3D_pxwdu")
 
-[node name="SkylinerDoor_lod1" parent="SkylinerShip" index="1" unique_id=1483861312]
+[node name="SkylinerDoor_lod1" parent="SkylinerShip" index="1" unique_id=13665410]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerLandingGear" parent="SkylinerShip" index="2" unique_id=1452929137]
+[node name="SkylinerLandingGear" parent="SkylinerShip" index="2" unique_id=2032740665]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -59,14 +59,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76553, -0.774262)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.14197, 1.40728)
 shape = SubResource("BoxShape3D_odutw")
 
-[node name="SkylinerLandingGear_lod1" parent="SkylinerShip" index="4" unique_id=73122234]
+[node name="SkylinerLandingGear_lod1" parent="SkylinerShip" index="4" unique_id=594103525]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerMarkings57" parent="SkylinerShip" index="5" unique_id=2057750362]
+[node name="SkylinerMarkings57" parent="SkylinerShip" index="5" unique_id=1455262777]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -77,7 +77,7 @@ instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53652, 0)
 omni_range = 1.491
 
-[node name="SkylinerShip_lod1" parent="." index="2" unique_id=1020567310]
+[node name="SkylinerShip_lod1" parent="." index="2" unique_id=1238984715]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)

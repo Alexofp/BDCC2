@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bedoglhyloar7"]
+[gd_scene format=3 uid="uid://bedoglhyloar7"]
 
 [ext_resource type="Script" uid="uid://dyhy0ut1jpg50" path="res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_ui.gd" id="1_ekpr0"]
 

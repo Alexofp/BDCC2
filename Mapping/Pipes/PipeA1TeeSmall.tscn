@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0hswrrc5sq4x"]
+[gd_scene format=3 uid="uid://b0hswrrc5sq4x"]
 
 [ext_resource type="PackedScene" uid="uid://ct1w3oa2wt7l7" path="res://Mapping/Pipes/Raw/PipeA1TeeSmall.glb" id="1_lxbsf"]
 
@@ -10,7 +10,7 @@ size = Vector3(0.2, 0.5, 0.2)
 
 [node name="PipeA1TeeSmall" unique_id=1784057057 instance=ExtResource("1_lxbsf")]
 
-[node name="PipeA1TeeSmall" parent="." index="0" unique_id=692758626]
+[node name="PipeA1TeeSmall" parent="." index="0" unique_id=418991181]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

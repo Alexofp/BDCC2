@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cilu0a8egis1u" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_Normal.png" id="6_v8vg5"]
 [ext_resource type="Texture2D" uid="uid://dkpbtmesjifn2" path="res://Mesh/Clothing/PlainBra/Textures/PlainBra_low_DefaultMaterial_ORM.png" id="7_aeams"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_thuhw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16u27"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_16u27")
@@ -34,17 +34,17 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="PlainBraFem" unique_id=258978249 instance=ExtResource("1_3hytr")]
 script = ExtResource("2_3hytr")
 
-[node name="rig" parent="." index="0" unique_id=2026023423 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1694663864 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_1d6n7")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainBra"), NodePath("Skeleton3D/PlainBraPulledDown")]
 
-[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(341177576) index="0" unique_id=999539033]
+[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(672019810) index="0" unique_id=285216163]
 unique_name_in_owner = true
 lod_bias = 3.0
-surface_material_override/0 = SubResource("ShaderMaterial_thuhw")
+surface_material_override/0 = SubResource("ShaderMaterial_16u27")
 
-[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(341177576) index="1" unique_id=515382398]
+[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(672019810) index="1" unique_id=1375775437]
 unique_name_in_owner = true
 lod_bias = 3.0
-surface_material_override/0 = SubResource("ShaderMaterial_thuhw")
+surface_material_override/0 = SubResource("ShaderMaterial_16u27")

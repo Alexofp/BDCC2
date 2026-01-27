@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5sgjmx5cu77t"]
+[gd_scene format=3 uid="uid://c5sgjmx5cu77t"]
 
 [ext_resource type="Script" uid="uid://c6mo82xw4n1jt" path="res://UI/VarList/Vars/color_palette_var.gd" id="1_n3ar2"]
 [ext_resource type="Texture2D" uid="uid://ycqbdkfwp0ns" path="res://UI/VarList/Images/white20.png" id="2_6808c"]

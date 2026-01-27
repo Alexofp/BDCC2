@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2hmfb1ww5ps8"]
+[gd_scene format=3 uid="uid://c2hmfb1ww5ps8"]
 
 [ext_resource type="Script" uid="uid://iqhr5j8jn2v5" path="res://Game/Character/Preset/UI/character_preset_selector.gd" id="1_ew84b"]
 

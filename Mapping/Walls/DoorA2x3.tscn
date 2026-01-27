@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://r2upk7vpgdgp"]
+[gd_scene format=3 uid="uid://r2upk7vpgdgp"]
 
 [ext_resource type="PackedScene" uid="uid://cu87pfr64no2f" path="res://Mapping/Walls/Raw/DoorA2x3.glb" id="1_5jiml"]
 [ext_resource type="Script" uid="uid://bwakrmrqgdvrf" path="res://Mapping/Walls/doorA2x3.gd" id="2_8dhc7"]
@@ -23,7 +23,7 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(0.133333, 0.133333, 0.133333, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA2x3" parent="." index="0" unique_id=1375955679]
+[node name="DoorFrameA2x3" parent="." index="0" unique_id=896989502]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -53,7 +53,7 @@ shape = SubResource("BoxShape3D_bivom")
 shape = SubResource("BoxShape3D_y4tsq")
 disabled = true
 
-[node name="DoorA2x3" parent="." index="1" unique_id=647310646]
+[node name="DoorA2x3" parent="." index="1" unique_id=463769087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31696, 0)
 gi_mode = 2
 instance_shader_parameters/roughness_mult = 0.5
@@ -62,28 +62,28 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA2x3_lod1" parent="." index="2" unique_id=1192727565]
+[node name="DoorFrameA2x3_lod1" parent="." index="2" unique_id=1734278055]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA2x3_lod2" parent="." index="3" unique_id=492007615]
+[node name="DoorFrameA2x3_lod2" parent="." index="3" unique_id=1239768643]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA2x3_lod3" parent="." index="4" unique_id=1304346336]
+[node name="DoorFrameA2x3_lod3" parent="." index="4" unique_id=1496220668]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA2x3_lod1" parent="." index="5" unique_id=896434561]
+[node name="DoorA2x3_lod1" parent="." index="5" unique_id=246988866]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
@@ -91,7 +91,7 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA2x3_lod2" parent="." index="6" unique_id=1150043411]
+[node name="DoorA2x3_lod2" parent="." index="6" unique_id=1220997338]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
@@ -99,7 +99,7 @@ instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843,
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="DoorA2x3_lod3" parent="." index="7" unique_id=1146427675]
+[node name="DoorA2x3_lod3" parent="." index="7" unique_id=1117881328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.317, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)

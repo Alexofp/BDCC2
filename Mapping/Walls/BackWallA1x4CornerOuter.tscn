@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://68wuin51s6mw"]
+[gd_scene format=3 uid="uid://68wuin51s6mw"]
 
 [ext_resource type="PackedScene" uid="uid://bwroqtoa7q3co" path="res://Mapping/Walls/Raw/BackWallA1x4CornerOuter.glb" id="1_3lgdb"]
 
@@ -16,7 +16,7 @@ size = Vector2(0.8, 4)
 
 [node name="BackWallA1x4CornerOuter" unique_id=1093343066 instance=ExtResource("1_3lgdb")]
 
-[node name="BackWallA1x4CornerOuter" parent="." index="0" unique_id=724556552]
+[node name="BackWallA1x4CornerOuter" parent="." index="0" unique_id=114409991]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
@@ -47,14 +47,14 @@ occluder = SubResource("QuadOccluder3D_dnbqy")
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.3, 2, -0.3)
 occluder = SubResource("QuadOccluder3D_0besl")
 
-[node name="BackWallA1x4CornerOuter_lod1" parent="." index="1" unique_id=298890375]
+[node name="BackWallA1x4CornerOuter_lod1" parent="." index="1" unique_id=1462050509]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x4CornerOuter_lod2" parent="." index="2" unique_id=1575364565]
+[node name="BackWallA1x4CornerOuter_lod2" parent="." index="2" unique_id=1524987033]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x4CornerOuter_lod3" parent="." index="3" unique_id=472216681]
+[node name="BackWallA1x4CornerOuter_lod3" parent="." index="3" unique_id=752304512]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

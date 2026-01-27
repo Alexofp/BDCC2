@@ -43,11 +43,11 @@ metadata/_custom_type_script = ExtResource("5_ks0ik")
 [node name="LongTail" unique_id=562306450 instance=ExtResource("1_hpuhi")]
 script = ExtResource("2_ks0ik")
 
-[node name="FelineTailRig" parent="." index="0" unique_id=2061581930]
+[node name="FelineTailRig" parent="." index="0" unique_id=904117492]
 script = ExtResource("3_ro6fy")
 attachPoint = "tail"
 
-[node name="Skeleton3D" parent="FelineTailRig" index="0" unique_id=1261151366]
+[node name="Skeleton3D" parent="FelineTailRig" index="0" unique_id=1966467547]
 bones/0/rotation = Quaternion(-0.8853029, -4.6661328e-17, 4.6661334e-17, 0.465015)
 bones/1/rotation = Quaternion(-0.29718843, -6.598909e-17, 2.5989661e-24, 0.95481884)
 bones/2/rotation = Quaternion(0.15822394, 3.5132766e-17, 3.6860264e-23, 0.9874033)
@@ -55,7 +55,7 @@ bones/3/rotation = Quaternion(0.15822378, 3.513278e-17, 4.4818732e-23, 0.9874033
 bones/4/rotation = Quaternion(0.1582243, 3.5132783e-17, 6.178284e-23, 0.9874032)
 bones/5/rotation = Quaternion(0.15822385, 3.513279e-17, 2.8692367e-23, 0.9874033)
 
-[node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0" unique_id=1437716009]
+[node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0" unique_id=690055808]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_ywkq7")
 
@@ -213,15 +213,15 @@ bone_name = "DEF-Tail6"
 properties = SubResource("Resource_4lk77")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="FelineTailFuzz" parent="FelineTailRig/Skeleton3D" index="8" unique_id=229751614]
+[node name="FelineTailFuzz" parent="FelineTailRig/Skeleton3D" index="8" unique_id=792433747]
 unique_name_in_owner = true
 visible = false
 surface_material_override/0 = SubResource("ShaderMaterial_ywkq7")
 
-[node name="FelineTailLionTip" parent="FelineTailRig/Skeleton3D" index="9" unique_id=1538676569]
+[node name="FelineTailLionTip" parent="FelineTailRig/Skeleton3D" index="9" unique_id=1459525393]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_ywkq7")
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1470268595]
+[node name="AnimationPlayer" parent="." index="1" unique_id=2049055758]
 unique_name_in_owner = true
 autoplay = &"TailRest"

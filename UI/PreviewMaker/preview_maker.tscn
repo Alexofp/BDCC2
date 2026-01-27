@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://djlfaldpl6h3m"]
+[gd_scene format=3 uid="uid://djlfaldpl6h3m"]
 
 [ext_resource type="Script" uid="uid://c1h5kjtpyahi3" path="res://UI/PreviewMaker/preview_maker.gd" id="1_nljnl"]
 

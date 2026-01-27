@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://stsnv5vidmwm"]
+[gd_scene format=3 uid="uid://stsnv5vidmwm"]
 
 [ext_resource type="PackedScene" uid="uid://op805fcket7f" path="res://Mapping/Floors/Raw/Foundation2CornerOuter.glb" id="1_anml6"]
 
@@ -10,7 +10,7 @@ size = Vector3(0.6, 0.953059, 0.6)
 
 [node name="Foundation2CornerOuter" unique_id=659271200 instance=ExtResource("1_anml6")]
 
-[node name="Foundation2CornerOuter" parent="." index="0" unique_id=1591967748]
+[node name="Foundation2CornerOuter" parent="." index="0" unique_id=322194531]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -26,17 +26,17 @@ shape = SubResource("BoxShape3D_3v867")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.699685, 0.498587, -0.69388)
 occluder = SubResource("BoxOccluder3D_yha8h")
 
-[node name="Foundation2CornerOuter_lod1" parent="." index="1" unique_id=1013681833]
+[node name="Foundation2CornerOuter_lod1" parent="." index="1" unique_id=1729875205]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2CornerOuter_lod2" parent="." index="2" unique_id=1175391831]
+[node name="Foundation2CornerOuter_lod2" parent="." index="2" unique_id=889854220]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation2CornerOuter_lod3" parent="." index="3" unique_id=404526400]
+[node name="Foundation2CornerOuter_lod3" parent="." index="3" unique_id=494950284]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsbhno7ws1mc3"]
+[gd_scene format=3 uid="uid://bsbhno7ws1mc3"]
 
 [ext_resource type="Script" uid="uid://bhbbpl7563aq1" path="res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_panel.gd" id="1_mo3lk"]
 [ext_resource type="PackedScene" uid="uid://bedoglhyloar7" path="res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_ui.tscn" id="2_mo3lk"]

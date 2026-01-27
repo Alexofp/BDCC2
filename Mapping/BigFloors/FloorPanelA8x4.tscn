@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5yvaht1wsdht"]
+[gd_scene format=3 uid="uid://b5yvaht1wsdht"]
 
 [ext_resource type="PackedScene" uid="uid://cpy2qrth3s1in" path="res://Mapping/BigFloors/Raw/FloorPanelA8x4.glb" id="1_muayf"]
 [ext_resource type="Script" uid="uid://bi2l5m1wp8b5o" path="res://Mapping/BigFloors/floor_panelA8x4.gd" id="2_fy7h1"]
@@ -17,7 +17,7 @@ color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.13333334, 0.13333334, 0.13333334, 1)
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="FloorPanelA8x4" parent="." index="0" unique_id=842681093]
+[node name="FloorPanelA8x4" parent="." index="0" unique_id=1209930780]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0bx3obfy2vk4"]
+[gd_scene format=3 uid="uid://b0bx3obfy2vk4"]
 
 [ext_resource type="Script" uid="uid://do7g8q3upkb6k" path="res://Game/IngameEditor/player_editor.gd" id="1_hrol8"]
 [ext_resource type="PackedScene" uid="uid://bo1445eamj5w6" path="res://Game/IngameEditor/pc_editor_asset_stash.tscn" id="2_mo0es"]

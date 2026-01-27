@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dfkrg8v3nxwwy"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dfkrg8v3nxwwy"]
 
 [ext_resource type="Shader" uid="uid://bs5ukoaqxgb7v" path="res://Util/PostProcess/AnamorphicLensFlare/anamorphic_lens_flare.gdshader" id="1_wr6tl"]
 

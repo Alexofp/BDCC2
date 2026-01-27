@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c71yanirjreky"]
+[gd_scene format=3 uid="uid://c71yanirjreky"]
 
 [ext_resource type="Script" uid="uid://c5hjcvle5vwk8" path="res://addons/godot-polyliner/Line3D/LinePath3D.gd" id="1"]
 

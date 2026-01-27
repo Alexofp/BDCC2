@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b713vreedlaa1"]
+[gd_scene format=3 uid="uid://b713vreedlaa1"]
 
 [ext_resource type="Material" uid="uid://dfkrg8v3nxwwy" path="res://Util/PostProcess/AnamorphicLensFlare/AnamorphicLensFlareScreenMat.tres" id="1_g2nmt"]
 [ext_resource type="Script" uid="uid://md5dtf28tr1e" path="res://Util/PostProcess/AnamorphicLensFlare/anamorphic_lens_flare.gd" id="1_trt0l"]

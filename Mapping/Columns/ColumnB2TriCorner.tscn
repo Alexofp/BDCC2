@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cp3u6geologhq"]
+[gd_scene format=3 uid="uid://cp3u6geologhq"]
 
 [ext_resource type="PackedScene" uid="uid://cv1i4shfjropo" path="res://Mapping/Columns/Raw/ColumnB2TriCorner.glb" id="1_libyc"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.4, 1.44156, 1.1)
 
 [node name="ColumnB2TriCorner" unique_id=489958448 instance=ExtResource("1_libyc")]
 
-[node name="ColumnB2TriCorner" parent="." index="0" unique_id=1334959390]
+[node name="ColumnB2TriCorner" parent="." index="0" unique_id=2004099841]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -39,19 +39,19 @@ shape = SubResource("BoxShape3D_tcdif")
 transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, -0.198, 1, 0)
 shape = SubResource("BoxShape3D_tcdif")
 
-[node name="ColumnB2TriCorner_lod1" parent="." index="1" unique_id=678998937]
+[node name="ColumnB2TriCorner_lod1" parent="." index="1" unique_id=2053102140]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnB2TriCorner_lod2" parent="." index="2" unique_id=1837030031]
+[node name="ColumnB2TriCorner_lod2" parent="." index="2" unique_id=836367638]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnB2TriCorner_lod3" parent="." index="3" unique_id=519465598]
+[node name="ColumnB2TriCorner_lod3" parent="." index="3" unique_id=567077901]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

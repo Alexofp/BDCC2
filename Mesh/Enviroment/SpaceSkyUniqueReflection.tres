@@ -1,4 +1,4 @@
-[gd_resource type="Sky" load_steps=5 format=3 uid="uid://bkcgm2uhe6dja"]
+[gd_resource type="Sky" format=3 uid="uid://bkcgm2uhe6dja"]
 
 [ext_resource type="Shader" uid="uid://bepy4di867b2g" path="res://Mesh/Enviroment/SpaceSkyUniqueReflectionShader.tres" id="1_0y1wu"]
 [ext_resource type="Texture2D" uid="uid://cutt217rbbco6" path="res://Mesh/Enviroment/moon_lab_1k.exr" id="1_kq1wq"]

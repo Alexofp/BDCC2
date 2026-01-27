@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ibsmjn6x45e8"]
+[gd_scene format=3 uid="uid://ibsmjn6x45e8"]
 
 [ext_resource type="Script" uid="uid://cn25jqiait002" path="res://Inventory/UI/inventory_entry_ui.gd" id="1_o2hgj"]
 [ext_resource type="Texture2D" uid="uid://cmgd1c1qbdsxp" path="res://icon.svg" id="1_u0hjb"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmfu2lyyile1l"]
+[gd_scene format=3 uid="uid://cmfu2lyyile1l"]
 
 [ext_resource type="Script" uid="uid://dnr4h4c7t315e" path="res://Mesh/Clothing/InmateCuffs/inmate_ankle_cuffs.gd" id="1_y2jxc"]
 [ext_resource type="PackedScene" uid="uid://dyyn8wgr5l3un" path="res://Mesh/Clothing/InmateCuffs/InmateCuff.tscn" id="2_43os2"]

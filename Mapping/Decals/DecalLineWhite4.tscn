@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3qxtuwkuk6av"]
+[gd_scene format=3 uid="uid://b3qxtuwkuk6av"]
 
 [ext_resource type="PackedScene" uid="uid://touahnelyaxy" path="res://Mapping/Decals/Raw/DecalLineWhite4.glb" id="1_fsabi"]
 
 [node name="DecalLineWhite4" unique_id=678366033 instance=ExtResource("1_fsabi")]
 
-[node name="DecalLineWhite4" parent="." index="0" unique_id=151941193]
+[node name="DecalLineWhite4" parent="." index="0" unique_id=394472431]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

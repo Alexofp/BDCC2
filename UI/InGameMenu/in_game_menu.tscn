@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbv6hg6no0qrn"]
+[gd_scene format=3 uid="uid://cbv6hg6no0qrn"]
 
 [ext_resource type="Script" uid="uid://dbavpf1recv8n" path="res://UI/InGameMenu/in_game_menu.gd" id="1_eycxj"]
 [ext_resource type="PackedScene" uid="uid://c3simn20mij3o" path="res://Game/Multiplayer/UI/multiplayer_info_list.tscn" id="2_qr8r0"]

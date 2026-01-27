@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://g016dm7m4dml"]
+[gd_scene format=3 uid="uid://g016dm7m4dml"]
 
 [ext_resource type="PackedScene" uid="uid://cvntqp6scp6l5" path="res://UI/VarList/Vars/int_var.tscn" id="1_0radv"]
 [ext_resource type="Script" uid="uid://dikbte7jcofvh" path="res://UI/VarList/Vars/float_var.gd" id="2_rie5c"]
@@ -6,6 +6,6 @@
 [node name="FloatVar" unique_id=775230476 instance=ExtResource("1_0radv")]
 script = ExtResource("2_rie5c")
 
-[node name="SpinBox" parent="HBoxContainer" index="1"]
+[node name="SpinBox" parent="HBoxContainer" parent_id_path=PackedInt32Array(1492979556) index="1" unique_id=427540075]
 step = 0.1
 rounded = false

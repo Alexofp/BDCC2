@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://hmh5vq5dsuhh"]
+[gd_scene format=3 uid="uid://hmh5vq5dsuhh"]
 
 [ext_resource type="PackedScene" uid="uid://b6td5wabyg2n1" path="res://Mapping/BigFloors/Raw/BigFloorSci6x6Cross.glb" id="1_pikmr"]
 [ext_resource type="Script" uid="uid://cbpkq8yndd48l" path="res://Mapping/BigFloors/big_floor_sci.gd" id="2_bxe4i"]
@@ -12,7 +12,7 @@ size = Vector2(6, 6)
 [node name="BigFloorSci6x6Cross" unique_id=953605740 instance=ExtResource("1_pikmr")]
 script = ExtResource("2_bxe4i")
 
-[node name="BigFloorSci6x6Cross" parent="." index="0" unique_id=838613673]
+[node name="BigFloorSci6x6Cross" parent="." index="0" unique_id=1196731715]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlu17cy4x165f"]
+[gd_scene format=3 uid="uid://dlu17cy4x165f"]
 
 [ext_resource type="PackedScene" uid="uid://3do0cgyhxr7h" path="res://Mapping/Floors/Raw/FloorTile1x1WallCorner.glb" id="1_p8568"]
 [ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_exqw4"]
@@ -15,7 +15,7 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
 
-[node name="FloorTile1x1WallCorner" parent="." index="0" unique_id=725160691]
+[node name="FloorTile1x1WallCorner" parent="." index="0" unique_id=63140913]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/uv1_scale = 1.0

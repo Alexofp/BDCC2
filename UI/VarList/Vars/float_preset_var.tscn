@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbh2u6di1xoaa"]
+[gd_scene format=3 uid="uid://bbh2u6di1xoaa"]
 
 [ext_resource type="Script" uid="uid://ye77ikooy67o" path="res://UI/VarList/Vars/float_preset_var.gd" id="1_mkkbd"]
 

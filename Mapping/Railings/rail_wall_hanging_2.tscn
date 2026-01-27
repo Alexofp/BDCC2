@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d36teuvxm2w4j"]
+[gd_scene format=3 uid="uid://d36teuvxm2w4j"]
 
 [ext_resource type="PackedScene" uid="uid://b32ntqe5t5hnw" path="res://Mapping/Railings/Raw/RailWallHanging2.glb" id="1_ejukx"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_s52ux"]
@@ -10,7 +10,7 @@ size = Vector3(1.84, 0.04, 0.319829)
 [node name="RailWallHanging2" unique_id=859508099 instance=ExtResource("1_ejukx")]
 script = ExtResource("2_u6b07")
 
-[node name="RailWallHanging2" parent="." index="0" unique_id=437023749]
+[node name="RailWallHanging2" parent="." index="0" unique_id=1823991018]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_s52ux")

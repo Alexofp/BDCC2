@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bmy4bgb43cuuq" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_Normal.png" id="7_x4dcn"]
 [ext_resource type="Texture2D" uid="uid://hcu5o103lkx4" path="res://Mesh/Clothing/InmateTop/Textures/InmateTop_low_DefaultMaterial_ORM.png" id="8_opav5"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6vd7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76335"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_76335")
@@ -36,15 +36,15 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="InmateTop" unique_id=382904118 instance=ExtResource("1_0xw5g")]
 script = ExtResource("2_76335")
 
-[node name="rig" parent="." index="0" unique_id=414223982 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1457547948 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_vqwp7")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/InmateTop"), NodePath("Skeleton3D/InmateTop_PulledUp")]
 
-[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1687539517) index="0" unique_id=642851893]
+[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1526683510) index="0" unique_id=818993723]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_m6vd7")
+surface_material_override/0 = SubResource("ShaderMaterial_76335")
 
-[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1687539517) index="1" unique_id=821798574]
+[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1526683510) index="1" unique_id=557509235]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_m6vd7")
+surface_material_override/0 = SubResource("ShaderMaterial_76335")

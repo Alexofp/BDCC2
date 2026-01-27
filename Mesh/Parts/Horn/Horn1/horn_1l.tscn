@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://my7dgwrf0lsh" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_Normal.png" id="7_oa617"]
 [ext_resource type="Texture2D" uid="uid://vtq3g40f7u27" path="res://Mesh/Parts/Horn/Horn1/Textures/Horn1_low_DefaultMaterial_ORM.png" id="8_tbnrv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w6twt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cka4t"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_f7trq")
@@ -43,7 +43,7 @@ isLeft = true
 script = ExtResource("4_1oqmp")
 attachPoint = "horn.L"
 
-[node name="Horn1L" parent="Horn1L2" index="0" unique_id=335157042]
-surface_material_override/0 = SubResource("ShaderMaterial_w6twt")
+[node name="Horn1L" parent="Horn1L2" index="0" unique_id=1148820809]
+surface_material_override/0 = SubResource("ShaderMaterial_cka4t")
 
 [editable path="Horn1L2"]

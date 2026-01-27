@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b1414x0tg03d5" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_Normal.png" id="6_3mir3"]
 [ext_resource type="Texture2D" uid="uid://d4gim8rwamfdn" path="res://Mesh/Parts/Horn/HornChaos/Textures/HornsChaos_low_DefaultMaterial_ORM.png" id="7_n5rer"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oefnt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3fcd"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_j3fcd")
@@ -37,8 +37,8 @@ unique_name_in_owner = true
 script = ExtResource("3_7ilw4")
 attachPoint = "horn.R"
 
-[node name="HornChaos_001" parent="Horn" index="0" unique_id=1994476646]
+[node name="HornChaos_001" parent="Horn" index="0" unique_id=464993205]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-surface_material_override/0 = SubResource("ShaderMaterial_oefnt")
+surface_material_override/0 = SubResource("ShaderMaterial_j3fcd")
 
 [editable path="Horn"]

@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dmjixnki75tax"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dmjixnki75tax"]
 
 [ext_resource type="Shader" uid="uid://csax2g5jqpal3" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealShader.gdshader" id="1_do2le"]
 

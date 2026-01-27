@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_lnpqy"]
 [ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="7_tc5k0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_437mc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ct8sa"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_hhsdt")
@@ -34,10 +34,10 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="ClitRing" unique_id=680983331 instance=ExtResource("1_0fc08")]
 script = ExtResource("2_bpxts")
 
-[node name="ClitRing" parent="." index="0" unique_id=452409869]
+[node name="ClitRing" parent="." index="0" unique_id=207012205]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-surface_material_override/0 = SubResource("ShaderMaterial_437mc")
+surface_material_override/0 = SubResource("ShaderMaterial_ct8sa")
 
 [node name="DollLeashPoint" type="Marker3D" parent="." index="1" unique_id=1272508308]
 script = ExtResource("7_tc5k0")

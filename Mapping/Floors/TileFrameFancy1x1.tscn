@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dym8sh52t257e"]
+[gd_scene format=3 uid="uid://dym8sh52t257e"]
 
 [ext_resource type="PackedScene" uid="uid://ckeg6k2n0ayot" path="res://Mapping/Floors/Raw/TileFrameFancy1x1.glb" id="1_4tmgu"]
 
@@ -7,7 +7,7 @@ size = Vector3(1, 0.01, 0.999999)
 
 [node name="TileFrameFancy1x1" unique_id=102742867 instance=ExtResource("1_4tmgu")]
 
-[node name="TileFrameFancy1x1" parent="." index="0" unique_id=1819759200]
+[node name="TileFrameFancy1x1" parent="." index="0" unique_id=2061034219]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

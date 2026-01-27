@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dl14ic1hmluk6" path="res://Mesh/Parts/Ear/RoundEar/Textures/RoundEar_low_DefaultMaterial_ORM.png" id="7_2gftf"]
 [ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="10_p1hm4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6bsp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eb2vy"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_eb2vy")
@@ -41,7 +41,7 @@ linear_scale = 652.683
 swing_span = 1.5708
 metadata/_custom_type_script = ExtResource("4_qygs0")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3t0o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwnlp"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_p1hm4")
@@ -60,15 +60,15 @@ script = ExtResource("2_oh0h5")
 ear = NodePath("RoundEarRig/Skeleton3D/RoundEar")
 earFluff = NodePath("RoundEarRig/Skeleton3D/RoundEarFluff")
 
-[node name="RoundEarRig" parent="." index="0" unique_id=1916240614]
+[node name="RoundEarRig" parent="." index="0" unique_id=1791628769]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_el3go")
 attachPoint = "ear.L"
 
-[node name="RoundEar" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="0" unique_id=1178953878]
-surface_material_override/0 = SubResource("ShaderMaterial_l6bsp")
+[node name="RoundEar" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(714023823) index="0" unique_id=275251973]
+surface_material_override/0 = SubResource("ShaderMaterial_eb2vy")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="1" unique_id=847200829]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(714023823) index="1" unique_id=847200829]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -90,5 +90,5 @@ bone_name = "Ear.L"
 properties = SubResource("Resource_60tp3")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="RoundEarFluff" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(2050259463) index="2" unique_id=1869998559]
-surface_material_override/0 = SubResource("ShaderMaterial_i3t0o")
+[node name="RoundEarFluff" parent="RoundEarRig/Skeleton3D" parent_id_path=PackedInt32Array(714023823) index="2" unique_id=844708521]
+surface_material_override/0 = SubResource("ShaderMaterial_iwnlp")

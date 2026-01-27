@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7cbiv3il0ixo"]
+[gd_scene format=3 uid="uid://b7cbiv3il0ixo"]
 
 [ext_resource type="Script" uid="uid://c4bjguf8r30p8" path="res://Mesh/Util/marker_blendshaped.gd" id="1_k4148"]
 

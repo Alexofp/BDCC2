@@ -16,14 +16,14 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [node name="NippleClampWeight" unique_id=1334231344 instance=ExtResource("1_fpqj4")]
 
-[node name="NippleClamp" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(624451666) index="0" unique_id=1465539014]
+[node name="NippleClamp" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(1522778825) index="0" unique_id=1251397114]
 instance_shader_parameters/trim_color_base = Color(0.33, 0.33, 0.33, 1)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_second = Color(0.54, 0.54, 0.54, 1)
 instance_shader_parameters/trim_color_third = Color(0.26, 0.26, 0.26, 1)
 surface_material_override/0 = ExtResource("2_3q1mv")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(624451666) index="1" unique_id=1011991509]
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(1522778825) index="1" unique_id=1011991509]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -45,7 +45,7 @@ bone_name = "Chain"
 properties = SubResource("Resource_5435e")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(624451666) index="2" unique_id=2116601769]
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="NippleClampRig/Skeleton3D" parent_id_path=PackedInt32Array(1522778825) index="2" unique_id=2116601769]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbwy1yh34b36w"]
+[gd_scene format=3 uid="uid://dbwy1yh34b36w"]
 
 [ext_resource type="PackedScene" uid="uid://cjvnvssc4y723" path="res://Mapping/Floors/Raw/Foundation4.glb" id="1_v0aoa"]
 
@@ -10,7 +10,7 @@ size = Vector3(4, 0.95, 0.674)
 
 [node name="Foundation4" unique_id=435642690 instance=ExtResource("1_v0aoa")]
 
-[node name="Foundation4" parent="." index="0" unique_id=1167257757]
+[node name="Foundation4" parent="." index="0" unique_id=1061944093]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -26,17 +26,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.530519, -0.20016)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.0417553, 0)
 shape = SubResource("BoxShape3D_cjtds")
 
-[node name="Foundation4_lod1" parent="." index="1" unique_id=1834059145]
+[node name="Foundation4_lod1" parent="." index="1" unique_id=2016024351]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation4_lod2" parent="." index="2" unique_id=1581435913]
+[node name="Foundation4_lod2" parent="." index="2" unique_id=817496103]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="Foundation4_lod3" parent="." index="3" unique_id=1153069665]
+[node name="Foundation4_lod3" parent="." index="3" unique_id=515658673]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

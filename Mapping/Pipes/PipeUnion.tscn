@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://5mcg1vu4nwx7"]
+[gd_scene format=3 uid="uid://5mcg1vu4nwx7"]
 
 [ext_resource type="PackedScene" uid="uid://bv8el3m41pi0t" path="res://Mapping/Pipes/Raw/PipeUnion.glb" id="1_nyn8q"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.6, 0.6, 0.294463)
 
 [node name="PipeUnion" unique_id=683175387 instance=ExtResource("1_nyn8q")]
 
-[node name="PipeUnion" parent="." index="0" unique_id=1241540452]
+[node name="PipeUnion" parent="." index="0" unique_id=1954886016]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

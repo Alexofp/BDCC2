@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d7mipnfi550m"]
+[gd_scene format=3 uid="uid://d7mipnfi550m"]
 
 [ext_resource type="PackedScene" uid="uid://xvb10xxj06yk" path="res://Mapping/Props/Raw/Chair3.glb" id="1_ilbbn"]
 [ext_resource type="Script" uid="uid://hl6by82k78fy" path="res://Mapping/Props/chair.gd" id="2_fp5wl"]
@@ -15,7 +15,7 @@ roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Chair3" parent="." index="0" unique_id=1064302504]
+[node name="Chair3" parent="." index="0" unique_id=182405482]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -31,17 +31,17 @@ shape = SubResource("BoxShape3D_cxogw")
 transform = Transform3D(1, 0, 0, 0, 0.962682, 0.270634, 0, -0.270634, 0.962682, 0, 0.315541, -0.383831)
 shape = SubResource("BoxShape3D_8mb52")
 
-[node name="Chair3_lod1" parent="." index="1" unique_id=148277159]
+[node name="Chair3_lod1" parent="." index="1" unique_id=1441465837]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Chair3_lod2" parent="." index="2" unique_id=1131795778]
+[node name="Chair3_lod2" parent="." index="2" unique_id=217043211]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Chair3_lod3" parent="." index="3" unique_id=40692793]
+[node name="Chair3_lod3" parent="." index="3" unique_id=171220609]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)

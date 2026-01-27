@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://brxgmjq7ih3q2"]
+[gd_scene format=3 uid="uid://brxgmjq7ih3q2"]
 
 [ext_resource type="Script" uid="uid://b5mmf4s0gv5dl" path="res://UI/VarList/Vars/sex_voice_var.gd" id="1_75us4"]
 [ext_resource type="PackedScene" uid="uid://d3hv65j5t6274" path="res://UI/VarList/Vars/slider_var.tscn" id="2_cn3r3"]

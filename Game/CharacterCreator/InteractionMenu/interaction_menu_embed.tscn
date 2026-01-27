@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bea8vmwiu4vwf"]
+[gd_scene format=3 uid="uid://bea8vmwiu4vwf"]
 
 [ext_resource type="Script" uid="uid://cc0f4515ekcyx" path="res://Game/CharacterCreator/InteractionMenu/interaction_menu_embed.gd" id="1_t44fs"]
 [ext_resource type="PackedScene" uid="uid://43nqk2023vem" path="res://Game/CharacterCreator/InteractionMenu/interact_menu_entry.tscn" id="2_y1lr7"]

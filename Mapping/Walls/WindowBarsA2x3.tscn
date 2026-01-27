@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0km8xxnohie3"]
+[gd_scene format=3 uid="uid://c0km8xxnohie3"]
 
 [ext_resource type="PackedScene" uid="uid://cjp6vy22af8x0" path="res://Mapping/Walls/Raw/WindowBarsA2x3.glb" id="1_uqaf3"]
 
@@ -10,7 +10,7 @@ size = Vector3(1.6377, 1.89502, 0.170294)
 
 [node name="WindowBarsA2x3" unique_id=408458541 instance=ExtResource("1_uqaf3")]
 
-[node name="WindowBarsA2x3" parent="." index="0" unique_id=1588738254]
+[node name="WindowBarsA2x3" parent="." index="0" unique_id=1383845357]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -26,17 +26,17 @@ shape = SubResource("BoxShape3D_0xkx4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0314941, 0.100144)
 shape = SubResource("BoxShape3D_mv5ty")
 
-[node name="WindowBarsA2x3_lod1" parent="." index="1" unique_id=1240847275]
+[node name="WindowBarsA2x3_lod1" parent="." index="1" unique_id=1827881770]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WindowBarsA2x3_lod2" parent="." index="2" unique_id=790417103]
+[node name="WindowBarsA2x3_lod2" parent="." index="2" unique_id=1478307973]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WindowBarsA2x3_lod3" parent="." index="3" unique_id=926145318]
+[node name="WindowBarsA2x3_lod3" parent="." index="3" unique_id=1532607392]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

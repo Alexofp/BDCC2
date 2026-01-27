@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://di8q5ut8regou"]
+[gd_scene format=3 uid="uid://di8q5ut8regou"]
 
 [ext_resource type="Script" uid="uid://b0nggqit6xbyk" path="res://Game/Doll/FaceAnimator/face_animator.gd" id="1_3wsd5"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjp3b2k82ob5m"]
+[gd_scene format=3 uid="uid://bjp3b2k82ob5m"]
 
 [ext_resource type="Script" uid="uid://bgj3067ff6x36" path="res://Mesh/Parts/Head/FelineHead/Items/GagHarness/feline_gag_harness.gd" id="1_ulxw8"]
 [ext_resource type="PackedScene" uid="uid://b8ruue36bttsx" path="res://Mesh/Parts/Head/FelineHead/Items/GagHarness/FelineGagHarness.glb" id="2_ulxw8"]
@@ -12,17 +12,17 @@ script = ExtResource("1_ulxw8")
 script = ExtResource("3_ny126")
 attachPoint = "head_items"
 
-[node name="FelineGagHarness" parent="FelineGagHarness" index="0" unique_id=300161471]
+[node name="FelineGagHarness" parent="FelineGagHarness" index="0" unique_id=631297863]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="BallGagModule" parent="FelineGagHarness" index="1" unique_id=1284599343]
+[node name="BallGagModule" parent="FelineGagHarness" index="1" unique_id=1612090266]
 instance_shader_parameters/trim_color_main = Color(0.75, 0, 0, 1)
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="RingGagModule" parent="FelineGagHarness" index="2" unique_id=281188624]
+[node name="RingGagModule" parent="FelineGagHarness" index="2" unique_id=1054555011]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
-[node name="BottomStrap" parent="FelineGagHarness" index="3" unique_id=601656882]
+[node name="BottomStrap" parent="FelineGagHarness" index="3" unique_id=136706065]
 surface_material_override/0 = ExtResource("4_ulxw8")
 
 [editable path="FelineGagHarness"]

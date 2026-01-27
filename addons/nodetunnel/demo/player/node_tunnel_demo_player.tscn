@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://k75j6hnh43t3"]
+[gd_scene format=3 uid="uid://k75j6hnh43t3"]
 
 [ext_resource type="Script" uid="uid://ce3ifw4v3jgvw" path="res://addons/nodetunnel/demo/player/node_tunnel_demo_player.gd" id="1_7jw1k"]
 [ext_resource type="Texture2D" uid="uid://ct65mgn332epf" path="res://addons/nodetunnel/demo/player/node_tunnel_demo_sprite.png" id="1_sjhmu"]

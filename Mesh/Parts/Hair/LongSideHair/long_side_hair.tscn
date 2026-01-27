@@ -1,11 +1,37 @@
-[gd_scene load_steps=9 format=3 uid="uid://65yahgwf6b08"]
+[gd_scene format=3 uid="uid://65yahgwf6b08"]
 
 [ext_resource type="PackedScene" uid="uid://870kvmxigav2" path="res://Mesh/Parts/Hair/LongSideHair/LongSideHair.glb" id="1_bdoeq"]
 [ext_resource type="Script" uid="uid://bn405cgvy50o1" path="res://Mesh/Parts/Hair/LongSideHair/long_side_hair.gd" id="2_55mkn"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_233wg"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="3_55mkn"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="4_210me"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="5_v7veb"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_xc1fc"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_jkppe"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_ksgrq"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_mgu32"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ws4mf"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_210me")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("7_mgu32")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("6_ksgrq")
+shader_parameter/hair_normal_map = ExtResource("5_v7veb")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="Resource" id="Resource_kqby4"]
 script = ExtResource("6_jkppe")
@@ -20,15 +46,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="LongSideHair" unique_id=1326478218 instance=ExtResource("1_bdoeq")]
 script = ExtResource("2_55mkn")
 
-[node name="LongSideHairRig" parent="." index="0" unique_id=1366760955]
+[node name="LongSideHairRig" parent="." index="0" unique_id=46597517]
 script = ExtResource("2_233wg")
 attachPoint = "hair"
 
-[node name="LongSideHair" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="0" unique_id=2074782784]
+[node name="LongSideHair" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="0" unique_id=401168043]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("3_55mkn")
+surface_material_override/0 = SubResource("ShaderMaterial_ws4mf")
 
-[node name="HairWiggle" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="1" unique_id=1739821582 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="1" unique_id=1739821582 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -53,7 +79,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_kqby4")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="2" unique_id=223459364 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="2" unique_id=223459364 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -78,7 +104,7 @@ bone_name = "Back.R"
 properties = SubResource("Resource_kqby4")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="3" unique_id=882881446 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle3" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="3" unique_id=882881446 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -104,7 +130,7 @@ bone_name = "BackLow.L"
 properties = SubResource("Resource_kqby4")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="4" unique_id=575566106 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="4" unique_id=575566106 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -130,7 +156,7 @@ bone_name = "BackLow.R"
 properties = SubResource("Resource_kqby4")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1686770935) index="5" unique_id=2085326524]
+[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="5" unique_id=2085326524]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

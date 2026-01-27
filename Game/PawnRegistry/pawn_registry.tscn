@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpjbn16clv6gm"]
+[gd_scene format=3 uid="uid://cpjbn16clv6gm"]
 
 [ext_resource type="Script" uid="uid://bsvcqb56uvnho" path="res://Game/PawnRegistry/pawn_registry.gd" id="1_22nx3"]
 

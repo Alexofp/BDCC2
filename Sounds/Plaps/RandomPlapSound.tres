@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://cuxxmyiiqauvb"]
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cuxxmyiiqauvb"]
 
 [ext_resource type="AudioStream" uid="uid://yinv5ck75ilp" path="res://Sounds/Plaps/Squish - Doggy Plap-001.wav" id="1_ytsyc"]
 [ext_resource type="AudioStream" uid="uid://cde62aishg4dl" path="res://Sounds/Plaps/Squish - Doggy Plap-002.wav" id="2_b1g5k"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxyhdps26nfwb"]
+[gd_scene format=3 uid="uid://cxyhdps26nfwb"]
 
 [ext_resource type="Script" uid="uid://c2nvve83spvts" path="res://Game/GameInteractor/game_interactor.gd" id="1_xm5eo"]
 

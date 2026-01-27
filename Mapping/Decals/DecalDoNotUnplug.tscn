@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5q0ne74vqluj"]
+[gd_scene format=3 uid="uid://b5q0ne74vqluj"]
 
 [ext_resource type="PackedScene" uid="uid://cpxbilbrb7jgr" path="res://Mapping/Decals/Raw/DecalDoNotUnplug.glb" id="1_dvh8j"]
 
 [node name="DecalDoNotUnplug" unique_id=1151061432 instance=ExtResource("1_dvh8j")]
 
-[node name="DecalDoNotUnplug" parent="." index="0" unique_id=1346697263]
+[node name="DecalDoNotUnplug" parent="." index="0" unique_id=1706038529]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

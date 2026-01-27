@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://difsomh3whhfj"]
+[gd_scene format=3 uid="uid://difsomh3whhfj"]
 
 [ext_resource type="Script" uid="uid://df24brbn3gx2m" path="res://UI/VarList/Vars/face_override_var.gd" id="1_swb4t"]
 

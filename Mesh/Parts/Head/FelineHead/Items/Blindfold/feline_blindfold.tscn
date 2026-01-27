@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl8hbsi4gxceb"]
+[gd_scene format=3 uid="uid://dl8hbsi4gxceb"]
 
 [ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_jlfmu"]
 [ext_resource type="PackedScene" uid="uid://x0txgq0yihpb" path="res://Mesh/Parts/Head/FelineHead/Items/Blindfold/FelineBlindfold.glb" id="1_ketvk"]
@@ -13,7 +13,7 @@ attachPoint = "head_items"
 
 [node name="FelineBlindfold" parent="DollAttachTo" unique_id=2133281307 instance=ExtResource("1_ketvk")]
 
-[node name="FelineBlindfold" parent="DollAttachTo/FelineBlindfold" index="0" unique_id=390043549]
+[node name="FelineBlindfold" parent="DollAttachTo/FelineBlindfold" index="0" unique_id=460476676]
 surface_material_override/0 = ExtResource("2_a1kpb")
 
 [editable path="DollAttachTo/FelineBlindfold"]

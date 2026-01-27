@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cf2htrsxx1m3x"]
+[gd_scene format=3 uid="uid://cf2htrsxx1m3x"]
 
 [ext_resource type="Script" uid="uid://daxngot57ha8d" path="res://UI/VarList/Vars/texture_variant_layers_var.gd" id="1_ipda3"]
 [ext_resource type="PackedScene" uid="uid://bvfase7g7yitn" path="res://UI/VarList/Vars/texture_variant_layer_var.tscn" id="2_bkwga"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8x0sw38d4gyi"]
+[gd_scene format=3 uid="uid://c8x0sw38d4gyi"]
 
 [ext_resource type="PackedScene" uid="uid://dh0ligkcfscst" path="res://Mapping/Columns/Raw/ColumnB1.glb" id="1_ajmss"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.4, 1.04513, 1.03329)
 
 [node name="ColumnB1" unique_id=201007582 instance=ExtResource("1_ajmss")]
 
-[node name="ColumnB1" parent="." index="0" unique_id=656335189]
+[node name="ColumnB1" parent="." index="0" unique_id=1344987244]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -23,19 +23,19 @@ shape = SubResource("BoxShape3D_snlml")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 shape = SubResource("BoxShape3D_snlml")
 
-[node name="ColumnB1_lod1" parent="." index="1" unique_id=783726666]
+[node name="ColumnB1_lod1" parent="." index="1" unique_id=1943372950]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnB1_lod2" parent="." index="2" unique_id=677329323]
+[node name="ColumnB1_lod2" parent="." index="2" unique_id=810909410]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnB1_lod3" parent="." index="3" unique_id=674589119]
+[node name="ColumnB1_lod3" parent="." index="3" unique_id=752087274]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

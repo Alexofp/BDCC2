@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://lvwau67a4dxu"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://lvwau67a4dxu"]
 
 [ext_resource type="Shader" uid="uid://c30na0obdky88" path="res://addons/godot-polyliner/shaders/line_pbr.tres" id="1_giuxj"]
 

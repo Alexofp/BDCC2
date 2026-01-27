@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b25k4g328a0jh"]
+[gd_scene format=3 uid="uid://b25k4g328a0jh"]
 
 [ext_resource type="PackedScene" uid="uid://o1527qq3cwbb" path="res://Mapping/Floors/Raw/FloorTile1x1.glb" id="1_seenh"]
 [ext_resource type="Material" uid="uid://1a1yc4lq7ow0" path="res://Mesh/Materials/Floors/HexFloor.tres" id="2_3d0u8"]
@@ -18,7 +18,7 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
 
-[node name="Cube_083" parent="." index="0" unique_id=452755448]
+[node name="Cube_083" parent="." index="0" unique_id=765284649]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)

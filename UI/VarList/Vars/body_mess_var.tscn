@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsoah8k88ujei"]
+[gd_scene format=3 uid="uid://bsoah8k88ujei"]
 
 [ext_resource type="Script" uid="uid://bamauolh7orkw" path="res://UI/VarList/Vars/body_mess_var.gd" id="1_fxxft"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8bqvyibtvkvs"]
+[gd_scene format=3 uid="uid://b8bqvyibtvkvs"]
 
 [ext_resource type="PackedScene" uid="uid://dpqpg3yr00ims" path="res://Mapping/Walls/Raw/WallA1x1TriCornerOuter.glb" id="1_nhxnh"]
 
@@ -7,7 +7,7 @@ points = PackedVector3Array(-0.0316398, 0.428727, -1.01587, 0.954257, 1, 0.41736
 
 [node name="WallA1x1TriCornerOuter" unique_id=597147625 instance=ExtResource("1_nhxnh")]
 
-[node name="WallA1x1TriCornerOuter" parent="." index="0" unique_id=1511572999]
+[node name="WallA1x1TriCornerOuter" parent="." index="0" unique_id=784228363]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -17,7 +17,7 @@ instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.207
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x1TriCornerOuter/StaticBody3D" index="0" unique_id=106224246]
 shape = SubResource("ConvexPolygonShape3D_pcm63")
 
-[node name="WallA1x1TriCornerOuter_lod1" parent="." index="1" unique_id=417432936]
+[node name="WallA1x1TriCornerOuter_lod1" parent="." index="1" unique_id=165422728]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

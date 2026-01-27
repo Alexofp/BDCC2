@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfj0c6ccdmexi"]
+[gd_scene format=3 uid="uid://cfj0c6ccdmexi"]
 
 [ext_resource type="PackedScene" uid="uid://raavtabm5ojn" path="res://Mapping/Pipes/Raw/PipeA1Squeeze.glb" id="1_y5ltt"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.4, 0.4, 1)
 
 [node name="PipeA1Squeeze" unique_id=1169433134 instance=ExtResource("1_y5ltt")]
 
-[node name="PipeA1Squeeze" parent="." index="0" unique_id=1576313532]
+[node name="PipeA1Squeeze" parent="." index="0" unique_id=279398896]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

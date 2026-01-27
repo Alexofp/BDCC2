@@ -8,10 +8,10 @@
 [node name="ArmBinderMale" unique_id=739154577 instance=ExtResource("1_mddhi")]
 script = ExtResource("2_lnda7")
 
-[node name="rigArmbinder" parent="." index="0" unique_id=618247111 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rigArmbinder" parent="." index="0" unique_id=22764870 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_mls31")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Armbinder")]
 
-[node name="Armbinder" parent="rigArmbinder/Skeleton3D" parent_id_path=PackedInt32Array(1945681332) index="0" unique_id=1274876536]
+[node name="Armbinder" parent="rigArmbinder/Skeleton3D" parent_id_path=PackedInt32Array(1967058217) index="0" unique_id=932787409]
 surface_material_override/0 = ExtResource("4_0bwcy")

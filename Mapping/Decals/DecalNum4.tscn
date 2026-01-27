@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://1a8t700w04rl"]
+[gd_scene format=3 uid="uid://1a8t700w04rl"]
 
 [ext_resource type="PackedScene" uid="uid://bfa0psea7vwep" path="res://Mapping/Decals/Raw/DecalNum4.glb" id="1_htldi"]
 
 [node name="DecalNum4" unique_id=1448419003 instance=ExtResource("1_htldi")]
 
-[node name="DecalNum4" parent="." index="0" unique_id=535038417]
+[node name="DecalNum4" parent="." index="0" unique_id=714378276]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

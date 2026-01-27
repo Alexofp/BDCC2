@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://nex6xlb2bqnf"]
+[gd_scene format=3 uid="uid://nex6xlb2bqnf"]
 
 [ext_resource type="Script" uid="uid://c7jun2qq7us4r" path="res://Inventory/UI/inventory_ui_embed.gd" id="1_v6mls"]
 [ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="2_87hiv"]

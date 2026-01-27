@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpvuxg50dy154"]
+[gd_scene format=3 uid="uid://cpvuxg50dy154"]
 
 [ext_resource type="Script" uid="uid://c4csnfvrnvl6p" path="res://Game/IngameEditor/build_test.gd" id="1_da5xu"]
 [ext_resource type="Environment" uid="uid://cfeg5fu5v0p4o" path="res://Mesh/Enviroment/GameEnv.tres" id="1_vayfv"]

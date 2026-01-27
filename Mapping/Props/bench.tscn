@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dou27ldgaq4cc"]
+[gd_scene format=3 uid="uid://dou27ldgaq4cc"]
 
 [ext_resource type="PackedScene" uid="uid://c65hubvbpxmvd" path="res://Mapping/Props/Raw/Bench.glb" id="1_llgmc"]
 [ext_resource type="Script" uid="uid://dlq1j58v3a0t4" path="res://Mapping/Props/bench.gd" id="2_h16yf"]
@@ -26,7 +26,7 @@ colorbase = Color(0.53, 0.53, 0.53, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="Bench" parent="." index="0" unique_id=220319252]
+[node name="Bench" parent="." index="0" unique_id=721694440]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -44,19 +44,19 @@ shape = SubResource("BoxShape3D_x22yw")
 transform = Transform3D(1, 0, 0, 0, 0.966743, 0.255749, 0, -0.255749, 0.966743, 0, 0.195936, -0.278135)
 shape = SubResource("BoxShape3D_ft0qw")
 
-[node name="Bench_lod1" parent="." index="1" unique_id=792069578]
+[node name="Bench_lod1" parent="." index="1" unique_id=544362879]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="Bench_lod2" parent="." index="2" unique_id=1207772482]
+[node name="Bench_lod2" parent="." index="2" unique_id=365575408]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="Bench_lod3" parent="." index="3" unique_id=1396056752]
+[node name="Bench_lod3" parent="." index="3" unique_id=252908046]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

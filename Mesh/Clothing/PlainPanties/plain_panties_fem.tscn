@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b0xtn1u1eqw3t" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_Normal.png" id="6_47jm2"]
 [ext_resource type="Texture2D" uid="uid://boutdhv2e52jj" path="res://Mesh/Clothing/PlainPanties/Textures/PlainPanties_low_DefaultMaterial_ORM.png" id="7_be2dl"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0s5g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iid82"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_iid82")
@@ -34,17 +34,17 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="PlainPantiesFem" unique_id=2094186892 instance=ExtResource("1_461fv")]
 script = ExtResource("2_461fv")
 
-[node name="rig" parent="." index="0" unique_id=626470206 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1410193997 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_be2dl")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainPanties"), NodePath("Skeleton3D/PlainPantiesShifted")]
 
-[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1177389308) index="0" unique_id=1298780527]
+[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(559533113) index="0" unique_id=1071936530]
 unique_name_in_owner = true
 lod_bias = 3.0
-surface_material_override/0 = SubResource("ShaderMaterial_v0s5g")
+surface_material_override/0 = SubResource("ShaderMaterial_iid82")
 
-[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1177389308) index="1" unique_id=997226808]
+[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(559533113) index="1" unique_id=463694146]
 unique_name_in_owner = true
 lod_bias = 3.0
-surface_material_override/0 = SubResource("ShaderMaterial_v0s5g")
+surface_material_override/0 = SubResource("ShaderMaterial_iid82")

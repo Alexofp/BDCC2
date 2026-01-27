@@ -8,7 +8,7 @@
 [node name="InmateCuff" parent="." unique_id=856383479 instance=ExtResource("1_ie3gw")]
 transform = Transform3D(0.082, 0, 0, 0, 0.082, 0, 0, 0, 0.082, 0, 0, 0)
 
-[node name="InmateCuff" parent="InmateCuff" index="0" unique_id=519216467]
+[node name="InmateCuff" parent="InmateCuff" index="0" unique_id=779375663]
 surface_material_override/0 = ExtResource("2_wlj4g")
 
 [editable path="InmateCuff"]

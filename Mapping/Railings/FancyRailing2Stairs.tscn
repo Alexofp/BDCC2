@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0pvhwsbtsdjh"]
+[gd_scene format=3 uid="uid://d0pvhwsbtsdjh"]
 
 [ext_resource type="PackedScene" uid="uid://c4iu6qqqj0nur" path="res://Mapping/Railings/Raw/FancyRailing2Stairs.glb" id="1_xib5c"]
 
@@ -7,7 +7,7 @@ points = PackedVector3Array(0.00870937, 0.864042, -0.0709524, -0.421344, -0.4046
 
 [node name="FancyRailing2Stairs" unique_id=1780276078 instance=ExtResource("1_xib5c")]
 
-[node name="FancyRailing2Stairs" parent="." index="0" unique_id=1836739384]
+[node name="FancyRailing2Stairs" parent="." index="0" unique_id=1988629480]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -19,21 +19,21 @@ instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing2Stairs/StaticBody3D" index="0" unique_id=1677013637]
 shape = SubResource("ConvexPolygonShape3D_uvtv0")
 
-[node name="FancyRailing2Stairs_lod1" parent="." index="1" unique_id=1778495022]
+[node name="FancyRailing2Stairs_lod1" parent="." index="1" unique_id=1189327896]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="FancyRailing2Stairs_lod2" parent="." index="2" unique_id=1162396330]
+[node name="FancyRailing2Stairs_lod2" parent="." index="2" unique_id=1967485055]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="FancyRailing2Stairs_lod3" parent="." index="3" unique_id=1942778155]
+[node name="FancyRailing2Stairs_lod3" parent="." index="3" unique_id=1167963116]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

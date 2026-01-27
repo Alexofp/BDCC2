@@ -36,7 +36,7 @@ script = ExtResource("1_jdp3t")
 script = ExtResource("3_redhd")
 attachPoint = "collar"
 
-[node name="InmateCollar" parent="InmateCollar" index="0" unique_id=1315284661]
+[node name="InmateCollar" parent="InmateCollar" index="0" unique_id=637269756]
 transform = Transform3D(0.069, 0, 0, 0, 0.069, 0, 0, 0, 0.069, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_xg6at")
 

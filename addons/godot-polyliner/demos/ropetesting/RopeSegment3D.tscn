@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dj2e5e4o0x4v4"]
+[gd_scene format=3 uid="uid://dj2e5e4o0x4v4"]
 
 [ext_resource type="Script" uid="uid://bb5pdbvhmh0sp" path="res://addons/godot-polyliner/demos/ropetesting/RopeSegment3D.gd" id="1"]
 [ext_resource type="Script" uid="uid://b3fveawfuyqmu" path="res://addons/godot-polyliner/Line3D/Line3D.gd" id="2"]

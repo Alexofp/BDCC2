@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbhqe04cfo68p"]
+[gd_scene format=3 uid="uid://cbhqe04cfo68p"]
 
 [ext_resource type="PackedScene" uid="uid://dx3a0g15u6aux" path="res://Mapping/Props/Raw/CubeColorTester.glb" id="1_uas8h"]
 
@@ -10,7 +10,7 @@ size = Vector3(1, 2, 1)
 
 [node name="CubeColorTester" unique_id=736630357 instance=ExtResource("1_uas8h")]
 
-[node name="CubeColorTester" parent="." index="0" unique_id=1927769630]
+[node name="CubeColorTester" parent="." index="0" unique_id=1271630346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 instance_shader_parameters/trim_color_base = Color(1, 0, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0, 0.666667, 1, 1)

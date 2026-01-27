@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxwidk66svbvu"]
+[gd_scene format=3 uid="uid://dxwidk66svbvu"]
 
 [ext_resource type="PackedScene" uid="uid://csnoiieke2oej" path="res://Mapping/World/Raw/RockTest1.glb" id="1_pr7w5"]
 [ext_resource type="Texture2D" uid="uid://k3fqn8gimg6h" path="res://Mesh/Textures/Tileable/rock35/rock35_color.png" id="2_cd7p5"]
@@ -20,7 +20,7 @@ points = PackedVector3Array(-0.119434, -0.530042, 1.69385, 0.525297, -1.06708, -
 
 [node name="RockTest1" unique_id=863319047 instance=ExtResource("1_pr7w5")]
 
-[node name="RockTest1" parent="." index="0" unique_id=706951501]
+[node name="RockTest1" parent="." index="0" unique_id=1157407388]
 visibility_range_end = 20.0
 surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
 
@@ -29,16 +29,16 @@ surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RockTest1/StaticBody3D" index="0" unique_id=1410198791]
 shape = SubResource("ConvexPolygonShape3D_bgvoy")
 
-[node name="RockTest1_lod2" parent="." index="1" unique_id=216078014]
+[node name="RockTest1_lod2" parent="." index="1" unique_id=1499114170]
 visibility_range_begin = 40.0
 visibility_range_end = 60.0
 surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
 
-[node name="RockTest1_lod3" parent="." index="2" unique_id=1328678383]
+[node name="RockTest1_lod3" parent="." index="2" unique_id=670982465]
 visibility_range_begin = 60.0
 surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
 
-[node name="RockTest1_lod1" parent="." index="3" unique_id=219867516]
+[node name="RockTest1_lod1" parent="." index="3" unique_id=755737293]
 visibility_range_begin = 20.0
 visibility_range_end = 40.0
 surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")

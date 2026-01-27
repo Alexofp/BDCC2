@@ -1,13 +1,39 @@
 [gd_scene format=3 uid="uid://cagnf88rr8e7s"]
 
 [ext_resource type="PackedScene" uid="uid://detaowy04cg8r" path="res://Mesh/Parts/Util/Piercings/NippleDumbbell/NippleDumbbell.glb" id="1_ypr5n"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="2_n48xt"]
 [ext_resource type="Script" uid="uid://c1a34yd50li4t" path="res://Mesh/Parts/Util/Piercings/NippleDumbbell/nipple_dumbbell.gd" id="2_nmmll"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_lp0pn"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_wplhs"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_3o6sj"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_hmavh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljnux"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_wplhs")
+shader_parameter/texture_orm = ExtResource("6_hmavh")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_3o6sj")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_lp0pn")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="NippleDumbbell" unique_id=81668510 instance=ExtResource("1_ypr5n")]
 script = ExtResource("2_nmmll")
 
-[node name="Dumbbell" parent="." index="0" unique_id=301826698]
+[node name="Dumbbell" parent="." index="0" unique_id=188585182]
 unique_name_in_owner = true
 transform = Transform3D(0.05338602, 0, 0, 0, 0.05338602, 0, 0, 0, 0.05338602, 0, 0, -0.004)
-surface_material_override/0 = ExtResource("2_n48xt")
+surface_material_override/0 = SubResource("ShaderMaterial_ljnux")

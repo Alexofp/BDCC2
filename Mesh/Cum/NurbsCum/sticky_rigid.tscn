@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://q2df1o3dycie"]
+[gd_scene format=3 uid="uid://q2df1o3dycie"]
 
 [ext_resource type="Script" uid="uid://bg8w4bcorduei" path="res://Mesh/Cum/NurbsCum/sticky_rigid.gd" id="1_5ey8l"]
 

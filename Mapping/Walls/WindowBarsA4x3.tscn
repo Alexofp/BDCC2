@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://db84vx235i5rn"]
+[gd_scene format=3 uid="uid://db84vx235i5rn"]
 
 [ext_resource type="PackedScene" uid="uid://dy4mmjim8c2o2" path="res://Mapping/Walls/Raw/WindowBarsA4x3.glb" id="1_e2bp4"]
 
@@ -10,7 +10,7 @@ size = Vector3(3.3125, 1.93335, 0.21555)
 
 [node name="WindowBarsA4x3" unique_id=87161550 instance=ExtResource("1_e2bp4")]
 
-[node name="WindowBarsA4x3" parent="." index="0" unique_id=122158866]
+[node name="WindowBarsA4x3" parent="." index="0" unique_id=1622274076]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -26,17 +26,17 @@ shape = SubResource("BoxShape3D_82hnj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0355225, 0.0938156)
 shape = SubResource("BoxShape3D_x31uu")
 
-[node name="WindowBarsA4x3_lod1" parent="." index="1" unique_id=77977968]
+[node name="WindowBarsA4x3_lod1" parent="." index="1" unique_id=158819947]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WindowBarsA4x3_lod2" parent="." index="2" unique_id=692060078]
+[node name="WindowBarsA4x3_lod2" parent="." index="2" unique_id=254014102]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
-[node name="WindowBarsA4x3_lod3" parent="." index="3" unique_id=1674619534]
+[node name="WindowBarsA4x3_lod3" parent="." index="3" unique_id=270004296]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

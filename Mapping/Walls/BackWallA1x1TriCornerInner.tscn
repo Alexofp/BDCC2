@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://406htnuxy7r8"]
+[gd_scene format=3 uid="uid://406htnuxy7r8"]
 
 [ext_resource type="PackedScene" uid="uid://bl0uxdsnyqyt7" path="res://Mapping/Walls/Raw/BackWallA1x1TriCornerInner.glb" id="1_robet"]
 
@@ -10,7 +10,7 @@ size = Vector2(1.2, 1.2)
 
 [node name="BackWallA1x1TriCornerInner" unique_id=722190944 instance=ExtResource("1_robet")]
 
-[node name="BackWallA1x1TriCornerInner" parent="." index="0" unique_id=579762375]
+[node name="BackWallA1x1TriCornerInner" parent="." index="0" unique_id=586020970]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
@@ -41,14 +41,14 @@ occluder = SubResource("QuadOccluder3D_3ibxx")
 transform = Transform3D(-1, 4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 4.37114e-08, 1, 4.37114e-08, -0.6, 1, -0.6)
 occluder = SubResource("QuadOccluder3D_3ibxx")
 
-[node name="BackWallA1x1TriCornerInner_lod1" parent="." index="1" unique_id=1751815401]
+[node name="BackWallA1x1TriCornerInner_lod1" parent="." index="1" unique_id=1923468888]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x1TriCornerInner_lod2" parent="." index="2" unique_id=484069256]
+[node name="BackWallA1x1TriCornerInner_lod2" parent="." index="2" unique_id=669954425]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
-[node name="BackWallA1x1TriCornerInner_lod3" parent="." index="3" unique_id=608432155]
+[node name="BackWallA1x1TriCornerInner_lod3" parent="." index="3" unique_id=304695061]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

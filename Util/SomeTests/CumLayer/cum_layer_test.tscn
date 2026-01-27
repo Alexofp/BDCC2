@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b78p6oibol8xt"]
+[gd_scene format=3 uid="uid://b78p6oibol8xt"]
 
 [ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="1_j10wn"]
 

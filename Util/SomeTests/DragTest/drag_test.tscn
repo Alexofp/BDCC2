@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6iidjw14tmju"]
+[gd_scene format=3 uid="uid://b6iidjw14tmju"]
 
 [ext_resource type="Script" uid="uid://hgp16qldgvha" path="res://Util/SomeTests/DragTest/drag_test.gd" id="1_xgqtf"]
 

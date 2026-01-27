@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d06l8aoh2u2ci"]
+[gd_scene format=3 uid="uid://d06l8aoh2u2ci"]
 
 [ext_resource type="Script" uid="uid://caho5cil4cda0" path="res://Game/UI/ResistMinigame/other_marker.gd" id="1_7jdiv"]
 

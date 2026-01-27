@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://divi2kam35t8"]
+[gd_scene format=3 uid="uid://divi2kam35t8"]
 
 [ext_resource type="PackedScene" uid="uid://dem66bp7q1afm" path="res://Mapping/Railings/Raw/RailStand2.glb" id="1_inmm2"]
 [ext_resource type="Script" uid="uid://b7dbefviswt4e" path="res://Mapping/Railings/rail.gd" id="2_716vs"]
@@ -13,7 +13,7 @@ size = Vector3(0.053689, 1.02, 0.697832)
 [node name="RailStand2" unique_id=1454428914 instance=ExtResource("1_inmm2")]
 script = ExtResource("2_716vs")
 
-[node name="Tube_Tube_029" parent="." index="0" unique_id=1905276506]
+[node name="Tube_Tube_029" parent="." index="0" unique_id=2052822085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)

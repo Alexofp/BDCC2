@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dajfel2kds44u"]
+[gd_scene format=3 uid="uid://dajfel2kds44u"]
 
 [ext_resource type="PackedScene" uid="uid://bk7xyyti6btf3" path="res://Mapping/Railings/Raw/RailWallTurnOut1.glb" id="1_6i6sc"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_mpm0h"]
@@ -10,7 +10,7 @@ size = Vector3(1.23983, 1.21657, 0.337688)
 [node name="RailWallTurnOut1" unique_id=1761121227 instance=ExtResource("1_6i6sc")]
 script = ExtResource("2_qyy7r")
 
-[node name="RailWallTurnOut1" parent="." index="0" unique_id=483435312]
+[node name="RailWallTurnOut1" parent="." index="0" unique_id=1890933462]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_mpm0h")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bk6p2ir23a777"]
+[gd_scene format=3 uid="uid://bk6p2ir23a777"]
 
 [ext_resource type="Environment" uid="uid://dd5bpvybxmy6u" path="res://addons/godot-polyliner/demos/default_env.tres" id="1"]
 [ext_resource type="Script" uid="uid://c5hjcvle5vwk8" path="res://addons/godot-polyliner/Line3D/LinePath3D.gd" id="3"]
@@ -676,7 +676,7 @@ shader_parameter/color = Color(0.1, 0.1, 0.1, 1)
 [node name="Node3D" type="Node3D" unique_id=566196193]
 
 [node name="wormspinner" type="Node3D" parent="." unique_id=1641192624]
-transform = Transform3D(-0.4152671, 0, 0.9096891, 0, 0.999999, 0, -0.9096834, 0, -0.4152697, 0.3147177, 0.016, 3.531)
+transform = Transform3D(0.97456247, 0, 0.22405188, 0, 0.999999, 0, -0.22405048, 0, 0.9745686, 0.14064592, 0.016, 3.531)
 script = SubResource("1")
 mul = 1.59
 

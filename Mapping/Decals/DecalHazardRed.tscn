@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://csv5rnm3cqwm6"]
+[gd_scene format=3 uid="uid://csv5rnm3cqwm6"]
 
 [ext_resource type="PackedScene" uid="uid://djxn6nqurro2o" path="res://Mapping/Decals/Raw/DecalHazardRed.glb" id="1_47sub"]
 
 [node name="DecalHazardRed" unique_id=1824873816 instance=ExtResource("1_47sub")]
 
-[node name="DecalHazardRed" parent="." index="0" unique_id=1911630311]
+[node name="DecalHazardRed" parent="." index="0" unique_id=1564034409]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

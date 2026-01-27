@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b545djp4eeh32"]
+[gd_scene format=3 uid="uid://b545djp4eeh32"]
 
 [ext_resource type="PackedScene" uid="uid://bsm8t522ropms" path="res://Mapping/Floors/Raw/TileVent1x1.glb" id="1_s607r"]
 
@@ -10,7 +10,7 @@ size = Vector2(1, 0.999999)
 
 [node name="TileVent1x1" unique_id=592641146 instance=ExtResource("1_s607r")]
 
-[node name="TileVent1x1" parent="." index="0" unique_id=1672515739]
+[node name="TileVent1x1" parent="." index="0" unique_id=360744177]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CharacterPresetResource" format=3 uid="uid://dxi16xf0s8pc5"]
 
-[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_l877t"]
+[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_l877t"]
 
 [resource]
 script = ExtResource("1_l877t")
@@ -220,7 +220,7 @@ data = {
 &"mainSpecies": "Feline",
 &"secondarySpecies": ""
 },
-&"thickness": 1.6400000000000001,
+&"thickness": 1.64,
 &"voice": {
 &"pitch": 1.0,
 &"sexVoice": "Fem1"

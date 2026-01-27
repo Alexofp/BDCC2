@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqyufadum13io"]
+[gd_scene format=3 uid="uid://bqyufadum13io"]
 
 [ext_resource type="PackedScene" uid="uid://cnhx1hiobjrmr" path="res://Mapping/Railings/Raw/RailSimple1.glb" id="1_qw16x"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_6qkla"]
@@ -10,7 +10,7 @@ size = Vector3(0.84, 1.01983, 0.0400003)
 [node name="RailSimple1" unique_id=615386734 instance=ExtResource("1_qw16x")]
 script = ExtResource("2_msdb2")
 
-[node name="RailSimple1" parent="." index="0" unique_id=1992065663]
+[node name="RailSimple1" parent="." index="0" unique_id=1924222656]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)

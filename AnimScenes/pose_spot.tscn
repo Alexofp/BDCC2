@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b47fsvv0ro6dw"]
+[gd_scene format=3 uid="uid://b47fsvv0ro6dw"]
 
 [ext_resource type="Script" uid="uid://dhg22mellct74" path="res://AnimScenes/pose_spot.gd" id="1_4drwq"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="3_oii2k"]

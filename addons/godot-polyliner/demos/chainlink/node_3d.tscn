@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dlltpt7s67gmk"]
+[gd_scene format=4 uid="uid://dlltpt7s67gmk"]
 
 [ext_resource type="Script" uid="uid://bg7h7klrn53wp" path="res://addons/godot-polyliner/demos/chainlink/chain.gd" id="1_ycjdk"]
 [ext_resource type="Shader" uid="uid://c30na0obdky88" path="res://addons/godot-polyliner/shaders/line_pbr.tres" id="2_utoty"]

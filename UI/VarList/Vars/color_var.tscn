@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh6qfclg1711q"]
+[gd_scene format=3 uid="uid://bh6qfclg1711q"]
 
 [ext_resource type="Script" uid="uid://bwm7tctx836bo" path="res://UI/VarList/Vars/color_var.gd" id="1_oi5om"]
 

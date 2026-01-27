@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2n1lgihhju2h"]
+[gd_scene format=3 uid="uid://c2n1lgihhju2h"]
 
 [ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="1_k1410"]
 [ext_resource type="AnimationLibrary" uid="uid://dp75yhrt14hxu" path="res://Anims/Raw/SexStandingAnims.glb" id="2_q3kcn"]
@@ -82,47 +82,48 @@ node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"Animation 4", &"O
 
 [node name="Doll" parent="." unique_id=1396018763 instance=ExtResource("1_k1410")]
 
-[node name="BoneAttachment3D" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="1"]
-transform = Transform3D(1, 1.2084345e-14, -8.804805e-15, -1.2206679e-14, 0.99990195, -0.014029199, 8.634407e-15, 0.0140292, 0.99990183, 2.8376726e-15, 1.6030765, -0.021504475)
+[node name="BoneAttachment3D" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="8" unique_id=325523931]
+transform = Transform3D(1, 1.1648511e-14, -8.2011475e-15, -1.1685385e-14, 0.9999899, -0.004510748, 8.1485205e-15, 0.004510751, 0.9999898, 3.077609e-15, 1.6024796, -0.026523106)
 
-[node name="HoverTextBoneAttach" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="7"]
-transform = Transform3D(1, 1.2704018e-14, -1.0543822e-14, -1.13324724e-14, 0.99262846, 0.12119867, 1.2005809e-14, -0.12119867, 0.99262846, -3.6268948e-16, 1.3592786, -0.0014684033)
+[node name="HoverTextBoneAttach" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="9" unique_id=1123013807]
+transform = Transform3D(1, 1.329123e-14, -1.10866135e-14, -1.1673927e-14, 0.9908569, 0.1349176, 1.2778468e-14, -0.1349176, 0.9908569, -2.6942784e-16, 1.3589885, -0.0036368798)
 
-[node name="BoneAttachment3D3" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="8"]
-transform = Transform3D(1, 1.3982621e-14, -9.575663e-15, -1.41907385e-14, 0.9997562, -0.022090204, 9.264451e-15, 0.022090204, 0.9997562, 1.8937863e-15, 1.5355886, -0.022995636)
+[node name="BoneAttachment3D3" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="10" unique_id=1943359537]
+transform = Transform3D(1, 1.4610354e-14, -9.328481e-15, -1.4757432e-14, 0.9998725, -0.015966043, 9.094023e-15, 0.015966043, 0.9998725, 2.0913483e-15, 1.5349839, -0.02760086)
 
-[node name="AttachWrist" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="11"]
-transform = Transform3D(-0.7783459, -0.6188367, 0.1059177, 0.6264214, -0.7767793, 0.06488997, 0.042118356, 0.11685592, 0.9922559, -0.4306548, 1.134044, -0.034516133)
+[node name="AttachWrist" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="13" unique_id=859209891]
+transform = Transform3D(-0.7783459, -0.6188367, 0.1059177, 0.6269439, -0.7750885, 0.07860913, 0.033449333, 0.12758954, 0.9912633, -0.4306548, 1.1333183, -0.033565883)
 
-[node name="AttachWrist2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="12"]
-transform = Transform3D(-0.7783458, 0.61883676, -0.10591765, -0.62642133, -0.7767793, 0.06488984, -0.04211837, 0.11685578, 0.99225587, 0.43065482, 1.134044, -0.034516197)
+[node name="AttachWrist2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="14" unique_id=508778126]
+transform = Transform3D(-0.7783458, 0.61883676, -0.10591765, -0.6269439, -0.77508837, 0.078609005, -0.033449356, 0.12758942, 0.9912632, 0.43065482, 1.1333183, -0.033565946)
 
-[node name="AttachBreast" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="13"]
-transform = Transform3D(0.9147035, 0.38350242, 0.12744874, 0.008720815, 0.29656434, -0.9549733, -0.40403128, 0.8746289, 0.2679241, 0.015289541, 1.2675462, -0.087599896)
+[node name="AttachBreast" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="15" unique_id=244121028]
+transform = Transform3D(0.9147035, 0.38350242, 0.12744874, 0.0031312145, 0.30863422, -0.9511757, -0.40411317, 0.87044287, 0.28110808, 0.015289541, 1.2660735, -0.088491224)
 
-[node name="AttachBreast2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="14"]
-transform = Transform3D(0.9147035, -0.38350242, -0.12744874, -0.008720815, 0.29656434, -0.9549733, 0.40403128, 0.8746289, 0.2679241, -0.015289541, 1.2675462, -0.087599896)
+[node name="AttachBreast2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="16" unique_id=506415674]
+transform = Transform3D(0.9147035, -0.38350242, -0.12744874, -0.0031312145, 0.30863422, -0.9511757, 0.40411317, 0.87044287, 0.28110808, -0.015289541, 1.2660735, -0.088491224)
 
-[node name="ChestBoneAttachment" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="15"]
-transform = Transform3D(1, -2.2931986e-15, 2.0223005e-15, 2.0207985e-15, 0.992068, 0.12570426, -2.2945237e-15, -0.12570426, 0.992068, 4.2351647e-22, 1.2023741, 0.018412834)
+[node name="ChestBoneAttachment" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="17" unique_id=1695132856]
+transform = Transform3D(1, -1.7035282e-15, 1.4821814e-15, 1.4802547e-15, 0.9902341, 0.139415, -1.7052044e-15, -0.139415, 0.9902341, 4.2351647e-22, 1.2023741, 0.018412834)
 
-[node name="UpperChestBoneAttachment" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1743131031) index="16"]
-transform = Transform3D(1, 1.2704018e-14, -1.0543822e-14, -1.13324724e-14, 0.99262846, 0.12119867, 1.2005809e-14, -0.12119867, 0.99262846, -3.6268948e-16, 1.3592786, -0.0014684033)
+[node name="UpperChestBoneAttachment" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="22" unique_id=2115797834]
+transform = Transform3D(1, 1.329123e-14, -1.10866135e-14, -1.1673927e-14, 0.9908569, 0.1349176, 1.2778468e-14, -0.1349176, 0.9908569, -2.6942784e-16, 1.3589885, -0.0036368798)
 
-[node name="SquirtParticles1" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="0"]
+[node name="SquirtParticles1" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1396018763, 1490678536, 26717111) index="0" unique_id=1486787374]
 process_material = SubResource("ParticleProcessMaterial_k1410")
 
-[node name="SquirtParticles2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="1"]
+[node name="SquirtParticles2" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1396018763, 1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_q3kcn")
 
-[node name="SquirtParticles3" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" index="2"]
+[node name="SquirtParticles3" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1396018763, 1490678536, 26717111) index="2" unique_id=1339676236]
 process_material = SubResource("ParticleProcessMaterial_asfht")
+
+[node name="RHandAttach" parent="Doll/Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1396018763, 1490678536, 1113311591) index="27" unique_id=1998349193]
+transform = Transform3D(-0.78099936, -0.62267625, 0.04810525, 0.62361676, -0.78170645, 0.0061168075, 0.03379536, 0.034776427, 0.9988238, -0.4843001, 1.066128, -0.022505488)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1173937187]
 root_node = NodePath("../Doll/BodySkeleton")
-libraries = {
-&"SexStandingAnims": ExtResource("2_q3kcn")
-}
+libraries/SexStandingAnims = ExtResource("2_q3kcn")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=306482077]
 root_node = NodePath("../Doll/BodySkeleton")

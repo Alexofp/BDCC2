@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ceqrt2ibv85tj"]
+[gd_scene format=3 uid="uid://ceqrt2ibv85tj"]
 
 [ext_resource type="Script" uid="uid://co5xei1ylw516" path="res://Util/SomeTests/CollisionShapekeys/CollisionShapeWithShapeKeys.gd" id="1_n5sba"]
 [ext_resource type="Resource" uid="uid://w1j4t8o6j6cu" path="res://Util/SomeTests/CollisionShapekeys/TestShapeKeyCol.tres" id="2_l0rck"]

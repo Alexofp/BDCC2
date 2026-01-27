@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgvht4idwhpd6"]
+[gd_scene format=3 uid="uid://cgvht4idwhpd6"]
 
 [ext_resource type="PackedScene" uid="uid://d3j6s2lfdlbhp" path="res://Mapping/BigFloors/Raw/MiddlePieceCutout1x10.glb" id="1_bdnwn"]
 [ext_resource type="Script" uid="uid://c0l144a1ex13" path="res://Mapping/BigFloors/middle_piece_cutout.gd" id="2_1gpny"]
@@ -11,7 +11,7 @@ script = ExtResource("2_1gpny")
 roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 
-[node name="MiddlePieceCutout1x10" parent="." index="0" unique_id=363442354]
+[node name="MiddlePieceCutout1x10" parent="." index="0" unique_id=1742345464]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 

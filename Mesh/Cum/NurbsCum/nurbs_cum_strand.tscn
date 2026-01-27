@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwaj3g3ccunm7"]
+[gd_scene format=3 uid="uid://dwaj3g3ccunm7"]
 
 [ext_resource type="PackedScene" uid="uid://crgijtfh57a8b" path="res://Mesh/Cum/NurbsCum/NurbsCumStrand.glb" id="1_dma0m"]
 

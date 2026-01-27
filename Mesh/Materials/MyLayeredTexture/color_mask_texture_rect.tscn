@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dampae2pj0y8v"]
+[gd_scene format=3 uid="uid://dampae2pj0y8v"]
 
 [ext_resource type="Script" uid="uid://h46j8tfbtj4k" path="res://Mesh/Materials/MyLayeredTexture/color_mask_texture_rect.gd" id="1_gymfv"]
 [ext_resource type="Material" uid="uid://c0mgwhww0ibgj" path="res://Mesh/Materials/MyLayeredTexture/colorMaskMat.tres" id="1_q1xwk"]

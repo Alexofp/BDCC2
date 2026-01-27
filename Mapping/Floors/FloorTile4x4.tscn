@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5qw6lii6gf8a"]
+[gd_scene format=3 uid="uid://c5qw6lii6gf8a"]
 
 [ext_resource type="PackedScene" uid="uid://bm244sbhga8xs" path="res://Mapping/Floors/Raw/FloorTile4x4.glb" id="1_lyiaw"]
 [ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_8vfk6"]
@@ -18,7 +18,7 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
 
-[node name="Cube_084" parent="." index="0" unique_id=633998731]
+[node name="Cube_084" parent="." index="0" unique_id=269240770]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/uv1_scale = 1.0

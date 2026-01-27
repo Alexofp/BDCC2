@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://p4m1d4oacfut"]
+[gd_scene format=3 uid="uid://p4m1d4oacfut"]
 
 [ext_resource type="Script" uid="uid://cjfeedoi3xti4" path="res://Game/Sex/UI/sex_ui.gd" id="1_e8tk3"]
 [ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="3_6jvax"]

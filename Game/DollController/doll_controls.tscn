@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6s2blxqp3ylj"]
+[gd_scene format=3 uid="uid://b6s2blxqp3ylj"]
 
 [ext_resource type="Script" uid="uid://dccakrhf8cyjo" path="res://Game/DollController/doll_controls.gd" id="1_llr63"]
 [ext_resource type="Script" uid="uid://dr4dupimdv0pw" path="res://Game/Multiplayer/safe_client_multiplayer_synchronizer.gd" id="2_uhpff"]

@@ -1,11 +1,37 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6noiaoun8cst"]
+[gd_scene format=3 uid="uid://c6noiaoun8cst"]
 
 [ext_resource type="PackedScene" uid="uid://d0gckbl74o2il" path="res://Mesh/Parts/Hair/LongChaosHair/LongChaosHair.glb" id="1_buaj8"]
 [ext_resource type="Script" uid="uid://n4hr7t4iho86" path="res://Mesh/Parts/Hair/LongChaosHair/long_chaos_hair.gd" id="2_8ulsn"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_lym6j"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_lym6j"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="4_wltvj"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_7i8ra"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="5_u1qph"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_on228"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_x1c8c"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_i1xon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwb0i"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_wltvj")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("7_i1xon")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("6_on228")
+shader_parameter/hair_normal_map = ExtResource("5_u1qph")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="Resource" id="Resource_lpdos"]
 script = ExtResource("6_x1c8c")
@@ -34,15 +60,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="LongChaosHair" unique_id=1649766796 instance=ExtResource("1_buaj8")]
 script = ExtResource("2_8ulsn")
 
-[node name="LongChaosHairRig" parent="." index="0" unique_id=1645322434]
+[node name="LongChaosHairRig" parent="." index="0" unique_id=1809256893]
 script = ExtResource("3_lym6j")
 attachPoint = "hair"
 
-[node name="LongChaosHair" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1617289889) index="0" unique_id=1419129582]
+[node name="LongChaosHair" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="0" unique_id=1725373371]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_lym6j")
+surface_material_override/0 = SubResource("ShaderMaterial_wwb0i")
 
-[node name="HairWiggle" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1617289889) index="1" unique_id=1359180361 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="1" unique_id=1359180361 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -66,7 +92,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_lpdos")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1617289889) index="2" unique_id=1736304655 node_paths=PackedStringArray("collider_nodes")]
+[node name="HairWiggle2" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="2" unique_id=1736304655 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -90,7 +116,7 @@ bone_name = "Back.R"
 properties = SubResource("Resource_lpdos")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1617289889) index="3" unique_id=322554590]
+[node name="HairWiggle4" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="3" unique_id=322554590]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -115,7 +141,7 @@ bone_name = "Front.L"
 properties = SubResource("Resource_7i8ra")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1617289889) index="4" unique_id=327439421]
+[node name="HairWiggle5" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="4" unique_id=327439421]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

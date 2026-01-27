@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbrp6mx5wb2hl"]
+[gd_scene format=3 uid="uid://dbrp6mx5wb2hl"]
 
 [ext_resource type="PackedScene" uid="uid://b2mmir1f32pvt" path="res://Mapping/BigFloors/Raw/BigFloorTechnical10x3.glb" id="1_03osl"]
 [ext_resource type="Script" uid="uid://b0idmq4w4fixi" path="res://Mapping/BigFloors/big_floor_technical.gd" id="2_1d3k3"]
@@ -12,7 +12,7 @@ size = Vector2(10, 3)
 [node name="BigFloorTechnical10x3" unique_id=1309237515 instance=ExtResource("1_03osl")]
 script = ExtResource("2_1d3k3")
 
-[node name="BigFloorTechnical10x3" parent="." index="0" unique_id=285745967]
+[node name="BigFloorTechnical10x3" parent="." index="0" unique_id=1851443594]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

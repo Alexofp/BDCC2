@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbcu7n3y0kbdy"]
+[gd_scene format=3 uid="uid://bbcu7n3y0kbdy"]
 
 [ext_resource type="Script" uid="uid://c3yb2lg32ilmo" path="res://Util/Serializer/bins_test.gd" id="1_bkem7"]
 

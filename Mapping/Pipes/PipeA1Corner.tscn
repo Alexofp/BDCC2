@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3gims6ibsfj4"]
+[gd_scene format=3 uid="uid://b3gims6ibsfj4"]
 
 [ext_resource type="PackedScene" uid="uid://dum8vf811jtyf" path="res://Mapping/Pipes/Raw/PipeA1Corner.glb" id="1_dhjox"]
 
@@ -7,7 +7,7 @@ size = Vector3(0.4, 0.4, 0.7)
 
 [node name="PipeA1Corner" unique_id=178681004 instance=ExtResource("1_dhjox")]
 
-[node name="PipeA1Corner" parent="." index="0" unique_id=1975606144]
+[node name="PipeA1Corner" parent="." index="0" unique_id=125540887]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

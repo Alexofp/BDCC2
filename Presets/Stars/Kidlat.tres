@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CharacterPresetResource" format=3 uid="uid://dms2nx7u3g3pm"]
 
-[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_svrj4"]
+[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_svrj4"]
 
 [resource]
 script = ExtResource("1_svrj4")

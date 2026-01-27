@@ -2,12 +2,38 @@
 
 [ext_resource type="PackedScene" uid="uid://cmk7h06wcanda" path="res://Mesh/Parts/Util/Piercings/NippleCross/NippleCross.glb" id="1_aay42"]
 [ext_resource type="Script" uid="uid://cgyfp5c3x3xeh" path="res://Mesh/Parts/Util/Piercings/NippleCross/nipple_cross.gd" id="2_qth4p"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="2_qwwrx"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_d2sir"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_6hoc5"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_i2p8s"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_lnw0n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_necpj"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_6hoc5")
+shader_parameter/texture_orm = ExtResource("6_lnw0n")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_i2p8s")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_d2sir")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="NippleCross" unique_id=718442020 instance=ExtResource("1_aay42")]
 script = ExtResource("2_qth4p")
 
-[node name="Cross" parent="." index="0" unique_id=1818476304]
+[node name="Cross" parent="." index="0" unique_id=527657932]
 unique_name_in_owner = true
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, -0.004)
-surface_material_override/0 = ExtResource("2_qwwrx")
+surface_material_override/0 = SubResource("ShaderMaterial_necpj")

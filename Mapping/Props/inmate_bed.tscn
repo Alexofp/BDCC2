@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://gvkslhfyjgrp"]
+[gd_scene format=3 uid="uid://gvkslhfyjgrp"]
 
 [ext_resource type="PackedScene" uid="uid://c6ux2xxe87tra" path="res://Mapping/Props/Raw/InmateBed.glb" id="1_jab1v"]
 [ext_resource type="Script" uid="uid://b873s8m2q5uit" path="res://Mapping/Props/inmate_bed.gd" id="2_oud35"]
@@ -39,7 +39,7 @@ colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="InmateBed" parent="." index="0" unique_id=832386892]
+[node name="InmateBed" parent="." index="0" unique_id=954345182]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -89,21 +89,21 @@ light_energy = 0.194
 light_volumetric_fog_energy = 3.0
 omni_range = 0.680816
 
-[node name="InmateBed_lod1" parent="." index="1" unique_id=407210811]
+[node name="InmateBed_lod1" parent="." index="1" unique_id=154793049]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
-[node name="InmateBed_lod2" parent="." index="2" unique_id=1314443234]
+[node name="InmateBed_lod2" parent="." index="2" unique_id=1362278109]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
-[node name="InmateBed_lod3" parent="." index="3" unique_id=595418779]
+[node name="InmateBed_lod3" parent="." index="3" unique_id=1927834196]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)

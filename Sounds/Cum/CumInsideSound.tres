@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=11 format=3 uid="uid://38xy7kqxcabe"]
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://38xy7kqxcabe"]
 
 [ext_resource type="AudioStream" uid="uid://c7q17hyotrdwt" path="res://Sounds/Cum/CI-I - (1).wav" id="1_5vkwy"]
 [ext_resource type="AudioStream" uid="uid://bf1pbd4h70m6j" path="res://Sounds/Cum/CI-I - (2).wav" id="2_pri3i"]

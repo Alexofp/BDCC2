@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://rrngm34mcgis"]
+[gd_scene format=3 uid="uid://rrngm34mcgis"]
 
 [ext_resource type="PackedScene" uid="uid://dvo4j6vnhefe0" path="res://Mapping/Decals/Raw/DecalHotSurface.glb" id="1_gejt0"]
 
 [node name="DecalHotSurface" unique_id=1515005518 instance=ExtResource("1_gejt0")]
 
-[node name="DecalHotSurface" parent="." index="0" unique_id=749187588]
+[node name="DecalHotSurface" parent="." index="0" unique_id=1618550256]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

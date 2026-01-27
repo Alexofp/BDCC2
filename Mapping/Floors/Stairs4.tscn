@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgg5203r8p3ll"]
+[gd_scene format=3 uid="uid://dgg5203r8p3ll"]
 
 [ext_resource type="PackedScene" uid="uid://cfbo5o51jeg4p" path="res://Mapping/Floors/Raw/Stairs4.glb" id="1_k0y30"]
 
@@ -10,7 +10,7 @@ size = Vector3(4, 0.239373, 1.47831)
 
 [node name="Stairs4" unique_id=790154951 instance=ExtResource("1_k0y30")]
 
-[node name="Stairs4" parent="." index="0" unique_id=534582384]
+[node name="Stairs4" parent="." index="0" unique_id=1998762682]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

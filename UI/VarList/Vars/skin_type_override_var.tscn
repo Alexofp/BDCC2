@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuafr1vomodux"]
+[gd_scene format=3 uid="uid://cuafr1vomodux"]
 
 [ext_resource type="Script" uid="uid://cy38bqq4oeq17" path="res://UI/VarList/Vars/skin_type_override_var.gd" id="1_psqk2"]
 

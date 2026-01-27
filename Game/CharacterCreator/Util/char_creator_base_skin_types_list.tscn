@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://vv826tjd0pmc"]
+[gd_scene format=3 uid="uid://vv826tjd0pmc"]
 
 [ext_resource type="Script" uid="uid://uff2x13dsp0v" path="res://Game/CharacterCreator/Util/char_creator_base_skin_types_list.gd" id="1_wmr3p"]
 

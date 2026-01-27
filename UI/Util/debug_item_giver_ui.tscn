@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://digfqres74loo"]
+[gd_scene format=3 uid="uid://digfqres74loo"]
 
 [ext_resource type="Script" uid="uid://5r5rspy00tqn" path="res://UI/Util/debug_item_giver_ui.gd" id="1_r2ki6"]
 

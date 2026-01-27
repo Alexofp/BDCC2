@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ffmxaf82tmg8"]
+[gd_scene format=3 uid="uid://ffmxaf82tmg8"]
 
 [ext_resource type="Script" uid="uid://hx2wanxnphuw" path="res://Game/Sex/anim_scene_player.gd" id="1_agggj"]
 [ext_resource type="PackedScene" uid="uid://ksjqa2qu5isd" path="res://AnimScenes/anim_scene_spawner.tscn" id="2_2pw81"]

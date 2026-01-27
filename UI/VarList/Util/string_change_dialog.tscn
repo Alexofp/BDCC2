@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://417fy0rbk3eo"]
+[gd_scene format=3 uid="uid://417fy0rbk3eo"]
 
 [ext_resource type="Script" uid="uid://bxiv7jg0y2nwx" path="res://UI/VarList/Util/string_change_dialog.gd" id="1_mvr0f"]
 

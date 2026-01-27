@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://43nqk2023vem"]
+[gd_scene format=3 uid="uid://43nqk2023vem"]
 
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="1_hes2x"]
 [ext_resource type="Script" uid="uid://8r5aiad8r8sw" path="res://Game/CharacterCreator/InteractionMenu/interact_menu_entry.gd" id="1_r1qg5"]

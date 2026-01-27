@@ -2,12 +2,38 @@
 
 [ext_resource type="PackedScene" uid="uid://dvxefd4i11ufv" path="res://Mesh/Parts/Util/Piercings/NippleRingBall/NippleRingBall.glb" id="1_aqwjc"]
 [ext_resource type="Script" uid="uid://rmw0pgghdojq" path="res://Mesh/Parts/Util/Piercings/NippleRingBall/nipple_ring_ball.gd" id="2_n2ev7"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="3_uq1os"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_w8jyk"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_skmkp"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_hagt0"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_t6mn5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_18mon"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_skmkp")
+shader_parameter/texture_orm = ExtResource("6_t6mn5")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_hagt0")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_w8jyk")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="NippleRingBall" unique_id=1622023056 instance=ExtResource("1_aqwjc")]
 script = ExtResource("2_n2ev7")
 
-[node name="RingBall" parent="." index="0" unique_id=1982778209]
+[node name="RingBall" parent="." index="0" unique_id=1356839582]
 unique_name_in_owner = true
 transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, -0.005)
-surface_material_override/0 = ExtResource("3_uq1os")
+surface_material_override/0 = SubResource("ShaderMaterial_18mon")

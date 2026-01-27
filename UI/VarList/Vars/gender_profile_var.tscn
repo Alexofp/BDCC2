@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://f80olnn8ddb2"]
+[gd_scene format=3 uid="uid://f80olnn8ddb2"]
 
 [ext_resource type="Script" uid="uid://y2hggbfsr4cw" path="res://UI/VarList/Vars/gender_profile_var.gd" id="1_cwu47"]
 

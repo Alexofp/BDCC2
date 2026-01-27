@@ -1,11 +1,37 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhawj2jle6qsv"]
+[gd_scene format=3 uid="uid://bhawj2jle6qsv"]
 
 [ext_resource type="PackedScene" uid="uid://g3nyjr26cdum" path="res://Mesh/Parts/Hair/ShortHair/ShortHair.glb" id="1_vkhs3"]
 [ext_resource type="Script" uid="uid://cphykvra05jpc" path="res://Mesh/Parts/Hair/ShortHair/short_hair.gd" id="2_ithp7"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_qahxa"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="4_aba34"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_ithp7"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="4_bxdto"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="5_bxdto"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="5_uoj1p"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_wjyrk"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_27vx0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq8ma"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_bxdto")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("7_27vx0")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("6_wjyrk")
+shader_parameter/hair_normal_map = ExtResource("5_uoj1p")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="Resource" id="Resource_uoj1p"]
 script = ExtResource("5_bxdto")
@@ -18,15 +44,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="ShortHair" unique_id=10539453 instance=ExtResource("1_vkhs3")]
 script = ExtResource("2_ithp7")
 
-[node name="ShortHairRig" parent="." index="0" unique_id=802233392]
+[node name="ShortHairRig" parent="." index="0" unique_id=2037262274]
 script = ExtResource("3_qahxa")
 attachPoint = "hair"
 
-[node name="ShortHair" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(591268940) index="0" unique_id=1547112272]
+[node name="ShortHair" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="0" unique_id=1099132953]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_ithp7")
+surface_material_override/0 = SubResource("ShaderMaterial_bq8ma")
 
-[node name="Wiggle1" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(591268940) index="1" unique_id=1168819174]
+[node name="Wiggle1" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="1" unique_id=1168819174]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -48,7 +74,7 @@ bone_name = "WiggleBack"
 properties = SubResource("Resource_uoj1p")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(591268940) index="2" unique_id=28809206]
+[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="2" unique_id=28809206]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -70,7 +96,7 @@ bone_name = "WiggleL"
 properties = SubResource("Resource_uoj1p")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(591268940) index="3" unique_id=607947213]
+[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="3" unique_id=607947213]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

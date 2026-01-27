@@ -2,11 +2,37 @@
 
 [ext_resource type="PackedScene" uid="uid://phayf41vc2d3" path="res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/Piercings1.glb" id="1_7yqvv"]
 [ext_resource type="Script" uid="uid://cxd05ed1amipb" path="res://Mesh/Parts/Head/CanineHead/Extras/Piercings1/piercings_1.gd" id="2_atn76"]
-[ext_resource type="Material" uid="uid://qrmte2wmm0qf" path="res://Mesh/SharedMaterials/Base/PiercingsMat.tres" id="3_atn76"]
+[ext_resource type="Script" uid="uid://bk8a3rmejmdn" path="res://addons/MyMasterMaterial/Material/MyMasterMaterial.gd" id="3_yqdrm"]
+[ext_resource type="Shader" uid="uid://b8o0uji4odccc" path="res://Mesh/Shaders/Doll_all/Piercings.gdshader" id="4_ijtwf"]
+[ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_gknqf"]
+[ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_s14ae"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byh0h"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_ijtwf")
+shader_parameter/texture_orm = ExtResource("6_s14ae")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.499999988824
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_gknqf")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+script = ExtResource("3_yqdrm")
+pbrSetup = 3
+colorMask = true
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="Piercings1" unique_id=1546471870 instance=ExtResource("1_7yqvv")]
 script = ExtResource("2_atn76")
 
-[node name="BallPiercing" parent="MyCanineHeadRig/Skeleton3D" parent_id_path=PackedInt32Array(1879695732) index="0" unique_id=1296170672]
+[node name="BallPiercing" parent="MyCanineHeadRig/Skeleton3D" parent_id_path=PackedInt32Array(330250350) index="0" unique_id=2118910630]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("3_atn76")
+surface_material_override/0 = SubResource("ShaderMaterial_byh0h")

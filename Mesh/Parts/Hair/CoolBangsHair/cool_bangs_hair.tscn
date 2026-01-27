@@ -1,11 +1,37 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1c472u71y23k"]
+[gd_scene format=3 uid="uid://c1c472u71y23k"]
 
 [ext_resource type="PackedScene" uid="uid://82fqiov2i6ju" path="res://Mesh/Parts/Hair/CoolBangsHair/CoolBangsHair.glb" id="1_njult"]
 [ext_resource type="Script" uid="uid://d5nddu7dgdwj" path="res://Mesh/Parts/Hair/CoolBangsHair/cool_bangs_hair.gd" id="2_mjd73"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_q5e7s"]
-[ext_resource type="Material" uid="uid://cs1v7vba6gfkw" path="res://Mesh/SharedMaterials/Hair/HairMat.tres" id="4_q5e7s"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="4_f5von"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="5_377ab"]
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="5_nnhdf"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_mcysv"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_qspuw"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_jfgks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjx01"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_f5von")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("7_jfgks")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("6_qspuw")
+shader_parameter/hair_normal_map = ExtResource("5_377ab")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [sub_resource type="Resource" id="Resource_kw6ne"]
 script = ExtResource("6_mcysv")
@@ -33,15 +59,15 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="CoolBangsHair" unique_id=506344367 instance=ExtResource("1_njult")]
 script = ExtResource("2_mjd73")
 
-[node name="CoolBangsHairRig" parent="." index="0" unique_id=1054040690]
+[node name="CoolBangsHairRig" parent="." index="0" unique_id=1476861609]
 script = ExtResource("3_q5e7s")
 attachPoint = "hair"
 
-[node name="CoolBangsHair" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="0" unique_id=876885767]
+[node name="CoolBangsHair" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="0" unique_id=1989008415]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_q5e7s")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx01")
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="1" unique_id=37109063]
+[node name="Wiggle2" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="1" unique_id=37109063]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -65,7 +91,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_kw6ne")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="2" unique_id=286265484]
+[node name="Wiggle3" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="2" unique_id=286265484]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -89,7 +115,7 @@ bone_name = "Back.R"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle4" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="3" unique_id=1453375840]
+[node name="Wiggle4" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="3" unique_id=1453375840]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -113,7 +139,7 @@ bone_name = "Bang.L"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle5" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="4" unique_id=388220129]
+[node name="Wiggle5" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="4" unique_id=388220129]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -137,7 +163,7 @@ bone_name = "Bang.R"
 properties = SubResource("Resource_f5von")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle6" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1682113536) index="5" unique_id=885116570]
+[node name="Wiggle6" type="SkeletonModifier3D" parent="CoolBangsHairRig/Skeleton3D" parent_id_path=PackedInt32Array(233001805) index="5" unique_id=885116570]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

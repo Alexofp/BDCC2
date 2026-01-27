@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2r06f162se5b"]
+[gd_scene format=3 uid="uid://d2r06f162se5b"]
 
 [ext_resource type="Script" uid="uid://dsk8vcwcgs258" path="res://UI/VarList/Vars/eye_pattern_var.gd" id="1_24axv"]
 [ext_resource type="PackedScene" uid="uid://b6p07kkkwjixi" path="res://UI/VarList/Vars/pattern_var.tscn" id="2_664e8"]

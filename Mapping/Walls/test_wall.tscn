@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dibm1drcuq4yi"]
+[gd_scene format=3 uid="uid://dibm1drcuq4yi"]
 
 [ext_resource type="PackedScene" uid="uid://c8jkbvto4fi4l" path="res://Mesh/Test/TestWall.glb" id="1_581p3"]
 [ext_resource type="Material" uid="uid://cw7kwaxpnktw" path="res://Mesh/Materials/MyBigTrimSmart.tres" id="2_qwdnl"]
@@ -14,7 +14,7 @@ size = Vector3(2, 2, 0.2)
 [node name="TestWall" unique_id=245382751 instance=ExtResource("1_581p3")]
 script = ExtResource("2_wix3n")
 
-[node name="Panel2x2Det2" parent="." index="0" unique_id=1778886881]
+[node name="Panel2x2Det2" parent="." index="0" unique_id=615641523]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
 surface_material_override/0 = ExtResource("2_qwdnl")

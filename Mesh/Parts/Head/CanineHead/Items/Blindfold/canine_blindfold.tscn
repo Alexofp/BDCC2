@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://blcml7cmw68w2"]
+[gd_scene format=3 uid="uid://blcml7cmw68w2"]
 
 [ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_j18kb"]
 [ext_resource type="PackedScene" uid="uid://ddpobcj5pv6hg" path="res://Mesh/Parts/Head/CanineHead/Items/Blindfold/CanineBlindfold.glb" id="1_n1ccu"]
@@ -12,7 +12,7 @@ script = ExtResource("1_j18kb")
 script = ExtResource("2_j18kb")
 attachPoint = "head_items"
 
-[node name="CanineBlindfold" parent="CanineBlindfold" index="0" unique_id=455848165]
+[node name="CanineBlindfold" parent="CanineBlindfold" index="0" unique_id=1310632043]
 surface_material_override/0 = ExtResource("3_i0a1u")
 
 [editable path="CanineBlindfold"]

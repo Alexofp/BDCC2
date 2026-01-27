@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1vf3oqhh0mf1"]
+[gd_scene format=3 uid="uid://d1vf3oqhh0mf1"]
 
 [ext_resource type="Script" uid="uid://usktsyncbc4k" path="res://Game/UI/ResistMinigame/resist_minigame.gd" id="1_fmc2d"]
 [ext_resource type="PackedScene" uid="uid://d06l8aoh2u2ci" path="res://Game/UI/ResistMinigame/other_marker.tscn" id="2_clten"]

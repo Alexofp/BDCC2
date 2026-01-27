@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcvxp3pw4amde"]
+[gd_scene format=3 uid="uid://dcvxp3pw4amde"]
 
 [ext_resource type="PackedScene" uid="uid://c63vfdlai1fxu" path="res://Mapping/Decals/Raw/DecalVisionCaution.glb" id="1_58y4i"]
 
 [node name="DecalVisionCaution" unique_id=1031373091 instance=ExtResource("1_58y4i")]
 
-[node name="DecalVisionCaution" parent="." index="0" unique_id=1447747105]
+[node name="DecalVisionCaution" parent="." index="0" unique_id=649710144]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://pc2c6o8rlv6n"]
+[gd_scene format=3 uid="uid://pc2c6o8rlv6n"]
 
 [ext_resource type="PackedScene" uid="uid://krja5ycjb6wd" path="res://Mapping/Floors/Raw/TileFan1x1.glb" id="1_8hajw"]
 
@@ -10,7 +10,7 @@ size = Vector2(1, 0.999999)
 
 [node name="TileFan1x1" unique_id=1085215776 instance=ExtResource("1_8hajw")]
 
-[node name="TileFan1x1" parent="." index="0" unique_id=1498614238]
+[node name="TileFan1x1" parent="." index="0" unique_id=1714169585]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

@@ -1,17 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnnholgmynh68"]
+[gd_scene format=3 uid="uid://cnnholgmynh68"]
 
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="1_qvooi"]
 
 [node name="DoorA6x4Closed" unique_id=772325142 instance=ExtResource("1_qvooi")]
 
-[node name="DoorA6x4" parent="." index="1" unique_id=1195003211]
+[node name="DoorA6x4" parent="." index="1" unique_id=993532177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA6x4_lod1" parent="." index="6" unique_id=1341609508]
+[node name="DoorA6x4_lod1" parent="." index="6" unique_id=1450966436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA6x4_lod2" parent="." index="7" unique_id=316719438]
+[node name="DoorA6x4_lod2" parent="." index="7" unique_id=811863035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DoorA6x4_lod3" parent="." index="8" unique_id=1525967911]
+[node name="DoorA6x4_lod3" parent="." index="8" unique_id=891424466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

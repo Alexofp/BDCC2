@@ -1,22 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwedkm5w7k451"]
+[gd_scene format=3 uid="uid://bwedkm5w7k451"]
 
 [ext_resource type="PackedScene" uid="uid://chvajh23jgr06" path="res://Mesh/Clothing/InmateTankTop/InmateTankTop.glb" id="1_0fw6v"]
 [ext_resource type="Script" uid="uid://t7dl6rwl66pb" path="res://Mesh/Clothing/InmateTankTop/inmate_tank_top.gd" id="2_hes7u"]
 [ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_h14uw"]
-[ext_resource type="Material" uid="uid://cvpisoidxvsxv" path="res://Mesh/Clothing/InmateTankTop/InmateTankTopMat.tres" id="4_h14uw"]
+[ext_resource type="Shader" uid="uid://kqaccq6rdhyw" path="res://Mesh/Shaders/DollClothes_skeleton/ClothRimlightShader.gdshader" id="4_u82s6"]
+[ext_resource type="Texture2D" uid="uid://doo8txu64fs72" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_BaseColor.png" id="5_sd1ct"]
+[ext_resource type="Texture2D" uid="uid://3cjda23ejj81" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Emit.png" id="6_88qwl"]
+[ext_resource type="Texture2D" uid="uid://7g7vg3fhkgm" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Normal.png" id="7_phr6d"]
+[ext_resource type="Texture2D" uid="uid://hkkbhfalidlb" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_ORM.png" id="8_bvxxs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxi2j"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_u82s6")
+shader_parameter/texture_albedo = ExtResource("5_sd1ct")
+shader_parameter/texture_normal = ExtResource("7_phr6d")
+shader_parameter/texture_orm = ExtResource("8_bvxxs")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.41999999061216
+shader_parameter/rim_tint = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("6_88qwl")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
 [node name="InmateTankTop" unique_id=623990681 instance=ExtResource("1_0fw6v")]
 script = ExtResource("2_hes7u")
 
-[node name="rig" parent="." index="0" unique_id=1301919058 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1571050300 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_h14uw")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/TankTop"), NodePath("Skeleton3D/TankTopPulledUp")]
 
-[node name="TankTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1782233376) index="0" unique_id=1387739119]
+[node name="TankTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(593000861) index="0" unique_id=621657957]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_h14uw")
+surface_material_override/0 = SubResource("ShaderMaterial_hxi2j")
 
-[node name="TankTopPulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1782233376) index="1" unique_id=1492288760]
+[node name="TankTopPulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(593000861) index="1" unique_id=2040101463]
 unique_name_in_owner = true
-surface_material_override/0 = ExtResource("4_h14uw")
+surface_material_override/0 = SubResource("ShaderMaterial_hxi2j")

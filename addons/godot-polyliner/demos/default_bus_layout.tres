@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://s61j8goxr26x"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://s61j8goxr26x"]
 
 [sub_resource type="AudioEffectCapture" id="1"]
 resource_name = "Capture"

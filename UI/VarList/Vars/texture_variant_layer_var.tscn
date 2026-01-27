@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvfase7g7yitn"]
+[gd_scene format=3 uid="uid://bvfase7g7yitn"]
 
 [ext_resource type="Script" uid="uid://d1d7bqikjwtrm" path="res://UI/VarList/Vars/texture_variant_layer_var.gd" id="1_2lgvh"]
 

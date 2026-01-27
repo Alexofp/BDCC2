@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfw56qwq2jap0"]
+[gd_scene format=3 uid="uid://dfw56qwq2jap0"]
 
 [ext_resource type="Script" uid="uid://bsyn4b7230i1y" path="res://UI/VarList/Vars/species_var.gd" id="1_g3uow"]
 

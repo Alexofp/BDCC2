@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwfivwshfw1rs"]
+[gd_scene format=3 uid="uid://dwfivwshfw1rs"]
 
 [ext_resource type="PackedScene" uid="uid://wdkef05200qw" path="res://Mapping/Columns/Raw/ColumnA2TriCorner.glb" id="1_nr4iw"]
 
@@ -13,7 +13,7 @@ size = Vector3(0.955, 2.001, 0.909)
 
 [node name="ColumnA2TriCorner" unique_id=1282795384 instance=ExtResource("1_nr4iw")]
 
-[node name="ColumnA2TriCorner" parent="." index="0" unique_id=805281880]
+[node name="ColumnA2TriCorner" parent="." index="0" unique_id=1358850568]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -41,19 +41,19 @@ occluder = SubResource("BoxOccluder3D_dhweo")
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1, 0)
 occluder = SubResource("BoxOccluder3D_kf82n")
 
-[node name="ColumnA2TriCorner_lod1" parent="." index="1" unique_id=631318943]
+[node name="ColumnA2TriCorner_lod1" parent="." index="1" unique_id=1268259186]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnA2TriCorner_lod2" parent="." index="2" unique_id=210906717]
+[node name="ColumnA2TriCorner_lod2" parent="." index="2" unique_id=1370266708]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="ColumnA2TriCorner_lod3" parent="." index="3" unique_id=1341415589]
+[node name="ColumnA2TriCorner_lod3" parent="." index="3" unique_id=2032045451]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

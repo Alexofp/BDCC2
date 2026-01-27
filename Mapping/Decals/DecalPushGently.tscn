@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cddoh6iqtwq7u"]
+[gd_scene format=3 uid="uid://cddoh6iqtwq7u"]
 
 [ext_resource type="PackedScene" uid="uid://bychy0qy5syl0" path="res://Mapping/Decals/Raw/DecalPushGently.glb" id="1_qtk4d"]
 
 [node name="DecalPushGently" unique_id=1766518979 instance=ExtResource("1_qtk4d")]
 
-[node name="DecalPushGently" parent="." index="0" unique_id=424796783]
+[node name="DecalPushGently" parent="." index="0" unique_id=484617444]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)

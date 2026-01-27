@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjpiv2bbl3r34"]
+[gd_scene format=3 uid="uid://cjpiv2bbl3r34"]
 
 [ext_resource type="Shader" uid="uid://csax2g5jqpal3" path="res://Mesh/Materials/MyLayeredTexture/SmoothRevealShader.gdshader" id="1_ydsvb"]
 

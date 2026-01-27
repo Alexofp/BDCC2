@@ -1,4 +1,4 @@
-[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://cbp4x8f0v5fuk"]
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://cbp4x8f0v5fuk"]
 
 [sub_resource type="Gradient" id="Gradient_xiv15"]
 resource_local_to_scene = true
