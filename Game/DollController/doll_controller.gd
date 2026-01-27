@@ -47,7 +47,6 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 @onready var model_root: Node3D = %ModelRoot
 @onready var camera: PriorityCamera = %Camera
 @onready var typing_status_reset_timer: Timer = %TypingStatusResetTimer
-@onready var blindness_quad_effect: MeshInstance3D = %BlindnessQuadEffect
 
 const STATE_NORMAL = "normal"
 const STATE_SITTING = "sitting"
@@ -466,14 +465,14 @@ func process_camera_pivot():
 
 
 func process_camera():
-	if(!camera.isActive()):
-		blindness_quad_effect.visible = false
+	if(!isControlledByUs()):
+		doll.blindness_quad_effect.visible = false
 		return
 	var theCharacter := getCharacter()
 	if(theCharacter && theCharacter.isBlind()):
-		blindness_quad_effect.visible = true
+		doll.blindness_quad_effect.visible = true
 	else:
-		blindness_quad_effect.visible = false
+		doll.blindness_quad_effect.visible = false
 	#print(getCurrentGlobalAnimKey())
 	
 # Gonna be used for anim tweaking

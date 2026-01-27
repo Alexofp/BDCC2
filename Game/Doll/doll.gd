@@ -20,6 +20,7 @@ class_name Doll
 @onready var look_at_eyes: Node3D = %LookAtEyes
 @onready var look_at_target_default: Node3D = %LookAtTargetDefault
 @onready var skeleton_hit_modifier: SkeletonHitModifier = %SkeletonHitModifier
+@onready var blindness_quad_effect: MeshInstance3D = %BlindnessQuadEffect
 
 const LOCOMOTION_OTHER = 0
 const LOCOMOTION_STAND = 1
