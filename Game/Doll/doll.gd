@@ -33,14 +33,8 @@ var lookAtNode:Node3D = null
 var expressionState:int = DollExpressionState.Normal
 var characterRef:WeakRef
 
-var parts:Dictionary = {
-	BaseCharacter.GENERIC_BODYPARTS: {},
-	BaseCharacter.GENERIC_CLOTHING: {},
-}
-var partPaths:Dictionary = {
-	BaseCharacter.GENERIC_BODYPARTS: {},
-	BaseCharacter.GENERIC_CLOTHING: {},
-}
+var parts:Array[Dictionary] = [{}, {}]
+var partPaths:Array[Dictionary] = [{}, {}]
 var attachPoints:Dictionary = {}
 
 var animationPartFlags:Dictionary = {} #Used to make the tail go out of the way during sex for example
@@ -153,7 +147,7 @@ func onCharChange(_change:BaseCharChange):
 			#updateAutoSkinParts()
 
 func updateAutoSkinParts():
-	if(!parts.has(BaseCharacter.GENERIC_BODYPARTS)):
+	if(parts.is_empty()):
 		return
 	var theChar:BaseCharacter = getCharacter()
 	if(!theChar):
@@ -178,9 +172,9 @@ func getCharacter() -> BaseCharacter:
 	return characterRef.get_ref()
 
 func onUpdateBodyMess():
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.updateBodyMess()
 
@@ -199,9 +193,9 @@ func onCharOptionChange(_change:String):
 		updatePose()
 	
 	var theValue = theChar.getSyncOptionValue(_change)
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.applyCharOptionFinal(_change, theValue)
 
@@ -245,18 +239,12 @@ func onCharPartChange(_genericType:int, slot:int, _newpart = null):
 		checkAllClothingScenes()
 
 func clear():
-	for genericType in parts:
-		for slot in parts[genericType]:
-			var bodypartDollPart:Node = parts[genericType][slot]
+	for theSpecificParts in parts:
+		for slot in theSpecificParts:
+			var bodypartDollPart:Node = theSpecificParts[slot]
 			bodypartDollPart.queue_free()
-	parts = {
-		BaseCharacter.GENERIC_BODYPARTS: {},
-		BaseCharacter.GENERIC_CLOTHING: {},
-	}
-	partPaths = {
-		BaseCharacter.GENERIC_BODYPARTS: {},
-		BaseCharacter.GENERIC_CLOTHING: {},
-	}
+	parts = [{}, {}]
+	partPaths = [{}, {}]
 
 func _physics_process(_delta: float) -> void:
 	if(!partUpdateQueue.is_empty()):
@@ -316,6 +304,8 @@ func updateFromCharacter():
 		onCharOptionChange(optionID)
 
 func clearOutPart(genericType:int, bodypartSlot:int):
+	if(genericType < 0 || genericType >= parts.size()):
+		return
 	var theDollPart:DollPart = getDollPart(genericType, bodypartSlot)
 	if(parts[genericType].has(bodypartSlot)):
 		parts[genericType][bodypartSlot].queue_free()
@@ -586,18 +576,18 @@ func triggerDollPartFlagsUpdate():
 func updateDollPartFlags():
 	cachedPartFlags = {}
 	
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.gatherPartFlags(cachedPartFlags)
 	
 	for flag in animationPartFlags:
 		cachedPartFlags[flag] = animationPartFlags[flag]
 	
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.applyPartFlagsFinal(cachedPartFlags)
 	
@@ -613,9 +603,9 @@ var penisTargetInsideNode:Node3D
 func setPenisTargets(_holeNode:Node3D, _insideNode:Node3D):
 	penisTargetHoleNode = _holeNode
 	penisTargetInsideNode = _insideNode
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.setPenisTargets(penisTargetHoleNode, penisTargetInsideNode)
 
@@ -661,9 +651,9 @@ func updateExpressionState():
 	if(openMouthTemp):
 		theExpressionState = DollExpressionState.OpenMouth
 	
-	for genericType in parts:
-		for partID in parts[genericType]:
-			var dollPart = parts[genericType][partID]
+	for theSpecificParts in parts:
+		for partID in theSpecificParts:
+			var dollPart = theSpecificParts[partID]
 			if(dollPart is DollPart):
 				dollPart.setExpressionState(theExpressionState)
 				var theFaceAnimator:FaceAnimator = dollPart.getFaceAnimator()
@@ -671,7 +661,7 @@ func updateExpressionState():
 					theFaceAnimator.setExpressionState(theExpressionState)
 
 func getDollPart(genericType:int, slot:int) -> DollPart:
-	if(!parts.has(genericType)):
+	if(genericType < 0 || genericType >= parts.size()):
 		return null
 	if(!parts[genericType].has(slot)):
 		return null
@@ -682,7 +672,7 @@ func getDollPart(genericType:int, slot:int) -> DollPart:
 	return null
 
 func getPartCachedPath(genericType:int, slot:int) -> String:
-	if(!partPaths.has(genericType)):
+	if(genericType < 0 || genericType >= partPaths.size()):
 		return ""
 	if(!partPaths[genericType].has(slot)):
 		return ""

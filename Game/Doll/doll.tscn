@@ -42,6 +42,13 @@ linear_scale = 10.0
 swing_span = 0.17453292519943295
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dr03u"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l7aga"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
@@ -50,13 +57,6 @@ initial_velocity_max = 3.0
 scale_max = 2.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_doc38"]
-resource_local_to_scene = true
-direction = Vector3(0, 0, 1)
-spread = 1.0
-initial_velocity_max = 3.0
-scale_max = 2.0
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lws2c"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -440,13 +440,13 @@ transform = Transform3D(1, 1.4995204e-14, -1.2579849e-14, -1.25830454e-14, 0.984
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
 
 [node name="SquirtParticles1" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="0" unique_id=1486787374]
-process_material = SubResource("ParticleProcessMaterial_l7aga")
+process_material = SubResource("ParticleProcessMaterial_dr03u")
 
 [node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
-process_material = SubResource("ParticleProcessMaterial_doc38")
+process_material = SubResource("ParticleProcessMaterial_l7aga")
 
 [node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
-process_material = SubResource("ParticleProcessMaterial_lws2c")
+process_material = SubResource("ParticleProcessMaterial_doc38")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
