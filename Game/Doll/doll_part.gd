@@ -48,6 +48,29 @@ func getPart() -> GenericPart:
 		return null
 	return partRef.get_ref()
 
+func shouldSubscribeToDollHoleData() -> bool:
+	var thePart := getPart()
+	if(thePart is BodypartBodyBase):
+		return true
+	if(thePart is ItemBase):
+		var curSlot:int = thePart.currentSlot
+		if(curSlot == InventorySlot.UnderwearBottom):
+			return true
+		if(curSlot == InventorySlot.Bottom):
+			return true
+		
+	return false
+
+func updateDefaultDollHoleData(_data:DollHoleData):
+	setBlendshape("BellyBulge", _data.bellyBump)
+	setBlendshape("PussyOpenedWide", _data.vagOpen)
+	setBlendshape("PussyPull", _data.vagPull)
+	setBlendshape("AnusOpenedWide", _data.anusOpen)
+	setBlendshape("AnusPull", _data.anusPull)
+
+func applyDollHoleData(_data:DollHoleData):
+	updateDefaultDollHoleData(_data)
+
 func applyOption(_optionID:String, _value:Variant):
 	pass
 
@@ -172,6 +195,8 @@ func setExtra(_slot:int, _path:String):
 		return
 	if(!_path.is_empty() && cachedExtraPaths.has(_slot) && cachedExtraPaths[_slot] == _path):
 		return
+	clearMeshesCache()
+	
 	if(extras.has(_slot)):
 		extras[_slot].queue_free()
 		extras.erase(_slot)

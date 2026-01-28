@@ -286,7 +286,6 @@ surface_material_override/1 = SubResource("ShaderMaterial_lvg24")
 
 [node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="3" unique_id=656967974]
 unique_name_in_owner = true
-visible = false
 blend_shapes/CaninePussyClose = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_4tgf8")
 surface_material_override/1 = SubResource("ShaderMaterial_lvg24")
@@ -347,27 +346,21 @@ unique_name_in_owner = true
 resolution = Vector2i(256, 256)
 clearColor = Color(0, 0, 0, 1)
 
-[node name="VaginaHoleTracker" type="Node" parent="." index="3" unique_id=243652975 node_paths=PackedStringArray("dollPart", "crotchMeshes")]
+[node name="VaginaHoleTracker" type="Node" parent="." index="3" unique_id=243652975 node_paths=PackedStringArray("dollPart")]
 script = ExtResource("12_uprqo")
 dollPart = NodePath("..")
-crotchMeshes = [NodePath("../rig/Skeleton3D/PubicHair"), NodePath("../rig/Skeleton3D/FemaleCrotch")]
 openShapekeyMult = 2.2
 pullShapekeyMult = 0.5
 
-[node name="AnusHoleTracker" type="Node" parent="." index="4" unique_id=1338595688 node_paths=PackedStringArray("dollPart", "crotchMeshes")]
+[node name="AnusHoleTracker" type="Node" parent="." index="4" unique_id=1338595688 node_paths=PackedStringArray("dollPart")]
 script = ExtResource("12_uprqo")
 holeType = 1
 dollPart = NodePath("..")
-crotchMeshes = [NodePath("../rig/Skeleton3D/MaleCrotch"), NodePath("../rig/Skeleton3D/FemaleCrotch"), NodePath("../rig/Skeleton3D/PubicHair")]
-openShapekey = "AnusOpenedWide"
 openShapekeyMult = 2.0
-pullShapekey = "AnusPull"
 
-[node name="BellyBulgeTracker" type="Node" parent="." index="5" unique_id=1412682278 node_paths=PackedStringArray("dollPart", "bodyMeshes")]
+[node name="BellyBulgeTracker" type="Node" parent="." index="5" unique_id=1412682278 node_paths=PackedStringArray("dollPart")]
 script = ExtResource("10_e373p")
 dollPart = NodePath("..")
-bodyMeshes = [NodePath("../rig/Skeleton3D/Body")]
-bulgeShapekeyMult = 2.0
 
 [node name="BreastLAttach" type="Node3D" parent="." index="6" unique_id=1006509342]
 transform = Transform3D(0.9147036, -0.12744878, 0.3835025, -0.012706215, 0.93943, 0.34250525, -0.40392566, -0.31816363, 0.85768056, 0.015289541, 1.2618356, -0.09090517)

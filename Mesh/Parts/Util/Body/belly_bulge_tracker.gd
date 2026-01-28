@@ -2,9 +2,6 @@ extends Node
 class_name BellyBulgeTracker
 
 @export var dollPart:DollPart
-@export var bodyMeshes:Array[MeshInstance3D]
-@export var bulgeShapekey:String = "BellyBulge"
-@export var bulgeShapekeyMult:float = 1.0
 
 var cachedValue:float = 0.0
 
@@ -33,15 +30,7 @@ func _process(_delta: float) -> void:
 	if(abs(theBulgeVal - cachedValue)<0.001):
 		return
 	cachedValue = theBulgeVal
-	#print("PULL: "+str(newPullValue))
 	
-	for meshA in bodyMeshes:
-		var mesh:MeshInstance3D = meshA
-		
-		setBlendShape(mesh, bulgeShapekey, theBulgeVal*bulgeShapekeyMult)
-
-func setBlendShape(mesh:MeshInstance3D, theBlendShape:String, theVal:float):
-	var blendShapeIndx:int = mesh.find_blend_shape_by_name(theBlendShape)
-	if(blendShapeIndx < 0):
-		return
-	mesh.set_blend_shape_value(blendShapeIndx, theVal)
+	theDoll.holeData.bellyBump = clamp(theBulgeVal, 0.0, 1.0)
+	theDoll.triggerHoleDataUpdate()
+	

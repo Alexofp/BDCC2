@@ -5,13 +5,9 @@ enum Hole {Vagina, Anus, Mouth}
 @export var holeType:Hole = Hole.Vagina
 
 @export var dollPart:DollPart
-@export var crotchMeshes:Array[MeshInstance3D]
-@export var openShapekey:String = "PussyOpenedWide"
 @export var openShapekeyMult:float = 1.0
-@export var pullShapekey:String = "PussyPull"
 @export var pullShapekeyMult:float = 1.0
 @export var pullMaxValue:float = 5.0
-
 
 var cachedValue:float = -1.0
 var cachedPullValue:float = -1.0
@@ -39,14 +35,11 @@ func _process(_delta: float) -> void:
 	cachedPullValue = newPullValue
 	#print("PULL: "+str(newPullValue))
 	
-	for meshA in crotchMeshes:
-		var mesh:MeshInstance3D = meshA
-		
-		setBlendShape(mesh, openShapekey, cachedValue)
-		setBlendShape(mesh, pullShapekey, cachedPullValue)
-
-func setBlendShape(mesh:MeshInstance3D, theBlendShape:String, theVal:float):
-	var blendShapeIndx:int = mesh.find_blend_shape_by_name(theBlendShape)
-	if(blendShapeIndx < 0):
-		return
-	mesh.set_blend_shape_value(blendShapeIndx, theVal)
+	if(holeType == Hole.Vagina):
+		theDoll.holeData.vagOpen = newOpenValue
+		theDoll.holeData.vagPull = cachedPullValue
+		theDoll.triggerHoleDataUpdate()
+	elif(holeType == Hole.Anus):
+		theDoll.holeData.anusOpen = newOpenValue
+		theDoll.holeData.anusPull = cachedPullValue
+		theDoll.triggerHoleDataUpdate()

@@ -29,11 +29,8 @@ const LOCOMOTION_RUN = 3
 const LOCOMOTION_FALL = 4
 
 var locomotionState:int = LOCOMOTION_STAND
-
 var lookAtNode:Node3D = null
-
 var expressionState:int = DollExpressionState.Normal
-
 var characterRef:WeakRef
 
 var parts:Dictionary = {
@@ -51,6 +48,10 @@ var cachedPartFlags:Dictionary = {}
 
 var openMouthTemp:bool = false
 var struggleTimer:float = 0.0
+
+var holeData:DollHoleData = DollHoleData.new()
+var holeDataSubs:Array[Array] = [[], []] # Which parts should receive the updated hole data values
+var holeDataDirty:bool = false
 
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
@@ -316,16 +317,41 @@ func updateFromCharacter():
 
 func clearOutPart(genericType:int, bodypartSlot:int):
 	var theDollPart:DollPart = getDollPart(genericType, bodypartSlot)
-	if(theDollPart && theDollPart.getBodyAlphaMask()):
-		triggerAlphaMaskUpdate()
 	if(parts[genericType].has(bodypartSlot)):
 		parts[genericType][bodypartSlot].queue_free()
 		parts[genericType].erase(bodypartSlot)
 		triggerDollPartFlagsUpdate()
 	if(partPaths[genericType].has(bodypartSlot)):
 		partPaths[genericType].erase(bodypartSlot)
-	if(theDollPart && genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
+	if(theDollPart):
+		partRemovedUpdatedIt(genericType, bodypartSlot, theDollPart)
+
+# Use this function to update everything when a dollPart gets added
+func partAddedUpdateIt(genericType:int, bodypartSlot:int, _part:GenericPart, _dollPart:DollPart):
+	_dollPart.setPenisTargets(penisTargetHoleNode, penisTargetInsideNode)
+	_dollPart.setExpressionState(expressionState)
+	_dollPart.updateBodyMess()
+	if(_dollPart.getBodyAlphaMask()):
+		triggerAlphaMaskUpdate()
+	_dollPart.onSpawn(genericType, bodypartSlot, _part.id)
+	
+	if(genericType == BaseCharacter.GENERIC_BODYPARTS && bodypartSlot == BodypartSlot.Body):
 		updateExtraLayer()
+	elif(genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
+		updateExtraLayer()
+	
+	if(_dollPart.shouldSubscribeToDollHoleData()):
+		_dollPart.applyDollHoleData(holeData)
+		holeDataSubs[genericType].append(bodypartSlot)
+
+# Use this function to update everything when a dollPart gets removed
+func partRemovedUpdatedIt(genericType:int, bodypartSlot:int, _dollPart:DollPart):
+	if(_dollPart && genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
+		updateExtraLayer()
+	if(_dollPart && _dollPart.getBodyAlphaMask()):
+		triggerAlphaMaskUpdate()
+	if(_dollPart.shouldSubscribeToDollHoleData()):
+		holeDataSubs[genericType].erase(bodypartSlot)
 
 func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 	var part:GenericPart = getChar().getGenericPart(genericType, bodypartSlot)
@@ -403,17 +429,7 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 				for optionID in theOtherPart.getOptionsFinal():
 					dollScene.applySyncedBodypartOption(otherBodypartSlot, optionID, theOtherPart.getOptionValue(optionID))
 			
-			dollScene.setPenisTargets(penisTargetHoleNode, penisTargetInsideNode)
-			dollScene.setExpressionState(expressionState)
-			dollScene.updateBodyMess()
-			if(dollScene.getBodyAlphaMask()):
-				triggerAlphaMaskUpdate()
-			dollScene.onSpawn(genericType, bodypartSlot, cachedPart.id)
-			
-			if(genericType == BaseCharacter.GENERIC_BODYPARTS && bodypartSlot == BodypartSlot.Body):
-				updateExtraLayer()
-			elif(genericType == BaseCharacter.GENERIC_CLOTHING && bodypartSlot == InventorySlot.Suit):
-				updateExtraLayer()
+			partAddedUpdateIt(genericType, bodypartSlot, cachedPart, dollScene)
 					
 		triggerDollPartFlagsUpdate()
 		removePartUpdateHappening(genericType, bodypartSlot)
@@ -971,3 +987,27 @@ func getPenisGirth() -> float:
 	if(thePenis && thePenis.supportsPenisGirth()):
 		return thePenis.getPenisGirth()
 	return 1.0
+
+func triggerHoleDataUpdate():
+	if(holeDataDirty):
+		return
+	holeDataDirty = true
+	updateDollHoleData.call_deferred()
+
+func updateDollHoleData():
+	holeDataDirty = false
+	for genericType in holeDataSubs.size():
+		var theEntries:Array = holeDataSubs[genericType]
+		var theEntriesAm:int = theEntries.size()
+		
+		for _i in theEntriesAm:
+			var _indx:int = theEntriesAm - _i - 1
+			var theSlot:int = theEntries[_indx]
+			
+			var thePart := getDollPart(genericType, theSlot)
+			if(!thePart): # Part poofed or something, might be an error
+				Log.Printerr("updateDollHoleData() doll part doesn't exist: Generic type:"+str(genericType)+" Slot:"+str(theSlot))
+				theEntries.remove_at(theSlot)
+				continue
+			
+			thePart.applyDollHoleData(holeData)

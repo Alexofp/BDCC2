@@ -1,6 +1,8 @@
 extends Node3D
 class_name DollBasePart
 
+var cachedMeshes:Array[Node]
+
 func _ready():
 	grabMaterials()
 
@@ -56,7 +58,10 @@ func applyCharOption(_optionID:String, _value:Variant):
 	pass
 
 func getMeshes() -> Array:
-	var result:Array = []
+	if(!cachedMeshes.is_empty()):
+		return cachedMeshes
+	
+	var result:Array[Node] = []
 	for child in get_children():
 		if((child is DollPart) || (child is DollExtraPart)):
 			continue
@@ -65,7 +70,12 @@ func getMeshes() -> Array:
 		elif(child is MarkerBlendshaped):
 			result.append(child)
 		result.append_array(getMeshesSub(child))
+	
+	cachedMeshes = result
 	return result
+
+func clearMeshesCache():
+	cachedMeshes.clear()
 
 func getMeshesSub(theNode:Node) -> Array:
 	var result:Array = []

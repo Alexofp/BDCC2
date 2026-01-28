@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://7g7vg3fhkgm" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Normal.png" id="7_phr6d"]
 [ext_resource type="Texture2D" uid="uid://hkkbhfalidlb" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_ORM.png" id="8_bvxxs"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxi2j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u82s6"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_u82s6")
@@ -42,8 +42,8 @@ skeletonMeshes = [NodePath("Skeleton3D/TankTop"), NodePath("Skeleton3D/TankTopPu
 
 [node name="TankTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(593000861) index="0" unique_id=621657957]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_hxi2j")
+surface_material_override/0 = SubResource("ShaderMaterial_u82s6")
 
 [node name="TankTopPulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(593000861) index="1" unique_id=2040101463]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_hxi2j")
+surface_material_override/0 = SubResource("ShaderMaterial_u82s6")

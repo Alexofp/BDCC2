@@ -355,3 +355,18 @@ func calcBreastPhysics(_breasts:float):
 
 func getBreastsWigglePhysics() -> float:
 	return breastWigglePhysics
+
+func shouldSubscribeToDollHoleData() -> bool:
+	return true
+
+func applyDollHoleData(_data:DollHoleData):
+	#var vagType:int = getOptionValue("vaginaType", VaginaType.Normal)
+	
+	setBlendshape("BellyBulge", _data.bellyBump)
+	setBlendshape("PussyOpenedWide", _data.vagOpen)
+	setBlendshape("PussyPull", _data.vagPull)
+	setBlendshape("AnusOpenedWide", _data.anusOpen)
+	setBlendshape("AnusPull", _data.anusPull)
+	
+	var spadeRemap:float = remap(_data.vagOpen, 0.0, 1.0, 1.0, -1.0)
+	setBlendshape("CaninePussyClose", spadeRemap)

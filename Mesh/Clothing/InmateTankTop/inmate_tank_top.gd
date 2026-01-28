@@ -49,3 +49,13 @@ func getBodyAlphaMask() -> Texture2D:
 	if(getOptionValue("pulledUp", false)):
 		return null
 	return preload("res://Mesh/Clothing/InmateTop/Textures/Alpha_Top.png")
+
+func shouldSubscribeToDollHoleData() -> bool:
+	return true
+
+func applyDollHoleData(_data:DollHoleData):
+	setBlendshape("BellyBulge", _data.bellyBump)
+	#setBlendshape("PussyOpenedWide", _data.vagOpen)
+	#setBlendshape("PussyPull", _data.vagPull)
+	#setBlendshape("AnusOpenedWide", _data.anusOpen)
+	#setBlendshape("AnusPull", _data.anusPull)
