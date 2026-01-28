@@ -44,7 +44,10 @@ script = ExtResource("2_h647o")
 cameraPriority = 99999.0
 metadata/_custom_type_script = "uid://bgimnbbr8c0eo"
 
-[node name="AnimScenePlayer" parent="." unique_id=1371426920 instance=ExtResource("3_2xedl")]
+[node name="Tweaker" type="Node3D" parent="." unique_id=72571516]
+unique_name_in_owner = true
+
+[node name="AnimScenePlayer" parent="Tweaker" unique_id=1371426920 instance=ExtResource("3_2xedl")]
 unique_name_in_owner = true
 
 [node name="ProcessTimer" type="Timer" parent="." unique_id=863368892]
@@ -84,8 +87,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0)
 pixel_size = 0.002
 fixed_size = false
 
-[connection signal="onAnimEvent" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_event"]
-[connection signal="onAnimPlay" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_play"]
-[connection signal="onSceneSwitched" from="AnimScenePlayer" to="." method="_on_anim_scene_player_on_scene_switched"]
+[connection signal="onAnimEvent" from="Tweaker/AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_event"]
+[connection signal="onAnimPlay" from="Tweaker/AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_play"]
+[connection signal="onSceneSwitched" from="Tweaker/AnimScenePlayer" to="." method="_on_anim_scene_player_on_scene_switched"]
 [connection signal="timeout" from="ProcessTimer" to="." method="_on_process_timer_timeout"]
 [connection signal="onResult" from="ResistMinigameNode" to="." method="_on_resist_minigame_node_on_result"]

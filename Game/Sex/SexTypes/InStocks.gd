@@ -48,3 +48,6 @@ func start_do(_role:String, _id:String, _args:Array):
 		pose = setPoseFromPickAction(pose, _args)
 		doText(_role, "{"+_role+".You} {"+_role+".youVerb switch|switches} the pose!")
 		doRun()
+
+func canTweakPosition() -> bool:
+	return false

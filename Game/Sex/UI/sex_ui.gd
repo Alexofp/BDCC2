@@ -40,6 +40,7 @@ func _exit_tree() -> void:
 func _ready():
 	fade_rect.visible = false
 	updateButtons()
+	hideAllSidePanels()
 
 func onActionButtonPressed(_indx:int):
 	if(_indx < 0 || _indx >= buttonsCache.size()):
@@ -66,6 +67,12 @@ func setEngine(theEngine:SexEngine):
 	
 	updateSexParticipantsList()
 	updateResistMinigame()
+	hideAllSidePanels()
+	if(sexEngine):
+		rotation_slider.value = sexEngine.tweaker.rotation_degrees.y
+		pos_slider_x.value = sexEngine.tweaker.position.x
+		pos_slider_y.value = sexEngine.tweaker.position.y
+		pos_slider_z.value = sexEngine.tweaker.position.z
 
 func onSexEngineChange(_change:SexEngineChange):
 	if(_change.type == SexEngineChange.MODE_CHANGE):
@@ -382,3 +389,58 @@ func _on_ai_check_toggled(_toggled_on: bool) -> void:
 		return
 	theInfo.pcAuto = _toggled_on
 	theInfo.syncUserOptions()
+
+@onready var tweak_panel: PanelContainer = %TweakPanel
+@onready var rotation_slider: HSlider = %RotationSlider
+@onready var pos_slider_x: HSlider = %PosSliderX
+@onready var pos_slider_y: HSlider = %PosSliderY
+@onready var pos_slider_z: HSlider = %PosSliderZ
+
+func hideAllSidePanels():
+	tweak_panel.visible = false
+
+func _on_toggle_tweak_pos_button_pressed() -> void:
+	var wasVis:bool = tweak_panel.visible
+	hideAllSidePanels()
+	tweak_panel.visible = !wasVis
+
+func _on_rotation_slider_drag_ended(_value_changed: bool) -> void:
+	if(!sexEngine):
+		return
+	sexEngine.askSetRotation(rotation_slider.value)
+
+func _on_close_tweak_panel_button_pressed() -> void:
+	tweak_panel.visible = false
+
+func _on_reset_pos_button_pressed() -> void:
+	if(!sexEngine):
+		return
+	rotation_slider.value = 0.0
+	sexEngine.askSetRotation(0.0)
+	pos_slider_x.value = 0.0
+	pos_slider_y.value = 0.0
+	pos_slider_z.value = 0.0
+	sexEngine.askSetPos(Vector3(0.0, 0.0, 0.0))
+
+const TWEAKER_MOD = 0.005
+
+func _on_pos_slider_x_drag_ended(_value_changed: bool) -> void:
+	if(!sexEngine || !_value_changed):
+		return
+	var curPos:Vector3 = sexEngine.tweaker.position
+	curPos.x = pos_slider_x.value * TWEAKER_MOD
+	sexEngine.askSetPos(curPos)
+
+func _on_pos_slider_y_drag_ended(_value_changed: bool) -> void:
+	if(!sexEngine || !_value_changed):
+		return
+	var curPos:Vector3 = sexEngine.tweaker.position
+	curPos.y = pos_slider_y.value * TWEAKER_MOD
+	sexEngine.askSetPos(curPos)
+
+func _on_pos_slider_z_drag_ended(_value_changed: bool) -> void:
+	if(!sexEngine || !_value_changed):
+		return
+	var curPos:Vector3 = sexEngine.tweaker.position
+	curPos.z = pos_slider_z.value * TWEAKER_MOD
+	sexEngine.askSetPos(curPos)

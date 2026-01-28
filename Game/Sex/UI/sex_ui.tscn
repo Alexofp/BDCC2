@@ -82,6 +82,63 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="TweakPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer/EmptySpace" unique_id=1490960294]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -293.0
+offset_top = 69.0
+offset_right = -17.0
+offset_bottom = 270.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel" unique_id=1120287230]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=1503126875]
+layout_mode = 2
+text = "Tweak rotation"
+horizontal_alignment = 1
+
+[node name="RotationSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=653037253]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 360.0
+scrollable = false
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=502413789]
+layout_mode = 2
+text = "Tweak position"
+horizontal_alignment = 1
+
+[node name="PosSliderX" type="HSlider" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=1528584810]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+scrollable = false
+
+[node name="PosSliderY" type="HSlider" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=31165713]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+scrollable = false
+
+[node name="PosSliderZ" type="HSlider" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=1835376388]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+scrollable = false
+
+[node name="ResetPosButton" type="Button" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=781978670]
+layout_mode = 2
+text = "Reset"
+
+[node name="CloseTweakPanelButton" type="Button" parent="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer" unique_id=1734898040]
+layout_mode = 2
+text = "Close"
+
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=896115166]
 layout_mode = 2
 
@@ -124,6 +181,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer" unique_id=1309667638]
+visible = false
 layout_mode = 2
 text = "Camera"
 
@@ -132,13 +190,14 @@ layout_mode = 2
 
 [node name="LockedCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1192843146]
 layout_mode = 2
-text = "Locked"
+text = "Locked camera"
 
 [node name="FreeCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1241083743]
 layout_mode = 2
-text = "Free"
+text = "Free camera"
 
 [node name="FPSCameraButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1534710331]
+visible = false
 layout_mode = 2
 text = "First person"
 
@@ -148,20 +207,30 @@ layout_mode = 2
 [node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2" unique_id=114280828]
 layout_mode = 2
 
-[node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1430021150]
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=867710690]
+layout_mode = 2
+
+[node name="AutoConsentCheckBox" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer" unique_id=1430021150]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Auto-Allow"
 
-[node name="ForcingCheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=816547160]
+[node name="ForcingCheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer" unique_id=816547160]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Forcing"
 
-[node name="AICheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=423456123]
+[node name="AICheck" type="CheckBox" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer" unique_id=423456123]
 unique_name_in_owner = true
 layout_mode = 2
 text = "AI"
+
+[node name="HFlowContainer2" type="HFlowContainer" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1918949115]
+layout_mode = 2
+
+[node name="ToggleTweakPosButton" type="Button" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer2" unique_id=1562132958]
+layout_mode = 2
+text = "Tweak pos"
 
 [node name="SexDescLabel" type="RichTextLabel" parent="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1272906630]
 unique_name_in_owner = true
@@ -224,10 +293,17 @@ unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_8pvey")
 
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/EmptySpace" to="." method="_on_empty_space_gui_input"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/RotationSlider" to="." method="_on_rotation_slider_drag_ended"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/PosSliderX" to="." method="_on_pos_slider_x_drag_ended"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/PosSliderY" to="." method="_on_pos_slider_y_drag_ended"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/PosSliderZ" to="." method="_on_pos_slider_z_drag_ended"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/ResetPosButton" to="." method="_on_reset_pos_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/CloseTweakPanelButton" to="." method="_on_close_tweak_panel_button_pressed"]
 [connection signal="onButtonPressed" from="HBoxContainer/VBoxContainer/BottomPanel/SmartButtonGrid" to="." method="_on_smart_button_grid_on_button_pressed"]
 [connection signal="onClick" from="HBoxContainer/VBoxContainer/BottomPanel/ResistMinigame" to="." method="_on_resist_minigame_on_click"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/LockedCameraButton" to="." method="_on_locked_camera_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/FreeCameraButton" to="." method="_on_free_camera_button_pressed"]
-[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]
-[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/ForcingCheck" to="." method="_on_forcing_check_toggled"]
-[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/AICheck" to="." method="_on_ai_check_toggled"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer/AutoConsentCheckBox" to="." method="_on_auto_consent_check_box_toggled"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer/ForcingCheck" to="." method="_on_forcing_check_toggled"]
+[connection signal="toggled" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer/AICheck" to="." method="_on_ai_check_toggled"]
+[connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer2/HBoxContainer/HFlowContainer2/ToggleTweakPosButton" to="." method="_on_toggle_tweak_pos_button_pressed"]

@@ -24,3 +24,6 @@ func hasMainActivity() -> bool:
 	if(getSexEngine().sexActivity):
 		return true
 	return false
+
+func canTweakPosition() -> bool:
+	return true

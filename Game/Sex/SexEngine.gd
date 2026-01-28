@@ -1,6 +1,7 @@
 extends Node3D
 class_name SexEngine
 
+@onready var tweaker: Node3D = %Tweaker
 @onready var free_camera: PriorityCamera = %FreeCamera
 @onready var fixed_camera_pivot: Node3D = %FixedCameraPivot
 @onready var spring_arm: SpringArm3D = %SpringArm
@@ -1386,6 +1387,60 @@ func deleteAllTemporaryItems():
 	for charID in participants:
 		deleteAllTemporaryItemsFor(charID)
 
+func askSetRotation(_rot:float):
+	if(Network.isClient()):
+		askSetRotation_SERVERRPC.rpc_id(1, _rot)
+	else:
+		askSetRotation_SERVERRPC(_rot)
+
+#MULTIPLAYER: add server checks to make sure client is in this sex engine
+@rpc("any_peer", "call_remote", "reliable")
+func askSetRotation_SERVERRPC(_rot:float):
+	if(sexType && !sexType.canTweakPosition()):
+		return
+	setRotationRaw(_rot)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(setRotation_RPC.bind(_rot))
+
+@rpc("authority", "call_remote", "reliable")
+func setRotation_RPC(_rot:float):
+	setRotationRaw(_rot)
+
+func setRotationRaw(_rot:float):
+	tweaker.rotation_degrees.y = _rot
+
+func setRotation(_rot:float):
+	if(sexType && !sexType.canTweakPosition()):
+		return
+	tweaker.rotation_degrees.y = _rot
+
+func askSetPos(_pos:Vector3):
+	if(Network.isClient()):
+		askSetPos_SERVERRPC.rpc_id(1, _pos)
+	else:
+		askSetPos_SERVERRPC(_pos)
+
+#MULTIPLAYER: add server checks to make sure client is in this sex engine
+@rpc("any_peer", "call_remote", "reliable")
+func askSetPos_SERVERRPC(_pos:Vector3):
+	if(sexType && !sexType.canTweakPosition()):
+		return
+	setPosRaw(_pos)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(setPos_RPC.bind(_pos))
+
+@rpc("authority", "call_remote", "reliable")
+func setPos_RPC(_pos:Vector3):
+	setPosRaw(_pos)
+
+func setPosRaw(_pos:Vector3):
+	tweaker.position = _pos
+
+func setPos(_pos:Vector3):
+	if(sexType && !sexType.canTweakPosition()):
+		return
+	tweaker.position = _pos
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),
@@ -1419,6 +1474,8 @@ func saveData() -> Dictionary:
 		sexActivity = sexActivityData,
 		animPlayer = anim_scene_player.saveData(),
 		sexMode = sexMode,
+		rotY = tweaker.rotation.y,
+		pos = tweaker.position,
 	}
 
 func loadData(_data:Dictionary):
@@ -1443,3 +1500,5 @@ func loadData(_data:Dictionary):
 		sexActivity.loadData(SAVE.loadVar(activityData, "data", {}))
 	
 	anim_scene_player.loadData(SAVE.loadVar(_data, "animPlayer", {}))
+	tweaker.rotation.y = SAVE.loadVar(_data, "rotY", 0.0)
+	tweaker.position = SAVE.loadVar(_data, "pos", Vector3(0.0, 0.0, 0.0))
