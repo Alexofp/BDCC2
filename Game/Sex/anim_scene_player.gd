@@ -43,12 +43,12 @@ func playAnim_RPC(theAnimID:String, theStateID:String, _thePawns:Dictionary, the
 	#playAnim(theAnimID, theStateID, thePawns)
 
 func playAnim(theAnimID:String, theStateID:String, thePawns:Dictionary, theAnimArgs:Dictionary, theProps:Dictionary = {}):
-	# TODO Check pawns
+	#TODO: Check pawns
 	#if(animID == theAnimID && state == theStateID):
 		#sitPawns(thePawns)
 		#return
 	if(animID == theAnimID):# && state != theStateID):
-		# TODO play on current
+		#TODO: play on current
 		state = theStateID
 		sitProps(theProps)
 		sitPawns(thePawns)

@@ -515,32 +515,31 @@ func process_movement():
 	if(Network.isServer() && yankHasPower): #Server's job to do this
 		yankWalkDir *= 0.8
 
-var recordedVelocity:Vector3
-func process_animation(delta):
-	if(getDoll() != null):
-		#var bodySkeleton = getBodySkeleton()
-		#bodySkeleton.rollOnLand = (recordedVelocity.y < -10.0)
-		recordedVelocity = velocity
-		if !is_on_floor():
-			getDoll().animFall()
-			##playDollAnim(DollAnim.Fall)
-			##bodySkeleton.jump()
-		elif move_direction != Vector3.ZERO:
-			if isRunning:
-				##playDollAnim(DollAnim.Run)
-				##bodySkeleton.run()
-				getDoll().animRun()
-			else:
-				##playDollAnim(DollAnim.Walk)
-				##bodySkeleton.walk()
-				getDoll().animWalk()
+#var rememberFloorTimer:float = 0.0
+func process_animation(_delta:float):
+	if(!getDoll()):
+		return
+	var isOnFloor := is_on_floor()
+	#if(isOnFloor):
+		#rememberFloorTimer = 0.1
+	#elif(rememberFloorTimer > 0.0):
+		#rememberFloorTimer -= _delta
+	
+	var isOnFloorVisually:bool = isOnFloor#(rememberFloorTimer > 0.0)
+	
+	if(!isOnFloorVisually):
+		getDoll().animFall()
+	elif velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
+		if isRunning:
+			getDoll().animRun()
 		else:
-			##playDollAnim(DollAnim.Idle)
-			##bodySkeleton.stand()
-			getDoll().animStand()
+			getDoll().animWalk()
+		#Log.Print(str(move_direction))
+	else:
+		getDoll().animStand()
 	
 	if move_direction_no_y != Vector3.ZERO && !isRemote():
-		model_root.basis = basis_rotate_toward(model_root.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * delta)
+		model_root.basis = basis_rotate_toward(model_root.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * _delta)
 
 func isRemote() -> bool:
 	return Network.isMultiplayer() && !is_multiplayer_authority()

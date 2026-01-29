@@ -33,7 +33,7 @@ func setMyNickname(newName:String):
 	var myInfo:NetworkPlayerInfo = getMyPlayerInfo()
 	if(myInfo):
 		myInfo.nickname = newName
-		# TODO Sync it with the server
+		#TODO: Sync it with the server
 
 func createPlayerInfo(theId:int, theNickname:String) -> NetworkPlayerInfo:
 	var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()

@@ -169,7 +169,7 @@ static func join(arr: Array, separator: String = "") -> String:
 	output = output.left( output.length() - separator.length() )
 	return output
 
-# TODO: maybe switch name sanitizing to allowlist rather than blocklist. Only allow ASCII letter, numbers, some extra characters
+#TODO: maybe switch name sanitizing to allowlist rather than blocklist. Only allow ASCII letter, numbers, some extra characters
 static func sanitizeCharacterName(_theName:String) -> String:
 	var result:String = ""
 	

@@ -776,7 +776,7 @@ func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	theActivity.setSexEngine(self)
 	sexActivity = theActivity
 	sexActivity.start(_roles, _args)
-	# TODO some syncing here?
+	#TODO: some syncing here?
 	sexActivity.onStartFinal()
 	return sexActivity
 	
@@ -802,7 +802,7 @@ func startSideActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	theActivity.setSexEngine(self)
 	sideActivities.append(theActivity)
 	theActivity.start(_roles, _args)
-	# TODO some syncing here?
+	#TODO: some syncing here?
 	theActivity.onStartFinal()
 	return theActivity
 

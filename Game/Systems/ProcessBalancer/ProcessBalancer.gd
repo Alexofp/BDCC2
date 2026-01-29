@@ -27,31 +27,33 @@ func _process(_delta: float) -> void:
 		#wiggleMod.active = (wiggleMod.influence > 0.0 && wiggleMod.is_visible_in_tree())
 		wiggleMod.active = wiggleMod.is_visible_in_tree()
 	
-	for animTree in animTrees:
-		var animNode = animTree.get_parent()
-		while(animNode && !(animNode is Node3D)):
-			animNode = animNode.get_parent()
-		if(!animNode || !camera):
-			continue
-		var howOft:int = 1
-		var theDist:float = animNode.global_position.distance_squared_to(camera.global_position)
-		if(theDist > 100.0):
-			howOft = 2
-		if(theDist > 200.0):
-			howOft = 3
-		if(theDist > 500.0):
-			howOft = 5
-		if(theDist > 1000.0):
-			howOft = 10
-		howOft = 1 #TODO: FIX THIS?
+	#for animTree in animTrees:
+		#var animNode = animTree.get_parent()
+		#while(animNode && !(animNode is Node3D)):
+			#animNode = animNode.get_parent()
+		#if(!animNode || !camera):
+			#continue
+			
+		#var howOft:int = 1
+		#var theDist:float = animNode.global_position.distance_squared_to(camera.global_position)
+		#if(theDist > 100.0):
+			#howOft = 2
+		#if(theDist > 200.0):
+			#howOft = 3
+		#if(theDist > 500.0):
+			#howOft = 5
+		#if(theDist > 1000.0):
+			#howOft = 10
+		#howOft = 1 #TODO: FIX THIS?
+		
 		#if(true):
 			#animTree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 			#var animPlayer:AnimationPlayer = animTree.get_node(animTree.anim_player)
 			#if(animPlayer):
 				#animPlayer.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
-		if(howOft <= 1 || ((hash(animTree)+ticks) % howOft)==0):
-			animTree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-			animTree.advance(_delta*howOft)
+		#if(howOft <= 1 || ((hash(animTree)+ticks) % howOft)==0):
+		#	animTree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+		#	animTree.advance(_delta*howOft)
 			#var animPlayer:AnimationPlayer = animTree.get_node(animTree.anim_player)
 			#if(animPlayer):
 			#	animPlayer.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL

@@ -308,7 +308,7 @@ func characterWizardSubmitDo(character:BaseCharacter, _data:Dictionary):
 	character.resetToBaseEditorState()
 	
 func _physics_process(_delta: float) -> void:
-	for charID in characters: # TODO: process far-away npcs less often
+	for charID in characters: #TODO: process far-away npcs less often
 		var character:BaseCharacter = characters[charID]
 		character.processTime(_delta)
 	
