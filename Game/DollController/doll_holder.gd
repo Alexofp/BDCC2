@@ -10,6 +10,22 @@ signal onCurrentDollSwitch(oldDoll, newDoll)
 
 func _ready() -> void:
 	GI.dollHolder = self
+	
+	Network.playerSwitchedCharacter.connect(onAnyPlayerSwitchCharacter)
+
+func onAnyPlayerSwitchCharacter(_pid:int, _oldCharID:String, _newCharID:String):
+	var theOldDoll := findDollByCharID(_oldCharID)
+	var theNewDoll := findDollByCharID(_newCharID)
+	if(theOldDoll):
+		theOldDoll.processFocus()
+	if(theNewDoll):
+		theNewDoll.processFocus()
+	
+	checkCurrentDoll()
+
+func findDollByCharID(_charID:String) -> DollController:
+	var thePawn := GM.pawnRegistry.getPawn(_charID)
+	return thePawn.getDoll() if thePawn else null
 
 var lastUniqueID:int = 0
 func generateUniqueDollID() -> int:
@@ -100,16 +116,27 @@ func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = 
 				doll.global_position = _resetPoint
 
 func _process(_delta: float) -> void:
-	if(curDoll && !is_instance_valid(curDoll)):
-		notifyCurrentDollSwitch(null)
+	checkCurrentDoll()
+	pass
+
+func checkCurrentDoll():
+	var curCharID:String = Network.getMyCharID()
+	var thePawn := GM.pawnRegistry.getPawn(curCharID)
+	var theDoll := thePawn.getDoll() if thePawn else null
+	
+	if(theDoll != curDoll):
+		notifyCurrentDollSwitch(theDoll)
 
 func notifyCurrentDollSwitch(_newDoll:DollController):
 	if(_newDoll == curDoll):
 		return
 	var oldDoll:DollController=curDoll
-	#if(curDoll && !is_instance_valid(curDoll)):
-	#	oldDoll = null
+
+	if(oldDoll):
+		oldDoll.processFocus()
 	curDoll = _newDoll
+	if(curDoll):
+		curDoll.processFocus()
 	onCurrentDollSwitch.emit(oldDoll, curDoll)
 
 func saveNetworkData() -> Bins:

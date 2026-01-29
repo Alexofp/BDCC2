@@ -8,15 +8,17 @@ const SERVER_PORT = 12345
 const SERVER_ADDRESS: String = "127.0.0.1"
 const MAX_PLAYERS : int = 32
 
-var players:Dictionary = {}
+var players:Dictionary[int, NetworkPlayerInfo]
+var playerControlsCharID:Dictionary[int, String]
+var charIDControlledByPlayer:Dictionary[String, int]
 
 signal playerConnected(peer_id, player_info)
 signal playerDisconnected(peer_id, player_info)
 signal playerListUpdated
 signal serverDisconnected
 
-signal playerSwitchedCharacter(playerID, oldCharID, newCharID)
-signal localPlayerSwitchedCharacter(oldCharID, newCharID)
+signal playerSwitchedCharacter(playerID:int, oldCharID:String, newCharID:String)
+signal localPlayerSwitchedCharacter(oldCharID:String, newCharID:String)
 
 signal preMultiplayerStarted(isHost:bool)
 signal multiplayerStarted(isHost:bool)
@@ -89,7 +91,9 @@ func deletePlayerInfoByID(theID:int, isDisconnect:bool = true):
 func playerInfoDeletedHandle(theInfo:NetworkPlayerInfo):
 	if(theInfo.is_inside_tree()):
 		theInfo.name = "TO_BE_DELETED"
-	players.erase(theInfo.id)
+	var theID:int = theInfo.id
+	controlFreePlayerID(theID)
+	players.erase(theID)
 
 func getMyPlayerInfo() -> NetworkPlayerInfo:
 	var theID :int = getMultiplayerID()
@@ -97,6 +101,12 @@ func getMyPlayerInfo() -> NetworkPlayerInfo:
 		#assert(false, "NO PLAYER INFO FOUND, ID="+str(theID))
 		return null
 	return players[theID]
+
+func getMyCharID() -> String:
+	var theInfo := getMyPlayerInfo()
+	if(!theInfo):
+		return ""
+	return theInfo.charID
 
 func getSenderPlayerInfo() -> NetworkPlayerInfo:
 	var theID :int = getSenderID()
@@ -113,11 +123,84 @@ func getRPCPlayerInfo() -> NetworkPlayerInfo:
 	return players[theID]
 
 func getPlayerInfoControllingCharID(_charID:String) -> NetworkPlayerInfo:
-	for playerID in players:
-		var theInfo:NetworkPlayerInfo = players[playerID]
-		if(theInfo.charID == _charID):
-			return theInfo
-	return null
+	if(!charIDControlledByPlayer.has(_charID)):
+		return null
+	var thePid:int = charIDControlledByPlayer[_charID]
+	if(!players.has(thePid)):
+		return null
+	return players[thePid]
+
+func getControlledCharIDOfPlayerID(_pid:int) -> String:
+	if(!playerControlsCharID.has(_pid)):
+		return ""
+	return playerControlsCharID[_pid]
+
+func getCharIDOfPlayer(_info:NetworkPlayerInfo) -> String:
+	if(!_info):
+		return ""
+	var thePid:int = _info.id
+	if(!playerControlsCharID.has(thePid)):
+		return ""
+	return playerControlsCharID[thePid]
+
+func getPlayerIDWhoControls(_charID:String) -> int:
+	if(!charIDControlledByPlayer.has(_charID)):
+		return -1
+	return charIDControlledByPlayer[_charID]
+
+func controlFreePlayerID(_pid:int):
+	if(_pid < 0):
+		return
+	if(!playerControlsCharID.has(_pid)):
+		return
+	var curInfo:NetworkPlayerInfo = players[_pid] if players.has(_pid) else null
+	var curCharID:String = playerControlsCharID[_pid]
+	
+	if(charIDControlledByPlayer.has(curCharID)):
+		charIDControlledByPlayer.erase(curCharID)
+	playerControlsCharID.erase(_pid)
+	
+	if(curInfo):
+		notifyPlayerSwitchedCharacter(curInfo, curCharID, "")
+	
+	if(isServerNotSingleplayer()):
+		rpcClients(controlFreePlayerID_RPC.bind(_pid))
+
+@rpc("authority", "call_remote", "reliable")
+func controlFreePlayerID_RPC(_pid:int):
+	controlFreePlayerID(_pid)
+
+func controlFreeCharID(_charID:String):
+	if(_charID.is_empty()):
+		return
+	if(!charIDControlledByPlayer.has(_charID)):
+		return
+	var _pid:int = charIDControlledByPlayer[_charID]
+	controlFreePlayerID(_pid)
+
+func setControlledCharID(_pid:int, _charID:String):
+	if(_pid < 0 && _charID.is_empty()):
+		return
+	if(playerControlsCharID.has(_pid) && playerControlsCharID[_pid] == _charID):
+		return
+	
+	controlFreePlayerID(_pid)
+	controlFreeCharID(_charID)
+	
+	if(players.has(_pid) && !_charID.is_empty()):
+		var curInfo := players[_pid]
+		var curID:String = playerControlsCharID[_pid] if playerControlsCharID.has(_pid) else ""
+		playerControlsCharID[_pid] = _charID
+		charIDControlledByPlayer[_charID] = _pid
+		if(curInfo):
+			notifyPlayerSwitchedCharacter(curInfo, curID, _charID)
+	
+	if(isServerNotSingleplayer()):
+		rpcClients(setControlledCharID_RPC.bind(_pid, _charID))
+
+@rpc("authority", "call_remote", "reliable")
+func setControlledCharID_RPC(_pid:int, _charID:String):
+	setControlledCharID(_pid, _charID)
 
 func saveNetworkData() -> Bins:
 	var data := Bins.saveStart([
@@ -126,6 +209,17 @@ func saveNetworkData() -> Bins:
 	for playerID in players:
 		var info:NetworkPlayerInfo = players[playerID]
 		data.append(info.saveNetworkData())
+	
+	var ar:Array = [
+		Bins.U16, playerControlsCharID.size(),
+	]
+	for pid in playerControlsCharID:
+		ar.append_array([
+			Bins.I64, pid,
+			Bins.StrShort, playerControlsCharID[pid],
+		])
+	data.append(Bins.saveStartEnd(ar))
+	
 	return data.endSave()
 
 func loadNetworkData(_data:Bins):
@@ -133,11 +227,24 @@ func loadNetworkData(_data:Bins):
 	clearPlayers()
 	var playersSize:int = _data.readI32()
 	
-	for _i in range(playersSize):
+	for _i in playersSize:
 		var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()
 		info.loadNetworkData(_data)
 		Log.Print("registerPlayerInfo_RPC id="+str(info.id)+" NAME="+str(info.nickname))
 		registerPlayerInfo(info)
+	
+	playerControlsCharID.clear()
+	charIDControlledByPlayer.clear()
+	_data.loadStart()
+	var controlAm:int = _data.readU16()
+	for _i in controlAm:
+		var thePid:int = _data.readI64()
+		var theCharID:String = _data.readStrShort()
+		#var theEntity:Node = GI.getNodeByUniqueID(theEnAr)
+		
+		setControlledCharID(thePid, theCharID)
+	_data.endLoad()
+	
 	_data.endLoad()
 
 func saveData() -> Dictionary:
@@ -147,6 +254,8 @@ func saveData() -> Dictionary:
 		playerData[playerID] = info.saveData()
 	return {
 		players = playerData,
+		playerControlsCharID = playerControlsCharID,
+		charIDControlledByPlayer = charIDControlledByPlayer,
 	}
 
 func clearPlayers():
@@ -163,6 +272,9 @@ func loadData(_data:Dictionary):
 		info.loadData(playerData[playerID] if (playerData[playerID] is Dictionary) else {})
 		Log.Print("registerPlayerInfo_RPC id="+str(info.id)+" NAME="+str(info.nickname))
 		registerPlayerInfo(info)
+	
+	playerControlsCharID = SAVE.loadVar(_data, "playerControlsCharID", {})
+	charIDControlledByPlayer = SAVE.loadVar(_data, "charIDControlledByPlayer", {})
 
 @rpc("authority", "call_remote", "reliable")
 func applyJoinGameNetworkData(_bytes:PackedByteArray):
@@ -297,16 +409,6 @@ func getPlayerInfo(_pcID:int) -> NetworkPlayerInfo:
 		return null
 	return players[_pcID]
 
-func getInfoThatControlsCharID(_charID:String) -> NetworkPlayerInfo:
-	for playerID in players:
-		var info:NetworkPlayerInfo = players[playerID]
-		if(info.charID == _charID):
-			return info
-	return null
-
-# TODO will probably have to replace all rpc calls with this one
-# Why? .rpc() sends the rpc to all clients no matter if they are considered
-# fully connected or still connecting (haven't received game data).
 # This function would only send the rpc to clients that are fully connected
 func rpcClients(callable:Callable, debugOutput:bool = false):
 	for playerID in players:

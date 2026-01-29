@@ -34,7 +34,7 @@ func updatePawnMenu():
 	
 	var _i:int = 0
 	for pawnID in GI.pawnRegistry.pawns:
-		var pcInfo:NetworkPlayerInfo = Network.getInfoThatControlsCharID(pawnID)
+		var pcInfo:NetworkPlayerInfo = Network.getPlayerInfoControllingCharID(pawnID)
 		var theName:String = str(pawnID)
 		if(pcInfo):
 			theName += " ("+str(pcInfo.getName())+")"

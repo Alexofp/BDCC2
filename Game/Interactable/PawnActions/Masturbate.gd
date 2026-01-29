@@ -13,6 +13,9 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
+	#var theInfo := Network.getPlayerInfoControllingCharID(_context.pawn.getCharID())
+	#if(theInfo):
+	#	theInfo.charID = ""
 	GM.sexManager.askStartMasturbation(_context.pawn.getCharID())
 	#startDelayedAction(_context, 2.0)
 	return true

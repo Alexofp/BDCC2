@@ -401,7 +401,7 @@ func makePawnOpenInteractMenuSpecific(_pawn:CharacterPawn, _target:Node3D):
 		GM.main.showInteractMenuSpecific(_target)
 		return
 	if(Network.isServerNotSingleplayer()):
-		var theInfo := Network.getInfoThatControlsCharID(_pawn.getCharID())
+		var theInfo := Network.getPlayerInfoControllingCharID(_pawn.getCharID())
 		if(!theInfo):
 			return
 		#Log.Print(str(theInfo.id))

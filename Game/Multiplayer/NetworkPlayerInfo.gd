@@ -4,19 +4,16 @@ class_name NetworkPlayerInfo
 var id:int = 1 # no save
 
 @export var nickname:String = "ERROR_BAD_NAME?": set = changeNickname
-@export var charID:String = "": set = changeCurrentCharID # Which character does this player currently control
+var charID:String: # = "": set = changeCurrentCharID # Which character does this player currently control
+	get:
+		return Network.getCharIDOfPlayer(self)
+	set(value):
+		Network.setControlledCharID(id, value)
 
 # No save of all these
 #var doll:DollController # The doll that this player is currently controlling
 
 var connecting:bool = false # Is this player still connecting to the server. If true, they won't receive game RPCs
-
-func changeCurrentCharID(newID:String):
-	var oldCharID:=charID
-	charID = newID
-	Network.notifyPlayerSwitchedCharacter(self, oldCharID, charID)
-	#if(isUs()):
-	#	GM.handlePlayerCharIDChanged(charID)
 
 func changeNickname(newName:String):
 	Log.Print("SWITCHED NAME: "+newName)

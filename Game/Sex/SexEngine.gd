@@ -1475,7 +1475,9 @@ func saveData() -> Dictionary:
 		animPlayer = anim_scene_player.saveData(),
 		sexMode = sexMode,
 		rotY = tweaker.rotation.y,
-		pos = tweaker.position,
+		posx = tweaker.position.x,
+		posy = tweaker.position.y,
+		posz = tweaker.position.z,
 	}
 
 func loadData(_data:Dictionary):
@@ -1501,4 +1503,8 @@ func loadData(_data:Dictionary):
 	
 	anim_scene_player.loadData(SAVE.loadVar(_data, "animPlayer", {}))
 	tweaker.rotation.y = SAVE.loadVar(_data, "rotY", 0.0)
-	tweaker.position = SAVE.loadVar(_data, "pos", Vector3(0.0, 0.0, 0.0))
+	var thePos:Vector3
+	thePos.x = SAVE.loadVar(_data, "posx", 0.0)
+	thePos.y = SAVE.loadVar(_data, "posy", 0.0)
+	thePos.z = SAVE.loadVar(_data, "posz", 0.0)
+	tweaker.position = thePos

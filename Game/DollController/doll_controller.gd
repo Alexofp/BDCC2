@@ -53,7 +53,7 @@ const STATE_SITTING = "sitting"
 
 var typingStatus:int = GI.TYPING_NONE
 @export var state:String = STATE_NORMAL
-@export var characterID:String: set = setCharacterID
+var characterID:String
 var uniqueID:int = -1
 #@onready var sit_node: SynchronizedTargetNode = %SitNode
 
@@ -64,16 +64,11 @@ var hoverTexts:Array = []
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func getNetworkPlayerID() -> int:
-	for playerID in Network.players:
-		var info:NetworkPlayerInfo = Network.players[playerID]
-		if(info.charID == characterID):
-			return playerID
-	return -1
+	return Network.getPlayerIDWhoControls(characterID)
 
 func setCharacterID(newID:String):
 	characterID = newID
-	#Log.Print("setCharacterID "+str(newID))
-	#getDoll().setCharacter(GM.characterRegistry.getCharacter(newID))
+	processFocus()
 
 func processCharacterID():
 	if(!GM.characterRegistry):
@@ -155,12 +150,7 @@ func _ready():
 	basis = Basis.IDENTITY
 	SpringArm.add_excluded_object(self.get_rid())
 
-	#if(Network.isMultiplayer()):
-		#doll_controls.set_multiplayer_authority(networkPlayerID)
-		#doll_controls.set_multiplayer_authority(networkPlayerID)
-		#Log.Print("doll_controls.set_multiplayer_authority "+str(networkPlayerID))
-
-	updateControlsMultiplayerAuthority()
+	processFocus()
 	if(getPawn()):
 		updatePoseSpot()
 
@@ -262,7 +252,7 @@ func processChar(_delta:float):
 	#doll.setIdleAnim(theChar.getIdleAnim())
 
 func _process(delta:float):
-	processFocus()
+	#processFocus()
 	processChar(delta)
 	
 	var hasAuthority:bool = !isRemote()
@@ -583,20 +573,10 @@ func isControlledByAnyPlayer() -> bool:
 			return true
 	return false
 
-func grabControl():
-	#GM.setCurrentDoll(self)
-	pass
-
 func onGainControl():
-	#camera.current = true
-	#interact_ui.visible = true
-	#updateControlsMultiplayerAuthority()
 	pass
 
 func onLoseControl():
-	#camera.current = false
-	#interact_ui.visible = false
-	#updateControlsMultiplayerAuthority()
 	pass
 
 func updatePoseSpot():
@@ -639,7 +619,7 @@ func getBodySkeleton() -> BodySkeleton:
 	return doll.getBodySkeleton()
 
 func isControlledByUs() -> bool:
-	return getNetworkPlayerID() == Network.getMultiplayerID()
+	return Network.getPlayerIDWhoControls(characterID) == Network.getMultiplayerID()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
@@ -680,23 +660,23 @@ func updateControlsMultiplayerAuthority():
 		#doll_controls.set_multiplayer_authority(networkPlayerID)
 		#Log.Print("doll_controls.set_multiplayer_authority "+str(NID))
 
+var isBeingControlledCached:bool = false
 var cachedNID:int = -1
 func processFocus():
-	var NID:int = getNetworkPlayerID()
-	var myNID:int = Network.getMultiplayerID()
+	var theNID:int = getNetworkPlayerID()
+	var doWeHaveControl := isControlledByUs()
 	
-	#if(Network.isServer()):
-	#	Log.Print(str(NID))
-	
-	if(cachedNID != NID):
-		if(NID == myNID):
+	if(doWeHaveControl != isBeingControlledCached):
+		if(doWeHaveControl):
 			onGainControl()
-			GM.dollHolder.notifyCurrentDollSwitch(self)
-		elif(cachedNID == myNID):
+		else:
 			onLoseControl()
-		updateControlsMultiplayerAuthority()
+		
+		isBeingControlledCached = doWeHaveControl
 	
-	cachedNID = NID
+	if(theNID != cachedNID):
+		updateControlsMultiplayerAuthority()
+		cachedNID = theNID
 
 func getPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(characterID)
