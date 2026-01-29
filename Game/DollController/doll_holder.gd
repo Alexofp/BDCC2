@@ -24,6 +24,8 @@ func onAnyPlayerSwitchCharacter(_pid:int, _oldCharID:String, _newCharID:String):
 	checkCurrentDoll()
 
 func findDollByCharID(_charID:String) -> DollController:
+	if(!GM.pawnRegistry):
+		return null
 	var thePawn := GM.pawnRegistry.getPawn(_charID)
 	return thePawn.getDoll() if thePawn else null
 
@@ -121,7 +123,7 @@ func _process(_delta: float) -> void:
 
 func checkCurrentDoll():
 	var curCharID:String = Network.getMyCharID()
-	var thePawn := GM.pawnRegistry.getPawn(curCharID)
+	var thePawn := GM.pawnRegistry.getPawn(curCharID) if GM.pawnRegistry else null
 	var theDoll := thePawn.getDoll() if thePawn else null
 	
 	if(theDoll != curDoll):

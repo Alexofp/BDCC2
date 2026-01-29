@@ -167,6 +167,11 @@ func getSyncedBodypartSlots() -> Array:
 func applySyncedBodypartOption(_slot:int, _optionID:String, _value:Variant):
 	pass
 
+func shouldUpdateAlphaMask() -> bool:
+	if(getBodyAlphaMask()):
+		return true
+	return false
+
 func getBodyAlphaMask() -> Texture2D:
 	return null
 

@@ -28,20 +28,7 @@ enum UPSCALER {
 }
 var upscaler:int
 
-enum FSR_SHARPNESS {
-	SHARPNESS_0_0,
-	SHARPNESS_0_1,
-	SHARPNESS_0_2,
-	SHARPNESS_0_3,
-	SHARPNESS_0_4,
-	SHARPNESS_0_5,
-	SHARPNESS_0_6,
-	SHARPNESS_0_7,
-	SHARPNESS_0_8,
-	SHARPNESS_0_9,
-	SHARPNESS_1_0,
-}
-var fsrSharpness:int
+var fsrSharpness:float
 
 enum FPSCAP {
 	VSYNC,
@@ -174,27 +161,11 @@ func getSettings() -> Dictionary:
 		},
 		"fsrSharpness": {
 			name = "FSR 1.0 Sharpness",
-			type = "selector",
-			values = [
-				[FSR_SHARPNESS.SHARPNESS_0_0, "0.0"],
-				[FSR_SHARPNESS.SHARPNESS_0_1, "0.1"],
-				[FSR_SHARPNESS.SHARPNESS_0_2, "0.2"],
-				[FSR_SHARPNESS.SHARPNESS_0_3, "0.3"],
-				[FSR_SHARPNESS.SHARPNESS_0_4, "0.4"],
-				[FSR_SHARPNESS.SHARPNESS_0_5, "0.5"],
-				[FSR_SHARPNESS.SHARPNESS_0_6, "0.6"],
-				[FSR_SHARPNESS.SHARPNESS_0_7, "0.7"],
-				[FSR_SHARPNESS.SHARPNESS_0_8, "0.8"],
-				[FSR_SHARPNESS.SHARPNESS_0_9, "0.9"],
-				[FSR_SHARPNESS.SHARPNESS_1_0, "1.0"],
-			],
-			default = FSR_SHARPNESS.SHARPNESS_0_2,
-			disabledWhen = {
-				renderScale = RENDERSCALE.SCALE100,
-			},
-			enabledWhen = {
-				upscaler = UPSCALER.FSR1,
-			},
+			type = "slider",
+			min = 0.0,
+			max = 2.0,
+			default = 0.8,
+			spaceLabel = true,
 		},
 		"fpsCap": {
 			name = "FPS Cap",
@@ -396,7 +367,7 @@ func applySettingValue(_settingID:String, newVal:Variant):
 				RenderingServer.viewport_set_scaling_3d_mode(OPTIONS.get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
 		"fsrSharpness":
-			RenderingServer.viewport_set_fsr_sharpness(OPTIONS.get_viewport().get_viewport_rid(), newVal * 0.1)
+			RenderingServer.viewport_set_fsr_sharpness(OPTIONS.get_viewport().get_viewport_rid(), clamp(2.0-newVal, 0.0, 2.0))
 		"fullscreen":
 			if(newVal == FULLSCREEN.BORDERLESS):
 				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

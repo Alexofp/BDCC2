@@ -23,8 +23,8 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 1.0
-shader_parameter/rim_tint = 0.5
+shader_parameter/rim = 0.1999999955296
+shader_parameter/rim_tint = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_color_mask = ExtResource("6_6mn4v")
@@ -36,17 +36,17 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="InmateShortsMale" unique_id=563789288 instance=ExtResource("1_w7mfk")]
 script = ExtResource("2_tx314")
 
-[node name="rig" parent="." index="0" unique_id=1195731476 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=163969864 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_qg5u6")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Shorts"), NodePath("Skeleton3D/Shorts_PulledDown")]
 
-[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1020456369) index="0" unique_id=886407116]
+[node name="Shorts" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(572730687) index="0" unique_id=1295680890]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_iyv61")
 
-[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1020456369) index="1" unique_id=120385927]
+[node name="Shorts_PulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(572730687) index="1" unique_id=2057956810]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_iyv61")

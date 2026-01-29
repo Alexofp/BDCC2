@@ -1,10 +1,11 @@
 extends VarUIBase
-@onready var spin_box: SpinBox = $HBoxContainer/SpinBox
-@onready var h_slider: HSlider = $HBoxContainer/HSlider
+@onready var spin_box: SpinBox = %SpinBox
+@onready var h_slider: HSlider = %HSlider
+@onready var label: Label = %Label
 
 func setData(_data:Dictionary):
 	if(_data.has("name")):
-		$HBoxContainer/Label.text = _data["name"]
+		label.text = _data["name"]
 	if(_data.has("tooltip")):
 		tooltip_text = _data["tooltip"]
 	if(_data.has("step")):
@@ -21,6 +22,8 @@ func setData(_data:Dictionary):
 		h_slider.value = _data["value"]
 	if(_data.has("delayUpdate")):
 		spin_box.update_on_text_changed = !_data["delayUpdate"]
+	if(_data.has("spaceLabel") && _data["spaceLabel"]):
+		label.size_flags_horizontal = SIZE_EXPAND_FILL
 
 func _on_spin_box_value_changed(value: float) -> void:
 	h_slider.value = value

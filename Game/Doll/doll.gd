@@ -321,7 +321,7 @@ func partAddedUpdateIt(genericType:int, bodypartSlot:int, _part:GenericPart, _do
 	_dollPart.setPenisTargets(penisTargetHoleNode, penisTargetInsideNode)
 	_dollPart.setExpressionState(expressionState)
 	_dollPart.updateBodyMess()
-	if(_dollPart.getBodyAlphaMask()):
+	if(_dollPart.shouldUpdateAlphaMask()):
 		triggerAlphaMaskUpdate()
 	_dollPart.onSpawn(genericType, bodypartSlot, _part.id)
 	

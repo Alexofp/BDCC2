@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://7g7vg3fhkgm" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_Normal.png" id="7_4lfxb"]
 [ext_resource type="Texture2D" uid="uid://hkkbhfalidlb" path="res://Mesh/Clothing/InmateTankTop/Textures/InmateTankTop_low_DefaultMaterial_ORM.png" id="8_hagp4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfoqb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oiw1n"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_oiw1n")
@@ -23,7 +23,7 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 0.41999999061216
+shader_parameter/rim = 0.1999999955296
 shader_parameter/rim_tint = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
@@ -43,9 +43,9 @@ skeletonMeshes = [NodePath("Skeleton3D/TankTop"), NodePath("Skeleton3D/TankTopPu
 [node name="TankTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1363329633) index="0" unique_id=1637372706]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_yfoqb")
+surface_material_override/0 = SubResource("ShaderMaterial_oiw1n")
 
 [node name="TankTopPulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1363329633) index="1" unique_id=851054673]
 unique_name_in_owner = true
 blend_shapes/FML = 1.0
-surface_material_override/0 = SubResource("ShaderMaterial_yfoqb")
+surface_material_override/0 = SubResource("ShaderMaterial_oiw1n")

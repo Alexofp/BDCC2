@@ -16,3 +16,6 @@ func gatherPartFlags(_theFlags:Dictionary):
 
 func getExtraLayerData() -> Dictionary:
 	return SUIT
+
+func shouldUpdateAlphaMask() -> bool:
+	return true
