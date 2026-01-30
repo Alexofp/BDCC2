@@ -340,8 +340,10 @@ func partRemovedUpdatedIt(genericType:int, bodypartSlot:int, _dollPart:DollPart)
 		updateExtraLayer()
 	if(_dollPart && _dollPart.getBodyAlphaMask()):
 		triggerAlphaMaskUpdate()
-	if(_dollPart.shouldSubscribeToDollHoleData()):
+	#if(_dollPart.shouldSubscribeToDollHoleData()): # Doesn't work because dollPart.getPart() is null by this point
+	if(genericType >= 0 && genericType < holeDataSubs.size()):
 		holeDataSubs[genericType].erase(bodypartSlot)
+	pass
 
 func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 	var part:GenericPart = getChar().getGenericPart(genericType, bodypartSlot)
@@ -997,7 +999,7 @@ func updateDollHoleData():
 			var thePart := getDollPart(genericType, theSlot)
 			if(!thePart): # Part poofed or something, might be an error
 				Log.Printerr("updateDollHoleData() doll part doesn't exist: Generic type:"+str(genericType)+" Slot:"+str(theSlot))
-				theEntries.remove_at(theSlot)
+				theEntries.remove_at(_indx)
 				continue
 			
 			thePart.applyDollHoleData(holeData)
