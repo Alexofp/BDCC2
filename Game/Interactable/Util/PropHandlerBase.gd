@@ -30,12 +30,34 @@ func canDoGenericDelayedAction(_id:String, _args:Array, _context:PawnActionConte
 func doGenericDelayedAction(_id:String, _args:Array, _context:PawnActionContext, _action:PawnActionBase) -> bool:
 	return true
 
+func getAllSitterSlots() -> Array[String]:
+	return []
+
+func getAllFreeSitterSlots() -> Array[String]:
+	var theSlots := getAllSitterSlots()
+	var result:Array[String]
+	
+	for theSlot in theSlots:
+		if(canUseSitterSlot(theSlot)):
+			result.append(theSlot)
+	
+	return result
+
 func canUseSitterSlot(_slot:String) -> bool:
+	return true
+
+func canGetUpFromSlot(_slot:String) -> bool:
 	return true
 
 func getSitterSlot(_slot:String) -> CharacterPawn:
 	#return sit_spawner.getSitter(_slot)
 	return null
+
+func getSlotOfPawn(_pawn:CharacterPawn) -> String:
+	for theSlot in getAllSitterSlots():
+		if(getSitterSlot(theSlot) == _pawn):
+			return theSlot
+	return ""
 
 func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	#if(!_pawn):

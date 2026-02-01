@@ -7,6 +7,7 @@ class_name MainScene
 @onready var interact_ui: InteractUI = %InteractUI
 @onready var sandbox_menu: PanelContainer = %SandboxMenu
 @onready var interact_menu: Control = %InteractMenu
+@onready var world: World = %World
 
 var character_creator:Node
 

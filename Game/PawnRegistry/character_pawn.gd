@@ -394,6 +394,14 @@ func isPartialGesturesBlocked() -> bool:
 		return false
 	return theChar.isPartialGesturesBlocked()
 
+func teleport(_globalPos:Vector3, _resetSpeed:bool = true):
+	global_position = _globalPos
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.global_position = _globalPos
+		if(_resetSpeed):
+			theDoll.velocity = Vector3.ZERO
+
 # LEASH STUFF
 const LEASH_TYPE_PAWN = 0
 
@@ -559,7 +567,7 @@ func doInteractEntryDoByIndex(_indx:int, _target, _actionID:String):
 	doInteractEntryDo(theEntry, _target)
 	pass
 
-func doInteractEntryDo(_entry:InteractEntryDo, _target):
+func doInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
 	#Only support self actions for now
 	#if(_entry.user != self):
 		#_entry.user.askDoInteractEntryDo(_entry)
@@ -567,7 +575,7 @@ func doInteractEntryDo(_entry:InteractEntryDo, _target):
 	var theAction:PawnActionBase = _entry.action
 	
 	if(!theAction):
-		return
+		return false
 	
 	updateDelayedActionCache()
 	
@@ -577,10 +585,11 @@ func doInteractEntryDo(_entry:InteractEntryDo, _target):
 	if(!theAction.canStartAction(pawnActionContext)):
 		pawnActionContext.args = []
 		pawnActionContext.target = null
-		return
+		return false
 	#Log.Print("DOING AN ACTION!!!")
-	theAction.doAction(pawnActionContext)
+	var theRes := theAction.doAction(pawnActionContext)
 	pawnActionContext.clearContext()
+	return theRes
 
 func isInInteractRangeOf(_node:Node) -> bool:
 	if(!_node):

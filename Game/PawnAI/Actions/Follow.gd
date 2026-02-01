@@ -15,12 +15,12 @@ func processAction(_dt:float):
 	if(!getTarget()):
 		failAction()
 		return
-	if(getChildActionID() == "GoTo"):
+	if(getSubActionID() == "GoTo"):
 		var theDistance:float = getDistSquaredTo(getTargetPos())
 		if(theDistance <= 3.0):
-			startChildAction("Wait")
+			startSubAction("Wait")
 	
-func processRare():
+func think():
 	if(!getTarget()):
 		failAction()
 		return
@@ -28,11 +28,11 @@ func processRare():
 	var targetPos:Vector3 = getTargetPos()
 	var theDistance:float = getDistSquaredTo(targetPos)
 	if(theDistance > 3.0):
-		#if(getChildActionID() != "GoTo"):
-		startChildAction("GoTo", [targetPos])
+		#if(getSubActionID() != "GoTo"):
+		startSubAction("GoTo", [targetPos])
 	else:
-		if(getChildActionID() != "Wait"):
-			startChildAction("Wait")
+		if(getSubActionID() != "Wait"):
+			startSubAction("Wait")
 	
 func getTarget() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(target)

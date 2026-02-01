@@ -9,6 +9,7 @@ var sexManager:SexManager
 var inventoryRegistry:InventoryRegistry
 var leashSystem:LeashSystem
 var actionSystem:ActionSystem
+var world:World
 
 var serverCommandObjects:Dictionary = {}
 var clientCommandObjects:Dictionary = {}

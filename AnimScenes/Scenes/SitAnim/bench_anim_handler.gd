@@ -9,6 +9,7 @@ extends PropHandlerBase
 
 func _ready():
 	pawn_interactable.setTarget(self)
+	World.addSitSpot(self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()
@@ -86,6 +87,9 @@ func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _actio
 		sit_spawner_right.setSitter("dom", rightSitter)
 		
 	return true
+
+func getAllSitterSlots() -> Array[String]:
+	return ["left", "right"]
 
 func getSitterSlot(_slot:String) -> CharacterPawn:
 	if(_slot == "left"):

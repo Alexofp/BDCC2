@@ -9,6 +9,7 @@ var currentMoveTarget:Vector3
 var shouldRunToTarget:bool = false
 
 var aiAction:AIActionBase
+var lowestAIAction:AIActionBase
 
 func setPawn(_thePawn:CharacterPawn):
 	pawn = _thePawn
@@ -46,40 +47,62 @@ func goTowards(_pos:Vector3, shouldRun:bool=false):
 func stopWalking():
 	goTowards(getPawn().global_position)
 
+func doJump():
+	if(!pawn):
+		return
+	var theDoll := pawn.getDoll()
+	if(!theDoll):
+		return
+	theDoll.doJump()
+
 func processAI(_dt:float):
-	var isPC:bool = isControlledByUs()
+	if(!pawn):
+		return
+	if(pawn.isControlledByAnyPlayer()):
+		stopAction()
+		return
 	
-	if(!isPC):
-		if(pawn.isDollSpawned()):
-			pawn.getDoll().reset_input()
-		if(aiAction):
-			aiAction.processActionFinal(_dt)
-			checkAction()
-	else:
-		pass
+	#var isPC:bool = isControlledByUs()
+	
+	#if(!isPC):
+	if(pawn.isDollSpawned()):
+		pawn.getDoll().reset_input()
+	if(aiAction):
+		aiAction.processActionFinal(_dt)
+		checkAction()
+	#else:
+	#	pass
 	
 	bigUpdateTime -= _dt
 	if(bigUpdateTime <= 0.0):
 		bigUpdateTime = 1.0
 		processRare()
 	
-	if(!isPC):
-		var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
+	#if(!isPC):
+	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
 
-		#var current_agent_position: Vector3 = pawn.global_position
-		var next_path_position: Vector3 = theNavAgent.get_next_path_position()
-		if theNavAgent.is_navigation_finished():
-			return
+	#var current_agent_position: Vector3 = pawn.global_position
+	var next_path_position: Vector3 = theNavAgent.get_next_path_position()
+	if theNavAgent.is_navigation_finished():
+		return
 
-		goTowardsRaw(next_path_position, _dt, shouldRunToTarget)
-		#velocity = current_agent_position.direction_to(next_path_position) * movement_speed
-		#move_and_slide()
+	goTowardsRaw(next_path_position, _dt, shouldRunToTarget)
+	#velocity = current_agent_position.direction_to(next_path_position) * movement_speed
+	#move_and_slide()
 
-
+func teleportToNextPathPosition() -> bool:
+	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
+	if theNavAgent.is_navigation_finished():
+		return false
+	var next_path_position: Vector3 = theNavAgent.get_next_path_position()
+	pawn.teleport(next_path_position)
+	return true
 
 func processRare():
-	if(!pawn.hasInteraction()):
-		GM.IS.startInteraction("SoloInteraction", {main=pawn})
+	if(!aiAction):
+		startAction("BasicAI")
+	#if(!pawn.hasInteraction()):
+	#	GM.IS.startInteraction("SoloInteraction", {main=pawn})
 	
 	if(aiAction):
 		aiAction.processRareFinal()
@@ -104,6 +127,7 @@ func startAction(_id:String, _args:Array = []):
 		assert(false, "No ai action found: "+str(_id))
 		return
 	aiAction = theAction
+	lowestAIAction = aiAction
 	aiAction.setAI(self)
 	aiAction.start(_args)
 	checkAction()
@@ -116,6 +140,8 @@ func checkAction():
 	stopAction()
 
 func stopAction():
+	if(!aiAction):
+		return
 	aiAction = null
 	stopWalking()
 
@@ -129,3 +155,18 @@ func getActionID() -> String:
 	if(!aiAction):
 		return ""
 	return aiAction.id
+
+func isLeashed() -> bool:
+	return !GM.leashSystem.getAllLeashesOfTargetNode(pawn).is_empty()
+
+func getDebugText() -> String:
+	var resultTexts:Array[String]
+	
+	var theAction := aiAction
+	var preText:String = ""
+	while(theAction):
+		resultTexts.append(preText+theAction.id+": "+theAction.getDebugText())
+		preText += "-"
+		theAction = theAction.subAction
+	
+	return ""+Util.join(resultTexts, "\n")

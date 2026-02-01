@@ -1,6 +1,7 @@
 extends PropHandlerBase
 
 @export var categoryName:String = "Chair"
+@export var addAsWorldSitter:bool = true
 
 @onready var sit_spawner: AnimSceneSpawner = $SitSpawner
 @onready var pawn_interactable: PawnInteractable = %PawnInteractable
@@ -8,6 +9,9 @@ extends PropHandlerBase
 
 func _ready():
 	pawn_interactable.setTarget(self)
+	if(addAsWorldSitter):
+		World.addSitSpot(self)
+	
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()
@@ -26,6 +30,9 @@ func getQuickInteractActions(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
 	
 	return result
 
+func getAllSitterSlots() -> Array[String]:
+	return ["dom"]
+
 func getSitterSlot(_slot:String) -> CharacterPawn:
 	return sit_spawner.getSitter(_slot)
 
@@ -40,7 +47,7 @@ func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 	sit_spawner.setSitter(_slot, _pawn)
 	#sit_spawner.despawnIfNoSitters()
 	return true
-	
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.BINS, sit_spawner.saveNetworkData(),

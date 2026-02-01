@@ -15,5 +15,5 @@ func processAction(_dt:float):
 	if(timer <= 0.0):
 		completeAction()
 
-func processRare():
+func think():
 	pass

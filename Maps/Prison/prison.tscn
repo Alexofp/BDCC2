@@ -65,6 +65,7 @@
 [ext_resource type="PackedScene" uid="uid://ceitp87f3qhlf" path="res://Mapping/Props/stocks.tscn" id="75_nygfb"]
 [ext_resource type="PackedScene" uid="uid://oum7tpus40ll" path="res://Mapping/Walls/DoorA6x4.tscn" id="76_anb54"]
 [ext_resource type="PackedScene" uid="uid://jypbwiqno6x0" path="res://Mesh/Props/LeashAnchor/LeashAnchor.tscn" id="76_ktc1g"]
+[ext_resource type="PackedScene" uid="uid://c8u1cn6vj8k0l" path="res://Game/World/AIWanderArea.tscn" id="77_xtmoe"]
 [ext_resource type="PackedScene" uid="uid://1bhqsabmydss" path="res://Mapping/Walls/SlopedWindowA20x8.tscn" id="78_3f2s3"]
 [ext_resource type="PackedScene" uid="uid://1yg72aupmiqd" path="res://Mapping/Walls/SlopedWindowWallA8Left.tscn" id="80_2w4ak"]
 [ext_resource type="PackedScene" uid="uid://b7ndftji8ma1o" path="res://Mapping/Columns/ColumnA1.tscn" id="82_jx3e4"]
@@ -3917,3 +3918,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78906566, 1.185009, -3.859
 
 [node name="LeashAnchor2" parent="." unique_id=793720883 instance=ExtResource("76_ktc1g")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -7.9090734, 1.8674967, 8.899645)
+
+[node name="AIWanderArea" parent="." unique_id=1983374654 instance=ExtResource("77_xtmoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.752273, 0.1847748, -1.2481117)
+radius = 4.0
+
+[node name="AIWanderArea2" parent="." unique_id=598548140 instance=ExtResource("77_xtmoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8151746, 0.1847748, 0.052530408)
+radius = 3.0

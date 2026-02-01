@@ -22,7 +22,10 @@ func canDoAction(_context:PawnActionContext) -> bool:
 		return false
 	if(GM.sitManager.isSitting(_context.pawn)):
 		if(_context.target.getSitterSlot(theSlot) == _context.pawn):
-			pass
+			if(!_context.target.canGetUpFromSlot(theSlot)):
+				return false
+			else:
+				return true
 		else:
 			return false
 	

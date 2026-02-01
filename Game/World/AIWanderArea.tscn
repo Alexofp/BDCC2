@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8u1cn6vj8k0l"]
+
+[ext_resource type="Script" uid="uid://bis15akjifcmq" path="res://Game/World/AIWanderArea.gd" id="1_73ya6"]
+
+[node name="AIWanderArea" type="Node3D" unique_id=1983374654]
+script = ExtResource("1_73ya6")

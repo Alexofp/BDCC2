@@ -265,6 +265,8 @@ func _process(delta:float):
 	#	ShaderNodeChecker.checkNode(self)
 	#if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
+	#if(theIsControlledByUs):
+	#	print(GI.world.getNearbyWanderAreas(global_position, 5.0))
 	#end of debug stuff
 	
 	#if(theIsControlledByUs && hasAuthority):
@@ -338,7 +340,7 @@ func processMove(delta:float):
 				#velocity.x = move_direction_no_y.x * move_speed 
 				#velocity.z = move_direction_no_y.z * move_speed
 			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
-				velocity.y = JUMP_FORCE * getJumpHeight()
+				doJump()
 				#yankWalkDir = Vector3(10.0, 0.0, 0.0)
 				#applyHitRandom(10.0) #Funny
 				#addHoverText("JUMP!")
@@ -347,7 +349,12 @@ func processMove(delta:float):
 		if not is_on_floor():
 			velocity.y -= GRAVITY_FORCE * delta
 		
-
+func doJump():
+	if(!is_on_floor() || noclip_on):
+		return
+	if(state != STATE_NORMAL):
+		return
+	velocity.y = JUMP_FORCE * getJumpHeight()
 
 func _physics_process(_delta:float):
 	#var hasAuthority:bool = !isRemote()
@@ -729,11 +736,16 @@ func processHoverText(_dt:float):
 	elif(typingStatus == GI.TYPING_CHAT):
 		finalText += "( Typing )" + "\n"
 	
+	var thePawn := getPawn()
+	if(thePawn && thePawn.ai && !isControlledByAnyPlayer()):
+		var theAIText := thePawn.ai.getDebugText()
+		if(!theAIText.is_empty()):
+			finalText += theAIText+"\n"
+	
 	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)
 	
 	#hover_text.setProgressInfos(["Doing something", "asd"], [0.3, 0.5])
-	var thePawn := getPawn()
 	if(thePawn):
 		hover_text.setProgressInfos(thePawn.progressBarsTextsCached, thePawn.progressBarsValuesCached)
 	else:

@@ -20,6 +20,7 @@ static var netNodes:NetworkedNodes: get = getNetworkedNodes
 static var actionSystem:ActionSystem: get = getActionSystem
 static var presets:CharacterPresetHolder
 static var textParser:SimpleGameTextParser = SimpleGameTextParser.new()
+static var world:World: get = getWorld
 
 static func getPC() -> BaseCharacter:
 	var myNetworkPlayer:NetworkPlayerInfo = Network.getMyPlayerInfo()
@@ -223,3 +224,6 @@ static func errorOutToMainMenu(_errorText:String):
 	GI.get_tree().paused = false
 	changingScene = false
 	LoadingScreen.finishLoad()
+
+static func getWorld() -> World:
+	return GI.world

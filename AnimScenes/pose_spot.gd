@@ -112,3 +112,15 @@ func onPawnChange(_newPawn:CharacterPawn):
 	
 	onPawnSwitch.emit(_newPawn)
 	dollUpdate()
+
+# Returns the node that this pose spot belongs to
+# Either a PropHandlerBase or a SexEngine
+func getHandler() -> Node3D:
+	var theParent := get_parent()
+	while(theParent):
+		if((theParent is PropHandlerBase) || (theParent is SexEngine)):
+			return theParent
+		
+		theParent = theParent.get_parent()
+	
+	return null

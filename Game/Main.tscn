@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bs0iekltipukv" path="res://Game/Main.gd" id="1_3tq7c"]
 [ext_resource type="Script" uid="uid://cuxgeihdcj4xt" path="res://Inventory/InventoryRegistry.gd" id="2_b3cwe"]
 [ext_resource type="PackedScene" uid="uid://gu1fuum5hwy1" path="res://Game/PawnRegistry/sit_manager.tscn" id="2_eg2md"]
+[ext_resource type="PackedScene" uid="uid://8kpekhlctc8m" path="res://Game/World/World.tscn" id="2_qvna0"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="3_b3cwe"]
 [ext_resource type="Script" uid="uid://7gh515vs5ir8" path="res://Game/CharacterRegistry/CharacterRegistry.gd" id="4_eru0w"]
 [ext_resource type="PackedScene" uid="uid://cpjbn16clv6gm" path="res://Game/PawnRegistry/pawn_registry.tscn" id="5_mdl5u"]
@@ -24,6 +25,9 @@
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
+
+[node name="World" parent="." unique_id=1102625165 instance=ExtResource("2_qvna0")]
+unique_name_in_owner = true
 
 [node name="InventoryRegistry" type="Node" parent="." unique_id=1095951585]
 unique_name_in_owner = true
