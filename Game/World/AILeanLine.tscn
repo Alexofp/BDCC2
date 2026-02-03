@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b3251up5khcqc"]
+
+[ext_resource type="Script" uid="uid://cvahe2w8dxein" path="res://Game/World/AILeanLine.gd" id="1_0c5lp"]
+
+[node name="AILeanLine" type="Marker3D" unique_id=1319740925]
+script = ExtResource("1_0c5lp")

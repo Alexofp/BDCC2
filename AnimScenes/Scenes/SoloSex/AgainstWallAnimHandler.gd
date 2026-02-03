@@ -17,6 +17,7 @@ const POSE_NAMES = [
 
 func _ready():
 	pawn_interactable.setTarget(self)
+	GM.world.addActiveLeaner.call_deferred(self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()
@@ -169,6 +170,9 @@ func startSexAgainstWall(_domPawn:CharacterPawn):
 	sit_spawner.unsitToStandSpot("dom", stand_spot) # places the character in the right spot
 	GM.sexManager.startSex(newSex)
 	queue_free()
+
+func getAllSitterSlots() -> Array[String]:
+	return ["dom"]
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

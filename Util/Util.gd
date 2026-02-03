@@ -388,3 +388,17 @@ static func getNextInArray(_ar:Array, _val:Variant) -> Variant:
 		_indx = 0
 	
 	return _ar[_indx]
+
+## returns dictionary containing "position", "normal", "collider", "shape"
+## returns empty dictionary if nothing hit.
+static func castRaySlow(_node:Node, start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_objects := [], collide_with_areas := false, hit_from_inside := false) -> Dictionary:
+	var global_world : World3D = _node.get_world_3d()
+	var ray_cast_query := PhysicsRayQueryParameters3D.new()
+	var space_state := global_world.direct_space_state
+	ray_cast_query.collide_with_areas = collide_with_areas
+	ray_cast_query.hit_from_inside = hit_from_inside
+	ray_cast_query.from = start
+	ray_cast_query.to = end
+	ray_cast_query.exclude = ignore_objects
+	ray_cast_query.collision_mask = mask
+	return space_state.intersect_ray(ray_cast_query)

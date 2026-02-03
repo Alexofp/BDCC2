@@ -170,3 +170,6 @@ func getDebugText() -> String:
 		theAction = theAction.subAction
 	
 	return ""+Util.join(resultTexts, "\n")
+
+func isSitting() -> bool:
+	return !!GM.sitManager.getSeatOfPawn(getPawn())

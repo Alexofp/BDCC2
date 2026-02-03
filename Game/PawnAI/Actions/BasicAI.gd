@@ -17,11 +17,14 @@ func think():
 	if(hasSubAction()):
 		return
 	
-	var possible:Array[String] = [
-		"Wander",
-	]
+	var possible:Dictionary[AIActionBase, float]
+	var allTheBasics := GlobalRegistry.getAIActionGroupBasicAI()
+	for theAction in allTheBasics:
+		var theScore:float = theAction.getScore(ai)
+		if(theScore <= 0.0):
+			continue
+		possible[theAction] = theScore
 	
-	if(!isSitting()):
-		possible.append("SitAndChill")
-	
-	startSubActionUnlessSameTag(RNG.pick(possible))
+	if(possible.is_empty()):
+		return
+	startSubActionUnlessSameTag(RNG.pickWeightedDict(possible).id)

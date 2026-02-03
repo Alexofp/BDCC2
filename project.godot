@@ -52,7 +52,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/godot-polyliner/plugin.cfg", "res://addons/myeasycollisionmakerbutton/plugin.cfg", "res://addons/netfox.extras/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/nodetunnel/plugin.cfg", "res://addons/thread_pool/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/bdcc2gizmos/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/godot-polyliner/plugin.cfg", "res://addons/myeasycollisionmakerbutton/plugin.cfg", "res://addons/netfox.extras/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg", "res://addons/nodetunnel/plugin.cfg", "res://addons/thread_pool/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [global_group]
 

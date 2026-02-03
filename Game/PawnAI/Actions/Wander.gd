@@ -2,9 +2,13 @@ extends AIActionBase
 
 func _init() -> void:
 	id = "Wander"
+	groupBasicAI = true
 
 func start(_args:Array):
 	pass
+
+func getScore(_ai:PawnAI) -> float:
+	return 1.0
 
 func think():
 	if(hasSubAction()):

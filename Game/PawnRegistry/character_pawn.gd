@@ -100,7 +100,8 @@ func _physics_process(_delta: float) -> void:
 	#	if(isDollSpawned()):
 	#		getDoll().reset_input()
 	updateDelayedActionCache()
-	ai.processAI(_delta)
+	if(Network.isServer()):
+		ai.processAI(_delta)
 	calcHoverTextProgressBarInfo()
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):

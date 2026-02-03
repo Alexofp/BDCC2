@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bis15akjifcmq" path="res://Game/World/AIWanderArea.gd" id="1_73ya6"]
 
-[node name="AIWanderArea" type="Node3D" unique_id=1983374654]
+[node name="AIWanderArea" type="Marker3D" unique_id=1166028200]
 script = ExtResource("1_73ya6")

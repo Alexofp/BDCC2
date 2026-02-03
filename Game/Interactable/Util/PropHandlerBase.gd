@@ -38,7 +38,7 @@ func getAllFreeSitterSlots() -> Array[String]:
 	var result:Array[String]
 	
 	for theSlot in theSlots:
-		if(canUseSitterSlot(theSlot)):
+		if(!getSitterSlot(theSlot)):
 			result.append(theSlot)
 	
 	return result

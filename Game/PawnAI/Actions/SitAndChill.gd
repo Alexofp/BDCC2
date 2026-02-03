@@ -4,6 +4,12 @@ var propToSitAt:PropHandlerBase
 
 func _init() -> void:
 	id = "SitAndChill"
+	groupBasicAI = true
+
+func getScore(_ai:PawnAI) -> float:
+	if(_ai.isSitting()):
+		return 0.0
+	return 1.0
 
 func start(_args:Array):
 	pass

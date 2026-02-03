@@ -21,7 +21,8 @@ var itemRefs:Dictionary = {}
 var clothingSceneSelectors:Array = []
 var dollPoses:Dictionary = {}
 var aiActions:Dictionary = {}
-var aiActionRefs:Dictionary = {}
+var aiActionRefs:Dictionary[String, AIActionBase] = {}
+var aiActionsBasicAI:Array[AIActionBase]
 var soloGoals:Dictionary = {}
 var soloGoalRefs:Dictionary = {}
 var interactions:Dictionary = {}
@@ -596,6 +597,8 @@ func registerAIAction(path: String):
 	if(object is AIActionBase):
 		aiActions[object.id] = loadedClass
 		aiActionRefs[object.id] = object
+		if(object.groupBasicAI):
+			aiActionsBasicAI.append(object)
 
 func registerAIActionFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
@@ -609,7 +612,7 @@ func createAIAction(id: String) -> AIActionBase:
 		Log.Printerr("ERROR: ai action with the id "+str(id)+" wasn't found")
 		return null
 
-func getAIActionRefs() -> Dictionary:
+func getAIActionRefs() -> Dictionary[String, AIActionBase]:
 	return aiActionRefs
 
 func getAIActionRef(id: String) -> AIActionBase:
@@ -619,6 +622,8 @@ func getAIActionRef(id: String) -> AIActionBase:
 		Log.Printerr("ERROR: ai action with the id "+str(id)+" wasn't found")
 		return null
 
+func getAIActionGroupBasicAI() -> Array[AIActionBase]:
+	return aiActionsBasicAI
 
 func registerInteraction(path: String):
 	var loadedClass = load(path)

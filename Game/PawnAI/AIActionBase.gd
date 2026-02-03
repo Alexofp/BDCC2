@@ -4,6 +4,8 @@ class_name AIActionBase
 var id:String = ""
 var actionTag:String = ""
 
+var groupBasicAI:bool = false
+
 var ai:PawnAI
 
 var subAction:AIActionBase
@@ -42,6 +44,12 @@ func onSubEvent(_eventID:String, _args:Array):
 
 func getDebugText() -> String:
 	return ""
+
+func getScore(_ai:PawnAI) -> float:
+	return -1.0
+
+func getKeepScore() -> float:
+	return getScore(ai) + 0.1
 
 # Functions to override END
 
