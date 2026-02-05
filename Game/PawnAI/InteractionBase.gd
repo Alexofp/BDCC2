@@ -8,8 +8,8 @@ const ROLE_EXTRA2 = 3
 
 var id:String = ""
 
-var roleToID:Dictionary[int, String] = {}
-var idToRole:Dictionary[String, int] = {}
+var roleToPawn:Dictionary[int, CharacterPawn]
+var pawnToRole:Dictionary[CharacterPawn, int]
 
 var state:String = ""
 
@@ -33,13 +33,13 @@ func involve(_role:int, _pawn:CharacterPawn):
 	if(!_pawn):
 		assert(false, "PAWN IS NULL")
 		return
-	GM.IS.stopAllInteractionsWith(_pawn.id)
+	GM.IS.stopAllInteractionsWith(_pawn)
 	if(_pawn.hasInteraction()):
 		assert(false, "PAWN ALREADY HAS AN INTERACTION "+str(_pawn.id))
 		return
 	
-	roleToID[_role] = _pawn.id
-	idToRole[_pawn.id] = _role
+	roleToPawn[_role] = _pawn
+	pawnToRole[_pawn] = _role
 	_pawn.setInteraction(self)
 
 func startFinal(_roles:Dictionary, _args:Array):
@@ -60,57 +60,66 @@ func processInteraction(_dt:float):
 func processRare():
 	pass
 
-func getActions(_role:int) -> Array:
-	return [
-		#action("meow", "Meow!", 1.0),
-	]
+var tempActions:Array[InteractionAction]
+func getActions(_role:int):
+	pass
 
-func doAction(_role:int, _actionID:String, _args:Array):
+func addAction(_action:InteractionAction):
+	tempActions.append(_action)
+
+func doAction(_role:int, _action:InteractionAction):
 	#print("MEOW")
 	pass
 
-func getInterruptActions(_role:int, _newCharID:String) -> Array:
+func getInterruptActions(_role:int, _newPawn:CharacterPawn) -> Array:
 	return [
 		#interuptAction("startTalk", "Hey!", 0.0),
 	]
 
-func getInterruptActionsFor(_charID:String, _newCharID:String) -> Array:
-	if(!idToRole.has(_charID)):
+func getInterruptActionsFor(_pawn:CharacterPawn, _newPawn:CharacterPawn) -> Array:
+	if(!pawnToRole.has(_pawn)):
 		return []
-	return getInterruptActions(idToRole[_charID], _newCharID)
+	return getInterruptActions(pawnToRole[_pawn], _newPawn)
 
-func doInterruptAction(_role:int, _newCharID:String, _actionID:String, _args:Array):
+func doInterruptAction(_role:int, _newPawn:CharacterPawn, _actionID:String, _args:Array):
 	pass
 
-func doInterruptActionFor(_charID:String, _newCharID:String, _actionEntry:Dictionary):
-	if(!idToRole.has(_charID)):
+func doInterruptActionFor(_pawn:CharacterPawn, _newPawn:CharacterPawn, _actionEntry:Dictionary):
+	if(!pawnToRole.has(_pawn)):
 		return
-	doInterruptAction(idToRole[_charID], _newCharID, _actionEntry["id"], _actionEntry["args"] if _actionEntry.has("args") else [])
+	doInterruptAction(pawnToRole[_pawn], _newPawn, _actionEntry["id"], _actionEntry["args"] if _actionEntry.has("args") else [])
 
-func doActionFor(_charID:String, _actionEntry:Dictionary):
-	if(!idToRole.has(_charID)):
+func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
+	if(!pawnToRole.has(_pawn)):
 		return
-	doAction(idToRole[_charID], _actionEntry["id"], _actionEntry["args"] if _actionEntry.has("args") else [])
+	doAction(pawnToRole[_pawn], _actionEntry)
 
-func getActionsFor(_charID:String) -> Array:
-	if(!idToRole.has(_charID)):
+func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
+	if(!pawnToRole.has(_pawn)):
 		return []
-	return getActions(idToRole[_charID])
+	tempActions = []
+	getActions(pawnToRole[_pawn])
+	return tempActions
 
 func getPawn(_role:int) -> CharacterPawn:
-	if(!roleToID.has(_role)):
+	if(!roleToPawn.has(_role)):
 		return null
-	return GM.pawnRegistry.getPawn(roleToID[_role])
+	return roleToPawn[_role]
 
 func getChar(_role:int) -> BaseCharacter:
-	if(!roleToID.has(_role)):
+	if(!roleToPawn.has(_role)):
 		return null
-	return GM.characterRegistry.getCharacter(roleToID[_role])
+	return roleToPawn[_role].getCharacter()
 
 func getCharID(_role:int) -> String:
-	if(!roleToID.has(_role)):
+	if(!roleToPawn.has(_role)):
 		return ""
-	return roleToID[_role]
+	return roleToPawn[_role].getCharID()
+
+func getRoleOf(_pawn:CharacterPawn) -> int:
+	if(!pawnToRole.has(_pawn)):
+		return -1
+	return pawnToRole[_pawn]
 
 func pushDelay(_delay:float):
 	interactionQueue.append([QueueEntry.Delay, _delay])
@@ -180,21 +189,29 @@ func interuptAction(_id:String, _name:String, _score:float) -> Dictionary:
 	}
 	
 #, _target:int #needed?
-func action(_id:String, _name:String, _score:float) -> Dictionary:
-	return {
-		id = _id,
-		name = _name,
-		score = _score,
-		#targetRole = _target,
-	}
+#func action(_id:String, _name:String, _score:float) -> Dictionary:
+	#return {
+		#id = _id,
+		#name = _name,
+		#score = _score,
+		##targetRole = _target,
+	#}
+func action(_id:String, _name:String, _score:float) -> InteractionAction:
+	return InteractionAction.create(_id, _name).setScore(_score)
 
 func stopInteraction():
 	if(wasDeleted || !GM.IS):
 		return
 	GM.IS.removeInteraction(self)
 
-func isCharIDInvolved(_charID:String):
-	return idToRole.has(_charID)
+func isCharIDInvolved(_charID:String) -> bool:
+	var thePawn := GM.pawnRegistry.getPawn(_charID)
+	if(!thePawn):
+		return false
+	return pawnToRole.has(thePawn)
+
+func isPawnInvolved(_pawn:CharacterPawn) -> bool:
+	return pawnToRole.has(_pawn)
 
 func sayText(_role:int, _text:String, talkGesture:bool = true):
 	#print(str(_role)+": "+_text)
@@ -287,3 +304,16 @@ func stopLookAt(_role1:int):
 	var doll1:= pawn1.getDoll()
 	if(doll1 && doll1.getDoll()):
 		GM.dollHolder.askLookAtClear(doll1)
+
+func thinkFor(_pawn:CharacterPawn, _action:AIActionBase):
+	if(!pawnToRole.has(_pawn)):
+		return
+	var theRole := pawnToRole[_pawn]
+	var theAi := _pawn.ai
+	think(theRole, _pawn, theAi, _action)
+
+func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
+	pass
+
+func onSubActionResult(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase, _tag:String, _status:int, _result:Array):
+	pass

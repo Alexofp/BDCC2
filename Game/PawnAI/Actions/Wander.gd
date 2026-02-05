@@ -17,7 +17,8 @@ func think():
 	if(!theWanderArea):
 		return
 	
-	startSubAction("GoTo", [theWanderArea.getRandomSpot()], "go")
+	#startSubAction("GoTo", [theWanderArea.getRandomSpot()], "go")
+	goTo(theWanderArea.getRandomSpot(), false, "go")
 
 func onSubActionResult(_tag:String, _status:int, _result:Array):
 	if(_tag == "go"):

@@ -10,12 +10,23 @@ func processAction(_dt:float):
 	pass
 
 func think():
+	var theInteraction := getInteraction()
+	if(theInteraction):
+		startSubActionUnlessSameTag("Interaction")
+		return
+	
 	if(isLeashed()):
 		stopSubAction()
 		return
 	
 	if(hasSubAction()):
 		return
+	
+	#var theProp := GI.world.getNearestFreeSitSpot(getPos())
+	#if(theProp):
+		#startSubActionUnlessSameTag("ForcePawnSit", [GM.pcPawn, theProp])
+		#if(true):
+			#return
 	
 	var possible:Dictionary[AIActionBase, float]
 	var allTheBasics := GlobalRegistry.getAIActionGroupBasicAI()
@@ -28,3 +39,11 @@ func think():
 	if(possible.is_empty()):
 		return
 	startSubActionUnlessSameTag(RNG.pickWeightedDict(possible).id)
+
+func handleInteractionChange(_interaction:InteractionBase) -> bool:
+	if(_interaction):
+		startSubAction("Interaction") # Will restart if new interaction
+	else:
+		stopSubActionIfTag("Interaction")
+	
+	return true

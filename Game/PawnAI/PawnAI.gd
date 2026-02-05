@@ -142,8 +142,13 @@ func checkAction():
 func stopAction():
 	if(!aiAction):
 		return
+	var theAction := aiAction
 	aiAction = null
+	lowestAIAction = null
 	stopWalking()
+	
+	theAction.stopSubAction()
+	theAction.onEnd()
 
 func isDoingAction() -> bool:
 	return aiAction != null
@@ -173,3 +178,11 @@ func getDebugText() -> String:
 
 func isSitting() -> bool:
 	return !!GM.sitManager.getSeatOfPawn(getPawn())
+
+func isDoingDelayedActions() -> bool:
+	return !GM.actionSystem.getAllActionsOfUser(pawn).is_empty()
+
+func onInteractionChange(_interaction:InteractionBase):
+	if(!lowestAIAction || !Network.isServer()):
+		return
+	lowestAIAction.handleInteractionChangeFinal(_interaction)

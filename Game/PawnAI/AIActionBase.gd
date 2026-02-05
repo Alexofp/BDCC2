@@ -51,8 +51,21 @@ func getScore(_ai:PawnAI) -> float:
 func getKeepScore() -> float:
 	return getScore(ai) + 0.1
 
+func handleInteractionChange(_interaction:InteractionBase) -> bool:
+	return false
+
+func needsToHappen() -> bool:
+	return false
+
 # Functions to override END
 
+func handleInteractionChangeFinal(_interaction:InteractionBase) -> bool:
+	if(handleInteractionChange(_interaction)):
+		return true
+	if(!parentAction):
+		return false
+	# Go up the chain
+	return parentAction.handleInteractionChangeFinal(_interaction)
 
 func processActionFinal(_dt:float):
 	if(subAction):
@@ -74,14 +87,26 @@ func processRareFinal():
 		return
 	think()
 
+# Update the basic AI stopAction too if you're changing this
 func stopSubAction():
 	if(subAction):
 		subAction.stopSubAction()
-		subAction.onEnd()
-		if(ai.lowestAIAction == subAction.parentAction):
+		
+		var theSubAction := subAction
+		subAction = null
+		if(ai && ai.lowestAIAction == theSubAction):
 			ai.lowestAIAction = self
-		subAction.parentAction = null
-	subAction = null
+		
+		theSubAction.onEnd()
+		theSubAction.parentAction = null
+	else:
+		pass
+
+func stopSubActionIfTag(_tag:String) -> bool:
+	if(getSubActionTag() == _tag && !_tag.is_empty()):
+		stopSubAction()
+		return true
+	return false
 
 func startSubAction(_id:String, _args:Array = [], _tag:String = ""):
 	if(_tag.is_empty()):
@@ -94,7 +119,7 @@ func startSubAction(_id:String, _args:Array = [], _tag:String = ""):
 		return
 	subAction = theAction
 	subAction.parentAction = self
-	if(ai.lowestAIAction == self):
+	if(ai && ai.lowestAIAction == self):
 		ai.lowestAIAction = subAction
 	subAction.actionTag = _tag
 	subAction.setAI(getAI())
@@ -106,7 +131,7 @@ func startSubActionUnlessSameTag(_id:String, _args:Array = [], _tag:String = "")
 	if(getSubActionTag() == _tag):
 		return false
 	startSubAction(_id, _args, _tag)
-	return true
+	return true	
 
 func setAI(_ai:PawnAI):
 	ai = _ai
@@ -115,9 +140,10 @@ func getAI() -> PawnAI:
 	return ai
 
 func getPawn() -> CharacterPawn:
-	if(!ai):
-		return null
 	return ai.getPawn()
+
+func getInteraction() -> InteractionBase:
+	return getPawn().getInteraction()
 
 func getPos() -> Vector3:
 	var thePawn := getPawn()
@@ -229,4 +255,29 @@ func getSubActionTag() -> String:
 func isLeashed() -> bool:
 	return ai.isLeashed()
 	
+func isDoingDelayedActions() -> bool:
+	return ai.isDoingDelayedActions()
+
+func makeSureLeashed(_otherPawn:CharacterPawn) -> bool:
+	if(getPawn().isLeashingPawn(_otherPawn)):
+		return true
 	
+	startSubActionUnlessSameTag("LeashPawn", [_otherPawn])
+	return false
+
+func goTo(_pos:Vector3, _run:bool = false, _tag:String = "", _dist:float=1.5) -> bool:
+	if(getPawn().global_position.distance_squared_to(_pos) <= (_dist*_dist)):
+		return true
+	
+	if(getSubActionID() != "GoTo"):
+		startSubAction("GoTo", [_pos], _tag)
+	
+	if(getAI().getNavAgent().is_navigation_finished()):
+		return true
+	
+	if(!subAction || subAction.id != "GoTo"):
+		return false
+	subAction.target = _pos
+	subAction.run = _run
+	subAction.completeDistance = _dist
+	return false

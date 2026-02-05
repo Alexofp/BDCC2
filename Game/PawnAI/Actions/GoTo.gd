@@ -8,6 +8,8 @@ extends AIActionBase
 var target:Vector3 = Vector3(0.0, 0.0, 0.0)
 var stuckTimer:int = 0
 var savedPos:Vector3 = Vector3(0.0, 0.0, 0.0)
+var completeDistance:float = 2.0
+var run:bool = false
 
 func _init() -> void:
 	id = "GoTo"
@@ -25,7 +27,7 @@ func onEnd():
 
 func processAction(_dt:float):
 	#getDistSquaredTo(target) < 10.0 && 
-	if(getAI().getNavAgent().is_navigation_finished()):
+	if(getAI().getNavAgent().is_navigation_finished() || getPawn().global_position.distance_squared_to(target) <= (completeDistance*completeDistance)):
 		completeAction()
 
 func think():
@@ -49,7 +51,7 @@ func think():
 			), theHandler)
 		return
 	
-	goTowards(target)
+	goTowards(target, run)
 	var curPos := getPosNoY()
 	var theDist := curPos.distance_squared_to(savedPos)
 	#print(theDist)

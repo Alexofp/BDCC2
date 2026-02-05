@@ -238,7 +238,11 @@ func getInteraction() -> InteractionBase:
 	return interaction
 
 func setInteraction(_int:InteractionBase):
+	var oldInteraction := interaction
 	interaction = _int
+	
+	if(oldInteraction != interaction && ai):
+		ai.onInteractionChange(interaction)
 
 static func sayArrayToText(theStuff:Array) -> String:
 	var result:String = ""
@@ -403,6 +407,27 @@ func teleport(_globalPos:Vector3, _resetSpeed:bool = true):
 		if(_resetSpeed):
 			theDoll.velocity = Vector3.ZERO
 
+func isSittingOn(_node:Node3D) -> bool:
+	var theSeat := GM.sitManager.getSeatOfPawn(self)
+	if(!theSeat):
+		return false
+	return theSeat.getHandler() == _node
+
+func isSittingSomewhere() -> bool:
+	var theSeat := GM.sitManager.getSeatOfPawn(self)
+	if(!theSeat):
+		return false
+	return !!theSeat.getHandler()
+
+func getSitPropHandler() -> PropHandlerBase:
+	var theSeat := GM.sitManager.getSeatOfPawn(self)
+	if(!theSeat):
+		return null
+	var theProp := theSeat.getHandler()
+	if(!theProp || !(theProp is PropHandlerBase)):
+		return null
+	return theProp
+
 # LEASH STUFF
 const LEASH_TYPE_PAWN = 0
 
@@ -444,6 +469,13 @@ func getDollLeashPointName(_id:String) -> String:
 		return _id
 	return dollLeashPoints[_id].leashPointName
 
+func isLeashingPawn(_otherPawn:CharacterPawn) -> bool:
+	var allLeashes := GM.leashSystem.getAllLeashesOfSourceNode(self)
+	for leash in allLeashes:
+		if(leash.p2con.isSpecificPawn(_otherPawn)):
+			return true
+	return false
+
 # LEASH STUFF END
 
 # INTERACTOR STUFF BEGINS
@@ -469,6 +501,16 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 				result.append(InteractEntryDo.create("ActionDeny", [entry.uniqueID]))
 			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY):
 				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
+	
+	if(interaction):
+		var theInteractActions := interaction.getActionsFor(self)
+		
+		var _i:int = 0
+		for theAction in theInteractActions:
+			result.append(InteractEntryDo.create("InteractionAction", [
+				theAction.actionName, _i, theAction.id,
+			]))
+			_i += 1
 	
 	#var theContext := pawnActionContext
 	#theContext.clearContext()

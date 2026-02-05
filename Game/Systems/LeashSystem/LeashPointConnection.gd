@@ -81,6 +81,11 @@ func shouldConnectionBreak() -> bool:
 			return true
 	return false
 
+func isSpecificPawn(_pawn:CharacterPawn) -> bool:
+	if(getCacheNode() == _pawn):
+		return true
+	return false
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.U8, mode,

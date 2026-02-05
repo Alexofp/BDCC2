@@ -1,7 +1,16 @@
 extends RefCounted
 class_name InteractionSystem
 
-var interactions:Array[InteractionBase] = []
+var interactions:Array[InteractionBase]
+#var pawnToInteraction:Dictionary[CharacterPawn, InteractionBase]
+
+func getInteractionOf(_pawn:CharacterPawn) -> InteractionBase:
+	if(!_pawn):
+		return null
+	return _pawn.getInteraction()
+	#if(!pawnToInteraction.has(_pawn)):
+		#return null
+	#return pawnToInteraction[_pawn]
 
 func startInteraction(_interactionID:String, _roles:Dictionary[String, CharacterPawn], _args:Array = []) -> InteractionBase:
 	var theInteraction:InteractionBase = GlobalRegistry.createInteraction(_interactionID)
@@ -18,19 +27,20 @@ func processInteractions(_dt:float):
 func removeInteraction(_interaction:InteractionBase):
 	if(!_interaction || _interaction.wasDeleted):
 		return
-	for theCharID in _interaction.idToRole:
-		var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
+	for thePawn in _interaction.pawnToRole:
+		#var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
 		if(thePawn && thePawn.getInteraction() == _interaction):
+			#pawnToInteraction.erase(thePawn)
 			thePawn.setInteraction(null)
 			
 	_interaction.wasDeleted = true
 	interactions.erase(_interaction)
 
-func getActionsFor(_charID:String) -> Array[InteractAction]:
+func getActionsFor(_pawn:CharacterPawn) -> Array[InteractAction]:
 	var result:Array[InteractAction] = []
 	
 	for interaction in interactions:
-		var theActions:Array = interaction.getActionsFor(_charID)
+		var theActions:Array = interaction.getActionsFor(_pawn)
 		
 		for actionEntry in theActions:
 			var newInteractAction:InteractAction = InteractAction.new()
@@ -43,7 +53,7 @@ func getActionsFor(_charID:String) -> Array[InteractAction]:
 			
 			result.append(newInteractAction)
 	
-	var ourPawn:CharacterPawn = GM.pawnRegistry.getPawn(_charID)
+	var ourPawn:CharacterPawn = _pawn
 	if(ourPawn):
 		var pawnPos:Vector3 = ourPawn.global_position
 		
@@ -54,7 +64,7 @@ func getActionsFor(_charID:String) -> Array[InteractAction]:
 			var theInteraction:= otherPawn.getInteraction()
 			if(!theInteraction):
 				continue
-			var theInterruptActions := theInteraction.getInterruptActionsFor(otherPawn.getCharID(), _charID)
+			var theInterruptActions := theInteraction.getInterruptActionsFor(otherPawn, _pawn)
 			for actionEntry in theInterruptActions:
 				var newInteractAction:InteractAction = InteractAction.new()
 				newInteractAction.id = "int"
@@ -81,10 +91,10 @@ func doInteractorAction(_user, _action:InteractAction):
 			return
 		theInteraction.doInterruptActionFor(_action.args[2], _user.getPawn().getCharID(), _action.args[1])
 
-func stopAllInteractionsWith(_charID:String):
+func stopAllInteractionsWith(_pawn:CharacterPawn):
 	var interactionAmount:int = interactions.size()
 	for _i in range(interactionAmount):
 		var theInteraction:InteractionBase = interactions[interactionAmount-_i-1]
 		
-		if(theInteraction.isCharIDInvolved(_charID)):
+		if(theInteraction.isPawnInvolved(_pawn)):
 			removeInteraction(theInteraction)

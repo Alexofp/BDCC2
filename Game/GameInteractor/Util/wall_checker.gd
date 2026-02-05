@@ -26,6 +26,8 @@ func castRay(start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_obj
 	ray_cast_query.to = end
 	ray_cast_query.exclude = ignore_objects
 	ray_cast_query.collision_mask = mask
+	#if(!space_state):
+	#	space_state = global_world.direct_space_state
 	return space_state.intersect_ray(ray_cast_query)
 
 func checkFreeShape(_shape:CollisionShape3D, mask : int = 0x7FFFFFFF, ignore_objects := [], collide_with_areas := false) -> bool:

@@ -7,6 +7,7 @@ const CHUNK_SIZE = 50.0
 
 var chunks:Dictionary[Vector3i, WorldChunk]
 var nodeToChunk:Dictionary[Node3D, WorldChunk]
+var stocks:Array[PropHandlerBase]
 
 func _ready() -> void:
 	GI.world = self
@@ -217,3 +218,26 @@ func getNearbySitProps(_pos:Vector3, _radius:float, _mustBeFree:bool = true) -> 
 
 func getNearestFreeSitSpot(_pos:Vector3, _radius:float = 50.0) -> PropHandlerBase:
 	return getClosest(getNearbySitProps(_pos, _radius), _pos, _radius)
+
+func addStocks(_prop:PropHandlerBase):
+	stocks.append(_prop)
+	_prop.tree_exiting.connect(onStocksRemoved.bind(_prop))
+
+func onStocksRemoved(_prop:PropHandlerBase):
+	stocks.erase(_prop)
+
+func getNearbyStocks(_pos:Vector3, _radius:float, _mustBeFree:bool = true) -> PropHandlerBase:
+	#var radiusSquared:float = _radius * _radius
+	
+	if(!_mustBeFree):
+		return getClosest(stocks, _pos, _radius)
+	
+	var possible:Array[PropHandlerBase]
+	
+	for theNode in stocks:
+		if(_mustBeFree && theNode.getAllFreeSitterSlots().is_empty()):
+			continue
+		#if(theNode.global_position.distance_squared_to(_pos) <= radiusSquared):
+		possible.append(theNode)
+	
+	return getClosest(possible, _pos, _radius)

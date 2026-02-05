@@ -35,31 +35,36 @@ func think():
 	
 	lineToLeanAt = theLine
 	linePos = lineToLeanAt.getRandomSpot()
-	startSubAction("GoTo", [linePos], "go")
+	if(goTo(linePos, false, "go")):
+		doLeanStuff()
+	#startSubAction("GoTo", [linePos], "go")
 
+func doLeanStuff():
+	if(!lineToLeanAt || !is_instance_valid(lineToLeanAt)):
+		failAction()
+		return
+	if(checkNearbyFail()):
+		return
+	
+	var theTransform := lineToLeanAt.global_transform#GM.main.wall_checker.getLeanTransform()
+	theTransform.origin = linePos
+	
+	var theHandler:PackedScene = load("res://AnimScenes/Scenes/SoloSex/AgainstWallAnimHandler.tscn")
+	if(!theHandler):
+		return
+	var newWallHandler:Node3D = theHandler.instantiate()
+	GM.netNodes.add_child(newWallHandler, true)
+	newWallHandler.global_transform = theTransform
+	GM.netNodes.notifySpawned(newWallHandler)
+	
+	newWallHandler.setSitter("dom", getPawn())
+	
+	pushReplaceWithTimedEvent(5.0, "chill")
+			
 func onSubActionResult(_tag:String, _status:int, _result:Array):
 	if(_tag == "go"):
 		if(_status == STATUS_COMPLETED):
-			if(!lineToLeanAt || !is_instance_valid(lineToLeanAt)):
-				failAction()
-				return
-			if(checkNearbyFail()):
-				return
-			
-			var theTransform := lineToLeanAt.global_transform#GM.main.wall_checker.getLeanTransform()
-			theTransform.origin = linePos
-			
-			var theHandler:PackedScene = load("res://AnimScenes/Scenes/SoloSex/AgainstWallAnimHandler.tscn")
-			if(!theHandler):
-				return
-			var newWallHandler:Node3D = theHandler.instantiate()
-			GM.netNodes.add_child(newWallHandler, true)
-			newWallHandler.global_transform = theTransform
-			GM.netNodes.notifySpawned(newWallHandler)
-			
-			newWallHandler.setSitter("dom", getPawn())
-			
-			pushReplaceWithTimedEvent(5.0, "chill")
+			#doLeanStuff()
 			return
 		else:
 			failAction()

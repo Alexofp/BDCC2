@@ -8,6 +8,8 @@ extends PropHandlerBase
 
 func _ready():
 	pawn_interactable.setTarget(self)
+	if(GM.world):
+		GM.world.addStocks.call_deferred(self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()
@@ -116,6 +118,9 @@ func doGenericAction(_id:String, _args:Array, _context:PawnActionContext, _actio
 		return true
 
 	return true
+
+func getAllSitterSlots() -> Array[String]:
+	return ["dom"]
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

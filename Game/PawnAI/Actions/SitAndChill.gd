@@ -23,25 +23,30 @@ func think():
 		return
 	
 	propToSitAt = theProp
-	startSubAction("GoTo", [theProp.global_position], "go")
+	if(goTo(theProp.global_position, false, "go")):
+		doSitStuff()
+	#startSubAction("GoTo", [theProp.global_position], "go")
+
+func doSitStuff():
+	if(!propToSitAt || !is_instance_valid(propToSitAt)):
+		failAction()
+		return
+	var allFreeSpots := propToSitAt.getAllFreeSitterSlots()
+	if(allFreeSpots.is_empty()):
+		failAction()
+		return
+	
+	var _doAct := getPawn().doInteractEntryDo(InteractEntryDo.create(
+		"SitProp", [RNG.pick(allFreeSpots)],
+	), propToSitAt)
+	
+	pushReplaceWithTimedEvent(5.0, "chill")
 
 func onSubActionResult(_tag:String, _status:int, _result:Array):
 	if(_tag == "go"):
 		if(_status == STATUS_COMPLETED):
-			if(!propToSitAt || !is_instance_valid(propToSitAt)):
-				failAction()
-				return
-			var allFreeSpots := propToSitAt.getAllFreeSitterSlots()
-			if(allFreeSpots.is_empty()):
-				failAction()
-				return
-			
-			var _doAct := getPawn().doInteractEntryDo(InteractEntryDo.create(
-				"SitProp", [RNG.pick(allFreeSpots)],
-			), propToSitAt)
-			
-			pushReplaceWithTimedEvent(5.0, "chill")
-			return _doAct
+			#doSitStuff()
+			return true
 		else:
 			failAction()
 			

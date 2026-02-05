@@ -1,15 +1,18 @@
 extends AIActionBase
 
 var target:String
+var followDistance:float = 5.0
 
 func _init() -> void:
 	id = "Follow"
 
 func start(_args:Array):
 	if(_args.is_empty()):
-		failAction()
+		impossibleAction()
 		return
 	target = _args[0]
+	if(_args.size() > 1):
+		followDistance = _args[1]
 
 func processAction(_dt:float):
 	if(!getTarget()):
@@ -17,8 +20,10 @@ func processAction(_dt:float):
 		return
 	if(getSubActionID() == "GoTo"):
 		var theDistance:float = getDistSquaredTo(getTargetPos())
-		if(theDistance <= 3.0):
-			startSubAction("Wait")
+		if(theDistance <= followDistance):
+			stopSubAction()
+			#stopWalking()
+			#startSubAction("Wait")
 	
 func think():
 	if(!getTarget()):
@@ -27,12 +32,14 @@ func think():
 	
 	var targetPos:Vector3 = getTargetPos()
 	var theDistance:float = getDistSquaredTo(targetPos)
-	if(theDistance > 3.0):
+	if(theDistance > followDistance):
 		#if(getSubActionID() != "GoTo"):
-		startSubAction("GoTo", [targetPos])
+		#startSubActionUnlessSameTag("GoTo", [targetPos])
+		goTo(targetPos, true, "", 3.0)
 	else:
-		if(getSubActionID() != "Wait"):
-			startSubAction("Wait")
+		stopSubAction()
+		#if(getSubActionID() != "Wait"):
+		#	startSubAction("Wait")
 	
 func getTarget() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(target)
