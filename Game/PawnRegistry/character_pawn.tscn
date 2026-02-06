@@ -5,6 +5,10 @@
 [ext_resource type="Script" uid="uid://624kjj0em1a2" path="res://Game/GameInteractor/SyncNode.gd" id="2_274nk"]
 [ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="4_pbuf5"]
 [ext_resource type="PackedScene" uid="uid://q4bk8h61arww" path="res://Game/Interactable/PawnInteractor.tscn" id="5_1wd8s"]
+[ext_resource type="PackedScene" uid="uid://f34irbkaa8s0" path="res://Game/DollController/States/Combat.tscn" id="6_pv1yg"]
+[ext_resource type="PackedScene" uid="uid://cqk24x8i0tode" path="res://Game/DollController/States/Normal.tscn" id="7_voltc"]
+[ext_resource type="PackedScene" uid="uid://bldunc8biiagd" path="res://Game/DollController/States/Sitting.tscn" id="8_ve3wo"]
+[ext_resource type="PackedScene" uid="uid://4r5wgnb5wwh7" path="res://Game/DollController/States/Empty.tscn" id="9_voltc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7fod6"]
 
@@ -56,6 +60,18 @@ script = ExtResource("4_pbuf5")
 metadata/_custom_type_script = "uid://dii6wngkjc5wn"
 
 [node name="PawnInteractor" parent="." unique_id=1577025676 instance=ExtResource("5_1wd8s")]
+unique_name_in_owner = true
+
+[node name="Combat" parent="." unique_id=2015699822 instance=ExtResource("6_pv1yg")]
+unique_name_in_owner = true
+
+[node name="Normal" parent="." unique_id=2107519548 instance=ExtResource("7_voltc")]
+unique_name_in_owner = true
+
+[node name="Sitting" parent="." unique_id=547400478 instance=ExtResource("8_ve3wo")]
+unique_name_in_owner = true
+
+[node name="Empty" parent="." unique_id=706968056 instance=ExtResource("9_voltc")]
 unique_name_in_owner = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

@@ -30,6 +30,24 @@ var gridPos:Vector2i
 
 var pawnActionContext:PawnActionContext
 
+const STATE_NORMAL = 0
+const STATE_SITTING = 1
+const STATE_COMBAT = 2
+
+@onready var stateEmpty: Node = %Empty
+
+@onready var stateNormal: DollControllerState = %Normal
+@onready var stateSitting: DollControllerState = %Sitting
+@onready var stateCombat: DollControllerState = %Combat
+@onready var states:Dictionary[int, DollControllerState] = {
+	STATE_NORMAL: stateNormal,
+	STATE_SITTING: stateSitting,
+	STATE_COMBAT: stateCombat,
+}
+
+@export var pawnState:int = STATE_NORMAL
+@onready var state:DollControllerState = stateNormal
+
 func _ready() -> void:
 	pawnActionContext = PawnActionContext.new()
 	pawnActionContext.pawn = self
@@ -103,9 +121,27 @@ func _physics_process(_delta: float) -> void:
 	if(Network.isServer()):
 		ai.processAI(_delta)
 	calcHoverTextProgressBarInfo()
+	processPoseSpot()
+
+func processPoseSpot():
+	var thePoseSpot:PoseSpot = getPoseSpot()
+	if(!thePoseSpot):
+		return
+	var globPos := thePoseSpot.global_position
+	var globRot := thePoseSpot.global_rotation
+	global_position = globPos
+	global_rotation.y = globRot.y
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.global_position = globPos
+		theDoll.model_root.global_rotation = globRot
+		theDoll.velocity = Vector3(0.0, 0.0, 0.0)
+	#move_and_slide()
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):
+		if(getState() == STATE_SITTING):
+			return
 		var dirToGo:Vector3 = (_pos - global_position)
 		if(dirToGo.length_squared() < 0.01):
 			global_position = _pos
@@ -165,20 +201,26 @@ func isControlledByAnyPlayer() -> bool:
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, position,
+		Bins.U8, pawnState,
 	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
 	position = _data.readVar()
+	pawnState = _data.readU8()
+	state = states[pawnState] if states.has(pawnState) else stateEmpty
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	return {
 		pos = position,
+		state = pawnState,
 	}
 
 func loadData(_data:Dictionary):
 	position = SAVE.loadVar(_data, "pos", position)
+	pawnState = SAVE.loadVar(_data, "state", STATE_NORMAL)
+	state = states[pawnState] if states.has(pawnState) else stateEmpty
 
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:
 	var tempDoll = doll
@@ -224,6 +266,13 @@ func onSeatChange(_newSpot:PoseSpot):
 	var theDoll := getDoll()
 	if(theDoll):
 		theDoll.onSeatChange(_newSpot)
+	
+	if(Network.isServer()):
+		if(!_newSpot):
+			if(getState() == STATE_SITTING):
+				setState(STATE_NORMAL)
+		else:
+			setState(STATE_SITTING)
 
 func getNavAgent() -> NavigationAgent3D:
 	return navigation_agent_3d
@@ -427,6 +476,32 @@ func getSitPropHandler() -> PropHandlerBase:
 	if(!theProp || !(theProp is PropHandlerBase)):
 		return null
 	return theProp
+
+func getState() -> int:
+	return pawnState
+
+func setState(_state:int):
+	pawnState = _state
+	state = states[_state] if states.has(_state) else stateEmpty
+	
+	var theDoll := getDoll()
+	if(pawnState == STATE_SITTING && theDoll):
+		theDoll.velocity = Vector3.ZERO
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(setState_RPC.bind(_state))
+
+@rpc("authority", "call_remote", "reliable")
+func setState_RPC(_state:int):
+	setState(_state)
+
+
+
+
+
+
+
+
 
 # LEASH STUFF
 const LEASH_TYPE_PAWN = 0

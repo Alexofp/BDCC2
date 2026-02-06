@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bldunc8biiagd"]
+
+[ext_resource type="Script" uid="uid://csbkw6aokgq1g" path="res://Game/DollController/States/Sitting.gd" id="1_o5qxo"]
+
+[node name="Sitting" type="Node" unique_id=547400478]
+script = ExtResource("1_o5qxo")

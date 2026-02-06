@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://f34irbkaa8s0"]
+
+[ext_resource type="Script" uid="uid://p4mrhq22aklb" path="res://Game/DollController/States/Combat.gd" id="1_iy3d0"]
+
+[node name="Combat" type="Node" unique_id=2015699822]
+script = ExtResource("1_iy3d0")

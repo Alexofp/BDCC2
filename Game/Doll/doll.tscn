@@ -16,6 +16,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="10_ehs3x"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://snasey7u5o67" path="res://Game/Doll/Util/DollBlendTreeBase.tres" id="10_yn8uc"]
+[ext_resource type="AnimationLibrary" uid="uid://dur376t66excq" path="res://Anims/Raw/CombatAnims.glb" id="12_l7aga"]
 [ext_resource type="AnimationLibrary" uid="uid://bigpaqbf8omql" path="res://Anims/Raw/Poses.glb" id="12_xxuld"]
 [ext_resource type="Curve" uid="uid://u27a4t7b45fi" path="res://addons/LayeredAnimPlayer/XFadeCurves/Smooth.tres" id="13_cpvxs"]
 [ext_resource type="Script" uid="uid://du64e2ct2nrrm" path="res://Game/Doll/DollAnimTree.gd" id="14_cpvxs"]
@@ -42,13 +43,6 @@ linear_scale = 10.0
 swing_span = 0.17453292519943295
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dr03u"]
-resource_local_to_scene = true
-direction = Vector3(0, 0, 1)
-spread = 1.0
-initial_velocity_max = 3.0
-scale_max = 2.0
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l7aga"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
@@ -57,6 +51,13 @@ initial_velocity_max = 3.0
 scale_max = 2.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_doc38"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lws2c"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -176,6 +177,7 @@ fadeout_curve = ExtResource("13_cpvxs")
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ktxk0"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pj0q3"]
+graph_offset = Vector2(-49.275696, -20.041351)
 nodes/output/position = Vector2(2200, 0)
 nodes/LayeredAnimPlayerStart/node = SubResource("AnimationNodeTransition_ktxk0")
 nodes/LayeredAnimPlayerStart/position = Vector2(0, 0)
@@ -440,19 +442,20 @@ transform = Transform3D(1, 1.4995204e-14, -1.2579849e-14, -1.25830454e-14, 0.984
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
 
 [node name="SquirtParticles1" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="0" unique_id=1486787374]
-process_material = SubResource("ParticleProcessMaterial_dr03u")
-
-[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_l7aga")
 
-[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_doc38")
+
+[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+process_material = SubResource("ParticleProcessMaterial_lws2c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
 active = false
 libraries/ArmbinderAnimMale = ExtResource("8_cpvxs")
 libraries/BasicAnims = ExtResource("5_avrwx")
+libraries/CombatAnims = ExtResource("12_l7aga")
 libraries/GestureAnims = ExtResource("7_5l1g8")
 libraries/LocomotionAnims = ExtResource("7_l2cwv")
 libraries/Poses = ExtResource("12_xxuld")

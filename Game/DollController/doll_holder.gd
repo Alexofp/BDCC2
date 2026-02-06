@@ -35,18 +35,19 @@ func generateUniqueDollID() -> int:
 	return lastUniqueID
 	
 func createDollControllerForPawn(pawn:CharacterPawn) -> DollController:
-	var theDoll := createDollControllerFor(pawn.getCharacter())
+	var theDoll := createDollControllerFor(pawn, pawn.getCharacter())
 	theDoll.position = pawn.position
 	return theDoll
 	
-func createDollControllerFor(character:BaseCharacter) -> DollController:
+func createDollControllerFor(pawn:CharacterPawn, character:BaseCharacter) -> DollController:
 	if(Network.isServer()):
 		Log.Print("createDollControllerFor "+str(character.getID()))
 		
 		var newUniqueID:int = generateUniqueDollID()
 		var theDoll:DollController= dollControllerScene.instantiate()
 		theDoll.name = str(newUniqueID)
-		theDoll.characterID = character.getID()
+		#theDoll.characterID = character.getID()
+		theDoll.pawn = pawn
 		theDoll.uniqueID = newUniqueID
 		theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
 		dolls.add_child(theDoll, true)
@@ -77,7 +78,7 @@ func createDollController_RPC(dollData:Dictionary):
 	var theDoll:DollController= dollControllerScene.instantiate()
 	theDoll.name = str(SAVE.loadVar(dollData, "UID", 0))
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
-	theDoll.characterID = SAVE.loadVar(dollData, "charID", theDoll.characterID)
+	theDoll.pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(dollData, "charID", ""))
 	theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
 	dolls.add_child(theDoll)
 	theDoll.loadData(dollData)

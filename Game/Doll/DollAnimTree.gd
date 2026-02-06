@@ -3,9 +3,10 @@ extends LayeredAnimPlayer
 class_name DollLayeredAnimPlayer
 
 const LAYER_LOCOMOTION = 0
-const LAYER_GESTURE_FULLBODY = 10
-const LAYER_GESTURE = 20
-const LAYER_ARMS_OVERRIDE = 30
+const LAYER_COMBAT = 10
+const LAYER_GESTURE_FULLBODY = 20
+const LAYER_GESTURE = 30
+const LAYER_ARMS_OVERRIDE = 40
 
 var cacheID:String = "doll"
 
@@ -42,6 +43,18 @@ func defineLayers():
 		LocomotionLayer.anims = theLocomotionAnims
 		addLayer(LAYER_LOCOMOTION, LocomotionLayer)
 	
+	if(true):
+		var CombatLayer := LayerBasic.new()
+		CombatLayer.blendTimeIn = 0.5
+		CombatLayer.blendTimeOut = 0.5
+		CombatLayer.blendTimeBetween = 0.2
+		CombatLayer.anims = {
+			"idle" = {L_ANIM: "CombatAnims/CombatIdle"},
+			"punch" = {L_ANIM: "CombatAnims/Punch"},
+			"left" = {L_ANIM: "CombatAnims/CombatLeft"},
+			"forward" = {L_ANIM: "CombatAnims/CombatForward"},
+		}
+		addLayer(LAYER_COMBAT, CombatLayer)
 	
 	if(true):
 		var gesturePartialFilter := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)

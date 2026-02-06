@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://4r5wgnb5wwh7"]
+
+[ext_resource type="Script" uid="uid://144bwm2p14u2" path="res://Game/DollController/States/Empty.gd" id="1_le7c4"]
+
+[node name="Empty" type="Node" unique_id=706968056]
+script = ExtResource("1_le7c4")

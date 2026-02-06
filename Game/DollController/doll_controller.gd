@@ -48,14 +48,15 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 @onready var camera: PriorityCamera = %Camera
 @onready var typing_status_reset_timer: Timer = %TypingStatusResetTimer
 
-const STATE_NORMAL = "normal"
-const STATE_SITTING = "sitting"
+#const STATE_NORMAL = "normal"
+#const STATE_SITTING = "sitting"
 
 var typingStatus:int = GI.TYPING_NONE
-@export var state:String = STATE_NORMAL
-var characterID:String
+#@export var state:String = STATE_NORMAL
 var uniqueID:int = -1
 #@onready var sit_node: SynchronizedTargetNode = %SitNode
+
+var pawn:CharacterPawn
 
 @export var expressionState:int = DollExpressionState.Normal
 
@@ -64,24 +65,17 @@ var hoverTexts:Array = []
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func getNetworkPlayerID() -> int:
-	return Network.getPlayerIDWhoControls(characterID)
-
-func setCharacterID(newID:String):
-	characterID = newID
-	processFocus()
+	return Network.getPlayerIDWhoControls(pawn.id)
 
 func processCharacterID():
-	if(!GM.characterRegistry):
-		return
-	var theChar := GM.characterRegistry.getCharacter(characterID)
+	var theChar := pawn.getCharacter()
 	if(!theChar):
 		return
 	if(theChar != getDoll().getChar()):
 		getDoll().setCharacter(theChar)
 
 func canSit() -> bool:
-	return getState() == STATE_NORMAL
-
+	return pawn.state.canSit()
 
 #func playSitAnim():
 #	doll.animSit()
@@ -108,25 +102,15 @@ func getPoseSpot() -> PoseSpot:
 		return null
 	return thePawn.getPoseSpot()
 
-func processPoseSpot():
-	var thePoseSpot:PoseSpot = getPoseSpot()
-	if(!thePoseSpot):
-		return
-	global_position = thePoseSpot.global_position
-	model_root.global_rotation = thePoseSpot.global_rotation
-	velocity = Vector3(0.0, 0.0, 0.0)
-	#move_and_slide()
+
 
 #func getBodySkeleton():
 #	return getDoll().getBodySkeleton()
-func setState(newState:String):
-	state = newState
-	
-	if(state == STATE_SITTING):
-		velocity = Vector3(0.0, 0.0, 0.0)
+func setState(newState:int):
+	pawn.setState(newState)
 
-func getState() -> String:
-	return state
+func getState() -> int:
+	return pawn.pawnState
 
 func getDoll() -> Doll:
 	return doll
@@ -279,16 +263,13 @@ func _process(delta:float):
 	if(theIsControlledByUs):
 		process_camera_pivot()
 	
-
-	if(getState() == STATE_NORMAL):
-		process_animation(delta)
+	pawn.state.processAnimation(self, delta)
 	process_noclip(delta)
 	
 	if(!hasAuthority):
 		position = syncVec3(position, syncPosition)
 		model_root.rotation = syncRot3(model_root.rotation, syncRotation)
 	
-	processPoseSpot()
 	#if(getState() == STATE_SITTING): # SIT HACK. IMPLEMENT PROPER SIT SYNC
 	#	playSitAnim()
 	
@@ -300,59 +281,19 @@ func _process(delta:float):
 	doll.setExpressionState(expressionState)
 
 func processExpressionState(_delta:float):
-	var currentSex:SexEngine = GM.sexManager.getSexEngineOfCharID(characterID)
+	var currentSex:SexEngine = GM.sexManager.getSexEngineOfCharID(pawn.id)
 	if(currentSex):
-		setExpressionState(currentSex.getExpressionState(characterID))
+		setExpressionState(currentSex.getExpressionState(pawn.id))
 	else:
 		setExpressionState(DollExpressionState.Normal)
 
 func setYankDir(_dir:Vector3):
 	yankWalkDir = _dir
-
-func processMove(delta:float):
-	isRunning = false
-	if(doll_controls.sprint_isdown || yankWalkDir.length_squared()>9.0) && canSprint():
-		isRunning = true
-	if(!isRemote()):
-		var move_speed: = ANIM_MOVE_SPEED * MOVE_MULT * getWalkSpeedMult()
-		if(isRunning):
-			move_speed = ANIM_RUN_SPEED * RUN_MULT
-			if(noclip_on):
-				move_speed *= NOCLIP_MULT
-		
-		if noclip_on:
-			velocity = move_direction * move_speed
-		else:
-			#var isOnFloor = is_on_floor()
-			
-			velocity.x = move_direction_no_y.x * move_speed 
-			velocity.z = move_direction_no_y.z * move_speed
-			
-			# Uncomment for root motion
-			#if(isOnFloor):
-				#var current_dir_no_y = model_root.basis * Vector3.BACK
-				#
-				#var rootPos = getBodySkeleton().getRootPos()
-				#velocity.x = current_dir_no_y.x * rootPos.z / delta * 2.0
-				#velocity.z = current_dir_no_y.z * rootPos.z / delta * 2.0
-			#else:
-				## In air
-				#velocity.x = move_direction_no_y.x * move_speed 
-				#velocity.z = move_direction_no_y.z * move_speed
-			if doll_controls.jump_isdown && is_on_floor() && !noclip_on:
-				doJump()
-				#yankWalkDir = Vector3(10.0, 0.0, 0.0)
-				#applyHitRandom(10.0) #Funny
-				#addHoverText("JUMP!")
-	
-	if !noclip_on:
-		if not is_on_floor():
-			velocity.y -= GRAVITY_FORCE * delta
 		
 func doJump():
 	if(!is_on_floor() || noclip_on):
 		return
-	if(state != STATE_NORMAL):
+	if(getState() != CharacterPawn.STATE_NORMAL):
 		return
 	velocity.y = JUMP_FORCE * getJumpHeight()
 
@@ -368,9 +309,7 @@ func _physics_process(_delta:float):
 	#if(Input.is_action_pressed("move_jump")):
 	#	print("JUMP")
 	
-	process_movement()
-	if(getState() == STATE_NORMAL):
-		processMove(_delta)
+	pawn.state.processMove(self, _delta)
 
 	var hasAuthority:bool = !isRemote()
 	if(hasAuthority):
@@ -452,7 +391,7 @@ func process_camera_pivot():
 	#if(getDoll().isFirstPerson()):
 	#	CameraPivot.position = model_root.basis * Vector3(0.0, 1.625, 0.1)
 	#var theSpot := getPoseSpot()
-	if(getState() == STATE_NORMAL):
+	if(getState() == CharacterPawn.STATE_NORMAL):
 		CameraPivot.position.x = 0
 		CameraPivot.position.z = 0
 	else:
@@ -474,19 +413,19 @@ func process_camera():
 	
 # Gonna be used for anim tweaking
 func getCurrentGlobalAnimKey() -> String:
-	if(state == STATE_NORMAL):
+	if(getState() == CharacterPawn.STATE_NORMAL):
 		var theDoll := getDoll()
 		if(!theDoll):
 			return ""
 		return theDoll.getCurrentLocomotionAnim()
-	if(state == STATE_SITTING):
+	if(getState() == CharacterPawn.STATE_SITTING):
 		var _theSeat := GM.sitManager.getSeatOfDoll(self)
 		if(_theSeat):
 			return _theSeat.dollAnimKey
 	return ""
 
 func getCurrentLocomotionAnim() -> String:
-	if(state != STATE_NORMAL):
+	if(getState() != CharacterPawn.STATE_NORMAL):
 		return ""
 	var theDoll := getDoll()
 	if(!theDoll):
@@ -508,51 +447,11 @@ func processDollPoseCamera() -> bool:
 func getGlobalChestBonePosition() -> Vector3:
 	return getBodySkeleton().getChestBoneAttachment().global_position
 
-func process_movement():
-	var yankHasPower:bool = yankWalkDir.length_squared() > 0.01
-	
-	if(yankHasPower && !noclip_on && doll_controls.move_direction.length_squared()<0.01):
-		move_direction = yankWalkDir.normalized()
-		move_direction_no_y = Vector3(move_direction.x, 0.0, move_direction.z).normalized()
-
-	else:
-		move_direction = doll_controls.move_direction
-		move_direction_no_y = doll_controls.move_direction_no_y
-
-	if(Network.isServer() && yankHasPower): #Server's job to do this
-		yankWalkDir *= 0.8
-
-#var rememberFloorTimer:float = 0.0
-func process_animation(_delta:float):
-	if(!getDoll()):
-		return
-	var isOnFloor := is_on_floor()
-	#if(isOnFloor):
-		#rememberFloorTimer = 0.1
-	#elif(rememberFloorTimer > 0.0):
-		#rememberFloorTimer -= _delta
-	
-	var isOnFloorVisually:bool = isOnFloor#(rememberFloorTimer > 0.0)
-	
-	if(!isOnFloorVisually):
-		getDoll().animFall()
-	elif velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
-		if isRunning:
-			getDoll().animRun()
-		else:
-			getDoll().animWalk()
-		#Log.Print(str(move_direction))
-	else:
-		getDoll().animStand()
-	
-	if move_direction_no_y != Vector3.ZERO && !isRemote():
-		model_root.basis = basis_rotate_toward(model_root.basis, Basis.looking_at(-move_direction_no_y), ROTATE_SPEED * _delta)
-
 func isRemote() -> bool:
 	return Network.isMultiplayer() && !is_multiplayer_authority()
 
 func process_noclip(_delta):
-	$CollisionShape.disabled = noclip_on || (state == STATE_SITTING)
+	$CollisionShape.disabled = noclip_on || (getState() == CharacterPawn.STATE_SITTING)
 
 func _unhandled_input(_event):
 	if(UIHandler.hasAnyUIVisible()):
@@ -561,23 +460,12 @@ func _unhandled_input(_event):
 	#if _event is InputEventMouseMotion:
 		#mouse_movement -= _event.relative
 
-func rotate_toward(from: Quaternion, to: Quaternion, delta: float) -> Quaternion:
-	return from.slerp(to, clamp(delta / from.angle_to(to), 0.0, 1.0)).normalized()
-
-func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
-	return from.slerp(to, delta)
-	#return Basis(rotate_toward(from.get_rotation_quaternion(), to.get_rotation_quaternion(), delta)).orthonormalized()
 
 func isControlledByPlayer() -> bool:
 	return GM.pcDoll == self
 
-#TODO: OPTIMIZE THIS?
 func isControlledByAnyPlayer() -> bool:
-	for playerID in Network.players:
-		var info:NetworkPlayerInfo = Network.players[playerID]
-		if(info.charID == characterID):
-			return true
-	return false
+	return Network.getPlayerIDWhoControls(pawn.id) >= 0
 
 func onGainControl():
 	pass
@@ -594,12 +482,11 @@ func updatePoseSpot():
 		#if(getState() != STATE_NORMAL):
 		getBodySkeleton().resetBones()
 		getDoll().alignPenisToVagina(null)
-		if(getState() != STATE_NORMAL):
+		if(getState() != CharacterPawn.STATE_NORMAL):
 			# This prevents 2 dolls from occupying the same spot
 			# Glitchy stuff happens otherwise
 			position.x += RNG.randfRange(-0.1, 0.1)
 			position.z += RNG.randfRange(-0.1, 0.1)
-		setState(STATE_NORMAL)
 		
 		# Bad code?
 		var theChar:BaseCharacter = getCharacter()
@@ -608,7 +495,7 @@ func updatePoseSpot():
 	else:
 		doll.setAnimPlayerEnabled(false)
 		#if(getState() != STATE_SITTING):
-		setState(STATE_SITTING)
+		
 #
 #func _on_sit_node_on_node_changed(newSpot: Variant) -> void:
 	#if(newSpot == null):
@@ -625,17 +512,17 @@ func getBodySkeleton() -> BodySkeleton:
 	return doll.getBodySkeleton()
 
 func isControlledByUs() -> bool:
-	return Network.getPlayerIDWhoControls(characterID) == Network.getMultiplayerID()
+	return Network.getPlayerIDWhoControls(pawn.id) == Network.getMultiplayerID()
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
-		Bins.StrShort, characterID,
+		Bins.StrShort, pawn.id,
 		Bins.I32, uniqueID,
 	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
-	characterID = _data.readStrShort()
+	pawn = GM.pawnRegistry.getPawn(_data.readStrShort())
 	uniqueID = _data.readI32()
 	_data.endLoad()
 	name = str(uniqueID)
@@ -645,12 +532,12 @@ func loadNetworkData(_data:Bins):
 
 func saveData() -> Dictionary:
 	return {
-		charID = characterID,
+		charID = pawn.id,
 		UID = uniqueID,
 	}
 
 func loadData(_data:Dictionary):
-	characterID = SAVE.loadVar(_data, "charID", characterID)
+	pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(_data, "charID", ""))
 	uniqueID = SAVE.loadVar(_data, "UID", uniqueID)
 	name = str(uniqueID)
 	
@@ -685,10 +572,10 @@ func processFocus():
 		cachedNID = theNID
 
 func getPawn() -> CharacterPawn:
-	return GM.pawnRegistry.getPawn(characterID)
+	return pawn
 
 func getCharacter() -> BaseCharacter:
-	return GM.characterRegistry.getCharacter(characterID)
+	return pawn.getCharacter()
 
 func onSeatChange(_newSpot:PoseSpot):
 	updatePoseSpot()
