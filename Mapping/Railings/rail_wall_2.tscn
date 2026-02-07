@@ -10,7 +10,7 @@ size = Vector3(1.84, 1.21657, 0.330724)
 [node name="RailWall2" unique_id=825377553 instance=ExtResource("1_3nneu")]
 script = ExtResource("2_noy6l")
 
-[node name="RailWall2" parent="." index="0" unique_id=680836342]
+[node name="RailWall2" parent="." index="0" unique_id=180569040]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_yfrfx")

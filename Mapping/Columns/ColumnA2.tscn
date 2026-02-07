@@ -10,7 +10,7 @@ size = Vector3(0.91757, 2.04513, 0.910799)
 
 [node name="ColumnA2" unique_id=1674656369 instance=ExtResource("1_xci70")]
 
-[node name="ColumnA2" parent="." index="0" unique_id=821439203]
+[node name="ColumnA2" parent="." index="0" unique_id=860793970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -24,23 +24,3 @@ shape = SubResource("BoxShape3D_upqqx")
 
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="ColumnA2" index="1" unique_id=549385086]
 occluder = SubResource("BoxOccluder3D_ggc2p")
-
-[node name="ColumnA2_lod1" parent="." index="1" unique_id=2053898623]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
-
-[node name="ColumnA2_lod2" parent="." index="2" unique_id=1978404172]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
-
-[node name="ColumnA2_lod3" parent="." index="3" unique_id=1547105693]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)

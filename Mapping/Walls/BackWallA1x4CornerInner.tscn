@@ -16,7 +16,7 @@ size = Vector2(1, 4)
 
 [node name="BackWallA1x4CornerInner" unique_id=2131436871 instance=ExtResource("1_m3n4w")]
 
-[node name="BackWallA1x4CornerInner" parent="." index="0" unique_id=827609995]
+[node name="BackWallA1x4CornerInner" parent="." index="0" unique_id=663103633]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
@@ -46,15 +46,3 @@ occluder = SubResource("QuadOccluder3D_a43dh")
 [node name="OccluderInstance3D3" type="OccluderInstance3D" parent="BackWallA1x4CornerInner" index="3" unique_id=2143184532]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.699999, 2, -0.704808)
 occluder = SubResource("QuadOccluder3D_lm7mv")
-
-[node name="BackWallA1x4CornerInner_lod1" parent="." index="1" unique_id=2738965]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
-
-[node name="BackWallA1x4CornerInner_lod2" parent="." index="2" unique_id=10232387]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
-
-[node name="BackWallA1x4CornerInner_lod3" parent="." index="3" unique_id=1774661020]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)

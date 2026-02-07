@@ -18,7 +18,7 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
 
-[node name="Cube_083" parent="." index="0" unique_id=765284649]
+[node name="Cube_083" parent="." index="0" unique_id=1685501168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)

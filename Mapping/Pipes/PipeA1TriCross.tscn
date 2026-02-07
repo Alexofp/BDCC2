@@ -10,7 +10,7 @@ size = Vector3(0.4, 0.4, 0.7)
 
 [node name="PipeA1TriCross" unique_id=1543004210 instance=ExtResource("1_ooqsl")]
 
-[node name="PipeA1TriCross" parent="." index="0" unique_id=1883131502]
+[node name="PipeA1TriCross" parent="." index="0" unique_id=1290015834]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

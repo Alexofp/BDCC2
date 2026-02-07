@@ -10,7 +10,7 @@ size = Vector3(0.2, 0.5, 0.2)
 
 [node name="PipeA1TeeSmall" unique_id=1784057057 instance=ExtResource("1_lxbsf")]
 
-[node name="PipeA1TeeSmall" parent="." index="0" unique_id=418991181]
+[node name="PipeA1TeeSmall" parent="." index="0" unique_id=176197580]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

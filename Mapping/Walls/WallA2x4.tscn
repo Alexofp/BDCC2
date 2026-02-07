@@ -10,7 +10,7 @@ size = Vector2(4.02, 2.02)
 
 [node name="WallA2x4" unique_id=1786684607 instance=ExtResource("1_ljcom")]
 
-[node name="WallA2x4" parent="." index="0" unique_id=96891832]
+[node name="WallA2x4" parent="." index="0" unique_id=2146667136]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -24,8 +24,3 @@ shape = SubResource("BoxShape3D_w5374")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallA2x4" index="1" unique_id=1841615723]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.19209e-07, 2, 0)
 occluder = SubResource("QuadOccluder3D_46sv6")
-
-[node name="WallA2x4_lod1" parent="." index="1" unique_id=788767388]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

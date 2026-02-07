@@ -16,7 +16,7 @@ roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Chair1" parent="." index="0" unique_id=206909753]
+[node name="Chair1" parent="." index="0" unique_id=953971029]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -32,19 +32,4 @@ shape = SubResource("BoxShape3D_fgpvj")
 transform = Transform3D(1, 0, 0, 0, 0.990144, 0.140055, 0, -0.140055, 0.990144, 0, 0.229442, -0.248333)
 shape = SubResource("BoxShape3D_nuq0f")
 
-[node name="Chair1_lod1" parent="." index="1" unique_id=354557335]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-
-[node name="Chair1_lod2" parent="." index="2" unique_id=849115]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-
-[node name="Chair1_lod3" parent="." index="3" unique_id=598949021]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-
-[node name="SitAnimHandler" parent="." index="4" unique_id=2040796061 instance=ExtResource("4_0bwen")]
+[node name="SitAnimHandler" parent="." index="1" unique_id=2040796061 instance=ExtResource("4_0bwen")]

@@ -26,7 +26,7 @@ colorbase = Color(0.53, 0.53, 0.53, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="Bench" parent="." index="0" unique_id=721694440]
+[node name="Bench" parent="." index="0" unique_id=2011746259]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -44,27 +44,9 @@ shape = SubResource("BoxShape3D_x22yw")
 transform = Transform3D(1, 0, 0, 0, 0.966743, 0.255749, 0, -0.255749, 0.966743, 0, 0.195936, -0.278135)
 shape = SubResource("BoxShape3D_ft0qw")
 
-[node name="Bench_lod1" parent="." index="1" unique_id=544362879]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
+[node name="BenchAnimHandler" parent="." index="1" unique_id=336954718 instance=ExtResource("3_h16yf")]
 
-[node name="Bench_lod2" parent="." index="2" unique_id=365575408]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
-
-[node name="Bench_lod3" parent="." index="3" unique_id=252908046]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_second = Color(0.70980394, 0.4392157, 0.09019608, 1)
-
-[node name="BenchAnimHandler" parent="." index="4" unique_id=336954718 instance=ExtResource("3_h16yf")]
-
-[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="5" unique_id=196438920]
+[node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="2" unique_id=196438920]
 replication_config = SubResource("SceneReplicationConfig_xplsm")
 script = ExtResource("3_xplsm")
 metadata/_custom_type_script = "uid://dhdvxyoxg4m31"

@@ -7,7 +7,7 @@ size = Vector3(0.4, 0.4, 1)
 
 [node name="PipeA1" unique_id=1696149346 instance=ExtResource("1_mkt66")]
 
-[node name="PipeA1" parent="." index="0" unique_id=897654809]
+[node name="PipeA1" parent="." index="0" unique_id=1117129103]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

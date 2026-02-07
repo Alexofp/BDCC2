@@ -11,7 +11,7 @@ size = Vector3(0.638991, 0.292259, 0.177679)
 script = ExtResource("2_1etw4")
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="WallLight" parent="." index="0" unique_id=1672881129]
+[node name="WallLight" parent="." index="0" unique_id=1443510471]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -37,21 +37,3 @@ visible = false
 light_color = Color(0.0431373, 1, 1, 1)
 light_energy = 0.424
 omni_attenuation = 0.137
-
-[node name="WallLight_lod1" parent="." index="1" unique_id=1375878823]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
-
-[node name="WallLight_lod2" parent="." index="2" unique_id=746822116]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
-
-[node name="WallLight_lod3" parent="." index="3" unique_id=1398289945]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

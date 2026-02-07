@@ -7,7 +7,7 @@ points = PackedVector3Array(-1, 0.00978857, 0.00993931, -0.990077, 0.00978857, -
 
 [node name="WallA1x4CornerOuter" unique_id=2076803403 instance=ExtResource("1_4kxv3")]
 
-[node name="WallA1x4CornerOuter" parent="." index="0" unique_id=378911780]
+[node name="WallA1x4CornerOuter" parent="." index="0" unique_id=675083390]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -16,8 +16,3 @@ instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.207
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallA1x4CornerOuter/StaticBody3D" index="0" unique_id=1404601711]
 shape = SubResource("ConvexPolygonShape3D_ulq6j")
-
-[node name="WallA1x4CornerOuter_lod1" parent="." index="1" unique_id=1739743869]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

@@ -4,7 +4,7 @@
 
 [node name="Stairs2CornerOuter" unique_id=2005117497 instance=ExtResource("1_pvndw")]
 
-[node name="Stairs2CornerOuter" parent="." index="0" unique_id=155479731]
+[node name="Stairs2CornerOuter" parent="." index="0" unique_id=1675503020]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

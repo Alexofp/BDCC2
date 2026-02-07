@@ -10,7 +10,7 @@ size = Vector2(4.02, 3.02)
 
 [node name="WallA4x3" unique_id=1256379253 instance=ExtResource("1_4lpbt")]
 
-[node name="WallA4x3" parent="." index="0" unique_id=913758623]
+[node name="WallA4x3" parent="." index="0" unique_id=487887487]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -24,8 +24,3 @@ shape = SubResource("BoxShape3D_d8f0r")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallA4x3" index="1" unique_id=523386427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 occluder = SubResource("QuadOccluder3D_1nnp7")
-
-[node name="WallA4x3_lod1" parent="." index="1" unique_id=1039566730]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

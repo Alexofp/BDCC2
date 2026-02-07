@@ -17,14 +17,14 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerShip" parent="." index="0" unique_id=520489511]
+[node name="SkylinerShip" parent="." index="0" unique_id=708206759]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerDoor" parent="SkylinerShip" index="0" unique_id=1243625391]
+[node name="SkylinerDoor" parent="SkylinerShip" index="0" unique_id=633597135]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -38,14 +38,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, -0.0674205, -0.9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187416, -0.17905)
 shape = SubResource("BoxShape3D_pxwdu")
 
-[node name="SkylinerDoor_lod1" parent="SkylinerShip" index="1" unique_id=13665410]
+[node name="SkylinerLandingGear" parent="SkylinerShip" index="1" unique_id=1537646486]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
-[node name="SkylinerLandingGear" parent="SkylinerShip" index="2" unique_id=2032740665]
+[node name="SkylinerMarkings57" parent="SkylinerShip" index="2" unique_id=144852350]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -59,27 +59,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76553, -0.774262)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.14197, 1.40728)
 shape = SubResource("BoxShape3D_odutw")
 
-[node name="SkylinerLandingGear_lod1" parent="SkylinerShip" index="4" unique_id=594103525]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
-
-[node name="SkylinerMarkings57" parent="SkylinerShip" index="5" unique_id=1455262777]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
-
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="1" unique_id=957098400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53652, 0)
 omni_range = 1.491
-
-[node name="SkylinerShip_lod1" parent="." index="2" unique_id=1238984715]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
-instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
-instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)

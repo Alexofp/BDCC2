@@ -11,7 +11,7 @@ size = Vector3(1.55161, 0.350314, 0.319992)
 script = ExtResource("2_dpfm8")
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="WallLightBig" parent="." index="0" unique_id=1322966787]
+[node name="WallLightBig" parent="." index="0" unique_id=404295730]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -32,15 +32,3 @@ light_volumetric_fog_energy = 0.0
 spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 100.52
-
-[node name="WallLightBig_lod1" parent="." index="1" unique_id=714519855]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
-
-[node name="WallLightBig_lod2" parent="." index="2" unique_id=800044400]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

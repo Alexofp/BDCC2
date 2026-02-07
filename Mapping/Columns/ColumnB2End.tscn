@@ -7,7 +7,7 @@ size = Vector3(0.4, 1.44156, 1.1)
 
 [node name="ColumnB2End" unique_id=432316144 instance=ExtResource("1_ybjwe")]
 
-[node name="ColumnB2End" parent="." index="0" unique_id=457774773]
+[node name="ColumnB2End" parent="." index="0" unique_id=1143022068]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -22,21 +22,3 @@ shape = SubResource("BoxShape3D_qvp7r")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ColumnB2End/StaticBody3D" index="1" unique_id=210388591]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 shape = SubResource("BoxShape3D_qvp7r")
-
-[node name="ColumnB2End_lod1" parent="." index="1" unique_id=962813014]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
-
-[node name="ColumnB2End_lod2" parent="." index="2" unique_id=1477018459]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
-
-[node name="ColumnB2End_lod3" parent="." index="3" unique_id=1816272345]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)

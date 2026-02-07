@@ -7,7 +7,7 @@ size = Vector3(0.4, 0.4, 1)
 
 [node name="PipeA1Cross" unique_id=309553324 instance=ExtResource("1_skoi2")]
 
-[node name="PipeA1Cross" parent="." index="0" unique_id=2140815539]
+[node name="PipeA1Cross" parent="." index="0" unique_id=1995733457]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(1, 0.64705884, 0, 1)
 instance_shader_parameters/trim_color_main = Color(1, 0.64705884, 0, 1)

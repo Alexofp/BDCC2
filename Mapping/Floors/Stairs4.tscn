@@ -10,7 +10,7 @@ size = Vector3(4, 0.239373, 1.47831)
 
 [node name="Stairs4" unique_id=790154951 instance=ExtResource("1_k0y30")]
 
-[node name="Stairs4" parent="." index="0" unique_id=1998762682]
+[node name="Stairs4" parent="." index="0" unique_id=1030696880]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.20784314, 0.20784314, 0.20784314, 1)
 instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)

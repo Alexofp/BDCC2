@@ -14,7 +14,7 @@ colorbase = Color(0.84705883, 0.6392157, 0, 1)
 color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
 color3 = Color(1, 0.99607843, 0.6431373, 1)
 
-[node name="ConstructionLightBoth" parent="." index="0" unique_id=288279935]
+[node name="ConstructionLightBoth" parent="." index="0" unique_id=1130258574]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
@@ -33,21 +33,3 @@ light_energy = 2.0
 light_indirect_energy = 1.0
 spot_range = 15.0
 spot_angle = 53.69
-
-[node name="ConstructionLightBoth_lod1" parent="." index="2" unique_id=3305846]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
-instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
-instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
-
-[node name="ConstructionLightBoth_lod2" parent="." index="3" unique_id=1178537485]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
-instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
-instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
-
-[node name="ConstructionLightBoth_lod3" parent="." index="4" unique_id=1283024618]
-instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
-instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
-instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)

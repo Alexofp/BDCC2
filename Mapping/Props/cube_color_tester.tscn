@@ -10,7 +10,7 @@ size = Vector3(1, 2, 1)
 
 [node name="CubeColorTester" unique_id=736630357 instance=ExtResource("1_uas8h")]
 
-[node name="CubeColorTester" parent="." index="0" unique_id=1271630346]
+[node name="CubeColorTester" parent="." index="0" unique_id=1718355497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 instance_shader_parameters/trim_color_base = Color(1, 0, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0, 0.666667, 1, 1)

@@ -10,7 +10,7 @@ size = Vector3(3.84, 1.01983, 0.0400003)
 [node name="RailSimple4" unique_id=68313760 instance=ExtResource("1_p1ms2")]
 script = ExtResource("2_ce61m")
 
-[node name="RailSimple4" parent="." index="0" unique_id=389146769]
+[node name="RailSimple4" parent="." index="0" unique_id=575513337]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_mfpc3")

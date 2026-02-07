@@ -4,14 +4,5 @@
 
 [node name="DoorA6x4Closed" unique_id=772325142 instance=ExtResource("1_qvooi")]
 
-[node name="DoorA6x4" parent="." index="1" unique_id=993532177]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="DoorA6x4_lod1" parent="." index="6" unique_id=1450966436]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="DoorA6x4_lod2" parent="." index="7" unique_id=811863035]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="DoorA6x4_lod3" parent="." index="8" unique_id=891424466]
+[node name="DoorA6x4" parent="." index="1" unique_id=1110773691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
