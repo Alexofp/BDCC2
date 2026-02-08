@@ -694,12 +694,7 @@ func notifyPresetApplied():
 	onChange.emit(BaseCharChange.createPresetApplied())
 
 func isControlledByAnyPlayer() -> bool:
-	var theOurID := getID()
-	for playerID in Network.players:
-		var info:NetworkPlayerInfo = Network.players[playerID]
-		if(info.charID == theOurID):
-			return true
-	return false
+	return Network.getPlayerIDWhoControls(getID()) >= 0
 
 func isUs() -> bool:
 	var myInfo := Network.getMyPlayerInfo()

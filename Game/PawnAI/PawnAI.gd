@@ -82,7 +82,7 @@ func processAI(_dt:float):
 	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
 
 	#var current_agent_position: Vector3 = pawn.global_position
-	var next_path_position: Vector3 = theNavAgent.get_next_path_position()
+	var next_path_position: Vector3 = pawn.getNavAgentNextPathPosAvoidance()#theNavAgent.get_next_path_position()
 	if theNavAgent.is_navigation_finished():
 		return
 

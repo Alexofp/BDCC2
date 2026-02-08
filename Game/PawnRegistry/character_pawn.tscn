@@ -52,6 +52,11 @@ unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_height_offset = 0.25
+simplify_path = true
+simplify_epsilon = 0.055
+avoidance_enabled = true
+neighbor_distance = 7.0
+max_neighbors = 5
 
 [node name="BackupLeashPoint" type="Marker3D" parent="." unique_id=231612555]
 unique_name_in_owner = true
@@ -75,3 +80,4 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

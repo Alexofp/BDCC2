@@ -122,7 +122,22 @@ func _physics_process(_delta: float) -> void:
 		ai.processAI(_delta)
 	calcHoverTextProgressBarInfo()
 	processPoseSpot()
-
+	
+	if(isControlledByAnyPlayer()):
+		var theDoll := getDoll()
+		navigation_agent_3d.velocity = theDoll.velocity if theDoll else Vector3.ZERO
+		#if(navigation_agent_3d.avoidance_enabled):
+		#	navigation_agent_3d.avoidance_enabled = false
+	else:
+		var theDir := (navigation_agent_3d.get_next_path_position() - global_position) if !navigation_agent_3d.is_navigation_finished() else Vector3.ZERO
+		var theDirLen:float = theDir.length()
+		if(theDirLen > 1.0):
+			theDir /= theDirLen
+		navigation_agent_3d.velocity = theDir*3.0#getDoll().velocity
+		#if(!navigation_agent_3d.avoidance_enabled):
+		#	navigation_agent_3d.avoidance_enabled = true
+	#DebugDraw.draw_line_3d(global_position, global_position+safeNavAgentVelocity, Color.GREEN)
+	
 func processPoseSpot():
 	var thePoseSpot:PoseSpot = getPoseSpot()
 	if(!thePoseSpot):
@@ -190,13 +205,8 @@ func isControlledByUs() -> bool:
 		return false
 	return myInfo.charID == id
 
-#TODO: OPTIMIZE THIS?
 func isControlledByAnyPlayer() -> bool:
-	for playerID in Network.players:
-		var info:NetworkPlayerInfo = Network.players[playerID]
-		if(info.charID == id):
-			return true
-	return false
+	return Network.getPlayerIDWhoControls(id) >= 0
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
@@ -276,6 +286,19 @@ func onSeatChange(_newSpot:PoseSpot):
 
 func getNavAgent() -> NavigationAgent3D:
 	return navigation_agent_3d
+
+var safeNavAgentVelocity:Vector3
+func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+	safeNavAgentVelocity = safe_velocity
+
+func getNavAgentNextPathPosAvoidance() -> Vector3:
+	if(!navigation_agent_3d.avoidance_enabled):
+		return navigation_agent_3d.get_next_path_position()
+	else:
+		return global_position + safeNavAgentVelocity*10.0
+
+func getSaveNavAgentVelocity() -> Vector3:
+	return safeNavAgentVelocity
 
 func getAI() -> PawnAI:
 	return ai
