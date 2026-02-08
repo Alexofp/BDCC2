@@ -1,6 +1,10 @@
 @tool
 extends EditorScenePostImport
 
+const LOD_DISTANCE_MULT := 0.01
+const LOD_POSTFIX := "_lod"
+const DEBUG_OUTPUT := false
+
 func _post_import(scene:Node):
 	#var newStatic:StaticBody3D = StaticBody3D.new()
 	#scene.add_child(newStatic)
@@ -51,13 +55,13 @@ func iterate(node, depth:int=0, toDelete:Array[Node] = []):
 		
 		
 		var nodeName:String = node.name
-		if("_lod" in nodeName):
+		if(LOD_POSTFIX in nodeName):
 			pass
 		else:
 			var lods:Array[MeshInstance3D] = []
 			var _i:int = 1
-			while(node.get_parent().has_node(nodeName+"_lod"+str(_i))):
-				lods.append(node.get_parent().get_node(nodeName+"_lod"+str(_i)))
+			while(node.get_parent().has_node(nodeName+LOD_POSTFIX+str(_i))):
+				lods.append(node.get_parent().get_node(nodeName+LOD_POSTFIX+str(_i)))
 				_i += 1
 			
 			if(true):
@@ -132,34 +136,26 @@ func processMeshInstanceMats(node:MeshInstance3D):
 			node.set_surface_override_material(_i, load("res://Mesh/Materials/MyPipeMaterial.tres"))
 			
 func lodToDistance(_indx:int) -> float:
-	return float(_indx + 1) * 0.01
+	return float(_indx + 1) * LOD_DISTANCE_MULT
 
 func combineLodsForMeshInstance3D(_meshInstance:MeshInstance3D, _lods:Array[MeshInstance3D]):
 	if(_lods.is_empty()):
 		return
-	var theMainMesh:Mesh = _meshInstance.mesh
-	var theMainShadowMesh:ArrayMesh = theMainMesh.shadow_mesh if(theMainMesh is ArrayMesh) else null
-	
 	var theLods:Array[Mesh]
-	var theShadowLods:Array[Mesh]
 	
 	for theLod in _lods:
 		theLods.append(theLod.mesh)
-		if((theLod.mesh is ArrayMesh) && theLod.mesh.shadow_mesh):
-			theShadowLods.append(theLod.mesh.shadow_mesh)
 	
-	_meshInstance.mesh = combineLods(_meshInstance.mesh, theLods, _meshInstance.name)
-	if(theMainShadowMesh):
-		if(theLods.size() == theShadowLods.size()):
-			#print("== SHADOW MESH ==")
-			_meshInstance.mesh.shadow_mesh = combineLods(theMainShadowMesh, theShadowLods, "(Shadow-mesh)"+_meshInstance.name, true)
-			pass
-		else:
-			printerr("The amount of lods and shadow-mesh lods don't match, skipping shadow mesh generation for ",_meshInstance.name)
-	
-func combineLods(_mesh:Mesh, _lodMeshes:Array[Mesh], _nameHint:String = "UNKNOWN", _isShadow:bool = false) -> Mesh:
+	if(DEBUG_OUTPUT):
+		print("= MESH: ",_meshInstance.mesh)
+	var theMeshes := combineLods(_meshInstance.mesh, theLods, _meshInstance.name)
+	_meshInstance.mesh = theMeshes[0]
+	if(theMeshes.size() > 1):
+		_meshInstance.mesh.shadow_mesh = theMeshes[1]
+
+func combineLods(_mesh:Mesh, _lodMeshes:Array[Mesh], _nameHint:String = "UNKNOWN") -> Array[Mesh]:
 	if(_lodMeshes.is_empty()):
-		return _mesh
+		return [_mesh]
 	
 	var theImporterMesh:ImporterMesh = ImporterMesh.from_mesh(_mesh)
 	var surfaceAm:int = theImporterMesh.get_surface_count()
@@ -172,10 +168,11 @@ func combineLods(_mesh:Mesh, _lodMeshes:Array[Mesh], _nameHint:String = "UNKNOWN
 	var resultMesh:ImporterMesh = ImporterMesh.new()
 	resultMesh.set_lightmap_size_hint(theImporterMesh.get_lightmap_size_hint())
 	resultMesh.set_blend_shape_mode(theImporterMesh.get_blend_shape_mode())
+	var shadowMesh:ImporterMesh = ImporterMesh.new()
 	
 	for _surfaceIndx in surfaceAm:
 		var theArrays:Array = theImporterMesh.get_surface_arrays(_surfaceIndx)
-		var curIndx:int = theArrays[0].size()
+		var curIndxOffset:int = theArrays[0].size()
 		var theLods:Dictionary[float, PackedInt32Array]
 		var theFlags := theImporterMesh.get_surface_format(_surfaceIndx)
 		
@@ -187,10 +184,9 @@ func combineLods(_mesh:Mesh, _lodMeshes:Array[Mesh], _nameHint:String = "UNKNOWN
 			if(_surfaceIndx >= lodMesh.get_surface_count()):
 				theLods[theLodDistance] = PackedInt32Array([0, 0, 0])
 				_lodIndx += 1
+				if(DEBUG_OUTPUT):
+					print("(WARNING) Missing surface! Appending an empty triangle as a fallback. Mesh=",_nameHint," Lod=",_lodIndx," Surface=",_surfaceIndx)
 				continue
-			
-			#if(lodMesh.get_surface_format(_surfaceIndx) != theFlags):
-			#	printerr("FLAGS ARE WRONG! LodMesh=",lodMesh.get_surface_format(_surfaceIndx)," MainMesh=",theFlags)
 			
 			var theLodArrays := lodMesh.get_surface_arrays(_surfaceIndx)
 			for _i in Mesh.ARRAY_MAX:
@@ -199,30 +195,37 @@ func combineLods(_mesh:Mesh, _lodMeshes:Array[Mesh], _nameHint:String = "UNKNOWN
 				if(_i != Mesh.ARRAY_INDEX): # Most data can just be appended to old data
 					theArrays[_i].append_array(theLodArrays[_i])
 					continue
+
 				# Handling indicies
 				var theLodIndicies:PackedInt32Array = theLodArrays[_i]
 				var theLodIndAm:int = theLodIndicies.size()
-				for _lodI in theLodIndAm:
-					theLodIndicies[_lodI] += curIndx
+				for _lodI in theLodIndAm: # Offsetting the indicies of the lods
+					theLodIndicies[_lodI] += curIndxOffset
 				theLods[theLodDistance] = theLodIndicies
 				if(theLodIndAm >= theArrays[_i].size()): # A work-around for when the lod has the same amount of triangles as the main mesh. Will throw an error otherwise
+					if(DEBUG_OUTPUT):
+						print("(WARNING) One of the lods have the same or greater amount of indicies than the main mesh. Main mesh: ",theArrays[_i].size()," indicies. Lod ",_lodIndx," Surface ",_surfaceIndx," Indicies: ",theLodIndAm)
 					theArrays[_i].resize(theLodIndAm+3)
-				curIndx += theLodArrays[0].size()
-				#print("LOD INDX AM: ",theLodIndAm," MAIN MESH INDX AM: ",theArrays[_i].size())
+				curIndxOffset += theLodArrays[0].size()
 				
 			_lodIndx += 1
 		
-		var theMat:Material = null#theImporterMesh.get_surface_material(_surfaceIndx)
+		var theMat:Material = theImporterMesh.get_surface_material(_surfaceIndx)
 		var theName:String = theImporterMesh.get_surface_name(_surfaceIndx)
 		var thePrimType := theImporterMesh.get_surface_primitive_type(_surfaceIndx)
 		
 		resultMesh.add_surface(thePrimType, theArrays, [], theLods, theMat, theName, theFlags)
-		#print("PRIM TYPE: ", thePrimType," VERT AMOUNT: ",theArrays[0].size())
+		var shadowMeshArrays := theArrays.duplicate()
+		for _i in Mesh.ARRAY_MAX:
+			if(_i in [Mesh.ARRAY_VERTEX, Mesh.ARRAY_INDEX, Mesh.ARRAY_BONES, Mesh.ARRAY_WEIGHTS]):
+				continue
+			shadowMeshArrays[_i] = null
+		shadowMesh.add_surface(thePrimType, shadowMeshArrays, [], theLods, null, theName, theFlags)
 
-	#for _surfaceIndx in resultMesh.get_surface_count():
-		#for _MAINLOD in resultMesh.get_surface_lod_count(_surfaceIndx):
-			#print("SURFACE INDX: ",_surfaceIndx," LOD: ",_MAINLOD)
-			#print(resultMesh.get_surface_lod_size(_surfaceIndx, _MAINLOD))
-			#print(resultMesh.get_surface_lod_indices(_surfaceIndx, _MAINLOD).size())
+	if(DEBUG_OUTPUT):
+		for _surfaceIndx in resultMesh.get_surface_count():
+			for _MAINLOD in resultMesh.get_surface_lod_count(_surfaceIndx):
+				print("SURFACE INDX: ",_surfaceIndx," LOD: ",_MAINLOD)
+				print(" Lod size: "+str(resultMesh.get_surface_lod_size(_surfaceIndx, _MAINLOD))+" Indicies amount: ", resultMesh.get_surface_lod_indices(_surfaceIndx, _MAINLOD).size())
 
-	return resultMesh.get_mesh()
+	return [resultMesh.get_mesh(), shadowMesh.get_mesh()]

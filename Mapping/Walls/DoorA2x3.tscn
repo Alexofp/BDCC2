@@ -23,7 +23,14 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(0.133333, 0.133333, 0.133333, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="DoorFrameA2x3" parent_id_path=PackedInt32Array(1235774193) index="0" unique_id=452666378]
+[node name="DoorFrameA2x3" parent="." index="0" unique_id=182745146]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorFrameA2x3" index="0" unique_id=452666378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48343, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="0" unique_id=1429547794]
@@ -46,6 +53,11 @@ shape = SubResource("BoxShape3D_bivom")
 shape = SubResource("BoxShape3D_y4tsq")
 disabled = true
 
-[node name="DoorA2x3" parent="." index="1" unique_id=1157937114]
+[node name="DoorA2x3" parent="." index="1" unique_id=1378263484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31696, 0)
 gi_mode = 2
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
+instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
+instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)

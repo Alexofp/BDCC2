@@ -8,9 +8,9 @@ size = Vector3(1, 4, 0.2)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_461as"]
 size = Vector2(4.1, 1.1)
 
-[node name="BackWallA1x4" unique_id=1681591774 instance=ExtResource("1_j8dxw")]
+[node name="BackWallA1x4" unique_id=644044580 instance=ExtResource("1_j8dxw")]
 
-[node name="BackWallA1x4" parent="." index="0" unique_id=1942150943]
+[node name="BackWallA1x4" parent="." index="0" unique_id=398964681]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
