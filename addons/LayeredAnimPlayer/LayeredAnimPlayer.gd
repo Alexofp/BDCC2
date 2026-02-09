@@ -22,7 +22,21 @@ func playLayer(_layerID:int, _anim:String, _speed:float = 1.0, _resetIfSame:bool
 		return
 	var theLayer:ILayerBase = layers[_layerID]
 	theLayer.playLayer(self, _layerID, _anim, _speed, _resetIfSame)
-	
+
+func setBlend1DPos(_layerID:int, _anim:String, _pos:float):
+	if(!layers.has(_layerID)):
+		printerr("setBlend1DPos() LAYER DOESN'T EXIST: "+str(_layerID))
+		return
+	var theLayer:ILayerBase = layers[_layerID]
+	theLayer.setBlend1DPos(self, _layerID, _anim, _pos)
+
+func setBlend2DPos(_layerID:int, _anim:String, _pos:Vector2):
+	if(!layers.has(_layerID)):
+		printerr("setBlend1DPos() LAYER DOESN'T EXIST: "+str(_layerID))
+		return
+	var theLayer:ILayerBase = layers[_layerID]
+	theLayer.setBlend2DPos(self, _layerID, _anim, _pos)
+
 func stopLayer(_layerID:int, _instantStop:bool = false):
 	if(!layers.has(_layerID)):
 		printerr("stopLayer() LAYER DOESN'T EXIST: "+str(_layerID))
@@ -69,9 +83,12 @@ class BoneFilter:
 
 
 class ILayerBase:
+	func onAdd(_animPlayer:LayeredAnimPlayer, _layerID:int):
+		pass
+	
 	func playLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _speed:float = 1.0, _resetIfSame:bool = false):
 		printerr("playLayer() LAYER WITH THIS TYPE DOESN'T SUPPORT PLAYING ANIMS: "+str(_layerID))
-	
+
 	func stopLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _instantStop:bool = false):
 		printerr("stopLayer() LAYER WITH THIS TYPE DOESN'T SUPPORT STOPPING ANIMS: "+str(_layerID))
 	
@@ -82,15 +99,107 @@ class ILayerBase:
 	func getCurrentAnimationLayer(_animPlayer:LayeredAnimPlayer, _layerID:int) -> String:
 		printerr("getCurrentAnimationLayer() LAYER WITH THIS TYPE DOESN'T SUPPORT GETTING ANIMS: "+str(_layerID))
 		return ""
-	
+
+	func setBlend1DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:float):
+		printerr("setBlend1DPos() LAYER WITH THIS TYPE DOESN'T SUPPORT BLEND1D: "+str(_layerID))
+
+	func setBlend2DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:Vector2):
+		printerr("setBlend2DPos() LAYER WITH THIS TYPE DOESN'T SUPPORT BLEND2D: "+str(_layerID))
+
+class LayerAnimBase:
+	pass
+
+class LayerAnim extends LayerAnimBase:
+	var animName:String
+	static func create(_animName:String) -> LayerAnim:
+		var newLayer := LayerAnim.new()
+		newLayer.animName = _animName
+		return newLayer
+
+class LayerAnimAdvance extends LayerAnimBase:
+	var animName:String
+	var loop:int = -1
+	var customLength:float = -1.0
+	var playBackwards:bool = false
+	static func create(_animName:String) -> LayerAnimAdvance:
+		var newLayer := LayerAnimAdvance.new()
+		newLayer.animName = _animName
+		return newLayer
+	func setLooping(_loop:bool) -> LayerAnimAdvance:
+		loop = Animation.LOOP_LINEAR if _loop else Animation.LOOP_NONE
+		return self
+	func setLength(_len:float, _isLooping:bool) -> LayerAnimAdvance:
+		customLength = _len
+		loop = Animation.LOOP_LINEAR if _isLooping else Animation.LOOP_NONE
+		return self
+	func setPlayBackwards(_back:bool = true) -> LayerAnimAdvance:
+		playBackwards = _back
+		return self
+
+class LayerAnimBlend1D extends LayerAnimBase:
+	var anims:Dictionary[float, LayerAnimBase]
+	var sync:bool = true
+	var maxRange:float = 1.0
+	static func create(_theAnims:Dictionary[float, LayerAnimBase] = {}) -> LayerAnimBlend1D:
+		var newLayer := LayerAnimBlend1D.new()
+		newLayer.anims = _theAnims
+		for theFloat in _theAnims:
+			var theAbsFloat:float = abs(theFloat)
+			if(theAbsFloat > newLayer.maxRange): # Auto-expand the max range
+				newLayer.maxRange = theAbsFloat
+		return newLayer
+	func addAnim(_pos:float, _anim:LayerAnimBase) -> LayerAnimBlend1D:
+		anims[_pos] = _anim
+		var theAbsFloat:float = abs(_pos)
+		if(theAbsFloat > maxRange): # Auto-expand the max range
+			maxRange = theAbsFloat
+		return self
+	func setSync(_s:bool) -> LayerAnimBlend1D:
+		sync = _s
+		return self
+
+class LayerAnimBlend2D extends LayerAnimBase:
+	var anims:Dictionary[Vector2, LayerAnimBase]
+	var sync:bool = true
+	var maxRange:float = 1.0
+	static func create(_theAnims:Dictionary[Vector2, LayerAnimBase] = {}) -> LayerAnimBlend2D:
+		var newLayer := LayerAnimBlend2D.new()
+		newLayer.anims = _theAnims
+		for theFloat in _theAnims:
+			var theAbsFloatX:float = abs(theFloat.x)
+			var theAbsFloatY:float = abs(theFloat.y)
+			if(theAbsFloatX > newLayer.maxRange):
+				newLayer.maxRange = theAbsFloatX
+			if(theAbsFloatY > newLayer.maxRange):
+				newLayer.maxRange = theAbsFloatY
+		return newLayer
+	func addAnim(_pos:Vector2, _anim:LayerAnimBase) -> LayerAnimBlend2D:
+		anims[_pos] = _anim
+		var theAbsFloatX:float = abs(_pos.x)
+		var theAbsFloatY:float = abs(_pos.y)
+		if(theAbsFloatX > maxRange):
+			maxRange = theAbsFloatX
+		if(theAbsFloatY > maxRange):
+			maxRange = theAbsFloatY
+		return self
+	func setSync(_s:bool) -> LayerAnimBlend2D:
+		sync = _s
+		return self
+
 class LayerBasic extends ILayerBase:
 	var blendTimeIn:float = 0.2
 	var blendTimeOut:float = 0.2
 	var blendTimeBetween:float = 0.0
 	var blendCurve:Curve = CURVE_SMOOTH
 	
-	var anims:Dictionary[String, Dictionary] = {}
+	var anims:Dictionary[String, Variant] = {}
 	var bones:Array[String] = []
+	
+	func onAdd(_animPlayer:LayeredAnimPlayer, _layerID:int):
+		for theKey in anims:
+			var theVal:Variant = anims[theKey]
+			if(theVal is Dictionary):
+				anims[theKey] = LayerAnim.create(theVal[L_ANIM])
 	
 	func playLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _speed:float = 1.0, _resetIfSame:bool = false):
 		if(!anims.has(_anim)):
@@ -113,7 +222,7 @@ class LayerBasic extends ILayerBase:
 			_animPlayer.set("parameters/"+layerStr+"/transition_request", transitionLayerName)
 			#_animPlayer.set("parameters/"+layerStr+"/current_state", layerStr+"_"+_anim) # doesn't work :(
 		_animPlayer.set("parameters/"+layerStr+"_timescale/scale", _speed)
-	
+
 	func stopLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _instantStop:bool = false):
 		var layerStr:String = str(_layerID)
 		_animPlayer.set("parameters/"+layerStr+"_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT if !_instantStop else AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
@@ -136,8 +245,33 @@ class LayerBasic extends ILayerBase:
 			finalAnimName += splitA[_i+1]
 		return finalAnimName
 	
+	func setBlend1DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:float):
+		if(!anims.has(_anim)):
+			printerr("setBlend1DPos() LAYER "+str(_layerID)+" DOESN'T HAVE ANIMATION: "+str(_anim))
+			return
+		var theLayerAnim:LayerAnimBase = anims[_anim]
+		var layerStr:String = str(_layerID)
+		var transitionLayerName:String = layerStr+"_"+_anim
+		if(theLayerAnim is LayerAnimBlend1D):
+			_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
+		else:
+			printerr("setBlend1DPos() ANIM "+_anim+" FROM LAYER "+str(_layerID)+" DOESN'T SUPPORT BLEND1D")
+		
+	func setBlend2DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:Vector2):
+		if(!anims.has(_anim)):
+			printerr("setBlend2DPos() LAYER "+str(_layerID)+" DOESN'T HAVE ANIMATION: "+str(_anim))
+			return
+		var theLayerAnim:LayerAnimBase = anims[_anim]
+		var layerStr:String = str(_layerID)
+		var transitionLayerName:String = layerStr+"_"+_anim
+		if(theLayerAnim is LayerAnimBlend2D):
+			_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
+		else:
+			printerr("setBlend2DPos() ANIM "+_anim+" FROM LAYER "+str(_layerID)+" DOESN'T SUPPORT BLEND2D")
+	
 func addLayer(_layerID:int, _layer:ILayerBase):
 	layers[_layerID] = _layer
+	_layer.onAdd(self, _layerID)
 
 func generateTree() -> AnimationNode:
 	var rootBlendTree := AnimationNodeBlendTree.new()
@@ -194,15 +328,15 @@ func generateTree() -> AnimationNode:
 			else:
 				currentNodeName = theTimeScaleName
 			
-			var theAnims:Dictionary[String, Dictionary] = theLayer.anims
+			var theAnims:Dictionary[String, Variant] = theLayer.anims
 			var _i:int = 0
 			for animID in theAnims:
-				var animEntry:Dictionary = theAnims[animID]
+				var animEntry:LayerAnimBase = theAnims[animID]
+				var theAnimNodePos:Vector2 = currentPosition + Vector2(-600.0, _i*160.0)
 				
-				var theAnimNode := AnimationNodeAnimation.new()
-				theAnimNode.animation = animEntry[L_ANIM]
+				var theAnimNode := addAnimEntry(animEntry, theAnimNodePos)
 				var theAnimNodeName:String = str(orderID)+"_"+animID
-				rootBlendTree.add_node(theAnimNodeName, theAnimNode, currentPosition + Vector2(-600.0, _i*160.0))
+				rootBlendTree.add_node(theAnimNodeName, theAnimNode, theAnimNodePos)
 				
 				theSelectorNode.add_input(theAnimNodeName)
 				
@@ -218,6 +352,45 @@ func generateTree() -> AnimationNode:
 	rootBlendTree.set_node_position("output", currentPosition)
 	
 	return rootBlendTree
+
+func addAnimEntry(layerAnim:LayerAnimBase, _animPos:Vector2) -> AnimationNode:
+	if(layerAnim is LayerAnim):
+		var theAnimNode := AnimationNodeAnimation.new()
+		theAnimNode.animation = layerAnim.animName
+		return theAnimNode
+	if(layerAnim is LayerAnimAdvance):
+		var theAnimNode := AnimationNodeAnimation.new()
+		theAnimNode.animation = layerAnim.animName
+		if(layerAnim.playBackwards):
+			theAnimNode.play_mode = AnimationNodeAnimation.PLAY_MODE_BACKWARD
+		if(layerAnim.loop >= 0):
+			theAnimNode.loop_mode = layerAnim.loop
+			theAnimNode.use_custom_timeline = true
+		if(layerAnim.customLength >= 0): # Probably doesn't work unless you set the loop mode as well
+			theAnimNode.timeline_length = layerAnim.customLength
+			theAnimNode.stretch_time_scale = true
+			
+		return theAnimNode
+	if(layerAnim is LayerAnimBlend1D):
+		var theAnimNode := AnimationNodeBlendSpace1D.new()
+		theAnimNode.max_space = layerAnim.maxRange
+		theAnimNode.min_space = -layerAnim.maxRange
+		for thePos in layerAnim.anims:
+			theAnimNode.add_blend_point(addAnimEntry(layerAnim.anims[thePos], Vector2.ZERO), thePos)
+		theAnimNode.sync = layerAnim.sync
+		return theAnimNode
+	if(layerAnim is LayerAnimBlend2D):
+		var theAnimNode := AnimationNodeBlendSpace2D.new()
+		theAnimNode.max_space = Vector2(layerAnim.maxRange, layerAnim.maxRange)
+		theAnimNode.min_space = Vector2(-layerAnim.maxRange, -layerAnim.maxRange)
+		for thePos in layerAnim.anims:
+			theAnimNode.add_blend_point(addAnimEntry(layerAnim.anims[thePos], Vector2.ZERO), thePos)
+		theAnimNode.sync = layerAnim.sync
+		return theAnimNode
+
+	var theAnimNode := AnimationNodeAnimation.new()
+	theAnimNode.animation = "ERROR_SPECIFY_ANIMATION"
+	return theAnimNode
 
 func setupTree():
 	tree_root = generateTree()

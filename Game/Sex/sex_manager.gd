@@ -82,6 +82,7 @@ func getSexEngineOfPawn(thePawn:CharacterPawn) -> SexEngine:
 	
 	return null
 
+# Could be optimized with a pawnToSexEngine dict?
 func getSexEngineOfCharID(theCharID:String) -> SexEngine:
 	for sexEngine in sexEngines:
 		if(sexEngine.isCharIDInvolved(theCharID)):

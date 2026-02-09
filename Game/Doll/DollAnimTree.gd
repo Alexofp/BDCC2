@@ -3,10 +3,9 @@ extends LayeredAnimPlayer
 class_name DollLayeredAnimPlayer
 
 const LAYER_LOCOMOTION = 0
-const LAYER_COMBAT = 10
-const LAYER_GESTURE_FULLBODY = 20
-const LAYER_GESTURE = 30
-const LAYER_ARMS_OVERRIDE = 40
+const LAYER_GESTURE_FULLBODY = 10
+const LAYER_GESTURE = 20
+const LAYER_ARMS_OVERRIDE = 30
 
 var cacheID:String = "doll"
 
@@ -27,14 +26,23 @@ func doFullSetup() -> void:
 
 func defineLayers():
 	if(true):
-		var theLocomotionAnims:Dictionary[String, Dictionary] = {}
+		var theLocomotionAnims:Dictionary[String, Variant] = {}
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_IDLE):
 			theLocomotionAnims[anim.id] = {L_ANIM: anim.animNameFinal}
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_WALK):
 			theLocomotionAnims[anim.id] = {L_ANIM: anim.animNameFinal}
 		
+		const CombatWalkLen := 0.5
 		theLocomotionAnims["run"] = {L_ANIM: "LocomotionAnims/Run"}
 		theLocomotionAnims["fall"] = {L_ANIM: "LocomotionAnims/Fall"}
+		theLocomotionAnims["combat"] = LayerAnimBlend2D.create({
+			Vector2(0.0, 0.0): LayerAnim.create("CombatAnims/CombatIdle"),
+			Vector2(0.0, 1.0): LayerAnimAdvance.create("CombatAnims/CombatForward").setLength(CombatWalkLen, true),
+			Vector2(0.0, -1.0): LayerAnimAdvance.create("CombatAnims/CombatForward").setLength(CombatWalkLen, true).setPlayBackwards(),
+			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true),
+			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true).setPlayBackwards(),
+		})
+		theLocomotionAnims["punch"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(1.0, false)
 		
 		var LocomotionLayer := LayerBasic.new()
 		LocomotionLayer.blendTimeIn = 0.0
@@ -44,23 +52,10 @@ func defineLayers():
 		addLayer(LAYER_LOCOMOTION, LocomotionLayer)
 	
 	if(true):
-		var CombatLayer := LayerBasic.new()
-		CombatLayer.blendTimeIn = 0.5
-		CombatLayer.blendTimeOut = 0.5
-		CombatLayer.blendTimeBetween = 0.2
-		CombatLayer.anims = {
-			"idle" = {L_ANIM: "CombatAnims/CombatIdle"},
-			"punch" = {L_ANIM: "CombatAnims/Punch"},
-			"left" = {L_ANIM: "CombatAnims/CombatLeft"},
-			"forward" = {L_ANIM: "CombatAnims/CombatForward"},
-		}
-		addLayer(LAYER_COMBAT, CombatLayer)
-	
-	if(true):
 		var gesturePartialFilter := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)
 		gesturePartialFilter.enableBoneReqursive("upper_chest")
 		
-		var theGestureAnims:Dictionary[String, Dictionary] = {}
+		var theGestureAnims:Dictionary[String, Variant] = {}
 		for gestureID in GlobalRegistry.getDollGestures():
 			var theGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
 			theGestureAnims[gestureID] = {L_ANIM: theGesture.getAnimName()}
@@ -74,7 +69,7 @@ func defineLayers():
 	
 	
 	if(true):
-		var theGestureAnims:Dictionary[String, Dictionary] = {}
+		var theGestureAnims:Dictionary[String, Variant] = {}
 		for gestureID in GlobalRegistry.getDollGestures():
 			var theGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
 			if(!theGesture.playFullBody):
@@ -91,7 +86,7 @@ func defineLayers():
 	armsOnly.enableBoneReqursive("shoulder.L")
 	armsOnly.enableBoneReqursive("shoulder.R")
 	if(true):
-		var theArmsAnims:Dictionary[String, Dictionary] = {}
+		var theArmsAnims:Dictionary[String, Variant] = {}
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_ARMS):
 			theArmsAnims[anim.id] = {L_ANIM: anim.animNameFinal}
 		var ArmsLayer := LayerBasic.new()

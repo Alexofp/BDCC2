@@ -489,7 +489,7 @@ func getCurrentLocomotionAnim() -> String:
 
 var currentLocomotionAnim:String = ""
 var locomotionSupportsArmPoses:bool = true
-func travelLocomotion(_newState:String):
+func travelLocomotion(_newState:String, _speed:float = 1.0, _resetIfSame:bool = false):
 	#if(_newState != "Idle"):
 	#	stopGesture(true, false)
 	#var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
@@ -501,7 +501,8 @@ func travelLocomotion(_newState:String):
 	else:
 		locomotionSupportsArmPoses = true
 	currentLocomotionAnim = _newState
-	animation_tree.playLayer(animation_tree.LAYER_LOCOMOTION, _newState)
+	animation_tree.playLayer(animation_tree.LAYER_LOCOMOTION, _newState, _speed, _resetIfSame)
+	#animTree.getLayer(XXX).getPoint(0.0).playPlayer(YYY, animID)
 
 func isWalking() -> bool:
 	return locomotionState == LOCOMOTION_WALK
@@ -520,6 +521,20 @@ func setIdleAnim(_walkAnim:String):
 func animStand():
 	locomotionState = LOCOMOTION_STAND
 	travelLocomotion(currentIdleAnim)
+
+func animAttack():
+	locomotionState = LOCOMOTION_STAND
+	stopGesture(true, true)
+	travelLocomotion("punch", 1.0, true)
+
+func animCombat(_space:Vector2):
+	if(_space.length_squared() < 0.01):
+		locomotionState = LOCOMOTION_STAND
+	else:
+		locomotionState = LOCOMOTION_WALK
+	stopGesture(true, false)
+	travelLocomotion("combat", 1.0)
+	animation_tree.setBlend2DPos(animation_tree.LAYER_LOCOMOTION, "combat", _space)
 
 func animWalk():
 	locomotionState = LOCOMOTION_WALK

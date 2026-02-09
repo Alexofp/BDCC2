@@ -41,8 +41,8 @@ var yankWalkDir:Vector3 = Vector3.ZERO
 #@export var input_dir:Vector2 = Vector2.ZERO
 #@export var camera_dir:Vector2 = Vector2.ZERO
 @onready var backup_leash_point: DollLeashPoint = %BackupLeashPoint
-@onready var SpringArm = %SpringArm
-@onready var CameraPivot = %CameraPivot
+@onready var SpringArm: SpringArm3D = %SpringArm
+@onready var CameraPivot: Node3D = %CameraPivot
 @onready var doll: Doll = %Doll
 @onready var model_root: Node3D = %ModelRoot
 @onready var camera: PriorityCamera = %Camera
@@ -170,22 +170,10 @@ func syncVec3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.9, autoSn
 	var globalDiff:float = ourVec3.distance_squared_to(remoteVec3)
 	if(globalDiff < autoSnapDist*autoSnapDist || globalDiff > tooBigSnapDist*tooBigSnapDist):
 		result = remoteVec3
-	
-	#var xdiff:float = abs(ourVec3.x - remoteVec3.x)
-	#if(xdiff < autoSnapDist || xdiff > tooBigSnapDist):
-		#result.x = remoteVec3.x
-	#var ydiff:float = abs(ourVec3.y - remoteVec3.y)
-	#if(ydiff < autoSnapDist || ydiff > tooBigSnapDist):
-		#result.y = remoteVec3.y
-	#var zdiff:float = abs(ourVec3.z - remoteVec3.z)
-	#if(zdiff < autoSnapDist || zdiff > tooBigSnapDist):
-		#result.z = remoteVec3.z
-	
+
 	return result
 	
 func syncRot3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.8, autoSnapDist:float=0.02) -> Vector3:
-	#print(ourVec3)
-	#var result: Vector3 = ourVec3.lerp(remoteVec3, 1.0-howSmooth)
 	var result: Vector3 = Vector3.ZERO
 	result.x = lerp_angle(ourVec3.x, remoteVec3.x, 1.0 - howSmooth)
 	result.y = lerp_angle(ourVec3.y, remoteVec3.y, 1.0 - howSmooth)
@@ -194,16 +182,6 @@ func syncRot3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.8, autoSn
 	var globalDiff:float = ourVec3.distance_squared_to(remoteVec3)
 	if(globalDiff < autoSnapDist*autoSnapDist):
 		result = remoteVec3
-	
-	#var xdiff:float = abs(ourVec3.x - remoteVec3.x)
-	#if(xdiff < autoSnapDist || xdiff > tooBigSnapDist):
-		#result.x = remoteVec3.x
-	#var ydiff:float = abs(ourVec3.y - remoteVec3.y)
-	#if(ydiff < autoSnapDist || ydiff > tooBigSnapDist):
-		#result.y = remoteVec3.y
-	#var zdiff:float = abs(ourVec3.z - remoteVec3.z)
-	#if(zdiff < autoSnapDist || zdiff > tooBigSnapDist):
-		#result.z = remoteVec3.z
 	
 	return result
 
@@ -241,8 +219,6 @@ func _process(delta:float):
 	
 	var hasAuthority:bool = !isRemote()
 	var theIsControlledByUs:bool = isControlledByUs()#isControlledByPlayer()
-	#camera.current = theIsControlledByUs
-	#print(camera.current)
 	
 	#DEBUG: debug stuff
 	#if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_4")):
@@ -261,7 +237,7 @@ func _process(delta:float):
 	processCharacterID()
 
 	if(theIsControlledByUs):
-		process_camera_pivot()
+		pawn.state.processCamera(self, delta)
 	
 	pawn.state.processAnimation(self, delta)
 	process_noclip(delta)
@@ -291,17 +267,13 @@ func setYankDir(_dir:Vector3):
 	yankWalkDir = _dir
 		
 func doJump():
-	if(!is_on_floor() || noclip_on):
-		return
-	if(getState() != CharacterPawn.STATE_NORMAL):
-		return
-	velocity.y = JUMP_FORCE * getJumpHeight()
+	pawn.state.doJump(self)
 
 func _physics_process(_delta:float):
 	#var hasAuthority:bool = !isRemote()
 	var theIsControlledByUs:bool = isControlledByUs()
 	#if(theIsControlledByUs):
-	process_camera()
+	processCameraBlindness()
 
 	if(theIsControlledByUs):
 		doll_controls.resetInput()
@@ -354,53 +326,7 @@ func canScrollDown() -> bool:
 		return false
 	return true
 
-func process_camera_pivot():
-	if(!camera.isActive()):
-		return
-	var camera_rotation_euler = camera_rotation.get_euler()
-	
-	camera_rotation_euler += Vector3(doll_controls.camera_dir.y, doll_controls.camera_dir.x, 0.0) * LOOK_SENSITIVITY_TOUCH * (-1.0 if getDoll().isFirstPerson() else 1.0)
-	if mousecapture_on:
-		camera_rotation_euler += Vector3(doll_controls.mouse_movement.y, doll_controls.mouse_movement.x, 0) * LOOK_SENSITIVITY
-	camera_rotation_euler.x = clamp(camera_rotation_euler.x, LOOK_LIMIT_LOWER, LOOK_LIMIT_UPPER)
-	
-	camera_rotation = Quaternion.from_euler(camera_rotation_euler)
-	CameraPivot.basis = Basis(camera_rotation)
-	camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
-	
-	doll_controls.mouse_movement = Vector2.ZERO
-	
-	if(!UIHandler.hasAnyUIVisible()):
-		if(Input.is_action_just_pressed("camera_zoomin") && canScrollDown()):
-			SpringArm.spring_length -= 0.1
-		if(Input.is_action_just_pressed("camera_zoomout") && canScrollUp()):
-			SpringArm.spring_length += 0.1
-	
-
-	if(!processDollPoseCamera()):
-		if(SpringArm.spring_length <= 0.0):
-			SpringArm.spring_length = 0.0
-			SpringArm.position.x = 0.0
-		elif(SpringArm.spring_length <= 1.0):
-			SpringArm.position.x = 0.1
-			CameraPivot.position.y = 1.525
-		else:
-			SpringArm.position.x = 0.3
-			CameraPivot.position.y = 1.125
-	
-	#if(getDoll().isFirstPerson()):
-	#	CameraPivot.position = model_root.basis * Vector3(0.0, 1.625, 0.1)
-	#var theSpot := getPoseSpot()
-	if(getState() == CharacterPawn.STATE_NORMAL):
-		CameraPivot.position.x = 0
-		CameraPivot.position.z = 0
-	else:
-		SpringArm.position.x = 0.0
-		#SpringArm.position.z = 0.0
-		CameraPivot.global_position = getBodySkeleton().getChestBoneAttachment().global_position + Vector3(0.0, 0.3, 0.0)
-
-
-func process_camera():
+func processCameraBlindness():
 	if(!isControlledByUs()):
 		doll.blindness_quad_effect.visible = false
 		return

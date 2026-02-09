@@ -12,6 +12,9 @@ const REMAP_CONTROLS:Dictionary[String, String] = {
 	"camera_left": "Camera left",
 	"camera_right": "Camera right",
 	
+	"game_combatmode": "Combat mode",
+	"combat_attack": "Attack",
+	
 	"game_interact_menu": "Open interact menu",
 	"game_interact": "Quick-interact",
 	"game_interact_next": "Quick-interact next",
