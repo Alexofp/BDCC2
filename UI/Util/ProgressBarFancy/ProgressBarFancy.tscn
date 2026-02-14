@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bbdfylawbmgvc"]
+
+[ext_resource type="Script" uid="uid://d3m2hekkflxnx" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.gd" id="1_ok4an"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym1pe"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wam7t"]
+resource_local_to_scene = true
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.04303915, 0.043039158, 0.043039113, 1)
+corner_detail = 6
+
+[node name="ProgressBarFancy" type="PanelContainer" unique_id=969516068]
+custom_minimum_size = Vector2(0, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ok4an")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=2056777050]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_ym1pe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wam7t")
+max_value = 1.0
+step = 0.001
+value = 0.235
+show_percentage = false
+
+[node name="Control" type="Control" parent="." unique_id=1952005862]
+layout_mode = 2
+
+[node name="LeftLabel" type="Label" parent="Control" unique_id=2103825481]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = 73.0
+grow_vertical = 2
+text = "Left text"
+vertical_alignment = 1
+
+[node name="RightLabel" type="Label" parent="Control" unique_id=968165233]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Right text"
+vertical_alignment = 1

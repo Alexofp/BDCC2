@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://w1hpye5t7hjr" path="res://Game/UI/CharacterMenu/character_menu.tscn" id="12_paojk"]
 [ext_resource type="PackedScene" uid="uid://s5yh1e7kmjna" path="res://Game/Sandbox/UI/sandbox_menu.tscn" id="13_hoyip"]
 [ext_resource type="PackedScene" uid="uid://cbv6hg6no0qrn" path="res://UI/InGameMenu/in_game_menu.tscn" id="14_ccwv3"]
+[ext_resource type="PackedScene" uid="uid://du4e2oa1uh3o5" path="res://Game/UI/CombatUI/CombatUI.tscn" id="14_w1287"]
 [ext_resource type="PackedScene" uid="uid://heeo5nvmwnmk" path="res://Game/Interactable/UI/InteractMenu.tscn" id="16_tc76r"]
 [ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
 [ext_resource type="PackedScene" uid="uid://bm38mwknxmqbe" path="res://Game/GameInteractor/Util/wall_checker.tscn" id="21_wo11f"]
@@ -67,6 +68,9 @@ unique_name_in_owner = true
 
 [node name="MainUILayer" type="CanvasLayer" parent="." unique_id=1966723740]
 unique_name_in_owner = true
+
+[node name="CombatUI" parent="MainUILayer" unique_id=235850511 node_paths=PackedStringArray("menuToConnectTo") instance=ExtResource("14_w1287")]
+menuToConnectTo = NodePath("../CharacterMenu")
 
 [node name="ChatWidgetFullscreeen" parent="MainUILayer" unique_id=800156309 instance=ExtResource("9_qvna0")]
 unique_name_in_owner = true

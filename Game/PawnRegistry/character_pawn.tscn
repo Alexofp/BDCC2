@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://624kjj0em1a2" path="res://Game/GameInteractor/SyncNode.gd" id="2_274nk"]
 [ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="4_pbuf5"]
 [ext_resource type="PackedScene" uid="uid://q4bk8h61arww" path="res://Game/Interactable/PawnInteractor.tscn" id="5_1wd8s"]
+[ext_resource type="Script" uid="uid://ccjrs15c5nq4x" path="res://Game/Combat/CombatMovePlayer.gd" id="5_ve3wo"]
 [ext_resource type="PackedScene" uid="uid://f34irbkaa8s0" path="res://Game/DollController/States/Combat.tscn" id="6_pv1yg"]
 [ext_resource type="PackedScene" uid="uid://cqk24x8i0tode" path="res://Game/DollController/States/Normal.tscn" id="7_voltc"]
 [ext_resource type="PackedScene" uid="uid://bldunc8biiagd" path="res://Game/DollController/States/Sitting.tscn" id="8_ve3wo"]
@@ -63,6 +64,11 @@ unique_name_in_owner = true
 gizmo_extents = 0.01
 script = ExtResource("4_pbuf5")
 metadata/_custom_type_script = "uid://dii6wngkjc5wn"
+
+[node name="CombatMovePlayer" type="Node" parent="." unique_id=1404133130]
+unique_name_in_owner = true
+script = ExtResource("5_ve3wo")
+metadata/_custom_type_script = "uid://ccjrs15c5nq4x"
 
 [node name="PawnInteractor" parent="." unique_id=1577025676 instance=ExtResource("5_1wd8s")]
 unique_name_in_owner = true

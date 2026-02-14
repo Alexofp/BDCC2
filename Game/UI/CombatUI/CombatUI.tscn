@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://du4e2oa1uh3o5"]
+
+[ext_resource type="Script" uid="uid://qmflmjsap4au" path="res://Game/UI/CombatUI/CombatUI.gd" id="1_aheqr"]
+[ext_resource type="PackedScene" uid="uid://bbdfylawbmgvc" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.tscn" id="2_ipr6l"]
+[ext_resource type="Gradient" uid="uid://c1f45y0obavhr" path="res://Game/UI/CombatUI/GradientPain.tres" id="3_ipr6l"]
+
+[sub_resource type="Gradient" id="Gradient_coh0a"]
+colors = PackedColorArray(0.27058825, 0.17254902, 0.54509807, 1, 0.6784314, 0, 0.87058824, 1)
+
+[sub_resource type="Gradient" id="Gradient_mwkj6"]
+colors = PackedColorArray(0.17254902, 0.34509805, 0.54509807, 1, 0.09680908, 0.21649364, 0.3547903, 1)
+
+[node name="CombatUI" type="Control" unique_id=235850511]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_aheqr")
+
+[node name="StatsBars" type="VBoxContainer" parent="." unique_id=692322561]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -53.0
+offset_right = 192.0
+offset_bottom = -9.0
+grow_vertical = 0
+
+[node name="PainBar" parent="StatsBars" unique_id=969516068 instance=ExtResource("2_ipr6l")]
+unique_name_in_owner = true
+layout_mode = 2
+gradient = ExtResource("3_ipr6l")
+propertyName = "Pain"
+
+[node name="LustBar" parent="StatsBars" unique_id=1422868866 instance=ExtResource("2_ipr6l")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+gradient = SubResource("Gradient_coh0a")
+propertyName = "Lust"
+
+[node name="StaminaBar" parent="StatsBars" unique_id=153405156 instance=ExtResource("2_ipr6l")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+gradient = SubResource("Gradient_mwkj6")
+propertyName = "Stamina"

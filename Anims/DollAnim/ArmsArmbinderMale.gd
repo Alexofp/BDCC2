@@ -1,10 +1,13 @@
 extends DollAnimBase
 
 func _init() -> void:
-	id = "ArmsArmbinderMale"
-	animType = TYPE_ARMS
-	animVisibleName = "Armbinder male"
+	anims = {
+		"ArmsArmbinderMale": {
+			name = "Armbinder male",
+			anim = "APoseArmbinderMale",
+		},
+	}
 	
-	animName = "APoseArmbinderMale"
+	animType = TYPE_ARMS
 	animLibraryName = ARMBINDERANIMMALE_ANIMS
 	animLibraryPath = ARMBINDERANIMMALE_ANIMS_PATH

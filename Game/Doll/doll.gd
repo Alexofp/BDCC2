@@ -12,6 +12,7 @@ class_name Doll
 
 @export var disableInternalAnimPlayer:bool = false
 @onready var hover_text_advanced: HoverTextAdvanced = %HoverTextAdvanced
+@onready var radial_doll_bars: Node3D = %RadialDollBars
 
 @onready var look_at_modifier_chest: LookAtModifier3D = %LookAtModifierChest
 @onready var look_at_modifier_neck: LookAtModifier3D = %LookAtModifierNeck
@@ -114,6 +115,7 @@ func setCharacter(theChar:BaseCharacter):
 	theChar.getBodyMess().onChange.connect(onUpdateBodyMess)
 	
 	voice_handler.setCharID(theChar.getID() if theChar else "")
+	radial_doll_bars.setCharacter(theChar)
 
 func onCharChange(_change:BaseCharChange):
 	var theType := _change.getType()
@@ -497,7 +499,7 @@ func travelLocomotion(_newState:String, _speed:float = 1.0, _resetIfSame:bool = 
 	#	state_machine.travel(_newState)
 	if(GlobalRegistry.hasDollAnim(_newState)):
 		var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(_newState)
-		locomotionSupportsArmPoses = theAnim.doesAnimSupportArmPoses()
+		locomotionSupportsArmPoses = theAnim.doesAnimSupportArmPoses(_newState)
 	else:
 		locomotionSupportsArmPoses = true
 	currentLocomotionAnim = _newState
@@ -823,6 +825,9 @@ func isDollEnabled() -> bool:
 func getHoverText() -> HoverTextAdvanced:
 	return hover_text_advanced
 
+func getRadialDollBars() -> Node3D:
+	return radial_doll_bars
+
 func setLookAtModifiersInfluence(_inf:float):
 	look_at_modifier_head.active = (_inf > 0.0)
 	look_at_modifier_neck.active = (_inf > 0.0)
@@ -963,6 +968,24 @@ func applyHitRandom(_strength:float):
 	if(!isDollEnabled()):
 		return
 	skeleton_hit_modifier.applyHit("chest", Vector3(randf_range(-1.0, 1.0),randf_range(-1.0, 1.0),randf_range(-1.0, 1.0)).normalized(), _strength)
+
+const HIT_AREA_MIDDLE = 0
+const HIT_AREA_HIGH = 1
+const HIT_AREA_LOW = 2
+func applyHitSpecific(_strength:float, _dir:Vector3, _globalSpace:bool = true, _hitArea:int = HIT_AREA_MIDDLE):
+	if(!isDollEnabled()):
+		return
+	var theBone:String = "chest"
+	if(_hitArea == HIT_AREA_HIGH):
+		theBone = "neck"
+		_strength *= 2.0
+	elif(_hitArea == HIT_AREA_LOW):
+		theBone = "hips"
+		_strength *= 0.5
+	if(_globalSpace):
+		_dir = global_basis.inverse() * _dir
+		_dir.z *= -1.0
+	skeleton_hit_modifier.applyHit(theBone, _dir, _strength)
 
 func doStruggleAnimFor(_time:float):
 	if(!isDollEnabled()):

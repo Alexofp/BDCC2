@@ -48,6 +48,10 @@ func processYanking(_doll:DollController, _delta:float):
 		_doll.yankWalkDir *= 0.8
 
 
+func canRun(_doll:DollController) -> bool:
+	if(!_doll.canSprint()):
+		return false
+	return true
 
 func processMove(_doll:DollController, _dt:float):
 	if(Network.isServer() && _doll.doll_controls.combatMode_isDown):
@@ -60,7 +64,7 @@ func processMove(_doll:DollController, _dt:float):
 	var theCanMove := canMove(_doll)
 	
 	_doll.isRunning = false
-	if(_doll.doll_controls.sprint_isdown || _doll.yankWalkDir.length_squared()>9.0) && _doll.canSprint():
+	if(_doll.doll_controls.sprint_isdown || _doll.yankWalkDir.length_squared()>9.0) && canRun(_doll):
 		_doll.isRunning = true
 	if(!_doll.isRemote()):
 		var move_speed: = calcWalkMoveSpeed(_doll)
@@ -80,6 +84,9 @@ func processMove(_doll:DollController, _dt:float):
 			_doll.velocity.x = _doll.move_direction_no_y.x * move_speed 
 			_doll.velocity.z = _doll.move_direction_no_y.z * move_speed
 			
+			var finalCombatVel := pawn.combatMovePlayer.getFinalVel()
+			if(finalCombatVel.length_squared() > 0.01):
+				_doll.velocity += _doll.getBodyRotationGlobalBasis().orthonormalized() * (finalCombatVel + Vector3(0.0, -0.1, 0.0))
 			# Uncomment for root motion
 			#if(isOnFloor):
 				#var current_dir_no_y = model_root.basis * Vector3.BACK

@@ -1,20 +1,23 @@
 extends DollAnimBase
 
 func _init() -> void:
-	id = "WalkCrawl"
+	anims = {
+		"WalkCrawl": {
+			name = "Crawl",
+			anim = "CrawlAllFours",
+		},
+	}
+	
 	animType = TYPE_WALK
-	animVisibleName = "Crawl"
 	animCanPick = false
 	animSupportsArmPoses = false
-	
-	animName = "CrawlAllFours"
 	animLibraryName = POSES_ANIMS
 	animLibraryPath = POSES_ANIMS_PATH
 
-func hasCustomCamera() -> bool:
+func hasCustomCamera(_id:String) -> bool:
 	return true
 
-func processCamera(_springLen:float) -> Vector2:
+func processCamera(_id:String, _springLen:float) -> Vector2:
 	if(_springLen <= 0.0):
 		return Vector2(0.0, 0.0)
 	elif(_springLen <= CLOSE_DISTANCE):

@@ -36,8 +36,7 @@ func rotateTowardsCamera(_doll:DollController, _dt:float):
 	_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis(_doll.camera_rotation_no_y).rotated(Vector3.UP, PI), _doll.ROTATE_SPEED * _dt)
 
 func getLocalVelocity(_doll:DollController) -> Vector3:
-	var rot_basis := _doll.model_root.global_basis.orthonormalized()
-	return rot_basis.inverse()*_doll.velocity
+	return _doll.getLocalVelocity()
 
 func calcWalkMoveSpeed(_doll:DollController) -> float:
 	return DollController.ANIM_MOVE_SPEED * DollController.MOVE_MULT * _doll.getWalkSpeedMult()
@@ -104,3 +103,26 @@ func processCameraPivotPosition(_doll:DollController, _dt:float):
 
 func canMove(_doll:DollController) -> bool:
 	return true
+
+func canDoCombatMoves() -> bool:
+	return false
+
+func processHit(_attackContext:AttackContext):
+	#var theAttack := _attackContext.attack
+	#var theDamageMult:float = theAttack.damage
+	var theCharacter := pawn.getCharacter()
+	if(theCharacter):
+		theCharacter.processHit(_attackContext)
+	
+	var theDoll := getDoll()
+	if(theDoll):
+		onDollHit(theDoll, _attackContext)
+
+func onDollHit(_doll:DollController, _attackContext:AttackContext):
+	#_doll.applyHitRandom(2.0)
+	var theDir:Vector3 = _attackContext.attacker.getGlobalPos() - _attackContext.target.getGlobalPos()
+	
+	_doll.getDoll().applyHitSpecific(_attackContext.attack.damage*2.0, theDir, true, Doll.HIT_AREA_MIDDLE)
+
+func shouldShowCombatUI() -> bool:
+	return false

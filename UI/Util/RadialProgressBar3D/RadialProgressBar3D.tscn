@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c6uk6erl7ixff"]
+
+[ext_resource type="Shader" uid="uid://c48js686whra5" path="res://Mesh/Shaders/Doll_static/RadialProgressBar3D.gdshader" id="1_7lpym"]
+[ext_resource type="Texture2D" uid="uid://cr75c7o12ybom" path="res://UI/Util/RadialProgressBar3D/RadialProgress.png" id="2_frdnl"]
+[ext_resource type="Script" uid="uid://buwnp603j1uqy" path="res://UI/Util/RadialProgressBar3D/RadialProgressBar3D.gd" id="4_frdnl"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_qw4g1"]
+
+[sub_resource type="Gradient" id="Gradient_7lpym"]
+offsets = PackedFloat32Array(0.42713568, 0.4522613, 0.59799, 0.6231156)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_frdnl"]
+gradient = SubResource("Gradient_7lpym")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_tcrys"]
+offsets = PackedFloat32Array(0.37688443, 0.4120603, 0.63316584, 0.67336684)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qw4g1"]
+gradient = SubResource("Gradient_tcrys")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0x42u"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_7lpym")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_frdnl")
+shader_parameter/texture_back = SubResource("GradientTexture2D_qw4g1")
+shader_parameter/color_back = Color(0, 0, 0, 1)
+shader_parameter/alpha_final = 0.999999977648
+shader_parameter/progressImage = ExtResource("2_frdnl")
+shader_parameter/amount = 0.0
+shader_parameter/smoothness = 0.2
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/mesh_size = 1.0
+
+[node name="RadialProgressBar3D" type="MeshInstance3D" unique_id=330937144]
+mesh = SubResource("QuadMesh_qw4g1")
+surface_material_override/0 = SubResource("ShaderMaterial_0x42u")
+script = ExtResource("4_frdnl")
+texture = SubResource("GradientTexture2D_frdnl")
+textureBack = SubResource("GradientTexture2D_qw4g1")
+colorBack = Color(0, 0, 0, 1)
+finalAlpha = null

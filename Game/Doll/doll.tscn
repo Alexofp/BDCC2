@@ -12,14 +12,15 @@
 [ext_resource type="Script" uid="uid://d0xtmwcqewrrd" path="res://Mesh/Skeleton/Modifiers/SkeletonHitModifier.gd" id="7_olppk"]
 [ext_resource type="PackedScene" uid="uid://cp6xjo2jexanl" path="res://UI/Util/ProgressBar3D/HoverTextAdvanced.tscn" id="7_p36ij"]
 [ext_resource type="AnimationLibrary" uid="uid://em4khdpq3sdg" path="res://Anims/Raw/ArmbinderAnimMale.glb" id="8_cpvxs"]
+[ext_resource type="PackedScene" uid="uid://gi8upsb163ri" path="res://Game/UI/CombatUI/RadialDollBars.tscn" id="8_doc38"]
 [ext_resource type="PackedScene" uid="uid://4uvyacycvxbs" path="res://Util/SomeTests/DepthFogTest/BlindnessQuadEffect.tscn" id="8_dr03u"]
 [ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="10_ehs3x"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://snasey7u5o67" path="res://Game/Doll/Util/DollBlendTreeBase.tres" id="10_yn8uc"]
 [ext_resource type="AnimationLibrary" uid="uid://dur376t66excq" path="res://Anims/Raw/CombatAnims.glb" id="12_l7aga"]
 [ext_resource type="AnimationLibrary" uid="uid://bigpaqbf8omql" path="res://Anims/Raw/Poses.glb" id="12_xxuld"]
 [ext_resource type="Curve" uid="uid://u27a4t7b45fi" path="res://addons/LayeredAnimPlayer/XFadeCurves/Smooth.tres" id="13_cpvxs"]
 [ext_resource type="Script" uid="uid://du64e2ct2nrrm" path="res://Game/Doll/DollAnimTree.gd" id="14_cpvxs"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://c4lvl2loaq1pb" path="res://Game/Doll/Util/DollBlendTreeTEST.tres" id="19_l7aga"]
 
 [sub_resource type="Resource" id="Resource_l2cwv"]
 script = ExtResource("4_avrwx")
@@ -43,13 +44,6 @@ linear_scale = 10.0
 swing_span = 0.17453292519943295
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l7aga"]
-resource_local_to_scene = true
-direction = Vector3(0, 0, 1)
-spread = 1.0
-initial_velocity_max = 3.0
-scale_max = 2.0
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_doc38"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
@@ -58,6 +52,13 @@ initial_velocity_max = 3.0
 scale_max = 2.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lws2c"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ce1cx"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -177,7 +178,7 @@ fadeout_curve = ExtResource("13_cpvxs")
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ktxk0"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pj0q3"]
-graph_offset = Vector2(-49.275696, -20.041351)
+graph_offset = Vector2(-212.67323, -182.68095)
 nodes/output/position = Vector2(2200, 0)
 nodes/LayeredAnimPlayerStart/node = SubResource("AnimationNodeTransition_ktxk0")
 nodes/LayeredAnimPlayerStart/position = Vector2(0, 0)
@@ -365,6 +366,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.343, -0.095)
 unique_name_in_owner = true
 transform = Transform3D(1, -8.536504e-22, 4.2351647e-22, 7.543887e-22, 1, -1.8626451e-09, 4.2351647e-22, 1.8626451e-09, 1, 1.6940659e-21, 0.34299982, -0.094999984)
 
+[node name="RadialDollBars" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" index="3" unique_id=49662393 instance=ExtResource("8_doc38")]
+unique_name_in_owner = true
+transform = Transform3D(1, -2.4947767e-21, 2.5410988e-21, 7.940934e-22, 1, -1.1175871e-08, 2.5410988e-21, 1.1175871e-08, 1, 0.32427144, 0.14306176, -0.0026364997)
+
 [node name="ChestBoneAttachment" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 1600457240) index="17" unique_id=1695132856]
 transform = Transform3D(1, 7.20825e-18, -3.3017344e-18, -6.5022484e-18, 0.98401076, 0.17810988, 4.5307792e-18, -0.17810988, 0.98401076, 4.2351647e-22, 1.2023741, 0.018412834)
 
@@ -442,13 +447,13 @@ transform = Transform3D(1, 1.4995204e-14, -1.2579849e-14, -1.25830454e-14, 0.984
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
 
 [node name="SquirtParticles1" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="0" unique_id=1486787374]
-process_material = SubResource("ParticleProcessMaterial_l7aga")
-
-[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_doc38")
 
-[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_lws2c")
+
+[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+process_material = SubResource("ParticleProcessMaterial_ce1cx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
@@ -490,6 +495,9 @@ script = ExtResource("14_cpvxs")
 unique_name_in_owner = true
 active = false
 libraries/ArmbinderAnimMale = ExtResource("8_cpvxs")
+libraries/CombatAnims = ExtResource("12_l7aga")
+libraries/LocomotionAnims = ExtResource("7_l2cwv")
+libraries/Poses = ExtResource("12_xxuld")
 libraries/RestraintAnims = ExtResource("8_yudco")
 autoplay = &"BodyAnims/Idle"
 
@@ -497,7 +505,7 @@ autoplay = &"BodyAnims/Idle"
 unique_name_in_owner = true
 active = false
 root_node = NodePath("%AnimationTreeRestraints/..")
-tree_root = ExtResource("10_yn8uc")
+tree_root = ExtResource("19_l7aga")
 anim_player = NodePath("../AnimationPlayerRestraints")
 parameters/ArmBinder_Blend/blend_amount = 0.0
 parameters/Arms_Blend/blend_amount = 0.0

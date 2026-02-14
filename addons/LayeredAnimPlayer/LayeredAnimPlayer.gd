@@ -306,6 +306,7 @@ func generateTree() -> AnimationNode:
 			
 			if(!currentNodeName.is_empty()):
 				var theBlendNode := AnimationNodeOneShot.new()
+				theBlendNode.abort_on_reset = true
 				theBlendNode.fadein_time = theLayer.blendTimeIn
 				theBlendNode.fadeout_time = theLayer.blendTimeOut
 				

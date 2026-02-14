@@ -48,7 +48,11 @@ const STATE_COMBAT = 2
 @export var pawnState:int = STATE_NORMAL
 @onready var state:DollControllerState = stateNormal
 
+@onready var combatMovePlayer: CombatMovePlayer = %CombatMovePlayer
+
 func _ready() -> void:
+	combatMovePlayer.setPawn(self)
+	
 	pawnActionContext = PawnActionContext.new()
 	pawnActionContext.pawn = self
 	pawn_interactor.setPawn(self)
@@ -122,6 +126,8 @@ func _physics_process(_delta: float) -> void:
 		ai.processAI(_delta)
 	calcHoverTextProgressBarInfo()
 	processPoseSpot()
+	
+	combatMovePlayer.processCombatPlayer(_delta)
 	
 	if(isControlledByAnyPlayer()):
 		var theDoll := getDoll()
@@ -518,11 +524,59 @@ func setState(_state:int):
 func setState_RPC(_state:int):
 	setState(_state)
 
+func canDoCombatMoves() -> bool:
+	return state.canDoCombatMoves()
 
+func activateCombatTrigger(_act:int):
+	pass
 
+func askActivateCombatTrigger(_act:int):
+	if(Network.isClient()):
+		askActivateCombatTrigger_SERVERRPC.rpc_id(1, _act)
+	else:
+		activateCombatTrigger(_act)
 
+@rpc("any_peer", "call_remote", "reliable")
+func askActivateCombatTrigger_SERVERRPC(_act:int):
+	# Check that the client is actually controlling this pawn
+	var theInfo := Network.getRPCPlayerInfo()
+	if(!theInfo || (theInfo.charID != getCharID())):
+		return
+	activateCombatTrigger(_act)
 
+func getCombatMovePlayer() -> CombatMovePlayer:
+	return combatMovePlayer
 
+func doCombatAnim(_animation:String):
+	if(!state.canDoCombatMoves()):
+		return
+	
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.doCombatAnimLocal(_animation)
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doCombatAnim_RPC.bind(_animation))
+	
+@rpc("authority", "call_remote", "reliable")
+func doCombatAnim_RPC(_animation:String):
+	doCombatAnim(_animation)
+
+func getNearbyPawnInteractors() -> Array[PawnInteractor]:
+	return pawn_interactor.nearbyPawns
+
+func getGlobalPos() -> Vector3:
+	if(doll):
+		return doll.global_position
+	return global_position
+
+func getYRotation() -> float:
+	if(doll):
+		return doll.getYRotation()
+	return global_rotation.y
+
+func processHit(_attackContext:AttackContext):
+	state.processHit(_attackContext)
 
 
 

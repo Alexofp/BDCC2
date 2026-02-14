@@ -1,6 +1,6 @@
 extends "res://Game/DollController/States/Normal.gd"
 
-var attacking:float = 0.0
+#var attacking:float = 0.0
 
 var walkAnim:Vector2
 func processAnimation(_doll:DollController, _dt:float):
@@ -10,14 +10,26 @@ func processAnimation(_doll:DollController, _dt:float):
 	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
 	#print(localWalkVec)
 	
+	
 	var isOnFloorVisually:bool = isOnFloor
 	
-	if(_doll.doll_controls.attack_isDown && attacking <= 0.2):
-		theDoll.animAttack()
-		attacking = 0.9
+	if(Network.isServer() && !_doll.noclip_on):
+		if(_doll.doll_controls.attack_isDown): # && attacking <= 0.2
+			#theDoll.animAttack()
+			#attacking = 0.9
+			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_ATTACK1)):
+				#theDoll.animAttack()
+				pass
+		if(_doll.doll_controls.sprint_isdown):
+			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SHIFT)):
+				pass
+		
+	#var isDoingAMove:bool = pawn.combatMovePlayer.isDoingAMove()
 	
-	if(attacking > 0.0):
-		attacking -= _dt
+	#if(attacking > 0.0):
+	#	attacking -= _dt
+	if(false):#isDoingAMove):
+		pass
 	else:
 		if(!isOnFloorVisually):
 			theDoll.animFall()
@@ -31,14 +43,16 @@ func processAnimation(_doll:DollController, _dt:float):
 			walkAnim *= 0.9
 			theDoll.animCombat(walkAnim)
 	
-	if(_doll.isRunning && attacking <= 0.0):
+	if(_doll.isRunning): # && attacking <= 0.0
 		rotateTowardsMoveDirection(_doll, _dt)
 	else:
 		rotateTowardsCamera(_doll, _dt)
 	#print(getLocalVelocity(_doll))
 	
 func canMove(_doll:DollController) -> bool:
-	if(attacking > 0.0):
+	#if(attacking > 0.0):
+	#	return false
+	if(!pawn.combatMovePlayer.canMove()):
 		return false
 	return true
 	
@@ -59,3 +73,12 @@ func processCameraPivotPosition(_doll:DollController, _dt:float):
 
 	CameraPivot.position.x = 0
 	CameraPivot.position.z = 0
+
+func canDoCombatMoves() -> bool:
+	return true
+
+func canRun(_doll:DollController) -> bool:
+	return false
+
+func shouldShowCombatUI() -> bool:
+	return true

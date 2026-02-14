@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://gi8upsb163ri"]
+
+[ext_resource type="PackedScene" uid="uid://c6uk6erl7ixff" path="res://UI/Util/RadialProgressBar3D/RadialProgressBar3D.tscn" id="1_pjhqy"]
+[ext_resource type="Script" uid="uid://85a8ws1almhl" path="res://Game/UI/CombatUI/RadialDollBars.gd" id="1_u84l8"]
+[ext_resource type="Shader" uid="uid://c48js686whra5" path="res://Mesh/Shaders/Doll_static/RadialProgressBar3D.gdshader" id="2_u84l8"]
+[ext_resource type="Texture2D" uid="uid://cr75c7o12ybom" path="res://UI/Util/RadialProgressBar3D/RadialProgress.png" id="3_pdir5"]
+
+[sub_resource type="Gradient" id="Gradient_7lpym"]
+offsets = PackedFloat32Array(0.42713568, 0.4522613, 0.59799, 0.6231156)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_frdnl"]
+gradient = SubResource("Gradient_7lpym")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_tcrys"]
+offsets = PackedFloat32Array(0.37688443, 0.4120603, 0.63316584, 0.67336684)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qw4g1"]
+gradient = SubResource("Gradient_tcrys")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u84l8"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_u84l8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_frdnl")
+shader_parameter/texture_back = SubResource("GradientTexture2D_qw4g1")
+shader_parameter/color_back = Color(0, 0, 0, 1)
+shader_parameter/alpha_final = 1.0
+shader_parameter/progressImage = ExtResource("3_pdir5")
+shader_parameter/amount = 0.0
+shader_parameter/smoothness = 0.2
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/mesh_size = 0.1
+
+[node name="RadialDollBars" type="Node3D" unique_id=49662393]
+script = ExtResource("1_u84l8")
+
+[node name="PainBar" parent="." unique_id=330937144 instance=ExtResource("1_pjhqy")]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_u84l8")
+size = 0.1
+finalAlpha = 1.0

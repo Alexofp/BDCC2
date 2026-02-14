@@ -3,9 +3,10 @@ extends LayeredAnimPlayer
 class_name DollLayeredAnimPlayer
 
 const LAYER_LOCOMOTION = 0
-const LAYER_GESTURE_FULLBODY = 10
-const LAYER_GESTURE = 20
-const LAYER_ARMS_OVERRIDE = 30
+const LAYER_COMBAT = 10
+const LAYER_GESTURE_FULLBODY = 20
+const LAYER_GESTURE = 30
+const LAYER_ARMS_OVERRIDE = 40
 
 var cacheID:String = "doll"
 
@@ -24,13 +25,25 @@ func doFullSetup() -> void:
 		GlobalRegistry.dollAnimTreeCache[cacheID] = tree_root
 		GlobalRegistry.dollAnimTreeLayerCache[cacheID] = layers
 
+func createLayerAnimFromEntry(_entry:Dictionary, _finalAnimName:String) -> LayerAnimBase:
+	var theLayerAnim := LayerAnimAdvance.create(_finalAnimName)
+	if(_entry.has("loopLength")):
+		theLayerAnim.setLength(_entry["loopLength"], true)
+	if(_entry.has("looped")):
+		theLayerAnim.setLooping(_entry["looped"])
+	if(_entry.has("playBackwards")):
+		theLayerAnim.setPlayBackwards(_entry["playBackwards"])
+	return theLayerAnim
+
 func defineLayers():
 	if(true):
 		var theLocomotionAnims:Dictionary[String, Variant] = {}
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_IDLE):
-			theLocomotionAnims[anim.id] = {L_ANIM: anim.animNameFinal}
+			for animID in anim.anims:
+				theLocomotionAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])# LayerAnim.create(anim.animNameFinal[animID])
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_WALK):
-			theLocomotionAnims[anim.id] = {L_ANIM: anim.animNameFinal}
+			for animID in anim.anims:
+				theLocomotionAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
 		
 		const CombatWalkLen := 0.5
 		theLocomotionAnims["run"] = {L_ANIM: "LocomotionAnims/Run"}
@@ -42,14 +55,29 @@ func defineLayers():
 			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true),
 			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true).setPlayBackwards(),
 		})
-		theLocomotionAnims["punch"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(1.0, false)
-		
+		#theLocomotionAnims["punch"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(1.0, false)
+
 		var LocomotionLayer := LayerBasic.new()
 		LocomotionLayer.blendTimeIn = 0.0
 		LocomotionLayer.blendTimeOut = 0.0
 		LocomotionLayer.blendTimeBetween = 0.2
 		LocomotionLayer.anims = theLocomotionAnims
 		addLayer(LAYER_LOCOMOTION, LocomotionLayer)
+	
+	if(true):
+		var theCombatAnims:Dictionary[String, Variant] = {}
+		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_COMBAT):
+			for animID in anim.anims:
+				theCombatAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
+		
+		#theCombatAnims["punch"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(1.0, false)
+		#theCombatAnims["punch2"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(0.5, false)
+		var CombatLayer := LayerBasic.new()
+		CombatLayer.blendTimeIn = 0.1
+		CombatLayer.blendTimeOut = 0.1
+		CombatLayer.blendTimeBetween = 0.1
+		CombatLayer.anims = theCombatAnims
+		addLayer(LAYER_COMBAT, CombatLayer)
 	
 	if(true):
 		var gesturePartialFilter := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)
@@ -88,7 +116,8 @@ func defineLayers():
 	if(true):
 		var theArmsAnims:Dictionary[String, Variant] = {}
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_ARMS):
-			theArmsAnims[anim.id] = {L_ANIM: anim.animNameFinal}
+			for animID in anim.anims:
+				theArmsAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
 		var ArmsLayer := LayerBasic.new()
 		ArmsLayer.blendTimeIn = 0.1
 		ArmsLayer.blendTimeOut = 0.1

@@ -225,6 +225,11 @@ func _process(delta:float):
 	#	ShaderNodeChecker.checkNode(self)
 	#if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
+	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
+		GlobalRegistry.reloadCombatMoves()
+	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_2")):
+		getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
+		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 	#if(theIsControlledByUs):
 	#	print(GI.world.getNearbyWanderAreas(global_position, 5.0))
 	#end of debug stuff
@@ -363,9 +368,9 @@ func processDollPoseCamera() -> bool:
 	if(theAnimID.is_empty() || !GlobalRegistry.hasDollAnim(theAnimID)):
 		return false
 	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(theAnimID)
-	if(!theAnim.hasCustomCamera()):
+	if(!theAnim.hasCustomCamera(theAnimID)):
 		return false
-	var theCameraOffset:Vector2 = theAnim.processCamera(SpringArm.spring_length)
+	var theCameraOffset:Vector2 = theAnim.processCamera(theAnimID, SpringArm.spring_length)
 	SpringArm.position.x = theCameraOffset.x
 	CameraPivot.position.y = theCameraOffset.y
 	return true
@@ -598,3 +603,28 @@ func getBackupDollLeashPoint() -> DollLeashPoint:
 
 func _on_typing_status_reset_timer_timeout() -> void:
 	typingStatus = GI.TYPING_NONE
+
+func doCombatAnimLocal(_animation:String, _speedMult:float = 1.0, _forceAnim:bool = true):
+	if(_animation.is_empty()):
+		return
+	var theDoll := getDoll()
+	theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT, true)
+	await get_tree().process_frame
+	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
+
+func stopCombatAnimLocal():
+	var theDoll := getDoll()
+	theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT)
+
+func getBodyGlobalRotation() -> Vector3:
+	return model_root.global_rotation
+	
+func getBodyRotationGlobalBasis() -> Basis:
+	return model_root.global_basis
+
+func getLocalVelocity() -> Vector3:
+	var rot_basis := model_root.global_basis.orthonormalized()
+	return rot_basis.inverse()*velocity
+
+func getYRotation() -> float:
+	return model_root.global_rotation.y

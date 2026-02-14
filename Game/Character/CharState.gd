@@ -8,9 +8,11 @@ var arousal:float = 0.0
 var arousalFade:float = 0.0
 var autoMoan:float = 0.0
 
+var pain:float = 0.0
+
 var syncState:SyncState = SyncState.new(self,
-	["arousal", "arousalFade", "autoMoan"],
-	[Bins.Float, Bins.Float, Bins.Float],
+	["arousal", "arousalFade", "autoMoan", "pain"],
+	[Bins.Float, Bins.Float, Bins.Float, Bins.Float],
 )
 func setSyncVar(_var:String, _val:Variant):
 	set(_var, _val)
@@ -88,28 +90,35 @@ func shouldAutoMoan() -> bool:
 		return true
 	return false
 
+func setPain(_p:float):
+	pain = clampf(_p, 0.0, 1.0)
+
+func addPain(_p:float):
+	setPain(pain + _p)
+
+func getPain() -> float:
+	return pain
+
+func getPainMax() -> float:
+	return 1.0
+
+func getPainLevel() -> float:
+	return getPain() / getPainMax()
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
-		Bins.Float, arousal,
-		Bins.Float, arousalFade,
-		Bins.Float, autoMoan,
+		Bins.BINS, syncState.saveNetworkData(),
 	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
-	arousal = _data.readFloat()
-	arousalFade = _data.readFloat()
-	autoMoan = _data.readFloat()
+	syncState.loadNetworkData(_data.readBins())
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	return {
-		arousal = arousal,
-		arousalFade = arousalFade,
-		autoMoan = autoMoan,
+		syncState = syncState.saveData(),
 	}
 
 func loadData(_data:Dictionary):
-	arousal = SAVE.loadVar(_data, "arousal", 0.0)
-	arousalFade = SAVE.loadVar(_data, "arousalFade", 0.0)
-	autoMoan = SAVE.loadVar(_data, "autoMoan", 0.0)
+	syncState.loadData(SAVE.loadVar(_data, "syncState", {}))

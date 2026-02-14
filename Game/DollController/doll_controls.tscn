@@ -25,6 +25,9 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:attack_isDown")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+properties/7/path = NodePath(".:block_isDown")
+properties/7/spawn = true
+properties/7/replication_mode = 2
 
 [node name="DollControls" type="Node" unique_id=349811379]
 script = ExtResource("1_llr63")

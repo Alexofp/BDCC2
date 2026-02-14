@@ -839,6 +839,12 @@ func calculateAllLeashingPoints() -> Dictionary[String, Array]:
 	
 	return result
 
+func processHit(_attackContext:AttackContext):
+	var theAttack := _attackContext.attack
+	var theDamageMult:float = theAttack.damage
+	
+	charState.addPain(theDamageMult*0.1)
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

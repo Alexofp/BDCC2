@@ -95,3 +95,39 @@ func applyDelta(_delta:PackedByteArray, isCompressed:bool=false):
 			obj.setSyncVar(fields[_i], theVal)
 			
 	theBins.endLoad()
+
+func saveNetworkData() -> Bins:
+	var Ar:Array = [Bins.U8, fields.size()]
+	for _i in fields.size():
+		Ar.append_array([
+			saveTypes[_i], cachedValues[_i],
+		])
+	return Bins.saveStartEnd(Ar)
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	var fieldAm:int = _data.readU8()
+	if(fieldAm != fields.size()):
+		assert(false, "SOMETHING WENT WRONG HERE! FieldAm="+str(fieldAm)+" WE HAVE Fields="+str(fields.size()))
+		_data.endLoad()
+		return
+	
+	for _i in fields.size():
+		var theVal:Variant = _data.read(saveTypes[_i])
+		obj.setSyncVar(fields[_i], theVal)
+	
+	_data.endLoad()
+
+func saveData() -> Dictionary:
+	var data:Dictionary
+	
+	for _i in fields.size():
+		data[fields[_i]] = obj.getSyncVar(fields[_i])
+	
+	return data
+
+func loadData(_data:Dictionary):
+	for theField in fields:
+		if(!_data.has(theField)):
+			continue
+		obj.setSyncVar(theField, _data[theField])

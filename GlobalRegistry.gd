@@ -42,6 +42,8 @@ var pawnActionsAlwaysSelf:Array[PawnActionBase] = []
 var pawnActionsAlwaysOtherPawn:Array[PawnActionBase] = []
 var pawnQuickActionsAlwaysSelf:Array[PawnActionBase] = []
 var pawnQuickActionsAlwaysOtherPawn:Array[PawnActionBase] = []
+var combatMoveRefs:Dictionary[String, CombatMoveBase]
+var combatMoveByActivationType:Dictionary[int, Array]
 
 signal initialized
 
@@ -180,6 +182,8 @@ func doInit():
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	
+	registerCombatMoveFolder("res://Game/Combat/Moves/")
+	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
 	
@@ -187,6 +191,9 @@ func doInit():
 	sortPawnActionsArrayByPriority(pawnActionsAlwaysOtherPawn)
 	sortPawnActionsArrayByPriority(pawnQuickActionsAlwaysSelf)
 	sortPawnActionsArrayByPriority(pawnQuickActionsAlwaysOtherPawn)
+	
+	for actType in combatMoveByActivationType:
+		sortCombatMoveArrayByPriority(combatMoveByActivationType[actType])
 	
 	var end := Time.get_ticks_usec()
 	var worker_time:float = (end-start)/1000000.0
@@ -847,12 +854,14 @@ func registerDollAnim(path: String):
 	
 	if(object is DollAnimBase):
 		object.calcFinalAnimName()
-		dollAnims[object.id] = object
+		
+		for _id in object.anims:
+			dollAnims[_id] = object
 		
 		if(!object.animLibraryName.is_empty() && !object.animLibraryPath.is_empty()):
 			if(!dollAnimLibraries.has(object.animLibraryName)):
 				dollAnimLibraries[object.animLibraryName] = object.animLibraryPath
-		
+
 		if(!dollAnimsByType.has(object.animType)):
 			var newAr:Array[DollAnimBase] = [object]
 			dollAnimsByType[object.animType] = newAr
@@ -891,7 +900,8 @@ func getPickableAnimsFor(_type:int) -> Array[Array]:
 	for theAnim in allTheAnims:
 		if(!theAnim.animCanPick):
 			continue
-		result.append([theAnim.id, theAnim.animVisibleName])
+		for animID in theAnim.anims:
+			result.append([animID, theAnim.getVisibleName(animID)])
 	
 	return result
 
@@ -965,3 +975,50 @@ func getPawnAction(id: String) -> PawnActionBase:
 	else:
 		Log.Printerr("ERROR: pawn action with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+
+
+func sortCombatMoveArrayByPriority(_ar:Array[CombatMoveBase]):
+	_ar.sort_custom(func(a:CombatMoveBase, b:CombatMoveBase): return a.priority > b.priority)
+
+func registerCombatMove(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is CombatMoveBase):
+		combatMoveRefs[object.id] = object
+		
+		if(!combatMoveByActivationType.has(object.activateType)):
+			var newAr:Array[CombatMoveBase] = [object]
+			combatMoveByActivationType[object.activateType] = newAr
+		else:
+			combatMoveByActivationType[object.activateType].append(object)
+
+func registerCombatMoveFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerCombatMove(scriptPath)
+
+func getCombatMove(id: String) -> CombatMoveBase:
+	if(combatMoveRefs.has(id)):
+		return combatMoveRefs[id]
+	else:
+		Log.Printerr("ERROR: combat move with the id "+str(id)+" wasn't found")
+		return null
+
+func getCombatMovesByActivationType(_act:int) -> Array[CombatMoveBase]:
+	if(!combatMoveByActivationType.has(_act)):
+		var res:Array[CombatMoveBase]
+		return res
+	return combatMoveByActivationType[_act]
+
+func reloadCombatMoves():
+	Log.Print("Reloading combat moves")
+	combatMoveRefs.clear()
+	combatMoveByActivationType.clear()
+	
+	registerCombatMoveFolder("res://Game/Combat/Moves/")
+	for actType in combatMoveByActivationType:
+		sortCombatMoveArrayByPriority(combatMoveByActivationType[actType])
