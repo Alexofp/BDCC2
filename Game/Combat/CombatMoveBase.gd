@@ -32,9 +32,12 @@ var animation:String = ""
 var moveLen:float = 1.0
 var noMoveLen:float = 1.0
 var canCancelExistingMove:bool = false
+var followVelocityDir:bool = false
 
 const TAG_DODGING = "dd"
 const TAG_AFTER_DODGE = "ad"
+const TAG_CAN_ROLL = "cr"
+const TAG_ROLLING = "rr"
 
 func canUse(_player:CombatMovePlayer) -> bool:
 	return true
@@ -50,7 +53,8 @@ func onStrike(_player:CombatMovePlayer, _attackInfo:AttackInfo):
 func startMove(_player:CombatMovePlayer):
 	consumeConditionTags(_player)
 	pushToEffectsQueue(_player, initialEffects.duplicate(true))
-	_player.pawn.doCombatAnim(animation)
+	if(!animation.is_empty()):
+		_player.pawn.doCombatAnim(animation)
 
 func pushToEffectsQueue(_player:CombatMovePlayer, _ar:Array):
 	_player.pushToEffectsQueue(_ar)

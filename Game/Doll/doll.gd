@@ -529,14 +529,14 @@ func animAttack():
 	stopGesture(true, true)
 	travelLocomotion("punch", 1.0, true)
 
-func animCombat(_space:Vector2):
+func animCombat(_space:Vector2, _combatAnim:String = "combat"):
 	if(_space.length_squared() < 0.01):
 		locomotionState = LOCOMOTION_STAND
 	else:
 		locomotionState = LOCOMOTION_WALK
 	stopGesture(true, false)
-	travelLocomotion("combat", 1.0)
-	animation_tree.setBlend2DPos(animation_tree.LAYER_LOCOMOTION, "combat", _space)
+	travelLocomotion(_combatAnim, 1.0)
+	animation_tree.setBlend2DPos(animation_tree.LAYER_LOCOMOTION, _combatAnim, _space)
 
 func animWalk():
 	locomotionState = LOCOMOTION_WALK
@@ -975,17 +975,18 @@ const HIT_AREA_LOW = 2
 func applyHitSpecific(_strength:float, _dir:Vector3, _globalSpace:bool = true, _hitArea:int = HIT_AREA_MIDDLE):
 	if(!isDollEnabled()):
 		return
-	var theBone:String = "chest"
-	if(_hitArea == HIT_AREA_HIGH):
-		theBone = "neck"
-		_strength *= 2.0
-	elif(_hitArea == HIT_AREA_LOW):
-		theBone = "hips"
-		_strength *= 0.5
 	if(_globalSpace):
 		_dir = global_basis.inverse() * _dir
 		_dir.z *= -1.0
-	skeleton_hit_modifier.applyHit(theBone, _dir, _strength)
+	if(_hitArea == HIT_AREA_HIGH):
+		skeleton_hit_modifier.applyHit("chest", _dir, _strength*0.5, 1.0)
+		skeleton_hit_modifier.applyHit("neck", _dir, _strength*2.0, 0.7)
+	elif(_hitArea == HIT_AREA_LOW):
+		skeleton_hit_modifier.applyHit("shin.L", _dir, _strength*3.0, 0.6)
+		skeleton_hit_modifier.applyHit("chest", _dir, -_strength*2.0, 0.5)
+	else:
+		skeleton_hit_modifier.applyHit("chest", _dir, _strength*1.0, 1.0)
+		skeleton_hit_modifier.applyHit("head", -_dir, _strength*3.0, 0.3)
 
 func doStruggleAnimFor(_time:float):
 	if(!isDollEnabled()):

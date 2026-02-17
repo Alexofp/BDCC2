@@ -1,6 +1,7 @@
 extends "res://Game/DollController/States/Normal.gd"
 
 #var attacking:float = 0.0
+var tryingToBlock:bool = false
 
 var walkAnim:Vector2
 func processAnimation(_doll:DollController, _dt:float):
@@ -10,17 +11,22 @@ func processAnimation(_doll:DollController, _dt:float):
 	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
 	#print(localWalkVec)
 	
+	var areWeBlocking := isBlocking()
 	
 	var isOnFloorVisually:bool = isOnFloor
 	
+	tryingToBlock = _doll.doll_controls.block_isDown # Move this to the doll controller maybe?
 	if(Network.isServer() && !_doll.noclip_on):
 		if(_doll.doll_controls.attack_isDown): # && attacking <= 0.2
+			_doll.doll_controls.attack_isDown = false #hack
 			#theDoll.animAttack()
 			#attacking = 0.9
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_ATTACK1)):
 				#theDoll.animAttack()
 				pass
-		if(_doll.doll_controls.sprint_isdown):
+		#if(_doll.doll_controls.sprint_isdown):
+		if(_doll.doll_controls.shift_isdown):
+			_doll.doll_controls.shift_isdown = false #hack
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SHIFT)):
 				pass
 		
@@ -38,12 +44,12 @@ func processAnimation(_doll:DollController, _dt:float):
 				theDoll.animRun()
 			else:
 				walkAnim = localWalkVec - (localWalkVec - walkAnim)*0.9
-				theDoll.animCombat(walkAnim)
+				theDoll.animCombat(walkAnim, "combat" if !areWeBlocking else "block")
 		else:
 			walkAnim *= 0.9
-			theDoll.animCombat(walkAnim)
+			theDoll.animCombat(walkAnim, "combat" if !areWeBlocking else "block")
 	
-	if(_doll.isRunning): # && attacking <= 0.0
+	if(_doll.isRunning || shouldFollowMoveDirection()): # && attacking <= 0.0
 		rotateTowardsMoveDirection(_doll, _dt)
 	else:
 		rotateTowardsCamera(_doll, _dt)
@@ -82,3 +88,11 @@ func canRun(_doll:DollController) -> bool:
 
 func shouldShowCombatUI() -> bool:
 	return true
+
+func isTryingToBlock() -> bool:
+	return tryingToBlock
+
+func shouldFollowMoveDirection() -> bool:
+	if(pawn.combatMovePlayer.shouldFollowMoveDirection()):
+		return true
+	return false

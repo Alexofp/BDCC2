@@ -110,6 +110,9 @@ func canDoCombatMoves() -> bool:
 func processHit(_attackContext:AttackContext):
 	#var theAttack := _attackContext.attack
 	#var theDamageMult:float = theAttack.damage
+	if(isBlocking() && CombatMovePlayer.isInCone(_attackContext.target, _attackContext.attacker, 90.0)):
+		_attackContext.blocked = true
+	
 	var theCharacter := pawn.getCharacter()
 	if(theCharacter):
 		theCharacter.processHit(_attackContext)
@@ -122,7 +125,17 @@ func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	#_doll.applyHitRandom(2.0)
 	var theDir:Vector3 = _attackContext.attacker.getGlobalPos() - _attackContext.target.getGlobalPos()
 	
-	_doll.getDoll().applyHitSpecific(_attackContext.attack.damage*2.0, theDir, true, Doll.HIT_AREA_MIDDLE)
+	var theRecoil:float = sqrt(_attackContext.attack.damage*1.0)*2.0 if _attackContext.attack.damage > 0.0 else 0.0
+	if(_attackContext.blocked):
+		theRecoil *= 0.4
+	
+	_doll.getDoll().applyHitSpecific(theRecoil, theDir, true, Doll.HIT_AREA_MIDDLE)
 
 func shouldShowCombatUI() -> bool:
 	return false
+
+func isTryingToBlock() -> bool:
+	return false
+
+func isBlocking() -> bool:
+	return pawn.combatMovePlayer.isBlocking()

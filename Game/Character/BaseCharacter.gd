@@ -843,6 +843,10 @@ func processHit(_attackContext:AttackContext):
 	var theAttack := _attackContext.attack
 	var theDamageMult:float = theAttack.damage
 	
+	if(_attackContext.blocked):
+		Log.Print("BLOCKED!!!")
+		theDamageMult *= 0.1
+	
 	charState.addPain(theDamageMult*0.1)
 
 func saveNetworkData() -> Bins:

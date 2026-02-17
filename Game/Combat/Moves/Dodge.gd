@@ -12,11 +12,13 @@ func _init() -> void:
 	priority = 0
 	conditions = [
 		[COND_NO_TAG, TAG_DODGING],
+		[COND_NO_TAG, TAG_ROLLING],
 	]
 	initialEffects = [
-		[EFFECT_TAG, TAG_DODGING, 0.4],
-		[EFFECT_MOVE, Vector3(0.0, 0.0, -5.0), 0.4],
-		[EFFECT_DELAY, 0.1],
+		[EFFECT_TAG, TAG_CAN_ROLL, 0.25],
+		[EFFECT_TAG, TAG_DODGING, 0.5],
+		[EFFECT_MOVE, Vector3(0.0, 0.0, -5.0), 0.6],
+		[EFFECT_DELAY, 0.3],
 		[EFFECT_TAG, TAG_AFTER_DODGE, 0.5],
 	]
 
@@ -26,6 +28,8 @@ func startMove(_player:CombatMovePlayer):
 		theVel = Vector3(0.0, 0.0, -1.0)
 	theVel = theVel.normalized()
 	
-	initialEffects[1][1] = theVel * 5.0
+	initialEffects[2][1] = theVel * 5.0
+	
+	_player.pawn.doDodgeAnim(Vector2(theVel.x, theVel.z))
 	
 	super.startMove(_player)

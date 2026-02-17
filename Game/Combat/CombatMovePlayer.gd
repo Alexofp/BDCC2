@@ -162,6 +162,23 @@ func getCurrentControlsDir() -> Vector3:
 	#theLocalVel.y = 0.0
 	return Vector3(-theLocalVel.x, 0.0, -theLocalVel.y)
 
+static func isInConeRaw(_pos1:Vector3, _rot1:float, _pos2:Vector3, _maxSpreadDeg:float) -> bool:
+	var ourForward := Vector3(0,0,-1).rotated(Vector3.UP, _rot1)
+	var cosThreshold := cos(deg_to_rad(_maxSpreadDeg))
+	
+	var theDir := _pos1 - _pos2
+	var theDot := ourForward.dot(theDir.normalized())
+	if(theDot < cosThreshold):
+		return false
+	return true
+
+static func isInCone(_pawnFrom:CharacterPawn, _pawnTo:CharacterPawn, _maxSpreadDeg:float) -> bool:
+	var ourPos:Vector3 = _pawnFrom.getGlobalPos()
+	var ourRotY:float = _pawnFrom.getYRotation()
+	var theirPos:Vector3 = _pawnTo.getGlobalPos()
+	
+	return isInConeRaw(ourPos, ourRotY, theirPos, _maxSpreadDeg)
+
 func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn]
 	
@@ -180,7 +197,7 @@ func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 			continue
 		var theDir := ourPos - theirPos
 		var theDot := ourForward.dot(theDir.normalized())
-		if(theDot < cosThreshold):
+		if(theDot < cosThreshold): #!isInCone(ourPos, ourRotY, theirPos, _maxSpread)
 			continue
 		#var theDirAng:float = ourPos.angle_to(theirPos)
 		#print(theDot, " ",cosThreshold)
@@ -202,3 +219,18 @@ func doStrike(_attackInfo:AttackInfo):
 	for thePawn in theTargets:
 		theContext.target = thePawn
 		thePawn.processHit(theContext)
+
+func isBlocking() -> bool:
+	return pawn.state.isTryingToBlock() && canBlock()
+
+func canBlock() -> bool:
+	if(isDoingAMove()):
+		return false
+	
+	return true
+
+func shouldFollowMoveDirection() -> bool:
+	if(!isDoingAMove()):
+		return false
+	
+	return combatMove.followVelocityDir

@@ -14,6 +14,12 @@ func _init() -> void:
 			loopLength = 0.5,
 			looped = false,
 		},
+		"DodgeRoll": {
+			name = "Dodge roll",
+			anim = "DodgeRoll",
+			loopLength = 1.0,
+			looped = false,
+		},
 	}
 	animType = TYPE_COMBAT
 	animLibraryName = COMBAT_ANIMS

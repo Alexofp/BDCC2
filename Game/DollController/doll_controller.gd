@@ -612,6 +612,15 @@ func doCombatAnimLocal(_animation:String, _speedMult:float = 1.0, _forceAnim:boo
 	await get_tree().process_frame
 	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
 
+func doDodgeAnimLocal(_dir:Vector2, _animation:String = "dodge", _speedMult:float = 1.0, _forceAnim:bool = true):
+	if(_animation.is_empty()):
+		return
+	var theDoll := getDoll()
+	theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT, true)
+	await get_tree().process_frame
+	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
+	theDoll.animation_tree.setBlend2DPos(theDoll.animation_tree.LAYER_COMBAT, _animation, _dir)
+	
 func stopCombatAnimLocal():
 	var theDoll := getDoll()
 	theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT)

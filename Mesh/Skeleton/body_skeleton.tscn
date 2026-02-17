@@ -32,7 +32,7 @@ scale_max = 2.0
 [node name="BodySkeleton" unique_id=1570233952 instance=ExtResource("1_v7x4s")]
 script = ExtResource("2_8p8i6")
 
-[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(359703143) index="0" unique_id=1113311591]
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(433698015) index="0" unique_id=1600457240]
 unique_name_in_owner = true
 
 [node name="ArmMoveL" type="SkeletonModifier3D" parent="rig/Skeleton3D" index="0" unique_id=579164549]

@@ -52,8 +52,15 @@ func defineLayers():
 			Vector2(0.0, 0.0): LayerAnim.create("CombatAnims/CombatIdle"),
 			Vector2(0.0, 1.0): LayerAnimAdvance.create("CombatAnims/CombatForward").setLength(CombatWalkLen, true),
 			Vector2(0.0, -1.0): LayerAnimAdvance.create("CombatAnims/CombatForward").setLength(CombatWalkLen, true).setPlayBackwards(),
-			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true),
-			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true).setPlayBackwards(),
+			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true),
+			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeft").setLength(CombatWalkLen, true).setPlayBackwards(),
+		})
+		theLocomotionAnims["block"] = LayerAnimBlend2D.create({
+			Vector2(0.0, 0.0): LayerAnim.create("CombatAnims/CombatBlock"),
+			Vector2(0.0, 1.0): LayerAnimAdvance.create("CombatAnims/CombatForwardBlock").setLength(CombatWalkLen, true),
+			Vector2(0.0, -1.0): LayerAnimAdvance.create("CombatAnims/CombatForwardBlock").setLength(CombatWalkLen, true).setPlayBackwards(),
+			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeftBlock").setLength(CombatWalkLen, true),
+			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/CombatLeftBlock").setLength(CombatWalkLen, true).setPlayBackwards(),
 		})
 		#theLocomotionAnims["punch"] = LayerAnimAdvance.create("CombatAnims/Punch").setLength(1.0, false)
 
@@ -66,6 +73,13 @@ func defineLayers():
 	
 	if(true):
 		var theCombatAnims:Dictionary[String, Variant] = {}
+		const DodgeLen := 0.8
+		theCombatAnims["dodge"] = LayerAnimBlend2D.create({
+			Vector2(0.0, 1.0): LayerAnimAdvance.create("CombatAnims/DodgeForward").setLength(DodgeLen, false),
+			Vector2(0.0, -1.0): LayerAnimAdvance.create("CombatAnims/DodgeBack").setLength(DodgeLen, false),
+			Vector2(1.0, 0.0): LayerAnimAdvance.create("CombatAnims/DodgeLeft").setLength(DodgeLen, false),
+			Vector2(-1.0, 0.0): LayerAnimAdvance.create("CombatAnims/DodgeRight").setLength(DodgeLen, false),
+		})
 		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_COMBAT):
 			for animID in anim.anims:
 				theCombatAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])

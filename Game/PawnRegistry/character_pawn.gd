@@ -562,6 +562,21 @@ func doCombatAnim(_animation:String):
 func doCombatAnim_RPC(_animation:String):
 	doCombatAnim(_animation)
 
+func doDodgeAnim(_dir:Vector2, _animation:String = "dodge"):
+	if(!state.canDoCombatMoves()):
+		return
+	
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.doDodgeAnimLocal(_dir, _animation)
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doDodgeAnim_RPC.bind(_dir, _animation))
+	
+@rpc("authority", "call_remote", "reliable")
+func doDodgeAnim_RPC(_dir:Vector2, _animation:String):
+	doDodgeAnim(_dir, _animation)
+
 func getNearbyPawnInteractors() -> Array[PawnInteractor]:
 	return pawn_interactor.nearbyPawns
 

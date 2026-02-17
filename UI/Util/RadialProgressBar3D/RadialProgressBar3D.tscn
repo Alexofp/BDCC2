@@ -47,4 +47,3 @@ script = ExtResource("4_frdnl")
 texture = SubResource("GradientTexture2D_frdnl")
 textureBack = SubResource("GradientTexture2D_qw4g1")
 colorBack = Color(0, 0, 0, 1)
-finalAlpha = null

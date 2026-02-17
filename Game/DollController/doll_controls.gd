@@ -4,6 +4,7 @@ class_name DollControls
 
 var mouse_movement:Vector2 = Vector2.ZERO
 @export var sprint_isdown:bool = false
+@export var shift_isdown:bool = false
 @export var jump_isdown := false
 @export var noclip_isdown := false
 @export var input_dir:Vector2 = Vector2.ZERO
@@ -38,6 +39,7 @@ func resetInput():
 	jump_isdown = false
 	noclip_isdown = false
 	sprint_isdown = false
+	shift_isdown = false
 	input_dir = Vector2.ZERO
 	camera_dir = Vector2.ZERO
 	move_direction = Vector3.ZERO
@@ -66,11 +68,12 @@ func processInput():
 	camera_dir.y = Input.get_axis("camera_up", "camera_down")  * OPTIONS.controls.cameraSensitivityGamepad * (-1.0 if OPTIONS.controls.invertYGamepad else 1.0)
 	jump_isdown = Input.is_action_pressed("move_jump") || Input.is_action_just_pressed("move_jump")
 	sprint_isdown = Input.is_action_pressed("move_sprint")
+	shift_isdown = Input.is_action_just_pressed("move_sprint")
 	
 	noclip_isdown = Input.is_action_just_pressed("debug_noclip")
 	combatMode_isDown = Input.is_action_just_pressed("game_combatmode")
 	attack_isDown = Input.is_action_just_pressed("combat_attack")
-	block_isDown = Input.is_action_just_pressed("combat_block")
+	block_isDown = Input.is_action_pressed("combat_block")
 	#print(input_dir)
 
 	var input_direction: = Vector3.ZERO
