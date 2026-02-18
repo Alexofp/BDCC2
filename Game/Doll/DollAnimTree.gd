@@ -91,6 +91,7 @@ func defineLayers():
 		CombatLayer.blendTimeOut = 0.1
 		CombatLayer.blendTimeBetween = 0.1
 		CombatLayer.anims = theCombatAnims
+		CombatLayer.comboLayers = 1
 		addLayer(LAYER_COMBAT, CombatLayer)
 	
 	if(true):

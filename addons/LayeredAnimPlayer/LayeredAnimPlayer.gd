@@ -8,6 +8,9 @@ const L_ANIM = "anim"
 
 var layers:Dictionary[int, ILayerBase] = {}
 
+var currentComboIndex:Dictionary[int, int] # layer indx -> current combo indx
+const COMBO_SUFFIX := "_C"
+
 const CURVE_EASE_IN = preload("res://addons/LayeredAnimPlayer/XFadeCurves/EaseIn.tres")
 const CURVE_EASE_OUT = preload("res://addons/LayeredAnimPlayer/XFadeCurves/EaseOut.tres")
 const CURVE_SMOOTH = preload("res://addons/LayeredAnimPlayer/XFadeCurves/Smooth.tres")
@@ -192,6 +195,8 @@ class LayerBasic extends ILayerBase:
 	var blendTimeBetween:float = 0.0
 	var blendCurve:Curve = CURVE_SMOOTH
 	
+	var comboLayers:int = 0 # How many extra layers to spawn. playLayer will cycle through these combo layers to help avoid animation glitches
+	
 	var anims:Dictionary[String, Variant] = {}
 	var bones:Array[String] = []
 	
@@ -200,12 +205,20 @@ class LayerBasic extends ILayerBase:
 			var theVal:Variant = anims[theKey]
 			if(theVal is Dictionary):
 				anims[theKey] = LayerAnim.create(theVal[L_ANIM])
+		if(comboLayers > 0):
+			_animPlayer.currentComboIndex[_layerID] = 0
 	
 	func playLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _speed:float = 1.0, _resetIfSame:bool = false):
 		if(!anims.has(_anim)):
 			printerr("playLayer() LAYER "+str(_layerID)+" DOESN'T HAVE ANIMATION: "+str(_anim))
 			return
-		var layerStr:String = str(_layerID)
+		if(comboLayers > 0): # Cycling the combo layers
+			stopLayer(_animPlayer, _layerID, false)
+			_animPlayer.currentComboIndex[_layerID] += 1
+			if(_animPlayer.currentComboIndex[_layerID] > comboLayers):
+				_animPlayer.currentComboIndex[_layerID] = 0
+		
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)
 		var transitionLayerName:String = layerStr+"_"+_anim
 		
 		var shouldDoIt:bool = true
@@ -224,18 +237,18 @@ class LayerBasic extends ILayerBase:
 		_animPlayer.set("parameters/"+layerStr+"_timescale/scale", _speed)
 
 	func stopLayer(_animPlayer:LayeredAnimPlayer, _layerID:int, _instantStop:bool = false):
-		var layerStr:String = str(_layerID)
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)
 		_animPlayer.set("parameters/"+layerStr+"_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT if !_instantStop else AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
 	func isPlayingLayer(_animPlayer:LayeredAnimPlayer, _layerID:int) -> bool:
-		var layerStr:String = str(_layerID)
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)
 		var _isActive:bool = (_animPlayer.get("parameters/"+layerStr+"_oneshot/active"))
 		return _isActive
 	
 	func getCurrentAnimationLayer(_animPlayer:LayeredAnimPlayer, _layerID:int) -> String:
 		if(!isPlayingLayer(_animPlayer, _layerID)):
 			return ""
-		var layerStr:String = str(_layerID)
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)
 		var currentAnimRaw:String = _animPlayer.get("parameters/"+layerStr+"/current_state")
 		var splitA := currentAnimRaw.split("_")
 		var finalAnimName:String = ""
@@ -245,30 +258,40 @@ class LayerBasic extends ILayerBase:
 			finalAnimName += splitA[_i+1]
 		return finalAnimName
 	
+	func getCurrentLayerID(_animPlayer:LayeredAnimPlayer, _layerID:int) -> String:
+		return internal_getLayerID(_layerID, _animPlayer.currentComboIndex.get(_layerID, 0))
+	
+	func internal_getLayerID(_layerIndx:int, _comboIndx:int) -> String:
+		if(_comboIndx <= 0):
+			return str(_layerIndx)
+		return str(_layerIndx)+COMBO_SUFFIX+str(_comboIndx)
+	
 	func setBlend1DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:float):
 		if(!anims.has(_anim)):
 			printerr("setBlend1DPos() LAYER "+str(_layerID)+" DOESN'T HAVE ANIMATION: "+str(_anim))
 			return
 		var theLayerAnim:LayerAnimBase = anims[_anim]
-		var layerStr:String = str(_layerID)
-		var transitionLayerName:String = layerStr+"_"+_anim
-		if(theLayerAnim is LayerAnimBlend1D):
-			_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
-		else:
+		if(!(theLayerAnim is LayerAnimBlend1D)):
 			printerr("setBlend1DPos() ANIM "+_anim+" FROM LAYER "+str(_layerID)+" DOESN'T SUPPORT BLEND1D")
+			return
 		
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)#str(_layerID)
+		var transitionLayerName:String = layerStr+"_"+_anim
+		_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
+			
 	func setBlend2DPos(_animPlayer:LayeredAnimPlayer, _layerID:int, _anim:String, _pos:Vector2):
 		if(!anims.has(_anim)):
 			printerr("setBlend2DPos() LAYER "+str(_layerID)+" DOESN'T HAVE ANIMATION: "+str(_anim))
 			return
 		var theLayerAnim:LayerAnimBase = anims[_anim]
-		var layerStr:String = str(_layerID)
-		var transitionLayerName:String = layerStr+"_"+_anim
-		if(theLayerAnim is LayerAnimBlend2D):
-			_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
-		else:
+		if(!(theLayerAnim is LayerAnimBlend2D)):
 			printerr("setBlend2DPos() ANIM "+_anim+" FROM LAYER "+str(_layerID)+" DOESN'T SUPPORT BLEND2D")
-	
+			return
+		
+		var layerStr:String = getCurrentLayerID(_animPlayer, _layerID)#str(_layerID)
+		var transitionLayerName:String = layerStr+"_"+_anim
+		_animPlayer.set("parameters/"+transitionLayerName+"/blend_position", _pos)
+
 func addLayer(_layerID:int, _layer:ILayerBase):
 	layers[_layerID] = _layer
 	_layer.onAdd(self, _layerID)
@@ -291,60 +314,62 @@ func generateTree() -> AnimationNode:
 		var theLayer:ILayerBase = layers[orderID]
 		
 		if(theLayer is LayerBasic):
-			var theSelectorNode := AnimationNodeTransition.new()
-			theSelectorNode.allow_transition_to_self = true
-			theSelectorNode.xfade_time = theLayer.blendTimeBetween
-			theSelectorNode.xfade_curve = theLayer.blendCurve
-			var theSelectorName:String = str(orderID)
-			rootBlendTree.add_node(theSelectorName, theSelectorNode, currentPosition)
-			
-			var theTimeScaleNode := AnimationNodeTimeScale.new()
-			var theTimeScaleName:String = str(orderID)+"_timescale"
-			rootBlendTree.add_node(theTimeScaleName, theTimeScaleNode, currentPosition+Vector2(250.0, 0.0))
-			
-			rootBlendTree.connect_node(theTimeScaleName, 0, theSelectorName)
-			
-			if(!currentNodeName.is_empty()):
-				var theBlendNode := AnimationNodeOneShot.new()
-				theBlendNode.abort_on_reset = true
-				theBlendNode.fadein_time = theLayer.blendTimeIn
-				theBlendNode.fadeout_time = theLayer.blendTimeOut
+			for _comboIndx in (theLayer.comboLayers+1):
+				var theSelectorNode := AnimationNodeTransition.new()
+				theSelectorNode.allow_transition_to_self = true
+				theSelectorNode.xfade_time = theLayer.blendTimeBetween
+				theSelectorNode.xfade_curve = theLayer.blendCurve
+				var orderIDStr:String = theLayer.internal_getLayerID(orderID, _comboIndx)#str(orderID)
+				var theSelectorName:String = orderIDStr
+				rootBlendTree.add_node(theSelectorName, theSelectorNode, currentPosition)
 				
-				theBlendNode.fadein_curve = theLayer.blendCurve
-				theBlendNode.fadeout_curve = theLayer.blendCurve
+				var theTimeScaleNode := AnimationNodeTimeScale.new()
+				var theTimeScaleName:String = orderIDStr+"_timescale"
+				rootBlendTree.add_node(theTimeScaleName, theTimeScaleNode, currentPosition+Vector2(250.0, 0.0))
 				
-				if(!theLayer.bones.is_empty()):
-					theBlendNode.filter_enabled = true
-					var theBones:Array[String] = theLayer["bones"]
-					for theBone in theBones:
-						theBlendNode.set_filter_path(theBone, true)
-				var theBlendName:String = str(orderID)+"_oneshot"
+				rootBlendTree.connect_node(theTimeScaleName, 0, theSelectorName)
+				
+				if(!currentNodeName.is_empty()):
+					var theBlendNode := AnimationNodeOneShot.new()
+					theBlendNode.abort_on_reset = true
+					theBlendNode.fadein_time = theLayer.blendTimeIn
+					theBlendNode.fadeout_time = theLayer.blendTimeOut
+					
+					theBlendNode.fadein_curve = theLayer.blendCurve
+					theBlendNode.fadeout_curve = theLayer.blendCurve
+					
+					if(!theLayer.bones.is_empty()):
+						theBlendNode.filter_enabled = true
+						var theBones:Array[String] = theLayer["bones"]
+						for theBone in theBones:
+							theBlendNode.set_filter_path(theBone, true)
+					var theBlendName:String = orderIDStr+"_oneshot"
+					currentPosition.x += 400.0
+					rootBlendTree.add_node(theBlendName, theBlendNode, currentPosition+Vector2(0.0, -100.0))
+					
+					#rootBlendTree.connect_node(theSelectorName, 0, currentNodeName)
+					rootBlendTree.connect_node(theBlendName, 0, currentNodeName)
+					rootBlendTree.connect_node(theBlendName, 1, theTimeScaleName)
+					currentNodeName = theBlendName
+				else:
+					currentNodeName = theTimeScaleName
+				
+				var theAnims:Dictionary[String, Variant] = theLayer.anims
+				var _i:int = 0
+				for animID in theAnims:
+					var animEntry:LayerAnimBase = theAnims[animID]
+					var theAnimNodePos:Vector2 = currentPosition + Vector2(-600.0, _i*160.0)
+					
+					var theAnimNode := addAnimEntry(animEntry, theAnimNodePos)
+					var theAnimNodeName:String = orderIDStr+"_"+animID
+					rootBlendTree.add_node(theAnimNodeName, theAnimNode, theAnimNodePos)
+					
+					theSelectorNode.add_input(theAnimNodeName)
+					
+					rootBlendTree.connect_node(theSelectorName, _i, theAnimNodeName)
+					_i += 1
+				
 				currentPosition.x += 400.0
-				rootBlendTree.add_node(theBlendName, theBlendNode, currentPosition+Vector2(0.0, -100.0))
-				
-				#rootBlendTree.connect_node(theSelectorName, 0, currentNodeName)
-				rootBlendTree.connect_node(theBlendName, 0, currentNodeName)
-				rootBlendTree.connect_node(theBlendName, 1, theTimeScaleName)
-				currentNodeName = theBlendName
-			else:
-				currentNodeName = theTimeScaleName
-			
-			var theAnims:Dictionary[String, Variant] = theLayer.anims
-			var _i:int = 0
-			for animID in theAnims:
-				var animEntry:LayerAnimBase = theAnims[animID]
-				var theAnimNodePos:Vector2 = currentPosition + Vector2(-600.0, _i*160.0)
-				
-				var theAnimNode := addAnimEntry(animEntry, theAnimNodePos)
-				var theAnimNodeName:String = str(orderID)+"_"+animID
-				rootBlendTree.add_node(theAnimNodeName, theAnimNode, theAnimNodePos)
-				
-				theSelectorNode.add_input(theAnimNodeName)
-				
-				rootBlendTree.connect_node(theSelectorName, _i, theAnimNodeName)
-				_i += 1
-			
-			currentPosition.x += 400.0
 		else:
 			printerr("UNKNOWN LAYER TYPE, CAN'T GENERATE")
 		

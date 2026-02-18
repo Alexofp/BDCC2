@@ -15,7 +15,7 @@ func _init() -> void:
 		[COND_NO_TAG, TAG_ROLLING],
 	]
 	initialEffects = [
-		[EFFECT_TAG, TAG_CAN_ROLL, 0.25],
+		[EFFECT_TAG, TAG_CAN_ROLL, 0.3],
 		[EFFECT_TAG, TAG_DODGING, 0.5],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, -5.0), 0.6],
 		[EFFECT_DELAY, 0.3],

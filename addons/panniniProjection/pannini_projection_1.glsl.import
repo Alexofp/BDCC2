@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bxywrg4hmt8fl"
+path="res://.godot/imported/pannini_projection_1.glsl-029d5207a9e6c926622fd9ac76969126.res"
+
+[deps]
+
+source_file="res://addons/panniniProjection/pannini_projection_1.glsl"
+dest_files=["res://.godot/imported/pannini_projection_1.glsl-029d5207a9e6c926622fd9ac76969126.res"]
+
+[params]
+

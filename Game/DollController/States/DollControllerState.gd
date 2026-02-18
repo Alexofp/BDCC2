@@ -125,7 +125,7 @@ func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	#_doll.applyHitRandom(2.0)
 	var theDir:Vector3 = _attackContext.attacker.getGlobalPos() - _attackContext.target.getGlobalPos()
 	
-	var theRecoil:float = sqrt(_attackContext.attack.damage*1.0)*2.0 if _attackContext.attack.damage > 0.0 else 0.0
+	var theRecoil:float = sqrt(_attackContext.attack.damage*1.0)*3.0 if _attackContext.attack.damage > 0.0 else 0.0
 	if(_attackContext.blocked):
 		theRecoil *= 0.4
 	

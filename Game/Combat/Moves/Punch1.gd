@@ -11,7 +11,7 @@ func _init() -> void:
 	priority = 0
 	conditions = []
 	initialEffects = [
-		[EFFECT_DELAY, 0.2],
+		[EFFECT_DELAY, 0.15],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, 3.0), 0.4],
 		[EFFECT_DELAY, 0.15],
 		#[EFFECT_EVENT, "test"],
