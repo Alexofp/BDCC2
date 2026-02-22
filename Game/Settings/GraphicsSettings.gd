@@ -59,6 +59,12 @@ enum LIGHTSDISTANCE {
 }
 var lightsDistance:int
 
+enum LIGHTSHAFTS {
+	DISABLED,
+	ENABLED,
+}
+var lightShafts:int
+
 enum TEXTURESCHARACTERS {
 	MAX,
 	MEDIUM,
@@ -202,6 +208,16 @@ func getSettings() -> Dictionary:
 				[LIGHTSDISTANCE.UNLIMITED, "Unlimited"],
 			],
 			default = LIGHTSDISTANCE.FAR,
+			addSeparator = false,
+		},
+		"lightShafts": {
+			name = "Lights shafts",
+			type = "selector",
+			values = [
+				[LIGHTSHAFTS.DISABLED, "Disabled (Fast)"],
+				[LIGHTSHAFTS.ENABLED, "Enabled (Average)"],
+			],
+			default = LIGHTSHAFTS.ENABLED,
 			addSeparator = false,
 		},
 		"texturesChar": {
@@ -383,6 +399,8 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			OPTIONS.triggerCharTextureQualityChange()
 		"lightsDistance":
 			OPTIONS.triggerLightsQualityChange()
+		"lightShafts":
+			OPTIONS.triggerLightShaftsSettingChange()
 	
 	#print("APPLIED: "+_settingID)
 	pass

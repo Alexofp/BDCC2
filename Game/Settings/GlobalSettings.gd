@@ -10,6 +10,7 @@ var controls:ControlSettings = ControlSettings.new()
 signal changedCharTextureQuality
 signal changedLightsQuality
 signal changedGISetting
+signal changedLightShaftsSetting
 
 #func _init() -> void:
 	#GlobalRegistry.doInit()
@@ -97,3 +98,6 @@ func triggerLightsQualityChange():
 
 func triggerGIChange():
 	changedGISetting.emit()
+
+func triggerLightShaftsSettingChange():
+	changedLightShaftsSetting.emit()

@@ -2,6 +2,7 @@
 extends PropBasic
 
 @onready var spot_light_3d: SpotLight3D = $WallLightBig/SpotLight3D
+@onready var light_shaft: MeshInstance3D = %LightShaft
 
 @export var roughness:float = 0.5:
 	set(value):
@@ -35,6 +36,8 @@ func applyEditorOption(_id, _value):
 	if(_id == "color3"):
 		if(spot_light_3d):
 			spot_light_3d.light_color = _value
+		if(light_shaft):
+			light_shaft.setColor(_value)
 
 func getEditorOptionsID() -> String:
 	return EDITOR_OPTIONS_ID_WALLLIGHT

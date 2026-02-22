@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b3ut8yotnfg1f"]
+
+[ext_resource type="Shader" uid="uid://b73gctfiid4ip" path="res://Mesh/Shaders/Unique_unique/LightShaftShader.gdshader" id="1_bptos"]
+[ext_resource type="Script" uid="uid://dwepj2i1xrlar" path="res://Mesh/Props/LightShaft/LightShaft.gd" id="2_rolvf"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rolvf"]
+top_radius = 0.0
+bottom_radius = 1.0
+radial_segments = 16
+rings = 0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh4n7"]
+render_priority = 0
+shader = ExtResource("1_bptos")
+shader_parameter/falloff_power = 8.0
+shader_parameter/feather_sharpness = 0.67400002875512
+shader_parameter/feather_intensity = 1.0
+shader_parameter/near_fade_start = 0.01
+shader_parameter/near_fade_end = 1.0
+shader_parameter/far_fade_start = 22.00000104174012
+shader_parameter/far_fade_end = 25.00000118424012
+shader_parameter/max_brightness = 10.0
+shader_parameter/depth_feather_enabled = true
+shader_parameter/depth_fade_distance = 0.20000000880148
+
+[node name="LightShaft" type="MeshInstance3D" unique_id=1761265546]
+visibility_range_end = 26.0
+visibility_range_end_margin = 1.0
+instance_shader_parameters/base_color = Color(1, 0.95, 0.85, 1)
+instance_shader_parameters/shaft_alpha = 1.0
+mesh = SubResource("CylinderMesh_rolvf")
+surface_material_override/0 = SubResource("ShaderMaterial_fh4n7")
+script = ExtResource("2_rolvf")
