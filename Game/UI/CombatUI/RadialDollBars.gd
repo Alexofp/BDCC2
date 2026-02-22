@@ -14,6 +14,9 @@ func _ready() -> void:
 func setCharacter(_char:BaseCharacter):
 	character = _char
 	pawn = GM.pawnRegistry.getPawn(character.getID()) if character else null
+	
+	pain_bar.progress = character.charState.getPainLevel() if character else 0.0
+	pain_bar.colorMain = GRADIENT_PAIN.sample(pain_bar.progress)
 
 func setDoll(_doll:DollController):
 	setCharacter(_doll.getCharacter() if _doll else null)

@@ -46,16 +46,23 @@ func activateTrigger(_act:int) -> bool:
 	return false
 
 func startMove(_move:CombatMoveBase):
-	combatMove = _move
 	moveTime = 0.0
 	noMoveTimer = _move.noMoveLen
 	effects.clear()
+	
+	cancelCurrentMove()
+	combatMove = _move
 	
 	if(!_move):
 		return
 	_move.startMove(self)
 	Log.Print("STARTED MOVE: "+str(_move.id))
 	processEffectQueue(0.0) # Forces the initial effects to trigger
+
+func cancelCurrentMove():
+	if(combatMove):
+		combatMove.onCancel(self)
+		moveTime = 0.0
 
 func pushToEffectsQueue(_ar:Array):
 	effects.append_array(_ar)

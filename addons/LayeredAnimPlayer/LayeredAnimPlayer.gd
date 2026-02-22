@@ -214,7 +214,10 @@ class LayerBasic extends ILayerBase:
 			return
 		if(comboLayers > 0): # Cycling the combo layers
 			stopLayer(_animPlayer, _layerID, false)
-			_animPlayer.currentComboIndex[_layerID] += 1
+			if(!_animPlayer.currentComboIndex.has(_layerID)):
+				_animPlayer.currentComboIndex[_layerID] = 1
+			else:
+				_animPlayer.currentComboIndex[_layerID] += 1
 			if(_animPlayer.currentComboIndex[_layerID] > comboLayers):
 				_animPlayer.currentComboIndex[_layerID] = 0
 		

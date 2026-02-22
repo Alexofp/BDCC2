@@ -120,6 +120,14 @@ func processHit(_attackContext:AttackContext):
 	var theDoll := getDoll()
 	if(theDoll):
 		onDollHit(theDoll, _attackContext)
+	
+	if(canBeDefeated()):
+		if(Network.isServer()):
+			pawn.doCombatAnim("CollapseFromCombat", true)
+			pawn.setState(pawn.STATE_DEFEATED)
+
+func canBeDefeated() -> bool:
+	return false
 
 func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	#_doll.applyHitRandom(2.0)
@@ -139,3 +147,6 @@ func isTryingToBlock() -> bool:
 
 func isBlocking() -> bool:
 	return pawn.combatMovePlayer.isBlocking()
+
+func canJump(_doll:DollController) -> bool:
+	return _doll.is_on_floor() && !_doll.noclip_on

@@ -553,6 +553,11 @@ func animFall():
 	stopGesture(true, false)
 	travelLocomotion("fall")
 
+func animIdle(_anim:String):
+	locomotionState = LOCOMOTION_STAND
+	stopGesture(true, false)
+	travelLocomotion(_anim)
+
 func setAnimPlayerEnabled(newEn:bool):
 	#animation_player.active = newEn
 	animation_player.active = false

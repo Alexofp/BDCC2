@@ -33,16 +33,20 @@ var pawnActionContext:PawnActionContext
 const STATE_NORMAL = 0
 const STATE_SITTING = 1
 const STATE_COMBAT = 2
+const STATE_DEFEATED = 3
 
 @onready var stateEmpty: Node = %Empty
 
 @onready var stateNormal: DollControllerState = %Normal
 @onready var stateSitting: DollControllerState = %Sitting
 @onready var stateCombat: DollControllerState = %Combat
+@onready var stateDefeated: Node = %Defeated
+
 @onready var states:Dictionary[int, DollControllerState] = {
 	STATE_NORMAL: stateNormal,
 	STATE_SITTING: stateSitting,
 	STATE_COMBAT: stateCombat,
+	STATE_DEFEATED: stateDefeated,
 }
 
 @export var pawnState:int = STATE_NORMAL
@@ -547,8 +551,8 @@ func askActivateCombatTrigger_SERVERRPC(_act:int):
 func getCombatMovePlayer() -> CombatMovePlayer:
 	return combatMovePlayer
 
-func doCombatAnim(_animation:String):
-	if(!state.canDoCombatMoves()):
+func doCombatAnim(_animation:String, _ignoreChecks:bool = false):
+	if(!_ignoreChecks && !state.canDoCombatMoves()):
 		return
 	
 	var theDoll := getDoll()
@@ -556,11 +560,11 @@ func doCombatAnim(_animation:String):
 		theDoll.doCombatAnimLocal(_animation)
 	
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doCombatAnim_RPC.bind(_animation))
+		Network.rpcClients(doCombatAnim_RPC.bind(_animation, _ignoreChecks))
 	
 @rpc("authority", "call_remote", "reliable")
-func doCombatAnim_RPC(_animation:String):
-	doCombatAnim(_animation)
+func doCombatAnim_RPC(_animation:String, _ignoreChecks:bool = false):
+	doCombatAnim(_animation, _ignoreChecks)
 
 func doDodgeAnim(_dir:Vector2, _animation:String = "dodge"):
 	if(!state.canDoCombatMoves()):

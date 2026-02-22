@@ -14,6 +14,7 @@ const REMAP_CONTROLS:Dictionary[String, String] = {
 	
 	"game_combatmode": "Combat mode",
 	"combat_attack": "Attack",
+	"combat_heavyattack": "Heavy attack",
 	
 	"game_interact_menu": "Open interact menu",
 	"game_interact": "Quick-interact",

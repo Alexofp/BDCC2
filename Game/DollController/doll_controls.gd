@@ -15,6 +15,7 @@ var mouse_movement:Vector2 = Vector2.ZERO
 
 @export var combatMode_isDown:bool = false
 @export var attack_isDown:bool = false
+@export var heavyAttack_isDown:bool = false
 @export var block_isDown:bool = false
 
 @export var pid:int = 1: set = setPID
@@ -46,6 +47,7 @@ func resetInput():
 	move_direction_no_y = Vector3.ZERO
 	combatMode_isDown = false
 	attack_isDown = false
+	heavyAttack_isDown = false
 	block_isDown = false
 
 
@@ -73,6 +75,7 @@ func processInput():
 	noclip_isdown = Input.is_action_just_pressed("debug_noclip")
 	combatMode_isDown = Input.is_action_just_pressed("game_combatmode")
 	attack_isDown = Input.is_action_just_pressed("combat_attack")
+	heavyAttack_isDown = Input.is_action_just_pressed("combat_heavyattack")
 	block_isDown = Input.is_action_pressed("combat_block")
 	#print(input_dir)
 

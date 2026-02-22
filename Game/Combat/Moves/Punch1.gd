@@ -20,6 +20,9 @@ func _init() -> void:
 		#[EFFECT_HIT, "punch1", 1.8, 30.0],
 		[EFFECT_TAG, "ap1", 0.5], # ap1 = after punch 1
 	]
+	cancelEffects = [
+		[EFFECT_TAG, "ap1", 1.0],
+	]
 
 func onEvent(_player:CombatMovePlayer, _eventID:String, _args:Array):
 	Log.Print("COMBAT MOVE EVENT! move="+id+" EVENT ID="+_eventID)

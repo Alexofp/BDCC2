@@ -46,4 +46,3 @@ script = ExtResource("1_u84l8")
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_u84l8")
 size = 0.1
-finalAlpha = 1.0

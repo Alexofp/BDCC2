@@ -3,6 +3,9 @@ extends DollControllerState
 func canSit() -> bool:
 	return false
 
+func canJump(_doll:DollController) -> bool:
+	return false
+
 func processCameraPivotPosition(_doll:DollController, _dt:float):
 	var CameraPivot := _doll.CameraPivot
 	var SpringArm := _doll.SpringArm

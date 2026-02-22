@@ -9,12 +9,15 @@ var conditions:Array[Array] = [
 ]
 const COND_TAG = 0
 const COND_NO_TAG = 1
+const COND_TAG_ANY = 2
+const COND_JUST_CONSUME = 3
 
 var initialEffects:Array = [
 	#[EFFECT_DELAY, 0.5],
 	#[EFFECT_EVENT, "test"],
 	#[EFFECT_TAG, "ap1", 0.5], # ap1 = after punch 1
 ]
+var cancelEffects:Array = []
 const EFFECT_EVENT = 0
 const EFFECT_HIT = 1
 const EFFECT_DELAY = 2
@@ -35,6 +38,7 @@ var canCancelExistingMove:bool = false
 var followVelocityDir:bool = false
 
 const TAG_DODGING = "dd"
+const TAG_DODGING_FORWARD = "ddf"
 const TAG_AFTER_DODGE = "ad"
 const TAG_CAN_ROLL = "cr"
 const TAG_ROLLING = "rr"
@@ -56,6 +60,11 @@ func startMove(_player:CombatMovePlayer):
 	if(!animation.is_empty()):
 		_player.pawn.doCombatAnim(animation)
 
+func onCancel(_player:CombatMovePlayer):
+	if(cancelEffects.is_empty()):
+		return
+	pushToEffectsQueue(_player, cancelEffects.duplicate(true))
+
 func pushToEffectsQueue(_player:CombatMovePlayer, _ar:Array):
 	_player.pushToEffectsQueue(_ar)
 
@@ -72,6 +81,16 @@ func canUseMoveFinal(_player:CombatMovePlayer) -> bool:
 		elif(entryType == COND_NO_TAG):
 			if(_player.hasTag(condEntry[1])):
 				return false
+		elif(entryType == COND_JUST_CONSUME):
+			continue
+		elif(entryType == COND_TAG_ANY):
+			var hasAnyTag:bool = false
+			for theTag in condEntry[1]:
+				if(_player.hasTag(theTag)):
+					hasAnyTag = true
+					break
+			if(!hasAnyTag):
+				return false
 	
 	return canUse(_player)
 
@@ -80,4 +99,9 @@ func consumeConditionTags(_player:CombatMovePlayer):
 		var entryType:int = condEntry[0]
 		
 		if(entryType == COND_TAG):
+			_player.eraseTag(condEntry[1])
+		if(entryType == COND_TAG_ANY):
+			for theTag in condEntry[1]:
+				_player.eraseTag(theTag)
+		if(entryType == COND_JUST_CONSUME):
 			_player.eraseTag(condEntry[1])

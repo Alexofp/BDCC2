@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bi62mhl0ewqby"]
+
+[ext_resource type="Script" uid="uid://dbvuqg3k4nlfm" path="res://Game/DollController/States/Defeated.gd" id="1_txnsd"]
+
+[node name="Defeated" type="Node" unique_id=547400478]
+script = ExtResource("1_txnsd")

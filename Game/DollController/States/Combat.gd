@@ -29,6 +29,10 @@ func processAnimation(_doll:DollController, _dt:float):
 			_doll.doll_controls.shift_isdown = false #hack
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SHIFT)):
 				pass
+		if(_doll.doll_controls.heavyAttack_isDown):
+			_doll.doll_controls.heavyAttack_isDown = false #hack
+			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SPACE)):
+				pass
 		
 	#var isDoingAMove:bool = pawn.combatMovePlayer.isDoingAMove()
 	
@@ -96,3 +100,9 @@ func shouldFollowMoveDirection() -> bool:
 	if(pawn.combatMovePlayer.shouldFollowMoveDirection()):
 		return true
 	return false
+
+func canJump(_doll:DollController) -> bool:
+	return false
+
+func doJump(_doll:DollController):
+	return

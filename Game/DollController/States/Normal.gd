@@ -98,8 +98,9 @@ func processMove(_doll:DollController, _dt:float):
 				## In air
 				#velocity.x = move_direction_no_y.x * move_speed 
 				#velocity.z = move_direction_no_y.z * move_speed
-			if _doll.doll_controls.jump_isdown && _doll.is_on_floor() && !_doll.noclip_on:
-				_doll.doJump()
+			if _doll.doll_controls.jump_isdown:
+				if(canJump(_doll)):
+					_doll.doJump()
 				#yankWalkDir = Vector3(10.0, 0.0, 0.0)
 				#applyHitRandom(10.0) #Funny
 				#addHoverText("JUMP!")
@@ -109,3 +110,6 @@ func processMove(_doll:DollController, _dt:float):
 func processGravity(_doll:DollController, _dt:float):
 	if(!_doll.noclip_on && !_doll.is_on_floor()):
 		_doll.velocity.y -= DollController.GRAVITY_FORCE * _dt
+
+func canBeDefeated() -> bool:
+	return true

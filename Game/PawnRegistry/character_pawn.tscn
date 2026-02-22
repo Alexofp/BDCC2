@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cqk24x8i0tode" path="res://Game/DollController/States/Normal.tscn" id="7_voltc"]
 [ext_resource type="PackedScene" uid="uid://bldunc8biiagd" path="res://Game/DollController/States/Sitting.tscn" id="8_ve3wo"]
 [ext_resource type="PackedScene" uid="uid://4r5wgnb5wwh7" path="res://Game/DollController/States/Empty.tscn" id="9_voltc"]
+[ext_resource type="PackedScene" uid="uid://bi62mhl0ewqby" path="res://Game/DollController/States/Defeated.tscn" id="11_fuiaf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7fod6"]
 
@@ -83,6 +84,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Empty" parent="." unique_id=706968056 instance=ExtResource("9_voltc")]
+unique_name_in_owner = true
+
+[node name="Defeated" parent="." unique_id=1117275923 instance=ExtResource("11_fuiaf")]
 unique_name_in_owner = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]
