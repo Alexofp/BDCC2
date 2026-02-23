@@ -19,6 +19,7 @@ const RESOURCE_CURVE_SMOOTH = preload("res://Game/Combat/Curves/Smooth.tres")
 const CURVE_EASE_IN = 1
 const RESOURCE_CURVE_EASE_IN = preload("res://Game/Combat/Curves/EaseIn.tres")
 
+@export var defeatRecovery:float = 0.0
 
 const CURVE_TO_RESOURCE:Dictionary[int, Curve] = {
 	CURVE_SMOOTH: RESOURCE_CURVE_SMOOTH,
@@ -27,6 +28,9 @@ const CURVE_TO_RESOURCE:Dictionary[int, Curve] = {
 
 func setPawn(_p:CharacterPawn):
 	pawn = _p
+
+func onDefeat():
+	defeatRecovery = 7.0
 
 func activateTrigger(_act:int) -> bool:
 	if(!pawn.canDoCombatMoves()):
@@ -86,6 +90,8 @@ func processCombatPlayer(_dt:float):
 		if(moveTime >= combatMove.moveLen):
 			if(effects.is_empty()): # Try to stop the move
 				stopMove()
+	if(defeatRecovery > 0.0):
+		defeatRecovery -= _dt
 
 func stopMove():
 	Log.Print("MOVE STOPPED: "+str(combatMove.id if combatMove else "null"))
@@ -149,6 +155,9 @@ func resetVel():
 
 func getFinalVel() -> Vector3:
 	return CURVE_TO_RESOURCE.get(velCurve, RESOURCE_CURVE_SMOOTH).sample(velTime/velTimeFull)*vel
+
+func isMovingByAnAttack() -> bool:
+	return velTimeFull > 0.0
 
 func getDoll() -> DollController:
 	return pawn.getDoll()
@@ -227,7 +236,7 @@ func doStrike(_attackInfo:AttackInfo):
 		theContext.target = thePawn
 		thePawn.processHit(theContext)
 
-func isBlocking() -> bool:
+func isTryingToBlock() -> bool:
 	return pawn.state.isTryingToBlock() && canBlock()
 
 func canBlock() -> bool:
@@ -241,3 +250,6 @@ func shouldFollowMoveDirection() -> bool:
 		return false
 	
 	return combatMove.followVelocityDir
+
+func canRecoverFromDefeat() -> bool:
+	return defeatRecovery <= 0.0

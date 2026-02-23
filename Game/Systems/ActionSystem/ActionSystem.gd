@@ -143,7 +143,9 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 			return false
 	
 	theUser.tree_exiting.connect(_actionEntry.deleteMe)
-	theTarget.tree_exiting.connect(_actionEntry.deleteMe)
+	if(theUser != theTarget): # To avoid connecting the signal twice if target = user
+		theTarget.tree_exiting.connect(_actionEntry.deleteMe)
+		
 	for extraTarget in _actionEntry.extraTargets:
 		extraTarget.node.tree_exiting.connect(_actionEntry.deleteMe)
 	
@@ -316,3 +318,15 @@ func findActionEntryByUniqueID(_uid:int) -> ActionSystemEntry:
 
 func _process(_delta: float) -> void:
 	processActions(_delta)
+
+func onPawnHit(_pawn:CharacterPawn, _attackContext:AttackContext):
+	var allTheActions := getAllActionsOfUser(_pawn)
+	
+	var actAm:int = allTheActions.size()
+	for _i in actAm:
+		var _indx:int = actAm - _i - 1
+		var theAction := allTheActions[_indx]
+		
+		if(theAction.cancelIfHit):
+			cancelAction(theAction)
+		

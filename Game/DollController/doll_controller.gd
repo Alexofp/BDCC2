@@ -241,18 +241,12 @@ func _process(delta:float):
 	
 	processCharacterID()
 
-	if(theIsControlledByUs):
-		pawn.state.processCamera(self, delta)
-	
-	pawn.state.processAnimation(self, delta)
+	pawn.state.processTick(self, delta)
 	process_noclip(delta)
 	
 	if(!hasAuthority):
 		position = syncVec3(position, syncPosition)
 		model_root.rotation = syncRot3(model_root.rotation, syncRotation)
-	
-	#if(getState() == STATE_SITTING): # SIT HACK. IMPLEMENT PROPER SIT SYNC
-	#	playSitAnim()
 	
 	if(hasAuthority):
 		syncPosition = position
@@ -286,7 +280,7 @@ func _physics_process(_delta:float):
 	#if(Input.is_action_pressed("move_jump")):
 	#	print("JUMP")
 	
-	pawn.state.processMove(self, _delta)
+	pawn.state.processPhysics(self, _delta)
 
 	var hasAuthority:bool = !isRemote()
 	if(hasAuthority):

@@ -11,6 +11,9 @@ var alwaysPriority:int = 0 # Higher priority -> higher in the list
 var checkDoingAnyActions:bool = true
 var checkIsTargetOfAnyAciton:bool = true
 
+var canDoWhileCollapsed:bool = false
+var canDoWhileDefeated:bool = false
+
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "CHANGE ME"
 
@@ -18,6 +21,10 @@ func canStartAction(_context:PawnActionContext) -> bool:
 	if(checkDoingAnyActions && _context.pawn.isDoingAnyDelayedActions()):
 		return false
 	if(checkIsTargetOfAnyAciton && _context.pawn.isTargetOfAnyDelayedActions()):
+		return false
+	if(!canDoWhileCollapsed && _context.pawn.isCollapsed()):
+		return false
+	if(!canDoWhileDefeated && _context.pawn.isDefeated()):
 		return false
 	return canDoAction(_context)
 

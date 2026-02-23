@@ -5,6 +5,7 @@ class_name CombatUI
 
 @onready var stats_bars: VBoxContainer = %StatsBars
 @onready var pain_bar: PanelContainer = %PainBar
+@onready var recovery_bar: PanelContainer = %RecoveryBar
 
 var shouldBarsBeVisible := false
 var keepUITimer:float = 0.0
@@ -36,6 +37,12 @@ func _physics_process(_delta: float) -> void:
 			fadeOut()
 	
 	pain_bar.setRightText(str(int(ceil(thePain*100.0)))+"/100")
+	if(currentPawn.isDefeated()):
+		recovery_bar.visible = true
+		recovery_bar.setRightText(str(int(currentPawn.getDefeatRecoveryTime())))
+	else:
+		recovery_bar.visible = false
+		
 
 var fadeTween:Tween
 func fadeIn():

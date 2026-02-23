@@ -3,18 +3,7 @@ extends "res://Game/DollController/States/Normal.gd"
 #var attacking:float = 0.0
 var tryingToBlock:bool = false
 
-var walkAnim:Vector2
-func processAnimation(_doll:DollController, _dt:float):
-	var isOnFloor := _doll.is_on_floor()
-	var theDoll := _doll.getDoll()
-	var localVelocity := getLocalVelocity(_doll)
-	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
-	#print(localWalkVec)
-	
-	var areWeBlocking := isBlocking()
-	
-	var isOnFloorVisually:bool = isOnFloor
-	
+func processSpecialInputs(_doll:DollController, _dt:float):
 	tryingToBlock = _doll.doll_controls.block_isDown # Move this to the doll controller maybe?
 	if(Network.isServer() && !_doll.noclip_on):
 		if(_doll.doll_controls.attack_isDown): # && attacking <= 0.2
@@ -33,7 +22,20 @@ func processAnimation(_doll:DollController, _dt:float):
 			_doll.doll_controls.heavyAttack_isDown = false #hack
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SPACE)):
 				pass
-		
+	#print(isBlocking())
+	
+var walkAnim:Vector2
+func processAnimation(_doll:DollController, _dt:float):
+	var isOnFloor := _doll.is_on_floor()
+	var theDoll := _doll.getDoll()
+	var localVelocity := getLocalVelocity(_doll)
+	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
+	#print(localWalkVec)
+	
+	var areWeBlocking := isBlocking()
+	
+	var isOnFloorVisually:bool = isOnFloor
+	
 	#var isDoingAMove:bool = pawn.combatMovePlayer.isDoingAMove()
 	
 	#if(attacking > 0.0):
@@ -88,7 +90,12 @@ func canDoCombatMoves() -> bool:
 	return true
 
 func canRun(_doll:DollController) -> bool:
-	return false
+	if(pawn.combatMovePlayer.isDoingAMove()):
+		return false
+	if(pawn.combatMovePlayer.isMovingByAnAttack()):
+		return false
+	
+	return true
 
 func shouldShowCombatUI() -> bool:
 	return true
@@ -102,6 +109,8 @@ func shouldFollowMoveDirection() -> bool:
 	return false
 
 func canJump(_doll:DollController) -> bool:
+	if(_doll.isRunning):
+		return true
 	return false
 
 func doJump(_doll:DollController):

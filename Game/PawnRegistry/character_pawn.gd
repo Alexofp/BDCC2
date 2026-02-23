@@ -597,6 +597,47 @@ func getYRotation() -> float:
 func processHit(_attackContext:AttackContext):
 	state.processHit(_attackContext)
 
+func isDefeated() -> bool:
+	return pawnState == STATE_DEFEATED
+
+func isCollapsed() -> bool:
+	return false#pawnState == STATE_DEFEATED
+
+func makeDefeated() -> bool:
+	if(isDefeated()):
+		return false
+	
+	if(Network.isServer()):
+		var allLeashes := GM.leashSystem.getAllLeashesOfSourceNode(self)
+		for leash in allLeashes.duplicate():
+			leash.queue_free()
+	
+	doCombatAnim("CollapseFromCombat", true)
+	setState(STATE_DEFEATED)
+	combatMovePlayer.onDefeat()
+	return true
+
+func makeDefeatedFromAttack(_attackContext:AttackContext) -> bool:
+	return makeDefeated()
+
+func canRecoverFromDefeat() -> bool:
+	if(!isDefeated()):
+		return false
+	return combatMovePlayer.canRecoverFromDefeat()
+
+func getDefeatRecoveryTime() -> float:
+	return combatMovePlayer.defeatRecovery
+
+func recoverFromDefeat() -> bool:
+	if(!isDefeated()):
+		return false
+	doCombatAnim("CollapseToCombat", true)
+	setState(CharacterPawn.STATE_NORMAL)
+	getCharacter().charState.setPain(0.0)
+	return true
+
+
+
 
 
 # LEASH STUFF

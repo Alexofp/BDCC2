@@ -31,15 +31,33 @@ func processAnimation(_doll:DollController, _dt:float):
 	
 	theDoll.animIdle("CollapseIdle")
 	
-	rotateTowardsMoveDirection(_doll, _dt)
+	rotateTowardsMoveDirection(_doll, _dt*0.1)
 	
 func processMove(_doll:DollController, _dt:float):
 	#var theCanMove := canMove(_doll)
 	_doll.isRunning = false
 	processGravity(_doll, _dt)
+	processYanking(_doll, _dt)
 	_doll.velocity.x = _doll.velocity.x * 0.5
 	_doll.velocity.z = _doll.velocity.z * 0.5
+	
+	#rotateTowardsMoveDirection(_doll, _dt*0.0)
 	
 func processGravity(_doll:DollController, _dt:float):
 	if(!_doll.noclip_on && !_doll.is_on_floor()):
 		_doll.velocity.y -= DollController.GRAVITY_FORCE * _dt
+
+func processYanking(_doll:DollController, _delta:float):
+	var yankHasPower:bool = _doll.yankWalkDir.length_squared() > 0.01
+	
+	if(yankHasPower && !_doll.noclip_on && _doll.doll_controls.move_direction.length_squared()<0.01):
+		_doll.move_direction = _doll.yankWalkDir.normalized()
+		#_doll.move_direction.z += PI
+		_doll.move_direction = _doll.move_direction.rotated(Vector3.UP, PI)
+		_doll.move_direction_no_y = Vector3(_doll.move_direction.x, 0.0, _doll.move_direction.z).normalized()
+	else:
+		_doll.move_direction = _doll.doll_controls.move_direction
+		_doll.move_direction_no_y = _doll.doll_controls.move_direction_no_y
+
+	if(Network.isServer() && yankHasPower): #Server's job to do this
+		_doll.yankWalkDir *= 0.8

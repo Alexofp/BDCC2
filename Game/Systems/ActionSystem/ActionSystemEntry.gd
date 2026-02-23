@@ -23,6 +23,7 @@ var uniqueID:int = -1
 
 var userMove:int = USER_CANMOVE
 var cancelType:int = CANCEL_ALLOW
+var cancelIfHit:bool = true # Cancel the action if user got hit by someone
 
 var timeFull:float = 1.0
 var timePassed:float = 0.0
@@ -137,3 +138,7 @@ func setCancelType(_type:int) -> ActionSystemEntry:
 
 func deleteMe():
 	GM.actionSystem.deleteAction(self)
+
+func setCancelOnUserGettingHit(_h:bool) -> ActionSystemEntry:
+	cancelIfHit = _h
+	return self

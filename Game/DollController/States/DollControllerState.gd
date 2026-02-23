@@ -15,6 +15,20 @@ func getDoll() -> DollController:
 func processAnimation(_doll:DollController, _dt:float):
 	_doll.getDoll().animStand()
 
+func processSpecialInputs(_doll:DollController, _dt:float):
+	pass
+
+func processPhysics(_doll:DollController, _delta:float):
+	processSpecialInputs(_doll, _delta)
+	processMove(_doll, _delta)
+
+func processTick(_doll:DollController, _delta:float):
+	var theIsControlledByUs:bool = _doll.isControlledByUs()
+	
+	if(theIsControlledByUs):
+		processCamera(_doll, _delta)
+	processAnimation(_doll, _delta)
+
 func processMove(_doll:DollController, _delta:float):
 	pass
 
@@ -31,6 +45,12 @@ func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
 func rotateTowardsMoveDirection(_doll:DollController, _dt:float):
 	if _doll.move_direction_no_y.length_squared() > 0.1 && !_doll.isRemote():
 		_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis.looking_at(-_doll.move_direction_no_y), _doll.ROTATE_SPEED * _dt)
+
+func rotateTowardsDirection(_doll:DollController, _dt:float, _dir:Vector3):
+	_dir.y = 0.0
+	_dir = _dir.normalized()
+	if _dir.length_squared() > 0.1 && !_doll.isRemote():
+		_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis.looking_at(-_dir), _doll.ROTATE_SPEED * _dt)
 
 func rotateTowardsCamera(_doll:DollController, _dt:float):
 	_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis(_doll.camera_rotation_no_y).rotated(Vector3.UP, PI), _doll.ROTATE_SPEED * _dt)
@@ -121,10 +141,11 @@ func processHit(_attackContext:AttackContext):
 	if(theDoll):
 		onDollHit(theDoll, _attackContext)
 	
-	if(canBeDefeated()):
-		if(Network.isServer()):
-			pawn.doCombatAnim("CollapseFromCombat", true)
-			pawn.setState(pawn.STATE_DEFEATED)
+	if(Network.isServer()):
+		GM.actionSystem.onPawnHit(pawn, _attackContext)
+		
+		if(theCharacter.charState.getPainLevel() >= 1.0 && canBeDefeated()):
+			pawn.makeDefeatedFromAttack(_attackContext)
 
 func canBeDefeated() -> bool:
 	return false
@@ -146,7 +167,13 @@ func isTryingToBlock() -> bool:
 	return false
 
 func isBlocking() -> bool:
-	return pawn.combatMovePlayer.isBlocking()
+	if(!pawn.combatMovePlayer.isTryingToBlock()):
+		return false
+	var theDoll := getDoll()
+	if(theDoll && theDoll.isRunning):
+		return false
+	
+	return true
 
 func canJump(_doll:DollController) -> bool:
 	return _doll.is_on_floor() && !_doll.noclip_on
