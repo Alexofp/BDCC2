@@ -18,7 +18,7 @@ func processSpecialInputs(_doll:DollController, _dt:float):
 			_doll.doll_controls.shift_isdown = false #hack
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SHIFT)):
 				pass
-		if(_doll.doll_controls.heavyAttack_isDown):
+		if(_doll.doll_controls.heavyAttack_isDown && !_doll.isRunning):
 			_doll.doll_controls.heavyAttack_isDown = false #hack
 			if(pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SPACE)):
 				pass
@@ -114,4 +114,6 @@ func canJump(_doll:DollController) -> bool:
 	return false
 
 func doJump(_doll:DollController):
+	if(_doll.isRunning):
+		return super.doJump(_doll)
 	return
