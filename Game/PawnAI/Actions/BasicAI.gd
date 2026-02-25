@@ -9,6 +9,11 @@ func start(_args:Array):
 func processAction(_dt:float):
 	pass
 
+func onGettingHit(_attackContext:AttackContext) -> bool:
+	getPawn().combatAI.addEnemy(_attackContext.attacker)
+	startSubActionUnlessSameTag("Combat")
+	return true
+
 func think():
 	var theInteraction := getInteraction()
 	if(theInteraction):

@@ -38,7 +38,7 @@ func goTowardsRaw(_pos:Vector3, _dt:float, shouldRun:bool=false):
 func goTowards(_pos:Vector3, shouldRun:bool=false):
 	shouldRunToTarget = shouldRun
 	
-	if(currentMoveTarget == _pos || !pawn):
+	if(currentMoveTarget.distance_squared_to(_pos) < 0.1 || !pawn):
 		return
 	
 	currentMoveTarget = _pos
@@ -46,6 +46,8 @@ func goTowards(_pos:Vector3, shouldRun:bool=false):
 
 func stopWalking():
 	goTowards(getPawn().global_position)
+	#pawn.getNavAgent().target_position = getPawn().global_position
+	#pawn.getNavAgent().set_velocity_forced(Vector3.ZERO)
 
 func doJump():
 	if(!pawn):
@@ -108,6 +110,7 @@ func processRare():
 		aiAction.processRareFinal()
 		checkAction()
 	
+	checkCombatMode()
 	#var theTarget:DollController = GM.pcDoll
 	#if(!theTarget):
 		#return
@@ -186,3 +189,17 @@ func onInteractionChange(_interaction:InteractionBase):
 	if(!lowestAIAction || !Network.isServer()):
 		return
 	lowestAIAction.handleInteractionChangeFinal(_interaction)
+
+func onGettingHit(_attack:AttackContext):
+	if(!lowestAIAction || !Network.isServer()):
+		return
+	lowestAIAction.onGettingHitFinal(_attack)
+
+func checkCombatMode():
+	if(!lowestAIAction):
+		getPawn().exitCombatMode()
+		return
+	if(lowestAIAction.shouldBeInCombatMode()):
+		getPawn().enterCombatMode()
+	else:
+		getPawn().exitCombatMode()

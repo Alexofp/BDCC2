@@ -101,6 +101,8 @@ func shouldShowCombatUI() -> bool:
 	return true
 
 func isTryingToBlock() -> bool:
+	if(pawn.combatAI.shouldBlock()):
+		return true
 	return tryingToBlock
 
 func shouldFollowMoveDirection() -> bool:

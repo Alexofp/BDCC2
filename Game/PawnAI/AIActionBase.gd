@@ -57,7 +57,21 @@ func handleInteractionChange(_interaction:InteractionBase) -> bool:
 func needsToHappen() -> bool:
 	return false
 
+func onGettingHit(_attackContext:AttackContext) -> bool:
+	return false
+
+func shouldBeInCombatMode() -> bool:
+	return false
+
 # Functions to override END
+
+func onGettingHitFinal(_attackContext:AttackContext) -> bool:
+	if(onGettingHit(_attackContext)):
+		return true
+	if(!parentAction):
+		return false
+	# Go up the chain
+	return parentAction.onGettingHitFinal(_attackContext)
 
 func handleInteractionChangeFinal(_interaction:InteractionBase) -> bool:
 	if(handleInteractionChange(_interaction)):
@@ -281,3 +295,11 @@ func goTo(_pos:Vector3, _run:bool = false, _tag:String = "", _dist:float=1.5) ->
 	subAction.run = _run
 	subAction.completeDistance = _dist
 	return false
+
+func strSmart(_val:Variant) -> String:
+	if(_val is float):
+		return str(Util.roundF(_val, 2))
+	if(_val is Vector3):
+		return "("+str(Util.roundF(_val.x, 1))+","+str(Util.roundF(_val.y, 1))+","+str(Util.roundF(_val.z, 1))+")"
+	
+	return str(_val)

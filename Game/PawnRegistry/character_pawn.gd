@@ -20,6 +20,7 @@ var doll:DollController
 @onready var pawn_interactor: PawnInteractor = %PawnInteractor
 
 var ai:PawnAI
+var combatAI:CombatPawnAI
 var interaction:InteractionBase
 
 signal dollSpawned(doll)
@@ -63,6 +64,9 @@ func _ready() -> void:
 	
 	ai = PawnAI.new()
 	ai.setPawn(self)
+	
+	combatAI = CombatPawnAI.new()
+	combatAI.setPawn(self)
 	
 	#print(sayArrayToText([
 		#[SayType.Speech, "Hello."],
@@ -162,6 +166,18 @@ func processPoseSpot():
 		theDoll.model_root.global_rotation = globRot
 		theDoll.velocity = Vector3(0.0, 0.0, 0.0)
 	#move_and_slide()
+
+func goDirLocal(_dir:Vector2, _delta:float, _shouldRun:bool):
+	if(!isDollSpawned()):
+		return # Make this work?
+	var theDoll := getDoll()
+	var theRot := theDoll.getBodyRotationGlobalBasis()
+	var dirToGo := theRot * Vector3(_dir.x, 0.0, _dir.y)
+	theDoll.doll_controls.move_direction = dirToGo.normalized()
+	theDoll.doll_controls.move_direction_no_y = theDoll.doll_controls.move_direction
+	theDoll.doll_controls.move_direction_no_y.y = 0.0
+	theDoll.doll_controls.move_direction_no_y = theDoll.doll_controls.move_direction_no_y.normalized()
+	theDoll.doll_controls.sprint_isdown = _shouldRun
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):
@@ -636,8 +652,38 @@ func recoverFromDefeat() -> bool:
 	getCharacter().charState.setPain(0.0)
 	return true
 
+func canEnterCombatMode() -> bool:
+	if(getState() == STATE_NORMAL):
+		return true
+	return false
 
+func canExitCombatMode() -> bool:
+	if(getState() == STATE_COMBAT):
+		return true
+	return false
 
+func enterCombatMode() -> bool:
+	if(!canEnterCombatMode()):
+		return false
+	setState(STATE_COMBAT)
+	return true
+	
+func exitCombatMode() -> bool:
+	if(!canExitCombatMode()):
+		return false
+	setState(STATE_NORMAL)
+	return true
+
+func rotateTowards(_pos:Vector3):
+	var theDir := _pos - global_position
+	var theBasis := Basis.looking_at(theDir, Vector3.UP)
+	var theRot := theBasis.get_rotation_quaternion()
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.camera_rotation = theRot
+		var someBasis := Basis(theDoll.camera_rotation)
+		theDoll.camera_rotation_no_y = Basis(someBasis.x, Vector3.UP, someBasis.z).get_rotation_quaternion()
+	global_basis = theBasis
 
 
 # LEASH STUFF

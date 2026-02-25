@@ -72,11 +72,3 @@ func think():
 
 func getDebugText() -> String:
 	return "pos:"+strSmart(target)+",timer:"+strSmart(stuckTimer)
-
-func strSmart(_val:Variant) -> String:
-	if(_val is float):
-		return str(Util.roundF(_val, 2))
-	if(_val is Vector3):
-		return "("+str(Util.roundF(_val.x, 1))+","+str(Util.roundF(_val.y, 1))+","+str(Util.roundF(_val.z, 1))+")"
-	
-	return str(_val)

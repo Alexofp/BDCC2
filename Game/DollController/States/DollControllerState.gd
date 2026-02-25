@@ -146,6 +146,8 @@ func processHit(_attackContext:AttackContext):
 		
 		if(theCharacter.charState.getPainLevel() >= 1.0 && canBeDefeated()):
 			pawn.makeDefeatedFromAttack(_attackContext)
+		
+		pawn.ai.onGettingHit(_attackContext)
 
 func canBeDefeated() -> bool:
 	return false
