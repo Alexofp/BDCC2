@@ -117,14 +117,32 @@ func processEffectQueue(_dt:float):
 		elif(curEffectType == CombatMoveBase.EFFECT_HIT):
 			effects.pop_front()
 			if(combatMove):
-				combatMove.onStrike(self, curEffectAr[1])
+				combatMove.onStrike(self, curEffectAr[1],
+					curEffectAr[2] if curEffectAr.size() > 2 else combatMove.EFFECTS_NOTHING,
+					curEffectAr[3] if curEffectAr.size() > 3 else combatMove.INTENSITY_NORMAL)
 		elif(curEffectType == CombatMoveBase.EFFECT_TAG):
 			effects.pop_front()
 			pushTag(curEffectAr[1], curEffectAr[2])
 		elif(curEffectType == CombatMoveBase.EFFECT_MOVE):
 			effects.pop_front()
 			setVel(curEffectAr[1], curEffectAr[2])
-		
+		elif(curEffectType == CombatMoveBase.EFFECT_SOUND):
+			effects.pop_front()
+			doSoundEffect(curEffectAr[1])
+
+func doSoundEffect(_effectID:int):
+	if(_effectID == CombatMoveBase.SOUND_FALL):
+		Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Fall/FallRandom.tres"), -10.0)
+	if(_effectID == CombatMoveBase.SOUND_DODGE):
+		Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Whoosh/Whoosh.tres"), -10.0, 1.0)
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doSoundEffect_RPC.bind(_effectID))
+
+@rpc("authority", "call_remote", "unreliable")
+func doSoundEffect_RPC(_effectID:int):
+	doSoundEffect(_effectID)
+
 func pushTag(_tag:String, _time:float):
 	activeTags[_tag] = _time
 
@@ -212,6 +230,7 @@ func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 		if(theirPos.distance_squared_to(ourPos) > distSquared):
 			continue
 		var theDir := ourPos - theirPos
+		theDir.y *= 0.3
 		var theDot := ourForward.dot(theDir.normalized())
 		if(theDot < cosThreshold): #!isInCone(ourPos, ourRotY, theirPos, _maxSpread)
 			continue
@@ -225,17 +244,70 @@ func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 func getTargetsForAttack(_attackInfo:AttackInfo) -> Array[CharacterPawn]:
 	return getTargets(_attackInfo.reach, _attackInfo.spread)
 
-func doStrike(_attackInfo:AttackInfo):
+func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 	var theTargets := getTargetsForAttack(_attackInfo)
 	
 	var theContext:AttackContext = AttackContext.new()
 	theContext.attacker = pawn
 	theContext.attack = _attackInfo
 	
+	var hitStatus:int = AttackEffects.STATUS_MISSED
+	
+	var anyHits:bool = false
+	var anyBlocked:bool = false
 	for thePawn in theTargets:
 		theContext.target = thePawn
-		thePawn.processHit(theContext)
+		var theStatus := thePawn.processHit(theContext)
+		
+		if(theStatus == AttackEffects.STATUS_HIT):
+			anyHits = true
+		elif(theStatus == AttackEffects.STATUS_BLOCKED):
+			anyBlocked = true
+	
+	if(anyBlocked):
+		hitStatus = AttackEffects.STATUS_BLOCKED
+	if(anyHits):
+		hitStatus = AttackEffects.STATUS_HIT
+	
+	doAttackEffects(_effects, hitStatus, _intensity)
 
+func intensityToPitch(_intensity:int) -> float:
+	if(_intensity == CombatMoveBase.INTENSITY_SOFT):
+		return 1.3
+	if(_intensity == CombatMoveBase.INTENSITY_STRONG):
+		return 0.9
+	return 1.0
+
+func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int):
+	var thePitch := intensityToPitch(_intensity)
+	if(_hitStatus == AttackEffects.STATUS_MISSED):
+		#if(_intensity == CombatMoveBase.INTENSITY_SOFT):
+		#	Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissHigh.tres"), -25.0, 1.2)
+		#elif(_intensity == CombatMoveBase.INTENSITY_STRONG):
+		#	Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissLow.tres"), -25.0, 0.8)
+		#else:
+		if(_effects.impactSound == _effects.SOUND_KICK):
+			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissLow.tres"), -20.0, 0.5)
+		else:
+			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissMedium.tres"), -25.0, 1.0)
+	if(_hitStatus == AttackEffects.STATUS_BLOCKED):
+		Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Blocked/BlockedHit.tres"), -0.0, thePitch)
+	if(_hitStatus == AttackEffects.STATUS_HIT):
+		if(_effects.impactSound == _effects.SOUND_PUNCH):
+			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/PunchRandom.tres"), -0.0, thePitch)
+		if(_effects.impactSound == _effects.SOUND_KICK):
+			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/KickRandom.tres"), -5.0, thePitch)
+		
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doAttackEffects_RPC.bind(_effects.saveNetworkData(), _hitStatus, _intensity))
+	
+@rpc("authority", "call_remote", "reliable")
+func doAttackEffects_RPC(_effectsData:PackedByteArray, _hitStatus:int, _intensity:int):
+	var attackEffects:AttackEffects = AttackEffects.new()
+	attackEffects.loadNetworkData(Bins.readUncompressed(_effectsData))
+	
+	doAttackEffects(attackEffects, _hitStatus, _intensity)
+	
 func isTryingToBlock() -> bool:
 	return pawn.state.isTryingToBlock() && canBlock()
 

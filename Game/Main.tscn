@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://heeo5nvmwnmk" path="res://Game/Interactable/UI/InteractMenu.tscn" id="16_tc76r"]
 [ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
 [ext_resource type="PackedScene" uid="uid://bm38mwknxmqbe" path="res://Game/GameInteractor/Util/wall_checker.tscn" id="21_wo11f"]
+[ext_resource type="PackedScene" uid="uid://cpwokxekng42g" path="res://Sounds/SoundscapeSystem/SoundscapeSystem.tscn" id="24_ijkwl"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
@@ -113,6 +114,8 @@ cameraPriority = -1.0
 
 [node name="WallChecker" parent="." unique_id=1636613646 instance=ExtResource("21_wo11f")]
 unique_name_in_owner = true
+
+[node name="SoundscapeSystem" parent="." unique_id=547078707 instance=ExtResource("24_ijkwl")]
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

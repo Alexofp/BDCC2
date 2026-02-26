@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cnou78b6flcp3"]
+
+[ext_resource type="AudioStream" uid="uid://c0r5na4x2hchd" path="res://Sounds/Combat/Punch/Kick1.ogg" id="1_bxfc5"]
+[ext_resource type="AudioStream" uid="uid://brc3g55hjl8gi" path="res://Sounds/Combat/Punch/Kick2.ogg" id="2_v3nwr"]
+[ext_resource type="AudioStream" uid="uid://dno3yglyfhaa3" path="res://Sounds/Combat/Punch/Kick3.ogg" id="3_nh6yj"]
+
+[resource]
+random_pitch = 1.122462
+random_volume_offset_db = 3.0
+streams_count = 3
+stream_0/stream = ExtResource("1_bxfc5")
+stream_1/stream = ExtResource("2_v3nwr")
+stream_2/stream = ExtResource("3_nh6yj")

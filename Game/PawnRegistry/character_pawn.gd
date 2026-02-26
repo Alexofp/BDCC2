@@ -574,6 +574,10 @@ func doCombatAnim(_animation:String, _ignoreChecks:bool = false):
 	var theDoll := getDoll()
 	if(theDoll):
 		theDoll.doCombatAnimLocal(_animation)
+		
+		if(_animation == "CollapseFromCombat"):
+			Audio.playSound3D(theDoll, preload("res://Sounds/Combat/Fall/FallRandom.tres"))
+			#theSound.volume_db = -5.0
 	
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(doCombatAnim_RPC.bind(_animation, _ignoreChecks))
@@ -610,8 +614,8 @@ func getYRotation() -> float:
 		return doll.getYRotation()
 	return global_rotation.y
 
-func processHit(_attackContext:AttackContext):
-	state.processHit(_attackContext)
+func processHit(_attackContext:AttackContext) -> int:
+	return state.processHit(_attackContext)
 
 func isDefeated() -> bool:
 	return pawnState == STATE_DEFEATED

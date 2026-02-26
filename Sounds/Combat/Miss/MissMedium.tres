@@ -1,0 +1,15 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://7wijadosjait"]
+
+[ext_resource type="AudioStream" uid="uid://bl0o311oi4ola" path="res://Sounds/Combat/Miss/Miss7.ogg" id="1_1mv1n"]
+[ext_resource type="AudioStream" uid="uid://dqftrqrg7t4hi" path="res://Sounds/Combat/Miss/Miss8.ogg" id="2_q6us5"]
+[ext_resource type="AudioStream" uid="uid://d1ap5hbl4ougf" path="res://Sounds/Combat/Miss/Miss9.ogg" id="3_enbp5"]
+[ext_resource type="AudioStream" uid="uid://d0ub0t6a8v2l6" path="res://Sounds/Combat/Miss/Miss12.ogg" id="3_q6us5"]
+
+[resource]
+random_pitch = 1.3348398
+random_volume_offset_db = 3.0
+streams_count = 4
+stream_0/stream = ExtResource("1_1mv1n")
+stream_1/stream = ExtResource("2_q6us5")
+stream_2/stream = ExtResource("3_enbp5")
+stream_3/stream = ExtResource("3_q6us5")

@@ -16,7 +16,7 @@ func _init() -> void:
 		[EFFECT_DELAY, 0.15],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, 1.0), 0.6],
 		[EFFECT_DELAY, 0.2],
-		[EFFECT_HIT, AttackInfo.create(2.0, 2.2, 20.0)],
+		[EFFECT_HIT, AttackInfo.create(2.0, 2.2, 20.0), EFFECTS_KICK_RIGHT, INTENSITY_STRONG],
 		[EFFECT_DELAY, 0.8],
 		#[EFFECT_MOVE, Vector3(0.0, 0.0, -3.0), 0.4],
 		[EFFECT_TAG, "ak3", 0.5], # ak1 = after kick 1

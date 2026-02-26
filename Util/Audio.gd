@@ -32,4 +32,20 @@ static func playSound3D(node:Node3D, sound: AudioStream, maxDistance:float = 10.
 	_play_sound(sound, newPlayer, maxDistance, theBus)
 	node.add_child(newPlayer)
 	newPlayer.finished.connect(func(): newPlayer.queue_free())
+	newPlayer.max_db = 0.0
+	newPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
+	return newPlayer
+
+static func playSound3DAdvanced(node:Node3D, sound: AudioStream, volumeInc:float = 0.0, pitch:float = 1.0, maxDistance:float = 10.0, theBus:String = BUS_SOUNDS) -> AudioStreamPlayer3D:
+	if(maxDistance < 0.0):
+		maxDistance = 10.0
+	var newPlayer := AudioStreamPlayer3D.new()
+	_play_sound(sound, newPlayer, maxDistance, theBus)
+	node.add_child(newPlayer)
+	newPlayer.finished.connect(func(): newPlayer.queue_free())
+	newPlayer.volume_db += volumeInc
+	#newPlayer.max_db -= volumeInc
+	newPlayer.pitch_scale = pitch
+	newPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
+	newPlayer.max_db = 0.0
 	return newPlayer

@@ -54,3 +54,6 @@ func getActiveCameraWithHighestPriority() -> PriorityCamera:
 			maxcam = camera
 	
 	return maxcam
+
+func getCurrentCamera() -> PriorityCamera:
+	return currentCam

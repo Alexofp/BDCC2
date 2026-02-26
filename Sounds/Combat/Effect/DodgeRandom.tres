@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://baedf63kby53k"]
+
+[ext_resource type="AudioStream" uid="uid://bjsqthrk1vkck" path="res://Sounds/Combat/Effect/Dodge1.ogg" id="1_6lajp"]
+
+[resource]
+random_pitch = 1.1892071
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("1_6lajp")

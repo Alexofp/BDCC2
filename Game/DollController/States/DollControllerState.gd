@@ -127,11 +127,13 @@ func canMove(_doll:DollController) -> bool:
 func canDoCombatMoves() -> bool:
 	return false
 
-func processHit(_attackContext:AttackContext):
+func processHit(_attackContext:AttackContext) -> int:
+	var hitStatus:int = AttackEffects.STATUS_HIT
 	#var theAttack := _attackContext.attack
 	#var theDamageMult:float = theAttack.damage
 	if(isBlocking() && CombatMovePlayer.isInCone(_attackContext.target, _attackContext.attacker, 90.0)):
 		_attackContext.blocked = true
+		hitStatus = AttackEffects.STATUS_BLOCKED
 	
 	var theCharacter := pawn.getCharacter()
 	if(theCharacter):
@@ -148,6 +150,7 @@ func processHit(_attackContext:AttackContext):
 			pawn.makeDefeatedFromAttack(_attackContext)
 		
 		pawn.ai.onGettingHit(_attackContext)
+	return hitStatus
 
 func canBeDefeated() -> bool:
 	return false

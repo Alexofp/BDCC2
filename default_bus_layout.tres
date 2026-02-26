@@ -1,6 +1,25 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://bpocxbhjwlrp6"]
 
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_j3pel"]
+resource_name = "LowPassFilter"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
+resource_name = "Reverb"
+room_size = 1.0
+hipass = 0.45
+wet = 0.05
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_j3pel"]
+resource_name = "HighPassFilter"
+
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_j3pel"]
+resource_name = "Delay"
+tap1_level_db = -13.93
+tap2_level_db = -21.92
+feedback_level_db = -15.92
+
 [resource]
+bus/0/bypass_fx = true
 bus/1/name = &"Sounds"
 bus/1/solo = false
 bus/1/mute = false
@@ -13,3 +32,23 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &"Master"
+bus/3/name = &"Ambient"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/4/name = &"AmbientSounds"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectReverb_j3pel")
+bus/4/effect/1/enabled = true
+bus/4/effect/2/effect = SubResource("AudioEffectHighPassFilter_j3pel")
+bus/4/effect/2/enabled = false
+bus/4/effect/3/effect = SubResource("AudioEffectDelay_j3pel")
+bus/4/effect/3/enabled = true

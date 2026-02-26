@@ -100,7 +100,7 @@ func processAI(_dt:float):
 				pushToQueue(ACTION_DODGE, [Vector2(0.0, -1.0)])
 				pushDelay(0.3)
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
-			elif(RNG.chance(50)):
+			elif(RNG.chance(30)):
 				pushToQueue(ACTION_DODGE, [Vector2(1.0, 0.0)])
 				pushDelay(0.8)
 				pushToQueue(ACTION_DODGE, [Vector2(-1.0, 0.0)])

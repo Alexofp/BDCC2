@@ -20,7 +20,9 @@ func _init() -> void:
 	initialEffects = [
 		[EFFECT_TAG, TAG_ROLLING, 1.5],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, 10.0), 1.0],
-		[EFFECT_DELAY, 1.0],
+		[EFFECT_DELAY, 0.2],
+		[EFFECT_SOUND, SOUND_FALL],
+		[EFFECT_DELAY, 0.8],
 		#[EFFECT_TAG, TAG_AFTER_DODGE, 0.5],
 	]
 

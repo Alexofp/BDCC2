@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://drnsiiyiuiow3"]
+
+[ext_resource type="AudioStream" uid="uid://bltnduhwh33b2" path="res://Sounds/Combat/Fall/Fall1.ogg" id="1_ryb8k"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("1_ryb8k")

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cpwokxekng42g"]
+
+[ext_resource type="Script" uid="uid://cb3yqe4shitx2" path="res://Sounds/SoundscapeSystem/SoundscapeSystem.gd" id="1_hefi8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hefi8"]
+radius = 0.24663576
+
+[node name="SoundscapeSystem" type="Node3D" unique_id=547078707]
+script = ExtResource("1_hefi8")
+
+[node name="SwitchAmbienceTimer" type="Timer" parent="." unique_id=295256803]
+unique_name_in_owner = true
+
+[node name="AmbientSoundTimer" type="Timer" parent="." unique_id=1211858435]
+unique_name_in_owner = true
+
+[node name="SoundscapeDetector" type="Area3D" parent="." unique_id=852618109]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 16384
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SoundscapeDetector" unique_id=547452945]
+shape = SubResource("SphereShape3D_hefi8")
+
+[connection signal="timeout" from="SwitchAmbienceTimer" to="." method="_on_switch_ambience_timer_timeout"]
+[connection signal="timeout" from="AmbientSoundTimer" to="." method="_on_ambient_sound_timer_timeout"]

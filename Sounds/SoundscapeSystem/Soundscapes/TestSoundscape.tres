@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SoundscapeResource" format=3 uid="uid://djuiws2jeltp1"]
+
+[ext_resource type="Script" uid="uid://pr844bmvl20h" path="res://Sounds/SoundscapeSystem/SoundscapeResource.gd" id="1_ob3a8"]
+[ext_resource type="AudioStream" uid="uid://dgdja8axq0kux" path="res://Sounds/Ambient/Ambient1.ogg" id="1_od771"]
+[ext_resource type="AudioStream" uid="uid://o8xtktr084s0" path="res://Sounds/AmbientSounds/GlassBreaking.ogg" id="2_ncgvl"]
+[ext_resource type="AudioStream" uid="uid://tkedpuyuwy3q" path="res://Sounds/AmbientSounds/PlatformRising.ogg" id="3_ncgvl"]
+[ext_resource type="AudioStream" uid="uid://rmomq224j625" path="res://Sounds/AmbientSounds/MetalBang.ogg" id="4_c4lb4"]
+[ext_resource type="AudioStream" uid="uid://bjgbyptpklun8" path="res://Sounds/AmbientSounds/ElevatorOpen2.ogg" id="5_s065i"]
+[ext_resource type="AudioStream" uid="uid://sc3kw1c66ghb" path="res://Sounds/AmbientSounds/ElevatorOpen.ogg" id="6_fybal"]
+
+[resource]
+script = ExtResource("1_ob3a8")
+ambiences = Array[AudioStream]([ExtResource("1_od771")])
+randomNoises = Array[AudioStream]([ExtResource("2_ncgvl"), ExtResource("3_ncgvl"), ExtResource("4_c4lb4"), ExtResource("5_s065i"), ExtResource("6_fybal")])
+metadata/_custom_type_script = "uid://pr844bmvl20h"

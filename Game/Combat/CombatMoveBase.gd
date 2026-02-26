@@ -23,6 +23,7 @@ const EFFECT_HIT = 1
 const EFFECT_DELAY = 2
 const EFFECT_TAG = 3
 const EFFECT_MOVE = 4
+const EFFECT_SOUND = 5
 
 var activateType:int = ACTIVATE_NOTHING
 const ACTIVATE_NOTHING = 0
@@ -43,6 +44,31 @@ const TAG_AFTER_DODGE = "ad"
 const TAG_CAN_ROLL = "cr"
 const TAG_ROLLING = "rr"
 
+const SOUND_FALL = 0
+const SOUND_DODGE = 1
+
+var EFFECTS_PUNCH_LEFT:AttackEffects = AttackEffects.create(
+	AttackEffects.SOUND_PUNCH,
+	AttackEffects.ZONE_FIST_LEFT,
+	AttackEffects.EFFECT_IMPACT)
+var EFFECTS_PUNCH_RIGHT:AttackEffects = AttackEffects.create(
+	AttackEffects.SOUND_PUNCH,
+	AttackEffects.ZONE_FIST_RIGHT,
+	AttackEffects.EFFECT_IMPACT)
+var EFFECTS_KICK_LEFT:AttackEffects = AttackEffects.create(
+	AttackEffects.SOUND_KICK,
+	AttackEffects.ZONE_FOOT_LEFT,
+	AttackEffects.EFFECT_IMPACT)
+var EFFECTS_KICK_RIGHT:AttackEffects = AttackEffects.create(
+	AttackEffects.SOUND_KICK,
+	AttackEffects.ZONE_FOOT_RIGHT,
+	AttackEffects.EFFECT_IMPACT)
+var EFFECTS_NOTHING:AttackEffects = AttackEffects.createEmpty()
+
+const INTENSITY_NORMAL := 0
+const INTENSITY_SOFT := 1
+const INTENSITY_STRONG := 2
+
 func canUse(_player:CombatMovePlayer) -> bool:
 	return true
 
@@ -51,8 +77,8 @@ func onEvent(_player:CombatMovePlayer, _eventID:String, _args:Array):
 	Log.Print("COMBAT MOVE EVENT! move="+id+" EVENT ID="+_eventID)
 	pass
 
-func onStrike(_player:CombatMovePlayer, _attackInfo:AttackInfo):
-	_player.doStrike(_attackInfo)
+func onStrike(_player:CombatMovePlayer, _attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
+	_player.doStrike(_attackInfo, _effects, _intensity)
 
 func startMove(_player:CombatMovePlayer):
 	consumeConditionTags(_player)

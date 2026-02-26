@@ -1,0 +1,21 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dhif53shru4cr"]
+
+[ext_resource type="AudioStream" uid="uid://0e6ardscw4fb" path="res://Sounds/Combat/Miss/Miss1.ogg" id="1_hwxbw"]
+[ext_resource type="AudioStream" uid="uid://dc71i0ub2saps" path="res://Sounds/Combat/Miss/Miss2.ogg" id="2_i882r"]
+[ext_resource type="AudioStream" uid="uid://cp375y6oollbi" path="res://Sounds/Combat/Miss/Miss3.ogg" id="3_3qxks"]
+[ext_resource type="AudioStream" uid="uid://du5ikpfouvi5" path="res://Sounds/Combat/Miss/Miss4.ogg" id="4_yhidr"]
+[ext_resource type="AudioStream" uid="uid://bjtmfqlmhkl5u" path="res://Sounds/Combat/Miss/Miss10.ogg" id="5_hodtw"]
+[ext_resource type="AudioStream" uid="uid://cuor1lq85exud" path="res://Sounds/Combat/Miss/Miss11.ogg" id="6_2wscg"]
+[ext_resource type="AudioStream" uid="uid://dbx6r1pewelwx" path="res://Sounds/Combat/Miss/Miss13.ogg" id="7_ttrpo"]
+
+[resource]
+random_pitch = 1.3348398
+random_volume_offset_db = 3.0
+streams_count = 7
+stream_0/stream = ExtResource("1_hwxbw")
+stream_1/stream = ExtResource("2_i882r")
+stream_2/stream = ExtResource("3_3qxks")
+stream_3/stream = ExtResource("4_yhidr")
+stream_4/stream = ExtResource("5_hodtw")
+stream_5/stream = ExtResource("6_2wscg")
+stream_6/stream = ExtResource("7_ttrpo")

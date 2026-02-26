@@ -20,6 +20,10 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=120
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://bpocxbhjwlrp6"
+
 [autoload]
 
 GlobalRegistry="*res://GlobalRegistry.gd"
@@ -319,6 +323,7 @@ combat_heavyattack={
 3d_physics/layer_10="Interactable"
 3d_physics/layer_11="Pawn interactor"
 3d_physics/layer_12="Pawn interactable"
+3d_physics/layer_15="Audioscapes"
 
 [netfox]
 

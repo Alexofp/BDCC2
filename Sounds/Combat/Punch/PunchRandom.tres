@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dbkgqum4sxueu"]
+
+[ext_resource type="AudioStream" uid="uid://cq8k0hibqqfc2" path="res://Sounds/Combat/Punch/Punch1.ogg" id="1_x4up3"]
+
+[resource]
+random_pitch = 1.122462
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("1_x4up3")

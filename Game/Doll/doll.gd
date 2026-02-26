@@ -1047,3 +1047,8 @@ func updateDollHoleData():
 				continue
 			
 			thePart.applyDollHoleData(holeData)
+
+func animEvent(_eventID:String):
+	if(_eventID == "step"):
+		Audio.playSound3DAdvanced(self, preload("res://Sounds/Footsteps/Concrete.tres"), -5.0)
+#	print(_eventID)
