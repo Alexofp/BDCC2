@@ -33,7 +33,23 @@ shader_parameter/texture_back = SubResource("GradientTexture2D_qw4g1")
 shader_parameter/color_back = Color(0, 0, 0, 1)
 shader_parameter/alpha_final = 1.0
 shader_parameter/progressImage = ExtResource("3_pdir5")
-shader_parameter/amount = 0.0
+shader_parameter/amount = 1.0
+shader_parameter/smoothness = 0.2
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/mesh_size = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdir5"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_u84l8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_frdnl")
+shader_parameter/texture_back = SubResource("GradientTexture2D_qw4g1")
+shader_parameter/color_back = Color(0, 0, 0, 1)
+shader_parameter/alpha_final = 1.0
+shader_parameter/progressImage = ExtResource("3_pdir5")
+shader_parameter/amount = 1.0
 shader_parameter/smoothness = 0.2
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
@@ -45,4 +61,10 @@ script = ExtResource("1_u84l8")
 [node name="PainBar" parent="." unique_id=330937144 instance=ExtResource("1_pjhqy")]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_u84l8")
+size = 0.1
+
+[node name="ExhaustionBar" parent="." unique_id=314307836 instance=ExtResource("1_pjhqy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11288441, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_pdir5")
 size = 0.1

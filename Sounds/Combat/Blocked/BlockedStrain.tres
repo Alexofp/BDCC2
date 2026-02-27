@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dp23nqguf2uoi"]
+
+[ext_resource type="AudioStream" uid="uid://do0guq51r2l47" path="res://Sounds/Combat/Blocked/BlockedStrain1.ogg" id="1_vjoy1"]
+
+[resource]
+random_pitch = 1.3348398
+streams_count = 1
+stream_0/stream = ExtResource("1_vjoy1")

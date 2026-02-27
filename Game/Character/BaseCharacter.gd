@@ -844,8 +844,14 @@ func processHit(_attackContext:AttackContext):
 	var theDamageMult:float = theAttack.damage
 	
 	if(_attackContext.blocked):
-		Log.Print("BLOCKED!!!")
-		theDamageMult *= 0.1
+		var blockMult:float = 0.1
+		if(_attackContext.target):
+			var theStrainLevel:float = _attackContext.target.combatMovePlayer.getStrainLevel()
+			if(theStrainLevel >= _attackContext.target.combatMovePlayer.getStrainHaveEffectLevel()):
+				blockMult += theStrainLevel*0.6
+		
+		#Log.Print("BLOCKED!!!")
+		theDamageMult *= blockMult
 	
 	charState.addPain(theDamageMult*0.1)
 

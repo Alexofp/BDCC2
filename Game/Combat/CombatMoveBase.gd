@@ -24,6 +24,7 @@ const EFFECT_DELAY = 2
 const EFFECT_TAG = 3
 const EFFECT_MOVE = 4
 const EFFECT_SOUND = 5
+const EFFECT_EXHAUSTION = 6
 
 var activateType:int = ACTIVATE_NOTHING
 const ACTIVATE_NOTHING = 0
@@ -37,6 +38,8 @@ var moveLen:float = 1.0
 var noMoveLen:float = 1.0
 var canCancelExistingMove:bool = false
 var followVelocityDir:bool = false
+var requiresStamina:bool = true
+var exhaustionOnStart:float = 0.0
 
 const TAG_DODGING = "dd"
 const TAG_DODGING_FORWARD = "ddf"
@@ -86,6 +89,8 @@ func startMove(_player:CombatMovePlayer):
 	pushToEffectsQueue(_player, initialEffects.duplicate(true))
 	if(!animation.is_empty()):
 		_player.pawn.doCombatAnim(animation)
+	if(exhaustionOnStart != 0.0):
+		_player.causeExhaustion(exhaustionOnStart)
 
 func onCancel(_player:CombatMovePlayer):
 	if(cancelEffects.is_empty()):
@@ -97,6 +102,8 @@ func pushToEffectsQueue(_player:CombatMovePlayer, _ar:Array):
 
 func canUseMoveFinal(_player:CombatMovePlayer) -> bool:
 	if(!canCancelExistingMove && _player.isDoingAMove()):
+		return false
+	if(requiresStamina && _player.isExhausted()):
 		return false
 	
 	for condEntry in conditions:

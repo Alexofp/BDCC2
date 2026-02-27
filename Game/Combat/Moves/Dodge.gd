@@ -6,6 +6,7 @@ func _init() -> void:
 	moveLen = 0.0
 	noMoveLen = 0.4
 	canCancelExistingMove = true
+	exhaustionOnStart = 0.2
 	
 	activateType = ACTIVATE_SHIFT
 	

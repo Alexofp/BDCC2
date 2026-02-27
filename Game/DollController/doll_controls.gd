@@ -9,6 +9,8 @@ var mouse_movement:Vector2 = Vector2.ZERO
 @export var noclip_isdown := false
 @export var input_dir:Vector2 = Vector2.ZERO
 @export var camera_dir:Vector2 = Vector2.ZERO
+@export var sync_camera:Quaternion
+@export var sync_camera_no_y:Quaternion
 
 @export var move_direction:Vector3 = Vector3.ZERO
 @export var move_direction_no_y:Vector3 = Vector3.ZERO

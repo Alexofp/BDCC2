@@ -7,6 +7,7 @@ func _init() -> void:
 	noMoveLen = 1.0
 	canCancelExistingMove = true
 	followVelocityDir = true
+	exhaustionOnStart = 0.1
 	
 	activateType = ACTIVATE_SHIFT
 	

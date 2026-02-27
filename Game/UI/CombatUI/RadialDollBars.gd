@@ -4,6 +4,7 @@ var character:BaseCharacter
 var pawn:CharacterPawn
 
 @onready var pain_bar: MeshInstance3D = %PainBar
+@onready var exhaustion_bar: MeshInstance3D = %ExhaustionBar
 
 var shouldBarsBeVisible := false
 var keepUITimer:float = 0.0
@@ -17,10 +18,14 @@ func setCharacter(_char:BaseCharacter):
 	
 	pain_bar.progress = character.charState.getPainLevel() if character else 0.0
 	pain_bar.colorMain = GRADIENT_PAIN.sample(pain_bar.progress)
+	
+	exhaustion_bar.progress = pawn.combatMovePlayer.getExhaustionLevel()
+	exhaustion_bar.colorMain = GRADIENT_EXHAUSTION.sample(exhaustion_bar.progress)
 
 func setDoll(_doll:DollController):
 	setCharacter(_doll.getCharacter() if _doll else null)
 const GRADIENT_PAIN = preload("res://Game/UI/CombatUI/GradientPain.tres")
+const GRADIENT_EXHAUSTION = preload("res://Game/UI/CombatUI/GradientExhaustion.tres")
 
 func _physics_process(_delta: float) -> void:
 	if(!character || !is_instance_valid(character) || !pawn):
@@ -30,6 +35,7 @@ func _physics_process(_delta: float) -> void:
 		visible = false
 		return
 	visible = true
+	global_rotation = Vector3()
 	
 	#pain_bar.pushValueTowards(character.charState.getPainLevel())
 
@@ -39,6 +45,9 @@ func _physics_process(_delta: float) -> void:
 	if(pain_bar.pushValueTowards(character.charState.getPainLevel())):
 		shouldShowCombatUI = true
 		pain_bar.colorMain = GRADIENT_PAIN.sample(pain_bar.progress)
+	if(exhaustion_bar.pushValueTowards(pawn.combatMovePlayer.getExhaustionLevel())):
+		exhaustion_bar.colorMain = GRADIENT_EXHAUSTION.sample(exhaustion_bar.progress)
+		shouldShowCombatUI = true
 	
 	if(shouldShowCombatUI):
 		fadeIn()

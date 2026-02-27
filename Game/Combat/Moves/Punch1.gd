@@ -16,7 +16,7 @@ func _init() -> void:
 		[EFFECT_MOVE, Vector3(0.0, 0.0, 3.0), 0.4],
 		[EFFECT_DELAY, 0.15],
 		#[EFFECT_EVENT, "test"],
-		[EFFECT_HIT, AttackInfo.create(1.0, 1.8, 30.0), EFFECTS_PUNCH_LEFT, INTENSITY_SOFT],
+		[EFFECT_HIT, AttackInfo.create(0.5, 1.8, 30.0), EFFECTS_PUNCH_LEFT, INTENSITY_SOFT],
 		[EFFECT_DELAY, 0.15],
 		#[EFFECT_HIT, "punch1", 1.8, 30.0],
 		[EFFECT_TAG, "ap1", 0.5], # ap1 = after punch 1

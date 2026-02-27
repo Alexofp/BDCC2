@@ -21,6 +21,12 @@ const RESOURCE_CURVE_EASE_IN = preload("res://Game/Combat/Curves/EaseIn.tres")
 
 @export var defeatRecovery:float = 0.0
 
+@export var exhaustion:float = 0.0
+var exhaustionRecovery:float = 0.0 # Timer until the exhaustion starts going down again
+
+@export var strain:float = 0.0
+var strainRecovery:float = 0.0 # Timer until the strain starts going down again
+
 const CURVE_TO_RESOURCE:Dictionary[int, Curve] = {
 	CURVE_SMOOTH: RESOURCE_CURVE_SMOOTH,
 	CURVE_EASE_IN: RESOURCE_CURVE_EASE_IN,
@@ -72,6 +78,9 @@ func pushToEffectsQueue(_ar:Array):
 	effects.append_array(_ar)
 
 func processCombatPlayer(_dt:float):
+	if(Network.isClient()):
+		return
+	
 	processEffectQueue(_dt)
 	#if(!activeTags.is_empty()):
 	#	Log.Print(str(activeTags))
@@ -92,6 +101,7 @@ func processCombatPlayer(_dt:float):
 				stopMove()
 	if(defeatRecovery > 0.0):
 		defeatRecovery -= _dt
+	processExhaustionAndStrain(_dt)
 
 func stopMove():
 	Log.Print("MOVE STOPPED: "+str(combatMove.id if combatMove else "null"))
@@ -129,6 +139,9 @@ func processEffectQueue(_dt:float):
 		elif(curEffectType == CombatMoveBase.EFFECT_SOUND):
 			effects.pop_front()
 			doSoundEffect(curEffectAr[1])
+		elif(curEffectType == CombatMoveBase.EFFECT_EXHAUSTION):
+			effects.pop_front()
+			causeExhaustion(curEffectAr[1])
 
 func doSoundEffect(_effectID:int):
 	if(_effectID == CombatMoveBase.SOUND_FALL):
@@ -252,6 +265,7 @@ func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 	theContext.attack = _attackInfo
 	
 	var hitStatus:int = AttackEffects.STATUS_MISSED
+	var _strain:float = 0.0
 	
 	var anyHits:bool = false
 	var anyBlocked:bool = false
@@ -263,13 +277,27 @@ func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 			anyHits = true
 		elif(theStatus == AttackEffects.STATUS_BLOCKED):
 			anyBlocked = true
+			_strain = maxf(_strain, thePawn.combatMovePlayer.getStrainLevel())
 	
 	if(anyBlocked):
 		hitStatus = AttackEffects.STATUS_BLOCKED
 	if(anyHits):
 		hitStatus = AttackEffects.STATUS_HIT
 	
-	doAttackEffects(_effects, hitStatus, _intensity)
+	doAttackEffects(_effects, hitStatus, _intensity, _strain)
+	
+	if(anyBlocked):
+		causeExhaustion(_attackInfo.exhaustionBlocked)
+	elif(anyHits):
+		causeExhaustion(_attackInfo.exhaustionHit)
+	else:
+		causeExhaustion(_attackInfo.exhaustion)
+	
+	#causeExhaustion(0.1)
+
+func onHit(_attackContext:AttackContext):
+	if(_attackContext.blocked):
+		causeStrain(0.2)
 
 func intensityToPitch(_intensity:int) -> float:
 	if(_intensity == CombatMoveBase.INTENSITY_SOFT):
@@ -278,7 +306,7 @@ func intensityToPitch(_intensity:int) -> float:
 		return 0.9
 	return 1.0
 
-func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int):
+func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int, _strain:float):
 	var thePitch := intensityToPitch(_intensity)
 	if(_hitStatus == AttackEffects.STATUS_MISSED):
 		#if(_intensity == CombatMoveBase.INTENSITY_SOFT):
@@ -291,7 +319,14 @@ func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int):
 		else:
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissMedium.tres"), -25.0, 1.0)
 	if(_hitStatus == AttackEffects.STATUS_BLOCKED):
-		Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Blocked/BlockedHit.tres"), -0.0, thePitch)
+		var pitchMod:float = 1.0
+		if(_strain >= 0.5):
+			var theProg:float = remap(_strain, 0.5, 1.0, 0.0, 1.0)
+			pitchMod = (1.0 - _strain*0.5)
+			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Blocked/BlockedStrain.tres"), -30.0 + theProg*20.0, 1.0 + theProg*0.5)
+		#print(_strain, " ",pitchMod)
+		
+		Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Blocked/BlockedHit.tres"), -0.0, thePitch*pitchMod)
 	if(_hitStatus == AttackEffects.STATUS_HIT):
 		if(_effects.impactSound == _effects.SOUND_PUNCH):
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/PunchRandom.tres"), -0.0, thePitch)
@@ -299,14 +334,14 @@ func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int):
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/KickRandom.tres"), -5.0, thePitch)
 		
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(doAttackEffects_RPC.bind(_effects.saveNetworkData(), _hitStatus, _intensity))
+		Network.rpcClients(doAttackEffects_RPC.bind(_effects.saveNetworkData().getBytes(), _hitStatus, _intensity, _strain))
 	
 @rpc("authority", "call_remote", "reliable")
-func doAttackEffects_RPC(_effectsData:PackedByteArray, _hitStatus:int, _intensity:int):
+func doAttackEffects_RPC(_effectsData:PackedByteArray, _hitStatus:int, _intensity:int, _strain:float):
 	var attackEffects:AttackEffects = AttackEffects.new()
 	attackEffects.loadNetworkData(Bins.readUncompressed(_effectsData))
 	
-	doAttackEffects(attackEffects, _hitStatus, _intensity)
+	doAttackEffects(attackEffects, _hitStatus, _intensity, _strain)
 	
 func isTryingToBlock() -> bool:
 	return pawn.state.isTryingToBlock() && canBlock()
@@ -325,3 +360,90 @@ func shouldFollowMoveDirection() -> bool:
 
 func canRecoverFromDefeat() -> bool:
 	return defeatRecovery <= 0.0
+
+func getExhaustionLimit() -> float:
+	return 1.0
+
+func getExhaustionLevel() -> float:
+	var theLevel := getExhaustionLimit()
+	if(theLevel <= 0.0):
+		return 0.0
+	return clamp(exhaustion / theLevel, 0.0, 1.0)
+
+func getExhaustion() -> float:
+	return exhaustion
+
+func addExhaustion(_e:float):
+	exhaustion += _e
+	exhaustion = clampf(exhaustion, 0.0, getExhaustionLimit())
+
+func getExhaustionRecoveryNewTime() -> float:
+	return 1.5
+
+func causeExhaustion(_e:float) -> bool:
+	if(_e == 0.0):
+		return false
+	var oldExhaustion := exhaustion
+	addExhaustion(_e)
+	exhaustionRecovery = max(exhaustionRecovery, getExhaustionRecoveryNewTime())
+	
+	if(oldExhaustion == exhaustion):
+		return false
+	return true
+
+func isExhausted() -> bool:
+	return exhaustion >= getExhaustionLimit()
+
+func processExhaustionAndStrain(_dt:float):
+	if(strain > 0.0):
+		if(strainRecovery > 0.0):
+			if(!pawn.isBlocking()):
+				strainRecovery -= _dt
+		else:
+			var strainRegenMult:float = 1.0
+			#if(pawn.getDoll() && pawn.getDoll().isRunning):
+			#	exhaustionRegenMult *= 0.2
+			
+			addStrain(-_dt*strainRegenMult)
+	
+	if(exhaustion > 0.0):
+		if(exhaustionRecovery > 0.0):
+			exhaustionRecovery -= _dt
+		else:
+			var exhaustionRegenMult:float = 1.0
+			if(pawn.getDoll() && pawn.getDoll().isRunning):
+				exhaustionRegenMult *= 0.2
+			if(pawn.isBlocking()):
+				exhaustionRegenMult *= 0.5
+			
+			addExhaustion(-_dt*exhaustionRegenMult)
+
+func getStrainLimit() -> float:
+	return 1.0
+
+func addStrain(_st:float):
+	strain += _st
+	strain = clampf(strain, 0.0, getStrainLimit())
+
+func causeStrain(_st:float) -> bool:
+	if(_st == 0.0):
+		return false
+	var oldStrain := strain
+	addStrain(_st)
+	strainRecovery = max(strainRecovery, 1.0)
+	
+	if(oldStrain == strain):
+		return false
+	return true
+
+func getStrain() -> float:
+	return strain
+
+func getStrainLevel() -> float:
+	var theLevel := getStrainLimit()
+	if(theLevel <= 0.0):
+		return 0.0
+	return clamp(strain / theLevel, 0.0, 1.0)
+
+func getStrainHaveEffectLevel() -> float:
+	return 0.5

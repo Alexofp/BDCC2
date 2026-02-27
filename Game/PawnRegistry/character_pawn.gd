@@ -689,6 +689,10 @@ func rotateTowards(_pos:Vector3):
 		theDoll.camera_rotation_no_y = Basis(someBasis.x, Vector3.UP, someBasis.z).get_rotation_quaternion()
 	global_basis = theBasis
 
+func isBlocking() -> bool:
+	return state.isBlocking()
+
+
 
 # LEASH STUFF
 const LEASH_TYPE_PAWN = 0

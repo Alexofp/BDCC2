@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://qmflmjsap4au" path="res://Game/UI/CombatUI/CombatUI.gd" id="1_aheqr"]
 [ext_resource type="PackedScene" uid="uid://bbdfylawbmgvc" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.tscn" id="2_ipr6l"]
 [ext_resource type="Gradient" uid="uid://c1f45y0obavhr" path="res://Game/UI/CombatUI/GradientPain.tres" id="3_ipr6l"]
+[ext_resource type="Gradient" uid="uid://bnmp2aa8335pq" path="res://Game/UI/CombatUI/GradientExhaustion.tres" id="4_7pmhx"]
+
+[sub_resource type="Gradient" id="Gradient_7pmhx"]
+colors = PackedColorArray(0.9392335, 0.304, 0.95, 1, 1, 0.18, 0.18, 1)
 
 [sub_resource type="Gradient" id="Gradient_coh0a"]
 colors = PackedColorArray(0.27058825, 0.17254902, 0.54509807, 1, 0.6784314, 0, 0.87058824, 1)
@@ -32,6 +36,12 @@ offset_right = 199.0
 offset_bottom = -13.0
 grow_vertical = 0
 
+[node name="StrainBar" parent="StatsBars" unique_id=1715431552 instance=ExtResource("2_ipr6l")]
+unique_name_in_owner = true
+layout_mode = 2
+gradient = SubResource("Gradient_7pmhx")
+propertyName = "Strain"
+
 [node name="PainBar" parent="StatsBars" unique_id=969516068 instance=ExtResource("2_ipr6l")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -57,3 +67,9 @@ visible = false
 layout_mode = 2
 gradient = SubResource("Gradient_mwkj6")
 propertyName = "Stamina"
+
+[node name="ExhaustionBar" parent="StatsBars" unique_id=1542077199 instance=ExtResource("2_ipr6l")]
+unique_name_in_owner = true
+layout_mode = 2
+gradient = ExtResource("4_7pmhx")
+propertyName = "Exhaustion"

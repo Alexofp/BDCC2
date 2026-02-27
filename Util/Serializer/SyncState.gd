@@ -100,7 +100,8 @@ func saveNetworkData() -> Bins:
 	var Ar:Array = [Bins.U8, fields.size()]
 	for _i in fields.size():
 		Ar.append_array([
-			saveTypes[_i], cachedValues[_i],
+			#saveTypes[_i], cachedValues[_i],
+			saveTypes[_i], obj.getSyncVar(fields[_i]),
 		])
 	return Bins.saveStartEnd(Ar)
 

@@ -34,6 +34,9 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath(".:heavyAttack_isDown")
 properties/9/spawn = true
 properties/9/replication_mode = 2
+properties/10/path = NodePath(".:sync_camera")
+properties/10/spawn = true
+properties/10/replication_mode = 2
 
 [node name="DollControls" type="Node" unique_id=349811379]
 script = ExtResource("1_llr63")

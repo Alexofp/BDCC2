@@ -91,18 +91,21 @@ func processAI(_dt:float):
 	
 	timeUntilNextMove -= _dt
 	if(timeUntilNextMove <= 0.0):
-		timeUntilNextMove = RNG.randfRange(2.0, 3.0)
-		if(actionQueue.is_empty()):
+		timeUntilNextMove = RNG.randfRange(0.5, 1.0)
+		if(actionQueue.is_empty() && pawn.combatMovePlayer.getExhaustionLevel() <= 0.4):
 			# Do something
 			if(RNG.chance(20)):
-				pushToQueue(ACTION_MOVE, [Vector2(0.0, 1.0), 0.2])
+				pushToQueue(ACTION_MOVE, [Vector2(0.0, RNG.pick([1.0, -1.0])), 0.2])
 				pushDelay(0.1)
 				pushToQueue(ACTION_DODGE, [Vector2(0.0, -1.0)])
 				pushDelay(0.3)
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
 			elif(RNG.chance(30)):
-				pushToQueue(ACTION_DODGE, [Vector2(1.0, 0.0)])
-				pushDelay(0.8)
+				pushToQueue(ACTION_DODGE, [Vector2(0.0, RNG.pick([1.0, -1.0]))])
+				pushToQueue(ACTION_WAIT_NO_MOVE)
+				#pushDelay(0.7)
+				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
+				pushToQueue(ACTION_WAIT_NO_MOVE)
 				pushToQueue(ACTION_DODGE, [Vector2(-1.0, 0.0)])
 			else:
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))

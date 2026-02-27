@@ -23,10 +23,10 @@ func processPhysics(_doll:DollController, _delta:float):
 	processMove(_doll, _delta)
 
 func processTick(_doll:DollController, _delta:float):
-	var theIsControlledByUs:bool = _doll.isControlledByUs()
+	#var theIsControlledByUs:bool = _doll.isControlledByUs()
 	
-	if(theIsControlledByUs):
-		processCamera(_doll, _delta)
+	#if(theIsControlledByUs):
+	processCamera(_doll, _delta)
 	processAnimation(_doll, _delta)
 
 func processMove(_doll:DollController, _delta:float):
@@ -95,22 +95,40 @@ func limitVec3(_vec3:Vector3, _maxSpeed:float) -> Vector3:
 	return _vec3 / theLen * _maxSpeed
 
 func processCamera(_doll:DollController, _dt:float):
-	if(!_doll.camera.isActive()):
-		return
-	var camera_rotation_euler := _doll.camera_rotation.get_euler()
 	var doll_controls := _doll.doll_controls
 	var SpringArm := _doll.SpringArm
 	var CameraPivot := _doll.CameraPivot
 	
-	camera_rotation_euler += Vector3(doll_controls.camera_dir.y, doll_controls.camera_dir.x, 0.0) * _doll.LOOK_SENSITIVITY_TOUCH * (-1.0 if _doll.getDoll().isFirstPerson() else 1.0)
-	if _doll.mousecapture_on:
-		camera_rotation_euler += Vector3(doll_controls.mouse_movement.y, doll_controls.mouse_movement.x, 0) * _doll.LOOK_SENSITIVITY
-	camera_rotation_euler.x = clamp(camera_rotation_euler.x, _doll.LOOK_LIMIT_LOWER, _doll.LOOK_LIMIT_UPPER)
+	if(!_doll.camera.isActive()):
+		if(Network.isServer() && _doll.isControlledByAnyPlayer() && !_doll.isControlledByUs()):
+			_doll.camera_rotation = doll_controls.sync_camera
+			CameraPivot.basis = Basis(_doll.camera_rotation)
+			_doll.camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
+			#Log.Print("Meow")
+		return
+
 	
-	_doll.camera_rotation = Quaternion.from_euler(camera_rotation_euler)
-	CameraPivot.basis = Basis(_doll.camera_rotation)
-	_doll.camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
-	
+	if(Network.isServer() && _doll.isControlledByAnyPlayer() && !_doll.isControlledByUs()):
+		#_doll.camera_rotation = doll_controls.sync_camera
+		#CameraPivot.basis = Basis(_doll.camera_rotation)
+		#_doll.camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
+	#elif(_doll.isControlledByUs()):
+		pass
+	else:
+		var camera_rotation_euler := _doll.camera_rotation.get_euler()
+		camera_rotation_euler += Vector3(doll_controls.camera_dir.y, doll_controls.camera_dir.x, 0.0) * _doll.LOOK_SENSITIVITY_TOUCH * (-1.0 if _doll.getDoll().isFirstPerson() else 1.0)
+		if _doll.mousecapture_on:
+			camera_rotation_euler += Vector3(doll_controls.mouse_movement.y, doll_controls.mouse_movement.x, 0) * _doll.LOOK_SENSITIVITY
+		camera_rotation_euler.x = clamp(camera_rotation_euler.x, _doll.LOOK_LIMIT_LOWER, _doll.LOOK_LIMIT_UPPER)
+		
+		_doll.camera_rotation = Quaternion.from_euler(camera_rotation_euler)
+		CameraPivot.basis = Basis(_doll.camera_rotation)
+		_doll.camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
+		
+		if(Network.isClient()):
+			doll_controls.sync_camera = _doll.camera_rotation
+			#Log.Print(str(doll_controls.sync_camera))
+		
 	doll_controls.mouse_movement = Vector2.ZERO
 
 	if(!UIHandler.hasAnyUIVisible()):
@@ -166,6 +184,8 @@ func processHit(_attackContext:AttackContext) -> int:
 		
 		if(theCharacter.charState.getPainLevel() >= 1.0 && canBeDefeated()):
 			pawn.makeDefeatedFromAttack(_attackContext)
+		
+		pawn.combatMovePlayer.onHit(_attackContext)
 		
 		pawn.ai.onGettingHit(_attackContext)
 	return hitStatus

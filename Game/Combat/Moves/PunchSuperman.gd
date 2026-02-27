@@ -20,7 +20,7 @@ func _init() -> void:
 		#[EFFECT_MOVE, Vector3(0.0, 0.0, 3.0), 0.4],
 		#[EFFECT_DELAY, 0.15],
 		[EFFECT_DELAY, 0.2],
-		[EFFECT_HIT, AttackInfo.create(1.0, 1.8, 30.0), EFFECTS_PUNCH_LEFT, INTENSITY_SOFT],
+		[EFFECT_HIT, AttackInfo.create(1.0, 1.8, 30.0).setExhaust(0.1), EFFECTS_PUNCH_LEFT, INTENSITY_SOFT],
 		[EFFECT_DELAY, 0.4],
 		#[EFFECT_EVENT, "test"],
 		#[EFFECT_HIT, "hit"],
