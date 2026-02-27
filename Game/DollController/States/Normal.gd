@@ -7,16 +7,16 @@ func doJump(_doll:DollController):
 
 #var walkAnim:float = 0.0
 func processAnimation(_doll:DollController, _dt:float):
-	var isOnFloor := _doll.is_on_floor()
+	#var isOnFloor := _doll.is_on_floor()
 	var theDoll := _doll.getDoll()
 	#if(isOnFloor):
 		#rememberFloorTimer = 0.1
 	#elif(rememberFloorTimer > 0.0):
 		#rememberFloorTimer -= _delta
 	
-	var isOnFloorVisually:bool = isOnFloor#(rememberFloorTimer > 0.0)
+	#var isOnFloorVisually:bool = isOnFloor#(rememberFloorTimer > 0.0)
 	
-	if(!isOnFloorVisually):
+	if(!_doll.isOnFloorVisually):
 		theDoll.animFall()
 	elif _doll.velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
 		if _doll.isRunning:
@@ -106,6 +106,7 @@ func processMove(_doll:DollController, _dt:float):
 				#addHoverText("JUMP!")
 	
 	processGravity(_doll, _dt)
+	processKnockbackVelocity(_doll, _dt)
 	
 func processGravity(_doll:DollController, _dt:float):
 	if(!_doll.noclip_on && !_doll.is_on_floor()):

@@ -13,6 +13,7 @@ func _init() -> void:
 	initialEffects = [
 		[EFFECT_DELAY, 0.15],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, -1.0), 0.7],
+		[EFFECT_TAG, TAG_BLOCK_DODGE, 0.65],
 		[EFFECT_DELAY, 0.2],
 		[EFFECT_HIT, AttackInfo.create(1.0, 2.2, 70.0), EFFECTS_KICK_RIGHT],
 		[EFFECT_DELAY, 0.4],

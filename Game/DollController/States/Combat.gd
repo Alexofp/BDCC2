@@ -26,7 +26,7 @@ func processSpecialInputs(_doll:DollController, _dt:float):
 	
 var walkAnim:Vector2
 func processAnimation(_doll:DollController, _dt:float):
-	var isOnFloor := _doll.is_on_floor()
+	#var isOnFloor := _doll.is_on_floor()
 	var theDoll := _doll.getDoll()
 	var localVelocity := getLocalVelocity(_doll)
 	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
@@ -34,7 +34,7 @@ func processAnimation(_doll:DollController, _dt:float):
 	
 	var areWeBlocking := isBlocking()
 	
-	var isOnFloorVisually:bool = isOnFloor
+	#var isOnFloorVisually:bool = isOnFloor
 	
 	#var isDoingAMove:bool = pawn.combatMovePlayer.isDoingAMove()
 	
@@ -43,7 +43,7 @@ func processAnimation(_doll:DollController, _dt:float):
 	if(false):#isDoingAMove):
 		pass
 	else:
-		if(!isOnFloorVisually):
+		if(!_doll.isOnFloorVisually):
 			theDoll.animFall()
 		elif _doll.velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
 			if _doll.isRunning:

@@ -32,6 +32,10 @@ var input_velocity:Vector3 = Vector3.ZERO
 
 var isRunning:bool = false
 var yankWalkDir:Vector3 = Vector3.ZERO
+var knockbackVelocity:Vector3
+
+var isOnFloorVisually:bool = false
+var isOnFloorVisuallyFrames:int = 0
 
 @onready var doll_controls: DollControls = %DollControls
 #var mouse_movement = Vector2.ZERO
@@ -213,6 +217,9 @@ func processChar(_delta:float):
 	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
 	#doll.setIdleAnim(theChar.getIdleAnim())
 
+func addKnockback(_vel:Vector3):
+	knockbackVelocity += _vel
+
 func _process(delta:float):
 	#processFocus()
 	processChar(delta)
@@ -228,7 +235,8 @@ func _process(delta:float):
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
 		GlobalRegistry.reloadCombatMoves()
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_2")):
-		getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
+		#getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
+		addKnockback(Vector3(11.0, 10.0, 0.0))
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 	#if(theIsControlledByUs):
 	#	print(GI.world.getNearbyWanderAreas(global_position, 5.0))
@@ -286,6 +294,15 @@ func _physics_process(_delta:float):
 	if(hasAuthority):
 		if(doll_controls.noclip_isdown):
 			noclip_on = !noclip_on
+
+	var isOnTheFloor := is_on_floor()
+	if(isOnTheFloor):
+		isOnFloorVisually = true
+		isOnFloorVisuallyFrames = 2
+	elif(isOnFloorVisually):
+		isOnFloorVisuallyFrames -= 1
+		if(isOnFloorVisuallyFrames <= 0):
+			isOnFloorVisually = false
 
 	input_velocity = velocity
 	move_and_slide()

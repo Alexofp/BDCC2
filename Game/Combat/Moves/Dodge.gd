@@ -13,6 +13,7 @@ func _init() -> void:
 	conditions = [
 		[COND_NO_TAG, TAG_DODGING],
 		[COND_NO_TAG, TAG_ROLLING],
+		[COND_NO_TAG, TAG_BLOCK_DODGE],
 	]
 	initialEffects = [
 		[EFFECT_TAG, TAG_CAN_ROLL, 0.3],

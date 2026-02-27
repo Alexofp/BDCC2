@@ -38,6 +38,7 @@ func processMove(_doll:DollController, _dt:float):
 	_doll.isRunning = false
 	processGravity(_doll, _dt)
 	processYanking(_doll, _dt)
+	processKnockbackVelocity(_doll, _dt)
 	_doll.velocity.x = _doll.velocity.x * 0.5
 	_doll.velocity.z = _doll.velocity.z * 0.5
 	

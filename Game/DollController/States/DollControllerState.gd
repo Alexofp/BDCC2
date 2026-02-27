@@ -30,7 +30,25 @@ func processTick(_doll:DollController, _delta:float):
 	processAnimation(_doll, _delta)
 
 func processMove(_doll:DollController, _delta:float):
-	pass
+	_doll.knockbackVelocity = Vector3.ZERO
+
+# This code is probably framerate-dependant. I dunno how to fix it though
+func processKnockbackVelocity(_doll:DollController, _delta:float):
+	var theFriction:float = 0.1
+	if(_doll.is_on_floor()):
+		theFriction = 0.2
+		if(_doll.knockbackVelocity.y < 0.0):
+			_doll.knockbackVelocity.y = 0.0
+	
+	var f := clampf(theFriction, 0.0, 1.0)
+	_doll.knockbackVelocity.x = lerp(_doll.knockbackVelocity.x, 0.0, f)
+	_doll.knockbackVelocity.z = lerp(_doll.knockbackVelocity.z, 0.0, f)
+	_doll.knockbackVelocity.y = lerp(_doll.knockbackVelocity.y, 0.0, 0.3)
+	
+	if(_doll.knockbackVelocity.length_squared() < 0.5):
+		_doll.knockbackVelocity = Vector3.ZERO
+	
+	_doll.velocity += _doll.knockbackVelocity
 
 func doJump(_doll:DollController):
 	pass
@@ -159,11 +177,17 @@ func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	#_doll.applyHitRandom(2.0)
 	var theDir:Vector3 = _attackContext.attacker.getGlobalPos() - _attackContext.target.getGlobalPos()
 	
-	var theRecoil:float = sqrt(_attackContext.attack.damage*1.0)*3.0 if _attackContext.attack.damage > 0.0 else 0.0
+	var theAttack:AttackInfo = _attackContext.attack
+	
+	var theRecoil:float = sqrt(theAttack.damage*1.0)*3.0 if theAttack.damage > 0.0 else 0.0
 	if(_attackContext.blocked):
 		theRecoil *= 0.4
 	
 	_doll.getDoll().applyHitSpecific(theRecoil, theDir, true, Doll.HIT_AREA_MIDDLE)
+	
+	var theKnockback:float = theAttack.knockback if !_attackContext.blocked else theAttack.knockbackBlocked
+	if(abs(theKnockback)>0.01):
+		_doll.addKnockback(-theDir.normalized()*theKnockback)
 
 func shouldShowCombatUI() -> bool:
 	return false

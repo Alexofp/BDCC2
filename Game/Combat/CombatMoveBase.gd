@@ -43,6 +43,7 @@ const TAG_DODGING_FORWARD = "ddf"
 const TAG_AFTER_DODGE = "ad"
 const TAG_CAN_ROLL = "cr"
 const TAG_ROLLING = "rr"
+const TAG_BLOCK_DODGE = "bd"
 
 const SOUND_FALL = 0
 const SOUND_DODGE = 1
