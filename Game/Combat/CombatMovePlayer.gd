@@ -27,6 +27,8 @@ var exhaustionRecovery:float = 0.0 # Timer until the exhaustion starts going dow
 @export var strain:float = 0.0
 var strainRecovery:float = 0.0 # Timer until the strain starts going down again
 
+var dodgeAllTimer:float = 0.0 # all attacks miss us, invincibility frames
+
 const CURVE_TO_RESOURCE:Dictionary[int, Curve] = {
 	CURVE_SMOOTH: RESOURCE_CURVE_SMOOTH,
 	CURVE_EASE_IN: RESOURCE_CURVE_EASE_IN,
@@ -142,6 +144,9 @@ func processEffectQueue(_dt:float):
 		elif(curEffectType == CombatMoveBase.EFFECT_EXHAUSTION):
 			effects.pop_front()
 			causeExhaustion(curEffectAr[1])
+		elif(curEffectType == CombatMoveBase.EFFECT_DODGE_ALL_ATTACKS):
+			effects.pop_front()
+			makeImpossibleToHit(curEffectAr[1])
 
 func doSoundEffect(_effectID:int):
 	if(_effectID == CombatMoveBase.SOUND_FALL):
@@ -226,7 +231,8 @@ static func isInCone(_pawnFrom:CharacterPawn, _pawnTo:CharacterPawn, _maxSpreadD
 	
 	return isInConeRaw(ourPos, ourRotY, theirPos, _maxSpreadDeg)
 
-func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
+# if _getAll = false, the function will try to get only the most in-front-of-us target (unless there are many)
+func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreImpossible:bool = false) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn]
 	
 	var ourPos:Vector3 = pawn.getGlobalPos()
@@ -235,10 +241,14 @@ func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 	var cosThreshold := cos(deg_to_rad(_maxSpread))
 	#print("FORWRD: ",forward)
 	
+	var maxDot:float = -99.0
+	
 	var distSquared:float = _maxDist*_maxDist
 	var nearbyInteractors := pawn.getNearbyPawnInteractors()
 	for theInteractor in nearbyInteractors:
 		var thePawn := theInteractor.pawn
+		if(!_ignoreImpossible && thePawn.combatMovePlayer.isImpossibleToHit()):
+			continue
 		var theirPos:Vector3 = thePawn.getGlobalPos()
 		if(theirPos.distance_squared_to(ourPos) > distSquared):
 			continue
@@ -250,12 +260,21 @@ func getTargets(_maxDist:float, _maxSpread:float) -> Array[CharacterPawn]:
 		#var theDirAng:float = ourPos.angle_to(theirPos)
 		#print(theDot, " ",cosThreshold)
 		
-		result.append(thePawn)
+		if(_getAll):
+			result.append(thePawn)
+		else:
+			var theDiff := absf(maxDot - theDot)
+			
+			if(theDiff < 0.05 && !result.is_empty()):
+				result.append(thePawn)
+			elif(theDot > maxDot):
+				maxDot = theDot
+				result.append(thePawn)
 	
 	return result
 
 func getTargetsForAttack(_attackInfo:AttackInfo) -> Array[CharacterPawn]:
-	return getTargets(_attackInfo.reach, _attackInfo.spread)
+	return getTargets(_attackInfo.reach, _attackInfo.spread, _attackInfo.hitAll)
 
 func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 	var theTargets := getTargetsForAttack(_attackInfo)
@@ -297,7 +316,8 @@ func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 
 func onHit(_attackContext:AttackContext):
 	if(_attackContext.blocked):
-		causeStrain(0.2)
+		causeStrain(_attackContext.attack.strain)
+	makeImpossibleToHit(_attackContext.attack.dodgeTimeForTarget)
 
 func intensityToPitch(_intensity:int) -> float:
 	if(_intensity == CombatMoveBase.INTENSITY_SOFT):
@@ -385,7 +405,7 @@ func causeExhaustion(_e:float) -> bool:
 		return false
 	var oldExhaustion := exhaustion
 	addExhaustion(_e)
-	exhaustionRecovery = max(exhaustionRecovery, getExhaustionRecoveryNewTime())
+	exhaustionRecovery = maxf(exhaustionRecovery, getExhaustionRecoveryNewTime())
 	
 	if(oldExhaustion == exhaustion):
 		return false
@@ -394,7 +414,13 @@ func causeExhaustion(_e:float) -> bool:
 func isExhausted() -> bool:
 	return exhaustion >= getExhaustionLimit()
 
+func isImpossibleToHit() -> bool:
+	return dodgeAllTimer > 0.0
+
 func processExhaustionAndStrain(_dt:float):
+	if(dodgeAllTimer > 0.0):
+		dodgeAllTimer -= _dt
+	
 	if(strain > 0.0):
 		if(strainRecovery > 0.0):
 			if(!pawn.isBlocking()):
@@ -430,7 +456,7 @@ func causeStrain(_st:float) -> bool:
 		return false
 	var oldStrain := strain
 	addStrain(_st)
-	strainRecovery = max(strainRecovery, 1.0)
+	strainRecovery = maxf(strainRecovery, 1.0)
 	
 	if(oldStrain == strain):
 		return false
@@ -447,3 +473,6 @@ func getStrainLevel() -> float:
 
 func getStrainHaveEffectLevel() -> float:
 	return 0.5
+
+func makeImpossibleToHit(_time:float):
+	dodgeAllTimer = maxf(_time, dodgeAllTimer)

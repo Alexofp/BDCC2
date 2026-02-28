@@ -17,6 +17,7 @@ func _init() -> void:
 		[COND_NO_TAG, TAG_BLOCK_DODGE],
 	]
 	initialEffects = [
+		[EFFECT_DODGE_ALL_ATTACKS, 0.3],
 		[EFFECT_TAG, TAG_CAN_ROLL, 0.3],
 		[EFFECT_TAG, TAG_DODGING, 0.5],
 		[EFFECT_TAG, TAG_DODGING_FORWARD, 0.5],
@@ -33,11 +34,11 @@ func startMove(_player:CombatMovePlayer):
 		theVel = Vector3(0.0, 0.0, -1.0)
 	theVel = theVel.normalized()
 	
-	initialEffects[3][1] = theVel * 5.0
+	initialEffects[4][1] = theVel * 5.0
 	if(theVel.z > 0.5 && abs(theVel.x) <= 0.1):
-		initialEffects[2][2] = 0.5
+		initialEffects[3][2] = 0.5
 	else:
-		initialEffects[2][2] = 0.0
+		initialEffects[3][2] = 0.0
 	
 	_player.pawn.doDodgeAnim(Vector2(theVel.x, theVel.z))
 	

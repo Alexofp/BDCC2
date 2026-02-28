@@ -207,7 +207,7 @@ func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	
 	var theKnockback:float = theAttack.knockback if !_attackContext.blocked else theAttack.knockbackBlocked
 	if(abs(theKnockback)>0.01):
-		_doll.addKnockback(-theDir.normalized()*theKnockback)
+		_doll.addKnockback(-theDir.normalized()*theKnockback*2.0)
 
 func shouldShowCombatUI() -> bool:
 	return false

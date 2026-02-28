@@ -9,6 +9,9 @@ var knockbackBlocked:float = 2.0 # Knockback on the target that's blocking
 var exhaustion:float = 0.05
 var exhaustionHit:float = 0.05
 var exhaustionBlocked:float = 0.15
+var strain:float = 0.2 # How much strain does this put on the blocking target
+var hitAll:bool = false # If true, the attack will hit everyone in the range rather than only the best target
+var dodgeTimeForTarget:float = 0.2 # For how long the target can't be hit after this hit
 
 static func create(_damage:float, _range:float, _spread:float) -> AttackInfo:
 	var theInfo := AttackInfo.new()
@@ -38,4 +41,16 @@ func setExhaustFull(_missed:float, _hit:float, _blocked:float) -> AttackInfo:
 	exhaustion = _missed
 	exhaustionHit = _hit
 	exhaustionBlocked = _blocked
+	return self
+
+func setStrain(_str:float) -> AttackInfo:
+	strain = _str
+	return self
+
+func setHitAll(_h:bool) -> AttackInfo:
+	hitAll = _h
+	return self
+
+func setDodgeTimeForTarget(_t:float) -> AttackInfo:
+	dodgeTimeForTarget = _t
 	return self

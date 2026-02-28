@@ -25,6 +25,7 @@ const EFFECT_TAG = 3
 const EFFECT_MOVE = 4
 const EFFECT_SOUND = 5
 const EFFECT_EXHAUSTION = 6
+const EFFECT_DODGE_ALL_ATTACKS = 7
 
 var activateType:int = ACTIVATE_NOTHING
 const ACTIVATE_NOTHING = 0
