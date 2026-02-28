@@ -143,8 +143,8 @@ func updateThicknessBody(_optionID:String = ""):
 	var theThickness:float = getCharValue(CharOption.thickness, 1.0)
 	var chubbyness:float = getCharValue(CharOption.chubbyness, 0.0)
 
-	setBlendshape("Thin", max(1.0-theThickness, 0.0))
-	setBlendshape("Thick", max(theThickness-1.0, 0.0))
+	setBlendshape("Thin", maxf(1.0-theThickness, 0.0))
+	setBlendshape("Thick", maxf(theThickness-1.0, 0.0))
 	setBlendshape("Chubby", chubbyness)
 	setBlendshape("ButtSize", getCharValue(CharOption.buttSize, 0.0))
 	setBlendshape("BodySmooth", getCharValue(CharOption.smoothBody, 0.0))
@@ -165,13 +165,13 @@ func triggerAlphaMaskUpdate():
 
 func updateBreasts(_optionID:String, _value:Variant):
 	if(_optionID == "breasts"):
-		setBlendshape("BreastsHuge", max(0.0, (_value-1.0)/3.0))
+		setBlendshape("BreastsHuge", maxf(0.0, (_value-1.0)/3.0))
 		setBlendshape("BreastsFlat", clamp(1.0-_value, 0.0, 1.0))
 	elif(_optionID == "breastsCleavage"):
 		setBlendshape("BreastsCleavage", _value if !getCachedPartFlag("ForceBreastCleavage", false) else 1.0)
 	elif(_optionID == "nippleShape"):
-		setBlendshape("NipplesNormal", max(1.0-_value, 0.0))
-		setBlendshape("NipplesAnime", max(_value, 0.0))
+		setBlendshape("NipplesNormal", maxf(1.0-_value, 0.0))
+		setBlendshape("NipplesAnime", maxf(_value, 0.0))
 
 func updateBreastsCleavage(_value:Variant):
 	var newVal:float = _value
@@ -200,7 +200,7 @@ func applyHairMatOption(_hairMat:ShaderMaterial, _optionID:String, _value:Varian
 			
 			var newCol:Color = _value
 			newCol.s = clamp(newCol.s*0.2, 0.0, 1.0)
-			newCol.v = max(min(0.7, newCol.v), 0.5)
+			newCol.v = maxf(minf(0.7, newCol.v), 0.5)
 			_hairMat.set_shader_parameter("primary_color", newCol)
 			_hairMat.set_shader_parameter("secondary_color", Color.BLACK)
 		elif(_optionID == "pattern"):

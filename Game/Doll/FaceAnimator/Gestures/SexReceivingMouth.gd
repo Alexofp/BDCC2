@@ -11,7 +11,7 @@ func onEvent(_eventID:String, _args:Array):
 	
 func processFaceValue(_valID:int, _val:float) -> float:
 	if(_valID == FaceValue.MouthOpen):
-		return max(0.3, _val)
+		return maxf(0.3, _val)
 	return _val
 
 func updateExpressionState(_expression:int):
@@ -22,4 +22,4 @@ func processValues(_vals:FaceAnimator, _dt:float):
 	
 	if(influence <= 0.0):
 		return
-	_vals.valMouthOpen = lerp(_vals.valMouthOpen, max(0.3, _vals.valMouthOpen), influence)
+	_vals.valMouthOpen = lerp(_vals.valMouthOpen, maxf(0.3, _vals.valMouthOpen), influence)

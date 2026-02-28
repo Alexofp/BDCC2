@@ -996,7 +996,7 @@ func applyHitSpecific(_strength:float, _dir:Vector3, _globalSpace:bool = true, _
 func doStruggleAnimFor(_time:float):
 	if(!isDollEnabled()):
 		return
-	struggleTimer = max(_time, struggleTimer)
+	struggleTimer = maxf(_time, struggleTimer)
 	if(!skeleton_hit_modifier.isStruggling()):
 		skeleton_hit_modifier.startStruggle(0.3, 0.5, 1.2, 1.8)
 	

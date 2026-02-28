@@ -13,11 +13,11 @@ func onEvent(_eventID:String, _args:Array):
 	
 func processFaceValue(_valID:int, _val:float) -> float:
 	if(_valID == FaceValue.MouthPanting):
-		return max(1.0, _val)
+		return maxf(1.0, _val)
 	#if(_valID == FaceValue.EyesClosed):
-	#	return max(0.2, _val)
+	#	return maxf(0.2, _val)
 	if(_valID == FaceValue.EyesSexy):
-		return max(1.0, _val)
+		return maxf(1.0, _val)
 	return _val
 
 #func updateExpressionState(_expression:int):
@@ -42,6 +42,6 @@ func processValues(_vals:FaceAnimator, _dt:float):
 	if(influence <= 0.0):
 		return
 	
-	_vals.valMouthPanting = lerp(_vals.valMouthPanting, max(1.0, _vals.valMouthPanting), influence)
-	_vals.valEyesSexy = lerp(_vals.valEyesSexy, max(1.0, _vals.valEyesSexy), influence)
+	_vals.valMouthPanting = lerp(_vals.valMouthPanting, maxf(1.0, _vals.valMouthPanting), influence)
+	_vals.valEyesSexy = lerp(_vals.valEyesSexy, maxf(1.0, _vals.valEyesSexy), influence)
 	

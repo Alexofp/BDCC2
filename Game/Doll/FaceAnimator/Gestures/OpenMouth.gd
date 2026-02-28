@@ -21,5 +21,5 @@ func processValues(_vals:FaceAnimator, _dt:float):
 	
 	if(influence <= 0.0):
 		return
-	_vals.valMouthOpen = lerp(_vals.valMouthOpen, max(0.8, _vals.valMouthOpen), influence)
+	_vals.valMouthOpen = lerp(_vals.valMouthOpen, maxf(0.8, _vals.valMouthOpen), influence)
 	

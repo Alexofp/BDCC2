@@ -68,5 +68,5 @@ func _set_handle(
 		return
 
 	var local = n.global_transform.affine_inverse() * hit
-	n.radius = max(0.01, local.length())
+	n.radius = maxf(0.01, local.length())
 	n.update_gizmos()

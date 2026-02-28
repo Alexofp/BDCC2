@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 	
 	var inDiff:float = targetInValue - savedInValue
 	var diff:float = curOpenValue - oldOpenValue
-	pushValue = moveValueTowards(pushValue, 0.0, _delta*5.0*max(abs(pushValue), 0.1))
+	pushValue = moveValueTowards(pushValue, 0.0, _delta*5.0*maxf(abs(pushValue), 0.1))
 	pushValue += inDiff*10.0#diff * 5.0
 	pushValue += diff * 5.0
 	
@@ -125,7 +125,7 @@ func getFactorDeep() -> float:
 	#
 	#var inDiff:float = targetInValue - savedInValue
 	#var diff:float = curOpenValue - oldOpenValue
-	#pushValue = moveValueTowards(pushValue, 0.0, _delta*2.0*max(abs(pushValue), 0.1))
+	#pushValue = moveValueTowards(pushValue, 0.0, _delta*2.0*maxf(abs(pushValue), 0.1))
 	#pushValue += inDiff*10.0#diff * 5.0
 	#pushValue += diff * 5.0
 	#

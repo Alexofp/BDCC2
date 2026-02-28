@@ -67,7 +67,7 @@ func processAI(_dt:float):
 	for enemyPawn in activeEnemies:
 		var theActiveEnemy:ActiveEnemy = activeEnemies[enemyPawn]
 		theActiveEnemy.agroScore *= 0.9
-		theActiveEnemy.agroScore += max(20.0 - pawn.global_position.distance_squared_to(enemyPawn.global_position), 0.0)
+		theActiveEnemy.agroScore += maxf(20.0 - pawn.global_position.distance_squared_to(enemyPawn.global_position), 0.0)
 		#print(theActiveEnemy.agroScore)
 		
 		if(theActiveEnemy.agroScore < 0.1):

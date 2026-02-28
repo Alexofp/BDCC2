@@ -47,7 +47,7 @@ func tryPickAction(_pawn:CharacterPawn) -> bool:
 		return false
 	var theScores:Array[float] = []
 	for actionEntry in theActions:
-		theScores.append(max(actionEntry["score"], 0.0) if actionEntry.has("score") else 0.0)
+		theScores.append(maxf(actionEntry["score"], 0.0) if actionEntry.has("score") else 0.0)
 	
 	var randomEntry:Dictionary = RNG.pickWeighted(theActions, theScores)
 	

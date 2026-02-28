@@ -51,7 +51,7 @@ func processFaceValue(_valID:int, _val:float) -> float:
 		if(crossEyed || closeEyes):
 			return RNG.randfRange(0.9, 1.0)
 	#if(_valID == FaceValue.MouthBlep):
-		#return max(1.0, _val)
+		#return maxf(1.0, _val)
 	return _val
 
 func processFaceVec2(_valID:int, _val:Vector2) -> Vector2:

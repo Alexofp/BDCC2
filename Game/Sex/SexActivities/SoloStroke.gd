@@ -75,9 +75,9 @@ func sex_actions(_role:String):
 	if(sexSpeed < SEX_SPEED_FAST):
 		var fasterScore:float = 0.1
 		if(sexSpeed == SEX_SPEED_SLOW):
-			fasterScore = 0.05 + max((getArousal(_role)-0.2)/0.8, 0.0)*0.5
+			fasterScore = 0.05 + maxf((getArousal(_role)-0.2)/0.8, 0.0)*0.5
 		if(sexSpeed == SEX_SPEED_NORMAL):
-			fasterScore = 0.05 + max((getArousal(_role)-0.5)/0.5, 0.0)*0.5
+			fasterScore = 0.05 + maxf((getArousal(_role)-0.5)/0.5, 0.0)*0.5
 		
 		addAction(action("Faster").setScore(fasterScore).do("sex_faster"))
 	if(sexSpeed > SEX_SPEED_SLOW):

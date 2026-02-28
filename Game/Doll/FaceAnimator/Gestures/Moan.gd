@@ -24,10 +24,10 @@ func processFaceValue(_valID:int, _val:float) -> float:
 		if(moanValue > 0.0):
 			return _val * (1.0 - moanValue) + moanValue
 		elif(moanValue < 0.0):
-			return max(_val * (1.0 + moanValue), abs(moanValue)*0.1)
+			return maxf(_val * (1.0 + moanValue), abs(moanValue)*0.1)
 	if(_valID == FaceValue.BrowsShy):
 		if(moanValue > 0.0):
-			return max(moanValue, _val)
+			return maxf(moanValue, _val)
 	return _val
 
 func doMoan(_soundEntry: SexSoundEntry, _voiceHandler:VoiceHandler, moanMult:float = 1.0):
@@ -39,7 +39,7 @@ func doMoan(_soundEntry: SexSoundEntry, _voiceHandler:VoiceHandler, moanMult:flo
 			[0.0, soundLen*0.8],
 		])
 	else:
-		soundLen = max(soundLen, 0.8)
+		soundLen = maxf(soundLen, 0.8)
 		doTween("moanValue", [
 			[-1.0*moanMult, soundLen*0.2],
 			[-1.0*moanMult, soundLen*0.3],
@@ -60,6 +60,6 @@ func processValues(_vals:FaceAnimator, _dt:float):
 	
 	if(moanValue > 0.0):
 		_vals.valMouthOpen = _vals.valMouthOpen * (1.0 - moanValue) + moanValue
-		_vals.valBrowsShy = max(moanValue, _vals.valBrowsShy)
+		_vals.valBrowsShy = maxf(moanValue, _vals.valBrowsShy)
 	elif(moanValue < 0.0):
-		_vals.valMouthOpen = max(_vals.valMouthOpen * (1.0 + moanValue), abs(moanValue)*0.1)
+		_vals.valMouthOpen = maxf(_vals.valMouthOpen * (1.0 + moanValue), abs(moanValue)*0.1)

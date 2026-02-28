@@ -11,10 +11,10 @@ func onEvent(_eventID:String, _args:Array):
 		var howLong:float = _args[0] if _args.size() > 0 else 3.0
 		doTween("talkValue", [
 			[1.0, 0.3],
-			[1.0, max(howLong-0.3, 0.0)],
+			[1.0, maxf(howLong-0.3, 0.0)],
 			[0.0, 0.3],
 		])
 	
 func processValues(_vals:FaceAnimator, _dt:float):
-	_vals.valTalking = max(_vals.valTalking, talkValue - max(0.0, _vals.valMouthOpen))
+	_vals.valTalking = maxf(_vals.valTalking, talkValue - maxf(0.0, _vals.valMouthOpen))
 	

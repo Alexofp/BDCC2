@@ -29,9 +29,9 @@ func _process(_delta: float) -> void:
 	#print(holeToInsideDistance)
 	var handleMult:float = 1.0
 	if(shaftToInsideDistance < blendDistance):
-		#handleMult *= max((shaftToInsideDistance-blendDistance/2.0)/(blendDistance/2.0), 0.0)
-		handleMult *= max((shaftToInsideDistance)/(blendDistance), 0.0)
-	handleMult /= sqrt(max(shaftNode.global_basis.get_scale().x, 0.01))
+		#handleMult *= maxf((shaftToInsideDistance-blendDistance/2.0)/(blendDistance/2.0), 0.0)
+		handleMult *= maxf((shaftToInsideDistance)/(blendDistance), 0.0)
+	handleMult /= sqrt(maxf(shaftNode.global_basis.get_scale().x, 0.01))
 	#print(handleMult)
 	
 	var localHolePos := to_local(holePos)

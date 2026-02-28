@@ -20,13 +20,13 @@ func processFaceVec2(_valID:int, _val:Vector2) -> Vector2:
 
 func processFaceValue(_valID:int, _val:float) -> float:
 	if(_valID == FaceValue.BrowsAngry):
-		return max(plapValue, _val)
+		return maxf(plapValue, _val)
 	if(_valID == FaceValue.BrowsShy):
-		return min(1.0-plapValue, _val)
+		return minf(1.0-plapValue, _val)
 	if(_valID == FaceValue.MouthOpen):
-		return max(plap2Value*0.2, _val)
+		return maxf(plap2Value*0.2, _val)
 	if(_valID == FaceValue.MouthSnarl):
-		return max(plap2Value*0.2, _val)
+		return maxf(plap2Value*0.2, _val)
 	return _val
 
 func doPlap():
@@ -43,7 +43,7 @@ func doPlap():
 func processValues(_vals:FaceAnimator, _dt:float):
 	if(plapValue <= 0.0 && plap2Value <= 0.0):
 		return
-	_vals.valBrowsAngry = max(plapValue, _vals.valBrowsAngry)
-	_vals.valBrowsShy = min(1.0-plapValue, _vals.valBrowsShy)
-	_vals.valMouthOpen = max(plap2Value*0.2, _vals.valMouthOpen)
-	_vals.valMouthSnarl = max(plap2Value*0.2, _vals.valMouthSnarl)
+	_vals.valBrowsAngry = maxf(plapValue, _vals.valBrowsAngry)
+	_vals.valBrowsShy = minf(1.0-plapValue, _vals.valBrowsShy)
+	_vals.valMouthOpen = maxf(plap2Value*0.2, _vals.valMouthOpen)
+	_vals.valMouthSnarl = maxf(plap2Value*0.2, _vals.valMouthSnarl)

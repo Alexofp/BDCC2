@@ -28,8 +28,8 @@ func popQueueFrontWithPriorityLessThan(_priority:int, _stopSounds:bool=true):
 func getQueueTime() -> float:
 	var result:float = 0.0
 	for entry in noiseQueue:
-		result += max(entry.waitTime, 0.0)
-		result += max(entry.postWaitTime, 0.0)
+		result += maxf(entry.waitTime, 0.0)
+		result += maxf(entry.postWaitTime, 0.0)
 	return result
 
 func getQueueLength() -> int:
