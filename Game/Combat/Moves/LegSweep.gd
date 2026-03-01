@@ -15,7 +15,7 @@ func _init() -> void:
 		[EFFECT_MOVE, Vector3(0.0, 0.0, -1.0), 0.7],
 		[EFFECT_TAG, TAG_BLOCK_DODGE, 0.65],
 		[EFFECT_DELAY, 0.2],
-		[EFFECT_HIT, AttackInfo.create(1.0, 2.2, 70.0).setExhaust(0.2).setHitAll(true), EFFECTS_KICK_RIGHT],
+		[EFFECT_HIT, AttackInfo.create(0.75, 2.2, 70.0).setExhaust(0.4).setHitAll(true).setCollapses(0.0, 0.0, 0.4).setStaggers(0.0), EFFECTS_KICK_RIGHT],
 		[EFFECT_DELAY, 0.4],
 		#[EFFECT_MOVE, Vector3(0.0, 0.0, -3.0), 0.4],
 		[EFFECT_TAG, "als", 0.5], # after leg sweep

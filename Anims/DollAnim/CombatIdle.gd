@@ -6,6 +6,10 @@ func _init() -> void:
 			name = "CollapseIdle",
 			anim = "CollapseIdle",
 		},
+		"CollapseFlyingIdle": {
+			name = "CollapseFlyingIdle",
+			anim = "CollapseFlyingIdle",
+		},
 	}
 	animType = TYPE_IDLE
 	animLibraryName = COMBAT_ANIMS

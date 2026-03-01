@@ -6,6 +6,7 @@ var pawn:CharacterPawn
 var combatMove:CombatMoveBase
 var moveTime:float = 0.0
 var noMoveTimer:float = 0.0
+var noAttackTimer:float = 0.0
 var effects:Array
 var activeTags:Dictionary[String, float]
 
@@ -29,6 +30,8 @@ var strainRecovery:float = 0.0 # Timer until the strain starts going down again
 
 var dodgeAllTimer:float = 0.0 # all attacks miss us, invincibility frames
 
+var staggerImmunity:float = 0.0 # Prevents all stuns and collapses
+
 const CURVE_TO_RESOURCE:Dictionary[int, Curve] = {
 	CURVE_SMOOTH: RESOURCE_CURVE_SMOOTH,
 	CURVE_EASE_IN: RESOURCE_CURVE_EASE_IN,
@@ -39,6 +42,9 @@ func setPawn(_p:CharacterPawn):
 
 func onDefeat():
 	defeatRecovery = 7.0
+
+func onCollapse():
+	pass
 
 func activateTrigger(_act:int) -> bool:
 	if(!pawn.canDoCombatMoves()):
@@ -92,6 +98,8 @@ func processCombatPlayer(_dt:float):
 			activeTags.erase(tagID)
 	if(noMoveTimer > 0.0):
 		noMoveTimer -= _dt
+	if(noAttackTimer > 0.0):
+		noAttackTimer -= _dt
 	if(velTimeFull > 0.0):
 		velTime += _dt
 		if(velTime >= velTimeFull):
@@ -172,6 +180,12 @@ func eraseTag(_tag:String):
 
 func canMove() -> bool:
 	return noMoveTimer <= 0.0
+
+func makeNoMove(_time:float):
+	noMoveTimer = maxf(noMoveTimer, _time)
+
+func makeNoAttack(_time:float):
+	noAttackTimer = maxf(noAttackTimer, _time)
 
 func isDoingAMove() -> bool:
 	if(combatMove):
@@ -274,6 +288,9 @@ func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreIm
 	return result
 
 func getTargetsForAttack(_attackInfo:AttackInfo) -> Array[CharacterPawn]:
+	if(!_attackInfo):
+		assert(false, "NULL ATTACK INFO SUPPLIED TO getTargetsForAttack()!")
+		return []
 	return getTargets(_attackInfo.reach, _attackInfo.spread, _attackInfo.hitAll)
 
 func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
@@ -315,9 +332,25 @@ func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 	#causeExhaustion(0.1)
 
 func onHit(_attackContext:AttackContext):
+	var theAttack := _attackContext.attack
+	
 	if(_attackContext.blocked):
-		causeStrain(_attackContext.attack.strain)
-	makeImpossibleToHit(_attackContext.attack.dodgeTimeForTarget)
+		causeStrain(theAttack.strain)
+	makeImpossibleToHit(theAttack.dodgeTimeForTarget)
+	
+	var didSomething:bool = false
+	if(theAttack.collapsesTarget && pawn.state.canCollapse()):
+		var theVuln:float = pawn.calculateCombatVulnerability()
+		if(theVuln >= theAttack.collapseMinVulnerability):
+			var theDir := _attackContext.target.global_position - _attackContext.attacker.global_position
+			theDir = theDir.normalized()
+			pawn.sendFlying(theDir*theAttack.collapseBackVelocity, theAttack.collapseUpVelocity)
+			didSomething = true
+	if(!didSomething && theAttack.staggerTarget && pawn.state.canCollapse()):
+		var theVuln:float = pawn.calculateCombatVulnerability()
+		if(theVuln >= theAttack.staggerMinVulnerability):
+			pawn.doStagger()
+			didSomething = true
 
 func intensityToPitch(_intensity:int) -> float:
 	if(_intensity == CombatMoveBase.INTENSITY_SOFT):
@@ -368,6 +401,8 @@ func isTryingToBlock() -> bool:
 
 func canBlock() -> bool:
 	if(isDoingAMove()):
+		return false
+	if(noAttackTimer > 0.0):
 		return false
 	
 	return true
@@ -420,6 +455,8 @@ func isImpossibleToHit() -> bool:
 func processExhaustionAndStrain(_dt:float):
 	if(dodgeAllTimer > 0.0):
 		dodgeAllTimer -= _dt
+	if(staggerImmunity > 0.0):
+		staggerImmunity -= _dt
 	
 	if(strain > 0.0):
 		if(strainRecovery > 0.0):
@@ -476,3 +513,18 @@ func getStrainHaveEffectLevel() -> float:
 
 func makeImpossibleToHit(_time:float):
 	dodgeAllTimer = maxf(_time, dodgeAllTimer)
+
+func doStagger():
+	pawn.doCombatAnim("GettingHitStrong", true)
+	stopMove()
+	makeNoMove(1.1)
+	makeNoAttack(1.0)
+	#resetVel()
+	vel *= 0.5
+	giveStaggerImmunity(1.5)
+	
+func giveStaggerImmunity(_t:float):
+	staggerImmunity = maxf(_t, staggerImmunity)
+
+func hasStaggerImmunity() -> bool:
+	return staggerImmunity > 0.0

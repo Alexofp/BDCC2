@@ -36,6 +36,7 @@ var knockbackVelocity:Vector3
 
 var isOnFloorVisually:bool = false
 var isOnFloorVisuallyFrames:int = 0
+var gotOntoFloorThisFrame:bool = false
 
 @onready var doll_controls: DollControls = %DollControls
 #var mouse_movement = Vector2.ZERO
@@ -236,7 +237,9 @@ func _process(delta:float):
 		GlobalRegistry.reloadCombatMoves()
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_2")):
 		#getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
-		addKnockback(Vector3(11.0, 10.0, 0.0))
+		#addKnockback(Vector3(11.0, 10.0, 0.0))
+		getPawn().sendFlying(Vector3(10.0, 0.0, 0.0), 10.0)
+		#getPawn().doStagger()
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 	#if(theIsControlledByUs):
 	#	print(GI.world.getNearbyWanderAreas(global_position, 5.0))
@@ -296,8 +299,11 @@ func _physics_process(_delta:float):
 			noclip_on = !noclip_on
 
 	var isOnTheFloor := is_on_floor()
+	gotOntoFloorThisFrame = false
 	if(isOnTheFloor):
-		isOnFloorVisually = true
+		if(!isOnFloorVisually):
+			isOnFloorVisually = true
+			gotOntoFloorThisFrame = true
 		isOnFloorVisuallyFrames = 2
 	elif(isOnFloorVisually):
 		isOnFloorVisuallyFrames -= 1

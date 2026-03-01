@@ -67,6 +67,9 @@ func _init():
 	addBodypart(BodypartSlot.Head, load("res://Game/Character/Bodyparts/Head/HumanFeminineHead.gd").new())
 	addBodypart(BodypartSlot.Hair, load("res://Game/Character/Bodyparts/Hair/Ponytail1.gd").new())
 	
+	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateTop"))
+	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateShorts"))
+	
 	#body.setOptionValue("thickness", 2.0)
 	#body.setOptionValue("thickness", 0.0)
 	pass

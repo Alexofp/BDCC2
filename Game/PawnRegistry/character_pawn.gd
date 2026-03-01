@@ -35,19 +35,22 @@ const STATE_NORMAL = 0
 const STATE_SITTING = 1
 const STATE_COMBAT = 2
 const STATE_DEFEATED = 3
+const STATE_COLLAPSED = 4
 
 @onready var stateEmpty: Node = %Empty
 
 @onready var stateNormal: DollControllerState = %Normal
 @onready var stateSitting: DollControllerState = %Sitting
 @onready var stateCombat: DollControllerState = %Combat
-@onready var stateDefeated: Node = %Defeated
+@onready var stateDefeated: DollControllerState = %Defeated
+@onready var stateCollapsed: DollControllerState = %Collapsed
 
 @onready var states:Dictionary[int, DollControllerState] = {
 	STATE_NORMAL: stateNormal,
 	STATE_SITTING: stateSitting,
 	STATE_COMBAT: stateCombat,
 	STATE_DEFEATED: stateDefeated,
+	STATE_COLLAPSED: stateCollapsed,
 }
 
 @export var pawnState:int = STATE_NORMAL
@@ -178,6 +181,7 @@ func goDirLocal(_dir:Vector2, _delta:float, _shouldRun:bool):
 	theDoll.doll_controls.move_direction_no_y.y = 0.0
 	theDoll.doll_controls.move_direction_no_y = theDoll.doll_controls.move_direction_no_y.normalized()
 	theDoll.doll_controls.sprint_isdown = _shouldRun
+	theDoll.doll_controls.input_dir = _dir*Vector2(1.0, -1.0)
 
 func goTowardsRaw(_pos:Vector3, _delta: float, shouldRun:bool):
 	if(!isDollSpawned()):
@@ -529,13 +533,18 @@ func getSitPropHandler() -> PropHandlerBase:
 func getState() -> int:
 	return pawnState
 
-func setState(_state:int):
+func setState(_state:int, _args:Array = [], _forceSet:bool = false):
+	if(!_forceSet && pawnState == _state):
+		return
+	var oldPawnState := pawnState
 	pawnState = _state
 	state = states[_state] if states.has(_state) else stateEmpty
 	
 	var theDoll := getDoll()
-	if(pawnState == STATE_SITTING && theDoll):
-		theDoll.velocity = Vector3.ZERO
+	if(theDoll):
+		state.onStart(theDoll, _args, oldPawnState)
+	else:
+		state.onStartOnlyPawn(_args, oldPawnState)
 	
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(setState_RPC.bind(_state))
@@ -621,20 +630,36 @@ func isDefeated() -> bool:
 	return pawnState == STATE_DEFEATED
 
 func isCollapsed() -> bool:
-	return false#pawnState == STATE_DEFEATED
+	return pawnState == STATE_COLLAPSED
+
+func calculateCombatVulnerability() -> float:
+	return state.calculateCombatVulnerability()
+
+func sendFlying(_vel:Vector3, _upVelocity:float, _ignoreImmunity:bool = false):
+	if(!_ignoreImmunity && combatMovePlayer.hasStaggerImmunity()):
+		return
+	var theDoll := getDoll()
+	if(theDoll):
+		_vel.y += _upVelocity
+		theDoll.addKnockback(_vel)
+	
+	if(isDefeated()):
+		return
+	if(state.canCollapse()):
+		setState(STATE_COLLAPSED)
+
+func doStagger(_ignoreImmunity:bool = false):
+	if(!state.canCollapse()):
+		return
+	if(!_ignoreImmunity && combatMovePlayer.hasStaggerImmunity()):
+		return
+	combatMovePlayer.doStagger()
 
 func makeDefeated() -> bool:
 	if(isDefeated()):
 		return false
 	
-	if(Network.isServer()):
-		var allLeashes := GM.leashSystem.getAllLeashesOfSourceNode(self)
-		for leash in allLeashes.duplicate():
-			leash.queue_free()
-	
-	doCombatAnim("CollapseFromCombat", true)
 	setState(STATE_DEFEATED)
-	combatMovePlayer.onDefeat()
 	return true
 
 func makeDefeatedFromAttack(_attackContext:AttackContext) -> bool:
@@ -654,6 +679,19 @@ func recoverFromDefeat() -> bool:
 	doCombatAnim("CollapseToCombat", true)
 	setState(CharacterPawn.STATE_NORMAL)
 	getCharacter().charState.setPain(0.0)
+	combatMovePlayer.makeNoMove(0.8)
+	combatMovePlayer.makeNoAttack(0.8)
+	return true
+
+func recoverFromCollapse() -> bool:
+	if(!isCollapsed()):
+		return false
+	doCombatAnim("CollapseToCombat", true)
+	setState(CharacterPawn.STATE_COMBAT)
+	#getCharacter().charState.setPain(0.0)
+	combatMovePlayer.makeNoMove(0.8)
+	combatMovePlayer.makeNoAttack(0.8)
+	combatMovePlayer.giveStaggerImmunity(1.5)
 	return true
 
 func canEnterCombatMode() -> bool:

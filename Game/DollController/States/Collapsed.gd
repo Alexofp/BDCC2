@@ -1,17 +1,24 @@
 extends DollControllerState
 
+var collapseMinTimer:float = 1.0
+
 func onStart(_doll:DollController, _args:Array, _oldState:int):
 	if(_oldState in [pawn.STATE_COMBAT, pawn.STATE_NORMAL, pawn.STATE_SITTING]):
-		pawn.doCombatAnim("CollapseFromCombat", true)
+		if(_doll && _doll.knockbackVelocity.y <= 1.0):
+			pawn.doCombatAnim("CollapseFromCombat", true)
+		else:
+			pawn.doCombatAnim("CollapseFlyFromCombat", true)
+	collapseMinTimer = 1.0
 	
 	onStartOnlyPawn(_args, _oldState)
 
 func onStartOnlyPawn(_args:Array, _oldPawnState:int):
-	pawn.combatMovePlayer.onDefeat()
+	pawn.combatMovePlayer.onCollapse()
 	if(Network.isServer()):
 		var allLeashes := GM.leashSystem.getAllLeashesOfSourceNode(pawn)
 		for leash in allLeashes.duplicate():
 			leash.queue_free()
+	pass
 
 func canSit() -> bool:
 	return false
@@ -31,6 +38,9 @@ func shouldShowCombatUI() -> bool:
 func canRun(_doll:DollController) -> bool:
 	return false
 
+func canBeDefeated() -> bool:
+	return true
+
 func processCameraPivotPosition(_doll:DollController, _dt:float):
 	var CameraPivot := _doll.CameraPivot
 	var SpringArm := _doll.SpringArm
@@ -42,10 +52,34 @@ func processAnimation(_doll:DollController, _dt:float):
 	#var isOnFloor := _doll.is_on_floor()
 	var theDoll := _doll.getDoll()
 	
-	theDoll.animIdle("CollapseIdle")
+	if(_doll.gotOntoFloorThisFrame):
+		_doll.gotOntoFloorThisFrame = false
+		pawn.doCombatAnim("CollapseFlyingToFloor", true)
 	
-	rotateTowardsMoveDirection(_doll, _dt*0.1)
+	if(_doll.isOnFloorVisually && _doll.knockbackVelocity.y <= 1.0):
+		theDoll.animIdle("CollapseIdle")
+	else:
+		theDoll.animIdle("CollapseFlyingIdle")
 	
+	if(_doll.is_on_floor()):
+		collapseMinTimer -= _dt
+		if(collapseMinTimer <= 0.0):
+			pawn.recoverFromCollapse()
+			#pawn.doCombatAnim("CollapseToCombat", true)
+			#pawn.setState(pawn.STATE_COMBAT)
+			#pawn.combatMovePlayer.makeNoMove(0.8)
+	if(_doll.isOnFloorVisually):
+		rotateTowardsMoveDirection(_doll, _dt*0.1)
+	else:
+		if(_doll.velocity.length_squared() > 0.1):
+			var theDir := _doll.velocity.rotated(Vector3.UP, PI)
+			rotateTowardsDirection(_doll, _dt*3.0, theDir)
+
+func processDollLessPawn(_dt:float):
+	collapseMinTimer -= _dt
+	if(collapseMinTimer <= 0.0):
+		pawn.setState(pawn.STATE_COMBAT)
+
 func processMove(_doll:DollController, _dt:float):
 	#var theCanMove := canMove(_doll)
 	_doll.isRunning = false

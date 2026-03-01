@@ -74,9 +74,21 @@ func _init() -> void:
 			#loopLength = 1.0,
 			#looped = false,
 		},
+		"CollapseFlyingToFloor": {
+			name = "CollapseFlyingToFloor",
+			anim = "CollapseFlyingToFloor",
+			#loopLength = 1.0,
+			#looped = false,
+		},
 		"GettingHitStrong": {
 			name = "GettingHitStrong",
 			anim = "GettingHitStrong",
+			#loopLength = 1.0,
+			#looped = false,
+		},
+		"CollapseFlyFromCombat": {
+			name = "CollapseFlyFromCombat",
+			anim = "CollapseFlyFromCombat",
 			#loopLength = 1.0,
 			#looped = false,
 		},

@@ -31,9 +31,9 @@ func _physics_process(_delta: float) -> void:
 	if(!character || !is_instance_valid(character) || !pawn):
 		visible = false
 		return
-	if(pawn.isControlledByUs()):
-		visible = false
-		return
+	#if(pawn.isControlledByUs()):
+	#	visible = false
+	#	return
 	visible = true
 	global_rotation = Vector3()
 	
@@ -67,6 +67,7 @@ func fadeIn(_force:bool = false):
 	shouldBarsBeVisible = false
 	
 	pain_bar.fadeIn(_force)
+	exhaustion_bar.fadeIn(_force)
 	#if(fadeTween):
 	#	fadeTween.kill()
 	#fadeTween = create_tween()
@@ -78,6 +79,7 @@ func fadeOut(_force:bool = false):
 	shouldBarsBeVisible = true
 	
 	pain_bar.fadeOut(_force)
+	exhaustion_bar.fadeOut(_force)
 	#if(fadeTween):
 	#	fadeTween.kill()
 	#fadeTween = create_tween()

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://df7l30u57cyen"]
+
+[ext_resource type="Script" uid="uid://kdp73oh2ywgc" path="res://Game/DollController/States/Collapsed.gd" id="1_a7ikb"]
+
+[node name="Collapsed" type="Node" unique_id=547400478]
+script = ExtResource("1_a7ikb")

@@ -38,6 +38,7 @@ var animation:String = ""
 var moveLen:float = 1.0
 var noMoveLen:float = 1.0
 var canCancelExistingMove:bool = false
+var ignoresNoAttackTimer:bool = false
 var followVelocityDir:bool = false
 var requiresStamina:bool = true
 var exhaustionOnStart:float = 0.0
@@ -105,6 +106,8 @@ func canUseMoveFinal(_player:CombatMovePlayer) -> bool:
 	if(!canCancelExistingMove && _player.isDoingAMove()):
 		return false
 	if(requiresStamina && _player.isExhausted()):
+		return false
+	if(!ignoresNoAttackTimer && _player.noAttackTimer > 0.0):
 		return false
 	
 	for condEntry in conditions:

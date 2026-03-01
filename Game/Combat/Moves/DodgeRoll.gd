@@ -6,6 +6,7 @@ func _init() -> void:
 	moveLen = 0.0
 	noMoveLen = 1.0
 	canCancelExistingMove = true
+	ignoresNoAttackTimer = true
 	followVelocityDir = true
 	exhaustionOnStart = 0.1
 	

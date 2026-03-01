@@ -94,19 +94,23 @@ func processAI(_dt:float):
 		timeUntilNextMove = RNG.randfRange(0.5, 1.0)
 		if(actionQueue.is_empty() && pawn.combatMovePlayer.getExhaustionLevel() <= 0.4):
 			# Do something
-			if(RNG.chance(20)):
+			if(RNG.chance(15)):
 				pushToQueue(ACTION_MOVE, [Vector2(0.0, RNG.pick([1.0, -1.0])), 0.2])
 				pushDelay(0.1)
 				pushToQueue(ACTION_DODGE, [Vector2(0.0, -1.0)])
 				pushDelay(0.3)
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
-			elif(RNG.chance(30)):
+			elif(RNG.chance(20)):
 				pushToQueue(ACTION_DODGE, [Vector2(0.0, RNG.pick([1.0, -1.0]))])
 				pushToQueue(ACTION_WAIT_NO_MOVE)
 				#pushDelay(0.7)
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
 				pushToQueue(ACTION_WAIT_NO_MOVE)
 				pushToQueue(ACTION_DODGE, [Vector2(-1.0, 0.0)])
+			elif(RNG.chance(10)):
+				pushToQueue(ACTION_MOVE, [Vector2(0.0, -1.0), 0.3])
+				pushDelay(0.1)
+				pushToQueue(ACTION_ATTACK_HEAVY)
 			else:
 				pushToQueue(RNG.pick([ACTION_ATTACK, ACTION_ATTACK_HEAVY]))
 				pushToQueue(ACTION_WAIT_NO_MOVE)
@@ -153,7 +157,7 @@ func processQueue(_dt:float):
 			moveTime = actionArgs[1]
 			var theDoll := pawn.getDoll()
 			if(theDoll):
-				theDoll.doll_controls.input_dir = moveDir
+				theDoll.doll_controls.input_dir = moveDir*Vector2(1.0, -1.0)
 		elif(actionType == ACTION_BLOCK):
 			blockTime = actionArgs[0]
 		elif(actionType == ACTION_ATTACK):

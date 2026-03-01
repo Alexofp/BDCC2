@@ -6,6 +6,12 @@ var pawn:CharacterPawn
 func _ready() -> void:
 	pawn = get_parent()
 
+func onStart(_doll:DollController, _args:Array, _oldState:int):
+	pass
+
+func onStartOnlyPawn(_args:Array, _oldPawnState:int):
+	pass
+
 func canSit() -> bool:
 	return true
 
@@ -21,6 +27,9 @@ func processSpecialInputs(_doll:DollController, _dt:float):
 func processPhysics(_doll:DollController, _delta:float):
 	processSpecialInputs(_doll, _delta)
 	processMove(_doll, _delta)
+
+func processDollLessPawn(_dt:float):
+	pass
 
 func processTick(_doll:DollController, _delta:float):
 	#var theIsControlledByUs:bool = _doll.isControlledByUs()
@@ -38,6 +47,9 @@ func processKnockbackVelocity(_doll:DollController, _delta:float):
 	if(_doll.is_on_floor()):
 		theFriction = 0.2
 		if(_doll.knockbackVelocity.y < 0.0):
+			_doll.knockbackVelocity.y *= 0.0
+	if(_doll.is_on_ceiling()):
+		if(_doll.knockbackVelocity.y > 0.0):
 			_doll.knockbackVelocity.y = 0.0
 	
 	var f := clampf(theFriction, 0.0, 1.0)
@@ -184,6 +196,7 @@ func processHit(_attackContext:AttackContext) -> int:
 		
 		if(theCharacter.charState.getPainLevel() >= 1.0 && canBeDefeated()):
 			pawn.makeDefeatedFromAttack(_attackContext)
+
 		
 		pawn.combatMovePlayer.onHit(_attackContext)
 		
@@ -192,6 +205,14 @@ func processHit(_attackContext:AttackContext) -> int:
 
 func canBeDefeated() -> bool:
 	return false
+
+func canCollapse() -> bool:
+	return canBeDefeated()
+
+func calculateCombatVulnerability() -> float:
+	if(pawn.isBlocking()):
+		return -1.0 + pawn.combatMovePlayer.getExhaustionLevel()
+	return 0.0 + pawn.combatMovePlayer.getExhaustionLevel()
 
 func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	#_doll.applyHitRandom(2.0)

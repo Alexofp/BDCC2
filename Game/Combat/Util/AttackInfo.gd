@@ -12,6 +12,12 @@ var exhaustionBlocked:float = 0.15
 var strain:float = 0.2 # How much strain does this put on the blocking target
 var hitAll:bool = false # If true, the attack will hit everyone in the range rather than only the best target
 var dodgeTimeForTarget:float = 0.2 # For how long the target can't be hit after this hit
+var collapsesTarget:bool = false
+var collapseBackVelocity:float = 0.0
+var collapseUpVelocity:float = 0.0
+var collapseMinVulnerability:float = 0.0 # 0.0 = normal in combat, 0.0-1.0 = depends on exhaustion, extra from certain attacks
+var staggerTarget:bool = false
+var staggerMinVulnerability:float = 0.0
 
 static func create(_damage:float, _range:float, _spread:float) -> AttackInfo:
 	var theInfo := AttackInfo.new()
@@ -53,4 +59,16 @@ func setHitAll(_h:bool) -> AttackInfo:
 
 func setDodgeTimeForTarget(_t:float) -> AttackInfo:
 	dodgeTimeForTarget = _t
+	return self
+
+func setCollapses(_backVel:float = 0.0, _upVel:float = 0.0, _minVulnerability:float = 0.0) -> AttackInfo:
+	collapsesTarget = true
+	collapseBackVelocity = _backVel
+	collapseUpVelocity = _upVel
+	collapseMinVulnerability = _minVulnerability
+	return self
+
+func setStaggers(_minVulnerability:float = 0.0) -> AttackInfo:
+	staggerTarget = true
+	staggerMinVulnerability = _minVulnerability
 	return self

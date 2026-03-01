@@ -1,5 +1,12 @@
 extends DollControllerState
 
+func canMove(_doll:DollController) -> bool:
+	#if(attacking > 0.0):
+	#	return false
+	if(!pawn.combatMovePlayer.canMove()):
+		return false
+	return true
+
 func doJump(_doll:DollController):
 	if(!_doll.is_on_floor() || _doll.noclip_on):
 		return

@@ -3,6 +3,10 @@ extends DollControllerState
 func canSit() -> bool:
 	return false
 
+func onStart(_doll:DollController, _args:Array, _oldState:int):
+	_doll.velocity = Vector3.ZERO
+	_doll.knockbackVelocity = Vector3.ZERO
+
 func canJump(_doll:DollController) -> bool:
 	return false
 
