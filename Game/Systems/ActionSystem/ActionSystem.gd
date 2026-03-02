@@ -281,6 +281,11 @@ func getAllActionsOfUser(_user:CharacterPawn) -> Array[ActionSystemEntry]:
 		return []
 	return userToActions[_user]
 
+func isUserDoingSomething(_user:CharacterPawn) -> bool:
+	if(!userToActions.has(_user)):
+		return false
+	return !userToActions[_user].is_empty()
+
 func getAllActionsOfTarget(_target:Node) -> Array[ActionSystemEntry]:
 	if(!targetToActions.has(_target)):
 		return []

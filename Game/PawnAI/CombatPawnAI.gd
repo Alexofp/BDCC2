@@ -79,8 +79,14 @@ func processAI(_dt:float):
 	for thePawn in toRem:
 		removeEnemy(thePawn)
 	
+	#recoverIfDefeated()
+	
 	var theCurrentPawn := getCurrentEnemy()
 	if(theCurrentPawn):
+		if(isSitting()):
+			getUpIfSitting()
+			return
+		
 		if(moveTime <= 0.0):
 			var theDist := theCurrentPawn.global_position.distance_squared_to(pawn.global_position)
 			if(theDist > 1.5):
@@ -199,3 +205,37 @@ func resetForPlayer():
 	if(!actionQueue.is_empty()):
 		actionQueue.clear()
 	moveTime = 0.0
+
+func isSitting() -> bool:
+	return pawn.isSittingSomewhere()
+
+func getUpIfSitting():
+	var curPoseSpot := GM.sitManager.getSeatOfPawn(pawn)
+	if(!curPoseSpot):
+		return
+		
+	var theHandler := curPoseSpot.getHandler()
+	if(theHandler is PropHandlerBase):
+		var ourSlot:String = theHandler.getSlotOfPawn(pawn)
+		if(ourSlot.is_empty()):
+			return
+		
+		if(!theHandler.canGetUpFromSlot(ourSlot)):
+			#impossibleAction()
+			return
+		
+		var _doAct := pawn.doInteractEntryDo(InteractEntryDo.create(
+			"SitProp", [ourSlot],
+		), theHandler)
+	return
+
+func recoverIfDefeated():
+	if(!pawn.isDefeated()):
+		return
+	if(!pawn.canRecoverFromDefeat()):
+		return
+	if(pawn.isDoingSomething()):
+		return
+	
+	var _doAct := pawn.doInteractEntryDo(InteractEntryDo.create("DefeatedGetUp"), pawn)
+	

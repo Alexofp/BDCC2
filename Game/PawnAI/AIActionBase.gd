@@ -63,6 +63,11 @@ func onGettingHit(_attackContext:AttackContext) -> bool:
 func shouldBeInCombatMode() -> bool:
 	return false
 
+func shouldTryToRecoverIfDefeated() -> bool:
+	if(subAction && !subAction.shouldTryToRecoverIfDefeated()):
+		return false
+	return true
+
 # Functions to override END
 
 func onGettingHitFinal(_attackContext:AttackContext) -> bool:

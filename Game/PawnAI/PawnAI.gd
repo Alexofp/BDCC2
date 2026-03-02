@@ -105,6 +105,8 @@ func processRare():
 		startAction("BasicAI")
 	#if(!pawn.hasInteraction()):
 	#	GM.IS.startInteraction("SoloInteraction", {main=pawn})
+	if(pawn.isDefeated() && aiAction && aiAction.shouldTryToRecoverIfDefeated()):
+		pawn.combatAI.recoverIfDefeated()
 	
 	if(aiAction):
 		aiAction.processRareFinal()

@@ -914,6 +914,9 @@ func doInteractEntryDoByIndex(_indx:int, _target, _actionID:String):
 	doInteractEntryDo(theEntry, _target)
 	pass
 
+func isDoingSomething() -> bool:
+	return GM.actionSystem.isUserDoingSomething(self)
+
 func doInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
 	#Only support self actions for now
 	#if(_entry.user != self):
