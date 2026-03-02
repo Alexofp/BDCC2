@@ -47,6 +47,9 @@ func removeEnemy(_pawn:CharacterPawn) -> bool:
 	activeEnemies.erase(_pawn)
 	return true
 
+func hasEnemy(_pawn:CharacterPawn) -> bool:
+	return activeEnemies.has(_pawn)
+
 func clearEnemies():
 	if(activeEnemies.is_empty()):
 		return

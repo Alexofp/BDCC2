@@ -194,6 +194,7 @@ class LayerBasic extends ILayerBase:
 	var blendTimeOut:float = 0.2
 	var blendTimeBetween:float = 0.0
 	var blendCurve:Curve = CURVE_SMOOTH
+	var sync:bool = false
 	
 	var comboLayers:int = 0 # How many extra layers to spawn. playLayer will cycle through these combo layers to help avoid animation glitches
 	
@@ -337,6 +338,7 @@ func generateTree() -> AnimationNode:
 					theBlendNode.abort_on_reset = true
 					theBlendNode.fadein_time = theLayer.blendTimeIn
 					theBlendNode.fadeout_time = theLayer.blendTimeOut
+					theBlendNode.sync = theLayer.sync
 					
 					theBlendNode.fadein_curve = theLayer.blendCurve
 					theBlendNode.fadeout_curve = theLayer.blendCurve

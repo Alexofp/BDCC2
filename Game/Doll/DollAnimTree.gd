@@ -69,6 +69,7 @@ func defineLayers():
 		LocomotionLayer.blendTimeOut = 0.0
 		LocomotionLayer.blendTimeBetween = 0.2
 		LocomotionLayer.anims = theLocomotionAnims
+		LocomotionLayer.sync = false
 		addLayer(LAYER_LOCOMOTION, LocomotionLayer)
 	
 	if(true):
@@ -92,6 +93,7 @@ func defineLayers():
 		CombatLayer.blendTimeBetween = 0.1
 		CombatLayer.anims = theCombatAnims
 		CombatLayer.comboLayers = 2
+		CombatLayer.sync = true
 		addLayer(LAYER_COMBAT, CombatLayer)
 	
 	if(true):
