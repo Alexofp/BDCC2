@@ -58,6 +58,8 @@ const STATE_COLLAPSED = 4
 
 @onready var combatMovePlayer: CombatMovePlayer = %CombatMovePlayer
 
+var rareUpdateTimer:float = 0.0
+
 func _ready() -> void:
 	combatMovePlayer.setPawn(self)
 	
@@ -70,6 +72,8 @@ func _ready() -> void:
 	
 	combatAI = CombatPawnAI.new()
 	combatAI.setPawn(self)
+	
+	rareUpdateTimer = RNG.randfRange(0.0, 1.0)
 	
 	#print(sayArrayToText([
 		#[SayType.Speech, "Hello."],
@@ -127,6 +131,9 @@ func _process(_delta: float) -> void:
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
 	
+func processRare(_dt:float):
+	if(Network.isServer()):
+		combatAI.processRare(_dt)
 
 func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):
@@ -139,6 +146,11 @@ func _physics_process(_delta: float) -> void:
 	processPoseSpot()
 	
 	combatMovePlayer.processCombatPlayer(_delta)
+	
+	rareUpdateTimer -= _delta
+	if(rareUpdateTimer <= 0.0):
+		rareUpdateTimer = 1.0
+		processRare(rareUpdateTimer)
 	
 	if(isControlledByAnyPlayer()):
 		var theDoll := getDoll()
@@ -651,6 +663,8 @@ func sendFlying(_vel:Vector3, _upVelocity:float, _ignoreImmunity:bool = false):
 func doStagger(_ignoreImmunity:bool = false):
 	if(!state.canCollapse()):
 		return
+	if(isCollapsed() || isDefeated()):
+		return
 	if(!_ignoreImmunity && combatMovePlayer.hasStaggerImmunity()):
 		return
 	combatMovePlayer.doStagger()
@@ -729,6 +743,13 @@ func rotateTowards(_pos:Vector3):
 
 func isBlocking() -> bool:
 	return state.isBlocking()
+
+func onNearbyPawnStartMove(_otherPawn:CharacterPawn, _someMove:CombatMoveBase):
+	if(isControlledByAnyPlayer()):
+		return
+	combatAI.onNearbyPawnStartMove(_otherPawn, _someMove)
+
+
 
 
 

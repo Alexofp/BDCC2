@@ -44,6 +44,8 @@ var pawnQuickActionsAlwaysSelf:Array[PawnActionBase] = []
 var pawnQuickActionsAlwaysOtherPawn:Array[PawnActionBase] = []
 var combatMoveRefs:Dictionary[String, CombatMoveBase]
 var combatMoveByActivationType:Dictionary[int, Array]
+var aiCombosByID:Dictionary[String, AIComboBase]
+var aiCombos:Array[AIComboBase]
 
 signal initialized
 
@@ -183,6 +185,7 @@ func doInit():
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
+	registerAIComboFolder("res://Game/Combat/AICombos/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1022,3 +1025,36 @@ func reloadCombatMoves():
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
 	for actType in combatMoveByActivationType:
 		sortCombatMoveArrayByPriority(combatMoveByActivationType[actType])
+	
+	aiCombos.clear()
+	aiCombosByID.clear()
+	registerAIComboFolder("res://Game/Combat/AICombos/")
+
+
+
+
+
+func registerAICombo(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is AIComboBase):
+		if(!object.enabled):
+			return
+		aiCombos.append(object)
+		aiCombosByID[object.id] = object
+
+func registerAIComboFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerAICombo(scriptPath)
+
+func getAICombo(id: String) -> AIComboBase:
+	if(aiCombosByID.has(id)):
+		return aiCombosByID[id]
+	else:
+		Log.Printerr("ERROR: AI combo with the id "+str(id)+" wasn't found")
+		return null
+
+func getAICombos() -> Array[AIComboBase]:
+	return aiCombos

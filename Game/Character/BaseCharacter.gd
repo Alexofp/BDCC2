@@ -27,6 +27,7 @@ var fetishHolder:FetishHolder = FetishHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
+var combatAI:CombatAIProfile = CombatAIProfile.new()
 
 signal onChange(change:BaseCharChange)
 

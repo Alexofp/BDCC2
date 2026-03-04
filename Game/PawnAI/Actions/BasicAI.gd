@@ -15,6 +15,15 @@ func onGettingHit(_attackContext:AttackContext) -> bool:
 	return true
 
 func think():
+	#for otherPawnInteractor in getPawn().pawn_interactor.nearbyPawns:
+		#if(otherPawnInteractor.pawn.isControlledByAnyPlayer() || otherPawnInteractor.pawn.isDefeated()):
+			#continue
+		#getPawn().combatAI.addEnemy(otherPawnInteractor.pawn)
+	
+	if(getPawn().combatAI.hasEnemies()): # Some check if maybe the sub-action can handle it
+		startSubActionUnlessSameTag("Combat")
+		return
+	
 	var theInteraction := getInteraction()
 	if(theInteraction):
 		startSubActionUnlessSameTag("Interaction")

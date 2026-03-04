@@ -27,7 +27,7 @@ static func randfRangeX2(from: float, to: float) -> float:
 # chance(100) will always be true
 # chance(3) will be true 3% of the time
 static func chance(ch: float) -> bool:
-	var randValue = randf() * 100
+	var randValue := randf() * 100.0
 	if(ch >= randValue):
 		return true
 	return false

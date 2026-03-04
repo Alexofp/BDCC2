@@ -199,6 +199,7 @@ func processHit(_attackContext:AttackContext) -> int:
 
 		
 		pawn.combatMovePlayer.onHit(_attackContext)
+		pawn.combatAI.onHit(_attackContext)
 		
 		pawn.ai.onGettingHit(_attackContext)
 	return hitStatus

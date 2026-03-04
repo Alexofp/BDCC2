@@ -76,6 +76,9 @@ func startMove(_move:CombatMoveBase):
 	_move.startMove(self)
 	Log.Print("STARTED MOVE: "+str(_move.id))
 	processEffectQueue(0.0) # Forces the initial effects to trigger
+	
+	for otherPawnInteractor in pawn.pawn_interactor.nearbyPawns:
+		otherPawnInteractor.pawn.onNearbyPawnStartMove(pawn, _move)
 
 func cancelCurrentMove():
 	if(combatMove):
@@ -245,6 +248,29 @@ static func isInCone(_pawnFrom:CharacterPawn, _pawnTo:CharacterPawn, _maxSpreadD
 	
 	return isInConeRaw(ourPos, ourRotY, theirPos, _maxSpreadDeg)
 
+const Y_HIT_SQUISH := 0.3
+
+func willHitTarget(thePawn:CharacterPawn, _maxDist:float, _maxSpread:float) -> bool:
+	var ourPos:Vector3 = pawn.getGlobalPos()
+	var ourRotY:float = pawn.getYRotation()
+	var ourForward := Vector3(0,0,-1).rotated(Vector3.UP, ourRotY)
+	var cosThreshold := cos(deg_to_rad(_maxSpread))
+	var distSquared:float = _maxDist*_maxDist
+	
+	var theirPos:Vector3 = thePawn.getGlobalPos()
+	if(theirPos.distance_squared_to(ourPos) > distSquared):
+		return false
+	var theDir := ourPos - theirPos
+	theDir.y *= Y_HIT_SQUISH
+	var theDot := ourForward.dot(theDir.normalized())
+	if(theDot < cosThreshold): #!isInCone(ourPos, ourRotY, theirPos, _maxSpread)
+		return false
+	
+	return true
+
+func willAttackHitTarget(_thePawn:CharacterPawn, _attackInfo:AttackInfo, _distMult:float = 1.2, _spreadMult:float = 1.2) -> bool:
+	return willHitTarget(_thePawn, _attackInfo.reach*_distMult, _attackInfo.spread*_spreadMult)
+
 # if _getAll = false, the function will try to get only the most in-front-of-us target (unless there are many)
 func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreImpossible:bool = false) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn]
@@ -267,7 +293,7 @@ func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreIm
 		if(theirPos.distance_squared_to(ourPos) > distSquared):
 			continue
 		var theDir := ourPos - theirPos
-		theDir.y *= 0.3
+		theDir.y *= Y_HIT_SQUISH
 		var theDot := ourForward.dot(theDir.normalized())
 		if(theDot < cosThreshold): #!isInCone(ourPos, ourRotY, theirPos, _maxSpread)
 			continue
@@ -407,6 +433,19 @@ func canBlock() -> bool:
 	
 	return true
 
+func canDodge() -> bool:
+	if(isExhausted()):
+		return false
+	if(!canUseMoveID("Dodge")):
+		return false
+	return true
+	
+func canUseMoveID(_moveID:String) -> bool:
+	var theMove := GlobalRegistry.getCombatMove(_moveID)
+	if(!theMove):
+		return false
+	return theMove.canUseMoveFinal(self)
+
 func shouldFollowMoveDirection() -> bool:
 	if(!isDoingAMove()):
 		return false
@@ -528,3 +567,15 @@ func giveStaggerImmunity(_t:float):
 
 func hasStaggerImmunity() -> bool:
 	return staggerImmunity > 0.0
+
+# returns [time, attackInfo] or []
+func getClosestHitEntry() -> Array:
+	if(effects.is_empty()):
+		return []
+	var theTime:float = 0.0
+	for effectEntry in effects:
+		if(effectEntry[0] == CombatMoveBase.EFFECT_DELAY):
+			theTime += effectEntry[1]
+		if(effectEntry[0] == CombatMoveBase.EFFECT_HIT):
+			return [theTime, effectEntry[1]]
+	return []
