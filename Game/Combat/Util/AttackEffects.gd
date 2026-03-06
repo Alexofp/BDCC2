@@ -47,6 +47,11 @@ func setImpactEffect(_s:int) -> AttackEffects:
 	impactEffect = _s
 	return self
 
+static func getEffectTimeMultFromZone(_zone:int) -> float:
+	if(_zone == ZONE_FOOT_LEFT || _zone == ZONE_FOOT_RIGHT):
+		return 3.0
+	return 1.0
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.U8, impactSound,

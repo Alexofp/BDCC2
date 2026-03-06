@@ -269,3 +269,42 @@ transform = Transform3D(0.9999997, 1.299777e-07, -9.313226e-10, -1.398148e-07, 0
 script = ExtResource("7_i5c51")
 leashPointID = "leashholder.R"
 metadata/_custom_type_script = "uid://cb1eve8v0w436"
+
+[node name="PunchVFXSpotR" type="Node3D" parent="rig/Skeleton3D/RHandAttach" index="1" unique_id=526417585]
+unique_name_in_owner = true
+transform = Transform3D(-0.9943241, 0.1034506, -0.02484975, -0.10575562, -0.9865607, 0.12455324, -0.011630673, 0.12647432, 0.99190176, -0.018330812, 0.06693384, -0.0040289313)
+
+[node name="PunchHitVFXR" type="Node3D" parent="rig/Skeleton3D/RHandAttach" index="2" unique_id=624704482]
+unique_name_in_owner = true
+transform = Transform3D(0.99999994, 1.0768417e-08, -9.313226e-10, -4.976755e-08, 0.9999999, 0, 1.8626451e-09, 7.450581e-09, 1, -0.031209111, 0.13562107, -0.008594463)
+
+[node name="LHandAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="19" unique_id=45440100]
+transform = Transform3D(-0.7809993, 0.6226763, -0.04810519, -0.6244621, -0.7797434, 0.04525052, -0.009333254, 0.065380454, 0.9978171, 0.48430014, 1.0646292, -0.017135397)
+bone_name = "hand.L"
+bone_idx = 28
+
+[node name="PunchVFXSpotL" type="Node3D" parent="rig/Skeleton3D/LHandAttach" index="0" unique_id=1584386515]
+unique_name_in_owner = true
+transform = Transform3D(-0.9892967, -0.14563687, -0.0090645915, 0.14320843, -0.98096573, 0.13113931, -0.027990747, 0.12843755, 0.99132246, 0.009907603, 0.06030807, -0.0038589258)
+
+[node name="PunchHitVFXL" type="Node3D" parent="rig/Skeleton3D/LHandAttach" index="1" unique_id=614785255]
+unique_name_in_owner = true
+transform = Transform3D(0.99999994, 1.0768417e-08, -9.313226e-10, -4.976755e-08, 0.9999999, 0, 1.8626451e-09, 7.450581e-09, 1, 0.031, 0.136, -0.009)
+
+[node name="RFootAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="20" unique_id=371445247]
+transform = Transform3D(-0.99999994, 2.2072345e-07, -3.3318065e-06, -3.3223769e-06, -0.2887863, 0.957394, -7.580966e-07, 0.9573937, 0.28878626, -0.19858104, 0.0650025, -0.047331702)
+bone_name = "foot.R"
+bone_idx = 13
+
+[node name="KickVFXSpotR" type="Node3D" parent="rig/Skeleton3D/RFootAttach" index="0" unique_id=610870972]
+unique_name_in_owner = true
+transform = Transform3D(-1.3145236, -0.19351766, -0.012041316, 0.05008033, -0.41859317, 1.2600942, -0.18731219, 1.2461528, 0.42140648, 0.009907603, 0.060308084, -0.0038589276)
+
+[node name="LFootAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="21" unique_id=1855029797]
+transform = Transform3D(-0.99999994, -2.2072345e-07, 3.3318065e-06, 3.3223769e-06, -0.2887863, 0.957394, 7.580966e-07, 0.9573937, 0.28878626, 0.19858104, 0.0650025, -0.047331702)
+bone_name = "foot.L"
+bone_idx = 4
+
+[node name="KickVFXSpotL" type="Node3D" parent="rig/Skeleton3D/LFootAttach" index="0" unique_id=56685408]
+unique_name_in_owner = true
+transform = Transform3D(-1.3272835, 0.06218486, -0.004228318, -0.023796706, -0.4222661, 1.2596394, 0.05760742, 1.2583284, 0.42291507, 0.009907603, 0.060308088, -0.0038589276)

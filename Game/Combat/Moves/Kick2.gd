@@ -15,9 +15,9 @@ func _init() -> void:
 	initialEffects = [
 		[EFFECT_DELAY, 0.15],
 		[EFFECT_MOVE, Vector3(0.0, 0.0, 1.0), 0.6],
-		[EFFECT_DELAY, 0.2],
+		[EFFECT_DELAY, 0.25],
 		[EFFECT_HIT, AttackInfo.create(1.5, 2.2, 20.0).setKnock(1.0, 3.0).setExhaust(0.1).setStaggers(1.0), EFFECTS_KICK_LEFT],
-		[EFFECT_DELAY, 0.4],
+		[EFFECT_DELAY, 0.35],
 		#[EFFECT_MOVE, Vector3(0.0, 0.0, -3.0), 0.4],
 		[EFFECT_TAG, "ak2", 0.5],
 	]

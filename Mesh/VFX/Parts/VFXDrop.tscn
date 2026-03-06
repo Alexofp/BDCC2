@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dimeb218tuguk"]
+
+[ext_resource type="PackedScene" uid="uid://cixic8sbqx7sq" path="res://Mesh/VFX/Raw/VFXDrop.glb" id="1_0k2pw"]
+[ext_resource type="Script" uid="uid://dpsdbxcry4lky" path="res://Mesh/VFX/Parts/VFXDrop.gd" id="2_5ml8i"]
+[ext_resource type="Material" uid="uid://yyw56qw2orfy" path="res://Mesh/VFX/Mats/ImpactMat.tres" id="3_wnqm8"]
+
+[node name="VFXDrop" unique_id=1582308497 instance=ExtResource("1_0k2pw")]
+script = ExtResource("2_5ml8i")
+material = ExtResource("3_wnqm8")
+
+[node name="VFXDrop" parent="." index="0" unique_id=1815697118]
+unique_name_in_owner = true
+transform = Transform3D(0.076535456, 0, 0, 0, 0.076535456, 0, 0, 0, 0.076535456, 0, 0, 0)
+surface_material_override/0 = ExtResource("3_wnqm8")

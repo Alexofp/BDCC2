@@ -1,0 +1,66 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://yyw56qw2orfy"]
+
+[ext_resource type="Shader" uid="uid://dcljbai30ufx5" path="res://Mesh/VFX/Shaders/FireDrop.tres" id="1_okmst"]
+[ext_resource type="Texture2D" uid="uid://y0a4rv65nfdg" path="res://Mesh/VFX/Raw/Textures/T_Noise56ko.png" id="2_okmst"]
+
+[sub_resource type="Gradient" id="Gradient_vwcv3"]
+offsets = PackedFloat32Array(0, 0.19798657, 0.33221477, 0.5671141, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.5671141, 0.5671141, 0.5671141, 1, 0.12495736, 0.12495736, 0.12495736, 1, 0.45176888, 0.45176888, 0.45176888, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lwgo6"]
+gradient = SubResource("Gradient_vwcv3")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vwcv3"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lwgo6"]
+width = 64
+height = 64
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_vwcv3")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_jifjh"]
+offsets = PackedFloat32Array(0, 0.7109005, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.54, 0.54, 0.54, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_okmst"]
+gradient = SubResource("Gradient_jifjh")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_vvu2i"]
+offsets = PackedFloat32Array(0.1838565, 0.35874438, 0.69463086, 0.793722, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.3372549, 1, 1, 1, 1, 1.0416296, 1.0416296, 1.0416296, 1, 1.1759251, 1.1759251, 1.1759251, 0.043137256)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6jef0"]
+gradient = SubResource("Gradient_vvu2i")
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_6jef0"]
+offsets = PackedFloat32Array(0, 0.09417041, 1)
+colors = PackedColorArray(0.82, 0.82, 0.82, 1, 0, 0, 0, 1, 0.66, 0.66, 0.66, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ddc3e"]
+gradient = SubResource("Gradient_6jef0")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_okmst")
+shader_parameter/DisplacementSpeed = Vector2(1, 1)
+shader_parameter/DisplacementScale = Vector2(1, 1)
+shader_parameter/DisplacementTexture = SubResource("NoiseTexture2D_lwgo6")
+shader_parameter/DisplacementIntensity = 2.000000095
+shader_parameter/ColorTint = Color(1, 1, 1, 0.10980392)
+shader_parameter/SpeedDirectionSwitch = 4.00000019
+shader_parameter/Speed = Vector2(0.03, 3)
+shader_parameter/Scale = Vector2(1, 0.1)
+shader_parameter/TextureBase = ExtResource("2_okmst")
+shader_parameter/TextureAdd = SubResource("GradientTexture2D_okmst")
+shader_parameter/TextureSubstract = SubResource("GradientTexture2D_ddc3e")
+shader_parameter/TexturePalette = SubResource("GradientTexture1D_6jef0")
+shader_parameter/DisappearTexture = SubResource("GradientTexture2D_lwgo6")
+shader_parameter/Fill = 1.0

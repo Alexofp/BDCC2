@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dpv3r4k7hwept"]
+
+[ext_resource type="Script" uid="uid://qsb728a2dtxf" path="res://Mesh/VFX/Parts/HitParticles.gd" id="1_qkwg4"]
+[ext_resource type="Shader" uid="uid://bpdox2jjvdklc" path="res://Mesh/Shaders/Prop_static/HitSparkShader.gdshader" id="2_qkwg4"]
+[ext_resource type="Texture2D" uid="uid://drrniwq77ktpd" path="res://Mesh/VFX/Raw/Textures/T_Windstreak3.png" id="4_0uky1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkwg4"]
+render_priority = 0
+shader = ExtResource("2_qkwg4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("4_0uky1")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ygkvx"]
+colors = PackedColorArray(1, 1, 1, 0.105882354, 1, 1, 1, 0.6313726)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hqbei"]
+gradient = SubResource("Gradient_ygkvx")
+
+[sub_resource type="Curve" id="Curve_co1bb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+point_0/position = Vector2(0, 1)
+point_1/position = Vector2(1, 0)
+
+[sub_resource type="CurveTexture" id="CurveTexture_ygkvx"]
+curve = SubResource("Curve_co1bb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_co1bb"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 0.099999994
+scale_curve = SubResource("CurveTexture_ygkvx")
+color_initial_ramp = SubResource("GradientTexture1D_hqbei")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ygkvx"]
+size = Vector2(0.05, 0.1)
+
+[node name="HitParticles" type="Node3D" unique_id=1628486035]
+script = ExtResource("1_qkwg4")
+
+[node name="BigSparkles" type="GPUParticles3D" parent="." unique_id=136466401]
+unique_name_in_owner = true
+material_override = SubResource("ShaderMaterial_qkwg4")
+emitting = false
+amount = 5
+lifetime = 0.15000000000000002
+one_shot = true
+preprocess = 0.01
+explosiveness = 0.63
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_co1bb")
+draw_pass_1 = SubResource("QuadMesh_ygkvx")
+
+[connection signal="finished" from="BigSparkles" to="." method="_on_big_sparkles_finished"]

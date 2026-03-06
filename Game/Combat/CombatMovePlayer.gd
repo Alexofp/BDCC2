@@ -386,6 +386,36 @@ func intensityToPitch(_intensity:int) -> float:
 	return 1.0
 
 func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int, _strain:float):
+	if(_effects.impactEffect != AttackEffects.EFFECT_NO_EFFECT):
+		var theDoll := getDoll()
+		if(theDoll):
+			var theDollSkeleton := theDoll.getDoll().getBodySkeleton()
+			var nodeToAttachTo:Node3D
+			var hitNode:Node3D
+			var theZone:int = _effects.zoneAttacking
+			if(theZone == AttackEffects.ZONE_FIST_LEFT):
+				nodeToAttachTo = theDollSkeleton.punch_vfx_spot_l
+				hitNode = theDollSkeleton.punch_hit_vfxl
+			elif(theZone == AttackEffects.ZONE_FIST_RIGHT):
+				nodeToAttachTo = theDollSkeleton.punch_vfx_spot_r
+				hitNode = theDollSkeleton.punch_hit_vfxr
+			elif(theZone == AttackEffects.ZONE_FOOT_LEFT):
+				nodeToAttachTo = theDollSkeleton.kick_vfx_spot_l
+				hitNode = theDollSkeleton.kick_vfx_spot_l
+			elif(theZone == AttackEffects.ZONE_FOOT_RIGHT):
+				nodeToAttachTo = theDollSkeleton.kick_vfx_spot_r
+				hitNode = theDollSkeleton.kick_vfx_spot_r
+			
+			if(_hitStatus == AttackEffects.STATUS_BLOCKED && nodeToAttachTo):
+				var newPunch := preload("res://Mesh/VFX/Parts/VFXDrop.tscn").instantiate()
+				nodeToAttachTo.add_child(newPunch)
+				#newPunch.setMaterial(preload("res://Mesh/VFX/Mats/ImpactMat.tres"))
+				newPunch.fadeInOut(0.05, 0.2 * AttackEffects.getEffectTimeMultFromZone(theZone))
+			if(_hitStatus == AttackEffects.STATUS_HIT && hitNode):
+			#if(hitNode):
+				var newHit := preload("res://Mesh/VFX/Parts/HitParticles.tscn").instantiate()
+				hitNode.add_child(newHit)
+			
 	var thePitch := intensityToPitch(_intensity)
 	if(_hitStatus == AttackEffects.STATUS_MISSED):
 		#if(_intensity == CombatMoveBase.INTENSITY_SOFT):
