@@ -46,11 +46,11 @@ func setProgressInfos(_texts:Array[String], _values:Array[float]):
 		var theProgressBar := progressBars[_i]
 		
 		if(_i < tAms):
-			theProgressBar.visible = true
 			theProgressBar.setValue(_values[_i])
 			var theText:String = _texts[_i]
 			if(theProgressBar.keyText != theText):
 				theProgressBar.setText(theText, GM.textParser.parseStringDefault(theText).text)
+			theProgressBar.visible = true
 		else:
 			theProgressBar.visible = false
 	

@@ -73,16 +73,22 @@ func basis_rotate_toward(from: Basis, to: Basis, delta: float) -> Basis:
 	#return Basis(rotate_toward(from.get_rotation_quaternion(), to.get_rotation_quaternion(), delta)).orthonormalized()
 
 func rotateTowardsMoveDirection(_doll:DollController, _dt:float):
+	if(Network.isClient()):
+		return
 	if _doll.move_direction_no_y.length_squared() > 0.1 && !_doll.isRemote():
 		_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis.looking_at(-_doll.move_direction_no_y), _doll.ROTATE_SPEED * _dt)
 
 func rotateTowardsDirection(_doll:DollController, _dt:float, _dir:Vector3):
+	if(Network.isClient()):
+		return
 	_dir.y = 0.0
 	_dir = _dir.normalized()
 	if _dir.length_squared() > 0.1 && !_doll.isRemote():
 		_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis.looking_at(-_dir), _doll.ROTATE_SPEED * _dt)
 
 func rotateTowardsCamera(_doll:DollController, _dt:float):
+	if(Network.isClient()):
+		return
 	_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis(_doll.camera_rotation_no_y).rotated(Vector3.UP, PI), _doll.ROTATE_SPEED * _dt)
 
 func getLocalVelocity(_doll:DollController) -> Vector3:
@@ -126,7 +132,17 @@ func processCamera(_doll:DollController, _dt:float):
 		#_doll.camera_rotation_no_y = Basis(CameraPivot.basis.x, Vector3.UP, CameraPivot.basis.z).get_rotation_quaternion()
 	#elif(_doll.isControlledByUs()):
 		pass
-	else:
+	#else:
+	
+	var shouldDoLocalCamera:bool = false
+	if(Network.isServer()):
+		if(!_doll.isControlledByAnyPlayer() || _doll.isControlledByUs()):
+			shouldDoLocalCamera = true
+	if(Network.isClient()):
+		if(_doll.isControlledByUs()):
+			shouldDoLocalCamera = true
+	
+	if(shouldDoLocalCamera):
 		var camera_rotation_euler := _doll.camera_rotation.get_euler()
 		camera_rotation_euler += Vector3(doll_controls.camera_dir.y, doll_controls.camera_dir.x, 0.0) * _doll.LOOK_SENSITIVITY_TOUCH * (-1.0 if _doll.getDoll().isFirstPerson() else 1.0)
 		if _doll.mousecapture_on:
@@ -221,11 +237,10 @@ func onDollHit(_doll:DollController, _attackContext:AttackContext):
 	
 	var theAttack:AttackInfo = _attackContext.attack
 	
-	var theRecoil:float = sqrt(theAttack.damage*1.0)*3.0 if theAttack.damage > 0.0 else 0.0
-	if(_attackContext.blocked):
-		theRecoil *= 0.4
-	
-	_doll.getDoll().applyHitSpecific(theRecoil, theDir, true, Doll.HIT_AREA_MIDDLE)
+	#var theRecoil:float = sqrt(theAttack.damage*1.0)*3.0 if theAttack.damage > 0.0 else 0.0
+	#if(_attackContext.blocked):
+	#	theRecoil *= 0.4
+	#_doll.getDoll().applyHitSpecific(theRecoil, theDir, true, Doll.HIT_AREA_MIDDLE)
 	
 	var theKnockback:float = theAttack.knockback if !_attackContext.blocked else theAttack.knockbackBlocked
 	if(abs(theKnockback)>0.01):

@@ -38,6 +38,7 @@
 [ext_resource type="Shader" uid="uid://bpdox2jjvdklc" path="res://Mesh/Shaders/Prop_static/HitSparkShader.gdshader" id="38_xewdt"]
 [ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/Mouth.gdshader" id="39_e6iyv"]
 [ext_resource type="Shader" uid="uid://d0w11qph1towm" path="res://Mesh/Shaders/Doll_skeleton/PawPads.gdshader" id="39_mmg3t"]
+[ext_resource type="Shader" uid="uid://d4juqcr6ykusy" path="res://Mesh/Shaders/Prop_static/ProgressBarShader.gdshader" id="39_xewdt"]
 [ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Shaders/Doll_skeleton/MyEyeShader.gdshader" id="40_5hslw"]
 [ext_resource type="Shader" uid="uid://cfqmax5hb1sa5" path="res://Mesh/Shaders/Doll_skeleton/PenisShaftShader.gdshader" id="42_iafas"]
 [ext_resource type="Material" uid="uid://x4hrc67q4uh5" path="res://Mesh/MaterialsPrecompile/Mats_skeleton/FelineWhiskers.tres" id="50_c4n6e"]
@@ -1309,9 +1310,18 @@ shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0876"]
+render_priority = 0
+shader = ExtResource("39_xewdt")
+shader_parameter/colorOutline = Color(0, 0, 0, 1)
+shader_parameter/colorFill = Color(0, 0, 0, 1)
+shader_parameter/edge = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_gxwal"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0876"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_guf5f"]
 render_priority = 0
 shader = ExtResource("38_ffuxf")
 shader_parameter/falloff_power = 8.0
@@ -1325,7 +1335,7 @@ shader_parameter/max_brightness = 10.0
 shader_parameter/depth_feather_enabled = true
 shader_parameter/depth_fade_distance = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_guf5f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mushm"]
 render_priority = 0
 shader = ExtResource("52_rq20w")
 shader_parameter/emission_energy = 0.0
@@ -1335,7 +1345,7 @@ shader_parameter/heightmap_min_layers = 0
 shader_parameter/heightmap_max_layers = 0
 shader_parameter/heightmap_flip = Vector2(0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mushm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_col1n"]
 render_priority = 0
 shader = ExtResource("53_mtngf")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -1347,13 +1357,13 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_col1n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2xsh"]
 render_priority = 0
 shader = ExtResource("54_vki5i")
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/uv1_scale_final = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2xsh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjvwj"]
 render_priority = 0
 shader = ExtResource("55_qf2to")
 shader_parameter/ao_light_affect = 0.0
@@ -1363,7 +1373,7 @@ shader_parameter/heightmap_max_layers = 0
 shader_parameter/heightmap_flip = Vector2(0, 0)
 shader_parameter/uv1_scale_final = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjvwj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygrpv"]
 render_priority = 0
 shader = ExtResource("56_smc4j")
 shader_parameter/albedo = Color(0, 0, 0, 1)
@@ -1375,7 +1385,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygrpv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nybh"]
 render_priority = 0
 shader = ExtResource("57_xk1jq")
 shader_parameter/ao_light_affect = 0.0
@@ -1435,10 +1445,10 @@ surface_material_override/7 = SubResource("ShaderMaterial_dny75")
 surface_material_override/8 = SubResource("ShaderMaterial_hkuyp")
 surface_material_override/9 = SubResource("ShaderMaterial_swmyh")
 
-[node name="TenMatsPlaneRigged2" parent="." unique_id=1148304614 instance=ExtResource("13_03bl2")]
+[node name="TenMatsPlaneRigged2" parent="." unique_id=646737499 instance=ExtResource("13_03bl2")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1148304614, 2052112935) index="0" unique_id=759591078]
+[node name="Plane" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(646737499, 2052112935) index="0" unique_id=759591078]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
 skeleton = NodePath("..")
@@ -1453,7 +1463,7 @@ surface_material_override/7 = SubResource("ShaderMaterial_lsqh8")
 surface_material_override/8 = SubResource("ShaderMaterial_pvddk")
 surface_material_override/9 = SubResource("ShaderMaterial_xtwsl")
 
-[node name="PlaneShapes" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(1148304614, 2052112935) index="1" unique_id=1685165827]
+[node name="PlaneShapes" parent="TenMatsPlaneRigged2/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(646737499, 2052112935) index="1" unique_id=1685165827]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
 skeleton = NodePath("..")
@@ -1470,10 +1480,10 @@ surface_material_override/7 = SubResource("ShaderMaterial_lsqh8")
 surface_material_override/8 = SubResource("ShaderMaterial_pvddk")
 surface_material_override/9 = SubResource("ShaderMaterial_xtwsl")
 
-[node name="TenMatsPlaneRigged3" parent="." unique_id=637311792 instance=ExtResource("13_03bl2")]
+[node name="TenMatsPlaneRigged3" parent="." unique_id=424052905 instance=ExtResource("13_03bl2")]
 visible = false
 
-[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(637311792, 2052112935) index="0" unique_id=759591078]
+[node name="Plane" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(424052905, 2052112935) index="0" unique_id=759591078]
 mesh = SubResource("ArrayMesh_5tir0")
 skin = SubResource("Skin_8r7nw")
 skeleton = NodePath("..")
@@ -1488,7 +1498,7 @@ surface_material_override/7 = SubResource("ShaderMaterial_er18s")
 surface_material_override/8 = SubResource("ShaderMaterial_i07gs")
 surface_material_override/9 = ExtResource("50_c4n6e")
 
-[node name="PlaneShapes" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(637311792, 2052112935) index="1" unique_id=1685165827]
+[node name="PlaneShapes" parent="TenMatsPlaneRigged3/PlaneRig/Skeleton3D" parent_id_path=PackedInt32Array(424052905, 2052112935) index="1" unique_id=1685165827]
 mesh = SubResource("ArrayMesh_8cb23")
 skin = SubResource("Skin_8r7nw")
 skeleton = NodePath("..")
@@ -1505,62 +1515,63 @@ surface_material_override/7 = SubResource("ShaderMaterial_er18s")
 surface_material_override/8 = SubResource("ShaderMaterial_i07gs")
 surface_material_override/9 = ExtResource("50_c4n6e")
 
-[node name="TenMatsPlane2" parent="." unique_id=1229933295 instance=ExtResource("2_6mpxr")]
+[node name="TenMatsPlane2" parent="." unique_id=815274313 instance=ExtResource("2_6mpxr")]
 visible = false
 
 [node name="Plane" parent="TenMatsPlane2" index="0" unique_id=459145494]
 mesh = SubResource("ArrayMesh_wpa0c")
 surface_material_override/0 = SubResource("ShaderMaterial_o6c0e")
 surface_material_override/1 = SubResource("ShaderMaterial_imsog")
-surface_material_override/2 = ExtResource("11_1uqjq")
-surface_material_override/3 = ExtResource("12_ve1hr")
+surface_material_override/2 = SubResource("ShaderMaterial_l0876")
+surface_material_override/3 = ExtResource("11_1uqjq")
+surface_material_override/4 = ExtResource("12_ve1hr")
 
 [node name="UniqueShaderPrecompPlane" parent="." unique_id=966973847 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
-surface_material_override/0 = SubResource("ShaderMaterial_l0876")
-
-[node name="UniqueShaderPrecompPlane2" parent="." unique_id=783783979 instance=ExtResource("51_oscvv")]
-visible = false
-mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_guf5f")
 
-[node name="UniqueShaderPrecompPlane3" parent="." unique_id=2104581571 instance=ExtResource("51_oscvv")]
+[node name="UniqueShaderPrecompPlane2" parent="." unique_id=1468406005 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_mushm")
 
-[node name="UniqueShaderPrecompPlane4" parent="." unique_id=1283069350 instance=ExtResource("51_oscvv")]
+[node name="UniqueShaderPrecompPlane3" parent="." unique_id=1778349197 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_col1n")
 
-[node name="UniqueShaderPrecompPlane5" parent="." unique_id=2104256800 instance=ExtResource("51_oscvv")]
+[node name="UniqueShaderPrecompPlane4" parent="." unique_id=2065687686 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_o2xsh")
 
-[node name="UniqueShaderPrecompPlane6" parent="." unique_id=849894245 instance=ExtResource("51_oscvv")]
+[node name="UniqueShaderPrecompPlane5" parent="." unique_id=975949729 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_cjvwj")
 
-[node name="UniqueShaderPrecompPlane7" parent="." unique_id=1067592188 instance=ExtResource("51_oscvv")]
+[node name="UniqueShaderPrecompPlane6" parent="." unique_id=1399174658 instance=ExtResource("51_oscvv")]
 visible = false
 mesh = SubResource("PlaneMesh_gxwal")
 surface_material_override/0 = SubResource("ShaderMaterial_ygrpv")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1245542629]
+[node name="UniqueShaderPrecompPlane7" parent="." unique_id=2045524355 instance=ExtResource("51_oscvv")]
+visible = false
+mesh = SubResource("PlaneMesh_gxwal")
+surface_material_override/0 = SubResource("ShaderMaterial_4nybh")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1511217054]
 visible = false
 emitting = false
 process_material = ExtResource("58_trivn")
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1814981903]
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1118439138]
 visible = false
 emitting = false
 process_material = ExtResource("59_ql147")
 
-[node name="GPUParticles3D3" type="GPUParticles3D" parent="." unique_id=713440753]
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="." unique_id=1777504526]
 visible = false
 emitting = false
 process_material = ExtResource("60_xhiqh")

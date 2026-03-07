@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://js86ac6behcr"]
 
 [ext_resource type="Script" uid="uid://dnnlk5wsy8k1j" path="res://UI/Util/ProgressBar3D/ProgressBar3DSimple.gd" id="1_4ytng"]
-[ext_resource type="Texture2D" uid="uid://baqqopu0keb4m" path="res://UI/Util/ProgressBar3D/ProgressBarOutline.png" id="1_t6gxg"]
-[ext_resource type="Texture2D" uid="uid://bgy24282f86w7" path="res://UI/Util/ProgressBar3D/ProgressBarFill.png" id="2_4ytng"]
+[ext_resource type="PackedScene" uid="uid://41y81o1x6yj1" path="res://UI/Util/ProgressBar3D/ProgressBar3DMesh.tscn" id="4_gjpgc"]
 
 [node name="ProgressBar3DSimple" type="Node3D" unique_id=860250692]
 script = ExtResource("1_4ytng")
@@ -21,21 +20,5 @@ vertical_alignment = 2
 autowrap_mode = 3
 width = 1200.0
 
-[node name="OutlineSprite" type="Sprite3D" parent="." unique_id=1119384073]
+[node name="ProgressBar3DMesh" parent="." unique_id=918855967 instance=ExtResource("4_gjpgc")]
 unique_name_in_owner = true
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-modulate = Color(0, 0, 0, 1)
-pixel_size = 0.001
-billboard = 1
-render_priority = 1
-texture = ExtResource("1_t6gxg")
-
-[node name="FillSprite" type="Sprite3D" parent="." unique_id=2056176069]
-unique_name_in_owner = true
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-modulate = Color(0.59, 0.59, 0.59, 0.62352943)
-pixel_size = 0.001
-billboard = 1
-texture = ExtResource("2_4ytng")
-region_enabled = true
-region_rect = Rect2(0, 0, 256, 32)

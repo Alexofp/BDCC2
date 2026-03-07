@@ -34,6 +34,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath("CombatMovePlayer:strain")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:position")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1pxof"]
 properties/0/path = NodePath("CombatMovePlayer:defeatRecovery")

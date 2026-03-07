@@ -592,6 +592,8 @@ func doCombatAnim(_animation:String, _ignoreChecks:bool = false):
 	if(!_ignoreChecks && !state.canDoCombatMoves()):
 		return
 	
+	#Log.Print("DOING COMBAT ANIM: "+_animation)
+	
 	var theDoll := getDoll()
 	if(theDoll):
 		theDoll.doCombatAnimLocal(_animation)
@@ -610,6 +612,8 @@ func doCombatAnim_RPC(_animation:String, _ignoreChecks:bool = false):
 func doDodgeAnim(_dir:Vector2, _animation:String = "dodge"):
 	if(!state.canDoCombatMoves()):
 		return
+	
+	#Log.Print("DOING DODGE ANIM: "+str(_dir))
 	
 	var theDoll := getDoll()
 	if(theDoll):
@@ -683,6 +687,11 @@ func canRecoverFromDefeat() -> bool:
 	if(!isDefeated()):
 		return false
 	return combatMovePlayer.canRecoverFromDefeat()
+
+func canBeHelpedToRecoverFromDefeat(_otherPawn:CharacterPawn) -> bool:
+	if(!isDefeated()):
+		return false
+	return true
 
 func getDefeatRecoveryTime() -> float:
 	return combatMovePlayer.defeatRecovery

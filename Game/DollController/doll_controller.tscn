@@ -34,6 +34,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:yankWalkDir")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:isRunning")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_l1oh5"]
 height = 2.6

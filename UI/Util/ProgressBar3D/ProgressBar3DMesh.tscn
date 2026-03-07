@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://41y81o1x6yj1"]
+
+[ext_resource type="Shader" uid="uid://d4juqcr6ykusy" path="res://Mesh/Shaders/Prop_static/ProgressBarShader.gdshader" id="1_bone2"]
+[ext_resource type="Texture2D" uid="uid://bgy24282f86w7" path="res://UI/Util/ProgressBar3D/ProgressBarFill.png" id="2_etcxb"]
+[ext_resource type="Texture2D" uid="uid://baqqopu0keb4m" path="res://UI/Util/ProgressBar3D/ProgressBarOutline.png" id="3_mhj46"]
+[ext_resource type="Script" uid="uid://1mdkg6ujvaaw" path="res://UI/Util/ProgressBar3D/ProgressBar3DMesh.gd" id="4_etcxb"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_4ytng"]
+size = Vector2(0.512, 0.064)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_373th"]
+render_priority = 0
+shader = ExtResource("1_bone2")
+shader_parameter/colorOutline = Color(0, 0, 0, 1)
+shader_parameter/colorFill = Color(1, 1, 1, 0.16862746)
+shader_parameter/texture_outline = ExtResource("3_mhj46")
+shader_parameter/texture_fill = ExtResource("2_etcxb")
+shader_parameter/edge = 0.0
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)
+
+[node name="ProgressBar3DMesh" type="MeshInstance3D" unique_id=918855967]
+instance_shader_parameters/progress = 0.0
+mesh = SubResource("QuadMesh_4ytng")
+surface_material_override/0 = SubResource("ShaderMaterial_373th")
+script = ExtResource("4_etcxb")

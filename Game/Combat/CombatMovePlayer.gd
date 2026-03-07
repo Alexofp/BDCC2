@@ -347,6 +347,9 @@ func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 		hitStatus = AttackEffects.STATUS_HIT
 	
 	doAttackEffects(_effects, hitStatus, _intensity, _strain)
+	for thePawn in theTargets:
+		var theDir:Vector3 = pawn.getGlobalPos() - thePawn.getGlobalPos()
+		thePawn.combatMovePlayer.doReceiveAttackEffects(theDir, theContext.attack.damage, theContext.blocked)
 	
 	if(anyBlocked):
 		causeExhaustion(_attackInfo.exhaustionBlocked)
@@ -386,6 +389,7 @@ func intensityToPitch(_intensity:int) -> float:
 	return 1.0
 
 func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int, _strain:float):
+	#Log.Print(str(_effects.zoneAttacking))
 	if(_effects.impactEffect != AttackEffects.EFFECT_NO_EFFECT):
 		var theDoll := getDoll()
 		if(theDoll):
@@ -423,6 +427,7 @@ func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int, _st
 		#elif(_intensity == CombatMoveBase.INTENSITY_STRONG):
 		#	Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissLow.tres"), -25.0, 0.8)
 		#else:
+		#Log.Print("MISS!!! "+str(pawn))
 		if(_effects.impactSound == _effects.SOUND_KICK):
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Miss/MissLow.tres"), -20.0, 0.5)
 		else:
@@ -441,7 +446,7 @@ func doAttackEffects(_effects:AttackEffects, _hitStatus:int, _intensity:int, _st
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/PunchRandom.tres"), -0.0, thePitch)
 		if(_effects.impactSound == _effects.SOUND_KICK):
 			Audio.playSound3DAdvanced(pawn, preload("res://Sounds/Combat/Punch/KickRandom.tres"), -5.0, thePitch)
-		
+
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(doAttackEffects_RPC.bind(_effects.saveNetworkData().getBytes(), _hitStatus, _intensity, _strain))
 	
@@ -452,6 +457,20 @@ func doAttackEffects_RPC(_effectsData:PackedByteArray, _hitStatus:int, _intensit
 	
 	doAttackEffects(attackEffects, _hitStatus, _intensity, _strain)
 	
+func doReceiveAttackEffects(_dir:Vector3, _flinch:float, _blocked:bool):
+	var theRecoil:float = sqrt(_flinch)*3.0 if _flinch > 0.0 else 0.0
+	if(_blocked):
+		theRecoil *= 0.4
+	if(pawn.getDoll()):
+		pawn.getDoll().getDoll().applyHitSpecific(theRecoil, _dir, true, Doll.HIT_AREA_MIDDLE)
+	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(doReceiveAttackEffects_RPC.bind(_dir, _flinch, _blocked))
+
+@rpc("authority", "call_remote", "reliable")
+func doReceiveAttackEffects_RPC(_dir:Vector3, _flinch:float, _blocked:bool):
+	doReceiveAttackEffects(_dir, _flinch, _blocked)
+
 func isTryingToBlock() -> bool:
 	return pawn.state.isTryingToBlock() && canBlock()
 

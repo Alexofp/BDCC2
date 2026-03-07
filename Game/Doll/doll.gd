@@ -820,9 +820,11 @@ func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 	
 func _on_visible_on_screen_enabler_3d_screen_entered() -> void:
 	parts_node.visible = true
+	lookAtTimer = 0.0
 
 func _on_visible_on_screen_enabler_3d_screen_exited() -> void:
 	parts_node.visible = false
+	lookAtTimer = 0.0
 
 func isDollEnabled() -> bool:
 	return parts_node.visible

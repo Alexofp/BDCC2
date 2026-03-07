@@ -30,7 +30,7 @@ var input_velocity:Vector3 = Vector3.ZERO
 @export var syncPosition:Vector3 = Vector3.ZERO
 @export var syncRotation:Vector3 = Vector3.ZERO
 
-var isRunning:bool = false
+@export var isRunning:bool = false
 var yankWalkDir:Vector3 = Vector3.ZERO
 var knockbackVelocity:Vector3
 

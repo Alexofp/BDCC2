@@ -70,9 +70,12 @@ func processMove(_doll:DollController, _dt:float):
 	processYanking(_doll, _dt)
 	var theCanMove := canMove(_doll)
 	
-	_doll.isRunning = false
-	if(_doll.doll_controls.sprint_isdown || _doll.yankWalkDir.length_squared()>9.0) && canRun(_doll):
-		_doll.isRunning = true
+	if(Network.isServer()):
+		_doll.isRunning = false
+		if(_doll.doll_controls.sprint_isdown || _doll.yankWalkDir.length_squared()>9.0) && canRun(_doll):
+			_doll.isRunning = true
+	
+	
 	if(!_doll.isRemote()):
 		var move_speed: = calcWalkMoveSpeed(_doll)
 		if(_doll.isRunning):
