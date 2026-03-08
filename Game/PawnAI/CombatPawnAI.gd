@@ -166,7 +166,10 @@ func processAI(_dt:float):
 					runsToApproach = true
 			
 			if(theDist > 1.5):
-				pawn.ai.goTowards(theCurrentPawn.global_position, runsToApproach)
+				if(pawn.combatMovePlayer.hasTag(CombatMoveBase.TAG_ROLLING)):
+					pawn.ai.stopWalking()
+				else:
+					pawn.ai.goTowards(theCurrentPawn.global_position, runsToApproach)
 			else:
 				pawn.ai.stopWalking()
 		else: # Move command
