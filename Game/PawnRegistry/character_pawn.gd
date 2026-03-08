@@ -751,12 +751,21 @@ func rotateTowards(_pos:Vector3):
 	global_basis = theBasis
 
 func isBlocking() -> bool:
-	return state.isBlocking()
+	return combatMovePlayer.isBlocking()
 
 func onNearbyPawnStartMove(_otherPawn:CharacterPawn, _someMove:CombatMoveBase):
 	if(isControlledByAnyPlayer()):
 		return
 	combatAI.onNearbyPawnStartMove(_otherPawn, _someMove)
+
+func canMove() -> bool:
+	if(!combatMovePlayer.canMove()):
+		return false
+	if(isCollapsed() || isDefeated()):
+		return false
+	
+	return true
+
 
 
 

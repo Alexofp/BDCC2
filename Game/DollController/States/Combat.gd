@@ -32,7 +32,7 @@ func processAnimation(_doll:DollController, _dt:float):
 	var localWalkVec:Vector2 = limitVec2(Vector2(localVelocity.x, localVelocity.z)/calcWalkMoveSpeed(_doll), 1.0)
 	#print(localWalkVec)
 	
-	var areWeBlocking := isBlocking()
+	var areWeBlocking := pawn.isBlocking()
 	
 	#var isOnFloorVisually:bool = isOnFloor
 	

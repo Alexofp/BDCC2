@@ -20,6 +20,7 @@ const RESOURCE_CURVE_SMOOTH = preload("res://Game/Combat/Curves/Smooth.tres")
 const CURVE_EASE_IN = 1
 const RESOURCE_CURVE_EASE_IN = preload("res://Game/Combat/Curves/EaseIn.tres")
 
+@export var blocking:bool = false
 @export var defeatRecovery:float = 0.0
 
 @export var exhaustion:float = 0.0
@@ -114,6 +115,9 @@ func processCombatPlayer(_dt:float):
 				stopMove()
 	if(defeatRecovery > 0.0):
 		defeatRecovery -= _dt
+	
+	blocking = pawn.state.isBlocking()
+	
 	processExhaustionAndStrain(_dt)
 
 func stopMove():
@@ -121,6 +125,9 @@ func stopMove():
 	combatMove = null
 	moveTime = 0.0
 	effects.clear()
+
+func isBlocking() -> bool:
+	return blocking
 
 func processEffectQueue(_dt:float):
 	while(!effects.is_empty()):
@@ -548,7 +555,7 @@ func processExhaustionAndStrain(_dt:float):
 	
 	if(strain > 0.0):
 		if(strainRecovery > 0.0):
-			if(!pawn.isBlocking()):
+			if(!isBlocking()):
 				strainRecovery -= _dt
 		else:
 			var strainRegenMult:float = 1.0
@@ -564,7 +571,7 @@ func processExhaustionAndStrain(_dt:float):
 			var exhaustionRegenMult:float = 1.0
 			if(pawn.getDoll() && pawn.getDoll().isRunning):
 				exhaustionRegenMult *= 0.2
-			if(pawn.isBlocking()):
+			if(isBlocking()):
 				exhaustionRegenMult *= 0.5
 			
 			addExhaustion(-_dt*exhaustionRegenMult)

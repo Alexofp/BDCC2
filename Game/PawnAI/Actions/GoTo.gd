@@ -55,7 +55,7 @@ func think():
 	var curPos := getPosNoY()
 	var theDist := curPos.distance_squared_to(savedPos)
 	#print(theDist)
-	if(theDist < 0.5):
+	if(theDist < 0.5 && getPawn().canMove()):
 		stuckTimer += 1
 		if(stuckTimer >= 8):
 			teleportToNextPathPosition()

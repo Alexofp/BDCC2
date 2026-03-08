@@ -4,8 +4,8 @@ var value:float = 0.0
 #var firstSet:bool = true
 
 @onready var hover_text: Label3D = %HoverText
-@onready var outline_sprite: Sprite3D = %OutlineSprite
-@onready var fill_sprite: Sprite3D = %FillSprite
+#@onready var outline_sprite: Sprite3D = %OutlineSprite
+#@onready var fill_sprite: Sprite3D = %FillSprite
 @onready var progress_bar_3d_mesh: MeshInstance3D = %ProgressBar3DMesh
 
 const SPRITE_SIZE:float = 256.0
