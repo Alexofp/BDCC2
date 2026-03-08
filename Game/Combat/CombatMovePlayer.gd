@@ -62,6 +62,9 @@ func activateTrigger(_act:int) -> bool:
 		startMove(theMove)
 		return true
 	
+	if(isExhausted() && pawn.isControlledByUs()):
+		Audio.playSoundAdvanced(preload("res://Sounds/Combat/Misc/DenyNoise.tres"), 0.0)
+	
 	return false
 
 func startMove(_move:CombatMoveBase):
@@ -582,7 +585,8 @@ func processExhaustionAndStrain(_dt:float):
 	
 	if(exhaustion > 0.0):
 		if(exhaustionRecovery > 0.0):
-			exhaustionRecovery -= _dt
+			if(!isDoingAMove()):
+				exhaustionRecovery -= _dt
 		else:
 			var exhaustionRegenMult:float = 1.0
 			if(pawn.getDoll() && pawn.getDoll().isRunning):

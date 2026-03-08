@@ -18,6 +18,15 @@ static func playSound(sound: AudioStream, maxDistance:float = 10.0, theBus:Strin
 	newPlayer.finished.connect(func(): newPlayer.queue_free())
 	return newPlayer
 
+static func playSoundAdvanced(sound: AudioStream, volumeInc:float = 0.0, pitch:float = 1.0, theBus:String = BUS_SOUNDS) -> AudioStreamPlayer:
+	var newPlayer := AudioStreamPlayer.new()
+	_play_sound(sound, newPlayer, 10.0, theBus)
+	newPlayer.volume_db += volumeInc
+	newPlayer.pitch_scale = pitch
+	OPTIONS.get_tree().current_scene.add_child(newPlayer)
+	newPlayer.finished.connect(func(): newPlayer.queue_free())
+	return newPlayer
+
 static func playSound2D(node:Node2D, sound: AudioStream, maxDistance:float = 10.0, theBus:String = BUS_SOUNDS) -> AudioStreamPlayer2D:
 	var newPlayer := AudioStreamPlayer2D.new()
 	_play_sound(sound, newPlayer, maxDistance, theBus)

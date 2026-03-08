@@ -186,6 +186,8 @@ func processAI(_dt:float):
 	#print(gotHitDanger)
 	
 	timeUntilNextMove -= _dt
+	if(theCurrentPawn && theCurrentPawn.isCollapsed()):
+		timeUntilNextMove = min(timeUntilNextMove, 0.1)
 	if(theCurrentPawn && timeUntilNextMove <= 0.0):
 		if(shouldDoFakeCombatWith(theCurrentPawn)):
 			doFakeCombat(theCurrentPawn)

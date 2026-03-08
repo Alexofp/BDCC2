@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dj2e7pf7tcl1s"]
+
+[ext_resource type="AudioStream" uid="uid://d3jmmwluxomjg" path="res://Sounds/Combat/Misc/DenyNoise1.ogg" id="1_vku6s"]
+
+[resource]
+random_pitch = 1.2599211
+streams_count = 1
+stream_0/stream = ExtResource("1_vku6s")
