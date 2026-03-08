@@ -326,6 +326,22 @@ func getTargetsForAttack(_attackInfo:AttackInfo) -> Array[CharacterPawn]:
 		return []
 	return getTargets(_attackInfo.reach, _attackInfo.spread, _attackInfo.hitAll)
 
+func doFakeStrike(_otherPawn:CharacterPawn, _damage:float):
+	if(!_otherPawn):
+		return
+	var newAttack:AttackInfo = AttackInfo.new()
+	newAttack.damage = _damage
+	
+	var theContext:AttackContext = AttackContext.new()
+	theContext.attacker = pawn
+	theContext.attack = newAttack
+	theContext.target = _otherPawn
+	
+	theContext.blocked = RNG.chance(30.0) && _otherPawn.canBlock()
+	
+	var _theStatus := _otherPawn.processHit(theContext)
+	#Log.Print("DID FAKE ATTACK FOR "+str(newAttack.damage)+" DAMAGE")
+
 func doStrike(_attackInfo:AttackInfo, _effects:AttackEffects, _intensity:int):
 	var theTargets := getTargetsForAttack(_attackInfo)
 	

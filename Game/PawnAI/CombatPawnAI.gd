@@ -128,6 +128,21 @@ func processRare(_dt:float):
 	for thePawn in toRem:
 		removeEnemy(thePawn)
 
+func shouldDoFakeCombatWith(_otherPawn:CharacterPawn) -> bool:
+	if(!pawn.isDollSpawned()):
+		return true
+	if(!_otherPawn.isDollSpawned()):
+		return true
+	return false
+
+func doFakeCombat(_otherPawn:CharacterPawn):
+	timeUntilNextMove = RNG.randfRange(0.7, 3.0)
+	if(!_otherPawn):
+		return
+	if(!pawn.canDoFakeCombat()):
+		return
+	pawn.combatMovePlayer.doFakeStrike(_otherPawn, RNG.randfRange(0.3, 0.5))
+
 func processAI(_dt:float):
 	if(!pawn):
 		return
@@ -169,7 +184,10 @@ func processAI(_dt:float):
 	
 	timeUntilNextMove -= _dt
 	if(theCurrentPawn && timeUntilNextMove <= 0.0):
-		tryToStartCombo(theCurrentPawn)
+		if(shouldDoFakeCombatWith(theCurrentPawn)):
+			doFakeCombat(theCurrentPawn)
+		else:
+			tryToStartCombo(theCurrentPawn)
 	
 	processQueue(_dt)
 

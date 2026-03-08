@@ -766,6 +766,19 @@ func canMove() -> bool:
 	
 	return true
 
+func canBlock() -> bool:
+	return combatMovePlayer.canBlock()
+
+func canDoFakeCombat() -> bool:
+	if(!state.canDoCombatMoves()):
+		return false
+	if(combatMovePlayer.isDoingAMove()):
+		return false
+	if(combatMovePlayer.noAttackTimer > 0.0):
+		return false
+	if(combatMovePlayer.isExhausted()):
+		return false
+	return true
 
 
 
