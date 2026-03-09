@@ -154,6 +154,7 @@ func updateInteractor():
 		var newCategory := InteractCategory.new()
 		newCategory.categoryName = "You"
 		newCategory.target = pawn
+		newCategory.distance = -99.9 # To make sure its first
 		newCategory.interactEntries = pawn.getInteractEntriesSelf()
 		newCategory.supplyContextCheckCanDo(pawn.pawnActionContext)
 		cachedCategories.append(newCategory)
@@ -170,6 +171,7 @@ func updateInteractor():
 		var newCategory := InteractCategory.new()
 		newCategory.categoryName = theChar.getFullName() + getDistanceSuffix(self, otherPawnInteractor)#otherPawn.getCharID()
 		newCategory.target = otherPawn
+		newCategory.distance = otherPawn.getGlobalPos().distance_squared_to(pawn.getGlobalPos())
 		newCategory.interactEntries = otherPawn.getInteractEntries(pawn)
 		newCategory.supplyContextCheckCanDo(pawn.pawnActionContext)
 		cachedCategories.append(newCategory)
@@ -179,10 +181,14 @@ func updateInteractor():
 		var newCategory:InteractCategory = theInteractable.getInteractEntryCategory(pawn)
 		if(!newCategory):
 			continue
+		if(theInteractable.target is Node3D):
+			newCategory.distance = pawn.getGlobalPos().distance_squared_to(theInteractable.target.global_position)
 		newCategory.supplyContextCheckCanDo(pawn.pawnActionContext)
 		newCategory.categoryName += getDistanceSuffix(self, theInteractable)
 		cachedCategories.append(newCategory)
 		targetToCachedCategory[newCategory.target] = newCategory
+	
+	cachedCategories.sort_custom(func(a:InteractCategory, b:InteractCategory): return a.distance < b.distance)
 	
 	onCachedCategoriesUpdate.emit()
 

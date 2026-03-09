@@ -223,7 +223,14 @@ func processActions(_delta:float):
 			cancelAction(theAction)
 			continue
 		
-		theAction.timePassed += _delta
+		var timePassMult:float = 1.0
+		if(theAction.needsConsent() && theAction.didEveryoneConsent()):
+			#theContext.clearContext()
+			#doAction(theAction)
+			#continue
+			timePassMult *= theAction.consentTimeMult
+		
+		theAction.timePassed += _delta * timePassMult
 		if(theAction.timePassed >= theAction.timeFull):
 			theContext.clearContext()
 			

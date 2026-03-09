@@ -631,8 +631,15 @@ func getNearbyPawnInteractors() -> Array[PawnInteractor]:
 
 func getGlobalPos() -> Vector3:
 	if(doll):
-		return doll.global_position
+		var chestPos:Vector3 = doll.getBodySkeleton().chest_bone_attachment.global_position
+		chestPos.y = doll.global_position.y
+		return chestPos#doll.global_position
 	return global_position
+
+func getGlobalChestPos() -> Vector3:
+	if(doll):
+		return doll.getBodySkeleton().chest_bone_attachment.global_position
+	return global_position + Vector3(0.0, 1.0, 0.0)
 
 func getYRotation() -> float:
 	if(doll):
@@ -856,6 +863,8 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 				result.append(InteractEntryDo.create("ActionAllow", [entry.uniqueID]))
 				result.append(InteractEntryDo.create("ActionDeny", [entry.uniqueID]))
 			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY):
+				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
+			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
 				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
 	
 	if(interaction):

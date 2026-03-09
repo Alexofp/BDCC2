@@ -7,6 +7,8 @@ func _init() -> void:
 	id = "ActionDeny"
 	checkDoingAnyActions = false
 	checkIsTargetOfAnyAciton = false
+	canDoWhileCollapsed = true
+	canDoWhileDefeated = true
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Deny action"

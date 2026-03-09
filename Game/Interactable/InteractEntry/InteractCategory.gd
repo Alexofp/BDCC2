@@ -8,6 +8,7 @@ const ENTRY_TEXT = 2
 var categoryName:String = "CHANGE ME"
 var interactEntries:Array[InteractEntryBase]
 var target
+var distance:float
 
 func supplyContext(_context:PawnActionContext):
 	_context.target = target

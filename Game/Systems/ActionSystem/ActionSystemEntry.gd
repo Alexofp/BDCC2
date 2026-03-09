@@ -4,6 +4,7 @@ class_name ActionSystemEntry
 const TIMER_ONLY = 0
 const TIMER_MUST_CONSENT = 1
 const TIMER_CAN_DENY = 2
+const TIMER_CAN_DENY_ALWAYS = 3 # Can deny even if defeated
 
 const CONDITION_NONE = 0
 const CONDITION_DISTANCE = 1
@@ -27,6 +28,7 @@ var cancelIfHit:bool = true # Cancel the action if user got hit by someone
 
 var timeFull:float = 1.0
 var timePassed:float = 0.0
+var consentTimeMult:float = 2.0
 
 var user:CharacterPawn
 var target:ActionSystemTarget
@@ -66,14 +68,20 @@ func getTargetSpecific(_node:Node) -> ActionSystemTarget:
 			return extra
 	return null
 
-func didEveryoneConsent() -> bool:
-	if(target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT && !target.didConsent):
-		return false
-	
+func needsConsent() -> bool:
+	if(target.needsConsent()):
+		return true
 	for extraTarget in extraTargets:
-		if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT && !extraTarget.didConsent):
-			return false
+		if(extraTarget.needsConsent()):
+			return true
+	return false
 	
+func didEveryoneConsent() -> bool:
+	if(!target.hasAnyConsent()):
+		return false
+	for extraTarget in extraTargets:
+		if(!extraTarget.hasAnyConsent()):
+			return false
 	return true
 
 func getProgressValue() -> float:

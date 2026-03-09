@@ -11,6 +11,8 @@ func getVisibleName(_context:PawnActionContext) -> String:
 func canDoAction(_context:PawnActionContext) -> bool:
 	if(!_context.isTargetAPawn()):
 		return false
+	if(_context.target.isDefeated()):
+		return false
 	if(GM.sitManager.isSitting(_context.pawn)):
 		return false
 	if(GM.sitManager.isSitting(_context.getTargetPawn())):
