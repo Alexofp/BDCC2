@@ -84,7 +84,7 @@ func denyAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
 	if(!theTarget):
 		return false
 	
-	if(theTarget.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
+	if(!theTarget.needsConsent()):
 		return false
 	return cancelAction(theEntry)
 
@@ -174,6 +174,12 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 		else:
 			extraTargetToActions[extraTarget].append(_actionEntry)
 	
+	#if(_actionEntry.target.node is CharacterPawn):
+		#_actionEntry.target.node.ai.reactDelayedAction(_actionEntry)
+	#for extraTarget in _actionEntry.extraTargets:
+		#if(extraTarget.node is CharacterPawn):
+			#extraTarget.node.ai.reactDelayedAction(_actionEntry)
+	
 	return true
 	
 func processActions(_delta:float):
@@ -247,6 +253,8 @@ func processActions(_delta:float):
 			else:
 				cancelAction(theAction)
 			continue
+		else:
+			theAction.doAIDecisions()
 		theContext.clearContext()
 
 func cancelAllActionsOfUser(_user:CharacterPawn):

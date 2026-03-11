@@ -3,11 +3,13 @@ class_name AIActionBase
 
 var id:String = ""
 var actionTag:String = ""
+var planAction:bool = false
 
 var groupBasicAI:bool = false
 
 var ai:PawnAI
 
+var curPlan:AIPlan
 var subAction:AIActionBase
 var parentAction:AIActionBase
 
@@ -35,6 +37,18 @@ func processAction(_dt:float):
 
 func think():
 	pass
+
+func isAlreadyCompleted(_args:Array) -> bool:
+	return false
+
+func plan() -> AIPlan:
+	return null
+
+func onPlanCompleted(_plan:AIPlan):
+	pass
+
+func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	failAction(getActionResult())
 
 func onSubActionResult(_tag:String, _status:int, _result:Array):
 	pass
@@ -104,6 +118,8 @@ func processRareFinal():
 		#return
 	if(!isSubQueueEmpty()):
 		return
+	
+	processPlan()
 	think()
 
 # Update the basic AI stopAction too if you're changing this
@@ -127,7 +143,7 @@ func stopSubActionIfTag(_tag:String) -> bool:
 		return true
 	return false
 
-func startSubAction(_id:String, _args:Array = [], _tag:String = ""):
+func startSubAction(_id:String, _args:Array = [], _tag:String = "") -> AIActionBase:
 	if(_tag.is_empty()):
 		_tag = _id
 	if(hasSubAction()):
@@ -135,7 +151,7 @@ func startSubAction(_id:String, _args:Array = [], _tag:String = ""):
 	var theAction:AIActionBase = GlobalRegistry.createAIAction(_id)
 	if(!theAction):
 		assert(false, "No ai action found: "+str(_id))
-		return
+		return null
 	subAction = theAction
 	subAction.parentAction = self
 	if(ai && ai.lowestAIAction == self):
@@ -143,6 +159,7 @@ func startSubAction(_id:String, _args:Array = [], _tag:String = ""):
 	subAction.actionTag = _tag
 	subAction.setAI(getAI())
 	subAction.start(_args)
+	return subAction
 
 func startSubActionUnlessSameTag(_id:String, _args:Array = [], _tag:String = "") -> bool:
 	if(_tag.is_empty()):
@@ -205,7 +222,17 @@ func checkSubAction():
 	var theAction := subAction
 	stopSubAction()
 	onSubActionResult(theAction.actionTag, theAction.completeStatus, theAction.getActionResult())
-
+	if(curPlan && theAction.planAction):
+		if(theAction.completeStatus != STATUS_COMPLETED):
+			onPlanFail(curPlan, theAction, theAction.completeStatus)
+			curPlan = null
+		else:
+			if(curPlan.steps.is_empty()):
+				onPlanCompleted(curPlan)
+				curPlan = null
+		if(!curPlan):
+			curPlan = plan()
+	
 func getActionResult() -> Array:
 	return actionResult
 
@@ -308,3 +335,42 @@ func strSmart(_val:Variant) -> String:
 		return "("+str(Util.roundF(_val.x, 1))+","+str(Util.roundF(_val.y, 1))+","+str(Util.roundF(_val.z, 1))+")"
 	
 	return str(_val)
+
+func makePlan(_id:String = "") -> AIPlan:
+	var newPlan:AIPlan = AIPlan.new()
+	newPlan.id = _id
+	return newPlan
+
+func processPlan():
+	if(!curPlan && !hasSubAction()):
+		curPlan = plan()
+	
+	doNextPlanStep()
+
+func doNextPlanStep():
+	if(!curPlan):
+		return
+	
+	while(!curPlan.steps.is_empty()):
+		var curStepEntry:Array = curPlan.steps.pop_front()
+		
+		var theActionRef:AIActionBase = GlobalRegistry.getAIActionRef(curStepEntry[0])
+		if(!theActionRef):
+			continue
+		theActionRef.ai = ai
+		if(theActionRef.isAlreadyCompleted(curStepEntry[1])):
+			theActionRef.ai = null
+			continue
+		theActionRef.ai = null
+		var theAction := startSubAction(curStepEntry[0], curStepEntry[1], curStepEntry[2])
+		if(theAction):
+			theAction.planAction = true
+		break
+	
+	if(curPlan.steps.is_empty() && !hasSubAction()):
+		onPlanCompleted(curPlan)
+		curPlan = null
+
+func replan():
+	stopSubAction()
+	curPlan = null # new plan will be generated on the next tick

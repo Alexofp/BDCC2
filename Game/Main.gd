@@ -21,6 +21,7 @@ var character_creator:Node
 @onready var chat_widget_fullscreeen: Control = %ChatWidgetFullscreeen
 @onready var leash_system: LeashSystem = %LeashSystem
 @onready var action_system: ActionSystem = %ActionSystem
+@onready var relationshipSystem: RelationshipSystem = %RelationshipSystem
 
 @onready var sex_ui: SexUI = %SexUI
 

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8m4jsk7r7lim"]
+
+[ext_resource type="Script" uid="uid://dchsmxyr3y3al" path="res://Game/Systems/RelationshipSystem/RelationshipSystem.gd" id="1_jjxl8"]
+
+[node name="RelationshipSystem" type="Node3D" unique_id=901619146]
+script = ExtResource("1_jjxl8")

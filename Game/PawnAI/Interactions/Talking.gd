@@ -3,10 +3,13 @@ extends InteractionBase
 func _init() -> void:
 	id = "Talking"
 
+func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
+	return {
+		ROLE_MAIN: "main",
+		ROLE_TARGET: "target",
+	}
+
 func start(_roles:Dictionary, _args:Array):
-	involve(ROLE_MAIN, _roles["main"])
-	involve(ROLE_TARGET, _roles["target"])
-	
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	sayText(ROLE_MAIN, "Hey!")
 	#startAction(ROLE_TARGET, "Follow", [getCharID(ROLE_MAIN)])

@@ -567,7 +567,7 @@ func processHoverText(_dt:float):
 		finalText += theEntry[0] + "\n"
 	
 	if(typingStatus == GI.TYPING_ACTION):
-		finalText += "( Acting )" + "\n"
+		finalText += "( Emoting )" + "\n"
 	elif(typingStatus == GI.TYPING_CHAT):
 		finalText += "( Typing )" + "\n"
 	

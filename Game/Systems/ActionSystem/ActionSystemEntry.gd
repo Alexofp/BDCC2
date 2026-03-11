@@ -150,3 +150,48 @@ func deleteMe():
 func setCancelOnUserGettingHit(_h:bool) -> ActionSystemEntry:
 	cancelIfHit = _h
 	return self
+
+func doAIDecisionForTarget(_target:ActionSystemTarget):
+	if(!(_target.node is CharacterPawn)):
+		return
+	var thePawn:CharacterPawn = _target.node
+	if(thePawn.isControlledByAnyPlayer()):
+		return
+	
+	thePawn.ai.reactDelayedAction(self)
+	
+	if(_target.aiDecision == ActionSystemTarget.AI_DECISION_ALLOW):
+		if(_target.timerType == TIMER_MUST_CONSENT):
+			thePawn.doInteractEntryDo(
+				InteractEntryDo.create("ActionAllow", [uniqueID]), thePawn,
+			)
+		else:
+			pass # Just let it happen
+	elif(_target.aiDecision == ActionSystemTarget.AI_DECISION_DENY):
+		if(_target.timerType == TIMER_MUST_CONSENT):
+			thePawn.doInteractEntryDo(
+				InteractEntryDo.create("ActionDeny", [uniqueID]), thePawn,
+			)
+		else:
+			thePawn.doInteractEntryDo(
+				InteractEntryDo.create("ActionResist", [uniqueID]), thePawn,
+			)
+
+func shouldDoAIDecision(_target:ActionSystemTarget, _f:float) -> bool:
+	if(_target.aiDecision != ActionSystemTarget.AI_DECISION_UNDECIDED):
+		return false
+	if(!_target.needsConsent()):
+		return false
+	if((timePassed > 1.6 && RNG.chance(20)) || _f > 0.8):
+		return true
+	return false
+
+func doAIDecisions():
+	var theF:float = (timePassed / timeFull) if timeFull > 0.0 else 1.0
+	
+	if(shouldDoAIDecision(target, theF)):
+		doAIDecisionForTarget(target)
+	for extraTarget in extraTargets:
+		if(shouldDoAIDecision(extraTarget, theF)):
+			doAIDecisionForTarget(extraTarget)
+	

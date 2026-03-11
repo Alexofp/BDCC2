@@ -103,8 +103,6 @@ func teleportToNextPathPosition() -> bool:
 func processRare():
 	if(!aiAction):
 		startAction("BasicAI")
-	#if(!pawn.hasInteraction()):
-	#	GM.IS.startInteraction("SoloInteraction", {main=pawn})
 	if(pawn.isDefeated() && aiAction && aiAction.shouldTryToRecoverIfDefeated()):
 		pawn.combatAI.recoverIfDefeated()
 	
@@ -205,3 +203,25 @@ func checkCombatMode():
 		getPawn().enterCombatMode()
 	else:
 		getPawn().exitCombatMode()
+
+func isPlayer() -> bool:
+	return pawn.isControlledByAnyPlayer()
+
+func reactDelayedAction(_action:ActionSystemEntry):
+	if(isPlayer()):
+		return
+	var theTarget := _action.getTargetSpecific(pawn)
+	if(!theTarget):
+		return
+	
+	Log.Print("DECISION!!!")
+	theTarget.decideDeny()
+	
+	pawn.addAnnoyance(_action.user, 0.7)
+	if(pawn.getAnnoyance(_action.user) >= 1.0):
+		pawn.combatAI.addEnemy(_action.user)
+	else:
+		GM.main.interactionSystem.startInteraction("Annoyed", {
+			main = pawn,
+			target = _action.user,
+		})

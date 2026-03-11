@@ -14,18 +14,19 @@ func getScore(_ai:PawnAI) -> float:
 func start(_args:Array):
 	pass
 
-func think():
-	if(hasSubAction()):
-		return
+func plan() -> AIPlan:
 	var theProp := GI.world.getNearestFreeSitSpot(getPos())
 	if(!theProp):
 		failAction()
-		return
-	
+		return null
+		
 	propToSitAt = theProp
-	if(goTo(theProp.global_position, false, "go")):
-		doSitStuff()
-	#startSubAction("GoTo", [theProp.global_position], "go")
+	return (makePlan()
+	.add("GoTo", [theProp.global_position])
+	)
+
+func onPlanCompleted(_plan:AIPlan):
+	doSitStuff()
 
 func doSitStuff():
 	if(!propToSitAt || !is_instance_valid(propToSitAt)):
@@ -41,17 +42,6 @@ func doSitStuff():
 	), propToSitAt)
 	
 	pushReplaceWithTimedEvent(5.0, "chill")
-
-func onSubActionResult(_tag:String, _status:int, _result:Array):
-	if(_tag == "go"):
-		if(_status == STATUS_COMPLETED):
-			#doSitStuff()
-			return true
-		else:
-			failAction()
-			
-		#startSubAction("Wait", [1.0])
-		#pushTimer(1.0)
 
 func onSubEvent(_eventID:String, _args:Array):
 	if(_eventID == "chill"):

@@ -7,6 +7,12 @@ var conditionType:int = ActionSystemEntry.CONDITION_DISTANCE
 var targetMove:int = ActionSystemEntry.TARGET_CANMOVE
 var didConsent:bool = false
 
+const AI_DECISION_UNDECIDED := 0
+const AI_DECISION_ALLOW := 1
+const AI_DECISION_DENY := 2 # Deny or resist
+
+var aiDecision:int = AI_DECISION_UNDECIDED
+
 func shouldCancelAction(theAction:ActionSystemEntry) -> bool:
 	var theUser := theAction.user
 	var theTarget := node
@@ -55,3 +61,9 @@ func needsConsent() -> bool:
 	if(timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
 		return true
 	return false
+
+func decideDeny():
+	aiDecision = AI_DECISION_DENY
+
+func decideAllow():
+	aiDecision = AI_DECISION_ALLOW

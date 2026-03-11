@@ -23,21 +23,23 @@ func checkNearbyFail() -> bool:
 		return true
 	return false
 
-func think():
-	if(hasSubAction()):
-		if(getSubActionTag() == "go"):
-			checkNearbyFail()
-		return
+func plan() -> AIPlan:
 	var theLine := GI.world.getCloseLeanLine(getPos())
 	if(!theLine):
 		failAction()
-		return
-	
+		return null
 	lineToLeanAt = theLine
 	linePos = lineToLeanAt.getRandomSpot()
-	if(goTo(linePos, false, "go")):
-		doLeanStuff()
-	#startSubAction("GoTo", [linePos], "go")
+	
+	return (makePlan()
+	.add("GoTo", [linePos])
+	)
+
+func onPlanCompleted(_plan:AIPlan):
+	doLeanStuff()
+
+func think():
+	checkNearbyFail()
 
 func doLeanStuff():
 	if(!lineToLeanAt || !is_instance_valid(lineToLeanAt)):
@@ -60,17 +62,6 @@ func doLeanStuff():
 	newWallHandler.setSitter("dom", getPawn())
 	
 	pushReplaceWithTimedEvent(5.0, "chill")
-			
-func onSubActionResult(_tag:String, _status:int, _result:Array):
-	if(_tag == "go"):
-		if(_status == STATUS_COMPLETED):
-			#doLeanStuff()
-			return
-		else:
-			failAction()
-			
-		#startSubAction("Wait", [1.0])
-		#pushTimer(1.0)
 
 func onSubEvent(_eventID:String, _args:Array):
 	if(_eventID == "chill"):

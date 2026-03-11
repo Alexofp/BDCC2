@@ -458,6 +458,12 @@ static func getStuffTalkLen(stuff:Array) -> float:
 func sayAdvanced(stuff:Array):
 	GM.pawnRegistry.sayAdvanced(self, stuff)
 
+func say(_text:String):
+	sayAdvanced(parseSayTextToArray(_text))
+
+func emote(_text:String):
+	sayAdvanced(parseMeTextToArray(_text))
+
 func sayAdvancedLocal(stuff:Array):
 	# Spread this to nearby dolls to hear?
 	#var theText:String = sayArrayToText(stuff)
@@ -786,6 +792,12 @@ func canDoFakeCombat() -> bool:
 	if(combatMovePlayer.isExhausted()):
 		return false
 	return true
+
+func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float):
+	GM.main.relationshipSystem.addAnnoyance(getCharID(), _otherPawn.getCharID(), _annoy)
+
+func getAnnoyance(_otherPawn:CharacterPawn) -> float:
+	return GM.main.relationshipSystem.getAnnoyance(getCharID(), _otherPawn.getCharID())
 
 
 

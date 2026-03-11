@@ -66,6 +66,8 @@ func clearRecentlyDefeatedEnemies():
 func addEnemy(_pawn:CharacterPawn) -> bool:
 	if(!_pawn || activeEnemies.has(_pawn)):
 		return false
+	if(_pawn == pawn):
+		return false
 	
 	var newActiveEnemy:ActiveEnemy = ActiveEnemy.new()
 	newActiveEnemy.agroScore = 1.0

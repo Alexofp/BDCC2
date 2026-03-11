@@ -42,7 +42,29 @@ func involve(_role:int, _pawn:CharacterPawn):
 	pawnToRole[_pawn] = _role
 	_pawn.setInteraction(self)
 
+func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
+	return {
+	}
+
+func checkRolesFilled(_requiredRoles:Dictionary[int, String], _roles:Dictionary) -> bool:
+	if(_requiredRoles.size() != _roles.size()):
+		return false
+	for _roleID in _requiredRoles:
+		var _roleStr:String = _requiredRoles[_roleID]
+		if(!_roles.has(_roleStr)):
+			return false
+	return true
+
 func startFinal(_roles:Dictionary, _args:Array):
+	var theRequiredRoles := getRequiredRoles(_args)
+	if(!checkRolesFilled(theRequiredRoles, _roles)):
+		assert(false, "BAD ROLES!")
+		stopInteraction()
+		return
+	for roleID in theRequiredRoles:
+		var roleStr:String = theRequiredRoles[roleID]
+		involve(roleID, _roles[roleStr])
+	
 	rareTimer = RNG.randfRange(0.5, 1.0)
 	start(_roles, _args)
 
@@ -222,6 +244,8 @@ func sayText(_role:int, _text:String, talkGesture:bool = true):
 			doTalkGesture(_role)
 		#if(talkMouth):
 		#	doTalkFaceAnim(_role)
+	else:
+		Log.error(str(id)+" NOT FOUND ROLE "+str(_role)+" TO SAY TEXT: "+str(_text))
 
 # Not multiplayer-synced
 #func doTalkFaceAnim(_role:int, _len:float = 3.0):
@@ -285,7 +309,7 @@ func getDistanceBetween(_role1:int, _role2:int) -> float:
 		return 99999.9
 	return pawn1.global_position.distance_to(pawn2.global_position)
 
-func lookAt(_role1:int, _role2:int, lookBack:bool = false):
+func lookAt(_role1:int, _role2:int, lookBack:bool = false, _howLong:float = 5.0):
 	var pawn1:= getPawn(_role1)
 	var pawn2:= getPawn(_role2)
 	if(!pawn1 || !pawn2):
@@ -293,9 +317,9 @@ func lookAt(_role1:int, _role2:int, lookBack:bool = false):
 	var doll1:= pawn1.getDoll()
 	var doll2:= pawn2.getDoll()
 	if(doll1 && doll2):
-		GM.dollHolder.askLookAtDoll(doll1, doll2)
+		GM.dollHolder.askLookAtDoll(doll1, doll2, _howLong)
 		if(lookBack):
-			GM.dollHolder.askLookAtDoll(doll2, doll1)
+			GM.dollHolder.askLookAtDoll(doll2, doll1, _howLong)
 
 func stopLookAt(_role1:int):
 	var pawn1:= getPawn(_role1)
