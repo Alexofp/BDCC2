@@ -397,13 +397,25 @@ func onHit(_attackContext:AttackContext):
 	if(theAttack.collapsesTarget && pawn.state.canCollapse()):
 		var theVuln:float = pawn.calculateCombatVulnerability()
 		if(theVuln >= theAttack.collapseMinVulnerability):
-			var theDir := _attackContext.target.global_position - _attackContext.attacker.global_position
+			var theDir := _attackContext.target.getGlobalPos() - _attackContext.attacker.getGlobalPos()
 			theDir = theDir.normalized()
 			pawn.sendFlying(theDir*theAttack.collapseBackVelocity, theAttack.collapseUpVelocity)
 			didSomething = true
 	if(!didSomething && theAttack.staggerTarget && pawn.state.canCollapse()):
 		var theVuln:float = pawn.calculateCombatVulnerability()
 		if(theVuln >= theAttack.staggerMinVulnerability):
+			pawn.doStagger()
+			didSomething = true
+	
+	# Block break
+	if(!didSomething && (theAttack.collapsesTarget || theAttack.staggerTarget) && pawn.state.canCollapse() && getExhaustionLevel() >= 1.0 && getStrainLevel() >= 1.0 && pawn.isBlocking()):
+		if(theAttack.collapsesTarget):
+			var theDir := _attackContext.target.getGlobalPos() - _attackContext.attacker.getGlobalPos()
+			theDir = theDir.normalized()
+			pawn.sendFlying(theDir*theAttack.collapseBackVelocity, theAttack.collapseUpVelocity)
+			didSomething = true
+		#elif(theAttack.staggerTarget):
+		else:
 			pawn.doStagger()
 			didSomething = true
 
@@ -603,12 +615,17 @@ func addStrain(_st:float):
 	strain += _st
 	strain = clampf(strain, 0.0, getStrainLimit())
 
-func causeStrain(_st:float) -> bool:
+func causeStrain(_st:float, _overflowIntoExhaustion:bool = true) -> bool:
 	if(_st == 0.0):
 		return false
 	var oldStrain := strain
 	addStrain(_st)
 	strainRecovery = maxf(strainRecovery, 1.0)
+	
+	if(_st > 0.0 && _overflowIntoExhaustion):
+		var _diff:float = -strain + oldStrain + _st
+		if(_diff > 0.0):
+			causeExhaustion(_diff*2.0) # 2.0 is a magic number?
 	
 	if(oldStrain == strain):
 		return false
