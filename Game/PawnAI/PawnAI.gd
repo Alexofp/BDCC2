@@ -132,7 +132,7 @@ func startAction(_id:String, _args:Array = []):
 	aiAction = theAction
 	lowestAIAction = aiAction
 	aiAction.setAI(self)
-	aiAction.start(_args)
+	aiAction.startFinal(_args)
 	checkAction()
 
 func checkAction():
@@ -190,6 +190,11 @@ func onInteractionChange(_interaction:InteractionBase):
 		return
 	lowestAIAction.handleInteractionChangeFinal(_interaction)
 
+func onInteractionStateChange(_interaction:InteractionBase):
+	if(!lowestAIAction || !Network.isServer()):
+		return
+	lowestAIAction.handleInteractionStateChangeFinal(_interaction)
+
 func onGettingHit(_attack:AttackContext):
 	if(!lowestAIAction || !Network.isServer()):
 		return
@@ -225,3 +230,13 @@ func reactDelayedAction(_action:ActionSystemEntry):
 			main = pawn,
 			target = _action.user,
 		})
+
+func getActionThatHandlesCombat() -> AIActionBase:
+	if(!lowestAIAction):
+		return null
+	var theAction := lowestAIAction
+	while(theAction):
+		if(theAction.isHandlingCombat()):
+			return theAction
+		theAction = theAction.parentAction
+	return null

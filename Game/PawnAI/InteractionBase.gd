@@ -55,20 +55,26 @@ func checkRolesFilled(_requiredRoles:Dictionary[int, String], _roles:Dictionary)
 			return false
 	return true
 
-func startFinal(_roles:Dictionary, _args:Array):
+func startFinal(_roles:Dictionary, _args:Array) -> bool:
 	var theRequiredRoles := getRequiredRoles(_args)
 	if(!checkRolesFilled(theRequiredRoles, _roles)):
 		assert(false, "BAD ROLES!")
-		stopInteraction()
-		return
+		Log.error("INTERACTION "+id+" GOT BAD ROLES! "+str(_roles))
+		#stopInteraction() # The interaction system will remove us
+		return false
 	for roleID in theRequiredRoles:
 		var roleStr:String = theRequiredRoles[roleID]
 		involve(roleID, _roles[roleStr])
 	
 	rareTimer = RNG.randfRange(0.5, 1.0)
 	start(_roles, _args)
+	replan()
+	return true
 
 func start(_roles:Dictionary, _args:Array):
+	pass
+
+func onEnd():
 	pass
 
 func processInteraction(_dt:float):
@@ -167,8 +173,14 @@ func clearPushQueue():
 func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
-func setState(_newState:String):
+func setState(_newState:String, _doReplan:bool = true):
 	state = _newState
+	if(_doReplan):
+		replan()
+
+func replan():
+	for thePawn in pawnToRole:
+		thePawn.ai.onInteractionStateChange(self)
 
 func processQueue(_dt:float):
 	while(!interactionQueue.is_empty()):
@@ -341,3 +353,20 @@ func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
 
 func onSubActionResult(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase, _tag:String, _status:int, _result:Array):
 	pass
+
+func plan(_role:int, _action:AIActionBase) -> AIPlan:
+	return null
+
+func onPlanCompleted(_role:int, _action:AIActionBase, _plan:AIPlan):
+	pass
+
+func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	pass
+
+func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
+	#getPawn().combatAI.addEnemy(_attackContext.attacker)
+	#startSubActionUnlessSameTag("Combat")
+	return false
+
+func isHandlingCombat(_role:int) -> bool:
+	return false

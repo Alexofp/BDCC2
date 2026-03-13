@@ -17,42 +17,33 @@ func start(_args:Array):
 		targetPawn = theArg0.getCharID()
 	
 	targetProp = _args[1] if _args.size() > 1 else null
-	
-	if(!getTargetPawn() || !targetProp):
-		impossibleAction()
-		return
 
-func think():
-	var thePawn := getPawn()
+func isImpossible() -> bool:
+	if(!getTargetPawn()):
+		return true
+	if(!targetProp):
+		return true
+	return false
+
+func plan() -> AIPlan:
+	#var thePawn := getPawn()
 	var theTargetPawn := getTargetPawn()
-	if(!theTargetPawn):
-		impossibleAction()
-		return
+
 	if(theTargetPawn.isSittingOn(targetProp)):
-		if(thePawn.isLeashingPawn(theTargetPawn)):
-			thePawn.doInteractEntryDo(InteractEntryDo.create("Leash"), theTargetPawn)
-			return
-		completeAction()
-		return
-		
-	if(!makeSureLeashed(theTargetPawn)):
-		return
-		
-	var theProp := theTargetPawn.getSitPropHandler()
-	if(theProp):
-		if(!goTo(theProp.global_position)):
-			return
-		thePawn.doInteractEntryDo(InteractEntryDo.create("SitPropLeashed", [theProp.getSlotOfPawn(theTargetPawn),"",targetPawn]), theProp)
-		return
-		
-	if(!goTo(targetProp.global_position)):
-		return
-	if(thePawn.isDoingAnyDelayedActions()):
-		return
-	var theSlots := targetProp.getAllFreeSitterSlots()
-	if(theSlots.is_empty()):
-		failAction()
-		return
+		return makePlan("almostDone").add("StopLeashing", [theTargetPawn])
 	
-	#Do delayed action ai action?
-	thePawn.doInteractEntryDo(InteractEntryDo.create("SitPropLeashed", [RNG.pick(theSlots),"",targetPawn]), targetProp)
+	return makePlan("reachStocks").add("LeashWalkTo", [theTargetPawn, targetProp.global_position])
+
+func onPlanCompleted(_plan:AIPlan):
+	if(_plan.id == "almostDone"):
+		completeAction()
+	if(_plan.id == "reachStocks"):
+		var thePawn := getPawn()
+		var theTargetPawn := getTargetPawn()
+		if(!thePawn.isLeashingPawn(theTargetPawn)):
+			return
+		var theSlots := targetProp.getAllFreeSitterSlots()
+		if(theSlots.is_empty()):
+			failAction()
+			return
+		doInteractEntryDo(InteractEntryDo.create("SitPropLeashed", [RNG.pick(theSlots),"",targetPawn]), targetProp)

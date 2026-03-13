@@ -851,6 +851,14 @@ func isLeashingPawn(_otherPawn:CharacterPawn) -> bool:
 			return true
 	return false
 
+func isLeashingAnyone() -> bool:
+	if(!GM.leashSystem.getAllLeashesOfSourceNode(self).is_empty()):
+		return true
+	return false
+
+func stopLeashingAll() -> bool:
+	return doInteractEntryDo(InteractEntryDo.create("LeashLetGoAll"), self)
+
 # LEASH STUFF END
 
 # INTERACTOR STUFF BEGINS

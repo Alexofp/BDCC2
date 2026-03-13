@@ -6,11 +6,40 @@ func _init() -> void:
 func start(_args:Array):
 	pass
 
+func isImpossible() -> bool:
+	if(!getInteraction()):
+		return true
+	return false
+
 func onEnd():
 	pass
 
 func processAction(_dt:float):
 	pass
+
+func plan() -> AIPlan:
+	var theInteraction := getInteraction()
+	return theInteraction.plan(theInteraction.getRoleOf(getPawn()), self)
+
+func onPlanCompleted(_plan:AIPlan):
+	var theInteraction := getInteraction()
+	return theInteraction.onPlanCompleted(theInteraction.getRoleOf(getPawn()), self, _plan)
+
+func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	var theInteraction := getInteraction()
+	return theInteraction.onPlanFail(theInteraction.getRoleOf(getPawn()), self, _plan, _failedAction, _failStatus)
+
+func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
+	replan()
+	return true
+
+func onGettingHit(_attackContext:AttackContext) -> bool:
+	var theInteraction := getInteraction()
+	return theInteraction.onGettingHit(theInteraction.getRoleOf(getPawn()), _attackContext)
+
+func isHandlingCombat() -> bool:
+	var theInteraction := getInteraction()
+	return theInteraction.isHandlingCombat(theInteraction.getRoleOf(getPawn()))
 
 func think():
 	var theInteraction := getInteraction()

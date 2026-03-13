@@ -83,7 +83,6 @@ func onInteractorUpdate():
 	updateMenu()
 	pass
 
-#TODO: MAKE THIS WORK IN MULTIPLAYER
 func setTarget(_node:Node3D) -> bool:
 	target = _node
 	updateMenu()
@@ -128,6 +127,9 @@ func _on_category_list_item_selected(_index: int) -> void:
 			return
 		
 		var selectedCategory := cachedCategories[selectedCategoryIndx]
+		if(!selectedCategory.target || !is_instance_valid(selectedCategory.target)):
+			target = null
+			return
 		target = selectedCategory.target
 	
 	updateInteractEntriesList()

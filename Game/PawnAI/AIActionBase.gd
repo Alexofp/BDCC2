@@ -82,7 +82,14 @@ func shouldTryToRecoverIfDefeated() -> bool:
 		return false
 	return true
 
+func isImpossible() -> bool:
+	return false
+
 # Functions to override END
+
+func startFinal(_args:Array):
+	start(_args)
+	checkImpossible()
 
 func onGettingHitFinal(_attackContext:AttackContext) -> bool:
 	if(onGettingHit(_attackContext)):
@@ -100,6 +107,17 @@ func handleInteractionChangeFinal(_interaction:InteractionBase) -> bool:
 	# Go up the chain
 	return parentAction.handleInteractionChangeFinal(_interaction)
 
+func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
+	return false
+
+func handleInteractionStateChangeFinal(_interaction:InteractionBase) -> bool:
+	if(handleInteractionStateChange(_interaction)):
+		return true
+	if(!parentAction):
+		return false
+	# Go up the chain
+	return parentAction.handleInteractionStateChangeFinal(_interaction)
+
 func processActionFinal(_dt:float):
 	if(subAction):
 		if(!subAction.hasEnded()):
@@ -111,6 +129,7 @@ func processActionFinal(_dt:float):
 	processAction(_dt)
 
 func processRareFinal():
+	checkImpossible()
 	checkSubAction()
 	
 	if(subAction):
@@ -158,7 +177,7 @@ func startSubAction(_id:String, _args:Array = [], _tag:String = "") -> AIActionB
 		ai.lowestAIAction = subAction
 	subAction.actionTag = _tag
 	subAction.setAI(getAI())
-	subAction.start(_args)
+	subAction.startFinal(_args)
 	return subAction
 
 func startSubActionUnlessSameTag(_id:String, _args:Array = [], _tag:String = "") -> bool:
@@ -231,7 +250,7 @@ func checkSubAction():
 				onPlanCompleted(curPlan)
 				curPlan = null
 		if(!curPlan):
-			curPlan = plan()
+			curPlan = planFinal()
 	
 func getActionResult() -> Array:
 	return actionResult
@@ -343,12 +362,12 @@ func makePlan(_id:String = "") -> AIPlan:
 
 func processPlan():
 	if(!curPlan && !hasSubAction()):
-		curPlan = plan()
+		curPlan = planFinal()
 	
 	doNextPlanStep()
 
 func doNextPlanStep():
-	if(!curPlan):
+	if(!curPlan || hasSubAction()):
 		return
 	
 	while(!curPlan.steps.is_empty()):
@@ -372,5 +391,37 @@ func doNextPlanStep():
 		curPlan = null
 
 func replan():
-	stopSubAction()
+	if(subAction && subAction.planAction):
+		stopSubAction()
 	curPlan = null # new plan will be generated on the next tick
+
+func isDoingPlanEntry(_tag:String) -> bool:
+	if(!subAction || !curPlan):
+		return false
+	if(subAction.planAction && subAction.actionTag == _tag):
+		return true
+	return false
+
+func doInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
+	var thePawn := getPawn()
+	if(!thePawn):
+		return false
+	
+	return thePawn.doInteractEntryDo(_entry, _target)
+
+func checkImpossible() -> bool:
+	if(isImpossible()):
+		impossibleAction()
+		return true
+	return false
+
+func planFinal() -> AIPlan:
+	if(checkImpossible()):
+		return null
+	return plan()
+
+func isHandlingCombat() -> bool:
+	return false
+
+func isThisActionHandlingCombat() -> bool:
+	return ai.getActionThatHandlesCombat() == self

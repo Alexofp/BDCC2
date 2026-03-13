@@ -6,7 +6,7 @@ func getTargetPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(targetPawn)
 
 func _init() -> void:
-	id = "LeashPawn"
+	id = "StopLeashing"
 
 func isAlreadyCompleted(_args:Array) -> bool:
 	var theTargetPawn:CharacterPawn
@@ -16,7 +16,7 @@ func isAlreadyCompleted(_args:Array) -> bool:
 	elif(theArg0 is CharacterPawn):
 		theTargetPawn = theArg0
 	
-	if(getPawn().isLeashingPawn(theTargetPawn)):
+	if(!getPawn().isLeashingPawn(theTargetPawn)):
 		return true
 	return false
 
@@ -35,8 +35,8 @@ func isImpossible() -> bool:
 func think():
 	var thePawn := getPawn()
 	var theTargetPawn := getTargetPawn()
-	
-	if(thePawn.isLeashingPawn(theTargetPawn)):
+
+	if(!thePawn.isLeashingPawn(theTargetPawn)):
 		completeAction()
 		return
 	
@@ -46,3 +46,4 @@ func think():
 		return
 	
 	thePawn.doInteractEntryDo(InteractEntryDo.create("Leash"), theTargetPawn)
+	

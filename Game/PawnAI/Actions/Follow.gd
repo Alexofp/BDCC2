@@ -10,7 +10,14 @@ func start(_args:Array):
 	if(_args.is_empty()):
 		impossibleAction()
 		return
-	target = _args[0]
+	var theTarget = _args[0]
+	if(theTarget is String):
+		target = _args[0]
+	elif(theTarget is CharacterPawn):
+		target = theTarget.getCharID()
+	else:
+		impossibleAction()
+		return
 	if(_args.size() > 1):
 		followDistance = _args[1]
 

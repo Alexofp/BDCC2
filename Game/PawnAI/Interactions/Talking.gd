@@ -26,6 +26,7 @@ func getActions(_role:int):
 	#	return
 	addAction(action("stop", "Never mind", 0.0))
 	addAction(action("lock", "Lock me up!", 0.0))
+	addAction(action("fight", "Friendly fight!", 0.0))
 
 func doAction(_role:int, _action:InteractionAction):
 	if(_action.id == "stop"):
@@ -36,63 +37,38 @@ func doAction(_role:int, _action:InteractionAction):
 	if(_action.id == "lock"):
 		setState("lockme")
 		sayText(ROLE_MAIN, "Lock me up!")
-	#if(_actionID == "sex"):
-		##TODO: Starting sex should automatically make the doll stop looking
-		#stopLookAt(ROLE_MAIN)
-		#stopLookAt(ROLE_TARGET)
-		#var newSex := SexStartConf.new()
-		#newSex.sexType = SexType.OnTheFloor
-		#newSex.addRole("dom", getCharID(ROLE_MAIN), SexRole.Dom)
-		#newSex.addRole("sub", getCharID(ROLE_TARGET), SexRole.Sub)
-		#newSex.pos = getPawn(ROLE_MAIN).global_position
-		#newSex.ang = getPawn(ROLE_MAIN).global_rotation
-		#GM.sexManager.startSex(newSex)
-		#stopInteraction()
-	#if(_actionID == "leash"):
-		#stopLookAt(ROLE_MAIN)
-		#stopLookAt(ROLE_TARGET)
-		#GM.leashSystem.connectLeash(
-			#LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_MAIN), "leashholder.R"),
-			#LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_TARGET), "collar"),
-			#LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(1.0),
-		#)
-		#stopInteraction()
-	#if(_actionID == "unleash"):
-		#stopLookAt(ROLE_MAIN)
-		#stopLookAt(ROLE_TARGET)
-		#GM.leashSystem.removeLeash(
-			#LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_MAIN), "leashholder.R"),
-			#LeashPointConnection.createPawnLeashpoint(getPawn(ROLE_TARGET), "collar"),
-		#)
-		#stopInteraction()
-#
-#func getInterruptActions(_role:int, _newPawn:CharacterPawn) -> Array:
-	#return [
-	#]
-#
-#func doInterruptAction(_role:int, _newPawn:CharacterPawn, _actionID:String, _args:Array):
-	#pass
+	if(_action.id == "fight"):
+		startInteraction("FriendlyFight", {main=ROLE_MAIN,target=ROLE_TARGET})
 
 func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
-func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
-	if(state == "lockme"):
-		if(_action.getSubActionTag() == "ForcePawnSit"):
-			return
-		var someStocks := GM.world.getNearbyStocks(_pawn.global_position, 100.0)
+func plan(_role:int, _action:AIActionBase) -> AIPlan:
+	if(state == "lockme" && _role == ROLE_TARGET):
+		var someStocks := GM.world.getNearbyStocks(getPawn(_role).global_position, 100.0)
 		if(!someStocks):
 			setState("")
 			stopInteraction()
 			return
-		_action.startSubActionUnlessSameTag("ForcePawnSit", [getPawn(ROLE_MAIN), someStocks])
-		return
+		return _action.makePlan("lockIntoStocks").add("ForcePawnSit", [getPawn(ROLE_MAIN), someStocks])
 	
-	if(_role == ROLE_TARGET):
-		if(_action.hasSubAction()):
-			return
-		_action.startSubActionUnlessSameTag("Follow", [getPawn(ROLE_MAIN).getCharID()])
+	if(_role == ROLE_MAIN):
+		return _action.makePlan().add("Follow", [getPawn(ROLE_TARGET)])
+	elif(_role == ROLE_TARGET):
+		return _action.makePlan().add("Follow", [getPawn(ROLE_MAIN)])
+	
+	return null
+
+func onPlanCompleted(_role:int, _action:AIActionBase, _plan:AIPlan):
+	if(_plan.id == "lockIntoStocks"):
+		stopInteraction()
+
+func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	if(_plan.id == "lockIntoStocks"):
+		stopInteraction()
+
+func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
+	pass
 		
 func onSubActionResult(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase, _tag:String, _status:int, _result:Array):
-	if(_tag == "ForcePawnSit"):
-		stopInteraction()
+	pass

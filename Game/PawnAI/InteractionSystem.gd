@@ -17,7 +17,9 @@ func startInteraction(_interactionID:String, _roles:Dictionary[String, Character
 	if(!theInteraction):
 		return null
 	interactions.append(theInteraction)
-	theInteraction.startFinal(_roles, _args)
+	if(!theInteraction.startFinal(_roles, _args)):
+		interactions.erase(theInteraction)
+		return null
 	return theInteraction
 
 func processInteractions(_dt:float):
@@ -27,6 +29,7 @@ func processInteractions(_dt:float):
 func removeInteraction(_interaction:InteractionBase):
 	if(!_interaction || _interaction.wasDeleted):
 		return
+	_interaction.onEnd()
 	for thePawn in _interaction.pawnToRole:
 		#var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
 		if(thePawn && thePawn.getInteraction() == _interaction):
