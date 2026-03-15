@@ -17,8 +17,15 @@ func start(_roles:Dictionary, _args:Array):
 	getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN))
 
 func onEnd():
-	getPawn(ROLE_MAIN).combatAI.removeEnemy(getPawn(ROLE_TARGET))
-	getPawn(ROLE_TARGET).combatAI.removeEnemy(getPawn(ROLE_MAIN))
+	var theTarget := getPawn(ROLE_TARGET)
+	var theMain := getPawn(ROLE_MAIN)
+	
+	if(theTarget && theMain):
+		theMain.combatAI.removeEnemy(theTarget)
+		theTarget.combatAI.removeEnemy(theMain)
+		
+		theMain.ai.goalHandler.addGoal("HelpGetUp", [theTarget.getCharID()])
+		theTarget.ai.goalHandler.addGoal("HelpGetUp", [theMain.getCharID()])
 
 func processRare():
 	if(getDistanceBetween(ROLE_MAIN, ROLE_TARGET) > 10.0):

@@ -78,7 +78,7 @@ func startMove(_move:CombatMoveBase):
 	if(!_move):
 		return
 	_move.startMove(self)
-	Log.Print("STARTED MOVE: "+str(_move.id))
+	#Log.Print("STARTED MOVE: "+str(_move.id))
 	processEffectQueue(0.0) # Forces the initial effects to trigger
 	
 	for otherPawnInteractor in pawn.pawn_interactor.nearbyPawns:
@@ -124,7 +124,7 @@ func processCombatPlayer(_dt:float):
 	processExhaustionAndStrain(_dt)
 
 func stopMove():
-	Log.Print("MOVE STOPPED: "+str(combatMove.id if combatMove else "null"))
+	#Log.Print("MOVE STOPPED: "+str(combatMove.id if combatMove else "null"))
 	combatMove = null
 	moveTime = 0.0
 	effects.clear()

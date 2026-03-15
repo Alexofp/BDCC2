@@ -46,6 +46,9 @@ var combatMoveRefs:Dictionary[String, CombatMoveBase]
 var combatMoveByActivationType:Dictionary[int, Array]
 var aiCombosByID:Dictionary[String, AIComboBase]
 var aiCombos:Array[AIComboBase]
+var aiGoals:Dictionary#[String, AIGoalBase]
+var aiGoalRefs:Dictionary[String, AIGoalBase]
+var aiGoalsStaticRefs:Array[AIGoalBase]
 
 signal initialized
 
@@ -183,6 +186,8 @@ func doInit():
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
 	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
+	registerAIGoalFolder("res://Game/PawnAI/Goals/")
+	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
 	
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
 	registerAIComboFolder("res://Game/Combat/AICombos/")
@@ -1058,3 +1063,38 @@ func getAICombo(id: String) -> AIComboBase:
 
 func getAICombos() -> Array[AIComboBase]:
 	return aiCombos
+
+
+
+
+func registerAIGoal(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is AIGoalBase):
+		aiGoals[object.id] = loadedClass
+		aiGoalRefs[object.id] = object
+		if(object.isStaticGoal()):
+			aiGoalsStaticRefs.append(object)
+
+func registerAIGoalFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerAIGoal(scriptPath)
+
+func getAIGoalRef(id: String) -> AIGoalBase:
+	if(aiGoalRefs.has(id)):
+		return aiGoalRefs[id]
+	else:
+		Log.Printerr("ERROR: AI goal with the id "+str(id)+" wasn't found")
+		return null
+
+func createAIGoal(id: String) -> AIGoalBase:
+	if(aiGoals.has(id)):
+		return aiGoals[id].new()
+	else:
+		Log.Printerr("ERROR: AI goal with the id "+str(id)+" wasn't found")
+		return null
+
+func getAIGoalsStaticRefs() -> Array[AIGoalBase]:
+	return aiGoalsStaticRefs

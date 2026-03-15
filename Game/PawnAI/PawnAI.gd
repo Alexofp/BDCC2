@@ -3,7 +3,8 @@ class_name PawnAI
 
 var pawn:CharacterPawn
 
-var bigUpdateTime:float = 1.0
+var bigUpdateTime:float = 0.0
+var nextBigUpdateAt:float = 1.0
 
 var currentMoveTarget:Vector3
 var shouldRunToTarget:bool = false
@@ -11,8 +12,14 @@ var shouldRunToTarget:bool = false
 var aiAction:AIActionBase
 var lowestAIAction:AIActionBase
 
+var goalHandler:AIGoalHandler = AIGoalHandler.new()
+
+func _init() -> void:
+	pass
+
 func setPawn(_thePawn:CharacterPawn):
 	pawn = _thePawn
+	goalHandler.setAI(self)
 
 func getPawn() -> CharacterPawn:
 	return pawn
@@ -75,10 +82,11 @@ func processAI(_dt:float):
 	#else:
 	#	pass
 	
-	bigUpdateTime -= _dt
-	if(bigUpdateTime <= 0.0):
-		bigUpdateTime = 1.0
-		processRare()
+	bigUpdateTime += _dt
+	if(bigUpdateTime >= nextBigUpdateAt):
+		nextBigUpdateAt = 1.0
+		processRare(bigUpdateTime)
+		bigUpdateTime = 0.0
 	
 	#if(!isPC):
 	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
@@ -100,7 +108,7 @@ func teleportToNextPathPosition() -> bool:
 	pawn.teleport(next_path_position)
 	return true
 
-func processRare():
+func processRare(_dt:float):
 	if(!aiAction):
 		startAction("BasicAI")
 	if(pawn.isDefeated() && aiAction && aiAction.shouldTryToRecoverIfDefeated()):
@@ -111,6 +119,7 @@ func processRare():
 		checkAction()
 	
 	checkCombatMode()
+	goalHandler.processRare(_dt)
 	#var theTarget:DollController = GM.pcDoll
 	#if(!theTarget):
 		#return
@@ -240,3 +249,9 @@ func getActionThatHandlesCombat() -> AIActionBase:
 			return theAction
 		theAction = theAction.parentAction
 	return null
+
+func onCurrentAIGoalSwitch():
+	#var _newGoal := goalHandler.getCurrentGoal()
+	
+	if(aiAction):
+		aiAction.replan()

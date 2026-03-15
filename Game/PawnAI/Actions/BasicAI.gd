@@ -1,5 +1,7 @@
 extends AIActionBase
 
+#const PLANID_INTERACTION := "INTERACTION"
+
 func _init() -> void:
 	id = "BasicAI"
 
@@ -30,7 +32,6 @@ func think():
 	
 	var theInteraction := getInteraction()
 	if(theInteraction):
-		startSubActionUnlessSameTag("Interaction")
 		return
 	
 	if(isLeashed()):
@@ -44,32 +45,48 @@ func think():
 			#return
 
 func plan() -> AIPlan:
-	var possible:Dictionary[AIActionBase, float]
-	var allTheBasics := GlobalRegistry.getAIActionGroupBasicAI()
-	for theAction in allTheBasics:
-		var theScore:float = theAction.getScore(ai)
-		if(theScore <= 0.0):
-			continue
-		possible[theAction] = theScore
+	#var currentInteraction := getInteraction()
+	#if(currentInteraction):
+	#	return makePlan(PLANID_INTERACTION).add("Interaction")
 	
 	if(getPawn().isLeashingAnyone()): # Jank? Might cause problems, not sure how else to solve
 		getPawn().stopLeashingAll()
 	
-	if(possible.is_empty()):
-		return null
+	var currentGoal := ai.goalHandler.getCurrentGoal()
+	if(currentGoal):
+		return currentGoal.getPlan()#makePlan().add("PursueGoal")
 	
-	return makePlan().add(RNG.pickWeightedDict(possible).id)
-
-func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
-	return
+	#var possible:Dictionary[AIActionBase, float]
+	#var allTheBasics := GlobalRegistry.getAIActionGroupBasicAI()
+	#for theAction in allTheBasics:
+		#var theScore:float = theAction.getScore(ai)
+		#if(theScore <= 0.0):
+			#continue
+		#possible[theAction] = theScore
+	#
+	#if(possible.is_empty()):
+		#return null
+	
+	#var pickedAction:AIActionBase = RNG.pickWeightedDict(possible)
+	#return makePlan("", pickedAction.getScore(ai)).add(pickedAction.id)
+	return null
 
 func onPlanCompleted(_plan:AIPlan):
-	pass
+	#if(_plan.id == PLANID_INTERACTION):
+	#	return
+	ai.goalHandler.onPlanCompleted(_plan)
+
+func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	#if(_plan.id == PLANID_INTERACTION):
+	#	return
+	ai.goalHandler.onPlanFail(_plan, _failedAction, _failStatus)
 
 func handleInteractionChange(_interaction:InteractionBase) -> bool:
-	if(_interaction):
-		startSubAction("Interaction") # Will restart if new interaction
-	else:
-		stopSubActionIfTag("Interaction")
-	
+	#if(curPlan && curPlan.id == PLANID_INTERACTION):
+	#	replan()
 	return true
+
+func getDebugText() -> String:
+	if(ai.goalHandler.currentGoal):
+		return "Goal="+str(ai.goalHandler.currentGoal.id)
+	return ""

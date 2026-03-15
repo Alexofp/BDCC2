@@ -89,7 +89,8 @@ func isImpossible() -> bool:
 
 func startFinal(_args:Array):
 	start(_args)
-	checkImpossible()
+	if(!checkImpossible()):
+		processPlan()
 
 func onGettingHitFinal(_attackContext:AttackContext) -> bool:
 	if(onGettingHit(_attackContext)):
@@ -418,10 +419,17 @@ func checkImpossible() -> bool:
 func planFinal() -> AIPlan:
 	if(checkImpossible()):
 		return null
-	return plan()
+	var thePlan := plan()
+	#if(thePlan):
+		#scheduleAIUpdateSoon()
+		#pass
+	return thePlan
 
 func isHandlingCombat() -> bool:
 	return false
 
 func isThisActionHandlingCombat() -> bool:
 	return ai.getActionThatHandlesCombat() == self
+
+func scheduleAIUpdateSoon():
+	ai.nextBigUpdateAt = minf(0.2, ai.nextBigUpdateAt)

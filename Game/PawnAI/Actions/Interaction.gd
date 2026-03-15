@@ -19,14 +19,20 @@ func processAction(_dt:float):
 
 func plan() -> AIPlan:
 	var theInteraction := getInteraction()
+	if(!theInteraction):
+		return null
 	return theInteraction.plan(theInteraction.getRoleOf(getPawn()), self)
 
 func onPlanCompleted(_plan:AIPlan):
 	var theInteraction := getInteraction()
+	if(!theInteraction):
+		return
 	return theInteraction.onPlanCompleted(theInteraction.getRoleOf(getPawn()), self, _plan)
 
 func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
 	var theInteraction := getInteraction()
+	if(!theInteraction):
+		return
 	return theInteraction.onPlanFail(theInteraction.getRoleOf(getPawn()), self, _plan, _failedAction, _failStatus)
 
 func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
@@ -35,11 +41,11 @@ func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
 
 func onGettingHit(_attackContext:AttackContext) -> bool:
 	var theInteraction := getInteraction()
-	return theInteraction.onGettingHit(theInteraction.getRoleOf(getPawn()), _attackContext)
+	return theInteraction && theInteraction.onGettingHit(theInteraction.getRoleOf(getPawn()), _attackContext)
 
 func isHandlingCombat() -> bool:
 	var theInteraction := getInteraction()
-	return theInteraction.isHandlingCombat(theInteraction.getRoleOf(getPawn()))
+	return theInteraction && theInteraction.isHandlingCombat(theInteraction.getRoleOf(getPawn()))
 
 func think():
 	var theInteraction := getInteraction()
@@ -54,10 +60,13 @@ func think():
 	var fullScore:float = 0.0
 	var theWeightMap:Dictionary[InteractionAction, float]
 	for theAction in theActions:
-		if(theAction.score <= 0.0):
+		var actionScore:float = theAction.score
+		actionScore = ai.goalHandler.getInteractionActionScoreOverride(theInteraction, theAction, actionScore)
+		
+		if(actionScore <= 0.0):
 			continue
-		fullScore += theAction.score
-		theWeightMap[theAction] = theAction.score
+		fullScore += actionScore
+		theWeightMap[theAction] = actionScore
 	
 	if(theWeightMap.is_empty() || !RNG.chance(fullScore * 100.0)):
 		return
@@ -77,3 +86,9 @@ func onSubActionResult(_tag:String, _status:int, _result:Array):
 
 func onSubEvent(_eventID:String, _args:Array):
 	pass
+
+func getDebugText() -> String:
+	var theInteraction := getInteraction()
+	if(theInteraction):
+		return theInteraction.id
+	return ""
