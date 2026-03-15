@@ -23,8 +23,6 @@ var dollPoses:Dictionary = {}
 var aiActions:Dictionary = {}
 var aiActionRefs:Dictionary[String, AIActionBase] = {}
 var aiActionsBasicAI:Array[AIActionBase]
-var soloGoals:Dictionary = {}
-var soloGoalRefs:Dictionary = {}
 var interactions:Dictionary = {}
 var interactionRefs:Dictionary = {}
 var dollGestures:Dictionary = {}
@@ -184,7 +182,6 @@ func doInit():
 	registerDollGestureFolder("res://Game/Doll/Posing/Gestures/")
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
-	registerSoloGoalFolder("res://Game/PawnAI/SoloGoals/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	registerAIGoalFolder("res://Game/PawnAI/Goals/")
 	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
@@ -668,37 +665,6 @@ func getInteractionRef(id: String) -> InteractionBase:
 		return interactionRefs[id]
 	else:
 		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
-		return null
-
-
-func registerSoloGoal(path: String):
-	var loadedClass = load(path)
-	var object = loadedClass.new()
-	
-	if(object is SoloGoalBase):
-		soloGoals[object.id] = loadedClass
-		soloGoalRefs[object.id] = object
-
-func registerSoloGoalFolder(folder: String):
-	var scripts = Util.getScriptsInFolderSmart(folder)
-	for scriptPath in scripts:
-		registerSoloGoal(scriptPath)
-
-func createSoloGoal(id: String) -> SoloGoalBase:
-	if(soloGoals.has(id)):
-		return soloGoals[id].new()
-	else:
-		Log.Printerr("ERROR: solo goal with the id "+str(id)+" wasn't found")
-		return null
-
-func getSoloGoalsRefs() -> Dictionary:
-	return soloGoalRefs
-
-func getSoloGoalRef(id: String) -> SoloGoalBase:
-	if(soloGoalRefs.has(id)):
-		return soloGoalRefs[id]
-	else:
-		Log.Printerr("ERROR: solo goal with the id "+str(id)+" wasn't found")
 		return null
 
 
