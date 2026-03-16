@@ -3,6 +3,7 @@ extends PawnActionBase
 func _init() -> void:
 	id = "Masturbate"
 	alwaysCheckedSelf = true
+	#subCategory = ["Test", "Test2"]
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Masturbate"

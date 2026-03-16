@@ -166,7 +166,8 @@ func _process(_delta: float) -> void:
 			if(!UIHandler.tryCloseMenu()):
 				toggleInteractMenu()
 				if(interact_menu.visible):
-					showInteractMenuSpecific(GM.pcPawn)
+					interact_menu.showBestTarget()
+					#showInteractMenuSpecific(GM.pcPawn)
 
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)

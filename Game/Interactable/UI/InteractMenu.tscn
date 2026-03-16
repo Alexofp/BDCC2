@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://heeo5nvmwnmk"]
 
 [ext_resource type="Script" uid="uid://ce60iqvygnjr1" path="res://Game/Interactable/UI/InteractMenu.gd" id="1_wppt4"]
+[ext_resource type="PackedScene" uid="uid://qurjvi6fhr3x" path="res://Game/Interactable/UI/InteractMenuCategoryButton.tscn" id="2_xtrtt"]
 
 [node name="InteractMenu" type="Control" unique_id=749901978]
 layout_mode = 3
@@ -70,6 +71,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="InteractMenuCategoryButton" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/ScrollContainer/ActionList" unique_id=812969570 instance=ExtResource("2_xtrtt")]
+layout_mode = 2
 
 [node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/VBoxContainer" unique_id=1570394497]
 layout_mode = 2

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://qurjvi6fhr3x"]
+
+[ext_resource type="Script" uid="uid://blao1eq8ub8cj" path="res://Game/Interactable/UI/InteractMenuCategoryButton.gd" id="1_ft72e"]
+
+[node name="InteractMenuCategoryButton" type="Button" unique_id=812969570]
+text = "[Category]"
+script = ExtResource("1_ft72e")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

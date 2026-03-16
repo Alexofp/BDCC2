@@ -2,11 +2,14 @@ extends Control
 
 @onready var category_list: ItemList = %CategoryList
 @onready var action_list: VBoxContainer = %ActionList
+const INTERACT_MENU_CATEGORY_BUTTON = preload("res://Game/Interactable/UI/InteractMenuCategoryButton.tscn")
 
 signal onClose
 
 var pawn:CharacterPawn
 var target:Node
+
+var subCategory:Array[String]
 
 func clearMenu():
 	category_list.clear()
@@ -23,6 +26,15 @@ func updateMenu():
 		category_list.add_item(cachedCategory.categoryName)
 	updateListSelectedTargetEntry()
 
+func onBackButtonPressed():
+	if(!subCategory.is_empty()):
+		subCategory.pop_back()
+	updateInteractEntriesList()
+
+func onCategoryButtonPressed(_catID:String):
+	subCategory.append(_catID)
+	updateInteractEntriesList()
+
 func updateInteractEntriesList():
 	Util.delete_children(action_list)
 	if(!pawn):
@@ -38,10 +50,44 @@ func updateInteractEntriesList():
 	
 	var selectedCategory := cachedCategories[selectedCategoryIndx]
 	
+	if(!subCategory.is_empty()):
+		var theBackButton := INTERACT_MENU_CATEGORY_BUTTON.instantiate()
+		action_list.add_child(theBackButton)
+		theBackButton.setCategoryName("Back")
+		theBackButton.onPressed.connect(onBackButtonPressed)
+		
+	var extraCategories:Array[String]
+	var curCatAm:int = subCategory.size()
+	for interactEntry in selectedCategory.interactEntries:
+		var theCat := interactEntry.subCategory
+		var theCatAm:int = theCat.size()
+		
+		if(curCatAm >= theCatAm):
+			continue
+		var beginsSame:bool = true
+		for _i in curCatAm:
+			if(subCategory[_i] != theCat[_i]):
+				beginsSame = false
+				break
+		if(beginsSame):
+			var newCatName:String = theCat[curCatAm]
+			if(!extraCategories.has(newCatName)):
+				extraCategories.append(newCatName)
+	
+	for theCatName in extraCategories:
+		var theCatButton := INTERACT_MENU_CATEGORY_BUTTON.instantiate()
+		action_list.add_child(theCatButton)
+		theCatButton.setCategoryName(theCatName)
+		theCatButton.onPressed.connect(onCategoryButtonPressed.bind(theCatName))
+	
 	var theContext := pawn.pawnActionContext
 	
 	var _i:int = 0
 	for interactEntry in selectedCategory.interactEntries:
+		if(interactEntry.subCategory != subCategory):
+			_i += 1
+			continue
+		
 		if(interactEntry is InteractEntryText):
 			var newLabel := Label.new()
 			newLabel.text = interactEntry.text
@@ -80,11 +126,36 @@ func setPawn(_p:CharacterPawn):
 	updateMenu()
 	
 func onInteractorUpdate():
+	if(gonnaSelectBestTarget):
+		selectBestTarget()
+		gonnaSelectBestTarget = false
+	
 	updateMenu()
 	pass
 
+var gonnaSelectBestTarget:bool = false
+func showBestTarget():
+	if(Network.isClient()): # Probably gonna be very buggy
+		gonnaSelectBestTarget = true
+	else:
+		selectBestTarget()
+		updateMenu()
+
+func selectBestTarget():
+	if(!pawn):
+		return
+	var _pawnInteractor := pawn.getPawnInteractor()
+	if(_pawnInteractor.cachedCategories.size() > 1):
+		target = _pawnInteractor.cachedCategories[1].target
+	elif(_pawnInteractor.cachedCategories.size() > 0):
+		target = _pawnInteractor.cachedCategories[0].target
+	else:
+		target = null
+	subCategory.clear()
+
 func setTarget(_node:Node3D) -> bool:
 	target = _node
+	subCategory.clear()
 	updateMenu()
 	return true
 
@@ -119,6 +190,7 @@ func tryCloseMenu() -> bool:
 
 func _on_category_list_item_selected(_index: int) -> void:
 	if(pawn):
+		subCategory.clear()
 		var _pawnInteractor:PawnInteractor = pawn.getPawnInteractor()
 		var cachedCategories := _pawnInteractor.cachedCategories
 			

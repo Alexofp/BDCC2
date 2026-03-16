@@ -1,6 +1,12 @@
 extends RefCounted
 class_name InteractEntryBase
 
+var subCategory:Array[String] # ["Talk", "Flirt"]
+
+func setSubCategory(_Ar:Array[String]) -> InteractEntryBase:
+	subCategory = _Ar
+	return self
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		#Bins.BINS, sit_spawner.saveNetworkData(),

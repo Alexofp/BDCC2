@@ -30,6 +30,7 @@ enum { # The most-used types should go first
 	U8,
 	U16,
 	U32,
+	StringArrayShort,
 	Ignore,
 }
 
@@ -68,6 +69,12 @@ func getSizeOf(_ar:Array) -> int:
 			pointer += 2
 		elif(_type == U32):
 			pointer += 4
+		elif(_type == StringArrayShort):
+			pointer += 2 # Len of the array
+			var theStrArray:Array[String] = _ar[_indx+1]
+			for _i in theStrArray.size():
+				pointer += 2 # Len of the string
+				pointer += theStrArray[_i].to_utf8_buffer().size()
 		elif(_type == Ignore):
 			pointer += 0
 			
@@ -113,6 +120,15 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 			var strLen := valUtf8.size()
 			bytes.put_u16(strLen)
 			bytes.put_data(valUtf8)
+		elif(_type == StringArrayShort):
+			var theAr:Array[String] = _value
+			var arLen:int = theAr.size()
+			bytes.put_u16(arLen)
+			for theString in theAr:
+				var valUtf8:PackedByteArray = theString.to_utf8_buffer()
+				var strLen := valUtf8.size()
+				bytes.put_u16(strLen)
+				bytes.put_data(valUtf8)
 		elif(_type == Bool):
 			bytes.put_u8(int(_value))
 		elif(_type == Float):
@@ -171,6 +187,8 @@ func read(_readType:int) -> Variant:
 		return readStr()
 	if(_readType == StrShort):
 		return readStrShort()
+	if(_readType == StringArrayShort):
+		return readStringArrayShort()
 	if(_readType == Bool):
 		return readBool()
 	if(_readType == ByteArray):
@@ -212,6 +230,16 @@ func readStrShort() -> String:
 	var utfBufferSize:int = bytes.get_u16()
 	var theBuff:PackedByteArray = bytes.get_data(utfBufferSize)[1]
 	return theBuff.get_string_from_utf8()
+	
+func readStringArrayShort() -> Array[String]:
+	var strAm:int = bytes.get_u16()
+	var res:Array[String]
+	
+	for _i in strAm:
+		var utfBufferSize:int = bytes.get_u16()
+		var theBuff:PackedByteArray = bytes.get_data(utfBufferSize)[1]
+		res.append(theBuff.get_string_from_utf8())
+	return res
 
 func readBool() -> bool:
 	return bool(bytes.get_u8())

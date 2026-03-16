@@ -1,6 +1,8 @@
 extends RefCounted
 class_name PawnActionBase
 
+const C_TALK := "Talk"
+
 var id:String = ""
 var alwaysCheckedSelf:bool = false
 var alwaysCheckedOtherPawn:bool = false
@@ -13,6 +15,8 @@ var checkIsTargetOfAnyAciton:bool = true
 
 var canDoWhileCollapsed:bool = false
 var canDoWhileDefeated:bool = false
+
+var subCategory:Array[String]
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "CHANGE ME"
@@ -61,3 +65,6 @@ func startDelayedAction(_text:String, _context:PawnActionContext, _timer:float, 
 	GM.actionSystem.startAction(newEntry)
 	
 	return newEntry
+
+func getSubCategory() -> Array[String]:
+	return subCategory

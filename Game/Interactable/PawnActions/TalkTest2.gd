@@ -2,8 +2,9 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "TalkTest2"
-	#alwaysCheckedOtherPawn = true
+	alwaysCheckedOtherPawn = true
 	alwaysCheckedOtherPawnQuickAction = true
+	subCategory = [C_TALK]
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "DO TEST"
