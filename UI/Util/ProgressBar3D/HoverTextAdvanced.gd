@@ -4,7 +4,8 @@ class_name HoverTextAdvanced
 @onready var progress_bar_3d_simple: Node3D = %ProgressBar3DSimple
 @onready var progress_bar_3d_simple_2: Node3D = %ProgressBar3DSimple2
 @onready var progress_bar_3d_simple_3: Node3D = %ProgressBar3DSimple3
-@onready var hover_text: Label3D = %HoverText
+@onready var hover_text: Node3D = %HoverText
+
 
 @onready var progressBars:Array[Node3D] = [
 	progress_bar_3d_simple,
@@ -26,9 +27,19 @@ func _process(_delta: float) -> void:
 	global_rotation = Vector3(0.0, 0.0, 0.0)
 
 func setHoverText(_text:String):
-	if(hover_text.text == _text):
+	if(hover_text.getHoverText() == _text):
 		return
-	hover_text.text = _text
+	#hover_text.textAnimated = _text
+	#hover_text.text = _text
+	hover_text.setHoverText(_text)
+	#hover_text.textProgress = 0.0
+
+func addText(_text:String):
+	hover_text.addText(_text)
+
+func tryInterruptText(_text:String = "- ugh.."):
+	if(hover_text.canInterupt()):
+		hover_text.doInterupt(_text)
 
 func setProgressInfos(_texts:Array[String], _values:Array[float]):
 	var tAms:int = _texts.size()
@@ -37,10 +48,10 @@ func setProgressInfos(_texts:Array[String], _values:Array[float]):
 		tAms = vAms
 	var progAm:int = progressBars.size()
 	
-	if(tAms > 0):
-		set_process(true)
-	else:
-		set_process(false)
+	#if(tAms > 0):
+	#	set_process(true)
+	#else:
+	#	set_process(false)
 	
 	for _i in progAm:
 		var theProgressBar := progressBars[_i]
@@ -68,3 +79,5 @@ func updateHoverTextHeight():
 	else:
 		hover_text.position.y = PROGRESS_BAR_SPACING*visibleProgressBars + 0.0
 	
+func addSmallText(_text:String, _color:Color = Color.WHITE):
+	hover_text.addSmallText(_text, _color)

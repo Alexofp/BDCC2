@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dgaqvr1uxufar"]
+
+[ext_resource type="Script" uid="uid://en0svyy1kr2s" path="res://UI/Util/Label3D/Text3DScroll.gd" id="1_ywbdc"]
+
+[node name="Text3DScroll" type="Label3D" unique_id=1841216356]
+pixel_size = 0.002
+billboard = 1
+render_priority = 6
+outline_render_priority = 5
+font_size = 64
+outline_size = 24
+vertical_alignment = 2
+autowrap_mode = 3
+width = 600.0
+script = ExtResource("1_ywbdc")
+textProgress = 1.0
+
+[node name="LabelSizing" type="Label3D" parent="." unique_id=192845]
+unique_name_in_owner = true
+visible = false
+pixel_size = 0.002
+font_size = 64
+outline_size = 24
+vertical_alignment = 2
+autowrap_mode = 3
+width = 600.0

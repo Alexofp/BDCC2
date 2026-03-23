@@ -402,3 +402,10 @@ static func castRaySlow(_node:Node, start : Vector3, end : Vector3, mask : int =
 	ray_cast_query.exclude = ignore_objects
 	ray_cast_query.collision_mask = mask
 	return space_state.intersect_ray(ray_cast_query)
+
+static func readFile(_path:String) -> String:
+	var file := FileAccess.open(_path, FileAccess.READ)
+	if(!file):
+		Log.Printerr("Failed to read file: "+_path)
+		return ""
+	return file.get_as_text()

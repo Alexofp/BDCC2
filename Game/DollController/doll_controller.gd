@@ -553,6 +553,16 @@ func getNearbyDolls() -> Array[DollController]:
 func addHoverText(_text:String):
 	hoverTexts.append([_text, 5.0])
 
+func sayHoverText(_text:String):
+	var hover_text := doll.getHoverText()
+	hover_text.addText(_text)
+
+func interruptSay(_text:String = "- ugh.."):
+	doll.getHoverText().tryInterruptText(_text)
+
+func addSmallText(_text:String, _color:Color = Color.WHITE):
+	doll.getHoverText().addSmallText(_text, _color)
+
 func processHoverText(_dt:float):
 	var finalText:String = ""
 	

@@ -47,6 +47,7 @@ var aiCombos:Array[AIComboBase]
 var aiGoals:Dictionary#[String, AIGoalBase]
 var aiGoalRefs:Dictionary[String, AIGoalBase]
 var aiGoalsStaticRefs:Array[AIGoalBase]
+var mainReactionBank:ReactionBank = ReactionBank.new()
 
 signal initialized
 
@@ -185,6 +186,7 @@ func doInit():
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	registerAIGoalFolder("res://Game/PawnAI/Goals/")
 	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
+	loadMainReactionBankFolder("res://Reactions/Main/")
 	
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
 	registerAIComboFolder("res://Game/Combat/AICombos/")
@@ -1064,3 +1066,35 @@ func createAIGoal(id: String) -> AIGoalBase:
 
 func getAIGoalsStaticRefs() -> Array[AIGoalBase]:
 	return aiGoalsStaticRefs
+
+
+
+var reactionLexer:ReactionSystemLexer = ReactionSystemLexer.new()
+var reactionParser:ReactionSystemParser = ReactionSystemParser.new()
+func loadMainReactionBank(_path:String) -> bool:
+	var theText := Util.readFile(_path)
+	var theLexerStuff := reactionLexer.parse(theText)
+	if(theLexerStuff.hadErrors):
+		Log.Printerr("LEXER ERRORS IN REACTION FILE: "+_path)
+		for theError in theLexerStuff.errors:
+			Log.Printerr(theError)
+		return false
+	
+	var theParserStuff := reactionParser.parseLexerResult(theLexerStuff)
+	if(theParserStuff.hadErrors):
+		Log.Printerr("PARSER ERRORS IN REACTION FILE: "+_path)
+		for theError in theParserStuff.errors:
+			Log.Printerr(theError)
+		return false
+	
+	var newBank:ReactionBank = ReactionBank.new()
+	newBank.defs = theParserStuff.defs
+	newBank.fills = theParserStuff.fills
+	
+	mainReactionBank.merge(newBank)
+	return true
+	
+func loadMainReactionBankFolder(folder: String):
+	var scripts = Util.getFilesInFolderSmart(folder, "txt")
+	for scriptPath in scripts:
+		loadMainReactionBank(scriptPath)

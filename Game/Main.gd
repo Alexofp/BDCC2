@@ -31,6 +31,7 @@ var character_creator:Node
 @onready var wall_checker: WallChecker = %WallChecker
 
 var interactionSystem:InteractionSystem
+var reactionSystem:ReactionSystem = ReactionSystem.new()
 
 var gameMode:GameModeBase
 var mapPath:String = ""
@@ -68,6 +69,7 @@ func _init():
 	GM.main = self
 	#GlobalRegistry.doInit()
 	interactionSystem = InteractionSystem.new()
+	reactionSystem.setDataBanks([GlobalRegistry.mainReactionBank])
 
 func _enter_tree() -> void:
 	GM.main = self

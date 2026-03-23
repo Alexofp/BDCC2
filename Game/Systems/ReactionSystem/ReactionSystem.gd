@@ -1,0 +1,307 @@
+extends RefCounted
+class_name ReactionSystem
+
+var runner:ReactionSystemRunner = ReactionSystemRunner.new()
+var dataBanks:Array[ReactionBank]
+
+class ReactionContext:
+	var main:CharacterPawn
+	var target:CharacterPawn
+	var args:Dictionary[String, Variant]
+
+class ReactionResult:
+	var line:String
+
+func _init() -> void:
+	runner.targetObject = self
+
+var defaultContext:ReactionContext = ReactionContext.new()
+var context:ReactionContext
+func setContext(_context:ReactionContext):
+	context = _context
+	currentDepth = 0
+
+var currentDepth:int = 0
+func reactPawnGenerate(_pawn:CharacterPawn, _reaction:String, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}) -> ReactionResult:
+	context = defaultContext
+	context.main = _pawn
+	context.target = _target
+	context.args = _args
+	currentDepth = 0
+	
+	return generateReaction(_reaction, context)
+	
+func generateReaction(_reaction:String, _context:ReactionContext) -> ReactionResult:
+	setContext(_context)
+	var theLine := generateReactionLineSmart(_reaction)
+	if(!theLine || theLine.hadError):
+		return null
+	
+	var theProcessedText:String = processString(theLine.value)
+		
+	var theResult := ReactionResult.new()
+	theResult.line = processStringFinal(theProcessedText)
+	return theResult
+
+func processStringFinal(_text:String) -> String:
+	var theResult := GM.textParser.parseString(_text, getSimpleGameTextParserTextSimple)
+	return theResult.text
+
+func getSimpleGameTextParserTextSimple(_id:String, _command:String, _arg:String) -> SGTPResult:
+	var theResult:SGTPResult = null
+	if(context):
+		if(_id == "main"):
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.main.getCharID(), _command, _arg)
+		elif(_id == "target"):
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.target.getCharID(), _command, _arg)
+		elif(context.args.has(_id) && (context.args[_id] is CharacterPawn)):
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.args[_id].getCharID(), _command, _arg)
+		
+	return theResult
+
+func processString(_text:String) -> String:
+	var theDepth:int = currentDepth
+	var theParts := splitSubReactions(_text)
+	
+	var result:String = ""
+	for thePartEntry in theParts:
+		if(thePartEntry[0] == SUB_JUST_TEXT):
+			result += thePartEntry[1]
+		elif(thePartEntry[0] == SUB_REACTION):
+			currentDepth = theDepth + 1
+			if(currentDepth > 10):
+				continue
+			
+			var theReactionTextRaw:String = thePartEntry[1]
+			var theReactionResult := generateReactionLineSmart(theReactionTextRaw)
+			
+			if(theReactionResult && !theReactionResult.hadError):
+				var theNewLine:String = theReactionResult.value
+				theNewLine = processString(theNewLine)
+				result += theNewLine
+			
+	return result
+
+const SUB_JUST_TEXT := 0
+const SUB_REACTION := 1
+func splitSubReactions(_text:String) -> Array:
+	var curS:int = 0
+	var curE:int = -1
+	var textLen:int = _text.length()
+	
+	var theParts:Array
+	
+	var curReactType:int = SUB_JUST_TEXT
+	for _i in textLen:
+		var theC:String = _text[_i]
+		
+		if(theC == "%" && (_i == 0 || (_i > 0 && _text[_i-1] != "\\"))):
+			if((curE-curS+1) > 0):
+				var textSub:String = _text.substr(curS, curE-curS+1)
+				theParts.append([curReactType, textSub])
+			
+			if(curReactType == SUB_JUST_TEXT):
+				curReactType = SUB_REACTION
+			else:
+				curReactType = SUB_JUST_TEXT
+			
+			curS = _i + 1
+			curE = _i
+		else:
+			curE = _i
+	
+	if((curE-curS+1) > 0):
+		theParts.append([curReactType, _text.substr(curS, curE-curS+1)])
+	
+	return theParts
+
+# returns [id, prefix, postfix, array of options, fallback line]
+func parseReactionIDSmart(_id:String) -> Array:
+	var theFallback:String = ""
+	var theFallbackSplit:Array = Util.splitOnFirst(_id, "^")
+	if(theFallbackSplit.size() > 1):
+		theFallback = theFallbackSplit[1]
+	
+	var theSplit:Array = theFallbackSplit[0].split("|")
+	
+	var theFirst:String = theSplit[0]
+	theSplit.pop_front()
+	
+	var thePrefix:String = ""
+	var thePostfix:String = ""
+	var theID:String = ""
+	var theState:int = 0 #0 = prefix, 1 = id, 2 = postfix
+	
+	for ch in theFirst:
+		if(theState == 0):
+			if(UtilParsing.ASCIILetters.has(ch)):
+				theState = 1
+				theID += ch
+			else:
+				thePrefix += ch
+		elif(theState == 1):
+			if(!UtilParsing.ASCIILetters.has(ch) && ch != "_"):
+				theState = 2
+				thePostfix += ch
+			else:
+				theID += ch
+		elif(theState == 2):
+			thePostfix += ch
+	
+	return [theID, thePrefix, thePostfix, theSplit, theFallback]
+
+func generateReactionLineSmart(_id:String) -> ReactionSystemRunner.ResultOrError:
+	var theStuff := parseReactionIDSmart(_id)
+	
+	var theLine := generateReactionLine(theStuff[0])
+	if(!theLine || theLine.hadError):
+		var theFallback:String = theStuff[4]
+		if(!theFallback.is_empty()):
+			return createValue(theFallback)
+		return theLine
+	
+	var newText:String = theLine.value
+	for theOption in theStuff[3]:
+		if(theOption == "uncap"):
+			if(newText.length() > 0):
+				newText[0] = newText[0].to_lower()
+		elif(theOption == "uncapAll"):
+			newText = newText.to_lower()
+		elif(theOption == "cap"):
+			if(newText.length() > 0):
+				newText[0] = newText[0].to_upper()
+		elif(theOption == "capAll"):
+			newText = newText.to_upper()
+	
+	newText = theStuff[1] + newText + theStuff[2]
+	theLine.value = newText
+	return theLine
+
+func generateReactionLine(_id:String) -> ReactionSystemRunner.ResultOrError:
+	var theEntry := findReactionEntry(_id)
+	if(!theEntry):
+		return null
+	
+	var theFill := generateFill(theEntry)
+	if(theFill):
+		return createValue(theFill.getRandomLine())
+	if(theEntry.fallback.is_empty()):
+		return null
+	return createValue(RNG.pick(theEntry.fallback))
+
+func generateFill(theEntry:ReactionEntry) -> ReactionFill:
+	var _id:String = theEntry.id
+	var curPrio:int = -99999
+	var possibleFills:Dictionary[ReactionFill, float]
+	
+	for theData in dataBanks:
+		if(!theData.fills.has(_id)):
+			continue
+		var theFills:Array[ReactionFill] = theData.fills[_id]
+		
+		for theFill in theFills:
+			if(theFill.condition && !runner.execute(theFill.condition)): # condition not satisfied
+				continue
+			var theScore:float = theFill.score * theFill.lines.size()
+			if(theScore <= 0.0):
+				continue
+				
+			var thePrio:int = theFill.priority
+			if(thePrio > curPrio):
+				curPrio = thePrio
+				possibleFills.clear()
+			else:
+				continue
+			
+			possibleFills[theFill] = theScore
+	
+	if(possibleFills.is_empty()):
+		return null
+	return RNG.pickWeightedDict(possibleFills)
+
+func setDataBanks(_datas:Array[ReactionBank]):
+	dataBanks = _datas
+
+func findReactionEntry(_id:String) -> ReactionEntry:
+	for theBlock in dataBanks:
+		if(theBlock.defs.has(_id)):
+			return theBlock.defs[_id]
+	return null
+
+const ArgBool := ReactionSystemRunner.ArgumentType.Bool
+const ArgNumber := ReactionSystemRunner.ArgumentType.Number
+const ArgInt := ReactionSystemRunner.ArgumentType.Int
+const ArgFloat := ReactionSystemRunner.ArgumentType.Float
+
+func createError(_text:String) -> ReactionSystemRunner.ResultOrError:
+	return ReactionSystemRunner.ResultOrError.createError(_text)
+
+func createValue(_value:Variant) -> ReactionSystemRunner.ResultOrError:
+	return ReactionSystemRunner.ResultOrError.create(_value)
+
+func getValueProperty(_runner:ReactionSystemRunner, _property:String) -> ReactionSystemRunner.ResultOrError:
+	if(_property == "depth"):
+		return createValue(currentDepth)
+	if(context.args.has(_property)):
+		var theArg:Variant = context.args[_property]
+		return createValue(theArg)
+	
+	return createError("Undefined property "+_property)
+
+func getValuePropertyOn(_runner:ReactionSystemRunner, _target:String, _property:String) -> ReactionSystemRunner.ResultOrError:
+	if(_target == "main"):
+		return getPawnProperty(context.main, _property)
+	elif(_target == "target"):
+		return getPawnProperty(context.target, _property)
+	if(context.args.has(_target)):
+		var theArg:Variant = context.args[_target]
+		
+		if(theArg is CharacterPawn):
+			return getPawnProperty(theArg, _property)
+	
+	return createError("Undefined property "+_target+"."+_property)
+
+func getValueCallDirect(_runner:ReactionSystemRunner, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+	if(_method == "chance"):
+		var argCheck := _runner.checkArguments([ArgNumber], _args)
+		if(argCheck):
+			return argCheck
+		return createValue(RNG.chance(_args[0]))
+	if(_method == "randfRange"):
+		var argCheck := _runner.checkArguments([ArgNumber, ArgNumber], _args)
+		if(argCheck):
+			return argCheck
+		return createValue(RNG.randfRange(_args[0], _args[1]))
+
+	return createError("Undefined function "+_method)
+
+func getValueCallDirectOn(_runner:ReactionSystemRunner, _target:String, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+	if(_target == "RNG"):
+		if(_method == "chance"):
+			var argCheck := _runner.checkArguments([ArgNumber], _args)
+			if(argCheck):
+				return argCheck
+			return createValue(RNG.chance(_args[0]))
+		if(_method == "randfRange"):
+			var argCheck := _runner.checkArguments([ArgNumber, ArgNumber], _args)
+			if(argCheck):
+				return argCheck
+			return createValue(RNG.randfRange(_args[0], _args[1]))
+	
+	return createError("Undefined function "+_target+"."+_method)
+
+func getPawnProperty(_pawn:CharacterPawn, _property:String) -> ReactionSystemRunner.ResultOrError:
+	if(!_pawn):
+		return createError("Pawn is missing")
+	
+	var theCharacter := _pawn.getCharacter()
+	
+	if(_property == "pain"):
+		return createValue(theCharacter.getPainLevel())
+	if(_property == "annoy"):
+		if(_pawn == context.main):
+			return createValue(_pawn.getAnnoyance(context.target))
+		else:
+			return createValue(_pawn.getAnnoyance(context.main))
+	
+	return null

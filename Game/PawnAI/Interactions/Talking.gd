@@ -11,7 +11,7 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
-	sayText(ROLE_MAIN, "Hey!")
+	say(ROLE_MAIN, "Talk", ROLE_TARGET)
 	#startAction(ROLE_TARGET, "Follow", [getCharID(ROLE_MAIN)])
 	pushDelay(1.0)
 	#pushSay(ROLE_TARGET, "What?")
@@ -30,7 +30,7 @@ func getActions(_role:int):
 
 func doAction(_role:int, _action:InteractionAction):
 	if(_action.id == "stop"):
-		sayText(ROLE_MAIN, "Never mind.")
+		#sayText(ROLE_MAIN, "Never mind.")
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		stopInteraction()

@@ -92,9 +92,18 @@ enum SubsurfaceScatteringType {
 	set(value):
 		toonShading = value
 		#updateShader()
-@export var customToonShading:bool = false:
+#@export var customToonShading:bool = false:
+#	set(value):
+#		customToonShading = value
+		#updateShader()
+enum CustomShading {
+	None,
+	Toon,
+	Proxima,
+}
+@export var customShading:CustomShading = CustomShading.None:
 	set(value):
-		customToonShading = value
+		customShading = value
 		#updateShader()
 
 @export_group("ALPHA")
@@ -235,8 +244,12 @@ func calculateShaderVariantString() -> String:
 		theFlags.append("r")
 	if(toonShading):
 		theFlags.append("t")
-	if(customToonShading):
-		theFlags.append("ct")
+	#if(customToonShading):
+	#	theFlags.append("ct")
+	if(customShading == CustomShading.Toon):
+		theFlags.append("cst")
+	elif(customShading == CustomShading.Proxima):
+		theFlags.append("csp")
 	if(subsurfaceScattering == SubsurfaceScatteringType.None):
 		theFlags.append("sss0")
 	elif(subsurfaceScattering == SubsurfaceScatteringType.Normal):
@@ -348,8 +361,11 @@ func calculateShaderResource() -> String:
 		defines.append("MY_EDGE_OUTLINE_1")
 	if(edgeOutlineExtra):
 		defines.append("MY_EDGE_OUTLINE_2")
-	if(customToonShading):
+	#if(customToonShading):
+	if(customShading == CustomShading.Toon):
 		defines.append("MY_CUSTOM_SHADING")
+	elif(customShading == CustomShading.Proxima):
+		defines.append("MY_PROXIMA")
 	if(messLayer):
 		defines.append("MY_MESSLAYER")
 	if(albedoMatcap):

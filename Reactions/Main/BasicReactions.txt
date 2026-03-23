@@ -1,0 +1,123 @@
+def Greet
+fill Greet
+<
+Hey, {target.name}.
+>
+
+def Annoyed
+fill Annoyed
+<
+What's your problem?
+The heck do you want?
+What are you doing?
+Hey? Really?
+>
+
+def Talk
+fill Talk
+<
+%Talk_Start%%Talk_Dots%%Talk_Incite%%Talk_Dots%%Talk_Middle%%Talk_Dots%%Talk_End%.
+>
+
+def Talk_Start
+fill Talk_Start
+<
+Hey
+So
+Well
+Um
+I mean
+Look
+Right
+Okay, so
+Funny thing is
+You know
+Honestly
+Just saying
+Here’s the thing
+Not to ramble, but
+I was thinking
+It’s like
+Anyway
+Actually
+So, yeah
+>
+
+def Talk_Incite
+fill Talk_Incite
+<
+did you hear about
+word is
+they’re saying
+I heard from someone
+people keep talking about
+the whole block knows
+nobody’s saying it out loud, but
+it’s going around that
+you didn’t hear this from me, but
+rumor has it
+they’ve been whispering about
+>
+
+def Talk_Middle
+fill Talk_Middle
+<
+before I forget
+and then I just
+which was weird because
+you know what I mean
+but it wasn’t really like that
+and that’s when it got strange
+or maybe not strange, just
+kind of impossible to explain
+if that makes any sense
+which is why I said
+and I still don’t know why
+like I was supposed to
+and then everything sort of
+but only for a second
+as if that changed something
+or at least I thought so
+and that’s where it gets messy
+which, honestly, is normal
+then I figured maybe
+like, out of nowhere
+and then, well
+>
+
+def Talk_End
+fill Talk_End
+<
+yep
+or something
+I guess
+that’s all
+more or less
+probably
+you know
+that’s what happened
+end of story
+sort of
+I think
+anyway
+whatever that means
+and that was it
+so, yeah
+I’m not sure
+maybe
+right
+done
+there you go
+>
+
+def Talk_Dots
+fill Talk_Dots
+<
+.. ...
+... ...
+... ..
+... ... ..
+... .. ...
+.. ...
+.... ...
+>

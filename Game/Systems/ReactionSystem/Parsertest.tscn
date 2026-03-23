@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dx1hqdvb8fqoa"]
+
+[ext_resource type="Script" uid="uid://dhilwsgpcta7w" path="res://Game/Systems/ReactionSystem/Parsertest.gd" id="1_2kyri"]
+
+[node name="PARSERTEST" type="Node" unique_id=1856143114]
+script = ExtResource("1_2kyri")

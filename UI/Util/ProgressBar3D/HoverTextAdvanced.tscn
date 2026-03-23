@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://js86ac6behcr" path="res://UI/Util/ProgressBar3D/ProgressBar3DSimple.tscn" id="1_cemct"]
 [ext_resource type="Script" uid="uid://cgc3gccowremm" path="res://UI/Util/ProgressBar3D/HoverTextAdvanced.gd" id="1_m164g"]
-[ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="2_m164g"]
+[ext_resource type="PackedScene" uid="uid://det7arqhnjxfd" path="res://UI/Util/Label3D/Text3DStacked.tscn" id="4_kueyn"]
 
 [node name="HoverTextAdvanced" type="Node3D" unique_id=861588921]
 script = ExtResource("1_m164g")
@@ -18,9 +18,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03858608, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07416755, 0)
 
-[node name="HoverText" parent="." unique_id=590944479 instance=ExtResource("2_m164g")]
+[node name="HoverText" parent="." unique_id=1989321830 instance=ExtResource("4_kueyn")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11042635, 0)
-render_priority = 6
-outline_render_priority = 5
-text = "Hello world"

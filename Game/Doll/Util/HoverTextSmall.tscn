@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d4bucuh1bx1jj"]
+
+[ext_resource type="Script" uid="uid://7kl5461iheo" path="res://Game/Doll/Util/HoverTextSmall.gd" id="1_k45jo"]
+
+[node name="HoverTextSmall" type="Label3D" unique_id=590944479]
+pixel_size = 0.001
+billboard = 1
+render_priority = 6
+outline_render_priority = 5
+font_size = 64
+outline_size = 48
+vertical_alignment = 0
+autowrap_mode = 3
+width = 800.0
+script = ExtResource("1_k45jo")
+
+[node name="DeleteTimer" type="Timer" parent="." unique_id=421800963]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]

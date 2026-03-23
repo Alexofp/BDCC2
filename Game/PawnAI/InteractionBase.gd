@@ -247,6 +247,19 @@ func isCharIDInvolved(_charID:String) -> bool:
 func isPawnInvolved(_pawn:CharacterPawn) -> bool:
 	return pawnToRole.has(_pawn)
 
+func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
+	var thePawn := getPawn(_roleSay)
+	if(!thePawn):
+		return
+	var theContext := ReactionSystem.ReactionContext.new()
+	theContext.main = thePawn
+	theContext.target = getPawn(_roleTarget) if _roleTarget >= 0 else null
+	theContext.args = _args
+	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
+	if(!theReaction):
+		return
+	sayText(_roleSay, theReaction.line, true)
+
 func sayText(_role:int, _text:String, talkGesture:bool = true):
 	#print(str(_role)+": "+_text)
 	var thePawn := getPawn(_role)

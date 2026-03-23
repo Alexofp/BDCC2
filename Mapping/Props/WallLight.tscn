@@ -11,7 +11,7 @@ size = Vector3(0.638991, 0.292259, 0.177679)
 script = ExtResource("2_1etw4")
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="WallLight" parent="." index="0" unique_id=1443510471]
+[node name="WallLight" parent="." index="0" unique_id=923201190]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

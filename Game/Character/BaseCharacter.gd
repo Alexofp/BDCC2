@@ -859,6 +859,12 @@ func processHit(_attackContext:AttackContext):
 	
 	charState.addPain(theDamageMult*0.1)
 
+func getPain() -> float:
+	return charState.getPain()
+
+func getPainLevel() -> float:
+	return charState.getPainLevel()
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

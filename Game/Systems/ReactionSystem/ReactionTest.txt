@@ -1,0 +1,30 @@
+def Greet # MEW MEW asd def
+arg Target PAWN
+arg SomeBool BOOL true
+<
+Fallback line
+>
+end
+
+fill Greet
+priority 1
+cond target.friendly>0.5
+cond RNG.rand>0.5
+<
+Hey there.
+Hello, {Target.name}!
+What’s up, {Target.name}.
+>
+end
+
+def Test
+arg Target PAWN
+arg SomeInt INT
+
+fill Test
+<
+Test !Greet(Target, “Meow”, 0.5)
+Test._%Greet|Target=Main|asd=1%
+Test2 {SomeInt}
+Hey%, Fucker|uncap^alt text%.
+>

@@ -218,6 +218,9 @@ func processHit(_attackContext:AttackContext) -> int:
 		pawn.combatAI.onHit(_attackContext)
 		
 		pawn.ai.onGettingHit(_attackContext)
+		
+		if(!_attackContext.blocked):
+			pawn.interruptSay()
 	return hitStatus
 
 func canBeDefeated() -> bool:

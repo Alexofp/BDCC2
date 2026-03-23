@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://det7arqhnjxfd"]
+
+[ext_resource type="Script" uid="uid://dex8gxo7rnyra" path="res://UI/Util/Label3D/Text3DStacked.gd" id="1_wyac2"]
+[ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="2_vijsb"]
+
+[node name="Text3DStacked" type="Node3D" unique_id=1989321830]
+script = ExtResource("1_wyac2")
+
+[node name="HoverText" parent="." unique_id=590944479 instance=ExtResource("2_vijsb")]
+unique_name_in_owner = true

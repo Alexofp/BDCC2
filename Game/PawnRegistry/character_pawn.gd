@@ -491,7 +491,8 @@ func hearAdvanced(otherPawn:CharacterPawn, stuff:Array):
 	if(isControlledByUs()):
 		sendToChatLocal(sayArrayToChatTextSmart(otherPawn.getCharacter().getName(), stuff))
 		var theText:String = sayArrayToText(stuff)
-		otherPawn.addHoverText(theText)
+		#otherPawn.addHoverText(theText)
+		otherPawn.sayHoverText(theText)
 		
 func sendToChatLocal(rawText:String):
 	if(isControlledByUs()):
@@ -501,6 +502,34 @@ func addHoverText(_text:String):
 	if(isDollSpawned()):
 		var theDoll := getDoll()
 		theDoll.addHoverText(_text)
+
+func sayHoverText(_text:String):
+	if(isDollSpawned()):
+		var theDoll := getDoll()
+		theDoll.sayHoverText(_text)
+
+func interruptSay(_text:String = "- ugh.."):
+	if(isDollSpawned()):
+		var theDoll := getDoll()
+		theDoll.interruptSay(_text)
+		
+		if(Network.isServer()):
+			Network.rpcClients(interruptSay_RPC.bind(_text))
+
+@rpc("authority", "call_remote", "reliable")
+func interruptSay_RPC(_text:String = "- ugh.."):
+	interruptSay(_text)
+
+func addSmallText(_text:String, _color:Color = Color.WHITE):
+	if(isDollSpawned()):
+		var theDoll := getDoll()
+		theDoll.addSmallText(_text, _color)
+		
+		if(Network.isServer()):
+			Network.rpcClients(addSmallText_RPC.bind(_text, _color))
+
+func addSmallText_RPC(_text:String, _color:Color = Color.WHITE):
+	addSmallText(_text, _color)
 
 func playGesture(_gestureID:String):
 	if(isDollSpawned()):
@@ -794,9 +823,15 @@ func canDoFakeCombat() -> bool:
 	return true
 
 func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float):
+	if(!_otherPawn):
+		return
 	GM.main.relationshipSystem.addAnnoyance(getCharID(), _otherPawn.getCharID(), _annoy)
-
+	addSmallText("Annoyance+", Color.RED)
+	addSmallText("Love+", Color.GREEN)
+	
 func getAnnoyance(_otherPawn:CharacterPawn) -> float:
+	if(!_otherPawn):
+		return 0.0
 	return GM.main.relationshipSystem.getAnnoyance(getCharID(), _otherPawn.getCharID())
 
 
