@@ -15,6 +15,7 @@ const REMAP_CONTROLS:Dictionary[String, String] = {
 	"game_combatmode": "Combat mode",
 	"combat_attack": "Attack",
 	"combat_heavyattack": "Heavy attack",
+	"combat_block": "Block",
 	
 	"game_interact_menu": "Open interact menu",
 	"game_interact": "Quick-interact",
@@ -35,6 +36,7 @@ const REMAP_CONTROLS:Dictionary[String, String] = {
 	"debug_item_giver": "Debug item giver",
 	"game_freecam": "Free cam",
 	"ui_hide": "Hide UI",
+	"ui_unlockmouse": "Unlock mouse",
 }
 
 var cameraSensitivity:float = 1.0

@@ -2,7 +2,6 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "Leash"
-	#alwaysCheckedOtherPawn = true
 	alwaysPriority = -3
 
 func hasLeash(_char1:CharacterPawn, _char2:CharacterPawn) -> bool:

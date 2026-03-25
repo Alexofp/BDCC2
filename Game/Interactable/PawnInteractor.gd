@@ -28,25 +28,36 @@ func onActionsSync(_newActionsRaw:Array[Array]):
 		newBakedAction.actionID = actionEntry[3]
 		actionsBaked.append(newBakedAction)
 
+var cachedActionsBig:Array[InteractQuickAction]
+@export var actionsBigSync:Array[Array]#: set = onActionsBigSync
+#func onActionsBigSync(_newActionsRaw:Array[Array]):
+	#actionsBigSync = _newActionsRaw
+
 func _physics_process(_delta: float) -> void:
 	if(Network.isServer()):
+		if(!pawn.isControlledByAnyPlayer()):
+			return
+		
 		updateQuickActionsInteractor()
+		updateActionsBigInteractor()
 		
 		actionsSync = actionsToSyncArray(cachedQuickActions)
+		actionsBigSync = actionsBigToSyncArray(cachedActionsBig)
 		#print(actionsSync)
 
 func actionsToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 	var result:Array[Array] = []
 	#var _user := getUser()
-	
 	var theContext := pawn.pawnActionContext
-	
 	var _i:int = 0
 	for action in _actions:
 		var theEntry := action.action
 		var theAction:PawnActionBase= theEntry.action
 		if(!theAction):
-			#_i += 1
+			result.append([
+				"Unknown", _i, true, ""
+			])
+			_i += 1
 			continue
 		
 		theContext.target = action.target
@@ -56,10 +67,49 @@ func actionsToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 			theAction.getVisibleName(theContext), _i, false, theAction.id
 		])
 		_i += 1
-	
 	theContext.clearContext()
-	
 	return result
+
+func actionsBigToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
+	var result:Array[Array] = []
+	#var _user := getUser()
+	var theContext := pawn.pawnActionContext
+	var _i:int = 0
+	for action in _actions:
+		var theEntry := action.action
+		var theAction:PawnActionBase= theEntry.action
+		if(!theAction):
+			result.append([
+				"Unknown", _i, [], ""
+			])
+			_i += 1
+			continue
+		
+		theContext.target = action.target
+		theContext.args = theEntry.args
+		
+		result.append([
+			theAction.getVisibleName(theContext), _i, theEntry.subCategory, theAction.id
+		])
+		_i += 1
+	theContext.clearContext()
+	return result
+
+func updateActionsBigInteractor():
+	var newQuickActions:Array[InteractQuickAction]
+	if(!pawn):
+		return
+
+	if(true):
+		var selfActions := pawn.getActionsBigSelf()
+		
+		for entry in selfActions:
+			var newQuickAction := InteractQuickAction.new()
+			newQuickAction.target = pawn
+			newQuickAction.action = entry
+			newQuickActions.append(newQuickAction)
+
+	cachedActionsBig = newQuickActions
 
 func updateQuickActionsInteractor():
 	var newQuickActions:Array[InteractQuickAction]
@@ -116,6 +166,20 @@ func doBakedAction(_indx:int, _actionID:String):
 	if(_indx < 0 || _indx >= cachedQuickActions.size()):
 		return
 	var theQuickAction := cachedQuickActions[_indx]
+	if(_actionID != theQuickAction.action.action.id): #Pure perfection
+		# Sanity check
+		return
+	
+	if(!pawn):
+		return
+	pawn.doInteractEntryDo(theQuickAction.action, theQuickAction.target)
+
+func doBakedActionInteraction(_indx:int, _actionID:String):
+	#var _indx:int = _action.uniqueID
+	#var _actionID:String = _action.actionID
+	if(_indx < 0 || _indx >= cachedActionsBig.size()):
+		return
+	var theQuickAction := cachedActionsBig[_indx]
 	if(_actionID != theQuickAction.action.action.id): #Pure perfection
 		# Sanity check
 		return

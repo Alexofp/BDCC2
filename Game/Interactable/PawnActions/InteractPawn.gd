@@ -4,7 +4,7 @@ const ARG_NAME = 0
 
 func _init() -> void:
 	id = "InteractPawn"
-	alwaysCheckedOtherPawnQuickAction = true
+	alwaysCheckBitfield = CHECK_OTHER_QUICKACTION
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	var theTarget = _context.target

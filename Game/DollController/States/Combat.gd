@@ -56,10 +56,13 @@ func processAnimation(_doll:DollController, _dt:float):
 			theDoll.animCombat(walkAnim, "combat" if !areWeBlocking else "block")
 	
 	if(_doll.isRunning || shouldFollowMoveDirection()): # && attacking <= 0.0
-		rotateTowardsMoveDirection(_doll, _dt)
-	else:
-		rotateTowardsCamera(_doll, _dt)
+		setTargetLookDirFromMovement(_doll)
+	elif(_doll.isControlledByAnyPlayer()):
+		setTargetLookDirFromCamera(_doll)
 	#print(getLocalVelocity(_doll))
+	
+func isControllingLookDir() -> bool:
+	return true
 	
 func canMove(_doll:DollController) -> bool:
 	#if(attacking > 0.0):

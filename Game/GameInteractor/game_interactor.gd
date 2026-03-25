@@ -198,6 +198,22 @@ func doOnClientList(_clients:Array, _command:int, _data:Array = []):
 func sendPingToServer():
 	doOnServer(InteractCommand.PING)
 
+func askDoPawnInteractionAction(_pawn:CharacterPawn, _entry:Array):
+	if(Network.isServer()):
+		_pawn.getPawnInteractor().doBakedActionInteraction(_entry[1], _entry[3])
+		return
+	askDoPawnInteractionAction_SERVERRPC.rpc_id(1, _pawn.getCharID(), _entry[1], _entry[3])
+	pass
+
+@rpc("any_peer", "call_remote", "reliable")
+func askDoPawnInteractionAction_SERVERRPC(_pawnID:String, _actionIndx:int, _actionID:String):
+	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		#Remove this log?
+		Log.error("Pawn not found to do action. Pawn="+_pawnID+", Action id ="+_actionID)
+		return
+	thePawn.getPawnInteractor().doBakedActionInteraction(_actionIndx, _actionID)
+
 func askDoPawnAction(_pawn:CharacterPawn, _action:InteractActionBaked):
 	if(Network.isServer()):
 		_pawn.getPawnInteractor().doBakedAction(_action.uniqueID, _action.actionID)

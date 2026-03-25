@@ -12,6 +12,12 @@ func doJump(_doll:DollController):
 		return
 	_doll.velocity.y = _doll.JUMP_FORCE * _doll.getJumpHeight()
 
+func isControllingLookDir() -> bool:
+	var theDoll := pawn.getDoll()
+	if(theDoll && theDoll.velocity.length_squared() > 0.1):
+		return true
+	return false
+
 #var walkAnim:float = 0.0
 func processAnimation(_doll:DollController, _dt:float):
 	#var isOnFloor := _doll.is_on_floor()
@@ -38,7 +44,8 @@ func processAnimation(_doll:DollController, _dt:float):
 		#theDoll.animCombat(Vector2(0.0, walkAnim))
 		theDoll.animStand()
 	
-	rotateTowardsMoveDirection(_doll, _dt)
+	#rotateTowardsMoveDirection(_doll, _dt)
+	setTargetLookDirFromMovement(_doll)
 	
 
 func processYanking(_doll:DollController, _delta:float):
@@ -123,4 +130,7 @@ func processGravity(_doll:DollController, _dt:float):
 		_doll.velocity.y -= DollController.GRAVITY_FORCE * _dt
 
 func canBeDefeated() -> bool:
+	return true
+
+func canDoCouplesAnims() -> bool:
 	return true

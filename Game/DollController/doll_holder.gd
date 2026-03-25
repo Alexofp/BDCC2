@@ -259,7 +259,7 @@ func askLookAtClear_ServerRPC(dollUniqueID:int):
 	askLookAtClear(theDoll)
 
 
-func askLookAtDoll(_doll:DollController, _doll2:DollController, _howLong:float = 10.0):
+func askLookAtDoll(_doll:DollController, _doll2:DollController, _howLong:float = 5.0):
 	if(!_doll):
 		return
 	

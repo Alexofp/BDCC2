@@ -2,7 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "SwitchTo"
-	alwaysCheckedOtherPawn = true
+	alwaysCheckBitfield = CHECK_OTHER
 	alwaysPriority = -10
 
 func getVisibleName(_context:PawnActionContext) -> String:

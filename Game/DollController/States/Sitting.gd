@@ -16,3 +16,6 @@ func processCameraPivotPosition(_doll:DollController, _dt:float):
 	
 	SpringArm.position.x = 0.0
 	CameraPivot.global_position = _doll.getBodySkeleton().getChestBoneAttachment().global_position + Vector3(0.0, 0.3, 0.0)
+
+func isControllingLookDir() -> bool:
+	return true

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cmepnyc6vh0f5"]
+
+[ext_resource type="Script" uid="uid://bid45jm0kdnrm" path="res://Game/Systems/CoupleAnimsSystem/CoupleAnimsSystem.gd" id="1_cvain"]
+
+[node name="CoupleAnimsSystem" type="Node" unique_id=2117607116]
+script = ExtResource("1_cvain")

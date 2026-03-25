@@ -6,6 +6,7 @@ const TYPE_IDLE = 1
 const TYPE_WALK = 2
 const TYPE_ARMS = 3
 const TYPE_COMBAT = 4
+const TYPE_COUPLE = 5
 
 const LOCOMOTION_ANIMS = "LocomotionAnims"
 const LOCOMOTION_ANIMS_PATH = "res://Anims/Raw/LocomotionAnims.glb"
@@ -24,6 +25,9 @@ const POSES_ANIMS_PATH = "res://Anims/Raw/Poses.glb"
 
 const COMBAT_ANIMS = "CombatAnims"
 const COMBAT_ANIMS_PATH = "res://Anims/Raw/CombatAnims.glb"
+
+const FRIENDLY_ANIMS = "FriendlyAnims"
+const FRIENDLY_ANIMS_PATH = "res://Anims/Raw/FriendlyAnims.glb"
 
 #animPlayer.add_animation_library("RestraintAnims", preload("res://Anims/Raw/RestraintAnims.glb"))
 #animPlayer.add_animation_library("ArmbinderAnimMale", preload("res://Anims/Raw/ArmbinderAnimMale.glb"))

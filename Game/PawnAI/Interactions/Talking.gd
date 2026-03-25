@@ -53,9 +53,9 @@ func plan(_role:int, _action:AIActionBase) -> AIPlan:
 		return _action.makePlan("lockIntoStocks").add("ForcePawnSit", [getPawn(ROLE_MAIN), someStocks])
 	
 	if(_role == ROLE_MAIN):
-		return _action.makePlan().add("Follow", [getPawn(ROLE_TARGET)])
+		return _action.makePlan().add("Face", [getPawn(ROLE_TARGET)])
 	elif(_role == ROLE_TARGET):
-		return _action.makePlan().add("Follow", [getPawn(ROLE_MAIN)])
+		return _action.makePlan().add("Face", [getPawn(ROLE_MAIN)])
 	
 	return null
 

@@ -65,6 +65,33 @@ func processKnockbackVelocity(_doll:DollController, _delta:float):
 func doJump(_doll:DollController):
 	pass
 
+func setTargetLookDir(_doll:DollController, _dir:Vector3):
+	#if(!isControllingLookDir()):
+	#	return
+	_doll.targetLookDir = _dir
+
+func setTargetLookDirFromMovement(_doll:DollController):
+	#_doll.targetLookDir = Vector3(1.0, 0.0, 1.0)
+	if _doll.move_direction_no_y.length_squared() > 0.1 && !_doll.isRemote():
+		_doll.targetLookDir = _doll.move_direction_no_y
+		#if(_doll.isControlledByPlayer()):
+		#	print(_doll.move_direction_no_y)
+
+func setTargetLookDirFromCamera(_doll:DollController):
+	#if(!isControllingLookDir()):
+	#	return
+	#_doll.targetLookDir = -_doll.camera_rotation_no_y.get_euler()
+	#_doll.targetLookDir = Basis(_doll.camera_rotation_no_y).rotated(Vector3.UP, PI).get_euler()
+	#if(_doll.isControlledByPlayer()):
+	#	print(_doll.camera_rotation_no_y.get_euler())
+	_doll.targetLookDir = _doll.camera_rotation_no_y * Vector3.FORWARD#-_doll.camera_rotation_no_y.
+
+func getRotationToTargetSpeed(_doll:DollController) -> float:
+	return 1.0
+
+func isControllingLookDir() -> bool:
+	return false # If true, the "Face" ai action won't try to override the target look dir
+
 func rotate_toward(from: Quaternion, to: Quaternion, delta: float) -> Quaternion:
 	return from.slerp(to, clamp(delta / from.angle_to(to), 0.0, 1.0)).normalized()
 
@@ -81,6 +108,15 @@ func rotateTowardsMoveDirection(_doll:DollController, _dt:float):
 func rotateTowardsDirection(_doll:DollController, _dt:float, _dir:Vector3):
 	if(Network.isClient()):
 		return
+	_dir.y = 0.0
+	_dir = _dir.normalized()
+	if _dir.length_squared() > 0.1 && !_doll.isRemote():
+		_doll.model_root.basis = basis_rotate_toward(_doll.model_root.basis, Basis.looking_at(-_dir), _doll.ROTATE_SPEED * _dt)
+
+func rotateTowardsPos(_doll:DollController, _dt:float, _pos:Vector3):
+	if(Network.isClient()):
+		return
+	var _dir:Vector3 = _pos - _doll.global_position
 	_dir.y = 0.0
 	_dir = _dir.normalized()
 	if _dir.length_squared() > 0.1 && !_doll.isRemote():
@@ -266,3 +302,6 @@ func isBlocking() -> bool:
 
 func canJump(_doll:DollController) -> bool:
 	return _doll.is_on_floor() && !_doll.noclip_on
+
+func canDoCouplesAnims() -> bool:
+	return false

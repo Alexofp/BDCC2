@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bu7xf8dij43gm"]
+
+[ext_resource type="Script" uid="uid://cssm23kyvoy1y" path="res://Game/DollController/States/Couple.gd" id="1_f05st"]
+
+[node name="Couple" type="Node" unique_id=547400478]
+script = ExtResource("1_f05st")

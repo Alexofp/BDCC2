@@ -36,6 +36,7 @@ const STATE_SITTING = 1
 const STATE_COMBAT = 2
 const STATE_DEFEATED = 3
 const STATE_COLLAPSED = 4
+const STATE_COUPLE = 5
 
 @onready var stateEmpty: Node = %Empty
 
@@ -44,6 +45,7 @@ const STATE_COLLAPSED = 4
 @onready var stateCombat: DollControllerState = %Combat
 @onready var stateDefeated: DollControllerState = %Defeated
 @onready var stateCollapsed: DollControllerState = %Collapsed
+@onready var stateCouple: DollControllerState = %Couple
 
 @onready var states:Dictionary[int, DollControllerState] = {
 	STATE_NORMAL: stateNormal,
@@ -51,6 +53,7 @@ const STATE_COLLAPSED = 4
 	STATE_COMBAT: stateCombat,
 	STATE_DEFEATED: stateDefeated,
 	STATE_COLLAPSED: stateCollapsed,
+	STATE_COUPLE: stateCouple,
 }
 
 @export var pawnState:int = STATE_NORMAL
@@ -179,6 +182,7 @@ func processPoseSpot():
 	if(theDoll):
 		theDoll.global_position = globPos
 		theDoll.model_root.global_rotation = globRot
+		theDoll.targetLookDir = globRot
 		theDoll.velocity = Vector3(0.0, 0.0, 0.0)
 	#move_and_slide()
 
@@ -513,7 +517,7 @@ func interruptSay(_text:String = "- ugh.."):
 		var theDoll := getDoll()
 		theDoll.interruptSay(_text)
 		
-		if(Network.isServer()):
+		if(Network.isServerNotSingleplayer()):
 			Network.rpcClients(interruptSay_RPC.bind(_text))
 
 @rpc("authority", "call_remote", "reliable")
@@ -525,7 +529,7 @@ func addSmallText(_text:String, _color:Color = Color.WHITE):
 		var theDoll := getDoll()
 		theDoll.addSmallText(_text, _color)
 		
-		if(Network.isServer()):
+		if(Network.isServerNotSingleplayer()):
 			Network.rpcClients(addSmallText_RPC.bind(_text, _color))
 
 func addSmallText_RPC(_text:String, _color:Color = Color.WHITE):
@@ -623,6 +627,17 @@ func askActivateCombatTrigger_SERVERRPC(_act:int):
 func getCombatMovePlayer() -> CombatMovePlayer:
 	return combatMovePlayer
 
+func doCoupleAnim(_animation:String):
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.doCoupleAnimLocal(_animation)
+		if(Network.isServerNotSingleplayer()):
+			Network.rpcClients(doCoupleAnim_RPC.bind(_animation))
+
+@rpc("authority", "call_remote", "reliable")
+func doCoupleAnim_RPC(_animation:String):
+	doCoupleAnim(_animation)
+
 func doCombatAnim(_animation:String, _ignoreChecks:bool = false):
 	if(!_ignoreChecks && !state.canDoCombatMoves()):
 		return
@@ -689,6 +704,9 @@ func isDefeated() -> bool:
 
 func isCollapsed() -> bool:
 	return pawnState == STATE_COLLAPSED
+
+func isDoingACoupleAnimation() -> bool:
+	return pawnState == STATE_COUPLE
 
 func calculateCombatVulnerability() -> float:
 	return state.calculateCombatVulnerability()
@@ -784,12 +802,13 @@ func exitCombatMode() -> bool:
 func rotateTowards(_pos:Vector3):
 	var theDir := _pos - global_position
 	var theBasis := Basis.looking_at(theDir, Vector3.UP)
-	var theRot := theBasis.get_rotation_quaternion()
+	#var theRot := theBasis.get_rotation_quaternion()
 	var theDoll := getDoll()
 	if(theDoll):
-		theDoll.camera_rotation = theRot
-		var someBasis := Basis(theDoll.camera_rotation)
-		theDoll.camera_rotation_no_y = Basis(someBasis.x, Vector3.UP, someBasis.z).get_rotation_quaternion()
+		theDoll.targetLookDir = theDir
+		#theDoll.camera_rotation = theRot
+		#var someBasis := Basis(theDoll.camera_rotation)
+		#theDoll.camera_rotation_no_y = Basis(someBasis.x, Vector3.UP, someBasis.z).get_rotation_quaternion()
 	global_basis = theBasis
 
 func isBlocking() -> bool:
@@ -827,12 +846,27 @@ func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float):
 		return
 	GM.main.relationshipSystem.addAnnoyance(getCharID(), _otherPawn.getCharID(), _annoy)
 	addSmallText("Annoyance+", Color.RED)
-	addSmallText("Love+", Color.GREEN)
+	#addSmallText("Love+", Color.GREEN)
 	
 func getAnnoyance(_otherPawn:CharacterPawn) -> float:
 	if(!_otherPawn):
 		return 0.0
 	return GM.main.relationshipSystem.getAnnoyance(getCharID(), _otherPawn.getCharID())
+
+func canDoCouplesAnims() -> bool:
+	return state.canDoCouplesAnims()
+
+func getGlobalTransform() -> Transform3D:
+	return global_transform
+
+func setGlobalTransform(_tr:Transform3D):
+	global_transform = _tr
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.global_position = _tr.origin
+		theDoll.model_root.global_basis = _tr.basis
+	
+
 
 
 
@@ -900,6 +934,34 @@ func stopLeashingAll() -> bool:
 func getPawnInteractor() -> PawnInteractor:
 	return pawn_interactor
 
+func getActionsBigSelf() -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	
+	if(interaction):
+		var theInteractActions := interaction.getActionsFor(self)
+		
+		var _i:int = 0
+		for theAction in theInteractActions:
+			result.append(InteractEntryDo.create("InteractionAction", [
+				theAction.actionName, _i, theAction.id,
+			]))
+			_i += 1
+	
+	var theContext := pawnActionContext
+	theContext.target = self
+	
+	var resAm:int = result.size()
+	for _i in resAm:
+		var _indx:int = resAm - _i - 1
+		var theEntry := result[_indx]
+		theContext.args = theEntry.args
+		
+		if(!theEntry.action.canStartAction(theContext)):
+			result.remove_at(_indx)
+	theContext.clearContext()
+	
+	return result
+
 func getQuickActionsSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
@@ -922,7 +984,7 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
 				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
 	
-	if(interaction):
+	if(false && interaction):
 		var theInteractActions := interaction.getActionsFor(self)
 		
 		var _i:int = 0

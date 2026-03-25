@@ -44,7 +44,11 @@ func processAnimation(_doll:DollController, _dt:float):
 	
 	theDoll.animIdle("CollapseIdle")
 	
-	rotateTowardsMoveDirection(_doll, _dt*0.1)
+	#rotateTowardsMoveDirection(_doll, _dt*0.1)
+	setTargetLookDirFromMovement(_doll)
+	
+func getRotationToTargetSpeed(_doll:DollController) -> float:
+	return 0.1
 	
 func processMove(_doll:DollController, _dt:float):
 	#var theCanMove := canMove(_doll)

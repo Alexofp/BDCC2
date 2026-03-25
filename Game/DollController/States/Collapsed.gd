@@ -69,11 +69,20 @@ func processAnimation(_doll:DollController, _dt:float):
 			#pawn.setState(pawn.STATE_COMBAT)
 			#pawn.combatMovePlayer.makeNoMove(0.8)
 	if(_doll.isOnFloorVisually):
-		rotateTowardsMoveDirection(_doll, _dt*0.1)
+		setTargetLookDirFromMovement(_doll)
+		#rotateTowardsMoveDirection(_doll, _dt*0.1)
 	else:
 		if(_doll.velocity.length_squared() > 0.1):
 			var theDir := _doll.velocity.rotated(Vector3.UP, PI)
-			rotateTowardsDirection(_doll, _dt*3.0, theDir)
+			#rotateTowardsDirection(_doll, _dt*3.0, theDir)
+			setTargetLookDir(_doll, theDir)
+
+func getRotationToTargetSpeed(_doll:DollController) -> float:
+	if(_doll.isOnFloorVisually):
+		return 0.1
+	if(_doll.velocity.length_squared() > 0.1):
+		return 3.0
+	return 0.0
 
 func processDollLessPawn(_dt:float):
 	collapseMinTimer -= _dt

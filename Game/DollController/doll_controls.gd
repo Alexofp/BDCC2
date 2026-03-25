@@ -104,5 +104,7 @@ func _unhandled_input(event):
 	if(!doll_controller.camera.isActive()):
 		return
 	
+	if(Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
+		return
 	if event is InputEventMouseMotion:
 		mouse_movement -= event.relative * OPTIONS.controls.cameraSensitivity * Vector2(1.0, -1.0 if OPTIONS.controls.invertY else 1.0)

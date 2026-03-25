@@ -2,7 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "LeashLetGoAll"
-	alwaysCheckedSelf = true
+	alwaysCheckBitfield = CHECK_SELF
 	alwaysPriority = -6
 
 func getVisibleName(_context:PawnActionContext) -> String:

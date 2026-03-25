@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://4r5wgnb5wwh7" path="res://Game/DollController/States/Empty.tscn" id="9_voltc"]
 [ext_resource type="PackedScene" uid="uid://bi62mhl0ewqby" path="res://Game/DollController/States/Defeated.tscn" id="11_fuiaf"]
 [ext_resource type="PackedScene" uid="uid://df7l30u57cyen" path="res://Game/DollController/States/Collapsed.tscn" id="12_qri6y"]
+[ext_resource type="PackedScene" uid="uid://bu7xf8dij43gm" path="res://Game/DollController/States/Couple.tscn" id="13_fdnik"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7fod6"]
 
@@ -114,6 +115,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Collapsed" parent="." unique_id=1275380792 instance=ExtResource("12_qri6y")]
+unique_name_in_owner = true
+
+[node name="Couple" parent="." unique_id=1652541949 instance=ExtResource("13_fdnik")]
 unique_name_in_owner = true
 
 [connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]

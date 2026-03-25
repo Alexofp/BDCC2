@@ -882,7 +882,7 @@ func processLookAt(_dt:float):
 
 
 		
-func lookAt(_node:Node3D, _howLong:float = 10.0):
+func lookAt(_node:Node3D, _howLong:float = 5.0):
 	lookAtNode = _node
 	lookAtTimer = _howLong
 	isLookAtCustom = false

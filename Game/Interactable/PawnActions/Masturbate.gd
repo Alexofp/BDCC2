@@ -2,7 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "Masturbate"
-	alwaysCheckedSelf = true
+	alwaysCheckBitfield = CHECK_SELF
 	#subCategory = ["Test", "Test2"]
 
 func getVisibleName(_context:PawnActionContext) -> String:

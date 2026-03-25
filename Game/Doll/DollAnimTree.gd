@@ -5,8 +5,9 @@ class_name DollLayeredAnimPlayer
 const LAYER_LOCOMOTION = 0
 const LAYER_COMBAT = 10
 const LAYER_GESTURE_FULLBODY = 20
-const LAYER_GESTURE = 30
-const LAYER_ARMS_OVERRIDE = 40
+const LAYER_COUPLE = 30
+const LAYER_GESTURE = 40
+const LAYER_ARMS_OVERRIDE = 50
 
 var cacheID:String = "doll"
 
@@ -126,6 +127,18 @@ func defineLayers():
 		GesturesLayer.blendTimeBetween = 0.3
 		GesturesLayer.anims = theGestureAnims
 		addLayer(LAYER_GESTURE_FULLBODY, GesturesLayer)
+	
+	if(true):
+		var theCoupleAnims:Dictionary[String, Variant] = {}
+		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_COUPLE):
+			for animID in anim.anims:
+				theCoupleAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
+		var CoupleLayer := LayerBasic.new()
+		CoupleLayer.blendTimeIn = 0.5
+		CoupleLayer.blendTimeOut = 0.5
+		CoupleLayer.blendTimeBetween = 0.3
+		CoupleLayer.anims = theCoupleAnims
+		addLayer(LAYER_COUPLE, CoupleLayer)
 	
 	var armsOnly := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)
 	armsOnly.enableBoneReqursive("shoulder.L")

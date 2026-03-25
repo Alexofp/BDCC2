@@ -22,6 +22,7 @@ var move_direction:Vector3 = Vector3.ZERO
 var move_direction_no_y:Vector3 = Vector3.ZERO
 var camera_rotation:Quaternion = Quaternion.IDENTITY
 var camera_rotation_no_y:Quaternion = Quaternion.IDENTITY
+var targetLookDir:Vector3 = Vector3.ZERO
 @export var noclip_on:bool = false
 var mousecapture_on:bool = true
 var rigidbody_collisions:Array = []
@@ -131,6 +132,8 @@ func _exit_tree() -> void:
 	UIHandler.removeMouseCapturer(self)
 
 func shouldCaptureMouse() -> bool:
+	if(Input.is_physical_key_pressed(KEY_ALT)):
+		return false
 	if mousecapture_on && !UIHandler.hasAnyUIVisible() && isControlledByUs():
 		return true
 	return false
@@ -255,6 +258,11 @@ func _process(delta:float):
 	pawn.state.processTick(self, delta)
 	process_noclip(delta)
 	
+	var theSpeed := pawn.state.getRotationToTargetSpeed(self)
+	if(theSpeed > 0.0 && targetLookDir.length_squared() > 0.1):
+		rotateTowardsDirection(delta*theSpeed, targetLookDir)
+		#targetLookDir = Vector3.ZERO
+	
 	if(!hasAuthority):
 		position = syncVec3(position, syncPosition)
 		model_root.rotation = syncRot3(model_root.rotation, syncRotation)
@@ -265,6 +273,14 @@ func _process(delta:float):
 		
 		processExpressionState(delta)
 	doll.setExpressionState(expressionState)
+
+func rotateTowardsDirection(_dt:float, _dir:Vector3):
+	if(Network.isClient()):
+		return
+	_dir.y = 0.0
+	_dir = _dir.normalized()
+	if _dir.length_squared() > 0.1 && !isRemote():
+		model_root.basis = model_root.basis.slerp(Basis.looking_at(-_dir), ROTATE_SPEED * _dt)
 
 func processExpressionState(_delta:float):
 	var currentSex:SexEngine = GM.sexManager.getSexEngineOfCharID(pawn.id)
@@ -630,6 +646,13 @@ func getBackupDollLeashPoint() -> DollLeashPoint:
 
 func _on_typing_status_reset_timer_timeout() -> void:
 	typingStatus = GI.TYPING_NONE
+
+func doCoupleAnimLocal(_animation:String):
+	var theDoll := getDoll()
+	if(_animation.is_empty()):
+		theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COUPLE)
+		return
+	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COUPLE, _animation, 1.0, true)
 
 func doCombatAnimLocal(_animation:String, _speedMult:float = 1.0, _forceAnim:bool = true):
 	if(_animation.is_empty()):

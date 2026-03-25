@@ -2,7 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "LeanAgainstWall"
-	alwaysCheckedSelf = true
+	alwaysCheckBitfield = CHECK_SELF
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Lean against wall"

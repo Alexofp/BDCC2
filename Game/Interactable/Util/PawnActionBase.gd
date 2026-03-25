@@ -4,17 +4,21 @@ class_name PawnActionBase
 const C_TALK := "Talk"
 
 var id:String = ""
-var alwaysCheckedSelf:bool = false
-var alwaysCheckedOtherPawn:bool = false
-var alwaysCheckedSelfQuickAction:bool = false
-var alwaysCheckedOtherPawnQuickAction:bool = false
+
+const CHECK_SELF := 1
+const CHECK_OTHER := 2
+const CHECK_SELF_QUICKACTION := 4
+const CHECK_OTHER_QUICKACTION := 8
+var alwaysCheckBitfield:int = 0
+
 var alwaysPriority:int = 0 # Higher priority -> higher in the list
 
-var checkDoingAnyActions:bool = true
-var checkIsTargetOfAnyAciton:bool = true
-
-var canDoWhileCollapsed:bool = false
-var canDoWhileDefeated:bool = false
+const CAN_COLLAPSED := 1
+const CAN_DEFEATED := 2
+const CAN_COUPLE_ANIM := 4
+const CAN_WHILE_TARGET_OF_ANY_ACTION := 8
+const CAN_WHILE_DOING_ANY_ACTION := 16
+var canDoBitfield:int = 0
 
 var subCategory:Array[String]
 
@@ -22,13 +26,15 @@ func getVisibleName(_context:PawnActionContext) -> String:
 	return "CHANGE ME"
 
 func canStartAction(_context:PawnActionContext) -> bool:
-	if(checkDoingAnyActions && _context.pawn.isDoingAnyDelayedActions()):
+	if(!(canDoBitfield & CAN_WHILE_DOING_ANY_ACTION) && _context.pawn.isDoingAnyDelayedActions()):
 		return false
-	if(checkIsTargetOfAnyAciton && _context.pawn.isTargetOfAnyDelayedActions()):
+	if(!(canDoBitfield & CAN_WHILE_TARGET_OF_ANY_ACTION) && _context.pawn.isTargetOfAnyDelayedActions()):
 		return false
-	if(!canDoWhileCollapsed && _context.pawn.isCollapsed()):
+	if(!(canDoBitfield & CAN_COLLAPSED) && _context.pawn.isCollapsed()):
 		return false
-	if(!canDoWhileDefeated && _context.pawn.isDefeated()):
+	if(!(canDoBitfield & CAN_DEFEATED) && _context.pawn.isDefeated()):
+		return false
+	if(!(canDoBitfield & CAN_COUPLE_ANIM) && _context.pawn.isDoingACoupleAnimation()):
 		return false
 	return canDoAction(_context)
 

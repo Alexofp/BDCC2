@@ -48,6 +48,7 @@ var aiGoals:Dictionary#[String, AIGoalBase]
 var aiGoalRefs:Dictionary[String, AIGoalBase]
 var aiGoalsStaticRefs:Array[AIGoalBase]
 var mainReactionBank:ReactionBank = ReactionBank.new()
+var coupleAnimRefs:Dictionary[String, CoupleAnimBase]
 
 signal initialized
 
@@ -190,6 +191,8 @@ func doInit():
 	
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
 	registerAIComboFolder("res://Game/Combat/AICombos/")
+	
+	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -931,13 +934,13 @@ func registerPawnAction(path: String):
 	
 	if(object is PawnActionBase):
 		pawnActions[object.id] = object
-		if(object.alwaysCheckedSelf):
+		if(object.alwaysCheckBitfield & PawnActionBase.CHECK_SELF):
 			pawnActionsAlwaysSelf.append(object)
-		if(object.alwaysCheckedOtherPawn):
+		if(object.alwaysCheckBitfield & PawnActionBase.CHECK_OTHER):
 			pawnActionsAlwaysOtherPawn.append(object)
-		if(object.alwaysCheckedSelfQuickAction):
+		if(object.alwaysCheckBitfield & PawnActionBase.CHECK_SELF_QUICKACTION):
 			pawnQuickActionsAlwaysSelf.append(object)
-		if(object.alwaysCheckedOtherPawnQuickAction):
+		if(object.alwaysCheckBitfield & PawnActionBase.CHECK_OTHER_QUICKACTION):
 			pawnQuickActionsAlwaysOtherPawn.append(object)
 
 func registerPawnAcitonFolder(folder: String):
@@ -1098,3 +1101,26 @@ func loadMainReactionBankFolder(folder: String):
 	var scripts = Util.getFilesInFolderSmart(folder, "txt")
 	for scriptPath in scripts:
 		loadMainReactionBank(scriptPath)
+
+
+
+
+
+func registerCoupleAnim(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is CoupleAnimBase):
+		coupleAnimRefs[object.id] = object
+
+func registerCoupleAnimsFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerCoupleAnim(scriptPath)
+
+func getCoupleAnim(id: String) -> CoupleAnimBase:
+	if(coupleAnimRefs.has(id)):
+		return coupleAnimRefs[id]
+	else:
+		Log.Printerr("ERROR: couple anim with the id "+str(id)+" wasn't found")
+		return null

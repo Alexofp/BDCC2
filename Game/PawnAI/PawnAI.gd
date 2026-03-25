@@ -51,6 +51,15 @@ func goTowards(_pos:Vector3, shouldRun:bool=false):
 	currentMoveTarget = _pos
 	pawn.getNavAgent().target_position = currentMoveTarget
 
+func lookTowardsRaw(_pos:Vector3):
+	if(pawn.isControlledByAnyPlayer()):
+		return
+	if(pawn.state.isControllingLookDir()):
+		return
+	var theDoll := pawn.getDoll()
+	if(theDoll):
+		theDoll.targetLookDir = _pos - theDoll.global_position
+
 func stopWalking():
 	goTowards(getPawn().global_position)
 	#pawn.getNavAgent().target_position = getPawn().global_position

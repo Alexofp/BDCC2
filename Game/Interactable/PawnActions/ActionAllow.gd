@@ -5,10 +5,7 @@ const ARG_UNIQUE_ID = 0
 
 func _init() -> void:
 	id = "ActionAllow"
-	checkDoingAnyActions = false
-	checkIsTargetOfAnyAciton = false
-	canDoWhileCollapsed = true
-	canDoWhileDefeated = true
+	canDoBitfield = CAN_COLLAPSED | CAN_DEFEATED | CAN_COUPLE_ANIM | CAN_WHILE_DOING_ANY_ACTION | CAN_WHILE_TARGET_OF_ANY_ACTION
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Allow action"

@@ -2,8 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "TalkTest2"
-	alwaysCheckedOtherPawn = true
-	alwaysCheckedOtherPawnQuickAction = true
+	alwaysCheckBitfield = CHECK_OTHER | CHECK_OTHER_QUICKACTION
 	subCategory = [C_TALK]
 
 func getVisibleName(_context:PawnActionContext) -> String:
@@ -24,5 +23,6 @@ func canDoAction(_context:PawnActionContext) -> bool:
 
 func doAction(_context:PawnActionContext) -> bool:
 	var thePawn:CharacterPawn = _context.target
-	thePawn.ai.goalHandler.addGoal("StartFriendlyFight", [_context.pawn])
+	#thePawn.ai.goalHandler.addGoal("StartFriendlyFight", [_context.pawn])
+	GM.main.coupleAnimsSystem.start("Hug", _context.pawn, thePawn)
 	return true

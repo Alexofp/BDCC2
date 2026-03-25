@@ -2,8 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "DefeatedHelpGetUp"
-	alwaysCheckedOtherPawn = true
-	alwaysCheckedOtherPawnQuickAction = true
+	alwaysCheckBitfield = CHECK_OTHER | CHECK_OTHER_QUICKACTION
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Help to get up"

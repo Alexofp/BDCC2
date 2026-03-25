@@ -22,6 +22,7 @@ var character_creator:Node
 @onready var leash_system: LeashSystem = %LeashSystem
 @onready var action_system: ActionSystem = %ActionSystem
 @onready var relationshipSystem: RelationshipSystem = %RelationshipSystem
+@onready var coupleAnimsSystem: CoupleAnimsSystem = %CoupleAnimsSystem
 
 @onready var sex_ui: SexUI = %SexUI
 
@@ -167,7 +168,7 @@ func _process(_delta: float) -> void:
 		if(Input.is_action_just_pressed("game_interact_menu")):
 			if(!UIHandler.tryCloseMenu()):
 				toggleInteractMenu()
-				if(interact_menu.visible):
+				if(interact_menu.isActuallyVisible()):
 					interact_menu.showBestTarget()
 					#showInteractMenuSpecific(GM.pcPawn)
 
@@ -181,7 +182,7 @@ func toggleCharacterMenu():
 		showCharacterMenu()
 
 func toggleInteractMenu():
-	if(interact_menu.visible):
+	if(interact_menu.isActuallyVisible()):
 		hideInteractMenu()
 	else:
 		showInteractMenu()
@@ -291,12 +292,12 @@ func getGameMode() -> GameModeBase:
 	return gameMode
 
 func showInteractMenu():
-	interact_menu.visible = true
+	interact_menu.showCategoriesPanel()
 	interact_menu.setPawn(GM.pcPawn)
 	#interact_menu.updateMenu() #setPawn will do it
 
 func hideInteractMenu():
-	interact_menu.visible = false
+	interact_menu.hideCategoriesPanel()
 	interact_menu.setPawn(null)
 	#interact_menu.clearMenu()
 

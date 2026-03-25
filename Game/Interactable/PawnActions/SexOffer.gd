@@ -2,8 +2,7 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "SexOffer"
-	alwaysCheckedOtherPawn = true
-	#alwaysCheckedOtherPawnQuickAction = true
+	alwaysCheckBitfield = CHECK_OTHER
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return "Offer sex"

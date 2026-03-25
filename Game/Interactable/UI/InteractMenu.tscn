@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ce60iqvygnjr1" path="res://Game/Interactable/UI/InteractMenu.gd" id="1_wppt4"]
 [ext_resource type="PackedScene" uid="uid://qurjvi6fhr3x" path="res://Game/Interactable/UI/InteractMenuCategoryButton.tscn" id="2_xtrtt"]
+[ext_resource type="PackedScene" uid="uid://kiv1fbbq3ish" path="res://Game/UI/InteractUI/InteractBigUI.tscn" id="3_kpeg2"]
 
 [node name="InteractMenu" type="Control" unique_id=749901978]
 layout_mode = 3
@@ -10,9 +11,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_wppt4")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=736719645]
+[node name="PanelContainer" type="VBoxContainer" parent="." unique_id=1192279592]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -20,67 +22,93 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -345.0
-offset_top = -185.0
+offset_top = -206.0
 offset_right = 345.0
-offset_bottom = 185.0
+offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1671367037]
+[node name="SpacerTop" type="Control" parent="PanelContainer" unique_id=1794867689]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=355600192]
+[node name="CategoriesPanel" type="PanelContainer" parent="PanelContainer" unique_id=1080694209]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=470903668]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CategoriesPanel" unique_id=1671367037]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer" unique_id=355600192]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer" unique_id=470903668]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=731936049]
+[node name="Label" type="Label" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=731936049]
 layout_mode = 2
 text = "Nearby"
 horizontal_alignment = 1
 
-[node name="CategoryList" type="ItemList" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1096128884]
+[node name="CategoryList" type="ItemList" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1096128884]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1353814694]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer" unique_id=1353814694]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1481253576]
+[node name="Label" type="Label" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1481253576]
 layout_mode = 2
 text = "Interactions"
 horizontal_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1303996103]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1303996103]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2" unique_id=181101001]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2" unique_id=181101001]
 layout_mode = 2
 
-[node name="ActionList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/ScrollContainer" unique_id=1436458094]
+[node name="ActionList" type="VBoxContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/ScrollContainer" unique_id=1436458094]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InteractMenuCategoryButton" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/ScrollContainer/ActionList" unique_id=812969570 instance=ExtResource("2_xtrtt")]
+[node name="InteractMenuCategoryButton" parent="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/ScrollContainer/ActionList" unique_id=812969570 instance=ExtResource("2_xtrtt")]
 layout_mode = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/VBoxContainer" unique_id=1570394497]
+[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/CategoriesPanel/VBoxContainer" unique_id=1570394497]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer" unique_id=234760179]
+[node name="CloseButton" type="Button" parent="PanelContainer/CategoriesPanel/VBoxContainer/HFlowContainer" unique_id=234760179]
 layout_mode = 2
 text = "Close"
 
-[connection signal="item_selected" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/CategoryList" to="." method="_on_category_list_item_selected"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[node name="InteractBigUI" parent="PanelContainer" unique_id=1024893270 instance=ExtResource("3_kpeg2")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="SpacerBottom" type="Control" parent="PanelContainer" unique_id=1073712703]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="item_selected" from="PanelContainer/CategoriesPanel/VBoxContainer/HBoxContainer/VBoxContainer/CategoryList" to="." method="_on_category_list_item_selected"]
+[connection signal="pressed" from="PanelContainer/CategoriesPanel/VBoxContainer/HFlowContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="visibility_changed" from="PanelContainer/InteractBigUI" to="." method="_on_interact_big_ui_visibility_changed"]

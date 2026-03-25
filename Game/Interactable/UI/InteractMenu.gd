@@ -11,6 +11,9 @@ var target:Node
 
 var subCategory:Array[String]
 
+func _ready() -> void:
+	hideCategoriesPanel()
+
 func clearMenu():
 	category_list.clear()
 	Util.delete_children(action_list)
@@ -188,6 +191,9 @@ func tryCloseMenu() -> bool:
 	onClose.emit()
 	return true
 
+func isUIVisible() -> bool:
+	return categories_panel.visible && categories_panel.is_visible_in_tree()
+
 func _on_category_list_item_selected(_index: int) -> void:
 	if(pawn):
 		subCategory.clear()
@@ -205,3 +211,37 @@ func _on_category_list_item_selected(_index: int) -> void:
 		target = selectedCategory.target
 	
 	updateInteractEntriesList()
+
+@onready var spacer_top: Control = %SpacerTop
+@onready var categories_panel: PanelContainer = %CategoriesPanel
+@onready var interact_big_ui: VBoxContainer = %InteractBigUI
+@onready var spacer_bottom: Control = %SpacerBottom
+
+func updateSpacers():
+	spacer_top.visible = !categories_panel.visible && interact_big_ui.visible
+	spacer_bottom.visible = categories_panel.visible && !interact_big_ui.visible
+	#print(spacer_top.visible)
+	#print(spacer_bottom.visible)
+
+func _on_interact_big_ui_visibility_changed() -> void:
+	if(!spacer_top || !spacer_bottom || !categories_panel || !interact_big_ui):
+		return
+	updateSpacers()
+
+func toggleCategoriesPanel():
+	categories_panel.visible = !categories_panel
+	updateSpacers()
+
+func showCategoriesPanel():
+	categories_panel.visible = true
+	updateSpacers()
+
+func hideCategoriesPanel():
+	categories_panel.visible = false
+	updateSpacers()
+
+func isActuallyVisible() -> bool:
+	return isUIVisible()
+
+func isGameplayInputBlocked() -> bool:
+	return isUIVisible()

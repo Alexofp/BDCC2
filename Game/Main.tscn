@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bm38mwknxmqbe" path="res://Game/GameInteractor/Util/wall_checker.tscn" id="21_wo11f"]
 [ext_resource type="PackedScene" uid="uid://cpwokxekng42g" path="res://Sounds/SoundscapeSystem/SoundscapeSystem.tscn" id="24_ijkwl"]
 [ext_resource type="PackedScene" uid="uid://c8m4jsk7r7lim" path="res://Game/Systems/RelationshipSystem/RelationshipSystem.tscn" id="25_paojk"]
+[ext_resource type="PackedScene" uid="uid://cmepnyc6vh0f5" path="res://Game/Systems/CoupleAnimsSystem/CoupleAnimsSystem.tscn" id="26_hoyip"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
@@ -92,7 +93,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="InteractMenu" parent="MainUILayer" unique_id=749901978 instance=ExtResource("16_tc76r")]
 unique_name_in_owner = true
-visible = false
 
 [node name="SandboxMenu" parent="MainUILayer" unique_id=1409425611 instance=ExtResource("13_hoyip")]
 unique_name_in_owner = true
@@ -119,6 +119,9 @@ unique_name_in_owner = true
 [node name="SoundscapeSystem" parent="." unique_id=547078707 instance=ExtResource("24_ijkwl")]
 
 [node name="RelationshipSystem" parent="." unique_id=901619146 instance=ExtResource("25_paojk")]
+unique_name_in_owner = true
+
+[node name="CoupleAnimsSystem" parent="." unique_id=2117607116 instance=ExtResource("26_hoyip")]
 unique_name_in_owner = true
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
