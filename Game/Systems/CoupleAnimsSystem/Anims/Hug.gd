@@ -3,7 +3,7 @@ extends CoupleAnimBase
 func _init() -> void:
 	id = "Hug"
 	spacing = 0.3
-	time = 1.0
+	time = 3.0
 	#timeInterpolateIn = 0.3
 	#timeInterpolateOut = 0.3
 

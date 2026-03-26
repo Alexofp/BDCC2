@@ -11,17 +11,22 @@ var id:String = ""
 var roleToPawn:Dictionary[int, CharacterPawn]
 var pawnToRole:Dictionary[CharacterPawn, int]
 
-var state:String = ""
+var state:String = "": set = setState, get = getState
+var stateRaw:String = ""
 
 var rareTimer:float = 1.0
+var wasDeleted:bool = false
+
+var subInteraction:InteractionBase
+var parentInteraction:InteractionBase
+var interactionTag:String = ""
 
 var interactionQueue:Array = []
-
-var wasDeleted:bool = false
 
 enum QueueEntry {
 	Delay,
 	Say,
+	SayRaw,
 	Event,
 	State,
 	LookAt,
@@ -33,6 +38,13 @@ func involve(_role:int, _pawn:CharacterPawn):
 	if(!_pawn):
 		assert(false, "PAWN IS NULL")
 		return
+	var isSubInteraction:bool = (parentInteraction != null)
+	
+	if(isSubInteraction):
+		roleToPawn[_role] = _pawn
+		pawnToRole[_pawn] = _role
+		return
+	
 	GM.IS.stopAllInteractionsWith(_pawn)
 	if(_pawn.hasInteraction()):
 		assert(false, "PAWN ALREADY HAS AN INTERACTION "+str(_pawn.id))
@@ -77,15 +89,43 @@ func start(_roles:Dictionary, _args:Array):
 func onEnd():
 	pass
 
+func startSubInteraction(_tag:String, _interactionID:String, _roles:Dictionary[String, CharacterPawn], _args:Array = []) -> InteractionBase:
+	stopSubInteraction()
+	var theInteraction:InteractionBase = GlobalRegistry.createInteraction(_interactionID)
+	if(!theInteraction):
+		return null
+	theInteraction.parentInteraction = self
+	subInteraction = theInteraction
+	subInteraction.interactionTag = _tag
+	#interactions.append(theInteraction)
+	if(!theInteraction.startFinal(_roles, _args)):
+		#interactions.erase(theInteraction)
+		theInteraction.parentInteraction = null
+		subInteraction = null
+		return null
+	return theInteraction
+
 func processInteraction(_dt:float):
+	if(subInteraction):
+		subInteraction.processInteraction(_dt)
+		return
+	
 	rareTimer -= _dt
 	if(rareTimer <= 0.0):
 		rareTimer = 1.0
-		processRare()
+		var theFuncName:String = getStateFunc("processRare")
+		if(has_method(theFuncName)):
+			call(theFuncName)
+		else:
+			processRare()
+		processRareAlways()
 	
 	processQueue(_dt)
 
 func processRare():
+	pass
+
+func processRareAlways():
 	pass
 
 var tempActions:Array[InteractionAction]
@@ -93,6 +133,7 @@ func getActions(_role:int):
 	pass
 
 func addAction(_action:InteractionAction):
+	_action.interaction = self
 	tempActions.append(_action)
 
 func doAction(_role:int, _action:InteractionAction):
@@ -118,15 +159,38 @@ func doInterruptActionFor(_pawn:CharacterPawn, _newPawn:CharacterPawn, _actionEn
 	doInterruptAction(pawnToRole[_pawn], _newPawn, _actionEntry["id"], _actionEntry["args"] if _actionEntry.has("args") else [])
 
 func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
+	if(subInteraction && _actionEntry.interaction == subInteraction):
+		subInteraction.doActionFor(_pawn, _actionEntry)
+		return
+	if(_actionEntry.interaction != self):
+		return
+	
 	if(!pawnToRole.has(_pawn)):
 		return
-	doAction(pawnToRole[_pawn], _actionEntry)
+	var theFuncName := getStateFunc("do")
+	if(has_method(theFuncName)):
+		call(theFuncName, pawnToRole[_pawn], _actionEntry)
+	else:
+		doAction(pawnToRole[_pawn], _actionEntry)
+
+func getStateFunc(_name:String) -> String:
+	return stateRaw+"_"+_name
 
 func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
+	if(subInteraction):
+		return subInteraction.getActionsFor(_pawn)
+	
+	if(!interactionQueue.is_empty()):
+		return []
+	
 	if(!pawnToRole.has(_pawn)):
 		return []
 	tempActions = []
-	getActions(pawnToRole[_pawn])
+	var theFuncName := getStateFunc("actions")
+	if(has_method(theFuncName)):
+		call(theFuncName, pawnToRole[_pawn])
+	else:
+		getActions(pawnToRole[_pawn])
 	return tempActions
 
 func getPawn(_role:int) -> CharacterPawn:
@@ -152,8 +216,11 @@ func getRoleOf(_pawn:CharacterPawn) -> int:
 func pushDelay(_delay:float):
 	interactionQueue.append([QueueEntry.Delay, _delay])
 
-func pushSay(_role:int, _text:String):
-	interactionQueue.append([QueueEntry.Say, _role, _text])
+func pushSayRaw(_role:int, _text:String):
+	interactionQueue.append([QueueEntry.SayRaw, _role, _text])
+
+func pushSay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
+	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
 
 func pushLookAt(_role1:int, _role2:int):
 	interactionQueue.append([QueueEntry.LookAt, _role1, _role2])
@@ -173,10 +240,14 @@ func clearPushQueue():
 func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
-func setState(_newState:String, _doReplan:bool = true):
+func getState() -> String:
+	return stateRaw
+
+func setState(_newState:String): #, _doReplan:bool = true
 	state = _newState
-	if(_doReplan):
-		replan()
+	stateRaw = _newState
+	#if(_doReplan):
+	replan()
 
 func replan():
 	for thePawn in pawnToRole:
@@ -193,8 +264,11 @@ func processQueue(_dt:float):
 				if(theEntry[1] <= 0.0):
 					interactionQueue.pop_front()
 				break
-			QueueEntry.Say:
+			QueueEntry.SayRaw:
 				sayText(theEntry[1], theEntry[2])
+				interactionQueue.pop_front()
+			QueueEntry.Say:
+				say(theEntry[1], theEntry[2], theEntry[3], theEntry[4])
 				interactionQueue.pop_front()
 			QueueEntry.Event:
 				onQueueEvent(theEntry[1], theEntry[2])
@@ -236,7 +310,23 @@ func action(_id:String, _name:String, _score:float) -> InteractionAction:
 func stopInteraction():
 	if(wasDeleted || !GM.IS):
 		return
+	if(parentInteraction):
+		parentInteraction.stopSubInteraction()
+		return
 	GM.IS.removeInteraction(self)
+
+func stopSubInteraction():
+	if(!subInteraction):
+		return
+	var theInteraction := subInteraction
+	subInteraction = null
+	theInteraction.onEnd()
+	onSubInteractionEnd(theInteraction)
+	theInteraction.parentInteraction = null
+	theInteraction.wasDeleted = true
+
+func onSubInteractionEnd(_interaction:InteractionBase):
+	pass
 
 func isCharIDInvolved(_charID:String) -> bool:
 	var thePawn := GM.pawnRegistry.getPawn(_charID)
@@ -257,6 +347,7 @@ func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[
 	theContext.args = _args
 	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	if(!theReaction):
+		sayText(_roleSay, "#WRITE_ME: "+_reaction+"#", true)
 		return
 	sayText(_roleSay, theReaction.line, true)
 
@@ -367,19 +458,71 @@ func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
 func onSubActionResult(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase, _tag:String, _status:int, _result:Array):
 	pass
 
+func planFor(_pawn:CharacterPawn, _action:AIActionBase) -> AIPlan:
+	if(subInteraction):
+		return subInteraction.planFor(_pawn, _action)
+	
+	if(!pawnToRole.has(_pawn)):
+		return null
+	var theFuncName := getStateFunc("plan")
+	if(has_method(theFuncName)):
+		return call(theFuncName, pawnToRole[_pawn], _action)
+	else:
+		return plan(pawnToRole[_pawn], _action)
+
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return null
+
+func onPlanCompletedFor(_pawn:CharacterPawn, _action:AIActionBase, _plan:AIPlan):
+	if(subInteraction):
+		return subInteraction.onPlanCompletedFor(_pawn, _action, _plan)
+
+	if(!pawnToRole.has(_pawn)):
+		return
+	var theFuncName := getStateFunc("planDone")
+	if(has_method(theFuncName)):
+		call(theFuncName, pawnToRole[_pawn], _action, _plan)
+	else:
+		onPlanCompleted(pawnToRole[_pawn], _action, _plan)
 
 func onPlanCompleted(_role:int, _action:AIActionBase, _plan:AIPlan):
 	pass
 
+func onPlanFailFor(_pawn:CharacterPawn, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
+	if(subInteraction):
+		return subInteraction.onPlanFailFor(_pawn, _action, _plan, _failedAction, _failStatus)
+
+	if(!pawnToRole.has(_pawn)):
+		return
+	var theFuncName := getStateFunc("planFail")
+	if(has_method(theFuncName)):
+		call(theFuncName, pawnToRole[_pawn], _action, _plan, _failedAction, _failStatus)
+	else:
+		onPlanFail(pawnToRole[_pawn], _action, _plan, _failedAction, _failStatus)
+
 func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
 	pass
+
+func onGettingHitFor(_pawn:CharacterPawn, _attackContext:AttackContext) -> bool:
+	if(subInteraction):
+		return subInteraction.onGettingHitFor(_pawn, _attackContext)
+	
+	if(!pawnToRole.has(_pawn)):
+		return false
+	return onGettingHit(pawnToRole[_pawn], _attackContext)
 
 func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
 	#getPawn().combatAI.addEnemy(_attackContext.attacker)
 	#startSubActionUnlessSameTag("Combat")
 	return false
+
+func isHandlingCombatFor(_pawn:CharacterPawn) -> bool:
+	if(subInteraction):
+		return subInteraction.isHandlingCombatFor(_pawn)
+	
+	if(!pawnToRole.has(_pawn)):
+		return false
+	return isHandlingCombat(pawnToRole[_pawn])
 
 func isHandlingCombat(_role:int) -> bool:
 	return false

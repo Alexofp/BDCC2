@@ -1,6 +1,8 @@
 extends RefCounted
 class_name PawnAI
 
+const DEBUG_AI := false
+
 var pawn:CharacterPawn
 
 var bigUpdateTime:float = 0.0

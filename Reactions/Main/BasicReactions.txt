@@ -4,6 +4,44 @@ fill Greet
 Hey, {target.name}.
 >
 
+def WannaChat
+fill WannaChat
+<
+Wanna chat?
+>
+
+def WannaHug
+fill WannaHug
+<
+Wanna hug?
+>
+
+def Sure
+fill Sure
+<
+Sure.
+Sure, why not.
+>
+
+def No
+fill No
+<
+No.
+>
+
+def NeverMind
+fill NeverMind
+<
+Never mind.
+I changed my mind.
+>
+
+def EnoughChat
+fill EnoughChat
+<
+That's enough for now.
+>
+
 def Annoyed
 fill Annoyed
 <

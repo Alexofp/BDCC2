@@ -24,8 +24,9 @@ func onActionsSync(_newActionsRaw:Array[Array]):
 		var newBakedAction := InteractActionBaked.new()
 		newBakedAction.name = actionEntry[0]
 		newBakedAction.uniqueID = actionEntry[1]
-		newBakedAction.disabled = actionEntry[2]
+		#newBakedAction.subCategory = actionEntry[2]
 		newBakedAction.actionID = actionEntry[3]
+		newBakedAction.disabled = actionEntry[4]
 		actionsBaked.append(newBakedAction)
 
 var cachedActionsBig:Array[InteractQuickAction]
@@ -55,7 +56,7 @@ func actionsToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 		var theAction:PawnActionBase= theEntry.action
 		if(!theAction):
 			result.append([
-				"Unknown", _i, true, ""
+				"Unknown", _i, [], "", true
 			])
 			_i += 1
 			continue
@@ -64,7 +65,7 @@ func actionsToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 		theContext.args = theEntry.args
 		
 		result.append([
-			theAction.getVisibleName(theContext), _i, false, theAction.id
+			theAction.getVisibleName(theContext), _i, [], theAction.id, theEntry.disabled,
 		])
 		_i += 1
 	theContext.clearContext()
@@ -80,7 +81,7 @@ func actionsBigToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 		var theAction:PawnActionBase= theEntry.action
 		if(!theAction):
 			result.append([
-				"Unknown", _i, [], ""
+				"Unknown", _i, [], "", false,
 			])
 			_i += 1
 			continue
@@ -89,7 +90,7 @@ func actionsBigToSyncArray(_actions:Array[InteractQuickAction]) -> Array[Array]:
 		theContext.args = theEntry.args
 		
 		result.append([
-			theAction.getVisibleName(theContext), _i, theEntry.subCategory, theAction.id
+			theAction.getVisibleName(theContext), _i, theEntry.subCategory, theAction.id, theEntry.disabled
 		])
 		_i += 1
 	theContext.clearContext()

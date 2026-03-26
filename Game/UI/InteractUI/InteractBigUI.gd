@@ -59,6 +59,7 @@ func updateActionList():
 		if(true): # if button
 			var newButton := Button.new()
 			newButton.text = actionEntry[0]
+			newButton.disabled = actionEntry[4]
 			action_list.add_child(newButton)
 			newButton.pressed.connect(onActionPressed.bind(actionEntry))
 		

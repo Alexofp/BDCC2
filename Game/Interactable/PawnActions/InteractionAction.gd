@@ -6,6 +6,8 @@ const ARG_ACTIONID = 2
 
 func _init() -> void:
 	id = "InteractionAction"
+	
+	canDoBitfield = CAN_COLLAPSED | CAN_DEFEATED
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	return _context.getArg(ARG_NAME, "ERROR?")

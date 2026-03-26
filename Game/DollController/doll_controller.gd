@@ -598,7 +598,7 @@ func processHoverText(_dt:float):
 		finalText += "( Typing )" + "\n"
 	
 	var thePawn := getPawn()
-	if(thePawn && thePawn.ai && !isControlledByAnyPlayer()):
+	if(PawnAI.DEBUG_AI && thePawn && thePawn.ai && !isControlledByAnyPlayer()):
 		var theAIText := thePawn.ai.getDebugText()
 		if(!theAIText.is_empty()):
 			finalText += theAIText+"\n"

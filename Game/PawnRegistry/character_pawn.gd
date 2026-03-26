@@ -944,7 +944,7 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 		for theAction in theInteractActions:
 			result.append(InteractEntryDo.create("InteractionAction", [
 				theAction.actionName, _i, theAction.id,
-			]))
+			]).setDisabled(theAction.disabled).setSubCategory(theAction.category))
 			_i += 1
 	
 	var theContext := pawnActionContext

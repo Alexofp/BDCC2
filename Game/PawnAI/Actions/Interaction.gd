@@ -21,19 +21,19 @@ func plan() -> AIPlan:
 	var theInteraction := getInteraction()
 	if(!theInteraction):
 		return null
-	return theInteraction.plan(theInteraction.getRoleOf(getPawn()), self)
+	return theInteraction.planFor(getPawn(), self)
 
 func onPlanCompleted(_plan:AIPlan):
 	var theInteraction := getInteraction()
 	if(!theInteraction):
 		return
-	return theInteraction.onPlanCompleted(theInteraction.getRoleOf(getPawn()), self, _plan)
+	return theInteraction.onPlanCompletedFor(getPawn(), self, _plan)
 
 func onPlanFail(_plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
 	var theInteraction := getInteraction()
 	if(!theInteraction):
 		return
-	return theInteraction.onPlanFail(theInteraction.getRoleOf(getPawn()), self, _plan, _failedAction, _failStatus)
+	return theInteraction.onPlanFailFor(getPawn(), self, _plan, _failedAction, _failStatus)
 
 func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
 	replan()
@@ -41,11 +41,11 @@ func handleInteractionStateChange(_interaction:InteractionBase) -> bool:
 
 func onGettingHit(_attackContext:AttackContext) -> bool:
 	var theInteraction := getInteraction()
-	return theInteraction && theInteraction.onGettingHit(theInteraction.getRoleOf(getPawn()), _attackContext)
+	return theInteraction && theInteraction.onGettingHitFor(getPawn(), _attackContext)
 
 func isHandlingCombat() -> bool:
 	var theInteraction := getInteraction()
-	return theInteraction && theInteraction.isHandlingCombat(theInteraction.getRoleOf(getPawn()))
+	return theInteraction && theInteraction.isHandlingCombatFor(getPawn())
 
 func think():
 	var theInteraction := getInteraction()
@@ -60,6 +60,8 @@ func think():
 	var fullScore:float = 0.0
 	var theWeightMap:Dictionary[InteractionAction, float]
 	for theAction in theActions:
+		if(theAction.disabled):
+			continue
 		var actionScore:float = theAction.score
 		actionScore = ai.goalHandler.getInteractionActionScoreOverride(theInteraction, theAction, actionScore)
 		
