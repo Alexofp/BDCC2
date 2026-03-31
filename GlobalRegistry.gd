@@ -25,6 +25,7 @@ var aiActionRefs:Dictionary[String, AIActionBase] = {}
 var aiActionsBasicAI:Array[AIActionBase]
 var interactions:Dictionary = {}
 var interactionRefs:Dictionary = {}
+var interactionsBySocialType:Dictionary[int, Array] = {}
 var dollGestures:Dictionary = {}
 var personalityStats:Dictionary[String, PersonalityStatBase] = {}
 var fetishes:Dictionary[String, FetishBase] = {}
@@ -49,6 +50,8 @@ var aiGoalRefs:Dictionary[String, AIGoalBase]
 var aiGoalsStaticRefs:Array[AIGoalBase]
 var mainReactionBank:ReactionBank = ReactionBank.new()
 var coupleAnimRefs:Dictionary[String, CoupleAnimBase]
+var socialInteractions:Dictionary
+var memories:Dictionary[String, MemoryBase]
 
 signal initialized
 
@@ -185,6 +188,7 @@ func doInit():
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
+	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
 	registerAIGoalFolder("res://Game/PawnAI/Goals/")
 	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
 	loadMainReactionBankFolder("res://Reactions/Main/")
@@ -193,6 +197,8 @@ func doInit():
 	registerAIComboFolder("res://Game/Combat/AICombos/")
 	
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
+	registerSocialInteractionFolder("res://Game/PawnAI/SocialInteractions/")
+	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -649,6 +655,13 @@ func registerInteraction(path: String):
 	if(object is InteractionBase):
 		interactions[object.id] = loadedClass
 		interactionRefs[object.id] = object
+		
+		for socialType in object.registerForInteractionType:
+			if(!interactionsBySocialType.has(socialType)):
+				var newAr:Array[InteractionBase] = [object]
+				interactionsBySocialType[socialType] = newAr
+			else:
+				interactionsBySocialType[socialType].append(object)
 
 func registerInteractionFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
@@ -671,6 +684,11 @@ func getInteractionRef(id: String) -> InteractionBase:
 	else:
 		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
 		return null
+
+func getInteractionsBySocialType(_type:int) -> Array[InteractionBase]:
+	if(!interactionsBySocialType.has(_type)):
+		return []
+	return interactionsBySocialType[_type]
 
 
 
@@ -1124,3 +1142,59 @@ func getCoupleAnim(id: String) -> CoupleAnimBase:
 	else:
 		Log.Printerr("ERROR: couple anim with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+func registerSocialInteraction(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SocialInteractionBase):
+		socialInteractions[object.id] = loadedClass
+
+func registerSocialInteractionFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerSocialInteraction(scriptPath)
+
+func createSocialInteraction(id: String) -> SocialInteractionBase:
+	if(socialInteractions.has(id)):
+		return socialInteractions[id].new()
+	else:
+		Log.Printerr("ERROR: social interaction with the id "+str(id)+" wasn't found")
+		return null
+
+func hasSocialInteraction(id: String) -> bool:
+	return socialInteractions.has(id)
+
+#func getSocialInteractionRefs() -> Array[SocialInteractionBase]:
+#	return aiGoalsStaticRefs
+
+
+
+
+func registerMemory(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is MemoryBase):
+		memories[object.id] = object
+	elif(object is MemorySimpleBank):
+		var theMemories:Array[MemorySimple] = object.createMemories()
+		for theMemory in theMemories:
+			memories[theMemory.id] = theMemory
+
+func registerMemoriesFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerMemory(scriptPath)
+
+func getMemory(id: String) -> MemoryBase:
+	if(memories.has(id)):
+		return memories[id]
+	else:
+		Log.Printerr("ERROR: memory with the id "+str(id)+" wasn't found")
+		return null
+
+func hasMemory(id: String) -> bool:
+	return memories.has(id)

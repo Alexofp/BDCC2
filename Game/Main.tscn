@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bs0iekltipukv" path="res://Game/Main.gd" id="1_3tq7c"]
 [ext_resource type="Script" uid="uid://cuxgeihdcj4xt" path="res://Inventory/InventoryRegistry.gd" id="2_b3cwe"]
+[ext_resource type="Script" uid="uid://xwdye316e34s" path="res://Game/Systems/MemorySystem/TimeManager.gd" id="2_ccwv3"]
 [ext_resource type="PackedScene" uid="uid://gu1fuum5hwy1" path="res://Game/PawnRegistry/sit_manager.tscn" id="2_eg2md"]
 [ext_resource type="PackedScene" uid="uid://8kpekhlctc8m" path="res://Game/World/World.tscn" id="2_qvna0"]
 [ext_resource type="PackedScene" uid="uid://cbj6qe7a5dwkw" path="res://Mapping/Dev/building_platform_8x8.tscn" id="3_b3cwe"]
@@ -23,12 +24,18 @@
 [ext_resource type="PackedScene" uid="uid://heeo5nvmwnmk" path="res://Game/Interactable/UI/InteractMenu.tscn" id="16_tc76r"]
 [ext_resource type="PackedScene" uid="uid://bkjxbvvqv2tdg" path="res://Game/Util/FreeCamera/FreeCamera.tscn" id="17_eru0w"]
 [ext_resource type="PackedScene" uid="uid://bm38mwknxmqbe" path="res://Game/GameInteractor/Util/wall_checker.tscn" id="21_wo11f"]
+[ext_resource type="PackedScene" uid="uid://ybhokjr3v2i0" path="res://Game/UI/InteractionUI/InteractionUI.tscn" id="23_4d5b2"]
 [ext_resource type="PackedScene" uid="uid://cpwokxekng42g" path="res://Sounds/SoundscapeSystem/SoundscapeSystem.tscn" id="24_ijkwl"]
 [ext_resource type="PackedScene" uid="uid://c8m4jsk7r7lim" path="res://Game/Systems/RelationshipSystem/RelationshipSystem.tscn" id="25_paojk"]
 [ext_resource type="PackedScene" uid="uid://cmepnyc6vh0f5" path="res://Game/Systems/CoupleAnimsSystem/CoupleAnimsSystem.tscn" id="26_hoyip"]
+[ext_resource type="Script" uid="uid://dusst7ofv1gh0" path="res://Game/Systems/MemorySystem/MemorySystem.gd" id="28_3pgyt"]
 
 [node name="Main" type="Node3D" unique_id=139955056]
 script = ExtResource("1_3tq7c")
+
+[node name="TimeManager" type="Node" parent="." unique_id=1459620759]
+unique_name_in_owner = true
+script = ExtResource("2_ccwv3")
 
 [node name="World" parent="." unique_id=1102625165 instance=ExtResource("2_qvna0")]
 unique_name_in_owner = true
@@ -79,6 +86,9 @@ menuToConnectTo = NodePath("../CharacterMenu")
 unique_name_in_owner = true
 metadata/_edit_use_anchors_ = true
 
+[node name="InteractionUI" parent="MainUILayer" unique_id=1029201018 instance=ExtResource("23_4d5b2")]
+unique_name_in_owner = true
+
 [node name="InteractUI" parent="MainUILayer" unique_id=1310660262 instance=ExtResource("10_w1287")]
 unique_name_in_owner = true
 metadata/_edit_use_anchors_ = true
@@ -123,6 +133,10 @@ unique_name_in_owner = true
 
 [node name="CoupleAnimsSystem" parent="." unique_id=2117607116 instance=ExtResource("26_hoyip")]
 unique_name_in_owner = true
+
+[node name="MemorySystem" type="Node" parent="." unique_id=1978301078]
+unique_name_in_owner = true
+script = ExtResource("28_3pgyt")
 
 [connection signal="onCurrentDollSwitch" from="DollHolder" to="." method="_on_doll_holder_on_current_doll_switch"]
 [connection signal="onClose" from="MainUILayer/CharacterMenu" to="." method="_on_character_menu_on_close"]

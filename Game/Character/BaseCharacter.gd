@@ -24,6 +24,7 @@ var idlePose:String = ""
 var poseArms:String = ""
 var personality:Personality = Personality.new()
 var fetishHolder:FetishHolder = FetishHolder.new()
+var memoryHolder:MemoryHolder = MemoryHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -42,6 +43,8 @@ func deinit():
 
 func _init():
 	inventory.register()
+	
+	memoryHolder.setCharacter(self)
 	
 	skinTypes.skinTypeChanged.connect(onSkinTypeChanged)
 	
@@ -542,7 +545,19 @@ func applyCharChange(_id:String, _value):
 	onChange.emit(BaseCharChange.createCharOptionChange(_id))
 
 func processTime(_dt:float):
+	if(charState.socialExhaustion > 0.0):
+		charState.socialExhaustion -= _dt * 0.01
+		if(charState.socialExhaustion < 0.0):
+			charState.socialExhaustion = 0.0
+	
 	charState.processTime(_dt)
+
+func getSocialExhaustion() -> float:
+	return charState.socialExhaustion
+
+func addSocialExhaustion(_am:float):
+	charState.socialExhaustion += _am
+	#charState.socialExhaustion = clampf(charState.socialExhaustion, 0.0, 1.0)
 
 func getBodyMess() -> FluidsOnBodyProfile:
 	return fluids

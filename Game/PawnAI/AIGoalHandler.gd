@@ -167,3 +167,12 @@ func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:Int
 		_score = theGoal.getInteractionActionScoreOverride(_interaction, _action, _score)
 	
 	return _score
+
+func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
+	if(!interactionToGoal.has(_interaction.id)):
+		return false
+	for theGoal in interactionToGoal[_interaction.id]:
+		if(theGoal.handleInteractionAction(_interaction, _action)):
+			return true
+	
+	return false

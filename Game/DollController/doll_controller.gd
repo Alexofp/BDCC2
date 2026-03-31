@@ -598,10 +598,16 @@ func processHoverText(_dt:float):
 		finalText += "( Typing )" + "\n"
 	
 	var thePawn := getPawn()
-	if(PawnAI.DEBUG_AI && thePawn && thePawn.ai && !isControlledByAnyPlayer()):
-		var theAIText := thePawn.ai.getDebugText()
-		if(!theAIText.is_empty()):
-			finalText += theAIText+"\n"
+	if(thePawn && thePawn.ai && !isControlledByAnyPlayer()):
+		if(PawnAI.DEBUG_AI):
+			var theAIText := thePawn.ai.getDebugText()
+			if(!theAIText.is_empty()):
+				finalText += theAIText+"\n"
+		if(PawnAI.DEBUG_RELATIONSHIPS):
+			var theLines := GM.main.relationshipSystem.getDebugTextLinesFor(thePawn)
+			if(!theLines.is_empty()):
+				finalText += Util.join(theLines, "\n")+"\n"
+	
 	
 	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)

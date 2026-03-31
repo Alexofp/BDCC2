@@ -2,6 +2,7 @@ extends RefCounted
 class_name PawnAI
 
 const DEBUG_AI := false
+const DEBUG_RELATIONSHIPS := true
 
 var pawn:CharacterPawn
 

@@ -6,15 +6,19 @@ const ROLE_TARGET = 1
 const ROLE_EXTRA = 2
 const ROLE_EXTRA2 = 3
 
+const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
+
 var id:String = ""
+var registerForInteractionType:Array[int]
 
 var roleToPawn:Dictionary[int, CharacterPawn]
 var pawnToRole:Dictionary[CharacterPawn, int]
 
 var state:String = "": set = setState, get = getState
 var stateRaw:String = ""
+var elapsedTime:float = 0.0 # Time since last setState() call
 
-var rareTimer:float = 1.0
+var rareTimer:float = 0.0
 var wasDeleted:bool = false
 
 var subInteraction:InteractionBase
@@ -28,10 +32,14 @@ enum QueueEntry {
 	Say,
 	SayRaw,
 	Event,
-	State,
+	SetState,
 	LookAt,
 	StopLookAt,
 	StopInteraction,
+	AddAffection,
+	AddSocialEvent,
+	SocialInteractionEnd,
+	SocialInteractionDeny,
 }
 
 func involve(_role:int, _pawn:CharacterPawn):
@@ -78,7 +86,7 @@ func startFinal(_roles:Dictionary, _args:Array) -> bool:
 		var roleStr:String = theRequiredRoles[roleID]
 		involve(roleID, _roles[roleStr])
 	
-	rareTimer = RNG.randfRange(0.5, 1.0)
+	rareTimer = RNG.randfRange(0.0, 0.5)
 	start(_roles, _args)
 	replan()
 	return true
@@ -103,22 +111,30 @@ func startSubInteraction(_tag:String, _interactionID:String, _roles:Dictionary[S
 		theInteraction.parentInteraction = null
 		subInteraction = null
 		return null
+	replan()
 	return theInteraction
 
 func processInteraction(_dt:float):
 	if(subInteraction):
 		subInteraction.processInteraction(_dt)
+		
+		rareTimer += _dt
+		if(rareTimer >= 1.0):
+			rareTimer = 0.0
+			processRareAlways()
 		return
 	
-	rareTimer -= _dt
-	if(rareTimer <= 0.0):
-		rareTimer = 1.0
+	rareTimer += _dt
+	if(rareTimer >= 1.0):
+		rareTimer = 0.0
 		var theFuncName:String = getStateFunc("processRare")
 		if(has_method(theFuncName)):
 			call(theFuncName)
 		else:
 			processRare()
 		processRareAlways()
+	
+	elapsedTime += _dt
 	
 	processQueue(_dt)
 
@@ -172,6 +188,8 @@ func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
 		call(theFuncName, pawnToRole[_pawn], _actionEntry)
 	else:
 		doAction(pawnToRole[_pawn], _actionEntry)
+	
+	_pawn.ai.goalHandler.handleInteractionAction(self, _actionEntry)
 
 func getStateFunc(_name:String) -> String:
 	return stateRaw+"_"+_name
@@ -230,9 +248,24 @@ func pushStopLookAt(_role1:int):
 	
 func pushStopInteraction():
 	interactionQueue.append([QueueEntry.StopInteraction])
+	
+func pushAddAffection(_role1:int, _role2:int, _amount:float):
+	interactionQueue.append([QueueEntry.AddAffection, _role1, _role2, _amount])
+	
+#func pushAddSocialEvent(_roleStarter:int, _roleTarget:int, _event:String, _outcome:int, _affection):
+	#interactionQueue.append([QueueEntry.AddAffection, _role1, _role2, _amount])
 
 func pushEvent(_eventID:String, _args:Array = []):
 	interactionQueue.append([QueueEntry.Event, _eventID, _args])
+
+func pushSetState(_state:String):
+	interactionQueue.append([QueueEntry.SetState, _state])
+
+func pushSocialEnd():
+	interactionQueue.append([QueueEntry.SocialInteractionEnd])
+
+func pushSocialDenied():
+	interactionQueue.append([QueueEntry.SocialInteractionDeny])
 
 func clearPushQueue():
 	interactionQueue.clear()
@@ -244,6 +277,7 @@ func getState() -> String:
 	return stateRaw
 
 func setState(_newState:String): #, _doReplan:bool = true
+	elapsedTime = 0.0
 	state = _newState
 	stateRaw = _newState
 	#if(_doReplan):
@@ -273,7 +307,7 @@ func processQueue(_dt:float):
 			QueueEntry.Event:
 				onQueueEvent(theEntry[1], theEntry[2])
 				interactionQueue.pop_front()
-			QueueEntry.State:
+			QueueEntry.SetState:
 				setState(theEntry[1])
 				interactionQueue.pop_front()
 			QueueEntry.LookAt:
@@ -284,6 +318,15 @@ func processQueue(_dt:float):
 				interactionQueue.pop_front()
 			QueueEntry.StopInteraction:
 				stopInteraction()
+				interactionQueue.pop_front()
+			QueueEntry.AddAffection:
+				addAffection(theEntry[1], theEntry[2], theEntry[3])
+				interactionQueue.pop_front()
+			QueueEntry.SocialInteractionEnd:
+				socialInteractionEnd()
+				interactionQueue.pop_front()
+			QueueEntry.SocialInteractionDeny:
+				socialInteractionDeny()
 				interactionQueue.pop_front()
 			_:
 				assert(false, "BAD QUEUE ENTRY TYPE")
@@ -304,7 +347,7 @@ func interuptAction(_id:String, _name:String, _score:float) -> Dictionary:
 		#score = _score,
 		##targetRole = _target,
 	#}
-func action(_id:String, _name:String, _score:float) -> InteractionAction:
+func action(_id:String, _name:String, _score:float = 0.0) -> InteractionAction:
 	return InteractionAction.create(_id, _name).setScore(_score)
 
 func stopInteraction():
@@ -324,6 +367,7 @@ func stopSubInteraction():
 	onSubInteractionEnd(theInteraction)
 	theInteraction.parentInteraction = null
 	theInteraction.wasDeleted = true
+	replan()
 
 func onSubInteractionEnd(_interaction:InteractionBase):
 	pass
@@ -526,3 +570,82 @@ func isHandlingCombatFor(_pawn:CharacterPawn) -> bool:
 
 func isHandlingCombat(_role:int) -> bool:
 	return false
+
+func checkClose2(_role1:int, _role2:int, _dist:float = 5.0) -> bool:
+	var thePawn1 := getPawn(_role1)
+	var thePawn2 := getPawn(_role2)
+	if(!thePawn1 || !thePawn2):
+		return false
+	if(thePawn1.global_position.distance_squared_to(thePawn2.global_position) <= _dist):
+		return true
+	return false
+
+func checkTooFar(_dist:float = 7.0) -> bool:
+	var allRoles:Array = roleToPawn.keys()
+	if(allRoles.size() <= 1):
+		return false
+	var theDistSquared:float = _dist * _dist
+	var theMainRole:int = allRoles.pop_front()
+	var theMainPawn := getPawn(theMainRole)
+	for _otherRole in allRoles:
+		var theOtherPawn := getPawn(_otherRole)
+		if(theMainPawn.global_position.distance_squared_to(theOtherPawn.global_position) > theDistSquared):
+			return true
+	return false
+
+func checkTooFarAutoStop(_dist:float = 7.0) -> bool:
+	if(checkTooFar(_dist)):
+		stopInteraction()
+		return true
+	return false
+
+func planFaceEachOther(_role1:int, _role2:int, _role:int, _action:AIActionBase) -> AIPlan:
+	if(_role == _role1):
+		return _action.makePlan().add("Face", [getPawn(_role2)])
+	if(_role == _role2):
+		return _action.makePlan().add("Face", [getPawn(_role1)])
+	return null
+
+func planApproachEachOther(_role1:int, _role2:int, _role:int, _action:AIActionBase) -> AIPlan:
+	if(_role == _role1):
+		return _action.makePlan().add("ApproachPawn", [getPawn(_role2)])
+	if(_role == _role2):
+		return _action.makePlan().add("ApproachPawn", [getPawn(_role1)])
+	return null
+
+func isInteractionQueueEmpty() -> bool:
+	return interactionQueue.is_empty()
+
+## How much time has passed since the start of the interaction or the last setState() call
+func getElapsedTime() -> float:
+	return elapsedTime
+
+func addAffection(_role1:int, _role2:int, _am:float):
+	var pawn1 := getPawn(_role1)
+	var pawn2 := getPawn(_role2)
+	if(!pawn1 || !pawn2):
+		return
+	
+	GM.main.relationshipSystem.addAffection(pawn1.getCharID(), pawn2.getCharID(), _am)
+	
+	if(_am > 0.0):
+		pawn1.addSmallText("Affection+", Color.GREEN)
+		pawn2.addSmallText("Affection+", Color.GREEN)
+	elif(_am < 0.0):
+		pawn1.addSmallText("Affection-", Color.RED)
+		pawn2.addSmallText("Affection-", Color.RED)
+
+func canDoSocialActionFinal(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+	return false
+
+func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+	return false
+
+func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
+	return []
+
+func socialInteractionEnd():
+	pass
+
+func socialInteractionDeny():
+	pass

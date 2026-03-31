@@ -16,6 +16,10 @@ static func create(_id:String, _name:String) -> InteractionAction:
 	theAction.actionName = _name
 	return theAction
 
+func setArgs(_args:Array) -> InteractionAction:
+	args = _args
+	return self
+
 func setCategory(_cat:Array[String]) -> InteractionAction:
 	category = _cat
 	return self

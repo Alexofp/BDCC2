@@ -24,5 +24,6 @@ func canDoAction(_context:PawnActionContext) -> bool:
 func doAction(_context:PawnActionContext) -> bool:
 	var thePawn:CharacterPawn = _context.target
 	#thePawn.ai.goalHandler.addGoal("StartFriendlyFight", [_context.pawn])
-	GM.main.coupleAnimsSystem.start("Hug", _context.pawn, thePawn)
+	thePawn.ai.goalHandler.addGoal("StartHug", [_context.pawn])
+	#GM.main.coupleAnimsSystem.start("Hug", _context.pawn, thePawn)
 	return true

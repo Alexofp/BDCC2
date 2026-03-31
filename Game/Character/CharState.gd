@@ -10,9 +10,11 @@ var autoMoan:float = 0.0
 
 var pain:float = 0.0
 
+var socialExhaustion:float = 0.0
+
 var syncState:SyncState = SyncState.new(self,
-	["arousal", "arousalFade", "autoMoan", "pain"],
-	[Bins.Float, Bins.Float, Bins.Float, Bins.Float],
+	["arousal", "arousalFade", "autoMoan", "pain", "socialExhaustion"],
+	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
 )
 func setSyncVar(_var:String, _val:Variant):
 	set(_var, _val)

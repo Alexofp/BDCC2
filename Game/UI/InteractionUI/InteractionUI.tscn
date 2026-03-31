@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://ybhokjr3v2i0"]
+
+[ext_resource type="Script" uid="uid://ltwqiiqnfptb" path="res://Game/UI/InteractionUI/InteractionUI.gd" id="1_emfi0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0eop"]
+bg_color = Color(0, 0, 0, 0.21960784)
+
+[node name="InteractionUI" type="Control" unique_id=1029201018]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("1_emfi0")
+
+[node name="TopLeftPanel" type="PanelContainer" parent="." unique_id=661410194]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 175.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o0eop")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopLeftPanel" unique_id=1864217194]
+layout_mode = 2
+
+[node name="CharacterList" type="VBoxContainer" parent="TopLeftPanel/VBoxContainer" unique_id=527278188]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

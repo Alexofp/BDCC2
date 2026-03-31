@@ -228,10 +228,12 @@ func setBlendTreeBlend1Nodes(theBlendTree:AnimationNodeBlendTree, animNodeName:S
 	var blendSpace1Node:AnimationNodeBlendSpace1D = theBlendTree.get_node(animNodeName)
 	while(blendSpace1Node.get_blend_point_count() > 0):
 		blendSpace1Node.remove_blend_point(0)
+	var _i:int = 0
 	for animAndPos in animsAndPoses:
 		var newAnimNode:AnimationNodeAnimation = AnimationNodeAnimation.new()
 		newAnimNode.animation = animAndPos[0]
-		blendSpace1Node.add_blend_point(newAnimNode, animAndPos[1])
+		blendSpace1Node.add_blend_point(newAnimNode, animAndPos[1], -1, str(_i))
+		_i += 1
 
 func setParam(theParam:String, theValue:float):
 	if(!animTree):

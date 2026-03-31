@@ -29,8 +29,10 @@ animation = &"Look_Right"
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_4p5fs"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_c366e")
 blend_point_0/pos = -1.0
+blend_point_0/name = &"0"
 blend_point_1/node = SubResource("AnimationNodeAnimation_epb8q")
 blend_point_1/pos = 1.0
+blend_point_1/name = &"1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v3v4e"]
 animation = &"Look_Down"
@@ -41,8 +43,10 @@ animation = &"Look_Up"
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_h7pv5"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_v3v4e")
 blend_point_0/pos = -1.0
+blend_point_0/name = &"0"
 blend_point_1/node = SubResource("AnimationNodeAnimation_nstkn")
 blend_point_1/pos = 1.0
+blend_point_1/name = &"1"
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o81br"]
 

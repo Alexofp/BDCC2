@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="Stocks" unique_id=1580582023 instance=ExtResource("1_wfhsi")]
 script = ExtResource("2_bcm5a")
 
-[node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(802089228) index="0" unique_id=460375978]
+[node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(125098893) index="0" unique_id=563956125]
 unique_name_in_owner = true
 bones/3/position = Vector3(0.355232, 7.7163384e-07, 7.019003e-15)
 bones/4/position = Vector3(-0.355232, 7.7163384e-07, 7.019003e-15)
@@ -48,17 +48,17 @@ bones/5/rotation = Quaternion(1, -8.7422706e-08, -7.54979e-08, -2.6871746e-07)
 bones/6/position = Vector3(0.35523197, -7.628688e-07, -1.4847445e-08)
 bones/7/position = Vector3(-0.35523203, -6.6764267e-07, 9.24296e-08)
 
-[node name="Carpet" parent="StocksRig/Skeleton3D" index="0" unique_id=1831093078]
+[node name="Carpet" parent="StocksRig/Skeleton3D" index="0" unique_id=1291456394]
 instance_shader_parameters/trim_color_base = Color(0.2, 0.2, 0.2, 1)
 surface_material_override/0 = ExtResource("3_js7ct")
 
-[node name="StocksTest" parent="StocksRig/Skeleton3D" index="1" unique_id=711515836]
+[node name="StocksTest" parent="StocksRig/Skeleton3D" index="1" unique_id=1057305923]
 surface_material_override/0 = SubResource("ShaderMaterial_bgnum")
 
 [node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") instance=ExtResource("3_we5c1")]
 unique_name_in_owner = true
 stocks = NodePath("..")
 
-[node name="AnimationPlayer" parent="." index="3" unique_id=1482047687]
+[node name="AnimationPlayer" parent="." index="3" unique_id=1139468591]
 unique_name_in_owner = true
 autoplay = &"Stocks_Open"

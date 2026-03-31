@@ -7,7 +7,7 @@ func _ready() -> void:
 	var theSystem := ReactionSystem.new()
 	theSystem.setDataBanks([GlobalRegistry.mainReactionBank])
 	
-	var theSysResult := theSystem.generateReaction("Greet", null)
+	var _theSysResult := theSystem.generateReaction("Greet", null)
 	
 	#var someElse := theSystem.splitSubReactions("%Hello% \\%world\\% how \\%are %you% doing.")
 	

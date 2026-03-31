@@ -23,20 +23,40 @@ func start(_roles:Dictionary, _args:Array):
 	#stopSubInteraction()
 
 func processRareAlways():
-	if(getDistanceBetween(ROLE_MAIN, ROLE_TARGET) > 10.0):
-		stopInteraction()
-
-const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
+	if(checkTooFarAutoStop()):
+		return
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
-		addAction(action("stop", "Never mind", 0.0).setFallback())
-		addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
-		addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
+		var mainPawn := getPawn(ROLE_MAIN)
+		var targetPawn := getPawn(ROLE_TARGET)
+		
+		var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
+		for theInteraction in allTheInteractions:
+			var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
+			
+			for theAction in theActions: 
+				theAction.id = "startSocial" # A little hacky but whatever
+				theAction.args = [theInteraction, theAction.args]
+				
+				addAction(theAction)
+		
+		#addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
+		#addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
 		addAction(action("lock", "Lock me up!", 0.0))
 		addAction(action("fight", "Friendly fight!", 0.0))
+		
+		addAction(action("stop", "Never mind", 0.0).setFallback())
+		
 
 func _do(_role:int, _action:InteractionAction):
+	if(_action.id == "startSocial"):
+		var theInteraction:InteractionBase = _action.args[0]
+		var theStartArgs:Array = _action.args[1]
+		didSomething = true
+		startSubInteraction("subInteractionTag", theInteraction.id, {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)}, theStartArgs)
+		return
+	
 	if(_action.id == "stop"):
 		#sayText(ROLE_MAIN, "Never mind.")
 		if(didSomething):

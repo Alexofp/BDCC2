@@ -31,6 +31,10 @@ func isImportant() -> bool:
 func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:InteractionAction, _score:float) -> float:
 	return _score
 
+# Us performing a certain action, called after that action
+func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
+	return false
+
 func start(_args:Array):
 	pass
 

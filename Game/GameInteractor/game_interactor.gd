@@ -32,6 +32,7 @@ func applyFullNetworkData(_data:Bins):
 
 func saveFullNetworkData() -> Bins:
 	var data := Bins.saveStart([
+		Bins.BINS, GM.main.timeManager.saveNetworkData(),
 		Bins.BINS, inventoryRegistry.saveNetworkData(),
 		Bins.BINS, characterRegistry.saveNetworkData(),
 		Bins.BINS, pawnRegistry.saveNetworkData(),
@@ -45,6 +46,7 @@ func saveFullNetworkData() -> Bins:
 
 func loadFullNetworkData(_data:Bins):
 	_data.loadStart()
+	GM.main.timeManager.loadNetworkData(_data.readBins())
 	inventoryRegistry.loadNetworkData(_data.readBins())
 	characterRegistry.loadNetworkData(_data.readBins())
 	pawnRegistry.loadNetworkData(_data.readBins())
@@ -57,6 +59,7 @@ func loadFullNetworkData(_data:Bins):
 
 func saveFullData() -> Dictionary:
 	return {
+		timeManager = GM.main.timeManager.saveData(),
 		inventoryRegistry = inventoryRegistry.saveData(),
 		characterRegistry = characterRegistry.saveData(),
 		pawnRegistry = pawnRegistry.saveData(),
@@ -67,13 +70,14 @@ func saveFullData() -> Dictionary:
 	}
 
 func loadFullData(_data:Dictionary):
-	inventoryRegistry.loadNetworkData(SAVE.loadVar(_data, "inventoryRegistry", {}))
-	characterRegistry.loadNetworkData(SAVE.loadVar(_data, "characterRegistry", {}))
-	pawnRegistry.loadNetworkData(SAVE.loadVar(_data, "pawnRegistry", {}))
-	dollHolder.loadNetworkData(SAVE.loadVar(_data, "dolls", {}))
-	sexManager.loadNetworkData(SAVE.loadVar(_data, "sexManager", {}))
-	networkedNodes.loadNetworkData(SAVE.loadVar(_data, "networkedNodes", {}))
-	sitManager.loadNetworkData(SAVE.loadVar(_data, "sitManager", {}))
+	GM.main.timeManager.loadData(SAVE.loadVar(_data, "timeManager", {}))
+	inventoryRegistry.loadData(SAVE.loadVar(_data, "inventoryRegistry", {}))
+	characterRegistry.loadData(SAVE.loadVar(_data, "characterRegistry", {}))
+	pawnRegistry.loadData(SAVE.loadVar(_data, "pawnRegistry", {}))
+	dollHolder.loadData(SAVE.loadVar(_data, "dolls", {}))
+	sexManager.loadData(SAVE.loadVar(_data, "sexManager", {}))
+	networkedNodes.loadData(SAVE.loadVar(_data, "networkedNodes", {}))
+	sitManager.loadData(SAVE.loadVar(_data, "sitManager", {}))
 
 func registerOnServerCommand(_command:int, _theObj:Object, functionName:String, callType:int, argsList:Array):
 	if(serverCommandObjects.has(_command)):

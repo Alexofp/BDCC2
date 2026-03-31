@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://crmyxco1g0lj6"]
+
+[ext_resource type="Script" uid="uid://bvkimfjqasifl" path="res://Game/UI/InteractionUI/InteractionUICharacter.gd" id="1_hn5eq"]
+[ext_resource type="PackedScene" uid="uid://bbdfylawbmgvc" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.tscn" id="1_iarb2"]
+[ext_resource type="Gradient" uid="uid://dbklercyflwp8" path="res://Game/UI/InteractionUI/GradientAffectionGood.tres" id="3_13d36"]
+
+[sub_resource type="Gradient" id="Gradient_13d36"]
+colors = PackedColorArray(0.48556387, 0.2700886, 3.3691526e-07, 1, 0.8103795, 0.5890384, 0, 1)
+
+[node name="InteractionUICharacter" type="PanelContainer" unique_id=921605530]
+script = ExtResource("1_hn5eq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1863297457]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=598559359]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rahi asd sd ads ad sd"
+clip_text = true
+
+[node name="AffectionBar" parent="VBoxContainer" unique_id=969516068 instance=ExtResource("1_iarb2")]
+unique_name_in_owner = true
+layout_mode = 2
+gradient = ExtResource("3_13d36")
+propertyName = "Affection"
+
+[node name="Exhaustion" parent="VBoxContainer" unique_id=2000260551 instance=ExtResource("1_iarb2")]
+unique_name_in_owner = true
+layout_mode = 2
+gradient = SubResource("Gradient_13d36")
+propertyName = "Exhaustion"

@@ -532,6 +532,7 @@ func addSmallText(_text:String, _color:Color = Color.WHITE):
 		if(Network.isServerNotSingleplayer()):
 			Network.rpcClients(addSmallText_RPC.bind(_text, _color))
 
+@rpc("authority", "call_remote", "reliable")
 func addSmallText_RPC(_text:String, _color:Color = Color.WHITE):
 	addSmallText(_text, _color)
 
@@ -865,8 +866,15 @@ func setGlobalTransform(_tr:Transform3D):
 	if(theDoll):
 		theDoll.global_position = _tr.origin
 		theDoll.model_root.global_basis = _tr.basis
-	
 
+func getPersonality() -> Personality:
+	return getCharacter().personality
+
+func getSocialExhaustion() -> float:
+	return getCharacter().getSocialExhaustion()
+
+func addSocialExhaustion(_am:float):
+	getCharacter().addSocialExhaustion(_am)
 
 
 

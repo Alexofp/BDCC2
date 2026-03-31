@@ -23,6 +23,8 @@ var character_creator:Node
 @onready var action_system: ActionSystem = %ActionSystem
 @onready var relationshipSystem: RelationshipSystem = %RelationshipSystem
 @onready var coupleAnimsSystem: CoupleAnimsSystem = %CoupleAnimsSystem
+@onready var timeManager: TimeManager = %TimeManager
+@onready var memorySystem: MemorySystem = %MemorySystem
 
 @onready var sex_ui: SexUI = %SexUI
 
