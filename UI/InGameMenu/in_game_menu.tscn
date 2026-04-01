@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbavpf1recv8n" path="res://UI/InGameMenu/in_game_menu.gd" id="1_eycxj"]
 [ext_resource type="PackedScene" uid="uid://c3simn20mij3o" path="res://Game/Multiplayer/UI/multiplayer_info_list.tscn" id="2_qr8r0"]
 [ext_resource type="PackedScene" uid="uid://c50js2bfmbaqi" path="res://UI/Util/controls_help_text_label.tscn" id="3_by56l"]
+[ext_resource type="PackedScene" uid="uid://35bqasfm8xo" path="res://UI/Util/DebugReloadButtons/DebugReloadButtons.tscn" id="4_o43we"]
 
 [node name="InGameMenu" type="Control" unique_id=1194714149]
 layout_mode = 3
@@ -102,6 +103,18 @@ grow_vertical = 0
 
 [node name="ControlsHelpTextLabel" parent="ControlsContainer" unique_id=1590074628 instance=ExtResource("3_by56l")]
 layout_mode = 2
+
+[node name="DebugReloadButtons" parent="." unique_id=1078117883 instance=ExtResource("4_o43we")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -123.0
+offset_right = -231.0
+offset_bottom = 88.5
+grow_horizontal = 0
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

@@ -47,7 +47,7 @@ func execute(_expr:ReactionExpression) -> Variant:
 		return theRes
 	
 	if(_expr is ReactionExpression.Variable):
-		var theRes := getValueProperty(_expr.name)
+		var theRes := getVariable(_expr.name)
 		if(theRes.hadError):
 			pushError(_expr, theRes.error)
 			return null
@@ -57,8 +57,11 @@ func execute(_expr:ReactionExpression) -> Variant:
 			return null
 		return someVal
 
-	if(_expr is ReactionExpression.PropertyDirect):
-		var theRes := getValuePropertyOn(_expr.target, _expr.property)
+	if(_expr is ReactionExpression.Property):
+		var theTarget:Variant = execute(_expr.left)
+		if(hadErrors()):
+			return null
+		var theRes := getPropertyValueOf(theTarget, _expr.property)
 		if(theRes.hadError):
 			pushError(_expr, theRes.error)
 			return null
@@ -76,7 +79,7 @@ func execute(_expr:ReactionExpression) -> Variant:
 				return null
 			theArgs.append(newArgVal)
 		
-		var theRes := getValueCallDirect(_expr.functionName, theArgs)
+		var theRes := doFunctionCall(_expr.functionName, theArgs)
 		if(theRes.hadError):
 			pushError(_expr, theRes.error)
 			return null
@@ -86,7 +89,11 @@ func execute(_expr:ReactionExpression) -> Variant:
 			return null
 		return someVal
 
-	if(_expr is ReactionExpression.CallDirectOn):
+	if(_expr is ReactionExpression.CallOn):
+		var theTarget:Variant = execute(_expr.left)
+		if(hadErrors()):
+			return null
+		
 		var theArgs:Array = []
 		for theArgExpr in _expr.arguments:
 			var newArgVal:Variant = execute(theArgExpr)
@@ -94,7 +101,7 @@ func execute(_expr:ReactionExpression) -> Variant:
 				return null
 			theArgs.append(newArgVal)
 		
-		var theRes := getValueCallDirectOn(_expr.target, _expr.functionName, theArgs)
+		var theRes := doFunctionCallOnObject(theTarget, _expr.functionName, theArgs)
 		if(theRes.hadError):
 			pushError(_expr, theRes.error)
 			return null
@@ -195,9 +202,10 @@ enum ArgumentType {
 	Float,
 	Number,
 	Pawn,
+	String,
 	Any,
 }
-const ArgumentTypeString:Array[String] = ["Bool", "Int", "Float", "Number", "Pawn", "Any"]
+const ArgumentTypeString:Array[String] = ["Bool", "Int", "Float", "Number", "Pawn", "String", "Any"]
 static func getArgumentTypeString(_argType:int) -> String:
 	if(_argType < 0 || _argType >= ArgumentTypeString.size()):
 		return "UNKNOWN"
@@ -229,6 +237,9 @@ func checkArguments(_required:Array[int], _args:Array) -> ResultOrError:
 				continue
 			if(_gotValue is int):
 				continue
+		if(_reqType == ArgumentType.String):
+			if(_gotValue is String):
+				continue
 		if(_reqType == ArgumentType.Pawn):
 			if(_gotValue is CharacterPawn):
 				continue
@@ -237,27 +248,27 @@ func checkArguments(_required:Array[int], _args:Array) -> ResultOrError:
 	
 	return null
 
-func getValueProperty(_property:String) -> ResultOrError:
+func getVariable(_property:String) -> ResultOrError:
 	if(targetObject):
-		return targetObject.getValueProperty(self, _property)
+		return targetObject.getVariable(self, _property)
 	#if(_property == "meow"):
 	#	return ResultOrError.create(123)
 	return ResultOrError.createError("Undefined property "+_property)
 
-func getValuePropertyOn(_target:String, _property:String) -> ResultOrError:
+func getPropertyValueOf(_target:Variant, _property:String) -> ResultOrError:
 	if(targetObject):
-		return targetObject.getValuePropertyOn(self, _target, _property)
-	return ResultOrError.createError("Undefined property "+_target+"."+_property)
+		return targetObject.getPropertyValueOf(self, _target, _property)
+	return ResultOrError.createError("Undefined property "+str(_target)+"."+_property)
 
-func getValueCallDirect(_method:String, _args:Array) -> ResultOrError:
+func doFunctionCall(_method:String, _args:Array) -> ResultOrError:
 	if(targetObject):
-		return targetObject.getValueCallDirect(self, _method, _args)
+		return targetObject.doFunctionCall(self, _method, _args)
 	return ResultOrError.createError("Undefined function "+_method)
 
-func getValueCallDirectOn(_target:String, _method:String, _args:Array) -> ResultOrError:
+func doFunctionCallOnObject(_target:Variant, _method:String, _args:Array) -> ResultOrError:
 	if(targetObject):
-		return targetObject.getValueCallDirectOn(self, _target, _method, _args)
-	return ResultOrError.createError("Undefined function "+_target+"."+_method)
+		return targetObject.doFunctionCallOnObject(self, _target, _method, _args)
+	return ResultOrError.createError("Undefined function "+str(_target)+"."+_method)
 
 func internal_prepare():
 	errors.clear()
@@ -266,7 +277,15 @@ func pushError(_expr:ReactionExpression, _str:String):
 	if(!_expr):
 		errors.append(_str)
 		return
-	errors.append("Line "+str(_expr.line)+": "+_expr.getName()+": "+_str)
+	var theLine := "Line "+str(_expr.line)+": "+_expr.getName()+": "+_str
+	errors.append(theLine)
+	Log.Printerr(theLine)
 
 func hadErrors() -> bool:
 	return !errors.is_empty()
+
+func createError(_text:String) -> ResultOrError:
+	return ResultOrError.createError(_text)
+
+func createValue(_value:Variant) -> ResultOrError:
+	return ResultOrError.create(_value)

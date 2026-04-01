@@ -191,7 +191,8 @@ func doInit():
 	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
 	registerAIGoalFolder("res://Game/PawnAI/Goals/")
 	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
-	loadMainReactionBankFolder("res://Reactions/Main/")
+	#loadMainReactionBankFolder("res://Reactions/Main/")
+	reloadReactionBanks()
 	
 	registerCombatMoveFolder("res://Game/Combat/Moves/")
 	registerAIComboFolder("res://Game/Combat/AICombos/")
@@ -1120,6 +1121,11 @@ func loadMainReactionBankFolder(folder: String):
 	for scriptPath in scripts:
 		loadMainReactionBank(scriptPath)
 
+func reloadReactionBanks():
+	if(!mainReactionBank.defs.is_empty()):
+		Log.Print("Reloading dialogue reaction banks")
+	mainReactionBank.reset()# = ReactionBank.new()
+	loadMainReactionBankFolder("res://Reactions/Main/")
 
 
 

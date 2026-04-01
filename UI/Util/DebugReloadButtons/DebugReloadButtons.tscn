@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://35bqasfm8xo"]
+
+[ext_resource type="Script" uid="uid://dnigctbgwa8th" path="res://UI/Util/DebugReloadButtons/DebugReloadButtons.gd" id="1_pfn12"]
+
+[node name="DebugReloadButtons" type="PanelContainer" unique_id=1078117883]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pfn12")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1792081359]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1729510339]
+layout_mode = 2
+text = "Debug reload buttons"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=141530836]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=1408665639]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatMovesButton" type="Button" parent="VBoxContainer/ScrollContainer/ButtonList" unique_id=1934060739]
+layout_mode = 2
+text = "Combat moves"
+
+[node name="DialogueButton" type="Button" parent="VBoxContainer/ScrollContainer/ButtonList" unique_id=484763465]
+layout_mode = 2
+text = "Dialogue reactions"
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ButtonList/CombatMovesButton" to="." method="_on_combat_moves_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ButtonList/DialogueButton" to="." method="_on_dialogue_button_pressed"]

@@ -7,7 +7,7 @@ var duration:int = 60 # How long is this memory remembered (can affect dialogues
 var durationEffects:int = -1 # How long does this memory affect the mood. if < 0, then the duration is used
 
 var stackMult:float = 0.8
-var stackMax:int = 99
+var stackMax:int = 99 # All of the memories are remembered but only stackMax amount of them will affect mood
 var priority:float = 1.0
 
 var mood:float = 0.0 # sad or happy

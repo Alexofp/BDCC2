@@ -605,6 +605,11 @@ func processHoverText(_dt:float):
 				finalText += theAIText+"\n"
 		if(PawnAI.DEBUG_RELATIONSHIPS):
 			var theLines := GM.main.relationshipSystem.getDebugTextLinesFor(thePawn)
+			var theCharacter := thePawn.getCharacter()
+			var theMemoryHolder := theCharacter.memoryHolder
+			
+			theLines.append_array(theMemoryHolder.getDebugLines())
+			
 			if(!theLines.is_empty()):
 				finalText += Util.join(theLines, "\n")+"\n"
 	

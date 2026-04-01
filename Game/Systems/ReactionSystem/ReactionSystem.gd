@@ -178,7 +178,7 @@ func generateReactionLineSmart(_id:String) -> ReactionSystemRunner.ResultOrError
 	return theLine
 
 func generateReactionLine(_id:String) -> ReactionSystemRunner.ResultOrError:
-	var theEntry := findReactionEntry(_id)
+	var theEntry := findReactionEntryOrFallback(_id)
 	if(!theEntry):
 		return null
 	
@@ -228,10 +228,27 @@ func findReactionEntry(_id:String) -> ReactionEntry:
 			return theBlock.defs[_id]
 	return null
 
+func findReactionEntryOrFallback(_id:String) -> ReactionEntry:
+	var theEntry := findReactionEntry(_id)
+	if(!theEntry):
+		return theEntry
+	var hasAnyFills:bool = false
+	for theBlock in dataBanks:
+		if(theBlock.fills.has(_id) && !theBlock.fills[_id].is_empty()):
+			hasAnyFills = true
+			break
+	if(hasAnyFills || !theEntry.fallback.is_empty()):
+		return theEntry
+	if(!theEntry.fallbackID.is_empty()):
+		return findReactionEntryOrFallback(theEntry.fallbackID)
+	return theEntry
+
 const ArgBool := ReactionSystemRunner.ArgumentType.Bool
 const ArgNumber := ReactionSystemRunner.ArgumentType.Number
 const ArgInt := ReactionSystemRunner.ArgumentType.Int
 const ArgFloat := ReactionSystemRunner.ArgumentType.Float
+const ArgString := ReactionSystemRunner.ArgumentType.String
+const ArgPawn := ReactionSystemRunner.ArgumentType.Pawn
 
 func createError(_text:String) -> ReactionSystemRunner.ResultOrError:
 	return ReactionSystemRunner.ResultOrError.createError(_text)
@@ -239,29 +256,30 @@ func createError(_text:String) -> ReactionSystemRunner.ResultOrError:
 func createValue(_value:Variant) -> ReactionSystemRunner.ResultOrError:
 	return ReactionSystemRunner.ResultOrError.create(_value)
 
-func getValueProperty(_runner:ReactionSystemRunner, _property:String) -> ReactionSystemRunner.ResultOrError:
-	if(_property == "depth"):
-		return createValue(currentDepth)
-	if(context.args.has(_property)):
-		var theArg:Variant = context.args[_property]
+func getContextPawn(_id:String) -> CharacterPawn:
+	if(_id == "main"):
+		return context.main
+	if(_id == "target"):
+		return context.target
+	if(context.args.has(_id) && context.args[_id] is CharacterPawn):
+		return context.args[_id]
+	return null
+
+func hasContextPawn(_id:String) -> bool:
+	return getContextPawn(_id) != null
+
+func getVariable(_runner:ReactionSystemRunner, _varName:String) -> ReactionSystemRunner.ResultOrError:
+	if(hasContextPawn(_varName)):
+		return createValue(getContextPawn(_varName))
+	if(context.args.has(_varName)):
+		var theArg:Variant = context.args[_varName]
 		return createValue(theArg)
-	
-	return createError("Undefined property "+_property)
-
-func getValuePropertyOn(_runner:ReactionSystemRunner, _target:String, _property:String) -> ReactionSystemRunner.ResultOrError:
-	if(_target == "main"):
-		return getPawnProperty(context.main, _property)
-	elif(_target == "target"):
-		return getPawnProperty(context.target, _property)
-	if(context.args.has(_target)):
-		var theArg:Variant = context.args[_target]
+	if(_varName == "depth"):
+		return createValue(currentDepth)
 		
-		if(theArg is CharacterPawn):
-			return getPawnProperty(theArg, _property)
-	
-	return createError("Undefined property "+_target+"."+_property)
+	return createError("Undefined variable "+_varName)
 
-func getValueCallDirect(_runner:ReactionSystemRunner, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+func doFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
 	if(_method == "chance"):
 		var argCheck := _runner.checkArguments([ArgNumber], _args)
 		if(argCheck):
@@ -275,20 +293,76 @@ func getValueCallDirect(_runner:ReactionSystemRunner, _method:String, _args:Arra
 
 	return createError("Undefined function "+_method)
 
-func getValueCallDirectOn(_runner:ReactionSystemRunner, _target:String, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
-	if(_target == "RNG"):
-		if(_method == "chance"):
-			var argCheck := _runner.checkArguments([ArgNumber], _args)
+# Add this func to your obj
+#func getReactionProperty(_runner:ReactionSystemRunner, _property:String) -> ReactionSystemRunner.ResultOrError:
+#	return _runner.createValue(123)
+
+func getPropertyValueOf(_runner:ReactionSystemRunner, _target:Variant, _property:String) -> ReactionSystemRunner.ResultOrError:
+	if(_target is CharacterPawn):
+		return getPawnProperty(_target, _property)
+	if(_target && _target.has_method("getReactionProperty")):
+		var theVal = _target.getReactionProperty(_runner, _property)
+		if(theVal is ReactionSystemRunner.ResultOrError):
+			return theVal
+		if(theVal):
+			return createValue(theVal)
+	return createError("Undefined property "+str(_target)+"."+_property)
+
+# Add this func to your obj
+#func doReactionFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+#	return _runner.createValue(123)
+
+func doFunctionCallOnObject(_runner:ReactionSystemRunner, _target:Variant, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+	if(_target is CharacterPawn):
+		var thePawn:CharacterPawn = _target
+		
+		if(_method == "hasMemoryWith"):
+			var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
 			if(argCheck):
 				return argCheck
-			return createValue(RNG.chance(_args[0]))
-		if(_method == "randfRange"):
-			var argCheck := _runner.checkArguments([ArgNumber, ArgNumber], _args)
+			return createValue( thePawn.getCharacter().memoryHolder.hasMemoryWith(_args[0], _args[1].getID()) )
+		if(_method == "getMemoryAmountWith"):
+			var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
 			if(argCheck):
 				return argCheck
-			return createValue(RNG.randfRange(_args[0], _args[1]))
+			return createValue( thePawn.getCharacter().memoryHolder.getMemoryAmountWith(_args[0], _args[1].getID()) )
 	
-	return createError("Undefined function "+_target+"."+_method)
+	if(_target && _target.has_method("doReactionFunctionCall")):
+		var theVal = _target.doReactionFunctionCall(_runner, _method, _args)
+		if(theVal is ReactionSystemRunner.ResultOrError):
+			return theVal
+		if(theVal != null):
+			return createValue(theVal)
+	
+	return createError("Undefined function "+str(_target)+"."+_method)
+
+#func getValueCallDirectOn(_runner:ReactionSystemRunner, _target:String, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
+	#if(_target == "RNG"):
+		#if(_method == "chance"):
+			#var argCheck := _runner.checkArguments([ArgNumber], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue(RNG.chance(_args[0]))
+		#if(_method == "randfRange"):
+			#var argCheck := _runner.checkArguments([ArgNumber, ArgNumber], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue(RNG.randfRange(_args[0], _args[1]))
+	
+	#var thePawn := getContextPawn(_target)
+	#if(thePawn):
+		#if(_method == "hasMemoryWith"):
+			#var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue( thePawn.getCharacter().memoryHolder.hasMemoryWith(_args[0], _args[1].getID()) )
+		#if(_method == "getMemoryAmountWith"):
+			#var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue( thePawn.getCharacter().memoryHolder.getMemoryAmountWith(_args[0], _args[1].getID()) )
+	#
+	#return createError("Undefined function "+_target+"."+_method)
 
 func getPawnProperty(_pawn:CharacterPawn, _property:String) -> ReactionSystemRunner.ResultOrError:
 	if(!_pawn):
@@ -296,6 +370,8 @@ func getPawnProperty(_pawn:CharacterPawn, _property:String) -> ReactionSystemRun
 	
 	var theCharacter := _pawn.getCharacter()
 	
+	if(_property == "memory"):
+		return createValue(theCharacter.memoryHolder)
 	if(_property == "pain"):
 		return createValue(theCharacter.getPainLevel())
 	if(_property == "annoy"):

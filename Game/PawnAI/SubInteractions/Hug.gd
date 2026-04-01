@@ -8,6 +8,9 @@ func _init() -> void:
 	askText = "WannaHug"
 	coupleAnim = "Hug"
 	
+	lineSure = "HugSure"
+	lineNo = "HugNo"
+	
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():

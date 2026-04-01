@@ -391,6 +391,7 @@ func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[
 	theContext.args = _args
 	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	if(!theReaction):
+		Log.Printerr("# WRITE ME: "+_reaction+" #")
 		sayText(_roleSay, "#WRITE_ME: "+_reaction+"#", true)
 		return
 	sayText(_roleSay, theReaction.line, true)

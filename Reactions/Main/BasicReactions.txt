@@ -16,6 +16,19 @@ fill WannaHug
 Wanna hug?
 >
 
+fill WannaHug
+priority 1
+cond target.memory.has("Hug", main)
+<
+Want another hug?
+>
+fill WannaHug
+priority 2
+cond target.memory.amountOf("Hug", main) == 2
+<
+Want a third hug?
+>
+
 def Sure
 fill Sure
 <
@@ -28,6 +41,11 @@ fill No
 <
 No.
 >
+
+def HugSure
+fallback Sure
+def HugNo
+fallback No
 
 def NeverMind
 fill NeverMind

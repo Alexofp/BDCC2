@@ -95,6 +95,9 @@ func getCharacter() -> BaseCharacter:
 		return GM.characterRegistry.getCharacter(id)
 	return null
 
+func getID() -> String:
+	return id
+
 func getCharID() -> String:
 	return id
 

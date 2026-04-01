@@ -5,6 +5,9 @@ var askText:String = "WannaHug"
 var coupleAnim:String = "Hug"
 var giveUpTimer:int = 0
 
+var lineSure:String = "Sure"
+var lineNo:String = "No"
+
 func _init() -> void:
 	id = ""
 
@@ -29,11 +32,11 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
 		#state = "chat"
 		socialInteractionStart()
-		say(ROLE_TARGET, "Sure", ROLE_MAIN)
+		say(ROLE_TARGET, lineSure, ROLE_MAIN)
 		pushDelay(2.0)
 		pushSetState("doing")
 	if(_action.id == "no"):
-		say(ROLE_TARGET, "No", ROLE_MAIN)
+		say(ROLE_TARGET, lineNo, ROLE_MAIN)
 		pushDelay(2.0)
 		pushSocialDenied()
 		pushStopInteraction()

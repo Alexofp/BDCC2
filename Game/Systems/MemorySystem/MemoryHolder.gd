@@ -2,8 +2,11 @@ extends RefCounted
 class_name MemoryHolder
 
 var charRef:WeakRef
-var memories:Array[MemoryEntry]
+var memories:Array[MemoryEntry] # newest memories are last
 var closestToExpire:Array[MemoryEntry]
+var memoryByType:Dictionary[String, Array]
+
+var memoryEffects:MemoryEffects = MemoryEffects.new()
 
 func setCharacter(_character:BaseCharacter):
 	charRef = weakref(_character)
@@ -21,6 +24,8 @@ func addMemory(_memoryID:String, _otherCharID:String = ""):
 	var theMemory := GlobalRegistry.getMemory(_memoryID)
 	if(!theMemory):
 		return
+	#var theAm:int = theMemory.stackMax
+	
 	var currentTime := GM.main.timeManager.getTimeFull()
 	var newEntry := MemoryEntry.new()
 	newEntry.memory = theMemory
@@ -35,12 +40,21 @@ func pushMemoryEntry(_memory:MemoryEntry):
 		return
 	memories.append(_memory)
 	closestToExpire.append(_memory)
+	if(!memoryByType.has(_memory.memory.id)):
+		var Ar:Array[MemoryEntry] = [_memory]
+		memoryByType[_memory.memory.id] = Ar
+	else:
+		memoryByType[_memory.memory.id].append(_memory)
 	sortClosestEvents()
 	Log.Print("New memory was added to "+getChar().getID()+": "+_memory.memory.id)
 
 func removeMemoryEntry(_memory:MemoryEntry):
 	memories.erase(_memory)
 	closestToExpire.erase(_memory)
+	if(memoryByType.has(_memory.memory.id)):
+		memoryByType[_memory.memory.id].erase(_memory)
+		if(memoryByType[_memory.memory.id].is_empty()):
+			memoryByType.erase(_memory.memory.id)
 	Log.Print("Memory removed from "+getChar().getID()+": "+_memory.memory.id)
 
 func sortClosestEvents():
@@ -55,3 +69,99 @@ func processRare(_dt:float, _fullTime:int):
 			removeMemoryEntry(theClosestsEvent)
 		else:
 			break
+	
+	calculateMemoryEffects(memoryEffects)
+
+func calculateMemoryEffects(newEffects:MemoryEffects):
+	var theCurrentTime := GM.main.timeManager.getTimeFull()
+	#var newEffects:MemoryEffects = MemoryEffects.new()
+	newEffects.mood = 0.0
+	newEffects.anger = 0.0
+	newEffects.lust = 0.0
+	var memoryMults:Dictionary[MemoryBase, float]
+	var memoryAm:Dictionary[MemoryBase, int]
+	
+	var memAm:int = memories.size()
+	for _i in memAm:
+		var _indx:int = memAm - _i - 1
+		var theMemoryEntry := memories[_indx]
+		if(theCurrentTime > theMemoryEntry.noEffectsAfter):
+			continue
+		var theMemory := theMemoryEntry.memory
+		if(memoryAm.get(theMemory, 0) >= theMemory.stackMax):
+			continue
+		
+		var secondsPassed:int = theCurrentTime - theMemoryEntry.happenedAt
+		var totalDuration:int = theMemoryEntry.noEffectsAfter - theMemoryEntry.happenedAt
+		var theProgress:float = remap(float(secondsPassed), 0.0, float(totalDuration), 0.0, 1.0)
+		
+		var theMult:float = (1.0 - theProgress)
+		if(!memoryMults.has(theMemory)):
+			memoryMults[theMemory] = 1.0
+			memoryAm[theMemory] = 1
+		else:
+			memoryMults[theMemory] *= theMemory.stackMult
+			theMult *= memoryMults[theMemory]
+			memoryAm[theMemory] += 1
+	
+		#print(theMult)
+		newEffects.mood += theMemory.mood * theMult
+		newEffects.anger += theMemory.anger * theMult
+		newEffects.lust += theMemory.lust * theMult
+		
+	#return newEffects
+
+func getMemoryAmount(_memoryID:String) -> int:
+	if(!memoryByType.has(_memoryID)):
+		return 0
+	return memoryByType[_memoryID].size()
+	
+func getMemoryAmountWith(_memoryID:String, _otherCharID:String) -> int:
+	if(!memoryByType.has(_memoryID)):
+		return 0
+	var theResult:int = 0
+	var theMemories:Array[MemoryEntry] = memoryByType[_memoryID]
+	for theMemoryEntry in theMemories:
+		if(theMemoryEntry.otherPawnID == _otherCharID):
+			theResult += 1
+	return theResult
+
+func hasMemoryID(_memoryID:String) -> bool:
+	if(!memoryByType.has(_memoryID)):
+		return false
+	return true
+
+func hasMemoryWith(_memoryID:String, _otherCharID:String) -> bool:
+	if(!memoryByType.has(_memoryID)):
+		return false
+	var theMemories:Array[MemoryEntry] = memoryByType[_memoryID]
+	for theMemoryEntry in theMemories:
+		if(theMemoryEntry.otherPawnID == _otherCharID):
+			return true
+	return false
+
+func hasMemoryButNotWith(_memoryID:String, _otherCharID:String) -> bool:
+	if(!memoryByType.has(_memoryID)):
+		return false
+	var theMemories:Array[MemoryEntry] = memoryByType[_memoryID]
+	for theMemoryEntry in theMemories:
+		if(theMemoryEntry.otherPawnID == _otherCharID):
+			return false
+	return true
+
+func getDebugLines() -> Array[String]:
+	return [
+		"M:"+str(Util.roundF(memoryEffects.mood,2))+",A:"+str(Util.roundF(memoryEffects.anger,2))+",L:"+str(Util.roundF(memoryEffects.lust,2))
+	]
+
+func doReactionFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:Array):
+	if(_method == "has"):
+		if(_args.size() == 1):
+			return hasMemoryID(_args[0])
+		return hasMemoryWith(_args[0], _args[1].getID())
+	if(_method == "amountOf"):
+		if(_args.size() == 1):
+			return getMemoryAmount(_args[0])
+		return getMemoryAmountWith(_args[0], _args[1].getID())
+	
+	return null

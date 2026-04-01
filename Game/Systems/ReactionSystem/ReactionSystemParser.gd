@@ -43,6 +43,9 @@ func parseLexerResult(_result:ReactionSystemLexer.ParseResult) -> ParseResult:
 					curResult.fills[theFill.reactionID] = Ar
 				else:
 					curResult.fills[theFill.reactionID].append(theFill)
+				if(theFill.id.is_empty()): #TODO: Make this calculate the latest free ID
+					theFill.id = str(curResult.fills[theFill.reactionID].size())
+					
 			continue
 		
 		handleUnexpectedToken()
@@ -59,6 +62,10 @@ func parseFill() -> ReactionFill:
 		
 	var theIDToken := consume()
 	result.reactionID = str(theIDToken.value)
+	
+	if(currType() == ReactionSystemLexer.TOKEN.WORD):
+		var theIDWord := consume()
+		result.id = theIDWord.value
 	
 	if(currType() != ReactionSystemLexer.TOKEN.EOL && currType() != ReactionSystemLexer.TOKEN.EOF):
 		pushError("Expected END OF LINE or END OF FILE")
@@ -153,6 +160,18 @@ func parseDefinition() -> ReactionEntry:
 			var theLines := consume()
 			result.fallback.append_array(theLines.value)
 			continue
+		if(currType() == ReactionSystemLexer.TOKEN.WORD):
+			var theWord := consume()
+			if(theWord.value == "fallback"):
+				if(currType() != ReactionSystemLexer.TOKEN.WORD):
+					pushError("Expected a fallback id after fallback", SKIP_UNTIL_NEW_LINE)
+					continue
+				var theFallbackID := consume()
+				result.fallbackID = theFallbackID.value
+				continue
+			pushError("Unknown def property: "+str(theWord.value), SKIP_UNTIL_NEW_LINE)
+			continue
+			
 		if(currType() == ReactionSystemLexer.TOKEN.ARG):
 			consume()
 			if(currType() != ReactionSystemLexer.TOKEN.WORD):
@@ -486,12 +505,12 @@ func parseCall() -> ReactionExpression:
 				if(expr is ReactionExpression.Variable):
 					expr = ReactionExpression.CallDirect.create(expr.name, args, expr.line)
 				elif(expr is ReactionExpression.Property):
-					if(expr.left is ReactionExpression.Variable):
-						expr = ReactionExpression.CallDirectOn.create(expr.left.name, expr.property, args, expr.line)
-					else:
-						expr = ReactionExpression.CallOn.create(expr.left, expr.property, args)
-				elif(expr is ReactionExpression.PropertyDirect):
-					expr = ReactionExpression.CallDirectOn.create(expr.target, expr.property, args, expr.line)
+					#if(expr.left is ReactionExpression.Variable):
+					#	expr = ReactionExpression.CallDirectOn.create(expr.left.name, expr.property, args, expr.line)
+					#else:
+					expr = ReactionExpression.CallOn.create(expr.left, expr.property, args)
+				#elif(expr is ReactionExpression.PropertyDirect):
+				#	expr = ReactionExpression.CallDirectOn.create(expr.target, expr.property, args, expr.line)
 				else:
 					expr = ReactionExpression.Call.create(expr, args)
 			else:
@@ -502,10 +521,10 @@ func parseCall() -> ReactionExpression:
 			
 			if(currType() == ReactionSystemLexer.TOKEN.WORD):
 				var theVal := consume()
-				if(expr is ReactionExpression.Variable):
-					expr = ReactionExpression.PropertyDirect.create(expr.name, theVal.value, expr.line)
-				else:
-					expr = ReactionExpression.Property.create(expr, theVal.value)
+				#if(expr is ReactionExpression.Variable):
+				#	expr = ReactionExpression.PropertyDirect.create(expr.name, theVal.value, expr.line)
+				#else:
+				expr = ReactionExpression.Property.create(expr, theVal.value)
 			else:
 				pushError("Expected an ID after a dot", SKIP_UNTIL_NEW_LINE)
 				return null
@@ -521,6 +540,9 @@ func parsePrimary() -> ReactionExpression:
 	if(theType == ReactionSystemLexer.TOKEN.TRUE):
 		return ReactionExpression.Literal.create(true, consume().line)
 	if(theType == ReactionSystemLexer.TOKEN.INT):
+		var theVal := consume()
+		return ReactionExpression.Literal.create(theVal.value, theVal.line)
+	if(theType == ReactionSystemLexer.TOKEN.STRING):
 		var theVal := consume()
 		return ReactionExpression.Literal.create(theVal.value, theVal.line)
 	if(theType == ReactionSystemLexer.TOKEN.FLOAT):

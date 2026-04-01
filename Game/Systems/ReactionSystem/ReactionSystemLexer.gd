@@ -16,6 +16,7 @@ enum TOKEN {
 	INT, # 5
 	TRUE, # true
 	FALSE, # false
+	STRING, # "some text meow meow"
 	LINES, # < lines >
 	EQUAL, # =
 	MATH_LESS, # <
@@ -37,7 +38,7 @@ enum TOKEN {
 	ELSE, # ELSE
 	EOF, # end of file
 }
-const TOKENSTR := ["WORD", "EOL", "DEF", "FILL", "END", "ARG", "DOT", "COMMA", "FLOAT", "INT", "TRUE", "FALSE", "LINES", "=", "<", ">", "<=", ">=", "==", "!=", "(", ")", "AND", "OR", "NOT", "+", "-", "*", "/", "IF", "ELSE", "EOF"]
+const TOKENSTR := ["WORD", "EOL", "DEF", "FILL", "END", "ARG", "DOT", "COMMA", "FLOAT", "INT", "TRUE", "FALSE", "STRING", "LINES", "=", "<", ">", "<=", ">=", "==", "!=", "(", ")", "AND", "OR", "NOT", "+", "-", "*", "/", "IF", "ELSE", "EOF"]
 const SPECIAL:Dictionary[String, int] = {
 	"def": TOKEN.DEF,
 	"fill": TOKEN.FILL,
@@ -116,6 +117,10 @@ func parse(_text:String) -> ParseResult:
 			parseNumber()
 			continue
 		
+		if(theC == "\""):
+			parseString()
+			continue
+		
 		# Comments
 		if(theC == "#"):
 			while(!isEOF()): # Skip until the end of file or end of line
@@ -145,6 +150,17 @@ func parse(_text:String) -> ParseResult:
 			continue
 		
 		if(tryParseMath()):
+			continue
+		
+		if(theC == "&" && next() == "&"):
+			consume()
+			consume()
+			pushToken(TOKEN.AND)
+			continue
+		if(theC == "|" && next() == "|"):
+			consume()
+			consume()
+			pushToken(TOKEN.OR)
 			continue
 		
 		if(SIMPLE.has(theC)):
@@ -238,6 +254,34 @@ func parseID():
 	#	pushToken(TOKEN.CALL, theID)
 	#else:
 	pushToken(TOKEN.WORD, theID)
+
+func parseString():
+	consume()
+	
+	var theStr:String = ""
+	while(!isEOF()):
+		var nextC := curr()
+		
+		if(nextC == "\\"): # Escape character, escapes the next character
+			consume()
+			if(!isEOF()):
+				theStr += consume()
+			continue
+
+		if(nextC == "\""):
+			consume()
+			# Check for % and args here
+			pushToken(TOKEN.STRING, theStr)
+			return
+		else:
+			theStr += nextC
+		
+		if(nextC == "\n"):
+			curLine += 1
+		
+		consume()
+		
+	pushError("The string wasn't closed properly!")
 
 func curr() -> String:
 	if(curI >= curLen):

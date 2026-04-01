@@ -17,6 +17,7 @@ class Argument:
 var id:String
 var args:Dictionary[String, Argument]
 var fallback:Array[String]
+var fallbackID:String = ""
 
 static func getDefaultValueForArgType(_type:int) -> Variant:
 	if(_type == ArgType.BOOL):
