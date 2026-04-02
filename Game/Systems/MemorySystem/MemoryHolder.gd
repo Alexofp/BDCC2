@@ -165,3 +165,64 @@ func doReactionFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:
 		return getMemoryAmountWith(_args[0], _args[1].getID())
 	
 	return null
+
+func getAskDayReactions(_askingPawn:CharacterPawn, _maxAmount:int = 3) -> Array[ReactionSystem.ReactionResult]:
+	if(_maxAmount <= 0):
+		return []
+	var result:Array[ReactionSystem.ReactionResult]
+	
+	var possible:Array
+	for theEntry in memories:
+		var thePrio := theEntry.calculateFinalPriority()
+		if(thePrio <= 0.0):
+			continue
+		possible.append([theEntry, thePrio])
+	
+	var addedMemoriesTypes:Dictionary[MemoryBase, bool]
+	
+	var theContext := ReactionSystem.ReactionContext.new()
+	theContext.main = getPawn().getCharacter()
+	theContext.args = {}
+	
+	while(!possible.is_empty()):
+		var theEntry:MemoryEntry = RNG.grabWeightedPairs(possible)
+		if(addedMemoriesTypes.has(theEntry.memory)):
+			continue
+		
+		if(theEntry.otherPawnID.is_empty()):
+			theContext.target = null
+		else:
+			theContext.target = GM.characterRegistry.getCharacter(theEntry.otherPawnID)
+			if(!theContext.target):
+				continue
+		theContext.args = {
+			memorySeconds = theEntry.getElapsedSeconds(),
+			memoryDays = theEntry.getElapsedDays(),
+		} # Add the time value here or something
+		
+		var reactionID:String = "Memory_"+str(theEntry.memory.id)
+		var theReaction := GM.main.reactionSystem.generateReaction(reactionID, theContext)
+		if(!theReaction):
+			continue
+		
+		result.append(theReaction)
+		if(result.size() >= _maxAmount):
+			return result
+		addedMemoriesTypes[theEntry.memory] = true
+		
+	return result
+
+#func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
+	#var thePawn := getPawn(_roleSay)
+	#if(!thePawn):
+		#return
+	#var theContext := ReactionSystem.ReactionContext.new()
+	#theContext.main = thePawn.getCharacter()
+	#theContext.target = getPawn(_roleTarget).getCharacter() if _roleTarget >= 0 else null
+	#theContext.args = _args
+	#var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
+	#if(!theReaction):
+		#Log.Printerr("# WRITE ME: "+_reaction+" #")
+		#sayText(_roleSay, "#WRITE_ME: "+_reaction+"#", true)
+		#return
+	#sayText(_roleSay, theReaction.line, true)

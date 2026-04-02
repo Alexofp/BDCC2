@@ -386,8 +386,8 @@ func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[
 	if(!thePawn):
 		return
 	var theContext := ReactionSystem.ReactionContext.new()
-	theContext.main = thePawn
-	theContext.target = getPawn(_roleTarget) if _roleTarget >= 0 else null
+	theContext.main = thePawn.getCharacter()
+	theContext.target = getPawn(_roleTarget).getCharacter() if _roleTarget >= 0 else null
 	theContext.args = _args
 	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	if(!theReaction):

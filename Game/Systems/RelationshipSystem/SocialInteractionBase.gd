@@ -107,7 +107,11 @@ func affectTargetSocialExhaustion(_am:float):
 	theTarget.addSocialExhaustion(_am)
 
 func addMemoryTarget(_memory:String):
+	if(_memory.is_empty()):
+		return
 	GM.main.memorySystem.addMemory(charIDTarget, _memory, charIDStarter)
 
 func addMemoryStarter(_memory:String):
+	if(_memory.is_empty()):
+		return
 	GM.main.memorySystem.addMemory(charIDStarter, _memory, charIDTarget)

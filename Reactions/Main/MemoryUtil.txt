@@ -1,0 +1,59 @@
+
+def MemoryRecently
+
+fill MemoryRecently recently
+<
+recently
+just now
+>
+fill MemoryRecently fewMinutes
+priority 2
+cond memorySeconds >= 180
+<
+a few minutes ago
+>
+fill MemoryRecently notlongago
+priority 3
+cond memorySeconds >= (60*5)
+<
+not that long ago
+recently
+>
+fill MemoryRecently aboutanhour
+priority 4
+cond memorySeconds >= (60*50)
+<
+about an hour ago
+>
+fill MemoryRecently fewhours
+priority 5
+cond memorySeconds >= (60*110)
+<
+a few hours ago
+>
+fill MemoryRecently today
+priority 6
+cond (memoryDays == 0) && (memorySeconds >= 60*60*3)
+<
+today
+>
+fill MemoryRecently oneDayAgo
+priority 20
+cond memoryDays == 1
+<
+one day ago
+yesterday
+the other day
+>
+fill MemoryRecently twoDaysAgo
+priority 20
+cond memoryDays == 2
+<
+two days ago
+>
+fill MemoryRecently twoDaysAgo
+priority 20
+cond (memoryDays > 2) && (memoryDays < 6)
+<
+a few days ago
+>

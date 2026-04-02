@@ -879,6 +879,9 @@ func getSocialExhaustion() -> float:
 func addSocialExhaustion(_am:float):
 	getCharacter().addSocialExhaustion(_am)
 
+func getMemoryHolder() -> MemoryHolder:
+	return getCharacter().memoryHolder
+
 
 
 

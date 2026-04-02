@@ -34,6 +34,13 @@ func onNewDay():
 func getTimeFull() -> int:
 	return day*SECONDS_DAY + time
 
+static func getDayAt(_fullTime:int) -> int:
+	@warning_ignore("integer_division")
+	return _fullTime / SECONDS_DAY
+
+static func getSecondsSinceDayStart(_fullTime:int) -> int:
+	return _fullTime % SECONDS_DAY
+
 static func advanceFullTime(_am:int, _adv:int) -> int:
 	return _am + _adv
 

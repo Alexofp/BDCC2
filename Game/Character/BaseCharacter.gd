@@ -880,6 +880,9 @@ func getPain() -> float:
 func getPainLevel() -> float:
 	return charState.getPainLevel()
 
+func getPawn() -> CharacterPawn:
+	return GM.pawnRegistry.getPawn(getID())
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

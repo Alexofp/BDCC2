@@ -5,8 +5,8 @@ var runner:ReactionSystemRunner = ReactionSystemRunner.new()
 var dataBanks:Array[ReactionBank]
 
 class ReactionContext:
-	var main:CharacterPawn
-	var target:CharacterPawn
+	var main:BaseCharacter
+	var target:BaseCharacter
 	var args:Dictionary[String, Variant]
 
 class ReactionResult:
@@ -24,8 +24,8 @@ func setContext(_context:ReactionContext):
 var currentDepth:int = 0
 func reactPawnGenerate(_pawn:CharacterPawn, _reaction:String, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}) -> ReactionResult:
 	context = defaultContext
-	context.main = _pawn
-	context.target = _target
+	context.main = _pawn.getCharacter()
+	context.target = _target.getCharacter()
 	context.args = _args
 	currentDepth = 0
 	
@@ -51,11 +51,14 @@ func getSimpleGameTextParserTextSimple(_id:String, _command:String, _arg:String)
 	var theResult:SGTPResult = null
 	if(context):
 		if(_id == "main"):
-			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.main.getCharID(), _command, _arg)
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.main.getID(), _command, _arg)
 		elif(_id == "target"):
-			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.target.getCharID(), _command, _arg)
-		elif(context.args.has(_id) && (context.args[_id] is CharacterPawn)):
-			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.args[_id].getCharID(), _command, _arg)
+			theResult = GM.characterRegistry.getSimpleGameTextParserText(context.target.getID(), _command, _arg)
+		elif(context.args.has(_id)):
+			if(context.args[_id] is BaseCharacter):
+				theResult = GM.characterRegistry.getSimpleGameTextParserText(context.args[_id].getID(), _command, _arg)
+			if(context.args[_id] is CharacterPawn):
+				theResult = GM.characterRegistry.getSimpleGameTextParserText(context.args[_id].getCharID(), _command, _arg)
 		
 	return theResult
 
@@ -256,21 +259,39 @@ func createError(_text:String) -> ReactionSystemRunner.ResultOrError:
 func createValue(_value:Variant) -> ReactionSystemRunner.ResultOrError:
 	return ReactionSystemRunner.ResultOrError.create(_value)
 
-func getContextPawn(_id:String) -> CharacterPawn:
+func getContextChar(_id:String) -> BaseCharacter:
 	if(_id == "main"):
 		return context.main
 	if(_id == "target"):
 		return context.target
-	if(context.args.has(_id) && context.args[_id] is CharacterPawn):
-		return context.args[_id]
+	if(context.args.has(_id)):
+		if(context.args[_id] is CharacterPawn):
+			return context.args[_id].getCharacter()
+		if(context.args[_id] is BaseCharacter):
+			return context.args[_id]
+	return null
+
+func hasContextChar(_id:String) -> bool:
+	return getContextChar(_id) != null
+
+func getContextPawn(_id:String) -> CharacterPawn:
+	if(_id == "main"):
+		return context.main.getPawn()
+	if(_id == "target"):
+		return context.target.getPawn()
+	if(context.args.has(_id)):
+		if(context.args[_id] is CharacterPawn):
+			return context.args[_id]
+		if(context.args[_id] is BaseCharacter):
+			return context.args[_id].getPawn()
 	return null
 
 func hasContextPawn(_id:String) -> bool:
 	return getContextPawn(_id) != null
 
 func getVariable(_runner:ReactionSystemRunner, _varName:String) -> ReactionSystemRunner.ResultOrError:
-	if(hasContextPawn(_varName)):
-		return createValue(getContextPawn(_varName))
+	if(hasContextChar(_varName)):
+		return createValue(getContextChar(_varName))
 	if(context.args.has(_varName)):
 		var theArg:Variant = context.args[_varName]
 		return createValue(theArg)
@@ -300,6 +321,8 @@ func doFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:Array) -
 func getPropertyValueOf(_runner:ReactionSystemRunner, _target:Variant, _property:String) -> ReactionSystemRunner.ResultOrError:
 	if(_target is CharacterPawn):
 		return getPawnProperty(_target, _property)
+	if(_target is BaseCharacter):
+		return getCharacterProperty(_target, _property)
 	if(_target && _target.has_method("getReactionProperty")):
 		var theVal = _target.getReactionProperty(_runner, _property)
 		if(theVal is ReactionSystemRunner.ResultOrError):
@@ -313,20 +336,18 @@ func getPropertyValueOf(_runner:ReactionSystemRunner, _target:Variant, _property
 #	return _runner.createValue(123)
 
 func doFunctionCallOnObject(_runner:ReactionSystemRunner, _target:Variant, _method:String, _args:Array) -> ReactionSystemRunner.ResultOrError:
-	if(_target is CharacterPawn):
-		var thePawn:CharacterPawn = _target
-		
-		if(_method == "hasMemoryWith"):
-			var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
-			if(argCheck):
-				return argCheck
-			return createValue( thePawn.getCharacter().memoryHolder.hasMemoryWith(_args[0], _args[1].getID()) )
-		if(_method == "getMemoryAmountWith"):
-			var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
-			if(argCheck):
-				return argCheck
-			return createValue( thePawn.getCharacter().memoryHolder.getMemoryAmountWith(_args[0], _args[1].getID()) )
-	
+	#if(_target is BaseCharacter):
+		#if(_method == "hasMemoryWith"):
+			#var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue( _target.memoryHolder.hasMemoryWith(_args[0], _args[1].getID()) )
+		#if(_method == "getMemoryAmountWith"):
+			#var argCheck := _runner.checkArguments([ArgString, ArgPawn], _args)
+			#if(argCheck):
+				#return argCheck
+			#return createValue( _target.memoryHolder.getMemoryAmountWith(_args[0], _args[1].getID()) )
+
 	if(_target && _target.has_method("doReactionFunctionCall")):
 		var theVal = _target.doReactionFunctionCall(_runner, _method, _args)
 		if(theVal is ReactionSystemRunner.ResultOrError):
@@ -375,9 +396,24 @@ func getPawnProperty(_pawn:CharacterPawn, _property:String) -> ReactionSystemRun
 	if(_property == "pain"):
 		return createValue(theCharacter.getPainLevel())
 	if(_property == "annoy"):
-		if(_pawn == context.main):
-			return createValue(_pawn.getAnnoyance(context.target))
+		if(_pawn == context.main.getPawn()):
+			return createValue(_pawn.getAnnoyance(context.target.getPawn()))
 		else:
-			return createValue(_pawn.getAnnoyance(context.main))
+			return createValue(_pawn.getAnnoyance(context.main.getPawn()))
+	
+	return null
+
+func getCharacterProperty(_char:BaseCharacter, _property:String) -> ReactionSystemRunner.ResultOrError:
+	if(!_char):
+		return createError("Char is missing")
+	
+	var _pawn := _char.getPawn()
+	
+	if(_property == "memory"):
+		return createValue(_char.memoryHolder)
+	if(_property == "pain"):
+		return createValue(_char.getPainLevel())
+	if(_pawn):
+		return getPawnProperty(_pawn, _property)
 	
 	return null

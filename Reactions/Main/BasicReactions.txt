@@ -1,28 +1,28 @@
 def Greet
-fill Greet
+fill Greet simple
 <
 Hey, {target.name}.
 >
 
 def WannaChat
-fill WannaChat
+fill WannaChat simple
 <
 Wanna chat?
 >
 
 def WannaHug
-fill WannaHug
+fill WannaHug simple
 <
 Wanna hug?
 >
 
-fill WannaHug
+fill WannaHug another
 priority 1
 cond target.memory.has("Hug", main)
 <
 Want another hug?
 >
-fill WannaHug
+fill WannaHug third
 priority 2
 cond target.memory.amountOf("Hug", main) == 2
 <
@@ -30,14 +30,14 @@ Want a third hug?
 >
 
 def Sure
-fill Sure
+fill Sure simple
 <
 Sure.
 Sure, why not.
 >
 
 def No
-fill No
+fill No simple
 <
 No.
 >
@@ -48,20 +48,20 @@ def HugNo
 fallback No
 
 def NeverMind
-fill NeverMind
+fill NeverMind simple
 <
 Never mind.
 I changed my mind.
 >
 
 def EnoughChat
-fill EnoughChat
+fill EnoughChat simple
 <
 That's enough for now.
 >
 
 def Annoyed
-fill Annoyed
+fill Annoyed simple
 <
 What's your problem?
 The heck do you want?
@@ -76,7 +76,7 @@ fill Talk
 >
 
 def Talk_Start
-fill Talk_Start
+fill Talk_Start simple
 <
 Hey
 So
@@ -100,7 +100,7 @@ So, yeah
 >
 
 def Talk_Incite
-fill Talk_Incite
+fill Talk_Incite simple
 <
 did you hear about
 word is
@@ -116,7 +116,7 @@ they’ve been whispering about
 >
 
 def Talk_Middle
-fill Talk_Middle
+fill Talk_Middle simple
 <
 before I forget
 and then I just
@@ -142,7 +142,7 @@ and then, well
 >
 
 def Talk_End
-fill Talk_End
+fill Talk_End simple
 <
 yep
 or something
@@ -167,7 +167,7 @@ there you go
 >
 
 def Talk_Dots
-fill Talk_Dots
+fill Talk_Dots dots
 <
 .. ...
 ... ...
@@ -176,4 +176,32 @@ fill Talk_Dots
 ... .. ...
 .. ...
 .... ...
+>
+
+
+def AskDay_Start
+<
+How was your day?
+>
+
+def AskDay_Nothing
+<
+Nothing much has happened.
+>
+
+def AskDay_End
+<
+That's about it.
+>
+
+def Memory_Hug
+fill Memory_Hug simple
+<
+Got hugged by {target.name}% MemoryRecently%. That felt good.
+>
+
+def Memory_Chat
+fill Memory_Chat simple
+<
+Had a nice chat with {target.name}% MemoryRecently%.
 >
