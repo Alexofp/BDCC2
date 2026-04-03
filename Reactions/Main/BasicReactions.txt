@@ -212,3 +212,9 @@ fill Memory_Chat simple
 <
 Had a nice chat with {target.name}% MemoryRecently%.
 >
+
+def Memory_Compliment
+fill Memory_Compliment simple
+<
+I got complimented by {target.name}% MemoryRecently%.
+>

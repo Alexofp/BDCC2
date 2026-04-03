@@ -11,6 +11,7 @@ class ReactionContext:
 
 class ReactionResult:
 	var line:String
+	var lineRaw:String
 
 func _init() -> void:
 	runner.targetObject = self
@@ -41,7 +42,31 @@ func generateReaction(_reaction:String, _context:ReactionContext) -> ReactionRes
 		
 	var theResult := ReactionResult.new()
 	theResult.line = processStringFinal(theProcessedText)
+	theResult.lineRaw = theLine.value
 	return theResult
+
+const XREACTIONS_TRY_COUNT := 10
+func generateXReactions(_reaction:String, _context:ReactionContext, _amount:int) -> Array[ReactionResult]:
+	var foundLines:Dictionary[String, bool]
+	
+	var tryCount:int = XREACTIONS_TRY_COUNT
+	var result:Array[ReactionResult]
+	
+	while(tryCount > 0 && result.size() < _amount):
+		var theReaction := generateReaction(_reaction, _context)
+		if(!theReaction):
+			if(result.is_empty()):
+				return []
+			else:
+				tryCount -= 1
+				continue
+		
+		if(foundLines.has(theReaction.lineRaw)):
+			tryCount -= 1
+		else:
+			result.append(theReaction)
+	
+	return result
 
 func processStringFinal(_text:String) -> String:
 	var theResult := GM.textParser.parseString(_text, getSimpleGameTextParserTextSimple)

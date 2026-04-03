@@ -1,0 +1,28 @@
+def Compliment
+fill Compliment simple
+<
+You look nice.
+You are nice.
+You look great today.
+You look lovely.
+You are wonderful.
+You look amazing.
+You seem very kind.
+You look fantastic today.
+You look really good.
+You are so pleasant.
+You have a nice smile.
+You look cute.
+>
+
+def ComplimentAccept
+fill ComplimentAccept simple
+<
+Thank you.
+>
+
+def ComplimentDeny
+fill ComplimentDeny simple
+<
+Don't bother.
+>

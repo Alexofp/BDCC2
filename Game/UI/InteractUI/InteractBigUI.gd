@@ -26,6 +26,7 @@ func updateActionList():
 
 	# Adding category buttons
 	var extraCategories:Array[String]
+	var categoryToButtonAmount:Dictionary[String, int]
 	var curCatAm:int = subCategory.size()
 	for actionEntry in cachedActions:
 		var theCat:Array = actionEntry[2]
@@ -42,12 +43,17 @@ func updateActionList():
 			var newCatName:String = theCat[curCatAm]
 			if(!extraCategories.has(newCatName)):
 				extraCategories.append(newCatName)
+				categoryToButtonAmount[newCatName] = 1
+			else:
+				categoryToButtonAmount[newCatName] += 1
 	
 	for theCatName in extraCategories:
 		var theCatButton := Button.new()
 		action_list.add_child(theCatButton)
+		var _theCatAm:int = categoryToButtonAmount[theCatName]
+		#theCatButton.text = "["+theCatName+", "+str(_theCatAm)+" option"+("s" if _theCatAm != 1 else "")+"]"
+		#theCatButton.text = ""+theCatName+" ["+str(_theCatAm)+"]"
 		theCatButton.text = "["+theCatName+"]"
-		#theCatButton.setCategoryName(theCatName)
 		theCatButton.pressed.connect(onCategoryButtonPressed.bind(theCatName))
 
 	var _i:int = 0
@@ -66,6 +72,7 @@ func updateActionList():
 		_i += 1
 
 func onActionPressed(_entry:Array):
+	clearSubCategory()
 	onAction.emit(_entry[1], _entry[3])
 	
 	#var theIndx:int = _entry[1]
@@ -140,3 +147,6 @@ func fadeOut():
 	fadeTween = create_tween()
 	fadeTween.tween_property(self, "modulate", Color.TRANSPARENT, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	fadeTween.tween_property(self, "visible", false, 0.0)
+
+func clearSubCategory():
+	subCategory.clear()

@@ -381,6 +381,22 @@ func isCharIDInvolved(_charID:String) -> bool:
 func isPawnInvolved(_pawn:CharacterPawn) -> bool:
 	return pawnToRole.has(_pawn)
 
+func getXSayLines(_amount:int, _roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}) -> Array[String]:
+	var thePawn := getPawn(_roleSay)
+	if(!thePawn):
+		return []
+	var theContext := ReactionSystem.ReactionContext.new()
+	theContext.main = thePawn.getCharacter()
+	theContext.target = getPawn(_roleTarget).getCharacter() if _roleTarget >= 0 else null
+	theContext.args = _args
+	var theReactions := GM.main.reactionSystem.generateXReactions(_reaction, theContext, _amount)
+	if(theReactions.is_empty()):
+		return []
+	var theLines:Array[String]
+	for theReaction in theReactions:
+		theLines.append(theReaction.line)
+	return theLines
+	
 func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
 	var thePawn := getPawn(_roleSay)
 	if(!thePawn):
