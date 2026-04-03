@@ -60,6 +60,15 @@ func createEntry(_char1:String, _char2:String) -> RelationshipEntry:
 	holder2.entries[_char1] = newEntry
 	return newEntry
 
+func hasEntry(_char1:String, _char2:String) -> bool:
+	return getEntry(_char1, _char2) != null
+
+func knows(_char1:String, _char2:String) -> bool:
+	return getEntry(_char1, _char2) != null
+
+func markKnows(_char1:String, _char2:String) -> void:
+	getOrCreateEntry(_char1, _char2)
+
 func getEntry(_char1:String, _char2:String) -> RelationshipEntry:
 	if(!holders.has(_char1)):
 		return null

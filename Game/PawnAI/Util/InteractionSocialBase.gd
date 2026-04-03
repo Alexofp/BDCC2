@@ -4,11 +4,16 @@ class_name InteractionSocialBase
 var socialActionName:String = "Fill me!"
 var socialActionCategory:Array[String]
 var socialInteraction:SocialInteractionBase
+var socialMustBeIntroduced:bool = false
 
 func _init() -> void:
 	id = ""
 
 func canDoSocialActionFinal(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+	if(socialMustBeIntroduced):
+		if(!GM.main.relationshipSystem.knows(_main.getID(), _target.getID())):
+			return false
+	
 	return canDoSocialAction(_main, _target)
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:

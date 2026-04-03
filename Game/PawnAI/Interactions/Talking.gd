@@ -31,22 +31,35 @@ func _actions(_role:int):
 		var mainPawn := getPawn(ROLE_MAIN)
 		var targetPawn := getPawn(ROLE_TARGET)
 		
-		var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
-		for theInteraction in allTheInteractions:
-			var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
-			
-			for theAction in theActions: 
-				theAction.id = "startSocial" # A little hacky but whatever
-				theAction.args = [theInteraction, theAction.args]
+		var haveVeryImportantButtons:bool = false
+		if(true):
+			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.VeryImportant)
+			for theInteraction in allTheInteractions:
+				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
 				
-				addAction(theAction)
-		
-		#addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
-		#addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
-		addAction(action("lock", "Lock me up!", 0.0))
-		addAction(action("fight", "Friendly fight!", 0.0))
-		
-		addAction(action("stop", "Never mind", 0.0).setFallback())
+				for theAction in theActions: 
+					theAction.id = "startSocial" # A little hacky but whatever
+					theAction.args = [theInteraction, theAction.args]
+					addAction(theAction)
+					haveVeryImportantButtons = true
+
+		if(!haveVeryImportantButtons):
+			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
+			for theInteraction in allTheInteractions:
+				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
+				
+				for theAction in theActions: 
+					theAction.id = "startSocial" # A little hacky but whatever
+					theAction.args = [theInteraction, theAction.args]
+					
+					addAction(theAction)
+			
+			#addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
+			#addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
+			addAction(action("lock", "Lock me up!", 0.0))
+			addAction(action("fight", "Friendly fight!", 0.0))
+			
+			addAction(action("stop", "Never mind", 0.0).setFallback())
 		
 
 func _do(_role:int, _action:InteractionAction):

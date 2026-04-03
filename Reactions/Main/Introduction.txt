@@ -1,0 +1,105 @@
+def IntroduceNormal
+fill IntroduceNormal simple
+<
+I’m {main.name}.
+Name’s {main.name}. You?
+Haven't seen you before. I’m {main.name}.
+I'm {main.name}. Try to stay out of trouble.
+I’m {main.name}. Who are you?
+>
+def IntroduceFriendly
+fill IntroduceFriendly simple
+<
+I’m {main.name}. Nice to meet you.
+I'm {main.name}. You seem alright.
+I’m {main.name}. What's your name?
+I’m {main.name}. Let’s not be enemies.
+I'm {main.name}. You look less awful than most.
+I’m {main.name}. Want to talk?
+>
+def IntroduceMean
+fill IntroduceMean simple
+<
+I’m {main.name}. Try not to annoy me.
+Look at me. I'm {main.name}.
+Haven't seen your silly face around. I'm {main.name}.
+>
+def IntroduceFlirty
+fill IntroduceFlirty simple
+<
+Hello there~. I’m {main.name}.
+You look lovely~. I’m {main.name}.
+I'm {main.name}~. What's your name?
+>
+def IntroduceShy
+fill IntroduceShy simple
+<
+Uh, hi. I’m {main.name}..
+I’m {main.name}. Nice to meet you..
+Oh. Uh.. I’m {main.name}..
+I’m {main.name}. Sorry, I’m bad at this..
+Um.. hi. I'm {main.name}.
+I’m {main.name}.. Uh, hello.
+>
+def IntroduceDom
+fill IntroduceDom simple
+<
+Look at me. Name is {main.name}.
+I'm {main.name}. Remember it.
+I’m {main.name}. Don’t test me.
+I'm {main.name}. You answer when spoken to.
+I’m {main.name}. You got that?
+>
+
+
+
+
+
+def IntroReactNormal
+fill IntroReactNormal simple
+<
+Hey there. I’m {main.name}.
+Name’s {main.name}. You want something?
+>
+def IntroReactFriendly
+fill IntroReactFriendly simple
+<
+Heya. I’m {main.name}. What's up?
+Name’s {main.name}. What's up?
+Name’s {main.name}. Nice to meet you.
+>
+def IntroReactMean
+fill IntroReactMean simple
+<
+The fuck do you want?
+Yeah? Make it quick.
+I'm {main.name}. Make it snappy, I ain't got all day.
+Don’t waste my time.
+You got a problem?
+>
+def IntroReactFlirty
+fill IntroReactFlirty simple
+<
+Well hello there. I’m {main.name}.
+Hey, handsome. I’m {main.name}.
+I’m {main.name}. You always look this good?
+Mmm. I’m {main.name}. Nice to meet you.
+Hey there. I’m {main.name}. Come closer.
+>
+def IntroReactShy
+fill IntroReactShy simple
+<
+Uh, hi. I’m {main.name}..
+I’m {main.name}.. Nice to meet you..
+Oh. Hey. I’m {main.name}..
+I’m {main.name}.. Sorry, I’m bad at this..
+Um.. hi. I’m {main.name}.
+I’m {main.name}.. Uh, hello.
+>
+def IntroReactDom
+fill IntroReactDom simple
+<
+I’m {main.name}. Be helpful.
+Name’s {main.name}. Remember it.
+I’m {main.name}. Got it?
+>

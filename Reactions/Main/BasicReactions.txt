@@ -1,6 +1,13 @@
 def Greet
 fill Greet simple
 <
+Hey.
+Hey, you.
+>
+fill Greet simpleKnow
+cond main.knows(target)
+priority 10
+<
 Hey, {target.name}.
 >
 

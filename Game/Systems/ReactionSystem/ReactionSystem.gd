@@ -347,7 +347,14 @@ func doFunctionCallOnObject(_runner:ReactionSystemRunner, _target:Variant, _meth
 			#if(argCheck):
 				#return argCheck
 			#return createValue( _target.memoryHolder.getMemoryAmountWith(_args[0], _args[1].getID()) )
-
+	if(_target is BaseCharacter || _target is CharacterPawn):
+		if(_method == "knows"):
+			var theOtherChar = _args[0]
+			if(GM.main.relationshipSystem.knows(_target.getID(), theOtherChar.getID())):
+				return createValue(true)
+			else:
+				return createValue(false)
+	
 	if(_target && _target.has_method("doReactionFunctionCall")):
 		var theVal = _target.doReactionFunctionCall(_runner, _method, _args)
 		if(theVal is ReactionSystemRunner.ResultOrError):
