@@ -27,7 +27,7 @@ func onEnd():
 		theMain.ai.goalHandler.addGoal("HelpGetUp", [theTarget.getCharID()])
 		theTarget.ai.goalHandler.addGoal("HelpGetUp", [theMain.getCharID()])
 
-func processRare():
+func processRare(_dt:float):
 	if(getDistanceBetween(ROLE_MAIN, ROLE_TARGET) > 10.0):
 		stopInteraction()
 	elif(getPawn(ROLE_MAIN).isDefeated() || getPawn(ROLE_TARGET).isDefeated()):

@@ -264,6 +264,8 @@ func addParticipantInfo(_info:SexParticipantInfo):
 	if(!thePawn):
 		Log.error("SexEngine.addParticipantInfo() can't find pawn! ID="+str(_info.id))
 		return
+	if(thePawn.getDoll()):
+		GM.main.doll_holder.askLookAtClear(thePawn.getDoll())
 	
 	savedCharPositions[_info.id] = thePawn.global_position
 	participants[_info.id] = _info
@@ -671,7 +673,8 @@ func doActionInternal(charID:String, action:Dictionary):
 			Log.Printerr("Can't start a sex activity, target or starter are missing.")
 			return
 		theActivityRef.doStartSexAction(self, theInfo, theTarget, theAction)
-		notifyThingHappened()
+		#notifyThingHappened()
+		notifyThingHappenedNeedsReaction()
 	if(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
 		addActionText("{user.You} {user.youVerb decide} to cancel the action!", {user=charID})
@@ -884,7 +887,33 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	GM.sexManager.removeSexInternal(self)
 
-func stopSex():
+func onSexEngineResult(_result:SexEngineResult):
+	var checkedInteractions:Dictionary[InteractionBase, bool]
+	
+	for charID in _result.participants:
+		var thePawn := GM.main.pawn_registry.getPawn(charID)
+		if(!thePawn):
+			continue
+		var theInteraction := thePawn.getInteraction()
+		if(theInteraction && !checkedInteractions.has(theInteraction)):
+			checkedInteractions[theInteraction] = true
+			theInteraction.pushSexEngineResult(_result)
+
+func generateSexEngineResult() -> SexEngineResult:
+	var theResult := SexEngineResult.new()
+	theResult.didAnything = true
+	
+	for charID in participants:
+		var theParticipant := participants[charID]
+		
+		var newSexResultParticipant := SexEngineResult.Participant.new()
+		newSexResultParticipant.charID = charID
+		newSexResultParticipant.role = theParticipant.role
+		theResult.participants[charID] = newSexResultParticipant
+	
+	return theResult
+
+func stopSex(_generateResult:bool = true):
 	GM.sexManager.removeSexInternal(self)
 	queue_free()
 	if(Network.isServer()):
@@ -902,6 +931,9 @@ func stopSex():
 		
 		if(sexType):
 			sexType.onSexEnd()
+		
+		if(_generateResult):
+			onSexEngineResult(generateSexEngineResult())
 
 func _on_anim_scene_player_on_scene_switched() -> void:
 	onAnimSceneSwitched.emit()

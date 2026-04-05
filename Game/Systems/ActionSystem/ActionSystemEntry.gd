@@ -68,6 +68,9 @@ func getTargetSpecific(_node:Node) -> ActionSystemTarget:
 			return extra
 	return null
 
+func isTarget(_node:Node) -> bool:
+	return getTargetSpecific(_node) != null
+
 func needsConsent() -> bool:
 	if(target.needsConsent()):
 		return true

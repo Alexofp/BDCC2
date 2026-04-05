@@ -882,6 +882,40 @@ func addSocialExhaustion(_am:float):
 func getMemoryHolder() -> MemoryHolder:
 	return getCharacter().memoryHolder
 
+func isStandingOrCanGetUpEasily() -> bool:
+	if(!state.isStandingOrCanGetUpEasily()):
+		return false
+	return true
+
+func isSittingCanGetUpEasily() -> bool:
+	if(!isSittingSomewhere()):
+		return false
+	if(!state.isStandingOrCanGetUpEasily()):
+		return false
+	return true
+
+func getUpFromSittingOnSomething() -> bool:
+	var curPoseSpot := GM.sitManager.getSeatOfPawn(self)
+	if(curPoseSpot):
+		var theHandler := curPoseSpot.getHandler()
+		if(theHandler is PropHandlerBase):
+			var ourSlot:String = theHandler.getSlotOfPawn(self)
+			if(ourSlot.is_empty()):
+				return false
+			
+			if(!theHandler.canGetUpFromSlot(ourSlot)):
+				return false
+			
+			# Replace with a SitProp action?
+			#theHandler.setSitter(ourSlot, null)
+			var _doAct := self.doInteractEntryDo(InteractEntryDo.create(
+				"SitProp", [ourSlot],
+			), theHandler)
+			return true
+	return false
+
+
+
 
 
 
@@ -1107,7 +1141,26 @@ func doInteractEntryDoByIndex(_indx:int, _target, _actionID:String):
 	pass
 
 func isDoingSomething() -> bool:
-	return GM.actionSystem.isUserDoingSomething(self)
+	if(isDoingACoupleAnimation() || isDoingAnyDelayedActions() || isTargetOfAnyDelayedActions()):
+		return true
+	return false
+	#return GM.actionSystem.isUserDoingSomething(self)
+
+func isDoingSex() -> bool:
+	return GM.main.sex_manager.isParticipatingInSex(self)
+
+func canDoInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
+	var theAction:PawnActionBase = _entry.action
+	if(!theAction):
+		return false
+	pawnActionContext.args = _entry.args
+	pawnActionContext.target = _target#_entry.target
+	if(!theAction.canStartAction(pawnActionContext)):
+		pawnActionContext.args = []
+		pawnActionContext.target = null
+		return false
+	pawnActionContext.clearContext()
+	return true
 
 func doInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
 	#Only support self actions for now

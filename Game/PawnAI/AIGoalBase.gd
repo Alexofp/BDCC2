@@ -73,6 +73,10 @@ func onAction(_action:PawnActionBase, _context:PawnActionContext):
 func onDelayedAction(_action:ActionSystemEntry, _context:PawnActionContext):
 	pass
 
+# is actually implemented
+func shouldAllowDelayedAction(_action:ActionSystemEntry) -> bool:
+	return false
+
 # FUNCTIONS TO OVERRIDE END
 
 func stopMe():

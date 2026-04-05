@@ -67,6 +67,12 @@ fill EnoughChat simple
 That's enough for now.
 >
 
+def EnoughChatSocial
+fill EnoughChatSocial simple
+<
+That's enough chat for now.
+>
+
 def Annoyed
 fill Annoyed simple
 <
@@ -217,4 +223,16 @@ def Memory_Compliment
 fill Memory_Compliment simple
 <
 I got complimented by {target.name}% MemoryRecently%.
+>
+
+def OfferSex
+fill OfferSex simple
+<
+Wanna fuck?
+>
+
+def OfferSexEnd
+fill OfferSexEnd simple
+<
+Thanks. That was fun.
 >

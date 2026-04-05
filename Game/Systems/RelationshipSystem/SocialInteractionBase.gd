@@ -81,8 +81,11 @@ func addAffection(_am:float, _mult:float = 1.0) -> void:
 			pawn1.addSmallText("Affection"+theChars, Color.RED)
 			pawn2.addSmallText("Affection"+theChars, Color.RED)
 
+func getAffection() -> float:
+	return GM.main.relationshipSystem.getAffection(charIDStarter, charIDTarget)
+
 func affectionPenalty(_minAffection:float, _penalty:float, _minPenaltyRatio:float = 0.5) -> float:
-	var theAffection:float = GM.main.relationshipSystem.getAffection(charIDStarter, charIDTarget)
+	var theAffection:float = getAffection()
 	if(theAffection < 0.0):
 		theAffection = 0.0
 
@@ -99,12 +102,20 @@ func socialExhaustionPenalty(_startAbove:float, _am:float) -> float:
 		return 0.0
 	return -theExhaustion*_am
 
-func affectTargetSocialExhaustion(_am:float):
+func affectTargetSocialExhaustion(_am:float, _affectStarter:bool = true):
+	var theAff := getAffection()
+	
 	var theTarget := getTargetPawn()
 	var currentExhaustion := theTarget.getSocialExhaustion()
 	if(_am > 0.0 && currentExhaustion > 1.0): # Damping to avoid crazy high values
 		_am /= currentExhaustion
+	
+	if(theAff > 0.0): # Having high affection makes the target get less social exhaustion
+		_am *= (1.0 - theAff*0.7)
+	
 	theTarget.addSocialExhaustion(_am)
+	if(_affectStarter):
+		getStarterPawn().addSocialExhaustion(_am*0.5)
 
 func addMemoryTarget(_memory:String):
 	if(_memory.is_empty()):

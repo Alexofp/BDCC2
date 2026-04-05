@@ -18,6 +18,6 @@ func start(_roles:Dictionary, _args:Array):
 	#pushSay(ROLE_TARGET, "What?")
 	#pushLookAt(ROLE_TARGET, ROLE_MAIN)
 
-func processRare():
+func processRare(_dt:float):
 	if(getDistanceBetween(ROLE_MAIN, ROLE_TARGET) > 10.0):
 		stopInteraction()

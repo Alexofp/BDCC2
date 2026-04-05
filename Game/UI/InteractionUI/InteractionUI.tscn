@@ -19,7 +19,7 @@ script = ExtResource("1_emfi0")
 [node name="TopLeftPanel" type="PanelContainer" parent="." unique_id=661410194]
 unique_name_in_owner = true
 layout_mode = 1
-offset_right = 175.0
+offset_right = 329.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_o0eop")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopLeftPanel" unique_id=1864217194]

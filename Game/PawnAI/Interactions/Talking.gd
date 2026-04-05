@@ -22,7 +22,7 @@ func start(_roles:Dictionary, _args:Array):
 	#startSubInteraction("someTag", "Chat", {main=ROLE_MAIN, target=ROLE_TARGET}, [])
 	#stopSubInteraction()
 
-func processRareAlways():
+func processRareAlways(_dt:float):
 	if(checkTooFarAutoStop()):
 		return
 
@@ -138,3 +138,14 @@ func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
 		
 func onSubActionResult(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase, _tag:String, _status:int, _result:Array):
 	pass
+
+func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
+	#if(_attackContext.attacker != getPawn(ROLE_MAIN) && _attackContext.attacker != getPawn(ROLE_TARGET)):
+	#	stopInteraction()
+	#	return false
+	#return true
+	stopInteraction()
+	return false
+
+func isHandlingCombat(_role:int) -> bool:
+	return true

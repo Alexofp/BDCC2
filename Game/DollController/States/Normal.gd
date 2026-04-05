@@ -134,3 +134,6 @@ func canBeDefeated() -> bool:
 
 func canDoCouplesAnims() -> bool:
 	return true
+
+func isStandingOrCanGetUpEasily() -> bool:
+	return true

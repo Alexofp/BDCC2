@@ -118,3 +118,6 @@ func processYanking(_doll:DollController, _delta:float):
 
 	if(Network.isServer() && yankHasPower): #Server's job to do this
 		_doll.yankWalkDir *= 0.8
+
+func isStandingOrCanGetUpEasily() -> bool:
+	return false

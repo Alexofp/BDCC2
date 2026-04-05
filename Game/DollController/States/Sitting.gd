@@ -19,3 +19,15 @@ func processCameraPivotPosition(_doll:DollController, _dt:float):
 
 func isControllingLookDir() -> bool:
 	return true
+
+func isStandingOrCanGetUpEasily() -> bool:
+	var curPoseSpot := GM.sitManager.getSeatOfPawn(pawn)
+	if(curPoseSpot):
+		var theHandler := curPoseSpot.getHandler()
+		if(theHandler is PropHandlerBase):
+			var ourSlot:String = theHandler.getSlotOfPawn(pawn)
+			if(ourSlot.is_empty()):
+				return false
+			if(!theHandler.canGetUpFromSlot(ourSlot)):
+				return false
+	return true

@@ -68,3 +68,17 @@ func setSitter(_slot:String, _pawn:CharacterPawn) -> bool:
 		##sit_spawner.setProp("stocks", stocks)
 	#sit_spawner.setSitter(_slot, _pawn)
 	return false
+
+# pawns should be in the order of importance [main, target, extra1, extra2, etc]
+# returns {sexType=SexType.AgainstWall, roles={dom=pawn1,sub=pawn2}, pos=vec3, ang=vec3}
+# returns {} if no support
+func getSexStartInfo(_pawns:Array[CharacterPawn]) -> Dictionary:
+	return {}
+
+func createSexStartInfo(_sexType:String, _roles:Dictionary[String, CharacterPawn], _pos:Vector3, _ang:Vector3) -> Dictionary:
+	return {
+		sexType = _sexType,
+		roles = _roles,
+		pos = _pos,
+		ang = _ang,
+	}

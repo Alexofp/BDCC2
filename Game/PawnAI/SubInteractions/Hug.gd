@@ -26,7 +26,7 @@ func prepareSocialInteraction():
 #func start(_roles:Dictionary, _args:Array):
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	return true
+	return super.canDoSocialAction(_main, _target)
 
 #func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
 	#if(!canDoSocialAction(_main, _target)):

@@ -8,25 +8,49 @@
 colors = PackedColorArray(0.48556387, 0.2700886, 3.3691526e-07, 1, 0.8103795, 0.5890384, 0, 1)
 
 [node name="InteractionUICharacter" type="PanelContainer" unique_id=921605530]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_hn5eq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1863297457]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1839879112]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=598559359]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=145885548]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1863297457]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=598559359]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Rahi asd sd ads ad sd"
 clip_text = true
 
-[node name="AffectionBar" parent="VBoxContainer" unique_id=969516068 instance=ExtResource("1_iarb2")]
+[node name="AffectionBar" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=969516068 instance=ExtResource("1_iarb2")]
 unique_name_in_owner = true
 layout_mode = 2
 gradient = ExtResource("3_13d36")
 propertyName = "Affection"
 
-[node name="Exhaustion" parent="VBoxContainer" unique_id=2000260551 instance=ExtResource("1_iarb2")]
+[node name="Exhaustion" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2000260551 instance=ExtResource("1_iarb2")]
 unique_name_in_owner = true
 layout_mode = 2
 gradient = SubResource("Gradient_13d36")
 propertyName = "Exhaustion"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1723705298]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Happy"
+horizontal_alignment = 1
+vertical_alignment = 1

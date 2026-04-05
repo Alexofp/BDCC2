@@ -120,28 +120,30 @@ func processInteraction(_dt:float):
 		
 		rareTimer += _dt
 		if(rareTimer >= 1.0):
+			var theDeltaTime:float = rareTimer
 			rareTimer = 0.0
-			processRareAlways()
+			processRareAlways(theDeltaTime)
 		return
 	
 	rareTimer += _dt
 	if(rareTimer >= 1.0):
+		var theDeltaTime:float = rareTimer
 		rareTimer = 0.0
 		var theFuncName:String = getStateFunc("processRare")
 		if(has_method(theFuncName)):
-			call(theFuncName)
+			call(theFuncName, theDeltaTime)
 		else:
-			processRare()
-		processRareAlways()
+			processRare(theDeltaTime)
+		processRareAlways(theDeltaTime)
 	
 	elapsedTime += _dt
 	
 	processQueue(_dt)
 
-func processRare():
+func processRare(_dt:float):
 	pass
 
-func processRareAlways():
+func processRareAlways(_dt:float):
 	pass
 
 var tempActions:Array[InteractionAction]
@@ -666,3 +668,24 @@ func socialInteractionEnd():
 
 func socialInteractionDeny():
 	pass
+
+func shouldAllowDelayedActionFor(_pawn:CharacterPawn, _action:ActionSystemEntry) -> bool:
+	if(subInteraction):
+		return subInteraction.shouldAllowDelayedActionFor(_pawn, _action)
+	
+	if(!pawnToRole.has(_pawn)):
+		return false
+	return shouldAllowDelayedAction(pawnToRole[_pawn], _action)
+
+func shouldAllowDelayedAction(_role:int, _action:ActionSystemEntry) -> bool:
+	return false
+
+func onSexEngineResult(_result:SexEngineResult):
+	pass
+
+func pushSexEngineResult(_result:SexEngineResult):
+	if(subInteraction):
+		subInteraction.onSexEngineResult(_result)
+		return
+	
+	onSexEngineResult(_result)

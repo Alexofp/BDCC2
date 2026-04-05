@@ -174,6 +174,13 @@ func startSexAgainstWall(_domPawn:CharacterPawn):
 func getAllSitterSlots() -> Array[String]:
 	return ["dom"]
 
+func getSexStartInfo(_pawns:Array[CharacterPawn]) -> Dictionary:
+	if(_pawns.size() != 2):
+		return {}
+	return createSexStartInfo(
+		SexType.AgainstWall, {dom=_pawns[0], sub=_pawns[1]}, global_position, global_rotation
+	)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.BINS, sit_spawner.saveNetworkData(),

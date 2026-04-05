@@ -122,3 +122,6 @@ func doJump(_doll:DollController):
 	if(_doll.isRunning):
 		return super.doJump(_doll)
 	return
+
+func isStandingOrCanGetUpEasily() -> bool:
+	return true

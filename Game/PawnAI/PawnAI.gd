@@ -240,7 +240,26 @@ func reactDelayedAction(_action:ActionSystemEntry):
 	if(!theTarget):
 		return
 	
+	# interaction check
+	var interactionAllow:bool = false
+	var theInteraction := pawn.getInteraction()
+	if(theInteraction):
+		interactionAllow = theInteraction.shouldAllowDelayedActionFor(pawn, _action)
+	
+	# pawn ai goal check
+	var goalAllow:bool = false
+	for theGoal in goalHandler.goals:
+		if(theGoal.shouldAllowDelayedAction(_action)):
+			goalAllow = true
+			break
+	
 	Log.Print("DECISION!!!")
+	
+	# Allowing it
+	if(interactionAllow || goalAllow):
+		theTarget.decideAllow()
+		return
+	
 	theTarget.decideDeny()
 	
 	pawn.addAnnoyance(_action.user, 0.7)

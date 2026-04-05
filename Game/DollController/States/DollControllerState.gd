@@ -305,3 +305,6 @@ func canJump(_doll:DollController) -> bool:
 
 func canDoCouplesAnims() -> bool:
 	return false
+
+func isStandingOrCanGetUpEasily() -> bool:
+	return canDoCouplesAnims()

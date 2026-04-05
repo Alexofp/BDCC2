@@ -17,6 +17,13 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 		ROLE_TARGET: "target",
 	}
 
+func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+	if(!_main.isStandingOrCanGetUpEasily()):
+		return false
+	if(!_target.isStandingOrCanGetUpEasily()):
+		return false
+	return true
+
 func start(_roles:Dictionary, _args:Array):
 	startSocialInteraction()
 	say(ROLE_MAIN, askText, ROLE_TARGET)
@@ -45,7 +52,14 @@ func onQueueEvent(_eventID:String, _args:Array):
 	if(_eventID == "hug"):
 		GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
 
-func doing_processRare():
+func doing_processRare(_dt:float):
+	var theMain := getPawn(ROLE_MAIN)
+	var theTarget := getPawn(ROLE_TARGET)
+	if(theMain.isSittingCanGetUpEasily()):
+		theMain.getUpFromSittingOnSomething()
+	if(theTarget.isSittingCanGetUpEasily()):
+		theTarget.getUpFromSittingOnSomething()
+	
 	if(isInteractionQueueEmpty()):
 		if(checkClose2(ROLE_MAIN, ROLE_TARGET, 2.0) && GM.main.coupleAnimsSystem.canStart(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
 			pushStopLookAt(ROLE_MAIN)
