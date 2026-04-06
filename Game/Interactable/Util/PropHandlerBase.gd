@@ -82,3 +82,6 @@ func createSexStartInfo(_sexType:String, _roles:Dictionary[String, CharacterPawn
 		pos = _pos,
 		ang = _ang,
 	}
+
+func canStartSexOnProp(_pawns:Array[CharacterPawn]) -> bool:
+	return !getSexStartInfo(_pawns).is_empty()

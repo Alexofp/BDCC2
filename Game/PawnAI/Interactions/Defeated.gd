@@ -3,24 +3,19 @@ extends InteractionBase
 var didSomething:bool = false
 
 func _init() -> void:
-	id = "Talking"
+	id = "Defeated"
 
 func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 	return {
 		ROLE_MAIN: "main",
-		ROLE_TARGET: "target",
+		ROLE_TARGET: "target", # Defeated npc/pc
 	}
 
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
-	say(ROLE_MAIN, "Greet", ROLE_TARGET) #"Talk"
-	#startAction(ROLE_TARGET, "Follow", [getCharID(ROLE_MAIN)])
+	say(ROLE_MAIN, "DefeatedWhatDo", ROLE_TARGET) #"Talk"
 	pushDelay(1.0)
-	#pushSay(ROLE_TARGET, "What?")
-	pushLookAt(ROLE_TARGET, ROLE_MAIN)
-	
-	#startSubInteraction("someTag", "Chat", {main=ROLE_MAIN, target=ROLE_TARGET}, [])
-	#stopSubInteraction()
+	#pushLookAt(ROLE_TARGET, ROLE_MAIN)
 
 func processRareAlways(_dt:float):
 	if(checkTooFarAutoStop()):
@@ -31,35 +26,17 @@ func _actions(_role:int):
 		var mainPawn := getPawn(ROLE_MAIN)
 		var targetPawn := getPawn(ROLE_TARGET)
 		
-		var haveVeryImportantButtons:bool = false
-		if(true):
-			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.VeryImportant)
-			for theInteraction in allTheInteractions:
-				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
-				
-				for theAction in theActions: 
-					theAction.id = "startSocial" # A little hacky but whatever
-					theAction.args = [theInteraction, theAction.args]
-					addAction(theAction)
-					haveVeryImportantButtons = true
-
-		if(!haveVeryImportantButtons):
-			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
-			for theInteraction in allTheInteractions:
-				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
-				
-				for theAction in theActions: 
-					theAction.id = "startSocial" # A little hacky but whatever
-					theAction.args = [theInteraction, theAction.args]
-					
-					addAction(theAction)
+		var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Defeated)
+		for theInteraction in allTheInteractions:
+			var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
 			
-			#addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
-			#addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
-			addAction(action("lock", "Lock me up!", 0.0))
-			addAction(action("fight", "Friendly fight!", 0.0))
-			
-			addAction(action("stop", "Never mind", 0.0).setFallback())
+			for theAction in theActions: 
+				theAction.id = "startSocial" # A little hacky but whatever
+				theAction.args = [theInteraction, theAction.args]
+				
+				addAction(theAction)
+		
+		addAction(action("stop", "Never mind", 0.0).setFallback())
 		
 
 func _do(_role:int, _action:InteractionAction):
@@ -80,12 +57,6 @@ func _do(_role:int, _action:InteractionAction):
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		stopInteraction()
-	if(_action.id == "lock"):
-		state = "lockme"
-		sayText(ROLE_MAIN, "Lock me up!")
-	if(_action.id == "fight"):
-		#startSubInteraction("ff", "FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
-		startInteraction("FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
 
 func getActions(_role:int):
 	#if(state == "lockme"):
@@ -102,19 +73,9 @@ func doAction(_role:int, _action:InteractionAction):
 func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
-func lockme_plan(_role:int, _action:AIActionBase) -> AIPlan:
-	if(_role == ROLE_TARGET):
-		var someStocks := GM.world.getNearbyStocks(getPawn(_role).global_position, 100.0)
-		if(!someStocks):
-			setState("")
-			stopInteraction()
-			return
-		return _action.makePlan("lockIntoStocks").add("ForcePawnSit", [getPawn(ROLE_MAIN), someStocks])
-	return plan(_role, _action)
-
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	if(_role == ROLE_MAIN):
-		return _action.makePlan().add("Face", [getPawn(ROLE_TARGET)])
+		return _action.makePlan().add("ApproachPawn", [getPawn(ROLE_TARGET)])
 	elif(_role == ROLE_TARGET):
 		return _action.makePlan().add("Face", [getPawn(ROLE_MAIN)])
 	return null
@@ -143,3 +104,6 @@ func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
 
 func isHandlingCombat(_role:int) -> bool:
 	return true
+
+func onSubInteractionEnd(_interaction:InteractionBase):
+	stopInteraction()

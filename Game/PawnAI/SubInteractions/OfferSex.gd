@@ -37,7 +37,6 @@ func _do(_role:int, _action:InteractionAction):
 		socialInteractionStart()
 		say(ROLE_TARGET, "Sure", ROLE_MAIN)
 		pushDelay(3.0)
-		pushSocialEnd()
 		pushSetState("follow")
 		#pushStopInteraction()
 	if(_action.id == "no"):
@@ -93,4 +92,5 @@ func onSexEngineResult(_result:SexEngineResult):
 		pushDelay(2.0)
 		pushSay(ROLE_TARGET, "OfferSexEnd", ROLE_MAIN)
 		pushDelay(2.0)
+		pushSocialEnd()
 		pushStopInteraction()

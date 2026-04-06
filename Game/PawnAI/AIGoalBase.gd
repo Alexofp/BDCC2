@@ -35,16 +35,18 @@ func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:Int
 func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
 	return false
 
-func start(_args:Array):
+func setArgs(_args:Array):
+	pass
+
+func start():
 	pass
 
 func processRare(_dt:float):
 	pass
 
-# Not implemented
-func isSame(_existingGoal:AIGoalBase) -> bool:
-	if(id == _existingGoal.id):
-		return true
+func isSameAs(_otherGoal:AIGoalBase) -> bool:
+	#if(id != _otherGoal.id):
+	#	return false
 	return false
 
 func getKeepScore() -> float:
@@ -93,8 +95,8 @@ func failGoal():
 func processRareFinal(_dt:float):
 	processRare(_dt)
 
-func startFinal(_args:Array):
-	start(_args)
+func startFinal():
+	start()
 
 func getPawn(_id:String) -> CharacterPawn:
 	return GM.main.pawn_registry.getPawn(_id)

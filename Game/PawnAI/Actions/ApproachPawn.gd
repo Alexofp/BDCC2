@@ -22,6 +22,11 @@ func isImpossible() -> bool:
 
 func think():
 	goTo(getTargetPawn().global_position)
+	
+	var theDoll := getPawn().getDoll()
+	var theTargetDoll := getTargetPawn().getDoll()
+	if(theDoll && theTargetDoll && getDistSquaredTo(theTargetDoll.global_position) < 25.0):
+		GM.dollHolder.askLookAtDoll(theDoll, theTargetDoll, 2.0)
 
 func onSubActionResult(_tag:String, _status:int, _result:Array):
 	if(_status == STATUS_COMPLETED):

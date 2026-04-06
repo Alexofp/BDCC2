@@ -32,6 +32,8 @@ func plan() -> AIPlan:
 	if(theTargetPawn.isSittingOn(targetProp)):
 		return makePlan("almostDone").add("StopLeashing", [theTargetPawn])
 	
+	#if(theTargetPawn.isDefeated()):
+	#	return makePlan("helpGetUp").add("DoAction", ["DefeatedHelpGetUp", theTargetPawn])
 	return makePlan("reachStocks").add("LeashWalkTo", [theTargetPawn, targetProp.global_position])
 
 func onPlanCompleted(_plan:AIPlan):

@@ -5,7 +5,14 @@ class_name AIGoalPawnTarget
 
 var targetID:String
 
-func start(_args:Array):
+func isSameAs(_otherGoal:AIGoalBase) -> bool:
+	if(!super.isSameAs(_otherGoal)):
+		return false
+	if(targetID != _otherGoal.targetID):
+		return false
+	return true
+
+func setArgs(_args:Array):
 	var theTarget = _args[0]
 	if(theTarget is String):
 		targetID = theTarget
@@ -13,6 +20,9 @@ func start(_args:Array):
 		targetID = theTarget.getCharID()
 	else:
 		assert(false, "BAD TARGET")
+
+func start():
+	pass
 
 func isImpossible() -> bool:
 	if(!getTarget()):

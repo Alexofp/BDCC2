@@ -12,8 +12,11 @@ func isImpossible() -> bool:
 		return true
 	return false
 
-func start(_args:Array):
-	super.start(_args)
+#func setArgs(_args:Array):
+#	super.setArgs(_args)
+
+func start():
+	pass
 
 func getScore() -> float:
 	return 1.0

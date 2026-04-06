@@ -64,6 +64,7 @@ func generateXReactions(_reaction:String, _context:ReactionContext, _amount:int)
 		if(foundLines.has(theReaction.lineRaw)):
 			tryCount -= 1
 		else:
+			foundLines[theReaction.lineRaw] = true
 			result.append(theReaction)
 	
 	return result

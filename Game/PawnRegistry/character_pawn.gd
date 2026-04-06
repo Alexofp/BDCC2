@@ -765,7 +765,7 @@ func recoverFromDefeat() -> bool:
 		return false
 	doCombatAnim("CollapseToCombat", true)
 	setState(CharacterPawn.STATE_NORMAL)
-	getCharacter().charState.setPain(0.0)
+	#getCharacter().charState.setPain(0.0)
 	combatMovePlayer.makeNoMove(0.8)
 	combatMovePlayer.makeNoAttack(0.8)
 	return true

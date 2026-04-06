@@ -1,0 +1,29 @@
+def DefeatedWhatDo
+fill DefeatedWhatDo simple
+<
+What should I do with you..
+>
+
+def DefeatLockUpStart
+fill DefeatLockUpStart simple
+<
+Let's get you locked up.
+>
+
+def DefeatLockUpEnd
+fill DefeatLockUpEnd simple
+<
+Have fun.
+>
+
+def DefeatLockUpSex
+fill DefeatLockUpSex simple
+<
+I wanna use you before I go.
+>
+
+def DefeatLockUpAfterSex
+fill DefeatLockUpAfterSex simple
+<
+Enjoy yourself.
+>

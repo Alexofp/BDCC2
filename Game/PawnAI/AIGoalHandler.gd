@@ -14,16 +14,23 @@ func setAI(_ai:PawnAI):
 	interactionToGoal.clear()
 	addStaticGoals()
 
-func addGoal(_goalID:String, _args:Array = []) -> AIGoalBase:
+func addGoal(_goalID:String, _args:Array = [], _checkHasSame:bool = true) -> AIGoalBase:
 	if(ai.getPawn().isControlledByAnyPlayer()):
 		return null
 	
 	var newGoal:AIGoalBase = GlobalRegistry.createAIGoal(_goalID)
 	if(!newGoal):
 		return null
-	goals.append(newGoal)
 	newGoal.setPawn(ai.getPawn())
-	newGoal.startFinal(_args)
+	newGoal.setArgs(_args)
+	if(_checkHasSame):
+		for theCurrentGoal in goals:
+			if(theCurrentGoal.isSameAs(newGoal)):
+				newGoal.setPawn(null)
+				return null
+	
+	goals.append(newGoal)
+	newGoal.startFinal()
 	for interactionID in newGoal.handlingInteractions:
 		if(!interactionToGoal.has(interactionID)):
 			var _newAr:Array[AIGoalBase] = [newGoal]

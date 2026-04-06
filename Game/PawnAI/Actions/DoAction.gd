@@ -1,12 +1,13 @@
 extends AIActionBase
 
-var targetPawn:String = ""
+var target:Node
+#var targetPawn:String = ""
 var actionID:String = ""
 var actionArgs:Array
 var waitingForAction:bool = false
 
-func getTargetPawn() -> CharacterPawn:
-	return GM.pawnRegistry.getPawn(targetPawn)
+#func getTargetPawn() -> CharacterPawn:
+#	return GM.pawnRegistry.getPawn(targetPawn)
 
 func _init() -> void:
 	id = "DoAction"
@@ -22,18 +23,25 @@ func start(_args:Array):
 	
 	var theArg0 = _args[1]
 	if(theArg0 is String):
-		targetPawn = theArg0
+		#targetPawn = theArg0
+		target = GM.main.pawn_registry.getPawn(theArg0)
 	elif(theArg0 is CharacterPawn):
-		targetPawn = theArg0.getCharID()
-
+		target = theArg0
+		#targetPawn = theArg0.getCharID()
+	elif(theArg0 is Node):
+		target = theArg0
+	
 func isImpossible() -> bool:
-	if(!getTargetPawn()):
+	#if(!getTargetPawn()):
+	#	return true
+	if(!target):
 		return true
 	return false
 
 func think():
 	var thePawn := getPawn()
-	var theTargetPawn := getTargetPawn()
+	#var theTargetPawn := getTargetPawn()
+	var theTargetPawn := target
 	
 	if(waitingForAction):
 		if(!isDoingDelayedActions()):
@@ -46,9 +54,12 @@ func think():
 		return
 	
 	if(!thePawn.doInteractEntryDo(InteractEntryDo.create(actionID, actionArgs), theTargetPawn)):
-		failAction()
+		onInteractEntryFail()
 	
 	if(isDoingDelayedActions()):
 		waitingForAction = true
 		return
 	completeAction()
+
+func onInteractEntryFail():
+	failAction()

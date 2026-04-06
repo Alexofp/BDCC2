@@ -250,6 +250,10 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	GI.networkedNodes.notifySpawned(self)
 	sexType.onStartFinal()
 
+	for charID in participants:
+		participants[charID].onSexStart()
+	process_timer.start(0.1)
+
 func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 	var newInfo:SexParticipantInfo = SexParticipantInfo.new()
 	newInfo.id = theID

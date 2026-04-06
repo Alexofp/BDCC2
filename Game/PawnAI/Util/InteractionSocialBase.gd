@@ -5,6 +5,7 @@ var socialActionName:String = "Fill me!"
 var socialActionCategory:Array[String]
 var socialInteraction:SocialInteractionBase
 var socialMustBeIntroduced:bool = false
+var socialDefaultScore:float = 0.0
 
 func _init() -> void:
 	id = ""
@@ -19,11 +20,14 @@ func canDoSocialActionFinal(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true
 
+func getSocialActionScore(_main:CharacterPawn, _target:CharacterPawn) -> float:
+	return socialDefaultScore
+
 func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
 	if(!canDoSocialActionFinal(_main, _target)):
 		return []
 	return [
-		action(id, socialActionName).setCategory(socialActionCategory),
+		action(id, socialActionName).setCategory(socialActionCategory).setScore(getSocialActionScore(_main, _target)),
 	]
 
 func getRequiredRoles(_args:Array) -> Dictionary[int, String]:

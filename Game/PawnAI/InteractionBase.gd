@@ -568,7 +568,8 @@ func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIA
 
 func onGettingHitFor(_pawn:CharacterPawn, _attackContext:AttackContext) -> bool:
 	if(subInteraction):
-		return subInteraction.onGettingHitFor(_pawn, _attackContext)
+		if(subInteraction.onGettingHitFor(_pawn, _attackContext)):
+			return true
 	
 	if(!pawnToRole.has(_pawn)):
 		return false
@@ -581,7 +582,8 @@ func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
 
 func isHandlingCombatFor(_pawn:CharacterPawn) -> bool:
 	if(subInteraction):
-		return subInteraction.isHandlingCombatFor(_pawn)
+		if(subInteraction.isHandlingCombatFor(_pawn)):
+			return true
 	
 	if(!pawnToRole.has(_pawn)):
 		return false

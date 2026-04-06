@@ -53,7 +53,6 @@ unique_name_in_owner = true
 [node name="ProcessTimer" type="Timer" parent="." unique_id=863368892]
 unique_name_in_owner = true
 wait_time = 0.1
-autostart = true
 
 [node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1134727979]
 replication_config = SubResource("SceneReplicationConfig_hdgrd")
@@ -84,8 +83,6 @@ unique_name_in_owner = true
 [node name="HoverText" parent="HoverTextPoser" unique_id=590944479 instance=ExtResource("6_0xtce")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0)
-pixel_size = 0.002
-fixed_size = false
 
 [connection signal="onAnimEvent" from="Tweaker/AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_event"]
 [connection signal="onAnimPlay" from="Tweaker/AnimScenePlayer" to="." method="_on_anim_scene_player_on_anim_play"]

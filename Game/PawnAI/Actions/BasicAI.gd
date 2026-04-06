@@ -15,6 +15,7 @@ func onGettingHit(_attackContext:AttackContext) -> bool:
 	if(!getPawn().isDefeated()):
 		getPawn().combatAI.addEnemy(_attackContext.attacker)
 		startSubActionUnlessSameTag("Combat")
+		getPawn().ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
 	return true
 
 func isHandlingCombat() -> bool:

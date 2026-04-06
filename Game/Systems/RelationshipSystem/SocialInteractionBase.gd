@@ -47,6 +47,8 @@ func getStarterChar() -> BaseCharacter:
 func getTargetChar() -> BaseCharacter:
 	return GM.main.characterRegistry.getCharacter(charIDTarget)
 
+const MEH_THRESHOLD := 0.2
+
 func addAffection(_am:float, _mult:float = 1.0) -> void:
 	var finalVal:float = _am*_mult
 	GM.main.relationshipSystem.addAffection(charIDStarter, charIDTarget, _am*_mult)
@@ -58,13 +60,13 @@ func addAffection(_am:float, _mult:float = 1.0) -> void:
 		return
 	#var theSign := signf(finalVal)
 	
-	if(absf(_mult < 0.2)):
-		if(finalVal > 0.0):
-			pawn1.addSmallText("Affection~~", Color.YELLOW)
-			pawn2.addSmallText("Affection~~", Color.YELLOW)
-		else:
-			pawn1.addSmallText("Affection~~", Color.YELLOW)
-			pawn2.addSmallText("Affection~~", Color.YELLOW)
+	if(absf(_mult) < MEH_THRESHOLD):
+		#if(finalVal > 0.0):
+		#	pawn1.addSmallText("Affection~~", Color.YELLOW)
+		#	pawn2.addSmallText("Affection~~", Color.YELLOW)
+		#else:
+		pawn1.addSmallText("Affection~~", Color.YELLOW)
+		pawn2.addSmallText("Affection~~", Color.YELLOW)
 	else:
 		var charAm:int = 1
 		if(absf(finalVal) >= 2.5):
@@ -126,3 +128,49 @@ func addMemoryStarter(_memory:String):
 	if(_memory.is_empty()):
 		return
 	GM.main.memorySystem.addMemory(charIDStarter, _memory, charIDTarget)
+	
+const GOOD_NOISE = preload("res://Sounds/UI/Good.ogg")
+const BLIP_NOISE := preload("res://Sounds/UI/Blip.ogg")
+const ERROR_NOISE := preload("res://Sounds/UI/Error.ogg")
+
+func playNoise(_noise:AudioStream, _volumeAdd:float = -25.0, _pitch:float = 1.0):
+	if(_pitch <= 0.0):
+		return
+	
+	var reScaledPitch:float = remap(_pitch, 0.0, 1.0, 0.6, 1.0)
+	
+	var theTarget := getTargetPawn()
+	var theStarter := getStarterPawn()
+	if(!theTarget || !theStarter):
+		return
+	var theTargetNode := theStarter
+	if(theStarter.isControlledByUs()):
+		theTargetNode = theTarget
+		
+	Audio.playSound3DAdvanced(theTargetNode, _noise, _volumeAdd, reScaledPitch, 10.0)
+
+func playSuccessNoise(_mult:float):
+	if(absf(_mult) < MEH_THRESHOLD):
+		playNoise(BLIP_NOISE, -25.0, 1.0)
+		#pawn1.addSmallText("Affection~~", Color.YELLOW)
+		#pawn2.addSmallText("Affection~~", Color.YELLOW)
+		pass
+	else:
+		var _charAm:int = 1
+		if(absf(_mult) >= 2.5):
+			_charAm = 3
+		elif(absf(_mult) >= 1.5):
+			_charAm = 2
+		
+		if(_mult > 0.0):
+			playNoise(GOOD_NOISE, -25.0, _mult)
+			#var theChars:String = "+".repeat(charAm)
+			#pawn1.addSmallText("Affection"+theChars, Color.GREEN)
+			#pawn2.addSmallText("Affection"+theChars, Color.GREEN)
+			pass
+		elif(_mult < 0.0):
+			playNoise(ERROR_NOISE, -25.0, -_mult)
+			#var theChars:String = "-".repeat(charAm)
+			#pawn1.addSmallText("Affection"+theChars, Color.RED)
+			#pawn2.addSmallText("Affection"+theChars, Color.RED)
+			pass

@@ -30,7 +30,7 @@ func getSyncVar(_var:String) -> Variant:
 
 func onSexStart():
 	checkGoals()
-	ticker = 1.0
+	ticker = 1.0 + RNG.randfRange(0.0, 1.0)
 
 func notifyThingHappened():
 	ticker = max(RNG.randfRange(1.0, 2.0), ticker)
@@ -192,7 +192,7 @@ func checkGoals():
 		return
 	if(!shouldProcessAI()):
 		return
-	goals = generateGoals(2)
+	goals = generateGoals(1)
 	goalsGenerated = true
 
 func getFinalResistance() -> float:

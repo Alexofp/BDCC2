@@ -20,7 +20,7 @@ func start(_args:Array):
 		return
 
 func isImpossible() -> bool:
-	if(!getTarget()):
+	if(!getTargetPawn()):
 		return true
 	return false
 
@@ -32,12 +32,12 @@ func think():
 	ai.lookTowardsRaw(getTargetPos())
 	
 	var theDoll := getPawn().getDoll()
-	var theTargetDoll := getTarget().getDoll()
+	var theTargetDoll := getTargetPawn().getDoll()
 	if(theDoll && theTargetDoll):
 		GM.dollHolder.askLookAtDoll(theDoll, theTargetDoll, 5.0)
 		#theDoll.lookAtDoll(theTargetDoll)
 	
-func getTarget() -> CharacterPawn:
+func getTargetPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(target)
 
 func getTargetPos() -> Vector3:

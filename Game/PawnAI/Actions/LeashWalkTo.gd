@@ -34,6 +34,7 @@ func plan() -> AIPlan:
 	
 	return (makePlan()
 	.add("LeashPawn", [targetPawn])
+	.add("DoActionIfCan", ["DefeatedHelpGetUp", targetPawn])
 	.add("GoTo", [targetLoc], "leashedGo")
 	)
 

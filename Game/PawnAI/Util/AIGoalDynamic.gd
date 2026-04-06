@@ -16,3 +16,9 @@ func processRareFinal(_dt:float):
 		return
 	
 	super.processRareFinal(_dt)
+
+func isSameAs(_otherGoal:AIGoalBase) -> bool:
+	if(id != _otherGoal.id):
+		return false
+	
+	return true

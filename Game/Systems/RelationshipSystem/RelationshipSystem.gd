@@ -25,6 +25,10 @@ func addAffection(_char1:String, _char2:String, _amount:float):
 
 const AFFECTION_NONLINEAR_POW := 0.5
 static func affectionToVisualAffection(_val:float) -> float:
+	if(_val == 0.0):
+		return 0.0
+	if(_val < 0.0):
+		return -pow(-_val, AFFECTION_NONLINEAR_POW)
 	return pow(_val, AFFECTION_NONLINEAR_POW)
 
 func getAffection(_char1:String, _char2:String) -> float:

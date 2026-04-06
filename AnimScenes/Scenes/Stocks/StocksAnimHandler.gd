@@ -142,3 +142,10 @@ func loadData(_data:Dictionary):
 
 func _on_sit_spawner_on_pawn_switch(_id: Variant, _pawn: Variant) -> void:
 	sit_spawner.despawnIfNoSitters()
+
+func getSexStartInfo(_pawns:Array[CharacterPawn]) -> Dictionary:
+	if(_pawns.size() != 2):
+		return {}
+	return createSexStartInfo(
+		SexType.InStocks, {dom=_pawns[0], sub=_pawns[1]}, global_position, global_rotation
+	)

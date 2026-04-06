@@ -46,6 +46,7 @@ func onStart() -> void:
 
 # The interaction has ended
 func onEnd() -> void:
+	playSuccessNoise(success)
 	addAffection(affectionGain, success)
 	affectTargetSocialExhaustion(socialExhaustionGain)
 	
@@ -57,5 +58,6 @@ func onEnd() -> void:
 	
 # The target has denied us
 func onDenied() -> void:
+	playSuccessNoise(-1.0)
 	addAffection(-affectionLossDeny)
 	addMemoryStarter(memoryDenied)
