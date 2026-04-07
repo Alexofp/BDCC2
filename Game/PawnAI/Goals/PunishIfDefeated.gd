@@ -16,6 +16,11 @@ func isImpossible() -> bool:
 func getScore() -> float:
 	return 1.0
 
+func getKeepScore() -> float:
+	if(getTarget().hasInteraction()):
+		return 0.0
+	return super.getKeepScore()
+
 func getPlan() -> AIPlan:
 	return makePlan().add("DoAction", ["DefeatedStartPunish", getTarget(), []])
 

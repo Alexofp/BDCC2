@@ -1477,6 +1477,15 @@ func setPos(_pos:Vector3):
 		return
 	tweaker.position = _pos
 
+func isSexTaskPossibleToSatisfy(_sexTask:SexTask) -> bool:
+	for sexActivityID in GlobalRegistry.getSexActivities():
+		var theSexActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(sexActivityID)
+		if(!theSexActivityRef.isActivitySupported(self)):
+			continue
+		if(theSexActivityRef.canDoSexTask(self, _sexTask)):
+			return true
+	return false
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

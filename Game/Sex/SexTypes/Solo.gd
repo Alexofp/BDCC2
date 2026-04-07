@@ -17,7 +17,7 @@ func start_run():
 func start_actions(_role:String):
 	if(!hasMainActivity()):
 		if(canDoDomActions(_role)):
-			addAction(action("Stop").delayCancel(0.5).do("stopSex"))
+			addAction(action("Stop").delayCancel(0.5).do("stopSex").setScore(scoreSexStop(_role)))
 
 func start_do(_role:String, _id:String, _args:Array):
 	if(_id == "stopSex"):

@@ -32,6 +32,8 @@ var idToRole:Dictionary[String, String] = {}
 
 var state:String = ""
 
+var canDoTasks:Dictionary[String, bool] = {}
+
 func getActivityType() -> int:
 	return ACTIVITY_SEXTYPE
 
@@ -236,6 +238,14 @@ func addActionEasy(_name:String, _score:float, _actionID:String, _args:Array = [
 	
 	addAction(newAction)
 
+func doesSexEngineHaveAnyPossiblePoses(theEngine:SexEngine) -> bool:
+	var allPoses := GlobalRegistry.getSexPosesForActivityID(id)
+	for thePose in allPoses:
+		if(!thePose.canBeUsedFinal(theEngine, self)):
+			continue
+		return true
+	return false
+
 func getAllPossiblePoses() -> Array[SexPoseBase]:
 	var result:Array[SexPoseBase] = []
 	var theEngine := getSexEngine()
@@ -248,18 +258,22 @@ func getAllPossiblePoses() -> Array[SexPoseBase]:
 	
 	return result
 
-func getAllPossiblePosesCanPickRandomly() -> Array[SexPoseBase]:
+func getAllPossiblePosesCanPickRandomly(_allowFallback:bool = true) -> Array[SexPoseBase]:
 	var result:Array[SexPoseBase] = []
+	var fallback:Array[SexPoseBase] = []
 	var theEngine := getSexEngine()
 	
 	var allPoses := GlobalRegistry.getSexPosesForActivityID(id)
 	for thePose in allPoses:
-		if(!thePose.canPickRandomly):
-			continue
 		if(!thePose.canBeUsedFinal(theEngine, self)):
+			continue
+		if(!thePose.canPickRandomly):
+			fallback.append(thePose)
 			continue
 		result.append(thePose)
 	
+	if(result.is_empty() && _allowFallback):
+		return fallback
 	return result
 
 func pickRandomPose() -> String:
@@ -620,20 +634,76 @@ func calcConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isF
 func calcNoConsentScore(_strategy:int, _args:Array, _info:SexParticipantInfo, _isForced:bool) -> float:
 	return 1.0 - calcConsentScore(_strategy, _args, _info, _isForced)
 
-func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
+func isTaskOurs(_task:SexTask, _ourTask:String, _roleActor:String, _roleTarget:String) -> bool:
+	if(_task.id != _ourTask):
+		return false
+	if(_task.actor != getRoleID(_roleActor)):
+		return false
+	if(_task.target != getRoleID(_roleTarget)):
+		return false
+	return true
+
+func canSatisfyTask(_task:SexTask) -> bool:
+	#if(canDoTasks.get(_task.id, false) && idToRole.has(_task.target)):
+	#	return true
 	return false
 
-func taskScore(_role:String, _taskID:String, _args:Array=[]) -> float:
-	var theInfo := getRoleInfo(_role)
-	if(!theInfo):
-		return 0.0
-	return theInfo.taskScore(_taskID, _args)
+#func taskScore(_role:String, _taskID:String, _args:Array=[]) -> float:
+	#var theInfo := getRoleInfo(_role)
+	#if(!theInfo):
+		#return 0.0
+	#return theInfo.taskScore(_taskID, _args)
 
+func taskScore(_role:String, _taskID:String, _roleTarget:String) -> float:
+	var theInfo := getRoleInfo(_role)
+	var theInfoTarget := getRoleInfo(_roleTarget)
+	if(!theInfo || !theInfoTarget):
+		return 0.0
+	return theInfo.taskScore(_taskID, theInfoTarget)
+
+func taskScoreReceive(_role:String, _taskID:String, _roleTarget:String) -> float:
+	var theInfo := getRoleInfo(_role)
+	var theInfoTarget := getRoleInfo(_roleTarget)
+	if(!theInfo || !theInfoTarget):
+		return 0.0
+	return theInfo.taskScoreReceive(_taskID, theInfoTarget)
+
+#TODO: DELETE
 func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
 	return []
 
 func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
 	return [_taskID, _taskArgs, _score]
+
+func scoreSexStop(_role:String) -> float:
+	var theEngine := getSexEngine()
+	if(!theEngine):
+		return 0.0
+	
+	var hasPC:bool = false
+	var hasAnyNPCWithGoals:bool = false
+	
+	for charID in idToRole:
+		var theInfo := theEngine.getInfo(charID)
+		if(!theInfo):
+			continue
+		if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
+			continue
+		if(theInfo.isPlayer()):
+			hasPC = true
+		if(!theInfo.ai.didCompleteAllGoals()):
+			hasAnyNPCWithGoals = true
+			
+		#if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
+		#	continue
+		#var theTasksByID := theInfo.ai.tasksByID
+		#for theTaskID in theTasksByID:
+			#for taskEntry in theTasksByID[theTaskID]:
+				#if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
+					#return 0.0
+	if(hasPC || hasAnyNPCWithGoals):
+		return 0.0
+	return 1.0
 
 func scoreStop(_role:String) -> float:
 	#var theInfo := getRoleInfo(_role)
@@ -648,18 +718,22 @@ func scoreStop(_role:String) -> float:
 			continue
 		if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
 			continue
-		var theTasksByID := theInfo.ai.tasksByID
+		#var theTasksByID := theInfo.ai.tasksByID
+		var theTasksByID := theInfo.ai.sexTasksByID
 		for theTaskID in theTasksByID:
 			for taskEntry in theTasksByID[theTaskID]:
-				if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
+				if(canSatisfyTask(taskEntry)):
 					return 0.0
 	return 1.0
 
-func completeTask(_role:String, _taskID:String, _taskArray:Array):
-	var theInfo := getRoleInfo(_role)
-	if(!theInfo):
+const EVENT_COMPLETED:int = 0
+
+func completeTask(_roleActor:String, _taskID:String, _roleTarget:String):
+	var theInfo := getRoleInfo(_roleActor)
+	var theTarget := getRoleInfo(_roleTarget)
+	if(!theInfo || !theTarget):
 		return
-	theInfo.sendTaskEvent(_taskID, _taskArray)
+	theInfo.sendTaskEvent(_taskID, theTarget, EVENT_COMPLETED)
 
 func isReadyToPenetrate(_role:String) -> bool:
 	var theChar := getRoleChar(_role)
@@ -732,6 +806,22 @@ func doHitAnimationRandom(_role:String, _strength:float):
 	if(!theDoll):
 		return
 	GM.dollHolder.applyHitRandom(theDoll, _strength)
+
+func canDoSexTask(_sexEngine:SexEngine, _task:SexTask) -> bool:
+	if(canDoTasks.get(_task.id, false)):
+		return true
+	return false
+
+func undressTask(_actorID:String, _targetID:String, _slots:Array[int]) -> SexTask:
+	var theTarget := GM.characterRegistry.getCharacter(_targetID)
+	for theSlot in _slots:
+		if(theTarget.isZoneCovered(theSlot)):
+			return SexTask.create(SexTask.Undress, _actorID, _targetID)
+	return SexTask.create(SexTask.CompletedTask, _actorID, _targetID)
+
+func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
+	return [
+	]
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

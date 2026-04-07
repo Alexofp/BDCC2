@@ -29,16 +29,7 @@ func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEn
 		return true
 	return false
 
-func handleTaskEvent(_taskID:String, _args:Array) -> bool:
-	if(_taskID == SexTask.TieUp && _args.size() > 0 && _args[0] == target):
-		howMuch -= 1
-		if(howMuch <= 0):
-			completeSelf()
-		return true
-	return false
-
-func getTasks() -> Array:
-	var result:Array = []
-	#prepareForSex(result, target)
-	result.append(task(SexTask.TieUp, [target]))
-	return result
+func getSexTasks() -> Array[SexTask]:
+	return [
+		sexTask(SexTask.TieUp),
+	]

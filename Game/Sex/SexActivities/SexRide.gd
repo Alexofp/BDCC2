@@ -37,8 +37,23 @@ func getPenetrateZone() -> int:
 		return ZoneCover.Vagina
 	return ZoneCover.Anus
 
-func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
-	if(_taskID == getCumInsideTask() && _args.size()>0 && _args[0] == getRoleID(ROLE_TOP)):
+func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
+	var theSubUndress:Array[int] = []
+	if(_task.id == SexTask.ReceiveCumInsideVaginal):
+		theSubUndress.append(ZoneCover.Vagina)
+	if(_task.id == SexTask.ReceiveCumInsideAnal):
+		theSubUndress.append(ZoneCover.Anus)
+	
+	return [
+		undressTask(_task.actor, _task.target, [ZoneCover.Penis]),
+		undressTask(_task.actor, _task.actor, theSubUndress),
+		SexTask.create(SexTask.WearStrapon, _task.actor, _task.target),
+	]
+
+func canSatisfyTask(_task:SexTask) -> bool:
+	if(isTaskOurs(_task, getCumInsideTask(), ROLE_TOP, ROLE_BOTTOM)):
+		return true
+	if(isTaskOurs(_task, getCumInsideTask(), ROLE_BOTTOM, ROLE_TOP)):
 		return true
 	return false
 
@@ -81,12 +96,18 @@ func getAnimSceneHole() -> int:
 
 func _init():
 	id = SexActivity.SexRide
+	canDoTasks = {
+		SexTask.ReceiveCumInsideVaginal: true,
+		SexTask.ReceiveCumInsideAnal: true,
+	}
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
 	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor): #Check if we have 'animations' for this sex type instead?
 		return false
+	#if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
+	#	return false
 	return true
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
@@ -94,7 +115,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	
 	if(_info.getChar().hasReachableVagina()):
-		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideVaginal, [_target.getID()])
+		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideVaginal, _target)
 		addAction(action("Ride (vaginal)")
 		.setCat(CATEGORY_SEX)
 		.setScore(theRideScore)
@@ -103,7 +124,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		.start({ROLE_TOP:_target,ROLE_BOTTOM:_info}, {vaginal=true})
 		)
 	if(_info.getChar().hasReachableAnus()):
-		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideAnal, [_target.getID()])
+		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideAnal, _target)
 		addAction(action("Ride (anal)")
 		.setCat(CATEGORY_SEX)
 		.setScore(theRideScore)
@@ -122,7 +143,7 @@ func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
 		return
 	var penetrateEnabled:bool = isReadyToPenetrate(ROLE_TOP) && isZoneReadyToBePenetrated(ROLE_BOTTOM, getPenetrateZone())
-	var startScore:float = taskScore(ROLE_BOTTOM, getCumInsideTask(), [getRoleID(ROLE_TOP)])
+	var startScore:float = taskScore(ROLE_BOTTOM, getCumInsideTask(), ROLE_TOP)
 	#var zoneName := zoneLewdName(ROLE_BOTTOM, ZoneCover.Vagina if isVaginal else ZoneCover.Anus)
 	addAction(action("Start riding")
 	.setEnabled(penetrateEnabled)
@@ -131,9 +152,10 @@ func start_actions(_role:String):
 	.do("startSex")
 	)
 	
+	var swapScore:float = taskScore(ROLE_TOP, getCumInsideTask(), ROLE_BOTTOM)
 	addAction(action("Swap with sub")
 	#.setEnabled(penetrateEnabled)
-	.setScore(0.0)
+	.setScore(swapScore)
 	.consent([ROLE_TOP], conTexts("{top.You} {top.youVerb want} to swap spots with {bottom.you}.", "{top.You} {top.youVerb try|tries} to swap spots with {bottom.you}."))
 	.do("swapSpots")
 	)
@@ -239,7 +261,7 @@ func domDoCum():
 	pushDelay(5.0)
 	pushSetState("inside")
 	
-	completeTask(ROLE_BOTTOM, getCumInsideTask(), [getRoleID(ROLE_TOP)])
+	completeTask(ROLE_BOTTOM, getCumInsideTask(), ROLE_TOP)
 
 func getActions(_role:String):
 	if(!canDoDomActions(_role)):

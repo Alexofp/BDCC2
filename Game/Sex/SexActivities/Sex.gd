@@ -29,6 +29,11 @@ var pose:String = ""
 
 func _init():
 	id = SexActivity.Sex
+	
+	canDoTasks = {
+		SexTask.CumInsideVaginal: true,
+		SexTask.CumInsideAnal: true,
+	}
 
 func getCumInsideTask() -> String:
 	if(isVaginal):
@@ -41,24 +46,48 @@ func getPenetrateZone() -> int:
 	return ZoneCover.Anus
 
 # Do this based on pose availability instead
-const SUPPORTED_ACTIVITIES = [
-	SexType.OnTheFloor,
-	SexType.InStocks,
-	SexType.AgainstWall,
-]
+#const SUPPORTED_ACTIVITIES = [ # Can remove me
+	#SexType.OnTheFloor,
+	#SexType.InStocks,
+	#SexType.AgainstWall,
+#]
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
-	if(!SUPPORTED_ACTIVITIES.has(_sexEngine.getSexTypeID())):
+	#if(!SUPPORTED_ACTIVITIES.has(_sexEngine.getSexTypeID())):
+	#	return false
+	if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
 		return false
 	return true
+
+
+func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
+	var theSubUndress:Array[int] = []
+	if(_task.id == SexTask.CumInsideVaginal):
+		theSubUndress.append(ZoneCover.Vagina)
+	if(_task.id == SexTask.CumInsideAnal):
+		theSubUndress.append(ZoneCover.Anus)
+	
+	return [
+		undressTask(_task.actor, _task.actor, [ZoneCover.Penis]),
+		undressTask(_task.actor, _task.target, theSubUndress),
+		SexTask.create(SexTask.WearStrapon, _task.actor, _task.actor),
+	]
+
+func canSatisfyTask(_task:SexTask) -> bool:
+	if(isTaskOurs(_task, getCumInsideTask(), ROLE_TOP, ROLE_BOTTOM)):
+		return true
+	return false
+
+
+
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target || !_info.canDoDomActions() || _sexEngine.hasMainActivity()):
 		return
 	if(_target.getChar().hasReachableVagina()):
-		var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, [_target.getID()])
+		var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, _target)
 		addAction(action("Vaginal sex")
 		.setCat(CATEGORY_SEX)
 		.setScore(vagSexScore)
@@ -68,7 +97,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		)
 
 	if(_target.getChar().hasReachableAnus()):
-		var analSexScore:float = _info.taskScore(SexTask.CumInsideAnal, [_target.getID()])
+		var analSexScore:float = _info.taskScore(SexTask.CumInsideAnal, _target)
 		addAction(action("Anal sex")
 		.setCat(CATEGORY_SEX)
 		.setScore(analSexScore)
@@ -92,7 +121,7 @@ func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
 		return
 	var penetrateEnabled:bool = isReadyToPenetrate(ROLE_TOP) && isZoneReadyToBePenetrated(ROLE_BOTTOM, getPenetrateZone())
-	var penetrateScore:float = taskScore(ROLE_TOP, getCumInsideTask(), [getRoleID(ROLE_BOTTOM)])
+	var penetrateScore:float = taskScore(ROLE_TOP, getCumInsideTask(), ROLE_BOTTOM)
 	var zoneName := zoneLewdName(ROLE_BOTTOM, ZoneCover.Vagina if isVaginal else ZoneCover.Anus)
 	addAction(action("Penetrate")
 	.setEnabled(penetrateEnabled)
@@ -173,28 +202,7 @@ func domDoCum():
 	pushDelay(5.0)
 	pushSetState("inside")
 	
-	completeTask(ROLE_TOP, getCumInsideTask(), [getRoleID(ROLE_BOTTOM)])
-
-func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
-	if(_taskID == getCumInsideTask() && _args.size()>0 && _args[0] == getRoleID(ROLE_BOTTOM)):
-		return true
-	return false
-
-func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
-	if(_taskID in [SexTask.CumInsideVaginal, SexTask.CumInsideAnal]):
-		var result:Array = []
-		var theChar := _info.getChar()
-		var theTarget := GM.characterRegistry.getCharacter(_args[0])
-		
-		if(theChar && theChar.isZoneCovered(ZoneCover.Penis)):
-			result.append(task(SexTask.Undress, [_info.getID()]))
-		if((_taskID == SexTask.CumInsideVaginal) && theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
-			result.append(task(SexTask.Undress, [_args[0]]))
-		if((_taskID == SexTask.CumInsideAnal) && theTarget && theTarget.isZoneCovered(ZoneCover.Anus)):
-			result.append(task(SexTask.Undress, [_args[0]]))
-		
-		return result
-	return []
+	completeTask(ROLE_TOP, getCumInsideTask(), ROLE_BOTTOM)
 
 func sex_process(_dt:float):
 	if(isReadyToCum(ROLE_BOTTOM)):

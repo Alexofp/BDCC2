@@ -28,10 +28,10 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			continue
 		
 		if(theItem.canUnequipInSex(theContext)):
-			var takeOffScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
+			var takeOffScore:float = _info.taskScore(SexTask.Undress, _target)
 			if(theItem.isStrapon()):
 				#TODO: This seems weird. Can we soft-lock because of this somehow?
-				takeOffScore = 1.0 - _info.taskScore(SexTask.WearStrapon, [_target.getID()])
+				takeOffScore = 1.0 - _info.taskScore(SexTask.WearStrapon, _target)
 			addAction(action("Take off")
 			.setScore(takeOffScore)
 			.setCat(finalCat)
@@ -43,7 +43,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			var actionName:String = actionEntry["name"]
 			
 			#var actionID:String = actionEntry["action"]
-			var displaceScore:float = _info.taskScore(SexTask.Undress, [_target.getID()])
+			var displaceScore:float = _info.taskScore(SexTask.Undress, _target)
 			addAction(action(actionName)
 			.setScore(displaceScore)
 			.setCat(finalCat)

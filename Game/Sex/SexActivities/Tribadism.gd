@@ -22,6 +22,9 @@ const MAINFETISH = Fetish.Tribadism
 
 func _init():
 	id = SexActivity.Tribadism
+	canDoTasks = {
+		SexTask.CumTribadism: true,
+	}
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
@@ -35,7 +38,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	if(!_info.getChar().hasReachableVagina() || !_target.getChar().hasReachableVagina()):
 		return
-	var theScore:float = _info.taskScore(SexTask.CumTribadism, [_target.getID()])
+	var theScore:float = _info.taskScore(SexTask.CumTribadism, _target)
 	addAction(action("Tribadism")
 	.setCat(CATEGORY_SEX)
 	.setScore(theScore)
@@ -55,7 +58,7 @@ func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
 		return
 	#var penetrateEnabled:bool = isReadyToPenetrate(ROLE_TOP) && isZoneReadyToBePenetrated(ROLE_BOTTOM, getPenetrateZone())
-	var startScore:float = taskScore(ROLE_TOP, SexTask.CumTribadism, [getRoleID(ROLE_BOTTOM)])
+	var startScore:float = taskScore(ROLE_TOP, SexTask.CumTribadism, ROLE_BOTTOM)
 	addAction(action("Rub pussies")
 	#.setEnabled(penetrateEnabled)
 	.setScore(startScore)
@@ -136,6 +139,7 @@ func sex_do(_role:String, _id:String, _args:Array):
 		doText(_role, "{top.You} {top.youVerb pause} the pussy rubbing.")
 	if(_id == "orgasm"):
 		#domDoCum()
+		completeTask(ROLE_TOP, SexTask.CumTribadism, ROLE_BOTTOM)
 		var isDeny:bool = (!_args.is_empty() && _args[0])
 		sexSpeed = SEX_SPEED_SLOW
 		if(isReadyToCum(ROLE_TOP) && isReadyToCum(ROLE_BOTTOM) && !isDeny):
@@ -176,25 +180,17 @@ func sex_do(_role:String, _id:String, _args:Array):
 			doText(_role, "{top.You} {top.youVerb delay} {top.yourHis} orgasm!")
 		else:
 			doText(_role, "{top.You} {top.youVerb delay} {bottom.your} orgasm!")
-	
-func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
-	if(_taskID == SexTask.CumTribadism && _args.size()>0 && _args[0] == getRoleID(ROLE_BOTTOM)):
+
+func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
+	return [
+		undressTask(_task.actor, _task.target, [ZoneCover.Vagina]),
+		undressTask(_task.actor, _task.actor, [ZoneCover.Vagina]),
+	]
+
+func canSatisfyTask(_task:SexTask) -> bool:
+	if(isTaskOurs(_task, SexTask.CumTribadism, ROLE_TOP, ROLE_BOTTOM)):
 		return true
 	return false
-
-func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
-	if(_taskID in [SexTask.CumTribadism]):
-		var result:Array = []
-		var theChar := _info.getChar()
-		var theTarget := GM.characterRegistry.getCharacter(_args[0])
-		
-		if(theChar && theChar.isZoneCovered(ZoneCover.Vagina)):
-			result.append(task(SexTask.Undress, [_info.getID()]))
-		if(theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
-			result.append(task(SexTask.Undress, [_args[0]]))
-		
-		return result
-	return []
 
 func sex_process(_dt:float):
 	#if(isReadyToCum(ROLE_BOTTOM)):

@@ -36,7 +36,7 @@ func start_run():
 func start_actions(_role:String):
 	if(!hasMainActivity()):
 		if(canDoDomActions(_role)):
-			addAction(action("Stop").delayCancel(0.5).do("stopSex").setScore(scoreStop(_role)))
+			addAction(action("Stop").delayCancel(0.5).do("stopSex").setScore(scoreSexStop(_role)))
 		
 			addPosePickActions("pickPose")
 

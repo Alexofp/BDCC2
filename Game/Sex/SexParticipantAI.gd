@@ -16,8 +16,10 @@ var timerLastStimulation:float = 0.0
 
 var goals:Array[SexGoalBase] = []
 var goalsGenerated:bool = false
+var currentGoal:SexGoalBase # Which goal does this npc currently persue
 
 var tasksByID:Dictionary[String, Array] = {}
+var sexTasksByID:Dictionary[String, Array] = {}
 
 var syncState:SyncState = SyncState.new(self,
 	["lust", "anger", "resistance", "fear"],
@@ -67,10 +69,28 @@ func processAI(_dt:float):
 	
 	syncState.processSyncState(_dt)
 
+func checkCurrentGoal():
+	if(currentGoal && !currentGoal.completed):
+		return
+	if(currentGoal && currentGoal.completed):
+		currentGoal = null
+	if(goals.is_empty()):
+		return
+	var possibleGoals:Array[SexGoalBase] = []
+	for theGoal in goals:
+		if(theGoal.completed):
+			continue
+		possibleGoals.append(theGoal)
+	
+	if(!possibleGoals.is_empty()):
+		currentGoal = RNG.pick(possibleGoals)
+
 # Main thinking func. Gets called sometimes
 func tickAI():
 	checkGoals()
-	tasksByID = calcAllTasksDict()
+	checkCurrentGoal()
+	sexTasksByID = calcAllSexTasksByID()
+	#tasksByID = calcAllTasksDict()
 	
 	var theChar := getChar()
 	var theID := theChar.getID()
@@ -157,13 +177,36 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 		if(!canUseGoal):
 			continue
 		
-		var goalEntries := theGoalRef.tryGenerateGoals(theInfo, theSex)
-		for entry in goalEntries:
-			var finalScore:float = entry["score"]
-			
-			if(finalScore <= 0.0):
+		var allTargetsWithArgs := theGoalRef.getGoalTargets(theInfo, theSex)
+		for theTargetEntry in allTargetsWithArgs:
+			var theTarget:SexParticipantInfo = theTargetEntry[0]
+			var theScore:float = theTargetEntry[1]
+			var _theArgs:Array = theTargetEntry[2] if theTargetEntry.size() > 2 else []
+			if(theScore <= 0.0):
 				continue
-			possibleGoals.append([ [goalID, entry["args"]], finalScore ])
+			
+			var canDoTasksOfThisGoal:bool = false
+			theGoalRef.info = theInfo
+			theGoalRef.target = theTarget
+			var theTasks := theGoalRef.getSexTasks()
+			for theTask in theTasks: # At least one goal must be completable
+				if(theSex.isSexTaskPossibleToSatisfy(theTask)):
+					canDoTasksOfThisGoal = true
+					break
+			theGoalRef.info = null
+			theGoalRef.target = null
+			if(!canDoTasksOfThisGoal):
+				continue
+			
+			possibleGoals.append([[theGoalRef, theTarget, _theArgs], theScore])
+			
+		#var goalEntries := theGoalRef.tryGenerateGoals(theInfo, theSex)
+		#for entry in goalEntries:
+			#var finalScore:float = entry["score"]
+			#
+			#if(finalScore <= 0.0):
+				#continue
+			#possibleGoals.append([ [goalID, entry["args"]], finalScore ])
 	
 	if(possibleGoals.is_empty()):
 		return []
@@ -171,18 +214,24 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 	var result:Array[SexGoalBase] = []
 	
 	while(_goalAmount > 0 && !possibleGoals.is_empty()):
-		var goalEntry:Array = RNG.grabWeightedPairs(possibleGoals)
-		var goalID:String = goalEntry[0]
-		var goalArgs:Array = goalEntry[1]
+		#var goalEntry:Array = RNG.grabWeightedPairs(possibleGoals)
+		var goalEntry:Array = RNG.pickWeightedPairs(possibleGoals)
 		
-		var newGoal := GlobalRegistry.createSexGoal(goalID)
+		var theGoal:SexGoalBase = goalEntry[0]
+		var theTarget:SexParticipantInfo = goalEntry[1]
+		var _theArgs:Array = goalEntry[2]
+		
+		#var goalID:String = goalEntry[0]
+		#var goalArgs:Array = goalEntry[1]
+		
+		var newGoal := GlobalRegistry.createSexGoal(theGoal.id)
 		if(!newGoal):
 			continue
-		newGoal.infoRef = weakref(getInfo())
-		if(!newGoal.setupGoal(goalArgs)):
+		if(!newGoal.setupSexGoal(theInfo, theTarget, theSex, _theArgs)):
 			continue
+		
 		result.append(newGoal)
-		Log.Print("GAVE GOAL "+goalID+" TO "+getID()+" ARGS="+str(goalArgs))
+		Log.Print("GAVE GOAL "+newGoal.id+" TO "+getID()+" TARGET="+theTarget.getID()+" ARGS="+str(_theArgs))
 		_goalAmount -= 1
 	
 	return result
@@ -192,7 +241,7 @@ func checkGoals():
 		return
 	if(!shouldProcessAI()):
 		return
-	goals = generateGoals(1)
+	goals = generateGoals(2)
 	goalsGenerated = true
 
 func getFinalResistance() -> float:
@@ -345,7 +394,28 @@ func exposeToGenericFetishValue(myFetishLike:float, _intensity:float):
 		addLust(_intensity*myFetishLike)
 		addResistance(-_intensity)
 
-func taskScore(_taskID:String, _args:Array) -> float:
+func taskScore(_taskID:String, _charID:String) -> float:
+	if(!sexTasksByID.has(_taskID)):
+		return 0.0
+	var maxScore:float = 0.0
+	var theSexTasks:Array[SexTask] = sexTasksByID[_taskID]
+	for theSexTask in theSexTasks:
+		if(theSexTask.target == _charID):
+			maxScore = maxf(maxScore, theSexTask.score)
+	return maxScore
+
+func taskScoreReceive(_taskID:String, _charID:String) -> float:
+	if(!sexTasksByID.has(_taskID)):
+		return 0.0
+	var maxScore:float = 0.0
+	var theSexTasks:Array[SexTask] = sexTasksByID[_taskID]
+	for theSexTask in theSexTasks:
+		if(theSexTask.actor == _charID):
+			maxScore = maxf(maxScore, theSexTask.score)
+	return maxScore
+
+#TODO: DELETE
+func taskScoreOLD(_taskID:String, _args:Array) -> float:
 	var maxScore:float = 0.0
 	
 	if(!tasksByID.has(_taskID) || tasksByID[_taskID].is_empty()):
@@ -374,6 +444,7 @@ func taskScore(_taskID:String, _args:Array) -> float:
 	
 	return maxScore
 
+#TODO: DELETE
 func calcAllTasks() -> Array:
 	var theInfo := getInfo()
 	var result:Array = []
@@ -386,6 +457,44 @@ func calcAllTasks() -> Array:
 		
 	return result
 
+func calcAllSexTasksByID() -> Dictionary[String, Array]:
+	if(!currentGoal):
+		return {}
+	
+	var _allTasks:Array[SexTask] = []
+	
+	var theGoalTasks := currentGoal.getSexTasks()
+	_allTasks.append_array(theGoalTasks)
+	
+	internal_getSubSexTasks(theGoalTasks, _allTasks, getSexEngine())
+	
+	var result:Dictionary[String, Array] = {}
+	for theSexTask in _allTasks:
+		if(!result.has(theSexTask.id)):
+			var theAr:Array[SexTask] = [theSexTask]
+			result[theSexTask.id] = theAr
+		else:
+			result[theSexTask.id].append(theSexTask)
+	return result
+	
+func internal_getSubSexTasks(_checkTasks:Array[SexTask], _allTasks:Array[SexTask], _sexEngine:SexEngine):
+	var newTasksToAdd:Array[SexTask] = []
+	
+	for sexActivityID in GlobalRegistry.getSexActivities():
+		var sexActivity:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(sexActivityID)
+		if(!sexActivity.isActivitySupported(_sexEngine)):
+			continue
+		for theSexTask in _checkTasks:
+			if(!sexActivity.canDoSexTask(_sexEngine, theSexTask)):
+				continue
+			newTasksToAdd.append_array(sexActivity.getSubSexTasks(_sexEngine, theSexTask))
+		
+	if(!newTasksToAdd.is_empty()):
+		_allTasks.append_array(newTasksToAdd)
+		internal_getSubSexTasks(newTasksToAdd, _allTasks, _sexEngine)
+		
+
+#TODO: DELETE
 func calcAllTasksDict() -> Dictionary[String, Array]:
 	var theInfo := getInfo()
 	var _allTasks:Array = []
@@ -406,6 +515,7 @@ func calcAllTasksDict() -> Dictionary[String, Array]:
 	
 	return result
 
+#TODO: DELETE
 func internal_getSubTasks(theInfo:SexParticipantInfo, _taskID:String, _taskArgs:Array) -> Array:
 	var result:Array = []
 
@@ -419,6 +529,7 @@ func internal_getSubTasks(theInfo:SexParticipantInfo, _taskID:String, _taskArgs:
 	
 	return result
 
+#TODO: DELETE
 func internal_getSubTasksReq(theInfo:SexParticipantInfo, theTasks:Array) -> Array:
 	var result:Array = []
 	result.append_array(theTasks)
@@ -433,9 +544,17 @@ func internal_getSubTasksReq(theInfo:SexParticipantInfo, theTasks:Array) -> Arra
 	
 	return result
 		
-func sendTaskEvent(_taskID:String, _taskArray:Array):
+func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 	for goal in goals:
 		if(goal.isCompleted()):
 			continue
-		if(goal.handleTaskEvent(_taskID, _taskArray)):
+		if(goal.handleTaskEvent(_taskID, _targetInfo, _event)):
 			return
+
+func didCompleteAllGoals() -> bool:
+	if(!goalsGenerated):
+		return false
+	for goal in goals:
+		if(!goal.isCompleted()):
+			return false
+	return true

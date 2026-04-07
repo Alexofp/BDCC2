@@ -16,7 +16,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		var theTargetInv:Inventory = theTargetChar.getInventory()
 		var theCharName:String = theTargetChar.getName()
 		
-		var tieUpScore:float = _info.taskScore(SexTask.TieUp, [_target.getID()])
+		var tieUpScore:float = _info.taskScore(SexTask.TieUp, _target)
 		
 		for theItem in theInv.getBDSMGearToEquipToOthers():
 			if(!theItem.canBeEquippedOnto(theTargetInv)):
@@ -72,6 +72,6 @@ func start_event(_event:SexEvent):
 			doText(ROLE_MAIN, "{main.You} {main.youVerb lock} "+theItemName+" on {target.you}.")
 		
 		doHitAnimationRandom(ROLE_TARGET, 1.0)
-		completeTask(ROLE_MAIN, SexTask.TieUp, [getRoleID(ROLE_TARGET)])
+		completeTask(ROLE_MAIN, SexTask.TieUp, ROLE_TARGET)
 		
 		endActivity()

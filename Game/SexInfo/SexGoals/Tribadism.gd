@@ -18,16 +18,7 @@ func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEn
 		return false
 	return true
 
-func handleTaskEvent(_taskID:String, _args:Array) -> bool:
-	if(_taskID == SexTask.CumTribadism && _args.size() > 0 && _args[0] == target):
-		completeSelf()
-		return true
-	return false
-
-func getTasks() -> Array:
-	var result:Array = []
-	#prepareForSex(result, target)
-	#if(shouldDomWearStraponToFuck()):
-	#	result.append(task(SexTask.WearStrapon, [getCharID()]))
-	result.append(task(SexTask.CumTribadism, [target]))
-	return result
+func getSexTasks() -> Array[SexTask]:
+	return [
+		sexTask(SexTask.CumTribadism),
+	]

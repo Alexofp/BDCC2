@@ -51,7 +51,7 @@ func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
 		return
 	var penetrateEnabled:bool = true#isReadyToPenetrate(ROLE_TOP) && isZoneReadyToBePenetrated(ROLE_BOTTOM, getPenetrateZone())
-	var penetrateScore:float = 1.0#taskScore(ROLE_TOP, getCumInsideTask(), [getRoleID(ROLE_BOTTOM)])
+	var penetrateScore:float = 1.0#taskScore(ROLE_TOP, getCumInsideTask(), ROLE_BOTTOM)
 	addAction(action("Stroke cock")
 	.setEnabled(penetrateEnabled)
 	.setScore(penetrateScore)

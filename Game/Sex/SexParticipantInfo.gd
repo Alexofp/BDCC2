@@ -124,15 +124,25 @@ func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:
 	if(ai):
 		ai.exposeToFetish(_fetishID, _intensity, _isPerf, _isReceiv)
 
-func taskScore(_taskID:String, _args:Array) -> float:
+func taskScore(_taskID:String, _target:SexParticipantInfo) -> float:
 	if(!ai || !ai.shouldProcessAI()):
 		return 0.0
-	return ai.taskScore(_taskID, _args)
+	return ai.taskScore(_taskID, _target.getID())
 
-func sendTaskEvent(_taskID:String, _taskArray:Array):
+func taskScoreReceive(_taskID:String, _target:SexParticipantInfo) -> float:
+	if(!ai || !ai.shouldProcessAI()):
+		return 0.0
+	return ai.taskScoreReceive(_taskID, _target.getID())
+
+#func taskScore(_taskID:String, _args:Array) -> float:
+	#if(!ai || !ai.shouldProcessAI()):
+		#return 0.0
+	#return ai.taskScore(_taskID, _args)
+
+func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 	if(!ai):
 		return
-	ai.sendTaskEvent(_taskID, _taskArray)
+	ai.sendTaskEvent(_taskID, _targetInfo, _event)
 
 func canWearFreeStrapon() -> bool:
 	var theSexEngine:SexEngine = getSexEngine()

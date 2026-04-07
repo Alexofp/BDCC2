@@ -19,8 +19,8 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		if(!theTargetChar.canWearStrapon()):
 			return
 		
-		#var tieUpScore:float = _info.taskScore(SexTask.TieUp, [_target.getID()])
-		var straponScore:float = _info.taskScore(SexTask.WearStrapon, [_target.getID()])
+		#var tieUpScore:float = _info.taskScore(SexTask.TieUp, _target)
+		var straponScore:float = _info.taskScore(SexTask.WearStrapon, _target)
 		
 		var theStraponsToWear := theInv.getStraponsToEquipToOthers()
 		

@@ -135,9 +135,10 @@ func onPlanCompleted(_role:int, _action:AIActionBase, _thePlan:AIPlan):
 		var theStocksProp := theTarget.getSitPropHandler()
 		
 		if(RNG.chance(100) && theStocksProp && theStocksProp.canStartSexOnProp([getPawn(ROLE_MAIN), theTarget])):
-			setState("timeToSex")
+			setState("justNothing")
 			pushSay(ROLE_MAIN, "DefeatLockUpSex", ROLE_TARGET)
-			pushDelay(3.0)
+			pushDelay(2.0)
+			pushSetState("timeToSex")
 		else:
 			setState("afterLock")
 			pushSay(ROLE_MAIN, "DefeatLockUpEnd", ROLE_TARGET)
