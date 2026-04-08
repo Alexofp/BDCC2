@@ -28,6 +28,9 @@ func canBeUsed(_sexEngine:SexEngine, _sexActivity:SexEngineActivityBase) -> bool
 	#	return false
 	return true
 
+func getExtraUndressZones(_role:String, _sexActivity:SexEngineActivityBase) -> Array[int]:
+	return []
+
 #playAnim(
 #AnimScene.TestSex,
 #"tease",

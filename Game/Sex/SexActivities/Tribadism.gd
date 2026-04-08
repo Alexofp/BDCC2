@@ -20,8 +20,12 @@ const SEX_AROUSAL_GAIN = [
 
 const MAINFETISH = Fetish.Tribadism
 
+const MAINANIM = AnimScene.Tribadism
+
 func _init():
 	id = SexActivity.Tribadism
+	poseSupport = true
+	
 	canDoTasks = {
 		SexTask.CumTribadism: true,
 	}
@@ -29,7 +33,7 @@ func _init():
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
-	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor): #Check if we have 'animations' for this sex type instead?
+	if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
 		return false
 	return true
 
@@ -49,10 +53,12 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
-	doText(ROLE_TOP, "{top.You} {top.youVerb interlock} legs with {bottom.you}!")
+	pickRandomPose()
+	doPoseText(ROLE_TOP, "start", {},
+	"{top.You} {top.youVerb interlock} legs with {bottom.you}!")
 	
 func start_run():
-	playAnim(AnimScene.Tribadism, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM})
+	playAnim(MAINANIM, "tease", {dom={id=ROLE_TOP}, sub=ROLE_BOTTOM})
 
 func start_actions(_role:String):
 	if(!canDoDomActions(_role)):
@@ -73,7 +79,7 @@ func start_do(_role:String, _id:String, _args:Array):
 		doText(ROLE_TOP, "{top.You} {top.youVerb start} rubbing pussies with {bottom.you}!")
 
 func playCurrentSexAnim():
-	playAnim(AnimScene.Tribadism, SEX_SPEEDS_ANIM[sexSpeed], {dom=ROLE_TOP, sub=ROLE_BOTTOM})
+	playAnim(MAINANIM, SEX_SPEEDS_ANIM[sexSpeed], {dom=ROLE_TOP, sub=ROLE_BOTTOM})
 
 func sex_run():
 	playCurrentSexAnim()
@@ -187,6 +193,9 @@ func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 		undressTask(_task.actor, _task.actor, [ZoneCover.Vagina]),
 	]
 
+func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
+	return undressExtraForPose(pose, getRoleID(_role))
+
 func canSatisfyTask(_task:SexTask) -> bool:
 	if(isTaskOurs(_task, SexTask.CumTribadism, ROLE_TOP, ROLE_BOTTOM)):
 		return true
@@ -200,13 +209,13 @@ func sex_process(_dt:float):
 	pass
 
 func orgasmBoth_run():
-	playAnim(AnimScene.Tribadism, "orgasmBoth", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
+	playAnim(MAINANIM, "orgasmBoth", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
 
 func orgasm1_run():
-	playAnim(AnimScene.Tribadism, "orgasm1", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
+	playAnim(MAINANIM, "orgasm1", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
 
 func orgasm2_run():
-	playAnim(AnimScene.Tribadism, "orgasm2", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
+	playAnim(MAINANIM, "orgasm2", {dom=ROLE_TOP, sub=ROLE_BOTTOM})
 
 func getActions(_role:String):
 	if(!canDoDomActions(_role)):
@@ -236,7 +245,7 @@ func getExpressionState(_role:String) -> int:
 	return DollExpressionState.Normal
 
 #func onAnimEvent(_animID:String, _animState:String, _eventID:String, _args:Variant):
-	#if(_animID == AnimScene.Tribadism):
+	#if(_animID == MAINANIM):
 		#if(_eventID == "plap"):
 			##processSex(getPenetrateZone(), ROLE_TOP, ROLE_BOTTOM, 0.5)
 			#addAutomoan(ROLE_BOTTOM, 2.0, 25.0)

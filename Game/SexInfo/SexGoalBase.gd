@@ -11,10 +11,6 @@ var target:SexParticipantInfo
 
 var completed:bool = false
 
-#TODO: DELETE
-func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
-	return [_taskID, _taskArgs, _score]
-
 #func prepareForSex(_targetID:String, _taskID:String, _args:Array) -> float:
 	#if(_taskID == SexTask.Undress && _args.size() > 0 && _args[0] == _targetID):
 		#return 0.5
@@ -40,10 +36,6 @@ func handleTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int)
 				return true
 	return false
 
-#TODO: DELETE
-func getTasks() -> Array:
-	return []
-
 func completeSelf():
 	if(completed):
 		return
@@ -55,13 +47,6 @@ func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 
 func isPossible(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine) -> bool:
 	return false
-
-func generateGoalData(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine) -> Array:
-	return [_target.getID()]
-
-func setupGoal(_goalData:Array) -> bool:
-	target = _goalData[0] if _goalData.size() > 0 else ""
-	return true
 
 func setupSexGoal(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine, _args:Array) -> bool:
 	info = _info
@@ -85,36 +70,6 @@ func getGoalTargets(_info:SexParticipantInfo, _sex:SexEngine) -> Array:
 		if(!isPossible(_info, theTargetInfo, _sex)):
 			continue
 		result.append([theTargetInfo, 1.0, []])
-	return result
-
-func getGenerateGoalScoreFinal(_info:SexParticipantInfo, _target:SexParticipantInfo, _sex:SexEngine, _args:Array) -> float:
-	return 1.0
-
-#TODO: DELETE
-func tryGenerateGoalsOLD(_info:SexParticipantInfo, _sex:SexEngine) -> Array[Dictionary]:
-	if(!_info.canDoDomActions()):
-		return []
-	if(!isPossibleAtAll(_info, _sex)):
-		return []
-	
-	var hasAnySubs:bool = _sex.hasAnySubs()
-	
-	var result:Array[Dictionary] = []
-	for charID in _sex.getParticipants():
-		var theTargetInfo := _sex.getParticipant(charID)
-		
-		if(theTargetInfo == _info):
-			continue
-		if(theTargetInfo.canDoDomActions() && hasAnySubs):
-			continue
-		if(!isPossible(_info, theTargetInfo, _sex)):
-			continue
-		
-		result.append({
-			score = 1.0,
-			args = generateGoalData(_info, theTargetInfo, _sex),
-		})
-	
 	return result
 
 func getInfo() -> SexParticipantInfo:
@@ -149,5 +104,5 @@ func getSexTasks() -> Array[SexTask]:
 func sexTask(_id:String) -> SexTask:
 	return SexTask.create(_id, getCharID(), target.getID())
 
-func sexTaskReceive(_id:String) -> SexTask:
-	return SexTask.create(_id, target.getID(), getCharID())
+#func sexTaskReceive(_id:String) -> SexTask:
+#	return SexTask.create(_id, target.getID(), getCharID())

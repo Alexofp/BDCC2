@@ -1486,6 +1486,15 @@ func isSexTaskPossibleToSatisfy(_sexTask:SexTask) -> bool:
 			return true
 	return false
 
+func getAllActivities() -> Array[SexEngineActivityBase]:
+	var result:Array[SexEngineActivityBase] = []
+	if(sexType):
+		result.append(sexType)
+	if(sexActivity):
+		result.append(sexActivity)
+	result.append_array(sideActivities)
+	return result
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

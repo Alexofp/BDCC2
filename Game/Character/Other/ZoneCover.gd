@@ -10,10 +10,11 @@ const Nipples = 5
 const Penis = 6
 const Vagina = 7
 const Anus = 8
+const Thighs = 9
 
 const ALL = [
 	Anything, Head, Mouth, Body,
-	Breasts, Nipples, Penis, Vagina, Anus,
+	Breasts, Nipples, Penis, Vagina, Anus, Thighs,
 ]
 
 static func isLewd(_zone:int) -> bool:

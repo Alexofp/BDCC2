@@ -19,11 +19,12 @@ var sexSpeed:int = SEX_SPEED_SLOW
 
 func _init():
 	id = SexActivity.SoloRub
+	poseSupport = true
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 1):
 		return false
-	if(_sexEngine.getSexTypeID() != SexType.Solo): #Check if we have 'animations' for this sex type instead?
+	if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
 		return false
 	return true
 
@@ -42,7 +43,9 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP])
-	doText(ROLE_TOP, "{top.You} {top.youVerb bring} {top.yourHis} hand to {top.yourHis} "+zoneLewdName(ROLE_TOP, ZoneCover.Vagina))
+	pickRandomPose()
+	doPoseText(ROLE_TOP, "start", {zone=zoneLewdName(ROLE_TOP, ZoneCover.Vagina)},
+	"{top.You} {top.youVerb bring} {top.yourHis} hand to {top.yourHis} %%zone%%.")
 	
 func start_run():
 	playAnim(AnimScene.SoloSex, "rubTease", {dom={id=ROLE_TOP}}, {})
@@ -122,25 +125,7 @@ func domDoCum():
 	addAutomoan(ROLE_TOP, 25.0, 25.0)
 	
 	#completeTask(ROLE_TOP, getCumInsideTask(), [getRoleID(ROLE_BOTTOM)])
-#
-#func canSatisfyTask(_info:SexParticipantInfo, _taskID:String, _args:Array) -> bool:
-	#if(_taskID == getCumInsideTask() && _args.size()>0 && _args[0] == getRoleID(ROLE_BOTTOM)):
-		#return true
-	#return false
 
-#func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
-	#if(_taskID in [SexTask.CumInsideVaginal, SexTask.CumInsideAnal]):
-		#var result:Array = []
-		#var theChar := _info.getChar()
-		#var theTarget := GM.characterRegistry.getCharacter(_args[0])
-		#
-		#if(theChar && theChar.isZoneCovered(ZoneCover.Penis)):
-			#result.append(task(SexTask.Undress, [_info.getID()]))
-		#if(theTarget && theTarget.isZoneCovered(ZoneCover.Vagina)):
-			#result.append(task(SexTask.Undress, [_args[0]]))
-		#
-		#return result
-	#return []
 
 func sex_process(_dt:float):
 	#if(isReadyToCum(ROLE_TOP)):

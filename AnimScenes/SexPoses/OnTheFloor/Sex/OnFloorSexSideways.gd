@@ -21,3 +21,8 @@ func getPoseText(_poseName:String) -> String:
 	if(_poseName == "start"):
 		return "{top.You} {top.youVerb grab} {bottom.your} leg and {top.youVerb raise} it, about to fuck {bottom.yourHis} %%zone%%!"
 	return ""
+
+func getExtraUndressZones(_role:String, _sexActivity:SexEngineActivityBase) -> Array[int]:
+	if(_role == "bottom"):
+		return [ZoneCover.Thighs,]
+	return []

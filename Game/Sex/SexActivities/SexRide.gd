@@ -22,6 +22,15 @@ const SEX_AROUSAL_GAIN = [
 
 const MAINANIM = AnimScene.SexCowgirl
 
+func _init():
+	id = SexActivity.SexRide
+	poseSupport = true
+	
+	canDoTasks = {
+		SexTask.ReceiveCumInsideVaginal: true,
+		SexTask.ReceiveCumInsideAnal: true,
+	}
+
 func getFetish() -> String:
 	if(isVaginal):
 		return Fetish.SexVaginal
@@ -50,28 +59,15 @@ func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 		SexTask.create(SexTask.WearStrapon, _task.actor, _task.target),
 	]
 
+func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
+	return undressExtraForPose(pose, getRoleID(_role))
+
 func canSatisfyTask(_task:SexTask) -> bool:
 	if(isTaskOurs(_task, getCumInsideTask(), ROLE_TOP, ROLE_BOTTOM)):
 		return true
 	if(isTaskOurs(_task, getCumInsideTask(), ROLE_BOTTOM, ROLE_TOP)):
 		return true
 	return false
-
-func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
-	if(_taskID in [SexTask.ReceiveCumInsideVaginal, SexTask.ReceiveCumInsideAnal]):
-		var result:Array = []
-		var theChar := _info.getChar()
-		var theTarget := GM.characterRegistry.getCharacter(_args[0])
-		
-		if(theTarget && theTarget.isZoneCovered(ZoneCover.Penis)):
-			result.append(task(SexTask.Undress, [_args[0]]))
-		if((_taskID == SexTask.ReceiveCumInsideVaginal) && theChar && theChar.isZoneCovered(ZoneCover.Vagina)):
-			result.append(task(SexTask.Undress, [_info.getID()]))
-		if((_taskID == SexTask.ReceiveCumInsideAnal) && theChar && theChar.isZoneCovered(ZoneCover.Anus)):
-			result.append(task(SexTask.Undress, [_info.getID()]))
-		
-		return result
-	return []
 
 func run():
 	if(state == "sex"):
@@ -94,20 +90,11 @@ func getAnimSceneHole() -> int:
 		return AnimSceneHole.Vagina
 	return AnimSceneHole.Anus
 
-func _init():
-	id = SexActivity.SexRide
-	canDoTasks = {
-		SexTask.ReceiveCumInsideVaginal: true,
-		SexTask.ReceiveCumInsideAnal: true,
-	}
-
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	if(_sexEngine.getParticipants().size() != 2):
 		return false
-	if(_sexEngine.getSexTypeID() != SexType.OnTheFloor): #Check if we have 'animations' for this sex type instead?
+	if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
 		return false
-	#if(!doesSexEngineHaveAnyPossiblePoses(_sexEngine)):
-	#	return false
 	return true
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
@@ -136,8 +123,11 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_TOP, ROLE_BOTTOM])
+	pickRandomPose()
 	isVaginal = _args["vaginal"] if _args.has("vaginal") else false
-	doText(ROLE_TOP, "{bottom.You} {bottom.youVerb stradle} {top.your} hips and {bottom.youVerb prepare} to ride {top.yourHis} penis with {bottom.yourHis} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")
+	#doText(ROLE_TOP, "{bottom.You} {bottom.youVerb stradle} {top.your} hips and {bottom.youVerb prepare} to ride {top.yourHis} penis with {bottom.yourHis} "+zoneLewdName(ROLE_BOTTOM, getPenetrateZone())+"!")
+	doPoseText(ROLE_TOP, "start", {zone=zoneLewdName(ROLE_BOTTOM, getPenetrateZone())},
+	"{bottom.You} {bottom.youVerb stradle} {top.your} hips and {bottom.youVerb prepare} to ride {top.yourHis} penis with {bottom.yourHis} %%zone%%!")
 	
 func start_actions(_role:String):
 	if(!canDoDomActions(_role)):

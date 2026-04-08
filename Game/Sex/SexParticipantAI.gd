@@ -414,59 +414,22 @@ func taskScoreReceive(_taskID:String, _charID:String) -> float:
 			maxScore = maxf(maxScore, theSexTask.score)
 	return maxScore
 
-#TODO: DELETE
-func taskScoreOLD(_taskID:String, _args:Array) -> float:
-	var maxScore:float = 0.0
-	
-	if(!tasksByID.has(_taskID) || tasksByID[_taskID].is_empty()):
-		return 0.0
-	
-	var theContext:Dictionary = {
-		ai = self,
-	}
-	
-	var theTasks:Array = tasksByID[_taskID]
-	for taskEntry in theTasks:
-		#var _cachedTaskID:String = taskEntry[0]
-		#if(_cachedTaskID != _taskID):
-		#	continue
-		var _cachedTaskArgs:Array = taskEntry[1]
-		var _cachedTaskScore:float = taskEntry[2]
-		
-		var theHandler:SexTaskBase = GlobalRegistry.getSexTaskForTaskID(_taskID)
-		if(!theHandler):
-			continue
-		var newScore:float = theHandler.getActionScore(_args, _taskID, _cachedTaskArgs, theContext)
-		newScore *= _cachedTaskScore
-		
-		if(newScore > maxScore):
-			maxScore = newScore
-	
-	return maxScore
-
-#TODO: DELETE
-func calcAllTasks() -> Array:
-	var theInfo := getInfo()
-	var result:Array = []
-	
-	for goal in goals:
-		if(goal.isCompleted()):
-			continue
-		var theTasks := goal.getTasks()
-		result.append_array(internal_getSubTasksReq(theInfo, theTasks))
-		
-	return result
-
 func calcAllSexTasksByID() -> Dictionary[String, Array]:
 	if(!currentGoal):
 		return {}
+	var theSexEngine:SexEngine = getSexEngine()
+	var theCharID:String = getID()
 	
 	var _allTasks:Array[SexTask] = []
 	
 	var theGoalTasks := currentGoal.getSexTasks()
+	for theActivity in theSexEngine.getAllActivities():
+		if(!theActivity.idToRole.has(theCharID)):
+			continue
+		theGoalTasks.append_array(theActivity.getSubSexTasksExtra(theActivity.getRoleFromID(theCharID)))
 	_allTasks.append_array(theGoalTasks)
 	
-	internal_getSubSexTasks(theGoalTasks, _allTasks, getSexEngine())
+	internal_getSubSexTasks(theGoalTasks, _allTasks, theSexEngine)
 	
 	var result:Dictionary[String, Array] = {}
 	for theSexTask in _allTasks:
@@ -492,57 +455,6 @@ func internal_getSubSexTasks(_checkTasks:Array[SexTask], _allTasks:Array[SexTask
 	if(!newTasksToAdd.is_empty()):
 		_allTasks.append_array(newTasksToAdd)
 		internal_getSubSexTasks(newTasksToAdd, _allTasks, _sexEngine)
-		
-
-#TODO: DELETE
-func calcAllTasksDict() -> Dictionary[String, Array]:
-	var theInfo := getInfo()
-	var _allTasks:Array = []
-	var result:Dictionary[String, Array] = {}
-	
-	for goal in goals:
-		if(goal.isCompleted()):
-			continue
-		var theTasks := goal.getTasks()
-		_allTasks.append_array(internal_getSubTasksReq(theInfo, theTasks))
-	
-	for taskEntry in _allTasks:
-		var theID:String = taskEntry[0]
-		if(!result.has(theID)):
-			result[theID] = [taskEntry]
-		else:
-			result[theID].append(taskEntry)
-	
-	return result
-
-#TODO: DELETE
-func internal_getSubTasks(theInfo:SexParticipantInfo, _taskID:String, _taskArgs:Array) -> Array:
-	var result:Array = []
-
-	# Needs a way to get activities by task?
-	for sexActivityID in GlobalRegistry.getSexActivities():
-		var sexActivity:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(sexActivityID)
-		
-		#TODO: add is possible check of some sorts
-		var subTasks:Array = sexActivity.getSubTasks(theInfo, _taskID, _taskArgs)
-		result.append_array(subTasks)
-	
-	return result
-
-#TODO: DELETE
-func internal_getSubTasksReq(theInfo:SexParticipantInfo, theTasks:Array) -> Array:
-	var result:Array = []
-	result.append_array(theTasks)
-	
-	for theTaskEntry in theTasks:
-		var _taskID:String = theTaskEntry[0]
-		var _taskArgs:Array = theTaskEntry[1]
-		#var _taskScore:float = theTaskEntry[2]
-		
-		var theSubTasks := internal_getSubTasks(theInfo, _taskID, _taskArgs)
-		result.append_array(internal_getSubTasksReq(theInfo, theSubTasks))
-	
-	return result
 		
 func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 	for goal in goals:

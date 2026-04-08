@@ -5,4 +5,4 @@ func _init() -> void:
 
 func start_run():
 	#playAnim(AnimScene.SexStart, "start", {dom=ROLE_DOM, sub=ROLE_SUB})
-	playPoseOrAnim(pose, AnimScene.SexStart, "start", {dom=ROLE_DOM, sub=ROLE_SUB})
+	playAnim(AnimScene.SexStart, "start", {dom=ROLE_DOM, sub=ROLE_SUB})

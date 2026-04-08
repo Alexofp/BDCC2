@@ -84,4 +84,5 @@ func getCoveredZones() -> Dictionary[int, bool]:
 		ZoneCover.Penis: !pulledDown,
 		ZoneCover.Vagina: !pulledDown,
 		ZoneCover.Anus: !pulledDown,
+		ZoneCover.Thighs: pulledDown, # Shorts cover the thighs if pulled down
 	}

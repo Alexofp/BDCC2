@@ -25,5 +25,10 @@ func hasMainActivity() -> bool:
 		return true
 	return false
 
+func shouldAddPickPoseActions(_role:String) -> bool:
+	if(hasMainActivity()):
+		return false
+	return super.shouldAddPickPoseActions(_role)
+
 func canTweakPosition() -> bool:
 	return true

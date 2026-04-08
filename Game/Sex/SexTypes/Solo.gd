@@ -4,9 +4,11 @@ const ROLE_DOM = "dom"
 
 func _init() -> void:
 	id = SexType.Solo
+	poseSupport = true
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_DOM])
+	pickRandomPose()
 	
 func onStart():
 	pass

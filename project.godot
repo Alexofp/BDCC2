@@ -366,4 +366,4 @@ occlusion_culling/use_occlusion_culling=true
 
 [version_bumper]
 
-display_mode=0
+display_mode=1

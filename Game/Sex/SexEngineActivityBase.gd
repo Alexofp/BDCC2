@@ -33,6 +33,8 @@ var idToRole:Dictionary[String, String] = {}
 var state:String = ""
 
 var canDoTasks:Dictionary[String, bool] = {}
+var poseSupport:bool = false # no save. Is the pose support enabled for this activity
+var pose:String = ""
 
 func getActivityType() -> int:
 	return ACTIVITY_SEXTYPE
@@ -276,11 +278,17 @@ func getAllPossiblePosesCanPickRandomly(_allowFallback:bool = true) -> Array[Sex
 		return fallback
 	return result
 
-func pickRandomPose() -> String:
+func getRandomPose() -> String:
 	var allPoses := getAllPossiblePosesCanPickRandomly()
 	if(allPoses.is_empty()):
 		return ""
 	return RNG.pick(allPoses).id
+
+func pickRandomPose() -> String:
+	if(!poseSupport):
+		return pose
+	pose = getRandomPose()
+	return pose
 
 func hasAnyPosesToPick() -> bool:
 	var allPoses := getAllPossiblePosesCanPickRandomly()
@@ -288,24 +296,37 @@ func hasAnyPosesToPick() -> bool:
 		return false
 	return true
 
-func addPosePickActions(_poseActionID:String, _addIfOne:bool = false):
+func addPosePickActions(_poseActionID:String = "pickPose", _addIfOne:bool = false, _removeCurrent:bool = true):
+	if(!poseSupport):
+		return
+		
 	var allPoses := getAllPossiblePoses()
-	
 	if(!_addIfOne && allPoses.size() <= 1):
 		return
+	var theCurrentPose := getPose()
+	if(_removeCurrent && theCurrentPose && allPoses.has(theCurrentPose)):
+		allPoses.erase(theCurrentPose)
 	
 	var theCat:Array[String] = ["Pose"]
 	for thePose in allPoses:
 		addAction(action(thePose.getVisibleName()).setCat(theCat).do(_poseActionID, [thePose.id]))
 
-func setPoseFromPickAction(_pose:String, _args:Array) -> String:
-	var newPose:String = _args[0]
-	#if(newPose == _pose):
-	#	return _pose
-	if(!GlobalRegistry.getSexPose(newPose)):
-		return _pose
-	
-	return newPose
+func setPoseFromPickAction(_actionID:String, _args:Array, _poseActionID:String = "pickPose") -> bool:
+	if(_actionID == _poseActionID):
+		var newPose:String = _args[0]
+		if(!GlobalRegistry.getSexPose(newPose)):
+			return false
+		pose = newPose
+		return true
+	return false
+
+func getPoseID() -> String:
+	return pose
+
+func getPose() -> SexPoseBase:
+	if(pose.is_empty()):
+		return null
+	return GlobalRegistry.getSexPose(pose)
 
 func getActionsFinal(_role:String) -> Array[SexAction]:
 	tempActions = []
@@ -315,9 +336,15 @@ func getActionsFinal(_role:String) -> Array[SexAction]:
 		call(theFuncName, _role)
 	
 	getActions(_role)
+	if(poseSupport && shouldAddPickPoseActions(_role)):
+		addPosePickActions()
+	
 	var result := tempActions
 	tempActions = []
 	return result
+
+func shouldAddPickPoseActions(_role:String) -> bool:
+	return canDoDomActions(_role)
 
 func getActions(_role:String):
 	pass
@@ -333,6 +360,11 @@ func doEventFinal(_state:String, _event:SexEvent):
 	doEvent(_event)
 
 func doActionFinal(_role:String, _id:String, _args:Array):
+	if(poseSupport && setPoseFromPickAction(_id, _args)):
+		doText(_role, "{"+_role+".You} {"+_role+".youVerb switch|switches} the pose!")
+		doRun()
+		return
+	
 	var theFuncName:String = getStateFuncPrefix()+"_do"
 	if(has_method(theFuncName)):
 		if(call(theFuncName, _role, _id, _args)):
@@ -340,6 +372,11 @@ func doActionFinal(_role:String, _id:String, _args:Array):
 	doAction(_role, _id, _args)
 
 func doActionFinalCustomState(_state:String, _role:String, _id:String, _args:Array):
+	if(poseSupport && setPoseFromPickAction(_id, _args)):
+		doText(_role, "{"+_role+".You} {"+_role+".youVerb switch|switches} the pose!")
+		doRun()
+		return
+	
 	var theFuncName:String = getStateFuncPrefixRaw(_state)+"_do"
 	if(has_method(theFuncName)):
 		if(call(theFuncName, _role, _id, _args)):
@@ -396,9 +433,10 @@ func endActivity():
 	if(sexEngine):
 		sexEngine.stopActivity(self)
 
-func playPoseOrAnim(thePoseID:String, theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
-	if(!playPose(thePoseID, theStateID, theAnimSeats, theAnimArgs)):
-		playAnim(theAnimID, theStateID, theAnimSeats, theAnimArgs)
+func playAnim(theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
+	if(poseSupport && playPose(pose, theStateID, theAnimSeats, theAnimArgs)):
+		return
+	playAnimRaw(theAnimID, theStateID, theAnimSeats, theAnimArgs)
 
 func playPose(thePoseID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}) -> bool:
 	if(thePoseID.is_empty()):
@@ -410,11 +448,11 @@ func playPose(thePoseID:String, theStateID:String, theAnimSeats:Dictionary, theA
 	var newAnim:String = thePose.getAnim()
 	var newState:String = thePose.getState(theStateID)
 	var newSeats := thePose.getRoles(theAnimSeats)
-	playAnim(newAnim, newState, newSeats, theAnimArgs)
+	playAnimRaw(newAnim, newState, newSeats, theAnimArgs)
 	return true
 	
 # playAnim(AnimScene.TestSex, "sex", {top="dom", bottom="sub"})
-func playAnim(theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
+func playAnimRaw(theAnimID:String, theStateID:String, theAnimSeats:Dictionary, theAnimArgs:Dictionary = {}):
 	var thePawns:Dictionary = {}
 	for animSeat in theAnimSeats:
 		if(theAnimSeats[animSeat] is String):
@@ -668,10 +706,6 @@ func taskScoreReceive(_role:String, _taskID:String, _roleTarget:String) -> float
 		return 0.0
 	return theInfo.taskScoreReceive(_taskID, theInfoTarget)
 
-#TODO: DELETE
-func getSubTasks(_info:SexParticipantInfo, _taskID:String, _args:Array) -> Array:
-	return []
-
 func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
 	return [_taskID, _taskArgs, _score]
 
@@ -764,8 +798,8 @@ func doText(_role:String, _text:String):
 	#getSexEngine().doText(self, _role, _text)
 	addActionText(_text)
 
-func getPoseText(_poseID:String, _poseName:String, _args:Dictionary, _defaultStr:String) -> String:
-	var thePose := GlobalRegistry.getSexPose(_poseID)
+func getPoseText(_poseName:String, _args:Dictionary, _defaultStr:String) -> String:
+	var thePose := getPose()
 	
 	var theStr:String = _defaultStr
 	if(thePose):
@@ -775,8 +809,8 @@ func getPoseText(_poseID:String, _poseName:String, _args:Dictionary, _defaultStr
 	
 	return theStr.format(_args, "%%_%%")
 
-func doPoseText(_role:String, _poseID:String, _poseName:String, _args:Dictionary, _defaultStr:String):
-	doText(_role, getPoseText(_poseID, _poseName, _args, _defaultStr))
+func doPoseText(_role:String, _poseName:String, _args:Dictionary, _defaultStr:String):
+	doText(_role, getPoseText(_poseName, _args, _defaultStr))
 
 func isActivitySupported(_sexEngine:SexEngine) -> bool:
 	return true
@@ -818,6 +852,30 @@ func undressTask(_actorID:String, _targetID:String, _slots:Array[int]) -> SexTas
 		if(theTarget.isZoneCovered(theSlot)):
 			return SexTask.create(SexTask.Undress, _actorID, _targetID)
 	return SexTask.create(SexTask.CompletedTask, _actorID, _targetID)
+
+func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
+	return []
+
+func undressExtraForPose(_pose:String, _actorID:String) -> Array[SexTask]:
+	if(_pose.is_empty()):
+		return []
+	var thePose := GlobalRegistry.getSexPose(_pose)
+	var _actorRole:String = idToRole.get(_actorID, "")
+	if(_actorRole.is_empty() || !thePose):
+		return []
+	
+	var result:Array[SexTask] = []
+	for _targetID in idToRole:
+		var theTargetRole:String = idToRole.get(_actorID, "")
+		
+		var theZones := thePose.getExtraUndressZones(theTargetRole, self)
+		if(theZones.is_empty()):
+			continue
+		var theTarget := GM.characterRegistry.getCharacter(_targetID)
+		for theSlot in theZones:
+			if(theTarget.isZoneCovered(theSlot)):
+				result.append(SexTask.create(SexTask.Undress, _actorID, _targetID))
+	return result
 
 func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 	return [
