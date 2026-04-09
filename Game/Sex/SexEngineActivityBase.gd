@@ -84,20 +84,24 @@ func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Se
 		#if(entryType == SexAction.ACTION_ACTION):
 		#	pushAutoAction(_role, payloadEntry[1], payloadEntry[2])
 		if(entryType == SexAction.ACTION_DELAY):
-			_sexEngine.pushToQueue(id, _sexEngine.createQueueDelay(payloadEntry[1]))
+			_sexEngine.pushToQueue(id, SexEngineQueueEntry.Delay.create(payloadEntry[1]))
 		elif(entryType == SexAction.ACTION_START):
 			var _roles:Dictionary = payloadEntry[1].duplicate()
 			for theRole in _roles:
 				if(_roles[theRole] is SexParticipantInfo):
 					_roles[theRole] = _roles[theRole].getID()
 			var _args:Dictionary = payloadEntry[2]
-			_sexEngine.pushToQueue(id, [SexEngine.QUEUE_START_MAIN_ACTIVITY if getActivityType() == ACTIVITY_MAIN else SexEngine.QUEUE_START_SIDE_ACTIVITY, id, _roles, _args])
+			
+			if(getActivityType() == ACTIVITY_MAIN):
+				_sexEngine.pushToQueue(id, SexEngineQueueEntry.StartMainActivity.create(id, _roles, _args))
+			else:
+				_sexEngine.pushToQueue(id, SexEngineQueueEntry.StartSideActivity.create(id, _roles, _args))
 		elif(entryType == SexAction.ACTION_EXPOSE):
 			var _giverInfo:SexParticipantInfo = payloadEntry[1]
 			var _receiverInfo:SexParticipantInfo = payloadEntry[2]
 			var _fetishID:String = payloadEntry[3]
 			var _intensity:float = payloadEntry[4]
-			_sexEngine.pushToQueue(id, _sexEngine.createExpose(_giverInfo.getID(), _receiverInfo.getID(), _fetishID, _intensity))
+			_sexEngine.pushToQueue(id, SexEngineQueueEntry.Expose.create(_giverInfo.getID(), _receiverInfo.getID(), _fetishID, _intensity))
 		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
 			var whoNeedToConsent:Array = payloadEntry[5]
 			if(whoNeedToConsent.is_empty()):
@@ -111,7 +115,7 @@ func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Se
 					gaveConsent[theParticipant] = false
 			gaveConsent[_info.getID()] = true
 			
-			_sexEngine.pushToQueue(id, _sexEngine.createConsentCheck(payloadEntry[1], payloadEntry[2], gaveConsent, payloadEntry[3], payloadEntry[4], payloadEntry[6]))
+			_sexEngine.pushToQueue(id, SexEngineQueueEntry.ConsentCheck.create(payloadEntry[1], payloadEntry[2], gaveConsent, payloadEntry[3], payloadEntry[4], payloadEntry[6]))
 			
 		#elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
 		#	pushDelayCanCancel(payloadEntry[1], _role)
@@ -546,28 +550,28 @@ func doOrgasm(_role:String, _causerRole:String = "", _orgasmType:int = SexOrgasm
 	setArousal(_role, 0.0)
 
 func pushCancelStopper():
-	getSexEngine().pushToQueue(self, getSexEngine().createCancelStopper())
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.CancelStopper.create())
 
 func pushCancelCatcher(_event:SexEvent):
-	getSexEngine().pushToQueue(self, getSexEngine().createCancelCatcher(state, _event))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.CancelCatcher.create(state, _event))
 
 func pushDelay(_delay:float):
-	getSexEngine().pushToQueue(self, getSexEngine().createQueueDelay(_delay))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.Delay.create(_delay))
 
 func pushDelayCanCancel(_delay:float, _role:String):
-	getSexEngine().pushToQueue(self, getSexEngine().createQueueDelayCanCancel(_delay, _role))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.DelayCanCancel.create(_delay, _role))
 
 func pushSetState(_state:String):
-	getSexEngine().pushToQueue(self, getSexEngine().createSetState(_state))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.SetState.create(_state))
 
 func pushEvent(_event:SexEvent):
-	getSexEngine().pushToQueue(self, getSexEngine().createQueueEvent(state, _event))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.Event.create(state, _event))
 
 func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
-	getSexEngine().pushToQueue(self, getSexEngine().createAutoAction(state, _role, _actionID, _args))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.AutoAction.create(state, _role, _actionID, _args))
 
 func pushActionText(_text:String):
-	getSexEngine().pushToQueue(self, getSexEngine().createActionText(_text))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ActionText.create(_text))
 
 func pushConsentCheck(_delay:float, _delayForced:float, _toConsent:Array[String], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array):
 	var newConsentID:Dictionary[String, bool] = {}
@@ -575,13 +579,13 @@ func pushConsentCheck(_delay:float, _delayForced:float, _toConsent:Array[String]
 		var theID:String = getRoleID(theRole)
 		if(!theID.is_empty()):
 			newConsentID[theID] = false
-	getSexEngine().pushToQueue(self, getSexEngine().createConsentCheck(_delay, _delayForced, newConsentID, _consentStrategy, _consentArgs, _hoverTexts))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ConsentCheck.create(_delay, _delayForced, newConsentID, _consentStrategy, _consentArgs, _hoverTexts))
 
 func pushResistMinigame():
-	getSexEngine().pushToQueue(self, getSexEngine().createResistMinigame(state))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ResistMinigameStart.create(state))
 
 func pushExpose(_rolePerfomer:String, _roleReceiver:String, _fetishID:String, _intensity:float = 1.0):
-	getSexEngine().pushToQueue(self, getSexEngine().createExpose(getRoleID(_rolePerfomer), getRoleID(_roleReceiver), _fetishID, _intensity))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.Expose.create(getRoleID(_rolePerfomer), getRoleID(_roleReceiver), _fetishID, _intensity))
 
 func exposeFetish(_rolePerfomer:String, _roleReceiver:String, _fetishID:String, _intensity:float = 1.0):
 	getSexEngine().doExposeFetish(getRoleID(_rolePerfomer), getRoleID(_roleReceiver), _fetishID, _intensity)

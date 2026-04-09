@@ -27,25 +27,23 @@ func setConsent(_strategy:int, _args:Array) -> SexEngineAction:
 	consentArgs = _args
 	return self
 
-static func createFromQueueEntry(_sexEngine:SexEngine, currentEntry:Array, charID:String) -> Array[SexEngineAction]:
+static func createFromQueueEntry(_sexEngine:SexEngine, queueEntry:SexEngineQueueEntry, charID:String) -> Array[SexEngineAction]:
 	#var isSexEngineBusy:bool = _sexEngine.isBusy()
 	var _charCanDoDomActions:bool = _sexEngine.canDoDomActions(charID)
 
-	var _entryObj = currentEntry[0]
+	var _entryObj = queueEntry.obj
 	var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getSexActivityRef(_entryObj)
-	var queueEntry:Array = currentEntry[1]
-	var queueType:int = queueEntry[0]
 	
 	var result:Array[SexEngineAction] = []
 	
-	if(queueType == SexEngine.QUEUE_DELAY_CANCANCEL):
+	if(queueEntry is SexEngineQueueEntry.DelayCanCancel):
 		var _role:String = theActivity.getRoleFromID(charID)
-		if(_role == queueEntry[3]):
+		if(_role == queueEntry.role):
 			result.append(createGeneric(SexEngine.ACTION_CANCEL, "Cancel", theActivity))
 
-	if(queueType == SexEngine.QUEUE_CONSENT_CHECK):
-		var theConsentStrategy:int = queueEntry[6]
-		var theConsentArgs:Array = queueEntry[7]
+	if(queueEntry is SexEngineQueueEntry.ConsentCheck):
+		var theConsentStrategy:int = queueEntry.consentStrategy
+		var theConsentArgs:Array = queueEntry.consentArgs
 		
 		if(!_sexEngine.isForced() && _charCanDoDomActions):
 			result.append(createGeneric(
