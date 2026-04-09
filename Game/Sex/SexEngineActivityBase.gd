@@ -761,13 +761,22 @@ func scoreStop(_role:String) -> float:
 	return 1.0
 
 const EVENT_COMPLETED:int = 0
+const EVENT_FAILED:int = 1
+const EVENT_GOT_STUCK:int = 2
+const EVENT_GOT_REJECTED:int = 3
 
 func completeTask(_roleActor:String, _taskID:String, _roleTarget:String):
+	sendTaskEvent(_roleActor, _taskID, _roleTarget, EVENT_COMPLETED)
+
+func failTask(_roleActor:String, _taskID:String, _roleTarget:String):
+	sendTaskEvent(_roleActor, _taskID, _roleTarget, EVENT_FAILED)
+
+func sendTaskEvent(_roleActor:String, _taskID:String, _roleTarget:String, _event:int):
 	var theInfo := getRoleInfo(_roleActor)
 	var theTarget := getRoleInfo(_roleTarget)
 	if(!theInfo || !theTarget):
 		return
-	theInfo.sendTaskEvent(_taskID, theTarget, EVENT_COMPLETED)
+	theInfo.sendTaskEvent(_taskID, theTarget, _event)
 
 func isReadyToPenetrate(_role:String) -> bool:
 	var theChar := getRoleChar(_role)

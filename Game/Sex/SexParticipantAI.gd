@@ -70,15 +70,15 @@ func processAI(_dt:float):
 	syncState.processSyncState(_dt)
 
 func checkCurrentGoal():
-	if(currentGoal && !currentGoal.completed):
+	if(currentGoal && !currentGoal.isFinished()):
 		return
-	if(currentGoal && currentGoal.completed):
+	if(currentGoal && currentGoal.isFinished()):
 		currentGoal = null
 	if(goals.is_empty()):
 		return
 	var possibleGoals:Array[SexGoalBase] = []
 	for theGoal in goals:
-		if(theGoal.completed):
+		if(theGoal.isFinished()):
 			continue
 		possibleGoals.append(theGoal)
 	
@@ -124,29 +124,29 @@ func tickAI():
 	if(possibleActions.is_empty() || (totalScoreSum < 1.0 && !RNG.chance(totalScoreSum*100.0))):
 		return
 	
-	var pickedAction:Dictionary = RNG.pickWeightedPairs(possibleActions)
+	var pickedAction:SexEngineAction = RNG.pickWeightedPairs(possibleActions)
 	theSex.doAction(theID, pickedAction)
 
-func calcActionScore(_actionEntry:Dictionary) -> float:
+func calcActionScore(_actionEntry:SexEngineAction) -> float:
 	var theSex := getSexEngine()
-	var actionID:int = _actionEntry["id"] if _actionEntry.has("id") else -1
-	var isTheActionDisabled:bool = _actionEntry["disabled"] if _actionEntry.has("disabled") else false
+	var actionID:int = _actionEntry.type
+	var isTheActionDisabled:bool = _actionEntry.disabled
 	if(isTheActionDisabled):
 		return 0.0
-	var theActivity:SexEngineActivityBase = _actionEntry["activity"] if _actionEntry.has("activity") else null
+	var theActivity:SexEngineActivityBase = _actionEntry.activity
 	var theInfo := getInfo()
 	
 	if(actionID in [SexEngine.ACTION_CONSENT, SexEngine.ACTION_DENY_CONSENT, SexEngine.ACTION_RESIST]):
-		var consentStrategy:int = _actionEntry["consentStrategy"] if _actionEntry.has("consentStrategy") else 0
-		var consentArgs:Array = _actionEntry["consentArgs"] if _actionEntry.has("consentArgs") else []
+		var consentStrategy:int = _actionEntry.consentStrategy
+		var consentArgs:Array = _actionEntry.consentArgs
 		if(actionID == SexEngine.ACTION_CONSENT):
 			return theActivity.calcConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
 		else:
 			return theActivity.calcNoConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
 	elif(actionID == SexEngine.ACTION_SEX_ACTION):
-		return _actionEntry["score"] if _actionEntry.has("score") else 0.0
+		return _actionEntry.getScore()
 	elif(actionID == SexEngine.ACTION_START_ACTION):
-		return _actionEntry["score"] if _actionEntry.has("score") else 0.0
+		return _actionEntry.getScore()
 	elif(actionID == SexEngine.ACTION_FORCE):
 		return anger*0.2 if anger > 0.5 else 0.0
 	
@@ -458,7 +458,7 @@ func internal_getSubSexTasks(_checkTasks:Array[SexTask], _allTasks:Array[SexTask
 		
 func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 	for goal in goals:
-		if(goal.isCompleted()):
+		if(goal.isFinished()):
 			continue
 		if(goal.handleTaskEvent(_taskID, _targetInfo, _event)):
 			return
@@ -470,3 +470,16 @@ func didCompleteAllGoals() -> bool:
 		if(!goal.isCompleted()):
 			return false
 	return true
+
+func cancelCurrentGoal():
+	if(!currentGoal || currentGoal.isFinished()):
+		return
+	currentGoal.completeSelf()
+
+func failCurrentGoal():
+	if(!currentGoal || currentGoal.isFinished()):
+		return
+	currentGoal.failSelf()
+
+func onRejection():
+	cancelCurrentGoal()

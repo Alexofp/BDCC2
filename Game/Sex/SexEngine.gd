@@ -27,7 +27,7 @@ const ACTION_CONSENT_ALWAYS = 5
 const ACTION_RESIST = 6
 const ACTION_FORCE = 7
 
-var actionsCache:Dictionary = {}
+var actionsCache:Dictionary[String, Array] = {} # Dictionary[String, Array[SexEngineAction]]
 @export var actionsNetworked:Dictionary = {}
 
 @onready var resistMinigame: ResistMinigameNode = %ResistMinigameNode
@@ -398,12 +398,19 @@ func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
 	if(theInfo.ai):
 		theInfo.ai.syncState.applyDelta(_delta)
 	
-func calculateNetworkActions(theActions:Array) -> Array:
+func calculateNetworkActions(theActions:Array[SexEngineAction]) -> Array:
 	var result:Array = []
 	
 	var _i:int = 0
-	for actionEntry in theActions:
-		result.append({i=_i,name=actionEntry["name"],dis=actionEntry["disabled"] if actionEntry.has("disabled") else false,cat=(actionEntry["category"] if actionEntry.has("category") else [])})
+	for actionEntry:SexEngineAction in theActions:
+		result.append({
+			i = _i,
+			name = actionEntry.name,
+			dis = actionEntry.disabled,
+			cat = actionEntry.getCategory(),
+			t = actionEntry.type,
+		})
+		#result.append({i=_i,name=actionEntry["name"],dis=actionEntry["disabled"] if actionEntry.has("disabled") else false,cat=(actionEntry["category"] if actionEntry.has("category") else [])})
 		_i += 1
 	
 	return result
@@ -416,83 +423,75 @@ func getExpressionState(charID:String) -> int:
 	
 	return DollExpressionState.IgnoreChange
 
-func calculateActions(charID:String) -> Array:
+func calculateActions(charID:String) -> Array[SexEngineAction]:
 	if(!participants.has(charID)):
 		return []
 	var isSexEngineBusy:bool = isBusy()
 	var _charCanDoDomActions:bool = canDoDomActions(charID)
 	
-	var result:Array = []
+	var result:Array[SexEngineAction] = []
 	var curOverridePrio:int = 0
 	
-	#if(doesCharIDNeedsToConsent(charID)):
-		#result.append({
-			#id = ACTION_CONSENT,
-			#name = "Agree",
-		#})
-		#result.append({
-			#id = ACTION_DENY_CONSENT,
-			#name = "Deny",
-		#})
 	if(!eventQueue.is_empty()):
-		var currentEntry:Array = eventQueue.front()
-		var _entryObj = currentEntry[0]
-		var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getSexActivityRef(_entryObj)
-		var queueEntry:Array = currentEntry[1]
-		var queueType:int = queueEntry[0]
+		result.append_array(SexEngineAction.createFromQueueEntry(self, eventQueue.front(), charID))
 		
-		if(queueType == QUEUE_DELAY_CANCANCEL):
-			var _role:String = _entryObj.getRoleFromID(charID)
-			if(_role == queueEntry[3]):
-				result.append({
-					id = ACTION_CANCEL,
-					name = "Cancel",
-					activity = theActivity,
-				})
-		if(queueType == QUEUE_CONSENT_CHECK):
-			var consentStrategy:int = queueEntry[6]
-			var consentArgs:Array = queueEntry[7]
-			
-			if(!isForced() && canDoDomActions(charID)):
-				result.append({
-					id = ACTION_FORCE,
-					name = "Force",
-					activity = theActivity,
-					consentStrategy = consentStrategy,
-					consentArgs = consentArgs,
-				})
-			if(shouldConsent(charID)):
-				result.append({
-					id = ACTION_CONSENT,
-					name = "Allow",
-					activity = theActivity,
-					consentStrategy = consentStrategy,
-					consentArgs = consentArgs,
-				})
-				if(_charCanDoDomActions || !isForced()):
-					result.append({
-						id = ACTION_DENY_CONSENT,
-						name = "Deny",
-						activity = theActivity,
-						consentStrategy = consentStrategy,
-						consentArgs = consentArgs,
-					})
-				else:
-					result.append({
-						id = ACTION_RESIST,
-						name = "Resist!",
-						activity = theActivity,
-						consentStrategy = consentStrategy,
-						consentArgs = consentArgs,
-					})
-				result.append({
-					id = ACTION_CONSENT_ALWAYS,
-					name = "Always allow",
-					activity = theActivity,
-					consentStrategy = consentStrategy,
-					consentArgs = consentArgs,
-				})
+		#var currentEntry:Array = eventQueue.front()
+		#var _entryObj = currentEntry[0]
+		#var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getSexActivityRef(_entryObj)
+		#var queueEntry:Array = currentEntry[1]
+		#var queueType:int = queueEntry[0]
+		#
+		#if(queueType == QUEUE_DELAY_CANCANCEL):
 			#var _role:String = _entryObj.getRoleFromID(charID)
+			#if(_role == queueEntry[3]):
+				#result.append({
+					#id = ACTION_CANCEL,
+					#name = "Cancel",
+					#activity = theActivity,
+				#})
+		#if(queueType == QUEUE_CONSENT_CHECK):
+			#var consentStrategy:int = queueEntry[6]
+			#var consentArgs:Array = queueEntry[7]
+			#
+			#if(!isForced() && canDoDomActions(charID)):
+				#result.append({
+					#id = ACTION_FORCE,
+					#name = "Force",
+					#activity = theActivity,
+					#consentStrategy = consentStrategy,
+					#consentArgs = consentArgs,
+				#})
+			#if(shouldConsent(charID)):
+				#result.append({
+					#id = ACTION_CONSENT,
+					#name = "Allow",
+					#activity = theActivity,
+					#consentStrategy = consentStrategy,
+					#consentArgs = consentArgs,
+				#})
+				#if(_charCanDoDomActions || !isForced()):
+					#result.append({
+						#id = ACTION_DENY_CONSENT,
+						#name = "Deny",
+						#activity = theActivity,
+						#consentStrategy = consentStrategy,
+						#consentArgs = consentArgs,
+					#})
+				#else:
+					#result.append({
+						#id = ACTION_RESIST,
+						#name = "Resist!",
+						#activity = theActivity,
+						#consentStrategy = consentStrategy,
+						#consentArgs = consentArgs,
+					#})
+				#result.append({
+					#id = ACTION_CONSENT_ALWAYS,
+					#name = "Always allow",
+					#activity = theActivity,
+					#consentStrategy = consentStrategy,
+					#consentArgs = consentArgs,
+				#})
 			
 	if(!isSexEngineBusy):
 		var toProcess:Array[SexEngineActivityBase] = [sexType, sexActivity]
@@ -508,15 +507,7 @@ func calculateActions(charID:String) -> Array:
 				
 				if(theOverridePrio < curOverridePrio):
 					continue
-				result.append({
-					id = ACTION_SEX_ACTION,
-					activity = theSexActivity,
-					name = actionEntry.actionName if !hasCooldown(actionEntry.cooldownID) else ("("+str(int(ceil(getCooldown(actionEntry.cooldownID))))+") "+actionEntry.actionName),
-					action = actionEntry,
-					category = actionEntry.category,
-					disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
-					score = actionEntry.score,
-				})
+				result.append(SexEngineAction.createFromSexAction(actionEntry, theSexActivity))
 		
 		var theInfo:SexParticipantInfo = getInfo(charID)
 		for theSexActivityID in GlobalRegistry.getSexActivities():
@@ -527,7 +518,7 @@ func calculateActions(charID:String) -> Array:
 			
 	return result
 
-func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array, curOverridePrio:int) -> int:
+func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array[SexEngineAction], curOverridePrio:int) -> int:
 	for otherCharID in participants: #TODO: Replace this with target-based approach
 		var otherInfo:SexParticipantInfo = getInfo(otherCharID)
 		
@@ -541,16 +532,7 @@ func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInf
 			if(theOverridePrio < curOverridePrio):
 				continue
 			
-			result.append({
-				id = ACTION_START_ACTION,
-				activity = theActivityRef,
-				target = otherCharID,
-				name = actionEntry.actionName if !hasCooldown(actionEntry.cooldownID) else ("("+str(int(ceil(getCooldown(actionEntry.cooldownID))))+") "+actionEntry.actionName),
-				action = actionEntry,
-				category = actionEntry.category,
-				disabled = actionEntry.disabled || hasCooldown(actionEntry.cooldownID),
-				score = actionEntry.score,
-			})
+			result.append(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, self, otherCharID))
 	return curOverridePrio
 
 # Subs consent if no answer if forced
@@ -636,39 +618,42 @@ func doActionNetworked(charID:String, networkedAction:Dictionary):
 		Log.Printerr("SexEngine: No action index found. Corrupt network action?")
 		return
 	var _i:int = networkedAction["i"]
-	var theActions:Array = actionsCache[charID]
+	var theActions:Array[SexEngineAction] = actionsCache[charID]
 	if(theActions.is_empty()):
 		return
 	if(_i >= theActions.size()):
 		return
 		
-	var action:Dictionary = theActions[_i]
+	var action:SexEngineAction = theActions[_i]
+	if(action.type != networkedAction.get("t", -1)): # Sanity check
+		Log.Printerr("SexEngine: bad action type. Corrupt/Old network action?")
+		return
 	doAction(charID, action)
 
-func doAction(charID:String, action:Dictionary):
+func doAction(charID:String, action:SexEngineAction):
 	doActionInternal(charID, action)
 
-func doActionInternal(charID:String, action:Dictionary):
-	if(action.has("disabled") && action["disabled"]):
+func doActionInternal(charID:String, action:SexEngineAction):
+	if(action.disabled):
 		return
 	actionsCache.clear()
 	actionsNetworked.clear()
 	
 	# all id checks go here
 	
-	var actionID:int = action["id"]
+	var actionID:int = action.type
 	if(actionID == ACTION_SEX_ACTION):
-		var theAction:SexAction = action["action"]
-		var theActivity:SexEngineActivityBase = action["activity"]
+		var theAction:SexAction = action.sexAction
+		var theActivity:SexEngineActivityBase = action.activity
 		if(!theActivity):
-			Log.Printerr("Tried to do a sex action that isn't attached to a sex activity! action="+str(action))
+			Log.Printerr("Tried to do a sex action that isn't attached to a sex activity! action="+str(action.type))
 			return
 		theActivity.doSexActionForCharID(charID, theAction)
 		notifyThingHappened()
 	if(actionID == ACTION_START_ACTION):
-		var theAction:SexAction = action["action"]
-		var theActivityRef:SexEngineActivityBase = action["activity"]
-		var targetID:String = action["target"]
+		var theAction:SexAction = action.sexAction
+		var theActivityRef:SexEngineActivityBase = action.activity
+		var targetID:String = action.target
 		
 		var theInfo:SexParticipantInfo = getInfo(charID)
 		var theTarget:SexParticipantInfo = getInfo(targetID)

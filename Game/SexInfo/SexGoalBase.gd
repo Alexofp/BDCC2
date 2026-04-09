@@ -9,7 +9,11 @@ var fetishesReceiver:Array[String] = []
 var info:SexParticipantInfo
 var target:SexParticipantInfo
 
-var completed:bool = false
+const GOAL_INPROGRESS := 0
+const GOAL_COMPLETED := 1
+const GOAL_FAILED := 2
+const GOAL_CANCELLED := 3
+var status:int = GOAL_INPROGRESS
 
 #func prepareForSex(_targetID:String, _taskID:String, _args:Array) -> float:
 	#if(_taskID == SexTask.Undress && _args.size() > 0 && _args[0] == _targetID):
@@ -27,20 +31,53 @@ var completed:bool = false
 func onOneOfSexTasksCompleted(_sexTask:SexTask):
 	completeSelf()
 
+func findSexTaskForEvent(_taskID:String, _targetInfo:SexParticipantInfo) -> SexTask:
+	var theSexTasks := getSexTasks()
+	for theTask in theSexTasks:
+		if(theTask.id == _taskID && theTask.actor==getCharID() && theTask.target==_targetInfo.getID()):
+			return theTask
+	return null
+
 func handleTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int) -> bool:
 	if(_event == SexEngineActivityBase.EVENT_COMPLETED):
-		var theSexTasks := getSexTasks()
-		for theTask in theSexTasks:
-			if(theTask.id == _taskID && theTask.actor==getCharID() && theTask.target==_targetInfo.getID()):
-				onOneOfSexTasksCompleted(theTask)
-				return true
+		var theTask := findSexTaskForEvent(_taskID, _targetInfo)
+		if(theTask):
+			onOneOfSexTasksCompleted(theTask)
+			return true
+	if(_event == SexEngineActivityBase.EVENT_FAILED):
+		var theTask := findSexTaskForEvent(_taskID, _targetInfo)
+		if(theTask):
+			failSelf()
+			return true
+	if(_event == SexEngineActivityBase.EVENT_GOT_STUCK):
+		var theTask := findSexTaskForEvent(_taskID, _targetInfo)
+		if(theTask):
+			cancelSelf()
+			return true
+	if(_event == SexEngineActivityBase.EVENT_GOT_REJECTED):
+		var theTask := findSexTaskForEvent(_taskID, _targetInfo)
+		if(theTask):
+			cancelSelf()
+			return true
 	return false
 
 func completeSelf():
-	if(completed):
+	if(isFinished()):
 		return
-	completed = true
+	status = GOAL_COMPLETED
 	Log.Print("TASK COMPLETED: "+id)
+
+func cancelSelf():
+	if(isFinished()):
+		return
+	status = GOAL_CANCELLED
+	Log.Print("TASK CANCELLED: "+id)
+
+func failSelf():
+	if(isFinished()):
+		return
+	status = GOAL_FAILED
+	Log.Print("TASK FAILED: "+id)
 
 func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 	return true
@@ -82,7 +119,10 @@ func getSexEngine() -> SexEngine:
 	return null
 
 func isCompleted() -> bool:
-	return completed
+	return status == GOAL_COMPLETED
+
+func isFinished() -> bool:
+	return status != GOAL_INPROGRESS
 
 func shouldDomWearStraponToFuck() -> bool:
 	var theInfo := getInfo()
