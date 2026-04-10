@@ -1,19 +1,12 @@
 extends RefCounted
 class_name SexAction
 
-const ACTION_ACTION = 0
-const ACTION_DELAY = 1
-const ACTION_DELAY_CANCANCEL = 2
-const ACTION_CONSENT_CHECK = 3
-const ACTION_START = 4
-const ACTION_EXPOSE = 5
-
 #var id:String = ""
 var actionName:String = ""
 #var args:Array = []
 var score:float = 0.0
 var category:Array[String] = []
-var payload:Array = []
+var payload:Array[SexEngineQueueEntry] = []
 var cooldownID:String = ""
 var cooldownTime:float = 0.0
 var disabled:bool = false
@@ -25,23 +18,35 @@ static func make(_name:String) -> SexAction:
 	return theAction
 
 func do(_id:String, _args:Array = []) -> SexAction:
-	payload.append([ACTION_ACTION, _id, _args])
+	payload.append(SexEngineQueueEntry.AutoAction.create("", "", _id, _args))
 	return self
 
 func delay(_delay:float) -> SexAction:
-	payload.append([ACTION_DELAY, _delay])
+	payload.append(SexEngineQueueEntry.Delay.create(_delay))
 	return self
 
 func delayCancel(_delay:float) -> SexAction:
-	payload.append([ACTION_DELAY_CANCANCEL, _delay])
+	payload.append(SexEngineQueueEntry.DelayCanCancel.create(_delay, ""))
 	return self
 
 func consent(_consenters:Array = [], _conTexts:Array=[], _scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
-	payload.append([ACTION_CONSENT_CHECK, 5.0, 3.0, _scoringStrategy, _strategyArgs, _consenters, _conTexts])
+	var conDict:Dictionary[String, bool] = {}
+	for _consenter in _consenters:
+		if(_consenter is SexParticipantInfo):
+			conDict[_consenter.getID()] = false
+		else:
+			conDict[_consenter] = false
+	payload.append(SexEngineQueueEntry.ConsentCheck.create(5.0, 3.0, conDict, _scoringStrategy, _strategyArgs, _conTexts))
 	return self
 
 func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:
-	payload.append([ACTION_START, _roles, _args])
+	var theRolesFinal:Dictionary[String, String] = {}
+	for theRole in _roles:
+		if(_roles[theRole] is SexParticipantInfo):
+			theRolesFinal[theRole] = _roles[theRole].getID()
+		else:
+			theRolesFinal[theRole] = _roles[theRole]
+	payload.append(SexEngineQueueEntry.StartActivity.create("", theRolesFinal, _args, true))
 	return self
 
 func setScore(_score:float) -> SexAction:
@@ -66,7 +71,7 @@ func setEnabled(_dis:bool) -> SexAction:
 	return self
 
 func expose(_giver:Variant, _receiver:Variant, _fetishID:String, _intensity:float = 1.0) -> SexAction:
-	payload.append([ACTION_EXPOSE, _giver, _receiver, _fetishID, _intensity])
+	payload.append(SexEngineQueueEntry.Expose.create(_giver.getID() if _giver is SexParticipantInfo else _giver, _receiver.getID() if _receiver is SexParticipantInfo else _receiver, _fetishID, _intensity))
 	return self
 
 func setOverridePriority(_overridePriority:int) -> SexAction:

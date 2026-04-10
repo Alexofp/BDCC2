@@ -193,9 +193,6 @@ func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 		undressTask(_task.actor, _task.actor, [ZoneCover.Vagina]),
 	]
 
-func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
-	return undressExtraForPose(pose, getRoleID(_role))
-
 func canSatisfyTask(_task:SexTask) -> bool:
 	if(isTaskOurs(_task, SexTask.CumTribadism, ROLE_TOP, ROLE_BOTTOM)):
 		return true

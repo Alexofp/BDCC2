@@ -149,12 +149,12 @@ func processEventQueue(_dt:float):
 					continue
 			else:
 				break
-		elif(queueEntry is SexEngineQueueEntry.StartMainActivity):
+		elif(queueEntry is SexEngineQueueEntry.StartActivity):
 			eventQueue.pop_front()
-			startMainActivity(queueEntry.activityID, queueEntry.roles, queueEntry.args)
-		elif(queueEntry is SexEngineQueueEntry.StartSideActivity):
-			eventQueue.pop_front()
-			startSideActivity(queueEntry.activityID, queueEntry.roles, queueEntry.args)
+			if(queueEntry.isMain):
+				startMainActivity(queueEntry.activityID, queueEntry.roles, queueEntry.args)
+			else:
+				startSideActivity(queueEntry.activityID, queueEntry.roles, queueEntry.args)
 		elif(queueEntry is SexEngineQueueEntry.ResistMinigameStart):
 			if(!queueEntry.started):
 				startResistMinigame(1.0, 2.0)
@@ -193,7 +193,6 @@ func calcTransitionTimer():
 			if(queueBigEntry.resisted):
 				return
 			transitionTimer += maxf(queueBigEntry.delayElapsed, 0.0)
-			transitionTimerFull += maxf(queueBigEntry.delay, 0.0)
 			var theMaxTimer:float = queueBigEntry.delay if !isForced() else queueBigEntry.delayForced
 			transitionTimerFull += maxf(theMaxTimer, 0.0)
 			return

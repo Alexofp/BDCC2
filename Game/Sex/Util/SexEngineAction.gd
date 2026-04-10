@@ -32,12 +32,13 @@ static func createFromQueueEntry(_sexEngine:SexEngine, queueEntry:SexEngineQueue
 	var _charCanDoDomActions:bool = _sexEngine.canDoDomActions(charID)
 
 	var _entryObj = queueEntry.obj
+	var _isObjRef:bool = false if _entryObj is SexEngineActivityBase else true
 	var theActivity:SexEngineActivityBase = _entryObj if _entryObj is SexEngineActivityBase else GlobalRegistry.getSexActivityRef(_entryObj)
 	
 	var result:Array[SexEngineAction] = []
 	
 	if(queueEntry is SexEngineQueueEntry.DelayCanCancel):
-		var _role:String = theActivity.getRoleFromID(charID)
+		var _role:String = theActivity.getRoleFromID(charID) if !_isObjRef else charID
 		if(_role == queueEntry.role):
 			result.append(createGeneric(SexEngine.ACTION_CANCEL, "Cancel", theActivity))
 

@@ -74,16 +74,10 @@ func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 		SexTask.create(SexTask.WearStrapon, _task.actor, _task.actor),
 	]
 
-func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
-	return undressExtraForPose(pose, getRoleID(_role))
-
 func canSatisfyTask(_task:SexTask) -> bool:
 	if(isTaskOurs(_task, getCumInsideTask(), ROLE_TOP, ROLE_BOTTOM)):
 		return true
 	return false
-
-
-
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target || !_info.canDoDomActions() || _sexEngine.hasMainActivity()):

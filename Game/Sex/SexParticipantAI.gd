@@ -482,4 +482,6 @@ func failCurrentGoal():
 	currentGoal.failSelf()
 
 func onRejection():
+	if(!shouldProcessAI()):
+		return
 	cancelCurrentGoal()

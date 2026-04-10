@@ -79,50 +79,8 @@ func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Se
 		_sexEngine.addCooldown(_action.cooldownID, _action.cooldownTime)
 	
 	for payloadEntry in _action.payload:
-		var entryType:int = payloadEntry[0]
-		
-		#if(entryType == SexAction.ACTION_ACTION):
-		#	pushAutoAction(_role, payloadEntry[1], payloadEntry[2])
-		if(entryType == SexAction.ACTION_DELAY):
-			_sexEngine.pushToQueue(id, SexEngineQueueEntry.Delay.create(payloadEntry[1]))
-		elif(entryType == SexAction.ACTION_START):
-			var _roles:Dictionary = payloadEntry[1].duplicate()
-			for theRole in _roles:
-				if(_roles[theRole] is SexParticipantInfo):
-					_roles[theRole] = _roles[theRole].getID()
-			var _args:Dictionary = payloadEntry[2]
-			
-			if(getActivityType() == ACTIVITY_MAIN):
-				_sexEngine.pushToQueue(id, SexEngineQueueEntry.StartMainActivity.create(id, _roles, _args))
-			else:
-				_sexEngine.pushToQueue(id, SexEngineQueueEntry.StartSideActivity.create(id, _roles, _args))
-		elif(entryType == SexAction.ACTION_EXPOSE):
-			var _giverInfo:SexParticipantInfo = payloadEntry[1]
-			var _receiverInfo:SexParticipantInfo = payloadEntry[2]
-			var _fetishID:String = payloadEntry[3]
-			var _intensity:float = payloadEntry[4]
-			_sexEngine.pushToQueue(id, SexEngineQueueEntry.Expose.create(_giverInfo.getID(), _receiverInfo.getID(), _fetishID, _intensity))
-		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
-			var whoNeedToConsent:Array = payloadEntry[5]
-			if(whoNeedToConsent.is_empty()):
-				whoNeedToConsent = _sexEngine.getParticipants().keys()
-			
-			var gaveConsent:Dictionary[String, bool] = {}
-			for theParticipant in whoNeedToConsent:
-				if(theParticipant is SexParticipantInfo):
-					gaveConsent[theParticipant.getID()] = false
-				elif(theParticipant is String):
-					gaveConsent[theParticipant] = false
-			gaveConsent[_info.getID()] = true
-			
-			_sexEngine.pushToQueue(id, SexEngineQueueEntry.ConsentCheck.create(payloadEntry[1], payloadEntry[2], gaveConsent, payloadEntry[3], payloadEntry[4], payloadEntry[6]))
-			
-		#elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
-		#	pushDelayCanCancel(payloadEntry[1], _role)
-		#elif(entryType == SexAction.ACTION_CONSENT_CHECK):
-		#	pushConsentCheck(payloadEntry[1], [getRoleID(_role)])
-		else:
-			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doStartSexAction()")
+		payloadEntry.supplyStartContext(id, _sexEngine, _info, _target, _action)
+		_sexEngine.pushToQueue(id, payloadEntry)
 
 func conTexts(_askText:String, _forceText:String = "", _involved:Dictionary[String, Variant] = {}):
 	if(_forceText.is_empty()):
@@ -408,27 +366,9 @@ func doSexActionFinal(_role:String, _action:SexAction):
 		addCooldown(_action.cooldownID, _action.cooldownTime)
 	
 	for payloadEntry in _action.payload:
-		var entryType:int = payloadEntry[0]
+		payloadEntry.supplyActionContext(self, _role, _action)
+		getSexEngine().pushToQueue(self, payloadEntry)
 		
-		if(entryType == SexAction.ACTION_ACTION):
-			pushAutoAction(_role, payloadEntry[1], payloadEntry[2])
-		elif(entryType == SexAction.ACTION_DELAY):
-			pushDelay(payloadEntry[1])
-		elif(entryType == SexAction.ACTION_DELAY_CANCANCEL):
-			pushDelayCanCancel(payloadEntry[1], _role)
-		elif(entryType == SexAction.ACTION_CONSENT_CHECK):
-			var theRolesToConsent:Array = payloadEntry[5]
-			if(theRolesToConsent.is_empty()):
-				theRolesToConsent = roleToID.keys()
-			theRolesToConsent.erase(_role) # Remove the role that called it
-			var finalAr:Array[String] = []
-			finalAr.append_array(theRolesToConsent)
-			pushConsentCheck(payloadEntry[1], payloadEntry[2], finalAr, payloadEntry[3], payloadEntry[4], payloadEntry[6])
-		elif(entryType == SexAction.ACTION_EXPOSE):
-			pushExpose(payloadEntry[1], payloadEntry[2], payloadEntry[3], payloadEntry[4])
-		else:
-			assert(false, "Payload entry type "+str(entryType)+" is not implemented for doSexActionFinal()")
-
 func doSexActionForCharID(_charID:String, _action:SexAction):
 	doSexActionFinal(getRoleFromID(_charID), _action)
 
@@ -867,7 +807,10 @@ func undressTask(_actorID:String, _targetID:String, _slots:Array[int]) -> SexTas
 	return SexTask.create(SexTask.CompletedTask, _actorID, _targetID)
 
 func getSubSexTasksExtra(_role:String) -> Array[SexTask]:
-	return []
+	var result:Array[SexTask] = []
+	if(poseSupport):
+		result.append_array(undressExtraForPose(pose, getRoleID(_role)))
+	return result
 
 func undressExtraForPose(_pose:String, _actorID:String) -> Array[SexTask]:
 	if(_pose.is_empty()):
@@ -879,7 +822,7 @@ func undressExtraForPose(_pose:String, _actorID:String) -> Array[SexTask]:
 	
 	var result:Array[SexTask] = []
 	for _targetID in idToRole:
-		var theTargetRole:String = idToRole.get(_actorID, "")
+		var theTargetRole:String = idToRole.get(_targetID, "")
 		
 		var theZones := thePose.getExtraUndressZones(theTargetRole, self)
 		if(theZones.is_empty()):
