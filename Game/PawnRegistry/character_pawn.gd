@@ -995,6 +995,16 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 			]).setDisabled(theAction.disabled).setSubCategory(theAction.category))
 			_i += 1
 	
+	var theSexEngine := GM.main.sex_manager.getSexEngineOfPawn(self)
+	if(theSexEngine):
+		var theInfo := theSexEngine.getParticipant(getID())
+		if(theInfo):
+			result.append_array(theSexEngine.dialogue.getActionsFor(theInfo))
+	
+	internal_checkCanDoActions(result)
+	return result
+
+func internal_checkCanDoActions(result:Array[InteractEntryDo]):
 	var theContext := pawnActionContext
 	theContext.target = self
 	
@@ -1007,8 +1017,6 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 		if(!theEntry.action.canStartAction(theContext)):
 			result.remove_at(_indx)
 	theContext.clearContext()
-	
-	return result
 
 func getQuickActionsSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
@@ -1049,18 +1057,7 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 		#	continue
 		result.append(InteractEntryDo.create(pawnAction.id))
 	
-	var theContext := pawnActionContext
-	theContext.target = self
-	
-	var resAm:int = result.size()
-	for _i in resAm:
-		var _indx:int = resAm - _i - 1
-		var theEntry := result[_indx]
-		theContext.args = theEntry.args
-		
-		if(!theEntry.action.canStartAction(theContext)):
-			result.remove_at(_indx)
-	theContext.clearContext()
+	internal_checkCanDoActions(result)
 	
 	return result
 
@@ -1077,18 +1074,7 @@ func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
 		result.append(InteractEntryDo.create(pawnAction.id))
 	#theContext.target = null
 	
-	var theContext := _actor.pawnActionContext
-	theContext.target = self
-	
-	var resAm:int = result.size()
-	for _i in resAm:
-		var _indx:int = resAm - _i - 1
-		var theEntry := result[_indx]
-		theContext.args = theEntry.args
-		
-		if(!theEntry.action.canStartAction(theContext)):
-			result.remove_at(_indx)
-	theContext.clearContext()
+	internal_checkCanDoActions(result)
 	
 	return result
 

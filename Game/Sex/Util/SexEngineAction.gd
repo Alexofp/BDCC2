@@ -109,3 +109,6 @@ func getCategory() -> Array[String]:
 	if(sexAction):
 		return sexAction.category
 	return []
+
+func canBePickedWhileImportantDialogues() -> bool:
+	return false

@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_xkvj3")
 
 [node name="Label" type="Label" parent="." unique_id=1898099045]
@@ -27,10 +28,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_60gig")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer" unique_id=1358027391]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/VBoxContainer2" unique_id=515660072]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="ActionList" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2/ScrollContainer" unique_id=1005561953]
 unique_name_in_owner = true

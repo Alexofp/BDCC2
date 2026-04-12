@@ -32,3 +32,56 @@ func shouldAddPickPoseActions(_role:String) -> bool:
 
 func canTweakPosition() -> bool:
 	return true
+	
+func addStopSexAction(_role:String, _askWantMore:bool = true):
+	var theStopScore := scoreSexStop(_role)
+	var theStopActionScore:float = theStopScore
+	
+	var theDialogueHandler:SexDialogueHandler = getSexEngine().dialogue
+	if(_askWantMore && theStopScore > 0.0 && isRoleAI(_role) && !theDialogueHandler.wantStop):
+		var amAsked:int = theDialogueHandler.getAmountStarted("WantMore")
+		
+		var theAskScoreMult:float = clampf(1.0 - amAsked*amAsked*0.1, 0.0, 1.0)
+		var theAskScore:float = theStopActionScore * theAskScoreMult
+		if(canDoSexDialogues()):
+			addAction(action("Ask want more").do("int_askMore").setScore(theAskScore))
+		theStopActionScore -= theAskScore
+	addAction(action("Stop").delayCancel(0.5).do("int_stopSex").setScore(theStopActionScore))
+
+func handleStopSexAction(_role:String, _id:String, _roleReactor:String) -> bool:
+	if(_id == "int_stopSex"):
+		getSexEngine().stopSex()
+		return true
+	if(_id == "int_askMore"):
+		#getSexEngine().stopSex()
+		startDialogue("WantMore", _role, _roleReactor)
+		return true
+	return false
+
+func addStartActivitiesButtons(_role:String):
+	var theSex := getSexEngine()
+	var theInfo:SexParticipantInfo = getRoleInfo(_role)
+	for theSexActivityID in GlobalRegistry.getSexActivities():
+		var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
+		if(!theActivityRef.isActivitySupported(theSex)):
+			continue
+		
+		for otherCharID in theSex.participants: #TODO: Replace this with target-based approach
+			var otherInfo:SexParticipantInfo = theSex.getInfo(otherCharID)
+			
+			var theActions := theActivityRef.getStartActionsFinal(theSex, theInfo, otherInfo)
+			for actionEntry in theActions:
+				addAction(actionEntry)
+				#addAction(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, theSex, otherCharID))
+				#result.append(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, self, otherCharID))
+
+#func handleStartActivityButtons(_role:String, _id:String, _args:Array) -> bool:
+#	return false
+
+func addSexTypeActions(_role:String):
+	if(canDoDomActions(_role)):
+		addStartActivitiesButtons(_role)
+	
+	if(!hasMainActivity()):
+		if(canDoDomActions(_role)):
+			addStopSexAction(_role)

@@ -9,7 +9,7 @@ func _init():
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(!_info.canDoDomActions() && _info != _target):
 		return
-	#addAction(action("UNDRESS!").delay(0.3).start({main=_info}))
+	#addAction(action("UNDRESS!").delay(0.3).start(id, {main=_info}))
 	var targetChar:BaseCharacter = _target.getChar()
 	var targetInv:Inventory = targetChar.getInventory()
 	var charCatName:String = targetChar.getName() if _info != _target else "You"
@@ -33,10 +33,11 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 				#TODO: This seems weird. Can we soft-lock because of this somehow?
 				takeOffScore = 1.0 - _info.taskScore(SexTask.WearStrapon, _target)
 			addAction(action("Take off")
+			.setRoles({ROLE_USER:_info,ROLE_TARGET:_target})
 			.setScore(takeOffScore)
 			.setCat(finalCat)
-			.consent([_target], conTexts("{dom.You} {dom.youVerb try|tries} to take off {sub.your} "+theItemName+".", "{dom.You} {dom.youVerb try|tries} to forcefully take off {sub.your} "+theItemName+"!", {dom=_info,sub=_target}))
-			.start({ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
+			.consent([ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to take off {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully take off {target.your} "+theItemName+"!"))
+			.start(id, {ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
 		
 		var displaceActions := theItem.getDisplaceActions(theContext)
 		for actionEntry in displaceActions:
@@ -45,10 +46,11 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			#var actionID:String = actionEntry["action"]
 			var displaceScore:float = _info.taskScore(SexTask.Undress, _target)
 			addAction(action(actionName)
+			.setRoles({ROLE_USER:_info,ROLE_TARGET:_target})
 			.setScore(displaceScore)
 			.setCat(finalCat)
-			.consent([_target], conTexts("{dom.You} {dom.youVerb try|tries} to displace {sub.your} "+theItemName+".", "{dom.You} {dom.youVerb try|tries} to forcefully displace {sub.your} "+theItemName+"!", {dom=_info,sub=_target}))
-			.start({ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
+			.consent([ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to displace {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully displace {target.your} "+theItemName+"!"))
+			.start(id, {ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER, ROLE_TARGET])

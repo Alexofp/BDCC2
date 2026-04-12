@@ -4,8 +4,8 @@ const SEX_SPEED_SLOW = 0
 const SEX_SPEED_NORMAL = 1
 const SEX_SPEED_FAST = 2
 
-const ROLE_TOP = "top"
-const ROLE_BOTTOM = "bottom"
+const ROLE_TOP := "top"
+const ROLE_BOTTOM := "bottom"
 
 const SEX_SPEEDS = [
 	SEX_SPEED_SLOW, SEX_SPEED_NORMAL, SEX_SPEED_FAST
@@ -85,21 +85,23 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	if(_target.getChar().hasReachableVagina()):
 		var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, _target)
 		addAction(action("Vaginal sex")
+		.setRoles({ROLE_TOP: _info, ROLE_BOTTOM: _target})
 		.setCat(CATEGORY_SEX)
 		.setScore(vagSexScore)
-		.expose(_info, _target, Fetish.SexVaginal)
-		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}.", {top=_info,bottom=_target}))
-		.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=true})
+		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal)
+		.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}."))
+		.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=true})
 		)
 
 	if(_target.getChar().hasReachableAnus()):
 		var analSexScore:float = _info.taskScore(SexTask.CumInsideAnal, _target)
 		addAction(action("Anal sex")
+		.setRoles({ROLE_TOP: _info, ROLE_BOTTOM: _target})
 		.setCat(CATEGORY_SEX)
 		.setScore(analSexScore)
-		.expose(_info, _target, Fetish.SexAnal)
-		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}.", {top=_info,bottom=_target}))
-		.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=false})
+		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexAnal)
+		.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}."))
+		.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=false})
 		)
 
 func start(_roles:Dictionary, _args:Dictionary):

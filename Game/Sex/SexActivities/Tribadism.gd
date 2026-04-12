@@ -4,8 +4,8 @@ const SEX_SPEED_SLOW = 0
 const SEX_SPEED_NORMAL = 1
 const SEX_SPEED_FAST = 2
 
-const ROLE_TOP = "top"
-const ROLE_BOTTOM = "bottom"
+const ROLE_TOP := "top"
+const ROLE_BOTTOM := "bottom"
 
 const SEX_SPEEDS = [
 	SEX_SPEED_SLOW, SEX_SPEED_NORMAL, SEX_SPEED_FAST
@@ -44,11 +44,12 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	var theScore:float = _info.taskScore(SexTask.CumTribadism, _target)
 	addAction(action("Tribadism")
+	.setRoles({ROLE_TOP: _info, ROLE_BOTTOM:_target})
 	.setCat(CATEGORY_SEX)
 	.setScore(theScore)
-	.expose(_info, _target, MAINFETISH)
-	.consent([_target], conTexts("{top.You} {top.youVerb ask} to rub pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force tribadism with {bottom.you}.", {top=_info,bottom=_target}))
-	.start({ROLE_TOP:_info,ROLE_BOTTOM:_target}, {})
+	.expose(ROLE_TOP, ROLE_BOTTOM, MAINFETISH)
+	.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to rub pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force tribadism with {bottom.you}."))
+	.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {})
 	)
 
 func start(_roles:Dictionary, _args:Dictionary):

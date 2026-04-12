@@ -1,0 +1,11 @@
+def SexWantMore
+fill SexWantMore simple
+<
+Do you want more?
+>
+fill SexWantMore evenMore
+priority 5
+cond amountStarted >= 1
+<
+Do you want EVEN more?
+>

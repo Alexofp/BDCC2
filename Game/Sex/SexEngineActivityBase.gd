@@ -36,6 +36,8 @@ var canDoTasks:Dictionary[String, bool] = {}
 var poseSupport:bool = false # no save. Is the pose support enabled for this activity
 var pose:String = ""
 
+var wasDeleted:bool = false
+
 func getActivityType() -> int:
 	return ACTIVITY_SEXTYPE
 
@@ -68,7 +70,7 @@ func getStartActionsFinal(_sexEngine:SexEngine, _info:SexParticipantInfo, _targe
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_sexEngine.hasMainActivity() || _info == _target):
 		return
-	#addAction(action("TEST TEST!").delay(0.3).start({dom=_info, sub=_target}))
+	#addAction(action("TEST TEST!").delay(0.3).start(id, {dom=_info, sub=_target}))
 	#addAction(action("AAAA!").delay(3.0))
 	pass
 
@@ -191,7 +193,7 @@ func getArousal(_theRole:String) -> float:
 
 var tempActions:Array[SexAction] = []
 
-func addAction(_action:SexAction):
+func addAction(_action:SexAction, _roleOverrides:Dictionary[String, SexParticipantInfo] = {}):
 	tempActions.append(_action)
 
 func addActionEasy(_name:String, _score:float, _actionID:String, _args:Array = [], _category:Array[String] = []):
@@ -569,7 +571,7 @@ func isBusy() -> bool:
 	return getSexEngine().isBusy()
 
 func action(_name:String) -> SexAction:
-	return SexAction.make(_name)
+	return SexAction.make(_name).setRoles(roleToID)
 
 func hasEveryoneConsent(_roleList:Array[String]) -> bool:
 	for theRole in roleToID:
@@ -652,6 +654,18 @@ func taskScoreReceive(_role:String, _taskID:String, _roleTarget:String) -> float
 
 func task(_taskID:String, _taskArgs:Array, _score:float = 1.0) -> Array:
 	return [_taskID, _taskArgs, _score]
+
+func isRoleAI(_role:String) -> bool:
+	var theInfo := getRoleInfo(_role)
+	if(!theInfo):
+		return false
+	return theInfo.ai.shouldProcessAI()
+
+func canDoSexDialogues() -> bool:
+	return getSexEngine().dialogue.noAnswerTimer <= 0.0
+
+func onConsentDenied(_role:String, _consentID:String):
+	pass
 
 func scoreSexStop(_role:String) -> float:
 	var theEngine := getSexEngine()
@@ -836,6 +850,23 @@ func undressExtraForPose(_pose:String, _actorID:String) -> Array[SexTask]:
 func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
 	return [
 	]
+
+func startDialogue(_chainID:String, _main:String, _target:String, _args:Array = []) -> SexDialogueChain:
+	var theChain := getSexEngine().dialogue.tryAddChain(_chainID, getRoleInfo(_main), getRoleInfo(_target), _args)
+	#if(theChain):
+	#	theChain.setActivity(self)
+	return theChain
+
+## Same as startDialogue but the dialogue will end if this activity ends
+func startDialogueChecked(_chainID:String, _main:String, _target:String, _args:Array = [], _states:Array[String] = []) -> SexDialogueChain:
+	var theChain := startDialogue(_chainID, _main, _target, _args)
+	if(theChain):
+		theChain.setActivity(self)
+		theChain.setSupportedStates(_states)
+	return theChain
+
+func onDialogueChainEvent(_chain:SexDialogueChain, _eventID:String, _args:Array):
+	pass
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

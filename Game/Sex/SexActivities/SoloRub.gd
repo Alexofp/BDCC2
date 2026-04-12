@@ -35,10 +35,11 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		return
 	#var vagSexScore:float = _info.taskScore(SexTask.CumInsideVaginal, [_target.getID()])
 	addAction(action("Pussy masturbation")
+	.setRoles({ROLE_TOP:_info})
 	#.setScore(vagSexScore)
-	.expose(_info, _target, Fetish.SexVaginal)
-	#.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}.", {top=_info,bottom=_target}))
-	.start({ROLE_TOP:_info}, {})
+	.expose(ROLE_TOP, ROLE_TOP, Fetish.SexVaginal)
+	#.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}."))
+	.start(id, {ROLE_TOP:_info}, {})
 	)
 
 func start(_roles:Dictionary, _args:Dictionary):

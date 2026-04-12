@@ -70,6 +70,8 @@ var savedCharPositions:Dictionary[String, Vector3]
 
 var eventQueue:Array[SexEngineQueueEntry] = []
 
+var dialogue:SexDialogueHandler
+
 # event queue stuff
 const QUEUE_DELAY = 0
 const QUEUE_EVENT = 1
@@ -203,6 +205,9 @@ func calcTransitionTimer():
 func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	if(args.has("sexMode")):
 		sexMode = args["sexMode"]
+	
+	dialogue = SexDialogueHandler.new()
+	dialogue.setSex(self)
 	
 	var theSexType:SexTypeBase = GlobalRegistry.createSexActivity(sexTypeID)
 	theSexType.setSexEngine(self)
@@ -413,13 +418,15 @@ func calculateActions(charID:String) -> Array[SexEngineAction]:
 					continue
 				result.append(SexEngineAction.createFromSexAction(actionEntry, theSexActivity))
 		
-		var theInfo:SexParticipantInfo = getInfo(charID)
-		for theSexActivityID in GlobalRegistry.getSexActivities():
-			var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
-			if(!theActivityRef.isActivitySupported(self)):
-				continue
-			curOverridePrio = internal_AddSexActivityActions(theActivityRef, theInfo, result, curOverridePrio)
-			
+		# This should be removed
+		if(false):
+			var theInfo:SexParticipantInfo = getInfo(charID)
+			for theSexActivityID in GlobalRegistry.getSexActivities():
+				var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
+				if(!theActivityRef.isActivitySupported(self)):
+					continue
+				curOverridePrio = internal_AddSexActivityActions(theActivityRef, theInfo, result, curOverridePrio)
+				
 	return result
 
 func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array[SexEngineAction], curOverridePrio:int) -> int:
@@ -586,6 +593,9 @@ func doActionInternal(charID:String, action:SexEngineAction):
 		if(queueEntry is SexEngineQueueEntry.ConsentCheck):
 			cancelQueue(charID)
 			addActionText("{user.You} didn't consent!", {user=charID})
+			if(queueEntry.obj is SexEngineActivityBase):
+				var theActivity:SexEngineActivityBase = queueEntry.obj
+				theActivity.onConsentDenied(theActivity.getRoleFromID(charID), queueEntry.consentID)
 			notifyThingHappened()
 	if(actionID == ACTION_FORCE):
 		if(canDoDomActions(charID)):
@@ -689,6 +699,7 @@ func startSideActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 func stopActivity(theActivity:SexEngineActivityBase):
 	if(!theActivity):
 		return
+	theActivity.wasDeleted = true
 	if(theActivity == sexActivity):
 		stopMainActivity()
 		return
@@ -763,6 +774,8 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	GM.sexManager.removeSexInternal(self)
+	dialogue.setSex(null)
+	dialogue = null
 
 func onSexEngineResult(_result:SexEngineResult):
 	var checkedInteractions:Dictionary[InteractionBase, bool]
@@ -819,6 +832,7 @@ func _on_anim_scene_player_on_scene_switched() -> void:
 @onready var process_timer: Timer = %ProcessTimer
 func _on_process_timer_timeout() -> void:
 	doProcess(process_timer.wait_time)
+	dialogue.process(process_timer.wait_time)
 
 func getRolePawn(_role:String) -> CharacterPawn:
 	if(!sexType):
@@ -1221,17 +1235,18 @@ func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> Strin
 			if(theTexts.size() >= 2):
 				var consentActionText:String = theTexts[0] if !_isForced else theTexts[1]
 				
-				if(!_isActualActivity):
-					var theReplacers:Dictionary[String, String] = {}
-					var theOfferedReplacers:Dictionary = theTexts[2] if theTexts.size()>2 else {}
-					for replacerID in theOfferedReplacers:
-						if(theOfferedReplacers[replacerID] is String):
-							theReplacers[replacerID] = theOfferedReplacers[replacerID]
-						elif(theOfferedReplacers[replacerID] is SexParticipantInfo):
-							theReplacers[replacerID] = theOfferedReplacers[replacerID].getID()
-					result.append(GM.textParser.applyObjReplacers(consentActionText, theReplacers))
-				else:
-					result.append(_entryObj.applyObjReplacers(consentActionText))
+				#if(!_isActualActivity):
+					#var theReplacers:Dictionary[String, String] = {}
+					#var theOfferedReplacers:Dictionary = theTexts[2] if theTexts.size()>2 else {}
+					#for replacerID in theOfferedReplacers:
+						#if(theOfferedReplacers[replacerID] is String):
+							#theReplacers[replacerID] = theOfferedReplacers[replacerID]
+						#elif(theOfferedReplacers[replacerID] is SexParticipantInfo):
+							#theReplacers[replacerID] = theOfferedReplacers[replacerID].getID()
+					#result.append(GM.textParser.applyObjReplacers(consentActionText, theReplacers))
+				#else:
+					#result.append(_entryObj.applyObjReplacers(consentActionText))
+				result.append(GM.textParser.applyObjReplacers(consentActionText, queueEntry.roles))
 	
 	return Util.join(result, "\n")
 

@@ -110,6 +110,20 @@ func tickAI():
 				ticker = 0.2
 		return
 	
+	var possibleLines:Array[SexDialogueLine] = []
+	var theDialogueHander := theSex.dialogue
+	if(theDialogueHander.noAnswerTimer <= 0.0):
+		for theChain in theDialogueHander.chains: # Probably could use a util method?
+			for theLine in theChain.currentLines:
+				if(theLine.main != getInfo()):
+					continue
+				possibleLines.append(theLine)
+		if(!possibleLines.is_empty()):
+			var randomLine:SexDialogueLine = RNG.pick(possibleLines)
+			theDialogueHander.doAnswer(randomLine, -1)
+			return
+	
+	var _haveImportantDialogues:bool = theSex.dialogue.haveImportantChains()
 	var theActions := theSex.calculateActions(theID)
 	
 	var totalScoreSum:float = 0.0
@@ -117,6 +131,8 @@ func tickAI():
 	for actionEntry in theActions:
 		var theScore := calcActionScore(actionEntry)
 		if(theScore <= 0.0):
+			continue
+		if(_haveImportantDialogues && !actionEntry.canBePickedWhileImportantDialogues()):
 			continue
 		totalScoreSum += theScore
 		possibleActions.append([actionEntry, theScore])
@@ -153,6 +169,11 @@ func calcActionScore(_actionEntry:SexEngineAction) -> float:
 	return 0.0
 
 func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
+	var theGoals := produceGoals(_goalAmount)
+	goals.append_array(theGoals)
+	return theGoals
+
+func produceGoals(_goalAmount:int) -> Array[SexGoalBase]:
 	var theSex := getSexEngine()
 	var theInfo := getInfo()
 	if(!theSex):
@@ -226,8 +247,10 @@ func generateGoals(_goalAmount:int) -> Array[SexGoalBase]:
 		
 		var newGoal := GlobalRegistry.createSexGoal(theGoal.id)
 		if(!newGoal):
+			possibleGoals.erase(goalEntry)
 			continue
 		if(!newGoal.setupSexGoal(theInfo, theTarget, theSex, _theArgs)):
+			possibleGoals.erase(goalEntry)
 			continue
 		
 		result.append(newGoal)
@@ -241,7 +264,7 @@ func checkGoals():
 		return
 	if(!shouldProcessAI()):
 		return
-	goals = generateGoals(2)
+	generateGoals(2)
 	goalsGenerated = true
 
 func getFinalResistance() -> float:

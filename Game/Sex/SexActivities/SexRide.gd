@@ -101,20 +101,22 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	if(_info.getChar().hasReachableVagina()):
 		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideVaginal, _target)
 		addAction(action("Ride (vaginal)")
+		.setRoles({ROLE_TOP:_target,ROLE_BOTTOM:_info})
 		.setCat(CATEGORY_SEX)
 		.setScore(theRideScore)
-		.expose(_target, _info, Fetish.SexVaginal)
-		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you} in a cowgirl position.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you} in a cowgirl position.", {top=_info,bottom=_target}))
-		.start({ROLE_TOP:_target,ROLE_BOTTOM:_info}, {vaginal=true})
+		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal)
+		.consent([ROLE_TOP], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you} in a cowgirl position.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you} in a cowgirl position."))
+		.start(id, {ROLE_TOP:_target,ROLE_BOTTOM:_info}, {vaginal=true})
 		)
 	if(_info.getChar().hasReachableAnus()):
 		var theRideScore:float = _info.taskScore(SexTask.ReceiveCumInsideAnal, _target)
 		addAction(action("Ride (anal)")
+		.setRoles({ROLE_TOP:_target,ROLE_BOTTOM:_info})
 		.setCat(CATEGORY_SEX)
 		.setScore(theRideScore)
-		.expose(_target, _info, Fetish.SexAnal)
-		.consent([_target], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you} in a cowgirl position.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you} in a cowgirl position.", {top=_info,bottom=_target}))
-		.start({ROLE_TOP:_target,ROLE_BOTTOM:_info}, {vaginal=false})
+		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexAnal)
+		.consent([ROLE_TOP], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you} in a cowgirl position.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you} in a cowgirl position."))
+		.start(id, {ROLE_TOP:_target,ROLE_BOTTOM:_info}, {vaginal=false})
 		)
 
 

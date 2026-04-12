@@ -11,6 +11,7 @@ var cooldownID:String = ""
 var cooldownTime:float = 0.0
 var disabled:bool = false
 var overridePriority:int = 0
+var roles:Dictionary[String, String] # role -> char id
 
 static func make(_name:String) -> SexAction:
 	var theAction:SexAction = SexAction.new()
@@ -35,18 +36,18 @@ func consent(_consenters:Array = [], _conTexts:Array=[], _scoringStrategy:int = 
 		if(_consenter is SexParticipantInfo):
 			conDict[_consenter.getID()] = false
 		else:
-			conDict[_consenter] = false
+			conDict[getRoleID(_consenter)] = false
 	payload.append(SexEngineQueueEntry.ConsentCheck.create(5.0, 3.0, conDict, _scoringStrategy, _strategyArgs, _conTexts))
 	return self
 
-func start(_roles:Dictionary, _args:Dictionary = {}) -> SexAction:
+func start(_activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexAction:
 	var theRolesFinal:Dictionary[String, String] = {}
 	for theRole in _roles:
 		if(_roles[theRole] is SexParticipantInfo):
 			theRolesFinal[theRole] = _roles[theRole].getID()
 		else:
-			theRolesFinal[theRole] = _roles[theRole]
-	payload.append(SexEngineQueueEntry.StartActivity.create("", theRolesFinal, _args, true))
+			theRolesFinal[theRole] = getRoleID(_roles[theRole])
+	payload.append(SexEngineQueueEntry.StartActivity.create(_activityID, theRolesFinal, _args, true))
 	return self
 
 func setScore(_score:float) -> SexAction:
@@ -70,10 +71,23 @@ func setEnabled(_dis:bool) -> SexAction:
 	disabled = !_dis
 	return self
 
-func expose(_giver:Variant, _receiver:Variant, _fetishID:String, _intensity:float = 1.0) -> SexAction:
-	payload.append(SexEngineQueueEntry.Expose.create(_giver.getID() if _giver is SexParticipantInfo else _giver, _receiver.getID() if _receiver is SexParticipantInfo else _receiver, _fetishID, _intensity))
+func expose(_giver:String, _receiver:String, _fetishID:String, _intensity:float = 1.0) -> SexAction:
+	payload.append(SexEngineQueueEntry.Expose.create(getRoleID(_giver), getRoleID(_receiver), _fetishID, _intensity))
 	return self
 
 func setOverridePriority(_overridePriority:int) -> SexAction:
 	overridePriority = _overridePriority
 	return self
+
+func setRoles(_roles:Dictionary) -> SexAction:
+	roles = {}
+	for theRole in _roles:
+		roles[theRole] = _roles[theRole] if !(_roles[theRole] is SexParticipantInfo) else _roles[theRole].getID()
+	#roles = _roles
+	return self
+
+func getRoleID(_role:String) -> String:
+	if(roles.has(_role)):
+		return roles[_role]
+	assert(false, "Role not found "+str(_role))
+	return _role

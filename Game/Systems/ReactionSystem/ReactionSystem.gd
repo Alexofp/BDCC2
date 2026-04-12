@@ -31,7 +31,14 @@ func reactPawnGenerate(_pawn:CharacterPawn, _reaction:String, _target:CharacterP
 	currentDepth = 0
 	
 	return generateReaction(_reaction, context)
-	
+
+func prepareContext(_pawn:CharacterPawn, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}) -> ReactionContext:
+	context = defaultContext
+	context.main = _pawn.getCharacter()
+	context.target = _target.getCharacter()
+	context.args = _args
+	return context
+
 func generateReaction(_reaction:String, _context:ReactionContext) -> ReactionResult:
 	setContext(_context)
 	var theLine := generateReactionLineSmart(_reaction)

@@ -52,6 +52,8 @@ var mainReactionBank:ReactionBank = ReactionBank.new()
 var coupleAnimRefs:Dictionary[String, CoupleAnimBase]
 var socialInteractions:Dictionary
 var memories:Dictionary[String, MemoryBase]
+var sexDialogueChains:Dictionary#[String, SexDialogueChain]
+var sexDialogueChainRefs:Dictionary[String, SexDialogueChain]
 
 signal initialized
 
@@ -200,6 +202,8 @@ func doInit():
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
 	registerSocialInteractionFolder("res://Game/PawnAI/SocialInteractions/")
 	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
+	
+	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1204,3 +1208,33 @@ func getMemory(id: String) -> MemoryBase:
 
 func hasMemory(id: String) -> bool:
 	return memories.has(id)
+
+
+
+
+func registerSexDialogueChain(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is SexDialogueChain):
+		sexDialogueChains[object.id] = loadedClass
+		sexDialogueChainRefs[object.id] = object
+
+func registerSexDialogueChains(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerSexDialogueChain(scriptPath)
+
+func createSexDialogueChain(id: String) -> SexDialogueChain:
+	if(sexDialogueChains.has(id)):
+		return sexDialogueChains[id].new()
+	else:
+		Log.Printerr("ERROR: sex dialogue chain with the id "+str(id)+" wasn't found")
+		return null
+
+func getSexDialogueChainRef(id:String) -> SexDialogueChain:
+	if(sexDialogueChainRefs.has(id)):
+		return sexDialogueChainRefs[id]
+	else:
+		Log.Printerr("ERROR: sex dialogue chain with the id "+str(id)+" wasn't found")
+		return null

@@ -12,7 +12,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	if(!_sexEngine.isForced() || _info.canDoDomActions()):
 		return
 	var resistScore:float = _info.ai.getSmoothResistScore()
-	addAction(action("Resist").setScore(resistScore).setCooldown("subResist").start({ROLE_USER:_info}))
+	addAction(action("Resist").setRoles({ROLE_USER:_info}).setScore(resistScore).setCooldown("subResist").start(id, {ROLE_USER:_info}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER])

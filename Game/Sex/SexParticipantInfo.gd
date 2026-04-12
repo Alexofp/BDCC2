@@ -4,6 +4,7 @@ class_name SexParticipantInfo
 var id:String = ""
 var sexRef:WeakRef
 var ai:SexParticipantAI
+var pawn:CharacterPawn
 
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
@@ -19,6 +20,7 @@ func setupInfo(_infoDict:Dictionary) -> bool:
 	#if(Network.isServer()):
 	ai = SexParticipantAI.new()
 	ai.setParticipant(self)
+	pawn = GM.pawnRegistry.getPawn(id)
 	return true
 
 func onSexStart():
@@ -166,6 +168,9 @@ func canWearFreeStrapon() -> bool:
 
 func setFreeStraponUniqueID(_uid:int):
 	freeStraponUniqueID = _uid
+
+func getPawn() -> CharacterPawn:
+	return pawn
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

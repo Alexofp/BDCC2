@@ -23,15 +23,14 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 				continue # Show a disabled button instead?
 			var theItemName:String = theItem.getName()
 			addAction(action(theItemName)
+				.setRoles({ROLE_MAIN:_info,ROLE_TARGET:_target})
 				.setCat(["Bondage", theCharName])
 				.setScore(tieUpScore)
-				.expose(_info, _target, Fetish.Bondage)
-				.consent([_target], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
-				.start({ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
+				.expose(ROLE_MAIN, ROLE_TARGET, Fetish.Bondage)
+				.consent([ROLE_TARGET], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
+				.start(id, {ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
 			)
 		
-		#addAction(action("GAG!").setCat(["Bondage"]).start({main=_info, target=_target}))
-	
 
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_MAIN, ROLE_TARGET])
