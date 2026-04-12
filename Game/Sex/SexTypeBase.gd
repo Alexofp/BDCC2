@@ -72,8 +72,6 @@ func addStartActivitiesButtons(_role:String):
 			var theActions := theActivityRef.getStartActionsFinal(theSex, theInfo, otherInfo)
 			for actionEntry in theActions:
 				addAction(actionEntry)
-				#addAction(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, theSex, otherCharID))
-				#result.append(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, self, otherCharID))
 
 #func handleStartActivityButtons(_role:String, _id:String, _args:Array) -> bool:
 #	return false

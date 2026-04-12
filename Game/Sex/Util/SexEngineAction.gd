@@ -88,18 +88,6 @@ static func createFromSexAction(actionEntry:SexAction, _activity:SexEngineActivi
 	#score = actionEntry.score,
 	return theAction
 
-static func createFromStartSexAction(actionEntry:SexAction, _activity:SexEngineActivityBase, _sexEngine:SexEngine, _targetID:String) -> SexEngineAction:
-	var theAction := SexEngineAction.new()
-	theAction.type = SexEngine.ACTION_START_ACTION
-	theAction.name = actionEntry.actionName if !_sexEngine.hasCooldown(actionEntry.cooldownID) else ("("+str(int(ceil(_sexEngine.getCooldown(actionEntry.cooldownID))))+") "+actionEntry.actionName)
-	theAction.activity = _activity
-	theAction.target = _targetID
-	theAction.sexAction = actionEntry
-	theAction.disabled = actionEntry.disabled || _sexEngine.hasCooldown(actionEntry.cooldownID)
-	#category = actionEntry.category,
-	#score = actionEntry.score,
-	return theAction
-
 func getScore() -> float:
 	if(sexAction):
 		return sexAction.score

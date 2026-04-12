@@ -74,16 +74,6 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	#addAction(action("AAAA!").delay(3.0))
 	pass
 
-#func addStartAction():
-#	pass
-func doStartSexAction(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-	if(!_action.cooldownID.is_empty() && _action.cooldownTime > 0.0):
-		_sexEngine.addCooldown(_action.cooldownID, _action.cooldownTime)
-	
-	for payloadEntry in _action.payload:
-		payloadEntry.supplyStartContext(id, _sexEngine, _info, _target, _action)
-		_sexEngine.pushToQueue(id, payloadEntry)
-
 func conTexts(_askText:String, _forceText:String = "", _involved:Dictionary[String, Variant] = {}):
 	if(_forceText.is_empty()):
 		_forceText = _askText

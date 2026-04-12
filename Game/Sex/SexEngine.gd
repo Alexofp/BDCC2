@@ -18,7 +18,6 @@ const STATE_CONSENT = 2 # We're waiting for someone to agree
 @export var transitionTimerFull:float = 0.0
 @export var gripLevel:float = 0.5
 
-const ACTION_START_ACTION = 0
 const ACTION_SEX_ACTION = 1
 const ACTION_CONSENT = 2
 const ACTION_DENY_CONSENT = 3
@@ -418,33 +417,7 @@ func calculateActions(charID:String) -> Array[SexEngineAction]:
 					continue
 				result.append(SexEngineAction.createFromSexAction(actionEntry, theSexActivity))
 		
-		# This should be removed
-		if(false):
-			var theInfo:SexParticipantInfo = getInfo(charID)
-			for theSexActivityID in GlobalRegistry.getSexActivities():
-				var theActivityRef:SexEngineActivityBase = GlobalRegistry.getSexActivityRef(theSexActivityID)
-				if(!theActivityRef.isActivitySupported(self)):
-					continue
-				curOverridePrio = internal_AddSexActivityActions(theActivityRef, theInfo, result, curOverridePrio)
-				
 	return result
-
-func internal_AddSexActivityActions(theActivityRef:SexEngineActivityBase, theInfo:SexParticipantInfo, result:Array[SexEngineAction], curOverridePrio:int) -> int:
-	for otherCharID in participants: #TODO: Replace this with target-based approach
-		var otherInfo:SexParticipantInfo = getInfo(otherCharID)
-		
-		var theActions := theActivityRef.getStartActionsFinal(self, theInfo, otherInfo)
-		for actionEntry in theActions:
-			var theOverridePrio:int = actionEntry.overridePriority
-			if(theOverridePrio > curOverridePrio):
-				curOverridePrio = theOverridePrio
-				result.clear()
-			
-			if(theOverridePrio < curOverridePrio):
-				continue
-			
-			result.append(SexEngineAction.createFromStartSexAction(actionEntry, theActivityRef, self, otherCharID))
-	return curOverridePrio
 
 # Subs consent if no answer if forced
 func hasConsentIfNoAnswer(_charID:String) -> bool:
@@ -561,20 +534,6 @@ func doActionInternal(charID:String, action:SexEngineAction):
 			return
 		theActivity.doSexActionForCharID(charID, theAction)
 		notifyThingHappened()
-	if(actionID == ACTION_START_ACTION):
-		var theAction:SexAction = action.sexAction
-		var theActivityRef:SexEngineActivityBase = action.activity
-		var targetID:String = action.target
-		
-		var theInfo:SexParticipantInfo = getInfo(charID)
-		var theTarget:SexParticipantInfo = getInfo(targetID)
-		
-		if(!theInfo || !theTarget):
-			Log.Printerr("Can't start a sex activity, target or starter are missing.")
-			return
-		theActivityRef.doStartSexAction(self, theInfo, theTarget, theAction)
-		#notifyThingHappened()
-		notifyThingHappenedNeedsReaction()
 	if(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
 		addActionText("{user.You} {user.youVerb decide} to cancel the action!", {user=charID})

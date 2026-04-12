@@ -161,8 +161,6 @@ func calcActionScore(_actionEntry:SexEngineAction) -> float:
 			return theActivity.calcNoConsentScore(consentStrategy, consentArgs, theInfo, theSex.isForced())
 	elif(actionID == SexEngine.ACTION_SEX_ACTION):
 		return _actionEntry.getScore()
-	elif(actionID == SexEngine.ACTION_START_ACTION):
-		return _actionEntry.getScore()
 	elif(actionID == SexEngine.ACTION_FORCE):
 		return anger*0.2 if anger > 0.5 else 0.0
 	
