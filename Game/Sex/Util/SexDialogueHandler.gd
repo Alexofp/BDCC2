@@ -73,9 +73,16 @@ func doAnswer(_line:SexDialogueLine, _lineIndx:int = -1):
 	var thePawn := _line.main.getPawn()
 	if(thePawn):
 		thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_line.finalLines[_lineIndx] if _lineIndx >= 0 else RNG.pick(_line.finalLines)))
-		
+	var theTarget := _line.target.getPawn()
+	if(theTarget):
+		theTarget.clearSay()
+	
 	theChain.doLine(_line)
 	noAnswerTimer = 2.0
+
+
+func canDoDialogue() -> bool:
+	return noAnswerTimer <= 0.0
 
 func getActionsFor(_participant:SexParticipantInfo) -> Array[InteractEntryDo]:
 	if(noAnswerTimer > 0.0):
@@ -120,3 +127,7 @@ func getAmountStarted(_chainID:String) -> int:
 	if(!amountStarted.has(_chainID)):
 		return 0
 	return amountStarted[_chainID]
+
+## AI will skip asking the subs. Allows the Dom AI to stop sex
+func markCanStopSex():
+	wantStop = true

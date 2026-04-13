@@ -38,7 +38,6 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	.setRoles({ROLE_TOP:_info})
 	#.setScore(vagSexScore)
 	.expose(ROLE_TOP, ROLE_TOP, Fetish.SexVaginal)
-	#.consent([_target], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}."))
 	.start(id, {ROLE_TOP:_info}, {})
 	)
 

@@ -36,7 +36,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			.setRoles({ROLE_USER:_info,ROLE_TARGET:_target})
 			.setScore(takeOffScore)
 			.setCat(finalCat)
-			.consent([ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to take off {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully take off {target.your} "+theItemName+"!"))
+			.consent(SexConsentType.Undress, [ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to take off {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully take off {target.your} "+theItemName+"!"))
 			.start(id, {ROLE_USER:_info,ROLE_TARGET:_target}, {action={delay=0.3,action="unequip",args=[]}, slot=invSlot}))
 		
 		var displaceActions := theItem.getDisplaceActions(theContext)
@@ -49,7 +49,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			.setRoles({ROLE_USER:_info,ROLE_TARGET:_target})
 			.setScore(displaceScore)
 			.setCat(finalCat)
-			.consent([ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to displace {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully displace {target.your} "+theItemName+"!"))
+			.consent(SexConsentType.Undress, [ROLE_TARGET], conTexts("{user.You} {user.youVerb try|tries} to displace {target.your} "+theItemName+".", "{user.You} {user.youVerb try|tries} to forcefully displace {target.your} "+theItemName+"!"))
 			.start(id, {ROLE_USER:_info,ROLE_TARGET:_target}, {action=actionEntry, slot=invSlot}))
 	
 func start(_roles:Dictionary, _args:Dictionary):

@@ -48,7 +48,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 	.setCat(CATEGORY_SEX)
 	.setScore(theScore)
 	.expose(ROLE_TOP, ROLE_BOTTOM, MAINFETISH)
-	.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to rub pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force tribadism with {bottom.you}."))
+	.consent(SexConsentType.PrepareSex, [ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to rub pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force tribadism with {bottom.you}."))
 	.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {})
 	)
 
@@ -69,7 +69,7 @@ func start_actions(_role:String):
 	addAction(action("Rub pussies")
 	#.setEnabled(penetrateEnabled)
 	.setScore(startScore)
-	.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb want} to start rubbing pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force pussy rubbing with {bottom.you}."))
+	.consent(SexConsentType.StartSex, [ROLE_BOTTOM], conTexts("{top.You} {top.youVerb want} to start rubbing pussies with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force pussy rubbing with {bottom.you}."))
 	.do("startSex")
 	)
 	
@@ -199,6 +199,13 @@ func canSatisfyTask(_task:SexTask) -> bool:
 		return true
 	return false
 
+func getTags(_role:String, _targetRole:String) -> int:
+	var result:int = 0
+	if(_role == ROLE_BOTTOM && _targetRole == ROLE_TOP):
+		if(getState() == "sex"):
+			result |= SexTag.CanBegSex
+	return result
+
 func sex_process(_dt:float):
 	#if(isReadyToCum(ROLE_BOTTOM)):
 	#	subDoCum()
@@ -221,7 +228,7 @@ func getActions(_role:String):
 			addAction(action("Ask stop sex")
 			.setScore(0.0)
 			.setCooldown("askStop", 5.0)
-			.consent([ROLE_TOP], conTexts("{bottom.You} {bottom.youVerb ask} to stop the penetrative sex."))
+			.consent(SexConsentType.AskStopSex, [ROLE_TOP], conTexts("{bottom.You} {bottom.youVerb ask} to stop the penetrative sex."))
 			.do("stopSex"))
 		return
 	if(state != "inside"): #Maybe make it so you can only stop sex if not sexing?

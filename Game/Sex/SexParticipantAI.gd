@@ -112,7 +112,7 @@ func tickAI():
 	
 	var possibleLines:Array[SexDialogueLine] = []
 	var theDialogueHander := theSex.dialogue
-	if(theDialogueHander.noAnswerTimer <= 0.0):
+	if(theDialogueHander.canDoDialogue()):
 		for theChain in theDialogueHander.chains: # Probably could use a util method?
 			for theLine in theChain.currentLines:
 				if(theLine.main != getInfo()):
@@ -292,6 +292,9 @@ func addAnger(_howMuch:float):
 		addAngerRaw(_howMuch * (1.0 + theMean*0.5))
 	if(_howMuch < 0.0):
 		addAngerRaw(_howMuch * (1.0 - theMean*0.3))
+
+func getAngerResistScore() -> float:
+	return maxf(anger, getSmoothResistScore())
 
 func addResistance(_howMuch:float):
 	var theDommy:float = personality(PersonalityStat.Dominant)
@@ -492,17 +495,41 @@ func didCompleteAllGoals() -> bool:
 			return false
 	return true
 
-func cancelCurrentGoal():
+func hasAnyGoalsToDo() -> bool:
+	if(!goalsGenerated):
+		return true
+	for goal in goals:
+		if(!goal.isFinished()):
+			return true
+	return false
+
+func completeCurrentGoal():
 	if(!currentGoal || currentGoal.isFinished()):
 		return
 	currentGoal.completeSelf()
+
+func cancelCurrentGoal():
+	if(!currentGoal || currentGoal.isFinished()):
+		return
+	currentGoal.cancelSelf()
 
 func failCurrentGoal():
 	if(!currentGoal || currentGoal.isFinished()):
 		return
 	currentGoal.failSelf()
 
-func onRejection():
+func onConsentRejection(_deniedByCharID:String, _consentCheck:SexEngineQueueEntry.ConsentCheck):
 	if(!shouldProcessAI()):
 		return
-	cancelCurrentGoal()
+	#cancelCurrentGoal()
+	var theEngine := getSexEngine()
+	
+	theEngine.dialogue.tryAddChain("WhyReject", getInfo(), theEngine.getParticipant(_deniedByCharID))
+
+func onConsentIgnore(_consentCheck:SexEngineQueueEntry.ConsentCheck):
+	if(!shouldProcessAI()):
+		return
+	var theIDs := _consentCheck.getIDsNoConsent()
+	if(!theIDs.is_empty()):
+		onConsentRejection(RNG.pick(theIDs), _consentCheck)
+	

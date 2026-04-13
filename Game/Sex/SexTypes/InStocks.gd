@@ -33,13 +33,11 @@ func start_run():
 	playAnim(AnimScene.StocksStart, "normal", {dom=ROLE_DOM, sub=ROLE_SUB})
 
 func start_actions(_role:String):
-	if(!hasMainActivity()):
-		if(canDoDomActions(_role)):
-			addAction(action("Stop").delayCancel(0.5).do("stopSex").setScore(scoreSexStop(_role)))
-
+	addSexTypeActions(_role, false)
+	
 func start_do(_role:String, _id:String, _args:Array):
-	if(_id == "stopSex"):
-		getSexEngine().stopSex()
+	if(handleStopSexAction(_role, _id, ROLE_DOM if _role == ROLE_SUB else ROLE_SUB)):
+		return
 
 func canTweakPosition() -> bool:
 	return false

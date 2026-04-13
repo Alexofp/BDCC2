@@ -8,6 +8,7 @@ var chain:SexDialogueChain
 var main:SexParticipantInfo
 var target:SexParticipantInfo
 var lineGenerated:bool = false
+var score:float = 1.0
 
 func calculateArgs() -> Dictionary[String, Variant]:
 	var theArgs:Dictionary[String, Variant] = {}

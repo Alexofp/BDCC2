@@ -105,7 +105,7 @@ func processEventQueue(_dt:float):
 	
 	while(!eventQueue.is_empty()):
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
-		var _entryObj = queueEntry.obj
+		var _entryObj := queueEntry.obj
 		
 		if((queueEntry is SexEngineQueueEntry.Delay) || (queueEntry is SexEngineQueueEntry.DelayCanCancel)):
 			queueEntry.elapsedTime += _dt
@@ -147,6 +147,11 @@ func processEventQueue(_dt:float):
 					eventQueue.pop_front()
 					addActionTextRaw("Couldn't get consent!")
 					cancelQueue()
+					
+					var theInfo := getInfo(queueEntry.starterID)
+					if(theInfo):
+						theInfo.ai.onConsentIgnore(queueEntry)
+					
 					continue
 			else:
 				break
@@ -179,7 +184,7 @@ func calcTransitionTimer():
 	if(eventQueue.is_empty()):
 		return
 	for queueBigEntry:SexEngineQueueEntry in eventQueue:
-		var _entryObj = queueBigEntry.obj
+		var _entryObj := queueBigEntry.obj
 		#var queueType:int = queueBigEntry.type
 		
 		if(queueBigEntry is SexEngineQueueEntry.Delay):
@@ -439,7 +444,7 @@ func shouldConsent(_charID:String) -> bool:
 		return false
 	if(!eventQueue.is_empty()):
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
-		var _entryObj = queueEntry.obj
+		var _entryObj := queueEntry.obj
 		
 		if(queueEntry is SexEngineQueueEntry.ConsentCheck):
 			if(queueEntry.needToConsent.has(_charID) && !queueEntry.needToConsent.get(_charID, false)):
@@ -554,7 +559,7 @@ func doActionInternal(charID:String, action:SexEngineAction):
 			addActionText("{user.You} didn't consent!", {user=charID})
 			if(queueEntry.obj is SexEngineActivityBase):
 				var theActivity:SexEngineActivityBase = queueEntry.obj
-				theActivity.onConsentDenied(theActivity.getRoleFromID(charID), queueEntry.consentID)
+				theActivity.onConsentDeniedBy(charID, queueEntry)
 			notifyThingHappened()
 	if(actionID == ACTION_FORCE):
 		if(canDoDomActions(charID)):
@@ -605,7 +610,7 @@ func cancelQueue(_charID:String = ""):
 	while(!eventQueue.is_empty()):
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
 		eventQueue.pop_front()
-		var _entryObj = queueEntry.obj
+		var _entryObj := queueEntry.obj
 		if(queueEntry is SexEngineQueueEntry.CancelStopper):
 			break
 		#elif(queueType == QUEUE_CANCEL_CATCHER):
@@ -1186,25 +1191,13 @@ func calculateEngineText(_eventQueue:bool = true, _actions:bool = true) -> Strin
 	
 	if(_eventQueue && !eventQueue.is_empty()):
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
-		var _entryObj = queueEntry.obj
-		var _isActualActivity:bool = (_entryObj is SexEngineActivityBase)
+		var _entryObj := queueEntry.obj
 		
 		if(queueEntry is SexEngineQueueEntry.ConsentCheck):
 			var theTexts:Array = queueEntry.hoverTexts
 			if(theTexts.size() >= 2):
 				var consentActionText:String = theTexts[0] if !_isForced else theTexts[1]
 				
-				#if(!_isActualActivity):
-					#var theReplacers:Dictionary[String, String] = {}
-					#var theOfferedReplacers:Dictionary = theTexts[2] if theTexts.size()>2 else {}
-					#for replacerID in theOfferedReplacers:
-						#if(theOfferedReplacers[replacerID] is String):
-							#theReplacers[replacerID] = theOfferedReplacers[replacerID]
-						#elif(theOfferedReplacers[replacerID] is SexParticipantInfo):
-							#theReplacers[replacerID] = theOfferedReplacers[replacerID].getID()
-					#result.append(GM.textParser.applyObjReplacers(consentActionText, theReplacers))
-				#else:
-					#result.append(_entryObj.applyObjReplacers(consentActionText))
 				result.append(GM.textParser.applyObjReplacers(consentActionText, queueEntry.roles))
 	
 	return Util.join(result, "\n")
@@ -1336,6 +1329,19 @@ func getAllActivities() -> Array[SexEngineActivityBase]:
 		result.append(sexActivity)
 	result.append_array(sideActivities)
 	return result
+
+func getAllSexTags(_charID:String, _targetID:String) -> int:
+	var result:int = 0
+	if(sexType):
+		result |= sexType.getTagsFor(_charID, _targetID)
+	if(sexActivity):
+		result |= sexActivity.getTagsFor(_charID, _targetID)
+	for theActivity in sideActivities:
+		result |= theActivity.getTagsFor(_charID, _targetID)
+	return result
+
+func hasInfoSexTag(_charID:String, _targetID:String, _tag:int) -> bool:
+	return getAllSexTags(_charID, _targetID) & _tag
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

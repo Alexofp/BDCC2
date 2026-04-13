@@ -198,6 +198,20 @@ func sayAdvanced(_pawn:CharacterPawn, _stuff:Array):
 		Network.rpcClients(sayAdvanced_RPC.bind(_pawn.getCharID(), _stuff))
 	_pawn.sayAdvancedLocal(_stuff)
 
+func clearSay(_pawn:CharacterPawn):
+	if(Network.isClient() || !_pawn):
+		return
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(clearSay_RPC.bind(_pawn.getCharID()))
+	_pawn.clearSayLocal()
+
+@rpc("authority", "call_remote", "reliable")
+func clearSay_RPC(_pawnID:String):
+	var _pawn := getPawn(_pawnID)
+	if(!_pawn):
+		return
+	_pawn.clearSayLocal()
+
 func addHoverTextGlobal(_pawn:CharacterPawn, _text:String, _replacers:Dictionary[String, String]):
 	if(!_pawn):
 		return

@@ -462,6 +462,13 @@ static func getStuffTalkLen(stuff:Array) -> float:
 			result = 3.0
 	return result
 
+func clearSay():
+	GM.pawnRegistry.clearSay(self)
+
+func clearSayLocal():
+	if(isDollSpawned()):
+		getDoll().clearSayLocal()
+
 func sayAdvanced(stuff:Array):
 	GM.pawnRegistry.sayAdvanced(self, stuff)
 

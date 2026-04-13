@@ -9,3 +9,110 @@ cond amountStarted >= 1
 <
 Do you want EVEN more?
 >
+
+def SexWantMoreYes
+fill SexWantMoreYes simple
+<
+Yes.
+I do.
+>
+
+def SexWantMoreEnough
+fill SexWantMoreEnough simple
+<
+That was enough.
+That's enough.
+>
+
+def SexRejectWhy
+fill SexRejectWhy simple
+<
+What's the problem?
+Something is wrong?
+>
+fill SexRejectWhy again
+priority 5
+cond amountStarted >= 1
+<
+What's the problem this time?
+Something is wrong again?
+>
+
+def SexRejectNoWant
+fill SexRejectNoWant simple
+<
+I don't want this.
+I don't wanna do this.
+>
+
+def SexRejectMistake
+fill SexRejectMistake simple
+<
+I didn't mean to.
+>
+
+def SexRejectMakeMe
+fill SexRejectMakeMe simple
+<
+I want you to make me do this.
+>
+
+def SexRejectNoWantAccept
+fill SexRejectNoWantAccept simple
+<
+Alright.
+Sure.
+>
+
+def SexRejectNoWantDeny
+fill SexRejectNoWantDeny simple
+<
+You are being very annoying.
+Don't be so annoying.
+You are making me angry.
+>
+
+def SexRejectMakeMeOkay
+fill SexRejectMakeMeOkay simple
+<
+You asked for it.
+>
+
+def SexBegSexBreed
+fill SexBegSexBreed simple
+<
+Breed me, please!
+Please, breed me..
+Don’t stop, please..
+Breed me raw!
+Fuck me harder, please!
+>
+
+def SexBegSexBreedReact
+fill SexBegSexBreedReact simple
+<
+Such a slut.
+So desperate.
+Such a needy little thing.
+That’s my good toy.
+Such a slutty fucktoy.
+>
+
+
+def SexBegSexStop
+fill SexBegSexStop simple
+<
+I don't want this, please..
+Can you stop? I'm begging you.
+Just stop, please.
+That's enough, please stop.
+>
+
+def SexBegSexStopReact
+fill SexBegSexStopReact simple
+<
+I ain't stopping now.
+I'm not gonna stop now.
+You can't stop me.
+Just take it.
+>

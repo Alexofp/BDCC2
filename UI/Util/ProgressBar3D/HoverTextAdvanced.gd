@@ -37,6 +37,9 @@ func setHoverText(_text:String):
 func addText(_text:String):
 	hover_text.addText(_text)
 
+func clearTexts():
+	hover_text.clearTexts()
+
 func tryInterruptText(_text:String = "- ugh.."):
 	if(hover_text.canInterupt()):
 		hover_text.doInterupt(_text)

@@ -2,15 +2,13 @@ extends RefCounted
 class_name SexEngineQueueEntry
 
 var type:int = SexEngine.QUEUE_DELAY
-var obj
+var obj:SexEngineActivityBase
 var justSkip:bool = false
 
 func setObj(_obj) -> SexEngineQueueEntry:
 	obj = _obj
 	return self
 
-func supplyStartContext(_id:String, _sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-	obj = _id
 func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 	obj = _activity
 
@@ -53,9 +51,6 @@ class DelayCanCancel extends SexEngineQueueEntry:
 		theEntry.elapsedTime = 0.0
 		theEntry.role = _role
 		return theEntry
-	func supplyStartContext(_id:String, _sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-		obj = _id
-		role = _info.getID()
 	func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 		obj = _activity
 		role = _role
@@ -91,9 +86,6 @@ class AutoAction extends SexEngineQueueEntry:
 		theEntry.actionID = _actionID
 		theEntry.args = _args
 		return theEntry
-	func supplyStartContext(_id:String, _sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-		obj = _id
-		assert(false, "bad")
 	func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 		obj = _activity
 		state = _activity.getState()
@@ -117,11 +109,13 @@ class ConsentCheck extends SexEngineQueueEntry:
 	var hoverTexts:Array
 	var resisted:bool = false
 	var consentID:String = ""
+	var starterID:String = ""
 	var roles:Dictionary[String, String]
 	
-	static func create(_delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array) -> ConsentCheck:
+	static func create(_consentID:String, _delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array) -> ConsentCheck:
 		var theEntry := ConsentCheck.new()
 		theEntry.type = SexEngine.QUEUE_CONSENT_CHECK
+		theEntry.consentID = _consentID
 		theEntry.delay = _delay
 		theEntry.delayForced = _delayForced
 		theEntry.needToConsent = _needToConsent
@@ -129,21 +123,13 @@ class ConsentCheck extends SexEngineQueueEntry:
 		theEntry.consentArgs = _consentArgs
 		theEntry.hoverTexts = _hoverTexts
 		return theEntry
-	func supplyStartContext(_id:String, _sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-		obj = _id
-		if(needToConsent.is_empty()):
-			var whoNeedToConsent:Array = _sexEngine.getParticipants().keys()
-			for theParticipantID in whoNeedToConsent:
-				needToConsent[theParticipantID] = false
-		needToConsent.erase(_info.getID())
-		for _therole in _action.roles:
-			roles[_therole] = _action.getRoleID(_therole)#_action.roles[_therole].getID()
 	func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 		obj = _activity
 		if(needToConsent.is_empty()):
 			for theID in _activity.idToRole:
 				needToConsent[theID] = false
-		needToConsent.erase(_activity.getRoleID(_role))
+		starterID = _activity.getRoleID(_role)
+		needToConsent.erase(starterID)
 		for _therole in _action.roles:
 			roles[_therole] = _action.getRoleID(_therole)# _action.roles[_therole].getID()
 		if(hoverTexts.size() > 2):
@@ -159,7 +145,13 @@ class ConsentCheck extends SexEngineQueueEntry:
 		#	if(!theID.is_empty()):
 		#		newConsentID[theID] = false
 		#needToConsent = newConsentID
-
+	func getIDsNoConsent() -> Array[String]:
+		var result:Array[String] = []
+		for theID in needToConsent:
+			if(!needToConsent[theID]):
+				result.append(theID)
+		return result
+	
 class ResistMinigameStart extends SexEngineQueueEntry:
 	var started:bool = false
 	var state:String
@@ -202,12 +194,6 @@ class StartActivity extends SexEngineQueueEntry:
 		theEntry.args = _args
 		theEntry.isMain = _isMain
 		return theEntry
-	func supplyStartContext(_id:String, _sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo, _action:SexAction):
-		obj = _id
-		activityID = _id
-		var theRef := GlobalRegistry.getSexActivityRef(activityID)
-		if(theRef):
-			isMain = (theRef is SexMainActivity)
 	func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 		obj = _activity
 		var theRef := GlobalRegistry.getSexActivityRef(activityID)

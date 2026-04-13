@@ -25,6 +25,9 @@ func addText(_text:String):
 	while(texts.size() > maxTexts):
 		texts.pop_front()
 
+func clearTexts():
+	texts.clear()
+
 func getFinalText() -> String:
 	var theResult:String = ""#hoverText
 	

@@ -30,14 +30,14 @@ func delayCancel(_delay:float) -> SexAction:
 	payload.append(SexEngineQueueEntry.DelayCanCancel.create(_delay, ""))
 	return self
 
-func consent(_consenters:Array = [], _conTexts:Array=[], _scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
+func consent(_consentID:String, _consenters:Array = [], _conTexts:Array=[], _scoringStrategy:int = SexEngineActivityBase.CONSENT_RESISTANCE, _strategyArgs:Array = []) -> SexAction:
 	var conDict:Dictionary[String, bool] = {}
 	for _consenter in _consenters:
 		if(_consenter is SexParticipantInfo):
 			conDict[_consenter.getID()] = false
 		else:
 			conDict[getRoleID(_consenter)] = false
-	payload.append(SexEngineQueueEntry.ConsentCheck.create(5.0, 3.0, conDict, _scoringStrategy, _strategyArgs, _conTexts))
+	payload.append(SexEngineQueueEntry.ConsentCheck.create(_consentID, 5.0, 3.0, conDict, _scoringStrategy, _strategyArgs, _conTexts))
 	return self
 
 func start(_activityID:String, _roles:Dictionary, _args:Dictionary = {}) -> SexAction:

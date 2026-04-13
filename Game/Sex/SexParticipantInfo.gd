@@ -172,6 +172,9 @@ func setFreeStraponUniqueID(_uid:int):
 func getPawn() -> CharacterPawn:
 	return pawn
 
+func hasTag(_otherInfo:SexParticipantInfo, _tag:int) -> bool:
+	return getSexEngine().hasInfoSexTag(getID(), _otherInfo.getID(), _tag)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.I8, role,

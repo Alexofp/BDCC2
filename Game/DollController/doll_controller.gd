@@ -573,6 +573,10 @@ func sayHoverText(_text:String):
 	var hover_text := doll.getHoverText()
 	hover_text.addText(_text)
 
+func clearSayLocal():
+	var hover_text := doll.getHoverText()
+	hover_text.clearTexts()
+
 func interruptSay(_text:String = "- ugh.."):
 	doll.getHoverText().tryInterruptText(_text)
 

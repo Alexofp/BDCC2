@@ -33,7 +33,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 					.setCat(["Wear", theCharName])
 					.setScore(straponScore if theStraponsToWear.is_empty() else 0.0)
 					#.expose(_info, _target, Fetish.Bondage)
-					.consent([ROLE_TARGET], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
+					.consent(SexConsentType.WearStrapon, [ROLE_TARGET], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
 					.delay(0.5)
 					.start(id, {ROLE_MAIN:_info,ROLE_TARGET:_target}, {freeStrapon="StraponHuman"})
 				)
@@ -47,7 +47,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 				.setCat(["Wear", theCharName])
 				.setScore(straponScore)
 				#.expose(_info, _target, Fetish.Bondage)
-				.consent([ROLE_TARGET], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
+				.consent(SexConsentType.WearStrapon, [ROLE_TARGET], conTexts("{dom.You} {dom.youVerb want} to put "+theItemName+" on {sub.you}.", "{dom.You} {dom.youVerb try|tries} to force "+theItemName+" on {sub.you}!", {dom=_info,sub=_target}))
 				.start(id, {ROLE_MAIN:_info,ROLE_TARGET:_target}, {itemID=theItem.uniqueID})
 			)
 

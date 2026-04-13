@@ -79,6 +79,13 @@ func canSatisfyTask(_task:SexTask) -> bool:
 		return true
 	return false
 
+func getTags(_role:String, _targetRole:String) -> int:
+	var result:int = 0
+	if(_role == ROLE_BOTTOM && _targetRole == ROLE_TOP):
+		if(getState() == "sex"):
+			result |= SexTag.CanBegSex
+	return result
+
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target || !_info.canDoDomActions() || _sexEngine.hasMainActivity()):
 		return
@@ -89,7 +96,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		.setCat(CATEGORY_SEX)
 		.setScore(vagSexScore)
 		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexVaginal)
-		.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}."))
+		.consent(SexConsentType.PrepareSex, [ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have vaginal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force vaginal sex with {bottom.you}."))
 		.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=true})
 		)
 
@@ -100,7 +107,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		.setCat(CATEGORY_SEX)
 		.setScore(analSexScore)
 		.expose(ROLE_TOP, ROLE_BOTTOM, Fetish.SexAnal)
-		.consent([ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}."))
+		.consent(SexConsentType.PrepareSex, [ROLE_BOTTOM], conTexts("{top.You} {top.youVerb ask} to have anal sex with {bottom.you}.", "{top.You} {top.youVerb try|tries} to force anal sex with {bottom.you}."))
 		.start(id, {ROLE_TOP:_info,ROLE_BOTTOM:_target}, {vaginal=false})
 		)
 
@@ -124,7 +131,7 @@ func start_actions(_role:String):
 	addAction(action("Penetrate")
 	.setEnabled(penetrateEnabled)
 	.setScore(penetrateScore)
-	.consent([], conTexts("{top.You} {top.youVerb want} to penetrate {bottom.your} "+zoneName+".", "{top.You} {top.youVerb try|tries} to forcefully penetrate {bottom.your} "+zoneName+"."))
+	.consent(SexConsentType.StartSex, [], conTexts("{top.You} {top.youVerb want} to penetrate {bottom.your} "+zoneName+".", "{top.You} {top.youVerb try|tries} to forcefully penetrate {bottom.your} "+zoneName+"."))
 	.do("startSex")
 	)
 	
@@ -234,7 +241,7 @@ func getActions(_role:String):
 			addAction(action("Ask stop sex")
 			.setScore(0.0)
 			.setCooldown("askStop", 5.0)
-			.consent([ROLE_TOP], conTexts("{bottom.You} {bottom.youVerb ask} to stop the penetrative sex."))
+			.consent(SexConsentType.AskStopSex, [ROLE_TOP], conTexts("{bottom.You} {bottom.youVerb ask} to stop the penetrative sex."))
 			.do("stopSex"))
 		return
 	if(state != "inside"): #Maybe make it so you can only stop sex if not sexing?

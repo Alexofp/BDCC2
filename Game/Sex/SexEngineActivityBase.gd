@@ -505,13 +505,13 @@ func pushAutoAction(_role:String, _actionID:String, _args:Array = []):
 func pushActionText(_text:String):
 	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ActionText.create(_text))
 
-func pushConsentCheck(_delay:float, _delayForced:float, _toConsent:Array[String], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array):
+func pushConsentCheck(_consentID:String, _delay:float, _delayForced:float, _toConsent:Array[String], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array):
 	var newConsentID:Dictionary[String, bool] = {}
 	for theRole in _toConsent:
 		var theID:String = getRoleID(theRole)
 		if(!theID.is_empty()):
 			newConsentID[theID] = false
-	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ConsentCheck.create(_delay, _delayForced, newConsentID, _consentStrategy, _consentArgs, _hoverTexts))
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ConsentCheck.create(_consentID, _delay, _delayForced, newConsentID, _consentStrategy, _consentArgs, _hoverTexts))
 
 func pushResistMinigame():
 	getSexEngine().pushToQueue(self, SexEngineQueueEntry.ResistMinigameStart.create(state))
@@ -654,7 +654,19 @@ func isRoleAI(_role:String) -> bool:
 func canDoSexDialogues() -> bool:
 	return getSexEngine().dialogue.noAnswerTimer <= 0.0
 
-func onConsentDenied(_role:String, _consentID:String):
+func onConsentDeniedBy(_deniedByCharID:String, _consentCheck:SexEngineQueueEntry.ConsentCheck):
+	var _charID:String = _consentCheck.starterID
+	if(!idToRole.has(_charID)):
+		return
+	var theRole:String = idToRole[_charID]
+	var theInfo := getRoleInfo(theRole)
+	theInfo.ai.onConsentRejection(_deniedByCharID, _consentCheck)
+	
+	if(!idToRole.has(_deniedByCharID)):
+		return
+	onConsentDenied(theRole, idToRole[_deniedByCharID], _consentCheck.consentID)
+
+func onConsentDenied(_roleStarter:String, _roleWhoDenied:String, _consentID:String):
 	pass
 
 func scoreSexStop(_role:String) -> float:
@@ -673,7 +685,7 @@ func scoreSexStop(_role:String) -> float:
 			continue
 		if(theInfo.isPlayer()):
 			hasPC = true
-		if(!theInfo.ai.didCompleteAllGoals()):
+		if(theInfo.ai.hasAnyGoalsToDo()):
 			hasAnyNPCWithGoals = true
 			
 		#if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
@@ -857,6 +869,14 @@ func startDialogueChecked(_chainID:String, _main:String, _target:String, _args:A
 
 func onDialogueChainEvent(_chain:SexDialogueChain, _eventID:String, _args:Array):
 	pass
+
+func getTags(_role:String, _targetRole:String) -> int:
+	return 0
+
+func getTagsFor(_charID:String, _targetID:String) -> int:
+	if(!idToRole.has(_charID) || !idToRole.has(_targetID)):
+		return 0
+	return getTags(idToRole[_charID], idToRole[_targetID])
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

@@ -34,7 +34,7 @@ func canTweakPosition() -> bool:
 	return true
 	
 func addStopSexAction(_role:String, _askWantMore:bool = true):
-	var theStopScore := scoreSexStop(_role)
+	var theStopScore := scoreSexStop(_role) if canDoSexDialogues() else 0.0
 	var theStopActionScore:float = theStopScore
 	
 	var theDialogueHandler:SexDialogueHandler = getSexEngine().dialogue
@@ -76,10 +76,10 @@ func addStartActivitiesButtons(_role:String):
 #func handleStartActivityButtons(_role:String, _id:String, _args:Array) -> bool:
 #	return false
 
-func addSexTypeActions(_role:String):
-	if(canDoDomActions(_role)):
-		addStartActivitiesButtons(_role)
+func addSexTypeActions(_role:String, _askWantMore:bool = true):
+	#if(canDoDomActions(_role)):
+	addStartActivitiesButtons(_role)
 	
 	if(!hasMainActivity()):
 		if(canDoDomActions(_role)):
-			addStopSexAction(_role)
+			addStopSexAction(_role, _askWantMore)
