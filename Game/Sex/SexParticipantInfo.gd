@@ -175,6 +175,9 @@ func getPawn() -> CharacterPawn:
 func hasTag(_otherInfo:SexParticipantInfo, _tag:int) -> bool:
 	return getSexEngine().hasInfoSexTag(getID(), _otherInfo.getID(), _tag)
 
+func getTags(_otherInfo:SexParticipantInfo) -> int:
+	return getSexEngine().getAllSexTags(getID(), _otherInfo.getID())
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.I8, role,

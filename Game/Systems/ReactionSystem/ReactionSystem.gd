@@ -246,6 +246,8 @@ func generateFill(theEntry:ReactionEntry) -> ReactionFill:
 			if(thePrio > curPrio):
 				curPrio = thePrio
 				possibleFills.clear()
+			elif(thePrio == curPrio):
+				possibleFills[theFill] = theScore
 			else:
 				continue
 			

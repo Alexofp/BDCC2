@@ -11,6 +11,9 @@ var wantStop:bool = false
 func setSex(_sex:SexEngine):
 	sex = _sex
 
+func getSex() -> SexEngine:
+	return sex
+
 func tryAddChain(_chainID:String, _main:SexParticipantInfo, _target:SexParticipantInfo, _args:Array = []) -> SexDialogueChain:
 	if(haveChainID(_chainID)): # Should probably check if this chain has our main/target
 		return null
@@ -69,7 +72,12 @@ func doAnswer(_line:SexDialogueLine, _lineIndx:int = -1):
 	var theChain := _line.chain
 	if(theChain.wasDeleted):
 		return
-		
+	noAnswerTimer = 2.0
+	
+	if(_line.actionID == "internal_ignore"):
+		theChain.stopMe()
+		return
+	
 	var thePawn := _line.main.getPawn()
 	if(thePawn):
 		thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_line.finalLines[_lineIndx] if _lineIndx >= 0 else RNG.pick(_line.finalLines)))
@@ -78,8 +86,6 @@ func doAnswer(_line:SexDialogueLine, _lineIndx:int = -1):
 		theTarget.clearSay()
 	
 	theChain.doLine(_line)
-	noAnswerTimer = 2.0
-
 
 func canDoDialogue() -> bool:
 	return noAnswerTimer <= 0.0
@@ -93,6 +99,8 @@ func getActionsFor(_participant:SexParticipantInfo) -> Array[InteractEntryDo]:
 	for theChain in chains:
 		for theLine in theChain.currentLines:
 			if(theLine.main != _participant):
+				continue
+			if(theLine.onlyAI):
 				continue
 			
 			var _i:int = 0

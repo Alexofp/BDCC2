@@ -99,10 +99,16 @@ func tickAI():
 	if(theSex.isResistMinigameRunning()):
 		if(theSex.resistMinigame.isInvolved(theID) && !theSex.resistMinigame.hasResultOf(theID)):
 			if(theSex.resistMinigame.state == ResistMinigameNode.STATE_MAIN):
+				var theGrip:float = theSex.getGripLevel()
+				var theMinAdd:float = 0.0
+				var theMaxAdd:float = theGrip*0.08
+				theMaxAdd += pow(RNG.randfRange(0.0, 0.1), 2.0)
+				
+				
 				var theResistMinigame:ResistMinigameNode = theSex.resistMinigame
 				var theTarget:float = theResistMinigame.target
 				var theTargetTime:float = ResistMinigame.calcTimeFromPos(theTarget)
-				theTargetTime += RNG.randfRange(0.05, 0.1) if RNG.chance(50) else -RNG.randfRange(0.05, 0.1)
+				theTargetTime += RNG.randfRange(theMinAdd, theMaxAdd) if RNG.chance(50) else -RNG.randfRange(theMinAdd, theMaxAdd)
 				var theAIResult:float = ResistMinigame.calcPosFromTime(theTargetTime)
 				
 				theSex.resistMinigame.pushResult(theID, theAIResult)
@@ -111,6 +117,7 @@ func tickAI():
 		return
 	
 	var possibleLines:Array[SexDialogueLine] = []
+	var possibleScores:Array[float] = []
 	var theDialogueHander := theSex.dialogue
 	if(theDialogueHander.canDoDialogue()):
 		for theChain in theDialogueHander.chains: # Probably could use a util method?
@@ -118,8 +125,9 @@ func tickAI():
 				if(theLine.main != getInfo()):
 					continue
 				possibleLines.append(theLine)
+				possibleScores.append(theLine.score)
 		if(!possibleLines.is_empty()):
-			var randomLine:SexDialogueLine = RNG.pick(possibleLines)
+			var randomLine:SexDialogueLine = RNG.pickWeighted(possibleLines, possibleScores)
 			theDialogueHander.doAnswer(randomLine, -1)
 			return
 	

@@ -224,7 +224,7 @@ func orgasm2_run():
 
 func getActions(_role:String):
 	if(!canDoDomActions(_role)):
-		if(!isForced()):
+		if(false && !isForced()):
 			addAction(action("Ask stop sex")
 			.setScore(0.0)
 			.setCooldown("askStop", 5.0)

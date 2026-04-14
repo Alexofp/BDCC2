@@ -9,3 +9,10 @@ func sendEvent(_eventID:String, _args:Array = [], _sendToSelf:bool = true):
 	if(_sendToSelf):
 		onEvent(_eventID, _args)
 	
+func onResist() -> bool:
+	if(getState() != ""):
+		setState("")
+	else:
+		endActivity()
+	
+	return true

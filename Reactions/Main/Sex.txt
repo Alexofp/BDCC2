@@ -78,24 +78,81 @@ fill SexRejectMakeMeOkay simple
 You asked for it.
 >
 
-def SexBegSexBreed
-fill SexBegSexBreed simple
+def SexBegSexMore
+fill SexBegSexMore simple
+<
+Don’t stop, please..
+More, please!
+Harder, please..
+I need more..
+Please, don’t slow down..
+More, please, just more!
+I can take more, please!
+Harder, don’t be gentle..
+Please, I’m begging you..
+More.. I need more..
+>
+fill SexBegSexMore Sex
+cond mainActivity == "Sex"
 <
 Breed me, please!
 Please, breed me..
 Don’t stop, please..
 Breed me raw!
 Fuck me harder, please!
+Fill me up..
+Fill me deeper, please!
+Harder, wreck me with it!
+Please, pound me hard..
+Don’t hold back, breed me!
+Fuck me like you own me, please!
+Please, destroy my hole..
+Use me harder, I’m yours!
+More, fuck me senseless!
+>
+fill SexBegSexMore SexRide
+cond mainActivity == "SexRide"
+<
+Use me harder..
+Don’t stop bouncing..
+Make me into your sextoy..
+Don't stop riding me, please!
+Ride me harder, please!
+Please, bounce on it faster..
+Don’t stop squeezing me!
+Please, ride me until I break..
+More, grind me deeper inside you!
+>
+fill SexBegSexMore Tribadism
+cond mainActivity == "Tribadism"
+<
+Grind harder, please..
+Don’t stop rubbing..
+I need more pressure..
+Please, don’t pull away..
+Faster, please, I’m so close..
+Grind harder, please don’t stop!
+Don’t stop grinding, I’m so close..
+Harder, make us cum together!
 >
 
-def SexBegSexBreedReact
-fill SexBegSexBreedReact simple
+def SexBegSexMoreReact
+fill SexBegSexMoreReact simple
 <
 Such a slut.
 So desperate.
 Such a needy little thing.
 That’s my good toy.
 Such a slutty fucktoy.
+That’s right.
+Look at you, such a whore.
+So eager.
+Such a good broken thing.
+Such a dirty whore.
+Such a pathetic mess.
+Such a desperate cumslut.
+So fucking eager.
+So easy to use.
 >
 
 
@@ -108,11 +165,31 @@ Just stop, please.
 That's enough, please stop.
 >
 
-def SexBegSexStopReact
-fill SexBegSexStopReact simple
+def SexBegSexStopReactDeny
+fill SexBegSexStopReactDeny simple
 <
 I ain't stopping now.
 I'm not gonna stop now.
 You can't stop me.
 Just take it.
+>
+
+def SexBegSexStopReactAgree
+fill SexBegSexStopReactAgree simple
+<
+Fine.
+Alright.
+Sure.
+>
+
+def SexTease
+fill SexTease simple
+<
+Let's do something fun..
+You can do more than just watch.
+Why don't we do something..
+I'm getting impatient..
+How long should I wait..
+Is this all? You can do more..
+You can do more than that..
 >

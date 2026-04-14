@@ -66,6 +66,8 @@ var cooldowns:Dictionary[String, float] = {}
 var tempItemUIDs:Array[int] = []
 var itemBelong:Dictionary[int, String] = {} # item uid = char id
 var savedCharPositions:Dictionary[String, Vector3]
+var timeSinceAnyActions:float = 0.0
+var lostGrip:bool = false
 
 var eventQueue:Array[SexEngineQueueEntry] = []
 
@@ -293,11 +295,13 @@ func doProcess(_delta: float) -> void:
 			#if(theDoll):
 				#theDoll.setExpressionState(getExpressionState(charID))
 		
-		if(resistMinigame.isDisabled()):
+		if(resistMinigame.isDisabled() && !hasNoGripRecoverCooldown()):
 			gripLevel += 0.03 * _delta
 			if(gripLevel >= 1.0):
 				gripLevel = 1.0
-		
+	
+	timeSinceAnyActions += _delta
+	
 	if(sexType):
 		sexType.doProcessFinal(_delta)
 	if(sexActivity):
@@ -527,6 +531,7 @@ func doActionInternal(charID:String, action:SexEngineAction):
 		return
 	actionsCache.clear()
 	actionsNetworked.clear()
+	timeSinceAnyActions = 0.0
 	
 	# all id checks go here
 	
@@ -756,6 +761,7 @@ func onSexEngineResult(_result:SexEngineResult):
 func generateSexEngineResult() -> SexEngineResult:
 	var theResult := SexEngineResult.new()
 	theResult.didAnything = true
+	theResult.domsLostGrip = lostGrip
 	
 	for charID in participants:
 		var theParticipant := participants[charID]
@@ -1057,6 +1063,8 @@ func setSexMode(_mode:int):
 	if(_mode == sexMode):
 		return
 	sexMode = _mode
+	if(sexMode == MODE_FORCED):
+		addCooldown("subResist", 5.0)
 	onSexChange.emit(SexEngineChange.makeModeChange(sexMode))
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(setSexMode_RPC.bind(_mode))
@@ -1100,10 +1108,22 @@ func _on_resist_minigame_node_on_result(_result: ResistMinigameResult) -> void:
 		if(!didDomsWin):
 			cancelQueue()
 			addActionTextRaw("The sub"+("s" if getSubAmount() != 1 else "")+" managed to resist the action! The dom"+("s" if getDomAmount() != 1 else "")+" have lost grip.")
-			addGrip(-0.4)
+			#var theSubs:Array[SexParticipantInfo] = []
+			#for theCharID in queueEntry.needToConsent:
+				#var theInfo := getParticipant(theCharID)
+				#if(!theInfo || theInfo.canDoDomActions()):
+					#continue
+				#theSubs.append(theInfo)
+			#var theStarterInfo:SexParticipantInfo = getParticipant(queueEntry.starterID)
+			#var theDomsArray:Array[SexParticipantInfo] = [theStarterInfo] if theStarterInfo else []
+			#doSubResist(theSubs, theDomsArray)
+			doSubResist()
+			#addGrip(-0.4)
 		else:
 			eventQueue.pop_front()
 			addActionTextRaw("The dom"+("s" if getDomAmount() != 1 else "")+" managed to force the action!")
+			addGrip(0.5)
+			addCooldown("subResist", 10.0)
 			#queueEntry[5] = false
 		
 		#Log.Print("LET'S GOOO!")
@@ -1132,13 +1152,35 @@ func addGrip(_grip:float):
 	gripLevel += _grip
 	if(gripLevel >= 1.0):
 		gripLevel = 1.0
+	if(sexActivity && gripLevel < 0.1): # Can't escape unless we escape the current sex activity
+		gripLevel = 0.1
+
+func doSubResist():
+	addGrip(-0.4)
+	addCooldown("noGripRecover", 10.0)
+	addCooldown("subResist", 10.0)
+	
+	for theSideActivity in sideActivities:
+		theSideActivity.onResist()
+	
+	if(sexActivity):
+		sexActivity.onResist()
+	else:
+		sexType.onResist()
 
 func checkGripLevel():
 	if(gripLevel <= 0.0):
+		lostGrip = true
 		stopSex()
 
-func addCooldown(_cooldownID:String, _time:float):
+func setCooldown(_cooldownID:String, _time:float):
 	cooldowns[_cooldownID] = _time
+
+func addCooldown(_cooldownID:String, _time:float, _max:bool = true):
+	if(_max):
+		cooldowns[_cooldownID] = maxf(_time, getCooldown(_cooldownID))
+	else:
+		cooldowns[_cooldownID] = _time + getCooldown(_cooldownID)
 
 func processCooldowns(_dt:float):
 	for cooldownID in cooldowns.keys():
@@ -1155,6 +1197,12 @@ func getCooldown(_cooldownID:String) -> float:
 	if(cooldowns.has(_cooldownID)):
 		return cooldowns[_cooldownID]
 	return 0.0
+
+func hasResistCooldown() -> bool:
+	return hasCooldown("subResist")
+
+func hasNoGripRecoverCooldown() -> bool:
+	return hasCooldown("noGripRecover")
 
 # Makes AI react better
 func notifyThingHappened():

@@ -878,6 +878,9 @@ func getTagsFor(_charID:String, _targetID:String) -> int:
 		return 0
 	return getTags(idToRole[_charID], idToRole[_targetID])
 
+func onResist() -> bool:
+	return false
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

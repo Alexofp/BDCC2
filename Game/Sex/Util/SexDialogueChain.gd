@@ -24,6 +24,8 @@ var importantChain:bool = false # if true, the sex can't end. And the AI won't d
 const SCORE_CONSTANT := 0
 const SCORE_ANGRY := 1
 const SCORE_KIND := 2
+const SCORE_RESISTING := 1 # same as angry
+const SCORE_NOT_RESISTING := 2 # same as kind
 
 func setupChain(_handler:SexDialogueHandler, _main:SexParticipantInfo, _target:SexParticipantInfo):
 	setHandler(_handler)
@@ -106,7 +108,7 @@ func calcScoreForLine(_line:SexDialogueLine, _aiScoring:int) -> float:
 	
 	return 1.0
 
-func addLine(_role:int, _roleTarget:int, _line:String, _id:String, _aiScoring:int = SCORE_CONSTANT, _aiScoreMult:float = 1.0) -> SexDialogueLine:
+func addLine(_role:int, _roleTarget:int, _line:String, _id:String, _aiScoring:int = SCORE_CONSTANT, _aiScoreMult:float = 1.0, _aiScoreAdd:float = 0.0) -> SexDialogueLine:
 	var theLine := SexDialogueLine.new()
 	theLine.actionID = _id
 	theLine.line = _line
@@ -115,11 +117,11 @@ func addLine(_role:int, _roleTarget:int, _line:String, _id:String, _aiScoring:in
 	theLine.target = roleToParticipants[_roleTarget]
 	if(!theLine.calculateFinalLine()):
 		return null
-	theLine.score = calcScoreForLine(theLine, _aiScoring) * _aiScoreMult
+	theLine.score = calcScoreForLine(theLine, _aiScoring) * _aiScoreMult + _aiScoreAdd
 	tempLines.append(theLine)
 	return theLine
 
-func addXLines(_amount:int, _role:int, _roleTarget:int, _line:String, _id:String, _aiScoring:int = SCORE_CONSTANT, _aiScoreMult:float = 1.0) -> SexDialogueLine:
+func addXLines(_amount:int, _role:int, _roleTarget:int, _line:String, _id:String, _aiScoring:int = SCORE_CONSTANT, _aiScoreMult:float = 1.0, _aiScoreAdd:float = 0.0) -> SexDialogueLine:
 	var theLine := SexDialogueLine.new()
 	theLine.actionID = _id
 	theLine.line = _line
@@ -128,6 +130,20 @@ func addXLines(_amount:int, _role:int, _roleTarget:int, _line:String, _id:String
 	theLine.target = roleToParticipants[_roleTarget]
 	if(!theLine.calculateXFinalLines(_amount)):
 		return null
+	theLine.score = calcScoreForLine(theLine, _aiScoring) * _aiScoreMult + _aiScoreAdd
+	tempLines.append(theLine)
+	return theLine
+
+func addIgnoreActionAI(_role:int, _roleTarget:int, _aiScoring:int = SCORE_CONSTANT, _aiScoreMult:float = 1.0) -> SexDialogueLine:
+	var theLine := SexDialogueLine.new()
+	theLine.onlyAI = true
+	theLine.actionID = "internal_ignore"
+	theLine.line = ""
+	theLine.chain = self
+	theLine.main = roleToParticipants[_role]
+	theLine.target = roleToParticipants[_roleTarget]
+	#if(!theLine.calculateXFinalLines(_amount)):
+	#	return null
 	theLine.score = calcScoreForLine(theLine, _aiScoring) * _aiScoreMult
 	tempLines.append(theLine)
 	return theLine
@@ -167,3 +183,58 @@ func addAnger(_role:int, _anger:float):
 	if(!theInfo):
 		return
 	theInfo.ai.addAnger(_anger)
+
+func addLust(_role:int, _lust:float):
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return
+	theInfo.ai.addLust(_lust)
+
+func addLustAll(_lust:float):
+	for theRole in roleToParticipants:
+		addLust(theRole, _lust)
+
+func addFear(_role:int, _fear:float):
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return
+	theInfo.ai.addFear(_fear)
+
+func addResistance(_role:int, _resist:float):
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return
+	theInfo.ai.addResistance(_resist)
+
+func getAI(_role:int) -> SexParticipantAI:
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return null
+	return theInfo.ai
+
+func personality(_role:int, _persID:String) -> float:
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return 0.0
+	return theInfo.ai.personality(_persID)
+
+func fetishDo(_role:int, _fetishID:String) -> float:
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return 0.0
+	return theInfo.ai.fetishDo(_fetishID)
+
+func fetishFeel(_role:int, _fetishID:String) -> float:
+	var theInfo := getRole(_role)
+	if(!theInfo):
+		return 0.0
+	return theInfo.ai.fetishFeel(_fetishID)
+
+func getSex() -> SexEngine:
+	return handler.getSex()
+
+func isForced() -> bool:
+	var theSex := getSex()
+	if(!theSex):
+		return false
+	return theSex.isForced()
