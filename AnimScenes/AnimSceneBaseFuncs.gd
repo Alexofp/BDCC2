@@ -540,10 +540,14 @@ func getAverageBodyPos(_calcMaxY:bool = true) -> Vector3:
 		var theSitterPawn := getSitter(sitterID)
 		var theSitterDoll := getSitterDoll(sitterID)
 		
+		var thePos:Vector3
 		if(theSitterDoll):
-			poses.append(theSitterDoll.getGlobalChestBonePosition())
+			thePos = theSitterDoll.getGlobalChestBonePosition()
+			if(!theSitterDoll.getDoll().getHoverText().hover_text.texts.is_empty()):
+				thePos.y += 0.4
 		elif(theSitterPawn):
-			poses.append(theSitterPawn.global_position)
+			thePos = theSitterPawn.global_position
+		poses.append(thePos)
 	
 	if(poses.is_empty()):
 		return global_position

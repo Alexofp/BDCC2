@@ -37,6 +37,22 @@ cond amountStarted >= 1
 What's the problem this time?
 Something is wrong again?
 >
+def SexRejectStartForce
+fill SexRejectStartForce simple
+<
+Nope, we're doing this.
+You don't get to say no.
+That wasn't a request.
+You had your chance to be good.
+>
+fill SexRejectStartForce again
+priority 5
+cond amountStarted >= 1
+<
+Fine, I will take it myself.
+I'm not asking again.
+I'm tired of asking.
+>
 
 def SexRejectNoWant
 fill SexRejectNoWant simple

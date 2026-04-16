@@ -207,6 +207,7 @@ func domDoCum():
 	pushDelay(5.0)
 	pushSetState("inside")
 	
+	addCommentNow(ROLE_BOTTOM, ROLE_TOP, SexComment.CameInsideVagina if isVaginal else SexComment.CameInsideAnus, true)
 	completeTask(ROLE_TOP, getCumInsideTask(), ROLE_BOTTOM)
 
 func sex_process(_dt:float):

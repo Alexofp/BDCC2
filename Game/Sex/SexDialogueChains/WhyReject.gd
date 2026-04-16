@@ -5,7 +5,17 @@ func _init() -> void:
 	importantChain = true
 
 func _lines():
-	addLine(ROLE_MAIN, ROLE_TARGET, "SexRejectWhy", "whyReject")
+	addLine(ROLE_MAIN, ROLE_TARGET, "SexRejectWhy", "whyReject", SCORE_KIND)
+	addLine(ROLE_MAIN, ROLE_TARGET, "SexRejectStartForce", "startForce", SCORE_ANGRY)
+
+func _onLine(_line:SexDialogueLine):
+	if(_line.actionID == "whyReject"):
+		setState("whyReject")
+	elif(_line.actionID == "startForce"):
+		addAnger(ROLE_MAIN, 1.0)
+		addFear(ROLE_TARGET, 0.1)
+		_line.chain.handler.sex.setSexMode(SexEngine.MODE_FORCED)
+		stopMe()
 
 func whyReject_lines():
 	addLine(ROLE_TARGET, ROLE_MAIN, "SexRejectNoWant", "noWant")

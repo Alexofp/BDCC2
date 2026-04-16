@@ -14,7 +14,7 @@ signal onCachedCategoriesUpdate
 #var targetToQuickActionCachedCategory:Dictionary[Node, InteractCategory]
 
 var cachedQuickActions:Array[InteractQuickAction]
-@export var actionsSync:Array[Array]: set = onActionsSync # [ [name, indx, dis, actionID], [name, indx, dis, actionID] ]
+@export var actionsSync:Array[Array]: set = onActionsSync # [ [name, indx, flags, actionID], [name, indx, flags, actionID] ]
 var actionsBaked:Array[InteractActionBaked] = []	
 
 func onActionsSync(_newActionsRaw:Array[Array]):

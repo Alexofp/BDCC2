@@ -99,6 +99,18 @@ class ActionText extends SexEngineQueueEntry:
 		theEntry.text = _text
 		return theEntry
 
+class CommentOnAction extends SexEngineQueueEntry:
+	var line:String
+	var starterID:String
+	var targetID:String
+	static func create(_line:String, _starterID:String, _targetID:String) -> CommentOnAction:
+		var theEntry := CommentOnAction.new()
+		theEntry.type = SexEngine.QUEUE_COMMENT_ON_ACTION
+		theEntry.line = _line
+		theEntry.starterID = _starterID
+		theEntry.targetID = _targetID
+		return theEntry
+
 class ConsentCheck extends SexEngineQueueEntry:
 	var delay:float
 	var delayElapsed:float = 0.0

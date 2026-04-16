@@ -15,6 +15,8 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 		var theTargetChar := _target.getChar()
 		var theTargetInv:Inventory = theTargetChar.getInventory()
 		var theCharName:String = theTargetChar.getName()
+		if(_info == _target):
+			theCharName = "You"
 		
 		if(!theTargetChar.canWearStrapon()):
 			return

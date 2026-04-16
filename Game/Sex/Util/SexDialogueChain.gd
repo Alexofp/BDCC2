@@ -160,6 +160,9 @@ func setState(_id:String):
 func stopMe():
 	handler.removeChain(self)
 
+func onEnd():
+	pass
+
 func shouldBeStopped() -> bool:
 	if(tempLines.is_empty()):
 		return true

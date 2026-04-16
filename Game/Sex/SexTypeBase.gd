@@ -46,7 +46,7 @@ func addStopSexAction(_role:String, _askWantMore:bool = true):
 		if(canDoSexDialogues()):
 			addAction(action("Ask want more").do("int_askMore").setScore(theAskScore))
 		theStopActionScore -= theAskScore
-	addAction(action("Stop").delayCancel(0.5).do("int_stopSex").setScore(theStopActionScore))
+	addAction(action("Stop sex").setPriority(-999.9).setExtra(true).delayCancel(0.5).do("int_stopSex").setScore(theStopActionScore))
 
 func handleStopSexAction(_role:String, _id:String, _roleReactor:String) -> bool:
 	if(_id == "int_stopSex"):
@@ -66,8 +66,9 @@ func addStartActivitiesButtons(_role:String):
 		if(!theActivityRef.isActivitySupported(theSex)):
 			continue
 		
-		for otherCharID in theSex.participants: #TODO: Replace this with target-based approach
-			var otherInfo:SexParticipantInfo = theSex.getInfo(otherCharID)
+		#for otherCharID in theSex.participants: #TODO: Replace this with target-based approach
+		for otherInfo in theInfo.getTargetInfos(): #TODO: Replace this with target-based approach
+			#var otherInfo:SexParticipantInfo = theSex.getInfo(otherCharID)
 			
 			var theActions := theActivityRef.getStartActionsFinal(theSex, theInfo, otherInfo)
 			for actionEntry in theActions:

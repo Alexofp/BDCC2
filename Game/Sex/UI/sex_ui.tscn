@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://p4m1d4oacfut"]
 
 [ext_resource type="Script" uid="uid://cjfeedoi3xti4" path="res://Game/Sex/UI/sex_ui.gd" id="1_e8tk3"]
+[ext_resource type="PackedScene" uid="uid://bjpldsimpe6em" path="res://Game/Sex/UI/SexUIExtraButtonsList.tscn" id="2_px13k"]
 [ext_resource type="PackedScene" uid="uid://bbt4nw6g7n4ua" path="res://UI/SmartButtonGrid/smart_button_grid.tscn" id="3_6jvax"]
 [ext_resource type="PackedScene" uid="uid://d1vf3oqhh0mf1" path="res://Game/UI/ResistMinigame/resist_minigame.tscn" id="3_px13k"]
 [ext_resource type="PackedScene" uid="uid://c2fc3kupmxgw0" path="res://Game/Sex/UI/sex_participant_ui_entry.tscn" id="3_schvr"]
@@ -139,19 +140,25 @@ text = "Reset"
 layout_mode = 2
 text = "Close"
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=896115166]
+[node name="ExtraButtonsList" parent="HBoxContainer/VBoxContainer/EmptySpace" unique_id=638932938 instance=ExtResource("2_px13k")]
+unique_name_in_owner = true
+layout_mode = 1
+alignment = 2
+
+[node name="ActionProgressPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=896115166]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer" unique_id=1766346251]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ActionProgressPanel" unique_id=1766346251]
 layout_mode = 2
 
-[node name="ActionTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1138499001]
+[node name="ActionTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/ActionProgressPanel/VBoxContainer" unique_id=1138499001]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
-[node name="ActionProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1212673650]
+[node name="ActionProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/ActionProgressPanel/VBoxContainer" unique_id=1212673650]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
@@ -299,6 +306,7 @@ libraries/ = SubResource("AnimationLibrary_8pvey")
 [connection signal="drag_ended" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/PosSliderZ" to="." method="_on_pos_slider_z_drag_ended"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/ResetPosButton" to="." method="_on_reset_pos_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/EmptySpace/TweakPanel/VBoxContainer/CloseTweakPanelButton" to="." method="_on_close_tweak_panel_button_pressed"]
+[connection signal="onButton" from="HBoxContainer/VBoxContainer/EmptySpace/ExtraButtonsList" to="." method="_on_extra_buttons_list_on_button"]
 [connection signal="onButtonPressed" from="HBoxContainer/VBoxContainer/BottomPanel/SmartButtonGrid" to="." method="_on_smart_button_grid_on_button_pressed"]
 [connection signal="onClick" from="HBoxContainer/VBoxContainer/BottomPanel/ResistMinigame" to="." method="_on_resist_minigame_on_click"]
 [connection signal="pressed" from="HBoxContainer/RightPanel/VBoxContainer/VBoxContainer/HBoxContainer/LockedCameraButton" to="." method="_on_locked_camera_button_pressed"]

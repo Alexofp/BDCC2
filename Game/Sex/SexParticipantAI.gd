@@ -21,6 +21,8 @@ var currentGoal:SexGoalBase # Which goal does this npc currently persue
 var tasksByID:Dictionary[String, Array] = {}
 var sexTasksByID:Dictionary[String, Array] = {}
 
+var commentTopics:Dictionary[String, Dictionary] #[charID, Dict[TopicID, TimeToComment]]
+
 var syncState:SyncState = SyncState.new(self,
 	["lust", "anger", "resistance", "fear"],
 	[Bins.Float, Bins.Float, Bins.Float, Bins.Float],)
@@ -67,6 +69,23 @@ func processAI(_dt:float):
 	
 	timerLastStimulation += _dt
 	
+	if(!commentTopics.is_empty()):
+		var toRem:Array[String] = []
+		for theCharID in commentTopics:
+			var toRemTopic:Array[String] = []
+			var theTopicsToTime:Dictionary[String, float] = commentTopics[theCharID]
+			for theTopic in theTopicsToTime:
+				theTopicsToTime[theTopic] -= _dt
+				if(theTopicsToTime[theTopic] <= 0.0):
+					toRemTopic.append(theTopic)
+			for theTopic in toRemTopic:
+				theTopicsToTime.erase(theTopic)
+			if(theTopicsToTime.is_empty()):
+				toRem.append(theCharID)
+		for theCharID in toRem:
+			commentTopics.erase(theCharID)
+			
+	
 	syncState.processSyncState(_dt)
 
 func checkCurrentGoal():
@@ -99,10 +118,14 @@ func tickAI():
 	if(theSex.isResistMinigameRunning()):
 		if(theSex.resistMinigame.isInvolved(theID) && !theSex.resistMinigame.hasResultOf(theID)):
 			if(theSex.resistMinigame.state == ResistMinigameNode.STATE_MAIN):
+				var _isSub:bool = theSex.resistMinigame.isSub(theID)
 				var theGrip:float = theSex.getGripLevel()
 				var theMinAdd:float = 0.0
 				var theMaxAdd:float = theGrip*0.08
-				theMaxAdd += pow(RNG.randfRange(0.0, 0.1), 2.0)
+				theMaxAdd += pow(RNG.randfRange(0.0, 0.3), 2.0)
+				if(_isSub):
+					theMaxAdd *= 2.0
+				theMinAdd = theMaxAdd * (0.1 if !theMaxAdd else 0.2)
 				
 				
 				var theResistMinigame:ResistMinigameNode = theSex.resistMinigame
@@ -540,4 +563,18 @@ func onConsentIgnore(_consentCheck:SexEngineQueueEntry.ConsentCheck):
 	var theIDs := _consentCheck.getIDsNoConsent()
 	if(!theIDs.is_empty()):
 		onConsentRejection(RNG.pick(theIDs), _consentCheck)
-	
+
+func addCommentTopic(_otherCharID:String, _topic:String, _timeToComment:float = 5.0):
+	if(!commentTopics.has(_otherCharID)):
+		var theDict:Dictionary[String, float] = {_topic:_timeToComment}
+		commentTopics[_otherCharID] = theDict
+	else:
+		commentTopics[_otherCharID][_topic] = _timeToComment
+
+func getCommentTopics(_otherCharID:String) -> Dictionary[String, float]:
+	if(!commentTopics.has(_otherCharID)):
+		return {}
+	return commentTopics[_otherCharID]
+
+func clearCommentTopics():
+	commentTopics.clear()

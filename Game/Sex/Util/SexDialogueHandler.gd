@@ -41,6 +41,7 @@ func clearChains():
 func removeChain(_chain:SexDialogueChain):
 	if(_chain.wasDeleted):
 		return
+	_chain.onEnd()
 	chains.erase(_chain)
 	_chain.wasDeleted = true
 	#_chain.handler = null
@@ -72,11 +73,12 @@ func doAnswer(_line:SexDialogueLine, _lineIndx:int = -1):
 	var theChain := _line.chain
 	if(theChain.wasDeleted):
 		return
-	noAnswerTimer = 2.0
 	
 	if(_line.actionID == "internal_ignore"):
 		theChain.stopMe()
 		return
+	
+	noAnswerTimer = 2.0
 	
 	var thePawn := _line.main.getPawn()
 	if(thePawn):

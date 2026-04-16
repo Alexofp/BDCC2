@@ -224,3 +224,9 @@ func hasResultOf(_charID:String) -> bool:
 
 func isInvolved(_charID:String) -> bool:
 	return team1.has(_charID) || team2.has(_charID)
+
+func isDom(_charID:String) -> bool:
+	return team1.has(_charID)
+
+func isSub(_charID:String) -> bool:
+	return team2.has(_charID)

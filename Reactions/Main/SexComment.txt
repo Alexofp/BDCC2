@@ -1,0 +1,35 @@
+def SexCommentSubResisted
+fill SexCommentSubResisted simple
+<
+Quit resisting.
+Stop that.
+You're making it worse for yourself.
+>
+
+def SexCommentCameInsideVagina_good
+fill SexCommentCameInsideVagina_good simple
+<
+Yes, breed me.
+>
+def SexCommentCameInsideVagina_bad
+fill SexCommentCameInsideVagina_bad simple
+<
+Did you really just came inside me?
+>
+
+def SexCommentCameInsideAnus_good
+fill SexCommentCameInsideAnus_good simple
+<
+Yes, pump me full.
+>
+def SexCommentCameInsideAnus_bad
+fill SexCommentCameInsideAnus_bad simple
+<
+Did you really just came inside me?
+>
+
+def SexCommentDeniedByDom
+fill SexCommentDeniedByDom simple
+<
+Why did you do that?
+>

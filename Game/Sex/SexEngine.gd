@@ -25,6 +25,7 @@ const ACTION_CANCEL = 4
 const ACTION_CONSENT_ALWAYS = 5
 const ACTION_RESIST = 6
 const ACTION_FORCE = 7
+const ACTION_TARGET = 8
 
 var actionsCache:Dictionary[String, Array] = {} # Dictionary[String, Array[SexEngineAction]]
 @export var actionsNetworked:Dictionary = {}
@@ -87,6 +88,7 @@ const QUEUE_START_MAIN_ACTIVITY = 9
 const QUEUE_START_SIDE_ACTIVITY = 10
 const QUEUE_RESIST_MINIGAME = 11
 const QUEUE_EXPOSE = 12
+const QUEUE_COMMENT_ON_ACTION = 13
 
 const JUST_SKIP_QUEUE_TYPES = [
 	QUEUE_CANCEL_STOPPER,
@@ -125,6 +127,12 @@ func processEventQueue(_dt:float):
 		elif(queueEntry is SexEngineQueueEntry.ActionText):
 			eventQueue.pop_front()
 			_entryObj.addActionText(queueEntry.text)
+		elif(queueEntry is SexEngineQueueEntry.CommentOnAction):
+			eventQueue.pop_front()
+			var theStarterInfo := getParticipant(queueEntry.starterID)
+			var theTargetInfo := getParticipant(queueEntry.targetID)
+			if(theStarterInfo && theTargetInfo):
+				theStarterInfo.ai.addCommentTopic(queueEntry.targetID, queueEntry.line)
 		elif(queueEntry is SexEngineQueueEntry.SetState):
 			eventQueue.pop_front()
 			_entryObj.setState(queueEntry.state)
@@ -281,6 +289,15 @@ func _process(_delta: float) -> void:
 		#if(sexActivity):
 			#sexActivity.doProcessFinal(_delta)
 
+func updateActions():
+	# action cache update
+	var newNetworkActions:Dictionary = {}
+	actionsCache.clear()
+	for charID in participants:
+		actionsCache[charID] = calculateActions(charID)
+		newNetworkActions[charID] = calculateNetworkActions(actionsCache[charID])
+	actionsNetworked = newNetworkActions
+
 func doProcess(_delta: float) -> void:
 	var theIsServer:bool = Network.isServer()
 	if(theIsServer):
@@ -328,12 +345,7 @@ func doProcess(_delta: float) -> void:
 	
 	if(theIsServer):
 		# action cache update
-		var newNetworkActions:Dictionary = {}
-		actionsCache.clear()
-		for charID in participants:
-			actionsCache[charID] = calculateActions(charID)
-			newNetworkActions[charID] = calculateNetworkActions(actionsCache[charID])
-		actionsNetworked = newNetworkActions
+		updateActions()
 		
 		# action text update
 		var textsAmount:int = actionTexts.size()
@@ -372,20 +384,32 @@ func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
 		return
 	if(theInfo.ai):
 		theInfo.ai.syncState.applyDelta(_delta)
-	
+
+const NET_FLAG_DISABLED := 1
+const NET_FLAG_EXTRA := 2
+
 func calculateNetworkActions(theActions:Array[SexEngineAction]) -> Array:
 	var result:Array = []
 	
 	var _i:int = 0
 	for actionEntry:SexEngineAction in theActions:
-		result.append({
-			i = _i,
-			name = actionEntry.name,
-			dis = actionEntry.disabled,
-			cat = actionEntry.getCategory(),
-			t = actionEntry.type,
-		})
-		#result.append({i=_i,name=actionEntry["name"],dis=actionEntry["disabled"] if actionEntry.has("disabled") else false,cat=(actionEntry["category"] if actionEntry.has("category") else [])})
+		var theFlags:int = 0
+		if(actionEntry.disabled):
+			theFlags |= NET_FLAG_DISABLED
+		if(actionEntry.extraButton):
+			theFlags |= NET_FLAG_EXTRA
+		
+		result.append([
+			#       0           1                2                        3
+			actionEntry.name, theFlags, actionEntry.getCategory(), actionEntry.type,
+		])
+		#result.append({
+			#i = _i,
+			#name = actionEntry.name,
+			#f = theFlags,
+			#cat = actionEntry.getCategory(),
+			#t = actionEntry.type,
+		#})
 		_i += 1
 	
 	return result
@@ -401,6 +425,7 @@ func getExpressionState(charID:String) -> int:
 func calculateActions(charID:String) -> Array[SexEngineAction]:
 	if(!participants.has(charID)):
 		return []
+	var _info := getParticipant(charID)
 	var isSexEngineBusy:bool = isBusy()
 	var _charCanDoDomActions:bool = canDoDomActions(charID)
 	
@@ -409,9 +434,21 @@ func calculateActions(charID:String) -> Array[SexEngineAction]:
 	
 	if(!eventQueue.is_empty()):
 		result.append_array(SexEngineAction.createFromQueueEntry(self, eventQueue[0], charID))
-			
+	
+	if(_info.shouldShowSetTargetButton()): # only player? only if there are > 2 targets
+		var curTargetID:String = _info.targetID
+		var theCharacter := GM.main.characterRegistry.getCharacter(curTargetID)
+		var theTargetName:String = theCharacter.getName() if theCharacter else "Unknown?"
+		if(curTargetID == _info.getID()):
+			theTargetName = "You"
+		var theAction := SexEngineAction.createGeneric(ACTION_TARGET, "Target: "+theTargetName, null)
+		theAction.extraButton = true
+		theAction.priority = -995.5
+		result.append(theAction)
+	
 	if(!isSexEngineBusy):
 		var toProcess:Array[SexEngineActivityBase] = [sexType, sexActivity]
+		toProcess.append_array(sideActivities)
 		for theSexActivity in toProcess:
 			if(!theSexActivity):
 				continue
@@ -425,8 +462,19 @@ func calculateActions(charID:String) -> Array[SexEngineAction]:
 				if(theOverridePrio < curOverridePrio):
 					continue
 				result.append(SexEngineAction.createFromSexAction(actionEntry, theSexActivity))
-		
+	
+	# Can't do it, no target. Dialogue needs a target
+	#if(!_info.ai.getCommentTopics(_target.getID()).is_empty()):
+	#	addAction(action("Comment").setAllowBusy(true).setScore(1.25).setRoles({ROLE_USER:_info, ROLE_TARGET:_target}).setCooldown("talk", 10.0).start(id, {ROLE_USER:_info, ROLE_TARGET:_target}, {action="comment"}))
+	
+	result.sort_custom(sortSexEngineActions)
 	return result
+
+# Higher priority actions go first
+func sortSexEngineActions(a:SexEngineAction, b:SexEngineAction):
+	if a.priority > b.priority:
+		return true
+	return false
 
 # Subs consent if no answer if forced
 func hasConsentIfNoAnswer(_charID:String) -> bool:
@@ -493,32 +541,38 @@ func getActions(charID:String) -> Array:
 		return []
 	return actionsNetworked[charID]
 
-func askSelectAction(charID:String, networkedAction:Dictionary):
+func askSelectAction(charID:String, _i:int, networkedAction:Array):
 	if(Network.isServer()):
-		doActionNetworked(charID, networkedAction)
+		doActionNetworked(charID, _i, networkedAction)
 	else:
-		doActionNetworked.rpc_id(1, charID, networkedAction)
+		doActionNetworked.rpc_id(1, charID, _i, networkedAction)
 
 @rpc("any_peer", "call_remote", "reliable")
-func doActionNetworked(charID:String, networkedAction:Dictionary):
+func doActionNetworked(charID:String, _i:int, networkedAction:Array):
 	if(!actionsCache.has(charID)):
 		Log.Printerr("SexEngine: No key found in actions cache for "+str(charID))
 		return
-	if(!networkedAction.has("i")):
-		Log.Printerr("SexEngine: No action index found. Corrupt network action?")
+	if(networkedAction.size() < 4):
+		Log.Printerr("SexEngine: Network action too small. Corrupt network action?")
 		return
-	var _i:int = networkedAction["i"]
+	#if(!networkedAction.has("i")):
+	#	Log.Printerr("SexEngine: No action index found. Corrupt network action?")
+	#	return
+	#var _i:int = networkedAction["i"]
 	var theActions:Array[SexEngineAction] = actionsCache[charID]
 	if(theActions.is_empty()):
 		return
-	if(_i >= theActions.size()):
+	if(_i < 0 || _i >= theActions.size()):
 		return
-		
+	
+	var theNType:int = networkedAction[3] if networkedAction[3] is int else -1
+	var theNName:String = networkedAction[0] if networkedAction[0] is String else "ERROR?"
+	
 	var action:SexEngineAction = theActions[_i]
-	if(action.type != networkedAction.get("t", -1)): # Sanity check
+	if(action.type != theNType): # Sanity check
 		Log.Printerr("SexEngine: bad action type. Corrupt/Old network action?")
 		return
-	if(action.name != networkedAction.get("name", "")): # Sanity check
+	if(action.name != theNName): # Sanity check
 		Log.Printerr("SexEngine: bad action name. Corrupt/Old network action?")
 		return
 	doAction(charID, action)
@@ -529,8 +583,8 @@ func doAction(charID:String, action:SexEngineAction):
 func doActionInternal(charID:String, action:SexEngineAction):
 	if(action.disabled):
 		return
-	actionsCache.clear()
-	actionsNetworked.clear()
+	#actionsCache.clear()
+	#actionsNetworked.clear()
 	timeSinceAnyActions = 0.0
 	
 	# all id checks go here
@@ -595,7 +649,13 @@ func doActionInternal(charID:String, action:SexEngineAction):
 		#askSetParticipantAutoConsent(charID, true)
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
+	if(actionID == ACTION_TARGET):
+		var theInfo := getInfo(charID)
+		if(theInfo):
+			theInfo.switchToNextTarget()
 	
+	processEventQueue(0.0) # To potentially clear out the queue
+	updateActions()
 
 func startResistMinigame(_domSpeedMult:float, _subSpeedMult:float):
 	var _doms:Array[String] = []
@@ -1108,21 +1168,23 @@ func _on_resist_minigame_node_on_result(_result: ResistMinigameResult) -> void:
 		if(!didDomsWin):
 			cancelQueue()
 			addActionTextRaw("The sub"+("s" if getSubAmount() != 1 else "")+" managed to resist the action! The dom"+("s" if getDomAmount() != 1 else "")+" have lost grip.")
-			#var theSubs:Array[SexParticipantInfo] = []
-			#for theCharID in queueEntry.needToConsent:
-				#var theInfo := getParticipant(theCharID)
-				#if(!theInfo || theInfo.canDoDomActions()):
-					#continue
-				#theSubs.append(theInfo)
-			#var theStarterInfo:SexParticipantInfo = getParticipant(queueEntry.starterID)
+			var theSubs:Array[SexParticipantInfo] = []
+			for theCharID in queueEntry.needToConsent:
+				var theInfo := getParticipant(theCharID)
+				if(!theInfo || theInfo.canDoDomActions()):
+					continue
+				theSubs.append(theInfo)
+			var theStarterInfo:SexParticipantInfo = getParticipant(queueEntry.starterID)
 			#var theDomsArray:Array[SexParticipantInfo] = [theStarterInfo] if theStarterInfo else []
 			#doSubResist(theSubs, theDomsArray)
 			doSubResist()
 			#addGrip(-0.4)
+			if(theStarterInfo && !theSubs.is_empty()):
+				theStarterInfo.ai.addCommentTopic(theSubs[0].getID(), SexComment.SubResisted)
 		else:
 			eventQueue.pop_front()
 			addActionTextRaw("The dom"+("s" if getDomAmount() != 1 else "")+" managed to force the action!")
-			addGrip(0.5)
+			addGrip(0.2)
 			addCooldown("subResist", 10.0)
 			#queueEntry[5] = false
 		

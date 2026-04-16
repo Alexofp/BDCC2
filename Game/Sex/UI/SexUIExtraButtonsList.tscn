@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bjpldsimpe6em"]
+
+[ext_resource type="Script" uid="uid://drd86bj8fux8f" path="res://Game/Sex/UI/SexUIExtraButtonsList.gd" id="1_uswdi"]
+
+[node name="SexUIExtraButtonsList" type="HFlowContainer" unique_id=638932938]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_uswdi")

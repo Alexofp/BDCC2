@@ -84,6 +84,8 @@ func setupScene() -> void:
 	connectStates("tease", "slow", 0.7)
 	connectStates("slow", "sex", 0.7)
 	connectStates("sex", "fast", 0.7)
+	connectStates("tease", "sex", 0.7)
+	connectStates("tease", "fast", 0.7)
 	
 	for orgasmID in ["orgasmBoth", "orgasm1", "orgasm2"]:
 		connectStates("tease", orgasmID, 0.4, true)

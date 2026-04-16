@@ -14,6 +14,8 @@ class_name SexUI
 @onready var grip_bar: ProgressBar = %GripBar
 @onready var sex_desc_label: RichTextLabel = %SexDescLabel
 @onready var ai_check: CheckBox = %AICheck
+@onready var extra_buttons_list: HFlowContainer = %ExtraButtonsList
+@onready var action_progress_panel: PanelContainer = %ActionProgressPanel
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -45,8 +47,8 @@ func _ready():
 func onActionButtonPressed(_indx:int):
 	if(_indx < 0 || _indx >= buttonsCache.size()):
 		return
-	var theAction:Dictionary = buttonsCache[_indx]
-	sexEngine.askSelectAction(pawn.getCharID(), theAction)
+	var theAction:Array = buttonsCache[_indx]
+	sexEngine.askSelectAction(pawn.getCharID(), _indx, theAction)
 
 func getResist() -> ResistMinigameNode:
 	return sexEngine.resistMinigame if sexEngine else null
@@ -147,13 +149,29 @@ func getCurrentPage() -> int:
 
 func updateButtons():
 	smart_button_grid.clearButtons(false)
+	var extraButtons:Array[Array] = []
+	
 	var _i:int = 0
 	for buttonEntry in buttonsCache:
-		if(buttonEntry.has("dis") && buttonEntry["dis"]):
-			smart_button_grid.addButton(SmartGridButtonEntry.makeDisabled(buttonEntry["name"], buttonEntry["cat"]))
+		if(buttonEntry.size() < 4):
+			continue
+		var theFlags:int = buttonEntry[1] if buttonEntry[1] is int else 0
+		var _isDis:bool = (theFlags & SexEngine.NET_FLAG_DISABLED)
+		var _isExtra:bool = (theFlags & SexEngine.NET_FLAG_EXTRA)
+		var theName:String = buttonEntry[0] if buttonEntry[0] is String else "ERROR?"
+		var theCat:Array = buttonEntry[2] if buttonEntry[2] is Array else [] # category
+		
+		if(!_isExtra):
+			if(_isDis):
+				smart_button_grid.addButton(SmartGridButtonEntry.makeDisabled(theName, theCat))
+			else:
+				smart_button_grid.addButton(SmartGridButtonEntry.make(theName, "act", [_i], theCat))
 		else:
-			smart_button_grid.addButton(SmartGridButtonEntry.make(buttonEntry["name"], "act", [_i], buttonEntry["cat"]))
+			var newExra:Array = [theName, _isDis, _i]
+			extraButtons.append(newExra)
 		_i += 1
+	
+	extra_buttons_list.setActions(extraButtons)
 	
 func _process(_delta: float) -> void:
 	if(!is_instance_valid(pawn) || !pawn):
@@ -191,6 +209,8 @@ func _process(_delta: float) -> void:
 		action_text_label.text = actionText
 		actionTextCache = actionText
 		action_text_label.visible = !action_text_label.text.is_empty()
+	
+	action_progress_panel.visible = action_text_label.visible || action_progress_bar.visible
 	
 	if(resist_minigame.visible):
 		processResistMinigame(_delta)
@@ -444,3 +464,10 @@ func _on_pos_slider_z_drag_ended(_value_changed: bool) -> void:
 	var curPos:Vector3 = sexEngine.tweaker.position
 	curPos.z = pos_slider_z.value * TWEAKER_MOD
 	sexEngine.askSetPos(curPos)
+
+func _on_extra_buttons_list_on_button(_buttonIndex: int) -> void:
+	onActionButtonPressed(_buttonIndex)
+	#if(_buttonEntry.actionID == "act"):
+	#	onActionButtonPressed(_buttonEntry.actionArgs[0])
+	#smart_button_grid.clearButtons()
+	#buttonsCache.clear()

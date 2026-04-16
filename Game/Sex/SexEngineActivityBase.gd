@@ -341,9 +341,13 @@ func doAction(_role:String, _id:String, _args:Array):
 	pass
 	
 func getActionsForCharID(_charID:String) -> Array[SexAction]:
+	if(!idToRole.has(_charID)):
+		return []
 	return getActionsFinal(idToRole[_charID])
 
 func doActionForCharID(_charID:String, _id:String, _args:Array):
+	if(!idToRole.has(_charID)):
+		return []
 	doActionFinal(getRoleFromID(_charID), _id, _args)
 
 func addCooldown(_cooldownID:String, _time:float):
@@ -880,6 +884,18 @@ func getTagsFor(_charID:String, _targetID:String) -> int:
 
 func onResist() -> bool:
 	return false
+
+func addComment(_role:String, _roleTarget:String, _commentID:String):
+	getSexEngine().pushToQueue(self, SexEngineQueueEntry.CommentOnAction.create(_commentID, getRoleID(_role), getRoleID(_roleTarget)))
+	
+func addCommentNow(_role:String, _roleTarget:String, _commentID:String, _showIt:bool = false):
+	var theInfo := getRoleInfo(_role)
+	var theTarget := getRoleInfo(_roleTarget)
+	if(!theInfo || !theTarget):
+		return
+	theInfo.ai.addCommentTopic(theTarget.getID(), _commentID)
+	if(_showIt):
+		startDialogue("Comment", _role, _roleTarget)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

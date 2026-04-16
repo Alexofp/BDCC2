@@ -12,6 +12,8 @@ var cooldownTime:float = 0.0
 var disabled:bool = false
 var overridePriority:int = 0
 var roles:Dictionary[String, String] # role -> char id
+var extra:bool = false # Displayed above normal actions if true
+var priority:float = 0.0 # Higher priority actions go first in the list
 
 static func make(_name:String) -> SexAction:
 	var theAction:SexAction = SexAction.new()
@@ -91,3 +93,11 @@ func getRoleID(_role:String) -> String:
 		return roles[_role]
 	assert(false, "Role not found "+str(_role))
 	return _role
+
+func setExtra(_e:bool) -> SexAction:
+	extra = _e
+	return self
+
+func setPriority(_prio:float) -> SexAction:
+	priority = _prio
+	return self

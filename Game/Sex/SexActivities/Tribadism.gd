@@ -156,6 +156,7 @@ func sex_do(_role:String, _id:String, _args:Array):
 			setState("orgasm1")
 			if(isDeny):
 				doText(ROLE_BOTTOM, "{top.You} {top.youVerb deny|denies} {bottom.you} and {top.youVerb cum} alone!")
+				addCommentNow(ROLE_BOTTOM, ROLE_TOP, SexComment.DeniedByDom, true)
 			else:
 				doText(ROLE_BOTTOM, "{top.You} {top.youVerb cum}!")
 		else:

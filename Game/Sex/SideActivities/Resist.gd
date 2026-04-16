@@ -7,15 +7,15 @@ func _init():
 	id = "Resist"
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
-	if(_info != _target):
+	if(_info == _target):
 		return
 	if(!_sexEngine.isForced() || _info.canDoDomActions()):
 		return
 	var resistScore:float = _info.ai.getSmoothResistScore()
-	addAction(action("Resist").setRoles({ROLE_USER:_info}).setScore(resistScore).setCooldown("subResist").start(id, {ROLE_USER:_info}))
+	addAction(action("Resist").setRoles({ROLE_USER:_info,ROLE_TARGET:_target}).setScore(resistScore).setCooldown("subResist").start(id, {ROLE_USER:_info,ROLE_TARGET:_target}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
-	setupRoles(_roles, [ROLE_USER])
+	setupRoles(_roles, [ROLE_USER, ROLE_TARGET])
 	pushResistMinigame()
 
 func start_resistMinigame(_result:ResistMinigameResult):
@@ -23,4 +23,9 @@ func start_resistMinigame(_result:ResistMinigameResult):
 		doText(ROLE_USER, "{user.You} {user.youVerb manage} to lower the grip on {user.youHim}!")
 		#getSexEngine().doSubResist([getRoleInfo(ROLE_USER)], [getRoleInfo(ROLE_TARGET)])
 		getSexEngine().doSubResist()
+		addComment(ROLE_TARGET, ROLE_USER, SexComment.SubResisted)
+		#addComment(ROLE_USER, ROLE_TARGET, SexComment.SubResisted)
+	else:
+		getSexEngine().addGrip(0.2)
+		addCooldown("subResist", 10.0)
 	endActivity()

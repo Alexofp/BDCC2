@@ -4,6 +4,7 @@ class_name SexEngineAction
 var type:int = SexEngine.ACTION_CANCEL
 var name:String = "Some action"
 var disabled:bool = false
+var priority:float = 0.0 # Higher = first
 
 var activity:SexEngineActivityBase
 
@@ -14,6 +15,7 @@ var sexAction:SexAction
 #var category:Array[String]  # Use sexAction.category
 #var score:float  # Use sexAction.score
 var target:String
+var extraButton:bool = false
 
 static func createGeneric(_type:int, _name:String, _activity:SexEngineActivityBase = null) -> SexEngineAction:
 	var theAction := SexEngineAction.new()
@@ -82,6 +84,8 @@ static func createFromSexAction(actionEntry:SexAction, _activity:SexEngineActivi
 	theAction.activity = _activity
 	theAction.sexAction = actionEntry
 	theAction.disabled = actionEntry.disabled || _sexEngine.hasCooldown(actionEntry.cooldownID)
+	theAction.extraButton = actionEntry.extra
+	theAction.priority = actionEntry.priority
 	#category = actionEntry.category,
 	#score = actionEntry.score,
 	return theAction
@@ -98,3 +102,7 @@ func getCategory() -> Array[String]:
 
 func canBePickedWhileImportantDialogues() -> bool:
 	return false
+
+func setPriority(_prio:float) -> SexEngineAction:
+	priority = _prio
+	return self

@@ -9,6 +9,7 @@ var pawn:CharacterPawn
 var role:int = SexRole.Dom
 var autoConsent:bool = false #false
 var pcAuto:bool = false # Process AI even if we are the player
+var targetID:String = "" # Character id of our target. Useless for AI
 
 var freeStraponUniqueID:int = -1
 
@@ -121,6 +122,7 @@ func getStatusTextArray() -> Array[String]:
 func processInfo(_dt:float):
 	if(ai):
 		ai.processAI(_dt)
+	checkTarget()
 
 func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:bool):
 	if(ai):
@@ -177,6 +179,52 @@ func hasTag(_otherInfo:SexParticipantInfo, _tag:int) -> bool:
 
 func getTags(_otherInfo:SexParticipantInfo) -> int:
 	return getSexEngine().getAllSexTags(getID(), _otherInfo.getID())
+
+func getAllPossibleTargets() -> Array[String]:
+	var result:Array[String] = []
+	var theSex := getSexEngine()
+	for theCharID in theSex.participants:
+		result.append(theCharID)
+	return result
+
+func checkTarget():
+	var allTheTargets := getAllPossibleTargets()
+	if(allTheTargets.is_empty()):
+		targetID = getID()
+		return
+	if(!(targetID in allTheTargets)):
+		var theSex := getSexEngine()
+		if(!theSex):
+			return
+		for theOtherID in theSex.participants:
+			#var theOtherInfo := theSex.participants[theOtherID]
+			if(theOtherID != getID()):
+				targetID = theOtherID
+				return
+		targetID = getID()
+		return
+
+func switchToNextTarget():
+	var allTheTargets := getAllPossibleTargets()
+	targetID = Util.getNextInArray(allTheTargets, targetID)
+
+func shouldShowSetTargetButton() -> bool:
+	return true
+
+func getTargetInfo() -> SexParticipantInfo:
+	var theSex := getSexEngine()
+	if(!theSex):
+		return null
+	if(!theSex.participants.has(targetID)):
+		return null
+	return theSex.participants[targetID]
+
+func getTargetInfos() -> Array[SexParticipantInfo]:
+	var res:Array[SexParticipantInfo] = [self]
+	var theTarget := getTargetInfo()
+	if(theTarget && theTarget != self):
+		res.append(theTarget)
+	return res
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
