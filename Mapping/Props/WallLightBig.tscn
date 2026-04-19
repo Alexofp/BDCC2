@@ -36,9 +36,10 @@ transform = Transform3D(-1, -4.9703104e-14, 8.742278e-08, 4.31313e-08, 0.8698223
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 5.0
 light_volumetric_fog_energy = 0.0
-spot_range = 15.0
+spot_range = 10.0
 spot_attenuation = 2.0
 spot_angle = 105.0
+metadata/_edit_pinned_properties_ = [&"spot_range"]
 
 [node name="LightShaft" parent="." index="1" unique_id=1761265546 instance=ExtResource("4_rnu4i")]
 unique_name_in_owner = true

@@ -820,17 +820,7 @@ func onSexEngineResult(_result:SexEngineResult):
 
 func generateSexEngineResult() -> SexEngineResult:
 	var theResult := SexEngineResult.new()
-	theResult.didAnything = true
-	theResult.domsLostGrip = lostGrip
-	
-	for charID in participants:
-		var theParticipant := participants[charID]
-		
-		var newSexResultParticipant := SexEngineResult.Participant.new()
-		newSexResultParticipant.charID = charID
-		newSexResultParticipant.role = theParticipant.role
-		theResult.participants[charID] = newSexResultParticipant
-	
+	theResult.fillFromSexEngine(self)
 	return theResult
 
 func stopSex(_generateResult:bool = true):
@@ -881,6 +871,11 @@ func getSexHideTagsFor(_charID:String) -> Array:
 	var result:Array = []
 	result.append_array(anim_scene_player.getSexHideTagsFor(_charID))
 	return result
+
+func onParticipantGoalFinished(_info:SexParticipantInfo, _goal:SexGoalBase):
+	for charID in participants: # Announce it to every participant
+		var theInfo := participants[charID]
+		theInfo.onParticipantGoalFinished(_info, _goal)
 
 #TODO: Somehow fix ability to scroll while other menus are opened
 func processCameraControl(_delta:float, _controllingCamera:bool):
@@ -1174,13 +1169,13 @@ func _on_resist_minigame_node_on_result(_result: ResistMinigameResult) -> void:
 				if(!theInfo || theInfo.canDoDomActions()):
 					continue
 				theSubs.append(theInfo)
-			var theStarterInfo:SexParticipantInfo = getParticipant(queueEntry.starterID)
+			#var theStarterInfo:SexParticipantInfo = getParticipant(queueEntry.starterID)
 			#var theDomsArray:Array[SexParticipantInfo] = [theStarterInfo] if theStarterInfo else []
 			#doSubResist(theSubs, theDomsArray)
 			doSubResist()
 			#addGrip(-0.4)
-			if(theStarterInfo && !theSubs.is_empty()):
-				theStarterInfo.ai.addCommentTopic(theSubs[0].getID(), SexComment.SubResisted)
+			#if(theStarterInfo && !theSubs.is_empty()):
+			#	theStarterInfo.ai.addCommentTopic(theSubs[0].getID(), SexComment.SubResisted)
 		else:
 			eventQueue.pop_front()
 			addActionTextRaw("The dom"+("s" if getDomAmount() != 1 else "")+" managed to force the action!")
@@ -1229,6 +1224,10 @@ func doSubResist():
 		sexActivity.onResist()
 	else:
 		sexType.onResist()
+	
+	for charID in participants:
+		var theInfo := participants[charID]
+		theInfo.ai.onSubsResisted()
 
 func checkGripLevel():
 	if(gripLevel <= 0.0):

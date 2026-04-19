@@ -53,10 +53,10 @@ func doAction(_context:PawnActionContext) -> bool:
 	
 	var newSex := SexStartConf.new()
 	newSex.sexType = SexType.OnTheFloor
-	#newSex.addRole("dom", _context.pawn.getCharID(), SexRole.Dom)
-	#newSex.addRole("sub", _context.target.getCharID(), SexRole.Sub)
-	newSex.addRole("dom", _context.target.getCharID(), SexRole.Dom)
-	newSex.addRole("sub", _context.pawn.getCharID(), SexRole.Sub)
+	newSex.addRole("dom", _context.pawn.getCharID(), SexRole.Dom)
+	newSex.addRole("sub", _context.target.getCharID(), SexRole.Sub)
+	#newSex.addRole("dom", _context.target.getCharID(), SexRole.Dom)
+	#newSex.addRole("sub", _context.pawn.getCharID(), SexRole.Sub)
 	newSex.pos = _context.pawn.global_position
 	newSex.ang = _context.pawn.global_rotation
 	GM.sexManager.startSex(newSex)

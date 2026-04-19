@@ -5,6 +5,28 @@ const ROLE_TARGET = "target"
 
 func _init():
 	id = "Bondage"
+	
+	canDoTasks = {
+		SexTask.TieUp: true,
+	}
+
+func isActivitySupported(_sexEngine:SexEngine) -> bool:
+	return true
+
+func getSubSexTasks(_sexEngine:SexEngine, _task:SexTask) -> Array[SexTask]:
+	return [
+		#undressTask(_task.actor, _task.target, [ZoneCover.Vagina]),
+		#undressTask(_task.actor, _task.actor, [ZoneCover.Vagina]),
+	]
+
+func canSatisfyTask(_task:SexTask) -> bool:
+	if(isTaskOurs(_task, SexTask.TieUp, ROLE_MAIN, ROLE_TARGET)):
+		return true
+	return false
+
+func onResist() -> bool:
+	#resistTasksForDoms(canDoTasks)
+	return true
 
 func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:SexParticipantInfo):
 	if(_info == _target):

@@ -13,6 +13,10 @@ var targetID:String = "" # Character id of our target. Useless for AI
 
 var freeStraponUniqueID:int = -1
 
+var orgasms:Array[SexOrgasmInfo] = []
+var orgasmAmount:int = 0
+var orgasmsDeniedAmount:int = 0
+
 func setupInfo(_infoDict:Dictionary) -> bool:
 	if(!_infoDict.has("id")):
 		return false
@@ -36,7 +40,15 @@ func notifyThingHappenedNeedsReaction():
 	if(ai):
 		ai.notifyThingHappenedNeedsReaction()
 
+func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
+	orgasms.append(_orgasm)
+	orgasmAmount += 1
+	
+	ai.onOrgasm(_orgasm, _causer)
 
+func onOrgasmDenied(_causer:SexParticipantInfo):
+	orgasmsDeniedAmount += 1
+	ai.onOrgasmDenied(_causer)
 
 func isPlayer() -> bool:
 	var theChar := getChar()
@@ -147,6 +159,11 @@ func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 	if(!ai):
 		return
 	ai.sendTaskEvent(_taskID, _targetInfo, _event)
+
+func onParticipantGoalFinished(_info:SexParticipantInfo, _goal:SexGoalBase):
+	if(!ai):
+		return
+	ai.onParticipantGoalFinished(_info, _goal)
 
 func canWearFreeStrapon() -> bool:
 	var theSexEngine:SexEngine = getSexEngine()

@@ -20,8 +20,8 @@ var allComments:Dictionary[String, float]
 func _lines():
 	allComments = getRole(ROLE_MAIN).ai.getCommentTopics(getRole(ROLE_TARGET).getID())
 	
-	checkMultiAnswerComment(CameInsideVagina, ["good", "bad"], [SCORE_KIND, SCORE_ANGRY])
-	checkMultiAnswerComment(CameInsideAnus, ["good", "bad"], [SCORE_KIND, SCORE_ANGRY])
+	checkMultiAnswerComment(CameInsideVagina, ["good", "bad"], [SCORE_KIND, SCORE_ANGRY], [3.0, 3.0])
+	checkMultiAnswerComment(CameInsideAnus, ["good", "bad"], [SCORE_KIND, SCORE_ANGRY], [3.0, 3.0])
 	
 	for theCommentID in allComments:
 		if(processed.has(theCommentID)):

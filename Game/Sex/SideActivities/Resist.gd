@@ -23,7 +23,7 @@ func start_resistMinigame(_result:ResistMinigameResult):
 		doText(ROLE_USER, "{user.You} {user.youVerb manage} to lower the grip on {user.youHim}!")
 		#getSexEngine().doSubResist([getRoleInfo(ROLE_USER)], [getRoleInfo(ROLE_TARGET)])
 		getSexEngine().doSubResist()
-		addComment(ROLE_TARGET, ROLE_USER, SexComment.SubResisted)
+		#addComment(ROLE_TARGET, ROLE_USER, SexComment.SubResisted)
 		#addComment(ROLE_USER, ROLE_TARGET, SexComment.SubResisted)
 	else:
 		getSexEngine().addGrip(0.2)

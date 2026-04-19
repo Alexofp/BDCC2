@@ -14,11 +14,13 @@ var fear:float = 0.0 # Sub only
 
 var timerLastStimulation:float = 0.0
 
+var satisfaction:float = 0.0
+var frustration:float = 0.0
+
 var goals:Array[SexGoalBase] = []
 var goalsGenerated:bool = false
 var currentGoal:SexGoalBase # Which goal does this npc currently persue
 
-var tasksByID:Dictionary[String, Array] = {}
 var sexTasksByID:Dictionary[String, Array] = {}
 
 var commentTopics:Dictionary[String, Dictionary] #[charID, Dict[TopicID, TimeToComment]]
@@ -49,14 +51,14 @@ func getArousal() -> float:
 	return getChar().getArousal()
 
 func processAI(_dt:float):
-	if(!shouldProcessAI()):
-		ticker = 1.0
-		return
+	#if(!shouldProcessAI()):
+	#	ticker = 1.0
+	#	return
 	ticker -= _dt
 	if(ticker <= 0.0):
 		ticker = RNG.randfRange(0.8, 1.2)
-		tickAI()
-	
+		if(shouldProcessAI()):
+			tickAI()
 	
 	if(isForced()):
 		addResistance(_dt*0.05)
@@ -66,6 +68,10 @@ func processAI(_dt:float):
 	
 	if(getArousal() <= 0.0 && timerLastStimulation > 5.0):
 		addLust(-0.05*_dt)
+		#if(timerLastStimulation > 15.0):
+		#	addFrustration(0.01*_dt)
+	if(getArousal() > 0.0 && timerLastStimulation > 5.0):
+		addFrustration(0.02*_dt)
 	
 	timerLastStimulation += _dt
 	
@@ -84,7 +90,6 @@ func processAI(_dt:float):
 				toRem.append(theCharID)
 		for theCharID in toRem:
 			commentTopics.erase(theCharID)
-			
 	
 	syncState.processSyncState(_dt)
 
@@ -109,7 +114,6 @@ func tickAI():
 	checkGoals()
 	checkCurrentGoal()
 	sexTasksByID = calcAllSexTasksByID()
-	#tasksByID = calcAllTasksDict()
 	
 	var theChar := getChar()
 	var theID := theChar.getID()
@@ -317,10 +321,12 @@ func getResistScore() -> float:
 		return 1.0
 	return 0.0
 
-func addAnger(_howMuch:float):
+func addAnger(_howMuch:float, _addFrustration:bool = true):
 	var theMean:float = personality(PersonalityStat.Mean)
 	if(_howMuch > 0.0):
 		addAngerRaw(_howMuch * (1.0 + theMean*0.5))
+		if(_addFrustration):
+			affectSatisfaction(_howMuch*0.1*Util.unclampValue(theMean, 0.1)) # mean characters get satisfaction from getting angry
 	if(_howMuch < 0.0):
 		addAngerRaw(_howMuch * (1.0 - theMean*0.3))
 
@@ -414,17 +420,26 @@ func getID() -> String:
 
 func getVisibleAIInfo() -> Array[String]:
 	if(!shouldProcessAI()):
-		return ["Lust: "+str(int(round(lust*100.0)))+"%",]
+		return [
+			"Lust: "+str(int(round(lust*100.0)))+"%",
+			"S: "+str(Util.roundF(satisfaction, 2)),
+			"F: "+str(Util.roundF(frustration, 2)),
+			]
 	if(canDoDomActions()):
 		return [
 			"Lust: "+str(int(round(lust*100.0)))+"%",
 			"Anger: "+str(int(round(anger*100.0)))+"%",
+			"S: "+str(Util.roundF(satisfaction, 2)),
+			"F: "+str(Util.roundF(frustration, 2)),
 		]
 	else:
 		return [
 			"Lust: "+str(int(round(lust*100.0)))+"%",
-			"Resistance: "+str(int(round(resistance*100.0)))+"%",
+			#"Resistance: "+str(int(round(resistance*100.0)))+"%",
+			"Res: "+str(int(round(resistance*100.0)))+"%",
 			"Fear: "+str(int(round(fear*100.0)))+"%",
+			"S: "+str(Util.roundF(satisfaction, 2)),
+			"F: "+str(Util.roundF(frustration, 2)),
 		]
 
 func exposeToFetish(_fetishID:String, _intensity:float, _isPerf:bool, _isReceiv:bool):
@@ -447,7 +462,7 @@ func exposeToGenericFetishValue(myFetishLike:float, _intensity:float):
 		addResistance(-_intensity)
 	if(myFetishLike < 0.0):
 		addLust(_intensity*myFetishLike)
-		addResistance(-_intensity)
+		addResistance(_intensity)
 
 func taskScore(_taskID:String, _charID:String) -> float:
 	if(!sexTasksByID.has(_taskID)):
@@ -518,6 +533,32 @@ func sendTaskEvent(_taskID:String, _targetInfo:SexParticipantInfo, _event:int):
 		if(goal.handleTaskEvent(_taskID, _targetInfo, _event)):
 			return
 
+## Called when any participant finishes a goal
+func onParticipantGoalFinished(_info:SexParticipantInfo, _goal:SexGoalBase):
+	var wasSuccess:bool = (_goal.status == SexGoalBase.GOAL_COMPLETED)
+	var wasFail:bool = (_goal.status == SexGoalBase.GOAL_FAILED)
+	var _winScale:float = 0.0
+	if(wasSuccess):
+		_winScale = 1.0
+	elif(wasFail):
+		_winScale = -1.0
+	
+	# We did it
+	if(_info == getInfo()):
+		affectSatisfaction(1.0 * _winScale)
+	
+	# We are the target. We get frustrated if the person succeded while we resist.
+	elif(_goal.target == getInfo()):
+		var _resisting:bool = resistance >= 0.2 #Sex: Better way to calculate if we should be happy about goals failing/succeeding?
+		var _resistingScale:float = -1.0 if _resisting else 1.0
+		affectSatisfaction(0.75 * _resistingScale * _winScale)
+	
+	# We're just a sub
+	elif(!_info.canDoDomActions()):
+		var _resisting:bool = resistance >= 0.2 #Sex: Better way to calculate if we should be happy about goals failing/succeeding?
+		var _resistingScale:float = -1.0 if _resisting else 1.0
+		affectSatisfaction(0.25 * _resistingScale * _winScale)
+		
 func didCompleteAllGoals() -> bool:
 	if(!goalsGenerated):
 		return false
@@ -578,3 +619,64 @@ func getCommentTopics(_otherCharID:String) -> Dictionary[String, float]:
 
 func clearCommentTopics():
 	commentTopics.clear()
+
+func addSatisfaction(_s:float):
+	satisfaction += maxf(0.0, _s)
+
+func addFrustration(_f:float):
+	frustration += maxf(0.0, _f)
+
+func affectSatisfaction(_v:float):
+	if(_v > 0.0):
+		addSatisfaction(_v)
+	elif(_v < 0.0):
+		addFrustration(_v)
+
+func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
+	addSatisfaction(0.5)
+
+func onOrgasmDenied(_causer:SexParticipantInfo):
+	addFrustration(0.5) #Sex: Unless you're into it?
+
+func onActivityResisted(_activity:SexEngineActivityBase, _tasks:Dictionary[String, bool]):
+	if(!currentGoal):
+		return
+	
+	var hasOurTask:bool = false
+	for taskID in _tasks:
+		if(sexTasksByID.has(taskID)):
+			hasOurTask = true
+			break
+	if(!hasOurTask):
+		addFrustration(0.2) #Sex: Unless this dom likes it?
+		return
+	currentGoal.resistedAmount += 1
+	
+	var theStopChance:float = currentGoal.resistedAmount * 30.0 #Sex: Should depend on personality
+	if(!RNG.chance(theStopChance)):
+		addFrustration(0.3) #Sex: Unless this dom likes it?
+		return
+	
+	addFrustration(0.5) #Sex: Unless this dom likes it?
+	failCurrentGoal()
+	
+func onSubsResisted():
+	if(!currentGoal || !getInfo().canDoDomActions()):
+		return
+	
+	currentGoal.resistedAmount += 1
+	
+	var theStopChance:float = currentGoal.resistedAmount * 30.0 #Sex: Should depend on personality
+	if(!RNG.chance(theStopChance)):
+		addFrustration(0.3) #Sex: Unless this dom likes it?
+		addAnger(0.3, false)
+		if(currentGoal.target && currentGoal.target != currentGoal.info):
+			addCommentTopic(currentGoal.target.getID(), SexComment.SubResisted)
+		return
+	
+	if(currentGoal.target && currentGoal.target != currentGoal.info):
+		getSexEngine().dialogue.tryAddChain("SubResistedGoal", getInfo(), currentGoal.target)
+		addAnger(0.3, false)
+	addFrustration(0.5) #Sex: Unless this dom likes it?
+	failCurrentGoal()
+	

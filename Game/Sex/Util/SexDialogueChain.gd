@@ -241,3 +241,19 @@ func isForced() -> bool:
 	if(!theSex):
 		return false
 	return theSex.isForced()
+
+func addSatisfaction(_role:int, _s:float):
+	var theInfo := getRole(_role)
+	if(theInfo):
+		theInfo.ai.addSatisfaction(_s)
+
+func addFrustration(_role:int, _f:float):
+	var theInfo := getRole(_role)
+	if(theInfo):
+		theInfo.ai.addFrustration(_f)
+
+func affectSatisfaction(_role:int, _v:float):
+	var theInfo := getRole(_role)
+	if(theInfo):
+		theInfo.ai.affectSatisfaction(_v)
+	

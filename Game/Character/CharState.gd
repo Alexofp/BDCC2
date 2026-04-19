@@ -31,7 +31,7 @@ func getCharacter() -> BaseCharacter:
 	return GM.characterRegistry.getCharacter(charID)
 
 func setArousal(_newVal:float):
-	_newVal = clamp(_newVal, 0.0, 1.0)
+	_newVal = clampf(_newVal, 0.0, 1.0)
 	arousal = _newVal
 
 func getArousal() -> float:
@@ -66,9 +66,12 @@ func addAutoMoanCappedMin(_val:float, minAutomoan:float):
 func getAutoMoan() -> float:
 	return autoMoan
 
+func getArousalFadeNormalized() -> float:
+	return arousalFade/5.0
+
 func processTime(_dt:float):
 	if(arousal > 0.0):
-		arousalFade = min(arousalFade + _dt, 5.0)
+		arousalFade = minf(arousalFade + _dt, 5.0)
 		if(arousalFade >= 2.0):
 			setArousal(getArousal() - _dt*0.005*arousalFade)
 			

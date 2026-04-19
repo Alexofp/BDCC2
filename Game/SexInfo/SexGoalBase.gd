@@ -15,6 +15,8 @@ const GOAL_FAILED := 2
 const GOAL_CANCELLED := 3
 var status:int = GOAL_INPROGRESS
 
+var resistedAmount:int = 0
+
 #func prepareForSex(_targetID:String, _taskID:String, _args:Array) -> float:
 	#if(_taskID == SexTask.Undress && _args.size() > 0 && _args[0] == _targetID):
 		#return 0.5
@@ -66,18 +68,27 @@ func completeSelf():
 		return
 	status = GOAL_COMPLETED
 	Log.Print("TASK COMPLETED: "+id)
+	onGoalFinished()
 
 func cancelSelf():
 	if(isFinished()):
 		return
 	status = GOAL_CANCELLED
 	Log.Print("TASK CANCELLED: "+id)
+	onGoalFinished()
 
 func failSelf():
 	if(isFinished()):
 		return
 	status = GOAL_FAILED
 	Log.Print("TASK FAILED: "+id)
+	onGoalFinished()
+
+func onGoalFinished():
+	if(info):
+		var theSex := info.getSexEngine()
+		if(theSex):
+			theSex.onParticipantGoalFinished(info, self)
 
 func isPossibleAtAll(_info:SexParticipantInfo, _sexEngine:SexEngine) -> bool:
 	return true

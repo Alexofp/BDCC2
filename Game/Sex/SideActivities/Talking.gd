@@ -24,7 +24,7 @@ func getStartActions(_sexEngine:SexEngine, _info:SexParticipantInfo, _target:Sex
 			addAction(action("Tease").setScore(0.05 if !_sexEngine.isForced() else 0.0).setRoles({ROLE_USER:_info, ROLE_TARGET:_target}).setCooldown("talk", 10.0).start(id, {ROLE_USER:_info, ROLE_TARGET:_target}, {action="tease"}))
 	
 	if(!_info.ai.getCommentTopics(_target.getID()).is_empty()):
-		addAction(action("Comment").setScore(0.15).setExtra(true).setRoles({ROLE_USER:_info, ROLE_TARGET:_target}).setCooldown("talk", 10.0).start(id, {ROLE_USER:_info, ROLE_TARGET:_target}, {action="comment"}))
+		addAction(action("Comment").setScore(0.55).setExtra(true).setRoles({ROLE_USER:_info, ROLE_TARGET:_target}).setCooldown("talk", 10.0).start(id, {ROLE_USER:_info, ROLE_TARGET:_target}, {action="comment"}))
 	
 func start(_roles:Dictionary, _args:Dictionary):
 	setupRoles(_roles, [ROLE_USER, ROLE_TARGET])

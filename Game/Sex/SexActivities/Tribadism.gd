@@ -127,7 +127,7 @@ func sex_actions(_role:String):
 			.setOverridePriority(OVERRIDE_PRIORITY_ORGASM)
 			.setScore(1.0)
 			.do("orgasm"))
-		addAction(action("Deny sub")
+		addAction(action("Delay sub orgasm")
 			.setOverridePriority(OVERRIDE_PRIORITY_ORGASM)
 			.setScore(0.0)
 			.do("delayCum"))
@@ -157,6 +157,8 @@ func sex_do(_role:String, _id:String, _args:Array):
 			if(isDeny):
 				doText(ROLE_BOTTOM, "{top.You} {top.youVerb deny|denies} {bottom.you} and {top.youVerb cum} alone!")
 				addCommentNow(ROLE_BOTTOM, ROLE_TOP, SexComment.DeniedByDom, true)
+				
+				doDenyOrgasm(ROLE_BOTTOM, ROLE_TOP)
 			else:
 				doText(ROLE_BOTTOM, "{top.You} {top.youVerb cum}!")
 		else:

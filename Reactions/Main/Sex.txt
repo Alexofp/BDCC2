@@ -209,3 +209,9 @@ How long should I wait..
 Is this all? You can do more..
 You can do more than that..
 >
+
+def SexSubResistedGoal
+fill SexSubResistedGoal simple
+<
+Whatever then. I don't care.
+>

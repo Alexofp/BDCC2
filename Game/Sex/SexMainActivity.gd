@@ -15,4 +15,6 @@ func onResist() -> bool:
 	else:
 		endActivity()
 	
+	#resistTasksForDoms(canDoTasks)
+	
 	return true

@@ -163,11 +163,27 @@ func getRoleInfo(_role:String) -> SexParticipantInfo:
 		return null
 	return theEngine.getInfo(getRoleID(_role))
 
+func addSatisfaction(_role:String, _s:float):
+	var theInfo := getRoleInfo(_role)
+	if(theInfo):
+		theInfo.ai.addSatisfaction(_s)
+
+func addFrustration(_role:String, _f:float):
+	var theInfo := getRoleInfo(_role)
+	if(theInfo):
+		theInfo.ai.addFrustration(_f)
+
+func affectSatisfaction(_role:String, _v:float):
+	var theInfo := getRoleInfo(_role)
+	if(theInfo):
+		theInfo.ai.affectSatisfaction(_v)
+
 func addArousal(_theRole:String, _howMuch:float):
 	var theChar:=getRoleChar(_theRole)
 	if(!theChar):
 		return
 	theChar.addArousal(_howMuch)
+	affectSatisfaction(_theRole, _howMuch*0.1)
 
 func setArousal(_theRole:String, _howMuch:float):
 	var theChar:=getRoleChar(_theRole)
@@ -484,6 +500,21 @@ func processAnalSex(topRole:String, bottomRole:String, mult:float = 1.0):
 
 func doOrgasm(_role:String, _causerRole:String = "", _orgasmType:int = SexOrgasmType.Generic, _orgasmCause:int = SexOrgasmCause.Generic, _intensity:int = SexOrgasmIntensity.Normal):
 	setArousal(_role, 0.0)
+	var theInfo := getRoleInfo(_role)
+	var theCauserInfo:SexParticipantInfo = getRoleInfo(_causerRole) if !_causerRole.is_empty() else null
+	
+	var theOrgasm:SexOrgasmInfo = SexOrgasmInfo.new()
+	theOrgasm.charID = theInfo.getID()
+	theOrgasm.causerID = theCauserInfo.getID() if theCauserInfo else ""
+	theOrgasm.type = _orgasmType
+	theOrgasm.cause = _orgasmCause
+	theOrgasm.intensity = _intensity
+	
+	theInfo.onOrgasm(theOrgasm, theCauserInfo)
+
+# Should also have orgasm type/cause/intensity fields?
+func doDenyOrgasm(_roleTarget:String, _roleCauser:String = ""):
+	getRoleInfo(_roleTarget).onOrgasmDenied(getRoleInfo(_roleCauser) if !_roleCauser.is_empty() else null)
 
 func pushCancelStopper():
 	getSexEngine().pushToQueue(self, SexEngineQueueEntry.CancelStopper.create())
@@ -687,18 +718,11 @@ func scoreSexStop(_role:String) -> float:
 			continue
 		if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
 			continue
-		if(theInfo.isPlayer()):
+		if(theInfo.isPlayer()): #Sex: check if auto-pc?
 			hasPC = true
 		if(theInfo.ai.hasAnyGoalsToDo()):
 			hasAnyNPCWithGoals = true
 			
-		#if(!theInfo.ai.shouldProcessAI() || !theInfo.canDoDomActions()):
-		#	continue
-		#var theTasksByID := theInfo.ai.tasksByID
-		#for theTaskID in theTasksByID:
-			#for taskEntry in theTasksByID[theTaskID]:
-				#if(canSatisfyTask(theInfo, taskEntry[0], taskEntry[1])):
-					#return 0.0
 	if(hasPC || hasAnyNPCWithGoals):
 		return 0.0
 	return 1.0
@@ -884,6 +908,12 @@ func getTagsFor(_charID:String, _targetID:String) -> int:
 
 func onResist() -> bool:
 	return false
+
+func resistTasksForDoms(_tasks:Dictionary[String, bool]):
+	var theSex := getSexEngine()
+	for theCharID in idToRole:
+		var theInfo := theSex.getParticipant(theCharID)
+		theInfo.ai.onActivityResisted(self, _tasks)
 
 func addComment(_role:String, _roleTarget:String, _commentID:String):
 	getSexEngine().pushToQueue(self, SexEngineQueueEntry.CommentOnAction.create(_commentID, getRoleID(_role), getRoleID(_roleTarget)))
