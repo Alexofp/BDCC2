@@ -110,7 +110,7 @@ func _process(_delta: float) -> void:
 	updateSelectedAction()
 	processPlayerInput()
 	
-	visible = hasActions()
+	actions_list.visible = hasActions()
 	#print(getUser())
 
 var eatenScroll:bool = false
@@ -118,6 +118,8 @@ func processPlayerInput():
 	#print("meow")
 	eatenScroll = false
 	if(UIHandler.hasAnyUIVisible()):
+		return
+	if(!actions_list.visible):
 		return
 	if(Input.is_action_just_pressed("game_interact_next")):
 		if(selectNextAction()):

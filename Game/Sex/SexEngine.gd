@@ -26,6 +26,7 @@ const ACTION_CONSENT_ALWAYS = 5
 const ACTION_RESIST = 6
 const ACTION_FORCE = 7
 const ACTION_TARGET = 8
+const ACTION_END_SEX = 9
 
 var actionsCache:Dictionary[String, Array] = {} # Dictionary[String, Array[SexEngineAction]]
 @export var actionsNetworked:Dictionary = {}
@@ -73,6 +74,16 @@ var lostGrip:bool = false
 var eventQueue:Array[SexEngineQueueEntry] = []
 
 var dialogue:SexDialogueHandler
+
+const ENGINE_STATE_SEX := 0
+const ENGINE_STATE_END_PC_WAIT := 1 # Waiting for any player participant to press 'Continue'
+const ENGINE_STATE_ENDING := 2 # The timer before the sex actually gets ended and deleted
+var sexEngineState:int = ENGINE_STATE_SEX
+var sexResult:SexEngineResult
+var endOfSexTimer:float = 0.0
+const END_OF_SEX_TIME := 2.0
+var wasDeleted:bool = false
+@export var sexResultText:String
 
 # event queue stuff
 const QUEUE_DELAY = 0
@@ -191,6 +202,11 @@ func processEventQueue(_dt:float):
 func calcTransitionTimer():
 	transitionTimer = 0.0
 	transitionTimerFull = 0.0
+	if(sexEngineState == ENGINE_STATE_ENDING):
+		transitionTimer = endOfSexTimer
+		transitionTimerFull = END_OF_SEX_TIME
+		return
+	
 	if(eventQueue.is_empty()):
 		return
 	for queueBigEntry:SexEngineQueueEntry in eventQueue:
@@ -298,41 +314,24 @@ func updateActions():
 		newNetworkActions[charID] = calculateNetworkActions(actionsCache[charID])
 	actionsNetworked = newNetworkActions
 
-func doProcess(_delta: float) -> void:
+func checkPawnsExist() -> bool:
+	for charID in participants:
+		if(!GM.pawnRegistry.hasPawn(charID)):
+			Log.Printerr("Pawn doesn't exist: "+str(charID)+". Stopping sex.")
+			removeSex()
+			return false
+	return true
+
+func doProcessAlways(_delta: float) -> void:
 	var theIsServer:bool = Network.isServer()
 	if(theIsServer):
-		for charID in participants:
-			if(!GM.pawnRegistry.hasPawn(charID)):
-				Log.Printerr("Pawn doesn't exist: "+str(charID)+". Stopping sex.")
-				stopSex()
-				return
-			
-			#var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(charID)
-			#var theDoll:DollController = thePawn.getDoll()
-			#if(theDoll):
-				#theDoll.setExpressionState(getExpressionState(charID))
-		
-		if(resistMinigame.isDisabled() && !hasNoGripRecoverCooldown()):
-			gripLevel += 0.03 * _delta
-			if(gripLevel >= 1.0):
-				gripLevel = 1.0
-	
-	timeSinceAnyActions += _delta
-	
-	if(sexType):
-		sexType.doProcessFinal(_delta)
-	if(sexActivity):
-		sexActivity.doProcessFinal(_delta)
-	
-	processEventQueue(_delta)
-	if(theIsServer):
+		processEventQueue(_delta)
 		calcTransitionTimer()
 		processCooldowns(_delta)
-		
-		for charID in participants:
-			var theInfo := participants[charID]
-			theInfo.processInfo(_delta)
-			
+
+func doProcessAlwaysAfter(_delta:float) -> void:
+	var theIsServer:bool = Network.isServer()
+	# Sync all participant data
 	if(Network.isServerNotSingleplayer()):
 		for charID in participants:
 			var theInfo := participants[charID]
@@ -342,7 +341,7 @@ func doProcess(_delta: float) -> void:
 					var theDelta := aiSyncState.getDelta()
 					Network.rpcClients(syncInfoAIState_RPC.bind(charID, theDelta))
 					aiSyncState.resetDelta()
-	
+
 	if(theIsServer):
 		# action cache update
 		updateActions()
@@ -357,8 +356,6 @@ func doProcess(_delta: float) -> void:
 			
 		actionText = calculateActionText()
 		cachedHoverText = actionText#calculateHoverText()
-	
-		checkGripLevel()
 	
 	if(isResistMinigameRunning()):
 		for charID in participants:
@@ -376,7 +373,61 @@ func doProcess(_delta: float) -> void:
 	
 	hover_text.text = parseText(cachedHoverText)
 	hoverTextLocalTargetPos = to_local(anim_scene_player.getAverageBodyPos())
+
+func doProcessSexState(_delta:float) -> void:
+	var theIsServer:bool = Network.isServer()
+	timeSinceAnyActions += _delta
 	
+	if(sexType):
+		sexType.doProcessFinal(_delta)
+	if(sexActivity):
+		sexActivity.doProcessFinal(_delta)
+	
+	if(theIsServer):
+		if(resistMinigame.isDisabled() && !hasNoGripRecoverCooldown()):
+			gripLevel += 0.03 * _delta
+			if(gripLevel >= 1.0):
+				gripLevel = 1.0
+		
+		for charID in participants:
+			var theInfo := participants[charID]
+			theInfo.processInfo(_delta)
+	
+	if(theIsServer):
+		checkGripLevel()
+
+func doProcessWaitingForPCState(_delta:float) -> void:
+	if(!isAnyParticipantControlledByPlayer()):
+		sexEngineState = ENGINE_STATE_ENDING
+
+func doProcessSexEnding(_delta:float) -> void:
+	endOfSexTimer += _delta
+	if(endOfSexTimer >= END_OF_SEX_TIME):
+		removeSex()
+
+func doProcess(_delta: float) -> void:
+	var theIsServer:bool = Network.isServer()
+	if(theIsServer):
+		if(!checkPawnsExist()):
+			return
+	doProcessAlways(_delta)
+	if(wasDeleted):
+		return
+
+	if(sexEngineState == ENGINE_STATE_SEX):
+		doProcessSexState(_delta)
+	elif(sexEngineState == ENGINE_STATE_END_PC_WAIT):
+		doProcessWaitingForPCState(_delta)
+	elif(sexEngineState == ENGINE_STATE_ENDING):
+		doProcessSexEnding(_delta)
+	
+	if(wasDeleted):
+		return
+	doProcessAlwaysAfter(_delta)
+	
+func getSexEngineState() -> int:
+	return sexEngineState
+
 @rpc("authority", "call_remote", "reliable")
 func syncInfoAIState_RPC(_charID:String, _delta:PackedByteArray):
 	var theInfo := getInfo(_charID)
@@ -431,6 +482,14 @@ func calculateActions(charID:String) -> Array[SexEngineAction]:
 	
 	var result:Array[SexEngineAction] = []
 	var curOverridePrio:int = 0
+	
+	if(sexEngineState == ENGINE_STATE_END_PC_WAIT):
+		result.clear()
+		var theAction := SexEngineAction.createGeneric(ACTION_END_SEX, "Continue")
+		result.append(theAction)
+		return result
+	if(sexEngineState == ENGINE_STATE_ENDING):
+		return []
 	
 	if(!eventQueue.is_empty()):
 		result.append_array(SexEngineAction.createFromQueueEntry(self, eventQueue[0], charID))
@@ -598,18 +657,18 @@ func doActionInternal(charID:String, action:SexEngineAction):
 			return
 		theActivity.doSexActionForCharID(charID, theAction)
 		notifyThingHappened()
-	if(actionID == ACTION_CANCEL):
+	elif(actionID == ACTION_CANCEL):
 		cancelQueue(charID)
 		addActionText("{user.You} {user.youVerb decide} to cancel the action!", {user=charID})
 		notifyThingHappened()
-	if(actionID == ACTION_CONSENT):
+	elif(actionID == ACTION_CONSENT):
 		if(eventQueue.is_empty()):
 			return
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
 		if(queueEntry is SexEngineQueueEntry.ConsentCheck):
 			queueEntry.needToConsent[charID] = true
 			addActionText("{user.You} {user.youVerb consent}!", {user=charID})
-	if(actionID == ACTION_DENY_CONSENT):
+	elif(actionID == ACTION_DENY_CONSENT):
 		if(eventQueue.is_empty()):
 			return
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
@@ -620,7 +679,7 @@ func doActionInternal(charID:String, action:SexEngineAction):
 				var theActivity:SexEngineActivityBase = queueEntry.obj
 				theActivity.onConsentDeniedBy(charID, queueEntry)
 			notifyThingHappened()
-	if(actionID == ACTION_FORCE):
+	elif(actionID == ACTION_FORCE):
 		if(canDoDomActions(charID)):
 			setSexMode(MODE_FORCED)
 			if(eventQueue.is_empty()):
@@ -629,7 +688,7 @@ func doActionInternal(charID:String, action:SexEngineAction):
 			if(queueEntry is SexEngineQueueEntry.ConsentCheck):
 				queueEntry.delayElapsed = 0.0
 			notifyThingHappenedNeedsReaction()
-	if(actionID == ACTION_RESIST):
+	elif(actionID == ACTION_RESIST):
 		if(eventQueue.is_empty()):
 			return
 		var queueEntry:SexEngineQueueEntry = eventQueue[0]
@@ -641,7 +700,7 @@ func doActionInternal(charID:String, action:SexEngineAction):
 			startResistMinigame(1.0, 2.0)
 			notifyThingHappenedNeedsReaction()
 		
-	if(actionID == ACTION_CONSENT_ALWAYS):
+	elif(actionID == ACTION_CONSENT_ALWAYS):
 		var theInfo := getInfo(charID)
 		if(theInfo):
 			theInfo.autoConsent = true
@@ -649,10 +708,13 @@ func doActionInternal(charID:String, action:SexEngineAction):
 		#askSetParticipantAutoConsent(charID, true)
 			#theInfo.autoConsent = true
 			#theInfo.syncMe()
-	if(actionID == ACTION_TARGET):
+	elif(actionID == ACTION_TARGET):
 		var theInfo := getInfo(charID)
 		if(theInfo):
 			theInfo.switchToNextTarget()
+	elif(actionID == ACTION_END_SEX):
+		if(sexEngineState == ENGINE_STATE_END_PC_WAIT):
+			sexEngineState = ENGINE_STATE_ENDING
 	
 	processEventQueue(0.0) # To potentially clear out the queue
 	updateActions()
@@ -823,7 +885,29 @@ func generateSexEngineResult() -> SexEngineResult:
 	theResult.fillFromSexEngine(self)
 	return theResult
 
-func stopSex(_generateResult:bool = true):
+func isAnyParticipantControlledByPlayer() -> bool:
+	for charID in participants:
+		var theInfo := participants[charID]
+		if(theInfo.isPlayer() && !theInfo.ai.shouldProcessAI()):
+			return true
+	return false
+
+func stopSex():
+	if(sexEngineState != ENGINE_STATE_SEX):
+		return
+	
+	addActionTextRaw("The sex has ended.")
+	if(isAnyParticipantControlledByPlayer()):
+		sexEngineState = ENGINE_STATE_END_PC_WAIT
+	else:
+		sexEngineState = ENGINE_STATE_ENDING
+	sexResult = generateSexEngineResult()
+	sexResultText = sexResult.generateText(self)
+
+func removeSex():
+	if(wasDeleted):
+		return
+	wasDeleted = true
 	GM.sexManager.removeSexInternal(self)
 	queue_free()
 	if(Network.isServer()):
@@ -842,7 +926,9 @@ func stopSex(_generateResult:bool = true):
 		if(sexType):
 			sexType.onSexEnd()
 		
-		if(_generateResult):
+		if(sexResult):
+			onSexEngineResult(sexResult)
+		else:
 			onSexEngineResult(generateSexEngineResult())
 
 func _on_anim_scene_player_on_scene_switched() -> void:

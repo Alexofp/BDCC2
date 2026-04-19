@@ -147,6 +147,7 @@ func hideAllMenus():
 
 func _process(_delta: float) -> void:
 	chat_widget_fullscreeen.visible = !sex_ui.visible
+	interact_ui.visible = !sex_ui.visible
 	
 	if(!UIHandler.isMenuInputBlocked()):
 		if(Input.is_action_just_pressed("ui_hide")):

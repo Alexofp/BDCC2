@@ -29,6 +29,9 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:cachedHoverText")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+properties/7/path = NodePath(".:sexResultText")
+properties/7/spawn = true
+properties/7/replication_mode = 2
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o3r2a"]
 length = 0.001

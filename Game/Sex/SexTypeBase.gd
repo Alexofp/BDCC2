@@ -46,7 +46,7 @@ func addStopSexAction(_role:String, _askWantMore:bool = true):
 		if(canDoSexDialogues()):
 			addAction(action("Ask want more").do("int_askMore").setScore(theAskScore))
 		theStopActionScore -= theAskScore
-	addAction(action("Stop sex").setPriority(-999.9).setExtra(true).delayCancel(0.5).do("int_stopSex").setScore(theStopActionScore))
+	addAction(action("Stop sex").setPriority(-999.9).setExtra(true).do("int_stopSex").setScore(theStopActionScore))
 
 func handleStopSexAction(_role:String, _id:String, _roleReactor:String) -> bool:
 	if(_id == "int_stopSex"):

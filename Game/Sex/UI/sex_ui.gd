@@ -16,6 +16,8 @@ class_name SexUI
 @onready var ai_check: CheckBox = %AICheck
 @onready var extra_buttons_list: HFlowContainer = %ExtraButtonsList
 @onready var action_progress_panel: PanelContainer = %ActionProgressPanel
+@onready var sex_result_container: PanelContainer = %SexResultContainer
+@onready var sex_result_rich_label: RichTextLabel = %SexResultRichLabel
 
 var sexParticipantUIEntryScene := preload("res://Game/Sex/UI/sex_participant_ui_entry.tscn")
 
@@ -41,6 +43,7 @@ func _exit_tree() -> void:
 
 func _ready():
 	fade_rect.visible = false
+	sex_result_container.visible = false
 	updateButtons()
 	hideAllSidePanels()
 
@@ -214,6 +217,15 @@ func _process(_delta: float) -> void:
 	
 	if(resist_minigame.visible):
 		processResistMinigame(_delta)
+	
+	var theSexState:int = sexEngine.getSexEngineState()
+	if(theSexState == SexEngine.ENGINE_STATE_END_PC_WAIT || theSexState == SexEngine.ENGINE_STATE_ENDING):
+		if(!sex_result_container.visible):
+			showSexResultPanel()
+			sex_result_rich_label.text = sexEngine.sexResultText
+	else:
+		if(sex_result_container.visible):
+			hideSexResultPanel()
 	
 	updateSexControlButtonsAndText()
 
@@ -471,3 +483,20 @@ func _on_extra_buttons_list_on_button(_buttonIndex: int) -> void:
 	#	onActionButtonPressed(_buttonEntry.actionArgs[0])
 	#smart_button_grid.clearButtons()
 	#buttonsCache.clear()
+
+var sexResultTween:Tween
+func showSexResultPanel():
+	if(sex_result_container.visible):
+		return
+	sex_result_container.modulate = Color.TRANSPARENT
+	sex_result_container.visible = true
+	if(sexResultTween):
+		sexResultTween.kill()
+	sexResultTween = create_tween()
+	sexResultTween.tween_property(sex_result_container, "modulate", Color.WHITE, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	
+func hideSexResultPanel():
+	if(!sex_result_container.visible):
+		return
+	sex_result_container.visible = false
+	sex_result_container.modulate = Color.WHITE
