@@ -39,6 +39,7 @@ buttonAmountInitial = 6
 gridColumnsInitial = 3
 
 [node name="TestButton" type="Button" parent="." unique_id=1895875898]
+visible = false
 layout_mode = 2
 text = "Test"
 

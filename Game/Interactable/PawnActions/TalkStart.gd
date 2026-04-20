@@ -2,24 +2,24 @@ extends PawnActionBase
 
 
 func _init() -> void:
-	id = "TalkTest"
+	id = "TalkStart"
 	alwaysCheckBitfield = CHECK_OTHER | CHECK_OTHER_QUICKACTION
-	subCategory = [C_TALK]
+	#subCategory = [C_TALK]
 
 func getVisibleName(_context:PawnActionContext) -> String:
-	return "TALK"
+	var theTarget = _context.target
+	if(theTarget is CharacterPawn):
+		var theChar:BaseCharacter = theTarget.getCharacter()
+		if(theChar):
+			return theChar.getName()
+	
+	return "Talk"
 
 func canDoAction(_context:PawnActionContext) -> bool:
 	if(!_context.isTargetAPawn()):
 		return false
-	if(_context.pawn.hasInteraction()):
+	if(!_context.target.canStartTalkWith(_context.pawn)):
 		return false
-	if(_context.target.hasInteraction()):
-		return false
-	#if(GM.sitManager.isSitting(_context.pawn)):
-	#	return false
-	#if(GM.sitManager.isSitting(_context.getTargetPawn())):
-	#	return false
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:

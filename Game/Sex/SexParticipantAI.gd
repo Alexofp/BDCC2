@@ -61,11 +61,13 @@ func processAI(_dt:float):
 			tickAI()
 	
 	if(isForced()):
-		addResistance(_dt*0.05)
+		addResistance(_dt*0.05, false)
 	else:
 		if(timerLastStimulation > 1.0):
-			addResistance(-_dt*0.02)
+			addResistance(-_dt*0.02, false)
 	
+	if(lust > 1.0):
+		addLustRaw(-_dt*0.1)
 	if(getArousal() <= 0.0 && timerLastStimulation > 5.0):
 		addLust(-0.05*_dt)
 		#if(timerLastStimulation > 15.0):
@@ -294,6 +296,14 @@ func produceGoals(_goalAmount:int) -> Array[SexGoalBase]:
 
 func checkGoals():
 	if(goalsGenerated):
+		var goalAm:int = goals.size()
+		for _i:int in goalAm: # Doing it like so in case we decide to start deleting goals at some point
+			var _indx:int = goalAm - _i - 1
+			var theGoal := goals[_indx]
+			if(theGoal.isFinished()):
+				continue
+			if(!theGoal.isPossibleStill()):
+				theGoal.impossibleSelf()
 		return
 	if(!shouldProcessAI()):
 		return
@@ -326,18 +336,21 @@ func addAnger(_howMuch:float, _addFrustration:bool = true):
 	if(_howMuch > 0.0):
 		addAngerRaw(_howMuch * (1.0 + theMean*0.5))
 		if(_addFrustration):
-			affectSatisfaction(_howMuch*0.1*Util.unclampValue(theMean, 0.1)) # mean characters get satisfaction from getting angry
+			affectSatisfaction(_howMuch*0.1*Util.unclampValue(theMean, 0.5)) # mean characters get satisfaction from getting angry
 	if(_howMuch < 0.0):
 		addAngerRaw(_howMuch * (1.0 - theMean*0.3))
 
 func getAngerResistScore() -> float:
 	return maxf(anger, getSmoothResistScore())
 
-func addResistance(_howMuch:float):
+func addResistance(_howMuch:float, _addFrustration:bool = true):
 	var theDommy:float = personality(PersonalityStat.Dominant)
+	var theBratty:float = personality(PersonalityStat.Bratty)
 	if(_howMuch > 0.0):
 		var lustMod:float = (1.0 - lust*0.5)
 		addResistanceRaw(_howMuch * lustMod * (1.0 + theDommy*0.2))
+		if(_addFrustration):
+			affectSatisfaction(_howMuch*0.1*Util.unclampValue(theBratty, 0.5)) # bratty characters get satisfaction from resisting
 	if(_howMuch < 0.0):
 		addResistanceRaw(_howMuch * (1.0 - theDommy*0.3))
 
@@ -348,8 +361,10 @@ func addFear(_howMuch:float):
 	if(_howMuch < 0.0):
 		addFearRaw(_howMuch * (1.0 + theBrave*0.5))
 
-func addLust(_howMuch:float):
+func addLust(_howMuch:float, _affectSatisfaction:bool = true):
 	addLustRaw(_howMuch)
+	if(_affectSatisfaction):
+		affectSatisfaction(_howMuch*0.01)
 
 func addAngerRaw(_howMuch:float):
 	anger += _howMuch
@@ -364,8 +379,10 @@ func addFearRaw(_howMuch:float):
 	fear = clamp(fear, 0.0, 1.0)
 
 func addLustRaw(_howMuch:float):
+	if(_howMuch > 0.0 && lust > 1.0):
+		_howMuch /= lust
 	lust += _howMuch
-	lust = clamp(lust, 0.0, 1.0)
+	lust = clamp(lust, 0.0, 3.0)
 
 func personality(_persID:String) -> float:
 	var theChar := getChar()
@@ -589,6 +606,11 @@ func failCurrentGoal():
 	if(!currentGoal || currentGoal.isFinished()):
 		return
 	currentGoal.failSelf()
+
+func impossibleCurrentGoal():
+	if(!currentGoal || currentGoal.isFinished()):
+		return
+	currentGoal.impossibleSelf()
 
 func onConsentRejection(_deniedByCharID:String, _consentCheck:SexEngineQueueEntry.ConsentCheck):
 	if(!shouldProcessAI()):

@@ -42,7 +42,7 @@ func doDelayedAction(_context:PawnActionContext) -> bool:
 	GM.leashSystem.connectLeash(
 		LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
 		LeashPointConnection.createPawnLeashpoint(_context.target, targetLeashPointID),
-		LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(1.0),
+		LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(0.2),
 	)
 	if(targetLeashPointID == "collar"):
 		var theTargetChar:BaseCharacter = _context.target.getCharacter()

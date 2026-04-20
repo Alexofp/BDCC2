@@ -5,18 +5,18 @@ func _init() -> void:
 	#importantChain = true
 
 func _lines():
-	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexMore", "breedMe", SCORE_NOT_RESISTING)
+	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexMore", "breedMe", SCORE_NOT_RESISTING).addLustAll(0.2)
 	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexStop", "pleaseStop", SCORE_RESISTING)
 
 func breedMe_lines():
-	addXLines(3, ROLE_TARGET, ROLE_MAIN, "SexBegSexMoreReact", "breedReact")
+	addXLines(3, ROLE_TARGET, ROLE_MAIN, "SexBegSexMoreReact", "breedReact").addLustAll(0.2)
 	addIgnoreActionAI(ROLE_TARGET, ROLE_MAIN, SCORE_CONSTANT, 0.5)
 
 func breedMe_onLine(_line:SexDialogueLine):
 	stopMe()
 
 func pleaseStop_lines():
-	addXLines(3, ROLE_TARGET, ROLE_MAIN, "SexBegSexStopReactDeny", "stopReactDeny")
+	addXLines(3, ROLE_TARGET, ROLE_MAIN, "SexBegSexStopReactDeny", "stopReactDeny").addAnger(ROLE_TARGET, 0.1)
 	addXLines(3, ROLE_TARGET, ROLE_MAIN, "SexBegSexStopReactAgree", "stopReactAgree", SCORE_KIND, 0.1 if isForced() else 1.0)
 
 func pleaseStop_onLine(_line:SexDialogueLine):

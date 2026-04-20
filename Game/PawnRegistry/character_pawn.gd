@@ -355,6 +355,25 @@ func getAI() -> PawnAI:
 func hasInteraction() -> bool:
 	return interaction != null
 
+func canStartTalkAtAll() -> bool:
+	if(hasInteraction()):
+		return false
+	if(isDoingSomething() || isDoingSex()):
+		return false
+	if(isDefeated() || isCollapsed()):
+		return false
+	if(combatAI.hasEnemies()):
+		return false
+	return true
+
+func canStartTalkWith(_starter:CharacterPawn) -> bool:
+	if(!canStartTalkAtAll() || !_starter.canStartTalkAtAll()):
+		return false
+	#if(isDoingSomething() && is)
+	#if(combatAI.hasEnemies()):
+	#	return false
+	return true
+
 func getInteraction() -> InteractionBase:
 	return interaction
 
@@ -1008,12 +1027,12 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 		if(theInfo):
 			result.append_array(theSexEngine.dialogue.getActionsFor(theInfo))
 	
-	internal_checkCanDoActions(result)
+	internal_checkCanDoActions(result, self)
 	return result
 
-func internal_checkCanDoActions(result:Array[InteractEntryDo]):
+func internal_checkCanDoActions(result:Array[InteractEntryDo], _target:Node):
 	var theContext := pawnActionContext
-	theContext.target = self
+	theContext.target = _target
 	
 	var resAm:int = result.size()
 	for _i in resAm:
@@ -1064,7 +1083,7 @@ func getQuickActionsSelf() -> Array[InteractEntryDo]:
 		#	continue
 		result.append(InteractEntryDo.create(pawnAction.id))
 	
-	internal_checkCanDoActions(result)
+	#internal_checkCanDoActions(result, self)
 	
 	return result
 
@@ -1081,7 +1100,7 @@ func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
 		result.append(InteractEntryDo.create(pawnAction.id))
 	#theContext.target = null
 	
-	internal_checkCanDoActions(result)
+	internal_checkCanDoActions(result, self)
 	
 	return result
 

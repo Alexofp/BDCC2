@@ -82,6 +82,10 @@ func prepareNewLines():
 
 func doLine(_line:SexDialogueLine):
 	onLineFinal(_line)
+	if(!_line.effects.is_empty()):
+		_line.doEffects()
+		if(wasDeleted):
+			return
 	prepareNewLines()
 	checkShouldBeStopped()
 
@@ -164,6 +168,8 @@ func onEnd():
 	pass
 
 func shouldBeStopped() -> bool:
+	if(wasDeleted):
+		return false
 	if(tempLines.is_empty()):
 		return true
 	if(timeOutTime >= 10.0):
@@ -176,6 +182,8 @@ func shouldBeStopped() -> bool:
 
 func checkShouldBeStopped():
 	if(shouldBeStopped()):
+		if(timeOutTime >= 10.0):
+			onIgnore()
 		stopMe()
 
 func getState() -> String:

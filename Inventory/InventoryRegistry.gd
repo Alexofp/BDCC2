@@ -187,6 +187,8 @@ func askTest_SERVERRPC(_uid:int):
 	var theInv:Inventory = findInventory(_uid)
 	if(!theInv):
 		return
+	if(true): # Disabled
+		return
 	#theInv.setEquippedItem(InventorySlot.Mouth, GlobalRegistry.createItem("BallGag"))
 	#theInv.addItem(GlobalRegistry.createItem("BallGag"))
 	var theChar := theInv.getChar()

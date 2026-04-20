@@ -1,10 +1,13 @@
 extends PawnActionBase
 
+# Disabled in favor of TalkStart
+# We could use this action for player pawns?
+
 const ARG_NAME = 0
 
 func _init() -> void:
 	id = "InteractPawn"
-	alwaysCheckBitfield = CHECK_OTHER_QUICKACTION
+	#alwaysCheckBitfield = CHECK_OTHER_QUICKACTION # Uncomment to enable
 
 func getVisibleName(_context:PawnActionContext) -> String:
 	var theTarget = _context.target

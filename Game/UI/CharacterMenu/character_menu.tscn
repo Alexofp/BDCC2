@@ -33,7 +33,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1975921044]
 layout_mode = 2
 
-[node name="CharacterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=831905121]
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=831905121]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="CharacterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=660858893]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -108,6 +113,7 @@ grow_vertical = 0
 text = "Close"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CharacterButton" to="." method="_on_character_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PoseButton" to="." method="_on_pose_button_pressed"]

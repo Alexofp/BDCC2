@@ -1,5 +1,5 @@
 extends Control
-@onready var close_control_space: Control = %CloseControlSpace
+#@onready var close_control_space: Control = %CloseControlSpace
 
 var charID:String = ""
 
@@ -36,7 +36,7 @@ var tabToName:Dictionary[String, String] = {
 signal onClose
 
 func _ready() -> void:
-	close_control_space.visible = true
+	#close_control_space.visible = true
 	setTab(currentTab)
 
 func setCharacter(_char:BaseCharacter):
