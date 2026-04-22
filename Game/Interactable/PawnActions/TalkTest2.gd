@@ -2,12 +2,13 @@ extends PawnActionBase
 
 func _init() -> void:
 	id = "TalkTest2"
-	#alwaysCheckBitfield = CHECK_OTHER | CHECK_OTHER_QUICKACTION
-	alwaysCheckBitfield = CHECK_OTHER
+	alwaysCheckBitfield = CHECK_OTHER | CHECK_OTHER_QUICKACTION
+	#alwaysCheckBitfield = CHECK_OTHER
 	#subCategory = [C_TALK]
 
 func getVisibleName(_context:PawnActionContext) -> String:
-	return "SEX TEST"
+	#return "SEX TEST"
+	return "OBEY TEST"
 
 func canDoAction(_context:PawnActionContext) -> bool:
 	#if(true): # Disabled
@@ -25,6 +26,11 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
+	if(true):
+		var theTargetPawn:CharacterPawn = _context.target
+		theTargetPawn.submission.setObeyPawn(_context.pawn)
+		return true
+	
 	#var thePawn:CharacterPawn = _context.target
 	#thePawn.ai.goalHandler.addGoal("StartFriendlyFight", [_context.pawn])
 	#thePawn.ai.goalHandler.addGoal("StartHug", [_context.pawn])

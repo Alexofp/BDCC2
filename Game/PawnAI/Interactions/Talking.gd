@@ -25,6 +25,8 @@ func start(_roles:Dictionary, _args:Array):
 func processRareAlways(_dt:float):
 	if(checkTooFarAutoStop()):
 		return
+	if(isAnyoneInCombat()): # Unless the social interaction supports it?
+		stopInteraction()
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
@@ -59,7 +61,7 @@ func _actions(_role:int):
 			addAction(action("lock", "Lock me up!", 0.0))
 			addAction(action("fight", "Friendly fight!", 0.0))
 			
-			addAction(action("stop", "Never mind", 0.0).setFallback())
+			addAction(action("stop", "Never mind", 0.0).setOnTimeout(5.0))
 		
 
 func _do(_role:int, _action:InteractionAction):

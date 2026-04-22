@@ -108,6 +108,8 @@ func checkCurrentGoal():
 				currentGoalScore = theNewScore
 				newCurrentGoal = theGoal
 		
+		if(currentGoalScore <= 0.0):
+			newCurrentGoal = null
 		setCurrentGoal(newCurrentGoal)
 		return
 

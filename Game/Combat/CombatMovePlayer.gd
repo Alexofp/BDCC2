@@ -282,7 +282,7 @@ func willAttackHitTarget(_thePawn:CharacterPawn, _attackInfo:AttackInfo, _distMu
 	return willHitTarget(_thePawn, _attackInfo.reach*_distMult, _attackInfo.spread*_spreadMult)
 
 # if _getAll = false, the function will try to get only the most in-front-of-us target (unless there are many)
-func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreImpossible:bool = false) -> Array[CharacterPawn]:
+func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreImpossible:bool = false, _checkIgnoreHit:bool = true) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn]
 	
 	var ourPos:Vector3 = pawn.getGlobalPos()
@@ -298,6 +298,8 @@ func getTargets(_maxDist:float, _maxSpread:float, _getAll:bool = true, _ignoreIm
 	for theInteractor in nearbyInteractors:
 		var thePawn := theInteractor.pawn
 		if(!_ignoreImpossible && thePawn.combatMovePlayer.isImpossibleToHit()):
+			continue
+		if(_checkIgnoreHit && pawn.shouldIgnoreAttackTowards(thePawn)):
 			continue
 		var theirPos:Vector3 = thePawn.getGlobalPos()
 		if(theirPos.distance_squared_to(ourPos) > distSquared):

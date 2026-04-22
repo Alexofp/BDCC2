@@ -58,17 +58,29 @@ func think():
 	# Action selection
 	var theActions := theInteraction.getActionsFor(thePawn)
 	var fullScore:float = 0.0
+	var fullFallbackScore:float = 0.0
 	var theWeightMap:Dictionary[InteractionAction, float]
+	var theFallbackMap:Dictionary[InteractionAction, float]
 	for theAction in theActions:
 		if(theAction.disabled):
 			continue
 		var actionScore:float = theAction.score
 		actionScore = ai.goalHandler.getInteractionActionScoreOverride(theInteraction, theAction, actionScore)
+		if(theAction.fallbackScore > 0.0):
+			theFallbackMap[theAction] = theAction.fallbackScore
+			fullFallbackScore += theAction.fallbackScore
+		if(theAction.timeoutTime > 0.0 && theInteraction.timeoutTime >= theAction.timeoutTime):
+			actionScore = maxf(actionScore, theAction.timeoutScore)
 		
 		if(actionScore <= 0.0):
 			continue
 		fullScore += actionScore
 		theWeightMap[theAction] = actionScore
+	
+	if(theWeightMap.is_empty() && !theFallbackMap.is_empty() && RNG.chance(fullFallbackScore * 100.0)):
+		var theFallbackActionToDo:InteractionAction = RNG.pickWeightedDict(theFallbackMap)
+		theInteraction.doActionFor(thePawn, theFallbackActionToDo)
+		return
 	
 	if(theWeightMap.is_empty() || !RNG.chance(fullScore * 100.0)):
 		return

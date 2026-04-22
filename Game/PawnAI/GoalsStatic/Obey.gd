@@ -1,18 +1,18 @@
 extends AIGoalStatic
 
 func _init() -> void:
-	id = "Interaction"
+	id = "Obey"
 	importantGoal = true
 
 func getScore() -> float:
-	if(!pawn.hasInteraction()):
+	if(!pawn.submission.isObeying()):
 		return 0.0
-	return 100.0
+	return 69.0
 
 func getKeepScore() -> float:
-	if(!pawn.hasInteraction()):
+	if(!pawn.submission.isObeying()):
 		return 0.0
 	return super.getKeepScore()
 
 func getPlan() -> AIPlan:
-	return makePlan().add("Interaction")
+	return makePlan().add("Obey")

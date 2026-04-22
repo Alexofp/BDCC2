@@ -617,6 +617,9 @@ func processHoverText(_dt:float):
 			if(!theLines.is_empty()):
 				finalText += Util.join(theLines, "\n")+"\n"
 	
+	var theExtraPawnHoverText:String = thePawn.getExtraHoverText()
+	if(!theExtraPawnHoverText.is_empty()):
+		finalText += theExtraPawnHoverText + "\n"
 	
 	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)

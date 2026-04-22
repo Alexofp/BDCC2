@@ -22,6 +22,7 @@ var doll:DollController
 var ai:PawnAI
 var combatAI:CombatPawnAI
 var interaction:InteractionBase
+var submission:SubmissionHandler
 
 signal dollSpawned(doll)
 signal dollDespawned(doll)
@@ -62,6 +63,7 @@ const STATE_COUPLE = 5
 @onready var combatMovePlayer: CombatMovePlayer = %CombatMovePlayer
 
 var rareUpdateTimer:float = 0.0
+var combatTimer:float = 0.0
 
 func _ready() -> void:
 	combatMovePlayer.setPawn(self)
@@ -69,6 +71,9 @@ func _ready() -> void:
 	pawnActionContext = PawnActionContext.new()
 	pawnActionContext.pawn = self
 	pawn_interactor.setPawn(self)
+	
+	submission = SubmissionHandler.new()
+	submission.setPawn(self)
 	
 	ai = PawnAI.new()
 	ai.setPawn(self)
@@ -140,6 +145,11 @@ func _process(_delta: float) -> void:
 func processRare(_dt:float):
 	if(Network.isServer()):
 		combatAI.processRare(_dt)
+		if(combatTimer > 0.0):
+			if(!isInCombatMode()):
+				combatTimer -= _dt
+			else:
+				combatTimer -= _dt*0.2
 
 func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):
@@ -150,6 +160,7 @@ func _physics_process(_delta: float) -> void:
 		ai.processAI(_delta)
 	calcHoverTextProgressBarInfo()
 	processPoseSpot()
+	submission.processSubmission(_delta)
 	
 	combatMovePlayer.processCombatPlayer(_delta)
 	
@@ -735,6 +746,9 @@ func isDefeated() -> bool:
 func isCollapsed() -> bool:
 	return pawnState == STATE_COLLAPSED
 
+func isInCombatMode() -> bool:
+	return pawnState == STATE_COMBAT
+
 func isDoingACoupleAnimation() -> bool:
 	return pawnState == STATE_COUPLE
 
@@ -768,6 +782,7 @@ func makeDefeated() -> bool:
 		return false
 	
 	setState(STATE_DEFEATED)
+	ai.onDefeated()
 	return true
 
 func makeDefeatedFromAttack(_attackContext:AttackContext) -> bool:
@@ -938,6 +953,26 @@ func getUpFromSittingOnSomething() -> bool:
 				"SitProp", [ourSlot],
 			), theHandler)
 			return true
+	return false
+
+func getExtraHoverText() -> String:
+	var result:Array[String] = []
+	
+	var theSubText:String = submission.getHoverText()
+	if(!theSubText.is_empty()):
+		result.append(theSubText)
+	
+	return Util.join(result, "\n")
+
+## If true, attacks towards the other pawn will be ignored. Combat AI will also remove it from the enemies
+func shouldIgnoreAttackTowards(_otherPawn:CharacterPawn) -> bool:
+	if(submission.shouldIgnoreAttacksTowards(_otherPawn)):
+		return true
+	return false
+
+func shouldObey(_otherPawn:CharacterPawn) -> bool:
+	if(submission.isObeyingPawn(_otherPawn)):
+		return true
 	return false
 
 
@@ -1160,6 +1195,19 @@ func isDoingSomething() -> bool:
 
 func isDoingSex() -> bool:
 	return GM.main.sex_manager.isParticipatingInSex(self)
+
+func isInCombat() -> bool:
+	if(combatAI.hasEnemies()):
+		return true
+	# If anyone around you has You as their enemy?
+	
+	# combat timer? if you hit someone or get hit
+	if(combatTimer > 0.0): 
+		return true
+	return false
+
+func markInCombat():
+	combatTimer = maxf(3.0, combatTimer)
 
 func canDoInteractEntryDo(_entry:InteractEntryDo, _target) -> bool:
 	var theAction:PawnActionBase = _entry.action

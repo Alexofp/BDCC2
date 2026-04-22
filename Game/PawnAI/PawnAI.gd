@@ -1,7 +1,7 @@
 extends RefCounted
 class_name PawnAI
 
-const DEBUG_AI := false
+const DEBUG_AI := true
 const DEBUG_RELATIONSHIPS := false
 
 var pawn:CharacterPawn
@@ -256,7 +256,7 @@ func reactDelayedAction(_action:ActionSystemEntry):
 	Log.Print("DECISION!!!")
 	
 	# Allowing it
-	if(interactionAllow || goalAllow):
+	if(interactionAllow || goalAllow || pawn.shouldObey(_action.user)):
 		theTarget.decideAllow()
 		return
 	
@@ -286,3 +286,7 @@ func onCurrentAIGoalSwitch():
 	
 	if(aiAction):
 		aiAction.replan()
+
+#Social: Send this to the interactions/ai-goals?
+func onDefeated():
+	pawn.combatAI.clearEnemies()

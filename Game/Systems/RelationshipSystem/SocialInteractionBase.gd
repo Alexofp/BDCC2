@@ -174,3 +174,8 @@ func playSuccessNoise(_mult:float):
 			#pawn1.addSmallText("Affection"+theChars, Color.RED)
 			#pawn2.addSmallText("Affection"+theChars, Color.RED)
 			pass
+
+func showInteractionSuccess():
+	playSuccessNoise(success)
+	var pawn2 := getTargetPawn()
+	pawn2.addSmallText("Success: "+str(success), Color.SKY_BLUE)

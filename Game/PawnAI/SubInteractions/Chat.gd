@@ -57,7 +57,9 @@ func doRandomTalk():
 	howManyChats += 1
 	socialInteractionStart()
 	pushSay(theTalkerRole, "Talk", theListenerRole)
-	pushDelay(4.0)
+	pushDelay(3.0)
+	pushSocialShowSuccess()
+	pushDelay(1.0)
 	pushSay(theListenerRole, "Talk", theTalkerRole)
 	pushDelay(4.0)
 	pushSocialEnd()

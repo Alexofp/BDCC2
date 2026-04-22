@@ -17,6 +17,7 @@ var pawnToRole:Dictionary[CharacterPawn, int]
 var state:String = "": set = setState, get = getState
 var stateRaw:String = ""
 var elapsedTime:float = 0.0 # Time since last setState() call
+var timeoutTime:float = 0.0 # Time since last action
 
 var rareTimer:float = 0.0
 var wasDeleted:bool = false
@@ -40,6 +41,7 @@ enum QueueEntry {
 	AddSocialEvent,
 	SocialInteractionEnd,
 	SocialInteractionDeny,
+	SocialInteractionShowSuccess,
 }
 
 func involve(_role:int, _pawn:CharacterPawn):
@@ -137,6 +139,8 @@ func processInteraction(_dt:float):
 		processRareAlways(theDeltaTime)
 	
 	elapsedTime += _dt
+	if(!subInteraction && interactionQueue.is_empty()):
+		timeoutTime += _dt
 	
 	processQueue(_dt)
 
@@ -185,6 +189,7 @@ func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
 	
 	if(!pawnToRole.has(_pawn)):
 		return
+	timeoutTime = 0.0
 	var theFuncName := getStateFunc("do")
 	if(has_method(theFuncName)):
 		call(theFuncName, pawnToRole[_pawn], _actionEntry)
@@ -269,6 +274,10 @@ func pushSocialEnd():
 func pushSocialDenied():
 	interactionQueue.append([QueueEntry.SocialInteractionDeny])
 
+# Just shows text above the target's head
+func pushSocialShowSuccess():
+	interactionQueue.append([QueueEntry.SocialInteractionShowSuccess])
+
 func clearPushQueue():
 	interactionQueue.clear()
 
@@ -280,6 +289,7 @@ func getState() -> String:
 
 func setState(_newState:String): #, _doReplan:bool = true
 	elapsedTime = 0.0
+	timeoutTime = 0.0
 	state = _newState
 	stateRaw = _newState
 	#if(_doReplan):
@@ -329,6 +339,9 @@ func processQueue(_dt:float):
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionDeny:
 				socialInteractionDeny()
+				interactionQueue.pop_front()
+			QueueEntry.SocialInteractionShowSuccess:
+				showInteractionSuccess()
 				interactionQueue.pop_front()
 			_:
 				assert(false, "BAD QUEUE ENTRY TYPE")
@@ -566,6 +579,12 @@ func onPlanFailFor(_pawn:CharacterPawn, _action:AIActionBase, _plan:AIPlan, _fai
 func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
 	pass
 
+func isAnyoneInCombat() -> bool:
+	for thePawn in pawnToRole:
+		if(thePawn.isInCombat()):
+			return true
+	return false
+
 func onGettingHitFor(_pawn:CharacterPawn, _attackContext:AttackContext) -> bool:
 	if(subInteraction):
 		if(subInteraction.onGettingHitFor(_pawn, _attackContext)):
@@ -669,6 +688,9 @@ func socialInteractionEnd():
 	pass
 
 func socialInteractionDeny():
+	pass
+
+func showInteractionSuccess():
 	pass
 
 func shouldAllowDelayedActionFor(_pawn:CharacterPawn, _action:ActionSystemEntry) -> bool:

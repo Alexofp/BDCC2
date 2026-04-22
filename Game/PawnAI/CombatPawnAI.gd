@@ -68,6 +68,8 @@ func addEnemy(_pawn:CharacterPawn) -> bool:
 		return false
 	if(_pawn == pawn):
 		return false
+	if(pawn.shouldIgnoreAttackTowards(_pawn)):
+		return false
 	
 	var newActiveEnemy:ActiveEnemy = ActiveEnemy.new()
 	newActiveEnemy.agroScore = 1.0
@@ -124,9 +126,11 @@ func processRare(_dt:float):
 		
 		if(theActiveEnemy.agroScore < 0.1):
 			toRem.append(enemyPawn)
-		if(enemyPawn.isDefeated()):
+		elif(enemyPawn.isDefeated()):
 			toRem.append(enemyPawn)
 			addRecentlyDefeatedEnemy(enemyPawn)
+		elif(pawn.shouldIgnoreAttackTowards(enemyPawn)):
+			toRem.append(enemyPawn)
 	for thePawn in toRem:
 		removeEnemy(thePawn)
 

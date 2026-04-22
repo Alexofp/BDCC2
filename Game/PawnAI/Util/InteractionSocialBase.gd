@@ -89,3 +89,9 @@ func socialInteractionDeny():
 	if(!socialInteraction):
 		return
 	socialInteraction.onDenied()
+
+func showInteractionSuccess():
+	if(!socialInteraction):
+		return
+	socialInteraction.showInteractionSuccess()
+	
