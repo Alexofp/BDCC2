@@ -865,8 +865,9 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	GM.sexManager.removeSexInternal(self)
-	dialogue.setSex(null)
-	dialogue = null
+	if(dialogue):
+		dialogue.setSex(null)
+		dialogue = null
 
 func onSexEngineResult(_result:SexEngineResult):
 	var checkedInteractions:Dictionary[InteractionBase, bool]

@@ -11,13 +11,17 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 		ROLE_TARGET: "target",
 	}
 
+func shouldSkipGreet(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+	if(_target.submission.isObeyingPawn(_main)):
+		return true
+	return false
+
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
-	say(ROLE_MAIN, "Greet", ROLE_TARGET) #"Talk"
-	#startAction(ROLE_TARGET, "Follow", [getCharID(ROLE_MAIN)])
-	pushDelay(1.0)
-	#pushSay(ROLE_TARGET, "What?")
-	pushLookAt(ROLE_TARGET, ROLE_MAIN)
+	if(!shouldSkipGreet(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
+		say(ROLE_MAIN, "Greet", ROLE_TARGET) #"Talk"
+		pushDelay(1.0)
+		pushLookAt(ROLE_TARGET, ROLE_MAIN)
 	
 	#startSubInteraction("someTag", "Chat", {main=ROLE_MAIN, target=ROLE_TARGET}, [])
 	#stopSubInteraction()
@@ -145,3 +149,8 @@ func onGettingHit(_role:int, _attackContext:AttackContext) -> bool:
 
 func isHandlingCombat(_role:int) -> bool:
 	return true
+
+func onSubInteractionEnd(_interaction:InteractionBase):
+	if(_interaction is InteractionSocialBase):
+		if(_interaction.socialShouldEndTalking):
+			stopInteraction()

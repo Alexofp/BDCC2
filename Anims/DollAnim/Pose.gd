@@ -42,3 +42,6 @@ func processCamera(_id:String, _springLen:float) -> Vector2:
 	elif(_springLen <= CLOSE_DISTANCE):
 		return Vector2(0.2, 0.825)
 	return Vector2(0.3, 0.525)
+
+func getLookAtMods(_id:String) -> Vector3:
+	return Vector3(1.0, 1.0, 0.0)

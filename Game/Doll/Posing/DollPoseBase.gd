@@ -25,11 +25,19 @@ const CRAWL_SPEED = 0.5
 
 func getAnimName() -> String:
 	return animName
+func getAnimNameOr(_alt:String) -> String:
+	if(animName.is_empty()):
+		return _alt
+	return animName
 func getAnimNameFinal() -> String:
 	if(animLibraryName.is_empty()):
 		return animName
 	return animLibraryName+"/"+animName
 func getWalkAnimName() -> String:
+	return walkAnim
+func getWalkAnimNameOr(_alt:String) -> String:
+	if(walkAnim.is_empty()):
+		return _alt
 	return walkAnim
 
 func getName() -> String:

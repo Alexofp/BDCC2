@@ -1,0 +1,34 @@
+def OrderDominate
+fill OrderDominate simple
+<
+You're gonna do what I tell you to do.
+>
+def OrderDominateAnswer
+fill OrderDominateAnswer simple
+<
+Fine..
+>
+
+def OrderYoureFree
+fill OrderYoureFree simple
+<
+You're free, for now.
+>
+
+def OrderFollow
+fill OrderFollow simple
+<
+Follow me.
+>
+
+def OrderStayStill
+fill OrderStayStill simple
+<
+Stand still.
+>
+
+def OrderLookAtMe
+fill OrderLookAtMe simple
+<
+Look at me.
+>

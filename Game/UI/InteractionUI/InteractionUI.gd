@@ -42,6 +42,7 @@ func setTrackedPawns(_chars:Dictionary[CharacterPawn, bool]):
 			continue
 		toRemove.append(thePawn)
 	for thePawn in toRemove:
+		thePawn.tree_exiting.disconnect(onPawnDeleted.bind(thePawn))
 		tracked[thePawn].queue_free()
 		tracked.erase(thePawn)
 	
@@ -51,8 +52,16 @@ func setTrackedPawns(_chars:Dictionary[CharacterPawn, bool]):
 		var newUIEntry:Control = INTERACTION_UI_CHARACTER.instantiate()
 		character_list.add_child(newUIEntry)
 		tracked[thePawn] = newUIEntry
+		thePawn.tree_exiting.connect(onPawnDeleted.bind(thePawn))
 		
 		newUIEntry.setPawn(thePawn)
+
+func onPawnDeleted(_pawn:CharacterPawn):
+	if(!tracked.has(_pawn)):
+		return
+	tracked[_pawn].queue_free()
+	tracked.erase(_pawn)
+	savedTrack.erase(_pawn)
 
 var isShowingLeftTopPanel:bool = false
 var topLeftTween:Tween

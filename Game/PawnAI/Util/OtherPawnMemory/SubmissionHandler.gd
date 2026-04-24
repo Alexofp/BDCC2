@@ -8,6 +8,9 @@ var obeyCharID:String
 var obeyPawn:CharacterPawn
 var obeyTask:int = ObeyTask.Nothing
 
+var obeyPose:String = ""
+var obeyPoseHands:String = ""
+
 func setPawn(_p:CharacterPawn):
 	pawn = _p
 
@@ -39,6 +42,33 @@ func checkObeyPawn():
 func onObeyPawnChanged():
 	pass
 
+func canBeDominated() -> bool:
+	if(isObeying()):
+		return false
+	if(pawn.isDoingSex() || pawn.isDoingSomething()):
+		return false
+	return true
+
+func canBeEasilyDominatedBy(_otherPawn:CharacterPawn) -> bool:
+	if(!canBeDominated()):
+		return false
+	if(!pawn.isDefeated()):
+		return false
+	return true
+
+func tryMakeObeyPawn(_otherPawn:CharacterPawn) -> bool:
+	if(!canBeDominated()):
+		return false
+	if(!_otherPawn):
+		return false
+	setObeyPawn(_otherPawn)
+	return obeyPawn == _otherPawn
+
+func stopObeing(_otherPawn:CharacterPawn):
+	if(obeyPawn != _otherPawn):
+		return
+	setObeyPawn(null)
+
 func setObeyPawn(_otherPawn:CharacterPawn):
 	if(obeyPawn == _otherPawn):
 		return
@@ -60,6 +90,13 @@ func shouldIgnoreAttacksTowards(_otherPawn:CharacterPawn) -> bool:
 		return true
 	return false
 
+# Added this code to poseHandler instead
+#func processRare(_dt:float):
+	#if(isObeying()):
+		#return
+	#pawn.poseHandler.idle = ""
+	#pawn.poseHandler.arms = ""
+
 func processSubmission(_dt:float):
 	checkObeyPawn()
 	
@@ -69,6 +106,10 @@ func processSubmission(_dt:float):
 	dominance -= _dt * 0.01
 	if(dominance <= 0.0):
 		setObeyPawn(null)
+		return
+	
+	#if(!obeyPose.is_empty()):
+	#	pawn.
 
 func isObeyingPawn(_pawn:CharacterPawn) -> bool:
 	return obeyPawn == _pawn

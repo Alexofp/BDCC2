@@ -194,30 +194,26 @@ func syncRot3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.8, autoSn
 	return result
 
 func getWalkSpeedMult() -> float:
-	var theChar:= getCharacter()
-	if(!theChar):
+	if(!pawn):
 		return 1.0
-	return theChar.getWalkSpeed()
+	return pawn.poseHandler.walkSpeed
 
 func canSprint() -> bool:
-	var theChar:= getCharacter()
-	if(!theChar):
+	if(!pawn):
 		return true
-	return theChar.canSprint()
+	return pawn.poseHandler.sprintAllowed
 
 func getJumpHeight() -> float:
-	var theChar:= getCharacter()
-	if(!theChar):
+	if(!pawn):
 		return 1.0
-	return theChar.getJumpHeight()
+	return pawn.poseHandler.jumpHeight
 
 func processChar(_delta:float):
-	var theChar:= getCharacter()
-	if(!theChar):
+	if(!pawn):
 		return
 	#TODO: Make this work using signals rather than constant pulling?
-	doll.setIdleAnim(theChar.getIdleAnim())
-	doll.setWalkAnim(theChar.getWalkAnim())
+	doll.setIdleAnim(pawn.poseHandler.idleAnim)
+	doll.setWalkAnim(pawn.poseHandler.walkAnim)
 	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
 	#doll.setIdleAnim(theChar.getIdleAnim())
 
@@ -256,6 +252,7 @@ func _process(delta:float):
 	processCharacterID()
 
 	pawn.state.processTick(self, delta)
+	pawn.state.processDollLookAtModifiers(self, delta)
 	process_noclip(delta)
 	
 	var theSpeed := pawn.state.getRotationToTargetSpeed(self)

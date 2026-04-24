@@ -6,6 +6,7 @@ var socialActionCategory:Array[String]
 var socialInteraction:SocialInteractionBase
 var socialMustBeIntroduced:bool = false
 var socialDefaultScore:float = 0.0
+var socialShouldEndTalking:bool = false
 
 func _init() -> void:
 	id = ""

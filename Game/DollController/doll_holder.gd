@@ -179,10 +179,10 @@ func playGesture_RPC(theDollID:int, _gestureID:String):
 	var shouldFullBody:bool = true
 	var shouldPartial:bool = true
 	
-	var theChar := theDoll.getCharacter()
-	if(theChar):
-		shouldFullBody = !theChar.isFullbodyGesturesBlocked()
-		shouldPartial = !theChar.isPartialGesturesBlocked()
+	var thePawn := theDoll.getPawn()
+	if(thePawn):
+		shouldFullBody = !thePawn.poseHandler.gestureFullbodyBlocked
+		shouldPartial = !thePawn.poseHandler.gesturePartialBlocked
 	
 	theDoll.getDoll().playGesture(_gestureID, shouldFullBody, shouldPartial)
 

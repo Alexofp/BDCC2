@@ -226,6 +226,23 @@ func addHoverTextGlobal_RPC(_pawnID:String, _text:String, _replacers:Dictionary[
 		return
 	_pawn.addHoverText(GM.textParser.parseStringDefault(_text, _replacers).text)
 
+# poseType should be PawnPoseHandler.POSE_IDLE or PawnPoseHandler.POSE_ARMS
+func askSetPoseOf(_pawn:CharacterPawn, _poseType:int, _pose:String):
+	if(!_pawn):
+		return
+	if(Network.isClient()):
+		askSetPoseOf_SERVERRPC.rpc_id(1, _pawn.getID(), _poseType, _pose)
+	else:
+		_pawn.poseHandler.setPoseOf(_poseType, _pose)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askSetPoseOf_SERVERRPC(_pawnID:String, _poseType:int, _pose:String):
+	var _pawn := getPawn(_pawnID)
+	if(!_pawn):
+		return
+	#NETWORK: Check that the pawn belongs to this client
+	_pawn.poseHandler.setPoseOf(_poseType, _pose)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),

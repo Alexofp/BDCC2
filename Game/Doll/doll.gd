@@ -48,6 +48,10 @@ var holeData:DollHoleData = DollHoleData.new()
 var holeDataSubs:Array[Array] = [[], []] # Which parts should receive the updated hole data values
 var holeDataDirty:bool = false
 
+var lookModHead:float = 1.0
+var lookModNeck:float = 1.0
+var lookModChest:float = 1.0
+
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func updateAnimPlayer():
@@ -191,7 +195,8 @@ func onCharOptionChange(_change:String):
 	if(_change == "voice"):
 		voice_handler.setVoiceProfile(theChar.getVoiceProfile())
 	
-	if(_change == CharOption.idlePose || _change == CharOption.idleAnim || _change == CharOption.poseArms):
+	#if(_change == CharOption.idlePose || _change == CharOption.idleAnim || _change == CharOption.poseArms):
+	if(_change == CharOption.idleAnim):
 		updatePose()
 	
 	var theValue = theChar.getSyncOptionValue(_change)
@@ -794,19 +799,25 @@ func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 	if(!theChar):
 		#setIdleAnim("normal1")
 		return
+	var thePawn := theChar.getPawn() #ANIM: Probably pretty slow
+	if(!thePawn):
+		return
 	#setIdleAnim(theChar.getIdleAnim())
 	var _isLocomotion:bool = false
 	if(!theAnimationTree):
 		theAnimationTree = animation_tree
 		_isLocomotion = true
 	
-	var theArmsPose:String = ""
-	
-	var theArmsPoseID:String = theChar.getPoseArms()
-	if(!theArmsPoseID.is_empty()):
-		if(!_isLocomotion || locomotionSupportsArmPoses):
-			var theDollPose := GlobalRegistry.getDollPose(theArmsPoseID)
-			theArmsPose = theDollPose.getAnimName() if theDollPose else ""
+	var theArms := thePawn.poseHandler.getArms()
+	var theArmsPose:String = theArms.getAnimName() if theArms else ""
+	if(_isLocomotion && !locomotionSupportsArmPoses):
+		theArmsPose = ""
+
+	#var theArmsPoseID:String = theChar.getPoseArms()
+	#if(!theArmsPoseID.is_empty()):
+		#if(!_isLocomotion || locomotionSupportsArmPoses):
+			#var theDollPose := GlobalRegistry.getDollPose(theArmsPoseID)
+			#theArmsPose = theDollPose.getAnimName() if theDollPose else ""
 	
 	if(cachedPartFlags.has("ArmsPose") && !cachedPartFlags["ArmsPose"].is_empty()):
 		theArmsPose = cachedPartFlags["ArmsPose"]
@@ -840,9 +851,9 @@ func setLookAtModifiersInfluence(_inf:float):
 	look_at_modifier_neck.active = (_inf > 0.0)
 	look_at_modifier_chest.active = (_inf > 0.0)
 	
-	look_at_modifier_head.influence = _inf
-	look_at_modifier_neck.influence = _inf*0.75
-	look_at_modifier_chest.influence = _inf*0.5
+	look_at_modifier_head.influence = _inf*lookModHead
+	look_at_modifier_neck.influence = _inf*0.75*lookModNeck
+	look_at_modifier_chest.influence = _inf*0.5*lookModChest
 
 func getLookAtModifiersInfluence() -> float:
 	return look_at_modifier_head.influence
@@ -864,7 +875,7 @@ func processLookAt(_dt:float):
 		if(theInf < 1.0):
 			theInf += _dt*3.0
 			theInf = clamp(theInf, 0.0, 1.0)
-			setLookAtModifiersInfluence(theInf)
+		setLookAtModifiersInfluence(theInf)
 		
 		var desiredPos:Vector3 = lookAtNode.global_position
 		var dirTo:Vector3 = desiredPos - look_at_target.global_position

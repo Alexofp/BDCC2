@@ -20,8 +20,6 @@ var voice:VoiceProfile = VoiceProfile.new()
 var inventory:Inventory = Inventory.new()
 var idleAnim:String = "IdleUnisex"
 var walkAnim:String = "WalkUnisex"
-var idlePose:String = ""
-var poseArms:String = ""
 var personality:Personality = Personality.new()
 var fetishHolder:FetishHolder = FetishHolder.new()
 var memoryHolder:MemoryHolder = MemoryHolder.new()
@@ -460,8 +458,6 @@ func getSyncOptions() -> Array[String]:
 		CharOption.voice,
 		CharOption.idleAnim,
 		CharOption.walkAnim,
-		CharOption.idlePose,
-		CharOption.poseArms,
 		CharOption.skinTypes,
 		"bodyMess",
 	]
@@ -495,10 +491,6 @@ func getSyncOptionValue(_id:String):
 		return idleAnim
 	elif(_id == CharOption.walkAnim):
 		return walkAnim
-	elif(_id == CharOption.idlePose):
-		return idlePose
-	elif(_id == CharOption.poseArms):
-		return poseArms
 	elif(_id == CharOption.skinTypes):
 		return skinTypes.saveData()
 	elif(_id == "bodyMess"):
@@ -533,10 +525,6 @@ func applyCharChange(_id:String, _value):
 		idleAnim = _value
 	elif(_id == CharOption.walkAnim):
 		walkAnim = _value
-	elif(_id == CharOption.idlePose):
-		idlePose = _value
-	elif(_id == CharOption.poseArms):
-		poseArms = _value
 	elif(_id == CharOption.skinTypes):
 		skinTypes.loadData(_value)
 	elif(_id == "bodyMess"):
@@ -606,52 +594,6 @@ func hasBodypartID(_partID:String) -> bool:
 func getInventory() -> Inventory:
 	return inventory
 
-func getWalkAnim() -> String:
-	if(idlePose != ""):
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(theDollPose):
-			var theWalkAnim := theDollPose.getWalkAnimName()
-			if(!theWalkAnim.is_empty()):
-				return theWalkAnim
-	
-	if(inventory.shouldHobbleLegs()):
-		return "WalkHobbled"
-	return walkAnim
-	
-func getIdleAnim() -> String:
-	if(idlePose != ""):
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(theDollPose):
-			var theIdleAnim := theDollPose.getAnimName()
-			if(!theIdleAnim.is_empty()):
-				return theIdleAnim
-	
-	return idleAnim
-
-func getWalkSpeed() -> float:
-	if(inventory.shouldHobbleLegs()):
-		return 0.5
-	if(idlePose != ""):
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(theDollPose):
-			return theDollPose.getWalkSpeedMult()
-	return 1.0
-
-func canSprint() -> bool:
-	if(inventory.shouldHobbleLegs()):
-		return false
-	if(idlePose != ""):
-		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(theDollPose):
-			if(theDollPose.preventsSprint()):
-				return false
-	return true
-	
-func getJumpHeight() -> float:
-	if(inventory.shouldHobbleLegs()):
-		return 0.5
-	return 1.0
-
 func triggerUpdatePartFilter():
 	updatePartFilter()
 
@@ -680,34 +622,6 @@ func updatePartFilter():
 
 func triggerPartFilterChangeSignal():
 	onChange.emit(BaseCharChange.createPartFilterUpdate())
-
-func getIdlePose() -> String:
-	return idlePose
-
-func getPoseArms() -> String:
-	return poseArms
-
-func isFullbodyGesturesBlocked() -> bool:
-	if(idlePose != ""):
-		var thePose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(thePose && thePose.doesPreventFullbodyGestures()):
-			return true
-	if(poseArms != ""):
-		var thePose:DollPoseBase = GlobalRegistry.getDollPose(poseArms)
-		if(thePose && thePose.doesPreventFullbodyGestures()):
-			return true
-	return false
-	
-func isPartialGesturesBlocked() -> bool:
-	if(idlePose != ""):
-		var thePose:DollPoseBase = GlobalRegistry.getDollPose(idlePose)
-		if(thePose && thePose.doesPreventPartialGestures()):
-			return true
-	if(poseArms != ""):
-		var thePose:DollPoseBase = GlobalRegistry.getDollPose(poseArms)
-		if(thePose && thePose.doesPreventPartialGestures()):
-			return true
-	return false
 
 func notifyPresetApplied():
 	onChange.emit(BaseCharChange.createPresetApplied())

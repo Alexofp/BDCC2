@@ -580,15 +580,16 @@ func setZoneFilter(_zone:int):
 	updateSelectedZoneFilter()
 	if(currentTab == "options"):
 		updatePartOptionsList()
-	if(character):
+	var thePawn := GM.main.pawn_registry.getPawn(character.getID()) if character else null
+	if(thePawn):
 		if(_zone == CharCreatorZone.Legs):
-			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "ShowFoot")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "ShowFoot")
 		else:
-			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
 		if(_zone == CharCreatorZone.Hands):
-			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "ShowHands")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "ShowHands")
 		else:
-			GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 	if(doll):
 		if(_zone == CharCreatorZone.Mouth):
 			doll.setMouthOpenTemporary(true)
@@ -602,8 +603,10 @@ func updateSelectedZoneFilter():
 func resetCharacterPose():
 	if(!character):
 		return
-	GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.idlePose, "")
-	GM.characterRegistry.askCharacterSyncOptionChange(character, CharOption.poseArms, "")
+	var thePawn := GM.main.pawn_registry.getPawn(character.getID())
+	if(thePawn):
+		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
+		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 	if(doll):
 		doll.setMouthOpenTemporary(false)
 

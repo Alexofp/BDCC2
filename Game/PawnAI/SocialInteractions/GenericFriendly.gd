@@ -17,6 +17,7 @@ var memorySuccessAbove:float = 0.3
 var memoryDenied:String = "" # Added to the starter if they got denied
 
 func _init() -> void:
+	super._init()
 	id = "GenericFriendly"
 
 func trySocialInteraction() -> void:

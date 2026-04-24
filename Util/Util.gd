@@ -145,7 +145,7 @@ static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThi
 	
 	return result
 
-static func moveValueUp(theArray, theIndex):
+static func moveValueUp(theArray:Array, theIndex:int):
 	var thingie = theArray[theIndex]
 	theArray.remove_at(theIndex)
 	theIndex -= 1
@@ -153,7 +153,7 @@ static func moveValueUp(theArray, theIndex):
 		theIndex = 0
 	theArray.insert(theIndex, thingie)
 
-static func moveValueDown(theArray, theIndex):
+static func moveValueDown(theArray:Array, theIndex:int):
 	var thingie = theArray[theIndex]
 	theArray.remove_at(theIndex)
 	theIndex += 1
@@ -409,3 +409,15 @@ static func readFile(_path:String) -> String:
 		Log.Printerr("Failed to read file: "+_path)
 		return ""
 	return file.get_as_text()
+
+static func moveValueTo(_val:float, _target:float, _speed:float) -> float:
+	if(_val < _target):
+		_val += _speed
+		if(_val > _target):
+			_val = _target
+	elif(_val > _target):
+		_val -= _speed
+		if(_val < _target):
+			_val = _target
+	return _val
+	

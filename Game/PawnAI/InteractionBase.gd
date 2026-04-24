@@ -7,6 +7,7 @@ const ROLE_EXTRA = 2
 const ROLE_EXTRA2 = 3
 
 const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
+const CATEGORY_ORDER:Array[String] = ["Order"]
 
 var id:String = ""
 var registerForInteractionType:Array[int]

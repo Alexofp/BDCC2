@@ -14,6 +14,11 @@ func getCharacter() -> BaseCharacter:
 		return null
 	return GM.characterRegistry.getCharacter(charID)
 
+func getPawn() -> CharacterPawn:
+	if(charID == ""):
+		return null
+	return GM.pawnRegistry.getPawn(charID)
+
 func _ready() -> void:
 	updateAnimList(full_body_anim_list, DollPoseBase.PoseType.Fullbody)
 	updateAnimList(arm_anim_list, DollPoseBase.PoseType.Arms)
@@ -57,28 +62,28 @@ func onPlayGestureButton(_gestureID:String):
 		#GM.pcDoll.getDoll().playGesture(_gestureID)
 
 func onPlayPoseIdleButton(_dollPoseID:String):
-	var theChar := getCharacter()
-	if(!theChar):
+	var thePawn := getPawn()
+	if(!thePawn):
 		return
 	var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(_dollPoseID)
 	if(!theDollPose):
 		return
-	var theCharOption:String = poseTypeToCharOption(theDollPose.poseType)
-	if(theChar.getSyncOptionValue(theCharOption) != _dollPoseID):
-		GM.characterRegistry.askCharacterSyncOptionChange(theChar, theCharOption, _dollPoseID)
+	var theCharOption:int = poseTypeToCharOption(theDollPose.poseType)
+	if(thePawn.poseHandler.getPoseOf(theCharOption) != _dollPoseID):
+		GM.main.pawn_registry.askSetPoseOf(thePawn, theCharOption, _dollPoseID)
 	else:
-		GM.characterRegistry.askCharacterSyncOptionChange(theChar, theCharOption, "")
+		GM.main.pawn_registry.askSetPoseOf(thePawn, theCharOption, "")
 
 func _on_stop_all_button_pressed() -> void:
-	var theChar := getCharacter()
-	if(!theChar):
+	var thePawn := getPawn()
+	if(!thePawn):
 		return
-	GM.characterRegistry.askCharacterSyncOptionChange(theChar, CharOption.idlePose, "")
-	GM.characterRegistry.askCharacterSyncOptionChange(theChar, CharOption.poseArms, "")
+	GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
+	GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 
-func poseTypeToCharOption(_poseType:int) -> String:
+func poseTypeToCharOption(_poseType:int) -> int:
 	if(_poseType == DollPoseBase.PoseType.Fullbody):
-		return CharOption.idlePose
+		return PawnPoseHandler.POSE_IDLE
 	if(_poseType == DollPoseBase.PoseType.Arms):
-		return CharOption.poseArms
-	return ""
+		return PawnPoseHandler.POSE_ARMS
+	return -1

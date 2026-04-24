@@ -47,7 +47,7 @@ static func advanceFullTime(_am:int, _adv:int) -> int:
 func syncTime():
 	if(!Network.isServerNotSingleplayer()):
 		return
-	Network.rpcClients(syncTime_RPC.bind(saveNetworkData()))
+	Network.rpcClients(syncTime_RPC.bind(saveNetworkData().getBytes()))
 
 @rpc("authority", "call_remote", "reliable")
 func syncTime_RPC(_networkData:PackedByteArray):

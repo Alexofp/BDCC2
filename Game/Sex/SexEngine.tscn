@@ -32,6 +32,9 @@ properties/6/replication_mode = 2
 properties/7/path = NodePath(".:sexResultText")
 properties/7/spawn = true
 properties/7/replication_mode = 2
+properties/8/path = NodePath(".:sexEngineState")
+properties/8/spawn = true
+properties/8/replication_mode = 2
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o3r2a"]
 length = 0.001

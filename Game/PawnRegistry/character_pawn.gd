@@ -11,6 +11,7 @@ enum SayType {
 
 @export var id:String = ""
 var doll:DollController
+var character:BaseCharacter
 #var poseSpot:PoseSpot
 
 @onready var doll_node: SyncNode = %DollNode
@@ -23,6 +24,7 @@ var ai:PawnAI
 var combatAI:CombatPawnAI
 var interaction:InteractionBase
 var submission:SubmissionHandler
+var poseHandler:PawnPoseHandler
 
 signal dollSpawned(doll)
 signal dollDespawned(doll)
@@ -68,6 +70,9 @@ var combatTimer:float = 0.0
 func _ready() -> void:
 	combatMovePlayer.setPawn(self)
 	
+	poseHandler = PawnPoseHandler.new()
+	poseHandler.setPawn(self)
+	
 	pawnActionContext = PawnActionContext.new()
 	pawnActionContext.pawn = self
 	pawn_interactor.setPawn(self)
@@ -96,9 +101,10 @@ func _ready() -> void:
 	#print(parseSayTextToArray("Hello *nuzzles you* uwu, meow meow *meows a lot*"))
 
 func getCharacter() -> BaseCharacter:
-	if(GM.characterRegistry):
-		return GM.characterRegistry.getCharacter(id)
-	return null
+	if(!character):
+		if(GM.characterRegistry):
+			character = GM.characterRegistry.getCharacter(id)
+	return character
 
 func getID() -> String:
 	return id
@@ -141,9 +147,11 @@ func _process(_delta: float) -> void:
 	
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
-	
+
 func processRare(_dt:float):
 	if(Network.isServer()):
+		if(!isControlledByAnyPlayer()):
+			poseHandler.tickAI(_dt)
 		combatAI.processRare(_dt)
 		if(combatTimer > 0.0):
 			if(!isInCombatMode()):
@@ -163,6 +171,7 @@ func _physics_process(_delta: float) -> void:
 	submission.processSubmission(_delta)
 	
 	combatMovePlayer.processCombatPlayer(_delta)
+	poseHandler.process(_delta)
 	
 	rareUpdateTimer -= _delta
 	if(rareUpdateTimer <= 0.0):
@@ -272,6 +281,7 @@ func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, position,
 		Bins.U8, pawnState,
+		Bins.BINS, poseHandler.saveNetworkData(),
 	])
 
 func loadNetworkData(_data:Bins):
@@ -279,18 +289,21 @@ func loadNetworkData(_data:Bins):
 	position = _data.readVar()
 	pawnState = _data.readU8()
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
+	poseHandler.loadNetworkData(_data.readBins())
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	return {
 		pos = position,
 		state = pawnState,
+		poseHandler = poseHandler.saveData(),
 	}
 
 func loadData(_data:Dictionary):
 	position = SAVE.loadVar(_data, "pos", position)
 	pawnState = SAVE.loadVar(_data, "state", STATE_NORMAL)
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
+	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
 
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:
 	var tempDoll = doll
@@ -580,18 +593,6 @@ func playGesture(_gestureID:String):
 	if(isDollSpawned()):
 		var theDoll := getDoll()
 		GM.dollHolder.playGesture(theDoll, _gestureID)
-
-func isFullbodyGesturesBlocked() -> bool:
-	var theChar := getCharacter()
-	if(!theChar):
-		return false
-	return theChar.isFullbodyGesturesBlocked()
-
-func isPartialGesturesBlocked() -> bool:
-	var theChar := getCharacter()
-	if(!theChar):
-		return false
-	return theChar.isPartialGesturesBlocked()
 
 func teleport(_globalPos:Vector3, _resetSpeed:bool = true):
 	global_position = _globalPos
@@ -1135,7 +1136,7 @@ func getQuickActions(_actor:CharacterPawn) -> Array[InteractEntryDo]:
 		result.append(InteractEntryDo.create(pawnAction.id))
 	#theContext.target = null
 	
-	internal_checkCanDoActions(result, self)
+	#internal_checkCanDoActions(result, self)
 	
 	return result
 

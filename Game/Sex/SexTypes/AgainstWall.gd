@@ -1,6 +1,7 @@
 extends "res://Game/Sex/SexTypes/OnTheFloor.gd"
 
 func _init() -> void:
+	super._init()
 	id = SexType.AgainstWall
 
 func start_run():

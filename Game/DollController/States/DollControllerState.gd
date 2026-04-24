@@ -308,3 +308,14 @@ func canDoCouplesAnims() -> bool:
 
 func isStandingOrCanGetUpEasily() -> bool:
 	return canDoCouplesAnims()
+
+# Vec3(head, neck, chest)
+func getTargetVecForLookAtModifiers(_doll:DollController) -> Vector3:
+	return Vector3(1.0, 1.0, 1.0)
+
+func processDollLookAtModifiers(_doll:DollController, _dt:float):
+	var theVec := getTargetVecForLookAtModifiers(_doll)
+	var theDoll := _doll.getDoll()
+	theDoll.lookModHead = Util.moveValueTo(theDoll.lookModHead, theVec.x, _dt)
+	theDoll.lookModNeck = Util.moveValueTo(theDoll.lookModNeck, theVec.y, _dt)
+	theDoll.lookModChest = Util.moveValueTo(theDoll.lookModChest, theVec.z, _dt)

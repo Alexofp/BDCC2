@@ -38,6 +38,8 @@ func _init() -> void:
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	if(GM.main.relationshipSystem.knows(_main.getID(), _target.getID())):
 		return false
+	if(_target.submission.isObeyingPawn(_main)):
+		return false
 	return true
 
 func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:

@@ -125,3 +125,7 @@ func doJump(_doll:DollController):
 
 func isStandingOrCanGetUpEasily() -> bool:
 	return true
+
+# Vec3(head, neck, chest)
+func getTargetVecForLookAtModifiers(_doll:DollController) -> Vector3:
+	return Vector3(1.0, 1.0, 0.0)
