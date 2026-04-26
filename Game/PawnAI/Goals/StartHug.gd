@@ -54,7 +54,9 @@ func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:Int
 		return 1.0
 	return _score
 
-func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
+func handleInteractionAction(_pawn:CharacterPawn, _interaction:InteractionBase, _action:InteractionAction) -> bool:
+	if(_pawn != pawn):
+		return false
 	if(isSocialInteraction(_interaction, _action, "Hug")):
 		satisfyGoal()
 		return true

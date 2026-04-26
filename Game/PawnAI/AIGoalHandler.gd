@@ -177,11 +177,23 @@ func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:Int
 	
 	return _score
 
-func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
+func handleInteractionAction(_pawn:CharacterPawn, _interaction:InteractionBase, _action:InteractionAction) -> bool:
 	if(!interactionToGoal.has(_interaction.id)):
 		return false
-	for theGoal in interactionToGoal[_interaction.id]:
-		if(theGoal.handleInteractionAction(_interaction, _action)):
+	var theGoals:Array[AIGoalBase] = interactionToGoal[_interaction.id]
+	for theGoal in theGoals:
+		if(theGoal.handleInteractionAction(_pawn, _interaction, _action)):
 			return true
 	
+	return false
+
+func handleInteractionEvent(_interaction:InteractionBase, _eventID:String, _args:Array) -> bool:
+	if(!interactionToGoal.has(_interaction.id)):
+		return false
+	var theGoals:Array[AIGoalBase] = interactionToGoal[_interaction.id]
+	for theGoal in theGoals:
+		if(theGoal.handleInteractionEvent(_interaction, _eventID, _args)):
+			return true
+	#if(currentGoal):
+	#	return currentGoal.handleInteractionEvent(_interaction, _eventID, _args)
 	return false

@@ -45,7 +45,8 @@ func onObeyPawnChanged():
 func canBeDominated() -> bool:
 	if(isObeying()):
 		return false
-	if(pawn.isDoingSex() || pawn.isDoingSomething()):
+	#if(pawn.isDoingSex() || pawn.isDoingSomething()):
+	if(pawn.isDoingSex()):
 		return false
 	return true
 
@@ -103,11 +104,14 @@ func processSubmission(_dt:float):
 	if(!obeyPawn):
 		return
 	
-	dominance -= _dt * 0.01
+	if(pawn.isLeashedBy(obeyPawn)):
+		dominance += _dt * 0.05
+	else:
+		dominance -= _dt * 0.01
 	if(dominance <= 0.0):
 		setObeyPawn(null)
 		return
-	
+	dominance = clampf(dominance, 0.0, 1.0)
 	#if(!obeyPose.is_empty()):
 	#	pawn.
 
@@ -117,4 +121,9 @@ func isObeyingPawn(_pawn:CharacterPawn) -> bool:
 func getHoverText() -> String:
 	if(!obeyPawn):
 		return ""
+	if(pawn.isDoingSex()):
+		return ""
 	return "( Dominated by "+obeyPawn.getCharacter().getName()+" ("+str(Util.roundF(dominance*100.0, 1))+"%), task="+ObeyTask.getName(obeyTask)+" )"
+
+func getOverallSubmissionValue() -> float:
+	return dominance

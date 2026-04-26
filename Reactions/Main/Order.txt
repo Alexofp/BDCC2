@@ -8,6 +8,11 @@ fill OrderDominateAnswer simple
 <
 Fine..
 >
+def OrderDominateDenyConsent
+fill OrderDominateDenyConsent simple
+<
+Go fuck yourself, I'm not doing anything.
+>
 
 def OrderYoureFree
 fill OrderYoureFree simple
@@ -31,4 +36,16 @@ def OrderLookAtMe
 fill OrderLookAtMe simple
 <
 Look at me.
+>
+
+def OrderDominateUnableToDom
+fill OrderDominateUnableToDom simple
+<
+I can't seem to dominate you. Whatever, I give up.
+>
+
+def OrderDominateAbort
+fill OrderDominateAbort simple
+<
+Whatever then.
 >

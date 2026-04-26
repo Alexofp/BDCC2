@@ -1,7 +1,7 @@
 extends RefCounted
 class_name PawnAI
 
-const DEBUG_AI := false
+const DEBUG_AI := true
 const DEBUG_RELATIONSHIPS := false
 
 var pawn:CharacterPawn
@@ -57,7 +57,7 @@ func goTowards(_pos:Vector3, shouldRun:bool=false):
 func lookTowardsRaw(_pos:Vector3):
 	if(pawn.isControlledByAnyPlayer()):
 		return
-	if(pawn.state.isControllingLookDir()):
+	if(pawn.state.isControllingLookDir() || pawn.isDoingSex()):
 		return
 	var theDoll := pawn.getDoll()
 	if(theDoll):

@@ -778,19 +778,69 @@ func doStagger(_ignoreImmunity:bool = false):
 		return
 	combatMovePlayer.doStagger()
 
-func makeDefeated() -> bool:
+func canGetUpFromPropIfNeedTo() -> bool:
+	var curPoseSpot := GM.sitManager.getSeatOfPawn(self)
+	if(!curPoseSpot):
+		return true
+	var theHandler := curPoseSpot.getHandler()
+	if(theHandler is PropHandlerBase):
+		var ourSlot:String = theHandler.getSlotOfPawn(self)
+		if(ourSlot.is_empty()):
+			return false
+		
+		if(theHandler.canGetUpFromSlot(ourSlot)):
+			return true
+	return false
+
+## Returns true if we're not sitting anywhere OR if we have gotten up
+func getUpFromPropIfNeedToAndCan() -> bool:
+	var curPoseSpot := GM.sitManager.getSeatOfPawn(self)
+	if(!curPoseSpot):
+		return true
+	var theHandler := curPoseSpot.getHandler()
+	if(theHandler is PropHandlerBase):
+		var ourSlot:String = theHandler.getSlotOfPawn(self)
+		if(ourSlot.is_empty()):
+			return false
+		
+		if(!theHandler.canGetUpFromSlot(ourSlot)):
+			return false
+		# Replace with a SitProp action?
+		#theHandler.setSitter(ourSlot, null)
+		var _doAct := doInteractEntryDo(InteractEntryDo.create(
+			"SitProp", [ourSlot],
+		), theHandler)
+		if(!GM.sitManager.getSeatOfPawn(self)):
+			return true
+	return false
+
+func canBeDefeated() -> bool:
 	if(isDefeated()):
+		return false
+	if(isDoingSex() || isDoingACoupleAnimation()):
+		return false
+	if(!canGetUpFromPropIfNeedTo()):
+		return false
+	
+	return state.canBeDefeated()
+
+func makeDefeated() -> bool:
+	if(!canBeDefeated()):
+		return false
+	if(!getUpFromPropIfNeedToAndCan()):
 		return false
 	
 	setState(STATE_DEFEATED)
 	ai.onDefeated()
 	return true
-
+	
 func makeDefeatedFromAttack(_attackContext:AttackContext) -> bool:
 	return makeDefeated()
 
 func canRecoverFromDefeat() -> bool:
 	if(!isDefeated()):
+		return false
+	if(interaction && !interaction.isPawnAllowedToRecoverFromDefeat(self)):
 		return false
 	return combatMovePlayer.canRecoverFromDefeat()
 
@@ -969,6 +1019,8 @@ func getExtraHoverText() -> String:
 func shouldIgnoreAttackTowards(_otherPawn:CharacterPawn) -> bool:
 	if(submission.shouldIgnoreAttacksTowards(_otherPawn)):
 		return true
+	if(_otherPawn.isDoingACoupleAnimation() || _otherPawn.isDoingSex()):
+		return true # No disturbing the fun
 	return false
 
 func shouldObey(_otherPawn:CharacterPawn) -> bool:
@@ -1038,6 +1090,18 @@ func isLeashingAnyone() -> bool:
 func stopLeashingAll() -> bool:
 	return doInteractEntryDo(InteractEntryDo.create("LeashLetGoAll"), self)
 
+func isLeashedBy(_otherPawn:CharacterPawn) -> bool:
+	var allLeashes := GM.leashSystem.getAllLeashesOfTargetNode(self)
+	for leash in allLeashes:
+		if(leash.p1con.isSpecificPawn(_otherPawn)):
+			return true
+	return false
+
+func isLeashedByAnyone() -> bool:
+	if(!GM.leashSystem.getAllLeashesOfTargetNode(self).is_empty()):
+		return true
+	return false
+
 # LEASH STUFF END
 
 # INTERACTOR STUFF BEGINS
@@ -1047,7 +1111,9 @@ func getPawnInteractor() -> PawnInteractor:
 func getActionsBigSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
-	if(interaction):
+	var theSexEngine := GM.main.sex_manager.getSexEngineOfPawn(self)
+	
+	if(interaction && !theSexEngine):
 		var theInteractActions := interaction.getActionsFor(self)
 		
 		var _i:int = 0
@@ -1057,7 +1123,6 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 			]).setDisabled(theAction.disabled).setSubCategory(theAction.category))
 			_i += 1
 	
-	var theSexEngine := GM.main.sex_manager.getSexEngineOfPawn(self)
 	if(theSexEngine):
 		var theInfo := theSexEngine.getParticipant(getID())
 		if(theInfo):

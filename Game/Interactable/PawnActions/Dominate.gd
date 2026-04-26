@@ -30,10 +30,10 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
-	var theTargetPawn:CharacterPawn = _context.target
-	if(!theTargetPawn.submission.tryMakeObeyPawn(_context.pawn)):
-		return false
-	GM.main.interactionSystem.startInteraction("Dominated", {
+	#var theTargetPawn:CharacterPawn = _context.target
+	#if(!theTargetPawn.submission.tryMakeObeyPawn(_context.pawn)):
+	#	return false
+	GM.main.interactionSystem.startInteraction("DominateDefeated", {
 		main = _context.pawn,
 		target = _context.target,
 	})

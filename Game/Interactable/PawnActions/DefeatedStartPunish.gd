@@ -15,7 +15,7 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
-	GM.getInteractionSystem().startInteraction("Defeated", {
+	GM.getInteractionSystem().startInteraction("DominateDefeated", {
 		main = _context.pawn,
 		target = _context.target,
 	})

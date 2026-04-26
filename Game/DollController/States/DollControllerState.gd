@@ -89,6 +89,9 @@ func setTargetLookDirFromCamera(_doll:DollController):
 func getRotationToTargetSpeed(_doll:DollController) -> float:
 	return 1.0
 
+func shouldRotateToTargetSpeed() -> bool:
+	return true
+
 func isControllingLookDir() -> bool:
 	return false # If true, the "Face" ai action won't try to override the target look dir
 
@@ -246,7 +249,7 @@ func processHit(_attackContext:AttackContext) -> int:
 	if(Network.isServer()):
 		GM.actionSystem.onPawnHit(pawn, _attackContext)
 		
-		if(theCharacter.charState.getPainLevel() >= 1.0 && canBeDefeated()):
+		if(theCharacter.charState.getPainLevel() >= 1.0 && pawn.canBeDefeated()):
 			pawn.makeDefeatedFromAttack(_attackContext)
 
 		

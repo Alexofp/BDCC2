@@ -8,6 +8,7 @@ class_name CombatUI
 @onready var recovery_bar: PanelContainer = %RecoveryBar
 @onready var exhaustion_bar: PanelContainer = %ExhaustionBar
 @onready var strain_bar: PanelContainer = %StrainBar
+@onready var dominated_bar: PanelContainer = %DominatedBar
 
 var shouldBarsBeVisible := false
 var keepUITimer:float = 0.0
@@ -26,8 +27,11 @@ func _physics_process(_delta: float) -> void:
 	var theExhaustion := currentPawn.combatMovePlayer.getExhaustion()
 	var theStrain := currentPawn.combatMovePlayer.getStrainLevel()
 	var theStrainHaveEffectLevel := currentPawn.combatMovePlayer.getStrainHaveEffectLevel()
+	var theObeying:bool = currentPawn.submission.isObeying()
 	
 	var shouldShowCombatUI:bool = currentPawn.state.shouldShowCombatUI()
+	if(theObeying):
+		shouldShowCombatUI = true
 	if(menuToConnectTo && menuToConnectTo.is_visible_in_tree()):
 		shouldShowCombatUI = true
 	if(pain_bar.setValue(thePain)):
@@ -37,10 +41,19 @@ func _physics_process(_delta: float) -> void:
 	if(strain_bar.setValue(theStrain) && theStrain >= theStrainHaveEffectLevel):
 		shouldShowCombatUI = true
 	
+	dominated_bar.visible = theObeying
+	if(theObeying):
+		dominated_bar.setValue(currentPawn.submission.getOverallSubmissionValue())
+		dominated_bar.setRightText("")
+	
 	if(theStrain >= theStrainHaveEffectLevel):
 		strain_bar.visible = true
 	else:
 		strain_bar.visible = false
+	
+	# No combat ui in sex
+	if(currentPawn.isDoingSex()):
+		shouldShowCombatUI = false
 	
 	if(shouldShowCombatUI):
 		fadeIn()

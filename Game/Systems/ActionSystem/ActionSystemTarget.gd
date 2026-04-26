@@ -37,7 +37,7 @@ func shouldCancelAction(theAction:ActionSystemEntry) -> bool:
 func markDidConsent():
 	didConsent = true
 
-func isAutoConsented() -> bool:
+func isAutoConsented(_entry:ActionSystemEntry) -> bool:
 	if(timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
 		return false
 	if(timerType == ActionSystemEntry.TIMER_CAN_DENY):
@@ -45,15 +45,20 @@ func isAutoConsented() -> bool:
 			if(node.isDefeated()):
 				return true
 		return false
+	#if(timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+		#if(node is CharacterPawn):
+			#if(node.submission.isObeyingPawn()):
+				#return true
+		#return false
 	
-	return true
+	return false
 
-func hasAnyConsent() -> bool:
-	if(didConsent || isAutoConsented()):
+func hasAnyConsent(_entry:ActionSystemEntry) -> bool:
+	if(didConsent || isAutoConsented(_entry)):
 		return true
 	return false
 
-func needsConsent() -> bool:
+func needsConsent(_entry:ActionSystemEntry) -> bool:
 	if(timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
 		return true
 	if(timerType == ActionSystemEntry.TIMER_CAN_DENY):

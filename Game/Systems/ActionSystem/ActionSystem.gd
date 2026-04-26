@@ -84,7 +84,7 @@ func denyAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
 	if(!theTarget):
 		return false
 	
-	if(!theTarget.needsConsent()):
+	if(!theTarget.needsConsent(theEntry)):
 		return false
 	return cancelAction(theEntry)
 

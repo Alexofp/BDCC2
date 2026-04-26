@@ -47,5 +47,9 @@ func doDelayedAction(_context:PawnActionContext) -> bool:
 	if(!theInv.hasSlotEquipped(InventorySlot.Collar)):
 		var newCollar := GlobalRegistry.createItem("InmateCollar")
 		theInv.equipItem(newCollar, InventorySlot.Collar)
+		
+	#var theTargetPawn:CharacterPawn = _context.target
+	#if(theTargetPawn.submission.canBeEasilyDominatedBy(_context.pawn)):
+	#	theTargetPawn.submission.tryMakeObeyPawn(_context.pawn)
 	GM.pawnRegistry.addHoverTextGlobal(_context.pawn, "{user.You} {user.youVerb leash|leashes} {target.you}!", {user=_context.pawn.getCharID(), target=_context.target.getCharID()})
 	return true

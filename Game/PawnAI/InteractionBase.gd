@@ -197,7 +197,8 @@ func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
 	else:
 		doAction(pawnToRole[_pawn], _actionEntry)
 	
-	_pawn.ai.goalHandler.handleInteractionAction(self, _actionEntry)
+	for otherPawn in pawnToRole:
+		otherPawn.ai.goalHandler.handleInteractionAction(_pawn, self, _actionEntry)
 
 func getStateFunc(_name:String) -> String:
 	return stateRaw+"_"+_name
@@ -634,7 +635,7 @@ func checkTooFar(_dist:float = 7.0) -> bool:
 			return true
 	return false
 
-func checkTooFarAutoStop(_dist:float = 7.0) -> bool:
+func checkTooFarAutoStop(_dist:float = 10.0) -> bool:
 	if(checkTooFar(_dist)):
 		stopInteraction()
 		return true
@@ -714,3 +715,17 @@ func pushSexEngineResult(_result:SexEngineResult):
 		return
 	
 	onSexEngineResult(_result)
+
+func sendAIGoalEvent(_role:int, _eventID:String, _args:Array = []):
+	var thePawn := getPawn(_role)
+	if(!thePawn):
+		return
+	thePawn.ai.goalHandler.handleInteractionEvent(self, _eventID, _args)
+
+func isRoleAllowedToRecoverFromDefeat(_role:int) -> bool:
+	return true
+
+func isPawnAllowedToRecoverFromDefeat(_pawn:CharacterPawn) -> bool:
+	if(!pawnToRole.has(_pawn)):
+		return true
+	return isRoleAllowedToRecoverFromDefeat(pawnToRole[_pawn])

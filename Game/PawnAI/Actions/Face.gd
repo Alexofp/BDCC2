@@ -33,7 +33,7 @@ func think():
 	
 	var theDoll := getPawn().getDoll()
 	var theTargetDoll := getTargetPawn().getDoll()
-	if(theDoll && theTargetDoll):
+	if(theDoll && theTargetDoll && !getPawn().isDoingSex()):
 		GM.dollHolder.askLookAtDoll(theDoll, theTargetDoll, 5.0)
 		#theDoll.lookAtDoll(theTargetDoll)
 	

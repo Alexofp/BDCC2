@@ -9,9 +9,9 @@ func getVisibleName(_context:PawnActionContext) -> String:
 	return "Submit"
 
 func canDoAction(_context:PawnActionContext) -> bool:
-	if(GM.sitManager.isSitting(_context.pawn)):
-		return false
-	if(!_context.pawn.state.canBeDefeated()):
+	#if(GM.sitManager.isSitting(_context.pawn)):
+	#	return false
+	if(!_context.pawn.canBeDefeated()):
 		return false
 	return true
 

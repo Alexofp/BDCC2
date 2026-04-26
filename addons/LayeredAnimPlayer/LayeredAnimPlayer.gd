@@ -406,8 +406,10 @@ func addAnimEntry(layerAnim:LayerAnimBase, _animPos:Vector2) -> AnimationNode:
 		var theAnimNode := AnimationNodeBlendSpace1D.new()
 		theAnimNode.max_space = layerAnim.maxRange
 		theAnimNode.min_space = -layerAnim.maxRange
+		var _i:int = 0
 		for thePos in layerAnim.anims:
-			theAnimNode.add_blend_point(addAnimEntry(layerAnim.anims[thePos], Vector2.ZERO), thePos)
+			theAnimNode.add_blend_point(addAnimEntry(layerAnim.anims[thePos], Vector2.ZERO), thePos, -1, str(_i))
+			_i += 1
 		theAnimNode.sync = layerAnim.sync
 		return theAnimNode
 	if(layerAnim is LayerAnimBlend2D):

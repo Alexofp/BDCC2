@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bjcbpfemns8s4" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Normal.png" id="11_d16xg"]
 [ext_resource type="Texture2D" uid="uid://wenkwwijoepq" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_ORM.png" id="12_8yd8n"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_58q2d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5s66"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_p5s66")
@@ -37,7 +37,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q60gp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf5i2"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_p5s66")
@@ -57,7 +57,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qpb35"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gvoht"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_njmga")
@@ -79,7 +79,7 @@ shader_parameter/glowR = 0.0499999988824
 shader_parameter/glowG = 0.3999999910592
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd10b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_njmga"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("8_q8jub")
@@ -603,7 +603,7 @@ void light(){
 }
 #endif"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m0yn2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e0n2"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_1sqg3")
@@ -682,20 +682,20 @@ bones/44/rotation = Quaternion(0.7071068, 1.1267261e-06, 1.1267261e-06, 0.707106
 bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.7071068)
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=523040527]
-surface_material_override/0 = SubResource("ShaderMaterial_58q2d")
+surface_material_override/0 = SubResource("ShaderMaterial_p5s66")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=983181027]
-surface_material_override/0 = SubResource("ShaderMaterial_q60gp")
+surface_material_override/0 = SubResource("ShaderMaterial_qf5i2")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=586931206]
-surface_material_override/0 = SubResource("ShaderMaterial_qpb35")
-surface_material_override/1 = SubResource("ShaderMaterial_qpb35")
+surface_material_override/0 = SubResource("ShaderMaterial_gvoht")
+surface_material_override/1 = SubResource("ShaderMaterial_gvoht")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=31270612]
-surface_material_override/0 = SubResource("ShaderMaterial_nd10b")
+surface_material_override/0 = SubResource("ShaderMaterial_njmga")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=719419711]
-surface_material_override/0 = SubResource("ShaderMaterial_m0yn2")
+surface_material_override/0 = SubResource("ShaderMaterial_2e0n2")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1231524279]
 tree_root = ExtResource("11_2e0n2")

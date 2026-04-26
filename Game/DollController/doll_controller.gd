@@ -255,10 +255,11 @@ func _process(delta:float):
 	pawn.state.processDollLookAtModifiers(self, delta)
 	process_noclip(delta)
 	
-	var theSpeed := pawn.state.getRotationToTargetSpeed(self)
-	if(theSpeed > 0.0 && targetLookDir.length_squared() > 0.1):
-		rotateTowardsDirection(delta*theSpeed, targetLookDir)
-		#targetLookDir = Vector3.ZERO
+	if(pawn.state.shouldRotateToTargetSpeed()):
+		var theSpeed := pawn.state.getRotationToTargetSpeed(self)
+		if(theSpeed > 0.0 && targetLookDir.length_squared() > 0.1):
+			rotateTowardsDirection(delta*theSpeed, targetLookDir)
+			#targetLookDir = Vector3.ZERO
 	
 	if(!hasAuthority):
 		position = syncVec3(position, syncPosition)

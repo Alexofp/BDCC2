@@ -72,18 +72,18 @@ func isTarget(_node:Node) -> bool:
 	return getTargetSpecific(_node) != null
 
 func needsConsent() -> bool:
-	if(target.needsConsent()):
+	if(target.needsConsent(self)):
 		return true
 	for extraTarget in extraTargets:
-		if(extraTarget.needsConsent()):
+		if(extraTarget.needsConsent(self)):
 			return true
 	return false
 	
 func didEveryoneConsent() -> bool:
-	if(!target.hasAnyConsent()):
+	if(!target.hasAnyConsent(self)):
 		return false
 	for extraTarget in extraTargets:
-		if(!extraTarget.hasAnyConsent()):
+		if(!extraTarget.hasAnyConsent(self)):
 			return false
 	return true
 
@@ -183,7 +183,7 @@ func doAIDecisionForTarget(_target:ActionSystemTarget):
 func shouldDoAIDecision(_target:ActionSystemTarget, _f:float) -> bool:
 	if(_target.aiDecision != ActionSystemTarget.AI_DECISION_UNDECIDED):
 		return false
-	if(!_target.needsConsent()):
+	if(!_target.needsConsent(self)):
 		return false
 	if((timePassed > 1.6 && RNG.chance(20)) || _f > 0.8):
 		return true

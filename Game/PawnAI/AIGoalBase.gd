@@ -31,8 +31,8 @@ func isImportant() -> bool:
 func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:InteractionAction, _score:float) -> float:
 	return _score
 
-# Us performing a certain action, called after that action
-func handleInteractionAction(_interaction:InteractionBase, _action:InteractionAction) -> bool:
+# Anyone performing a certain action, called after that action
+func handleInteractionAction(_pawn:CharacterPawn, _interaction:InteractionBase, _action:InteractionAction) -> bool:
 	return false
 
 func setArgs(_args:Array):
@@ -92,6 +92,9 @@ func satisfyGoal():
 func failGoal():
 	stopMe()
 
+func cancelGoal():
+	stopMe()
+
 func processRareFinal(_dt:float):
 	processRare(_dt)
 
@@ -110,4 +113,7 @@ func makePlan(_id:String = "") -> AIPlan:
 	return newPlan
 
 func isStaticGoal() -> bool:
+	return false
+
+func handleInteractionEvent(_interaction:InteractionBase, _eventID:String, _args:Array) -> bool:
 	return false
