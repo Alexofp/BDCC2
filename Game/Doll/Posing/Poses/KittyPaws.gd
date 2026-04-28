@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "KittyPaws"
 	animName = "ArmsKittyPaws"
 	visibleName = "Kitty paws"
+	orderText = "Do kitty paws."
 	
 	poseType = PoseType.Arms
 	

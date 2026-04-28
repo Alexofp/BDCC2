@@ -7,3 +7,4 @@ func _init() -> void:
 	socialActionName = "Change arms pose"
 	poseType = DollPoseBase.PoseType.Arms
 	poseHandlerType = PawnPoseHandler.POSE_ARMS
+	normalText = "Put your hands down"

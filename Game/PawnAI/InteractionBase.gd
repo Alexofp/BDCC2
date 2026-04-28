@@ -729,3 +729,10 @@ func isPawnAllowedToRecoverFromDefeat(_pawn:CharacterPawn) -> bool:
 	if(!pawnToRole.has(_pawn)):
 		return true
 	return isRoleAllowedToRecoverFromDefeat(pawnToRole[_pawn])
+
+func refreshDominance(_role:int, _roleDom:int):
+	var thePawn := getPawn(_role)
+	var theDomPawn := getPawn(_roleDom)
+	if(!thePawn || !theDomPawn):
+		return
+	thePawn.submission.refreshDominanceOf(theDomPawn)

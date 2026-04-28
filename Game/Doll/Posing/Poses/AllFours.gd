@@ -5,6 +5,7 @@ func _init() -> void:
 	animName = "PoseAllFours"
 	visibleName = "All fours"
 	walkAnim = "WalkCrawl"
+	orderText = "Get on all fours."
 	
 	poseType = PoseType.Fullbody
 	

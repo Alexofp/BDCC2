@@ -78,10 +78,11 @@ func _do(_role:int, _action:InteractionAction):
 	
 	if(_action.id == "stop"):
 		#sayText(ROLE_MAIN, "Never mind.")
-		if(didSomething):
-			say(ROLE_MAIN, "EnoughChat", ROLE_TARGET)
-		else:
-			say(ROLE_MAIN, "NeverMind", ROLE_TARGET)
+		if(!shouldSkipGreet(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
+			if(didSomething):
+				say(ROLE_MAIN, "EnoughChat", ROLE_TARGET)
+			else:
+				say(ROLE_MAIN, "NeverMind", ROLE_TARGET)
 		
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)

@@ -4,6 +4,7 @@ extends InteractionSocialBase
 var dollPoseID:String = ""
 var poseType:int = DollPoseBase.PoseType.Fullbody
 var poseHandlerType:int = PawnPoseHandler.POSE_IDLE
+var normalText:String = "Stand normally"
 
 func _init() -> void:
 	id = "OrderPose"
@@ -37,7 +38,7 @@ func _actions(_role:int):
 	if(_role == ROLE_MAIN):
 		var currentIdle:String = getPawn(ROLE_TARGET).poseHandler.getPoseOf(poseHandlerType)
 		if(!currentIdle.is_empty()):
-			addAction(action("stand", "Stand normally").setScore(1.0))
+			addAction(action("stand", "Normal").setScore(1.0))
 		
 		for theDollPoseID in GlobalRegistry.getDollPoses():
 			var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(theDollPoseID)
@@ -49,15 +50,18 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "stand"):
 		dollPoseID = ""
 		#socialInteractionStart()
-		sayText(ROLE_MAIN, "Stand normally")
+		refreshDominance(ROLE_TARGET, ROLE_MAIN)
+		sayText(ROLE_MAIN, normalText)
 		pushDelay(2.0)
 		pushEvent("setPose", [""])
 		pushStopInteraction()
 		pushSetState("answer")
 	if(_action.id == "say"):
 		dollPoseID = _action.args[0]
+		var theDollPose:DollPoseBase = GlobalRegistry.getDollPose(dollPoseID)
 		#socialInteractionStart()
-		sayText(ROLE_MAIN, _action.args[0])
+		refreshDominance(ROLE_TARGET, ROLE_MAIN)
+		sayText(ROLE_MAIN, _action.args[0] if !theDollPose else theDollPose.getOrderDialogue())
 		pushDelay(2.0)
 		pushEvent("setPose", [dollPoseID])
 		pushStopInteraction()

@@ -11,6 +11,7 @@ var animName:String = ""
 var walkAnim:String = ""
 var visibleName:String = "Fill me!"
 var animLibraryName:String = ""
+var orderText:String = ""
 
 var noSprint:bool = false
 var walkSpeed:float = 1.0
@@ -42,6 +43,11 @@ func getWalkAnimNameOr(_alt:String) -> String:
 
 func getName() -> String:
 	return visibleName
+
+func getOrderDialogue() -> String:
+	if(orderText.is_empty()):
+		return visibleName
+	return orderText
 
 func preventsSprint() -> bool:
 	return noSprint

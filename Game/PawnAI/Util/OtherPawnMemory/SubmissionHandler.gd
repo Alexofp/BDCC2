@@ -24,6 +24,9 @@ func refreshDominance():
 		return
 	dominance = 1.0
 
+func refreshDominanceOf(_pawn:CharacterPawn):
+	refreshDominance()
+
 func checkObeyPawn():
 	if(obeyPawn):
 		if(obeyCharID.is_empty()):
@@ -107,7 +110,13 @@ func processSubmission(_dt:float):
 	if(pawn.isLeashedBy(obeyPawn)):
 		dominance += _dt * 0.05
 	else:
-		dominance -= _dt * 0.01
+		var theDist:float = pawn.global_position.distance_squared_to(obeyPawn.global_position)
+		if(theDist < 50.0):
+			dominance -= _dt * 0.01
+		elif(theDist < 300.0):
+			dominance -= _dt * 0.02
+		else:
+			dominance -= _dt * 0.1
 	if(dominance <= 0.0):
 		setObeyPawn(null)
 		return

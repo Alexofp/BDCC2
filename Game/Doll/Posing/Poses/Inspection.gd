@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Inspection"
 	animName = "PoseInspection"
 	visibleName = "Inspection"
+	orderText = "Present yourself for inspection."
 	
 	poseType = PoseType.Fullbody
 	
