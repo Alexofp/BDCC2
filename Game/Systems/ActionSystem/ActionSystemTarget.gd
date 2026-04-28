@@ -57,6 +57,8 @@ func needsConsent(_entry:ActionSystemEntry) -> bool:
 		return true
 	if(timerType == ActionSystemEntry.TIMER_MUST_CONSENT_ALWAYS):
 		return true
+	if(timerType == ActionSystemEntry.TIMER_ONLY):
+		return false
 	return false
 
 func hasConsentIfTimerEnds() -> bool:
@@ -68,6 +70,8 @@ func hasConsentIfTimerEnds() -> bool:
 		return false
 	if(timerType == ActionSystemEntry.TIMER_MUST_CONSENT_ALWAYS):
 		return false
+	if(timerType == ActionSystemEntry.TIMER_ONLY):
+		return true
 	return false
 
 func decideDeny():
