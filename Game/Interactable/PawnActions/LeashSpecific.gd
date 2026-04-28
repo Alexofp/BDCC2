@@ -32,7 +32,7 @@ func doAction(_context:PawnActionContext) -> bool:
 		GM.pawnRegistry.addHoverTextGlobal(_context.pawn, "{user.You} {user.youVerb unleash|unleashes} {target.you}!", {user=_context.pawn.getCharID(), target=_context.target.getCharID()})
 		return true
 	
-	startDelayedAction("{user.You} {user.youAre} trying to leash {target.you}!", _context, 1.0, _context.args).setTimerType(ActionSystemEntry.TIMER_CAN_DENY)
+	startDelayedAction("{user.You} {user.youAre} trying to leash {target.you}!", _context, 5.0, _context.args).setTimerType(ActionSystemEntry.TIMER_MUST_CONSENT)
 	return true
 
 func doDelayedAction(_context:PawnActionContext) -> bool:

@@ -11,8 +11,8 @@ func getVisibleName(_context:PawnActionContext) -> String:
 	return "OBEY TEST"
 
 func canDoAction(_context:PawnActionContext) -> bool:
-	if(true): # Disabled
-		return false
+	#if(true): # Disabled
+	#	return false
 	if(!_context.isTargetAPawn()):
 		return false
 	if(_context.pawn.hasInteraction()):

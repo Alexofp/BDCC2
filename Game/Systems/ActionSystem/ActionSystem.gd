@@ -66,30 +66,11 @@ func cancelAction(_actionEntry:ActionSystemEntry) -> bool:
 	#Log.Print("CANCELLED AN ACTION! "+str(_actionEntry))
 	return deleteAction(_actionEntry)
 
-func allowAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
-	var theTarget := theEntry.getTargetSpecific(_target)
-	if(!theTarget):
-		return false
-	
-	if(theTarget.timerType != ActionSystemEntry.TIMER_MUST_CONSENT):
-		return false
-	theTarget.markDidConsent()
-	
-	if(!theEntry.didEveryoneConsent()):
-		return false
-	return doAction(theEntry)
+func doUserAction(theEntry:ActionSystemEntry, _pawn:CharacterPawn, _actionID:String):
+	theEntry.onUserActionEntry(_pawn, _actionID)
 
-func denyAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
-	var theTarget := theEntry.getTargetSpecific(_target)
-	if(!theTarget):
-		return false
-	
-	if(!theTarget.needsConsent(theEntry)):
-		return false
-	return cancelAction(theEntry)
-
-func resistAction(theEntry:ActionSystemEntry, _target:Node) -> bool:
-	return denyAction(theEntry, _target)
+func doTargetAction(theEntry:ActionSystemEntry, _pawn:CharacterPawn, _actionID:String):
+	theEntry.onTargetActionEntry(_pawn, _actionID)
 
 func doAction(_actionEntry:ActionSystemEntry) -> bool:
 	var theUser := _actionEntry.user
@@ -185,77 +166,81 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 func processActions(_delta:float):
 	var actionsAm:int = actions.size()
 	
-	#TODO: CHECK EXTRAS
 	for _i in actionsAm: # Going backwards over actions so you can delete them while iterating over them
 		var _indx:int = actionsAm - 1 - _i
 		var theAction := actions[_indx]
-		var theUser := theAction.user
-		var theTarget := theAction.target.node
 		
-		# Better way to check if the pawn was deleted?
-		if(!theUser || !is_instance_valid(theUser)):
-			# Cancel instead?
-			deleteAction(theAction)
-			continue
-		
-		if(theAction.userMove != ActionSystemEntry.USER_CANMOVE):
-			var speedUser := getSpeedOf(theUser)
-			if(theAction.userMove == ActionSystemEntry.USER_NO_MOVEMENT && speedUser.length_squared() >= 1.0):
-				cancelAction(theAction)
-				continue
-			if(theAction.userMove == ActionSystemEntry.USER_NO_RUNNING && speedUser.length_squared() >= 16.0):
-				cancelAction(theAction)
-				continue
-		
-		if(theAction.target.shouldCancelAction(theAction)):
-			cancelAction(theAction)
-			continue
-		
-		var didCancel:bool = false
-		for extraTarget in theAction.extraTargets:
-			if(extraTarget.shouldCancelAction(theAction)):
-				cancelAction(theAction)
-				didCancel = true
-				break
-		if(didCancel):
-			continue
-		
-		var thePawnAction := theAction.action
-		var theContext := theAction.user.pawnActionContext
-		theContext.target = theTarget
-		theContext.args = theAction.args
-		if(!thePawnAction.canDoDelayedAction(theContext)):
-			theContext.clearContext()
-			cancelAction(theAction)
-			continue
-		
-		var timePassMult:float = 1.0
-		if(theAction.needsConsent() && theAction.didEveryoneConsent()):
-			#theContext.clearContext()
-			#doAction(theAction)
+		theAction.processAction(_delta)
+		#if(true):
 			#continue
-			timePassMult *= theAction.consentTimeMult
-		
-		theAction.timePassed += _delta * timePassMult
-		if(theAction.timePassed >= theAction.timeFull):
-			theContext.clearContext()
-			
-			var shouldDoTheAction:bool = true
-			if(theAction.target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-				shouldDoTheAction = false
-			for extraTarget in theAction.extraTargets:
-				if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-					shouldDoTheAction = false
-					break
-			
-			if(shouldDoTheAction):
-				doAction(theAction)
-			else:
-				cancelAction(theAction)
-			continue
-		else:
-			theAction.doAIDecisions()
-		theContext.clearContext()
+		#
+		#var theUser := theAction.user
+		#var theTarget := theAction.target.node
+		#
+		## Better way to check if the pawn was deleted?
+		#if(!theUser || !is_instance_valid(theUser)):
+			## Cancel instead?
+			#deleteAction(theAction)
+			#continue
+		#
+		#if(theAction.userMove != ActionSystemEntry.MOVE_CANMOVE):
+			#var speedUser := getSpeedOf(theUser)
+			#if(theAction.userMove == ActionSystemEntry.MOVE_NO_MOVEMENT && speedUser.length_squared() >= 1.0):
+				#cancelAction(theAction)
+				#continue
+			#if(theAction.userMove == ActionSystemEntry.MOVE_NO_RUNNING && speedUser.length_squared() >= 16.0):
+				#cancelAction(theAction)
+				#continue
+		#
+		#if(theAction.target.shouldCancelAction(theAction)):
+			#cancelAction(theAction)
+			#continue
+		#
+		#var didCancel:bool = false
+		#for extraTarget in theAction.extraTargets:
+			#if(extraTarget.shouldCancelAction(theAction)):
+				#cancelAction(theAction)
+				#didCancel = true
+				#break
+		#if(didCancel):
+			#continue
+		#
+		#var thePawnAction := theAction.action
+		#var theContext := theAction.user.pawnActionContext
+		#theContext.target = theTarget
+		#theContext.args = theAction.args
+		#if(!thePawnAction.canDoDelayedAction(theContext)):
+			#theContext.clearContext()
+			#cancelAction(theAction)
+			#continue
+		#
+		#var timePassMult:float = 1.0
+		#if(theAction.needsConsent() && theAction.didEveryoneConsent()):
+			##theContext.clearContext()
+			##doAction(theAction)
+			##continue
+			#timePassMult *= theAction.consentTimeMult
+		#
+		#theAction.timePassed += _delta * timePassMult
+		#if(theAction.timePassed >= theAction.timeFull):
+			#theContext.clearContext()
+			#
+			#var shouldDoTheAction:bool = true
+			#if(theAction.target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+				#shouldDoTheAction = false
+			#for extraTarget in theAction.extraTargets:
+				#if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
+					#shouldDoTheAction = false
+					#break
+			#
+			#if(shouldDoTheAction):
+				#doAction(theAction)
+			#else:
+				#cancelAction(theAction)
+			#continue
+		#else:
+			#theAction.doAIDecisions()
+		#theContext.clearContext()
 
 func cancelAllActionsOfUser(_user:CharacterPawn):
 	if(!userToActions.has(_user)):
@@ -267,7 +252,7 @@ func cancelAllActionsOfUser(_user:CharacterPawn):
 		var _indx:int = theAm - _i - 1
 		cancelAction(theActionsToCancel[_indx])
 
-func cancelAllActionsOfTarget(_target:Node):
+func cancelAllActionsOfMainTarget(_target:Node):
 	if(!targetToActions.has(_target)):
 		return
 	var theActionsToCancel := targetToActions[_target]
@@ -287,8 +272,8 @@ func cancelAllActionsOfExtraTarget(_target:Node):
 		var _indx:int = theAm - _i - 1
 		cancelAction(theActionsToCancel[_indx])
 
-func cancelAllActionsOfTargetAll(_target:Node):
-	cancelAllActionsOfTarget(_target)
+func cancelAllActionsOfTarget(_target:Node):
+	cancelAllActionsOfMainTarget(_target)
 	cancelAllActionsOfExtraTarget(_target)
 
 func getAllActionsOfUser(_user:CharacterPawn) -> Array[ActionSystemEntry]:
@@ -301,7 +286,7 @@ func isUserDoingSomething(_user:CharacterPawn) -> bool:
 		return false
 	return !userToActions[_user].is_empty()
 
-func getAllActionsOfTarget(_target:Node) -> Array[ActionSystemEntry]:
+func getAllActionsOfMainTarget(_target:Node) -> Array[ActionSystemEntry]:
 	if(!targetToActions.has(_target)):
 		return []
 	return targetToActions[_target]
@@ -311,8 +296,8 @@ func getAllActionsOfExtraTarget(_target:Node) -> Array[ActionSystemEntry]:
 		return []
 	return extraTargetToActions[_target]
 
-func getAllActionsOfTargetAll(_target:Node) -> Array[ActionSystemEntry]:
-	var _l1 := getAllActionsOfTarget(_target)
+func getAllActionsOfTarget(_target:Node) -> Array[ActionSystemEntry]:
+	var _l1 := getAllActionsOfMainTarget(_target)
 	var _l2 := getAllActionsOfExtraTarget(_target)
 	if(_l1.is_empty()):
 		return _l2
@@ -330,6 +315,16 @@ static func getSpeedOf(_node:Node) -> Vector3:
 	elif(_node is CharacterBody3D):
 		return _node.velocity
 	return Vector3(0.0, 0.0, 0.0)
+
+static func checkSpeedCondition(_node:Node, _speedCheck:int) -> bool:
+	if(_speedCheck == ActionSystemEntry.MOVE_CANMOVE):
+		return true
+	var speedTarget := getSpeedOf(_node)
+	if(_speedCheck == ActionSystemEntry.MOVE_NO_MOVEMENT && speedTarget.length_squared() >= 1.0):
+		return false
+	if(_speedCheck == ActionSystemEntry.MOVE_NO_RUNNING && speedTarget.length_squared() >= 16.0):
+		return false
+	return true
 
 func findActionEntryByUniqueID(_uid:int) -> ActionSystemEntry:
 	if(!actionByUniqueID.has(_uid)):

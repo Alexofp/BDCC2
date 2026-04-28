@@ -40,7 +40,7 @@ func doAction(_context:PawnActionContext) -> bool:
 	if(_context.target.getSitterSlot(theSlot) == _context.pawn):
 		_context.target.setSitter(theSlot, null)
 		return true
-	#startDelayedAction("{user.You} BEGAN SITTING!", _context, 2.0, _context.args).setUserMove(ActionSystemEntry.USER_NO_RUNNING)
+	#startDelayedAction("{user.You} BEGAN SITTING!", _context, 2.0, _context.args).setUserMove(ActionSystemEntry.MOVE_NO_RUNNING)
 	_context.target.setSitter(theSlot, _context.pawn)
 	return true
 

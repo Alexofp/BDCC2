@@ -1148,25 +1148,18 @@ func internal_checkCanDoActions(result:Array[InteractEntryDo], _target:Node):
 func getQuickActionsSelf() -> Array[InteractEntryDo]:
 	var result:Array[InteractEntryDo] = []
 	
+	# Delayed actions
 	if(true):
 		var currentDelayedActions := GM.actionSystem.getAllActionsOfUser(self)
 		for entry in currentDelayedActions:
-			if(entry.cancelType != ActionSystemEntry.CANCEL_ALLOW):
-				continue
-			result.append(InteractEntryDo.create("ActionCancel", [entry.uniqueID]))
-	
+			result.append_array(entry.getActionEntriesForUserPawn(self))
 	if(true):
-		var currentDelayedActions := GM.actionSystem.getAllActionsOfTargetAll(self)
+		var currentDelayedActions := GM.actionSystem.getAllActionsOfTarget(self)
 		for entry in currentDelayedActions:
-			var theTarget := entry.getTargetSpecific(self)
-			if(theTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-				result.append(InteractEntryDo.create("ActionAllow", [entry.uniqueID]))
-				result.append(InteractEntryDo.create("ActionDeny", [entry.uniqueID]))
-			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY):
-				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
-			elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
-				result.append(InteractEntryDo.create("ActionResist", [entry.uniqueID]))
+			result.append_array(entry.getActionEntriesForTargetPawn(self))
+	# Delayed actions end
 	
+	# Interactions (now handled by Big Actions instead)
 	if(false && interaction):
 		var theInteractActions := interaction.getActionsFor(self)
 		

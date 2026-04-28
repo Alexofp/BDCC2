@@ -33,7 +33,6 @@ mouse_filter = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/VBoxContainer2" unique_id=515660072]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
 
 [node name="ActionList" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2/ScrollContainer" unique_id=1005561953]
 unique_name_in_owner = true

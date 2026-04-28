@@ -8,6 +8,8 @@ func getVisibleName(_context:PawnActionContext) -> String:
 	return "Force sex"
 
 func canDoAction(_context:PawnActionContext) -> bool:
+	if(true): # Disabled, Offer sex is now used for everything
+		return false
 	if(!_context.isTargetAPawn()):
 		return false
 	if(GM.sitManager.isSitting(_context.pawn)):

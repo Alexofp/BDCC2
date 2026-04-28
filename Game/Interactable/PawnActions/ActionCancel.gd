@@ -15,9 +15,7 @@ func canDoAction(_context:PawnActionContext) -> bool:
 
 func doAction(_context:PawnActionContext) -> bool:
 	var theActionID:int = _context.getArg(ARG_UNIQUE_ID, 0)
-	
 	var theEntry := GM.actionSystem.findActionEntryByUniqueID(theActionID)
 	if(theEntry):
-		GM.actionSystem.cancelAction(theEntry)
-	
+		GM.actionSystem.doUserAction(theEntry, _context.pawn, id)
 	return true

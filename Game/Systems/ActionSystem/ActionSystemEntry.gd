@@ -1,28 +1,25 @@
 extends RefCounted
 class_name ActionSystemEntry
 
-const TIMER_ONLY = 0
-const TIMER_MUST_CONSENT = 1
-const TIMER_CAN_DENY = 2
-const TIMER_CAN_DENY_ALWAYS = 3 # Can deny even if defeated
+const TIMER_ONLY = 0 # Action always happens when the timer ends
+const TIMER_MUST_CONSENT = 1 # Action happens if the target allows it. Or if the target is dominated by the user
+const TIMER_MUST_CONSENT_ALWAYS = 2 # Action happens ONLY if the target explicitly allows it. No exceptions
+const TIMER_CAN_DENY = 3 # Action will happen unless the target resists it. Can't resist if the target is dominated by the user
+const TIMER_CAN_DENY_ALWAYS = 4 # Can deny even if dominated by the user
 
 const CONDITION_NONE = 0
 const CONDITION_DISTANCE = 1
 
-const USER_CANMOVE = 0
-const USER_NO_RUNNING = 1
-const USER_NO_MOVEMENT = 2
-
-const TARGET_CANMOVE = 0
-const TARGET_NO_RUNNING = 1
-const TARGET_NO_MOVEMENT = 2
+const MOVE_CANMOVE = 0
+const MOVE_NO_RUNNING = 1
+const MOVE_NO_MOVEMENT = 2
 
 const CANCEL_DISALLOW = 0
 const CANCEL_ALLOW = 1
 
 var uniqueID:int = -1
 
-var userMove:int = USER_CANMOVE
+var userMove:int = MOVE_CANMOVE
 var cancelType:int = CANCEL_ALLOW
 var cancelIfHit:bool = true # Cancel the action if user got hit by someone
 
@@ -92,10 +89,10 @@ func getProgressValue() -> float:
 		return 1.0
 	var theVal:float = clamp(timePassed / timeFull, 0.0, 1.0)
 	
-	if(target.timerType == TIMER_MUST_CONSENT):
+	if(target.timerType == TIMER_MUST_CONSENT || target.timerType == TIMER_MUST_CONSENT_ALWAYS):
 		return 1.0 - theVal
 	for extra in extraTargets:
-		if(extra.timerType == TIMER_MUST_CONSENT):
+		if(extra.timerType == TIMER_MUST_CONSENT || extra.timerType == TIMER_MUST_CONSENT_ALWAYS):
 			return 1.0 - theVal
 	return theVal
 
@@ -147,9 +144,6 @@ func setCancelType(_type:int) -> ActionSystemEntry:
 	cancelType = _type
 	return self
 
-func deleteMe():
-	GM.actionSystem.deleteAction(self)
-
 func setCancelOnUserGettingHit(_h:bool) -> ActionSystemEntry:
 	cancelIfHit = _h
 	return self
@@ -163,15 +157,18 @@ func doAIDecisionForTarget(_target:ActionSystemTarget):
 	
 	thePawn.ai.reactDelayedAction(self)
 	
+	if(_target.hasAnyConsent(self)):
+		return
+	
 	if(_target.aiDecision == ActionSystemTarget.AI_DECISION_ALLOW):
-		if(_target.timerType == TIMER_MUST_CONSENT):
+		if(_target.timerType == TIMER_MUST_CONSENT || _target.timerType == TIMER_MUST_CONSENT_ALWAYS):
 			thePawn.doInteractEntryDo(
 				InteractEntryDo.create("ActionAllow", [uniqueID]), thePawn,
 			)
 		else:
 			pass # Just let it happen
 	elif(_target.aiDecision == ActionSystemTarget.AI_DECISION_DENY):
-		if(_target.timerType == TIMER_MUST_CONSENT):
+		if(_target.timerType == TIMER_MUST_CONSENT || target.timerType == TIMER_MUST_CONSENT_ALWAYS):
 			thePawn.doInteractEntryDo(
 				InteractEntryDo.create("ActionDeny", [uniqueID]), thePawn,
 			)
@@ -185,7 +182,7 @@ func shouldDoAIDecision(_target:ActionSystemTarget, _f:float) -> bool:
 		return false
 	if(!_target.needsConsent(self)):
 		return false
-	if((timePassed > 1.6 && RNG.chance(20)) || _f > 0.8):
+	if((timePassed > 0.6 && RNG.chance(20)) || _f > 0.8):
 		return true
 	return false
 
@@ -197,4 +194,114 @@ func doAIDecisions():
 	for extraTarget in extraTargets:
 		if(shouldDoAIDecision(extraTarget, theF)):
 			doAIDecisionForTarget(extraTarget)
+
+func deleteMe():
+	GM.main.action_system.deleteAction(self)
+
+func cancelMe():
+	GM.main.action_system.cancelAction(self)
+
+func doMe():
+	GM.main.action_system.doAction(self)
+
+func processAction(_delta:float):
+	var theUser := user
+	var theTarget := target.node
 	
+	if(!ActionSystem.checkSpeedCondition(theUser, userMove)):
+		cancelMe()
+		return
+	if(target.shouldCancelAction(self)):
+		cancelMe()
+		return
+	for extraTarget in extraTargets:
+		if(extraTarget.shouldCancelAction(self)):
+			cancelMe()
+			return
+
+	var theContext := user.pawnActionContext
+	theContext.target = theTarget
+	theContext.args = args
+	if(!action.canDoDelayedAction(theContext)):
+		theContext.clearContext()
+		cancelMe()
+		return
+	theContext.clearContext()
+
+	#var timePassMult:float = 1.0
+	var _hasConsent:bool = false
+	if(needsConsent() && didEveryoneConsent()):
+		#timePassMult *= consentTimeMult
+		_hasConsent = true
+
+	if(checkShouldDoItself(_delta, _hasConsent)):
+		return
+	
+	doAIDecisions()
+
+## Gets called when the timer ends, decides what to do.
+func doActionOnTimerEnd() -> bool:
+	if(!target.hasConsentIfTimerEnds() && !target.hasAnyConsent(self)):
+		cancelMe()
+		return true
+	for extraTarget in extraTargets:
+		if(!extraTarget.hasConsentIfTimerEnds() && !extraTarget.hasAnyConsent(self)):
+			cancelMe()
+			return true
+	doMe()
+	return true
+
+## Gets called every frame.
+## Checks if we got all the consent and completes the action then
+func checkShouldDoItself(_dt:float, _hasConsent:bool) -> bool:
+	if(_hasConsent && timeFull > 1.0): # makes it take <1 second
+		_dt *= timeFull
+		
+	timePassed += _dt
+	if(timePassed >= timeFull):
+		doActionOnTimerEnd()
+		return true
+	return false
+
+func getActionEntriesForUserPawn(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var result:Array[InteractEntryDo] = []
+	if(cancelType == ActionSystemEntry.CANCEL_ALLOW):
+		result.append(InteractEntryDo.create("ActionCancel", [uniqueID]))
+	return result
+
+func onUserActionEntry(_pawn:CharacterPawn, _id:String):
+	if(_pawn != user):
+		return
+	if(_id == "ActionCancel"):
+		cancelMe()
+
+func getActionEntriesForTargetPawn(_pawn:CharacterPawn) -> Array[InteractEntryDo]:
+	var theTarget := getTargetSpecific(_pawn)
+	if(!theTarget || theTarget.hasAnyConsent(self)):
+		return []
+	var result:Array[InteractEntryDo] = []
+	if(theTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT || theTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT_ALWAYS):
+		result.append(InteractEntryDo.create("ActionAllow", [uniqueID]))
+		result.append(InteractEntryDo.create("ActionDeny", [uniqueID]))
+	elif(theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY || theTarget.timerType == ActionSystemEntry.TIMER_CAN_DENY_ALWAYS):
+		result.append(InteractEntryDo.create("ActionResist", [uniqueID]))
+	return result
+
+func onTargetActionEntry(_node:Node, _id:String):
+	var theTarget := getTargetSpecific(_node)
+	if(!theTarget):
+		return
+	
+	if(_id == "ActionDeny"):
+		if(!theTarget.needsConsent(self)):
+			return
+		cancelMe()
+	if(_id == "ActionResist"):
+		if(!theTarget.needsConsent(self)):
+			return
+		cancelMe()
+	if(_id == "ActionAllow"):
+		theTarget.markDidConsent()
+		#if(!didEveryoneConsent()):
+		#	return
+		#doMe()

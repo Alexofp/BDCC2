@@ -71,6 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
 
 [node name="SpringArm" type="SpringArm3D" parent="FixedCameraPivot" unique_id=41748401]
 unique_name_in_owner = true
+collision_mask = 0
 shape = SubResource("SeparationRayShape3D_o3r2a")
 
 [node name="FixedCamera" type="Camera3D" parent="FixedCameraPivot/SpringArm" unique_id=1718227827]

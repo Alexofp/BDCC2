@@ -18,6 +18,6 @@ func doAction(_context:PawnActionContext) -> bool:
 	
 	var theEntry := GM.actionSystem.findActionEntryByUniqueID(theActionID)
 	if(theEntry):
-		GM.actionSystem.allowAction(theEntry, _context.pawn)
+		GM.actionSystem.doTargetAction(theEntry, _context.pawn, id)
 		GM.pawnRegistry.addHoverTextGlobal(_context.pawn, "{user.You} {user.youVerb allow} it!", {user=_context.pawn.getCharID()})
 	return true
