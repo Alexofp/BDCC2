@@ -17,3 +17,9 @@ func getSexHideTags() -> Dictionary:
 
 func isBondageGear() -> bool:
 	return true
+
+func prepareBuffs() -> Array[Buff]:
+	return [
+		Buffs.ArmsBoundBuff.new(),
+		Buffs.SuppressionBuff.new(0.2),
+	]

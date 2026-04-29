@@ -7,6 +7,9 @@ var uniqueID:int = 0
 var invRef:WeakRef
 var currentSlot:int = -1
 
+var staticBuffs:Array[Buff]
+var buffsNeedUpdate:bool = true
+
 func _init():
 	super._init()
 
@@ -17,11 +20,31 @@ func getDescription() -> String:
 	return "Fill me!"
 
 func getDescriptionFinal() -> String:
+	var theBuffsDesc := getBuffsDescription()
 	var theOptionsDesc := getInteractOptionsDescription()
+	
+	var result:String = getDescription()
+	
 	if(!theOptionsDesc.is_empty()):
-		return Util.join(theOptionsDesc, "\n")+"\n"+getDescription()
-	return getDescription()
+		result = Util.join(theOptionsDesc, "\n")+"\n"+result
+	if(!theBuffsDesc.is_empty()):
+		result += "\n\n"+theBuffsDesc
+	
+	return result
 
+func getBuffsDescription() -> String:
+	var theBuffs := getBuffs()
+	if(theBuffs.is_empty()):
+		return ""
+	var result:String = ""
+	for theBuff in theBuffs:
+		if(theBuff.invisible):
+			continue
+		if(!result.is_empty()):
+			result += "\n"
+		result += "[color=#"+theBuff.getColor().to_html(false)+"]"+theBuff.getName()+" "+theBuff.getBuffText()+"[/color]"
+	return result
+	
 func getInteractOptionsDescription() -> Array[String]:
 	var result:Array[String] = []
 	
@@ -234,9 +257,6 @@ func onAutoEquipAfterSex():
 func isBondageGear() -> bool:
 	return false
 
-func shouldBlindCharacter() -> bool:
-	return false
-
 func isStrapon() -> bool:
 	return false
 
@@ -304,6 +324,15 @@ func getLeashTargets() -> Array[String]:
 
 func getLeashTargetName(_id:String) -> String:
 	return _id
+
+func prepareBuffs() -> Array[Buff]:
+	return []
+
+func getBuffs() -> Array[Buff]:
+	if(buffsNeedUpdate):
+		buffsNeedUpdate = false
+		staticBuffs = prepareBuffs()
+	return staticBuffs
 
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()

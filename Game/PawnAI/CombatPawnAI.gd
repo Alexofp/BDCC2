@@ -278,11 +278,17 @@ func processQueue(_dt:float):
 		elif(actionType == ACTION_BLOCK):
 			blockTime = actionArgs[0]
 		elif(actionType == ACTION_ATTACK):
-			pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_ATTACK1)
+			pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_ATTACK1 if pawn.combatMovePlayer.canActivateTrigger(CombatMoveBase.ACTIVATE_ATTACK1) else CombatMoveBase.ACTIVATE_SPACE)
 		elif(actionType == ACTION_ATTACK_HEAVY):
-			pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SPACE)
+			pawn.combatMovePlayer.activateTrigger(CombatMoveBase.ACTIVATE_SPACE if pawn.combatMovePlayer.canActivateTrigger(CombatMoveBase.ACTIVATE_SPACE) else CombatMoveBase.ACTIVATE_ATTACK1)
 		elif(actionType == ACTION_ATTACK_PICK):
-			pawn.combatMovePlayer.activateTrigger(RNG.pick([CombatMoveBase.ACTIVATE_SPACE, CombatMoveBase.ACTIVATE_ATTACK1]))
+			var possible:Array[int] = []
+			if(pawn.combatMovePlayer.canActivateTrigger(CombatMoveBase.ACTIVATE_SPACE)):
+				possible.append(CombatMoveBase.ACTIVATE_SPACE)
+			if(pawn.combatMovePlayer.canActivateTrigger(CombatMoveBase.ACTIVATE_ATTACK1)):
+				possible.append(CombatMoveBase.ACTIVATE_ATTACK1)
+			if(!possible.is_empty()):
+				pawn.combatMovePlayer.activateTrigger(RNG.pick(possible))
 		elif(actionType == ACTION_WAIT_NO_MOVE):
 			if(pawn.combatMovePlayer.isDoingAMove()):
 				break

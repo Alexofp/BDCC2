@@ -23,6 +23,7 @@ var walkAnim:String = "WalkUnisex"
 var personality:Personality = Personality.new()
 var fetishHolder:FetishHolder = FetishHolder.new()
 var memoryHolder:MemoryHolder = MemoryHolder.new()
+var buffsHolder:BuffsHolder = BuffsHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -49,6 +50,8 @@ func _init():
 	inventory.onEquippedItemChange.connect(onInventoryEquipItemChange)
 	inventory.onEquippedItemOptionChange.connect(onInventoryEquipItemOptionChangeCallback)
 	inventory.setCharacter(self)
+	
+	buffsHolder.setCharacter(self)
 	
 	#inventory.setEquippedItem(InventorySlot.Eyes, GlobalRegistry.createItem("Blindfold"))
 	
@@ -84,10 +87,11 @@ func onInventoryEquipItemChange(_slot:int, _item:ItemBase):
 	updatePartFilter()
 	onChange.emit(BaseCharChange.createPartChange(GENERIC_CLOTHING, _slot))
 	triggerLeashpointUpdate()
+	buffsHolder.requestBuffsUpdateDelayed()
 	
 func onInventoryEquipItemOptionChangeCallback(optionID:String, value, _part:ItemBase, slot:int):
 	onChange.emit(BaseCharChange.createPartOptionChange(GENERIC_CLOTHING, slot, optionID, value))
-
+	
 func addBodypart(slot:int, part:BodypartBase):
 	if(part == null):
 		clearBodypart(slot)
@@ -539,6 +543,7 @@ func processTime(_dt:float):
 			charState.socialExhaustion = 0.0
 	
 	charState.processTime(_dt)
+	buffsHolder.processTime(_dt)
 
 func getSocialExhaustion() -> float:
 	return charState.socialExhaustion
@@ -719,12 +724,7 @@ func hasReachableAnus() -> bool:
 	return hasAnus()
 
 func isBlind() -> bool:
-	if(inventory.hasSlotEquipped(InventorySlot.Eyes)):
-		var theItem := inventory.getEquippedItem(InventorySlot.Eyes)
-		if(theItem.shouldBlindCharacter()):
-			return true
-	
-	return false
+	return buffsHolder.isBlind()
 
 func isZoneCovered(_zone:int) -> bool:
 	return inventory.isZoneCovered(_zone)

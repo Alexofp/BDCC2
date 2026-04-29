@@ -19,3 +19,8 @@ func isBondageGear() -> bool:
 
 func getLeashTargets() -> Array[String]:
 	return ["collar"]
+
+func prepareBuffs() -> Array[Buff]:
+	return [
+		#Buffs.PainThresholdBuff.new(-0.2),
+	]

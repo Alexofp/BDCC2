@@ -47,8 +47,26 @@ func onDefeat():
 func onCollapse():
 	pass
 
+func canActivateTrigger(_act:int) -> bool:
+	var theBuffsHolder := pawn.getBuffsHolder()
+	if(!theBuffsHolder):
+		return false
+	if(_act == CombatMoveBase.ACTIVATE_ATTACK1):
+		if(theBuffsHolder.hasBoundArms()):
+			return false
+	if(_act == CombatMoveBase.ACTIVATE_SHIFT):
+		if(theBuffsHolder.hasBoundLegs()):
+			return false
+	if(_act == CombatMoveBase.ACTIVATE_SPACE):
+		if(theBuffsHolder.hasBoundLegs()):
+			return false
+	
+	return true
+
 func activateTrigger(_act:int) -> bool:
 	if(!pawn.canDoCombatMoves()):
+		return false
+	if(!canActivateTrigger(_act)):
 		return false
 	
 	var allMoves := GlobalRegistry.getCombatMovesByActivationType(_act)
@@ -519,6 +537,8 @@ func canBlock() -> bool:
 		return false
 	if(noAttackTimer > 0.0):
 		return false
+	if(pawn.getBuffsHolder().hasBoundArms()):
+		return false
 	
 	return true
 
@@ -526,6 +546,8 @@ func canDodge() -> bool:
 	if(isExhausted()):
 		return false
 	if(!canUseMoveID("Dodge")):
+		return false
+	if(pawn.getBuffsHolder().hasBoundLegs()):
 		return false
 	return true
 	

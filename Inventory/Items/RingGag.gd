@@ -16,3 +16,10 @@ func getSexHideTags() -> Dictionary:
 
 func isBondageGear() -> bool:
 	return true
+
+func prepareBuffs() -> Array[Buff]:
+	return [
+		Buffs.GaggedSpeechBuff.new(),
+		Buffs.BitingBlockedBuff.new(),
+		Buffs.SuppressionBuff.new(0.15),
+	]

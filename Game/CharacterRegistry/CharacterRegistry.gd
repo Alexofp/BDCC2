@@ -308,9 +308,10 @@ func characterWizardSubmitDo(character:BaseCharacter, _data:Dictionary):
 	character.resetToBaseEditorState()
 	
 func _physics_process(_delta: float) -> void:
-	for charID in characters: #TODO: process far-away npcs less often
-		var character:BaseCharacter = characters[charID]
-		character.processTime(_delta)
+	if(Network.isServer()):
+		for charID in characters: #TODO: process far-away npcs less often
+			var character:BaseCharacter = characters[charID]
+			character.processTime(_delta)
 	
 	if(Network.isServerNotSingleplayer()):
 		for charID in characters:
@@ -330,6 +331,12 @@ func _physics_process(_delta: float) -> void:
 				
 				if(bodyMess.dirty <= 0.0):
 					Network.rpcClients(syncBodyMess_RPC.bind(charID, bodyMess.saveData()))
+			
+			var buffSyncState:SyncState = character.buffsHolder.syncState
+			if(buffSyncState.getDirtyTime() >= 0.5):
+				var dirtyData:=buffSyncState.getDelta()
+				Network.rpcClients(syncBuffsState_RPC.bind(charID, dirtyData))
+				buffSyncState.resetDelta()
 
 @rpc("authority", "call_remote", "reliable")
 func syncCharState_RPC(_characterID:String, _data:PackedByteArray):
@@ -337,6 +344,13 @@ func syncCharState_RPC(_characterID:String, _data:PackedByteArray):
 	if(!theCharacter):
 		return
 	theCharacter.getCharState().syncState.applyDelta(_data)
+
+@rpc("authority", "call_remote", "reliable")
+func syncBuffsState_RPC(_characterID:String, _data:PackedByteArray):
+	var theCharacter:BaseCharacter = getCharacter(_characterID)
+	if(!theCharacter):
+		return
+	theCharacter.buffsHolder.syncState.applyDelta(_data)
 
 @rpc("authority", "call_remote", "reliable")
 func syncBodyMess_RPC(_characterID:String, _data:Dictionary):

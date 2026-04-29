@@ -3,14 +3,16 @@ class_name CharState
 
 ## Anything that's character related and changes semi-often should go here.
 var charID:String = ""
+var character:WeakRef
 
 var arousal:float = 0.0
 var arousalFade:float = 0.0
 var autoMoan:float = 0.0
 
 var pain:float = 0.0
-
 var socialExhaustion:float = 0.0
+
+var veryRareTimer:float = 0.0 # 10 second timer, no sync
 
 var syncState:SyncState = SyncState.new(self,
 	["arousal", "arousalFade", "autoMoan", "pain", "socialExhaustion"],
@@ -26,9 +28,11 @@ func _init() -> void:
 
 func setCharacter(_theChar:BaseCharacter):
 	charID = _theChar.getID() if _theChar else ""
+	character = weakref(_theChar) if _theChar else null
 
-func getCharacter() -> BaseCharacter:
-	return GM.characterRegistry.getCharacter(charID)
+func getCharacter() -> BaseCharacter: # If this returns null, something is very wrong
+	assert(!!character, "Something went very wrong!")
+	return character.get_ref() if character else null
 
 func setArousal(_newVal:float):
 	_newVal = clampf(_newVal, 0.0, 1.0)
@@ -87,6 +91,11 @@ func processTime(_dt:float):
 	if(shouldAutoMoan()):
 		addAutoMoanCappedMin(-_dt, 0.0)
 	
+	veryRareTimer += _dt
+	if(veryRareTimer > 10.0):
+		onVeryRareUpdate(veryRareTimer)
+		veryRareTimer = 0.0
+	
 	syncState.processSyncState(_dt)
 
 func shouldAutoMoan() -> bool:
@@ -105,10 +114,23 @@ func getPain() -> float:
 	return pain
 
 func getPainMax() -> float:
-	return 1.0
+	return maxf(1.0 + getCharacter().buffsHolder.getPainExtraThreshold(), 0.01)
 
 func getPainLevel() -> float:
 	return getPain() / getPainMax()
+
+const RARE_UPDATE_MULT:float = 0.1
+
+func onVeryRareUpdate(_dt:float):
+	var theMaxPain := getPainMax()
+	var restMult:float = 1.0
+	
+	var thePawn := getCharacter().getPawn()
+	if(thePawn && thePawn.isSittingSomewhere()):
+		restMult *= 5.0
+	
+	pain -= 0.01 * restMult * RARE_UPDATE_MULT * _dt * theMaxPain # Passive pain regen
+	pain = clampf(pain, 0.0, theMaxPain)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([

@@ -277,6 +277,12 @@ func isControlledByUs() -> bool:
 func isControlledByAnyPlayer() -> bool:
 	return Network.getPlayerIDWhoControls(id) >= 0
 
+func getBuffsHolder() -> BuffsHolder:
+	var theCharacter := getCharacter()
+	if(!theCharacter):
+		return null
+	return theCharacter.buffsHolder
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, position,

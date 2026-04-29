@@ -97,6 +97,8 @@ func canRun(_doll:DollController) -> bool:
 		return false
 	if(pawn.combatMovePlayer.isMovingByAnAttack()):
 		return false
+	if(pawn.getBuffsHolder().hasBoundLegs()): #Combat: Maybe could be done better?
+		return false
 	
 	return true
 

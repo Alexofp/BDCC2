@@ -107,16 +107,23 @@ func processSubmission(_dt:float):
 	if(!obeyPawn):
 		return
 	
+	var theChar := pawn.getCharacter()
+	var theSuppression:float = theChar.buffsHolder.supression if theChar else 0.0
+	var theSupMult:float = clampf(1.0-theSuppression, -0.9, 10.0)
+	
 	if(pawn.isLeashedBy(obeyPawn)):
 		dominance += _dt * 0.05
+	elif(pawn.isDoingACoupleAnimation() || pawn.isDoingSex()):
+		# No dominance loss
+		pass
 	else:
 		var theDist:float = pawn.global_position.distance_squared_to(obeyPawn.global_position)
 		if(theDist < 50.0):
-			dominance -= _dt * 0.01
+			dominance -= _dt * 0.01 * theSupMult
 		elif(theDist < 300.0):
-			dominance -= _dt * 0.02
+			dominance -= _dt * 0.02 * theSupMult
 		else:
-			dominance -= _dt * 0.1
+			dominance -= _dt * 0.1 * theSupMult
 	if(dominance <= 0.0):
 		setObeyPawn(null)
 		return
