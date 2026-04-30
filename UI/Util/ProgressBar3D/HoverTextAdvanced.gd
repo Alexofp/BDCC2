@@ -34,6 +34,9 @@ func setHoverText(_text:String):
 	hover_text.setHoverText(_text)
 	#hover_text.textProgress = 0.0
 
+func setSmallHoverText(_text:String):
+	hover_text.setSmallHoverText(_text)
+
 func addText(_text:String):
 	hover_text.addText(_text)
 

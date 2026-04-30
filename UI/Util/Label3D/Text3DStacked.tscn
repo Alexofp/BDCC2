@@ -8,3 +8,15 @@ script = ExtResource("1_wyac2")
 
 [node name="HoverText" parent="." unique_id=590944479 instance=ExtResource("2_vijsb")]
 unique_name_in_owner = true
+pixel_size = 0.001
+font_size = 128
+outline_size = 48
+width = 1600.0
+
+[node name="SmallHover" parent="." unique_id=1212092699 instance=ExtResource("2_vijsb")]
+unique_name_in_owner = true
+pixel_size = 0.001
+offset = Vector2(0, 85)
+outline_size = 48
+vertical_alignment = 0
+width = 1700.0

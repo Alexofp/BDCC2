@@ -139,7 +139,10 @@ func getHoverText() -> String:
 		return ""
 	if(pawn.isDoingSex()):
 		return ""
-	return "( Dominated by "+obeyPawn.getCharacter().getName()+" ("+str(Util.roundF(dominance*100.0, 1))+"%), task="+ObeyTask.getName(obeyTask)+" )"
+	if(dominance > 0.7):
+		return "( Dominated by "+obeyPawn.getCharacter().getName()+", "+ObeyTask.getName(obeyTask)+" )"
+	return "( Dominated by "+obeyPawn.getCharacter().getName()+" ("+str(int(dominance*100.0))+"%), "+ObeyTask.getName(obeyTask)+" )"
+	#return "( Dominated by "+obeyPawn.getCharacter().getName()+" )"
 
 func getOverallSubmissionValue() -> float:
 	return dominance

@@ -598,28 +598,32 @@ func processHoverText(_dt:float):
 		finalText += "( Emoting )" + "\n"
 	elif(typingStatus == GI.TYPING_CHAT):
 		finalText += "( Typing )" + "\n"
-	
+		
+	var hover_text := doll.getHoverText()
 	var thePawn := getPawn()
-	if(thePawn && thePawn.ai && !isControlledByAnyPlayer()):
-		if(PawnAI.DEBUG_AI):
-			var theAIText := thePawn.ai.getDebugText()
-			if(!theAIText.is_empty()):
-				finalText += theAIText+"\n"
-		if(PawnAI.DEBUG_RELATIONSHIPS):
-			var theLines := GM.main.relationshipSystem.getDebugTextLinesFor(thePawn)
-			var theCharacter := thePawn.getCharacter()
-			var theMemoryHolder := theCharacter.memoryHolder
-			
-			theLines.append_array(theMemoryHolder.getDebugLines())
-			
-			if(!theLines.is_empty()):
-				finalText += Util.join(theLines, "\n")+"\n"
+	if(thePawn && !isControlledByAnyPlayer()):
+		if(thePawn.ai):
+			if(PawnAI.DEBUG_AI):
+				var theAIText := thePawn.ai.getDebugText()
+				if(!theAIText.is_empty()):
+					finalText += theAIText+"\n"
+			if(PawnAI.DEBUG_RELATIONSHIPS):
+				var theLines := GM.main.relationshipSystem.getDebugTextLinesFor(thePawn)
+				var theCharacter := thePawn.getCharacter()
+				var theMemoryHolder := theCharacter.memoryHolder
+				
+				theLines.append_array(theMemoryHolder.getDebugLines())
+				
+				if(!theLines.is_empty()):
+					finalText += Util.join(theLines, "\n")+"\n"
+		hover_text.setSmallHoverText(thePawn.submission.getHoverText())
+	else:
+		hover_text.setSmallHoverText("")
 	
 	var theExtraPawnHoverText:String = thePawn.getExtraHoverText()
 	if(!theExtraPawnHoverText.is_empty()):
 		finalText += theExtraPawnHoverText + "\n"
 	
-	var hover_text := doll.getHoverText()
 	hover_text.setHoverText(finalText)
 	
 	#hover_text.setProgressInfos(["Doing something", "asd"], [0.3, 0.5])

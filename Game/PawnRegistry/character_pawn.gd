@@ -1015,9 +1015,9 @@ func getUpFromSittingOnSomething() -> bool:
 func getExtraHoverText() -> String:
 	var result:Array[String] = []
 	
-	var theSubText:String = submission.getHoverText()
-	if(!theSubText.is_empty()):
-		result.append(theSubText)
+	#var theSubText:String = submission.getHoverText()
+	#if(!theSubText.is_empty()):
+	#	result.append(theSubText)
 	
 	return Util.join(result, "\n")
 

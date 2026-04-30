@@ -1,6 +1,7 @@
 @tool
 extends Node3D
 
+@onready var small_hover: Label3D = %SmallHover
 @export var timeShow:float = 5.0
 var texts:Array #[[text, timer], ...]
 @onready var hover_text: Label3D = %HoverText
@@ -100,6 +101,11 @@ func _physics_process(_delta: float) -> void:
 		currentTextProgress = clamp(currentTextProgress + speedAdd, 0.0, 1.0)
 	hover_text.text = getFinalText()
 	
+	if(small_hover.text.is_empty()):
+		hover_text.offset.y = 0.0
+	else:
+		hover_text.offset.y = 51.78
+	
 const HOVER_TEXT_SMALL = preload("res://Game/Doll/Util/HoverTextSmall.tscn")
 
 var smallTexts:Array[Node]
@@ -114,8 +120,16 @@ func addSmallText(_text:String, _color:Color = Color.WHITE):
 	smallTexts.append(theText)
 	theText.tree_exiting.connect(func(): smallTexts.erase(theText))
 
+func setSmallHoverText(_text:String):
+	if(small_hover.text == _text):
+		return
+	small_hover.text = _text
+
 func addTextText() -> void:
 	addText("Hello world Hello world Hello world Hello world Hello world Hello world")
+
+func addSmallTextText() -> void:
+	addSmallText("Affection+", Color.GREEN)
 
 func doTestInterrupt():
 	if(canInterupt()):
@@ -123,3 +137,4 @@ func doTestInterrupt():
 
 @export_tool_button("Add test text", "Callable") var addTextText_action = addTextText
 @export_tool_button("Do interrupt", "Callable") var doTestInterrupt_action = doTestInterrupt
+@export_tool_button("Add small text", "Callable") var addSmallTextText_action = addSmallTextText
