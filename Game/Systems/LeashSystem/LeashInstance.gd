@@ -16,6 +16,8 @@ const LEASH_CHAIN = preload("res://Game/Systems/LeashSystem/LeashTypes/LeashChai
 var p1:LeashPoint
 var p2:LeashPoint
 
+var wasDeleted:bool = false
+
 func _ready() -> void:
 	updateShouldProcess()
 
@@ -110,11 +112,11 @@ func _process(_delta: float) -> void:
 	#	visibleLeash.setPoints(pos1, pos2)
 	#updateLeashPoints.call_deferred()
 
-func updateLeashPoints():
-	if(visibleLeash && p1 && p2):
+#func updateLeashPoints():
+	#if(visibleLeash && p1 && p2):
 		#var pos1 := p1.global_position
 		#var pos2 := p2.global_position
-		visibleLeash.setPoints(p1, p2)
+		#visibleLeash.setPoints(p1, p2)
 
 func _physics_process(_delta: float) -> void:
 	# || p1con.shouldConnectionBreak() # Should be added back?
@@ -145,13 +147,19 @@ func _physics_process(_delta: float) -> void:
 		queue_free()
 		return
 	
-	if(theDistance > leashSettings.distance):
+	if(theDistance > leashSettings.distance*0.7):
 		var physicsNode1:PhysicsBody3D = p1.physicsNode
 		var physicsNode2:PhysicsBody3D = p2.physicsNode
-		if(physicsNode1):
-			pullTowards(physicsNode1, pos1, pos2, leashSettings.targetPull)
+		if(physicsNode1 && leashSettings.targetPull >= 0.5):
+			pullSoftlyTowards(physicsNode1, pos1, pos2, leashSettings.targetPull)
 		if(physicsNode2):
-			pullTowards(physicsNode2, pos2, pos1, leashSettings.sourcePull)
+			pullSoftlyTowards(physicsNode2, pos2, pos1, leashSettings.sourcePull)
+		
+		if(theDistance > leashSettings.distance):
+			if(physicsNode1):
+				pullTowards(physicsNode1, pos1, pos2, leashSettings.targetPull)
+			if(physicsNode2):
+				pullTowards(physicsNode2, pos2, pos1, leashSettings.sourcePull)
 
 	if(visibleLeash):
 		visibleLeash.setPoints(p1, p2)
@@ -160,14 +168,34 @@ func pullTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _m
 	if(_node is RigidBody3D):
 		_node.apply_central_impulse((_targetPos - _sourcePos)*_node.mass*_mult)
 	elif(_node is CharacterBody3D):
+		var oldVel:Vector3 = _node.velocity
 		var theVelAdd:Vector3 = (_targetPos - _sourcePos)*_mult
 		if(abs(theVelAdd.y) < 5.5):
 			theVelAdd.y = 0.0
-		_node.velocity += theVelAdd
+		_node.velocity = theVelAdd
 		_node.move_and_slide()
+		_node.velocity = oldVel
 		
 		if(_node is DollController):
-			_node.setYankDir(theVelAdd*0.2)
+			_node.setYankDir(theVelAdd*0.2, 0.4)
+	
+func pullSoftlyTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _mult:float = 1.0):
+	#if(_node is RigidBody3D):
+	#	_node.apply_central_impulse((_targetPos - _sourcePos)*_node.mass*_mult)
+	#if(_node is CharacterBody3D):
+		#var oldVel:Vector3 = _node.velocity
+		#var theVelAdd:Vector3 = (_targetPos - _sourcePos)*_mult
+		#if(abs(theVelAdd.y) < 5.5):
+			#theVelAdd.y = 0.0
+		#_node.velocity = theVelAdd
+		#_node.move_and_slide()
+		#_node.velocity = oldVel
+		
+	if(_node is DollController):
+		var theVelAdd:Vector3 = (_targetPos - _sourcePos)*_mult
+		if(abs(theVelAdd.y) < 5.5):
+			theVelAdd.y = 0.0
+		_node.setYankDir(theVelAdd*0.4, 0.0 if _node.yankWalkRun<0.1 else 0.3)
 
 func isTargetAPawn() -> bool:
 	return p2con.getCacheNode() is CharacterPawn

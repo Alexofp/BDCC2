@@ -79,8 +79,10 @@ func processMove(_doll:DollController, _dt:float):
 	
 	if(Network.isServer()):
 		_doll.isRunning = false
-		if(_doll.doll_controls.sprint_isdown || _doll.yankWalkDir.length_squared()>9.0) && canRun(_doll):
+		if(_doll.doll_controls.sprint_isdown || (_doll.yankWalkDir.length_squared() > 0.1 && _doll.yankWalkRun > 0.0) || _doll.yankWalkDir.length_squared()>9.0) && canRun(_doll):
 			_doll.isRunning = true
+			if(_doll.yankWalkRun > 0.0):
+				_doll.yankWalkRun = Util.moveValueTo(_doll.yankWalkRun, 0.0, _dt)
 	
 	
 	if(!_doll.isRemote()):

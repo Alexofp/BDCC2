@@ -15,7 +15,7 @@ var targetToLeashes:Dictionary[Node3D, Array]
 
 func _ready() -> void:
 	GI.leashSystem = self
-
+	
 func connectLeash(_source:LeashPointConnection, _target:LeashPointConnection, _leashSettings:LeashSettings):
 	removeLeash(_source, _target) # Remove duplicate
 	
@@ -30,11 +30,17 @@ func connectLeash(_source:LeashPointConnection, _target:LeashPointConnection, _l
 	
 	doCachePoint(sourceToLeashes, _source, newLeash)
 	doCachePoint(targetToLeashes, _target, newLeash)
+	onLeashAdded(newLeash)
 	
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(connectLeash_RPC.bind(newLeash.saveNetworkData().getBytes()))
 	
 	lastNetworkID += 1
+
+func onLeashAdded(_leash:LeashInstance):
+	var theTarget := _leash.getTargetPawn()
+	if(theTarget):
+		theTarget.updateCollisions()
 
 @rpc("authority", "call_remote", "reliable")
 func connectLeash_RPC(_data:PackedByteArray):
@@ -53,6 +59,7 @@ func connectLeash_BINS(theBins:Bins):
 	
 	doCachePoint(sourceToLeashes, newLeash.p1con, newLeash)
 	doCachePoint(targetToLeashes, newLeash.p2con, newLeash)
+	onLeashAdded(newLeash)
 	
 func connectLeash_DATA(_data:Dictionary):
 	var newLeash:LeashInstance= LEASH_INSTANCE.instantiate()
@@ -66,6 +73,7 @@ func connectLeash_DATA(_data:Dictionary):
 
 	doCachePoint(sourceToLeashes, newLeash.p1con, newLeash)
 	doCachePoint(targetToLeashes, newLeash.p2con, newLeash)
+	onLeashAdded(newLeash)
 
 func getAllLeashesOfSourceNode(_node:Node3D) -> Array[LeashInstance]:
 	if(!sourceToLeashes.has(_node)):
@@ -118,11 +126,17 @@ func removeLeash_RPC(_nid:int):
 			return
 
 func clearupLeashInstance(_leash:LeashInstance):
+	if(_leash.wasDeleted):
+		return
+	_leash.wasDeleted = true
+	var theTarget := _leash.getTargetPawn()
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(removeLeash_RPC.bind(_leash.networkID))
 	leashes.erase(_leash)
 	removePointFromCache(sourceToLeashes, _leash.p1con, _leash)
 	removePointFromCache(targetToLeashes, _leash.p2con, _leash)
+	if(theTarget):
+		theTarget.updateCollisions()
 
 func clearLeashes():
 	var leashesToClear := leashes.duplicate()
@@ -189,7 +203,36 @@ func removePointFromCache(_cache:Dictionary[Node3D, Array], _point:LeashPointCon
 	if(!_cache.has(theCachePoint)):
 		return false
 	_cache[theCachePoint].erase(_leash)
+	if(_cache[theCachePoint].is_empty()):
+		_cache.erase(theCachePoint)
 	return true
+
+func deleteAllLeashesWithTargetPawn(_pawn:CharacterPawn):
+	if(!_pawn || !targetToLeashes.has(_pawn)):
+		return
+	var toDelete:Array[LeashInstance] = targetToLeashes[_pawn]
+	var toDeleteAm:int = toDelete.size()
+	for _i in toDeleteAm:
+		var _indx:int = toDeleteAm - 1 - _i
+		var theLeash:LeashInstance = toDelete[_indx]
+		clearupLeashInstance(theLeash)
+		theLeash.queue_free()
+
+func deleteAllLeashesWithSourcePawn(_pawn:CharacterPawn):
+	if(!_pawn || !sourceToLeashes.has(_pawn)):
+		return
+	var toDelete:Array[LeashInstance] = sourceToLeashes[_pawn]
+	var toDeleteAm:int = toDelete.size()
+	for _i in toDeleteAm:
+		var _indx:int = toDeleteAm - 1 - _i
+		var theLeash:LeashInstance = toDelete[_indx]
+		clearupLeashInstance(theLeash)
+		theLeash.queue_free()
+
+func onPawnDeleted(_pawn:CharacterPawn):
+	if(Network.isServer()):
+		deleteAllLeashesWithTargetPawn(_pawn)
+		deleteAllLeashesWithSourcePawn(_pawn)
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [Bins.U32, leashes.size()]

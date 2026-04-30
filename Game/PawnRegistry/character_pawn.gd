@@ -1034,6 +1034,10 @@ func shouldObey(_otherPawn:CharacterPawn) -> bool:
 		return true
 	return false
 
+func updateCollisions():
+	var theDoll := getDoll()
+	if(theDoll):
+		theDoll.updateCollisions()
 
 
 

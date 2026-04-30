@@ -33,6 +33,7 @@ var input_velocity:Vector3 = Vector3.ZERO
 
 @export var isRunning:bool = false
 var yankWalkDir:Vector3 = Vector3.ZERO
+var yankWalkRun:float = 0.0
 var knockbackVelocity:Vector3
 
 var isOnFloorVisually:bool = false
@@ -79,6 +80,7 @@ func processCharacterID():
 		return
 	if(theChar != getDoll().getChar()):
 		getDoll().setCharacter(theChar)
+		updateCollisions()
 
 func canSit() -> bool:
 	return pawn.state.canSit()
@@ -287,8 +289,9 @@ func processExpressionState(_delta:float):
 	else:
 		setExpressionState(DollExpressionState.Normal)
 
-func setYankDir(_dir:Vector3):
+func setYankDir(_dir:Vector3, _run:float = 0.0):
 	yankWalkDir = _dir
+	yankWalkRun = maxf(_run, yankWalkRun)
 		
 func doJump():
 	pawn.state.doJump(self)
@@ -616,6 +619,8 @@ func processHoverText(_dt:float):
 				
 				if(!theLines.is_empty()):
 					finalText += Util.join(theLines, "\n")+"\n"
+	
+	if(thePawn && !isControlledByUs()):
 		hover_text.setSmallHoverText(thePawn.submission.getHoverText())
 	else:
 		hover_text.setSmallHoverText("")
@@ -707,3 +712,77 @@ func getLocalVelocity() -> Vector3:
 
 func getYRotation() -> float:
 	return model_root.global_rotation.y
+
+var ignoreCollisionsPawns:Dictionary[CharacterPawn, bool]
+func updateCollisions():
+	var thePawn := getPawn()
+	if(!thePawn):
+		return
+	
+	var toIgnore:Dictionary[CharacterPawn, bool]
+	var allLeahses := GM.main.leash_system.getAllLeashesOfTargetNode(thePawn)
+	for theLeash in allLeahses:
+		var theSource := theLeash.getSourcePawn()
+		if(!theSource):
+			continue
+		toIgnore[theSource] = true
+	
+	for theIgnorePawn in toIgnore:
+		if(!ignoreCollisionsPawns.has(theIgnorePawn)):
+			ignoreCollisionsPawns[theIgnorePawn] = true
+			# Connect signals?
+			theIgnorePawn.tree_exiting.connect(onIgnoreCollisionPawnDeleted.bind(theIgnorePawn))
+			theIgnorePawn.dollSwitched.connect(onIgnoreCollisionPawnDollSwitch.bind(theIgnorePawn))
+			
+	var toRemove:Array[CharacterPawn]
+	for theIgnorePawn in ignoreCollisionsPawns:
+		if(!toIgnore.has(theIgnorePawn)):
+			toRemove.append(theIgnorePawn)
+	
+	for theRemovePawn in toRemove:
+		# Remove signals?
+		theRemovePawn.tree_exiting.disconnect(onIgnoreCollisionPawnDeleted.bind(theRemovePawn))
+		theRemovePawn.dollSwitched.disconnect(onIgnoreCollisionPawnDollSwitch.bind(theRemovePawn))
+		ignoreCollisionsPawns.erase(theRemovePawn)
+	
+	updateCollisionsActual()
+	
+func onIgnoreCollisionPawnDeleted(_pawn:CharacterPawn):
+	ignoreCollisionsPawns.erase(_pawn)
+
+func onIgnoreCollisionPawnDollSwitch(_oldDoll, _newDoll, _pawn:CharacterPawn):
+	updateCollisionsActual()
+
+var ignoreCollisions:Dictionary[PhysicsBody3D, bool]
+func updateCollisionsActual():
+	var toIgnore:Array[PhysicsBody3D] = []
+	
+	for thePawn in ignoreCollisionsPawns:
+		var theDoll := thePawn.getDoll()
+		if(!theDoll):
+			continue
+		toIgnore.append(theDoll)
+	
+	var toRemove:Array[PhysicsBody3D] = []
+	for theBody in ignoreCollisions:
+		if(!toIgnore.has(theBody)):
+			toRemove.append(theBody)
+	
+	for theBody in toIgnore:
+		if(ignoreCollisions.has(theBody)):
+			continue
+		ignoreCollisions[theBody] = true
+		add_collision_exception_with(theBody)
+		#print("ADDING ",theBody)
+		theBody.tree_exiting.connect(onIgnoredBodyDeleted.bind(theBody))
+	
+	for theBody in toRemove:
+		remove_collision_exception_with(theBody)
+		ignoreCollisions.erase(theBody)
+		#print("ERASING ",theBody)
+		theBody.tree_exiting.disconnect(onIgnoredBodyDeleted.bind(theBody))
+
+func onIgnoredBodyDeleted(_body:PhysicsBody3D):
+	remove_collision_exception_with(_body)
+	ignoreCollisions.erase(_body)
+	#print("ERASING ",_body)

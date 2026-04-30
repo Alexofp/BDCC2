@@ -100,6 +100,9 @@ func pawnDeleteCleanup(thePawn:CharacterPawn):
 	removePawnFromSparseGridSpecific(thePawn, thePawn.gridPos)
 	
 	onPawnListChanged.emit()
+	
+	if(GM.main && GM.main.leash_system):
+		GM.main.leash_system.onPawnDeleted(thePawn)
 
 func clearPawns():
 	for charID in pawns.keys():

@@ -123,7 +123,7 @@ func processSubmission(_dt:float):
 		elif(theDist < 300.0):
 			dominance -= _dt * 0.02 * theSupMult
 		else:
-			dominance -= _dt * 0.1 * theSupMult
+			dominance -= _dt * 0.2 * theSupMult
 	if(dominance <= 0.0):
 		setObeyPawn(null)
 		return
