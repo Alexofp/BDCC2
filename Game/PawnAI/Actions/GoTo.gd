@@ -27,7 +27,9 @@ func onEnd():
 
 func processAction(_dt:float):
 	#getDistSquaredTo(target) < 10.0 && 
-	if(getAI().getNavAgent().is_navigation_finished() || getPawn().global_position.distance_squared_to(target) <= (completeDistance*completeDistance)):
+	var theNavAgent := getAI().getNavAgent()
+	
+	if((theNavAgent.is_navigation_finished() && theNavAgent.target_position.distance_squared_to(target) <= (completeDistance*completeDistance)*0.5) || getPawn().global_position.distance_squared_to(target) <= (completeDistance*completeDistance)):
 		completeAction()
 
 func think():
@@ -51,6 +53,14 @@ func think():
 			), theHandler)
 		return
 	
+	if(thePawn.isLeashedByAnyone() && !thePawn.submission.isObeying()):
+		stopWalking()
+		if(!thePawn.isDoingSomething()):
+			var _doAct := thePawn.doInteractEntryDo(InteractEntryDo.create(
+				"LeashFreeSelf",
+			), thePawn)
+		return
+		
 	goTowards(target, run)
 	var curPos := getPosNoY()
 	var theDist := curPos.distance_squared_to(savedPos)

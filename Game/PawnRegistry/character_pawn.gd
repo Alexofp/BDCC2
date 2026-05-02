@@ -1050,28 +1050,57 @@ const LEASH_TYPE_PAWN = 0
 @onready var backup_leash_point: LeashPoint = %BackupLeashPoint
 
 var dollLeashPoints:Dictionary[String, DollLeashPoint] = {}
+var dollLeashPointsAll:Dictionary[String, Array] = {}
 var leashConnections:Array = []
 
 func registerLeashPoint(_dollLeashPoint:DollLeashPoint):
 	var theID:String = _dollLeashPoint.leashPointID
-	if(dollLeashPoints.has(theID)):
-		#TODO: PROBABLY REMOVE THIS ERROR?
-		Log.Printerr("A LEASH POINT WITH ID '"+str(theID)+"' WAS ALREADY REGISTERED IN PAWN "+str(getCharID()))
-		var curLeashPoint:DollLeashPoint = dollLeashPoints[theID]
-		if(curLeashPoint.leashPointPriority >= _dollLeashPoint.leashPointPriority):
-			return
-		pass
 	
-	dollLeashPoints[theID] = _dollLeashPoint
+	if(!dollLeashPointsAll.has(theID)):
+		var newAr:Array[DollLeashPoint] = [_dollLeashPoint]
+		dollLeashPointsAll[theID] = newAr
+	else:
+		dollLeashPointsAll[theID].append(_dollLeashPoint)
+	
+	updateMainLeashPoint(theID)
+	
+	#if(dollLeashPoints.has(theID)):
+		##TODO: PROBABLY REMOVE THIS ERROR?
+		#Log.Printerr("A LEASH POINT WITH ID '"+str(theID)+"' WAS ALREADY REGISTERED IN PAWN "+str(getCharID()))
+		#var curLeashPoint:DollLeashPoint = dollLeashPoints[theID]
+		#if(curLeashPoint.leashPointPriority >= _dollLeashPoint.leashPointPriority):
+			#return
+		#pass
+	#
+	#dollLeashPoints[theID] = _dollLeashPoint
 	#print(str(self)+" REGISTERED LEASH POINT "+str(_dollLeashPoint))
-	pass
+
+func updateMainLeashPoint(theID:String):
+	if(!dollLeashPointsAll.has(theID) || dollLeashPointsAll[theID].is_empty()):
+		if(dollLeashPoints.has(theID)):
+			dollLeashPoints.erase(theID)
+		return
+	
+	var theBestPoint:DollLeashPoint = null
+	var thePoints:Array[DollLeashPoint] = dollLeashPointsAll[theID]
+	for thePoint in thePoints:
+		if(!theBestPoint || thePoint.leashPointPriority > theBestPoint.leashPointPriority):
+			theBestPoint = thePoint
+	if(theBestPoint):
+		dollLeashPoints[theID] = theBestPoint
 
 func unregisterLeashPoint(_dollLeashPoint:DollLeashPoint):
 	#print(str(self)+" UN-REGISTERED LEASH POINT "+str(_dollLeashPoint))
 	var theID:String = _dollLeashPoint.leashPointID
-	if(dollLeashPoints.has(theID) && dollLeashPoints[theID] == _dollLeashPoint):
-		dollLeashPoints.erase(theID)
-	pass
+	#if(dollLeashPoints.has(theID) && dollLeashPoints[theID] == _dollLeashPoint):
+	#	dollLeashPoints.erase(theID)
+	if(dollLeashPointsAll.has(theID)):
+		var thePoints:Array[DollLeashPoint] = dollLeashPointsAll[theID]
+		thePoints.erase(_dollLeashPoint)
+		if(thePoints.is_empty()):
+			dollLeashPointsAll.erase(theID)
+	
+	updateMainLeashPoint(theID)
 	
 func getLeashPoint(_id:String) -> LeashPoint:
 	if(!dollLeashPoints.has(_id)):

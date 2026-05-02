@@ -36,9 +36,9 @@ func think():
 	if(theInteraction):
 		return
 	
-	if(isLeashed()):
-		stopSubAction()
-		return
+	#if(isLeashed()):
+	#	stopSubAction()
+	#	return
 	
 	#var theProp := GI.world.getNearestFreeSitSpot(getPos())
 	#if(theProp):

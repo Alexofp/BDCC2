@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cnpgexqb0anrh"]
+
+[ext_resource type="PackedScene" uid="uid://dqbld2oqlns8i" path="res://Mesh/Parts/Util/ChainCollar/ChainCollar.glb" id="1_1rnmq"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="2_00ovc"]
+[ext_resource type="Script" uid="uid://dd1tjr6gal0n6" path="res://Mesh/Parts/Util/ChainCollar/ChainCollar.gd" id="2_lo20q"]
+[ext_resource type="Script" uid="uid://cb1eve8v0w436" path="res://Game/Systems/LeashSystem/DollLeashPoint.gd" id="3_c3crw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3crw"]
+render_priority = 0
+shader = ExtResource("2_00ovc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.2950000140125
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.999999955296
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[node name="ChainCollar" unique_id=535111191 instance=ExtResource("1_1rnmq")]
+script = ExtResource("2_lo20q")
+
+[node name="ChainCollar" parent="." index="0" unique_id=128571295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_c3crw")
+
+[node name="DollLeashPoint" type="Marker3D" parent="." index="1" unique_id=98733270]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03625323, 0.070159554)
+script = ExtResource("3_c3crw")
+leashPointID = "collar"
+leashPointName = "Collar"
+leashPointPriority = -1
+leashVector = Vector3(0, 0, 0.2)
+leashSag = -0.2
+metadata/_custom_type_script = "uid://cb1eve8v0w436"
+
+[connection signal="onLeashChange" from="DollLeashPoint" to="." method="_on_doll_leash_point_on_leash_change"]

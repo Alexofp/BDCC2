@@ -10,6 +10,9 @@ class_name LeashPoint
 
 var physicsNode:PhysicsBody3D
 
+signal onLeashChange
+var amountConnected:int = 0 # Might not be the best way to handle this..
+
 func _ready() -> void:
 	physicsNode = null
 	var thePar := get_parent()
@@ -28,3 +31,9 @@ func getLeashPointCenter() -> Vector3:
 	if(physicsNode && physicsNode is DollController):
 		return physicsNode.global_position
 	return global_position
+
+func triggerLeashChange():
+	onLeashChange.emit()
+
+func isSomethingConnected() -> bool:
+	return amountConnected > 0

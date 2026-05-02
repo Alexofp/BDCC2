@@ -50,18 +50,28 @@ func setLeashpoint(_lp:LeashPoint):
 	leashPoint = _lp
 	onLeashPointChange.emit(_lp)
 
-func checkPoint():
+func checkPoint(_leash:LeashInstance, _isTarget:bool = false):
 	if(mode == MODE_LEASHPOINT):
 		return
 	if(mode == MODE_PAWN_LEASHPOINT):
 		if(leashPoint!=null && !is_instance_valid(leashPoint)):
 			setLeashpoint(null)
 		
+		var thePawn := pawn#GM.pawnRegistry.getPawn(pawnID)
+		var thePawnLeashPoint := pawnLeashPoint
+		if(!_isTarget):
+			var theChainedLeash := GM.main.leash_system.getLeashToChainTo(_leash.p1con, _leash.p2con)
+			if(theChainedLeash):
+				var theNewTargetConnection := theChainedLeash.p2con
+				if(theNewTargetConnection.mode == MODE_PAWN_LEASHPOINT):
+					thePawn = theNewTargetConnection.getCacheNode()
+					thePawnLeashPoint = theNewTargetConnection.pawnLeashPoint
+		
 		if(true):#leashPoint == null):
-			var thePawn := pawn#GM.pawnRegistry.getPawn(pawnID)
+			
 			if(!thePawn):
 				return
-			var theLeashPoint := thePawn.getLeashPoint(pawnLeashPoint)
+			var theLeashPoint := thePawn.getLeashPoint(thePawnLeashPoint)
 			if(theLeashPoint):
 				setLeashpoint(theLeashPoint)
 		return

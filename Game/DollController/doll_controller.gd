@@ -290,7 +290,8 @@ func processExpressionState(_delta:float):
 		setExpressionState(DollExpressionState.Normal)
 
 func setYankDir(_dir:Vector3, _run:float = 0.0):
-	yankWalkDir = _dir
+	if(_dir.length_squared() >= yankWalkDir.length_squared()):
+		yankWalkDir = _dir
 	yankWalkRun = maxf(_run, yankWalkRun)
 		
 func doJump():

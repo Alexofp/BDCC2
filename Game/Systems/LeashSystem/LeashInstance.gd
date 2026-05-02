@@ -24,6 +24,12 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if(GM.leashSystem):
 		GM.leashSystem.clearupLeashInstance(self)
+	if(p1 && is_instance_valid(p1)):
+		p1.amountConnected -= 1
+		p1.triggerLeashChange()
+	if(p2 && is_instance_valid(p2)):
+		p2.amountConnected -= 1
+		p2.triggerLeashChange()
 	p1 = null
 	p2 = null
 	p1con = null
@@ -62,20 +68,36 @@ func setPoints(_p1:LeashPointConnection, _p2:LeashPointConnection):
 	updateShouldProcess()
 
 func onP1LeashPointChange(_newLeashPoint:LeashPoint):
+	if(p1 == _newLeashPoint):
+		return
+	if(p1):
+		p1.amountConnected -= 1
+		p1.triggerLeashChange()
 	p1 = _newLeashPoint
 	updateShouldProcess()
+	if(p1):
+		p1.amountConnected += 1
+		p1.triggerLeashChange()
 
 func onP2LeashPointChange(_newLeashPoint:LeashPoint):
+	if(p2 == _newLeashPoint):
+		return
+	if(p2):
+		p2.amountConnected -= 1
+		p2.triggerLeashChange()
 	p2 = _newLeashPoint
 	updateShouldProcess()
+	if(p2):
+		p2.amountConnected += 1
+		p2.triggerLeashChange()
 
 func updateCachedLeashPoints():
 	if(p1con):
-		p1con.checkPoint()
+		p1con.checkPoint(self)
 	if(p2con):
-		p2con.checkPoint()
-	p1 = p1con.getLeashPoint()
-	p2 = p2con.getLeashPoint()
+		p2con.checkPoint(self, true)
+	onP1LeashPointChange(p1con.getLeashPoint())
+	onP2LeashPointChange(p2con.getLeashPoint())
 
 func updateShouldProcess():
 	if(p1 && p2):

@@ -11,7 +11,8 @@ func hasLeash(_char1:CharacterPawn, _char2:CharacterPawn) -> bool:
 	)
 
 func getVisibleName(_context:PawnActionContext) -> String:
-	if(hasLeash(_context.pawn, _context.target)):
+	#if(hasLeash(_context.pawn, _context.target)):
+	if(GM.leashSystem.hasAnyLeashesBetween(_context.pawn, _context.target)):
 		return "Unleash"
 	return "Leash"
 
@@ -23,11 +24,13 @@ func canDoAction(_context:PawnActionContext) -> bool:
 	return true
 
 func doAction(_context:PawnActionContext) -> bool:
-	if(hasLeash(_context.pawn, _context.target)):
-		GM.leashSystem.removeLeash(
-			LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
-			LeashPointConnection.createPawnLeashpoint(_context.target, "collar"),
-		)
+	if(GM.leashSystem.hasAnyLeashesBetween(_context.pawn, _context.target)):
+	#if(hasLeash(_context.pawn, _context.target)):
+		#GM.leashSystem.removeLeash(
+			#LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
+			#LeashPointConnection.createPawnLeashpoint(_context.target, "collar"),
+		#)
+		GM.leashSystem.deleteAllLeashesBetween(_context.pawn, _context.target)
 		GM.pawnRegistry.addHoverTextGlobal(_context.pawn, "{user.You} {user.youVerb unleash|unleashes} {target.you}!", {user=_context.pawn.getCharID(), target=_context.target.getCharID()})
 		return true
 	
@@ -37,16 +40,16 @@ func doAction(_context:PawnActionContext) -> bool:
 func doDelayedAction(_context:PawnActionContext) -> bool:
 	if(hasLeash(_context.pawn, _context.target)):
 		return false
-	GM.leashSystem.connectLeash(
+	GM.leashSystem.connectLeashExclusive(
 		LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
 		LeashPointConnection.createPawnLeashpoint(_context.target, "collar"),
-		LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(0.2),
+		LeashSettings.createDefault(),
 	)
-	var theTargetChar:BaseCharacter = _context.target.getCharacter()
-	var theInv := theTargetChar.getInventory()
-	if(!theInv.hasSlotEquipped(InventorySlot.Collar)):
-		var newCollar := GlobalRegistry.createItem("InmateCollar")
-		theInv.equipItem(newCollar, InventorySlot.Collar)
+	#var theTargetChar:BaseCharacter = _context.target.getCharacter()
+	#var theInv := theTargetChar.getInventory()
+	#if(!theInv.hasSlotEquipped(InventorySlot.Collar)):
+	#	var newCollar := GlobalRegistry.createItem("InmateCollar")
+	#	theInv.equipItem(newCollar, InventorySlot.Collar)
 		
 	#var theTargetPawn:CharacterPawn = _context.target
 	#if(theTargetPawn.submission.canBeEasilyDominatedBy(_context.pawn)):

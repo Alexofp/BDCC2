@@ -39,17 +39,17 @@ func doDelayedAction(_context:PawnActionContext) -> bool:
 	if(hasLeash(_context.pawn, _context.target, _context)):
 		return false
 	var targetLeashPointID:String = _context.getArg(ARG_LEASHPOINT, "")
-	GM.leashSystem.connectLeash(
+	GM.leashSystem.connectLeashExclusive(
 		LeashPointConnection.createPawnLeashpoint(_context.pawn, "leashholder.R"),
 		LeashPointConnection.createPawnLeashpoint(_context.target, targetLeashPointID),
-		LeashSettings.createSimple().setSourcePull(1.5).setTargetPull(0.2),
+		LeashSettings.createDefault(),
 	)
-	if(targetLeashPointID == "collar"):
-		var theTargetChar:BaseCharacter = _context.target.getCharacter()
-		var theInv := theTargetChar.getInventory()
-		if(!theInv.hasSlotEquipped(InventorySlot.Collar)):
-			var newCollar := GlobalRegistry.createItem("InmateCollar")
-			theInv.equipItem(newCollar, InventorySlot.Collar)
+	#if(targetLeashPointID == "collar"):
+		#var theTargetChar:BaseCharacter = _context.target.getCharacter()
+		#var theInv := theTargetChar.getInventory()
+		#if(!theInv.hasSlotEquipped(InventorySlot.Collar)):
+			#var newCollar := GlobalRegistry.createItem("InmateCollar")
+			#theInv.equipItem(newCollar, InventorySlot.Collar)
 	
 	#var theTargetPawn:CharacterPawn = _context.target
 	#if(theTargetPawn.submission.canBeEasilyDominatedBy(_context.pawn)):
