@@ -794,6 +794,8 @@ func updatePartFilter():
 				#updatePartFromCharacter(genericType, bodypartSlot)
 				updatePartFromCharacterDelayed(genericType, bodypartSlot)
 
+var rightArmPose:String = ""
+
 func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 	var theChar:BaseCharacter = getChar()
 	if(!theChar):
@@ -826,7 +828,12 @@ func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 		theAnimationTree.playLayer(animation_tree.LAYER_ARMS_OVERRIDE, theArmsPose)
 	else:
 		theAnimationTree.stopLayer(animation_tree.LAYER_ARMS_OVERRIDE)
-
+		
+	if(_isLocomotion && !rightArmPose.is_empty()):
+		theAnimationTree.playLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE, rightArmPose) #"holdLeash"
+	else:
+		theAnimationTree.stopLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE)
+	
 	#playSubAnims()
 	
 func _on_visible_on_screen_enabler_3d_screen_entered() -> void:

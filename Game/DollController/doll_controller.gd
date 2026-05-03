@@ -120,6 +120,13 @@ func setState(newState:int):
 func getState() -> int:
 	return pawn.pawnState
 
+func shouldBlockLeashPulling() -> bool:
+	if(pawn.pawnState == CharacterPawn.STATE_SITTING):
+		return true
+	if(pawn.pawnState == CharacterPawn.STATE_COUPLE):
+		return true
+	return false
+
 func getDoll() -> Doll:
 	return doll
 	
@@ -214,6 +221,10 @@ func processChar(_delta:float):
 	if(!pawn):
 		return
 	#TODO: Make this work using signals rather than constant pulling?
+	if(pawn.poseHandler.hasLeashesInRightHand):
+		doll.rightArmPose = "holdLeash"
+	else:
+		doll.rightArmPose = ""
 	doll.setIdleAnim(pawn.poseHandler.idleAnim)
 	doll.setWalkAnim(pawn.poseHandler.walkAnim)
 	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter

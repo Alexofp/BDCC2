@@ -276,6 +276,15 @@ func onPawnDeleted(_pawn:CharacterPawn):
 		deleteAllLeashesWithTarget(_pawn)
 		deleteAllLeashesWithSource(_pawn)
 
+func hasAnyLeashesInRightHand(_pawn:CharacterPawn) -> bool:
+	if(!_pawn || !sourceToLeashes.has(_pawn)):
+		return false
+	var toCheck:Array[LeashInstance] = sourceToLeashes[_pawn]
+	for theLeash in toCheck:
+		if(theLeash.p1con.mode == LeashPointConnection.MODE_PAWN_LEASHPOINT && theLeash.p1con.pawnLeashPoint == "leashholder.R"):
+			return true
+	return false
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [Bins.U32, leashes.size()]
 	for leash in leashes:

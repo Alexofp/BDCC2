@@ -265,9 +265,10 @@ bone_name = "hand.R"
 bone_idx = 51
 
 [node name="DollLeashPoint" type="Marker3D" parent="rig/Skeleton3D/RHandAttach" index="0" unique_id=1249037279]
-transform = Transform3D(0.9999997, 1.299777e-07, -9.313226e-10, -1.398148e-07, 0.9999997, 0, 0, 1.4901161e-08, 1, -0.039, 0.053, -0.007)
+transform = Transform3D(0.9999997, 1.299777e-07, -9.313226e-10, -1.398148e-07, 0.9999997, 0, 0, 1.4901161e-08, 1, -0.031, 0.053, 0.047)
 script = ExtResource("7_i5c51")
 leashPointID = "leashholder.R"
+leashSag = -0.1
 metadata/_custom_type_script = "uid://cb1eve8v0w436"
 
 [node name="PunchVFXSpotR" type="Node3D" parent="rig/Skeleton3D/RHandAttach" index="1" unique_id=526417585]

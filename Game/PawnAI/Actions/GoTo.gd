@@ -53,7 +53,8 @@ func think():
 			), theHandler)
 		return
 	
-	if(thePawn.isLeashedByAnyone() && !thePawn.submission.isObeying()):
+	var _isLeashed := thePawn.isLeashedByAnyone()
+	if(_isLeashed && !thePawn.submission.isObeying()):
 		stopWalking()
 		if(!thePawn.isDoingSomething()):
 			var _doAct := thePawn.doInteractEntryDo(InteractEntryDo.create(
@@ -65,7 +66,7 @@ func think():
 	var curPos := getPosNoY()
 	var theDist := curPos.distance_squared_to(savedPos)
 	#print(theDist)
-	if(theDist < 0.5 && getPawn().canMove()):
+	if(theDist < 0.5 && getPawn().canMove() && !_isLeashed):
 		stuckTimer += 1
 		if(stuckTimer >= 8):
 			teleportToNextPathPosition()

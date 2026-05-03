@@ -74,3 +74,6 @@ func startDelayedAction(_text:String, _context:PawnActionContext, _timer:float, 
 
 func getSubCategory() -> Array[String]:
 	return subCategory
+
+func addHoverText(_pawn:CharacterPawn, _text:String, _context:PawnActionContext):
+	GM.pawnRegistry.addHoverTextGlobal(_pawn, "{user.You} {user.youVerb leash|leashes} {target.you}!", {user=_context.pawn.getCharID(), target=_context.target.getCharID()})

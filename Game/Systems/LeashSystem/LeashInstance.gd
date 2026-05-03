@@ -190,6 +190,9 @@ func pullTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _m
 	if(_node is RigidBody3D):
 		_node.apply_central_impulse((_targetPos - _sourcePos)*_node.mass*_mult)
 	elif(_node is CharacterBody3D):
+		if(_node is DollController):
+			if(_node.shouldBlockLeashPulling()):
+				return
 		var oldVel:Vector3 = _node.velocity
 		var theVelAdd:Vector3 = (_targetPos - _sourcePos)*_mult
 		if(abs(theVelAdd.y) < 5.5):
@@ -214,6 +217,8 @@ func pullSoftlyTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vecto
 		#_node.velocity = oldVel
 		
 	if(_node is DollController):
+		if(_node.shouldBlockLeashPulling()):
+			return
 		var theVelAdd:Vector3 = (_targetPos - _sourcePos)*_mult
 		if(abs(theVelAdd.y) < 5.5):
 			theVelAdd.y = 0.0

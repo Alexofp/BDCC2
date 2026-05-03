@@ -158,6 +158,8 @@ func processRare(_dt:float):
 				combatTimer -= _dt
 			else:
 				combatTimer -= _dt*0.2
+	
+	poseHandler.processRare(_dt)
 
 func _physics_process(_delta: float) -> void:
 	#if(!isControlledByUs()):

@@ -20,6 +20,7 @@ var sprintAllowed:bool = true
 var jumpHeight:float = 1.0
 var gestureFullbodyBlocked:bool = false
 var gesturePartialBlocked:bool = false
+var hasLeashesInRightHand:bool = false
 # runAnim/runSpeed?
 
 func tickAI(_dt:float):
@@ -63,6 +64,11 @@ func process(_dt:float):
 		gestureFullbodyBlocked = true
 	if((theIdlePose && theIdlePose.doesPreventPartialGestures()) || (theArmsPose && theArmsPose.doesPreventPartialGestures())):
 		gesturePartialBlocked = true
+
+func processRare(_dt:float):
+	hasLeashesInRightHand = GM.main.leash_system.hasAnyLeashesInRightHand(pawn) && !gestureFullbodyBlocked && !gesturePartialBlocked
+	if(pawn.pawnState != CharacterPawn.STATE_NORMAL):
+		hasLeashesInRightHand = false
 	
 func setPawn(_p:CharacterPawn):
 	pawn = _p

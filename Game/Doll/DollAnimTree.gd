@@ -7,7 +7,8 @@ const LAYER_COMBAT = 10
 const LAYER_GESTURE_FULLBODY = 20
 const LAYER_COUPLE = 30
 const LAYER_GESTURE = 40
-const LAYER_ARMS_OVERRIDE = 50
+const LAYER_RIGHT_ARM_OVERRIDE = 50
+const LAYER_ARMS_OVERRIDE = 60
 
 var cacheID:String = "doll"
 
@@ -139,6 +140,23 @@ func defineLayers():
 		CoupleLayer.blendTimeBetween = 0.3
 		CoupleLayer.anims = theCoupleAnims
 		addLayer(LAYER_COUPLE, CoupleLayer)
+	
+	var rightArmOnly := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)
+	#armsOnly.enableBoneReqursive("shoulder.L")
+	rightArmOnly.enableBoneReqursive("shoulder.R")
+	if(true):
+		var theArmsAnims:Dictionary[String, Variant] = {}
+		theArmsAnims["holdLeash"] = LayerAnimAdvance.create("Poses/HoldLeash")
+		#for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_ARMS):
+		#	for animID in anim.anims:
+		#		theArmsAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
+		var ArmsLayer := LayerBasic.new()
+		ArmsLayer.blendTimeIn = 0.2
+		ArmsLayer.blendTimeOut = 0.2
+		ArmsLayer.blendTimeBetween = 0.2
+		ArmsLayer.anims = theArmsAnims
+		ArmsLayer.bones = rightArmOnly.getBonesFinal()
+		addLayer(LAYER_RIGHT_ARM_OVERRIDE, ArmsLayer)
 	
 	var armsOnly := BoneFilterSimple.new()#BoneFilter.new(self, skeleton_3d)
 	armsOnly.enableBoneReqursive("shoulder.L")
