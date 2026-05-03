@@ -19,6 +19,8 @@ func canDoAction(_context:PawnActionContext) -> bool:
 		return false
 	if(_context.target.hasInteraction()):
 		return false
+	if(_context.getTargetPawn().submission.isObeying()):
+		return false
 	#if(GM.sitManager.isSitting(_context.pawn)):
 	#	return false
 	#if(GM.sitManager.isSitting(_context.getTargetPawn())):
