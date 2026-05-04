@@ -2,8 +2,9 @@
 extends "res://addons/godot-polyliner/Line3D/LinePath3D.gd"
 
 func setPoints(_lp1:LeashPoint, _lp2:LeashPoint):
-	var _p1:Vector3 = _lp1.global_position
-	var _p2:Vector3 = _lp2.global_position
+	#var _p1:Vector3 = _lp1.global_position
+	var _p1:Vector3 = _lp1.get_global_transform_interpolated().origin
+	var _p2:Vector3 = _lp2.get_global_transform_interpolated().origin
 	var theCurve:Curve3D = curve
 	#theCurve.set_point_position(0, to_local(_p1))
 	#theCurve.set_point_position(1, to_local(_p2))

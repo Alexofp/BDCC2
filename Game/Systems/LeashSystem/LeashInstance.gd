@@ -130,8 +130,8 @@ func _process(_delta: float) -> void:
 		
 		leash_simple_mesh.scale.z = pos1.distance_to(pos2)
 	
-	#if(visibleLeash):
-	#	visibleLeash.setPoints(pos1, pos2)
+	if(visibleLeash):
+		visibleLeash.setPoints(p1, p2)
 	#updateLeashPoints.call_deferred()
 
 #func updateLeashPoints():
@@ -183,8 +183,8 @@ func _physics_process(_delta: float) -> void:
 			if(physicsNode2):
 				pullTowards(physicsNode2, pos2, pos1, leashSettings.sourcePull)
 
-	if(visibleLeash):
-		visibleLeash.setPoints(p1, p2)
+	#if(visibleLeash):
+	#	visibleLeash.setPoints(p1, p2)
 
 func pullTowards(_node:PhysicsBody3D, _sourcePos:Vector3, _targetPos:Vector3, _mult:float = 1.0):
 	if(_node is RigidBody3D):
