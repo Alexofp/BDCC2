@@ -13,10 +13,13 @@ func prepareSocialInteraction():
 	var theSocial := makeSocialInteraction("GenericFriendly")
 	if(!theSocial):
 		return
-	theSocial.agreeAffection = 0.05
+	theSocial.addAgreeCheck(SocialCheckAffection.new(0.05).addMod(MoodEffects.FriendlyAgreeMod))
+	theSocial.addAgreeCheck(SocialCheckExhaustion.new(0.8))
+	theSocial.setKind(SocialInteractionKind.Chat)
+		
 	theSocial.affectionGain = 0.01
 	theSocial.affectionLossDeny = 0.005
-	theSocial.setKind(SocialInteractionKind.Chat)
+
 	theSocial.memorySuccess = "Compliment"
 	theSocial.memorySuccessAbove = 0.3
 

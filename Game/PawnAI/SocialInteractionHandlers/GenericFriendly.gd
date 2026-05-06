@@ -1,18 +1,9 @@
-extends "res://Game/PawnAI/SocialInteractionHandlers/Generic.gd"
+extends SocialInteractionHandler
 
 var affectionGain:float = 0.05
 var affectionLossDeny:float = 0.025
 
 var socialExhaustionGain:float = 0.3
-
-var agreeAffection:float = -1.0 # The affection must be above this value to agree. Other modifiers can raise or lower it
-#var agreeLust:float = 0.0 # The lust must be above this value to agree
-
-var agreeExhaustionStart:float = 0.5
-var agreeExhaustionMult:float = 2.0
-var agreeMoodMult:float = 1.0
-
-
 
 var memorySuccess:String = "" # Added to the target if success >= memorySuccessAbove
 var memorySuccessAbove:float = 0.3
@@ -22,23 +13,6 @@ var memoryDenied:String = "" # Added to the starter if they got denied
 func _init() -> void:
 	super._init()
 	id = "GenericFriendly"
-
-func trySocialInteraction() -> void:
-	var _target := getTargetPawn()
-	var _targetPersonality := _target.getPersonality()
-	
-	var theAffection:float = getAffection()
-	
-	var theSocialExhaustion:float = _target.getSocialExhaustion()
-	theAffection -= agreeExhaustionMult*remap(maxf(theSocialExhaustion, agreeExhaustionStart), agreeExhaustionStart, agreeExhaustionStart+1.0, 0.0, 1.0)
-	theAffection += agreeMoodMult * _target.mood.effects.friendlyAgreeMod
-	
-	Log.Print("Final affection: "+str(Util.roundF(theAffection, 2))+"   Agree affection: "+str(Util.roundF(agreeAffection, 2)))
-	
-	if(theAffection >= agreeAffection):
-		agree = 1.0
-	else:
-		agree = 0.0
 
 # The interaction is just about to start
 func onStart() -> void:
@@ -68,3 +42,7 @@ func onDenied() -> void:
 	playSuccessNoise(-1.0)
 	addAffection(-affectionLossDeny)
 	addMemoryStarter(memoryDenied)
+
+
+func setKind(_t:String):
+	kind = _t

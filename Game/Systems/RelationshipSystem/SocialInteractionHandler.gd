@@ -5,9 +5,15 @@ var id:String = ""
 var agree:float = 0.0
 var success:float = 0.0 # A number between -1.0 and 1.0
 var showChange:bool = true
+var kind:String = ""
 
 var charIDStarter:String = ""
 var charIDTarget:String = ""
+
+var agreeChecks:Array[SocialCheckBase] = []
+
+func _init() -> void:
+	pass
 
 func setPawns(_pawnStarter:CharacterPawn, _pawnTarget:CharacterPawn):
 	charIDStarter = _pawnStarter.getCharID()
@@ -16,6 +22,13 @@ func setPawns(_pawnStarter:CharacterPawn, _pawnTarget:CharacterPawn):
 # Calculate if the target should agree
 func trySocialInteraction() -> void:
 	agree = 1.0
+	for check in agreeChecks:
+		check.socialHandler = self
+		if(!check.shouldAgree()):
+			check.socialHandler = null
+			agree = 0.0
+			return
+		check.socialHandler = null
 
 # Should the target agree?
 func scoreAgree() -> float:
@@ -179,3 +192,6 @@ func showInteractionSuccess():
 	#playSuccessNoise(success)
 	var pawn2 := getTargetPawn()
 	pawn2.addSmallText("Success: "+str(int(success*100.0))+"%", Color.SKY_BLUE)
+
+func addAgreeCheck(_check:SocialCheckBase):
+	agreeChecks.append(_check)
