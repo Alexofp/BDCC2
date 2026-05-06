@@ -69,4 +69,5 @@ offset_right = -8.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "Right text"
+horizontal_alignment = 2
 vertical_alignment = 1

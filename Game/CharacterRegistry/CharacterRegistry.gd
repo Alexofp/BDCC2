@@ -247,6 +247,7 @@ func removeCharacterID(theCharID:String):
 	if(!characters.has(theCharID)):
 		Log.Printerr("Trying to remove a character that doesn't exist: '"+str(theCharID)+"'")
 		return
+	GM.main.relationshipSystem.onCharacterIDRemoved(theCharID)
 	var theCharInfo:BaseCharacter = characters[theCharID]
 	characters.erase(theCharID)
 	characterRemoved.emit(theCharID, theCharInfo)

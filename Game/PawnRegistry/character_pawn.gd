@@ -25,6 +25,7 @@ var combatAI:CombatPawnAI
 var interaction:InteractionBase
 var submission:SubmissionHandler
 var poseHandler:PawnPoseHandler
+var mood:MoodHandler
 
 signal dollSpawned(doll)
 signal dollDespawned(doll)
@@ -65,6 +66,7 @@ const STATE_COUPLE = 5
 @onready var combatMovePlayer: CombatMovePlayer = %CombatMovePlayer
 
 var rareUpdateTimer:float = 0.0
+var veryRareUpdateTimer:float = 0.0
 var combatTimer:float = 0.0
 
 func _ready() -> void:
@@ -72,6 +74,9 @@ func _ready() -> void:
 	
 	poseHandler = PawnPoseHandler.new()
 	poseHandler.setPawn(self)
+	
+	mood = MoodHandler.new()
+	mood.setPawn(self)
 	
 	pawnActionContext = PawnActionContext.new()
 	pawnActionContext.pawn = self
@@ -180,6 +185,11 @@ func _physics_process(_delta: float) -> void:
 		rareUpdateTimer = 1.0
 		processRare(rareUpdateTimer)
 	
+	veryRareUpdateTimer -= _delta
+	if(veryRareUpdateTimer <= 0.0):
+		veryRareUpdateTimer = RNG.randfRange(9.0, 11.0)
+		processVeryRare(veryRareUpdateTimer)
+
 	if(isControlledByAnyPlayer()):
 		var theDoll := getDoll()
 		navigation_agent_3d.velocity = theDoll.velocity if theDoll else Vector3.ZERO
@@ -194,7 +204,11 @@ func _physics_process(_delta: float) -> void:
 		#if(!navigation_agent_3d.avoidance_enabled):
 		#	navigation_agent_3d.avoidance_enabled = true
 	#DebugDraw.draw_line_3d(global_position, global_position+safeNavAgentVelocity, Color.GREEN)
-	
+
+# Gets called every 10 seconds or so (random between 9.0 and 11.0)
+func processVeryRare(_dt:float):
+	mood.processRare(_dt)
+
 func processPoseSpot():
 	var thePoseSpot:PoseSpot = getPoseSpot()
 	if(!thePoseSpot):

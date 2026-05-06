@@ -6,3 +6,4 @@ const Dominant = "Dominant" # Submissive - Switch - Dominant
 const Bratty = "Bratty" # Obedient - Bratty
 const Perceptive = "Perceptive" # Naive - Perceptive
 const Brave = "Brave" # Soft - Brave
+const Libido = "Libido" # Cold - Lusty

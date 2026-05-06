@@ -54,6 +54,8 @@ var socialInteractions:Dictionary
 var memories:Dictionary[String, MemoryBase]
 var sexDialogueChains:Dictionary#[String, SexDialogueChain]
 var sexDialogueChainRefs:Dictionary[String, SexDialogueChain]
+var moods:Array[MoodBase]
+var moodByID:Dictionary[String, MoodBase]
 
 signal initialized
 
@@ -200,10 +202,12 @@ func doInit():
 	registerAIComboFolder("res://Game/Combat/AICombos/")
 	
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
-	registerSocialInteractionFolder("res://Game/PawnAI/SocialInteractions/")
+	registerSocialInteractionFolder("res://Game/PawnAI/SocialInteractionHandlers/")
 	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
 	
 	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
+	
+	registerMoodsFolder("res://Game/PawnAI/Mood/Moods/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1159,7 +1163,7 @@ func registerSocialInteraction(path: String):
 	var loadedClass = load(path)
 	var object = loadedClass.new()
 	
-	if(object is SocialInteractionBase):
+	if(object is SocialInteractionHandler):
 		socialInteractions[object.id] = loadedClass
 
 func registerSocialInteractionFolder(folder: String):
@@ -1167,7 +1171,7 @@ func registerSocialInteractionFolder(folder: String):
 	for scriptPath in scripts:
 		registerSocialInteraction(scriptPath)
 
-func createSocialInteraction(id: String) -> SocialInteractionBase:
+func createSocialInteraction(id: String) -> SocialInteractionHandler:
 	if(socialInteractions.has(id)):
 		return socialInteractions[id].new()
 	else:
@@ -1177,7 +1181,7 @@ func createSocialInteraction(id: String) -> SocialInteractionBase:
 func hasSocialInteraction(id: String) -> bool:
 	return socialInteractions.has(id)
 
-#func getSocialInteractionRefs() -> Array[SocialInteractionBase]:
+#func getSocialInteractionRefs() -> Array[SocialInteractionHandler]:
 #	return aiGoalsStaticRefs
 
 
@@ -1238,3 +1242,29 @@ func getSexDialogueChainRef(id:String) -> SexDialogueChain:
 	else:
 		Log.Printerr("ERROR: sex dialogue chain with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+
+func registerMood(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is MoodBase):
+		moods.append(object)
+		moodByID[object.id] = object
+
+func registerMoodsFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerMood(scriptPath)
+
+func getMood(id: String) -> MoodBase:
+	if(moodByID.has(id)):
+		return moodByID[id]
+	else:
+		Log.Printerr("ERROR: mood with the id "+str(id)+" wasn't found")
+		return null
+
+func getMoods() -> Array[MoodBase]:
+	return moods

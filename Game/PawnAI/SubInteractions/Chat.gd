@@ -15,6 +15,7 @@ func prepareSocialInteraction():
 	var theSocial := makeSocialInteraction("GenericFriendly")
 	if(!theSocial):
 		return
+	theSocial.agreeAffection = -1.0
 	theSocial.affectionGain = 0.005
 	theSocial.affectionLossDeny = 0.0025
 	theSocial.setKind(SocialInteractionKind.Chat)

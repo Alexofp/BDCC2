@@ -1,15 +1,18 @@
-extends "res://Game/PawnAI/SocialInteractions/Generic.gd"
+extends "res://Game/PawnAI/SocialInteractionHandlers/Generic.gd"
 
 var affectionGain:float = 0.05
 var affectionLossDeny:float = 0.025
 
 var socialExhaustionGain:float = 0.3
 
-var agreeBase:float = 0.2
-var agreeMinAffection:float = 0.0
-var agreeMinAffectionPenalty:float = 0.2
-var agreeExhaustionStart:float = 0.7
-var agreeExhaustionMult:float = 1.0
+var agreeAffection:float = -1.0 # The affection must be above this value to agree. Other modifiers can raise or lower it
+#var agreeLust:float = 0.0 # The lust must be above this value to agree
+
+var agreeExhaustionStart:float = 0.5
+var agreeExhaustionMult:float = 2.0
+var agreeMoodMult:float = 1.0
+
+
 
 var memorySuccess:String = "" # Added to the target if success >= memorySuccessAbove
 var memorySuccessAbove:float = 0.3
@@ -23,15 +26,16 @@ func _init() -> void:
 func trySocialInteraction() -> void:
 	var _target := getTargetPawn()
 	var _targetPersonality := _target.getPersonality()
-	var agreeScore:float = 0.0
 	
-	agreeScore += agreeBase
-	agreeScore += affectionPenalty(agreeMinAffection, agreeMinAffectionPenalty)
-	agreeScore += socialExhaustionPenalty(agreeExhaustionStart, agreeExhaustionMult)
-	#agreeScore += _target.getMood()*0.2 # Bad mood = less likely to agree
-	#agreeScore -= _targetPersonality.getStat(PersonalityStat.Mean)*0.2
+	var theAffection:float = getAffection()
 	
-	if(agreeScore >= 0.0):
+	var theSocialExhaustion:float = _target.getSocialExhaustion()
+	theAffection -= agreeExhaustionMult*remap(maxf(theSocialExhaustion, agreeExhaustionStart), agreeExhaustionStart, agreeExhaustionStart+1.0, 0.0, 1.0)
+	theAffection += agreeMoodMult * _target.mood.effects.friendlyAgreeMod
+	
+	Log.Print("Final affection: "+str(Util.roundF(theAffection, 2))+"   Agree affection: "+str(Util.roundF(agreeAffection, 2)))
+	
+	if(theAffection >= agreeAffection):
 		agree = 1.0
 	else:
 		agree = 0.0
@@ -43,7 +47,7 @@ func onStart() -> void:
 		theCooldown = GM.main.relationshipSystem.getActionCooldown(charIDTarget, charIDStarter, kind)
 	
 	success = 1.0 / (1.0 + theCooldown)
-	Log.Print("Success: "+str(success))
+	Log.Print("Success: "+str(int(success*100.0))+"%")
 
 # The interaction has ended
 func onEnd() -> void:
@@ -56,6 +60,8 @@ func onEnd() -> void:
 	
 	if(success >= memorySuccessAbove):
 		addMemoryTarget(memorySuccess)
+	
+	getTargetPawn().mood.addMood(1.1*success)
 	
 # The target has denied us
 func onDenied() -> void:

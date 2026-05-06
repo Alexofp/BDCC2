@@ -1,5 +1,5 @@
 extends RefCounted
-class_name SocialInteractionBase
+class_name SocialInteractionHandler
 
 var id:String = ""
 var agree:float = 0.0
@@ -176,6 +176,6 @@ func playSuccessNoise(_mult:float):
 			pass
 
 func showInteractionSuccess():
-	playSuccessNoise(success)
+	#playSuccessNoise(success)
 	var pawn2 := getTargetPawn()
-	pawn2.addSmallText("Success: "+str(success), Color.SKY_BLUE)
+	pawn2.addSmallText("Success: "+str(int(success*100.0))+"%", Color.SKY_BLUE)

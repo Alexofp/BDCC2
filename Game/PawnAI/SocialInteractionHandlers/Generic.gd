@@ -1,4 +1,4 @@
-extends SocialInteractionBase
+extends SocialInteractionHandler
 
 var kind:String = ""
 

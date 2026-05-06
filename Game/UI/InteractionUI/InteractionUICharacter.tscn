@@ -48,7 +48,8 @@ layout_mode = 2
 gradient = SubResource("Gradient_13d36")
 propertyName = "Exhaustion"
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1723705298]
+[node name="MoodLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1723705298]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Happy"

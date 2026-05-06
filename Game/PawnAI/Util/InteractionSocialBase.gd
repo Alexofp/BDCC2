@@ -3,7 +3,7 @@ class_name InteractionSocialBase
 
 var socialActionName:String = "Fill me!"
 var socialActionCategory:Array[String]
-var socialInteraction:SocialInteractionBase
+var socialInteraction:SocialInteractionHandler
 var socialMustBeIntroduced:bool = false
 var socialDefaultScore:float = 0.0
 var socialShouldEndTalking:bool = false
@@ -49,7 +49,7 @@ func _do(_role:int, _action:InteractionAction):
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
 
-func makeSocialInteraction(_id:String) -> SocialInteractionBase:
+func makeSocialInteraction(_id:String) -> SocialInteractionHandler:
 	socialInteraction = GlobalRegistry.createSocialInteraction(_id)
 	if(socialInteraction):
 		socialInteraction.setInteraction(self)

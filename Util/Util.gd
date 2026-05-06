@@ -420,4 +420,25 @@ static func moveValueTo(_val:float, _target:float, _speed:float) -> float:
 		if(_val < _target):
 			_val = _target
 	return _val
+
+# input ["a", "b", "c"]
+# output "a, b and c"
+static func humanReadableList(arr: Array[String], andConnector: String = "and", commaConnector: String = ",") -> String:
+	var arrSize := arr.size()
+	if(arrSize == 0):
+		return ""
+	if(arrSize == 1):
+		return arr[0]
+	if(arrSize == 2):
+		return arr[0] + " "+andConnector+" " + arr[1]
 	
+	var res := ""
+	for i in arrSize:
+		if(i == (arrSize - 1)):
+			res += " "+andConnector+" "
+		
+		res += arr[i]
+		
+		if(i <= (arrSize - 3)):
+			res += commaConnector + " "
+	return res

@@ -2,7 +2,7 @@ extends Node
 class_name RelationshipSystem
 
 var rareUpdateTimer:float = 0.0
-const RARE_UPDATE_TIME := 1.0
+const RARE_UPDATE_TIME := 60.0
 
 var holders:Dictionary[String, RelationshipHolder]
 var entries:Array[RelationshipEntry]
@@ -58,11 +58,54 @@ func createEntry(_char1:String, _char2:String) -> RelationshipEntry:
 	newEntry.char1 = _char1
 	newEntry.char2 = _char2
 	
+	entries.append(newEntry)
+	
 	var holder1 := getOrCreateHolder(_char1)
 	holder1.entries[_char2] = newEntry
 	var holder2 := getOrCreateHolder(_char2)
 	holder2.entries[_char1] = newEntry
 	return newEntry
+
+func getHolder(_charID:String) -> RelationshipHolder:
+	return holders[_charID] if holders.has(_charID) else null
+
+func deleteEntry(_entry:RelationshipEntry) -> bool:
+	var holder1 := getHolder(_entry.char1)
+	var holder2 := getHolder(_entry.char2)
+	if(!holder1 && !holder2):
+		return false
+	
+	if(holder1):
+		holder1.entries.erase(_entry.char2)
+	if(holder2):
+		holder2.entries.erase(_entry.char1)
+	entries.erase(_entry)
+	return true
+
+func deleteEntryBetween(_char1:String, _char2:String) -> bool:
+	var theEntry := getEntry(_char1, _char2)
+	if(!theEntry):
+		return false
+	return deleteEntry(theEntry)
+
+func deleteAllEntriesOf(_charID:String):
+	var toRem:Array[RelationshipEntry] = []
+	var theHolder := getHolder(_charID)
+	if(!theHolder):
+		return
+	for theOtherCharID in theHolder.entries:
+		toRem.append(theHolder.entries[theOtherCharID])
+	for theEntry in toRem:
+		deleteEntry(theEntry)
+
+func deleteHolderOf(_charID:String):
+	deleteAllEntriesOf(_charID)
+	holders.erase(_charID)
+
+func onCharacterIDRemoved(_charID:String):
+	if(Network.isServer()):
+		deleteHolderOf(_charID)
+		removeAllShortTermsOf(_charID)
 
 func hasEntry(_char1:String, _char2:String) -> bool:
 	return getEntry(_char1, _char2) != null
@@ -102,6 +145,20 @@ func getOrCreateShortTerm(_charReactor:String, _charTarget:String) -> Relationsh
 	newShortTerm.char2 = _charTarget
 	shortTerm.append(newShortTerm)
 	return newShortTerm
+
+func removeAllShortTermsOf(_charID:String):
+	var shortAm:int = shortTerm.size()
+	for _i in shortAm:
+		var _indx:int = shortAm - _i - 1
+		var theEntry:RelationshipShortTermEntry = shortTerm[_indx]
+		if(theEntry.char1 == _charID || theEntry.char2):
+			shortTerm.remove_at(_indx)
+	#var toRem:Array[RelationshipShortTermEntry] = []
+	#for theEntry in shortTerm:
+		#if(theEntry.char1 == _charID || theEntry.char2):
+			#toRem.append(theEntry)
+	#for theEntry in toRem:
+		#shortTerm.erase(theEntry)
 
 func addAnnoyancePawns(_pawnAnnoyed:CharacterPawn, _pawnWhoIsAnnoying:CharacterPawn, _howMuch:float):
 	if(!_pawnAnnoyed || !_pawnWhoIsAnnoying):
@@ -165,10 +222,25 @@ func _physics_process(_delta: float) -> void:
 	while(rareUpdateTimer >= RARE_UPDATE_TIME):
 		processRare(RARE_UPDATE_TIME)
 		rareUpdateTimer -= RARE_UPDATE_TIME
-	
+
+# Happens every minute
 func processRare(_dt:float):
+	var toRem:Array[RelationshipEntry] = []
 	# Relationship decay?
-	pass
+	# Spread the decay over different calls?
+	# Can update just a few holders
+	for theCharID in holders:
+		var theHolder := holders[theCharID]
+		
+		for theOtherCharID in theHolder.entries:
+			var theEntry:RelationshipEntry = theHolder.entries[theOtherCharID]
+			
+			if(theEntry.decayEntryShouldRemove(_dt)):
+				toRem.append(theEntry)
+	
+	for theEntry in toRem:
+		deleteEntry(theEntry)
+			
 
 func getDebugTextLinesFor(_pawn:CharacterPawn) -> Array[String]:
 	var theStuff:Array[String] = []
