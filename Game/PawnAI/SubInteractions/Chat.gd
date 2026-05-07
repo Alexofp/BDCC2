@@ -12,17 +12,14 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	var theSocial := makeSocialInteraction("GenericFriendly")
-	if(!theSocial):
-		return
-	theSocial.addAgreeCheck(SocialCheckAffection.new(-1.0).addMod(MoodEffects.FriendlyAgreeMod))
-	theSocial.addAgreeCheck(SocialCheckExhaustion.new(0.8))
-	theSocial.setKind(SocialInteractionKind.Chat)
-		
-	theSocial.affectionGain = 0.005
-	theSocial.affectionLossDeny = 0.0025
-	theSocial.memorySuccess = "Chat"
-	theSocial.memorySuccessAbove = 0.3
+	socialInteraction.addCheck(SocialCheckAffection.new(-1.0).addMod(MoodEffects.FriendlyAgreeMod))
+	socialInteraction.addCheck(SocialCheckExhaustion.new(0.8))
+	socialInteraction.addCheck(SocialCheckCooldown.new(SocialInteractionKind.Chat))
+	
+	socialInteraction.addSuccessEffect(SocialEffectAddAffection.new(0.005))
+	socialInteraction.addSuccessEffect(SocialEffectAddMemoryTarget.new("Chat"))
+	
+	socialInteraction.addDenyEffect(SocialEffectAddAffection.new(-0.0025))
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true

@@ -37,6 +37,12 @@ func getAffection(_char1:String, _char2:String) -> float:
 		return 0.0
 	return clamp(theEntry.affection, -1.0, 1.0)
 
+func getLust(_char1:String, _char2:String) -> float:
+	var theEntry := getEntry(_char1, _char2)
+	if(!theEntry):
+		return 0.0
+	return clamp(theEntry.lust, 0.0, 1.0)
+
 func getOrCreateHolder(_charID:String) -> RelationshipHolder:
 	if(!GM.main.characterRegistry.hasCharacter(_charID)):
 		Log.Printerr("Trying to create a RelationshipHolder for a missing character ID: "+str(_charID))

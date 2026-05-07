@@ -7,16 +7,6 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
-#func prepareSocialInteraction():
-	#var theSocial := makeSocialInteraction("GenericFriendly")
-	#if(!theSocial):
-		#return
-	#theSocial.affectionGain = 0.005
-	#theSocial.affectionLossDeny = 0.0025
-	#theSocial.setKind(SocialInteractionKind.Chat)
-	#theSocial.memorySuccess = "Chat"
-	#theSocial.memorySuccessAbove = 0.3
-
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true
 

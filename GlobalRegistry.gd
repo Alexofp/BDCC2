@@ -50,7 +50,6 @@ var aiGoalRefs:Dictionary[String, AIGoalBase]
 var aiGoalsStaticRefs:Array[AIGoalBase]
 var mainReactionBank:ReactionBank = ReactionBank.new()
 var coupleAnimRefs:Dictionary[String, CoupleAnimBase]
-var socialInteractions:Dictionary
 var memories:Dictionary[String, MemoryBase]
 var sexDialogueChains:Dictionary#[String, SexDialogueChain]
 var sexDialogueChainRefs:Dictionary[String, SexDialogueChain]
@@ -202,7 +201,6 @@ func doInit():
 	registerAIComboFolder("res://Game/Combat/AICombos/")
 	
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
-	registerSocialInteractionFolder("res://Game/PawnAI/SocialInteractionHandlers/")
 	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
 	
 	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
@@ -1158,31 +1156,6 @@ func getCoupleAnim(id: String) -> CoupleAnimBase:
 		return null
 
 
-
-func registerSocialInteraction(path: String):
-	var loadedClass = load(path)
-	var object = loadedClass.new()
-	
-	if(object is SocialInteractionHandler):
-		socialInteractions[object.id] = loadedClass
-
-func registerSocialInteractionFolder(folder: String):
-	var scripts = Util.getScriptsInFolderSmart(folder)
-	for scriptPath in scripts:
-		registerSocialInteraction(scriptPath)
-
-func createSocialInteraction(id: String) -> SocialInteractionHandler:
-	if(socialInteractions.has(id)):
-		return socialInteractions[id].new()
-	else:
-		Log.Printerr("ERROR: social interaction with the id "+str(id)+" wasn't found")
-		return null
-
-func hasSocialInteraction(id: String) -> bool:
-	return socialInteractions.has(id)
-
-#func getSocialInteractionRefs() -> Array[SocialInteractionHandler]:
-#	return aiGoalsStaticRefs
 
 
 

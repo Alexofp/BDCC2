@@ -49,21 +49,12 @@ func _do(_role:int, _action:InteractionAction):
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
 
-func makeSocialInteraction(_id:String) -> SocialInteractionHandler:
-	socialInteraction = GlobalRegistry.createSocialInteraction(_id)
-	if(socialInteraction):
-		socialInteraction.setInteraction(self)
-	return socialInteraction
-
 func prepareSocialInteraction():
-	var theSocial := makeSocialInteraction("Generic")
-	if(!theSocial):
-		return
+	pass
 
 func startSocialInteraction() -> bool:
+	socialInteraction = SocialInteractionHandler.new()
 	prepareSocialInteraction()
-	if(!socialInteraction):
-		makeSocialInteraction("Generic")
 	if(!socialInteraction):
 		assert(false, "Couldn't create a social interaction")
 		return false

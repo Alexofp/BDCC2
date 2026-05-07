@@ -11,6 +11,11 @@ var charIDStarter:String = ""
 var charIDTarget:String = ""
 
 var agreeChecks:Array[SocialCheckBase] = []
+var successEffects:Array[SocialEffectBase] = []
+var denyEffects:Array[SocialEffectBase] = []
+
+var shouldPlaySuccessNoise:bool = true
+var shouldPlayDenyNoise:bool = true
 
 func _init() -> void:
 	pass
@@ -25,6 +30,7 @@ func trySocialInteraction() -> void:
 	for check in agreeChecks:
 		check.socialHandler = self
 		if(!check.shouldAgree()):
+			Log.Print("Not agreed by: "+str(check))
 			check.socialHandler = null
 			agree = 0.0
 			return
@@ -37,18 +43,39 @@ func scoreAgree() -> float:
 # The interaction is just about to start
 func onStart() -> void:
 	success = 1.0
+	for theCheck in agreeChecks:
+		theCheck.socialHandler = self
+		theCheck.onStart()
+		theCheck.socialHandler = null
+	Log.Print("Success: "+str(int(success*100.0))+"%")
 
 # The interaction has ended
 func onEnd() -> void:
-	addAffection(0.1)
+	if(shouldPlaySuccessNoise):
+		playSuccessNoise(success)
+	
+	for theEffect in successEffects:
+		theEffect.socialHandler = self
+		theEffect.doEffect(false)
+		theEffect.socialHandler = null
+	for theCheck in agreeChecks:
+		theCheck.socialHandler = self
+		theCheck.onEnd(false)
+		theCheck.socialHandler = null
 
 # The target has denied us
 func onDenied() -> void:
-	addAffection(-0.1)
-
-func setInteraction(_interaction:InteractionSocialBase):
-	pass
-
+	if(shouldPlayDenyNoise):
+		playSuccessNoise(-1.0)
+	
+	for theEffect in denyEffects:
+		theEffect.socialHandler = self
+		theEffect.doEffect(true)
+		theEffect.socialHandler = null
+	for theCheck in agreeChecks:
+		theCheck.socialHandler = self
+		theCheck.onEnd(true)
+		theCheck.socialHandler = null
 
 # util
 func getStarterPawn() -> CharacterPawn:
@@ -98,6 +125,9 @@ func addAffection(_am:float, _mult:float = 1.0) -> void:
 
 func getAffection() -> float:
 	return GM.main.relationshipSystem.getAffection(charIDStarter, charIDTarget)
+
+func getLust() -> float:
+	return GM.main.relationshipSystem.getLust(charIDStarter, charIDTarget)
 
 func affectionPenalty(_minAffection:float, _penalty:float, _minPenaltyRatio:float = 0.5) -> float:
 	var theAffection:float = getAffection()
@@ -193,5 +223,11 @@ func showInteractionSuccess():
 	var pawn2 := getTargetPawn()
 	pawn2.addSmallText("Success: "+str(int(success*100.0))+"%", Color.SKY_BLUE)
 
-func addAgreeCheck(_check:SocialCheckBase):
+func addCheck(_check:SocialCheckBase):
 	agreeChecks.append(_check)
+
+func addSuccessEffect(_effect:SocialEffectBase):
+	successEffects.append(_effect)
+
+func addDenyEffect(_effect:SocialEffectBase):
+	denyEffects.append(_effect)

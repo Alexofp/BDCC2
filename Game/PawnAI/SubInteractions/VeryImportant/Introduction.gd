@@ -57,16 +57,6 @@ func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[Inter
 		action(id, "Dominant introduction").setArgs([INTRODUCTION_DOM]).setScore(1.0),
 	]
 
-#func prepareSocialInteraction():
-	#var theSocial := makeSocialInteraction("GenericFriendly")
-	#if(!theSocial):
-		#return
-	#theSocial.affectionGain = 0.005
-	#theSocial.affectionLossDeny = 0.0025
-	#theSocial.setKind(SocialInteractionKind.Chat)
-	#theSocial.memorySuccess = "Chat"
-	#theSocial.memorySuccessAbove = 0.3
-
 func start(_roles:Dictionary, _args:Array):
 	#startSocialInteraction()
 	var theIntroType:String = _args[0] if _args.size() > 0 else "normal"

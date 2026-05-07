@@ -5,3 +5,9 @@ var socialHandler:SocialInteractionHandler
 
 func shouldAgree() -> bool:
 	return true
+
+func onStart():
+	pass
+
+func onEnd(_isDeny:bool):
+	pass

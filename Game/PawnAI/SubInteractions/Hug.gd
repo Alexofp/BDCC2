@@ -14,18 +14,14 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	var theSocial := makeSocialInteraction("GenericFriendly")
-	if(!theSocial):
-		return
-	theSocial.addAgreeCheck(SocialCheckAffection.new(0.1).addMod(MoodEffects.FriendlyAgreeMod))
-	theSocial.addAgreeCheck(SocialCheckExhaustion.new(0.8))
-	theSocial.setKind(SocialInteractionKind.Hug)
-		
-	theSocial.affectionGain = 0.01
-	theSocial.affectionLossDeny = 0.005
-	theSocial.setKind(SocialInteractionKind.Hug)
-	theSocial.memorySuccess = "Hug"
-	theSocial.memorySuccessAbove = 0.3
+	socialInteraction.addCheck(SocialCheckAffection.new(0.1).addMod(MoodEffects.FriendlyAgreeMod))
+	socialInteraction.addCheck(SocialCheckExhaustion.new(0.8))
+	socialInteraction.addCheck(SocialCheckCooldown.new(SocialInteractionKind.Hug))
+	
+	socialInteraction.addSuccessEffect(SocialEffectAddAffection.new(0.01))
+	socialInteraction.addSuccessEffect(SocialEffectAddMemoryTarget.new("Hug"))
+	
+	socialInteraction.addDenyEffect(SocialEffectAddAffection.new(-0.005))
 
 #func start(_roles:Dictionary, _args:Array):
 
