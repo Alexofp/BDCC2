@@ -8,14 +8,13 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	socialInteraction.addCheck(SocialCheckAffection.new(0.15).addMod(MoodEffects.FriendlyAgreeMod))
-	socialInteraction.addCheck(SocialCheckExhaustion.new(0.8))
-	socialInteraction.addCheck(SocialCheckCooldown.new(SocialInteractionKind.Sex))
+	addSocial(SocialCheckAffection.new(0.15).addMod(MoodEffects.FriendlyAgreeMod))
+	addSocial(SocialCheckExhaustion.new(0.8))
+	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Sex))
 	
-	socialInteraction.addSuccessEffect(SocialEffectAddAffection.new(0.01))
-	socialInteraction.addSuccessEffect(SocialEffectAddMemoryTarget.new("Compliment"))
+	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
+	addSocial(SocialEffectAddMemory.new("Compliment"))
 	
-	socialInteraction.addDenyEffect(SocialEffectAddAffection.new(-0.005))
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true

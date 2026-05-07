@@ -1,10 +1,15 @@
-extends SocialEffectBase
+extends SocialCheckBase
 class_name SocialEffectAddAffection
 
-var amount:float = 0.0
+var successAffection:float = 0.0
+var denyAffection:float = 0.0
 
-func _init(_amount:float) -> void:
-	amount = _amount
+func _init(_success:float, _deny:float = 0.0) -> void:
+	successAffection = _success
+	denyAffection = _deny
 
-func doEffect(_isDeny:bool):
-	socialHandler.addAffection(amount)
+func onEnd(_isDeny:bool):
+	if(!_isDeny):
+		socialHandler.addAffection(successAffection*socialHandler.success)
+	else:
+		socialHandler.addAffection(denyAffection)

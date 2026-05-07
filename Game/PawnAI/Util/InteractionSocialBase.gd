@@ -52,6 +52,9 @@ func plan(_role:int, _action:AIActionBase) -> AIPlan:
 func prepareSocialInteraction():
 	pass
 
+func addSocial(_check:SocialCheckBase):
+	socialInteraction.add(_check)
+
 func startSocialInteraction() -> bool:
 	socialInteraction = SocialInteractionHandler.new()
 	prepareSocialInteraction()

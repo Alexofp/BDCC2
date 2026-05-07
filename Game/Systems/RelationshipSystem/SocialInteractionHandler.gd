@@ -11,8 +11,6 @@ var charIDStarter:String = ""
 var charIDTarget:String = ""
 
 var agreeChecks:Array[SocialCheckBase] = []
-var successEffects:Array[SocialEffectBase] = []
-var denyEffects:Array[SocialEffectBase] = []
 
 var shouldPlaySuccessNoise:bool = true
 var shouldPlayDenyNoise:bool = true
@@ -54,10 +52,6 @@ func onEnd() -> void:
 	if(shouldPlaySuccessNoise):
 		playSuccessNoise(success)
 	
-	for theEffect in successEffects:
-		theEffect.socialHandler = self
-		theEffect.doEffect(false)
-		theEffect.socialHandler = null
 	for theCheck in agreeChecks:
 		theCheck.socialHandler = self
 		theCheck.onEnd(false)
@@ -68,10 +62,6 @@ func onDenied() -> void:
 	if(shouldPlayDenyNoise):
 		playSuccessNoise(-1.0)
 	
-	for theEffect in denyEffects:
-		theEffect.socialHandler = self
-		theEffect.doEffect(true)
-		theEffect.socialHandler = null
 	for theCheck in agreeChecks:
 		theCheck.socialHandler = self
 		theCheck.onEnd(true)
@@ -90,10 +80,19 @@ func getTargetChar() -> BaseCharacter:
 const MEH_THRESHOLD := 0.2
 
 func addAffection(_am:float, _mult:float = 1.0) -> void:
-	var finalVal:float = _am*_mult
 	GM.main.relationshipSystem.addAffection(charIDStarter, charIDTarget, _am*_mult)
 	if(!showChange):
 		return
+	showValueChange("Affection", _am, _mult, Color.GREEN)
+
+func addLust(_am:float, _mult:float = 1.0) -> void:
+	GM.main.relationshipSystem.addLust(charIDStarter, charIDTarget, _am*_mult)
+	if(!showChange):
+		return
+	showValueChange("Lust", _am, _mult, Color.PURPLE)
+
+func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN) -> void:
+	var finalVal:float = _am*_mult
 	var pawn1 := getStarterPawn()
 	var pawn2 := getTargetPawn()
 	if(!pawn1 || !pawn2):
@@ -105,8 +104,8 @@ func addAffection(_am:float, _mult:float = 1.0) -> void:
 		#	pawn1.addSmallText("Affection~~", Color.YELLOW)
 		#	pawn2.addSmallText("Affection~~", Color.YELLOW)
 		#else:
-		pawn1.addSmallText("Affection~~", Color.YELLOW)
-		pawn2.addSmallText("Affection~~", Color.YELLOW)
+		pawn1.addSmallText(_text+"~~", Color.YELLOW)
+		pawn2.addSmallText(_text+"~~", Color.YELLOW)
 	else:
 		var charAm:int = 1
 		if(absf(finalVal) >= 2.5):
@@ -116,12 +115,12 @@ func addAffection(_am:float, _mult:float = 1.0) -> void:
 		
 		if(finalVal > 0.0):
 			var theChars:String = "+".repeat(charAm)
-			pawn1.addSmallText("Affection"+theChars, Color.GREEN)
-			pawn2.addSmallText("Affection"+theChars, Color.GREEN)
+			pawn1.addSmallText(_text+theChars, Color.GREEN)
+			pawn2.addSmallText(_text+theChars, Color.GREEN)
 		elif(finalVal < 0.0):
 			var theChars:String = "-".repeat(charAm)
-			pawn1.addSmallText("Affection"+theChars, Color.RED)
-			pawn2.addSmallText("Affection"+theChars, Color.RED)
+			pawn1.addSmallText(_text+theChars, Color.RED)
+			pawn2.addSmallText(_text+theChars, Color.RED)
 
 func getAffection() -> float:
 	return GM.main.relationshipSystem.getAffection(charIDStarter, charIDTarget)
@@ -223,11 +222,5 @@ func showInteractionSuccess():
 	var pawn2 := getTargetPawn()
 	pawn2.addSmallText("Success: "+str(int(success*100.0))+"%", Color.SKY_BLUE)
 
-func addCheck(_check:SocialCheckBase):
+func add(_check:SocialCheckBase):
 	agreeChecks.append(_check)
-
-func addSuccessEffect(_effect:SocialEffectBase):
-	successEffects.append(_effect)
-
-func addDenyEffect(_effect:SocialEffectBase):
-	denyEffects.append(_effect)

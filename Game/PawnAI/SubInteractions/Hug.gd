@@ -14,14 +14,13 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	socialInteraction.addCheck(SocialCheckAffection.new(0.1).addMod(MoodEffects.FriendlyAgreeMod))
-	socialInteraction.addCheck(SocialCheckExhaustion.new(0.8))
-	socialInteraction.addCheck(SocialCheckCooldown.new(SocialInteractionKind.Hug))
+	addSocial(SocialCheckAffection.new(0.1).addMod(MoodEffects.FriendlyAgreeMod))
+	addSocial(SocialCheckExhaustion.new(0.8))
+	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Hug))
 	
-	socialInteraction.addSuccessEffect(SocialEffectAddAffection.new(0.01))
-	socialInteraction.addSuccessEffect(SocialEffectAddMemoryTarget.new("Hug"))
+	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
+	addSocial(SocialEffectAddMemory.new("Hug"))
 	
-	socialInteraction.addDenyEffect(SocialEffectAddAffection.new(-0.005))
 
 #func start(_roles:Dictionary, _args:Array):
 

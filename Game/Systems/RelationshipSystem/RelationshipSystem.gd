@@ -12,16 +12,25 @@ func addAffectionRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
 		return
-	
 	_entry.affection += _amount
 	_entry.affection = clamp(_entry.affection, -1.0, 1.0)
+
+func addLustRaw(_char1:String, _char2:String, _amount:float):
+	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
+	if(!_entry):
+		return
+	_entry.lust += _amount
+	_entry.lust = clamp(_entry.lust, 0.0, 1.0)
 
 func addAffection(_char1:String, _char2:String, _amount:float):
 	#var currentAffection := getAffection(_char1, _char2)
 	#var multiplier := maxf(1.0 - pow(absf(currentAffection), 2.0), 0.05)
-	
 	Log.Print("Affection change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addAffectionRaw(_char1, _char2, _amount)#*multiplier)
+
+func addLust(_char1:String, _char2:String, _amount:float):
+	Log.Print("Lust change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
+	addLustRaw(_char1, _char2, _amount)#*multiplier)
 
 const AFFECTION_NONLINEAR_POW := 0.5
 static func affectionToVisualAffection(_val:float) -> float:
