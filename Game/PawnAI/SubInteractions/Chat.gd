@@ -16,6 +16,7 @@ func prepareSocialInteraction():
 	addSocial(SocialCheckExhaustion.new(0.8))
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Chat))
 	
+	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.005, -0.0025))
 	addSocial(SocialEffectAddMemory.new("Chat"))
 

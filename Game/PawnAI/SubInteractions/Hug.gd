@@ -18,6 +18,7 @@ func prepareSocialInteraction():
 	addSocial(SocialCheckExhaustion.new(0.8))
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Hug))
 	
+	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
 	addSocial(SocialEffectAddMemory.new("Hug"))
 	

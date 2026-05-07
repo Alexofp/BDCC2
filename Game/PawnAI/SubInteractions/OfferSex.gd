@@ -12,6 +12,7 @@ func prepareSocialInteraction():
 	addSocial(SocialCheckExhaustion.new(0.8))
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Sex))
 	
+	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
 	addSocial(SocialEffectAddMemory.new("Compliment"))
 	

@@ -146,7 +146,7 @@ func socialExhaustionPenalty(_startAbove:float, _am:float) -> float:
 		return 0.0
 	return -theExhaustion*_am
 
-func affectTargetSocialExhaustion(_am:float, _affectStarter:bool = true):
+func affectTargetSocialExhaustion(_am:float, _starterMult:float = 0.5):
 	var theAff := getAffection()
 	
 	var theTarget := getTargetPawn()
@@ -158,8 +158,8 @@ func affectTargetSocialExhaustion(_am:float, _affectStarter:bool = true):
 		_am *= (1.0 - theAff*0.7)
 	
 	theTarget.addSocialExhaustion(_am)
-	if(_affectStarter):
-		getStarterPawn().addSocialExhaustion(_am*0.5)
+	if(_starterMult != 0.0):
+		getStarterPawn().addSocialExhaustion(_am*_starterMult)
 
 func addMemoryTarget(_memory:String):
 	if(_memory.is_empty()):
