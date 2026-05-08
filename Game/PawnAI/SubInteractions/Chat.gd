@@ -19,6 +19,7 @@ func prepareSocialInteraction():
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.005, -0.0025))
 	addSocial(SocialEffectAddMemory.new("Chat"))
+	addSocial(SocialEffectAddMood.new().addSuccess(MoodStat.Mood, 1.1))
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true

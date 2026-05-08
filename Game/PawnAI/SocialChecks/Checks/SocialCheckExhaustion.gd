@@ -8,7 +8,7 @@ func _init(_exhaustion:float, _moodMult:float = 1.0) -> void:
 	maxExhaustion = _exhaustion
 	exhaustionMoodMult = _moodMult
 
-func shouldAgree() -> bool:
+func getAgreeStatus() -> int:
 	var _target := socialHandler.getTargetPawn()
 	var theSocialExhaustion:float = _target.getSocialExhaustion()
 	
@@ -16,5 +16,5 @@ func shouldAgree() -> bool:
 	theSocialExhaustion *= (1.0 + theExhaustionMod*exhaustionMoodMult)
 	
 	if(theSocialExhaustion > maxExhaustion):
-		return false
-	return true
+		return SocialInteractionHandler.STATUS_DENY
+	return SocialInteractionHandler.STATUS_UNCHANGED

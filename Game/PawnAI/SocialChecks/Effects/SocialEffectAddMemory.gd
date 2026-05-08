@@ -10,8 +10,8 @@ func _init(_mem:String, _successAbove:float = 0.3, _memoryDeny:String = "") -> v
 	memorySuccessAbove = _successAbove
 	memoryDeny = _memoryDeny
 
-func onEnd(_isDeny:bool):
-	if(_isDeny):
+func onEnd(_status:int):
+	if(_status == SocialInteractionHandler.STATUS_DENY):
 		socialHandler.addMemoryTarget(memoryDeny)
-	elif(socialHandler.success >= memorySuccessAbove):
+	elif(_status == SocialInteractionHandler.STATUS_AGREE && socialHandler.success >= memorySuccessAbove):
 		socialHandler.addMemoryTarget(memory)

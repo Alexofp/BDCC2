@@ -3,11 +3,11 @@ class_name SocialCheckBase
 
 var socialHandler:SocialInteractionHandler
 
-func shouldAgree() -> bool:
-	return true
+func getAgreeStatus() -> int:
+	return SocialInteractionHandler.STATUS_UNCHANGED
 
 func onStart():
 	pass
 
-func onEnd(_isDeny:bool):
+func onEnd(_status:int):
 	pass

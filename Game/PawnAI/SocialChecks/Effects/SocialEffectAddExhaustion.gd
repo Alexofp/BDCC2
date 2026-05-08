@@ -10,8 +10,8 @@ func _init(_success:float = 0.3, _deny:float = 0.1, _starterMult:float = 0.5) ->
 	deny = _deny
 	starterMult = _starterMult
 
-func onEnd(_isDeny:bool):
-	if(!_isDeny):
+func onEnd(_status:int):
+	if(_status == SocialInteractionHandler.STATUS_AGREE):
 		socialHandler.affectTargetSocialExhaustion(success, starterMult)
-	else:
+	elif(_status == SocialInteractionHandler.STATUS_DENY):
 		socialHandler.affectTargetSocialExhaustion(deny, starterMult)

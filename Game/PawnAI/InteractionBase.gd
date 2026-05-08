@@ -270,8 +270,8 @@ func pushEvent(_eventID:String, _args:Array = []):
 func pushSetState(_state:String):
 	interactionQueue.append([QueueEntry.SetState, _state])
 
-func pushSocialEnd():
-	interactionQueue.append([QueueEntry.SocialInteractionEnd])
+func pushSocialEnd(_status:int = SocialInteractionHandler.STATUS_AGREE):
+	interactionQueue.append([QueueEntry.SocialInteractionEnd, _status])
 
 func pushSocialDenied():
 	interactionQueue.append([QueueEntry.SocialInteractionDeny])
@@ -337,7 +337,7 @@ func processQueue(_dt:float):
 				addAffection(theEntry[1], theEntry[2], theEntry[3])
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionEnd:
-				socialInteractionEnd()
+				socialInteractionEnd(theEntry[1] if theEntry.size() > 1 else SocialInteractionHandler.STATUS_AGREE)
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionDeny:
 				socialInteractionDeny()
@@ -686,7 +686,7 @@ func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
 	return []
 
-func socialInteractionEnd():
+func socialInteractionEnd(_actualStatus:int = SocialInteractionHandler.STATUS_AGREE):
 	pass
 
 func socialInteractionDeny():

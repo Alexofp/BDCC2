@@ -5,10 +5,13 @@ var agreeAffection:float = -1.0 # The affection must be above this value to agre
 var mods:Array[int]
 var modMults:Array[float]
 
+var belowStatus:int = SocialInteractionHandler.STATUS_DENY
+var aboveStatus:int = SocialInteractionHandler.STATUS_UNCHANGED
+
 func _init(_affection:float) -> void:
 	agreeAffection = _affection
 
-func shouldAgree() -> bool:
+func getAgreeStatus() -> int:
 	var _target := socialHandler.getTargetPawn()
 	var _targetPersonality := _target.getPersonality()
 	
@@ -21,11 +24,16 @@ func shouldAgree() -> bool:
 		
 		theAffection += _target.mood.effects.getMod(theMod)*theModMult
 	
-	if(theAffection >= agreeAffection):
-		return true
-	return false
+	if(theAffection < agreeAffection):
+		return belowStatus
+	return aboveStatus
 
 func addMod(_mod:int, _mult:float = 1.0) -> SocialCheckAffection:
 	mods.append(_mod)
 	modMults.append(_mult)
+	return self
+
+func setStatus(_below:int, _above:int = SocialInteractionHandler.STATUS_UNCHANGED) -> SocialCheckAffection:
+	belowStatus = _below
+	aboveStatus = _above
 	return self

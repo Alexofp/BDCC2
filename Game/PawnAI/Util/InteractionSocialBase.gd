@@ -56,12 +56,10 @@ func addSocial(_check:SocialCheckBase):
 	socialInteraction.add(_check)
 
 func startSocialInteraction() -> bool:
-	socialInteraction = SocialInteractionHandler.new()
-	prepareSocialInteraction()
 	if(!socialInteraction):
-		assert(false, "Couldn't create a social interaction")
-		return false
-	socialInteraction.setPawns(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+		socialInteraction = SocialInteractionHandler.new()
+		prepareSocialInteraction()
+		socialInteraction.setPawns(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
 	socialInteraction.trySocialInteraction()
 	return true
 	
@@ -69,21 +67,30 @@ func scoreSocialAgree() -> float:
 	if(!socialInteraction):
 		return 1.0
 	return socialInteraction.scoreAgree()
+	
+func scoreSocialStatus(_status:int) -> float:
+	if(!socialInteraction):
+		return 0.0
+	return socialInteraction.scoreStatus(_status)
 
 func socialInteractionStart():
 	if(!socialInteraction):
 		return
 	socialInteraction.onStart()
 
-func socialInteractionEnd():
+func socialInteractionEnd(_actualStatus:int = SocialInteractionHandler.STATUS_AGREE):
 	if(!socialInteraction):
+		onSocialInteractionEnd(_actualStatus)
 		return
-	socialInteraction.onEnd()
+	socialInteraction.onEnd(_actualStatus)
+	onSocialInteractionEnd(_actualStatus)
+
+## Use this function to handle your custom agree status.
+func onSocialInteractionEnd(_actualStatus:int):
+	pass
 
 func socialInteractionDeny():
-	if(!socialInteraction):
-		return
-	socialInteraction.onDenied()
+	socialInteractionEnd(SocialInteractionHandler.STATUS_DENY)
 
 func showInteractionSuccess():
 	if(!socialInteraction):

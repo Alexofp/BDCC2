@@ -1,11 +1,14 @@
 extends RefCounted
 class_name SocialInteractionHandler
 
+const STATUS_UNCHANGED := -1
+const STATUS_DENY := 0
+const STATUS_AGREE := 1
+
 var id:String = ""
-var agree:float = 0.0
-var success:float = 0.0 # A number between -1.0 and 1.0
+var status:int = STATUS_DENY
+var success:float = 0.0 # A number between 0.0 and 1.0. Never below zero, even if denied
 var showChange:bool = true
-var kind:String = ""
 
 var charIDStarter:String = ""
 var charIDTarget:String = ""
@@ -24,19 +27,31 @@ func setPawns(_pawnStarter:CharacterPawn, _pawnTarget:CharacterPawn):
 
 # Calculate if the target should agree
 func trySocialInteraction() -> void:
-	agree = 1.0
+	status = STATUS_AGREE
 	for check in agreeChecks:
 		check.socialHandler = self
-		if(!check.shouldAgree()):
+		var theStatus:int = check.getAgreeStatus()
+		if(theStatus == STATUS_DENY):
 			Log.Print("Not agreed by: "+str(check))
 			check.socialHandler = null
-			agree = 0.0
+			status = theStatus
+			return
+		if(theStatus == STATUS_AGREE):
+			Log.Print("Agreed by: "+str(check))
+			check.socialHandler = null
+			status = theStatus
+			return
+		if(theStatus != STATUS_UNCHANGED):
+			status = theStatus
 			return
 		check.socialHandler = null
 
 # Should the target agree?
 func scoreAgree() -> float:
-	return agree
+	return (1.0 if (status == STATUS_AGREE) else 0.0)
+	
+func scoreStatus(_status:int) -> float:
+	return (1.0 if (status == _status) else 0.0)
 
 # The interaction is just about to start
 func onStart() -> void:
@@ -48,23 +63,15 @@ func onStart() -> void:
 	Log.Print("Success: "+str(int(success*100.0))+"%")
 
 # The interaction has ended
-func onEnd() -> void:
-	if(shouldPlaySuccessNoise):
+func onEnd(_actualStatus:int) -> void:
+	if(shouldPlaySuccessNoise && _actualStatus == STATUS_AGREE):
 		playSuccessNoise(success)
+	if(shouldPlayDenyNoise && _actualStatus == STATUS_DENY):
+		playSuccessNoise(-1.0*success)
 	
 	for theCheck in agreeChecks:
 		theCheck.socialHandler = self
-		theCheck.onEnd(false)
-		theCheck.socialHandler = null
-
-# The target has denied us
-func onDenied() -> void:
-	if(shouldPlayDenyNoise):
-		playSuccessNoise(-1.0)
-	
-	for theCheck in agreeChecks:
-		theCheck.socialHandler = self
-		theCheck.onEnd(true)
+		theCheck.onEnd(_actualStatus)
 		theCheck.socialHandler = null
 
 # util

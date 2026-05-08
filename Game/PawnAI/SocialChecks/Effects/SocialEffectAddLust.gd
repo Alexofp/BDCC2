@@ -8,8 +8,8 @@ func _init(_success:float, _deny:float = 0.0) -> void:
 	successLust = _success
 	denyLust = _deny
 
-func onEnd(_isDeny:bool):
-	if(!_isDeny):
+func onEnd(_status:int):
+	if(_status == SocialInteractionHandler.STATUS_AGREE):
 		socialHandler.addLust(successLust*socialHandler.success)
-	else:
+	elif(_status == SocialInteractionHandler.STATUS_DENY):
 		socialHandler.addLust(denyLust)

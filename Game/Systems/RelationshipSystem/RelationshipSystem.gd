@@ -207,6 +207,8 @@ func addActionCooldownPawns(_charTarget:CharacterPawn, _charActor:CharacterPawn,
 	addActionCooldown(_charTarget.getCharID(), _charActor.getCharID(), _actionID, _am)
 
 func addActionCooldown(_charTarget:String, _charActor:String, _actionID:String, _am:float = 1.0):
+	if(_actionID.is_empty()):
+		return
 	var theEntry := getOrCreateShortTerm(_charTarget, _charActor)
 	if(!theEntry.actionCooldowns.has(_actionID)):
 		theEntry.actionCooldowns[_actionID] = _am
@@ -232,6 +234,7 @@ func _physics_process(_delta: float) -> void:
 		var entry:RelationshipShortTermEntry = shortTerm[_indx]
 		if(entry.updateCheckShouldRemove(_delta)):
 			shortTerm.remove_at(_indx)
+			Log.Print("REMOVED SHORT TERM: "+entry.char1+" "+entry.char2)
 	
 	rareUpdateTimer += _delta
 	while(rareUpdateTimer >= RARE_UPDATE_TIME):

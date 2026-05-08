@@ -15,8 +15,7 @@ func onStart():
 	
 	socialHandler.success = 1.0 / (1.0 + theCooldown)
 
-func onEnd(_isDeny:bool):
-	if(_isDeny || cooldownID.is_empty()):
-		return
-	GM.main.relationshipSystem.addActionCooldown(socialHandler.charIDTarget, socialHandler.charIDStarter, cooldownID, cooldownAmount)
+func onEnd(_status:int):
+	if(_status == SocialInteractionHandler.STATUS_AGREE):
+		GM.main.relationshipSystem.addActionCooldown(socialHandler.charIDTarget, socialHandler.charIDStarter, cooldownID, cooldownAmount)
 	
