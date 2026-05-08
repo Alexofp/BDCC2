@@ -4,7 +4,7 @@ class_name Audio
 const BUS_SOUNDS = "Sounds"
 const BUS_VOICE = "Voice"
 
-static func _play_sound(sound: AudioStream, player, maxDistance:float = 10.0, theBus:String = BUS_SOUNDS):
+static func _play_sound(sound: AudioStream, player, maxDistance:float = 20.0, theBus:String = BUS_SOUNDS):
 	player.stream = sound
 	player.autoplay = true
 	player.bus = theBus
@@ -20,7 +20,7 @@ static func playSound(sound: AudioStream, maxDistance:float = 10.0, theBus:Strin
 
 static func playSoundAdvanced(sound: AudioStream, volumeInc:float = 0.0, pitch:float = 1.0, theBus:String = BUS_SOUNDS) -> AudioStreamPlayer:
 	var newPlayer := AudioStreamPlayer.new()
-	_play_sound(sound, newPlayer, 10.0, theBus)
+	_play_sound(sound, newPlayer, 20.0, theBus)
 	newPlayer.volume_db += volumeInc
 	newPlayer.pitch_scale = pitch
 	OPTIONS.get_tree().current_scene.add_child(newPlayer)

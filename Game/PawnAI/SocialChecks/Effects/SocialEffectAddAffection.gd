@@ -10,6 +10,6 @@ func _init(_success:float, _deny:float = 0.0) -> void:
 
 func onEnd(_status:int):
 	if(_status == SocialInteractionHandler.STATUS_AGREE):
-		socialHandler.addAffection(successAffection*socialHandler.success)
+		socialHandler.addAffection(successAffection, socialHandler.success)
 	elif(_status == SocialInteractionHandler.STATUS_DENY):
-		socialHandler.addAffection(denyAffection)
+		socialHandler.addAffection(denyAffection, socialHandler.success)

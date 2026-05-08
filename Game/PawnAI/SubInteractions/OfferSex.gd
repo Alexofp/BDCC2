@@ -9,11 +9,11 @@ func _init() -> void:
 
 func prepareSocialInteraction():
 	addSocial(SocialCheckAffection.new(0.15).addMod(MoodEffects.FriendlyAgreeMod))
-	addSocial(SocialCheckExhaustion.new(0.8))
+	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Sex))
 	
 	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
+	addSocial(SocialEffectAddAffection.new(0.5, -0.3))
 	addSocial(SocialEffectAddMemory.new("Compliment"))
 	
 
@@ -86,11 +86,20 @@ func follow_plan(_role:int, _action:AIActionBase) -> AIPlan:
 #	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
 
 func onSexEngineResult(_result:SexEngineResult):
-	if(state == "follow"):
-		setState("afterSex")
-		clearPushQueue()
-		pushDelay(2.0)
-		pushSay(ROLE_TARGET, "OfferSexEnd", ROLE_MAIN)
-		pushDelay(2.0)
-		pushSocialEnd()
-		pushStopInteraction()
+	if(state != "follow"):
+		return
+	var theSatisfaction:float = _result.getSatisfactionCharID(getCharID(ROLE_TARGET))
+	
+	if(theSatisfaction < 0.5):
+		socialInteraction.status = SocialInteractionHandler.STATUS_DENY
+		socialInteraction.success = remap(theSatisfaction, 0.5, 0.0, 0.0, 1.0)
+	else:
+		socialInteraction.status = SocialInteractionHandler.STATUS_AGREE
+		socialInteraction.success = remap(theSatisfaction, 0.5, 1.0, 0.0, 1.0)
+	setState("afterSex")
+	clearPushQueue()
+	pushDelay(2.0)
+	pushSay(ROLE_TARGET, "OfferSexEnd", ROLE_MAIN)
+	pushDelay(2.0)
+	pushSocialEnd()
+	pushStopInteraction()

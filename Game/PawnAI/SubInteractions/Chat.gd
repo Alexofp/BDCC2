@@ -12,12 +12,12 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(-1.0).addMod(MoodEffects.FriendlyAgreeMod))
-	addSocial(SocialCheckExhaustion.new(0.8))
+	addSocial(SocialCheckAffection.new(-3.0).addMod(MoodEffects.FriendlyAgreeMod))
+	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Chat))
 	
 	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.005, -0.0025))
+	addSocial(SocialEffectAddAffection.new(0.1, -0.05))
 	addSocial(SocialEffectAddMemory.new("Chat"))
 	addSocial(SocialEffectAddMood.new().addSuccess(MoodStat.Mood, 1.1))
 

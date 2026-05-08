@@ -14,12 +14,12 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(0.1).addMod(MoodEffects.FriendlyAgreeMod))
-	addSocial(SocialCheckExhaustion.new(0.8))
+	addSocial(SocialCheckAffection.new(0.5).addMod(MoodEffects.FriendlyAgreeMod))
+	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Hug))
 	
 	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.01, -0.005))
+	addSocial(SocialEffectAddAffection.new(0.3, -0.1))
 	addSocial(SocialEffectAddMemory.new("Hug"))
 	
 

@@ -6,6 +6,11 @@ var didAnything:bool
 var domsLostGrip:bool
 var mode:int = SexEngine.MODE_NORMAL
 
+func getSatisfactionCharID(_charID:String) -> float:
+	if(!participants.has(_charID)):
+		return 0.5
+	return participants[_charID].satisfaction
+
 func fillFromSexEngine(_sexEngine:SexEngine):
 	didAnything = true
 	domsLostGrip = _sexEngine.lostGrip

@@ -1,18 +1,20 @@
-[gd_scene format=3 uid="uid://bbdfylawbmgvc"]
+[gd_scene format=3 uid="uid://cg70h54tkxn7l"]
 
-[ext_resource type="Script" uid="uid://d3m2hekkflxnx" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.gd" id="1_ok4an"]
+[ext_resource type="Script" uid="uid://dw16tbg01g6t" path="res://UI/Util/ProgressBarFancy/ProgressBarMultiStage.gd" id="1_u7w0k"]
+
+[sub_resource type="Gradient" id="Gradient_u7w0k"]
+colors = PackedColorArray(0.22, 0.20548001, 0.07479999, 1, 0.14850006, 0.81, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_jensg"]
+colors = PackedColorArray(0.23, 0.100395, 0.0713, 1, 0.81, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym1pe"]
+resource_local_to_scene = true
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0.25, 0.25, 0.25, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
+bg_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wam7t"]
 resource_local_to_scene = true
@@ -20,17 +22,18 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0.04303915, 0.043039158, 0.043039113, 1)
-corner_detail = 6
+bg_color = Color(0.2509804, 0.2509804, 0.2509804, 1)
 
-[node name="ProgressBarFancy" type="PanelContainer" unique_id=969516068]
+[node name="ProgressBarMultiStage" type="PanelContainer" unique_id=969516068]
 custom_minimum_size = Vector2(0, 20)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ok4an")
+script = ExtResource("1_u7w0k")
+gradientPositive = SubResource("Gradient_u7w0k")
+gradientNegative = SubResource("Gradient_jensg")
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=2056777050]
 unique_name_in_owner = true
@@ -40,7 +43,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_ym1pe")
 theme_override_styles/fill = SubResource("StyleBoxFlat_wam7t")
 max_value = 1.0
 step = 0.001
-value = 0.235
 show_percentage = false
 
 [node name="Control" type="Control" parent="." unique_id=1952005862]
@@ -54,7 +56,7 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_right = 73.0
 grow_vertical = 2
-text = "Left text"
+text = "Property"
 vertical_alignment = 1
 
 [node name="RightLabel" type="Label" parent="Control" unique_id=968165233]

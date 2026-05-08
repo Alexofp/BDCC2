@@ -8,22 +8,28 @@ var holders:Dictionary[String, RelationshipHolder]
 var entries:Array[RelationshipEntry]
 var shortTerm:Array[RelationshipShortTermEntry]
 
+const AFFECTION_MAX := 3.0
 func addAffectionRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
 		return
 	_entry.affection += _amount
-	_entry.affection = clamp(_entry.affection, -1.0, 1.0)
+	_entry.affection = clamp(_entry.affection, -AFFECTION_MAX, AFFECTION_MAX)
 
+const LUST_MAX := 1.0
 func addLustRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
 		return
 	_entry.lust += _amount
-	_entry.lust = clamp(_entry.lust, 0.0, 1.0)
+	_entry.lust = clamp(_entry.lust, 0.0, LUST_MAX)
 
 func addAffection(_char1:String, _char2:String, _amount:float):
-	#var currentAffection := getAffection(_char1, _char2)
+	var currentAffection := getAffection(_char1, _char2)
+	if(currentAffection > 1.0 && _amount > 0.0):
+		_amount /= currentAffection
+	if(currentAffection < -1.0 && _amount < 0.0):
+		_amount /= -currentAffection
 	#var multiplier := maxf(1.0 - pow(absf(currentAffection), 2.0), 0.05)
 	Log.Print("Affection change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addAffectionRaw(_char1, _char2, _amount)#*multiplier)
@@ -33,24 +39,27 @@ func addLust(_char1:String, _char2:String, _amount:float):
 	addLustRaw(_char1, _char2, _amount)#*multiplier)
 
 const AFFECTION_NONLINEAR_POW := 0.5
-static func affectionToVisualAffection(_val:float) -> float:
+static func affectionToVisualAffection_OLD(_val:float) -> float:
 	if(_val == 0.0):
 		return 0.0
 	if(_val < 0.0):
 		return -pow(-_val, AFFECTION_NONLINEAR_POW)
 	return pow(_val, AFFECTION_NONLINEAR_POW)
 
+static func affectionToVisualAffection(_val:float) -> float:
+	return _val
+
 func getAffection(_char1:String, _char2:String) -> float:
 	var theEntry := getEntry(_char1, _char2)
 	if(!theEntry):
 		return 0.0
-	return clamp(theEntry.affection, -1.0, 1.0)
+	return clamp(theEntry.affection, -AFFECTION_MAX, AFFECTION_MAX)
 
 func getLust(_char1:String, _char2:String) -> float:
 	var theEntry := getEntry(_char1, _char2)
 	if(!theEntry):
 		return 0.0
-	return clamp(theEntry.lust, 0.0, 1.0)
+	return clamp(theEntry.lust, 0.0, LUST_MAX)
 
 func getOrCreateHolder(_charID:String) -> RelationshipHolder:
 	if(!GM.main.characterRegistry.hasCharacter(_charID)):
