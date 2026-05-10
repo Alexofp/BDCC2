@@ -13,9 +13,20 @@ func processAction(_dt:float):
 
 func onGettingHit(_attackContext:AttackContext) -> bool:
 	if(!getPawn().isDefeated()):
-		getPawn().combatAI.addEnemy(_attackContext.attacker)
+		if(getPawn().combatAI.addEnemy(_attackContext.attacker)):
+			getPawn().ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
+			var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
+			var theAffectionMult:float = maxf(currentCooldown + 1.0, 1.0)
+			
+			var toRemoveAffection:float = -0.5 / theAffectionMult
+			
+			GM.main.relationshipSystem.addAffection(_attackContext.target.getCharID(), _attackContext.attacker.getCharID(), toRemoveAffection)
+			_attackContext.target.showValueChange("Affection", signf(toRemoveAffection), 2.0/theAffectionMult)
+			
+			GM.main.memorySystem.addMemory(_attackContext.target.getCharID(), "Attacked", _attackContext.attacker.getCharID())
+			
+			GM.main.relationshipSystem.addActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
 		startSubActionUnlessSameTag("Combat")
-		getPawn().ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
 	return true
 
 func isHandlingCombat() -> bool:

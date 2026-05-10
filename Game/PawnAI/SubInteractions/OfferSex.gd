@@ -8,9 +8,9 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(0.15).addMod(MoodEffects.FriendlyAgreeMod))
+	addSocial(SocialCheckAffection.new(0.15).addMod(MoodEffects.SexAgreeMod))
 	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Sex))
+	addSocial(SocialCheckCooldown.new(SocialCooldown.Sex))
 	
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.5, -0.3))
@@ -75,6 +75,10 @@ func follow_do(_role:int, _action:InteractionAction):
 		pushStopInteraction()
 
 func shouldAllowDelayedAction(_role:int, _action:ActionSystemEntry) -> bool:
+	#if(socialInteraction.status != SocialInteractionHandler.STATUS_AGREE):
+		#return false
+	if(state != "follow"):
+		return false
 	if(_role == ROLE_TARGET && _action.user == getPawn(ROLE_MAIN) && _action.action.id == "SexOffer"):
 		return true
 	return false

@@ -207,24 +207,6 @@ def AskDay_End
 That's about it.
 >
 
-def Memory_Hug
-fill Memory_Hug simple
-<
-Got hugged by {target.name}% MemoryRecently%. That felt good.
->
-
-def Memory_Chat
-fill Memory_Chat simple
-<
-Had a nice chat with {target.name}% MemoryRecently%.
->
-
-def Memory_Compliment
-fill Memory_Compliment simple
-<
-I got complimented by {target.name}% MemoryRecently%.
->
-
 def OfferSex
 fill OfferSex simple
 <

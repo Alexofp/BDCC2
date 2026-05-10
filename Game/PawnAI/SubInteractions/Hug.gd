@@ -16,11 +16,11 @@ func _init() -> void:
 func prepareSocialInteraction():
 	addSocial(SocialCheckAffection.new(0.5).addMod(MoodEffects.FriendlyAgreeMod))
 	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Hug))
+	addSocial(SocialCheckCooldown.new(SocialCooldown.Hug))
 	
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.3, -0.1))
-	addSocial(SocialEffectAddMemory.new("Hug"))
+	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Hug))
 	
 
 #func start(_roles:Dictionary, _args:Array):

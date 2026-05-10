@@ -13,7 +13,7 @@ func getAgreeStatus() -> int:
 	var theSocialExhaustion:float = _target.getSocialExhaustion()
 	
 	var theExhaustionMod:float = _target.mood.effects.exhaustionMod
-	theSocialExhaustion *= (1.0 + theExhaustionMod*exhaustionMoodMult)
+	theSocialExhaustion *= theExhaustionMod*exhaustionMoodMult
 	
 	if(theSocialExhaustion > maxExhaustion):
 		return SocialInteractionHandler.STATUS_DENY

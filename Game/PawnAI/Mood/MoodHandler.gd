@@ -10,13 +10,14 @@ var moodNames:Array[String] = []
 var moodName:String = NEUTRAL_MOOD_NAME
 
 # These are [-1.0, 1.0]
-var mood:float = 0.0 # Happy or Sad
-var anger:float = 0.0 # Angry or Friendly
-var horny:float = 0.0 # Horny or Chaste
-var dominance:float = 0.0 # Dominant or Subby
+var temporaryMood:float = 0.0 # Happy or Sad
+var temporaryAnger:float = 0.0 # Angry or Friendly
+var temporaryHorny:float = 0.0 # Horny or Chaste
+var temporaryDominance:float = 0.0 # Dominant or Subby
 #var bored:float # Bored or -
 #var tired:float # Tired or -
 
+var values:MoodValues = MoodValues.new()
 var effects:MoodEffects = MoodEffects.new()
 
 func setPawn(_p:CharacterPawn):
@@ -24,17 +25,24 @@ func setPawn(_p:CharacterPawn):
 
 # Should get called every 10 seconds or so
 func processRare(_dt:float):
-	mood = tickValueDown(mood)
-	anger = tickValueDown(anger)
-	horny = tickValueDown(horny)
-	dominance = tickValueDown(dominance)
+	temporaryMood = tickValueDown(temporaryMood)
+	temporaryAnger = tickValueDown(temporaryAnger)
+	temporaryHorny = tickValueDown(temporaryHorny)
+	temporaryDominance = tickValueDown(temporaryDominance)
+	
+	values.clear()
+	values.mood += temporaryMood
+	values.anger += temporaryAnger
+	values.horny += temporaryHorny
+	values.dominance += temporaryDominance
+	values.combineWith(pawn.getCharacter().memoryHolder.moodValues)
 	
 	updateMoods()
 
 func tickValueDown(_v:float) -> float:
 	if(absf(_v) < 0.1):
 		return 0.0
-	return _v * 0.9
+	return _v * GM.GB.moodDecayRate
 
 func calcMoodNames() -> Array[String]:
 	var result:Array[String] = []
@@ -63,31 +71,35 @@ func updateMoods():
 	moodName = NEUTRAL_MOOD_NAME if moodNames.is_empty() else Util.humanReadableList(moodNames)
 
 func addMoodRaw(_v:float):
-	mood += _v
+	temporaryMood += _v
 func addAngerRaw(_v:float):
-	anger += _v
+	temporaryAnger += _v
 func addHornyRaw(_v:float):
-	horny += _v
+	temporaryHorny += _v
 func addDomRaw(_v:float):
-	dominance += _v
+	temporaryDominance += _v
 func addStatRaw(_stat:int, _v:float):
 	if(_stat == MoodStat.Mood):
-		mood += _v
+		temporaryMood += _v
 	elif(_stat == MoodStat.Anger):
-		anger += _v
+		temporaryAnger += _v
 	elif(_stat == MoodStat.Horny):
-		horny += _v
+		temporaryDominance += _v
 	elif(_stat == MoodStat.Dominance):
-		dominance += _v
+		temporaryDominance += _v
 
 func addMood(_v:float):
-	mood = affectValue(mood, _v, PersonalityStat.Perceptive, 0.5)
+	addMoodRaw(_v)
+	#mood = affectValue(mood, _v, PersonalityStat.Perceptive, 0.5)
 func addAnger(_v:float):
-	anger = affectValue(anger, _v, PersonalityStat.Mean, 0.7)
+	addAngerRaw(_v)
+	#anger = affectValue(anger, _v, PersonalityStat.Mean, 0.7)
 func addHorny(_v:float):
-	horny = affectValue(horny, _v, PersonalityStat.Libido, 0.7)
+	addHornyRaw(_v)
+	#horny = affectValue(horny, _v, PersonalityStat.Libido, 0.7)
 func addDom(_v:float):
-	dominance = affectValue(dominance, _v, PersonalityStat.Dominant, 0.7)
+	addDomRaw(_v)
+	#dominance = affectValue(dominance, _v, PersonalityStat.Dominant, 0.7)
 func addStat(_stat:int, _v:float):
 	if(_stat == MoodStat.Mood):
 		addMood(_v)

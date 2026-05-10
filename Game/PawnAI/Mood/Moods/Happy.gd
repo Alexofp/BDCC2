@@ -15,6 +15,8 @@ func _init() -> void:
 		addStage(2.0, "Very happy", _effects)
 
 func calculateScore(_pawn:CharacterPawn, _handler:MoodHandler) -> float:
-	if(_handler.mood < 1.0):
+	var theMood:float = _handler.values.mood * (1.0 - 0.5*_handler.personality(PersonalityStat.Perceptive))
+	
+	if(theMood < 1.0):
 		return 0.0
-	return _handler.mood
+	return theMood

@@ -5,19 +5,19 @@ const FriendlyAgreeMod := 0
 const SexAgreeMod := 1
 const ExhaustionMod := 2
 
-var friendlyAgreeMod:float = 0.0
-var sexAgreeMod:float = 0.0
-var exhaustionMod:float = 0.0
+var friendlyAgreeMod:float = 1.0
+var sexAgreeMod:float = 1.0
+var exhaustionMod:float = 1.0
 
 func clear():
-	friendlyAgreeMod = 0.0
-	sexAgreeMod = 0.0
-	exhaustionMod = 0.0
+	friendlyAgreeMod = 1.0
+	sexAgreeMod = 1.0
+	exhaustionMod = 1.0
 
 func combineWith(_other:MoodEffects):
-	friendlyAgreeMod = getBiggestMod(friendlyAgreeMod, _other.friendlyAgreeMod)
-	sexAgreeMod = getBiggestMod(sexAgreeMod, _other.sexAgreeMod)
-	exhaustionMod = getBiggestMod(exhaustionMod, _other.exhaustionMod)
+	friendlyAgreeMod *= _other.friendlyAgreeMod
+	sexAgreeMod *= _other.sexAgreeMod
+	exhaustionMod *= _other.exhaustionMod
 
 func getMod(_mod:int) -> float:
 	if(_mod == FriendlyAgreeMod):

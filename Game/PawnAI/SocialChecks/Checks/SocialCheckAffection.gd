@@ -17,12 +17,19 @@ func getAgreeStatus() -> int:
 	
 	var theAffection:float = socialHandler.getAffection()
 	
+	var theFinalMod:float = 1.0
 	var modAm:int = mods.size()
 	for _i in modAm:
 		var theMod:int = mods[_i]
 		var theModMult:float = modMults[_i]
 		
-		theAffection += _target.mood.effects.getMod(theMod)*theModMult
+		theFinalMod *= _target.mood.effects.getMod(theMod)*theModMult
+		#theAffection += _target.mood.effects.getMod(theMod)*theModMult
+	
+	if(theAffection >= 0.0):
+		theAffection *= theFinalMod
+	elif(absf(theFinalMod) >= 0.01):
+		theAffection /= theFinalMod
 	
 	if(theAffection < agreeAffection):
 		return belowStatus

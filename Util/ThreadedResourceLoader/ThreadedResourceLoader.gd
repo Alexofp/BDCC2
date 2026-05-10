@@ -31,6 +31,28 @@ func loadRequest(_path:String, _tryAgainCount:int = 0) -> BackgroundLoadRequest:
 	return newRequest
 
 func asyncLoadRequest(_path:String, _tryAgainCount:int = 0) -> Resource:
+	#await get_tree().process_frame #Makes the 'Trying to load X' print show up
+	
+	if(ResourceLoader.has_cached(_path)):
+		return ResourceLoader.load(_path)
+	
+	var err:= ResourceLoader.load_threaded_request(_path)
+	if(err != OK):
+		printerr("ERROR! "+error_string(err))
+		return null
+	
+	var loadStatus := ResourceLoader.load_threaded_get_status(_path)
+	while(loadStatus == ResourceLoader.THREAD_LOAD_IN_PROGRESS):
+		await get_tree().process_frame
+		loadStatus = ResourceLoader.load_threaded_get_status(_path)
+	
+	if(loadStatus != ResourceLoader.THREAD_LOAD_LOADED):
+		printerr("FAILED TO LOAD! loadStatus="+str(loadStatus))
+		return null
+	
+	return ResourceLoader.load_threaded_get(_path)
+
+func asyncLoadRequestOLD(_path:String, _tryAgainCount:int = 0) -> Resource:
 	#Log.Print("ASYNC REQUEST: "+str(_path))
 	#if(true):
 	#	return load(_path)
@@ -42,7 +64,9 @@ func asyncLoadRequest(_path:String, _tryAgainCount:int = 0) -> Resource:
 		return load(_path)
 	var theRequest := loadRequest(_path, _tryAgainCount)
 	await theRequest.requestFinished
-	return theRequest.getResult()
+	var theRes = theRequest.getResult()
+	theRequest.result = null
+	return theRes
 
 #func loadAsync(thePath:String) -> Resource:
 	#var result:Array = []

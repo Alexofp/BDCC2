@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cla8ppmemnql3"]
+
+[ext_resource type="Shader" uid="uid://1es2t5c65f0w" path="res://Mesh/Materials/MyLayeredTexture/Mats/Shaders/DrawTextureAddShader.gdshader" id="1_pdl4v"]
+
+[resource]
+shader = ExtResource("1_pdl4v")

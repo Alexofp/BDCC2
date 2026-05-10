@@ -14,12 +14,12 @@ func _init() -> void:
 func prepareSocialInteraction():
 	addSocial(SocialCheckAffection.new(-3.0).addMod(MoodEffects.FriendlyAgreeMod))
 	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Chat))
+	addSocial(SocialCheckCooldown.new(SocialCooldown.Chat))
 	
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.1, -0.05))
-	addSocial(SocialEffectAddMemory.new("Chat"))
-	addSocial(SocialEffectAddMood.new().addSuccess(MoodStat.Mood, 1.1))
+	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Chat))
+	#addSocial(SocialEffectAddMood.new().addSuccess(MoodStat.Mood, 1.1))
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true

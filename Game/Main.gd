@@ -1,6 +1,8 @@
 extends Node3D
 class_name MainScene
 
+var GB:GameBalance = GameBalance.new()
+
 @onready var in_game_menu: Control = %InGameMenu
 @onready var main_ui_layer: CanvasLayer = %MainUILayer
 @onready var doll_holder: DollHolder = %DollHolder

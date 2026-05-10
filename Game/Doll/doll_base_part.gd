@@ -123,6 +123,23 @@ func addLayersToTexture(layeredTexture:MyLayeredTexture, layers:Array):
 			else:
 				layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["r"] if layerEntry.has("r") else Color.BLACK)
 
+func addLayersToTextureNew(layeredTexture:MyLayeredTextureNew, layers:Array):
+	for layerEntry in layers:
+		var texVarID:String = layerEntry["id"] if layerEntry.has("id") else ""
+		
+		var textureVariant:TextureVariant = GlobalRegistry.getTextureVariant(texVarID)
+		if(textureVariant == null):
+			continue
+		
+		if(textureVariant.pathColormask != ""):
+			layeredTexture.addColorMaskLayer(textureVariant.pathColormask, layerEntry["r"] if layerEntry.has("r") else Color.BLACK, layerEntry["g"] if layerEntry.has("g") else Color.BLACK, layerEntry["b"] if layerEntry.has("b") else Color.BLACK)
+		elif(textureVariant.pathTexture != ""):
+			if(textureVariant.flags.has("rect")):
+				var theRect:Array = textureVariant.flags["rect"]
+				layeredTexture.addSimpleLayerAt(textureVariant.pathTexture, layerEntry["r"] if layerEntry.has("r") else Color.BLACK, Vector2(theRect[0], theRect[1]), Vector2(theRect[2], theRect[3]))
+			else:
+				layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["r"] if layerEntry.has("r") else Color.BLACK)
+
 func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	if(!theMat):
 		return

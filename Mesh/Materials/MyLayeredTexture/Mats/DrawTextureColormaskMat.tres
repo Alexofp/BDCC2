@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cu41g7iligj4m"]
+
+[ext_resource type="Shader" uid="uid://drxmw0ey282ox" path="res://Mesh/Materials/MyLayeredTexture/Mats/Shaders/DrawTextureColormaskShader.gdshader" id="1_7du0u"]
+
+[resource]
+shader = ExtResource("1_7du0u")
+shader_parameter/colorR = Color(0, 0, 0, 1)
+shader_parameter/colorG = Color(0, 0, 0, 1)
+shader_parameter/colorB = Color(0, 0, 0, 1)

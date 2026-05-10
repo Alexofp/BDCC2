@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bxnsn7idl4121"]
+
+[ext_resource type="PackedScene" uid="uid://cj67atub11hbl" path="res://Mesh/Materials/MyLayeredTexture/MyLayeredTextureNew.tscn" id="1_iaayb"]
+[ext_resource type="Script" uid="uid://bocyn2jlr4b42" path="res://Mesh/Materials/MyLayeredTexture/TestDrawTextures.gd" id="1_oasah"]
+
+[node name="TestDrawTextures" type="Control" unique_id=1882181510]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oasah")
+
+[node name="MyLayeredTextureNew" parent="." unique_id=80717393 instance=ExtResource("1_iaayb")]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=787902702]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClearButton" type="Button" parent="." unique_id=1318965043]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "CLEAR"
+
+[connection signal="onTextureUpdated" from="MyLayeredTextureNew" to="." method="_on_my_layered_texture_new_on_texture_updated"]
+[connection signal="pressed" from="ClearButton" to="." method="_on_clear_button_pressed"]

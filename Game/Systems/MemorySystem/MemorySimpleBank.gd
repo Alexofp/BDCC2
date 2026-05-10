@@ -10,9 +10,9 @@ const F_DURATION := 5
 const F_DURATION_EFFECTS := 6
 
 # Mood alters
-const F_MOOD := 10
-const F_ANGER := 11
-const F_LUST := 12
+const F_MOOD := 10 # How 'good' does this memory makes us feel
+#const F_ANGER := 11 # How angry does this memory makes us feel
+#const F_LUST := 12 # How horny does this memory makes us feel
 #const F_HELPFUL := 13
 
 var memories:Dictionary[String, Dictionary]
@@ -33,9 +33,7 @@ func createMemories() -> Array[MemorySimple]:
 		newMemory.duration = getInt(theEntry, F_DURATION, newMemory.duration)
 		newMemory.durationEffects = getInt(theEntry, F_DURATION_EFFECTS, newMemory.durationEffects)
 		
-		newMemory.mood = getFloat(theEntry, F_MOOD, newMemory.mood)
-		newMemory.anger = getFloat(theEntry, F_ANGER, newMemory.anger)
-		newMemory.lust = getFloat(theEntry, F_LUST, newMemory.lust)
+		newMemory.mood = theEntry.get(F_MOOD, null)# getFloat(theEntry, F_MOOD, newMemory.mood)
 		
 		result.append(newMemory)
 	

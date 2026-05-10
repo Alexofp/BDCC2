@@ -14,9 +14,10 @@ var stackMult:float = 0.8
 var stackMax:int = 99 # All of the memories are remembered but only stackMax amount of them will affect mood
 var priority:float = 1.0 # Used for AskDay social interaction. Memories with higher priority will be first
 
-var mood:float = 0.0 # sad or happy
-var anger:float = 0.0 # kind or angry
-var lust:float = 0.0 # chaste or horny
+var mood:MoodValues
+#var mood:float = 0.0 # sad or happy
+#var anger:float = 0.0 # kind or angry
+#var lust:float = 0.0 # chaste or horny
 #var helpful:float = 0.0 # demanding or helpful
 
 func getName() -> String:

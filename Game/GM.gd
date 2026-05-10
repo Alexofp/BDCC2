@@ -21,6 +21,7 @@ static var actionSystem:ActionSystem: get = getActionSystem
 static var presets:CharacterPresetHolder
 static var textParser:SimpleGameTextParser = SimpleGameTextParser.new()
 static var world:World: get = getWorld
+static var GB:GameBalance: get = getGameBalance
 
 static func getPC() -> BaseCharacter:
 	var myNetworkPlayer:NetworkPlayerInfo = Network.getMyPlayerInfo()
@@ -227,3 +228,13 @@ static func errorOutToMainMenu(_errorText:String):
 
 static func getWorld() -> World:
 	return GI.world
+
+static var fallbackGB:GameBalance
+static func getGameBalance() -> GameBalance:
+	if(!main):
+		if(!fallbackGB):
+			fallbackGB = GameBalance.new()
+		Log.Printerr("Accessed fallback GameBalance object, something went wrong!")
+		assert(false, "Accessed fallback GameBalance object, something went wrong!")
+		return fallbackGB
+	return main.GB

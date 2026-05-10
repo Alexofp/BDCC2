@@ -19,6 +19,7 @@ var spadeMat:ShaderMaterial
 var pubicHairMat:ShaderMaterial
 
 @onready var body_layered_texture: MyLayeredTexture = %BodyLayeredTexture
+#@onready var body_layered_texture: MyLayeredTextureNew = %BodyLayeredTexture
 
 @onready var randomCumScroll:float = RNG.randfRange(0.0, 100.0)
 @onready var cum_layer: MyLayeredTexture = %CumLayer

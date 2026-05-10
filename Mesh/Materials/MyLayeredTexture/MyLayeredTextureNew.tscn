@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cj67atub11hbl"]
+
+[ext_resource type="Script" uid="uid://0x5sshcp3rhq" path="res://Mesh/Materials/MyLayeredTexture/MyLayeredTextureNew.gd" id="1_gl3rn"]
+
+[node name="MyLayeredTextureNew" type="Node" unique_id=80717393]
+script = ExtResource("1_gl3rn")

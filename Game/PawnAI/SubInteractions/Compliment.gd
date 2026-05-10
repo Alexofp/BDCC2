@@ -12,14 +12,12 @@ func _init() -> void:
 func prepareSocialInteraction():
 	addSocial(SocialCheckAffection.new(0.3).addMod(MoodEffects.FriendlyAgreeMod))
 	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialInteractionKind.Chat))
+	addSocial(SocialCheckCooldown.new(SocialCooldown.Compliment))
 	
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.2, -0.1))
-	addSocial(SocialEffectAddMemory.new("Compliment"))
+	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Compliment))
 	
-
-
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
 	return true
 
@@ -28,9 +26,6 @@ func start(_roles:Dictionary, _args:Array):
 	complimentLines = getXSayLines(4, ROLE_MAIN, "Compliment", ROLE_TARGET)
 	if(complimentLines.is_empty()):
 		complimentLines = ["You look nice today."]
-	#sayText(ROLE_MAIN, "*Thinks*")
-	#say(ROLE_MAIN, "WannaChat", ROLE_TARGET)
-	#pushDelay(2.0)
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):

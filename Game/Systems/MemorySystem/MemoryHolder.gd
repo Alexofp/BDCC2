@@ -6,7 +6,7 @@ var memories:Array[MemoryEntry] # newest memories are last
 var closestToExpire:Array[MemoryEntry]
 var memoryByType:Dictionary[String, Array]
 
-var memoryEffects:MemoryEffects = MemoryEffects.new()
+var moodValues:MoodValues = MoodValues.new()
 
 func setCharacter(_character:BaseCharacter):
 	charRef = weakref(_character)
@@ -70,14 +70,12 @@ func processRare(_dt:float, _fullTime:int):
 		else:
 			break
 	
-	calculateMemoryEffects(memoryEffects)
+	calculateMoodValues()
 
-func calculateMemoryEffects(newEffects:MemoryEffects):
+func calculateMoodValues():
 	var theCurrentTime := GM.main.timeManager.getTimeFull()
 	#var newEffects:MemoryEffects = MemoryEffects.new()
-	newEffects.mood = 0.0
-	newEffects.anger = 0.0
-	newEffects.lust = 0.0
+	moodValues.clear()
 	var memoryMults:Dictionary[MemoryBase, float]
 	var memoryAm:Dictionary[MemoryBase, int]
 	
@@ -85,7 +83,7 @@ func calculateMemoryEffects(newEffects:MemoryEffects):
 	for _i in memAm:
 		var _indx:int = memAm - _i - 1
 		var theMemoryEntry := memories[_indx]
-		if(theCurrentTime > theMemoryEntry.noEffectsAfter):
+		if(theCurrentTime > theMemoryEntry.noEffectsAfter || !theMemoryEntry.memory.mood):
 			continue
 		var theMemory := theMemoryEntry.memory
 		if(memoryAm.get(theMemory, 0) >= theMemory.stackMax):
@@ -105,9 +103,7 @@ func calculateMemoryEffects(newEffects:MemoryEffects):
 			memoryAm[theMemory] += 1
 	
 		#print(theMult)
-		newEffects.mood += theMemory.mood * theMult
-		newEffects.anger += theMemory.anger * theMult
-		newEffects.lust += theMemory.lust * theMult
+		moodValues.combineWith(theMemory.mood, theMult)
 		
 	#return newEffects
 
@@ -151,7 +147,7 @@ func hasMemoryButNotWith(_memoryID:String, _otherCharID:String) -> bool:
 
 func getDebugLines() -> Array[String]:
 	return [
-		"M:"+str(Util.roundF(memoryEffects.mood,2))+",A:"+str(Util.roundF(memoryEffects.anger,2))+",L:"+str(Util.roundF(memoryEffects.lust,2))
+		#"M:"+str(Util.roundF(memoryEffects.mood,2))+",A:"+str(Util.roundF(memoryEffects.anger,2))+",L:"+str(Util.roundF(memoryEffects.lust,2))
 	]
 
 func doReactionFunctionCall(_runner:ReactionSystemRunner, _method:String, _args:Array):

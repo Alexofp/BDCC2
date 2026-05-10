@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dbg3h03bf0qeu"]
+
+[ext_resource type="Shader" uid="uid://d4eufym3gcxpf" path="res://Mesh/Materials/MyLayeredTexture/Mats/Shaders/DrawTextureSmoothRevealShader.gdshader" id="1_cmfi3"]
+
+[resource]
+shader = ExtResource("1_cmfi3")
+shader_parameter/cutoff = 0.5
+shader_parameter/smooth_size = 0.2
+shader_parameter/alpha_mask_scroll = 0.0

@@ -11,12 +11,13 @@ var autoMoan:float = 0.0
 
 var pain:float = 0.0
 var socialExhaustion:float = 0.0
+var socialExhaustionFade:float = 0.0 # Timer until the exhaustion starts ticking
 
 var veryRareTimer:float = 0.0 # 10 second timer, no sync
 
 var syncState:SyncState = SyncState.new(self,
-	["arousal", "arousalFade", "autoMoan", "pain", "socialExhaustion"],
-	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
+	["arousal", "arousalFade", "autoMoan", "pain", "socialExhaustion", "socialExhaustionFade"],
+	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
 )
 func setSyncVar(_var:String, _val:Variant):
 	set(_var, _val)
@@ -81,6 +82,9 @@ func processTime(_dt:float):
 			
 			if(arousal <= 0.0):
 				arousalFade = 0.0
+		
+		if(arousalFade > 5.0):
+			arousalFade = 5.0
 	else:
 		arousalFade = 0.0
 	

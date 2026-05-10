@@ -62,3 +62,4 @@ size_flags_horizontal = 3
 text = "Happy"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3

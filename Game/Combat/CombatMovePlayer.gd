@@ -42,7 +42,7 @@ func setPawn(_p:CharacterPawn):
 	pawn = _p
 
 func onDefeat():
-	defeatRecovery = 7.0
+	defeatRecovery = GM.GB.defeatedRecoverTime #7.0
 
 func onCollapse():
 	pass
@@ -583,7 +583,7 @@ func addExhaustion(_e:float):
 	exhaustion = clampf(exhaustion, 0.0, getExhaustionLimit())
 
 func getExhaustionRecoveryNewTime() -> float:
-	return 1.5
+	return GM.GB.combatExhaustionRecoverTime # 1.5
 
 func causeExhaustion(_e:float) -> bool:
 	if(_e == 0.0):
@@ -626,9 +626,9 @@ func processExhaustionAndStrain(_dt:float):
 		else:
 			var exhaustionRegenMult:float = 1.0
 			if(pawn.getDoll() && pawn.getDoll().isRunning):
-				exhaustionRegenMult *= 0.2
+				exhaustionRegenMult *= GM.GB.combatExhaustionRecoverRunMod
 			if(isBlocking()):
-				exhaustionRegenMult *= 0.5
+				exhaustionRegenMult *= GM.GB.combatExhaustionRecoverBlockMod
 			
 			addExhaustion(-_dt*exhaustionRegenMult)
 
@@ -649,7 +649,7 @@ func causeStrain(_st:float, _overflowIntoExhaustion:bool = true) -> bool:
 	if(_st > 0.0 && _overflowIntoExhaustion):
 		var _diff:float = -strain + oldStrain + _st
 		if(_diff > 0.0):
-			causeExhaustion(_diff*2.0) # 2.0 is a magic number?
+			causeExhaustion(_diff*GM.GB.combatBlockOverstrainedExhaustionMult) # 2.0 is a magic number?
 	
 	if(oldStrain == strain):
 		return false
@@ -662,10 +662,10 @@ func getStrainLevel() -> float:
 	var theLevel := getStrainLimit()
 	if(theLevel <= 0.0):
 		return 0.0
-	return clamp(strain / theLevel, 0.0, 1.0)
+	return clampf(strain / theLevel, 0.0, 1.0)
 
 func getStrainHaveEffectLevel() -> float:
-	return 0.5
+	return GM.GB.combatBlockStrainStartsAt # 0.5
 
 func makeImpossibleToHit(_time:float):
 	dodgeAllTimer = maxf(_time, dodgeAllTimer)

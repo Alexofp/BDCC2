@@ -1055,6 +1055,30 @@ func updateCollisions():
 	if(theDoll):
 		theDoll.updateCollisions()
 
+const MEH_THRESHOLD := 0.2
+func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN, _colorBad:Color = Color.RED, _colorMeh:Color = Color.YELLOW) -> void:
+	var finalVal:float = _am*_mult
+	#var theSign := signf(finalVal)
+	
+	if(absf(_mult) < MEH_THRESHOLD):
+		addSmallText(_text+"~~", _colorMeh)
+		return
+	var charAm:int = 1
+	if(absf(finalVal) >= 2.5):
+		charAm = 3
+	elif(absf(finalVal) >= 1.5):
+		charAm = 2
+	
+	if(finalVal > 0.0):
+		var theChars:String = "+".repeat(charAm)
+		addSmallText(_text+theChars, _colorGood)
+	elif(finalVal < 0.0):
+		var theChars:String = "-".repeat(charAm)
+		addSmallText(_text+theChars, _colorBad)
+
+
+
+
 
 
 

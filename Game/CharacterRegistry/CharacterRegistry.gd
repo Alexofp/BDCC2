@@ -2,6 +2,7 @@ extends Node
 class_name CharacterRegistry
 
 var characters:Dictionary[String, BaseCharacter] = {}
+var characterList:Array[BaseCharacter] = []
 var lastUniqueID:int = 0
 
 signal characterAdded(charID:String, character:BaseCharacter)
@@ -145,6 +146,7 @@ func addCharacter(theChar:BaseCharacter):
 		theChar.id = generateNewUniqueID()
 	
 	characters[theChar.getID()] = theChar
+	characterList.append(theChar)
 	connectSignalsToCharacter(theChar)
 
 func connectSignalsToCharacter(theChar:BaseCharacter):
@@ -234,6 +236,7 @@ func createCharacterCustomID(theID:String) -> BaseCharacter:
 	connectSignalsToCharacter(newChar)
 	newChar.id = theID
 	characters[theID] = newChar
+	characterList.append(newChar)
 	characterAdded.emit(theID, newChar)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(createCharacter_RPC.bind(theID, newChar.saveData()))
@@ -250,6 +253,7 @@ func removeCharacterID(theCharID:String):
 	GM.main.relationshipSystem.onCharacterIDRemoved(theCharID)
 	var theCharInfo:BaseCharacter = characters[theCharID]
 	characters.erase(theCharID)
+	characterList.erase(theCharInfo)
 	characterRemoved.emit(theCharID, theCharInfo)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(removeCharacter_RPC.bind(theCharID))
@@ -307,16 +311,43 @@ func characterWizardSubmitDo(character:BaseCharacter, _data:Dictionary):
 	character.applyCharChange(CharOption.species, newSpeciesData)
 	
 	character.resetToBaseEditorState()
-	
+
+var rareTimer:float = 0.0
+var rareI:int = 0 # Index of a current character to call the processRare func for
+var veryRareTimer:float = 0.0
+var veryRareI:int = 0
+
 func _physics_process(_delta: float) -> void:
 	if(Network.isServer()):
-		for charID in characters: #TODO: process far-away npcs less often
-			var character:BaseCharacter = characters[charID]
-			character.processTime(_delta)
+		#for charID in characters: #TODO: process far-away npcs less often
+		for theCharacter:BaseCharacter in characterList:
+			#var character:BaseCharacter = characters[charID]
+			theCharacter.processTime(_delta)
+		
+		rareTimer += _delta
+		veryRareTimer += _delta
+		
+		var theCharAmount:int = characterList.size()
+		
+		var theShare:float = 1.0/float(characterList.size())
+		while(rareTimer >= theShare):
+			rareTimer -= theShare
+			if(rareI < 0 || rareI >= theCharAmount):
+				rareI = 0
+			characterList[rareI].processRare(1.0)
+			rareI += 1
+		while(veryRareTimer >= theShare*30.0):
+			veryRareTimer -= theShare*30.0
+			if(veryRareI < 0 || veryRareI >= theCharAmount):
+				veryRareI = 0
+			characterList[rareI].processVeryRare(30.0)
+			veryRareI += 1
 	
 	if(Network.isServerNotSingleplayer()):
-		for charID in characters:
-			var character:BaseCharacter = characters[charID]
+		#for charID in characters:
+		for character:BaseCharacter in characterList:
+			var charID:String = character.id
+			#var character:BaseCharacter = characters[charID]
 			var charState:CharState = character.getCharState()
 			var charSyncState:SyncState = charState.syncState
 			if(charSyncState.getDirtyTime() >= 0.5):

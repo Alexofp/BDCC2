@@ -98,7 +98,7 @@ func addLust(_am:float, _mult:float = 1.0) -> void:
 		return
 	showValueChange("Lust", _am, _mult, Color.PURPLE)
 
-func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN) -> void:
+func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN, _colorBad:Color = Color.RED, _colorMeh:Color = Color.YELLOW) -> void:
 	var finalVal:float = _am*_mult
 	var pawn1 := getStarterPawn()
 	var pawn2 := getTargetPawn()
@@ -111,8 +111,8 @@ func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Colo
 		#	pawn1.addSmallText("Affection~~", Color.YELLOW)
 		#	pawn2.addSmallText("Affection~~", Color.YELLOW)
 		#else:
-		pawn1.addSmallText(_text+"~~", Color.YELLOW)
-		pawn2.addSmallText(_text+"~~", Color.YELLOW)
+		pawn1.addSmallText(_text+"~~", _colorMeh)
+		pawn2.addSmallText(_text+"~~", _colorMeh)
 	else:
 		var charAm:int = 1
 		if(absf(finalVal) >= 2.5):
@@ -122,12 +122,12 @@ func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Colo
 		
 		if(finalVal > 0.0):
 			var theChars:String = "+".repeat(charAm)
-			pawn1.addSmallText(_text+theChars, Color.GREEN)
-			pawn2.addSmallText(_text+theChars, Color.GREEN)
+			pawn1.addSmallText(_text+theChars, _colorGood)
+			pawn2.addSmallText(_text+theChars, _colorGood)
 		elif(finalVal < 0.0):
 			var theChars:String = "-".repeat(charAm)
-			pawn1.addSmallText(_text+theChars, Color.RED)
-			pawn2.addSmallText(_text+theChars, Color.RED)
+			pawn1.addSmallText(_text+theChars, _colorBad)
+			pawn2.addSmallText(_text+theChars, _colorBad)
 
 func getAffection() -> float:
 	return GM.main.relationshipSystem.getAffection(charIDStarter, charIDTarget)

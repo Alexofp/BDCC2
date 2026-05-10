@@ -536,20 +536,40 @@ func applyCharChange(_id:String, _value):
 		
 	onChange.emit(BaseCharChange.createCharOptionChange(_id))
 
-func processTime(_dt:float):
-	if(charState.socialExhaustion > 0.0):
-		charState.socialExhaustion -= _dt * 0.01
-		if(charState.socialExhaustion < 0.0):
-			charState.socialExhaustion = 0.0
-	
+func processTime(_dt:float):	
+	#charState.processTime(_dt)
+	#buffsHolder.processTime(_dt)
+	pass
+
+# Once a second or so?
+func processRare(_dt:float):
+	#print(id+" RARE!")
 	charState.processTime(_dt)
 	buffsHolder.processTime(_dt)
+	#memoryHolder.processRare(_dt, ) # This is called by the MemorySystem
+	pass
+
+# Once every 30 seconds or so?
+func processVeryRare(_dt:float):
+	if(charState.socialExhaustion > 0.0):
+		if(charState.socialExhaustionFade <= GM.main.GB.socialExhaustionRecoverStartAfter):
+			charState.socialExhaustionFade += _dt
+		else:
+			charState.socialExhaustion -= _dt * GM.main.GB.socialExhaustionRecoverRate
+			if(charState.socialExhaustion < 0.0):
+				charState.socialExhaustion = 0.0
+	else:
+		charState.socialExhaustion = 0.0
+		charState.socialExhaustionFade = 0.0
+	#print(id+" VERY RARE!")
+	pass
 
 func getSocialExhaustion() -> float:
 	return charState.socialExhaustion
 
 func addSocialExhaustion(_am:float):
 	charState.socialExhaustion += _am
+	charState.socialExhaustionFade = 0.0
 	#charState.socialExhaustion = clampf(charState.socialExhaustion, 0.0, 1.0)
 
 func getBodyMess() -> FluidsOnBodyProfile:
@@ -777,11 +797,11 @@ func processHit(_attackContext:AttackContext):
 	var theDamageMult:float = theAttack.damage
 	
 	if(_attackContext.blocked):
-		var blockMult:float = 0.1
+		var blockMult:float = GM.GB.combatBlockDamageBaseMult # 0.1
 		if(_attackContext.target):
 			var theStrainLevel:float = _attackContext.target.combatMovePlayer.getStrainLevel()
 			if(theStrainLevel >= _attackContext.target.combatMovePlayer.getStrainHaveEffectLevel()):
-				blockMult += theStrainLevel*0.6
+				blockMult += theStrainLevel*GM.GB.combatBlockDamageStrainedMult # *0.6
 		
 		#Log.Print("BLOCKED!!!")
 		theDamageMult *= blockMult
