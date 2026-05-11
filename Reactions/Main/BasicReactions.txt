@@ -11,6 +11,13 @@ priority 10
 Hey, {target.name}.
 >
 
+def GreetFailAnnoyed
+fill GreetFailAnnoyed simple
+<
+I don't want to talk with you.
+You're being annoying, go away.
+>
+
 def WannaChat
 fill WannaChat simple
 <
@@ -80,6 +87,12 @@ What's your problem?
 The heck do you want?
 What are you doing?
 Hey? Really?
+>
+
+def AnnoyedStartFight
+fill AnnoyedStartFight simple
+<
+Alright, now you're getting it!
 >
 
 def Talk
@@ -217,4 +230,10 @@ def OfferSexEnd
 fill OfferSexEnd simple
 <
 Thanks. That was fun.
+>
+
+def OfferSexCancel
+fill OfferSexCancel simple
+<
+I changed my mind.
 >

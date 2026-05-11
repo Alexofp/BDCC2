@@ -617,7 +617,7 @@ func processHoverText(_dt:float):
 	var hover_text := doll.getHoverText()
 	var thePawn := getPawn()
 	if(thePawn && !isControlledByAnyPlayer()):
-		if(thePawn.ai):
+		if(thePawn.ai && OS.is_debug_build()):
 			if(PawnAI.DEBUG_AI):
 				var theAIText := thePawn.ai.getDebugText()
 				if(!theAIText.is_empty()):

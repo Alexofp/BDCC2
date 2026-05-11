@@ -5,7 +5,7 @@ var success:float = 0.0
 var deny:float = 0.0
 var starterMult:float = 0.5
 
-func _init(_success:float = 0.3, _deny:float = 0.1, _starterMult:float = 0.5) -> void:
+func _init(_success:float = 0.2, _deny:float = 0.1, _starterMult:float = 0.5) -> void:
 	success = _success
 	deny = _deny
 	starterMult = _starterMult

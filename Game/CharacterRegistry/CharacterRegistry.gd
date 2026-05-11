@@ -324,24 +324,25 @@ func _physics_process(_delta: float) -> void:
 			#var character:BaseCharacter = characters[charID]
 			theCharacter.processTime(_delta)
 		
-		rareTimer += _delta
-		veryRareTimer += _delta
-		
-		var theCharAmount:int = characterList.size()
-		
-		var theShare:float = 1.0/float(characterList.size())
-		while(rareTimer >= theShare):
-			rareTimer -= theShare
-			if(rareI < 0 || rareI >= theCharAmount):
-				rareI = 0
-			characterList[rareI].processRare(1.0)
-			rareI += 1
-		while(veryRareTimer >= theShare*30.0):
-			veryRareTimer -= theShare*30.0
-			if(veryRareI < 0 || veryRareI >= theCharAmount):
-				veryRareI = 0
-			characterList[rareI].processVeryRare(30.0)
-			veryRareI += 1
+		if(!characterList.is_empty()):
+			rareTimer += _delta
+			veryRareTimer += _delta
+			
+			var theCharAmount:int = characterList.size()
+			
+			var theShare:float = 1.0/float(characterList.size())
+			while(rareTimer >= theShare && !characterList.is_empty()):
+				rareTimer -= theShare
+				if(rareI < 0 || rareI >= theCharAmount):
+					rareI = 0
+				characterList[rareI].processRare(1.0)
+				rareI += 1
+			while(veryRareTimer >= theShare*30.0 && !characterList.is_empty()):
+				veryRareTimer -= theShare*30.0
+				if(veryRareI < 0 || veryRareI >= theCharAmount):
+					veryRareI = 0
+				characterList[rareI].processVeryRare(30.0)
+				veryRareI += 1
 	
 	if(Network.isServerNotSingleplayer()):
 		#for charID in characters:

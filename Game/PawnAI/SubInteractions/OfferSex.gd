@@ -14,7 +14,7 @@ func prepareSocialInteraction():
 	
 	addSocial(SocialEffectAddExhaustion.new())
 	addSocial(SocialEffectAddAffection.new(0.5, -0.3))
-	addSocial(SocialEffectAddMemory.new("Compliment"))
+	addSocial(SocialEffectAddMemory.new(FriendlyMemories.GoodSex))
 	
 
 func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:

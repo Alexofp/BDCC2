@@ -22,6 +22,13 @@ func start(_roles:Dictionary, _args:Array):
 		say(ROLE_MAIN, "Greet", ROLE_TARGET) #"Talk"
 		pushDelay(1.0)
 		pushLookAt(ROLE_TARGET, ROLE_MAIN)
+		
+		var theAnnoyance:float = GM.main.relationshipSystem.getAnnoyancePawns(getPawn(ROLE_TARGET), getPawn(ROLE_MAIN))
+		
+		if(theAnnoyance > 0.4 && !isPlayer(ROLE_TARGET)):
+			pushSay(ROLE_TARGET, "GreetFailAnnoyed", ROLE_MAIN)
+			pushDelay(2.0)
+			pushStopInteraction()
 	
 	#startSubInteraction("someTag", "Chat", {main=ROLE_MAIN, target=ROLE_TARGET}, [])
 	#stopSubInteraction()

@@ -4,6 +4,7 @@ class_name FriendlyMemories
 const Hug := "Hug"
 const Chat := "Chat"
 const Compliment := "Compliment"
+const GoodSex := "GoodSex"
 
 func _init() -> void:
 	memories = {
@@ -33,6 +34,16 @@ func _init() -> void:
 			F_STACKMULT: 0.5,
 			F_STACKMAX: 3,
 			F_DURATION: 120,
+			#F_DURATION_EFFECTS: 30,
+			
+			F_MOOD: MoodValues.new().setMood(1.5),
+		},
+		GoodSex: {
+			F_NAME: "Good sex",
+			F_DESC: "I had a good sex.",
+			F_STACKMULT: 0.5,
+			F_STACKMAX: 3,
+			F_DURATION: 600,
 			#F_DURATION_EFFECTS: 30,
 			
 			F_MOOD: MoodValues.new().setMood(1.5),

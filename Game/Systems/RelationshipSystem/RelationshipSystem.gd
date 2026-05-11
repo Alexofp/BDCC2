@@ -2,7 +2,9 @@ extends Node
 class_name RelationshipSystem
 
 var rareUpdateTimer:float = 0.0
-const RARE_UPDATE_TIME := 60.0
+var veryRareUpdateTimer:float = 0.0
+const RARE_UPDATE_TIME := 10.0
+const VERY_RARE_UPDATE_TIME := 60.0
 
 var holders:Dictionary[String, RelationshipHolder]
 var entries:Array[RelationshipEntry]
@@ -235,23 +237,33 @@ func getActionCooldown(_charTarget:String, _charActor:String, _actionID:String) 
 		return 0.0
 	return theEntry.actionCooldowns.get(_actionID, 0.0)
 
+var rareUpdateI:int = 0
+
 func _physics_process(_delta: float) -> void:
 	var shortAm:int = shortTerm.size()
-	for _i in shortAm:
-		var _indx:int = shortAm - _i - 1
-		
-		var entry:RelationshipShortTermEntry = shortTerm[_indx]
-		if(entry.updateCheckShouldRemove(_delta)):
-			shortTerm.remove_at(_indx)
-			Log.Print("REMOVED SHORT TERM: "+entry.char1+" "+entry.char2)
+	if(!shortTerm.is_empty()):
+		rareUpdateTimer += _delta
+		var theRareTime:float = RARE_UPDATE_TIME / float(shortAm)
+		while(rareUpdateTimer >= theRareTime && !shortTerm.is_empty()):
+			if(rareUpdateI < 0 || rareUpdateI >= shortTerm.size()):
+				rareUpdateI = 0
+			#print("UPDATE: ",rareUpdateI)
+			
+			rareUpdateTimer -= theRareTime
+			var entry:RelationshipShortTermEntry = shortTerm[rareUpdateI]
+			if(entry.updateCheckShouldRemove(RARE_UPDATE_TIME)):
+				shortTerm.remove_at(rareUpdateI)
+				Log.Print("REMOVED SHORT TERM: "+entry.char1+" "+entry.char2)
+			else:
+				rareUpdateI += 1
 	
-	rareUpdateTimer += _delta
-	while(rareUpdateTimer >= RARE_UPDATE_TIME):
-		processRare(RARE_UPDATE_TIME)
-		rareUpdateTimer -= RARE_UPDATE_TIME
+	veryRareUpdateTimer += _delta
+	while(veryRareUpdateTimer >= VERY_RARE_UPDATE_TIME):
+		processVeryRare(VERY_RARE_UPDATE_TIME)
+		veryRareUpdateTimer -= VERY_RARE_UPDATE_TIME
 
 # Happens every minute
-func processRare(_dt:float):
+func processVeryRare(_dt:float):
 	var toRem:Array[RelationshipEntry] = []
 	# Relationship decay?
 	# Spread the decay over different calls?

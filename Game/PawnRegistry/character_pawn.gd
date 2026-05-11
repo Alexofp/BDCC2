@@ -959,13 +959,22 @@ func canDoFakeCombat() -> bool:
 		return false
 	return true
 
-func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float):
+func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true):
 	if(!_otherPawn):
 		return
 	GM.main.relationshipSystem.addAnnoyance(getCharID(), _otherPawn.getCharID(), _annoy)
-	addSmallText("Annoyance+", Color.RED)
+	if(_showText):
+		#addSmallText("Annoyance+", Color.RED)
+		showValueChange("Annoyance", _annoy, 1.0, Color.RED, Color.GREEN)
 	#addSmallText("Love+", Color.GREEN)
-	
+
+## Returns true if the other pawn was added as our enemy
+func addAnnoyanceOrAddEnemy(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true) -> bool:
+	addAnnoyance(_otherPawn, _annoy, _showText)
+	if(getAnnoyance(_otherPawn) >= 1.0 && combatAI.addEnemy(_otherPawn)):
+		return true
+	return false
+
 func getAnnoyance(_otherPawn:CharacterPawn) -> float:
 	if(!_otherPawn):
 		return 0.0
@@ -1076,7 +1085,34 @@ func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Colo
 		var theChars:String = "-".repeat(charAm)
 		addSmallText(_text+theChars, _colorBad)
 
+func sayReaction(_reaction:String, _talkGesture:bool = true, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}):
+	var theContext := ReactionSystem.ReactionContext.new()
+	theContext.main = getCharacter()
+	theContext.target = _target.getCharacter() if _target else null
+	theContext.args = _args
+	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
+	if(!theReaction):
+		Log.Printerr("# WRITE ME: "+_reaction+" #")
+		sayText("#WRITE_ME: "+_reaction+"#", true)
+		return
+	sayText(theReaction.line, _talkGesture)
 
+func sayText(_text:String, talkGesture:bool = true):
+	#print(str(_role)+": "+_text)
+	sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
+	if(talkGesture):
+		doTalkGesture()
+
+func doTalkGesture():
+	playGesture(RNG.pick([
+		DollGesture.Talking1Hand,
+		DollGesture.Talking2Hands,
+		DollGesture.HeadGesture,
+		DollGesture.HeadGestureShort,
+		DollGesture.HeadNod,
+		DollGesture.HappyHand,
+		DollGesture.LookAway,
+	]))
 
 
 

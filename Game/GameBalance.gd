@@ -7,6 +7,11 @@ class_name GameBalance
 
 # SOCIAL STUFF
 
+## How quickly should the annoyance fade. 0.01 = 1% per second
+var socialAnnoyanceFadeRate:float = 0.01
+## How quickly should the cooldowns of social interactions go down
+var socialCooldownDecayRate:float = 0.01
+
 ## How many seconds before social exhaustion begins to recover
 var socialExhaustionRecoverStartAfter:float = 50.0
 var socialExhaustionRecoverRate:float = 0.01 ## 0.01 = 1% per second

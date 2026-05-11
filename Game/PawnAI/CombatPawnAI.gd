@@ -63,12 +63,19 @@ func clearRecentlyDefeatedEnemies():
 	for thePawn in recentlyDefeatedEnemies.keys():
 		removeRecentlyDefeatedEnemy(thePawn)
 
-func addEnemy(_pawn:CharacterPawn) -> bool:
+func canAddEnemy(_pawn:CharacterPawn) -> bool:
 	if(!_pawn || activeEnemies.has(_pawn)):
 		return false
 	if(_pawn == pawn):
 		return false
 	if(pawn.shouldIgnoreAttackTowards(_pawn)):
+		return false
+	if(pawn.isControlledByAnyPlayer()):
+		return false # Players don't have ai-assigned enemies
+	return true
+
+func addEnemy(_pawn:CharacterPawn) -> bool:
+	if(!canAddEnemy(_pawn)):
 		return false
 	
 	var newActiveEnemy:ActiveEnemy = ActiveEnemy.new()
@@ -107,6 +114,7 @@ func addEnemyDanger(_pawn:CharacterPawn, _d:float):
 var toRem:Array[CharacterPawn]
 func processRare(_dt:float):
 	if(pawn.isControlledByAnyPlayer()):
+		clearEnemies() # Players don't have ai-assigned enemies
 		return
 	toRem.clear()
 	for enemyPawn in recentlyDefeatedEnemies:

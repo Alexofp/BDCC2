@@ -2,6 +2,7 @@ extends MemorySimpleBank
 class_name BadMemories
 
 const Attacked := "Attacked"
+const Insulted := "Insulted"
 
 func _init() -> void:
 	memories = {
@@ -14,5 +15,15 @@ func _init() -> void:
 			#F_DURATION_EFFECTS: 30,
 			
 			F_MOOD: MoodValues.new().setAnger(2.0),
+		},
+		Insulted: {
+			F_NAME: "Insulted",
+			F_DESC: "I got insulted.",
+			F_STACKMULT: 0.5,
+			F_STACKMAX: 3,
+			F_DURATION: 600,
+			#F_DURATION_EFFECTS: 30,
+			
+			F_MOOD: MoodValues.new().setAnger(1.1).setMood(-0.7),
 		},
 	}

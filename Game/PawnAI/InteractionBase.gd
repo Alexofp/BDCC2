@@ -8,6 +8,7 @@ const ROLE_EXTRA2 = 3
 
 const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
 const CATEGORY_ORDER:Array[String] = ["Order"]
+const CATEGORY_MEAN:Array[String] = ["Mean"]
 
 var id:String = ""
 var registerForInteractionType:Array[int]
@@ -413,11 +414,11 @@ func getXSayLines(_amount:int, _roleSay:int, _reaction:String, _roleTarget:int =
 	for theReaction in theReactions:
 		theLines.append(theReaction.line)
 	return theLines
-	
-func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
+
+func getSay(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}) -> String:
 	var thePawn := getPawn(_roleSay)
 	if(!thePawn):
-		return
+		return _reaction
 	var theContext := ReactionSystem.ReactionContext.new()
 	theContext.main = thePawn.getCharacter()
 	theContext.target = getPawn(_roleTarget).getCharacter() if _roleTarget >= 0 else null
@@ -425,19 +426,17 @@ func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[
 	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	if(!theReaction):
 		Log.Printerr("# WRITE ME: "+_reaction+" #")
-		sayText(_roleSay, "#WRITE_ME: "+_reaction+"#", true)
-		return
-	sayText(_roleSay, theReaction.line, true)
+		return "#WRITE_ME: "+_reaction+"#"
+	return theReaction.line
+
+func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}, _talkGesture:bool = true):
+	sayText(_roleSay, getSay(_roleSay, _reaction, _roleTarget, _args), _talkGesture)
 
 func sayText(_role:int, _text:String, talkGesture:bool = true):
 	#print(str(_role)+": "+_text)
 	var thePawn := getPawn(_role)
 	if(thePawn):
-		thePawn.sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
-		if(talkGesture):
-			doTalkGesture(_role)
-		#if(talkMouth):
-		#	doTalkFaceAnim(_role)
+		thePawn.sayText(_text, talkGesture)
 	else:
 		Log.error(str(id)+" NOT FOUND ROLE "+str(_role)+" TO SAY TEXT: "+str(_text))
 
@@ -453,15 +452,9 @@ func doGesture(_role:int, _gestureID:String):
 		thePawn.playGesture(_gestureID)
 
 func doTalkGesture(_role:int):
-	doGesture(_role, RNG.pick([
-		DollGesture.Talking1Hand,
-		DollGesture.Talking2Hands,
-		DollGesture.HeadGesture,
-		DollGesture.HeadGestureShort,
-		DollGesture.HeadNod,
-		DollGesture.HappyHand,
-		DollGesture.LookAway,
-	]))
+	var thePawn := getPawn(_role)
+	if(thePawn):
+		thePawn.doTalkGesture()
 
 func startAction(_role:int, actionID:String, args:Array = []):
 	var thePawn:CharacterPawn = getPawn(_role)
@@ -736,3 +729,16 @@ func refreshDominance(_role:int, _roleDom:int):
 	if(!thePawn || !theDomPawn):
 		return
 	thePawn.submission.refreshDominanceOf(theDomPawn)
+
+func isPlayer(_role:int) -> bool:
+	var thePawn := getPawn(_role)
+	if(thePawn.isControlledByAnyPlayer()):
+		return true
+	return false
+
+func getAffection(_role1:int, _role2:int) -> float:
+	var thePawn1 := getPawn(_role1)
+	var thePawn2 := getPawn(_role2)
+	if(!thePawn1 || !thePawn2):
+		return 0.0
+	return GM.main.relationshipSystem.getAffection(thePawn1.getCharID(), thePawn2.getCharID())

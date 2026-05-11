@@ -21,3 +21,9 @@ fill Memory_Attacked simple
 <
 Got attacked by {target.name}% MemoryRecently%.
 >
+
+def Memory_GoodSex
+fill Memory_GoodSex simple
+<
+I had some good sex with {target.name}% MemoryRecently%.
+>

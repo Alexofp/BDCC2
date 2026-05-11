@@ -1,0 +1,30 @@
+def Insult
+fill Insult simple
+<
+You are not very bright, are you?
+You are stupid, you know that?
+I'd rather talk to a wall than you.
+>
+
+def InsultResponse
+fill InsultResponse simple
+<
+Fuck you.
+Go fuck yourself.
+Why are you such an asshole?
+>
+
+def InsultResponseOuch
+fill InsultResponseOuch simple
+<
+Ouch.
+That was really mean.
+Why are you so mean?
+Don't be so mean.
+>
+
+def InsultResponseFight
+fill InsultResponseFight simple
+<
+Alright, now you're getting it.
+>
