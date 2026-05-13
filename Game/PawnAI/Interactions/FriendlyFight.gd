@@ -13,8 +13,8 @@ func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	sayText(ROLE_MAIN, "Let's FIGHT!")
 	
-	getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET))
-	getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN))
+	getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_FRIENDLY_FIGHT)
+	getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_FRIENDLY_FIGHT)
 
 func onEnd():
 	var theTarget := getPawn(ROLE_TARGET)
@@ -34,8 +34,8 @@ func processRare(_dt:float):
 		sayText(ROLE_MAIN, "IT'S OVER!")
 		stopInteraction()
 	else:
-		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET))
-		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN))
+		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_FRIENDLY_FIGHT)
+		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_FRIENDLY_FIGHT)
 
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return _action.makePlan().add("Combat")

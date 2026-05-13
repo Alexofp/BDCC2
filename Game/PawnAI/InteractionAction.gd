@@ -10,6 +10,8 @@ var category:Array[String]
 var fallbackScore:float = 0.0 # Fallback actions will be chosen if no other actions have score
 var timeoutTime:float = 0.0 # Timeout actions are chosen after this amount of seconds passes with nobody picking any action
 var timeoutScore:float = 1.0 # Score of the timeout action
+var locked:bool = false
+var lockedScore:float = 0.0
 var interaction:InteractionBase
 
 static func create(_id:String, _name:String) -> InteractionAction:

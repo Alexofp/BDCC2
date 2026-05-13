@@ -669,7 +669,8 @@ func registerInteraction(path: String):
 				interactionsBySocialType[socialType] = newAr
 			else:
 				interactionsBySocialType[socialType].append(object)
-
+		object.postRegistration()
+		
 func registerInteractionFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
 	for scriptPath in scripts:
@@ -677,7 +678,9 @@ func registerInteractionFolder(folder: String):
 
 func createInteraction(id: String) -> InteractionBase:
 	if(interactions.has(id)):
-		return interactions[id].new()
+		var theInteraction:InteractionBase = interactions[id].new()
+		theInteraction.postCreation()
+		return theInteraction
 	else:
 		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
 		return null

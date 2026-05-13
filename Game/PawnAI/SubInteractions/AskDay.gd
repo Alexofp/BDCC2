@@ -7,7 +7,7 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
 func start(_roles:Dictionary, _args:Array):

@@ -1,10 +1,10 @@
 extends SocialCheckBase
 class_name SocialCheckExhaustion
 
-var maxExhaustion:float = 0.8
+var maxExhaustion:float = 0.85
 var exhaustionMoodMult:float = 1.0
 
-func _init(_exhaustion:float = 0.8, _moodMult:float = 1.0) -> void:
+func _init(_exhaustion:float = 0.85, _moodMult:float = 1.0) -> void:
 	maxExhaustion = _exhaustion
 	exhaustionMoodMult = _moodMult
 

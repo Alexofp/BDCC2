@@ -1,6 +1,7 @@
 extends InteractionBase
 
 var didSomething:bool = false
+var socialContext:SocialInteractionContext = SocialInteractionContext.new()
 
 func _init() -> void:
 	id = "Talking"
@@ -11,14 +12,16 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 		ROLE_TARGET: "target",
 	}
 
-func shouldSkipGreet(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	if(_target.submission.isObeyingPawn(_main)):
+func shouldSkipGreet(_c:SocialInteractionContext) -> bool:
+	if(_c.target.submission.isObeyingPawn(_c.main)):
 		return true
 	return false
 
 func start(_roles:Dictionary, _args:Array):
+	socialContext.setup(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+	
 	lookAt(ROLE_MAIN, ROLE_TARGET)
-	if(!shouldSkipGreet(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
+	if(!shouldSkipGreet(socialContext)):
 		say(ROLE_MAIN, "Greet", ROLE_TARGET) #"Talk"
 		pushDelay(1.0)
 		pushLookAt(ROLE_TARGET, ROLE_MAIN)
@@ -41,14 +44,11 @@ func processRareAlways(_dt:float):
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
-		var mainPawn := getPawn(ROLE_MAIN)
-		var targetPawn := getPawn(ROLE_TARGET)
-		
 		var haveVeryImportantButtons:bool = false
 		if(true):
 			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.VeryImportant)
 			for theInteraction in allTheInteractions:
-				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
+				var theActions := theInteraction.getSocialActions(socialContext)
 				
 				for theAction in theActions: 
 					theAction.id = "startSocial" # A little hacky but whatever
@@ -59,7 +59,7 @@ func _actions(_role:int):
 		if(!haveVeryImportantButtons):
 			var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
 			for theInteraction in allTheInteractions:
-				var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
+				var theActions := theInteraction.getSocialActions(socialContext)
 				
 				for theAction in theActions: 
 					theAction.id = "startSocial" # A little hacky but whatever
@@ -85,7 +85,7 @@ func _do(_role:int, _action:InteractionAction):
 	
 	if(_action.id == "stop"):
 		#sayText(ROLE_MAIN, "Never mind.")
-		if(!shouldSkipGreet(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
+		if(!shouldSkipGreet(socialContext)):
 			if(didSomething):
 				say(ROLE_MAIN, "EnoughChat", ROLE_TARGET)
 			else:

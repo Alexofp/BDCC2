@@ -290,5 +290,5 @@ func onCurrentAIGoalSwitch():
 		aiAction.replan()
 
 #Social: Send this to the interactions/ai-goals?
-func onDefeated():
-	pawn.combatAI.clearEnemies()
+func onDefeated(_cause:DefeatCause):
+	pass

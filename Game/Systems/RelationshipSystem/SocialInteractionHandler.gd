@@ -26,10 +26,25 @@ func setPawns(_pawnStarter:CharacterPawn, _pawnTarget:CharacterPawn):
 	charIDTarget = _pawnTarget.getCharID()
 
 # Calculate if the target should agree
-func trySocialInteraction() -> void:
+func trySocialInteraction(_socialRequiredAgreeScore:float) -> void:
 	status = STATUS_AGREE
+	var theScore:float = 0.0
+	
 	for check in agreeChecks:
 		check.socialHandler = self
+		theScore = check.getAgreeScore(theScore)
+		check.socialHandler = null
+	
+	if(theScore != 0.0 || _socialRequiredAgreeScore != 0.0):
+		Log.Print("Got score: "+str(Util.roundF(theScore, 2))+" Required score: "+str(Util.roundF(_socialRequiredAgreeScore, 2)))
+	if(status == STATUS_AGREE && theScore < _socialRequiredAgreeScore):
+		status = STATUS_DENY
+	
+	for check in agreeChecks:
+		check.socialHandler = self
+		
+		theScore = check.getAgreeScore(theScore)
+		
 		var theStatus:int = check.getAgreeStatus()
 		if(theStatus == STATUS_DENY):
 			Log.Print("Not agreed by: "+str(check))
@@ -43,9 +58,10 @@ func trySocialInteraction() -> void:
 			return
 		if(theStatus != STATUS_UNCHANGED):
 			status = theStatus
+			check.socialHandler = null
 			return
 		check.socialHandler = null
-
+	
 # Should the target agree?
 func scoreAgree() -> float:
 	return (1.0 if (status == STATUS_AGREE) else 0.0)

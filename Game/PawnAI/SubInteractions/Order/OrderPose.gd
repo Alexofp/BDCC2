@@ -14,8 +14,8 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	if(!_target.submission.isObeyingPawn(_main)):
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	if(!_c.target.submission.isObeyingPawn(_c.main)):
 		return false
 	return true
 

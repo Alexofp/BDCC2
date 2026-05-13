@@ -46,6 +46,12 @@ enum QueueEntry {
 	SocialInteractionShowSuccess,
 }
 
+func postRegistration():
+	pass
+
+func postCreation():
+	pass
+
 func involve(_role:int, _pawn:CharacterPawn):
 	if(!_pawn):
 		assert(false, "PAWN IS NULL")
@@ -670,13 +676,13 @@ func addAffection(_role1:int, _role2:int, _am:float):
 		pawn1.addSmallText("Affection-", Color.RED)
 		pawn2.addSmallText("Affection-", Color.RED)
 
-func canDoSocialActionFinal(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialActionFinal(_c:SocialInteractionContext) -> bool:
 	return false
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return false
 
-func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
+func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 	return []
 
 func socialInteractionEnd(_actualStatus:int = SocialInteractionHandler.STATUS_AGREE):
@@ -742,3 +748,7 @@ func getAffection(_role1:int, _role2:int) -> float:
 	if(!thePawn1 || !thePawn2):
 		return 0.0
 	return GM.main.relationshipSystem.getAffection(thePawn1.getCharID(), thePawn2.getCharID())
+
+func addAnnoyanceMainTarget(_mainAm:float, _targetAm:float):
+	getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), _mainAm)
+	getPawn(ROLE_MAIN).addAnnoyance(getPawn(ROLE_TARGET), _targetAm)

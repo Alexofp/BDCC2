@@ -17,10 +17,10 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 		ROLE_TARGET: "target",
 	}
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	if(!_main.isStandingOrCanGetUpEasily()):
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	if(!_c.main.isStandingOrCanGetUpEasily()):
 		return false
-	if(!_target.isStandingOrCanGetUpEasily()):
+	if(!_c.target.isStandingOrCanGetUpEasily()):
 		return false
 	return true
 

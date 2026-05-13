@@ -362,6 +362,7 @@ occlusion_culling/occlusion_rays_per_thread=32
 environment/glow/upscale_mode=0
 global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
+textures/streaming/enabled=true
 occlusion_culling/use_occlusion_culling=true
 
 [version_bumper]

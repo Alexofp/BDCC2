@@ -32,8 +32,14 @@ var comboContext:AIComboContext = AIComboContext.new()
 class RecentlyDefeatedEnemy:
 	var timer:float
 
+const ENEMY_GENERIC := 0
+const ENEMY_GOT_SUDDENLY_ATTACKED := 1
+const ENEMY_FRIENDLY_FIGHT := 2
+const ENEMY_SOCIAL_INTERACITON := 3
+
 class ActiveEnemy:
 	var agroScore:float
+	var type:int = ENEMY_GENERIC
 
 func setPawn(_pawn:CharacterPawn):
 	pawn = _pawn
@@ -74,17 +80,18 @@ func canAddEnemy(_pawn:CharacterPawn) -> bool:
 		return false # Players don't have ai-assigned enemies
 	return true
 
-func addEnemy(_pawn:CharacterPawn) -> bool:
+func addEnemy(_pawn:CharacterPawn, _type:int = ENEMY_GENERIC) -> ActiveEnemy:
 	if(!canAddEnemy(_pawn)):
-		return false
+		return null
 	
 	var newActiveEnemy:ActiveEnemy = ActiveEnemy.new()
 	newActiveEnemy.agroScore = 1.0
+	newActiveEnemy.type = _type
 	
 	activeEnemies[_pawn] = newActiveEnemy
 	_pawn.tree_exiting.connect(removeEnemy.bind(_pawn))
 	
-	return true
+	return newActiveEnemy
 
 func removeEnemy(_pawn:CharacterPawn) -> bool:
 	if(!activeEnemies.has(_pawn)):
@@ -438,3 +445,22 @@ func onHit(_attackContext:AttackContext):
 func clearComboContext():
 	comboContext.target = null
 	comboContext.distance = 0.0
+
+func onDefeated(_cause:DefeatCause):
+	# Only nearby enemy pawns get credit for defeating us
+	for _nearbyPawn:CharacterPawn in pawn.getNearbyPawns():
+		var _wasCausedByThem:bool = _cause.isCausedByPawn(_nearbyPawn)
+		
+		var ourActiveEnemyEntry:ActiveEnemy = activeEnemies[_nearbyPawn] if activeEnemies.has(_nearbyPawn) else null
+		var theirActiveEnemyEntry:ActiveEnemy = _nearbyPawn.combatAI.activeEnemies[pawn] if _nearbyPawn.combatAI.activeEnemies.has(pawn) else null
+		
+		if(!_wasCausedByThem && !ourActiveEnemyEntry && !theirActiveEnemyEntry):
+			continue
+		var wasFriendly:bool = (ourActiveEnemyEntry && ourActiveEnemyEntry.type == ENEMY_FRIENDLY_FIGHT) || (theirActiveEnemyEntry && theirActiveEnemyEntry.type == ENEMY_FRIENDLY_FIGHT)
+		
+		pawn.onDefeatedByAnotherPawn(_nearbyPawn, _wasCausedByThem, wasFriendly, _cause)
+		_nearbyPawn.onDefeatingAnotherPawn(pawn, _wasCausedByThem, wasFriendly, _cause)
+	
+	clearEnemies()
+	
+	

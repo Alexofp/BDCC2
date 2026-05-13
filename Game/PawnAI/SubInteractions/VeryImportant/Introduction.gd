@@ -35,17 +35,17 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.VeryImportant]
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	if(GM.main.relationshipSystem.knows(_main.getID(), _target.getID())):
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	if(GM.main.relationshipSystem.knows(_c.main.getID(), _c.target.getID())):
 		return false
-	if(_target.submission.isObeyingPawn(_main)):
+	if(_c.target.submission.isObeyingPawn(_c.main)):
 		return false
 	return true
 
-func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
+func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 	if(DEBUG_SKIP_INTRODUCTION && OS.is_debug_build()):
 		return []
-	if(!canDoSocialActionFinal(_main, _target)):
+	if(!canDoSocialActionFinal(_c)):
 		return []
 	# Needs a function that calculates which intro should have the biggest score
 	return [

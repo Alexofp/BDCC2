@@ -743,6 +743,12 @@ func doDodgeAnim_RPC(_dir:Vector2, _animation:String):
 func getNearbyPawnInteractors() -> Array[PawnInteractor]:
 	return pawn_interactor.nearbyPawns
 
+func getNearbyPawns() -> Array[CharacterPawn]:
+	var result:Array[CharacterPawn] = []
+	for theInteractor in pawn_interactor.nearbyPawns:
+		result.append(theInteractor.pawn)
+	return result
+
 func getGlobalPos() -> Vector3:
 	if(doll):
 		var chestPos:Vector3 = doll.getBodySkeleton().chest_bone_attachment.global_position
@@ -846,18 +852,21 @@ func canBeDefeated() -> bool:
 	
 	return state.canBeDefeated()
 
-func makeDefeated() -> bool:
+func makeDefeated(_cause:DefeatCause = null) -> bool:
 	if(!canBeDefeated()):
 		return false
 	if(!getUpFromPropIfNeedToAndCan()):
 		return false
+	if(!_cause):
+		_cause = DefeatCause.makeGeneric(self)
 	
 	setState(STATE_DEFEATED)
-	ai.onDefeated()
+	ai.onDefeated(_cause)
+	combatAI.onDefeated(_cause)
 	return true
 	
 func makeDefeatedFromAttack(_attackContext:AttackContext) -> bool:
-	return makeDefeated()
+	return makeDefeated(DefeatCause.makeFromAttack(_attackContext))
 
 func canRecoverFromDefeat() -> bool:
 	if(!isDefeated()):
@@ -969,9 +978,9 @@ func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true)
 	#addSmallText("Love+", Color.GREEN)
 
 ## Returns true if the other pawn was added as our enemy
-func addAnnoyanceOrAddEnemy(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true) -> bool:
+func addAnnoyanceOrAddEnemy(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true, _enemyType:int = CombatPawnAI.ENEMY_GENERIC) -> bool:
 	addAnnoyance(_otherPawn, _annoy, _showText)
-	if(getAnnoyance(_otherPawn) >= 1.0 && combatAI.addEnemy(_otherPawn)):
+	if(getAnnoyance(_otherPawn) >= 1.0 && combatAI.addEnemy(_otherPawn, _enemyType)):
 		return true
 	return false
 
@@ -1113,6 +1122,26 @@ func doTalkGesture():
 		DollGesture.HappyHand,
 		DollGesture.LookAway,
 	]))
+
+# Only gets called if we're nearby
+func onDefeatingAnotherPawn(_defeatedPawn:CharacterPawn, _weDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
+	pass
+	
+# Only gets called if we're nearby
+func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
+	if(_friendlyFight):
+		return
+	var theCooldown:float = GM.main.relationshipSystem.getActionCooldown(getID(), _winnerPawn.getID(), SocialCooldown.Defeated)
+	GM.main.relationshipSystem.addActionCooldownPawns(self, _winnerPawn, SocialCooldown.Defeated)
+	GM.main.memorySystem.addMemory(getID(), BadMemories.Defeated, _winnerPawn.getID())
+	addAffection(_winnerPawn, -0.5 / (1.0 + theCooldown))
+
+func addAffection(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true):
+	if(!_otherPawn):
+		return
+	GM.main.relationshipSystem.addAffection(getID(), _otherPawn.getID(), _am)
+	showValueChange("Affection", _am)
+
 
 
 

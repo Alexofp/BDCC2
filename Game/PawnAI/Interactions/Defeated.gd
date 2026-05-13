@@ -1,6 +1,7 @@
 extends InteractionBase
 
 var didSomething:bool = false
+var socialContext:SocialInteractionContext = SocialInteractionContext.new()
 
 func _init() -> void:
 	id = "Defeated"
@@ -12,6 +13,7 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 	}
 
 func start(_roles:Dictionary, _args:Array):
+	socialContext.setup(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	say(ROLE_MAIN, "DefeatedWhatDo", ROLE_TARGET) #"Talk"
 	pushDelay(1.0)
@@ -23,12 +25,9 @@ func processRareAlways(_dt:float):
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
-		var mainPawn := getPawn(ROLE_MAIN)
-		var targetPawn := getPawn(ROLE_TARGET)
-		
 		var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Defeated)
 		for theInteraction in allTheInteractions:
-			var theActions := theInteraction.getSocialActions(mainPawn, targetPawn)
+			var theActions := theInteraction.getSocialActions(socialContext)
 			
 			for theAction in theActions: 
 				theAction.id = "startSocial" # A little hacky but whatever

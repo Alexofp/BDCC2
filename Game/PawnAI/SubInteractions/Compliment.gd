@@ -9,8 +9,14 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
+func prepareUnlockConditions():
+	addUnlockCondition(SocialUnlockAffectionCondition.new(0.1))
+
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(0.3).addMod(MoodEffects.FriendlyAgreeMod))
+	setSocialRequiredScore(0.3)
+	addSocial(SocialScoreAffection.new())
+	addSocial(SocialScoreLust.new(0.5))
+	
 	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialCooldown.Compliment))
 	
@@ -18,7 +24,7 @@ func prepareSocialInteraction():
 	addSocial(SocialEffectAddAffection.new(0.2, -0.1))
 	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Compliment))
 	
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
 func start(_roles:Dictionary, _args:Array):

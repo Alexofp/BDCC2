@@ -7,8 +7,14 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
+func prepareUnlockConditions():
+	addUnlockCondition(SocialUnlockAffectionCondition.new(0.6))
+
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(0.15).addMod(MoodEffects.SexAgreeMod))
+	setSocialRequiredScore(0.15)
+	addSocial(SocialScoreAffection.new())
+	addSocial(SocialScoreLust.new())
+	
 	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialCooldown.Sex))
 	
@@ -17,7 +23,7 @@ func prepareSocialInteraction():
 	addSocial(SocialEffectAddMemory.new(FriendlyMemories.GoodSex))
 	
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
 func start(_roles:Dictionary, _args:Array):

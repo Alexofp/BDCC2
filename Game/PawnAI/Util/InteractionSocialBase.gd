@@ -7,28 +7,50 @@ var socialInteraction:SocialInteractionHandler
 var socialMustBeIntroduced:bool = false
 var socialDefaultScore:float = 0.0
 var socialShouldEndTalking:bool = false
+var socialUnlockConditions:Array[SocialUnlockConditionBase] = []
+var socialRequiredAgreeScore:float = 0.0
 
 func _init() -> void:
 	id = ""
 
-func canDoSocialActionFinal(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func postRegistration():
+	prepareUnlockConditions()
+
+func postCreation():
+	socialInteraction = SocialInteractionHandler.new()
+	prepareSocialInteraction()
+
+func setSocialRequiredScore(_score:float):
+	socialRequiredAgreeScore = _score
+
+func addSocialUnlockCondition():
+	pass
+
+func canDoSocialActionFinal(_c:SocialInteractionContext) -> bool:
 	if(socialMustBeIntroduced):
-		if(!GM.main.relationshipSystem.knows(_main.getID(), _target.getID())):
+		if(!GM.main.relationshipSystem.knows(_c.main.getID(), _c.target.getID())):
 			return false
 	
-	return canDoSocialAction(_main, _target)
+	return canDoSocialAction(_c)
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
-func getSocialActionScore(_main:CharacterPawn, _target:CharacterPawn) -> float:
+func getSocialActionScore(_c:SocialInteractionContext) -> float:
 	return socialDefaultScore
 
-func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
-	if(!canDoSocialActionFinal(_main, _target)):
+func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
+	if(!canDoSocialActionFinal(_c)):
+		return []
+	if(!checkUnlockConditionsUnlocked(_c)):
+		if(checkUnlockConditionsCloseToBeingUnlocked(_c)):
+			var theMessage:String = checkUnlockConditionsGetMessage(_c)
+			return [
+				action(id, theMessage).setCategory(socialActionCategory).setDisabled(true),
+			]
 		return []
 	return [
-		action(id, socialActionName).setCategory(socialActionCategory).setScore(getSocialActionScore(_main, _target)),
+		action(id, socialActionName).setCategory(socialActionCategory).setScore(getSocialActionScore(_c)),
 	]
 
 func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
@@ -49,6 +71,9 @@ func _do(_role:int, _action:InteractionAction):
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
 
+func prepareUnlockConditions():
+	pass
+
 func prepareSocialInteraction():
 	pass
 
@@ -56,11 +81,8 @@ func addSocial(_check:SocialCheckBase):
 	socialInteraction.add(_check)
 
 func startSocialInteraction() -> bool:
-	if(!socialInteraction):
-		socialInteraction = SocialInteractionHandler.new()
-		prepareSocialInteraction()
-		socialInteraction.setPawns(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
-	socialInteraction.trySocialInteraction()
+	socialInteraction.setPawns(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+	socialInteraction.trySocialInteraction(socialRequiredAgreeScore)
 	return true
 	
 func scoreSocialAgree() -> float:
@@ -97,3 +119,27 @@ func showInteractionSuccess():
 		return
 	socialInteraction.showInteractionSuccess()
 	
+func addUnlockCondition(_condition:SocialUnlockConditionBase):
+	socialUnlockConditions.append(_condition)
+
+func checkUnlockConditionsUnlocked(_c:SocialInteractionContext) -> bool:
+	for theCondition in socialUnlockConditions:
+		if(!theCondition.isSatisfied(_c)):
+			return false
+	return true
+
+func checkUnlockConditionsCloseToBeingUnlocked(_c:SocialInteractionContext) -> bool:
+	for theCondition in socialUnlockConditions:
+		if(!theCondition.isCloseToBeingSatisfied(_c)):
+			return false
+	return true
+
+func checkUnlockConditionsGetMessage(_c:SocialInteractionContext) -> String:
+	var result:Array[String] = []
+	for theCondition in socialUnlockConditions:
+		var theMessage:String = theCondition.getUnlockMessage(_c)
+		if(!theMessage.is_empty()):
+			result.append(theMessage)
+	if(result.is_empty()):
+		return "Requires something"
+	return "Requires "+Util.humanReadableList(result)

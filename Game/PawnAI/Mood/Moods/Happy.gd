@@ -7,11 +7,13 @@ func _init() -> void:
 		var _effects:MoodEffects = MoodEffects.new()
 		_effects.friendlyAgreeMod = 0.5
 		_effects.sexAgreeMod = 10.0
+		_effects.affectionShift = 0.15
 		addStage(0.0, "Happy", _effects)
 	if(true):
 		var _effects:MoodEffects = MoodEffects.new()
 		_effects.friendlyAgreeMod = 1.0
 		_effects.sexAgreeMod = 100.0
+		_effects.affectionShift = 0.3
 		addStage(2.0, "Very happy", _effects)
 
 func calculateScore(_pawn:CharacterPawn, _handler:MoodHandler) -> float:

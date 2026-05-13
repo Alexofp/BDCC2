@@ -14,17 +14,17 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	if(!_target.submission.isObeyingPawn(_main)):
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	if(!_c.target.submission.isObeyingPawn(_c.main)):
 		return false
 	return true
 
-func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
-	if(!canDoSocialActionFinal(_main, _target)):
+func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
+	if(!canDoSocialActionFinal(_c)):
 		return []
 	# Needs a function that calculates which intro should have the biggest score
 	var result:Array[InteractionAction] = []
-	var theObeyTask:int = _target.submission.obeyTask
+	var theObeyTask:int = _c.target.submission.obeyTask
 	if(theObeyTask != ObeyTask.Follow):
 		result.append(action(id, "Follow").setArgs([ObeyTask.Follow]).setCategory(socialActionCategory).setScore(1.0))
 	if(theObeyTask != ObeyTask.Look):

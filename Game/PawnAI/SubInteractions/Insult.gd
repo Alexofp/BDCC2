@@ -17,7 +17,7 @@ func prepareSocialInteraction():
 	addSocial(SocialEffectAddAffection.new(-0.5, -0.2))
 	addSocial(SocialEffectAddMemory.new(BadMemories.Insulted))
 	
-func canDoSocialAction(_main: CharacterPawn, _target: CharacterPawn) -> bool:
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
 func start(_roles: Dictionary, _args: Array):
@@ -57,14 +57,14 @@ func answer_do(_role: int, _action: InteractionAction):
 	if _action.id == "mean":
 		#say(ROLE_TARGET, "InsultAccept", ROLE_MAIN)
 		sayText(ROLE_TARGET, _action.actionName)
-		getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 0.3)
-		getPawn(ROLE_MAIN).addAnnoyance(getPawn(ROLE_TARGET), 0.3)
+		addAnnoyanceMainTarget(0.3, 0.6)
 		pushDelay(2.0)
 		pushSocialEnd()
 		pushStopInteraction()
 	if _action.id == "calm":
 		#say(ROLE_TARGET, "InsultDeny", ROLE_MAIN)
 		sayText(ROLE_TARGET, _action.actionName)
+		addAnnoyanceMainTarget(0.0, 0.3)
 		#getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 0.4)
 		pushDelay(2.0)
 		pushSocialDenied()
@@ -72,7 +72,8 @@ func answer_do(_role: int, _action: InteractionAction):
 	if _action.id == "fight":
 		socialShouldEndTalking = true
 		getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 1.0)
-		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN))
+		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
+		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, false)
 		pushDelay(1.0)
 		pushSocialDenied()

@@ -13,8 +13,14 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
+func prepareUnlockConditions():
+	addUnlockCondition(SocialUnlockAffectionCondition.new(0.3))
+
 func prepareSocialInteraction():
-	addSocial(SocialCheckAffection.new(0.5).addMod(MoodEffects.FriendlyAgreeMod))
+	setSocialRequiredScore(0.5)
+	addSocial(SocialScoreAffection.new())
+	addSocial(SocialScoreLust.new(0.1))
+	
 	addSocial(SocialCheckExhaustion.new())
 	addSocial(SocialCheckCooldown.new(SocialCooldown.Hug))
 	
@@ -25,10 +31,10 @@ func prepareSocialInteraction():
 
 #func start(_roles:Dictionary, _args:Array):
 
-func canDoSocialAction(_main:CharacterPawn, _target:CharacterPawn) -> bool:
-	return super.canDoSocialAction(_main, _target)
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	return super.canDoSocialAction(_c)
 
-#func getSocialActions(_main:CharacterPawn, _target:CharacterPawn) -> Array[InteractionAction]:
+#func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 	#if(!canDoSocialAction(_main, _target)):
 		#return []
 	#return [
