@@ -6,6 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = PRIO_FRIENDLY - 5.0
 
 func prepareUnlockConditions():
 	addUnlockCondition(SocialUnlockAffectionCondition.new(0.6))

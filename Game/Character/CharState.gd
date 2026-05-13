@@ -127,13 +127,13 @@ const RARE_UPDATE_MULT:float = 0.1
 
 func onVeryRareUpdate(_dt:float):
 	var theMaxPain := getPainMax()
-	var restMult:float = 1.0
+	var restMult:float = GM.GB.painRecoverPassive
 	
 	var thePawn := getCharacter().getPawn()
 	if(thePawn && thePawn.isSittingSomewhere()):
-		restMult *= 5.0
+		restMult = GM.GB.painRecoverSitting
 	
-	pain -= 0.01 * restMult * RARE_UPDATE_MULT * _dt * theMaxPain # Passive pain regen
+	pain -= restMult * RARE_UPDATE_MULT * _dt * theMaxPain # Passive pain regen
 	pain = clampf(pain, 0.0, theMaxPain)
 
 func saveNetworkData() -> Bins:

@@ -8,10 +8,13 @@ const ROLE_EXTRA2 = 3
 
 const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
 const CATEGORY_ORDER:Array[String] = ["Order"]
+const CATEGORY_ORDER_POSING:Array[String] = ["Posing"]
 const CATEGORY_MEAN:Array[String] = ["Mean"]
+const CATEGORY_TEST:Array[String] = ["Test"]
 
 var id:String = ""
 var registerForInteractionType:Array[int]
+var interactionPriority:float = 10.0 # Higher value means the interaction's actions will appear first
 
 var roleToPawn:Dictionary[int, CharacterPawn]
 var pawnToRole:Dictionary[CharacterPawn, int]
@@ -752,3 +755,6 @@ func getAffection(_role1:int, _role2:int) -> float:
 func addAnnoyanceMainTarget(_mainAm:float, _targetAm:float):
 	getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), _mainAm)
 	getPawn(ROLE_MAIN).addAnnoyance(getPawn(ROLE_TARGET), _targetAm)
+
+func doesSupportCombat() -> bool:
+	return false

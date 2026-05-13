@@ -190,8 +190,11 @@ func doInit():
 	registerDollGestureFolder("res://Game/Doll/Posing/Gestures/")
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
+	
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
+	sortInteractions()
+	
 	registerAIGoalFolder("res://Game/PawnAI/Goals/")
 	registerAIGoalFolder("res://Game/PawnAI/GoalsStatic/")
 	#loadMainReactionBankFolder("res://Reactions/Main/")
@@ -670,7 +673,17 @@ func registerInteraction(path: String):
 			else:
 				interactionsBySocialType[socialType].append(object)
 		object.postRegistration()
+
+func sortInteractions():
+	for socialType in interactionsBySocialType:
+		var theAr:Array[InteractionBase] = interactionsBySocialType[socialType]
+		theAr.sort_custom(sortInteraction_func)
 		
+func sortInteraction_func(_a:InteractionBase, _b:InteractionBase) -> bool:
+	if _a.interactionPriority > _b.interactionPriority:
+		return true
+	return false
+
 func registerInteractionFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
 	for scriptPath in scripts:

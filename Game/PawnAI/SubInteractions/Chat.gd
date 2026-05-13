@@ -10,6 +10,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = PRIO_FRIENDLY + 1.0
 
 func prepareSocialInteraction():
 	setSocialRequiredScore(-3.0)

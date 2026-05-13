@@ -8,6 +8,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_MEAN
 	
 	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = PRIO_MEAN + 1.0
 
 func prepareSocialInteraction():
 	addSocial(SocialCheckExhaustion.new())
@@ -70,7 +71,7 @@ func answer_do(_role: int, _action: InteractionAction):
 		pushSocialDenied()
 		pushStopInteraction()
 	if _action.id == "fight":
-		socialShouldEndTalking = true
+		socialFlags |= SOCIALFLAG_SHOULD_END_TALKING
 		getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 1.0)
 		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)

@@ -7,6 +7,7 @@ func _init() -> void:
 	#socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.Defeated]
+	socialFlags = SOCIALFLAG_ALLOWED_IF_TARGET_DOMINATED
 
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)

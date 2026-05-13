@@ -95,7 +95,7 @@ func createEntry(_char1:String, _char2:String) -> RelationshipEntry:
 func getHolder(_charID:String) -> RelationshipHolder:
 	return holders[_charID] if holders.has(_charID) else null
 
-func deleteEntry(_entry:RelationshipEntry) -> bool:
+func deleteEntry(_entry:RelationshipEntry, _forgetIntroduced:bool = true) -> bool:
 	var holder1 := getHolder(_entry.char1)
 	var holder2 := getHolder(_entry.char2)
 	if(!holder1 && !holder2):
@@ -103,8 +103,12 @@ func deleteEntry(_entry:RelationshipEntry) -> bool:
 	
 	if(holder1):
 		holder1.entries.erase(_entry.char2)
+		if(_forgetIntroduced):
+			holder1.introduced.erase(_entry.char2)
 	if(holder2):
 		holder2.entries.erase(_entry.char1)
+		if(_forgetIntroduced):
+			holder2.introduced.erase(_entry.char1)
 	entries.erase(_entry)
 	return true
 
@@ -137,10 +141,16 @@ func hasEntry(_char1:String, _char2:String) -> bool:
 	return getEntry(_char1, _char2) != null
 
 func knows(_char1:String, _char2:String) -> bool:
-	return getEntry(_char1, _char2) != null
+	var theHolder := getHolder(_char1)
+	if(!theHolder):
+		return false
+	return theHolder.introduced.has(_char2)
 
 func markKnows(_char1:String, _char2:String) -> void:
-	getOrCreateEntry(_char1, _char2)
+	var theHolder := getOrCreateHolder(_char1)
+	if(!theHolder):
+		return
+	theHolder.introduced[_char2] = true
 
 func getEntry(_char1:String, _char2:String) -> RelationshipEntry:
 	if(!holders.has(_char1)):

@@ -6,6 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = PRIO_FRIENDLY - 3.0
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true

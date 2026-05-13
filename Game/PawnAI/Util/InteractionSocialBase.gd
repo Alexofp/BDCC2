@@ -4,11 +4,21 @@ class_name InteractionSocialBase
 var socialActionName:String = "Fill me!"
 var socialActionCategory:Array[String]
 var socialInteraction:SocialInteractionHandler
-var socialMustBeIntroduced:bool = false
 var socialDefaultScore:float = 0.0
-var socialShouldEndTalking:bool = false
 var socialUnlockConditions:Array[SocialUnlockConditionBase] = []
 var socialRequiredAgreeScore:float = 0.0
+
+var socialFlags:int = 0
+const SOCIALFLAG_SHOULD_END_TALKING := 1
+const SOCIALFLAG_MUST_BE_INTRODUCED := 2
+const SOCIALFLAG_ONLY_IF_TARGET_DOMINATED := 4
+const SOCIALFLAG_ALLOWED_IF_TARGET_DOMINATED := 8
+const SOCIALFLAG_SUPPORTS_COMBAT := 16
+
+const PRIO_FRIENDLY := 2000.0
+const PRIO_ROMANTIC := 1500.0
+const PRIO_MEAN := 1000.0
+const PRIO_ORDER := 500.0
 
 func _init() -> void:
 	id = ""
@@ -27,8 +37,14 @@ func addSocialUnlockCondition():
 	pass
 
 func canDoSocialActionFinal(_c:SocialInteractionContext) -> bool:
-	if(socialMustBeIntroduced):
+	if(socialFlags & SOCIALFLAG_MUST_BE_INTRODUCED):
 		if(!GM.main.relationshipSystem.knows(_c.main.getID(), _c.target.getID())):
+			return false
+	if(socialFlags & SOCIALFLAG_ONLY_IF_TARGET_DOMINATED):
+		if(!_c.target.submission.isObeyingPawn(_c.main)):
+			return false
+	elif(!(socialFlags & SOCIALFLAG_ALLOWED_IF_TARGET_DOMINATED)):
+		if(_c.target.submission.isObeyingPawn(_c.main)):
 			return false
 	
 	return canDoSocialAction(_c)
@@ -143,3 +159,6 @@ func checkUnlockConditionsGetMessage(_c:SocialInteractionContext) -> String:
 	if(result.is_empty()):
 		return "Requires something"
 	return "Requires "+Util.humanReadableList(result)
+
+func doesSupportCombat() -> bool:
+	return socialFlags & SOCIALFLAG_SUPPORTS_COMBAT

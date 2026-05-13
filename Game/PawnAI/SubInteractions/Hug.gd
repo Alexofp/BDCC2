@@ -12,6 +12,7 @@ func _init() -> void:
 	lineNo = "HugNo"
 	
 	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = PRIO_FRIENDLY - 2.0
 
 func prepareUnlockConditions():
 	addUnlockCondition(SocialUnlockAffectionCondition.new(0.3))

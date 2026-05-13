@@ -39,8 +39,9 @@ func start(_roles:Dictionary, _args:Array):
 func processRareAlways(_dt:float):
 	if(checkTooFarAutoStop()):
 		return
-	if(isAnyoneInCombat()): # Unless the social interaction supports it?
-		stopInteraction()
+	if(!subInteraction || !subInteraction.doesSupportCombat()):
+		if(isAnyoneInCombat()):
+			stopInteraction()
 
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
@@ -67,10 +68,7 @@ func _actions(_role:int):
 					
 					addAction(theAction)
 			
-			#addAction(action("chat", "Chat", 0.0).setCategory(CATEGORY_FRIENDLY))
-			#addAction(action("hug", "Hug", 0.0).setCategory(CATEGORY_FRIENDLY))
-			addAction(action("lock", "Lock me up!", 0.0))
-			addAction(action("fight", "Friendly fight!", 0.0))
+			#addAction(action("fight", "Friendly fight!", 0.0))
 			
 			addAction(action("stop", "Never mind", 0.0).setOnTimeout(5.0))
 		
@@ -94,20 +92,11 @@ func _do(_role:int, _action:InteractionAction):
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		stopInteraction()
-	if(_action.id == "lock"):
-		state = "lockme"
-		sayText(ROLE_MAIN, "Lock me up!")
 	if(_action.id == "fight"):
 		#startSubInteraction("ff", "FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
 		startInteraction("FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
 
 func getActions(_role:int):
-	#if(state == "lockme"):
-	#	return
-	#addAction(action("stop", "Never mind", 0.0).setFallback())
-	#addAction(action("lock", "Lock me up!", 0.0))
-	#addAction(action("fight", "Friendly fight!", 0.0))
-	#addAction(action("fight123", "TEST!", 0.0).setDisabled(true))
 	pass
 
 func doAction(_role:int, _action:InteractionAction):
@@ -116,30 +105,12 @@ func doAction(_role:int, _action:InteractionAction):
 func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
-func lockme_plan(_role:int, _action:AIActionBase) -> AIPlan:
-	if(_role == ROLE_TARGET):
-		var someStocks := GM.world.getNearbyStocks(getPawn(_role).global_position, 100.0)
-		if(!someStocks):
-			setState("")
-			stopInteraction()
-			return
-		return _action.makePlan("lockIntoStocks").add("ForcePawnSit", [getPawn(ROLE_MAIN), someStocks])
-	return plan(_role, _action)
-
 func plan(_role:int, _action:AIActionBase) -> AIPlan:
 	if(_role == ROLE_MAIN):
 		return _action.makePlan().add("Face", [getPawn(ROLE_TARGET)])
 	elif(_role == ROLE_TARGET):
 		return _action.makePlan().add("Face", [getPawn(ROLE_MAIN)])
 	return null
-
-func onPlanCompleted(_role:int, _action:AIActionBase, _plan:AIPlan):
-	if(_plan.id == "lockIntoStocks"):
-		stopInteraction()
-
-func onPlanFail(_role:int, _action:AIActionBase, _plan:AIPlan, _failedAction:AIActionBase, _failStatus:int):
-	if(_plan.id == "lockIntoStocks"):
-		stopInteraction()
 
 func think(_role:int, _pawn:CharacterPawn, _ai:PawnAI, _action:AIActionBase):
 	pass
@@ -160,5 +131,5 @@ func isHandlingCombat(_role:int) -> bool:
 
 func onSubInteractionEnd(_interaction:InteractionBase):
 	if(_interaction is InteractionSocialBase):
-		if(_interaction.socialShouldEndTalking):
+		if(_interaction.socialFlags & InteractionSocialBase.SOCIALFLAG_SHOULD_END_TALKING):
 			stopInteraction()

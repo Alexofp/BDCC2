@@ -31,8 +31,6 @@ func _init() -> void:
 	socialActionName = "Introduction"
 	socialActionCategory = CATEGORY_FRIENDLY
 	
-	socialMustBeIntroduced = false
-	
 	registerForInteractionType = [InteractionType.VeryImportant]
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:

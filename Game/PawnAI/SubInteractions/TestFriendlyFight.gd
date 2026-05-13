@@ -1,13 +1,17 @@
-extends InteractionBase
+extends InteractionSocialBase
 
 func _init() -> void:
-	id = "FriendlyFight"
+	id = "TestFriendlyFight"
+	socialActionName = "Friendly Fight!"
+	socialActionCategory = CATEGORY_TEST
+	
+	socialFlags = SOCIALFLAG_SHOULD_END_TALKING | SOCIALFLAG_SUPPORTS_COMBAT
+	
+	registerForInteractionType = [InteractionType.Talking]
+	interactionPriority = 4.0
 
-func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
-	return {
-		ROLE_MAIN: "main",
-		ROLE_TARGET: "target",
-	}
+func canDoSocialAction(_c:SocialInteractionContext) -> bool:
+	return true
 
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)

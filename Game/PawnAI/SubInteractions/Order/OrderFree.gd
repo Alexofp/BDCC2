@@ -3,14 +3,14 @@ extends InteractionSocialBase
 func _init() -> void:
 	id = "OrderFree"
 	socialActionName = "You're free"
-	socialActionCategory = CATEGORY_ORDER
-	socialShouldEndTalking = true
+	#socialActionCategory = CATEGORY_ORDER
+	socialFlags = SOCIALFLAG_SHOULD_END_TALKING | SOCIALFLAG_ONLY_IF_TARGET_DOMINATED
 	
 	registerForInteractionType = [InteractionType.Talking]
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
-	if(!_c.target.submission.isObeyingPawn(_c.main)):
-		return false
+	#if(!_c.target.submission.isObeyingPawn(_c.main)): # Replaced with social flag
+	#	return false
 	return true
 
 func start(_roles:Dictionary, _args:Array):
