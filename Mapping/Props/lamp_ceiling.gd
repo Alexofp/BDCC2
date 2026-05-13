@@ -1,7 +1,7 @@
 @tool
 extends PropBasic
 
-@onready var spot_light_3d: SpotLight3D = $LampCeiling/SpotLight3D
+@onready var spot_light_3d: SpotLight3D = %SpotLight3D
 @onready var light_shaft: MeshInstance3D = %LightShaft
 
 @export var roughness:float = 0.5:

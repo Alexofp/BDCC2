@@ -20,8 +20,7 @@ points = PackedVector3Array(-0.119434, -0.530042, 1.69385, 0.525297, -1.06708, -
 
 [node name="RockTest1" unique_id=863319047 instance=ExtResource("1_pr7w5")]
 
-[node name="RockTest1" parent="." index="0" unique_id=1552511100]
-visibility_range_end = 20.0
+[node name="RockTest1" parent="." index="0" unique_id=201877930]
 surface_material_override/0 = SubResource("ORMMaterial3D_60q0b")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RockTest1" index="0" unique_id=337170553]

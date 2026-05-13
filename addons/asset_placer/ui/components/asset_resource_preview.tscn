@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bfnj2xve84rvc"]
+
+[ext_resource type="Script" uid="uid://dacpe4563g5x2" path="res://addons/asset_placer/ui/components/asset_resource_preview.gd" id="1_q3676"]
+[ext_resource type="Texture2D" uid="uid://be61c5ff55gfo" path="res://addons/asset_placer/icon.png" id="2_55ohh"]
+[ext_resource type="Script" uid="uid://dephufwlu765k" path="res://addons/asset_placer/ui/components/asset_thumbnail.gd" id="2_xdgah"]
+
+[node name="AssetResourcePreview" type="MarginContainer" unique_id=1838897979]
+custom_minimum_size = Vector2(90, 0)
+offset_right = 150.0
+offset_bottom = 200.0
+mouse_filter = 0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_q3676")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1286365442]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1861104444]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AssetThumbnail" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=2073668158]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_55ohh")
+expand_mode = 4
+script = ExtResource("2_xdgah")
+metadata/_custom_type_script = "uid://dephufwlu765k"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1515444424]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+text = "Asset"
+horizontal_alignment = 1
+autowrap_mode = 1
+justification_flags = 227
+text_overrun_behavior = 3
+
+[node name="Button" type="Button" parent="." unique_id=87209345]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_type_variation = &"FlatButton"
+toggle_mode = true

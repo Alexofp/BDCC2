@@ -31,3 +31,4 @@ instance_shader_parameters/shaft_alpha = 1.0
 mesh = SubResource("CylinderMesh_rolvf")
 surface_material_override/0 = SubResource("ShaderMaterial_fh4n7")
 script = ExtResource("2_rolvf")
+metadata/IGNORE_THUMBNAIL = true

@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c7je2oxif285m"]
+
+[ext_resource type="Texture2D" uid="uid://dekofc8345lmu" path="res://addons/asset_placer/ui/plane_preview/plane_texture_grip.svg" id="1_655gw"]
+[ext_resource type="Material" uid="uid://tj8ee5s1h18q" path="res://addons/asset_placer/ui/plane_preview/plane_preview_fill_material.tres" id="2_3sffr"]
+
+[resource]
+render_priority = 67
+next_pass = ExtResource("2_3sffr")
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 1.598561, 1.598561, 0.62352943)
+albedo_texture = ExtResource("1_655gw")
+uv1_scale = Vector3(20, 20, 20)
+grow = true
+grow_amount = 0.001

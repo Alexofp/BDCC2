@@ -20,7 +20,7 @@ colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="LampCeiling" parent="." index="0" unique_id=1012441407]
+[node name="LampCeiling" parent="." index="0" unique_id=1808440394]
 gi_mode = 0
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -34,7 +34,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460984, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.393772, 0.00161344)
 shape = SubResource("BoxShape3D_qytl1")
 
-[node name="SpotLight3D" parent="LampCeiling" index="1" unique_id=1147814369 instance=ExtResource("3_yp53l")]
+[node name="LightShaft" parent="." index="1" unique_id=1761265546 instance=ExtResource("4_2djoh")]
+unique_name_in_owner = true
+transform = Transform3D(10.928203, 0, 0, 0, 3.6051192, 0, 0, 0, 8.81152, 0, -4.4737453, 0)
+instance_shader_parameters/base_color = Color(0, 0.8784314, 1, 1)
+instance_shader_parameters/shaft_alpha = 0.02000000095
+mesh = SubResource("CylinderMesh_2djoh")
+
+[node name="SpotLight3D" parent="." index="2" unique_id=1147814369 instance=ExtResource("3_yp53l")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.977766, 0)
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 10.0
@@ -43,10 +51,3 @@ spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 105.0
 metadata/_edit_pinned_properties_ = [&"spot_range", &"spot_angle", &"light_color", &"light_energy"]
-
-[node name="LightShaft" parent="LampCeiling" index="2" unique_id=1761265546 instance=ExtResource("4_2djoh")]
-unique_name_in_owner = true
-transform = Transform3D(10.928203, 0, 0, 0, 3.6051192, 0, 0, 0, 8.81152, 0, -4.4737453, 0)
-instance_shader_parameters/base_color = Color(0, 0.8784314, 1, 1)
-instance_shader_parameters/shaft_alpha = 0.02000000095
-mesh = SubResource("CylinderMesh_2djoh")
