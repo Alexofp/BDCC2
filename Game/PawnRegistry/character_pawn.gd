@@ -26,6 +26,7 @@ var interaction:InteractionBase
 var submission:SubmissionHandler
 var poseHandler:PawnPoseHandler
 var mood:MoodHandler
+var interactionUIPawnIDs:Array[String] = []
 
 signal dollSpawned(doll)
 signal dollDespawned(doll)
@@ -153,9 +154,11 @@ func _process(_delta: float) -> void:
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
 
+# Gets called every second or so
 func processRare(_dt:float):
 	if(Network.isServer()):
-		if(!isControlledByAnyPlayer()):
+		var _isControlledByPC := isControlledByAnyPlayer()
+		if(!_isControlledByPC):
 			poseHandler.tickAI(_dt)
 		combatAI.processRare(_dt)
 		if(combatTimer > 0.0):
@@ -163,6 +166,13 @@ func processRare(_dt:float):
 				combatTimer -= _dt
 			else:
 				combatTimer -= _dt*0.2
+	
+		interactionUIPawnIDs.clear()
+		if(_isControlledByPC && interaction):
+			for thePawn in interaction.pawnToRole:
+				if(self == thePawn):
+					continue
+				interactionUIPawnIDs.append(thePawn.getID())
 	
 	poseHandler.processRare(_dt)
 
@@ -1142,9 +1152,17 @@ func addAffection(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true)
 	GM.main.relationshipSystem.addAffection(getID(), _otherPawn.getID(), _am)
 	showValueChange("Affection", _am)
 
+func playPawnNoise(_noiseType:int, _volumeAdd:float = 0.0, _pitch:float = 1.0, _dist:float = 20.0):
+	if(!PawnNoise.NOISE_TYPE_TO_NOISE.has(_noiseType)):
+		return
+	var theStream:AudioStream = PawnNoise.NOISE_TYPE_TO_NOISE[_noiseType]
+	Audio.playSound3DAdvanced(self, theStream, _volumeAdd, _pitch, _dist)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(playPawnNoise_RPC.bind(_noiseType, _volumeAdd, _pitch, _dist))
 
-
-
+@rpc("authority", "call_remote", "reliable")
+func playPawnNoise_RPC(_noiseType:int, _volumeAdd:float, _pitch:float, _dist:float):
+	playPawnNoise(_noiseType, _volumeAdd, _pitch, _dist)
 
 
 

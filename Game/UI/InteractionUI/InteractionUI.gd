@@ -18,12 +18,18 @@ func _physics_process(_delta: float) -> void:
 		pawn = theNewPawn
 	
 	var toTrack:Dictionary[CharacterPawn, bool]
-	if(pawn && pawn.interaction):
-		var theInteraction := pawn.interaction
-		for thePawn in theInteraction.pawnToRole:
-			if(pawn == thePawn):
+	#if(pawn && pawn.interaction):
+		#var theInteraction := pawn.interaction
+		#for thePawn in theInteraction.pawnToRole:
+			#if(pawn == thePawn):
+				#continue
+			#toTrack[thePawn] = true
+	if(pawn && !pawn.interactionUIPawnIDs.is_empty()):
+		for theOtherPawnID in pawn.interactionUIPawnIDs:
+			var theOtherPawn := GM.main.pawn_registry.getPawn(theOtherPawnID)
+			if(!theOtherPawn):
 				continue
-			toTrack[thePawn] = true
+			toTrack[theOtherPawn] = true
 	
 	setTrackedPawns(toTrack)
 	if(toTrack.is_empty()):

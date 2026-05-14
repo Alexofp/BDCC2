@@ -41,6 +41,7 @@ func saveFullNetworkData() -> Bins:
 		Bins.BINS, leashSystem.saveNetworkData(),
 		Bins.BINS, networkedNodes.saveNetworkData(),
 		Bins.BINS, sitManager.saveNetworkData(),
+		Bins.BINS, GM.main.relationshipSystem.saveNetworkData(),
 	])
 	return data.endSave()
 
@@ -55,6 +56,7 @@ func loadFullNetworkData(_data:Bins):
 	leashSystem.loadNetworkData(_data.readBins())
 	networkedNodes.loadNetworkData(_data.readBins())
 	sitManager.loadNetworkData(_data.readBins())
+	GM.main.relationshipSystem.loadNetworkData(_data.readBins())
 	_data.endLoad()
 
 func saveFullData() -> Dictionary:
@@ -67,6 +69,7 @@ func saveFullData() -> Dictionary:
 		sexManager = sexManager.saveData(),
 		networkedNodes = networkedNodes.saveData(),
 		sitManager = sitManager.saveData(),
+		relationshipSystem = GM.main.relationshipSystem.saveData(),
 	}
 
 func loadFullData(_data:Dictionary):
@@ -78,6 +81,7 @@ func loadFullData(_data:Dictionary):
 	sexManager.loadData(SAVE.loadVar(_data, "sexManager", {}))
 	networkedNodes.loadData(SAVE.loadVar(_data, "networkedNodes", {}))
 	sitManager.loadData(SAVE.loadVar(_data, "sitManager", {}))
+	GM.main.relationshipSystem.loadData(SAVE.loadVar(_data, "relationshipSystem", {}))
 
 func registerOnServerCommand(_command:int, _theObj:Object, functionName:String, callType:int, argsList:Array):
 	if(serverCommandObjects.has(_command)):

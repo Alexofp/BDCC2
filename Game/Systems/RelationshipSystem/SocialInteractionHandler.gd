@@ -194,11 +194,7 @@ func addMemoryStarter(_memory:String):
 		return
 	GM.main.memorySystem.addMemory(charIDStarter, _memory, charIDTarget)
 	
-const GOOD_NOISE = preload("res://Sounds/UI/Good.ogg")
-const BLIP_NOISE := preload("res://Sounds/UI/Blip.ogg")
-const ERROR_NOISE := preload("res://Sounds/UI/Error.ogg")
-
-func playNoise(_noise:AudioStream, _volumeAdd:float = -25.0, _pitch:float = 1.0):
+func playNoise(_noise:int, _volumeAdd:float = -25.0, _pitch:float = 1.0):
 	if(_pitch <= 0.0):
 		return
 	
@@ -209,14 +205,14 @@ func playNoise(_noise:AudioStream, _volumeAdd:float = -25.0, _pitch:float = 1.0)
 	if(!theTarget || !theStarter):
 		return
 	var theTargetNode := theStarter
-	if(theStarter.isControlledByUs()):
-		theTargetNode = theTarget
-		
-	Audio.playSound3DAdvanced(theTargetNode, _noise, _volumeAdd, reScaledPitch, 10.0)
+	#if(theStarter.isControlledByUs()):
+	#	theTargetNode = theTarget
+	
+	theTargetNode.playPawnNoise(_noise, _volumeAdd, reScaledPitch)
 
 func playSuccessNoise(_mult:float):
 	if(absf(_mult) < MEH_THRESHOLD):
-		playNoise(BLIP_NOISE, -25.0, 1.0)
+		playNoise(PawnNoise.BLIP, -15.0, 1.0)
 		#pawn1.addSmallText("Affection~~", Color.YELLOW)
 		#pawn2.addSmallText("Affection~~", Color.YELLOW)
 		pass
@@ -228,13 +224,13 @@ func playSuccessNoise(_mult:float):
 			_charAm = 2
 		
 		if(_mult > 0.0):
-			playNoise(GOOD_NOISE, -25.0, _mult)
+			playNoise(PawnNoise.GOOD, -25.0, _mult)
 			#var theChars:String = "+".repeat(charAm)
 			#pawn1.addSmallText("Affection"+theChars, Color.GREEN)
 			#pawn2.addSmallText("Affection"+theChars, Color.GREEN)
 			pass
 		elif(_mult < 0.0):
-			playNoise(ERROR_NOISE, -25.0, -_mult)
+			playNoise(PawnNoise.ERROR, -15.0, -_mult)
 			#var theChars:String = "-".repeat(charAm)
 			#pawn1.addSmallText("Affection"+theChars, Color.RED)
 			#pawn2.addSmallText("Affection"+theChars, Color.RED)

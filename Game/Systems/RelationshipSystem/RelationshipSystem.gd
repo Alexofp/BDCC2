@@ -10,21 +10,33 @@ var holders:Dictionary[String, RelationshipHolder]
 var entries:Array[RelationshipEntry]
 var shortTerm:Array[RelationshipShortTermEntry]
 
+var toSyncEntries:Dictionary[RelationshipEntry, bool]
+
+func markToSync(_entry:RelationshipEntry):
+	if(Network.isServerNotSingleplayer()):
+		toSyncEntries[_entry] = true
+
 const AFFECTION_MAX := 3.0
 func addAffectionRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
 		return
+	var _oldAffection:float = _entry.affection
 	_entry.affection += _amount
 	_entry.affection = clamp(_entry.affection, -AFFECTION_MAX, AFFECTION_MAX)
+	if(_oldAffection != _entry.affection):
+		markToSync(_entry)
 
 const LUST_MAX := 1.0
 func addLustRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
 		return
+	var _oldValue:float = _entry.lust
 	_entry.lust += _amount
 	_entry.lust = clamp(_entry.lust, 0.0, LUST_MAX)
+	if(_oldValue != _entry.lust):
+		markToSync(_entry)
 
 func addAffection(_char1:String, _char2:String, _amount:float):
 	var currentAffection := getAffection(_char1, _char2)
@@ -84,13 +96,19 @@ func createEntry(_char1:String, _char2:String) -> RelationshipEntry:
 	newEntry.char1 = _char1
 	newEntry.char2 = _char2
 	
-	entries.append(newEntry)
-	
-	var holder1 := getOrCreateHolder(_char1)
-	holder1.entries[_char2] = newEntry
-	var holder2 := getOrCreateHolder(_char2)
-	holder2.entries[_char1] = newEntry
+	assignEntry(newEntry)
 	return newEntry
+
+# Must only be called if we're certain that there isn't an entry already. Otherwise stuff will break
+func assignEntry(newEntry:RelationshipEntry):
+	entries.append(newEntry)
+	if(Network.isServerNotSingleplayer()):
+		toSyncEntries[newEntry] = true
+	
+	var holder1 := getOrCreateHolder(newEntry.char1)
+	holder1.entries[newEntry.char2] = newEntry
+	var holder2 := getOrCreateHolder(newEntry.char2)
+	holder2.entries[newEntry.char1] = newEntry
 
 func getHolder(_charID:String) -> RelationshipHolder:
 	return holders[_charID] if holders.has(_charID) else null
@@ -110,13 +128,20 @@ func deleteEntry(_entry:RelationshipEntry, _forgetIntroduced:bool = true) -> boo
 		if(_forgetIntroduced):
 			holder2.introduced.erase(_entry.char1)
 	entries.erase(_entry)
+	toSyncEntries.erase(_entry)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(deleteEntry_RPC.bind(_entry.char1, _entry.char2, _forgetIntroduced))
 	return true
 
-func deleteEntryBetween(_char1:String, _char2:String) -> bool:
+@rpc("call_remote", "authority", "reliable")
+func deleteEntry_RPC(_char1:String, _char2:String, _forgetIntroduced:bool = true):
+	deleteEntryBetween(_char1, _char2, _forgetIntroduced)
+
+func deleteEntryBetween(_char1:String, _char2:String, _forgetIntroduced:bool = true) -> bool:
 	var theEntry := getEntry(_char1, _char2)
 	if(!theEntry):
 		return false
-	return deleteEntry(theEntry)
+	return deleteEntry(theEntry, _forgetIntroduced)
 
 func deleteAllEntriesOf(_charID:String):
 	var toRem:Array[RelationshipEntry] = []
@@ -129,6 +154,13 @@ func deleteAllEntriesOf(_charID:String):
 		deleteEntry(theEntry)
 
 func deleteHolderOf(_charID:String):
+	deleteAllEntriesOf(_charID)
+	holders.erase(_charID)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(deleteHolderOf_RPC.bind(_charID))
+
+@rpc("call_remote", "authority", "reliable")
+func deleteHolderOf_RPC(_charID:String):
 	deleteAllEntriesOf(_charID)
 	holders.erase(_charID)
 
@@ -271,6 +303,35 @@ func _physics_process(_delta: float) -> void:
 	while(veryRareUpdateTimer >= VERY_RARE_UPDATE_TIME):
 		processVeryRare(VERY_RARE_UPDATE_TIME)
 		veryRareUpdateTimer -= VERY_RARE_UPDATE_TIME
+	
+	if(!toSyncEntries.is_empty()):
+		if(Network.isServerNotSingleplayer()):
+			var theAr:Array = [
+				Bins.I32, toSyncEntries.size(),
+			]
+			for theEntry:RelationshipEntry in toSyncEntries:
+				theAr.append_array([
+					Bins.BINS, theEntry.saveNetworkData(),
+				])
+			var theCombinedData:Bins = Bins.saveStartEnd(theAr)
+			Network.rpcClients(applyRelationshipSyncData_RPC.bind(theCombinedData.getBytesCompressedSimple()))
+		toSyncEntries.clear()
+			
+@rpc("call_remote", "authority", "reliable")
+func applyRelationshipSyncData_RPC(_data:PackedByteArray):
+	var _bins:Bins = Bins.readCompressedSimple(_data)
+	_bins.loadStart()
+	var _am:int = _bins.readI32()
+	for _i in _am:
+		var theEntry:RelationshipEntry = RelationshipEntry.new()
+		theEntry.loadNetworkData(_bins.readBins())
+		
+		var theExistingEntry := getEntry(theEntry.char1, theEntry.char2)
+		if(theExistingEntry):
+			theExistingEntry.copyFrom(theEntry)
+		else:
+			assignEntry(theEntry)
+	_bins.endLoad()
 
 # Happens every minute
 func processVeryRare(_dt:float):
@@ -278,14 +339,9 @@ func processVeryRare(_dt:float):
 	# Relationship decay?
 	# Spread the decay over different calls?
 	# Can update just a few holders
-	for theCharID in holders:
-		var theHolder := holders[theCharID]
-		
-		for theOtherCharID in theHolder.entries:
-			var theEntry:RelationshipEntry = theHolder.entries[theOtherCharID]
-			
-			if(theEntry.decayEntryShouldRemove(_dt)):
-				toRem.append(theEntry)
+	for theEntry:RelationshipEntry in entries:
+		if(theEntry.decayEntryShouldRemove(_dt)):
+			toRem.append(theEntry)
 	
 	for theEntry in toRem:
 		deleteEntry(theEntry)
@@ -312,3 +368,33 @@ func getDebugTextLinesFor(_pawn:CharacterPawn) -> Array[String]:
 	if(theStuff.is_empty()):
 		return []
 	return [Util.join(theStuff, ",")]
+
+func saveNetworkData() -> Bins:
+	var Ar:Array = [
+		Bins.I32, entries.size(),
+	]
+	for theEntry:RelationshipEntry in entries:
+		Ar.append_array([
+			Bins.BINS, theEntry.saveNetworkData(),
+		])
+	
+	return Bins.saveStartEnd(Ar)
+
+func loadNetworkData(_data:Bins):
+	holders.clear()
+	entries.clear()
+	_data.loadStart()
+	var _am:int = _data.readI32()
+	
+	for _i in _am:
+		var theEntry := RelationshipEntry.new()
+		theEntry.loadNetworkData(_data.readBins())
+		assignEntry(theEntry)
+
+	_data.endLoad()
+
+func saveData() -> Dictionary: #TODO: Make me work
+	return {}
+
+func loadData(_data:Dictionary):
+	pass

@@ -61,6 +61,12 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:poseHandler:arms")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:interactionUIPawnIDs")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:mood:moodName")
+properties/7/spawn = true
+properties/7/replication_mode = 2
 
 [node name="CharacterPawn" type="Node3D" unique_id=1874192382]
 script = ExtResource("1_7fod6")

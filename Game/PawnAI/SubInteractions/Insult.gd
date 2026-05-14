@@ -1,6 +1,8 @@
 extends InteractionSocialBase
 
 var insultLines: Array[String]
+var meanResponce:String
+var calmResponce:String
 
 func _init() -> void:
 	id = "Insult"
@@ -49,8 +51,13 @@ func answer_actions(_role: int):
 		var theAffection := getAffection(ROLE_MAIN, ROLE_TARGET)
 		var theMeanScore :float = clampf(-theAffection, 0.1, 1.0)
 		
-		addAction(action("mean", getSay(ROLE_TARGET, "InsultResponse", ROLE_MAIN), theMeanScore))
-		addAction(action("calm", getSay(ROLE_TARGET, "InsultResponseOuch", ROLE_MAIN), 1.0-theMeanScore))
+		if(meanResponce.is_empty()):
+			meanResponce = getSay(ROLE_TARGET, "InsultResponse", ROLE_MAIN)
+		if(calmResponce.is_empty()):
+			calmResponce = getSay(ROLE_TARGET, "InsultResponseOuch", ROLE_MAIN)
+		
+		addAction(action("mean", meanResponce, theMeanScore))
+		addAction(action("calm", calmResponce, 1.0-theMeanScore))
 		if(theTargetPawn.combatAI.canAddEnemy(theMainPawn)):
 			addAction(action("fight", "*Start Fight*", theAnnoyance*2.0))
 
