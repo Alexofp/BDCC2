@@ -8,7 +8,7 @@ var preview_aabb: AABB
 var preview_rids = []
 var asset: AssetResource
 var preview_transform_step: float = 0.1
-var preview_rotate_step: float = 5
+var preview_rotate_step: float = 15.0
 var undo_redo: EditorUndoRedoManager
 var preview_material = load("res://addons/asset_placer/utils/preview_material.tres")
 
@@ -22,14 +22,17 @@ var _presenter: AssetPlacerPresenter:
 
 func _init(undo_redo: EditorUndoRedoManager):
 	self.undo_redo = undo_redo
+	set_plugin_settings(AssetPlacerSettingsRepository.instance.get_settings())
 
 
 func start_placement(root: Window, asset: AssetResource, placement: GapPlacementMode):
+	var oldTransform:Transform3D = preview_node.global_transform if preview_node else Transform3D.IDENTITY
 	stop_placement()
 	self.asset = asset
 	_is_node_transform_mode = false
 	preview_node = _instantiate_asset_resource(asset)
 	root.add_child(preview_node)
+	preview_node.global_transform = oldTransform
 	preview_rids = get_collision_rids(preview_node)
 	set_placement_mode(placement)
 	_apply_preview_material(preview_node)
@@ -49,7 +52,7 @@ func start_node_transform(node: Node3D, placement: GapPlacementMode):
 	self.preview_aabb = AABBProvider.provide_aabb(preview_node)
 
 
-func _apply_preview_material(node: Node3D):
+func _apply_preview_material(node: Node):
 	if not preview_material:
 		return
 	if node is MeshInstance3D:
@@ -127,7 +130,7 @@ func transform_preview(
 		AssetPlacerPresenter.TransformMode.None:
 			return false
 		AssetPlacerPresenter.TransformMode.Scale:
-			var factor := 1.0 + preview_transform_step * direction
+			var factor := (1.0 + preview_transform_step * direction) if direction > 0 else 1.0/(1.0 + preview_transform_step * (-direction))
 			var min_scale := 0.01
 			var new_scale := preview_node.scale
 			if axis.x != 0:

@@ -67,7 +67,7 @@ static func default() -> AssetPlacerSettings:
 		Key.KEY_TAB, KeyModifierMask.KEY_MASK_SHIFT
 	)
 	settings.transform_step = 0.1
-	settings.rotation_step = 5
+	settings.rotation_step = 15.0
 	settings.ui_scale = 1.0
 	settings.palette_item_scale = 1.0
 	settings.update_channel = UpdateChannel.Stable
