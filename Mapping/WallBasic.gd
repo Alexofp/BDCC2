@@ -13,6 +13,15 @@ extends PropBasic
 	set(value):
 		color1 = value
 		notifySetEditorValue("color1", value)
+#@export var uvShift:float = 0.0:
+	#set(value):
+		#uvShift = value
+		#notifySetEditorValue("uvShift", value)
+
+func _ready() -> void:
+	super._ready()
+	setInstanceShaderParameter("uvShift", randf_range(-1.0, 1.0))
+	#uvShift = randf_range(-1.0, 1.0)
 
 func getEditorOptions() -> Dictionary:
 	return {

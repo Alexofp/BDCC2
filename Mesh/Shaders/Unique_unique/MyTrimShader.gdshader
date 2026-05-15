@@ -19,6 +19,7 @@ instance uniform vec3 trim_color_second : source_color = vec3(1.0);
 instance uniform vec3 trim_color_third : source_color = vec3(1.0);
 instance uniform vec3 trim_color_base : source_color = vec3(1.0);
 
+instance uniform float uvShift : hint_range(-1.0, 1.0, 0.01) = 0.0;
 //uniform vec3 uv1_scale;
 //uniform vec3 uv1_offset;
 //uniform vec3 uv2_scale;
@@ -26,6 +27,7 @@ instance uniform vec3 trim_color_base : source_color = vec3(1.0);
 
 void vertex() {
 	//UV = UV * uv1_scale.xy + uv1_offset.xy;
+	UV.x += uvShift;// + NODE_POSITION_WORLD.x + NODE_POSITION_WORLD.y*0.3 + NODE_POSITION_WORLD.z * 0.6;
 }
 
 void fragment() {

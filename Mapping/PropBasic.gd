@@ -150,6 +150,8 @@ func applyEditorOption(_id, _value):
 			setInstanceShaderParameter("trim_color_second", _value)
 		"color3":
 			setInstanceShaderParameter("trim_color_third", _value)
+		"uvShift":
+			setInstanceShaderParameter("uvShift", _value)
 
 func getMeshes() -> Array[GeometryInstance3D]:
 	if(!meshesDirty):
