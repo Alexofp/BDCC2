@@ -5,10 +5,16 @@
 [resource]
 background_mode = 2
 sky = ExtResource("1_kbo3f")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.33
 tonemap_mode = 4
-ssao_intensity = 3.0
-ssil_radius = 0.57
-ssil_intensity = 3.0
+ssr_max_steps = 512
+ssao_enabled = true
+ssao_power = 3.5676205
+ssao_detail = 5.0
+ssao_horizon = 0.0
+ssao_sharpness = 0.82
+ssil_intensity = 5.0
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 sdfgi_cascades = 2

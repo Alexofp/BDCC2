@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://c5qw6lii6gf8a"]
+[gd_scene format=3 uid="uid://cx7b05y7wsekx"]
 
-[ext_resource type="PackedScene" uid="uid://bm244sbhga8xs" path="res://Mapping/Floors/Raw/FloorTile4x4.glb" id="1_lyiaw"]
-[ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_8vfk6"]
-[ext_resource type="Material" uid="uid://1a1yc4lq7ow0" path="res://Mesh/Materials/Floors/HexFloor.tres" id="3_v0hkl"]
+[ext_resource type="PackedScene" uid="uid://bm244sbhga8xs" path="res://Mapping/Floors/Raw/FloorTile4x4.glb" id="1_m67lr"]
+[ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_21vtf"]
+[ext_resource type="Material" uid="uid://1a1yc4lq7ow0" path="res://Mesh/Materials/Floors/HexFloor.tres" id="3_el3bt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_88vpa"]
 size = Vector3(4, 0.1, 4)
@@ -10,8 +10,8 @@ size = Vector3(4, 0.1, 4)
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_p30qp"]
 size = Vector2(4.1, 4.1)
 
-[node name="FloorTile4x4" unique_id=663949339 node_paths=PackedStringArray("floorMesh") instance=ExtResource("1_lyiaw")]
-script = ExtResource("2_8vfk6")
+[node name="FloorTile8x8" unique_id=663949339 node_paths=PackedStringArray("floorMesh") instance=ExtResource("1_m67lr")]
+script = ExtResource("2_21vtf")
 floorMesh = NodePath("Cube_084")
 floormat = "res://Mesh/Materials/Floors/HexFloor.tres"
 roughness = 0.5
@@ -19,10 +19,11 @@ colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
 
 [node name="Cube_084" parent="." index="0" unique_id=1701325354]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/uv1_scale = 1.0
-surface_material_override/0 = ExtResource("3_v0hkl")
+surface_material_override/0 = ExtResource("3_el3bt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube_084" index="0" unique_id=1472909244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)

@@ -10,7 +10,7 @@ size = Vector2(4.02, 4.02)
 
 [node name="WallA4x4" unique_id=116584686 instance=ExtResource("1_xv6k1")]
 
-[node name="WallA4x4" parent="." index="0" unique_id=263296560]
+[node name="WallA4x4" parent="." index="0" unique_id=1840805205]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

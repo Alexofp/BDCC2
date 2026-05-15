@@ -24,6 +24,8 @@ shader_parameter/depth_feather_enabled = true
 shader_parameter/depth_fade_distance = 0.20000000880148
 
 [node name="LightShaft" type="MeshInstance3D" unique_id=1761265546]
+visible = false
+cast_shadow = 0
 visibility_range_end = 26.0
 visibility_range_end_margin = 1.0
 instance_shader_parameters/base_color = Color(1, 0.95, 0.85, 1)

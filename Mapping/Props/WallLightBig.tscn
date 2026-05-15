@@ -17,6 +17,9 @@ rings = 0
 [node name="WallLightBig" unique_id=1934575288 instance=ExtResource("1_vdphg")]
 script = ExtResource("2_dpfm8")
 color3 = Color(0, 0.8784314, 1, 1)
+lightSpecular = 0.2
+lightRange = 15.0
+lightEnergy = 8.0
 
 [node name="WallLightBig" parent="." index="0" unique_id=953654497]
 instance_shader_parameters/roughness_mult = 0.5
@@ -34,9 +37,10 @@ shape = SubResource("BoxShape3D_0gs2k")
 [node name="SpotLight3D" parent="WallLightBig" index="1" unique_id=1289239381 instance=ExtResource("3_2iwge")]
 transform = Transform3D(-1, -4.9703104e-14, 8.742278e-08, 4.31313e-08, 0.8698223, 0.49336517, -7.60423e-08, 0.49336517, -0.8698223, 0, -0.101759, 0.275208)
 light_color = Color(0, 0.8784314, 1, 1)
-light_energy = 5.0
+light_energy = 8.0
 light_volumetric_fog_energy = 0.0
-spot_range = 10.0
+light_specular = 0.2
+spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 105.0
 metadata/_edit_pinned_properties_ = [&"spot_range"]
@@ -47,4 +51,3 @@ transform = Transform3D(7.030837, 0, 0, 0, 0.69435924, 2.0652387, 0, -0.8449659,
 instance_shader_parameters/base_color = Color(0, 0.8784314, 1, 1)
 instance_shader_parameters/shaft_alpha = 0.10000000475
 mesh = SubResource("CylinderMesh_iqdv1")
-metadata/IGNORE_THUMBNAIL = true

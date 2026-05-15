@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cf0hnmn4nnbuy" path="res://Mapping/Props/Raw/ConstructionLightBoth.glb" id="1_eedrb"]
 [ext_resource type="Script" uid="uid://bmvufvlt0fpcs" path="res://Mapping/Props/construction_light_both.gd" id="2_7ursy"]
 [ext_resource type="PackedScene" uid="uid://c24n0yg58dmg" path="res://Game/MappingElements/Lights/MappingSpotlight.tscn" id="3_8ldnr"]
+[ext_resource type="PackedScene" uid="uid://b3ut8yotnfg1f" path="res://Mesh/Props/LightShaft/LightShaft.tscn" id="4_g7t8x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ta3ub"]
 size = Vector3(1.10869, 1.96713, 0.99803)
@@ -12,13 +13,16 @@ script = ExtResource("2_7ursy")
 roughness = 0.5
 colorbase = Color(0.84705883, 0.6392157, 0, 1)
 color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
-color3 = Color(1, 0.99607843, 0.6431373, 1)
+color3 = Color(1, 0.994, 0.64, 1)
+lightSpecular = 0.2
+lightRange = 25.0
+lightEnergy = 15.0
 
-[node name="ConstructionLightBoth" parent="." index="0" unique_id=1130258574]
+[node name="ConstructionLightBoth" parent="." index="0" unique_id=514765435]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
-instance_shader_parameters/trim_color_third = Color(1, 0.99607843, 0.6431373, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.994, 0.64, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0" unique_id=315086225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.988704, -3.27826e-07)
@@ -28,8 +32,31 @@ shape = SubResource("BoxShape3D_ta3ub")
 
 [node name="SpotLight3D2" parent="." index="1" unique_id=538846847 instance=ExtResource("3_8ldnr")]
 transform = Transform3D(1, 0, 0, 0, -0.90644777, 0.42231792, 0, -0.42231792, -0.90644777, 0, 1.793, 0.126)
-light_color = Color(1, 0.99607843, 0.6431373, 1)
-light_energy = 2.0
+light_color = Color(1, 0.994, 0.64, 1)
+light_energy = 15.0
 light_indirect_energy = 1.0
-spot_range = 15.0
+light_specular = 0.2
+shadow_bias = 0.01
+spot_range = 25.0
+spot_attenuation = 2.0
 spot_angle = 53.69
+
+[node name="LightShaft" parent="." index="2" unique_id=1761265546 instance=ExtResource("4_g7t8x")]
+transform = Transform3D(0.46188918, 0, 0, 0, 0.23094456, 0.40000778, 0, -0.40000778, 0.23094456, 0.34956333, 1.7042521, 0.37190354)
+visible = true
+instance_shader_parameters/base_color = Color(1, 0.994, 0.64, 1)
+
+[node name="LightShaft2" parent="." index="3" unique_id=457000269 instance=ExtResource("4_g7t8x")]
+transform = Transform3D(0.46188918, 0, 0, 0, 0.23094456, 0.40000778, 0, -0.40000778, 0.23094456, -0.35, 1.704, 0.372)
+visible = true
+instance_shader_parameters/base_color = Color(1, 0.994, 0.64, 1)
+
+[node name="LightShaft3" parent="." index="4" unique_id=1581448626 instance=ExtResource("4_g7t8x")]
+transform = Transform3D(0.46188918, 0, 0, 0, 0.23094456, 0.40000778, 0, -0.40000778, 0.23094456, 0.34956333, 1.3065981, 0.37190354)
+visible = true
+instance_shader_parameters/base_color = Color(1, 0.994, 0.64, 1)
+
+[node name="LightShaft4" parent="." index="5" unique_id=1788052528 instance=ExtResource("4_g7t8x")]
+transform = Transform3D(0.46188918, 0, 0, 0, 0.23094456, 0.40000778, 0, -0.40000778, 0.23094456, -0.35, 1.3063459, 0.372)
+visible = true
+instance_shader_parameters/base_color = Color(1, 0.994, 0.64, 1)

@@ -20,6 +20,18 @@ extends PropBasic
 	set(value):
 		color3 = value
 		notifySetEditorValue("color3", value)
+@export_range(0.0, 2.0, 0.05) var lightSpecular:float = 0.2:
+	set(value):
+		lightSpecular = value
+		notifySetEditorValue("lightSpecular", value)
+@export_range(0.0, 500.0, 1.0) var lightRange:float = 15.0:
+	set(value):
+		lightRange = value
+		notifySetEditorValue("lightRange", value)
+@export_range(0.0, 100.0, 1.0) var lightEnergy:float = 8.0:
+	set(value):
+		lightEnergy = value
+		notifySetEditorValue("lightEnergy", value)
 
 func getEditorOptionsEasy() -> Dictionary:
 	var theSettings:Dictionary =  {
@@ -38,6 +50,15 @@ func applyEditorOption(_id, _value):
 			spot_light_3d.light_color = _value
 		if(light_shaft):
 			light_shaft.setColor(_value)
+	if(_id == "lightSpecular"):
+		if(spot_light_3d):
+			spot_light_3d.light_specular = _value
+	if(_id == "lightRange"):
+		if(spot_light_3d):
+			spot_light_3d.spot_range = _value
+	if(_id == "lightEnergy"):
+		if(spot_light_3d):
+			spot_light_3d.light_energy = _value
 
 func getEditorOptionsID() -> String:
 	return EDITOR_OPTIONS_ID_WALLLIGHT

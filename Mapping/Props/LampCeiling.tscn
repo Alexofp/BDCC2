@@ -19,6 +19,9 @@ roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color3 = Color(0, 0.8784314, 1, 1)
+lightSpecular = 0.2
+lightRange = 15.0
+lightEnergy = 10.0
 
 [node name="LampCeiling" parent="." index="0" unique_id=1808440394]
 gi_mode = 0
@@ -47,6 +50,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 10.0
 light_volumetric_fog_energy = 0.2
+light_specular = 0.2
 spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 105.0

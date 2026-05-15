@@ -17,6 +17,18 @@ extends PropBasic
 	set(value):
 		color3 = value
 		notifySetEditorValue("color3", value)
+@export_range(0.0, 2.0, 0.05) var lightSpecular:float = 0.2:
+	set(value):
+		lightSpecular = value
+		notifySetEditorValue("lightSpecular", value)
+@export_range(0.0, 500.0, 1.0) var lightRange:float = 15.0:
+	set(value):
+		lightRange = value
+		notifySetEditorValue("lightRange", value)
+@export_range(0.0, 100.0, 1.0) var lightEnergy:float = 8.0:
+	set(value):
+		lightEnergy = value
+		notifySetEditorValue("lightEnergy", value)
 
 func getEditorOptions() -> Dictionary:
 	return {
@@ -69,3 +81,16 @@ func applyEditorOption(_id, _value):
 		setInstanceShaderParameter("trim_color_third", _value)
 		if(is_inside_tree()):
 			$SpotLight3D2.light_color = _value
+			$LightShaft.setColor(_value)
+			$LightShaft2.setColor(_value)
+			$LightShaft3.setColor(_value)
+			$LightShaft4.setColor(_value)
+	if(_id == "lightSpecular"):
+		if(is_inside_tree()):
+			$SpotLight3D2.light_specular = _value
+	if(_id == "lightRange"):
+		if(is_inside_tree()):
+			$SpotLight3D2.spot_range = _value
+	if(_id == "lightEnergy"):
+		if(is_inside_tree()):
+			$SpotLight3D2.light_energy = _value

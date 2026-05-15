@@ -70,7 +70,7 @@ func setScreen(_screen:int):
 func _on_play_button_pressed() -> void:
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
 	#get_tree().change_scene_to_file("res://Game/Main.tscn")
-	GM.startGame("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
+	GM.startGame("res://Maps/Prison/prison2.tscn", GameMode.Sandbox)
 
 func _on_char_editor_button_pressed() -> void:
 	GM.startGame("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
