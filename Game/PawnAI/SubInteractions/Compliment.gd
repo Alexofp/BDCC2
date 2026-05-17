@@ -14,7 +14,7 @@ func prepareUnlockConditions():
 	addUnlockCondition(SocialUnlockAffectionCondition.new(0.1))
 
 func prepareSocialInteraction():
-	setSocialRequiredScore(0.3)
+	setSocialRequiredScore(0.2)
 	addSocial(SocialScoreAffection.new())
 	addSocial(SocialScoreLust.new(0.5))
 	

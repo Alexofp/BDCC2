@@ -3,6 +3,7 @@ class_name InteractionSocialCoupleBase
 
 var askText:String = "WannaHug"
 var coupleAnim:String = "Hug"
+var coupleAnimTime:float = 4.0
 var giveUpTimer:int = 0
 
 var lineSure:String = "Sure"
@@ -65,9 +66,9 @@ func doing_processRare(_dt:float):
 			pushStopLookAt(ROLE_MAIN)
 			pushStopLookAt(ROLE_TARGET)
 			pushEvent("hug")
-			pushDelay(2.0)
+			pushDelay(coupleAnimTime*0.5)
 			pushSocialEnd()
-			pushDelay(2.0)
+			pushDelay(coupleAnimTime*0.5)
 			pushStopInteraction()
 		else:
 			giveUpTimer += 1

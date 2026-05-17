@@ -10,6 +10,14 @@ func _init() -> void:
 			name = "Hug_2",
 			anim = "Hug_2",
 		},
+		"Embrace_1": {
+			name = "Embrace_1",
+			anim = "Embrace_1",
+		},
+		"Embrace_2": {
+			name = "Embrace_2",
+			anim = "Embrace_2",
+		},
 	}
 	animType = TYPE_COUPLE
 	animLibraryName = FRIENDLY_ANIMS

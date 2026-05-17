@@ -178,7 +178,7 @@ func affectTargetSocialExhaustion(_am:float, _starterMult:float = 0.5):
 		_am /= currentExhaustion
 	
 	if(theAff > 0.0): # Having high affection makes the target get less social exhaustion
-		_am *= (1.0 - theAff*0.7)
+		_am *= (1.0 - clampf(theAff*0.2, 0.0, 0.5))
 	
 	theTarget.addSocialExhaustion(_am)
 	if(_starterMult != 0.0):

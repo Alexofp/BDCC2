@@ -1,34 +1,34 @@
 extends InteractionSocialCoupleBase
 
 func _init() -> void:
-	id = "Hug"
-	socialActionName = "Hug"
+	id = "Embrace"
+	socialActionName = "Embrace"
 	socialActionCategory = CATEGORY_FRIENDLY
 	
-	askText = "WannaHug"
-	coupleAnim = "Hug"
-	coupleAnimTime = 4.0
+	askText = "WannaEmbrace"
+	coupleAnim = "Embrace"
+	coupleAnimTime = 6.0
 	
 	lineSure = "HugSure"
 	lineNo = "HugNo"
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 2.0
+	interactionPriority = PRIO_FRIENDLY - 4.1
 
 func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(0.3))
+	addUnlockCondition(SocialUnlockAffectionCondition.new(1.7))
 
 func prepareSocialInteraction():
-	setSocialRequiredScore(0.5)
+	setSocialRequiredScore(2.0)
 	addSocial(SocialScoreAffection.new())
 	addSocial(SocialScoreLust.new(0.1))
 	
 	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Hug))
+	addSocial(SocialCheckCooldown.new(SocialCooldown.Embrace))
 	
 	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.3, -0.1))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Hug))
+	addSocial(SocialEffectAddAffection.new(0.5, -0.2))
+	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Embraced))
 	
 
 #func start(_roles:Dictionary, _args:Array):

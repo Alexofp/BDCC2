@@ -26,6 +26,7 @@ func onGettingHit(_attackContext:AttackContext) -> bool:
 			GM.main.memorySystem.addMemory(_attackContext.target.getCharID(), "Attacked", _attackContext.attacker.getCharID())
 			
 			GM.main.relationshipSystem.addActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
+			_attackContext.target.addAnnoyance(_attackContext.attacker, 1.0)
 		startSubActionUnlessSameTag("Combat")
 	return true
 

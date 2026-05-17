@@ -4,6 +4,12 @@ fill Memory_Hug simple
 Got hugged by {target.name}% MemoryRecently%. That felt good.
 >
 
+def Memory_Embraced
+fill Memory_Embraced simple
+<
+Got embraced by {target.name}% MemoryRecently%. That felt very good.
+>
+
 def Memory_Chat
 fill Memory_Chat simple
 <

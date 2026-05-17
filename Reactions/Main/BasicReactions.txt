@@ -237,3 +237,16 @@ fill OfferSexCancel simple
 <
 I changed my mind.
 >
+
+def WannaEmbrace
+fill WannaEmbrace simple
+<
+Can I hug you tightly?
+>
+
+fill WannaEmbrace another
+priority 1
+cond target.memory.has("Embraced", main)
+<
+Can I hug you tightly again?
+>
