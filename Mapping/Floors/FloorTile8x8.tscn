@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bm244sbhga8xs" path="res://Mapping/Floors/Raw/FloorTile4x4.glb" id="1_m67lr"]
 [ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_21vtf"]
-[ext_resource type="Material" uid="uid://1a1yc4lq7ow0" path="res://Mesh/Materials/Floors/HexFloor.tres" id="3_el3bt"]
+[ext_resource type="Material" uid="uid://cc5cujgom31u5" path="res://Mesh/Textures/Tileable/Floor/concrete_tiles2/ConcreteTiles.tres" id="3_m67lr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_88vpa"]
 size = Vector3(4, 0.1, 4)
@@ -13,7 +13,8 @@ size = Vector2(4.1, 4.1)
 [node name="FloorTile8x8" unique_id=663949339 node_paths=PackedStringArray("floorMesh") instance=ExtResource("1_m67lr")]
 script = ExtResource("2_21vtf")
 floorMesh = NodePath("Cube_084")
-floormat = "res://Mesh/Materials/Floors/HexFloor.tres"
+flootMat = 3
+floorMatCustom = ""
 roughness = 0.5
 colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
 uvscale = 1.0
@@ -23,7 +24,7 @@ transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/uv1_scale = 1.0
-surface_material_override/0 = ExtResource("3_el3bt")
+surface_material_override/0 = ExtResource("3_m67lr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube_084" index="0" unique_id=1472909244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)

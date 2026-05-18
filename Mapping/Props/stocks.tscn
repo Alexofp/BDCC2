@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://7kf27vp7xgdy" path="res://Mapping/Props/Raw/Stocks.glb" id="1_wfhsi"]
 [ext_resource type="Script" uid="uid://cxnldy2ofpc6t" path="res://Mapping/Props/stocks.gd" id="2_bcm5a"]
-[ext_resource type="Material" uid="uid://bd2q60jlvjce" path="res://Mesh/Materials/Floors/FabricTiles.tres" id="3_js7ct"]
+[ext_resource type="Material" uid="uid://bd2q60jlvjce" path="res://Mesh/Textures/Tileable/Floor/fabric_tiles/FabricTiles.tres" id="3_js7ct"]
 [ext_resource type="PackedScene" uid="uid://csx44p553o58b" path="res://AnimScenes/Scenes/Stocks/StocksAnimHandler.tscn" id="3_we5c1"]
 [ext_resource type="Shader" uid="uid://bqmc30ojqv1ya" path="res://Mesh/Shaders/Prop_all/ORMColorMaskShader.gdshader" id="4_bgnum"]
 [ext_resource type="Texture2D" uid="uid://bb60umefhh4j8" path="res://Mapping/Props/Raw/Stocks/Stocks_low_Material_BaseColor.png" id="5_js7ct"]

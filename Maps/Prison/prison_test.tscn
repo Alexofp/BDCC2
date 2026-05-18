@@ -630,62 +630,50 @@ metadata/_custom_type_script = "uid://bpd4f6ganr5gx"
 
 [node name="FloorTile4x4" parent="GenBlockMap" unique_id=549563767 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x5" parent="GenBlockMap" unique_id=713047418 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x6" parent="GenBlockMap" unique_id=1731540564 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x7" parent="GenBlockMap" unique_id=206569307 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x8" parent="GenBlockMap" unique_id=147521053 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x9" parent="GenBlockMap" unique_id=2143429037 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x10" parent="GenBlockMap" unique_id=1543421835 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x11" parent="GenBlockMap" unique_id=743151777 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x12" parent="GenBlockMap" unique_id=1231818268 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x13" parent="GenBlockMap" unique_id=803921624 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x14" parent="GenBlockMap" unique_id=35964799 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x15" parent="GenBlockMap" unique_id=1641665319 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WindowBarsA4x3" parent="GenBlockMap" unique_id=1214600159 instance=ExtResource("5_57q1u")]
@@ -693,22 +681,18 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -9, 
 
 [node name="FloorTile4x16" parent="GenBlockMap" unique_id=896653976 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x17" parent="GenBlockMap" unique_id=700330939 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x18" parent="GenBlockMap" unique_id=1732631336 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x19" parent="GenBlockMap" unique_id=677201333 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="WallA4x4" parent="GenBlockMap" unique_id=1061271754 instance=ExtResource("7_w48ot")]
@@ -793,22 +777,18 @@ transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70
 
 [node name="FloorTile4x20" parent="GenBlockMap" unique_id=1425460218 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 4, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteFloor.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x21" parent="GenBlockMap" unique_id=1563522721 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 4, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteFloor.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x22" parent="GenBlockMap" unique_id=1023348832 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 4, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteFloor.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x23" parent="GenBlockMap" unique_id=1295307585 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 4, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteFloor.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="WallLight" parent="GenBlockMap" unique_id=1132780690 instance=ExtResource("27_bf38g")]
@@ -819,22 +799,18 @@ transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.
 
 [node name="FloorTile4x24" parent="GenBlockMap" unique_id=1620746277 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x25" parent="GenBlockMap" unique_id=1620172193 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x26" parent="GenBlockMap" unique_id=97762587 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="FloorTile4x27" parent="GenBlockMap" unique_id=1833019799 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="WallA2x6" parent="GenBlockMap" unique_id=647515067 instance=ExtResource("13_vqtgh")]
@@ -867,32 +843,26 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 
 
 [node name="FloorTile4x28" parent="GenBlockMap" unique_id=186707430 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x29" parent="GenBlockMap" unique_id=2076700973 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x30" parent="GenBlockMap" unique_id=793926094 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x31" parent="GenBlockMap" unique_id=2035507178 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x32" parent="GenBlockMap" unique_id=700556102 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x33" parent="GenBlockMap" unique_id=1355796361 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 0, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerOuter" parent="GenBlockMap" unique_id=62673921 instance=ExtResource("29_cq2pp")]
@@ -901,7 +871,6 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x34" parent="GenBlockMap" unique_id=1935020525 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x9" parent="GenBlockMap" unique_id=161967615 instance=ExtResource("19_fmkev")]
@@ -914,27 +883,22 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x35" parent="GenBlockMap" unique_id=650019571 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x36" parent="GenBlockMap" unique_id=625364869 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x37" parent="GenBlockMap" unique_id=631800809 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x38" parent="GenBlockMap" unique_id=1708005351 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x39" parent="GenBlockMap" unique_id=1677313484 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x11" parent="GenBlockMap" unique_id=2078233863 instance=ExtResource("19_fmkev")]
@@ -959,22 +923,18 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x40" parent="GenBlockMap" unique_id=1676813027 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x41" parent="GenBlockMap" unique_id=705610925 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x42" parent="GenBlockMap" unique_id=531865804 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x43" parent="GenBlockMap" unique_id=302437351 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x5" parent="GenBlockMap" unique_id=1399430629 instance=ExtResource("8_wrhh4")]
@@ -1016,7 +976,6 @@ color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x44" parent="GenBlockMap" unique_id=945705010 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x7" parent="GenBlockMap" unique_id=1372890908 instance=ExtResource("8_wrhh4")]
@@ -1024,32 +983,26 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 
 
 [node name="FloorTile4x45" parent="GenBlockMap" unique_id=1984591503 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x46" parent="GenBlockMap" unique_id=380374630 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 5, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x47" parent="GenBlockMap" unique_id=1736987723 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 5, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x48" parent="GenBlockMap" unique_id=297583475 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 5, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x49" parent="GenBlockMap" unique_id=921922354 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x50" parent="GenBlockMap" unique_id=39486367 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x14" parent="GenBlockMap" unique_id=1158210153 instance=ExtResource("7_w48ot")]
@@ -1064,37 +1017,44 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile1x1" parent="GenBlockMap" unique_id=245668719 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x2" parent="GenBlockMap" unique_id=1019435522 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 7)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x3" parent="GenBlockMap" unique_id=1768703855 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 8)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x4" parent="GenBlockMap" unique_id=1602679612 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 9)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x5" parent="GenBlockMap" unique_id=1779657504 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x6" parent="GenBlockMap" unique_id=339583672 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 11)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x7" parent="GenBlockMap" unique_id=1506477352 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 12)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x16" parent="GenBlockMap" unique_id=443208398 instance=ExtResource("7_w48ot")]
@@ -1175,27 +1135,22 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, 
 
 [node name="FloorTile4x51" parent="GenBlockMap" unique_id=12587981 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 5, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x52" parent="GenBlockMap" unique_id=231434930 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 5, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x53" parent="GenBlockMap" unique_id=684661747 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 5, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x54" parent="GenBlockMap" unique_id=1964204883 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22, 5, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x55" parent="GenBlockMap" unique_id=907076870 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 5, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerOuter3" parent="GenBlockMap" unique_id=757889883 instance=ExtResource("29_cq2pp")]
@@ -1239,12 +1194,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11,
 
 [node name="FloorTile4x56" parent="GenBlockMap" unique_id=2021827438 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x57" parent="GenBlockMap" unique_id=1187069351 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WindowBarsA4x8" parent="GenBlockMap" unique_id=470508502 instance=ExtResource("5_57q1u")]
@@ -1255,12 +1208,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -16,
 
 [node name="FloorTile4x58" parent="GenBlockMap" unique_id=1263484104 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x59" parent="GenBlockMap" unique_id=324322698 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -18, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerC2" parent="GenBlockMap" unique_id=720376029 instance=ExtResource("10_day4y")]
@@ -1272,22 +1223,18 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18,
 
 [node name="FloorTile4x60" parent="GenBlockMap" unique_id=695943230 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -14, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x61" parent="GenBlockMap" unique_id=1585004749 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -18, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x62" parent="GenBlockMap" unique_id=1038808072 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x63" parent="GenBlockMap" unique_id=1375548186 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerB3" parent="GenBlockMap" unique_id=1547829321 instance=ExtResource("16_hxit5")]
@@ -1353,12 +1300,10 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x64" parent="GenBlockMap" unique_id=1308059856 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16, 5, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x65" parent="GenBlockMap" unique_id=257404156 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16, 5, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FancyRailing3" parent="GenBlockMap" unique_id=1159225341 instance=ExtResource("39_mfkbf")]
@@ -1420,82 +1365,66 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x66" parent="GenBlockMap" unique_id=1423083811 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x67" parent="GenBlockMap" unique_id=1170623060 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x68" parent="GenBlockMap" unique_id=1372114421 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -10, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x69" parent="GenBlockMap" unique_id=1426746767 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x70" parent="GenBlockMap" unique_id=1390317911 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x71" parent="GenBlockMap" unique_id=878838074 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x72" parent="GenBlockMap" unique_id=481399702 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x73" parent="GenBlockMap" unique_id=766156829 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x74" parent="GenBlockMap" unique_id=651011788 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x75" parent="GenBlockMap" unique_id=109540219 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x76" parent="GenBlockMap" unique_id=58151368 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x77" parent="GenBlockMap" unique_id=831837631 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x78" parent="GenBlockMap" unique_id=442124523 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x79" parent="GenBlockMap" unique_id=334824942 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x80" parent="GenBlockMap" unique_id=1007817206 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x81" parent="GenBlockMap" unique_id=1337296588 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA2x22" parent="GenBlockMap" unique_id=1242143770 instance=ExtResource("13_vqtgh")]
@@ -1553,52 +1482,42 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 
 
 [node name="FloorTile4x82" parent="GenBlockMap" unique_id=622819868 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 9.1, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x83" parent="GenBlockMap" unique_id=182124679 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 9.1, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x84" parent="GenBlockMap" unique_id=1218170061 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 9.1, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x85" parent="GenBlockMap" unique_id=1106844134 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 9.1, 18)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x86" parent="GenBlockMap" unique_id=343043596 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 9.1, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x87" parent="GenBlockMap" unique_id=1359802755 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x88" parent="GenBlockMap" unique_id=972641119 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 9.1, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x89" parent="GenBlockMap" unique_id=1999382563 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x90" parent="GenBlockMap" unique_id=1863416730 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 18, 9.1, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x91" parent="GenBlockMap" unique_id=329370901 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 18, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallLightBig7" parent="GenBlockMap" unique_id=568290585 instance=ExtResource("32_ju0lk")]
@@ -1612,22 +1531,18 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 
 
 [node name="FloorTile4x92" parent="GenBlockMap" unique_id=1517049748 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 5, 22)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x93" parent="GenBlockMap" unique_id=374621002 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 22)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x94" parent="GenBlockMap" unique_id=367929853 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 22)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x95" parent="GenBlockMap" unique_id=1040716799 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 22)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="Foundation4" parent="GenBlockMap" unique_id=2126023030 instance=ExtResource("45_pqo24")]
@@ -1635,25 +1550,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -4)
 
 [node name="FloorTile4x96" parent="GenBlockMap" unique_id=1821073656 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, 1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x97" parent="GenBlockMap" unique_id=436622976 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x98" parent="GenBlockMap" unique_id=207272067 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x99" parent="GenBlockMap" unique_id=493310139 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
@@ -1680,27 +1591,22 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 0
 
 [node name="FloorTile4x100" parent="GenBlockMap" unique_id=1257293215 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x101" parent="GenBlockMap" unique_id=2063697310 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x102" parent="GenBlockMap" unique_id=503884226 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x103" parent="GenBlockMap" unique_id=1694742127 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x104" parent="GenBlockMap" unique_id=1912856833 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="Foundation2CornerInner" parent="GenBlockMap" unique_id=2090787611 instance=ExtResource("50_86xop")]
@@ -1729,50 +1635,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -4)
 
 [node name="FloorTile4x105" parent="GenBlockMap" unique_id=157389906 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x106" parent="GenBlockMap" unique_id=1662927148 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x107" parent="GenBlockMap" unique_id=158330829 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x108" parent="GenBlockMap" unique_id=737608321 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x109" parent="GenBlockMap" unique_id=1255664011 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x110" parent="GenBlockMap" unique_id=416596040 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x111" parent="GenBlockMap" unique_id=255105924 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x112" parent="GenBlockMap" unique_id=1899368432 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x113" parent="GenBlockMap" unique_id=252023033 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
@@ -1790,34 +1687,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -4)
 
 [node name="FloorTile4x114" parent="GenBlockMap" unique_id=1353410068 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x115" parent="GenBlockMap" unique_id=999401929 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 roughness = 1.0
 colorbase = Color(0, 0, 0, 1)
 
 [node name="FloorTile4x116" parent="GenBlockMap" unique_id=145308683 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x117" parent="GenBlockMap" unique_id=2087949585 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x118" parent="GenBlockMap" unique_id=1376851423 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x119" parent="GenBlockMap" unique_id=87093558 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="ColumnA9" parent="GenBlockMap" unique_id=1535328971 instance=ExtResource("40_5tx25")]
@@ -1939,32 +1830,26 @@ transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -
 
 [node name="FloorTile4x120" parent="GenBlockMap" unique_id=1305312487 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x121" parent="GenBlockMap" unique_id=1146097996 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x122" parent="GenBlockMap" unique_id=1233037621 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x123" parent="GenBlockMap" unique_id=591400557 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x124" parent="GenBlockMap" unique_id=1703791160 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x125" parent="GenBlockMap" unique_id=256747316 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="DecalHazardOrange8" parent="GenBlockMap" unique_id=1246729365 instance=ExtResource("55_5hkrg")]
@@ -1975,67 +1860,54 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 1, 1
 
 [node name="FloorTile4x126" parent="GenBlockMap" unique_id=645946035 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x127" parent="GenBlockMap" unique_id=1264152911 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x128" parent="GenBlockMap" unique_id=318203181 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x129" parent="GenBlockMap" unique_id=1388126469 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x130" parent="GenBlockMap" unique_id=1253097456 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x131" parent="GenBlockMap" unique_id=218756933 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x132" parent="GenBlockMap" unique_id=844911195 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x133" parent="GenBlockMap" unique_id=1350580722 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x134" parent="GenBlockMap" unique_id=475881579 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x135" parent="GenBlockMap" unique_id=1829268472 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x136" parent="GenBlockMap" unique_id=1900764419 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x137" parent="GenBlockMap" unique_id=1567557439 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x138" parent="GenBlockMap" unique_id=1090010294 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="LampCeiling" parent="GenBlockMap" unique_id=787381794 instance=ExtResource("57_wotwb")]
@@ -2343,42 +2215,34 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 28, 
 
 [node name="FloorTile4x139" parent="GenBlockMap" unique_id=1483443518 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x140" parent="GenBlockMap" unique_id=955756521 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x141" parent="GenBlockMap" unique_id=675241315 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x142" parent="GenBlockMap" unique_id=1064664019 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 34, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x143" parent="GenBlockMap" unique_id=1241448156 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x144" parent="GenBlockMap" unique_id=1686550537 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x145" parent="GenBlockMap" unique_id=1796647128 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x146" parent="GenBlockMap" unique_id=1669745292 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="DoorA2x3Closed7" parent="GenBlockMap" unique_id=557131754 instance=ExtResource("14_q6tit")]
@@ -2401,22 +2265,18 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 44, 
 
 [node name="FloorTile4x147" parent="GenBlockMap" unique_id=270242566 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 46, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x148" parent="GenBlockMap" unique_id=14892950 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 46, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x149" parent="GenBlockMap" unique_id=829715402 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 50, 0, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x150" parent="GenBlockMap" unique_id=2075513914 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 0, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x34" parent="GenBlockMap" unique_id=26767131 instance=ExtResource("19_fmkev")]
@@ -2457,27 +2317,22 @@ color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x151" parent="GenBlockMap" unique_id=775491021 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x152" parent="GenBlockMap" unique_id=1788274396 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x153" parent="GenBlockMap" unique_id=1700474124 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x154" parent="GenBlockMap" unique_id=1274974848 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x155" parent="GenBlockMap" unique_id=1098269226 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="Foundation14" parent="GenBlockMap" unique_id=996967865 instance=ExtResource("48_5hljv")]
@@ -2500,27 +2355,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -8)
 
 [node name="FloorTile4x156" parent="GenBlockMap" unique_id=992049312 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x157" parent="GenBlockMap" unique_id=427209772 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x158" parent="GenBlockMap" unique_id=1634215545 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x159" parent="GenBlockMap" unique_id=495142123 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x160" parent="GenBlockMap" unique_id=2031450806 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="Stairs21" parent="GenBlockMap" unique_id=1298146309 instance=ExtResource("35_3eht4")]
@@ -2564,127 +2414,116 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 1, -8)
 
 [node name="FloorTile4x161" parent="GenBlockMap" unique_id=1759076536 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x162" parent="GenBlockMap" unique_id=72851376 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x163" parent="GenBlockMap" unique_id=1357557163 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 26, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x164" parent="GenBlockMap" unique_id=561646580 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 30, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x165" parent="GenBlockMap" unique_id=1557979211 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x166" parent="GenBlockMap" unique_id=658197705 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x167" parent="GenBlockMap" unique_id=1975014253 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x168" parent="GenBlockMap" unique_id=1991302960 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 46, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x169" parent="GenBlockMap" unique_id=1982827894 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x170" parent="GenBlockMap" unique_id=1755477629 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 54, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x171" parent="GenBlockMap" unique_id=2032524821 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 26, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x172" parent="GenBlockMap" unique_id=621118170 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x173" parent="GenBlockMap" unique_id=1977341844 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x174" parent="GenBlockMap" unique_id=838296596 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x175" parent="GenBlockMap" unique_id=747379353 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x176" parent="GenBlockMap" unique_id=363125040 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 46, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x177" parent="GenBlockMap" unique_id=1433899921 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x178" parent="GenBlockMap" unique_id=716668558 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 54, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x8" parent="GenBlockMap" unique_id=2127734778 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 12)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x9" parent="GenBlockMap" unique_id=930449763 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 11)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x10" parent="GenBlockMap" unique_id=366358751 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x11" parent="GenBlockMap" unique_id=1490007178 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 9)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x12" parent="GenBlockMap" unique_id=252380959 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 8)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x13" parent="GenBlockMap" unique_id=1285658309 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 5, 7)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x14" parent="GenBlockMap" unique_id=539292651 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x1CornerOuter2" parent="GenBlockMap" unique_id=2036448637 instance=ExtResource("37_qgi2l")]
@@ -2738,107 +2577,128 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14,
 
 [node name="FloorTile1x15" parent="GenBlockMap" unique_id=324172280 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -13, 9.1, -5)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x16" parent="GenBlockMap" unique_id=63926130 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x17" parent="GenBlockMap" unique_id=238206003 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x18" parent="GenBlockMap" unique_id=2098689606 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x19" parent="GenBlockMap" unique_id=75091456 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -9, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x20" parent="GenBlockMap" unique_id=1562720101 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -8, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x21" parent="GenBlockMap" unique_id=1783235491 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x22" parent="GenBlockMap" unique_id=289936257 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x23" parent="GenBlockMap" unique_id=1967789154 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x24" parent="GenBlockMap" unique_id=1989591125 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x25" parent="GenBlockMap" unique_id=1538042716 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x26" parent="GenBlockMap" unique_id=1912628434 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x27" parent="GenBlockMap" unique_id=1424942342 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x28" parent="GenBlockMap" unique_id=1997718720 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x29" parent="GenBlockMap" unique_id=627663458 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x30" parent="GenBlockMap" unique_id=1080627749 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x31" parent="GenBlockMap" unique_id=107122947 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x32" parent="GenBlockMap" unique_id=1706487024 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x33" parent="GenBlockMap" unique_id=1497150256 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x34" parent="GenBlockMap" unique_id=742034873 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5.5, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x35" parent="GenBlockMap" unique_id=1192448172 instance=ExtResource("34_31ndd")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6.5, 9.1, -4)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="ColumnA21" parent="GenBlockMap" unique_id=493167712 instance=ExtResource("40_5tx25")]
@@ -2882,62 +2742,54 @@ colorbase = Color(0.1254902, 0.1254902, 0.1254902, 1)
 
 [node name="FloorTile4x179" parent="GenBlockMap" unique_id=401943943 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 8, 9.1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x180" parent="GenBlockMap" unique_id=1738086546 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 9.1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x181" parent="GenBlockMap" unique_id=436865500 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 16, 9.1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x182" parent="GenBlockMap" unique_id=1343051592 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 9.1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x183" parent="GenBlockMap" unique_id=226436249 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 9.1, -6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x184" parent="GenBlockMap" unique_id=281754923 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 9.1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x185" parent="GenBlockMap" unique_id=1283196489 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 9.1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x186" parent="GenBlockMap" unique_id=1809451502 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 16, 9.1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x187" parent="GenBlockMap" unique_id=505486002 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 9.1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x188" parent="GenBlockMap" unique_id=1714665358 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 9.1, -10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x1WallCorner" parent="GenBlockMap" unique_id=775006843 instance=ExtResource("84_rdske")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 5)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile1x1WallCorner2" parent="GenBlockMap" unique_id=1202461383 instance=ExtResource("84_rdske")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 5)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
+flootMat = 3
+floorMatCustom = ""
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA2x39" parent="GenBlockMap" unique_id=1670377533 instance=ExtResource("52_gp2dt")]
@@ -3197,92 +3049,74 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 1, -10.5)
 
 [node name="FloorTile4x189" parent="GenBlockMap" unique_id=687928442 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x190" parent="GenBlockMap" unique_id=1578658191 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x191" parent="GenBlockMap" unique_id=2136331439 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x192" parent="GenBlockMap" unique_id=755102520 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x193" parent="GenBlockMap" unique_id=1164033551 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x194" parent="GenBlockMap" unique_id=642797579 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x195" parent="GenBlockMap" unique_id=448334438 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x196" parent="GenBlockMap" unique_id=1314976125 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x197" parent="GenBlockMap" unique_id=970418987 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x198" parent="GenBlockMap" unique_id=1162812041 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x199" parent="GenBlockMap" unique_id=1606154938 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x200" parent="GenBlockMap" unique_id=944491597 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x201" parent="GenBlockMap" unique_id=1220377854 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 38, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x202" parent="GenBlockMap" unique_id=45630486 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x203" parent="GenBlockMap" unique_id=871497719 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 30, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x204" parent="GenBlockMap" unique_id=1827288715 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 26, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x205" parent="GenBlockMap" unique_id=1248209594 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 22, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x206" parent="GenBlockMap" unique_id=1959539989 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 18, 9.1, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="LampCeiling5" parent="GenBlockMap" unique_id=2124983454 instance=ExtResource("57_wotwb")]
@@ -3426,12 +3260,10 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 
 
 [node name="FloorTile4x207" parent="GenBlockMap" unique_id=404062451 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, 5, -2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x208" parent="GenBlockMap" unique_id=658737938 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, 5, 2)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA4x52" parent="GenBlockMap" unique_id=415007567 instance=ExtResource("7_w48ot")]
@@ -3466,87 +3298,70 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 
 
 [node name="FloorTile4x209" parent="GenBlockMap" unique_id=1348047122 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 50, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x210" parent="GenBlockMap" unique_id=1141163610 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x211" parent="GenBlockMap" unique_id=1380588205 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x212" parent="GenBlockMap" unique_id=919943698 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 46, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x213" parent="GenBlockMap" unique_id=1065190642 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 42, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x214" parent="GenBlockMap" unique_id=959645800 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x215" parent="GenBlockMap" unique_id=355124004 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 38, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x216" parent="GenBlockMap" unique_id=844425240 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 38, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x217" parent="GenBlockMap" unique_id=1205996422 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x218" parent="GenBlockMap" unique_id=2056673056 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x219" parent="GenBlockMap" unique_id=1973266768 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 30, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x220" parent="GenBlockMap" unique_id=709991373 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 30, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x221" parent="GenBlockMap" unique_id=561344760 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 26, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x222" parent="GenBlockMap" unique_id=239313502 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 26, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x223" parent="GenBlockMap" unique_id=965282871 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 22, 9.1, 6)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x224" parent="GenBlockMap" unique_id=1097561786 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 9.1, 10)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="FloorTile4x225" parent="GenBlockMap" unique_id=1127929644 instance=ExtResource("3_n0ve6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 9.1, 14)
-floormat = "res://Mesh/Materials/Floors/ConcreteTiles.tres"
 colorbase = Color(0.43137255, 0.43137255, 0.43137255, 1)
 
 [node name="WallA1x4CornerInnerB9" parent="GenBlockMap" unique_id=1193769283 instance=ExtResource("16_hxit5")]
@@ -3841,6 +3656,7 @@ compositor = ExtResource("89_ioopm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.15493)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1364639619]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_n0ve6")
 
 [node name="TestPhysicsCube" parent="." unique_id=90809830 instance=ExtResource("90_ioopm")]

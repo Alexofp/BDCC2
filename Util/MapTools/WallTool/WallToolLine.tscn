@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cf0vhd2d4uqrq"]
+
+[ext_resource type="Script" uid="uid://vd5g0mn1e0e5" path="res://Util/MapTools/WallTool/WallToolLine.gd" id="1_i5jfv"]
+
+[node name="WallToolLine" type="Marker3D" unique_id=1781383153]
+script = ExtResource("1_i5jfv")
+height = null

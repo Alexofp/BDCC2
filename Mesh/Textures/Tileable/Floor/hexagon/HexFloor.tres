@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://1a1yc4lq7ow0"]
+
+[ext_resource type="Shader" uid="uid://b6iwarsw00s7q" path="res://Mesh/Shaders/Unique_unique/MyFloorTileParallax.gdshader" id="1_khb2m"]
+[ext_resource type="Texture2D" uid="uid://dd1m6yldtxpfu" path="res://Mesh/Textures/Tileable/Floor/hexagon/hexagon_color.png" id="2_p1ffk"]
+[ext_resource type="Texture2D" uid="uid://chxpjgoa0m0o3" path="res://Mesh/Textures/Tileable/Floor/hexagon/hexagon_height.png" id="3_wd0mt"]
+[ext_resource type="Texture2D" uid="uid://6ht5hbbfy5xj" path="res://Mesh/Textures/Tileable/Floor/hexagon/hexagon_normal.png" id="4_djc27"]
+[ext_resource type="Texture2D" uid="uid://v3tw8c3pk2wf" path="res://Mesh/Textures/Tileable/Floor/hexagon/hexagon_orm.png" id="5_x6r18"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_khb2m")
+shader_parameter/texture_albedo = ExtResource("2_p1ffk")
+shader_parameter/texture_orm = ExtResource("5_x6r18")
+shader_parameter/texture_normal = ExtResource("4_djc27")
+shader_parameter/ao_light_affect = 1.0
+shader_parameter/texture_heightmap = ExtResource("3_wd0mt")
+shader_parameter/heightmap_scale = 4.0
+shader_parameter/heightmap_min_layers = 4
+shader_parameter/heightmap_max_layers = 8
+shader_parameter/heightmap_flip = Vector2(1, 1)
+shader_parameter/uv1_scale_final = 0.25

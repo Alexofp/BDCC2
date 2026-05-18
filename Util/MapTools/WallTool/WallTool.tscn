@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b6idh6qixdywq"]
+
+[ext_resource type="Script" uid="uid://edg85a1run62" path="res://Util/MapTools/WallTool/WallTool.gd" id="1_2m12n"]
+[ext_resource type="PackedScene" uid="uid://cf0vhd2d4uqrq" path="res://Util/MapTools/WallTool/WallToolLine.tscn" id="1_dv84f"]
+[ext_resource type="PackedScene" uid="uid://0m3bdyvfxooy" path="res://Mapping/Walls/WallA1x4CornerInner.tscn" id="2_idx06"]
+[ext_resource type="PackedScene" uid="uid://cc4lwmcf5t7c1" path="res://Mapping/Walls/WallA1x4.tscn" id="3_2m12n"]
+
+[node name="WallTool" type="Node3D" unique_id=1933445838]
+script = ExtResource("1_2m12n")
+
+[node name="WallToolLine" parent="." unique_id=1781383153 instance=ExtResource("1_dv84f")]
+transform = Transform3D(1, 0, 3.496911e-07, 0, 1, 0, -3.496911e-07, 0, 1, 0, 0, 0)
+height = 1
+
+[node name="WallToolLine2" parent="." unique_id=1160806714 instance=ExtResource("1_dv84f")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, -1, 0, 1)
+height = 1
+
+[node name="WallA1x4CornerInner" parent="." unique_id=880306697 instance=ExtResource("2_idx06")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+visible = false
+
+[node name="WallA1x4" parent="." unique_id=998158882 instance=ExtResource("3_2m12n")]
+visible = false
