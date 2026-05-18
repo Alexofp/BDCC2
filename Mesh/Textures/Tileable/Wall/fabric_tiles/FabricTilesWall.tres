@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cxi1om8gfk88j"]
+
+[ext_resource type="Shader" uid="uid://be2f8ndfhgoue" path="res://Mesh/Shaders/Unique_unique/MyTilable.gdshader" id="1_x5n0c"]
+[ext_resource type="Texture2D" uid="uid://uxolfp1icg1i" path="res://Mesh/Textures/Tileable/Floor/fabric_tiles/fabrictiles_color.png" id="2_v00m4"]
+[ext_resource type="Texture2D" uid="uid://bmnhbg4u4ru5t" path="res://Mesh/Textures/Tileable/Floor/fabric_tiles/fabrictiles_normal.png" id="3_si1w5"]
+[ext_resource type="Texture2D" uid="uid://cmkr7m66qh5i5" path="res://Mesh/Textures/Tileable/Floor/fabric_tiles/fabrictiles_orm.png" id="4_dcf6r"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x5n0c")
+shader_parameter/texture_albedo = ExtResource("2_v00m4")
+shader_parameter/texture_orm = ExtResource("4_dcf6r")
+shader_parameter/texture_normal = ExtResource("3_si1w5")
+shader_parameter/ao_light_affect = 0.999999977648
+shader_parameter/specular = 0.36999999172976
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)

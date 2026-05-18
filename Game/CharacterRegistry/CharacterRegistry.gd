@@ -341,7 +341,7 @@ func _physics_process(_delta: float) -> void:
 				veryRareTimer -= theShare*30.0
 				if(veryRareI < 0 || veryRareI >= theCharAmount):
 					veryRareI = 0
-				characterList[rareI].processVeryRare(30.0)
+				characterList[veryRareI].processVeryRare(30.0)
 				veryRareI += 1
 	
 	if(Network.isServerNotSingleplayer()):

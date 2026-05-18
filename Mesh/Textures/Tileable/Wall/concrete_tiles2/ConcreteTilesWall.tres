@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dtxohu5drlmlj"]
+
+[ext_resource type="Shader" uid="uid://be2f8ndfhgoue" path="res://Mesh/Shaders/Unique_unique/MyTilable.gdshader" id="1_4wle6"]
+[ext_resource type="Texture2D" uid="uid://cv78nkabv21kl" path="res://Mesh/Textures/Tileable/Floor/concrete_tiles2/1K-tiling_26_basecolor.jpg" id="2_vsqc6"]
+[ext_resource type="Texture2D" uid="uid://84cyy5bs2op3" path="res://Mesh/Textures/Tileable/Floor/concrete_tiles2/1K-tiling_26_normal.jpg" id="3_v24cu"]
+[ext_resource type="Texture2D" uid="uid://gloy87luxt1u" path="res://Mesh/Textures/Tileable/Floor/concrete_tiles2/1K-tiling_26_orm.png" id="4_ibmpr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4wle6")
+shader_parameter/texture_albedo = ExtResource("2_vsqc6")
+shader_parameter/texture_orm = ExtResource("4_ibmpr")
+shader_parameter/texture_normal = ExtResource("3_v24cu")
+shader_parameter/ao_light_affect = 0.999999977648
+shader_parameter/specular = 0.5
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)

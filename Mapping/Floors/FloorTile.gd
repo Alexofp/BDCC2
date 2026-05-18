@@ -3,10 +3,10 @@ extends PropBasic
 
 @export var floorMesh:MeshInstance3D
 
-@export var flootMat:TilableFloorMat.Mats = TilableFloorMat.Mats.ConcreteTiles2:
+@export var floorMat:TilableFloorMat.Mats = TilableFloorMat.Mats.ConcreteTiles2:
 	set(value):
-		flootMat = value
-		notifySetEditorValue("flootMat", value)
+		floorMat = value
+		notifySetEditorValue("floorMat", value)
 @export var floorMatCustom:String:
 	set(value):
 		floorMatCustom = value
@@ -37,7 +37,7 @@ func getEditorOptionsEasy() -> Dictionary:
 	return theSettings
 
 func applyEditorOption(_id, _value):
-	if(_id == "flootMat"):
+	if(_id == "floorMat"):
 		updateFloorMat()
 	if(_id == "floorMatCustom"):
 		updateFloorMat()
@@ -50,8 +50,8 @@ func applyEditorOption(_id, _value):
 func updateFloorMat():
 	var theFinalMat:Material = null
 	
-	if(TilableFloorMat.MatToPath.has(flootMat)):
-		theFinalMat = load(TilableFloorMat.MatToPath[flootMat])
+	if(TilableFloorMat.MatToPath.has(floorMat)):
+		theFinalMat = load(TilableFloorMat.MatToPath[floorMat])
 	elif(!floorMatCustom.is_empty() && ResourceLoader.exists(floorMatCustom)):
 		theFinalMat = load(floorMatCustom)
 	

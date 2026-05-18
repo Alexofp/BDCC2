@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b4cyjlj8htbdt"]
+
+[ext_resource type="Shader" uid="uid://be2f8ndfhgoue" path="res://Mesh/Shaders/Unique_unique/MyTilable.gdshader" id="1_rxjse"]
+[ext_resource type="Texture2D" uid="uid://ca7nkjqs82xo0" path="res://Mesh/Textures/Tileable/Wall/PlainColor/PlainORM.png" id="2_d87pd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rxjse")
+shader_parameter/texture_orm = ExtResource("2_d87pd")
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/uv1_scale = Vector2(5, 5)
+shader_parameter/uv1_offset = Vector2(0, 0)

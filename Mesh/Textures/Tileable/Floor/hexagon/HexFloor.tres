@@ -13,6 +13,7 @@ shader_parameter/texture_albedo = ExtResource("2_p1ffk")
 shader_parameter/texture_orm = ExtResource("5_x6r18")
 shader_parameter/texture_normal = ExtResource("4_djc27")
 shader_parameter/ao_light_affect = 1.0
+shader_parameter/specular = 0.5
 shader_parameter/texture_heightmap = ExtResource("3_wd0mt")
 shader_parameter/heightmap_scale = 4.0
 shader_parameter/heightmap_min_layers = 4

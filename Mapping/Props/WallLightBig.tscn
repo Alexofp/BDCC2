@@ -16,6 +16,8 @@ rings = 0
 
 [node name="WallLightBig" unique_id=1934575288 instance=ExtResource("1_vdphg")]
 script = ExtResource("2_dpfm8")
+colorbase = Color(0.5254902, 0.5254902, 0.5254902, 1)
+color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color3 = Color(0, 0.8784314, 1, 1)
 lightSpecular = 0.2
 lightRange = 15.0

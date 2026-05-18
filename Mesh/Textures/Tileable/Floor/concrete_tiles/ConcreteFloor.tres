@@ -12,4 +12,5 @@ shader_parameter/texture_albedo = ExtResource("2_bg1ep")
 shader_parameter/texture_orm = ExtResource("4_k3lmq")
 shader_parameter/texture_normal = ExtResource("3_q4qpc")
 shader_parameter/ao_light_affect = 1.0
+shader_parameter/specular = 0.5
 shader_parameter/uv1_scale_final = 0.25

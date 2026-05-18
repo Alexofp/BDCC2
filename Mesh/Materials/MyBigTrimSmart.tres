@@ -12,4 +12,5 @@ shader_parameter/texture_albedo = ExtResource("1_df56x")
 shader_parameter/texture_orm = ExtResource("3_ygsyr")
 shader_parameter/texture_normal = ExtResource("2_25bcn")
 shader_parameter/ao_light_affect = 0.999999977648
-shader_parameter/metallic = 0.499999988824
+shader_parameter/metallic = 0.1999999955296
+shader_parameter/specular = 0.2999999932944

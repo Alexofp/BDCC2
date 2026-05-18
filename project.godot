@@ -368,6 +368,7 @@ environment/ssil/blur_passes=1
 environment/ssil/fadeout_to=100.0
 occlusion_culling/occlusion_rays_per_thread=32
 environment/glow/upscale_mode=0
+environment/screen_space_reflection/half_size=false
 global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
 textures/streaming/enabled=true

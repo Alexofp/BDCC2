@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cso8effukbxsr"]
+
+[ext_resource type="PackedScene" uid="uid://c4j527h5tlaly" path="res://Mapping/WallsFancy/Raw/WallFancy8x4.glb" id="1_g4wtw"]
+[ext_resource type="Script" uid="uid://dnu2vaq0r2hrk" path="res://Mapping/WallsFancy/WallFancy.gd" id="2_6em1d"]
+[ext_resource type="Material" uid="uid://d4bpgwaa5dbax" path="res://Mesh/Textures/Tileable/Wall/hexagon/HexWall.tres" id="3_t0aau"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2w8gs"]
+size = Vector3(8, 4, 0.10476382)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_2w8gs"]
+size = Vector2(8.02, 4.02)
+
+[node name="WallFancy8x4" unique_id=1768749775 node_paths=PackedStringArray("panel1", "panel2") instance=ExtResource("1_g4wtw")]
+script = ExtResource("2_6em1d")
+panel1 = NodePath("WallFancy8x4_001")
+panel2 = NodePath("WallFancy8x4_002")
+color1 = Color(0.14117648, 0.14117648, 0.14117648, 1)
+color2 = Color(0.16078432, 0.15686275, 0.2, 1)
+color3 = Color(0.09803922, 0.19215687, 0.36078432, 1)
+color4 = Color(0, 0.41683337, 0.61, 1)
+panelMat = 5
+colorPanel = Color(0.2509804, 0.2509804, 0.2509804, 1)
+panelMat2 = 5
+colorPanel2 = Color(0.41960785, 0.4509804, 0.5019608, 1)
+
+[node name="WallFancy8x4" parent="." index="0" unique_id=1865074002]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.14117648, 0.14117648, 0.14117648, 1)
+instance_shader_parameters/trim_color_main = Color(0.16078432, 0.15686275, 0.2, 1)
+instance_shader_parameters/trim_color_second = Color(0.09803922, 0.19215687, 0.36078432, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.41683337, 0.61, 1)
+instance_shader_parameters/uvShift = -2.2352000028647012e-08
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WallFancy8x4" index="0" unique_id=725001973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.07854614)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallFancy8x4/StaticBody3D" index="0" unique_id=2090963021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.026164286)
+shape = SubResource("BoxShape3D_2w8gs")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="WallFancy8x4" index="1" unique_id=764698603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+occluder = SubResource("QuadOccluder3D_2w8gs")
+
+[node name="WallFancy8x4_001" parent="." index="1" unique_id=358481159]
+instance_shader_parameters/color_tile_base = Color(0.2509804, 0.2509804, 0.2509804, 1)
+instance_shader_parameters/roughness_mult = 0.5
+surface_material_override/0 = ExtResource("3_t0aau")
+
+[node name="WallFancy8x4_002" parent="." index="2" unique_id=268459628]
+instance_shader_parameters/color_tile_base = Color(0.41960785, 0.4509804, 0.5019608, 1)
+instance_shader_parameters/roughness_mult = 0.5
+surface_material_override/0 = ExtResource("3_t0aau")

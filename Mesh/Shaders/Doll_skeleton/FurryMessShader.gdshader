@@ -2,7 +2,6 @@ shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
-#define MY_BACKLIGHT
 #define MY_OUTLINE
 #define MY_MESSLAYER
 
@@ -196,6 +195,54 @@ uniform sampler2D texture_extra_orm : hint_roughness_g, filter_linear_mipmap, re
 uniform float extra_rim : hint_range(0.0, 100.0, 0.01) = 1.0;
 uniform float extra_rim_tint : hint_range(0.0, 1.0, 0.01) = 0.5;
 	#endif
+#endif
+
+//#define MY_PROXIMA
+#ifdef MY_PROXIMA
+group_uniforms _ProximaGGX;
+uniform float _Rho : hint_range(0.0, 1.0, 1e-3) = 1.0;
+
+group_uniforms _ProximaGGX._General;
+uniform float _SmoothTerminator : hint_range(-1.0, 1.0, 1e-3) = 0.0;
+uniform float _SmoothTerminatorLength : hint_range(0.0, 1.0, 1e-3) = 0.5;
+
+group_uniforms _ProximaGGX._Diffuse;
+uniform vec3 _DiffuseFresnelTint : source_color = vec3(1.0);
+uniform float _DiffuseFresnel : hint_range(0.0, 256.0, 1e-3) = 1.0;
+uniform float _DiffuseFresnelFalloff : hint_range(0.0, 1.0, 1e-3) = 0.75;
+uniform float _DiffuseFresnelTangentFalloff : hint_range(0.0, 1.0, 1e-3) = 0.75;
+
+uniform vec3 _RetroreflectionTint : source_color = vec3(1.0);
+uniform float _Retroreflection : hint_range(0.0, 256.0, 1e-3) = 1.0;
+uniform float _RetroreflectionFalloff : hint_range(0.0, 1.0, 1e-3) = 0.75;
+uniform float _RetroreflectionTangentFalloff : hint_range(0.0, 1.0, 1e-3) = 0.75;
+
+group_uniforms _ProximaGGX._Specular;
+uniform float _SpecularFresnelFalloff : hint_range(0.0, 1.0, 1e-3) = 0.5;
+
+float _h(
+	in float cos_theta,
+	in float n,
+	in float cos_phi,
+	in float m
+)
+{
+	return clamp(pow(1.0 - cos_theta, 5.0 * n) * pow(cos_phi, 5.0 * m), 0.0, 1.0);
+}
+
+float _r(
+	in float x
+)
+{
+	return 2.0 * (1.0 - x);
+}
+
+float _t(
+	in float x
+)
+{
+	return min(max(x, 0.0), 1.0);
+}
 #endif
 
 // ratio 0.0 returns 0.0
@@ -497,5 +544,88 @@ void light(){
 
 	vec3 add2 = add1 + smoothed * rimlight_color.rgb;
 	DIFFUSE_LIGHT += ALBEDO * add2;
+}
+#endif
+
+#ifdef MY_PROXIMA
+void light() {
+	vec3 n = normalize(NORMAL);
+	vec3 l = normalize(LIGHT);
+	vec3 v = normalize(VIEW);
+	
+	vec3 h = normalize(v + l);
+	
+	float alpha = ROUGHNESS * ROUGHNESS;
+	float alpha2 = alpha * alpha;
+	
+	float NdotL = dot(n, l); // cos(theta_l) == cos(theta_i).
+	float NdotV = dot(n, v); // cos(theta_v) == cos(theta_r).
+	
+	float HdotN = dot(h, n); // cos(theta_h).
+	float HdotL = dot(h, l); // cos(theta_d).
+	
+	float VdotL = dot(-v, l); // cos(theta_k).
+	
+	float cNdotL = max(NdotL, 0.0); // max(cos(theta_i), 0.0).
+	float cNdotV = max(NdotV, 0.0); // max(cos(theta_r), 0.0).
+	
+	float cHdotN = max(HdotN, 0.0); // max(cos(theta_h), 0.0).
+	float cHdotL = max(HdotL, 0.0); // max(cos(theta_d), 0.0).
+	
+	float cVdotL = max(VdotL, 0.0); // max(cos(theta_k), 0.0).
+	
+	//float theta_i = acos(NdotL);
+	//float theta_r = acos(NdotV);
+	
+	float theta_h = acos(HdotN);
+	float theta_d = acos(HdotL);
+	
+	// https://gdcvault.com/play/1029339/The-Character-Rendering-Art-of
+	// https://advances.realtimerendering.com/s2023/SIGGRAPH2023-Advances-The-Rendering-of-The-Callisto-Protocol-JimenezPetersen.pdf
+	
+	/* Proxima-GGX */
+	vec3 rho_f = _DiffuseFresnel * _DiffuseFresnelTint;
+	vec3 rho_r = _Retroreflection * _RetroreflectionTint;
+	
+	float alpha_f = _h(cHdotL, _r(_DiffuseFresnelFalloff), cHdotN, _r(_DiffuseFresnelTangentFalloff));
+	float alpha_r = _h(cHdotN, _r(_RetroreflectionFalloff), cHdotL, _r(_RetroreflectionTangentFalloff));
+	float alpha_s = (1.0 - pow(1.0 - theta_d, 3.0)) * (1.0 - pow(1.0 - theta_h, 3.0));
+	
+	vec3 c1 = mix(vec3(1.0), rho_f, alpha_f) * mix(vec3(1.0), rho_r, alpha_r);
+	float c2 = mix(1.0, smoothstep(0.0, alpha_s * _SmoothTerminatorLength, NdotL), alpha_s * _SmoothTerminator);
+	
+	/* Normal Distribution Function (GGX) */
+	float t = 1.0 + (alpha2 - 1.0) * HdotN * HdotN;
+	float D = alpha2 / (PI * t * t);
+	
+	/* Geometric Function (Smith-GGX) */
+	float GL = 1.0 / (cNdotL + sqrt(alpha2 + (1.0 - alpha2) * (cNdotL * cNdotL)));
+	float GV = 1.0 / (cNdotV + sqrt(alpha2 + (1.0 - alpha2) * (cNdotV * cNdotV)));
+	
+	float G = GL * GV;
+	
+	/* Fresnel Function (Schlick’s Approximation) */
+	vec3 f0 = mix(vec3(specular * 0.08), ALBEDO, vec3(METALLIC));
+	float FH = pow(clamp(1.0 - HdotL, 0.0, 1.0), 5.0 * _r(_SpecularFresnelFalloff));
+	
+	vec3 F = f0 + _t(2.0 - _r(_SpecularFresnelFalloff)) * (1.0 - f0) * FH;
+	
+	/* Lambert */
+	//vec3 f_d = c1 * (_Rho / PI) * c2 * cNdotL;
+	
+	/* Proxima */
+	vec3 f_d = c1 * (_Rho / PI) * (alpha * (-0.55 + 0.19 * (1.0 / NdotL)) * (1.0 - sqrt(cVdotL)) + 1.0) * c2 * cNdotL;
+	
+	/* Trowbridge-Reitz-GGX */
+	vec3 f_s = D * G * F * cNdotL;
+	
+	// To compare with the Slice-Image.
+	vec3 light = (LIGHT_COLOR / PI) * ATTENUATION;
+	
+	// In PI light units.
+	//vec3 light = LIGHT_COLOR * ATTENUATION;
+	
+	DIFFUSE_LIGHT += light * f_d;
+	SPECULAR_LIGHT += light * f_s;
 }
 #endif
