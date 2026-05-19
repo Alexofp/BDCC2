@@ -650,51 +650,51 @@ metadata/_custom_type_script = "uid://bpd4f6ganr5gx"
 
 [node name="FloorTile4x4" parent="GenBlockMap" unique_id=549563767 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x5" parent="GenBlockMap" unique_id=713047418 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x6" parent="GenBlockMap" unique_id=1731540564 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x7" parent="GenBlockMap" unique_id=206569307 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x8" parent="GenBlockMap" unique_id=147521053 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x9" parent="GenBlockMap" unique_id=2143429037 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x10" parent="GenBlockMap" unique_id=1543421835 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x11" parent="GenBlockMap" unique_id=743151777 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x12" parent="GenBlockMap" unique_id=1231818268 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x13" parent="GenBlockMap" unique_id=803921624 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x14" parent="GenBlockMap" unique_id=35964799 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x15" parent="GenBlockMap" unique_id=1641665319 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WindowBarsA4x3" parent="GenBlockMap" unique_id=1214600159 instance=ExtResource("4_vu5r7")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -9, 0, 4)
@@ -702,19 +702,19 @@ colorbase = Color(0.38, 0.38, 0.38, 1)
 
 [node name="FloorTile4x16" parent="GenBlockMap" unique_id=896653976 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x17" parent="GenBlockMap" unique_id=700330939 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x18" parent="GenBlockMap" unique_id=1732631336 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x19" parent="GenBlockMap" unique_id=677201333 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x4" parent="GenBlockMap" unique_id=1061271754 instance=ExtResource("5_p1k3i")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4, 0, 6)
@@ -815,22 +815,22 @@ transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70
 [node name="FloorTile4x20" parent="GenBlockMap" unique_id=1425460218 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 4, 6)
 floorMat = 2
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x21" parent="GenBlockMap" unique_id=1563522721 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 4, 6)
 floorMat = 2
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x22" parent="GenBlockMap" unique_id=1023348832 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 4, 10)
 floorMat = 2
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x23" parent="GenBlockMap" unique_id=1295307585 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 4, 10)
 floorMat = 2
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallLight" parent="GenBlockMap" unique_id=1132780690 instance=ExtResource("20_0jte4")]
 transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, -4.6, 3, 8.4)
@@ -840,19 +840,19 @@ transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.
 
 [node name="FloorTile4x24" parent="GenBlockMap" unique_id=1620746277 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x25" parent="GenBlockMap" unique_id=1620172193 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x26" parent="GenBlockMap" unique_id=97762587 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x27" parent="GenBlockMap" unique_id=1833019799 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA2x6" parent="GenBlockMap" unique_id=647515067 instance=ExtResource("10_8ca5e")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 4)
@@ -885,27 +885,27 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 
 
 [node name="FloorTile4x28" parent="GenBlockMap" unique_id=186707430 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x29" parent="GenBlockMap" unique_id=2076700973 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x30" parent="GenBlockMap" unique_id=793926094 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x31" parent="GenBlockMap" unique_id=2035507178 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x32" parent="GenBlockMap" unique_id=700556102 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x33" parent="GenBlockMap" unique_id=1355796361 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 0, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x4CornerOuter" parent="GenBlockMap" unique_id=62673921 instance=ExtResource("21_f2iep")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 19, 0, 4)
@@ -913,7 +913,7 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x34" parent="GenBlockMap" unique_id=1935020525 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x9" parent="GenBlockMap" unique_id=161967615 instance=ExtResource("14_grwqa")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9, 4, 4)
@@ -925,23 +925,23 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x35" parent="GenBlockMap" unique_id=650019571 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x36" parent="GenBlockMap" unique_id=625364869 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x37" parent="GenBlockMap" unique_id=631800809 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x38" parent="GenBlockMap" unique_id=1708005351 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x39" parent="GenBlockMap" unique_id=1677313484 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x11" parent="GenBlockMap" unique_id=2078233863 instance=ExtResource("14_grwqa")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 4, 4)
@@ -965,19 +965,19 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x40" parent="GenBlockMap" unique_id=1676813027 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x41" parent="GenBlockMap" unique_id=705610925 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x42" parent="GenBlockMap" unique_id=531865804 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x43" parent="GenBlockMap" unique_id=302437351 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x5" parent="GenBlockMap" unique_id=1399430629 instance=ExtResource("6_ui3qv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11, 0, 4)
@@ -1018,34 +1018,34 @@ color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x44" parent="GenBlockMap" unique_id=945705010 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x7" parent="GenBlockMap" unique_id=1372890908 instance=ExtResource("6_ui3qv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 0, 4)
 
 [node name="FloorTile4x45" parent="GenBlockMap" unique_id=1984591503 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x46" parent="GenBlockMap" unique_id=380374630 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 5, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x47" parent="GenBlockMap" unique_id=1736987723 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 5, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x48" parent="GenBlockMap" unique_id=297583475 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 5, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x49" parent="GenBlockMap" unique_id=921922354 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x50" parent="GenBlockMap" unique_id=39486367 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 0, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x14" parent="GenBlockMap" unique_id=1158210153 instance=ExtResource("5_p1k3i")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 0, 12)
@@ -1060,37 +1060,37 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 [node name="FloorTile1x1" parent="GenBlockMap" unique_id=245668719 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 6)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x2" parent="GenBlockMap" unique_id=1019435522 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 7)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x3" parent="GenBlockMap" unique_id=1768703855 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 8)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x4" parent="GenBlockMap" unique_id=1602679612 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 9)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x5" parent="GenBlockMap" unique_id=1779657504 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 10)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x6" parent="GenBlockMap" unique_id=339583672 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 11)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x7" parent="GenBlockMap" unique_id=1506477352 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 12)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x16" parent="GenBlockMap" unique_id=443208398 instance=ExtResource("5_p1k3i")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 0, 7)
@@ -1170,23 +1170,23 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, 
 
 [node name="FloorTile4x51" parent="GenBlockMap" unique_id=12587981 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 5, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x52" parent="GenBlockMap" unique_id=231434930 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 5, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x53" parent="GenBlockMap" unique_id=684661747 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 5, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x54" parent="GenBlockMap" unique_id=1964204883 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22, 5, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x55" parent="GenBlockMap" unique_id=907076870 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 5, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x4CornerOuter3" parent="GenBlockMap" unique_id=757889883 instance=ExtResource("21_f2iep")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 5, 12)
@@ -1231,11 +1231,11 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11,
 
 [node name="FloorTile4x56" parent="GenBlockMap" unique_id=2021827438 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x57" parent="GenBlockMap" unique_id=1187069351 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WindowBarsA4x8" parent="GenBlockMap" unique_id=470508502 instance=ExtResource("4_vu5r7")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 5, 12)
@@ -1246,11 +1246,11 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -16,
 
 [node name="FloorTile4x58" parent="GenBlockMap" unique_id=1263484104 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x59" parent="GenBlockMap" unique_id=324322698 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -18, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x4CornerInnerC2" parent="GenBlockMap" unique_id=720376029 instance=ExtResource("8_1je0o")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -17, 5, 11)
@@ -1261,19 +1261,19 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18,
 
 [node name="FloorTile4x60" parent="GenBlockMap" unique_id=695943230 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -14, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x61" parent="GenBlockMap" unique_id=1585004749 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -18, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x62" parent="GenBlockMap" unique_id=1038808072 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x63" parent="GenBlockMap" unique_id=1375548186 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x4CornerInnerB3" parent="GenBlockMap" unique_id=1547829321 instance=ExtResource("12_1dgcw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -3)
@@ -1338,11 +1338,11 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x64" parent="GenBlockMap" unique_id=1308059856 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16, 5, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x65" parent="GenBlockMap" unique_id=257404156 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -16, 5, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FancyRailing3" parent="GenBlockMap" unique_id=1159225341 instance=ExtResource("28_ik7p1")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -13, 5, 4)
@@ -1403,67 +1403,67 @@ colorbase = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
 [node name="FloorTile4x66" parent="GenBlockMap" unique_id=1423083811 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -18, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x67" parent="GenBlockMap" unique_id=1170623060 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x68" parent="GenBlockMap" unique_id=1372114421 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -10, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x69" parent="GenBlockMap" unique_id=1426746767 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x70" parent="GenBlockMap" unique_id=1390317911 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x71" parent="GenBlockMap" unique_id=878838074 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x72" parent="GenBlockMap" unique_id=481399702 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x73" parent="GenBlockMap" unique_id=766156829 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x74" parent="GenBlockMap" unique_id=651011788 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x75" parent="GenBlockMap" unique_id=109540219 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x76" parent="GenBlockMap" unique_id=58151368 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x77" parent="GenBlockMap" unique_id=831837631 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x78" parent="GenBlockMap" unique_id=442124523 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x79" parent="GenBlockMap" unique_id=334824942 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x80" parent="GenBlockMap" unique_id=1007817206 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x81" parent="GenBlockMap" unique_id=1337296588 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA2x22" parent="GenBlockMap" unique_id=1242143770 instance=ExtResource("10_8ca5e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 5, -4)
@@ -1520,43 +1520,43 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 
 
 [node name="FloorTile4x82" parent="GenBlockMap" unique_id=622819868 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 9.1, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x83" parent="GenBlockMap" unique_id=182124679 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 14, 9.1, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x84" parent="GenBlockMap" unique_id=1218170061 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, 9.1, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x85" parent="GenBlockMap" unique_id=1106844134 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 22, 9.1, 18)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x86" parent="GenBlockMap" unique_id=343043596 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 9.1, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x87" parent="GenBlockMap" unique_id=1359802755 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x88" parent="GenBlockMap" unique_id=972641119 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 9.1, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x89" parent="GenBlockMap" unique_id=1999382563 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x90" parent="GenBlockMap" unique_id=1863416730 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 18, 9.1, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x91" parent="GenBlockMap" unique_id=329370901 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 18, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallLightBig7" parent="GenBlockMap" unique_id=568290585 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 11, 8, 19.8)
@@ -1571,42 +1571,38 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 
 
 [node name="FloorTile4x92" parent="GenBlockMap" unique_id=1517049748 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 5, 22)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x93" parent="GenBlockMap" unique_id=374621002 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 22)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x94" parent="GenBlockMap" unique_id=367929853 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 22)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x95" parent="GenBlockMap" unique_id=1040716799 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 22)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Foundation4" parent="GenBlockMap" unique_id=2126023030 instance=ExtResource("33_s1n0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -4)
 
 [node name="FloorTile4x96" parent="GenBlockMap" unique_id=1821073656 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, 1, -6)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x97" parent="GenBlockMap" unique_id=436622976 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -6)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x98" parent="GenBlockMap" unique_id=207272067 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 1, -6)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x99" parent="GenBlockMap" unique_id=493310139 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Foundation2CornerOuter" parent="GenBlockMap" unique_id=2006128671 instance=ExtResource("34_kbx4k")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 0, -4)
@@ -1631,23 +1627,23 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 0
 
 [node name="FloorTile4x100" parent="GenBlockMap" unique_id=1257293215 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x101" parent="GenBlockMap" unique_id=2063697310 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x102" parent="GenBlockMap" unique_id=503884226 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x103" parent="GenBlockMap" unique_id=1694742127 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x104" parent="GenBlockMap" unique_id=1912856833 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Foundation2CornerInner" parent="GenBlockMap" unique_id=2090787611 instance=ExtResource("37_g8wrp")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 0, -8)
@@ -1675,43 +1671,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -4)
 
 [node name="FloorTile4x105" parent="GenBlockMap" unique_id=157389906 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 1, -10)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x106" parent="GenBlockMap" unique_id=1662927148 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x107" parent="GenBlockMap" unique_id=158330829 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x108" parent="GenBlockMap" unique_id=737608321 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x109" parent="GenBlockMap" unique_id=1255664011 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x110" parent="GenBlockMap" unique_id=416596040 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x111" parent="GenBlockMap" unique_id=255105924 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 1, -10)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x112" parent="GenBlockMap" unique_id=1899368432 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16, 1, -10)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x113" parent="GenBlockMap" unique_id=252023033 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20, 1, -10)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Stairs17" parent="GenBlockMap" unique_id=1753500649 instance=ExtResource("25_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -8)
@@ -1727,29 +1719,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -4)
 
 [node name="FloorTile4x114" parent="GenBlockMap" unique_id=1353410068 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 1, -6)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x115" parent="GenBlockMap" unique_id=999401929 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 1, -10)
-roughness = 1.0
-colorbase = Color(0, 0, 0, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x116" parent="GenBlockMap" unique_id=145308683 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x117" parent="GenBlockMap" unique_id=2087949585 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x118" parent="GenBlockMap" unique_id=1376851423 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x119" parent="GenBlockMap" unique_id=87093558 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="ColumnA9" parent="GenBlockMap" unique_id=1535328971 instance=ExtResource("29_eahpt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -4)
@@ -1870,27 +1860,27 @@ transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -
 
 [node name="FloorTile4x120" parent="GenBlockMap" unique_id=1305312487 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x121" parent="GenBlockMap" unique_id=1146097996 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x122" parent="GenBlockMap" unique_id=1233037621 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x123" parent="GenBlockMap" unique_id=591400557 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x124" parent="GenBlockMap" unique_id=1703791160 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x125" parent="GenBlockMap" unique_id=256747316 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="DecalHazardOrange8" parent="GenBlockMap" unique_id=1246729365 instance=ExtResource("42_eov42")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -9, 1, -11)
@@ -1900,55 +1890,55 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 1, 1
 
 [node name="FloorTile4x126" parent="GenBlockMap" unique_id=645946035 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x127" parent="GenBlockMap" unique_id=1264152911 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x128" parent="GenBlockMap" unique_id=318203181 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x129" parent="GenBlockMap" unique_id=1388126469 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x130" parent="GenBlockMap" unique_id=1253097456 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x131" parent="GenBlockMap" unique_id=218756933 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 10, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x132" parent="GenBlockMap" unique_id=844911195 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x133" parent="GenBlockMap" unique_id=1350580722 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x134" parent="GenBlockMap" unique_id=475881579 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x135" parent="GenBlockMap" unique_id=1829268472 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x136" parent="GenBlockMap" unique_id=1900764419 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x137" parent="GenBlockMap" unique_id=1567557439 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x138" parent="GenBlockMap" unique_id=1090010294 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 18, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="LampCeiling" parent="GenBlockMap" unique_id=787381794 instance=ExtResource("43_2ir1n")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12, 9, 0)
@@ -2258,35 +2248,35 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 28, 
 
 [node name="FloorTile4x139" parent="GenBlockMap" unique_id=1483443518 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x140" parent="GenBlockMap" unique_id=955756521 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x141" parent="GenBlockMap" unique_id=675241315 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x142" parent="GenBlockMap" unique_id=1064664019 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 34, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x143" parent="GenBlockMap" unique_id=1241448156 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x144" parent="GenBlockMap" unique_id=1686550537 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x145" parent="GenBlockMap" unique_id=1796647128 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x146" parent="GenBlockMap" unique_id=1669745292 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="DoorA2x3Closed7" parent="GenBlockMap" unique_id=557131754 instance=ExtResource("11_uryev")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 0, 4)
@@ -2310,19 +2300,19 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 44, 
 
 [node name="FloorTile4x147" parent="GenBlockMap" unique_id=270242566 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 46, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x148" parent="GenBlockMap" unique_id=14892950 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 46, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x149" parent="GenBlockMap" unique_id=829715402 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 50, 0, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x150" parent="GenBlockMap" unique_id=2075513914 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 0, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x34" parent="GenBlockMap" unique_id=26767131 instance=ExtResource("14_grwqa")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 23, 3, 4)
@@ -2362,23 +2352,23 @@ color3 = Color(1, 1, 1, 1)
 
 [node name="FloorTile4x151" parent="GenBlockMap" unique_id=775491021 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x152" parent="GenBlockMap" unique_id=1788274396 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x153" parent="GenBlockMap" unique_id=1700474124 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x154" parent="GenBlockMap" unique_id=1274974848 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x155" parent="GenBlockMap" unique_id=1098269226 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Foundation14" parent="GenBlockMap" unique_id=996967865 instance=ExtResource("35_1ol1b")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 26, 0, -6)
@@ -2400,23 +2390,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -8)
 
 [node name="FloorTile4x156" parent="GenBlockMap" unique_id=992049312 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x157" parent="GenBlockMap" unique_id=427209772 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x158" parent="GenBlockMap" unique_id=1634215545 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x159" parent="GenBlockMap" unique_id=495142123 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x160" parent="GenBlockMap" unique_id=2031450806 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="Stairs21" parent="GenBlockMap" unique_id=1298146309 instance=ExtResource("25_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, -8)
@@ -2459,110 +2449,110 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 1, -8)
 
 [node name="FloorTile4x161" parent="GenBlockMap" unique_id=1759076536 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x162" parent="GenBlockMap" unique_id=72851376 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x163" parent="GenBlockMap" unique_id=1357557163 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 26, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x164" parent="GenBlockMap" unique_id=561646580 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 30, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x165" parent="GenBlockMap" unique_id=1557979211 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x166" parent="GenBlockMap" unique_id=658197705 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x167" parent="GenBlockMap" unique_id=1975014253 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x168" parent="GenBlockMap" unique_id=1991302960 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 46, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x169" parent="GenBlockMap" unique_id=1982827894 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x170" parent="GenBlockMap" unique_id=1755477629 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 54, 5, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x171" parent="GenBlockMap" unique_id=2032524821 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 26, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x172" parent="GenBlockMap" unique_id=621118170 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 30, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x173" parent="GenBlockMap" unique_id=1977341844 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 34, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x174" parent="GenBlockMap" unique_id=838296596 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 38, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x175" parent="GenBlockMap" unique_id=747379353 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x176" parent="GenBlockMap" unique_id=363125040 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 46, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x177" parent="GenBlockMap" unique_id=1433899921 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 50, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x178" parent="GenBlockMap" unique_id=716668558 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 54, 5, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x8" parent="GenBlockMap" unique_id=2127734778 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 12)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x9" parent="GenBlockMap" unique_id=930449763 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 11)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x10" parent="GenBlockMap" unique_id=366358751 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 10)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x11" parent="GenBlockMap" unique_id=1490007178 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 9)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x12" parent="GenBlockMap" unique_id=252380959 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 8)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x13" parent="GenBlockMap" unique_id=1285658309 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 5, 7)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x14" parent="GenBlockMap" unique_id=539292651 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 6)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x1CornerOuter2" parent="GenBlockMap" unique_id=2036448637 instance=ExtResource("26_muu81")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 19, 4, 4)
@@ -2616,107 +2606,107 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14,
 [node name="FloorTile1x15" parent="GenBlockMap" unique_id=324172280 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -13, 9.1, -5)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x16" parent="GenBlockMap" unique_id=63926130 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x17" parent="GenBlockMap" unique_id=238206003 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -11, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x18" parent="GenBlockMap" unique_id=2098689606 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x19" parent="GenBlockMap" unique_id=75091456 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -9, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x20" parent="GenBlockMap" unique_id=1562720101 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -8, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x21" parent="GenBlockMap" unique_id=1783235491 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x22" parent="GenBlockMap" unique_id=289936257 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x23" parent="GenBlockMap" unique_id=1967789154 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x24" parent="GenBlockMap" unique_id=1989591125 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x25" parent="GenBlockMap" unique_id=1538042716 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x26" parent="GenBlockMap" unique_id=1912628434 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x27" parent="GenBlockMap" unique_id=1424942342 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x28" parent="GenBlockMap" unique_id=1997718720 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x29" parent="GenBlockMap" unique_id=627663458 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x30" parent="GenBlockMap" unique_id=1080627749 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x31" parent="GenBlockMap" unique_id=107122947 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x32" parent="GenBlockMap" unique_id=1706487024 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x33" parent="GenBlockMap" unique_id=1497150256 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x34" parent="GenBlockMap" unique_id=742034873 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5.5, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x35" parent="GenBlockMap" unique_id=1192448172 instance=ExtResource("24_bdhch")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6.5, 9.1, -4)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="ColumnA21" parent="GenBlockMap" unique_id=493167712 instance=ExtResource("29_eahpt")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14.1, 5, -4)
@@ -2759,53 +2749,53 @@ colorbase = Color(0.1254902, 0.1254902, 0.1254902, 1)
 
 [node name="FloorTile4x179" parent="GenBlockMap" unique_id=401943943 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 8, 9.1, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x180" parent="GenBlockMap" unique_id=1738086546 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 12, 9.1, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x181" parent="GenBlockMap" unique_id=436865500 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 16, 9.1, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x182" parent="GenBlockMap" unique_id=1343051592 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 9.1, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x183" parent="GenBlockMap" unique_id=226436249 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 9.1, -6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x184" parent="GenBlockMap" unique_id=281754923 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 24, 9.1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x185" parent="GenBlockMap" unique_id=1283196489 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 9.1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x186" parent="GenBlockMap" unique_id=1809451502 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 16, 9.1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x187" parent="GenBlockMap" unique_id=505486002 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 9.1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x188" parent="GenBlockMap" unique_id=1714665358 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 9.1, -10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x1WallCorner" parent="GenBlockMap" unique_id=775006843 instance=ExtResource("65_d5lvc")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12, 5, 5)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile1x1WallCorner2" parent="GenBlockMap" unique_id=1202461383 instance=ExtResource("65_d5lvc")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 20, 5, 5)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA2x39" parent="GenBlockMap" unique_id=1670377533 instance=ExtResource("39_c0b0h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -4)
@@ -3064,75 +3054,75 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, 1, -10.5)
 
 [node name="FloorTile4x189" parent="GenBlockMap" unique_id=687928442 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x190" parent="GenBlockMap" unique_id=1578658191 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x191" parent="GenBlockMap" unique_id=2136331439 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x192" parent="GenBlockMap" unique_id=755102520 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x193" parent="GenBlockMap" unique_id=1164033551 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x194" parent="GenBlockMap" unique_id=642797579 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x195" parent="GenBlockMap" unique_id=448334438 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x196" parent="GenBlockMap" unique_id=1314976125 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x197" parent="GenBlockMap" unique_id=970418987 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x198" parent="GenBlockMap" unique_id=1162812041 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x199" parent="GenBlockMap" unique_id=1606154938 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x200" parent="GenBlockMap" unique_id=944491597 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x201" parent="GenBlockMap" unique_id=1220377854 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 38, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x202" parent="GenBlockMap" unique_id=45630486 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x203" parent="GenBlockMap" unique_id=871497719 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 30, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x204" parent="GenBlockMap" unique_id=1827288715 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 26, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x205" parent="GenBlockMap" unique_id=1248209594 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 22, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x206" parent="GenBlockMap" unique_id=1959539989 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 18, 9.1, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="LampCeiling5" parent="GenBlockMap" unique_id=2124983454 instance=ExtResource("43_2ir1n")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20, 9, 0)
@@ -3279,11 +3269,11 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 
 
 [node name="FloorTile4x207" parent="GenBlockMap" unique_id=404062451 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, 5, -2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x208" parent="GenBlockMap" unique_id=658737938 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, 5, 2)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA4x52" parent="GenBlockMap" unique_id=415007567 instance=ExtResource("5_p1k3i")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 5, 9)
@@ -3317,71 +3307,71 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 50, 
 
 [node name="FloorTile4x209" parent="GenBlockMap" unique_id=1348047122 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 50, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x210" parent="GenBlockMap" unique_id=1141163610 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x211" parent="GenBlockMap" unique_id=1380588205 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 46, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x212" parent="GenBlockMap" unique_id=919943698 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 46, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x213" parent="GenBlockMap" unique_id=1065190642 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 42, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x214" parent="GenBlockMap" unique_id=959645800 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 42, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x215" parent="GenBlockMap" unique_id=355124004 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 38, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x216" parent="GenBlockMap" unique_id=844425240 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 38, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x217" parent="GenBlockMap" unique_id=1205996422 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x218" parent="GenBlockMap" unique_id=2056673056 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 34, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x219" parent="GenBlockMap" unique_id=1973266768 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 30, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x220" parent="GenBlockMap" unique_id=709991373 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 30, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x221" parent="GenBlockMap" unique_id=561344760 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 26, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x222" parent="GenBlockMap" unique_id=239313502 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 26, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x223" parent="GenBlockMap" unique_id=965282871 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 22, 9.1, 6)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x224" parent="GenBlockMap" unique_id=1097561786 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 9.1, 10)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="FloorTile4x225" parent="GenBlockMap" unique_id=1127929644 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 9.1, 14)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 
 [node name="WallA1x4CornerInnerB9" parent="GenBlockMap" unique_id=1193769283 instance=ExtResource("12_1dgcw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 49, 5, 11)
@@ -3708,7 +3698,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_lxt44")
 transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, -6.871105, 36.913902, -39.079666)
 light_color = Color(0.56, 0.67733324, 1, 1)
 light_energy = 1000.0
-distance_fade_begin = 100.0
+distance_fade_begin = 45.0
 spot_range = 58.544
 spot_attenuation = 2.0
 spot_angle = 45.55
@@ -3719,7 +3709,7 @@ ignoreLightsDistanceSetting = true
 transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, 37.36621, 36.913902, -39.079666)
 light_color = Color(0.56, 0.67733324, 1, 1)
 light_energy = 1000.0
-distance_fade_begin = 100.0
+distance_fade_begin = 45.0
 spot_range = 58.544
 spot_attenuation = 2.0
 spot_angle = 45.55
@@ -3736,7 +3726,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634
 max_distance = 50.0
 size = Vector3(72.52002, 12.402954, 21.512695)
 ambient_mode = 2
-ambient_color = Color(0.18, 0.18, 0.18, 1)
+ambient_color = Color(0.36, 0.36, 0.36, 1)
 
 [node name="ReflectionProbe3" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=2024868773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 6.6149116, 17.50774)
@@ -3745,17 +3735,19 @@ size = Vector3(72.52002, 12.402954, 21.512695)
 ambient_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
 
 [node name="ReflectionProbe2" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=81010323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8863955, 2.071372, 6.6171894)
-size = Vector3(10.773254, 6.8201904, 13.176331)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8863955, 2.071372, 7.398489)
+size = Vector3(10.773254, 6.8201904, 8.291817)
 box_projection = true
-ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+ambient_mode = 2
+ambient_color = Color(0.1612, 0.20583999, 0.31, 1)
 
 [node name="ReflectionProbe4" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=1694684454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.058777, 6.8444357, 76.23613)
 size = Vector3(46.81562, 12.536819, 27.646675)
-box_projection = true
-ambient_color = Color(1, 0.9773333, 0.92, 1)
-ambient_color_energy = 0.2
+origin_offset = Vector3(0, -3.145, 0)
+interior = true
+ambient_mode = 2
+ambient_color = Color(0.34, 0.33206668, 0.31620002, 1)
 
 [node name="Stocks" parent="." unique_id=1580582023 instance=ExtResource("75_xhqk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2130446, 0, -1.5212966)
@@ -3802,202 +3794,202 @@ width = 2.8077895144794183
 
 [node name="FloorTile4x4" parent="MoreMap" unique_id=663949339 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 4.9999995, 26)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_1" parent="MoreMap" unique_id=702550913 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 26)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_2" parent="MoreMap" unique_id=1581336322 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 30)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_3" parent="MoreMap" unique_id=2145121311 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 30)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_4" parent="MoreMap" unique_id=7697410 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_5" parent="MoreMap" unique_id=666221676 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_6" parent="MoreMap" unique_id=728829625 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_7" parent="MoreMap" unique_id=304430905 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_8" parent="MoreMap" unique_id=675600359 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_9" parent="MoreMap" unique_id=675884186 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 42)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_10" parent="MoreMap" unique_id=1741821945 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 46)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_11" parent="MoreMap" unique_id=478523926 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_12" parent="MoreMap" unique_id=362771012 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 42)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_13" parent="MoreMap" unique_id=632804246 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 46)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_14" parent="MoreMap" unique_id=592635460 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_15" parent="MoreMap" unique_id=1941857790 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_16" parent="MoreMap" unique_id=1490895977 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_17" parent="MoreMap" unique_id=203944506 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_18" parent="MoreMap" unique_id=1296606268 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 42)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_19" parent="MoreMap" unique_id=1369668584 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 46)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_20" parent="MoreMap" unique_id=92656239 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 42)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_21" parent="MoreMap" unique_id=232663017 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 46)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_22" parent="MoreMap" unique_id=105713282 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_23" parent="MoreMap" unique_id=892417156 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_24" parent="MoreMap" unique_id=309330421 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5, 58)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_25" parent="MoreMap" unique_id=712447790 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 58)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_26" parent="MoreMap" unique_id=1168205616 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_27" parent="MoreMap" unique_id=1900727122 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_28" parent="MoreMap" unique_id=957666206 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_29" parent="MoreMap" unique_id=1988837854 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_30" parent="MoreMap" unique_id=953199239 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 34)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_31" parent="MoreMap" unique_id=36073710 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 38)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_32" parent="MoreMap" unique_id=1538400888 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 42)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_33" parent="MoreMap" unique_id=321706390 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 46)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_34" parent="MoreMap" unique_id=1788443782 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5.000001, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_35" parent="MoreMap" unique_id=921263801 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.000001, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_36" parent="MoreMap" unique_id=55374111 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_37" parent="MoreMap" unique_id=1590716212 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_38" parent="MoreMap" unique_id=2071498696 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 54)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_39" parent="MoreMap" unique_id=67927064 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 50)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="BackWallA8x4" parent="MoreMap" unique_id=1168255479 instance=ExtResource("9_ct5cr")]
@@ -4074,7 +4066,7 @@ metadata/asset_placer_res_id = "uid://botekdip48xy4"
 [node name="FloorTile8x8" parent="MoreMap" unique_id=410272927 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 44)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="ColumnA2" parent="MoreMap" unique_id=1674656369 instance=ExtResource("41_fmxj2")]
@@ -4295,49 +4287,49 @@ metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
 [node name="FloorTile8x8_1" parent="MoreMap" unique_id=1933423049 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -4, 6, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_2" parent="MoreMap" unique_id=1603221176 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -4, 6, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_3" parent="MoreMap" unique_id=1798664876 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -4, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_4" parent="MoreMap" unique_id=420964599 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -12, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_5" parent="MoreMap" unique_id=1830451153 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -20, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_6" parent="MoreMap" unique_id=797011383 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -28, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_7" parent="MoreMap" unique_id=1080851938 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -36, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_8" parent="MoreMap" unique_id=1051805125 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(-0.99999934, 0, -7.4505806e-08, 0, 1, 0, 7.4505806e-08, 0, -0.99999934, -44, 6, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="WallLightBig_2" parent="MoreMap" unique_id=1223209357 instance=ExtResource("23_48ndn")]
@@ -4348,9 +4340,6 @@ metadata/asset_placer_res_id = "uid://botekdip48xy4"
 [node name="WallLightBig_3" parent="MoreMap" unique_id=1062845100 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-4.4703484e-08, 0, -0.9999996, 0, 1, 0, 0.9999996, 0, -4.4703484e-08, -0.2515211, 5.363968, 70.10992)
 color3 = Color(1, 0.8065, 0.57, 1)
-lightSpecular = 0.35
-lightRange = 51.0
-lightEnergy = 12.0
 metadata/asset_placer_res_id = "uid://botekdip48xy4"
 
 [node name="WallLightBig_4" parent="MoreMap" unique_id=1696182485 instance=ExtResource("23_48ndn")]
@@ -4368,17 +4357,11 @@ metadata/asset_placer_res_id = "uid://botekdip48xy4"
 [node name="WallLightBig_8" parent="MoreMap" unique_id=935159053 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-0.99999946, 0, 4.4703484e-08, 0, 1, 0, -4.4703484e-08, 0, -0.99999946, -24.006207, 5.4340553, 87.921295)
 color3 = Color(1, 0.9425, 0.85, 1)
-lightSpecular = 0.05
-lightRange = 25.0
-lightEnergy = 30.0
 metadata/asset_placer_res_id = "uid://botekdip48xy4"
 
 [node name="WallLightBig_9" parent="MoreMap" unique_id=693810055 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-0.99999946, 0, 4.4703484e-08, 0, 1, 0, -4.4703484e-08, 0, -0.99999946, -32.001022, 5.4340553, 87.921295)
 color3 = Color(1, 0.9425, 0.85, 1)
-lightSpecular = 0.05
-lightRange = 25.0
-lightEnergy = 30.0
 metadata/asset_placer_res_id = "uid://botekdip48xy4"
 
 [node name="Bench" parent="MoreMap" unique_id=660394359 instance=ExtResource("59_tujyn")]
@@ -4392,149 +4375,149 @@ metadata/asset_placer_res_id = "uid://dou27ldgaq4cc"
 [node name="FloorTile8x8" parent="." unique_id=905716826 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 44)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_1" parent="." unique_id=938512693 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 52)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_2" parent="." unique_id=1057950476 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 60)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_3" parent="." unique_id=812881146 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_4" parent="." unique_id=1840133123 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_5" parent="." unique_id=1602834006 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_6" parent="." unique_id=23867960 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_7" parent="." unique_id=27377265 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_8" parent="." unique_id=376567555 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_9" parent="." unique_id=215721478 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5, 64)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_10" parent="." unique_id=456401975 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 7.9999995, 72)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_11" parent="." unique_id=2074364147 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 7.999998, 72)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_12" parent="." unique_id=1499835861 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 7.999998, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_13" parent="." unique_id=1652023711 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 7.999998, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile4x4" parent="." unique_id=672333834 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.999998, 70)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_1" parent="." unique_id=929567373 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.999998, 74)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile8x8_14" parent="." unique_id=1644296255 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_15" parent="." unique_id=1237667327 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_16" parent="." unique_id=1490508580 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 92)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_17" parent="." unique_id=489403809 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 92)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_18" parent="." unique_id=1977554401 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_19" parent="." unique_id=1483508427 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 92)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_20" parent="." unique_id=588334986 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 8, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_21" parent="." unique_id=385663661 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 7.999998, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_22" parent="." unique_id=928280531 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 7.999998, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="Stairs4" parent="." unique_id=790154951 instance=ExtResource("88_ii4se")]
@@ -4624,113 +4607,113 @@ metadata/asset_placer_res_id = "uid://4ea0wg6ojyqi"
 [node name="FloorTile8x8_23" parent="." unique_id=764809800 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 12, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_24" parent="." unique_id=1198832964 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 12, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_25" parent="." unique_id=2112926138 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 12, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_26" parent="." unique_id=1945793980 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_27" parent="." unique_id=626957380 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_28" parent="." unique_id=629824193 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 12, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_51" parent="." unique_id=613320097 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 12, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_52" parent="." unique_id=650778842 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 12, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_53" parent="." unique_id=1432384925 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 12, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_48" parent="." unique_id=1485418350 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 12, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_49" parent="." unique_id=91305383 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 12, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_50" parent="." unique_id=1206633253 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 12, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_45" parent="." unique_id=1399970652 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 12, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_46" parent="." unique_id=1155762708 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 12, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_47" parent="." unique_id=1265557513 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 12, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_29" parent="." unique_id=1483522246 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 12, 72)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_30" parent="." unique_id=2015871470 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 12, 72)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile4x4_2" parent="." unique_id=1189048257 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 12, 74)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="FloorTile4x4_3" parent="." unique_id=880475582 instance=ExtResource("3_lq5yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 12, 70)
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://c5qw6lii6gf8a"
 
 [node name="WallLightBig" parent="." unique_id=2077936688 instance=ExtResource("23_48ndn")]
@@ -4776,67 +4759,67 @@ metadata/asset_placer_res_id = "uid://clfb0e0x1uxi7"
 [node name="FloorTile8x8_31" parent="." unique_id=1421870048 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_32" parent="." unique_id=1532101592 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_33" parent="." unique_id=181028234 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_34" parent="." unique_id=1568050897 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_35" parent="." unique_id=528465429 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_36" parent="." unique_id=621657176 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_37" parent="." unique_id=469267894 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 2, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_38" parent="." unique_id=443273536 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 2, 76)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_39" parent="." unique_id=1698629465 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 2, 84)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_40" parent="." unique_id=688013031 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, 60)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_41" parent="." unique_id=258390677 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 3, 68)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="Foundation4" parent="." unique_id=435642690 instance=ExtResource("33_s1n0y")]
@@ -4862,49 +4845,49 @@ metadata/asset_placer_res_id = "uid://ceitp87f3qhlf"
 [node name="FloorTile2x2" parent="." unique_id=1668236561 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 2.9999998, 71)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_1" parent="." unique_id=151337240 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 3, 69)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_2" parent="." unique_id=1297049763 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 3, 67)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_3" parent="." unique_id=640564964 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 2.9999995, 65)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_4" parent="." unique_id=1608219451 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3, 71)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_5" parent="." unique_id=1954689528 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3, 69)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_6" parent="." unique_id=657320257 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 2.9999995, 67)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="FloorTile2x2_7" parent="." unique_id=2025507665 instance=ExtResource("97_bdstd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3, 65)
 floorMat = 3
-colorbase = Color(0.65, 0.39866665, 0.12999998, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://bhyhtvnssxqgl"
 
 [node name="Stairs4_12" parent="." unique_id=1874403055 instance=ExtResource("88_ii4se")]
@@ -5114,33 +5097,33 @@ metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
 [node name="FloorTile8x8_42" parent="." unique_id=1978880747 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(7.4505806e-08, 0, 0.99999934, 0, 1, 0, -0.99999934, 0, 7.4505806e-08, -12, 6, 60)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_43" parent="." unique_id=176658584 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(7.4505806e-08, 0, 0.99999934, 0, 1, 0, -0.99999934, 0, 7.4505806e-08, -12, 6, 52)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="FloorTile8x8_44" parent="." unique_id=1041558555 instance=ExtResource("86_ct5cr")]
 transform = Transform3D(7.4505806e-08, 0, 0.99999934, 0, 1, 0, -0.99999934, 0, 7.4505806e-08, -12, 6, 44)
 floorMat = 3
-colorbase = Color(0.2901961, 0.2901961, 0.2901961, 1)
+colorbase = Color(0.38039216, 0.38039216, 0.38039216, 1)
 metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 
 [node name="ConstructionLightBoth" parent="." unique_id=1644774559 instance=ExtResource("101_bdstd")]
 transform = Transform3D(0.6483637, 0, 0.76133007, 0, 1, 0, -0.76133007, 0, 0.6483637, -27.27551, 3, 65.27423)
 color3 = Color(1, 0.9666667, 0.8, 1)
-lightEnergy = 40.0
 metadata/asset_placer_res_id = "uid://c010jg28no6wu"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=314908944]
 transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -10.774406, 10.120663, 73.2109)
 light_color = Color(1, 0.86800003, 0.66999996, 1)
-light_energy = 2.0
+light_energy = 4.0
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
+distance_fade_enabled = true
 omni_range = 18.265
 omni_attenuation = 0.639
 
@@ -5149,20 +5132,23 @@ transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70
 light_color = Color(1, 0.9813333, 0.92, 1)
 light_energy = 0.1
 light_volumetric_fog_energy = 0.0
+distance_fade_enabled = true
 omni_range = 32.423847
 omni_attenuation = 0.0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=890727714]
-transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, 16.66732, 14.39164, -12.291632)
+transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, 16.66732, 14.39164, 3.3078766)
 light_color = Color(1, 0.9813333, 0.92, 1)
-light_energy = 0.1
+light_energy = 0.2
 light_volumetric_fog_energy = 0.0
+distance_fade_enabled = true
 omni_range = 32.423847
 omni_attenuation = 0.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=324434970]
 transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -23.909416, 6.6504765, 69.24032)
 light_color = Color(0.38, 0.752, 1, 1)
+light_energy = 2.0
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
 omni_range = 8.614
@@ -5171,11 +5157,13 @@ omni_attenuation = 0.639
 [node name="WallLightBig_2" parent="." unique_id=445009315 instance=ExtResource("23_48ndn")]
 transform = Transform3D(0.99999946, 0, 1.4901161e-08, 0, 1, 0, -1.4901161e-08, 0, 0.99999946, -26.93491, 6.9078016, 64.251526)
 color3 = Color(0.78039217, 0.92941177, 1, 1)
+lightEnergy = 4.0
 metadata/asset_placer_res_id = "uid://botekdip48xy4"
 
 [node name="WallLightBig_3" parent="." unique_id=881683965 instance=ExtResource("23_48ndn")]
 transform = Transform3D(0.99999946, 0, 1.4901161e-08, 0, 1, 0, -1.4901161e-08, 0, 0.99999946, -20.965796, 6.8166494, 64.25152)
 color3 = Color(0.78039217, 0.92941177, 1, 1)
+lightEnergy = 4.0
 metadata/asset_placer_res_id = "uid://botekdip48xy4"
 
 [node name="ColumnB4" parent="." unique_id=1380524880 instance=ExtResource("30_61cvv")]

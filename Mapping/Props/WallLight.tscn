@@ -11,13 +11,13 @@ size = Vector3(0.638991, 0.292259, 0.177679)
 script = ExtResource("2_1etw4")
 color3 = Color(0, 0.8784314, 1, 1)
 lightSpecular = 0.2
-lightRange = 10.0
+lightRange = 5.0
 lightEnergy = 5.0
 
 [node name="WallLight" parent="." index="0" unique_id=1177157796]
 instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_base = Color(0.21960784, 0.21960784, 0.21960784, 1)
+instance_shader_parameters/trim_color_main = Color(0.078431375, 0.078431375, 0.078431375, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallLight" index="0" unique_id=1455284768]
@@ -31,7 +31,6 @@ transform = Transform3D(-1, -4.9703117e-14, 8.742278e-08, 4.31313e-08, 0.8698223
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 5.0
 light_specular = 0.2
-spot_range = 10.0
 spot_attenuation = 1.5
 spot_angle = 96.8
 

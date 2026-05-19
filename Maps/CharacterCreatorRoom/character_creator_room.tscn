@@ -69,7 +69,8 @@ transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50
 
 [node name="ConstructionLightBoth" parent="PCSceneLoader" unique_id=1057556328 instance=ExtResource("7_vv8gu")]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 2.7321763, 2.2351742e-08, -2.6983352)
-color3 = Color(1, 0.98833334, 0.93, 1)
+color3 = Color(1, 0.97333336, 0.84000003, 1)
+lightEnergy = 3.0
 
 [node name="FloorPanelA8x4" parent="PCSceneLoader" unique_id=905370878 instance=ExtResource("9_1pncw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)
@@ -86,12 +87,14 @@ color3 = Color(1, 1, 1, 1)
 [node name="FloorPanelA8x6" parent="PCSceneLoader" unique_id=1317720538 instance=ExtResource("9_1pncw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -2)
 roughness = 0.75
+colorbase = Color(0.27, 0.27, 0.27, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
 [node name="FloorPanelA8x7" parent="PCSceneLoader" unique_id=1482661778 instance=ExtResource("9_1pncw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 2)
 roughness = 0.75
+colorbase = Color(0.27, 0.27, 0.27, 1)
 color2 = Color(1, 1, 1, 1)
 color3 = Color(1, 1, 1, 1)
 
@@ -119,16 +122,18 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 
 
 [node name="WallA2x4" parent="PCSceneLoader" unique_id=1919920346 instance=ExtResource("22_welvo")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 0, 4)
-colorbase = Color(0.20784314, 0.20784314, 0.20784314, 1)
+colorbase = Color(0.33, 0.33, 0.33, 1)
 
 [node name="WallA1x4" parent="PCSceneLoader" unique_id=1387457020 instance=ExtResource("23_k54iv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4, 0, 4)
+colorbase = Color(0.32941177, 0.32941177, 0.32941177, 1)
 
 [node name="WallA2x1B" parent="PCSceneLoader" unique_id=1260156163 instance=ExtResource("24_kcot6")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 2, 4)
 
 [node name="WallA4x1" parent="PCSceneLoader" unique_id=1324082425 instance=ExtResource("25_pwbpm")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 3, 4)
+colorbase = Color(0.38, 0.38, 0.38, 1)
 
 [node name="InmateSink" parent="PCSceneLoader" unique_id=257458864 instance=ExtResource("26_cogsi")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.1, 1, 3.7)
@@ -217,7 +222,7 @@ navigation_mesh = SubResource("NavigationMesh_dsa3d")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.6303267, 0, 2.6731272)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1672862030]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5008078, 0.53154224, 2.5128837)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9520452, 1.2373486, -2.9290402)
 mesh = SubResource("SphereMesh_wvfgn")
 surface_material_override/0 = SubResource("StandardMaterial3D_m4847")
 
@@ -227,4 +232,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m4847")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.135025, 0.6783495)
 size = Vector3(9.717773, 7.125061, 11.736679)
 box_projection = true
-ambient_color = Color(0.3137255, 0.3137255, 0.3137255, 1)
+ambient_mode = 2
+ambient_color = Color(1, 1, 1, 1)
+ambient_color_energy = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1921107350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5693312, 2.4576957)
+light_energy = 0.2
+light_specular = 0.1
+distance_fade_enabled = true

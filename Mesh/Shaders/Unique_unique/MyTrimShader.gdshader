@@ -40,11 +40,21 @@ void fragment() {
 
 	// Color map begins
 	float yUV = -base_uv.y+1.0;
-	vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
-	//int layer = int(clamp(yUV, 0.0, 3.0));
-	float layer = clamp(floor(yUV), 0.0, 3.0);
-	float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
-	albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
+	//vec3 colors[4] = {trim_color_base.rgb, trim_color_main.rgb, trim_color_second.rgb, trim_color_third.rgb};
+	//float layer = clamp(floor(yUV), 0.0, 3.0);
+	//float mixFactor = step(layer, 3.0) * (1.0 - step(layer + 1.0, yUV));
+	//albedo_tex.rgb = mix(albedo_tex.rgb, albedo_tex.rgb * colors[int(layer)], mixFactor);
+
+
+	float t = yUV;
+	vec3 factor = trim_color_base;
+	factor = mix(factor, trim_color_main, step(1.0, t));
+	factor = mix(factor, trim_color_second, step(2.0, t));
+	factor = mix(factor, trim_color_third, step(3.0, t));
+	factor = mix(factor, vec3(1.0), step(4.0, t));
+	albedo_tex.rgb = albedo_tex.rgb * factor;
+
+
 
 	//float layer0 = (1.0 - step(1.0, yUV));
 	//float layer1 = step(1.0, yUV) * (1.0 - step(2.0, yUV));

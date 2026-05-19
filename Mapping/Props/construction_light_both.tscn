@@ -14,9 +14,9 @@ roughness = 0.5
 colorbase = Color(0.84705883, 0.6392157, 0, 1)
 color1 = Color(0.1882353, 0.1882353, 0.1882353, 1)
 color3 = Color(1, 0.994, 0.64, 1)
-lightSpecular = 0.2
-lightRange = 25.0
-lightEnergy = 15.0
+lightSpecular = 0.5
+lightRange = 7.0
+lightEnergy = 5.0
 
 [node name="ConstructionLightBoth" parent="." index="0" unique_id=514765435]
 instance_shader_parameters/roughness_mult = 0.5
@@ -33,12 +33,11 @@ shape = SubResource("BoxShape3D_ta3ub")
 [node name="SpotLight3D2" parent="." index="1" unique_id=538846847 instance=ExtResource("3_8ldnr")]
 transform = Transform3D(1, 0, 0, 0, -0.90644777, 0.42231792, 0, -0.42231792, -0.90644777, 0, 1.793, 0.126)
 light_color = Color(1, 0.994, 0.64, 1)
-light_energy = 15.0
+light_energy = 5.0
 light_indirect_energy = 1.0
-light_specular = 0.2
 shadow_bias = 0.01
-spot_range = 25.0
-spot_attenuation = 2.0
+spot_range = 7.0
+spot_attenuation = 1.5
 spot_angle = 53.69
 
 [node name="LightShaft" parent="." index="2" unique_id=1761265546 instance=ExtResource("4_g7t8x")]

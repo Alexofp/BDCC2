@@ -47,6 +47,7 @@ mesh = SubResource("CylinderMesh_2djoh")
 [node name="SpotLight3D" parent="." index="2" unique_id=1147814369 instance=ExtResource("3_yp53l")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.977766, 0)
+visible = false
 light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 10.0
 light_volumetric_fog_energy = 0.2
