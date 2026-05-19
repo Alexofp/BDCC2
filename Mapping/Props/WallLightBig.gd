@@ -28,7 +28,7 @@ extends PropBasic
 	set(value):
 		lightRange = value
 		notifySetEditorValue("lightRange", value)
-@export_range(0.0, 100.0, 1.0) var lightEnergy:float = 8.0:
+@export_range(0.0, 100.0, 0.1) var lightEnergy:float = 8.0:
 	set(value):
 		lightEnergy = value
 		notifySetEditorValue("lightEnergy", value)

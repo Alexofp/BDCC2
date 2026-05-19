@@ -5,7 +5,7 @@ extends PropBasic
 	set(value):
 		roughness = value
 		notifySetEditorValue("roughness", value)
-@export var colorbase:Color = Color("383838"):
+@export var colorbase:Color = Color("4d4d4d"):
 	set(value):
 		colorbase = value
 		notifySetEditorValue("colorbase", value)

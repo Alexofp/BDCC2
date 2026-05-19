@@ -42,7 +42,6 @@ light_color = Color(0, 0.8784314, 1, 1)
 light_energy = 2.0
 light_volumetric_fog_energy = 0.0
 spot_range = 5.0
-spot_attenuation = 0.18
 spot_angle = 105.0
 metadata/_edit_pinned_properties_ = [&"spot_range"]
 

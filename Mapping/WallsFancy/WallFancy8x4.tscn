@@ -29,7 +29,7 @@ instance_shader_parameters/trim_color_base = Color(0.14117648, 0.14117648, 0.141
 instance_shader_parameters/trim_color_main = Color(0.16078432, 0.15686275, 0.2, 1)
 instance_shader_parameters/trim_color_second = Color(0.09803922, 0.19215687, 0.36078432, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.41683337, 0.61, 1)
-instance_shader_parameters/uvShift = -2.2352000028647012e-08
+instance_shader_parameters/uvShift = 0.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallFancy8x4" index="0" unique_id=725001973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.07854614)

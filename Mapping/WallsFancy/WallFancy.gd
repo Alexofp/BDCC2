@@ -43,6 +43,10 @@ extends PropBasic
 		if(panel2 != null):
 			panel2.set_instance_shader_parameter("color_tile_base", colorPanel2)
 
+func _ready() -> void:
+	super._ready()
+	setInstanceShaderParameter("uvShift", 0.0)
+
 func updateMat():
 	var theFinalMat:Material = null
 	

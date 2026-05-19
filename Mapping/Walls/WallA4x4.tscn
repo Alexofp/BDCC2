@@ -12,9 +12,9 @@ size = Vector2(4.02, 4.02)
 
 [node name="WallA4x4" parent="." index="0" unique_id=1840805205]
 instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
-instance_shader_parameters/uvShift = 0.0
+instance_shader_parameters/trim_color_base = Color(0.3019608, 0.3019608, 0.3019608, 1)
+instance_shader_parameters/trim_color_main = Color(0.078431375, 0.078431375, 0.078431375, 1)
+instance_shader_parameters/uvShift = -0.5239966992929789
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallA4x4" index="0" unique_id=323246589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.125761)

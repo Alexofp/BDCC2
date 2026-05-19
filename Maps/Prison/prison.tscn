@@ -1007,6 +1007,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6, 5
 [node name="WallLightBig" parent="GenBlockMap" unique_id=1750779838 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 3.6, 3.8)
 color3 = Color(1, 1, 1, 1)
+lightEnergy = 1.0
 
 [node name="WallLightBig2" parent="GenBlockMap" unique_id=2045122779 instance=ExtResource("23_48ndn")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1, 3.6, 3.8)
@@ -3695,24 +3696,26 @@ mesh = SubResource("SphereMesh_kb7ll")
 surface_material_override/0 = SubResource("ShaderMaterial_lxt44")
 
 [node name="MappingSpotlight" parent="." unique_id=248278491 instance=ExtResource("72_522vc")]
-transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, -6.871105, 36.913902, -39.079666)
+transform = Transform3D(1, 0, 0, 0, -0.56045794, 0.8281829, 0, -0.8281829, -0.56045794, -6.871105, 36.913902, -39.079666)
 light_color = Color(0.56, 0.67733324, 1, 1)
-light_energy = 1000.0
+light_energy = 5.0
 distance_fade_begin = 45.0
+distance_fade_shadow = 60.0
 spot_range = 58.544
-spot_attenuation = 2.0
-spot_angle = 45.55
+spot_attenuation = 0.5
+spot_angle = 30.76
 spot_angle_attenuation = 0.044194072
 ignoreLightsDistanceSetting = true
 
-[node name="MappingSpotlight3" parent="." unique_id=1806315879 instance=ExtResource("72_522vc")]
-transform = Transform3D(1, 0, 0, 0, -0.4672511, 0.8841247, 0, -0.8841247, -0.4672511, 37.36621, 36.913902, -39.079666)
+[node name="MappingSpotlight2" parent="." unique_id=1806315879 instance=ExtResource("72_522vc")]
+transform = Transform3D(1, 0, 0, 0, -0.56045794, 0.8281829, 0, -0.8281829, -0.56045794, 36.566185, 36.913902, -39.079666)
 light_color = Color(0.56, 0.67733324, 1, 1)
-light_energy = 1000.0
+light_energy = 5.0
 distance_fade_begin = 45.0
+distance_fade_shadow = 60.0
 spot_range = 58.544
-spot_attenuation = 2.0
-spot_angle = 45.55
+spot_attenuation = 0.5
+spot_angle = 30.76
 spot_angle_attenuation = 0.044194072
 ignoreLightsDistanceSetting = true
 
@@ -3726,7 +3729,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634
 max_distance = 50.0
 size = Vector3(72.52002, 12.402954, 21.512695)
 ambient_mode = 2
-ambient_color = Color(0.36, 0.36, 0.36, 1)
+ambient_color = Color(0.29520002, 0.32328, 0.36, 1)
 
 [node name="ReflectionProbe3" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=2024868773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 6.6149116, 17.50774)
@@ -5120,7 +5123,7 @@ metadata/asset_placer_res_id = "uid://c010jg28no6wu"
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=314908944]
 transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -10.774406, 10.120663, 73.2109)
 light_color = Color(1, 0.86800003, 0.66999996, 1)
-light_energy = 4.0
+light_energy = 2.0
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
 distance_fade_enabled = true
@@ -5146,11 +5149,11 @@ omni_range = 32.423847
 omni_attenuation = 0.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=324434970]
-transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -23.909416, 6.6504765, 69.24032)
+transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -23.909416, 6.6504765, 66.38442)
 light_color = Color(0.38, 0.752, 1, 1)
 light_energy = 2.0
 light_volumetric_fog_energy = 0.0
-light_specular = 0.0
+light_specular = 0.2
 omni_range = 8.614
 omni_attenuation = 0.639
 

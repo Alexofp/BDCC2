@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://ctjw3n1h35bah" path="res://Mesh/Parts/Head/FelineHead/Textures/Fur/MyFelineHeadV2_low_FelineMouth_Emit.png" id="16_m5xws"]
 [ext_resource type="Material" uid="uid://x4hrc67q4uh5" path="res://Mesh/MaterialsPrecompile/Mats_skeleton/FelineWhiskers.tres" id="19_sx6w4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_msytv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ik7j"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_3ik7j")
@@ -31,7 +31,8 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/backlight = Color(0.3019608, 0.3019608, 0.3019608, 1)
+shader_parameter/rim = 0.0
+shader_parameter/rim_tint = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
@@ -45,7 +46,7 @@ shader_parameter/messScroll = 0.0
 shader_parameter/messCutoff = 0.0
 shader_parameter/messSmoothSize = 0.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ua8bf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k0xnh"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_k0xnh")
@@ -64,7 +65,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fa2fp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_msytv"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_k0xnh")
@@ -83,7 +84,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkdt0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ua8bf"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_gyw10")
@@ -105,7 +106,7 @@ shader_parameter/glowR = 0.0499999988824
 shader_parameter/glowG = 0.3999999910592
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gyw10"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fa2fp"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("14_cslu4")
@@ -175,19 +176,19 @@ bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.707106
 
 [node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1339026876]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_msytv")
+surface_material_override/0 = SubResource("ShaderMaterial_3ik7j")
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1" unique_id=875841837]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_ua8bf")
+surface_material_override/0 = SubResource("ShaderMaterial_k0xnh")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=801223576]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_fa2fp")
+surface_material_override/0 = SubResource("ShaderMaterial_msytv")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3" unique_id=232388453]
-surface_material_override/0 = SubResource("ShaderMaterial_pkdt0")
-surface_material_override/1 = SubResource("ShaderMaterial_pkdt0")
+surface_material_override/0 = SubResource("ShaderMaterial_ua8bf")
+surface_material_override/1 = SubResource("ShaderMaterial_ua8bf")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1078476666 instance=ExtResource("4_0v4py")]
 pointName = "hair"
@@ -212,11 +213,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
 [node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10" unique_id=457222780]
-surface_material_override/0 = SubResource("ShaderMaterial_msytv")
+surface_material_override/0 = SubResource("ShaderMaterial_3ik7j")
 
 [node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11" unique_id=2008066050]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_gyw10")
+surface_material_override/0 = SubResource("ShaderMaterial_fa2fp")
 
 [node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12" unique_id=954779520]
 visibility_range_end = 3.0
