@@ -92,6 +92,7 @@
 [ext_resource type="PackedScene" uid="uid://bhyhtvnssxqgl" path="res://Mapping/Floors/FloorTile2x2.tscn" id="97_bdstd"]
 [ext_resource type="PackedScene" uid="uid://nnkqqsb3xpob" path="res://Mapping/Columns/ColumnB2.tscn" id="98_48ndn"]
 [ext_resource type="PackedScene" uid="uid://cso8effukbxsr" path="res://Mapping/WallsFancy/WallFancy8x4.tscn" id="98_vqtgh"]
+[ext_resource type="PackedScene" uid="uid://c64yi3ig08y2s" path="res://Mapping/Columns/ColumnC4.tscn" id="99_mv8da"]
 [ext_resource type="PackedScene" uid="uid://c010jg28no6wu" path="res://Mapping/Props/construction_light_both.tscn" id="101_bdstd"]
 [ext_resource type="PackedScene" uid="uid://d7mipnfi550m" path="res://Mapping/Props/chair_3.tscn" id="104_ik7p1"]
 [ext_resource type="PackedScene" uid="uid://3ukt1alsm1lc" path="res://Mapping/Floors/TileTrimLights4x05.tscn" id="106_s1n0y"]
@@ -4251,14 +4252,6 @@ metadata/asset_placer_res_id = "uid://06pfnmb305cv"
 transform = Transform3D(1.1920929e-07, 0, -0.99999946, 0, 1, 0, 0.99999946, 0, 1.1920929e-07, 0, 2, 70)
 metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
 
-[node name="WallA4x4_21" parent="MoreMap" unique_id=902436363 instance=ExtResource("5_p1k3i")]
-transform = Transform3D(1.1920929e-07, 0, -0.99999946, 0, 1, 0, 0.99999946, 0, 1.1920929e-07, 0, 1.9999998, 74)
-metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
-
-[node name="WallA4x4_22" parent="MoreMap" unique_id=929302971 instance=ExtResource("5_p1k3i")]
-transform = Transform3D(1.1920929e-07, 0, -0.99999946, 0, 1, 0, 0.99999946, 0, 1.1920929e-07, 0, 1.9999998, 78)
-metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
-
 [node name="WallA4x4_23" parent="MoreMap" unique_id=1527030228 instance=ExtResource("5_p1k3i")]
 transform = Transform3D(1.1920929e-07, 0, -0.99999946, 0, 1, 0, 0.99999946, 0, 1.1920929e-07, 0, 1.9999998, 82)
 metadata/asset_placer_res_id = "uid://cyqosc5s4pb7"
@@ -5312,3 +5305,35 @@ panelMat = 4
 colorPanel = Color(0.13, 0.13, 0.13, 1)
 panelMat2 = 2
 colorPanel2 = Color(0.1368, 0.21120004, 0.36, 1)
+
+[node name="ColumnC4" parent="." unique_id=362869237 instance=ExtResource("99_mv8da")]
+transform = Transform3D(-0.99999964, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -0.99999964, -20, 2, 88)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="ColumnC4_1" parent="." unique_id=631061136 instance=ExtResource("99_mv8da")]
+transform = Transform3D(-0.99999964, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -0.99999964, -28, 1.9999998, 88)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="ColumnC4_2" parent="." unique_id=972921325 instance=ExtResource("99_mv8da")]
+transform = Transform3D(-0.99999964, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -0.99999964, -36, 2, 88)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="ColumnC4_3" parent="." unique_id=1390249016 instance=ExtResource("99_mv8da")]
+transform = Transform3D(-0.9999997, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.9999997, -8, 2, 88)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="ColumnC4_4" parent="." unique_id=1111195307 instance=ExtResource("99_mv8da")]
+transform = Transform3D(0, 0, -0.9999994, 0, 1, 0, 0.9999994, 0, 0, 0, 2, 72)
+colorbase = Color(0.31431615, 0.3143161, 0.31431615, 1)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="ColumnC4_5" parent="." unique_id=371903435 instance=ExtResource("99_mv8da")]
+transform = Transform3D(0, 0, -0.9999994, 0, 1, 0, 0.9999994, 0, 0, 0, 2, 80)
+colorbase = Color(0.31431615, 0.3143161, 0.31431615, 1)
+metadata/asset_placer_res_id = "uid://c64yi3ig08y2s"
+
+[node name="WallFancy8x4" parent="." unique_id=871471332 instance=ExtResource("98_vqtgh")]
+transform = Transform3D(-2.9802322e-08, 0, -0.9999998, 0, 1, 0, 0.9999998, 0, -2.9802322e-08, 0, 2, 76)
+color1 = Color(0.32915837, 0.3291584, 0.32915837, 1)
+color3 = Color(0.26657507, 0.26657525, 0.26657513, 1)
+metadata/asset_placer_res_id = "uid://cso8effukbxsr"

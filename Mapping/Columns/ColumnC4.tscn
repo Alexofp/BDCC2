@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c64yi3ig08y2s"]
+
+[ext_resource type="PackedScene" uid="uid://1f7tk4k6rrjp" path="res://Mapping/Columns/Raw/ColumnC4.glb" id="1_dwdro"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dwdro"]
+size = Vector3(0.39999953, 4, 0.74297833)
+
+[node name="ColumnC4" unique_id=362869237 instance=ExtResource("1_dwdro")]
+color2 = Color(0.06053035, 0.060530342, 0.060530394, 1)
+
+[node name="ColumnC4" parent="." index="0" unique_id=1849659517]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.4509804, 0.4509804, 0.4509804, 1)
+instance_shader_parameters/trim_color_main = Color(0.23137255, 0.23137255, 0.23137255, 1)
+instance_shader_parameters/trim_color_second = Color(0.06053035, 0.060530342, 0.060530394, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ColumnC4" index="0" unique_id=57426177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.37148917)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ColumnC4/StaticBody3D" index="0" unique_id=1420091267]
+shape = SubResource("BoxShape3D_dwdro")
