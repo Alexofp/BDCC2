@@ -3729,8 +3729,8 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634766)
 max_distance = 50.0
 size = Vector3(72.52002, 12.402954, 21.512695)
-ambient_mode = 2
 ambient_color = Color(0.29520002, 0.32328, 0.36, 1)
+ambient_color_energy = 0.2
 
 [node name="ReflectionProbe3" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=2024868773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 6.6149116, 17.50774)
@@ -3750,7 +3750,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.058777, 6.8444357, 76.236
 size = Vector3(46.81562, 12.536819, 27.646675)
 origin_offset = Vector3(0, -3.145, 0)
 interior = true
-ambient_mode = 2
 ambient_color = Color(0.34, 0.33206668, 0.31620002, 1)
 
 [node name="Stocks" parent="." unique_id=1580582023 instance=ExtResource("75_xhqk1")]
@@ -5337,3 +5336,15 @@ transform = Transform3D(-2.9802322e-08, 0, -0.9999998, 0, 1, 0, 0.9999998, 0, -2
 color1 = Color(0.32915837, 0.3291584, 0.32915837, 1)
 color3 = Color(0.26657507, 0.26657525, 0.26657513, 1)
 metadata/asset_placer_res_id = "uid://cso8effukbxsr"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=536498869]
+transform = Transform3D(0.6904308, 0.5400514, 0.48130006, 1.4901161e-08, -0.66533196, 0.7465477, 0.7233984, -0.5154395, -0.45936573, 0, 1.7640374, 0)
+light_energy = 0.02
+light_specular = 0.5
+light_cull_mask = 4294967294
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1544095374]
+transform = Transform3D(0.69043094, -0.5400514, -0.48130003, 1.4901165e-08, 0.6653319, -0.74654776, 0.7233985, 0.5154395, 0.45936567, 0, 1.7640374, 0)
+light_energy = 0.01
+light_specular = 0.5
+light_cull_mask = 4294967294

@@ -182,25 +182,31 @@ bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.707106
 bones/42/rotation = Quaternion(0.7071068, 2.8968927e-06, 2.8968927e-06, 0.7071068)
 
 [node name="CanineHead" parent="MyCanineHeadRig/Skeleton3D" index="0" unique_id=765772491]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_ducgx")
 
 [node name="CanineMouth" parent="MyCanineHeadRig/Skeleton3D" index="1" unique_id=1033195942]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_hincg")
 
 [node name="CheekFluff" parent="MyCanineHeadRig/Skeleton3D" index="2" unique_id=123841991]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_ducgx")
 
 [node name="EyeBrows" parent="MyCanineHeadRig/Skeleton3D" index="3" unique_id=1498749128]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_2ruk7")
 
 [node name="Eyelashes" parent="MyCanineHeadRig/Skeleton3D" index="4" unique_id=1619920631]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_nar23")
 
 [node name="Eyes" parent="MyCanineHeadRig/Skeleton3D" index="5" unique_id=1540687650]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_p4m0d")
 surface_material_override/1 = SubResource("ShaderMaterial_p4m0d")
 

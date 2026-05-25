@@ -195,23 +195,28 @@ bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.707106
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=523040527]
 unique_name_in_owner = true
+layers = 3
 lod_bias = 70.641
 surface_material_override/0 = SubResource("ShaderMaterial_rsisv")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=983181027]
 unique_name_in_owner = true
+layers = 3
 lod_bias = 14.128
 surface_material_override/0 = SubResource("ShaderMaterial_egu43")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=586931206]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_ecsoo")
 surface_material_override/1 = SubResource("ShaderMaterial_ecsoo")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=31270612]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_2k5ae")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=719419711]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_u2783")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 instance=ExtResource("16_o81br")]

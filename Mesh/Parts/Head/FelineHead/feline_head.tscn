@@ -176,17 +176,21 @@ bones/41/rotation = Quaternion(0.7071068, 2.6440123e-06, 2.6440123e-06, 0.707106
 
 [node name="CheekFluff" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1339026876]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_3ik7j")
 
 [node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="1" unique_id=875841837]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_k0xnh")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=801223576]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_msytv")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="3" unique_id=232388453]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_ua8bf")
 surface_material_override/1 = SubResource("ShaderMaterial_ua8bf")
 
@@ -213,13 +217,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
 pointName = "ear.R"
 
 [node name="FelineHead" parent="MyHeadRig/Skeleton3D" index="10" unique_id=457222780]
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_3ik7j")
 
 [node name="FelineMouth" parent="MyHeadRig/Skeleton3D" index="11" unique_id=2008066050]
 unique_name_in_owner = true
+layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_fa2fp")
 
 [node name="Whiskers" parent="MyHeadRig/Skeleton3D" index="12" unique_id=954779520]
+layers = 3
 visibility_range_end = 3.0
 surface_material_override/0 = ExtResource("19_sx6w4")
 

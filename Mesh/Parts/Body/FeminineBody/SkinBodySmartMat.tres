@@ -10,7 +10,7 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_k5qwb")
-shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
