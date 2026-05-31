@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cxjmc8ko8qtce"]
+
+[ext_resource type="Shader" uid="uid://dc03ghusipjlm" path="res://Mesh/Shaders/Doll_skeleton/DiscardAllShader.gdshader" id="1_hwyva"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_hwyva")

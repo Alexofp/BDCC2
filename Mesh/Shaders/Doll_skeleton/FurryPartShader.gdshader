@@ -2,6 +2,7 @@ shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
+#define MY_BACKLIGHT
 #define MY_COLORMASK
 #define MY_OUTLINE
 

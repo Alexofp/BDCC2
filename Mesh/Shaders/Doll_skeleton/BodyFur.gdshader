@@ -2,10 +2,11 @@ shader_type spatial;
 
 #define MY_NORMAL_MAP
 #define MY_PBR_ORM
+#define MY_BACKLIGHT
 #define MY_RIMLIGHT
 #define MY_ALPHAMASK
 #define MY_ALPHATEST
-#define MY_UV_BASED_DISCARD
+#define MY_GLOBALDETAILMAP
 #define MY_OUTLINE
 #define MY_MESSLAYER
 

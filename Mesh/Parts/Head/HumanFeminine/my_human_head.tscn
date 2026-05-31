@@ -22,8 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="18_fi2xo"]
 [ext_resource type="Texture2D" uid="uid://cq0hn1n6r44g1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_Normal.png" id="19_7k7kh"]
 [ext_resource type="Texture2D" uid="uid://jmf43x40vgxe" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_ORM.png" id="20_c0v40"]
+[ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="23_egu43"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rsisv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ecsoo"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -42,7 +43,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_egu43"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2k5ae"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -61,7 +62,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ecsoo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_2k5ae")
@@ -83,7 +84,7 @@ shader_parameter/glowR = 0.0499999988824
 shader_parameter/glowG = 0.3999999910592
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2k5ae"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_va7dm"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_yxhcl")
@@ -105,23 +106,24 @@ shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
 shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxhcl"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_q4ega")
 shader_parameter/texture_albedo = ExtResource("16_kl8f3")
 shader_parameter/texture_normal = ExtResource("19_7k7kh")
 shader_parameter/texture_orm = ExtResource("20_c0v40")
-shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.999999977648
 shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 0.499999988824
+shader_parameter/rim = 0.0
 shader_parameter/rim_tint = 0.5
 shader_parameter/subsurface_scattering_strength = 0.5
+shader_parameter/backlight = Color(0.4392157, 0.3529412, 0.3529412, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_detail_normal_global = ExtResource("17_vqulh")
@@ -197,27 +199,27 @@ bones/45/rotation = Quaternion(0.7071068, 1.7167819e-06, 1.7167819e-06, 0.707106
 unique_name_in_owner = true
 layers = 3
 lod_bias = 70.641
-surface_material_override/0 = SubResource("ShaderMaterial_rsisv")
+surface_material_override/0 = SubResource("ShaderMaterial_ecsoo")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=983181027]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 14.128
-surface_material_override/0 = SubResource("ShaderMaterial_egu43")
+surface_material_override/0 = SubResource("ShaderMaterial_2k5ae")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=586931206]
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_ecsoo")
-surface_material_override/1 = SubResource("ShaderMaterial_ecsoo")
+surface_material_override/0 = SubResource("ShaderMaterial_u2783")
+surface_material_override/1 = SubResource("ShaderMaterial_u2783")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=31270612]
 unique_name_in_owner = true
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_2k5ae")
+surface_material_override/0 = SubResource("ShaderMaterial_va7dm")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=719419711]
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_u2783")
+surface_material_override/0 = SubResource("ShaderMaterial_yxhcl")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 instance=ExtResource("16_o81br")]
 pointName = "hair"
@@ -249,3 +251,11 @@ autoplay = &"HeadTPose"
 unique_name_in_owner = true
 dollPart = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")
+
+[node name="HeadLayeredTexture" parent="." index="3" unique_id=233705830 instance=ExtResource("23_egu43")]
+unique_name_in_owner = true
+resolution = Vector2i(1024, 1024)
+clearColor = Color(1, 1, 1, 1)
+graphicsOptionAutoScale = 1
+
+[connection signal="onTextureUpdated" from="HeadLayeredTexture" to="." method="_on_head_layered_texture_on_texture_updated"]

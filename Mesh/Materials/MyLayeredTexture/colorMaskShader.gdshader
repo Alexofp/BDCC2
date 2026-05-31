@@ -4,7 +4,7 @@ shader_type canvas_item;
 render_mode blend_mix;
 //render_mode blend_premul_alpha;
 
-uniform sampler2D texture_color_mask : hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_color_mask : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
 uniform vec4 colorR : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform vec4 colorG : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform vec4 colorB : source_color = vec4(0.0, 0.0, 0.0, 1.0);
@@ -14,6 +14,7 @@ void fragment(){
 	float maskF = mask.r + mask.g + mask.b;
 	maskF = max(maskF, 1.0);
 	mask.rgb /= maskF;
+	//mask.rgb *= 0.1;
 
 	vec4 color_r = colorR;
 	vec4 color_g = colorG;

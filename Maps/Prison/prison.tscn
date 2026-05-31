@@ -3729,8 +3729,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 5.1868186, 0.75634766)
 max_distance = 50.0
 size = Vector3(72.52002, 12.402954, 21.512695)
-ambient_color = Color(0.29520002, 0.32328, 0.36, 1)
-ambient_color_energy = 0.2
+ambient_color = Color(0.39, 0.39, 0.39, 1)
 
 [node name="ReflectionProbe3" type="ReflectionProbe" parent="ReflectionProbeHandler" unique_id=2024868773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.552979, 6.6149116, 17.50774)
@@ -4743,12 +4742,12 @@ metadata/asset_placer_res_id = "uid://cy5dwxc1tmst1"
 
 [node name="LampCeiling" parent="." unique_id=1557387894 instance=ExtResource("43_2ir1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 12, 73)
-color3 = Color(1, 1, 1, 1)
+color3 = Color(1, 0.93333334, 0.83137256, 1)
 metadata/asset_placer_res_id = "uid://clfb0e0x1uxi7"
 
 [node name="LampCeiling2" parent="." unique_id=1186318424 instance=ExtResource("43_2ir1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 12, 73)
-color3 = Color(1, 1, 1, 1)
+color3 = Color(1, 0.932, 0.83, 1)
 metadata/asset_placer_res_id = "uid://clfb0e0x1uxi7"
 
 [node name="FloorTile8x8_31" parent="." unique_id=1421870048 instance=ExtResource("86_ct5cr")]
@@ -5110,10 +5109,12 @@ metadata/asset_placer_res_id = "uid://cx7b05y7wsekx"
 [node name="ConstructionLightBoth" parent="." unique_id=1644774559 instance=ExtResource("101_bdstd")]
 transform = Transform3D(0.6483637, 0, 0.76133007, 0, 1, 0, -0.76133007, 0, 0.6483637, -27.27551, 3, 65.27423)
 color3 = Color(1, 0.9666667, 0.8, 1)
+lightEnergy = 11.0
 metadata/asset_placer_res_id = "uid://c010jg28no6wu"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=314908944]
 transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, -10.774406, 10.120663, 73.2109)
+visible = false
 light_color = Color(1, 0.86800003, 0.66999996, 1)
 light_energy = 2.0
 light_volumetric_fog_energy = 0.0
@@ -5133,9 +5134,11 @@ omni_attenuation = 0.0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=890727714]
 transform = Transform3D(-0.70710677, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.70710677, 16.66732, 14.39164, 3.3078766)
+visible = false
 light_color = Color(1, 0.9813333, 0.92, 1)
-light_energy = 0.2
+light_energy = 0.0
 light_volumetric_fog_energy = 0.0
+light_specular = 0.2
 distance_fade_enabled = true
 omni_range = 32.423847
 omni_attenuation = 0.0
@@ -5339,12 +5342,14 @@ metadata/asset_placer_res_id = "uid://cso8effukbxsr"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=536498869]
 transform = Transform3D(0.6904308, 0.5400514, 0.48130006, 1.4901161e-08, -0.66533196, 0.7465477, 0.7233984, -0.5154395, -0.45936573, 0, 1.7640374, 0)
+visible = false
 light_energy = 0.02
 light_specular = 0.5
 light_cull_mask = 4294967294
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1544095374]
 transform = Transform3D(0.69043094, -0.5400514, -0.48130003, 1.4901165e-08, 0.6653319, -0.74654776, 0.7233985, 0.5154395, 0.45936567, 0, 1.7640374, 0)
+visible = false
 light_energy = 0.01
 light_specular = 0.5
 light_cull_mask = 4294967294

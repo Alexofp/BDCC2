@@ -1,6 +1,5 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://5ypm6rky47xe"]
 
-[ext_resource type="Texture2D" uid="uid://cvaiqtu6j2dk8" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png" id="2_5pkl0"]
 [ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Shaders/Doll_skeleton/HumanMessShader.gdshader" id="2_wn7nk"]
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="3_wn7nk"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="4_voov3"]
@@ -11,17 +10,18 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_wn7nk")
-shader_parameter/texture_albedo = ExtResource("2_5pkl0")
 shader_parameter/texture_normal = ExtResource("5_f0bxi")
 shader_parameter/texture_orm = ExtResource("6_saxrd")
-shader_parameter/albedo = Color(0.83, 0.779647, 0.7719, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/subsurface_scattering_strength = 0.23
+shader_parameter/rim = 0.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.5
 shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)

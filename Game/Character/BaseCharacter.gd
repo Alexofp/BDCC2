@@ -66,6 +66,9 @@ func _init():
 		onChange.emit(BaseCharChange.createFetishesUpdate())
 		)
 	
+	skinTypes.create(SkinType.HumanSkin)
+	skinTypes.setColor(SkinType.HumanSkin, Color("fab6a5"))
+	
 	var body:BodypartBodyBase = load("res://Game/Character/Bodyparts/Body/FeminineBody.gd").new()
 	addBodypart(BodypartSlot.Body, body)
 	

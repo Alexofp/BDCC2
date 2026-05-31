@@ -69,8 +69,8 @@ transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50
 
 [node name="ConstructionLightBoth" parent="PCSceneLoader" unique_id=1057556328 instance=ExtResource("7_vv8gu")]
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 2.7321763, 2.2351742e-08, -2.6983352)
-color3 = Color(1, 0.97333336, 0.84000003, 1)
-lightEnergy = 3.0
+color3 = Color(1, 1, 1, 1)
+lightEnergy = 2.0
 
 [node name="FloorPanelA8x4" parent="PCSceneLoader" unique_id=905370878 instance=ExtResource("9_1pncw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 2)

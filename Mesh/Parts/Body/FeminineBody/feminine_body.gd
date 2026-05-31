@@ -13,6 +13,7 @@ var handPadsMat:ShaderMaterial
 var nippleMat:ShaderMaterial
 var clawMat:ShaderMaterial
 var toeClawMat:ShaderMaterial
+var toeNailsMat:ShaderMaterial
 var hindPawPadsMat:ShaderMaterial
 var genitalsMat:ShaderMaterial
 var spadeMat:ShaderMaterial
@@ -33,6 +34,10 @@ var pubicHairMat:ShaderMaterial
 @onready var flat_crotch: MeshInstance3D = %FlatCrotch
 @onready var clit_point: DollAttachPoint = %ClitPoint
 @onready var clit_marker: MarkerBlendshaped = %ClitMarker
+@onready var body_nails: MeshInstance3D = %BodyNails
+@onready var digi_legs_claws: MeshInstance3D = %DigiLegsClaws
+@onready var digi_legs_pads: MeshInstance3D = %DigiLegsPads
+@onready var planti_legs_nails: MeshInstance3D = %PlantiLegsNails
 
 @onready var skeleton_3d: Skeleton3D = %Skeleton3D
 
@@ -43,13 +48,14 @@ const SKIN_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/SkinBody
 
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
-	clawMat = body.get_surface_override_material(1)
+	clawMat = body_nails.get_surface_override_material(0)
 	handPadsMat = hand_pads.get_surface_override_material(0)
 	nippleMat = nipples.get_surface_override_material(0)
-	toeClawMat = digi_legs.get_surface_override_material(1)
-	hindPawPadsMat = digi_legs.get_surface_override_material(2)
+	toeClawMat = digi_legs_claws.get_surface_override_material(0)
+	toeNailsMat = planti_legs_nails.get_surface_override_material(0)
+	hindPawPadsMat = digi_legs_pads.get_surface_override_material(0)
 	genitalsMat = female_crotch.get_surface_override_material(1)
-	spadeMat = female_crotch_spade.get_surface_override_material(2)
+	spadeMat = female_crotch_spade.get_surface_override_material(3)
 	pubicHairMat = pubic_hair.get_surface_override_material(0)
 
 func setBodyMat(_mat:ShaderMaterial):
@@ -87,6 +93,8 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "toeClawColor"):
 		if(toeClawMat):
 			toeClawMat.set_shader_parameter("albedo", _value)
+		if(toeNailsMat):
+			toeNailsMat.set_shader_parameter("albedo", _value)
 	if(_optionID == "hindPawPadColor"):
 		if(hindPawPadsMat):
 			hindPawPadsMat.set_shader_parameter("albedo", _value)
@@ -95,8 +103,13 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "pubicHair"):
 		applyColormaskPatternToMyMat(pubicHairMat, _value)
 	if(_optionID == "legType"):
-		digi_legs.visible = (_value == "digi")
-		planti_legs.visible = (_value == "planti")
+		var _isDigi:bool = (_value == "digi")
+		var _isPlanti:bool = (_value == "planti")
+		digi_legs.visible = _isDigi
+		digi_legs_claws.visible = _isDigi
+		digi_legs_pads.visible = _isDigi
+		planti_legs.visible = _isPlanti
+		planti_legs_nails.visible = _isPlanti
 	if(_optionID == "bodyLayers"):
 		triggerUpdateBodyTexture()
 	if(_optionID == "anusColor"):
@@ -149,9 +162,14 @@ func applyOption(_optionID:String, _value:Variant):
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	updateSkinEverything()
 
-const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png")
-const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png")
+const HUMAN_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_BaseColor.png"
+const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_Normal.png")
+const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_ORM.png")
 
+#const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png")
+#const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png")
+
+const FUR_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_BaseColor.png"
 const FUR_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png")
 const FUR_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png")
 
@@ -213,9 +231,24 @@ func updateBodyTexture():
 	body_layered_texture.clearLayers()
 	
 	if(theSkinType == SkinType.Fur):
-		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
+		body_layered_texture.addSimpleLayer(FUR_SKIN_COLOR, theSkinData.color)
 	if(theSkinType == SkinType.HumanSkin):
-		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png", theSkinData.color)
+		#body_layered_texture.addSimpleLayer(HUMAN_SKIN_COLOR, theSkinData.color)
+		#body_layered_texture.addSimpleLayer(HUMAN_SKIN_COLOR, Color.WHITE)
+		body_layered_texture.addSimpleLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/skinwhite.png", theSkinData.color)
+		var colorDark:Color = theSkinData.color
+		colorDark.v *= 0.5678
+		colorDark.s = minf(1.0, colorDark.s*4.0)
+		colorDark.h += 0.01
+		var colorLight:Color = theSkinData.color
+		colorLight.v = minf(1.0, colorLight.v*1.3)
+		colorLight.s *= 0.5985
+		colorLight.h += 0.03
+		var colorHighlight:Color = theSkinData.color
+		colorHighlight.v = minf(1.0, colorHighlight.v*3.0)
+		colorHighlight.s *= 0.1
+		colorHighlight.h += 0.0
+		body_layered_texture.addColorMaskLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BaseColorAlphaTest.png", colorHighlight, colorLight, colorDark)
 	
 	addLayersToTexture(body_layered_texture, getOptionValue("bodyLayers", []))
 
@@ -224,7 +257,8 @@ func updateBodyTexture():
 	body_layered_texture.addSimpleLayerAt(preload("res://Mesh/Parts/Body/FeminineBody/Textures/Genitals/AnusR.png"), anusColor, Vector2(1662.0/2048.0, 747.0/2048.0), Vector2(0.03125, 0.03125))
 
 	bodyMat.set_shader_parameter("texture_albedo", body_layered_texture.getTexture())
-	bodyMat.set_shader_parameter("freshnel_mod", 0.15)
+	#bodyMat.set_shader_parameter("freshnel_mod", 0.15)
+	#bodyMat.set_shader_parameter("emission_energy", 0.01)
 	
 func gatherPartFlags(_theFlags:Dictionary):
 	if(getOptionValue("vagina", false)):
