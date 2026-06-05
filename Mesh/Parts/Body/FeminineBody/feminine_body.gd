@@ -166,12 +166,9 @@ const HUMAN_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBo
 const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_Normal.png")
 const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_ORM.png")
 
-#const HUMAN_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_Normal.png")
-#const HUMAN_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_ORM.png")
-
-const FUR_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_BaseColor.png"
-const FUR_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png")
-const FUR_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_ORM.png")
+const FUR_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_BaseColor.png"
+const FUR_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_Normal.png")
+const FUR_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_ORM.png")
 
 func updateSkinEverything():
 	if(bodyMat == null):

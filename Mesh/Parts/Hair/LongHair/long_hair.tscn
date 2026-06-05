@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_oo4j4"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_5r3xv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdjev"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dcli"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_0dcli")
@@ -57,7 +57,7 @@ attachPoint = "hair"
 
 [node name="LongHair" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1030299831) index="0" unique_id=558670768]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_gdjev")
+surface_material_override/0 = SubResource("ShaderMaterial_0dcli")
 
 [node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1030299831) index="1" unique_id=746202202 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -68,7 +68,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.9978404, 0.06405098, 0.014559765, 0.05421517, -0.92825514, 0.36797118, 0.03708409, -0.36638716, -0.9297231, 0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.9980923, 0.059556708, 0.016269602, 0.050411046, -0.9382915, 0.3421517, 0.035643052, -0.34067884, -0.93950385, 0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -92,7 +92,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.9978404, -0.064051, -0.014559713, -0.054215208, -0.92825514, 0.3679711, -0.037084047, -0.3663871, -0.9297231, -0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.99809235, -0.05955672, -0.016269539, -0.05041108, -0.9382915, 0.34215173, -0.035643, -0.34067884, -0.93950385, -0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -113,7 +113,7 @@ script = ExtResource("3_7kvhl")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=461526332]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120000005, 0.422)
 shape = SubResource("SphereShape3D_7kvhl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="HairCollision/CollisionShape3D" index="0" unique_id=1382836152]

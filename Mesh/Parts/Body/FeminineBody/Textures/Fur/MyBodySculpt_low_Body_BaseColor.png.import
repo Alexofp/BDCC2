@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4vc6jsmfdbg5"
-path.s3tc="res://.godot/imported/MyBodySubstancePainter_Body_BaseColor.png-e913c9374dbe826ab846fea52a3ec0d9.s3tc.ctex"
-path.etc2="res://.godot/imported/MyBodySubstancePainter_Body_BaseColor.png-e913c9374dbe826ab846fea52a3ec0d9.etc2.ctex"
+uid="uid://dyomwj8yqm58b"
+path.s3tc="res://.godot/imported/MyBodySculpt_low_Body_BaseColor.png-8153972bb1417655f61867d22a1e0c8f.s3tc.ctex"
+path.etc2="res://.godot/imported/MyBodySculpt_low_Body_BaseColor.png-8153972bb1417655f61867d22a1e0c8f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySubstancePainter_Body_BaseColor.png"
-dest_files=["res://.godot/imported/MyBodySubstancePainter_Body_BaseColor.png-e913c9374dbe826ab846fea52a3ec0d9.s3tc.ctex", "res://.godot/imported/MyBodySubstancePainter_Body_BaseColor.png-e913c9374dbe826ab846fea52a3ec0d9.etc2.ctex"]
+source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_BaseColor.png"
+dest_files=["res://.godot/imported/MyBodySculpt_low_Body_BaseColor.png-8153972bb1417655f61867d22a1e0c8f.s3tc.ctex", "res://.godot/imported/MyBodySculpt_low_Body_BaseColor.png-8153972bb1417655f61867d22a1e0c8f.etc2.ctex"]
 
 [params]
 

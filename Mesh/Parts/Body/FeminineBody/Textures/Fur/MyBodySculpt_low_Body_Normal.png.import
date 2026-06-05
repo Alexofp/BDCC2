@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct4i6cjp5ytuy"
-path.s3tc="res://.godot/imported/MyBodySubstancePainter_Body_Normal.png-eba1de711024f013548f9b32802460ca.s3tc.ctex"
-path.etc2="res://.godot/imported/MyBodySubstancePainter_Body_Normal.png-eba1de711024f013548f9b32802460ca.etc2.ctex"
+uid="uid://cvga5lhtqysv8"
+path.s3tc="res://.godot/imported/MyBodySculpt_low_Body_Normal.png-752a6ef6d69f010578ed0f84c9528234.s3tc.ctex"
+path.etc2="res://.godot/imported/MyBodySculpt_low_Body_Normal.png-752a6ef6d69f010578ed0f84c9528234.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"
-dest_files=["res://.godot/imported/MyBodySubstancePainter_Body_Normal.png-eba1de711024f013548f9b32802460ca.s3tc.ctex", "res://.godot/imported/MyBodySubstancePainter_Body_Normal.png-eba1de711024f013548f9b32802460ca.etc2.ctex"]
+source_file="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_Normal.png"
+dest_files=["res://.godot/imported/MyBodySculpt_low_Body_Normal.png-752a6ef6d69f010578ed0f84c9528234.s3tc.ctex", "res://.godot/imported/MyBodySculpt_low_Body_Normal.png-752a6ef6d69f010578ed0f84c9528234.etc2.ctex"]
 
 [params]
 
@@ -28,7 +28,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySubstancePainter_Body_Normal.png"
+roughness/src_normal="res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_Normal.png"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

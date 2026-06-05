@@ -3,7 +3,7 @@ extends BodypartHeadBase
 var headLayers:Array = [
 	{
 		id = "HumanFeminineHead_Lips",
-		r = Color("ea8472"),
+		r = Color("ff26009b"),
 		g = Color(0.1484, 0.0058, 0.0058, 1.0),
 		b = Color(1.0, 1.0, 1.0, 1.0),
 	},

@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_rl78q"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_524n0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kj27i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrqx8"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_xrqx8")
@@ -65,7 +65,7 @@ attachPoint = "hair"
 
 [node name="LongCuteHair" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1327831641) index="0" unique_id=587459472]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_kj27i")
+surface_material_override/0 = SubResource("ShaderMaterial_xrqx8")
 
 [node name="HairWiggle" type="SkeletonModifier3D" parent="LongCuteHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1327831641) index="1" unique_id=1777350708 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -76,7 +76,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99671173, 0.08084629, -0.005461204, -0.078301646, -0.9782988, -0.19183491, -0.020851828, -0.19077645, 0.981412, 0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.99678457, 0.07992977, -0.0056398567, -0.077413976, -0.97879314, -0.1896602, -0.02067975, -0.18861376, 0.9818336, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -100,7 +100,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99671173, -0.08084629, 0.005461204, 0.078301646, -0.9782988, -0.19183491, 0.020851828, -0.19077645, 0.981412, -0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.99678457, -0.07992977, 0.0056398567, 0.077413976, -0.97879314, -0.1896602, 0.02067975, -0.18861376, 0.9818336, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -221,5 +221,5 @@ script = ExtResource("3_g8hfx")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=1694313043]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11268902, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120000005, 0.422)
 shape = SubResource("SphereShape3D_wml73")

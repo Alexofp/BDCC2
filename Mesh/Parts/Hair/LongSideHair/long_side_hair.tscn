@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_ksgrq"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_mgu32"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ws4mf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_210me"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_210me")
@@ -52,7 +52,7 @@ attachPoint = "hair"
 
 [node name="LongSideHair" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="0" unique_id=401168043]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_ws4mf")
+surface_material_override/0 = SubResource("ShaderMaterial_210me")
 
 [node name="HairWiggle" type="SkeletonModifier3D" parent="LongSideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(192660294) index="1" unique_id=1739821582 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -184,5 +184,5 @@ script = ExtResource("2_233wg")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=652593008]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.058, 0.367)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120000005, 0.422)
 shape = SubResource("SphereShape3D_210me")

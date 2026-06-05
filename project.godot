@@ -372,8 +372,8 @@ environment/screen_space_reflection/half_size=false
 global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
 limits/cluster_builder/max_clustered_elements=32.0
-textures/streaming/enabled=true
 occlusion_culling/use_occlusion_culling=true
+textures/streaming/enabled=true
 
 [version_bumper]
 

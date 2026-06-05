@@ -155,5 +155,5 @@ script = ExtResource("2_lsyer")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=403864596]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120000005, 0.422)
 shape = SubResource("SphereShape3D_hu058")

@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="7_8x1us"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="8_myguj"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_getdw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn1xs"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_fn1xs")
@@ -31,7 +31,7 @@ shader_parameter/freshnel_mod = 0.1
 shader_parameter/freshnel_color = Color(0, 0, 0, 0)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xsyb3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_du25m"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_du25m")
@@ -86,11 +86,11 @@ attachPoint = "hair"
 
 [node name="Bow" parent="LongHairBowRig/Skeleton3D" parent_id_path=PackedInt32Array(2114607706) index="0" unique_id=470538664]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_getdw")
+surface_material_override/0 = SubResource("ShaderMaterial_fn1xs")
 
 [node name="LongHairBow" parent="LongHairBowRig/Skeleton3D" parent_id_path=PackedInt32Array(2114607706) index="1" unique_id=80556938]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_xsyb3")
+surface_material_override/0 = SubResource("ShaderMaterial_du25m")
 
 [node name="HairWiggle" type="SkeletonModifier3D" parent="LongHairBowRig/Skeleton3D" parent_id_path=PackedInt32Array(2114607706) index="2" unique_id=96900014 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -101,7 +101,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99696887, 0.077565566, -0.0060909064, -0.07512419, -0.980042, -0.18405035, -0.02024531, -0.18303487, 0.98289794, 0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9968147, 0.079546854, -0.005713874, -0.077043116, -0.97899806, -0.18875152, -0.02060846, -0.18771008, 0.9820083, 0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -125,7 +125,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(-0.99696887, -0.077565566, 0.0060909064, 0.07512419, -0.980042, -0.18405035, 0.02024531, -0.18303487, 0.98289794, -0.0601684, 0.03010036, -0.08276601)
+transform = Transform3D(-0.9968147, -0.079546854, 0.005713874, 0.077043116, -0.97899806, -0.18875152, 0.02060846, -0.18771008, 0.9820083, -0.0601684, 0.03010036, -0.08276601)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -246,5 +246,5 @@ script = ExtResource("3_d6v78")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=500374752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11268902, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120000005, 0.422)
 shape = SubResource("SphereShape3D_sgedy")

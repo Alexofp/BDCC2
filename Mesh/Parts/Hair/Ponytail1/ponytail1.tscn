@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_w1t66"]
 [ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="8_u8l3g"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6nbfv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3as3"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_d3as3")
@@ -34,7 +34,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q0oqd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uh53a"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("8_u8l3g")
@@ -71,8 +71,8 @@ attachPoint = "hair"
 
 [node name="Ponytail" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(842907146) index="0" unique_id=1364652607]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_6nbfv")
-surface_material_override/1 = SubResource("ShaderMaterial_q0oqd")
+surface_material_override/0 = SubResource("ShaderMaterial_d3as3")
+surface_material_override/1 = SubResource("ShaderMaterial_uh53a")
 
 [node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(842907146) index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -129,5 +129,5 @@ script = ExtResource("6_1k6or")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=1949496003]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112689026, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0.377)
 shape = SubResource("SphereShape3D_elktu")

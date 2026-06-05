@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_x1c8c"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_i1xon"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwb0i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wltvj"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_wltvj")
@@ -57,6 +57,8 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wltvj"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_xadyu"]
+
 [node name="LongChaosHair" unique_id=1649766796 instance=ExtResource("1_buaj8")]
 script = ExtResource("2_8ulsn")
 
@@ -66,7 +68,7 @@ attachPoint = "hair"
 
 [node name="LongChaosHair" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="0" unique_id=1725373371]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_wwb0i")
+surface_material_override/0 = SubResource("ShaderMaterial_wltvj")
 
 [node name="HairWiggle" type="SkeletonModifier3D" parent="LongChaosHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2055271903) index="1" unique_id=1359180361 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
@@ -88,6 +90,7 @@ influence = 1.0
 script = ExtResource("5_7i8ra")
 collider_enabled = true
 collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bounce = 0.2
 bone_name = "Back.L"
 properties = SubResource("Resource_lpdos")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -112,6 +115,7 @@ influence = 1.0
 script = ExtResource("5_7i8ra")
 collider_enabled = true
 collider_nodes = [NodePath("../../../HairCollision/CollisionShape3D")]
+collider_bounce = 0.2
 bone_name = "Back.R"
 properties = SubResource("Resource_lpdos")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
@@ -134,7 +138,7 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_7i8ra")
-collider_bounce = 0.0
+collider_bounce = 0.2
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Front.L"
@@ -159,7 +163,7 @@ visibility_parent = NodePath("")
 active = true
 influence = 1.0
 script = ExtResource("5_7i8ra")
-collider_bounce = 0.0
+collider_bounce = 0.2
 collider_bone_offset = 0.5
 collider_bone_radius = 0.0
 bone_name = "Front.R"
@@ -172,5 +176,9 @@ script = ExtResource("3_lym6j")
 attachPoint = "upperchest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HairCollision" index="0" unique_id=47556104]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11268902, 0.35181445)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0.422)
 shape = SubResource("SphereShape3D_wltvj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HairCollision/CollisionShape3D" index="0" unique_id=365068205]
+visible = false
+mesh = SubResource("SphereMesh_xadyu")
