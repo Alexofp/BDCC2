@@ -47,4 +47,4 @@ func applyPartFlags(_theFlags:Dictionary):
 func getBodyAlphaMask() -> Texture2D:
 	if(getOptionValue("pulledUp", false)):
 		return null
-	return preload("res://Mesh/Clothing/InmateTop/Textures/Alpha_Top.png")
+	return load("res://Mesh/Clothing/InmateTop/Textures/Alpha_Top.png")

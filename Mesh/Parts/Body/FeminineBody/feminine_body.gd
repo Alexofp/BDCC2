@@ -245,7 +245,7 @@ func updateBodyTexture():
 		colorHighlight.v = minf(1.0, colorHighlight.v*3.0)
 		colorHighlight.s *= 0.1
 		colorHighlight.h += 0.0
-		body_layered_texture.addColorMaskLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/BaseColorAlphaTest.png", colorHighlight, colorLight, colorDark)
+		body_layered_texture.addColorMaskLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_BaseColor.png", colorHighlight, colorLight, colorDark)
 	
 	addLayersToTexture(body_layered_texture, getOptionValue("bodyLayers", []))
 

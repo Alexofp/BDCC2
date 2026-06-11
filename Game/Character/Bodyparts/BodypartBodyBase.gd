@@ -6,6 +6,7 @@ var bodyLayers:Array = []
 var breasts:float = 1.0
 var nippleShape:float = 0.0
 var breastsCleavage:float = 0.0
+var breastsSag:float = 0.0
 var nipples:Dictionary = {
 	id = "Nipple_Default",
 	r = Color("f58c8c"),
@@ -53,6 +54,14 @@ func getOptions() -> Dictionary:
 		},
 		"breastsCleavage": {
 			name = "Breast cleavage",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+			editorZone = CharCreatorZone.Breasts,
+		},
+		"breastsSag": {
+			name = "Breast sag",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,

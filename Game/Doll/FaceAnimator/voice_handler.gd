@@ -206,6 +206,7 @@ func pickOneOfSexNoises(noises:Array) -> SexSoundEntry:
 
 func audioStreamFinished(_stream):
 	runningSounds.erase(_stream)
+	_stream.finished.disconnect(audioStreamFinished.bind(_stream))
 
 func stopAllSounds():
 	for stream in runningSounds:

@@ -36,15 +36,16 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="InmateTop" unique_id=382904118 instance=ExtResource("1_0xw5g")]
 script = ExtResource("2_76335")
 
-[node name="rig" parent="." index="0" unique_id=1457547948 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=54744358 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_vqwp7")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/InmateTop"), NodePath("Skeleton3D/InmateTop_PulledUp")]
 
-[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1526683510) index="0" unique_id=818993723]
+[node name="InmateTop" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(2046782432) index="0" unique_id=1736615561]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_76335")
 
-[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1526683510) index="1" unique_id=557509235]
+[node name="InmateTop_PulledUp" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(2046782432) index="1" unique_id=434190205]
 unique_name_in_owner = true
+visible = false
 surface_material_override/0 = SubResource("ShaderMaterial_76335")

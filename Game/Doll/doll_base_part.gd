@@ -19,7 +19,10 @@ func getOptionValue(_optionID:String, _default:Variant) -> Variant:
 	var thePart := getPart()
 	if(thePart == null):
 		return _default
-	return thePart.getOptionValue(_optionID)
+	var theVal = thePart.getOptionValue(_optionID)
+	if(theVal == null):
+		return _default
+	return theVal
 
 func getBodypartOptionValue(_slot:int, _optionID:String, _default:Variant) -> Variant:
 	var thePart := getPart()
@@ -179,16 +182,38 @@ func triggerAlphaMaskUpdate():
 	if(theDoll):
 		theDoll.triggerAlphaMaskUpdate()
 
+func updateBreastsStuff():
+	var theSagVal:float = clampf(getBodypartOptionValue(BodypartSlot.Body, "breastsSag", 0.0), 0.0, 1.0)
+	var _value:float = getBodypartOptionValue(BodypartSlot.Body, "breasts", 0.0)
+	
+	var theHugeVal:float = maxf(0.0, (_value-1.0)/2.0)
+	setBlendshape("BreastsHuge", theHugeVal*(1.0-theSagVal))
+	setBlendshape("BreastsSag", theHugeVal*theSagVal)
+	
+	if(_value >= 0.1):
+		setBlendshape("BreastsFlat", clampf( remap(_value, 1.0, 0.1, 0.0, 1.0) , 0.0, 1.0))
+		setBlendshape("BreastsPecs", clampf( remap(_value, 0.1, 0.0, 0.0, 1.0) , 0.0, 1.0))
+	else:
+		setBlendshape("BreastsFlat", clampf( remap(_value, 0.1, 0.0, 1.0, 0.0) , 0.0, 1.0))
+		setBlendshape("BreastsPecs", clampf( remap(_value, 0.1, 0.0, 0.0, 1.0) , 0.0, 1.0))
+
+	var _nippleShape:float = getBodypartOptionValue(BodypartSlot.Body, "nippleShape", 0.0)
+	setBlendshape("NipplesNormal", maxf(1.0-_nippleShape, 0.0)*maxf(1.0, theHugeVal*2.0))
+	setBlendshape("NipplesAnime", maxf(_nippleShape, 0.0)*maxf(1.0, theHugeVal*2.0))
+	#print(maxf(_nippleShape, 0.0)*maxf(1.0, theHugeVal*2.0))
+	#print(maxf(1.0-_nippleShape, 0.0)*maxf(1.0, theHugeVal*2.0))
 
 func updateBreasts(_optionID:String, _value:Variant):
+	if(_optionID == "breastsSag"):
+		updateBreastsStuff()
 	if(_optionID == "breasts"):
-		setBlendshape("BreastsHuge", maxf(0.0, (_value-1.0)/3.0))
-		setBlendshape("BreastsFlat", clamp(1.0-_value, 0.0, 1.0))
+		updateBreastsStuff()
 	elif(_optionID == "breastsCleavage"):
 		setBlendshape("BreastsCleavage", _value if !getCachedPartFlag("ForceBreastCleavage", false) else 1.0)
 	elif(_optionID == "nippleShape"):
-		setBlendshape("NipplesNormal", maxf(1.0-_value, 0.0))
-		setBlendshape("NipplesAnime", maxf(_value, 0.0))
+		updateBreastsStuff()
+		#setBlendshape("NipplesNormal", maxf(1.0-_value, 0.0))
+		#setBlendshape("NipplesAnime", maxf(_value, 0.0))
 
 func updateBreastsCleavage(_value:Variant):
 	var newVal:float = _value
