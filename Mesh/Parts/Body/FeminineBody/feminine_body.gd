@@ -46,6 +46,8 @@ const FUR_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/FurBodySm
 const SKIN_BODY_SMART_EXTRA_LAYER_MAT = preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartExtraLayerMat.tres")
 const SKIN_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres")
 
+var bodyAlphaMask:Texture2D
+
 func grabMaterials():
 	bodyMat = body.get_surface_override_material(0)
 	clawMat = body_nails.get_surface_override_material(0)
@@ -70,6 +72,8 @@ func setBodyMat(_mat:ShaderMaterial):
 	neck_connector_furry.set_surface_override_material(0, _mat)
 	planti_legs.set_surface_override_material(0, _mat)
 	flat_crotch.set_surface_override_material(0, _mat)
+	if(bodyMat):
+		bodyMat.set_shader_parameter("texture_alpha", bodyAlphaMask)
 
 func updateThickness():
 	updateThicknessBody()
@@ -293,6 +297,7 @@ func _on_cum_layer_on_texture_updated(newTexture: Variant) -> void:
 func updateBodyAlphaMask(_finalAlpha:Texture2D):
 	if(bodyMat):
 		bodyMat.set_shader_parameter("texture_alpha", _finalAlpha)
+	bodyAlphaMask = _finalAlpha
 
 func prepareForPreview(_previewMaker):
 	#bodyMat.copyFrom(previewDollMat)

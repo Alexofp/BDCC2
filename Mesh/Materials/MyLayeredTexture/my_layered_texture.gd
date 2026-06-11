@@ -218,8 +218,10 @@ func _on_cache_timer_timeout() -> void:
 		onTextureUpdated.emit(cachedTexture)
 	
 	if(!inProcess):
-		sub_viewport.size = Vector2i(32, 32)
-		sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+		await get_tree().process_frame
+		if(!inProcess):
+			sub_viewport.size = Vector2i(32, 32)
+			sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
 func doCachedTextureThreaded(_image:Image):
 	#var newCachedTexture = PortableCompressedTexture2D.new()
