@@ -82,7 +82,7 @@ func applyCharOption(_optionID:String, _value:Variant):
 	updateThicknessBody(_optionID)
 
 func applyOption(_optionID:String, _value:Variant):
-	updateBreasts(_optionID, _value)
+	updateBreasts(_optionID, _value, self)
 	
 	if(_optionID == "claws"):
 		setBlendshape("Claws", _value)
@@ -174,23 +174,23 @@ const FUR_SKIN_COLOR := "res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodyS
 const FUR_SKIN_NORMAL = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_Normal.png")
 const FUR_SKIN_ORM = preload("res://Mesh/Parts/Body/FeminineBody/Textures/Fur/MyBodySculpt_low_Body_ORM.png")
 
+func applyNormalORMTextures():
+	var _skinType := getSkinType()
+	if(_skinType == SkinType.HumanSkin):
+		bodyMat.set_shader_parameter("texture_normal", HUMAN_SKIN_NORMAL)
+		bodyMat.set_shader_parameter("texture_orm", HUMAN_SKIN_ORM)
+	elif(_skinType == SkinType.Fur):
+		bodyMat.set_shader_parameter("texture_normal", FUR_SKIN_NORMAL)
+		bodyMat.set_shader_parameter("texture_orm", FUR_SKIN_ORM)
+
 func updateSkinEverything():
 	if(bodyMat == null):
 		return
-	var _skinType := getSkinType()
 		
 	#const ignoreUniforms = ["albedo", "texture_mess_mask", "texture_alpha"]
 	
 	updateSelectedBodyMat()
-	
-	if(_skinType == SkinType.HumanSkin):
-		#bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/SkinBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", HUMAN_SKIN_NORMAL)
-		bodyMat.set_shader_parameter("texture_orm", HUMAN_SKIN_ORM)
-	elif(_skinType == SkinType.Fur):
-		#bodyMat.copyFrom(preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres"), ignoreUniforms)
-		bodyMat.set_shader_parameter("texture_normal", FUR_SKIN_NORMAL)
-		bodyMat.set_shader_parameter("texture_orm", FUR_SKIN_ORM)
+	applyNormalORMTextures()
 	
 	#bodyMat.set_shader_parameter("albedo", _skinTypeData.color)
 	bodyMat.set_shader_parameter("albedo", Color.WHITE)
@@ -223,7 +223,7 @@ func triggerUpdateBodyTexture():
 	isUpdatingBodyTexture = false
 	updateBodyTexture()
 
-func updateBodyTexture():
+func addBodyTextureLayers():
 	var theSkinData:SkinTypeData = getSkinData()
 	if(theSkinData == null):
 		return
@@ -250,7 +250,12 @@ func updateBodyTexture():
 		colorHighlight.s *= 0.1
 		colorHighlight.h += 0.0
 		body_layered_texture.addColorMaskLayer("res://Mesh/Parts/Body/FeminineBody/Textures/Skin/MyBodySculpt_low_Body_BaseColor.png", colorHighlight, colorLight, colorDark)
-	
+
+func updateBodyTexture():
+	var theSkinData:SkinTypeData = getSkinData()
+	if(theSkinData == null):
+		return
+	addBodyTextureLayers()
 	addLayersToTexture(body_layered_texture, getOptionValue("bodyLayers", []))
 
 	var anusColor:Color = getOptionValue("anusColor", Color.RED)

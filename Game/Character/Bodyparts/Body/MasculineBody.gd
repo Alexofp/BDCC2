@@ -4,6 +4,7 @@ func _init():
 	super._init()
 	id = "MasculineBody"
 	skinType = SkinType.Auto
+	breasts = 0.0
 
 func getName() -> String:
 	return "Masculine body"

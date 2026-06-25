@@ -55,8 +55,8 @@ func getChestBoneAttachment() -> BoneAttachment3D:
 func _ready() -> void:
 	#for particleGPU in squirtParticles:
 		#particleGPU.process_material = particleGPU.process_material.duplicate(true)
-	arm_move_l.translation = Vector3(0.0, 0.0294, 0.0)
-	arm_move_r.translation = Vector3(0.0, 0.0294, 0.0)
+	arm_move_l.translation = Vector3(0.0, 0.03, 0.0)
+	arm_move_r.translation = Vector3(0.0, 0.03, 0.0)
 	arm_move_l.influence = 0.0
 	arm_move_r.influence = 0.0
 

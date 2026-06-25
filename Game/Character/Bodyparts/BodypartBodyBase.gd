@@ -241,6 +241,15 @@ func getDefaultEditorZone() -> int:
 func supportsPropertyCopyOnBodypartSwitch() -> bool:
 	return true
 
+func getListOfPropertiesToCopy() -> Array[String]:
+	var theList:Array[String] = []
+	for optionID in getOptionsFinal():
+		theList.append(optionID)
+	theList.erase("breasts")
+	theList.erase("breastsCleavage")
+	theList.erase("breastsSag")
+	return theList
+
 func getLeashTargets() -> Array[String]:
 	var possible:Array[String] = ["collar"]
 	if(!clitPiercing.is_empty() && !clitPiercing[0].is_empty()):
