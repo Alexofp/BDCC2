@@ -353,6 +353,7 @@ common/physics_interpolation=true
 [rendering]
 
 occlusion_culling/bvh_build_quality=0
+rendering_device/pipeline_cache/save_chunk_size_mb=16.000001
 rendering_device/fallback_to_opengl3=false
 textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1

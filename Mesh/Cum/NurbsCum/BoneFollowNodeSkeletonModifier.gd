@@ -21,7 +21,7 @@ func _process_modification() -> void:
 		if(!theBody.is_inside_tree()):
 			return
 		
-		newTFs.append(skeleton.global_transform.inverse()*theBody.global_transform)
+		newTFs.append(skeleton.global_transform.inverse()*theBody.get_global_transform_interpolated())
 	
 	for _i in range(boneCount):
 		#var bone_idx: int = _i
