@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_i2p8s"]
 [ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_lnw0n"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_necpj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d2sir"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_6hoc5")
@@ -35,5 +35,5 @@ script = ExtResource("2_qth4p")
 
 [node name="Cross" parent="." index="0" unique_id=527657932]
 unique_name_in_owner = true
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, -0.004)
-surface_material_override/0 = SubResource("ShaderMaterial_necpj")
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_d2sir")

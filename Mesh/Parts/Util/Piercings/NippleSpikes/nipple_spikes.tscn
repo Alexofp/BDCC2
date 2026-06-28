@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://4llvctdpgcnl" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ColorMap.png" id="5_grra5"]
 [ext_resource type="Texture2D" uid="uid://c3eb0i4rmikri" path="res://Mesh/Parts/SharedTextures/Piercings/Piercings_ORM.png" id="6_amvvr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c0pvg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mhv8j"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_dsrc8")
@@ -35,5 +35,5 @@ script = ExtResource("2_41whb")
 
 [node name="Spikes" parent="." index="0" unique_id=1234569994]
 unique_name_in_owner = true
-transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, -0.004)
-surface_material_override/0 = SubResource("ShaderMaterial_c0pvg")
+transform = Transform3D(0.053, 0, 0, 0, 0.053, 0, 0, 0, 0.053, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_mhv8j")

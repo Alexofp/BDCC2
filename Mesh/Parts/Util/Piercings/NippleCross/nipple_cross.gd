@@ -23,13 +23,13 @@ func updatePiercingScale():
 	
 
 func applyOption(_optionID:String, _value:Variant):
-	if(_optionID == "breasts"):
-		updatePiercingScale()
-	elif(_optionID == "breastsCleavage"):
-		#setBlendshape("BreastsCleavage", _value if !getCachedPartFlag("ForceBreastCleavage", false) else 1.0)
-		pass
-	elif(_optionID == "nippleShape"):
-		updatePiercingScale()
+	#if(_optionID == "breasts"):
+		#updatePiercingScale()
+	#elif(_optionID == "breastsCleavage"):
+		##setBlendshape("BreastsCleavage", _value if !getCachedPartFlag("ForceBreastCleavage", false) else 1.0)
+		#pass
+	#elif(_optionID == "nippleShape"):
+		#updatePiercingScale()
 	
 	if(piercingMat):
 		if(_optionID == "nipplePiercing"):

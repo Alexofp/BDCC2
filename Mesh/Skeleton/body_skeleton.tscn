@@ -145,7 +145,6 @@ bone_name = "breast.L"
 bone_idx = 75
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D/AttachBreast" index="0" unique_id=1593246729 instance=ExtResource("2_8r017")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 pointName = "breast.L"
 
 [node name="AttachBreast2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11" unique_id=506415674]
@@ -154,7 +153,6 @@ bone_name = "breast.R"
 bone_idx = 76
 
 [node name="DollAttachPoint" parent="rig/Skeleton3D/AttachBreast2" index="0" unique_id=1452137694 instance=ExtResource("2_8r017")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 pointName = "breast.R"
 
 [node name="ChestBoneAttachment" type="BoneAttachment3D" parent="rig/Skeleton3D" index="12" unique_id=1695132856]
