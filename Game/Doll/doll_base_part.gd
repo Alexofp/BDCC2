@@ -238,12 +238,20 @@ func updateBreasts(_optionID:String, _value:Variant, _part:DollBasePart = null):
 		#updateBreastsStuff(self)
 
 func updateBreastsCleavage(_value:Variant):
-	var newVal:float = _value
-	if(getCachedPartFlag("ForceBreastCleavage", false)):
-		newVal = 1.0
-	if(getCachedPartFlag("ForceZeroBreastCleavage", false)):
-		newVal = 0.0
-	setBlendshape("BreastsCleavage", newVal)
+	var _part:DollBasePart = null
+	if(!_part):
+		_part = getDoll().getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Body)
+		#_part = self
+	if(!_part):
+		_part = self
+	_part.updateBreastsStuff(self)
+	
+	#var newVal:float = _value
+	#if(getCachedPartFlag("ForceBreastCleavage", false)):
+		#newVal = 1.0
+	#if(getCachedPartFlag("ForceZeroBreastCleavage", false)):
+		#newVal = 0.0
+	#setBlendshape("BreastsCleavage", newVal)
 
 func getCachedPartFlag(_id:String, _default:Variant) -> Variant:
 	var theDoll := getDoll()
