@@ -22,8 +22,9 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 0.3
+shader_parameter/rim = 0.0999999977648
 shader_parameter/rim_tint = 0.5
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/color_mask_r = Color(1, 0, 0, 1)
@@ -34,19 +35,17 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="PlainPantiesFemMale" unique_id=2094186892 instance=ExtResource("1_bdhb1")]
 script = ExtResource("2_3suvy")
 
-[node name="rig" parent="." index="0" unique_id=1197754560 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=969909772 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_q3c7q")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainPanties"), NodePath("Skeleton3D/PlainPantiesShifted")]
 
-[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1654879442) index="0" unique_id=74352374]
+[node name="PlainPanties" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(722262326) index="0" unique_id=1186639235]
 unique_name_in_owner = true
 lod_bias = 3.0
-blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_f5tfa")
 
-[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1654879442) index="1" unique_id=1056518376]
+[node name="PlainPantiesShifted" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(722262326) index="1" unique_id=1804234990]
 unique_name_in_owner = true
 lod_bias = 3.0
-blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_f5tfa")

@@ -55,8 +55,8 @@ func updateBreastsStuff(_part:DollBasePart):
 		_valueCleavage = 1.0
 	if(_value < 0.1):
 		_valueCleavage = 0.0
-	if(_value < 1.0):
-		_valueCleavage *= _value
+	if(_value < 3.0):
+		_valueCleavage *= _value*0.33
 
 	if(_value <= 0.1):
 		_part.setBlendshape("BreastsFlat", clampf( remap(_value, 0.0, 0.1, 0.0, 1.0) , 0.0, 1.0))

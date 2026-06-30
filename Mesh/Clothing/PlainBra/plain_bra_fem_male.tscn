@@ -22,8 +22,9 @@ shader_parameter/ao_mult = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
-shader_parameter/rim = 0.3
+shader_parameter/rim = 0.0999999977648
 shader_parameter/rim_tint = 0.5
+shader_parameter/backlight = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/color_mask_r = Color(1, 0, 0, 1)
@@ -34,19 +35,17 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="PlainBraFemMale" unique_id=258978249 instance=ExtResource("1_frv7c")]
 script = ExtResource("2_s1hdl")
 
-[node name="rig" parent="." index="0" unique_id=27166203 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1313260544 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("3_q8dgw")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/PlainBra"), NodePath("Skeleton3D/PlainBraPulledDown")]
 
-[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1506673518) index="0" unique_id=1529407704]
+[node name="PlainBra" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(474169457) index="0" unique_id=475803565]
 unique_name_in_owner = true
 lod_bias = 3.0
-blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_4xqmi")
 
-[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1506673518) index="1" unique_id=266692687]
+[node name="PlainBraPulledDown" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(474169457) index="1" unique_id=1060692230]
 unique_name_in_owner = true
 lod_bias = 3.0
-blend_shapes/FML = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_4xqmi")

@@ -190,6 +190,8 @@ func updateBreastsStuff(_part:DollBasePart):
 		_valueCleavage = 1.0
 	if(_value < 0.1):
 		_valueCleavage = 0.0
+	if(_value < 2.0):
+		_valueCleavage *= _value*0.5
 	
 	var theHugeVal:float = maxf(0.0, (_value-1.0)/2.0)
 	_part.setBlendshape("BreastsHuge", theHugeVal*(1.0-theSagVal))
