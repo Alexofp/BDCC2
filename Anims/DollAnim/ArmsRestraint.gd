@@ -2,10 +2,6 @@ extends DollAnimBase
 
 func _init() -> void:
 	anims = {
-		"ArmsArmbinder": {
-			name = "Armbinder",
-			anim = "APoseArmbinder",
-		},
 		"ArmsCuffedBehindBack": {
 			name = "Cuffed behind back",
 			anim = "CuffedBehindBack",

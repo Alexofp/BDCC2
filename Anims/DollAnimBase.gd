@@ -14,6 +14,9 @@ const LOCOMOTION_ANIMS_PATH = "res://Anims/Raw/LocomotionAnims.glb"
 const RESTRAINT_ANIMS = "RestraintAnims"
 const RESTRAINT_ANIMS_PATH = "res://Anims/Raw/RestraintAnims.glb"
 
+const ARMBINDERANIM_ANIMS = "ArmbinderAnim"
+const ARMBINDERANIM_ANIMS_PATH = "res://Anims/Raw/ArmbinderAnim.glb"
+
 const ARMBINDERANIMMALE_ANIMS = "ArmbinderAnimMale"
 const ARMBINDERANIMMALE_ANIMS_PATH = "res://Anims/Raw/ArmbinderAnimMale.glb"
 
