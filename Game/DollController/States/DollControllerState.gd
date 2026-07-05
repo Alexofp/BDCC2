@@ -134,10 +134,10 @@ func getLocalVelocity(_doll:DollController) -> Vector3:
 	return _doll.getLocalVelocity()
 
 func calcWalkMoveSpeed(_doll:DollController) -> float:
-	return DollController.ANIM_MOVE_SPEED * DollController.MOVE_MULT * _doll.getWalkSpeedMult()
+	return DollController.ANIM_MOVE_SPEED * _doll.getWalkSpeedMult()
 
 func calcRunMoveSpeed(_doll:DollController) -> float:
-	return DollController.ANIM_RUN_SPEED * DollController.RUN_MULT
+	return DollController.ANIM_MOVE_SPEED * _doll.getRunSpeedMult()
 
 func limitVec2(_vec2:Vector2, _maxSpeed:float) -> Vector2:
 	var theLen := _vec2.length()

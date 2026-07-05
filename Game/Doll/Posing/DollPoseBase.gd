@@ -8,13 +8,17 @@ enum PoseType {
 
 var id:String = ""
 var animName:String = ""
-var walkAnim:String = ""
 var visibleName:String = "Fill me!"
 var animLibraryName:String = ""
 var orderText:String = ""
 
+var walkAnim:String = ""
+#var walkSpeed:float = 1.0
+
+var runAnim:String = ""
+#var runSpeed:float = DollController.RUN_MULT_DEFAULT
 var noSprint:bool = false
-var walkSpeed:float = 1.0
+
 var walkSupportsArmPose:bool = true
 var poseSupportsArmPose:bool = true
 var preventsPartialGestures:bool = true
@@ -22,25 +26,24 @@ var preventsFullbodyGestures:bool = true
 
 var poseType:int = PoseType.Fullbody
 
-const CRAWL_SPEED = 0.5
+var walkModeCrawl:bool = false
 
-func getAnimName() -> String:
+func getAnimName(_boundFlags:int = 0) -> String:
 	return animName
-func getAnimNameOr(_alt:String) -> String:
-	if(animName.is_empty()):
-		return _alt
-	return animName
-func getAnimNameFinal() -> String:
-	if(animLibraryName.is_empty()):
-		return animName
-	return animLibraryName+"/"+animName
-func getWalkAnimName() -> String:
+func getWalkAnimName(_boundFlags:int = 0) -> String:
+	if(walkModeCrawl):
+		if(_boundFlags & BuffsHolder.BOUND_ARMS):
+			return "WalkKneelWalk"
+		return "WalkCrawl"
+	
 	return walkAnim
-func getWalkAnimNameOr(_alt:String) -> String:
-	if(walkAnim.is_empty()):
-		return _alt
-	return walkAnim
-
+func getRunAnimName(_boundFlags:int) -> String:
+	if(walkModeCrawl):
+		if(_boundFlags & BuffsHolder.BOUND_ARMS):
+			return "WalkKneelWalkFast"
+		return "WalkCrawlFast"
+	return runAnim
+	
 func getName() -> String:
 	return visibleName
 
@@ -52,8 +55,11 @@ func getOrderDialogue() -> String:
 func preventsSprint() -> bool:
 	return noSprint
 
-func getWalkSpeedMult() -> float:
-	return walkSpeed
+#func getWalkSpeedMult() -> float:
+	#return walkSpeed
+#
+#func getRunSpeedMult() -> float:
+	#return runSpeed
 
 func doesWalkSupportArmPoses() -> bool:
 	return walkSupportsArmPose

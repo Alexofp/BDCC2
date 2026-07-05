@@ -41,10 +41,6 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"@MATERIAL:6": {
-"use_external/enabled": true,
-"use_external/path": "uid://c8xn6qaaqiv7d"
-},
 "Body": {
 "use_external/enabled": true,
 "use_external/fallback_path": "res://Mesh/Materials/NoMat.tres",

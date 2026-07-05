@@ -3,15 +3,19 @@ extends DollPoseBase
 func _init() -> void:
 	id = "AllFours"
 	animName = "PoseAllFours"
+	walkModeCrawl = true
 	visibleName = "All fours"
-	walkAnim = "WalkCrawl"
 	orderText = "Get on all fours."
 	
 	poseType = PoseType.Fullbody
 	
 	animLibraryName = "Poses"
 	
-	noSprint = true
-	walkSpeed = CRAWL_SPEED
+	#walkSpeed = CRAWL_SPEED
 	walkSupportsArmPose = false
 	poseSupportsArmPose = false
+
+func getAnimName(_boundFlags:int = 0) -> String:
+	if(_boundFlags & BuffsHolder.BOUND_ARMS):
+		return "PoseKneelStand"
+	return animName

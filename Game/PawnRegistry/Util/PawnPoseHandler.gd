@@ -13,15 +13,26 @@ var arms:String = ""
 var armsPose:DollPoseBase
 
 # Cached values for the doll, updated once every frame
-var idleAnim:String = "IdleUnisex"
-var walkAnim:String = "WalkUnisex"
-var walkSpeed:float = 1.0
-var sprintAllowed:bool = true
+var idleEntry:DollAnimEntry
+var walkEntry:DollAnimEntry
+var runEntry:DollAnimEntry
+
+#var idleAnim:String = "IdleUnisex"
+#var walkAnim:String = "WalkUnisex"
+#var walkSpeed:float = 1.0
+#var runAnim:String = "Run"
+#var runSpeed:float = DollController.RUN_MULT_DEFAULT
+var runAllowed:bool = true
 var jumpHeight:float = 1.0
 var gestureFullbodyBlocked:bool = false
 var gesturePartialBlocked:bool = false
 var hasLeashesInRightHand:bool = false
 # runAnim/runSpeed?
+
+func _init() -> void:
+	idleEntry = DollAnimEntry.create("IdleUnisex")
+	walkEntry = DollAnimEntry.create("WalkUnisex")
+	runEntry = DollAnimEntry.create("Run")
 
 func tickAI(_dt:float):
 	if(pawn.submission.isObeying()):
@@ -29,34 +40,46 @@ func tickAI(_dt:float):
 	idle = ""
 	arms = ""
 
+func getOr(_anim:String, _alt:String) -> String:
+	if(_anim.is_empty()):
+		return _alt
+	return _anim
+
 func process(_dt:float):
 	if(!pawn):
 		return
 	var theCharacter:BaseCharacter = pawn.getCharacter()
 	if(!theCharacter):
 		return
+	var theBoundFlags := theCharacter.buffsHolder.boundFlags
+	
 	var theIdlePose := getIdle()
 	var theArmsPose := getArms()
 	var areLegsHobbled := theCharacter.inventory.shouldHobbleLegs()
 	
-	if(theIdlePose):
-		idleAnim = theIdlePose.getAnimNameOr(theCharacter.idleAnim)
-		walkAnim = theIdlePose.getWalkAnimNameOr(theCharacter.walkAnim)
-		walkSpeed = theIdlePose.getWalkSpeedMult()
-		sprintAllowed = !theIdlePose.preventsSprint()
-		jumpHeight = 1.0
-	else:
-		idleAnim = theCharacter.idleAnim
-		walkAnim = theCharacter.walkAnim
-		walkSpeed = 1.0
-		sprintAllowed = true
-		jumpHeight = 1.0
+	var idleAnim:String = theCharacter.idleAnim
+	var walkAnim:String = theCharacter.walkAnim
+	var runAnim:String = "Run"
+	runAllowed = true
+	jumpHeight = 1.0
 	
 	if(areLegsHobbled):
 		walkAnim = "WalkHobbled"
-		walkSpeed = 0.5
-		sprintAllowed = false
+		runAnim = "WalkHobbledFast"
+		#walkSpeed = 0.5
+		runAllowed = true
 		jumpHeight = 0.5
+	
+	if(theIdlePose):
+		idleAnim = getOr(theIdlePose.getAnimName(theBoundFlags), idleAnim)
+		walkAnim = getOr(theIdlePose.getWalkAnimName(theBoundFlags), walkAnim)
+		runAnim = getOr(theIdlePose.getRunAnimName(theBoundFlags), runAnim)
+		runAllowed = !theIdlePose.preventsSprint()
+		#jumpHeight = 1.0
+	
+	idleEntry.setID(idleAnim)
+	walkEntry.setID(walkAnim)
+	runEntry.setID(runAnim)
 	
 	gestureFullbodyBlocked = false
 	gesturePartialBlocked = false

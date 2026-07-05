@@ -40,15 +40,13 @@ func createLayerAnimFromEntry(_entry:Dictionary, _finalAnimName:String) -> Layer
 func defineLayers():
 	if(true):
 		var theLocomotionAnims:Dictionary[String, Variant] = {}
-		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_IDLE):
-			for animID in anim.anims:
-				theLocomotionAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])# LayerAnim.create(anim.animNameFinal[animID])
-		for anim in GlobalRegistry.getDollAnimsByType(DollAnimBase.TYPE_WALK):
-			for animID in anim.anims:
-				theLocomotionAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])
+		for animType in [DollAnimBase.TYPE_IDLE, DollAnimBase.TYPE_WALK, DollAnimBase.TYPE_RUN]:
+			for anim in GlobalRegistry.getDollAnimsByType(animType):
+				for animID in anim.anims:
+					theLocomotionAnims[animID] = createLayerAnimFromEntry(anim.anims[animID], anim.animNameFinal[animID])# LayerAnim.create(anim.animNameFinal[animID])
 		
 		const CombatWalkLen := 0.5
-		theLocomotionAnims["run"] = {L_ANIM: "LocomotionAnims/Run"}
+		#theLocomotionAnims["run"] = {L_ANIM: "LocomotionAnims/Run"}
 		theLocomotionAnims["fall"] = {L_ANIM: "LocomotionAnims/Fall"}
 		theLocomotionAnims["combat"] = LayerAnimBlend2D.create({
 			Vector2(0.0, 0.0): LayerAnim.create("CombatAnims/CombatIdle"),

@@ -7,6 +7,7 @@ const TYPE_WALK = 2
 const TYPE_ARMS = 3
 const TYPE_COMBAT = 4
 const TYPE_COUPLE = 5
+const TYPE_RUN = 6
 
 const LOCOMOTION_ANIMS = "LocomotionAnims"
 const LOCOMOTION_ANIMS_PATH = "res://Anims/Raw/LocomotionAnims.glb"
@@ -52,7 +53,7 @@ var animType:int = TYPE_GENERIC
 var animLibraryName:String = ""
 var animLibraryPath:String = ""
 
-var animCanPick:bool = true
+var animCanPick:bool = false
 var animSupportsArmPoses:bool = true
 
 var animNameFinal:Dictionary[String, String]
@@ -84,3 +85,13 @@ func processCamera(_id:String, _springLen:float) -> Vector2:
 
 func getLookAtMods(_id:String) -> Vector3:
 	return Vector3(1.0, 1.0, 1.0)
+
+func getMoveSpeed(_id:String) -> float:
+	if(anims.has(_id)):
+		return anims[_id].get("moveSpeed", 1.0)
+	return 1.0
+
+func getAnimSpeed(_id:String) -> float:
+	if(anims.has(_id)):
+		return anims[_id].get("animSpeed", 1.0)
+	return 1.0

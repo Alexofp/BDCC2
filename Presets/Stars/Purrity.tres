@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" format=3 uid="uid://cv3gm2phu843k"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
+version = 1
 data = {
 &"bodySize": 0.0,
 &"bodyparts": {
@@ -33,8 +34,9 @@ data = {
 &"id": "Body_HandsPlain",
 &"r": Color(0.8, 0.8117647, 0.8392157, 1)
 }],
-"breasts": 1.8,
+"breasts": 1.44,
 "breastsCleavage": 0.4,
+"breastsSag": 0.57,
 "claws": 1.0,
 "clawsColor": Color(0.13725491, 0.12156863, 0.12156863, 1),
 "clitPiercing": [""],
@@ -114,7 +116,7 @@ data = {
 },
 "fluff": true,
 "fluffDown": 0.0,
-"fluffShort": 1.0,
+"fluffShort": 0.69,
 "fluffWide": 0.0,
 "headLayers": [{
 &"b": Color(0, 0, 0, 0.41568628),
@@ -129,7 +131,7 @@ data = {
 }],
 "lines": Color(0, 0, 0, 1),
 "mouthColor": Color(0.78431374, 0.47843137, 0.47843137, 1),
-"shapeRound": 0.15,
+"shapeRound": 0.35,
 "skinDataOverride": null,
 "smallMuzzle": 0.0,
 "snout": Color(0.7254902, 0.42745098, 0.45490196, 1),
@@ -205,19 +207,19 @@ data = {
 &"r": Color(0.5176471, 0.5882353, 0.9372549, 1)
 },
 "skinDataOverride": null,
-"tailLenMod": 0.75,
+"tailLenMod": 0.8899999999999999,
 "tailType": 3,
-"taper": 0.5,
-"thickness": -0.5,
-"tip": 0.0
+"taper": 0.0,
+"thickness": -0.6599999999999999,
+"tip": 0.59
 }
 },
 &"id": "HugeFluffyTail"
 }
 },
-&"buttSize": 0.3,
+&"buttSize": 0.5,
 &"charName": "Purrity",
-&"chubbyness": 0.0,
+&"chubbyness": 0.2,
 &"gender": {
 &"customGenderName": "",
 &"customPronouns": {},
@@ -234,7 +236,7 @@ data = {
 }
 }
 },
-&"smoothBody": 0.5,
+&"smoothBody": 0.59,
 &"species": {
 &"customName": "",
 &"mainSpecies": "Feline",

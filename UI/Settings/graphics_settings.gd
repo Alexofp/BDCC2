@@ -21,6 +21,8 @@ func _on_settings_list_on_var_change(id: Variant, value: Variant) -> void:
 	OPTIONS.graphics.setSettingValue(id, value)
 
 func _process(_delta: float) -> void:
+	if(!is_visible_in_tree()):
+		return
 	var viewport_rid := get_viewport().get_viewport_rid()
 	var frametime_gpu := RenderingServer.viewport_get_measured_render_time_gpu(viewport_rid)
 	gpuFrametimes.append(frametime_gpu)

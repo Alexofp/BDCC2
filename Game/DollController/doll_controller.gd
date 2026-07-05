@@ -6,10 +6,14 @@ const LOOK_SENSITIVITY = 0.0025
 const LOOK_SENSITIVITY_TOUCH = 0.05
 const LOOK_LIMIT_UPPER = 1.55
 const LOOK_LIMIT_LOWER = -1.55
-const ANIM_MOVE_SPEED = 1.2
-const ANIM_RUN_SPEED = 3.5
-const MOVE_MULT = 1.4
-const RUN_MULT = 1.25
+const ANIM_MOVE_SPEED = 1.68 #1.2 * 1.4
+const RUN_MULT_DEFAULT := 2.6
+# run speed = 4.375
+# or 2.6 compared to 1.68
+#const ANIM_MOVE_SPEED = 1.2
+#const ANIM_RUN_SPEED = 3.5
+#const MOVE_MULT = 1.4
+#const RUN_MULT = 1.25
 const NOCLIP_MULT = 4
 const ROTATE_SPEED = 12.0
 const JUMP_FORCE = 15.0
@@ -205,12 +209,17 @@ func syncRot3(ourVec3:Vector3, remoteVec3:Vector3, howSmooth:float = 0.8, autoSn
 func getWalkSpeedMult() -> float:
 	if(!pawn):
 		return 1.0
-	return pawn.poseHandler.walkSpeed
+	return pawn.poseHandler.walkEntry.moveSpeed
+
+func getRunSpeedMult() -> float:
+	if(!pawn):
+		return 1.0
+	return pawn.poseHandler.runEntry.moveSpeed
 
 func canSprint() -> bool:
 	if(!pawn):
 		return true
-	return pawn.poseHandler.sprintAllowed
+	return pawn.poseHandler.runAllowed
 
 func getJumpHeight() -> float:
 	if(!pawn):
@@ -225,8 +234,15 @@ func processChar(_delta:float):
 		doll.rightArmPose = "holdLeash"
 	else:
 		doll.rightArmPose = ""
-	doll.setIdleAnim(pawn.poseHandler.idleAnim)
-	doll.setWalkAnim(pawn.poseHandler.walkAnim)
+	doll.currentIdleAnim = pawn.poseHandler.idleEntry.id
+	doll.currentIdleAnimSpeed = pawn.poseHandler.idleEntry.animSpeed
+	doll.currentWalkAnim = pawn.poseHandler.walkEntry.id
+	doll.currentWalkAnimSpeed = pawn.poseHandler.walkEntry.animSpeed
+	doll.currentRunAnim = pawn.poseHandler.runEntry.id
+	doll.currentRunAnimSpeed = pawn.poseHandler.runEntry.animSpeed
+	#doll.setIdleAnim(pawn.poseHandler.idleAnim)
+	#doll.setWalkAnim(pawn.poseHandler.walkAnim)
+	#doll.setRunAnim(pawn.poseHandler.runAnim)
 	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
 	#doll.setIdleAnim(theChar.getIdleAnim())
 

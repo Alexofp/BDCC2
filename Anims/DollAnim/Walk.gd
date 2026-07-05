@@ -12,6 +12,7 @@ func _init() -> void:
 		},
 	}
 	
+	animCanPick = true
 	animType = TYPE_WALK
 	animLibraryName = LOCOMOTION_ANIMS
 	animLibraryPath = LOCOMOTION_ANIMS_PATH

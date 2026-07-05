@@ -25,7 +25,6 @@ func _init() -> void:
 	}
 	
 	animType = TYPE_IDLE
-	animCanPick = false
 	animLibraryName = POSES_ANIMS
 	animLibraryPath = POSES_ANIMS_PATH
 

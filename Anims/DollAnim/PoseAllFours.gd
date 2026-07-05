@@ -6,6 +6,10 @@ func _init() -> void:
 			name = "All fours",
 			anim = "AllFours",
 		},
+		"PoseKneelStand": {
+			name = "Kneel stand",
+			anim = "KneelStand",
+		},
 	}
 	
 	animType = TYPE_IDLE

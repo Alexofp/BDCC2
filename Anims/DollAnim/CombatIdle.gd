@@ -11,6 +11,7 @@ func _init() -> void:
 			anim = "CollapseFlyingIdle",
 		},
 	}
+	
 	animType = TYPE_IDLE
 	animLibraryName = COMBAT_ANIMS
 	animLibraryPath = COMBAT_ANIMS_PATH

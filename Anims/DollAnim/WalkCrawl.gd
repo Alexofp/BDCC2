@@ -5,6 +5,25 @@ func _init() -> void:
 		"WalkCrawl": {
 			name = "Crawl",
 			anim = "CrawlAllFours",
+			moveSpeed = 0.5,
+			animSpeed = 1.0,
+		},
+		"WalkCrawlFast": {
+			name = "Crawl faster",
+			anim = "CrawlAllFoursFast",
+			moveSpeed = 1.0,
+			animSpeed = 1.5,
+		},
+		"WalkKneelWalk": {
+			name = "Kneel walk",
+			anim = "KneelWalk",
+			moveSpeed = 0.5,
+		},
+		"WalkKneelWalkFast": {
+			name = "Kneel walk faster",
+			anim = "KneelWalk",
+			moveSpeed = 1.0,
+			animSpeed = 2.0,
 		},
 	}
 	

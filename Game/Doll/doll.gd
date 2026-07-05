@@ -518,16 +518,23 @@ func isStanding() -> bool:
 	return locomotionState == LOCOMOTION_STAND
 
 var currentWalkAnim:String = "unisex"
+var currentWalkAnimSpeed:float = 1.0
 var currentIdleAnim:String = "normal1"
+var currentIdleAnimSpeed:float = 1.0
+var currentRunAnim:String = "run"
+var currentRunAnimSpeed:float = 1.0
 func setWalkAnim(_walkAnim:String):
 	currentWalkAnim = _walkAnim
 
 func setIdleAnim(_walkAnim:String):
 	currentIdleAnim = _walkAnim
 
+func setRunAnim(_walkAnim:String):
+	currentRunAnim = _walkAnim
+
 func animStand():
 	locomotionState = LOCOMOTION_STAND
-	travelLocomotion(currentIdleAnim)
+	travelLocomotion(currentIdleAnim, currentIdleAnimSpeed)
 
 func animAttack():
 	locomotionState = LOCOMOTION_STAND
@@ -546,12 +553,12 @@ func animCombat(_space:Vector2, _combatAnim:String = "combat"):
 func animWalk():
 	locomotionState = LOCOMOTION_WALK
 	stopGesture(true, false)
-	travelLocomotion(currentWalkAnim)
+	travelLocomotion(currentWalkAnim, currentWalkAnimSpeed)
 
 func animRun():
 	locomotionState = LOCOMOTION_RUN
 	stopGesture(true, false)
-	travelLocomotion("run")
+	travelLocomotion(currentRunAnim, currentRunAnimSpeed)
 
 func animFall():
 	locomotionState = LOCOMOTION_FALL

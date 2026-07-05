@@ -15,6 +15,8 @@ func _init() -> void:
 			anim = "IdleLong",
 		},
 	}
+	
+	animCanPick = true
 	animType = TYPE_IDLE
 	animLibraryName = LOCOMOTION_ANIMS
 	animLibraryPath = LOCOMOTION_ANIMS_PATH
