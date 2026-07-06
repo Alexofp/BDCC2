@@ -6,6 +6,7 @@ var animName:String = ""
 var visibleName:String = "Fill me!"
 var playFullBody:bool = false
 var playPartial:bool = true
+var canBeTriggeredManually:bool = true
 
 func getName() -> String:
 	return visibleName

@@ -29,6 +29,8 @@ func updateGestureList(_list:FlowContainer):
 	
 	for gestureID in GlobalRegistry.getDollGestures():
 		var theDollGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
+		if(!theDollGesture.canBeTriggeredManually):
+			continue
 		var newButton:Button = Button.new()
 		newButton.text = theDollGesture.getName()
 		

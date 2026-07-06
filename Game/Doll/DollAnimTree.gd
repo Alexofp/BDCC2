@@ -105,9 +105,9 @@ func defineLayers():
 			var theGesture:DollGestureBase = GlobalRegistry.getDollGesture(gestureID)
 			theGestureAnims[gestureID] = {L_ANIM: theGesture.getAnimName()}
 		var GesturesLayer := LayerBasic.new()
-		GesturesLayer.blendTimeIn = 0.5
-		GesturesLayer.blendTimeOut = 0.5
-		GesturesLayer.blendTimeBetween = 0.3
+		GesturesLayer.blendTimeIn = 0.2
+		GesturesLayer.blendTimeOut = 0.2
+		GesturesLayer.blendTimeBetween = 0.2
 		GesturesLayer.anims = theGestureAnims
 		GesturesLayer.bones = gesturePartialFilter.getBonesFinal()
 		addLayer(LAYER_GESTURE, GesturesLayer)

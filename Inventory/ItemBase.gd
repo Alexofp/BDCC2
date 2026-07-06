@@ -185,6 +185,10 @@ func getActions() -> Array:
 	return []
 
 #Runs on server
+func tryDoActionSelf(_id:String, _args:Array):
+	doActionFinal(_id, _args)
+
+#Runs on server
 func doAction(_id:String, _args:Array):
 	pass
 
@@ -333,6 +337,51 @@ func getBuffs() -> Array[Buff]:
 		buffsNeedUpdate = false
 		staticBuffs = prepareBuffs()
 	return staticBuffs
+
+func getPawn() -> CharacterPawn:
+	var theChar := getCharacter()
+	if(!theChar):
+		return null
+	var thePawn := theChar.getPawn()
+	if(!thePawn):
+		return null
+	return thePawn
+
+func startDelayedDoAction(_text:String, _timer:float, _id:String, _args:Array):
+	var thePawn := getPawn()
+	if(!thePawn):
+		return
+	var newEntry := ActionSystemEntry.new()
+	
+	var mainTarget := ActionSystemTarget.new()
+	mainTarget.node = thePawn
+	
+	#newEntry.actionText = _text
+	newEntry.user = thePawn
+	newEntry.target = mainTarget
+	newEntry.action = GlobalRegistry.getPawnAction("ItemActionDelayed")# self
+	newEntry.timeFull = _timer
+	newEntry.args = [uniqueID, _id, _args]
+	
+	#for extra in _extras:
+	#	newEntry.addExtraTarget(extra)
+	
+	newEntry.setActionText(_text)
+	GM.actionSystem.startAction(newEntry)
+
+func playGesture(_gesture:String):
+	var thePawn := getPawn()
+	if(!thePawn):
+		return
+	thePawn.playGesture(_gesture)
+
+func doDelayedDisplaceAction(_anim:String, _time:float, _actionID:String, _args:Array, _text:String):
+	var thePawn := getPawn()
+	if(thePawn):
+		if(thePawn.isDoingSomething() || thePawn.isDoingSex()):
+			return
+	playGesture(_anim)
+	startDelayedDoAction(_text, _time, _actionID, _args)
 
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()

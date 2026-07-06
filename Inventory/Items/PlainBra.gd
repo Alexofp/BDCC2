@@ -35,6 +35,16 @@ func getActions() -> Array:
 			theActions.append(itemAction("Pull down", "Pull the bra up!", "pullDown"))
 	return theActions
 
+func tryDoActionSelf(_id:String, _args:Array):
+	if(_id == "pullDown"):
+		doDelayedDisplaceAction("DisplaceBra", 0.5, _id, _args, "{user.You} {user.youVerb displace} {user.yourHis} bra.")
+		return
+	if(_id == "pullUp"):
+		doDelayedDisplaceAction("DisplaceBraUndo", 0.5, _id, _args, "{user.You} {user.youVerb restore} {user.yourHis} bra.")
+		return
+	
+	doActionFinal(_id, _args)
+
 func doAction(_id:String, _args:Array):
 	if(_id == "pullUp"):
 		setOptionValue("pulledDown", false)

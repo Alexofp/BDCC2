@@ -158,7 +158,7 @@ func checkInventoryRefs():
 
 func askDoActionOnItem(_item:ItemBase, _id:String, _args:Array = []):
 	if(Network.isServer()):
-		_item.doActionFinal(_id, _args)
+		_item.tryDoActionSelf(_id, _args)
 	else:
 		askDoActionOnItem_SERVERRPC.rpc_id(1, _item.getInventory().uniqueID, _item.uniqueID, _id, _args)
 
@@ -173,7 +173,7 @@ func askDoActionOnItem_SERVERRPC(_invUID:int, _itemUID:int, _id:String, _args:Ar
 	var theActions := theItem.getActionsFinal()
 	for theEntry in theActions:
 		if(theEntry[3] == _id && theEntry[4] == _args):
-			theItem.doActionFinal(theEntry[3], theEntry[4])
+			theItem.tryDoActionSelf(theEntry[3], theEntry[4])
 			return
 
 func askTest(_inventory:Inventory):

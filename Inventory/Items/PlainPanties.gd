@@ -35,6 +35,16 @@ func getActions() -> Array:
 			theActions.append(itemAction("Shift back", "Shift the panties back!", "shiftBack"))
 	return theActions
 
+func tryDoActionSelf(_id:String, _args:Array):
+	if(_id == "shiftAside"):
+		doDelayedDisplaceAction("DisplacePanties", 0.5, _id, _args, "{user.You} {user.youVerb shift} {user.yourHis} panties to the side.")
+		return
+	if(_id == "shiftBack"):
+		doDelayedDisplaceAction("DisplacePantiesUndo", 0.5, _id, _args, "{user.You} {user.youVerb restore} {user.yourHis} panties.")
+		return
+	
+	doActionFinal(_id, _args)
+
 func doAction(_id:String, _args:Array):
 	if(_id == "shiftAside"):
 		setOptionValue("shifted", true)
