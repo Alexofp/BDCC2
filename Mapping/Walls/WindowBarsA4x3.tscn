@@ -9,11 +9,13 @@ size = Vector3(4, 3, 0.252825)
 size = Vector3(3.3125, 1.93335, 0.21555)
 
 [node name="WindowBarsA4x3" unique_id=87161550 instance=ExtResource("1_e2bp4")]
+shiftUVs = false
 
-[node name="WindowBarsA4x3" parent="." index="0" unique_id=1164195782]
+[node name="WindowBarsA4x3" parent="." index="0" unique_id=1714628102]
 instance_shader_parameters/roughness_mult = 0.5
-instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
-instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
+instance_shader_parameters/trim_color_base = Color(0.3019608, 0.3019608, 0.3019608, 1)
+instance_shader_parameters/trim_color_main = Color(0.078431375, 0.078431375, 0.078431375, 1)
+instance_shader_parameters/uvShift = 0.25164206513460696
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WindowBarsA4x3" index="0" unique_id=1430300536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.18411)

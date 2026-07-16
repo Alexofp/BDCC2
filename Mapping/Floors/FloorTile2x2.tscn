@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b6di6oamtvkns" path="res://Mapping/Floors/Raw/FloorTile2x2.glb" id="1_4t5xk"]
 [ext_resource type="Script" uid="uid://cysnscbiver2a" path="res://Mapping/Floors/FloorTile.gd" id="2_s12pt"]
-[ext_resource type="Material" uid="uid://cc5cujgom31u5" path="res://Mesh/Textures/Tileable/Floor/concrete_tiles2/ConcreteTiles.tres" id="3_km7su"]
+[ext_resource type="Material" uid="uid://cc5cujgom31u5" path="res://Mesh/Textures/Tileable/concrete_tiles2/ConcreteTiles.tres" id="3_km7su"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4wbu3"]
 size = Vector3(2, 0.1, 2)

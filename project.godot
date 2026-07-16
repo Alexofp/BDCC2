@@ -23,7 +23,7 @@ config/icon="res://icon.svg"
 
 [asset_placer]
 
-general/default_folders=PackedStringArray("res://Mapping/BigFloors/", "res://Mapping/Columns/", "res://Mapping/Decals/", "res://Mapping/Dev/", "res://Mapping/Floors/", "res://Mapping/Pipes/", "res://Mapping/Props/", "res://Mapping/Railings/", "res://Mapping/Special/", "res://Mapping/Walls/", "res://Mapping/World/", "res://Mapping/WallsFancy/")
+general/default_folders=PackedStringArray("res://Mapping/BigFloors/", "res://Mapping/Columns/", "res://Mapping/Decals/", "res://Mapping/Dev/", "res://Mapping/Floors/", "res://Mapping/Pipes/", "res://Mapping/Props/", "res://Mapping/Railings/", "res://Mapping/Special/", "res://Mapping/Walls/", "res://Mapping/World/", "res://Mapping/WallsFancy/", "res://Mapping/MainHall/")
 
 [audio]
 

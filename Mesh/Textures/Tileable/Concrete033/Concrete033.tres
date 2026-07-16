@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dvessi1plab6a"]
+
+[ext_resource type="Shader" uid="uid://be2f8ndfhgoue" path="res://Mesh/Shaders/Unique_unique/MyTilable.gdshader" id="1_tdvfg"]
+[ext_resource type="Texture2D" uid="uid://dxvca7drwtlmj" path="res://Mesh/Textures/Tileable/Concrete033/Concrete033_Color.png" id="2_j8kns"]
+[ext_resource type="Texture2D" uid="uid://bvchkwxyv8dt5" path="res://Mesh/Textures/Tileable/Concrete033/Concrete033_Normal.png" id="3_qhqa1"]
+[ext_resource type="Texture2D" uid="uid://b8gg14bnuwyqv" path="res://Mesh/Textures/Tileable/Concrete033/Concrete033_ORM.png" id="4_86be2"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tdvfg")
+shader_parameter/texture_albedo = ExtResource("2_j8kns")
+shader_parameter/texture_orm = ExtResource("4_86be2")
+shader_parameter/texture_normal = ExtResource("3_qhqa1")
+shader_parameter/ao_light_affect = 0.999999977648
+shader_parameter/specular = 0.5
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)

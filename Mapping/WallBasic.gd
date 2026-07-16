@@ -18,9 +18,14 @@ extends PropBasic
 		#uvShift = value
 		#notifySetEditorValue("uvShift", value)
 
+@export var shiftUVs:bool = true:
+	set(value):
+		shiftUVs = value
+
 func _ready() -> void:
 	super._ready()
-	setInstanceShaderParameter("uvShift", randf_range(-1.0, 1.0))
+	if(!Engine.is_editor_hint()):
+		setInstanceShaderParameter("uvShift", randf_range(-1.0, 1.0) if shiftUVs else 0.0)
 	#uvShift = randf_range(-1.0, 1.0)
 
 func getEditorOptions() -> Dictionary:

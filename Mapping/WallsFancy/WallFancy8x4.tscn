@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c4j527h5tlaly" path="res://Mapping/WallsFancy/Raw/WallFancy8x4.glb" id="1_g4wtw"]
 [ext_resource type="Script" uid="uid://dnu2vaq0r2hrk" path="res://Mapping/WallsFancy/WallFancy.gd" id="2_6em1d"]
-[ext_resource type="Material" uid="uid://d4bpgwaa5dbax" path="res://Mesh/Textures/Tileable/Wall/hexagon/HexWall.tres" id="3_t0aau"]
+[ext_resource type="Material" uid="uid://d4bpgwaa5dbax" path="res://Mesh/Textures/Tileable/hexagon/HexWall.tres" id="3_t0aau"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2w8gs"]
 size = Vector3(8, 4, 0.10476382)

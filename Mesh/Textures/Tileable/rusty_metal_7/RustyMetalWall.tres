@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dqy8aedsxld40"]
+
+[ext_resource type="Shader" uid="uid://be2f8ndfhgoue" path="res://Mesh/Shaders/Unique_unique/MyTilable.gdshader" id="1_ytb14"]
+[ext_resource type="Texture2D" uid="uid://218aqkkwibt1" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_basecolor.png" id="2_oyhsb"]
+[ext_resource type="Texture2D" uid="uid://6a6pch7l4yw2" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_normal.png" id="4_eqyth"]
+[ext_resource type="Texture2D" uid="uid://sx5swb4n4pim" path="res://Mesh/Textures/Tileable/rusty_metal_7/1K_rusty_metal_7_orm.png" id="5_agk1y"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ytb14")
+shader_parameter/texture_albedo = ExtResource("2_oyhsb")
+shader_parameter/texture_orm = ExtResource("5_agk1y")
+shader_parameter/texture_normal = ExtResource("4_eqyth")
+shader_parameter/ao_light_affect = 0.999999977648
+shader_parameter/specular = 0.5
+shader_parameter/uv1_scale = Vector2(5, 5)
+shader_parameter/uv1_offset = Vector2(0, 0)

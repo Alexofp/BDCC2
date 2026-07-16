@@ -12,7 +12,7 @@ size = Vector2(6, 1.00001)
 [node name="BigFloorSci1x6" unique_id=1851830658 instance=ExtResource("1_0n4eu")]
 script = ExtResource("2_j8s0x")
 
-[node name="BigFloorSci1x6" parent="." index="0" unique_id=1649452687]
+[node name="BigFloorSci1x6" parent="." index="0" unique_id=1416295424]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
