@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bn5nodo7hbsal"]
+
+[ext_resource type="PackedScene" uid="uid://cf7u0om1h2xve" path="res://Mapping/MainHall/Raw/MainHallTopFloorBalcony8x16.glb" id="1_exhyl"]
+[ext_resource type="Material" uid="uid://d150guoj4gam7" path="res://Mesh/Materials/MyFloorTrimSmart.tres" id="2_qwou0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e8fwj"]
+
+[node name="MainHallTopFloorBalcony8x16" unique_id=1102989490 instance=ExtResource("1_exhyl")]
+colorbase = Color(0.16924527, 0.1692453, 0.16924527, 1)
+color3 = Color(1, 0.6509804, 0, 1)
+
+[node name="MainHallTopFloorBalcony8x16" parent="." index="0" unique_id=1743093811]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.16924527, 0.1692453, 0.16924527, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.6509804, 0, 1)
+
+[node name="MainHallTopFloorBalconySupports" parent="MainHallTopFloorBalcony8x16" index="1" unique_id=243643501]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.16924527, 0.1692453, 0.16924527, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.6509804, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=1401178962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.33676, 0, 0)
+visible = false
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_second = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
+mesh = SubResource("PlaneMesh_e8fwj")
+surface_material_override/0 = ExtResource("2_qwou0")

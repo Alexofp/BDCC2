@@ -53,6 +53,7 @@ const EDITOR_OPTIONS_ID_WALLLIGHT = "walllight"
 const EDITOR_OPTIONS_ID_SKYLINER = "skyliner"
 const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIG = "slopedwindowbig"
 const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIGSIDE = "slopedwindowbigside"
+const EDITOR_OPTIONS_ID_MAINHALL = "mainhall"
 
 func _ready() -> void:
 	applyAllEditorOptions()
@@ -152,6 +153,8 @@ func applyEditorOption(_id, _value):
 			setInstanceShaderParameter("trim_color_third", _value)
 		"uvShift":
 			setInstanceShaderParameter("uvShift", _value)
+		"tileColor":
+			setInstanceShaderParameter("color_tile_base", _value)
 
 func getMeshes() -> Array[GeometryInstance3D]:
 	if(!meshesDirty):

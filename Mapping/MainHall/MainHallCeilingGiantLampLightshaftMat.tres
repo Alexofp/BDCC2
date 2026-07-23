@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bx3jdgy803223"]
+
+[ext_resource type="Shader" uid="uid://b73gctfiid4ip" path="res://Mesh/Shaders/Unique_unique/LightShaftShader.gdshader" id="1_pjhl3"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_pjhl3")
+shader_parameter/falloff_power = 10.0
+shader_parameter/feather_sharpness = 0.67400002875512
+shader_parameter/feather_intensity = 1.0
+shader_parameter/near_fade_start = 50.0
+shader_parameter/near_fade_end = 1.0
+shader_parameter/far_fade_start = 49.17900233274262
+shader_parameter/far_fade_end = 100.0
+shader_parameter/max_brightness = 10.0
+shader_parameter/depth_feather_enabled = true
+shader_parameter/depth_fade_distance = 0.5

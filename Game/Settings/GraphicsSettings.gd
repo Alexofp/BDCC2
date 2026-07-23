@@ -367,6 +367,7 @@ func applySettingValue(_settingID:String, newVal:Variant):
 		"fog":
 			gameEnv.volumetric_fog_enabled = (newVal in [FOG.VOLUMETRIC])
 			gameEnv.fog_enabled = (newVal in [FOG.SIMPLE])
+			OPTIONS.triggerFogSettingChange()
 		"renderScale":
 			var scaleValues:Array = [1.0, 0.9, 0.75, 0.6, 0.5, 0.33, 0.25, 0.2, 0.1]
 			if(newVal < 0):

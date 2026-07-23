@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://babbli21sq36o"]
+
+[ext_resource type="PackedScene" uid="uid://b4sdahrtynuv1" path="res://Mapping/MainHall/Raw/MainHallTopFloorBorder6x05x1.glb" id="1_j655m"]
+
+[node name="MainHallTopFloorBorder6x05x1" unique_id=145284395 instance=ExtResource("1_j655m")]
+
+[node name="MainHallTopFloorBorder6x05x1" parent="." index="0" unique_id=225216048]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

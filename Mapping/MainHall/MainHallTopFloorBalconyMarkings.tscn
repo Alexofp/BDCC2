@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://j4fn8j8wxsbh"]
+
+[ext_resource type="PackedScene" uid="uid://7jqlu676nom8" path="res://Mapping/MainHall/Raw/MainHallTopFloorBalconyMarkings.glb" id="1_dak75"]
+
+[node name="MainHallTopFloorBalconyMarkings" unique_id=1215644554 instance=ExtResource("1_dak75")]
+colorbase = Color(0.7294118, 0.41960785, 0.18431373, 1)
+color1 = Color(0.06469647, 0.06469656, 0.06469648, 1)
+
+[node name="MainHallTopFloorBalconyMarkings" parent="." index="0" unique_id=321744176]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.7294118, 0.41960785, 0.18431373, 1)
+instance_shader_parameters/trim_color_main = Color(0.06469647, 0.06469656, 0.06469648, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://0n78numkv3th"]
+
+[ext_resource type="PackedScene" uid="uid://bhmkviox0nlyk" path="res://Mapping/MainHall/Raw/MainHallConcreteMidPlatformMarkings.glb" id="1_4twem"]
+
+[node name="MainHallConcreteMidPlatformMarkings" unique_id=912172004 instance=ExtResource("1_4twem")]
+colorbase = Color(0.7294118, 0.41960785, 0.18431373, 1)
+color1 = Color(0.56, 0.322, 0.14, 1)
+
+[node name="MainHallConcreteMidPlatformMarkings" parent="." index="0" unique_id=1649622693]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.7294118, 0.41960785, 0.18431373, 1)
+instance_shader_parameters/trim_color_main = Color(0.56, 0.322, 0.14, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

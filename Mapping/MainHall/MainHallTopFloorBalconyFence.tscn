@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://u1tvu6naawol"]
+
+[ext_resource type="PackedScene" uid="uid://rn3a5ktlikk6" path="res://Mapping/MainHall/Raw/MainHallTopFloorBalconyFence.glb" id="1_82wpp"]
+[ext_resource type="Material" uid="uid://ba4tcjxjuk8ik" path="res://Mapping/MainHall/MainHallFenceMat.tres" id="2_hs3ec"]
+
+[node name="MainHallTopFloorBalconyFence" unique_id=486884262 instance=ExtResource("1_82wpp")]
+
+[node name="MainHallTopFloorBalconyFence" parent="." index="0" unique_id=459176093]
+surface_material_override/0 = ExtResource("2_hs3ec")

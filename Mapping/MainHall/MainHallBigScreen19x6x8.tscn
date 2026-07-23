@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dpsmsys8mvk2l"]
+
+[ext_resource type="PackedScene" uid="uid://syrqh716wqmt" path="res://Mapping/MainHall/Raw/MainHallBigScreen19x6x8.glb" id="1_fstdp"]
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="2_rhu3l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qh5i1"]
+render_priority = 0
+shader = ExtResource("2_rhu3l")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 2.0
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[node name="MainHallBigScreen19x6x8" unique_id=1330890511 instance=ExtResource("1_fstdp")]
+colorbase = Color(0.18359044, 0.18359047, 0.18359032, 1)
+color3 = Color(1, 0.65, 0, 1)
+
+[node name="MainHallBigScreen19x6x8" parent="." index="0" unique_id=819062463]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.18359044, 0.18359047, 0.18359032, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(1, 0.65, 0, 1)
+surface_material_override/1 = SubResource("ShaderMaterial_qh5i1")

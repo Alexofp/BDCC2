@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d0sy1waewt3m2"]
+
+[ext_resource type="PackedScene" uid="uid://cvj6lkkxrkbhd" path="res://Mapping/MainHall/Raw/MainHallBigScreenHolder6x5x16.glb" id="1_qn0kt"]
+
+[node name="MainHallBigScreenHolder6x5x16" unique_id=813576669 instance=ExtResource("1_qn0kt")]
+colorbase = Color(0.13319641, 0.13319641, 0.13319635, 1)
+
+[node name="MainHallBigScreenHolder6x5x16" parent="." index="0" unique_id=1813732913]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.13319641, 0.13319641, 0.13319635, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

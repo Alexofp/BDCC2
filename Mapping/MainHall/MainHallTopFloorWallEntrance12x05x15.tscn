@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://vdbs7d21pgkq"]
+
+[ext_resource type="PackedScene" uid="uid://dgl1tf3eprc0p" path="res://Mapping/MainHall/Raw/MainHallTopFloorWallEntrance12x05x15.glb" id="1_o51mw"]
+
+[node name="MainHallTopFloorWallEntrance12x05x15" unique_id=1696966746 instance=ExtResource("1_o51mw")]
+
+[node name="MainHallTopFloorWallEntrance12x05x15" parent="." index="0" unique_id=1702695053]
+instance_shader_parameters/color_tile_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/roughness_mult = 0.5

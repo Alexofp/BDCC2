@@ -122,13 +122,14 @@ func checkCanLean() -> bool:
 		
 		return false
 	
-	var freeWall:float = checkFreeShapeSubdivided(must_be_filled_space, Vector3i(3, 2, 1), 1)
-	if(freeWall > 0.0):
-		#print(freeWall)
-		return false
-	var freeFloor:float = checkFreeShapeSubdivided(must_be_filled_space_2, Vector3i(3, 3, 1), 1)
-	if(freeFloor > 0.0):
-		return false
+	#TODO: Fix wall this part of the checker?
+	#var freeWall:float = checkFreeShapeSubdivided(must_be_filled_space, Vector3i(3, 2, 1), 1)
+	#if(freeWall > 0.0):
+		##print(freeWall)
+		#return false
+	#var freeFloor:float = checkFreeShapeSubdivided(must_be_filled_space_2, Vector3i(3, 3, 1), 1)
+	#if(freeFloor > 0.0):
+		#return false
 	return true
 
 func getLeanTransform() -> Transform3D:

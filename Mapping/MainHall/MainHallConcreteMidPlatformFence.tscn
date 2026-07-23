@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b5dxsylsvtspo"]
+
+[ext_resource type="PackedScene" uid="uid://bl71ndfyh37d3" path="res://Mapping/MainHall/Raw/MainHallConcreteMidPlatformFence.glb" id="1_lmq2f"]
+[ext_resource type="Material" uid="uid://ba4tcjxjuk8ik" path="res://Mapping/MainHall/MainHallFenceMat.tres" id="2_lmq2f"]
+
+[node name="MainHallConcreteMidPlatformFence" unique_id=1397641349 instance=ExtResource("1_lmq2f")]
+
+[node name="MainHallConcreteMidPlatformFence" parent="." index="0" unique_id=629056135]
+surface_material_override/0 = ExtResource("2_lmq2f")

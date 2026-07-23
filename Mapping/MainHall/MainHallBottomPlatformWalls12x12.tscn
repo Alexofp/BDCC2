@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b8uklfkrx7jau"]
+
+[ext_resource type="PackedScene" uid="uid://c3gey7aid5iix" path="res://Mapping/MainHall/Raw/MainHallBottomPlatformWalls12x12.glb" id="1_kmwcc"]
+
+[node name="MainHallBottomPlatformWalls12x12" unique_id=1207091957 instance=ExtResource("1_kmwcc")]
+colorbase = Color(1, 1, 1, 1)
+
+[node name="MainHallBottomPlatformWalls12x12" parent="." index="0" unique_id=1169600943]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
+
+[node name="MainHallBottomPlatformCorner" parent="MainHallBottomPlatformWalls12x12" index="0" unique_id=541875939]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

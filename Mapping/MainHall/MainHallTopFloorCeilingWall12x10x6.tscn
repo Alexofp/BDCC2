@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cpwsgkgw72eg6"]
+
+[ext_resource type="PackedScene" uid="uid://b5po1mw0aqa5n" path="res://Mapping/MainHall/Raw/MainHallTopFloorCeilingWall12x10x6.glb" id="1_rn6db"]
+
+[node name="MainHallTopFloorCeilingWall12x10x6" unique_id=1264064112 instance=ExtResource("1_rn6db")]
+
+[node name="MainHallTopFloorCeilingWall12x10x6" parent="." index="0" unique_id=1869829556]
+instance_shader_parameters/color_tile_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

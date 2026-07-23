@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://610qr60do5vv"]
+
+[ext_resource type="PackedScene" uid="uid://cldyhs7lub8tb" path="res://Mapping/MainHall/Raw/MainHallCeiling56x56.glb" id="1_ybij3"]
+
+[node name="MainHallCeiling56x56" unique_id=703298101 instance=ExtResource("1_ybij3")]
+
+[node name="MainHallCeiling56x56" parent="." index="0" unique_id=1013409634]
+instance_shader_parameters/color_tile_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/roughness_mult = 0.5

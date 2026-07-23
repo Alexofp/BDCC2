@@ -152,6 +152,8 @@ func shouldCaptureMouse() -> bool:
 	return false
 
 func _ready():
+	floor_snap_length = 1.0
+	floor_constant_speed = true
 	basis = Basis.IDENTITY
 	SpringArm.add_excluded_object(self.get_rid())
 

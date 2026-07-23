@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dsortj5snuyni"]
+
+[ext_resource type="PackedScene" uid="uid://cwlpx368rject" path="res://Mapping/MainHall/Raw/MainHallConcreteStairsFence.glb" id="1_qllg0"]
+[ext_resource type="Material" uid="uid://ba4tcjxjuk8ik" path="res://Mapping/MainHall/MainHallFenceMat.tres" id="2_pyxtd"]
+
+[node name="MainHallConcreteStairsFence" unique_id=2026689795 instance=ExtResource("1_qllg0")]
+
+[node name="MainHallConcreteStairsFence" parent="." index="0" unique_id=225065725]
+surface_material_override/0 = ExtResource("2_pyxtd")

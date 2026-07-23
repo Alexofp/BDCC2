@@ -2,28 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cum3m7kl7kct7" path="res://Mapping/MainHall/Raw/MainHallPillar3x14x20.glb" id="1_kve5k"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kve5k"]
-size = Vector3(3.0248623, 20.197514, 3)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_a1im7"]
-size = Vector3(3.0248623, 2.000153, 5.9889526)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_8a340"]
-size = Vector3(3.0248623, 2.3188632, 5.2250786)
-
 [node name="MainHallPillar3x14x20" unique_id=772510140 instance=ExtResource("1_kve5k")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MainHallPillar3x14x20" parent_id_path=PackedInt32Array(473914728) index="0" unique_id=1356813872]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.098757, 2.9999995)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MainHallPillar3x14x20/StaticBody3D" index="0" unique_id=725924617]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.499999)
-shape = SubResource("BoxShape3D_kve5k")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="MainHallPillar3x14x20/StaticBody3D" index="1" unique_id=1130849045]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.09898, -4.0055227)
-shape = SubResource("BoxShape3D_a1im7")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="MainHallPillar3x14x20/StaticBody3D" index="2" unique_id=443019551]
-transform = Transform3D(1, 0, 0, 0, 0.6586895, -0.75241506, 0, 0.75241506, 0.6586895, 0, -6.9034004, -3.6107402)
-shape = SubResource("BoxShape3D_8a340")
+[node name="MainHallPillar3x14x20" parent="." index="0" unique_id=212405486]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

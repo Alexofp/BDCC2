@@ -11,6 +11,7 @@ signal changedCharTextureQuality
 signal changedLightsQuality
 signal changedGISetting
 signal changedLightShaftsSetting
+signal changedFogSetting
 
 #func _init() -> void:
 	#GlobalRegistry.doInit()
@@ -101,3 +102,6 @@ func triggerGIChange():
 
 func triggerLightShaftsSettingChange():
 	changedLightShaftsSetting.emit()
+
+func triggerFogSettingChange():
+	changedFogSetting.emit()

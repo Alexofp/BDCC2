@@ -12,8 +12,8 @@ margin = 0.01
 radius = 0.3
 height = 1.8
 
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_k0gws"]
-length = 0.001
+[sub_resource type="SphereShape3D" id="SphereShape3D_l1oh5"]
+radius = 0.1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gv77k"]
 properties/0/path = NodePath(".:noclip_on")
@@ -64,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.525, 0)
 [node name="SpringArm" type="SpringArm3D" parent="CameraPivot" unique_id=770331540]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-shape = SubResource("SeparationRayShape3D_k0gws")
+shape = SubResource("SphereShape3D_l1oh5")
 
 [node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm" unique_id=1873960681 node_paths=PackedStringArray("doll")]
 unique_name_in_owner = true

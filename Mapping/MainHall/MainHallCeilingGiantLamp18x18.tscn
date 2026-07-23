@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bh7cch2v7hbw8"]
+
+[ext_resource type="PackedScene" uid="uid://dijq6cb58yjte" path="res://Mapping/MainHall/Raw/MainHallCeilingGiantLamp18x18.glb" id="1_pkldq"]
+[ext_resource type="Script" uid="uid://bturefe3wla2n" path="res://Mapping/MainHall/MainHallCeilingGiantLamp18x18.gd" id="2_jajbn"]
+[ext_resource type="PackedScene" uid="uid://b3ut8yotnfg1f" path="res://Mesh/Props/LightShaft/LightShaft.tscn" id="3_2rukj"]
+[ext_resource type="Material" uid="uid://bx3jdgy803223" path="res://Mapping/MainHall/MainHallCeilingGiantLampLightshaftMat.tres" id="4_2rukj"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mcdtr"]
+top_radius = 0.0
+bottom_radius = 1.0
+height = 12.043396
+radial_segments = 16
+rings = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t0dk7"]
+top_radius = 0.0
+bottom_radius = 10.783
+height = 12.321503
+radial_segments = 16
+rings = 0
+
+[node name="MainHallCeilingGiantLamp18x18" unique_id=1921297882 instance=ExtResource("1_pkldq")]
+script = ExtResource("2_jajbn")
+color3 = Color(0.75, 0.8125, 1, 1)
+
+[node name="MainHallCeilingGiantLamp18x18" parent="." index="0" unique_id=1064036151]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0.75, 0.8125, 1, 1)
+
+[node name="LightShaft" parent="." index="2" unique_id=1761265546 instance=ExtResource("3_2rukj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.378645, 0)
+visible = true
+visibility_range_end = 80.0
+instance_shader_parameters/base_color = Color(0.75, 0.8125, 1, 1)
+mesh = SubResource("CylinderMesh_mcdtr")
+surface_material_override/0 = ExtResource("4_2rukj")
+disableIfVolumetricFog = true
+
+[node name="LightShaft2" parent="." index="3" unique_id=1355575163 instance=ExtResource("3_2rukj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -5.4619403, -2.5)
+visible = true
+visibility_range_end = 80.0
+instance_shader_parameters/base_color = Color(0.75, 0.8125, 1, 1)
+mesh = SubResource("CylinderMesh_t0dk7")
+surface_material_override/0 = ExtResource("4_2rukj")
+disableIfVolumetricFog = true
+
+[node name="LightShaft3" parent="." index="4" unique_id=961074591 instance=ExtResource("3_2rukj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -5.462, 2.5)
+visible = true
+visibility_range_end = 80.0
+instance_shader_parameters/base_color = Color(0.75, 0.8125, 1, 1)
+mesh = SubResource("CylinderMesh_t0dk7")
+surface_material_override/0 = ExtResource("4_2rukj")
+disableIfVolumetricFog = true
+
+[node name="LightShaft4" parent="." index="5" unique_id=2078412415 instance=ExtResource("3_2rukj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -5.462, 2.5)
+visible = true
+visibility_range_end = 80.0
+instance_shader_parameters/base_color = Color(0.75, 0.8125, 1, 1)
+mesh = SubResource("CylinderMesh_t0dk7")
+surface_material_override/0 = ExtResource("4_2rukj")
+disableIfVolumetricFog = true
+
+[node name="LightShaft5" parent="." index="6" unique_id=2036043127 instance=ExtResource("3_2rukj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -5.462, -2.5)
+visible = true
+visibility_range_end = 80.0
+instance_shader_parameters/base_color = Color(0.75, 0.8125, 1, 1)
+mesh = SubResource("CylinderMesh_t0dk7")
+surface_material_override/0 = ExtResource("4_2rukj")
+disableIfVolumetricFog = true

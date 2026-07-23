@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://lud2p8ckgh7g"]
+
+[ext_resource type="PackedScene" uid="uid://ct6hvplw0v5a8" path="res://Mapping/MainHall/Raw/MainHallSlopedWallEntrance.glb" id="1_jlyoo"]
+
+[node name="MainHallSlopedWallEntrance" unique_id=180659967 instance=ExtResource("1_jlyoo")]
+roughness = 0.645
+colorbase = Color(0.34781694, 0.34781697, 0.34781685, 1)
+
+[node name="MainHallSlopedWallEntrance" parent="." index="0" unique_id=2096484118]
+instance_shader_parameters/roughness_mult = 0.645
+instance_shader_parameters/trim_color_base = Color(0.34781694, 0.34781697, 0.34781685, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dlrdtope58f5m"]
+
+[ext_resource type="PackedScene" uid="uid://dginsud5ack3e" path="res://Mapping/MainHall/Raw/MainHallConcreteMidPlatform12x12.glb" id="1_kpooo"]
+
+[node name="MainHallConcreteMidPlatform12x122" unique_id=338481964 instance=ExtResource("1_kpooo")]
+colorbase = Color(0.2231029, 0.2231029, 0.22310278, 1)
+color1 = Color(0.7294118, 0.41960785, 0.18431373, 1)
+color2 = Color(0.85, 0.36833334, 0, 1)
+tileColor = Color(0.35906905, 0.35906908, 0.35906896, 1)
+
+[node name="MainHallConcreteMidPlatform12x12" parent="." index="0" unique_id=1019311309]
+instance_shader_parameters/color_tile_base = Color(0.35906905, 0.35906908, 0.35906896, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.2231029, 0.2231029, 0.22310278, 1)
+instance_shader_parameters/trim_color_main = Color(0.7294118, 0.41960785, 0.18431373, 1)
+instance_shader_parameters/trim_color_second = Color(0.85, 0.36833334, 0, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://33xoyl5g3frd"]
+
+[ext_resource type="PackedScene" uid="uid://cgqa7r63htrdj" path="res://Mapping/MainHall/Raw/MainHallSlopedWallCorner5x5x6.glb" id="1_h66ao"]
+
+[node name="MainHallSlopedWallCorner5x5x6" unique_id=100003867 instance=ExtResource("1_h66ao")]
+
+[node name="MainHallSlopedWallCorner5x5x6" parent="." index="0" unique_id=1646730677]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://x6t44olcybv7"]
+
+[ext_resource type="PackedScene" uid="uid://cttehjjepvxls" path="res://Mapping/MainHall/Raw/MainHallBigFloorSideMarking.glb" id="1_h5ijl"]
+
+[node name="MainHallBigFloorSideMarking" unique_id=809514722 instance=ExtResource("1_h5ijl")]
+colorbase = Color(0.5764706, 0.32156864, 0.1254902, 1)
+
+[node name="MainHallBigFloorSideMarking" parent="." index="0" unique_id=237383491]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5764706, 0.32156864, 0.1254902, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

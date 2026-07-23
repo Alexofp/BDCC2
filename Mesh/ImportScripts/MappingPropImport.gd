@@ -40,6 +40,8 @@ func _post_import(scene:Node):
 		scene.set_script(preload("res://Mapping/DecalBasic.gd"))
 	elif(scene.name.begins_with("Pipe")):
 		scene.set_script(preload("res://Mapping/PipeBasic.gd"))
+	elif(scene.name.begins_with("MainHall")):
+		scene.set_script(preload("res://Mapping/MainHallBasic.gd"))
 	else:
 		scene.set_script(preload("res://Mapping/PropBasic.gd"))
 		

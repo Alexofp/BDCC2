@@ -5,6 +5,7 @@
 [node name="MappingSpotlight" type="SpotLight3D" unique_id=1806315879]
 light_indirect_energy = 5.0
 light_volumetric_fog_energy = 0.1
+light_size = 0.1
 distance_fade_enabled = true
 distance_fade_begin = 30.0
 distance_fade_shadow = 10.0

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://23ihmvo2k7uc"]
+
+[ext_resource type="PackedScene" uid="uid://f7uo3orxp6ah" path="res://Mapping/MainHall/Raw/MainHallConcreteStairs4x8x6.glb" id="1_psnnn"]
+
+[node name="MainHallConcreteStairs4x8x6" unique_id=1206517322 instance=ExtResource("1_psnnn")]
+colorbase = Color(0.3403393, 0.34033936, 0.34033918, 1)
+color1 = Color(1, 1, 1, 1)
+color2 = Color(0.7294118, 0.41960785, 0.18431373, 1)
+
+[node name="MainHallConcreteStairs4x8x6" parent="." index="0" unique_id=905863374]
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.3403393, 0.34033936, 0.34033918, 1)
+instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
+instance_shader_parameters/trim_color_second = Color(0.7294118, 0.41960785, 0.18431373, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)

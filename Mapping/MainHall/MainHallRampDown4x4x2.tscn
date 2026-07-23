@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bc4l1evqsuikp"]
+
+[ext_resource type="PackedScene" uid="uid://clw0atpwhyxbi" path="res://Mapping/MainHall/Raw/MainHallRampDown4x4x2.glb" id="1_osfv3"]
+
+[node name="MainHallRampDown4x4x2" unique_id=218940010 instance=ExtResource("1_osfv3")]
+colorbase = Color(0.15294118, 0.15294118, 0.15294118, 1)
+
+[node name="MainHallRampDown4x4x2" parent="." index="0" unique_id=505965529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.15294118, 0.15294118, 0.15294118, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
+
+[node name="MainHallRampDown4x4x2Col" parent="MainHallRampDown4x4x2" index="0" unique_id=15765314]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)

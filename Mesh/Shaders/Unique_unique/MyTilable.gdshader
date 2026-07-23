@@ -18,7 +18,7 @@ uniform vec2 uv1_scale = vec2(1.0);
 uniform vec2 uv1_offset = vec2(0.0);
 
 instance uniform float roughness_mult : hint_range(0.0, 1.0, 0.01) = 0.5;
-instance uniform vec3 color_tile_base : source_color = vec3(1.0);
+instance uniform vec3 color_tile_base : source_color, instance_index(12) = vec3(1.0);
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;

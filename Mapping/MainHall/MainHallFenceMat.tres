@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ba4tcjxjuk8ik"]
+
+[ext_resource type="Shader" uid="uid://chjxu8hglavvb" path="res://Mesh/Shaders/Doll_skeleton/BasicShader.gdshader" id="1_oc5h6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_oc5h6")
+shader_parameter/albedo = Color(0.37413922, 0.37413934, 0.37413907, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.4410000209475
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.999999955296
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)

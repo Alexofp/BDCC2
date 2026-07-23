@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bk1nepynofvxo"]
+
+[ext_resource type="PackedScene" uid="uid://bv8bxtrlikvoo" path="res://Mapping/MainHall/Raw/MainHallFloor38x38.glb" id="1_6tfq3"]
+
+[node name="MainHallFloor38x38" unique_id=1760883911 instance=ExtResource("1_6tfq3")]
+
+[node name="MainHallFloor38x38" parent="." index="0" unique_id=652260249]
+instance_shader_parameters/color_tile_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/roughness_mult = 0.5
+instance_shader_parameters/trim_color_base = Color(0.5568628, 0.5568628, 0.5568628, 1)
+instance_shader_parameters/trim_color_main = Color(0.5254902, 0.5254902, 0.5254902, 1)
+instance_shader_parameters/trim_color_second = Color(0.13333334, 0.13333334, 0.13333334, 1)
+instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
