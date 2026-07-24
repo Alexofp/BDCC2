@@ -146,7 +146,7 @@ static func startMainMenu():
 static func isChangingScene() -> bool:
 	return changingScene
 
-static func internal_hostGame(hostFunc:Callable, _nickname:String, _map:String, _mode:int, _args:Array = []):
+static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String, _map:String, _mode:int, _args:Array = []):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
@@ -155,7 +155,10 @@ static func internal_hostGame(hostFunc:Callable, _nickname:String, _map:String, 
 	await GI.get_tree().scene_changed
 	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
 	LoadingScreen.setText("Hosting..")
-	var res = await hostFunc.call(_nickname) #Network.hostLAN(_nickname)
+	
+	Network.setMyNickname(_nickname)
+	
+	var res = await Network.host(_connector)#hostFunc.call(_nickname) #Network.hostLAN(_nickname)
 	if(res.isError()):
 		errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
 		return
@@ -166,20 +169,28 @@ static func internal_hostGame(hostFunc:Callable, _nickname:String, _map:String, 
 	LoadingScreen.finishLoad()
 
 static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = []):
-	await internal_hostGame(Network.hostLAN, _nickname, _map, _mode, _args)
+	var theConnector := LANNetworkConnector.new()
+	#theConnector.setHostPort(relayServer, relayServerPort)
+	
+	await internal_hostGame(theConnector, _nickname, _map, _mode, _args)
+	pass
 
-static func hostNodeTunnelGame(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
-	await internal_hostGame(Network.hostNodeTunnel.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
+static func hostNodeTunnelGame(_nickname:String, _map:String, _mode:int, _args:Array = [], _relayServer:String = Network.NODETUNNEL_SERVER, _relayServerPort:int = Network.NODETUNNEL_PORT):
+	#await internal_hostGame(Network.hostNodeTunnel.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
+	pass
 
 static func hostNoray(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT):
-	await internal_hostGame(Network.hostNoray.bind(relayServer, relayServerPort), _nickname, _map, _mode, _args)
+	var theConnector := NorayNetworkConnector.new()
+	theConnector.setRelay(relayServer, relayServerPort)
+	
+	await internal_hostGame(theConnector, _nickname, _map, _mode, _args)
 
-static func internal_joinGame(joinFunc:Callable, _nickname:String):
+static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String):
 	#Network.joinGame(_nickname, _ip)
 	LoadingScreen.startLoad()
 	GI.get_tree().paused = true
 	LoadingScreen.setText("Connecting..")
-	var res = await joinFunc.call()#Network.connectLAN(_ip)
+	var res = await Network.join(_connector)#await joinFunc.call()#Network.connectLAN(_ip)
 	if(res.error):
 		errorOutToMainMenu(res.result if res.result is String else "Unable to connect")
 		return
@@ -205,13 +216,21 @@ static func internal_joinGame(joinFunc:Callable, _nickname:String):
 	LoadingScreen.finishLoad()
 
 static func joinLANGame(_nickname:String, _ip:String):
-	await internal_joinGame(Network.connectLAN.bind(_ip), _nickname)
+	var theConnector := LANNetworkConnector.new()
+	theConnector.setJoinIPAndPortFromString(_ip)
+	
+	await internal_joinGame(theConnector, _nickname)
 
-static func joinNodeTunnelGame(_nickname:String, _roomID:String, relayServer:String = Network.NODETUNNEL_SERVER, relayServerPort:int = Network.NODETUNNEL_PORT):
-	await internal_joinGame(Network.connectNodeTunnel.bind(_roomID, relayServer, relayServerPort), _nickname)
+static func joinNodeTunnelGame(_nickname:String, _roomID:String, _relayServer:String = Network.NODETUNNEL_SERVER, _relayServerPort:int = Network.NODETUNNEL_PORT):
+	#await internal_joinGame(Network.connectNodeTunnel.bind(_roomID, relayServer, relayServerPort), _nickname)
+	pass
 	
 static func joinNorayGame(_nickname:String, _roomID:String, relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT, forceRelay:bool = false):
-	await internal_joinGame(Network.connectNoray.bind(_roomID, relayServer, relayServerPort, forceRelay), _nickname)
+	var theConnector := NorayNetworkConnector.new()
+	theConnector.setRelay(relayServer, relayServerPort, forceRelay)
+	theConnector.setRoomID(_roomID)
+	
+	await internal_joinGame(theConnector, _nickname)
 	
 static func isInGame() -> bool:
 	return main != null

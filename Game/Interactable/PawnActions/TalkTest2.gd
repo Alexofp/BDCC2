@@ -21,6 +21,8 @@ func canDoAction(_context:PawnActionContext) -> bool:
 		return false
 	if(_context.getTargetPawn().submission.isObeying()):
 		return false
+	if(_context.getTargetPawn().isControlledByAnyPlayer()):
+		return false
 	#if(GM.sitManager.isSitting(_context.pawn)):
 	#	return false
 	#if(GM.sitManager.isSitting(_context.getTargetPawn())):

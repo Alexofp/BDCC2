@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" format=3 uid="uid://2otawgli4b78"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_jipxy"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_jipxy"]
 
 [resource]
 script = ExtResource("1_jipxy")
@@ -18,8 +18,9 @@ data = {
 &"id": "Body_Ferri",
 &"r": Color(0.8666667, 0.80784315, 0.7882353, 1)
 }],
-"breasts": 2.24,
+"breasts": 1.33,
 "breastsCleavage": 0.0,
+"breastsSag": 0.5,
 "claws": 1.0,
 "clawsColor": Color(0, 0.043137256, 0.28235295, 1),
 "clitPiercing": [""],

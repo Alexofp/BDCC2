@@ -43,10 +43,10 @@ func _ready() -> void:
 	setScreen(SCREEN_MAIN)
 	
 	nt_relay_server_edit.text = Network.NODETUNNEL_SERVER
-	noray_relay_server_edit.text = Network.NORAY_SERVER
+	noray_relay_server_edit.text = NorayNetworkConnector.NORAY_SERVER
 	#LoadingScreen.showError("Test message")
 	
-	for relayServer in Network.NORAY_SERVERS:
+	for relayServer in NorayNetworkConnector.NORAY_SERVERS:
 		noray_relay_list.add_item(relayServer)
 	noray_relay_list.add_item("Custom")
 	noray_relay_list.select(0)
@@ -157,8 +157,10 @@ func _on_noray_join_button_pressed() -> void:
 	var ipPort := Util.separateIPPort(theRelayServer)
 	if(ipPort.size() == 1):
 		ipPort.append(Network.NORAY_PORT)
+	if(theRoomID.is_empty()):
+		return
 	
-	GM.joinNorayGame(theNickame, theRoomID, ipPort[0], ipPort[1])
+	GM.joinNorayGame(theNickame, theRoomID, ipPort[0], ipPort[1], true)
 
 func _on_noray_tunnel_button_pressed() -> void:
 	setScreen(SCREEN_MULT_NORAY)
@@ -167,11 +169,11 @@ func updateNorayRelayList():
 	var relayIndx:int = noray_relay_list.selected
 	if(relayIndx < 0):
 		return
-	if(relayIndx >= Network.NORAY_SERVERS.size()): # Custom
+	if(relayIndx >= NorayNetworkConnector.NORAY_SERVERS.size()): # Custom
 		noray_relay_server_edit.visible = true
 	else:
 		noray_relay_server_edit.visible = false
-		noray_relay_server_edit.text = Network.NORAY_SERVERS[relayIndx]
+		noray_relay_server_edit.text = NorayNetworkConnector.NORAY_SERVERS[relayIndx]
 
 func _on_noray_relay_list_item_selected(_index: int) -> void:
 	updateNorayRelayList()
