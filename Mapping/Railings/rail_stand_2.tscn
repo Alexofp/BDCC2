@@ -12,15 +12,18 @@ size = Vector3(0.053689, 1.02, 0.697832)
 
 [node name="RailStand2" unique_id=1454428914 instance=ExtResource("1_inmm2")]
 script = ExtResource("2_716vs")
+roughness = 0.5
+color1 = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
-[node name="Tube_Tube_029" parent="." index="0" unique_id=1387284342]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="Tube_Tube_029" parent="." index="0" unique_id=1595636260]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_ry7ff")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tube_Tube_029" index="0" unique_id=1006798354]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0.346158)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube_Tube_029/StaticBody3D" index="0" unique_id=2114728794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.32523)

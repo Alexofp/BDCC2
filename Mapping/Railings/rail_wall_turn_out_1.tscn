@@ -9,14 +9,18 @@ size = Vector3(1.23983, 1.21657, 0.337688)
 
 [node name="RailWallTurnOut1" unique_id=1761121227 instance=ExtResource("1_6i6sc")]
 script = ExtResource("2_qyy7r")
+roughness = 0.5
+color1 = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
-[node name="RailWallTurnOut1" parent="." index="0" unique_id=1880193390]
+[node name="RailWallTurnOut1" parent="." index="0" unique_id=1637458447]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_mpm0h")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RailWallTurnOut1" index="0" unique_id=574970920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300085, 0.608284, -0.300085)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RailWallTurnOut1/StaticBody3D" index="0" unique_id=29072084]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.451071)

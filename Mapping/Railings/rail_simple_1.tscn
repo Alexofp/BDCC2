@@ -9,8 +9,10 @@ size = Vector3(0.84, 1.01983, 0.0400003)
 
 [node name="RailSimple1" unique_id=615386734 instance=ExtResource("1_qw16x")]
 script = ExtResource("2_msdb2")
+roughness = 0.5
+color1 = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
-[node name="RailSimple1" parent="." index="0" unique_id=936824830]
+[node name="RailSimple1" parent="." index="0" unique_id=722728829]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 instance_shader_parameters/trim_color_main = Color(1, 1, 1, 1)
@@ -20,6 +22,8 @@ surface_material_override/0 = ExtResource("2_6qkla")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RailSimple1" index="0" unique_id=723483485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.509914, 1.49012e-08)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RailSimple1/StaticBody3D" index="0" unique_id=1008885205]
 shape = SubResource("BoxShape3D_n753n")

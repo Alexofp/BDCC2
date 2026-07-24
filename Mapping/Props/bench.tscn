@@ -26,7 +26,7 @@ colorbase = Color(0.53, 0.53, 0.53, 1)
 color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.70980394, 0.4392157, 0.09019608, 1)
 
-[node name="Bench" parent="." index="0" unique_id=2011746259]
+[node name="Bench" parent="." index="0" unique_id=1435964363]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.53, 0.53, 0.53, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -35,6 +35,8 @@ instance_shader_parameters/trim_color_third = Color(1, 1, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bench" index="0" unique_id=565320342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.580417, -0.319291)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bench/StaticBody3D" index="0" unique_id=193737017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.330319, 0.0411298)

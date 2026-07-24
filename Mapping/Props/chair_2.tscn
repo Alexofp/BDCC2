@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://biogsmmimt1l5" path="res://Mapping/Props/Raw/Chair2.glb" id="1_6pqlf"]
 [ext_resource type="Script" uid="uid://hl6by82k78fy" path="res://Mapping/Props/chair.gd" id="2_s1gpe"]
+[ext_resource type="PackedScene" uid="uid://fdc6jyseehm2" path="res://AnimScenes/Scenes/SitAnim/sit_anim_handler.tscn" id="3_j3gam"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vk2lm"]
 size = Vector3(0.65022, 0.490939, 0.559775)
@@ -15,13 +16,15 @@ roughness = 0.5
 colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 
-[node name="Chair2" parent="." index="0" unique_id=862800497]
+[node name="Chair2" parent="." index="0" unique_id=707755746]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Chair2" index="0" unique_id=1420656645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.486725, -0.0929759)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Chair2/StaticBody3D" index="0" unique_id=1205628512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28963, 0.0992235)
@@ -30,3 +33,5 @@ shape = SubResource("BoxShape3D_vk2lm")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Chair2/StaticBody3D" index="1" unique_id=663537218]
 transform = Transform3D(1, 0, 0, 0, 0.990144, 0.140055, 0, -0.140055, 0.990144, 0, 0.229442, -0.248333)
 shape = SubResource("BoxShape3D_q4n32")
+
+[node name="SitAnimHandler" parent="." index="1" unique_id=1469755165 instance=ExtResource("3_j3gam")]

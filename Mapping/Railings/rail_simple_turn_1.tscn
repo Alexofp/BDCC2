@@ -9,14 +9,18 @@ size = Vector3(0.032378, 1.02, 0.94)
 
 [node name="RailSimpleTurn1" unique_id=754009090 instance=ExtResource("1_e41pw")]
 script = ExtResource("2_trl6k")
+roughness = 0.5
+color1 = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
-[node name="RailSimpleTurn1" parent="." index="0" unique_id=1342952134]
+[node name="RailSimpleTurn1" parent="." index="0" unique_id=304054663]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_jbvc2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RailSimpleTurn1" index="0" unique_id=1046361324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.51, 0.45)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RailSimpleTurn1/StaticBody3D" index="0" unique_id=1700065758]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.453811, 0, 0)

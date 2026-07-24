@@ -56,6 +56,10 @@ surface_material_override/0 = ExtResource("3_js7ct")
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_bgnum")
 
+[node name="StocksCollision" parent="." index="1" unique_id=1991565410]
+collision_layer = 2
+collision_mask = 2
+
 [node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") instance=ExtResource("3_we5c1")]
 unique_name_in_owner = true
 stocks = NodePath("..")

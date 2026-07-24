@@ -39,7 +39,7 @@ colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="InmateBed" parent="." index="0" unique_id=836984369]
+[node name="InmateBed" parent="." index="0" unique_id=2108814860]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -49,6 +49,8 @@ surface_material_override/3 = SubResource("ORMMaterial3D_pvkw2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="InmateBed" index="0" unique_id=1681952839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.0018, -0.600178)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InmateBed/StaticBody3D" index="0" unique_id=355865452]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.675541, -0.0491205)

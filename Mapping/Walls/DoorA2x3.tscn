@@ -10,7 +10,7 @@ size = Vector3(2, 0.101058, 1.0191)
 size = Vector3(2, 0.714307, 0.802734)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bivom"]
-size = Vector3(0.346924, 2.99485, 0.802734)
+size = Vector3(0.25, 2.99485, 0.802734)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4tsq"]
 size = Vector3(1.37962, 2.31301, 0.236612)
@@ -23,7 +23,7 @@ color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color2 = Color(0.133333, 0.133333, 0.133333, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="DoorFrameA2x3" parent="." index="0" unique_id=182745146]
+[node name="DoorFrameA2x3" parent="." index="0" unique_id=1629519787]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -42,18 +42,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17337, 0)
 shape = SubResource("BoxShape3D_bxfxl")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="2" unique_id=2113682757]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.826538, 0.0330968, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8713853, 0.03309679, 0)
 shape = SubResource("BoxShape3D_bivom")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="3" unique_id=1582066495]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.827, 0.033, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8718473, 0.032999992, 0)
 shape = SubResource("BoxShape3D_bivom")
 
 [node name="DoorCollision" type="CollisionShape3D" parent="DoorFrameA2x3/StaticBody3D" index="4" unique_id=862252277]
 shape = SubResource("BoxShape3D_y4tsq")
 disabled = true
 
-[node name="DoorA2x3" parent="." index="1" unique_id=1378263484]
+[node name="DoorA2x3" parent="." index="1" unique_id=719856275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31696, 0)
 gi_mode = 2
 instance_shader_parameters/roughness_mult = 0.5
@@ -61,3 +61,7 @@ instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
 instance_shader_parameters/trim_color_second = Color(0.133333, 0.133333, 0.133333, 1)
 instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="." index="2" unique_id=1561903947]
+start_position = Vector3(0, 0, -1)
+end_position = Vector3(0, 0, 1.035)

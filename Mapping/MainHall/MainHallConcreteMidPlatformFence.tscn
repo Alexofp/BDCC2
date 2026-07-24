@@ -7,3 +7,7 @@
 
 [node name="MainHallConcreteMidPlatformFence" parent="." index="0" unique_id=629056135]
 surface_material_override/0 = ExtResource("2_lmq2f")
+
+[node name="MainHallConcreteMidPlatformFenceCol" parent="MainHallConcreteMidPlatformFence" index="0" unique_id=909637552]
+collision_layer = 2
+collision_mask = 2

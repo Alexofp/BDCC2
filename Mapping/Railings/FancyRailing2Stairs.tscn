@@ -7,7 +7,7 @@ points = PackedVector3Array(0.00870937, 0.864042, -0.0709524, -0.421344, -0.4046
 
 [node name="FancyRailing2Stairs" unique_id=1780276078 instance=ExtResource("1_xib5c")]
 
-[node name="FancyRailing2Stairs" parent="." index="0" unique_id=1415767449]
+[node name="FancyRailing2Stairs" parent="." index="0" unique_id=1747764884]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -15,6 +15,8 @@ instance_shader_parameters/trim_color_second = Color(0.5254902, 0.5254902, 0.525
 instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20784314, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing2Stairs" index="0" unique_id=127385265]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing2Stairs/StaticBody3D" index="0" unique_id=1677013637]
 shape = SubResource("ConvexPolygonShape3D_uvtv0")

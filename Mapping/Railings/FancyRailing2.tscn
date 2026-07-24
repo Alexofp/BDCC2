@@ -7,7 +7,7 @@ size = Vector3(1.91158, 1.10685, 0.120384)
 
 [node name="FancyRailing2" unique_id=1997789194 instance=ExtResource("1_cnuu7")]
 
-[node name="FancyRailing2" parent="." index="0" unique_id=1229881886]
+[node name="FancyRailing2" parent="." index="0" unique_id=1529607642]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -16,6 +16,8 @@ instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing2" index="0" unique_id=1471519226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502437, 0)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing2/StaticBody3D" index="0" unique_id=1542477925]
 shape = SubResource("BoxShape3D_d3qls")

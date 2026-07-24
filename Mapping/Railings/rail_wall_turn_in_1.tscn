@@ -9,14 +9,18 @@ size = Vector3(0.930895, 1.21657, 0.339169)
 
 [node name="RailWallTurnIn1" unique_id=1340946310 instance=ExtResource("1_urris")]
 script = ExtResource("2_usp0s")
+roughness = 0.5
+color1 = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
-[node name="RailWallTurnIn1" parent="." index="0" unique_id=1437260444]
+[node name="RailWallTurnIn1" parent="." index="0" unique_id=1249803302]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.4117647, 0.4117647, 0.4117647, 1)
 surface_material_override/0 = ExtResource("2_148fb")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RailWallTurnIn1" index="0" unique_id=1400827087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.454553, 0.608284, 0.454553)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RailWallTurnIn1/StaticBody3D" index="0" unique_id=92734527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.295863)

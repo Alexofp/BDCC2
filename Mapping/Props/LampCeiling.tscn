@@ -23,7 +23,7 @@ lightSpecular = 0.5
 lightRange = 15.0
 lightEnergy = 15.0
 
-[node name="LampCeiling" parent="." index="0" unique_id=1808440394]
+[node name="LampCeiling" parent="." index="0" unique_id=2077901959]
 gi_mode = 0
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
@@ -32,6 +32,8 @@ instance_shader_parameters/trim_color_third = Color(0, 0.8784314, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LampCeiling" index="0" unique_id=934750625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.460984, 0)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LampCeiling/StaticBody3D" index="0" unique_id=660914526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.393772, 0.00161344)

@@ -125,15 +125,20 @@ func getPainLevel() -> float:
 
 const RARE_UPDATE_MULT:float = 0.1
 
+# Every ten seconds
 func onVeryRareUpdate(_dt:float):
 	var theMaxPain := getPainMax()
 	var restMult:float = GM.GB.painRecoverPassive
 	
 	var thePawn := getCharacter().getPawn()
-	if(thePawn && thePawn.isSittingSomewhere()):
-		restMult = GM.GB.painRecoverSitting
+	if(thePawn):
+		if(thePawn.isSittingSomewhere()):
+			restMult = GM.GB.painRecoverSitting
+		# No regen if defeated or in combat
+		if(thePawn.isDefeated() || thePawn.isInCombat()):
+			restMult = 0.0
 	
-	pain -= restMult * RARE_UPDATE_MULT * _dt * theMaxPain # Passive pain regen
+	pain -= restMult * _dt * theMaxPain # Passive pain regen
 	pain = clampf(pain, 0.0, theMaxPain)
 
 func saveNetworkData() -> Bins:

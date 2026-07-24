@@ -5,5 +5,9 @@
 
 [node name="MainHallTopFloorBalconyFence" unique_id=486884262 instance=ExtResource("1_82wpp")]
 
-[node name="MainHallTopFloorBalconyFence" parent="." index="0" unique_id=459176093]
+[node name="MainHallTopFloorBalconyFence" parent="." index="0" unique_id=485298335]
 surface_material_override/0 = ExtResource("2_hs3ec")
+
+[node name="MainHallTopFloorBalconyFenceCol" parent="MainHallTopFloorBalconyFence" index="0" unique_id=1925536224]
+collision_layer = 2
+collision_mask = 2

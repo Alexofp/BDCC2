@@ -13,7 +13,7 @@ colorbase = Color(0.52549, 0.52549, 0.52549, 1)
 color1 = Color(0.207843, 0.207843, 0.207843, 1)
 color3 = Color(0, 0.878431, 1, 1)
 
-[node name="InmateSink" parent="." index="0" unique_id=309466817]
+[node name="InmateSink" parent="." index="0" unique_id=1536214395]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.52549, 0.52549, 0.52549, 1)
 instance_shader_parameters/trim_color_main = Color(0.207843, 0.207843, 0.207843, 1)
@@ -21,6 +21,8 @@ instance_shader_parameters/trim_color_third = Color(0, 0.878431, 1, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="InmateSink" index="0" unique_id=369211267]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151429, 0.236471)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InmateSink/StaticBody3D" index="0" unique_id=101872006]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0871784, -0.0115837)

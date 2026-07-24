@@ -27,7 +27,7 @@ var defeatedRecoverTime:float = 7.0
 ## How much pain (per second) should be recovered by characters normally.
 var painRecoverPassive:float = 0.01
 ## How much pain (per second) should be recovered by characters if they're sitting anywhere.
-var painRecoverSitting:float = 0.1
+var painRecoverSitting:float = 0.05
 
 ## How many seconds before exhaustion can begin to recover
 var combatExhaustionRecoverTime:float = 1.5

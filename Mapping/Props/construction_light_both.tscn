@@ -18,7 +18,7 @@ lightSpecular = 0.5
 lightRange = 7.0
 lightEnergy = 5.0
 
-[node name="ConstructionLightBoth" parent="." index="0" unique_id=514765435]
+[node name="ConstructionLightBoth" parent="." index="0" unique_id=36468303]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.84705883, 0.6392157, 0, 1)
 instance_shader_parameters/trim_color_main = Color(0.1882353, 0.1882353, 0.1882353, 1)
@@ -26,6 +26,8 @@ instance_shader_parameters/trim_color_third = Color(1, 0.994, 0.64, 1)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ConstructionLightBoth" index="0" unique_id=315086225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.988704, -3.27826e-07)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ConstructionLightBoth/StaticBody3D" index="0" unique_id=1687151608]
 shape = SubResource("BoxShape3D_ta3ub")

@@ -7,7 +7,7 @@ size = Vector3(1.01598, 1.10685, 0.1)
 
 [node name="FancyRailing2Corner" unique_id=1006560373 instance=ExtResource("1_ao2q8")]
 
-[node name="FancyRailing2Corner" parent="." index="0" unique_id=1411563697]
+[node name="FancyRailing2Corner" parent="." index="0" unique_id=296466271]
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)
@@ -16,6 +16,8 @@ instance_shader_parameters/trim_color_third = Color(0.20784314, 0.20784314, 0.20
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FancyRailing2Corner" index="0" unique_id=334708908]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.452201, 0.502437, 0.452202)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing2Corner/StaticBody3D" index="0" unique_id=1277631942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45799)
