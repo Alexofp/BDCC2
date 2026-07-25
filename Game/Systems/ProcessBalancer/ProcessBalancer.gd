@@ -10,7 +10,12 @@ var curLayeredTextures:int = 0
 
 var animTrees:Array[AnimationTree] = []
 
+var dollsToUpdate:Array[Doll] = []
+var thingsToUpdate:Array[Node] = []
+
 var wiggleModifiers:Array[DMWBWiggleRotationModifier3D] = []
+
+var updateTimer:float = 0.0
 
 func _process(_delta: float) -> void:
 	ticks += 1
@@ -59,39 +64,45 @@ func _process(_delta: float) -> void:
 			#	animPlayer.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 			#	animPlayer.advance(_delta)
 				
-	# LAYERED TEXTURES UPDATE
-	if(!layeredTextures.is_empty()):
-		var toUpdate:int = MAX_LAYERED_TEXTURE_UPDATES_PER_FRAME
-		var didUpdate:int = 0
-		var theAmount:int = layeredTextures.size()
-		while(toUpdate > 0 && didUpdate < theAmount):
-			if(curLayeredTextures >= theAmount):
-				curLayeredTextures = 0
-			
-			var theTexture:MyLayeredTexture = layeredTextures[curLayeredTextures]
-			curLayeredTextures += 1
-			didUpdate += 1
-			toUpdate -= 1
-			
-			var theParent:Node = theTexture.get_parent()
-			if(!theParent || !(theParent is Node3D)):
-				continue
-			#var camera:Camera3D = get_viewport().get_camera_3d()
-			if(!camera):
-				continue
-			var distSqr:float = camera.global_position.distance_squared_to(theParent.global_position)
-			
-			if(distSqr < 1000.0):
-				theTexture.farTimer = 5.0
-			else:
-				theTexture.farTimer -= _delta
-			
-			if(theTexture.textureSpawned && theTexture.farTimer <= 0.0):
-				theTexture.textureSpawned = false
-				theTexture.markDirty()
-			elif(!theTexture.textureSpawned && theTexture.farTimer > 0.0):
-				theTexture.textureSpawned = true
-				theTexture.markDirty()
+# LAYERED TEXTURES UPDATE
+func updateLayeredTexturesAlways(_delta:float):
+	if(layeredTextures.is_empty()):
+		return
+	var camera:Camera3D = get_viewport().get_camera_3d()
+	if(!camera):
+		return
+	
+	var toUpdate:int = MAX_LAYERED_TEXTURE_UPDATES_PER_FRAME
+	var didUpdate:int = 0
+	var theAmount:int = layeredTextures.size()
+	while(toUpdate > 0 && didUpdate < theAmount):
+		if(curLayeredTextures >= theAmount):
+			curLayeredTextures = 0
+		
+		var theTexture:MyLayeredTexture = layeredTextures[curLayeredTextures]
+		curLayeredTextures += 1
+		didUpdate += 1
+		toUpdate -= 1
+		
+		var theParent:Node = theTexture.get_parent()
+		if(!theParent || !(theParent is Node3D)):
+			continue
+		#var camera:Camera3D = get_viewport().get_camera_3d()
+		if(!camera):
+			continue
+		var distSqr:float = camera.global_position.distance_squared_to(theParent.global_position)
+		
+		if(distSqr < 1000.0):
+			theTexture.farTimer = 5.0
+		else:
+			theTexture.farTimer -= _delta
+		
+		if(theTexture.textureSpawned && theTexture.farTimer <= 0.0):
+			theTexture.textureSpawned = false
+			theTexture.markDirty()
+		elif(!theTexture.textureSpawned && theTexture.farTimer > 0.0):
+			theTexture.textureSpawned = true
+			theTexture.markDirty()
 	# LAYERED TEXTURES UPDATE END
 
 func addLayeredTexture(_texture:MyLayeredTexture):
@@ -115,3 +126,53 @@ func addWiggleModifier(_mod):
 
 func removeWiggleModifier(_mod):
 	wiggleModifiers.erase(_mod)
+
+func addDollToUpdate(_doll:Doll):
+	if(!_doll || dollsToUpdate.has(_doll)):
+		return
+	dollsToUpdate.append(_doll)
+	_doll.tree_exiting.connect(removeDollToUpdate.bind(_doll))
+	
+func removeDollToUpdate(_doll:Doll):
+	dollsToUpdate.erase(_doll)
+	_doll.tree_exiting.disconnect(removeDollToUpdate.bind(_doll))
+
+func updateDolls(_delta: float):
+	var theDoll:Doll = dollsToUpdate.front()
+	var newUpdateTimer := theDoll.doDollUpdate()
+	if(newUpdateTimer < 0.0):
+		theDoll.tree_exiting.disconnect(removeDollToUpdate.bind(theDoll))
+		dollsToUpdate.pop_front()
+	else:
+		updateTimer = newUpdateTimer
+
+func _physics_process(_delta: float) -> void:
+	if(updateTimer > 0.0):
+		updateTimer -= _delta
+	else:
+		if(!thingsToUpdate.is_empty()):
+			updateThings(_delta)
+			return
+		if(!dollsToUpdate.is_empty()):
+			updateDolls(_delta)
+			return
+		updateLayeredTexturesAlways(_delta)
+
+func addThingToUpdate(_thing:Node):
+	if(!_thing || thingsToUpdate.has(_thing)):
+		return
+	thingsToUpdate.append(_thing)
+	_thing.tree_exiting.connect(removeThingToUpdate.bind(_thing))
+	
+func removeThingToUpdate(_thing:Node):
+	thingsToUpdate.erase(_thing)
+	_thing.tree_exiting.disconnect(removeThingToUpdate.bind(_thing))
+
+func updateThings(_delta: float):
+	var theThing:Node = thingsToUpdate.front()
+	var newUpdateTimer:float = theThing.doThingUpdate()
+	if(newUpdateTimer < 0.0):
+		theThing.tree_exiting.disconnect(removeThingToUpdate.bind(theThing))
+		thingsToUpdate.pop_front()
+	else:
+		updateTimer = newUpdateTimer

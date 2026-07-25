@@ -56,7 +56,14 @@ func markDirty():
 		return
 	dirty = true
 	if(!inProcess):
-		updateTexture.call_deferred()
+		#updateTexture.call_deferred()
+		ProcessBalancer.addThingToUpdate(self)
+
+func doThingUpdate() -> float:
+	if(!dirty):
+		return -1.0
+	updateTexture()
+	return 0.05
 
 func updateTexture():
 	if(!dirty):
@@ -161,7 +168,8 @@ func updateTexture():
 	
 	inProcess = false
 	if(dirty):
-		updateTexture.call_deferred()
+		#updateTexture.call_deferred()
+		ProcessBalancer.addThingToUpdate(self)
 
 func getTexture() -> Texture2D:
 	if(bakeTexture && cachedTexture):

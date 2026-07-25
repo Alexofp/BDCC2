@@ -237,6 +237,7 @@ func updatePartFromCharacterDelayed(_genericType:int, slot:int):
 		if(existingEntry[0] == _genericType && existingEntry[1] == slot):
 			return
 	partUpdateQueue.append([_genericType, slot])
+	ProcessBalancer.addDollToUpdate(self)
 
 func onCharPartChange(_genericType:int, slot:int, _newpart = null):
 	#updatePartFromCharacter(_genericType, slot)
@@ -253,8 +254,26 @@ func clear():
 	parts = [{}, {}]
 	partPaths = [{}, {}]
 
-func _physics_process(_delta: float) -> void:
+func doesDollNeedMoreUpdating() -> bool:
 	if(!partUpdateQueue.is_empty()):
+		return true
+	
+	return false
+
+func doDollUpdate() -> float:
+	if(partUpdateQueue.is_empty()):
+		if(partUpdateHappening.is_empty()):
+			return -1.0
+		return 0.1
+	var theEntry:Array = partUpdateQueue.pop_front()
+	if(isPartUpdateHappening(theEntry[0], theEntry[1])):
+		partUpdateQueue.append([theEntry[0], theEntry[1]])
+	else:
+		updatePartFromCharacter(theEntry[0], theEntry[1])
+	return 0.1
+
+func _physics_process(_delta: float) -> void:
+	if(false && !partUpdateQueue.is_empty()): # Happens inside ProcessBalancer now
 		partUpdateQueueTimer -= _delta
 		if(partUpdateQueueTimer <= 0.0):
 			partUpdateQueueTimer = 0.1
