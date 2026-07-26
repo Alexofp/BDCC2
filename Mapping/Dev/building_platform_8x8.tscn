@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbj6qe7a5dwkw"]
 
 [ext_resource type="PackedScene" uid="uid://dyu6qcwm1vaat" path="res://Mapping/Dev/Raw/BuildingPlatform8x8.glb" id="1_54bln"]
-[ext_resource type="Texture2D" uid="uid://bsqie4odyng11" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="2_rcy0b"]
+[ext_resource type="Texture2D" uid="uid://bsqie4odyng11" path="res://Mesh/Textures/kenney_prototype_textures/orange/texture_01.png" id="2_rcy0b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k61f7"]
 albedo_texture = ExtResource("2_rcy0b")
@@ -14,7 +14,7 @@ size = Vector2(8, 8)
 
 [node name="BuildingPlatform8x8" unique_id=1708546553 instance=ExtResource("1_54bln")]
 
-[node name="BuildingPlatform8x8" parent="." index="0" unique_id=255147757]
+[node name="BuildingPlatform8x8" parent="." index="0" unique_id=1900864832]
 gi_mode = 0
 surface_material_override/0 = SubResource("StandardMaterial3D_k61f7")
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3nhvgim0nv4c"
-path.s3tc="res://.godot/imported/texture_13.png-51cb3f38ea774c85cb3ad561d20c5b53.s3tc.ctex"
-path.etc2="res://.godot/imported/texture_13.png-51cb3f38ea774c85cb3ad561d20c5b53.etc2.ctex"
+path.s3tc="res://.godot/imported/texture_13.png-9ad7e59d9fd00c65e72e4a613bf1ccc6.s3tc.ctex"
+path.etc2="res://.godot/imported/texture_13.png-9ad7e59d9fd00c65e72e4a613bf1ccc6.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,13 +12,14 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_prototype_textures/dark/texture_13.png"
-dest_files=["res://.godot/imported/texture_13.png-51cb3f38ea774c85cb3ad561d20c5b53.s3tc.ctex", "res://.godot/imported/texture_13.png-51cb3f38ea774c85cb3ad561d20c5b53.etc2.ctex"]
+source_file="res://Mesh/Textures/kenney_prototype_textures/dark/texture_13.png"
+dest_files=["res://.godot/imported/texture_13.png-9ad7e59d9fd00c65e72e4a613bf1ccc6.s3tc.ctex", "res://.godot/imported/texture_13.png-9ad7e59d9fd00c65e72e4a613bf1ccc6.etc2.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

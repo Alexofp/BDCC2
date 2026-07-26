@@ -18,6 +18,8 @@ var wiggleModifiers:Array[DMWBWiggleRotationModifier3D] = []
 var updateTimer:float = 0.0
 
 func _process(_delta: float) -> void:
+	processThings(_delta)
+	
 	ticks += 1
 	var camera:Camera3D = get_viewport().get_camera_3d()
 	
@@ -146,7 +148,7 @@ func updateDolls(_delta: float):
 	else:
 		updateTimer = newUpdateTimer
 
-func _physics_process(_delta: float) -> void:
+func processThings(_delta: float) -> void:
 	if(updateTimer > 0.0):
 		updateTimer -= _delta
 	else:

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxmfvbysclgq5"
-path="res://.godot/imported/texture_01.png-38f28acdb9a95ea2efd835531b47e519.ctex"
+path="res://.godot/imported/texture_01.png-e69891376f7ffe2b17abec4d4b65afe4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/kenney_prototype_textures/purple/texture_01.png"
-dest_files=["res://.godot/imported/texture_01.png-38f28acdb9a95ea2efd835531b47e519.ctex"]
+source_file="res://Mesh/Textures/kenney_prototype_textures/purple/texture_01.png"
+dest_files=["res://.godot/imported/texture_01.png-e69891376f7ffe2b17abec4d4b65afe4.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

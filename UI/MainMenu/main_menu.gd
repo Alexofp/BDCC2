@@ -3,14 +3,13 @@ extends Control
 const SCREEN_MAIN = 0
 const SCREEN_MULTIPLAYER = 1
 const SCREEN_MULT_LAN = 2
-const SCREEN_MULT_NODETUNNEL = 3
+#const SCREEN_MULT_NODETUNNEL = 3
 const SCREEN_SETTINGS = 4
 const SCREEN_MULT_NORAY = 5
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
 	SCREEN_MULT_LAN: SCREEN_MULTIPLAYER,
-	SCREEN_MULT_NODETUNNEL: SCREEN_MULTIPLAYER,
 	SCREEN_MULT_NORAY: SCREEN_MULTIPLAYER,
 }
 
@@ -23,11 +22,6 @@ var currentScreen:int = -1
 @onready var nickname_edit: LineEdit = %NicknameEdit
 @onready var lan_ip_edit: LineEdit = %LanIPEdit
 
-@onready var node_tunnel_list: VBoxContainer = %NodeTunnelList
-@onready var nt_room_edit: LineEdit = %NTRoomEdit
-
-@onready var nt_relay_server_edit: LineEdit = %NTRelayServerEdit
-@onready var nt_relay_bottom_list: VBoxContainer = %NTRelayBottomList
 @onready var tools_container: PanelContainer = %ToolsContainer
 @onready var settings_tab: MarginContainer = %SettingsTab
 
@@ -42,7 +36,6 @@ var currentScreen:int = -1
 func _ready() -> void:
 	setScreen(SCREEN_MAIN)
 	
-	nt_relay_server_edit.text = Network.NODETUNNEL_SERVER
 	noray_relay_server_edit.text = NorayNetworkConnector.NORAY_SERVER
 	#LoadingScreen.showError("Test message")
 	
@@ -60,9 +53,6 @@ func setScreen(_screen:int):
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	lan_list.visible = (_screen == SCREEN_MULT_LAN)
 	settings_tab.visible = (_screen == SCREEN_SETTINGS)
-	
-	node_tunnel_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
-	nt_relay_bottom_list.visible = (_screen == SCREEN_MULT_NODETUNNEL)
 	
 	noray_tunnel_list.visible = (_screen == SCREEN_MULT_NORAY)
 	noray_relay_bottom_list.visible = (_screen == SCREEN_MULT_NORAY)
@@ -105,30 +95,6 @@ func _on_lan_join_button_pressed() -> void:
 	
 	GM.joinLANGame(theNickame, theIP)
 
-
-func _on_nt_host_button_pressed() -> void:
-	var theNickame:String = nickname_edit.text if nickname_edit.text else "Host"
-	var theRelayServer:String = nt_relay_server_edit.text if !nt_relay_server_edit.text.is_empty() else Network.NODETUNNEL_SERVER
-	
-	var ipPort := Util.separateIPPort(theRelayServer)
-	if(ipPort.size() == 1):
-		ipPort.append(Network.NODETUNNEL_PORT)
-	
-	GM.hostNodeTunnelGame(theNickame, "res://Maps/Prison/prison.tscn", GameMode.Sandbox, [], ipPort[0], ipPort[1])
-
-func _on_nt_join_button_pressed() -> void:
-	var theNickame:String = nickname_edit.text if !nickname_edit.text.is_empty() else "Client"
-	var theRoomID:String = nt_room_edit.text if !nt_room_edit.text.is_empty() else ""
-	var theRelayServer:String = nt_relay_server_edit.text if !nt_relay_server_edit.text.is_empty() else Network.NODETUNNEL_SERVER
-	
-	var ipPort := Util.separateIPPort(theRelayServer)
-	if(ipPort.size() == 1):
-		ipPort.append(Network.NODETUNNEL_PORT)
-	
-	GM.joinNodeTunnelGame(theNickame, theRoomID, ipPort[0], ipPort[1])
-
-func _on_node_tunnel_button_pressed() -> void:
-	setScreen(SCREEN_MULT_NODETUNNEL)
 
 func _on_settings_button_pressed() -> void:
 	setScreen(SCREEN_SETTINGS)
