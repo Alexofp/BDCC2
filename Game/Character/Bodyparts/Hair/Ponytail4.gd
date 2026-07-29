@@ -6,6 +6,10 @@ func _init():
 	super._init()
 	id = "Ponytail4"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	bandColor = _gen.colors.hairBand
+
 func getName() -> String:
 	return "Ponytail 4"
 

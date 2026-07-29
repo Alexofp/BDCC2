@@ -223,8 +223,13 @@ func characterPartChange_RPC(_id:String, _genericType:int, _slot:int, _partID:St
 	theCharacter.addGenericPart(_genericType, _slot, bodypart)
 
 func createCharacter() -> BaseCharacter:
+	return addExistingCharacter(prepareCharacter())
+
+func prepareCharacter() -> BaseCharacter:
 	var newID := generateNewUniqueID()
-	return createCharacterCustomID(newID)
+	var newChar:BaseCharacter = BaseCharacter.new()
+	newChar.id = newID
+	return newChar
 
 @rpc("authority", "call_remote", "reliable")
 func createCharacter_RPC(theID:String, _data:Dictionary):
@@ -233,13 +238,18 @@ func createCharacter_RPC(theID:String, _data:Dictionary):
 
 func createCharacterCustomID(theID:String) -> BaseCharacter:
 	var newChar:BaseCharacter = BaseCharacter.new()
-	connectSignalsToCharacter(newChar)
 	newChar.id = theID
-	characters[theID] = newChar
+	
+	addExistingCharacter(newChar)
+	return newChar
+
+func addExistingCharacter(newChar:BaseCharacter) -> BaseCharacter:
+	connectSignalsToCharacter(newChar)
+	characters[newChar.id] = newChar
 	characterList.append(newChar)
-	characterAdded.emit(theID, newChar)
+	characterAdded.emit(newChar.id, newChar)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(createCharacter_RPC.bind(theID, newChar.saveData()))
+		Network.rpcClients(createCharacter_RPC.bind(newChar.id, newChar.saveData()))
 	return newChar
 
 @rpc("authority", "call_remote", "reliable")

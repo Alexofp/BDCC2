@@ -28,24 +28,7 @@ func getVariants() -> Array:
 		if(ResourceLoader.exists(thePreviewPath)):
 			newVar.previewPath = thePreviewPath
 		
-		if(entry.has("name")):
-			newVar.name = entry["name"]
-		else:
-			newVar.name = finalID
-		if(entry.has("texture")):
-			newVar.pathTexture = entry["texture"]
-		if(entry.has("normal")):
-			newVar.pathNormal = entry["normal"]
-		if(entry.has("colormask")):
-			newVar.pathColormask = entry["colormask"]
-		if(entry.has("orm")):
-			newVar.pathORM = entry["orm"]
-		if(entry.has("flags")):
-			newVar.flags = entry["flags"]
-		if(entry.has("subType")):
-			newVar.subType = entry["subType"]
-		else:
-			newVar.subType = subType
+		newVar.parse(entry, subType)
 		result.append(newVar)
 	
 	return result

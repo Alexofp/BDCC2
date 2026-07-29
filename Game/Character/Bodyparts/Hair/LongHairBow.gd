@@ -7,6 +7,11 @@ func _init():
 	super._init()
 	id = "LongHairBow"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	bowColor = _gen.colors.hairBow
+	bowHide = RNG.chance(40.0)
+
 func getName() -> String:
 	return "Long hair (Bow)"
 

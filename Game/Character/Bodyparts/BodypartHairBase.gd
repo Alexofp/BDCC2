@@ -16,6 +16,24 @@ var pattern:Dictionary = {
 	b = Color(0.3, 0.3, 0.3),
 }
 
+var mascWeight:float = 1.0
+var femWeight:float = 1.0
+var androWeight:float = 1.0
+
+func registerForSpecies():
+	addForAll(BodypartSlot.Hair, Gender.Male, mascWeight)
+	addForAll(BodypartSlot.Hair, Gender.Female, femWeight)
+	addForAll(BodypartSlot.Hair, Gender.Androgynous, androWeight)
+	addForAll(BodypartSlot.Hair, Gender.NonBinary, androWeight)
+
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	colorRoot = _gen.colors.hair.color1
+	colorTip = ColorUtils.shade(colorTip, randf_range(0.3, 0.7))
+	shading = randf_range(0.0, 1.0)
+	shine = randf_range(0.2, 0.4)
+	#GEN: Pick random pattern and colors
+
 func getBodypartType() -> int:
 	return BodypartType.Hair
 

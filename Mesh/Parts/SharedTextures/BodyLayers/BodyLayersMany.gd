@@ -15,6 +15,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Belly2": {
 			name = "Belly 2",
@@ -23,6 +26,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
 			},
 		},
 		"Belly3": {
@@ -33,6 +39,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Belly4": {
 			name = "Belly 4",
@@ -41,6 +50,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
 			},
 		},
 		"Belly5": {
@@ -51,6 +63,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Belly6": {
 			name = "Belly 6",
@@ -60,6 +75,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Belly7": {
 			name = "Belly 7",
@@ -68,6 +86,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
 			},
 		},
 		"FeetFur": {
@@ -108,6 +129,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+				weight = 0.2,
+			},
 		},
 		"Artica": {
 			name = "Artica",
@@ -116,6 +141,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
+				weight = 0.2,
 			},
 		},
 		"HeartBreasts": {
@@ -150,6 +179,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
+				weight = 0.2,
 			},
 		},
 		"Back1": {
@@ -240,6 +273,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
+				weight = 0.2,
 			},
 		},
 		"WildMarks": {

@@ -14,6 +14,23 @@ func _init():
 func getBodypartSlots() -> Array:
 	return BodypartSlot.getFromType(getBodypartType())
 
+func registerForSpecies():
+	pass
+
+const ANY_GENDER := SpeciesBase.ANY_GENDER
+const FALLBACK := SpeciesBase.FALLBACK
+
+func addForSpecies(_species:String, _gender:int, _weight:float):
+	if(!GlobalRegistry.bodypartSpeciesRegistrations.has(_species)):
+		GlobalRegistry.bodypartSpeciesRegistrations[_species] = []
+	
+	GlobalRegistry.bodypartSpeciesRegistrations[_species].append([
+		id, _gender, _weight,
+	])
+
+func addForAll(_slot:int, _gender:int, _weight:float):
+	GlobalRegistry.addBodypartForAnySpecies(_slot, _gender, id, _weight)
+
 func supportsSlot(slot:int) -> bool:
 	return slot in getBodypartSlots()
 
@@ -172,3 +189,29 @@ func getLeashTargets() -> Array[String]:
 
 func getLeashTargetName(_id:String) -> String:
 	return _id
+
+func generateFor(_gen:CharacterGenerator):
+	pass
+
+func generateSkinLayerMain(_layers:Array, _gen:CharacterGenerator, theType:String, theSubType:String):
+	var allIDs:Array = GlobalRegistry.getTextureVariantsIDsOfTypeAndSubType(theType, theSubType)
+	if(allIDs.is_empty()):
+		return
+	var possibleMain:Dictionary[TextureVariant, float] = {}
+	for theID in allIDs:
+		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
+		if(!theTextureVariant.genMain || theTextureVariant.genWeight <= 0.0):
+			continue
+		possibleMain[theTextureVariant] = theTextureVariant.genWeight
+	
+	if(possibleMain.is_empty()):
+		return
+	var theSelected:TextureVariant = RNG.pickWeightedDict(possibleMain)
+	
+	var theEntry:Dictionary = {
+		id = theSelected.id,
+		r = GenColorMapTo.getColor(theSelected.genMapR, _gen),
+		g = GenColorMapTo.getColor(theSelected.genMapG, _gen),
+		b = GenColorMapTo.getColor(theSelected.genMapB, _gen),
+	}
+	_layers.append(theEntry)

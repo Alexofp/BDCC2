@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://cbb8dlid2kfdx"]
+
+[ext_resource type="Script" uid="uid://bvaakp5r6dtk4" path="res://UI/Util/ColorUtilsTester/ColorUtilsTester.gd" id="1_wo7us"]
+
+[node name="ColorUtilsTester" type="Control" unique_id=1552123968]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wo7us")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1669999224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=879948275]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=1194550830]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=503680014]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=695401953]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ColorPickerButton6" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=2080611260]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=2015481086]
+layout_mode = 2
+
+[node name="RealisticButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer" unique_id=339911878]
+layout_mode = 2
+text = "Realistic"
+
+[node name="RealisticAltButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer" unique_id=992164186]
+layout_mode = 2
+text = "Realistic Alt"
+
+[node name="ColorPickerButton4" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=1170829103]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HFlowContainer2" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=1961507041]
+layout_mode = 2
+
+[node name="SkinPaleButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=108924363]
+layout_mode = 2
+text = "Pale skin"
+
+[node name="SkinFairButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=1825781362]
+layout_mode = 2
+text = "Fair skin"
+
+[node name="SkinTanButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=1942177808]
+layout_mode = 2
+text = "Tan skin"
+
+[node name="SkinBrownButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=902629138]
+layout_mode = 2
+text = "Brown skin"
+
+[node name="SkinDarkButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=1549700889]
+layout_mode = 2
+text = "Dark skin"
+
+[node name="SkinRandomButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=1977731387]
+layout_mode = 2
+text = "Random skin tone"
+
+[node name="SkinSimpleButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer2" unique_id=1417025190]
+layout_mode = 2
+text = "Simple skin tone"
+
+[node name="ColorPickerButton5" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=1629637411]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HFlowContainer3" type="HFlowContainer" parent="ScrollContainer/VBoxContainer" unique_id=1053671317]
+layout_mode = 2
+
+[node name="RandomColorButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer3" unique_id=1140655742]
+layout_mode = 2
+text = "Random color"
+
+[node name="PastelColorButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer3" unique_id=11151749]
+layout_mode = 2
+text = "Pastel"
+
+[node name="VibrantColorButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer3" unique_id=799325659]
+layout_mode = 2
+text = "Vibrant"
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/RealisticButton" to="." method="_on_realistic_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/RealisticAltButton" to="." method="_on_realistic_alt_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinPaleButton" to="." method="_on_skin_pale_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinFairButton" to="." method="_on_skin_fair_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinTanButton" to="." method="_on_skin_tan_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinBrownButton" to="." method="_on_skin_brown_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinDarkButton" to="." method="_on_skin_dark_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinRandomButton" to="." method="_on_skin_random_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinSimpleButton" to="." method="_on_skin_simple_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer3/RandomColorButton" to="." method="_on_random_color_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer3/PastelColorButton" to="." method="_on_pastel_color_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer3/VibrantColorButton" to="." method="_on_vibrant_color_button_pressed"]

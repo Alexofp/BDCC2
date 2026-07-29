@@ -27,6 +27,17 @@ var pattern:Dictionary = {
 	b = Color(0.3, 0.3, 0.3),
 }
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	bowColor = _gen.colors.hairBow
+	tailType = RNG.pick([
+		TAILTYPE_BAND_BOW,
+		TAILTYPE_BAND,
+		TAILTYPE_BOW,
+		TAILTYPE_PLAIN
+	])
+	thickness = randf_range(-0.5, 0.5)
+
 func _init():
 	super._init()
 	id = "HugeFluffyTail"

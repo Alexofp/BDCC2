@@ -63,7 +63,13 @@ func _on_add_pawn_button_pressed() -> void:
 		_on_add_pawn_button_pressed.rpc_id(1)
 		return
 	#TODO Make this a gameinteractor thing?
-	var thePC:BaseCharacter = GI.characterRegistry.createCharacter()
+	var thePC:BaseCharacter = GI.characterRegistry.prepareCharacter()#createCharacter()
+	
+	var theGen := CharacterGenerator.new()
+	theGen.generate(thePC)
+	
+	GI.characterRegistry.addExistingCharacter(thePC)
+	
 	var _thePawn:CharacterPawn = GI.pawnRegistry.createPawn(thePC.getID())
 	_thePawn.position.x = RNG.randfRange(-4.0, 4.0)
 	_thePawn.position.z = RNG.randfRange(-2.0, 2.0)

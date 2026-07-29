@@ -15,7 +15,7 @@ var sexActivityRefs: Dictionary = {}
 var animScenes: Dictionary = {}
 var sexVoices: Dictionary = {}
 var voiceActors: Dictionary = {}
-var species:Dictionary = {}
+var species:Dictionary[String, SpeciesBase] = {}
 var items:Dictionary = {}
 var itemRefs:Dictionary = {}
 var clothingSceneSelectors:Array = []
@@ -55,6 +55,8 @@ var sexDialogueChains:Dictionary#[String, SexDialogueChain]
 var sexDialogueChainRefs:Dictionary[String, SexDialogueChain]
 var moods:Array[MoodBase]
 var moodByID:Dictionary[String, MoodBase]
+var bodypartSpeciesRegistrations:Dictionary[String, Array] = {} #species = [id, _gender, _weight]
+var bodypartsForAnySpecies:Dictionary[int, Dictionary] = {} # slot, gender, id = weight
 
 signal initialized
 
@@ -64,6 +66,60 @@ var dollAnimTreeCache:Dictionary[String, AnimationNode] = {}
 var dollAnimTreeLayerCache:Dictionary[String, Dictionary] = {}
 var mainSkeletonBoneData:MainSkeletonBoneData = MainSkeletonBoneData.new()
 var dollAnimLibraries:Dictionary[String, String] = {}
+
+func addBodypartRegistrationsToSpecies():
+	for speciesID in bodypartSpeciesRegistrations:
+		var theRegs:Array = bodypartSpeciesRegistrations[speciesID]
+		if(!species.has(speciesID)):
+			continue
+		var theSpecies:SpeciesBase = species[speciesID]
+		for theEntry in theRegs:
+			#theSpecies.addPart(theEntry[1], theEntry[2], theEntry[0], theEntry[3])
+			theSpecies.addPart(theEntry[1], theEntry[0], theEntry[2])
+
+func addBodypartForAnySpecies(_slot:int, _gender:int, _partID:String, _weight:float):
+	_slot = BodypartSlot.getLeftSlot(_slot)
+	if(!bodypartsForAnySpecies.has(_slot)):
+		bodypartsForAnySpecies[_slot] = {}
+	var theSlotParts:Dictionary = bodypartsForAnySpecies[_slot]
+	if(!theSlotParts.has(_gender)):
+		theSlotParts[_gender] = {}
+	var theGenderParts:Dictionary = theSlotParts[_gender]
+	theGenderParts[_partID] = _weight
+
+func getBodypartIDsForAnySpecies(_slot:int, _gender:int) -> Dictionary[String, float]:
+	_slot = BodypartSlot.getLeftSlot(_slot)
+	if(!bodypartsForAnySpecies.has(_slot)):
+		return {}
+	var theSlotParts:Dictionary = bodypartsForAnySpecies[_slot]
+	
+	var result:Dictionary[String, float] = {}
+	
+	if(theSlotParts.has(SpeciesBase.ANY_GENDER)):
+		var theAnyGenderParts:Dictionary = theSlotParts[SpeciesBase.ANY_GENDER]
+		for thePartID in theAnyGenderParts:
+			var theWeight:float = theAnyGenderParts[thePartID]
+			if(theWeight <= 0.0):
+				continue
+			result[thePartID] = theWeight
+	
+	if(theSlotParts.has(_gender)):
+		var theGenderParts:Dictionary = theSlotParts[_gender]
+		for thePartID in theGenderParts:
+			var theWeight:float = theGenderParts[thePartID]
+			if(theWeight <= 0.0):
+				continue
+			result[thePartID] = theWeight
+	
+	if(result.is_empty() && theSlotParts.has(SpeciesBase.FALLBACK)):
+		var theFallbackParts:Dictionary = theSlotParts[SpeciesBase.FALLBACK]
+		for thePartID in theFallbackParts:
+			var theWeight:float = theFallbackParts[thePartID]
+			if(theWeight <= 0.0):
+				continue
+			result[thePartID] = theWeight
+			
+	return result
 
 class CustomLogger extends Logger:
 	func _log_message(message: String, _error: bool) -> void:
@@ -212,6 +268,7 @@ func doInit():
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
+	addBodypartRegistrationsToSpecies() # Depends on species and bodyparts
 	
 	sortPawnActionsArrayByPriority(pawnActionsAlwaysSelf)
 	sortPawnActionsArrayByPriority(pawnActionsAlwaysOtherPawn)
@@ -240,6 +297,8 @@ func registerBodypart(path: String):
 		var textureVariantsPaths:Array = object.getTextureVariantsPaths()
 		for thePath in textureVariantsPaths:
 			registerTextureVariant(thePath)
+		
+		object.registerForSpecies()
 
 func registerBodypartsFolder(folder: String):
 	var scripts = Util.getScriptsInFolder(folder)
@@ -508,6 +567,7 @@ func registerSpecies(path: String):
 	
 	if(object is SpeciesBase):
 		species[object.id] = object
+		object.registerStuff()
 
 func registerSpeciesFolder(folder: String):
 	var scripts = Util.getScriptsInFolder(folder)

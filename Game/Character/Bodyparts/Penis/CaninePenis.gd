@@ -18,6 +18,10 @@ func _init():
 	super._init()
 	id = "CaninePenis"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	furTuftColor = _gen.colors.fluff
+
 func getName() -> String:
 	return "Canine penis"
 

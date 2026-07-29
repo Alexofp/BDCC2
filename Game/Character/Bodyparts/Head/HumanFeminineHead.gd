@@ -14,6 +14,13 @@ func _init():
 	id = "HumanFeminineHead"
 	skinType = SkinType.HumanSkin
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	generateSkinLayerMain(headLayers, _gen, TextureVariantType.HeadLayer, "HumanFeminineHead")
+
+func registerForSpecies():
+	addForSpecies("Human", ANY_GENDER, 1001.0) # 1001.0 means it will always win for hybrids
+
 func getName() -> String:
 	return "Human Feminine head"
 

@@ -14,6 +14,10 @@ func _init():
 	super._init()
 	id = "RoundEar"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	fluffColor = _gen.colors.fluff
+
 func getName() -> String:
 	return "Round ear"
 

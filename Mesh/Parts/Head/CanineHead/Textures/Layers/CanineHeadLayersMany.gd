@@ -16,6 +16,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Muzzle": {
 			name = "Muzzle",
@@ -25,6 +28,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Nova": {
 			name = "Nova",
@@ -33,6 +39,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
 			},
 		},
 		"EyeDarkness": {
@@ -52,6 +61,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				main = true,
+			},
 		},
 		"Coffee": {
 			name = "Coffee",
@@ -69,6 +81,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				main = true,
 			},
 		},
 	}

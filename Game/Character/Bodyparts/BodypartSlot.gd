@@ -64,3 +64,10 @@ static func getPair(bodypartType:int) -> int:
 
 static func hasPair(bodypartType:int) -> bool:
 	return getPair(bodypartType) >= 0
+
+static func getLeftSlot(_slot:int) -> int:
+	if(_slot == RightEar):
+		return LeftEar
+	if(_slot == RightHorn):
+		return LeftHorn
+	return _slot

@@ -14,6 +14,12 @@ func _init():
 	super._init()
 	id = "SmallEar"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	fluffColor = _gen.colors.fluff
+	tassels = RNG.chance(50.0)
+	tasselsColor = fluffColor
+
 func getName() -> String:
 	return "Small ear"
 

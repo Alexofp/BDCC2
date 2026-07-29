@@ -39,6 +39,30 @@ var pubicHair:Dictionary = {
 	b = Color("00ff00ff"),
 }
 
+func generateFor(_gen:CharacterGenerator):
+	if(_gen.breasts == _gen.YES):
+		breasts = randf_range(0.4, 2.0)
+	else:
+		breasts = 0.0
+	legType = "planti" if !_gen.hasTrait(SpeciesTrait.LegsDigi) else "digi"
+	
+	if(!_gen.hasTrait(SpeciesTrait.HandsPaws)):
+		claws = RNG.randfRange(0.0, 0.5)
+		handPads = false
+	else:
+		claws = clampf(RNG.randfRange(0.7, 1.2), 0.0, 1.0)
+		handPads = true
+	
+	vagina = (_gen.vagina == _gen.YES)
+	if(_gen.hasTrait(SpeciesTrait.CanineVagina)):
+		vaginaType = VaginaType.Spade
+	else:
+		vaginaType = VaginaType.Normal if RNG.chance(70.0) else VaginaType.Closed
+	#GEN: Public hair
+	
+	if(!_gen.hasTrait(SpeciesTrait.BodyNoBodySkin)):
+		generateSkinLayerMain(bodyLayers, _gen, TextureVariantType.BodyLayer, "def")
+
 func getBodypartType() -> int:
 	return BodypartType.Body
 
