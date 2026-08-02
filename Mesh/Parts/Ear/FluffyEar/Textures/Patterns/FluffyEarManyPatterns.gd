@@ -14,6 +14,9 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+			},
 		},
 		"Gradient": {
 			name = "Gradient",
@@ -22,6 +25,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
 			},
 		},
 		"Dots": {
@@ -32,6 +38,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+				weight = 0.5,
+			},
 		},
 		"WeirdMarkings": {
 			name = "Weird markings",
@@ -40,6 +50,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+				weight = 0.2,
 			},
 		},
 		"Square": {
@@ -50,6 +64,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+			},
 		},
 		"Geometric": {
 			name = "Geometric",
@@ -59,6 +76,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+			},
 		},
 		"Tip": {
 			name = "Tip",
@@ -67,6 +87,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
 			},
 		},
 	}

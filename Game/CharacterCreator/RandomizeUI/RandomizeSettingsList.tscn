@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dh1lsikden6wt"]
+
+[ext_resource type="Script" uid="uid://bm7ivxtdekfn1" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingsList.gd" id="1_s0mt7"]
+[ext_resource type="PackedScene" uid="uid://ddvxbiwlkokwh" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingEntry.tscn" id="1_s5lsp"]
+
+[node name="RandomizeSettingsList" type="VBoxContainer" unique_id=1956063153]
+script = ExtResource("1_s0mt7")
+
+[node name="RandomizeSettingEntry" parent="." unique_id=1042327824 instance=ExtResource("1_s5lsp")]
+layout_mode = 2

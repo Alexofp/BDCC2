@@ -21,6 +21,19 @@ func _init():
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
 	furTuftColor = _gen.colors.fluff
+	
+	var theR:Color = _gen.colors.penis
+	theR.h -= 0.03
+	theR.s = clampf(theR.s*0.8, 0.0, 1.0)
+	theR.v = clampf(theR.v*1.1, 0.0, 1.0)
+	var theB:Color = _gen.colors.penis
+	theB.h += 0.03
+	theB.s = clampf(theR.s*1.3, 0.0, 1.0)
+	theB.v = clampf(theR.v*0.9, 0.0, 1.0)
+	pattern["r"] = theR
+	pattern["g"] = _gen.colors.penis
+	pattern["b"] = theB
+	shaftColor = _gen.colors.penis
 
 func getName() -> String:
 	return "Canine penis"

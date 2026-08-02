@@ -18,9 +18,13 @@ var speciesTraits:Dictionary[String, float] = {} # trait = float
 var parts:Dictionary[int, String] = {} # slot = part id
 
 var character:BaseCharacter
+
+var paletteType:int = -1
 var colors:CharGenColorPalette
 
-static func generateSpecies(_hybridChance:float = 20.0) -> Array[String]:
+const HYBRID_GENERATION_CHANCE := 10.0
+
+static func generateSpecies(_hybridChance:float = 0.0) -> Array[String]:
 	#GEN: Add hybrid support here
 	if(RNG.chance(_hybridChance)):
 		var theSpeciesIDs:Array = GlobalRegistry.species.keys() #GEN: This could be improved with a smarter function
@@ -122,7 +126,7 @@ func pickBreastsStatus():
 
 func generateBasicStuff():
 	if(species.is_empty()):
-		species = generateSpecies()
+		species = generateSpecies(HYBRID_GENERATION_CHANCE)
 	if(gender == GENDER_RANDOM):
 		gender = generateGender()
 	pickPenisStatus()
@@ -131,9 +135,12 @@ func generateBasicStuff():
 	
 	pickSpeciesTraits()
 	
+	if(paletteType < 0):
+		paletteType = GenColorPaletteType.getRandom()
+	
 	if(!colors):
 		colors = CharGenColorPalette.new()
-		colors.generate()
+		colors.generate(paletteType)
 	
 	internal_pickBodyparts()
 
@@ -149,6 +156,8 @@ func generateNew() -> BaseCharacter:
 	return theChar
 
 func applyStuff():
+	character.species.setFromArray(species)
+	character.gender.setGender(gender)
 	character.thickness = randf_range(0.0, 2.0)
 	character.smoothBody = randf_range(0.0, 1.0)
 	character.chubbyness = clampf(randf_range(-2.0, 1.0), 0.0, 1.0)

@@ -14,6 +14,9 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
+			},
 		},
 		"Chaos": {
 			name = "Chaos",
@@ -22,6 +25,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.FLESH_COLOR,
 			},
 		},
 	}

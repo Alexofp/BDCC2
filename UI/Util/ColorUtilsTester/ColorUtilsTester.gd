@@ -50,3 +50,12 @@ func _on_pastel_color_button_pressed() -> void:
 
 func _on_vibrant_color_button_pressed() -> void:
 	color_picker_button_5.color = ColorUtils.randomVibrant()
+
+func _on_pastel_button_pressed() -> void:
+	setPattern(ColorUtils.randomPatternPastel())
+
+func _on_neon_button_pressed() -> void:
+	setPattern(ColorUtils.randomPatternNeon())
+
+func _on_one_color_button_pressed() -> void:
+	setPattern(ColorUtils.randomPatternOneColor())

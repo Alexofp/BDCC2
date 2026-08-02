@@ -28,7 +28,7 @@ func registerForSpecies():
 
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
-	colorRoot = _gen.colors.hair.color1
+	colorRoot = _gen.colors.hair
 	colorTip = ColorUtils.shade(colorTip, randf_range(0.3, 0.7))
 	shading = randf_range(0.0, 1.0)
 	shine = randf_range(0.2, 0.4)

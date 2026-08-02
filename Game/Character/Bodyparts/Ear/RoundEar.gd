@@ -17,6 +17,8 @@ func _init():
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
 	fluffColor = _gen.colors.fluff
+	
+	pickPattern(pattern, _gen, TextureVariantType.EarPattern, "RoundEar")
 
 func getName() -> String:
 	return "Round ear"

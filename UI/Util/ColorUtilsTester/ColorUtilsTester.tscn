@@ -54,6 +54,18 @@ text = "Realistic"
 layout_mode = 2
 text = "Realistic Alt"
 
+[node name="OneColorButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer" unique_id=1965628174]
+layout_mode = 2
+text = "One color"
+
+[node name="PastelButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer" unique_id=93520207]
+layout_mode = 2
+text = "Pastel"
+
+[node name="NeonButton" type="Button" parent="ScrollContainer/VBoxContainer/HFlowContainer" unique_id=1110291952]
+layout_mode = 2
+text = "Neon"
+
 [node name="ColorPickerButton4" type="ColorPickerButton" parent="ScrollContainer/VBoxContainer" unique_id=1170829103]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
@@ -112,6 +124,9 @@ text = "Vibrant"
 
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/RealisticButton" to="." method="_on_realistic_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/RealisticAltButton" to="." method="_on_realistic_alt_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/OneColorButton" to="." method="_on_one_color_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/PastelButton" to="." method="_on_pastel_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer/NeonButton" to="." method="_on_neon_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinPaleButton" to="." method="_on_skin_pale_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinFairButton" to="." method="_on_skin_fair_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HFlowContainer2/SkinTanButton" to="." method="_on_skin_tan_button_pressed"]

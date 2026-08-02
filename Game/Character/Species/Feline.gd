@@ -8,7 +8,7 @@ func getName() -> String:
 
 func registerTraits():
 	addTrait(SpeciesTrait.LegsDigi, 1.0)
-	addTrait(SpeciesTrait.HandsPaws, 0.7)
+	addTrait(SpeciesTrait.HandsPaws, 1.0)
 
 func registerAllowedParts():
 	registerDefaultBodies()

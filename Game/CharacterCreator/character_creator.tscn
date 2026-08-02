@@ -5,6 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_vxsh1"]
 [ext_resource type="PackedScene" uid="uid://c2hmfb1ww5ps8" path="res://Game/Character/Preset/UI/character_preset_selector.tscn" id="4_h7akw"]
 [ext_resource type="PackedScene" uid="uid://bwv5juyft3osa" path="res://Game/CharacterCreator/character_creator_camera_setup.tscn" id="5_jh7ml"]
+[ext_resource type="PackedScene" uid="uid://dh1lsikden6wt" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingsList.tscn" id="6_a5m1b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5m1b"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="CharacterCreator" type="Control" unique_id=1462646805]
 layout_mode = 3
@@ -52,6 +69,27 @@ text = "Save preset"
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=2117437613]
 layout_mode = 2
 text = "Confirm"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=453318743]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer2" unique_id=810649447]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.01
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=808265414]
+layout_mode = 2
+
+[node name="RandomizeButton" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=720534281]
+layout_mode = 2
+text = "Randomize"
+
+[node name="RandomizeSettingsButton" type="Button" parent="HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1081198979]
+unique_name_in_owner = true
+layout_mode = 2
+text = "^"
 
 [node name="DraggerControl" type="Control" parent="HBoxContainer" unique_id=601094995]
 unique_name_in_owner = true
@@ -261,10 +299,48 @@ offset_bottom = -49.0
 [node name="CharacterCreatorCameraSetup" parent="." unique_id=1739060936 instance=ExtResource("5_jh7ml")]
 unique_name_in_owner = true
 
+[node name="RandomizeSettingsPanel" type="PanelContainer" parent="." unique_id=358346730]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 104.0
+offset_top = -209.0
+offset_right = 321.0
+offset_bottom = -34.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_a5m1b")
+
+[node name="MarginContainer" type="MarginContainer" parent="RandomizeSettingsPanel" unique_id=1194594340]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RandomizeSettingsPanel/MarginContainer" unique_id=1609876749]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RandomizeSettingsPanel/MarginContainer/ScrollContainer" unique_id=161747948]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="RandomizeSettingsPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1825446226]
+layout_mode = 2
+text = "Randomize"
+horizontal_alignment = 1
+
+[node name="RandomizeSettingsList" parent="RandomizeSettingsPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1956063153 instance=ExtResource("6_a5m1b")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/LoadPresetButton" to="." method="_on_load_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/SavePresetButton" to="." method="_on_save_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeButton" to="." method="_on_randomize_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/DraggerControl" to="." method="_on_dragger_control_gui_input"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CharSelButton" to="." method="_on_char_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PartsSelButton" to="." method="_on_parts_sel_button_pressed"]

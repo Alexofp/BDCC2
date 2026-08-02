@@ -41,7 +41,9 @@ var pubicHair:Dictionary = {
 
 func generateFor(_gen:CharacterGenerator):
 	if(_gen.breasts == _gen.YES):
-		breasts = randf_range(0.4, 2.0)
+		breasts = randf_range(0.4, 1.5)
+		if(_gen.character.thickness >= 1.5 && RNG.chance(10.0)):
+			breasts = randf_range(1.5, 2.0)
 	else:
 		breasts = 0.0
 	legType = "planti" if !_gen.hasTrait(SpeciesTrait.LegsDigi) else "digi"
@@ -60,8 +62,40 @@ func generateFor(_gen:CharacterGenerator):
 		vaginaType = VaginaType.Normal if RNG.chance(70.0) else VaginaType.Closed
 	#GEN: Public hair
 	
+	# Hardcoded for nekos
+	if(_gen.species.size() > 1 && _gen.species.has("Human")):
+		generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_ARMS_NEKO)
+		generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_LEGS_NEKO)
+	
 	if(!_gen.hasTrait(SpeciesTrait.BodyNoBodySkin)):
 		generateSkinLayerMain(bodyLayers, _gen, TextureVariantType.BodyLayer, "def")
+		clawsColor = _gen.colors.nails
+		toeClawColor = _gen.colors.nails
+		
+		if(RNG.chance(50.0)):
+			generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_ARMS)
+		if(RNG.chance(50.0)):
+			generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_LEGS)
+		if(RNG.chance(50.0)):
+			generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_EXTRA)
+	else:
+		clawsColor = _gen.colors.claws
+		toeClawColor = _gen.colors.claws
+	
+	if(RNG.chance(3.0)):
+		generateSkinLayer(bodyLayers, _gen, TextureVariantType.BodyLayer, "def", TextureVariant.COVERS_TATTOO)
+
+	
+	handPadsColor = _gen.colors.pawPads
+	hindPawPadColor = _gen.colors.pawPads
+	vaginaColor = _gen.colors.privates
+	vaginaInColor = ColorUtils.shadow(_gen.colors.privates)
+	anusColor = vaginaColor
+	anusInColor = vaginaInColor
+	
+	nipples["r"] = _gen.colors.privates
+	nipples["g"] = ColorUtils.shadow(_gen.colors.privates)
+	nipples["b"] = ColorUtils.highlight(_gen.colors.privates)
 
 func getBodypartType() -> int:
 	return BodypartType.Body

@@ -25,7 +25,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Muzzle2": {
@@ -37,7 +37,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Muzzle3": {
@@ -49,7 +49,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Ferri": {
@@ -61,7 +61,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Coffee": {
@@ -71,6 +71,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
 			},
 		},
 		"Geometric": {
@@ -82,7 +86,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Mark": {
@@ -93,6 +97,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+			},
 		},
 		"CheekMarks": {
 			name = "Cheek marks",
@@ -101,6 +108,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
 			},
 		},
 		"Android": {
@@ -111,6 +121,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"WeirdMarkings": {
 			name = "Weird markings",
@@ -120,6 +134,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"EyeShadow": {
 			name = "Eye shadow",
@@ -128,6 +146,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
 			},
 		},
 	}

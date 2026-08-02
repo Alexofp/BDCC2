@@ -17,7 +17,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Muzzle": {
@@ -29,7 +29,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Nova": {
@@ -41,7 +41,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"EyeDarkness": {
@@ -51,6 +51,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
 			},
 		},
 		"Back": {
@@ -62,7 +65,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_EXTRA,
 			},
 		},
 		"Coffee": {
@@ -72,6 +75,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
 			},
 		},
 		"Wild": {
@@ -83,7 +90,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 	}

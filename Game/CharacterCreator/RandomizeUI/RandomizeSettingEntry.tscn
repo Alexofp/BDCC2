@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ddvxbiwlkokwh"]
+
+[ext_resource type="Script" uid="uid://cq3fo0mis2mgu" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingEntry.gd" id="1_7ws5m"]
+
+[node name="RandomizeSettingEntry" type="HBoxContainer" unique_id=1042327824]
+script = ExtResource("1_7ws5m")
+
+[node name="Label" type="Label" parent="." unique_id=2001273385]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=946546224]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]

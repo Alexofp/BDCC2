@@ -193,14 +193,14 @@ func getLeashTargetName(_id:String) -> String:
 func generateFor(_gen:CharacterGenerator):
 	pass
 
-func generateSkinLayerMain(_layers:Array, _gen:CharacterGenerator, theType:String, theSubType:String):
+func generateSkinLayer(_layers:Array, _gen:CharacterGenerator, theType:String, theSubType:String, _coverZone:int, _addToFront:bool = false):
 	var allIDs:Array = GlobalRegistry.getTextureVariantsIDsOfTypeAndSubType(theType, theSubType)
 	if(allIDs.is_empty()):
 		return
 	var possibleMain:Dictionary[TextureVariant, float] = {}
 	for theID in allIDs:
 		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
-		if(!theTextureVariant.genMain || theTextureVariant.genWeight <= 0.0):
+		if(!theTextureVariant.isCovering(_coverZone) || theTextureVariant.genWeight <= 0.0):
 			continue
 		possibleMain[theTextureVariant] = theTextureVariant.genWeight
 	
@@ -214,4 +214,30 @@ func generateSkinLayerMain(_layers:Array, _gen:CharacterGenerator, theType:Strin
 		g = GenColorMapTo.getColor(theSelected.genMapG, _gen),
 		b = GenColorMapTo.getColor(theSelected.genMapB, _gen),
 	}
-	_layers.append(theEntry)
+	if(_addToFront):
+		_layers.insert(0, theEntry)
+	else:
+		_layers.append(theEntry)
+
+func generateSkinLayerMain(_layers:Array, _gen:CharacterGenerator, theType:String, theSubType:String):
+	generateSkinLayer(_layers, _gen, theType, theSubType, TextureVariant.COVERS_MAIN)
+
+func pickPattern(_pattern:Dictionary, _gen:CharacterGenerator, theType:String, theSubType:String):
+	var allIDs:Array = GlobalRegistry.getTextureVariantsIDsOfTypeAndSubType(theType, theSubType)
+	if(allIDs.is_empty()):
+		return
+	var possibleMain:Dictionary[TextureVariant, float] = {}
+	for theID in allIDs:
+		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
+		if(theTextureVariant.genWeight <= 0.0):
+			continue
+		possibleMain[theTextureVariant] = theTextureVariant.genWeight
+	
+	if(possibleMain.is_empty()):
+		return
+	var theSelected:TextureVariant = RNG.pickWeightedDict(possibleMain)
+	
+	_pattern["id"] = theSelected.id
+	_pattern["r"] = GenColorMapTo.getColor(theSelected.genMapR, _gen)
+	_pattern["g"] = GenColorMapTo.getColor(theSelected.genMapG, _gen)
+	_pattern["b"] = GenColorMapTo.getColor(theSelected.genMapB, _gen)

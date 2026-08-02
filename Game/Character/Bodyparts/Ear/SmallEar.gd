@@ -19,6 +19,8 @@ func generateFor(_gen:CharacterGenerator):
 	fluffColor = _gen.colors.fluff
 	tassels = RNG.chance(50.0)
 	tasselsColor = fluffColor
+	
+	pickPattern(pattern, _gen, TextureVariantType.EarPattern, "SmallEar")
 
 func getName() -> String:
 	return "Small ear"

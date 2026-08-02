@@ -26,6 +26,12 @@ func _init():
 	super._init()
 	id = "DragonTail"
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+	
+	thickness = randf_range(-0.5, 0.7)
+	pickPattern(pattern, _gen, TextureVariantType.TailPattern, "DragonTail")
+
 func getName() -> String:
 	return "Dragon tail"
 

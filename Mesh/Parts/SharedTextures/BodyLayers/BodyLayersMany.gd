@@ -16,7 +16,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly2": {
@@ -28,7 +28,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly3": {
@@ -40,7 +40,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly4": {
@@ -52,7 +52,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly5": {
@@ -64,7 +64,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly6": {
@@ -76,7 +76,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"Belly7": {
@@ -88,7 +88,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 			},
 		},
 		"FeetFur": {
@@ -96,11 +96,17 @@ func _init():
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/FeetFur.png",
 			flags = {
 			},
+			gen = {
+				covers = TextureVariant.COVERS_LEGS,
+			},
 		},
 		"HandsFur": {
 			name = "Hands fur",
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/HandsFur.png",
 			flags = {
+			},
+			gen = {
+				covers = TextureVariant.COVERS_ARMS,
 			},
 		},
 		"LegFur": {
@@ -111,6 +117,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_LEGS | TextureVariant.COVERS_LEGS_NEKO,
+			},
 		},
 		"ArmFur": {
 			name = "Arm fur",
@@ -119,6 +128,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_ARMS | TextureVariant.COVERS_ARMS_NEKO,
 			},
 		},
 		"Ferri": {
@@ -130,7 +142,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 				weight = 0.2,
 			},
 		},
@@ -143,7 +155,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 				weight = 0.2,
 			},
 		},
@@ -152,6 +164,10 @@ func _init():
 			texture = "res://Mesh/Parts/SharedTextures/BodyLayers/HeartBreasts.png",
 			flags = {
 				rect = [0.4443359375, 0.10205078125, 0.0625, 0.0625],
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
 			},
 		},
 		"Lighting": {
@@ -171,6 +187,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"Nova": {
 			name = "Nova",
@@ -181,7 +201,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 				weight = 0.2,
 			},
 		},
@@ -193,6 +213,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+			},
 		},
 		"Back2": {
 			name = "Back 2",
@@ -201,6 +224,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
 			},
 		},
 		"ThighHighs": {
@@ -211,6 +237,9 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_LEGS,
+			},
 		},
 		"GlovesFingerless": {
 			name = "Gloves fingerless",
@@ -219,6 +248,9 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_ARMS,
 			},
 		},
 		"Scars": {
@@ -238,6 +270,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"ChaosStripes": {
 			name = "Chaos stripes",
@@ -246,6 +282,10 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
 			},
 		},
 		"FeetPlain": {
@@ -256,6 +296,9 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_LEGS,
+			},
 		},
 		"HandsPlain": {
 			name = "Hands plain",
@@ -264,6 +307,9 @@ func _init():
 				hasR=true,
 				hasG=false,
 				hasB=false,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_ARMS,
 			},
 		},
 		"Wild": {
@@ -275,7 +321,7 @@ func _init():
 				hasB=true,
 			},
 			gen = {
-				main = true,
+				covers = TextureVariant.COVERS_MAIN,
 				weight = 0.2,
 			},
 		},
@@ -287,6 +333,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"WildBack": {
 			name = "Wild back",
@@ -296,6 +346,10 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				covers = TextureVariant.COVERS_EXTRA,
+				weight = 0.2,
+			},
 		},
 		"WildTattoo": {
 			name = "Wild tattoo",
@@ -304,6 +358,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=false,
+			},
+			gen = {
+				covers = TextureVariant.COVERS_TATTOO,
+				r = GenColorMapTo.TATTOO_COLOR1,
+				g = GenColorMapTo.TATTOO_COLOR2,
 			},
 		},
 	}

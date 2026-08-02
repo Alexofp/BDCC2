@@ -9,6 +9,15 @@ class ColorSplit:
 		theSplit.color1 = _c1
 		theSplit.color2 = _c2
 		return theSplit
+	func pick() -> Color:
+		if(RNG.chance(50.0)):
+			return color1
+		return color2
+	func shuffle():
+		if(RNG.chance(50)):
+			var theCol := color1
+			color1 = color2
+			color2 = theCol
 
 class ColorTriade:
 	var color1:Color
@@ -20,6 +29,19 @@ class ColorTriade:
 		theTriade.color2 = _c2
 		theTriade.color3 = _c3
 		return theTriade
+	func pick() -> Color:
+		return RNG.pick([color1, color2, color3])
+	func shuffle():
+		var theAr:Array[Color] = [color1, color2, color3]
+		theAr.shuffle()
+		color1 = theAr[0]
+		color2 = theAr[1]
+		color3 = theAr[2]
+	func reverse():
+		var theAr:Array[Color] = [color1, color2, color3]
+		color1 = theAr[2]
+		color2 = theAr[1]
+		color3 = theAr[0]
 
 class ColorTetra:
 	var color1:Color
@@ -33,6 +55,28 @@ class ColorTetra:
 		theTetra.color3 = _c3
 		theTetra.color4 = _c4
 		return theTetra
+	func pick() -> Color:
+		return RNG.pick([color1, color2, color3, color4])
+	func shuffle():
+		var theAr:Array[Color] = [color1, color2, color3, color4]
+		theAr.shuffle()
+		color1 = theAr[0]
+		color2 = theAr[1]
+		color3 = theAr[2]
+		color4 = theAr[3]
+	func reverse():
+		var theAr:Array[Color] = [color1, color2, color3, color4]
+		color1 = theAr[3]
+		color2 = theAr[2]
+		color3 = theAr[1]
+		color4 = theAr[0]
+	func darkest() -> Color:
+		var darkestColor := color1
+		var theAr:Array[Color] = [color2, color3, color4]
+		for theColor in theAr:
+			if(theColor.v < darkestColor.v):
+				darkestColor = theColor
+		return darkestColor
 
 static func luminance(c: Color) -> float:
 	return c.r * 0.2126 + c.g * 0.7152 + c.b * 0.0722
@@ -243,19 +287,24 @@ static func skinTone(
 	return color
 
 static func skinPale() -> Color:
-	return skinTone(0.05, 0.45)
+	#return skinTone(0.05, 0.45)
+	return Color("fef2f2").lerp(Color("f8c2b6"), randf_range(0.0, 1.0))
 
 static func skinFair() -> Color:
-	return skinTone(0.20, 0.50)
+	#return skinTone(0.20, 0.50)
+	return Color("fdc0a5").lerp(Color("f2b3ab"), randf_range(0.0, 1.0))
 
 static func skinTan() -> Color:
-	return skinTone(0.45, 0.60, 0.12, 0.5)
+	#return skinTone(0.45, 0.60, 0.12, 0.5)
+	return Color("ef9e8e").lerp(Color("df8b6a"), randf_range(0.0, 1.0))
 
 static func skinBrown() -> Color:
-	return skinTone(0.70, 0.55)
+	#return skinTone(0.70, 0.55)
+	return Color("a26055").lerp(Color("924b36"), randf_range(0.0, 1.0))
 
 static func skinDark() -> Color:
-	return skinTone(0.90, 0.45)
+	#return skinTone(0.90, 0.45)
+	return Color("673627").lerp(Color("5b322c"), randf_range(0.0, 1.0))
 
 static func skinToneRandom() -> Color:
 	var theRnd:float = randf()
@@ -271,19 +320,11 @@ static func skinToneRandom() -> Color:
 	return skinDark()
 
 const FUR_COLORS_REALISTIC:Array[Color] = [
-	Color("5B0C0C"),
-	Color("914214"),
-	Color("f08f6eff"),
-	Color("A03B3B"),
-	Color("7C3A0E"),
-	Color("bf5c32ff"),
-	Color("a65c1cff"),
-	Color("A56B38"),
-	Color("D39E70"),
-	Color("F2C46F"),
-	Color("A37A47"),
-	Color("8E7C79"),
-	Color("403432ff"),
+	Color("d12d28ff"),
+	Color("eb661aff"),
+	Color("e0bd0dff"),
+	Color("913f09ff"),
+	Color("824f2cff"),
 	Color("d9d2ceff"),
 ]
 
@@ -291,8 +332,8 @@ const HAIR_COLORS_NATURAL:Array[Color] = [
 	Color("471900"),
 	Color("7b3e1d"),
 	Color("db1c1c"),
-	Color("ae552e"),
-	Color("db7a1c"),
+	Color("a32d18ff"),
+	Color("f0871fff"),
 	Color("e5c18e"),
 ]
 
@@ -300,17 +341,22 @@ static func randomFurColor() -> Color:
 	return RNG.pick(FUR_COLORS_REALISTIC)
 
 static func randomFurColorBright() -> Color:
-	return Color.from_hsv(
-		randf_range(0.0, 0.12),
-		randf_range(0.3, 0.7),
-		randf_range(0.7, 0.9)
+	#return Color.from_hsv(
+		#randf_range(0.0, 0.12),
+		#randf_range(0.3, 0.7),
+		#randf_range(0.7, 0.9)
+	#)
+	return Color.from_ok_hsl(
+		randf_range(-0.05, 0.12),
+		randf_range(0.5, 0.9),
+		randf_range(0.3, 0.7)
 	)
 
 static func randomColor() -> Color:
 	return Color(randf(), randf(), randf())
 
 static func randomPastel() -> Color:
-	return Color.from_hsv(randf(), randf() * 0.3 + 0.1, randf() * 0.3 + 0.7)
+	return Color.from_hsv(randf(), randf() * 0.1 + 0.2, randf() * 0.02 + 0.98)
 
 static func randomVibrant() -> Color:
 	return Color.from_hsv(randf(), randf() * 0.3 + 0.7, randf() * 0.3 + 0.7)
@@ -341,11 +387,66 @@ static func randomPatternRealistic() -> ColorTetra:
 	if lastColor.is_equal_approx(primary) or lastColor.is_equal_approx(secondary) or lastColor.is_equal_approx(accent):
 		lastColor = shadow(primary)
 	
-	primary = jitter(primary)
-	secondary = jitter(secondary)
-	accent = jitter(accent)
-	lastColor = jitter(lastColor)
-	return ColorTetra.make(primary, secondary, accent, lastColor)
+	primary = jitter(primary, 1.0)
+	secondary = jitter(secondary, 1.0)
+	accent = jitter(accent, 1.0)
+	lastColor = jitter(lastColor, 1.0)
+	var theTetra := ColorTetra.make(primary, secondary, accent, lastColor)
+	theTetra.shuffle()
+	return theTetra
+
+static func randomPatternOneColor(theMainColor:Color = ColorUtils.randomVibrant()) -> ColorTetra:
+	#var theMainColor := ColorUtils.randomVibrant()
+	#var theComplimentary := ColorUtils.complementary(theMainColor)
+	#var theFurShadowMax:float = randf_range(0.4, 0.9)
+	return ColorUtils.ColorTetra.make(
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.0, 0.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.5, 1.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.75, 2.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*1.0, 3.0),
+		theMainColor,
+		#Color.from_ok_hsl(theMainColor.h, 1.0, 0.5),
+		Color.from_ok_hsl(theMainColor.h, 1.0, 0.4).lerp(theMainColor, 0.5),
+		Color.from_ok_hsl(theMainColor.h, 1.0, 0.3).lerp(theMainColor, 0.3),
+		Color.from_ok_hsl(theMainColor.h, 1.0, 0.2),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.0, 0.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.5, 1.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*0.75, 2.0),
+		#ColorUtils.shadow(theMainColor, theFurShadowMax*1.0, 3.0),
+	)
+	
+static func randomPatternPastel() -> ColorTetra:
+	var col1 := randomPastel()
+	var col4 := Color.WHITE
+	if(RNG.chance(30.0)):
+		col4 = complementary(col1)
+	elif(RNG.chance(30.0)):
+		col4 = randomPastel()
+	
+	if(RNG.chance(50.0)):
+		var theCol := col4
+		col4 = col1
+		col1 = theCol
+	
+	var col2 := col1.lerp(col4, 0.33)
+	col2 = jitter(col2, 0.0)
+	var col3 := col1.lerp(col4, 0.66)
+	col3 = jitter(col3, 0.0)
+	
+	return ColorTetra.make(col1, col2, col3, col4)
+
+static func randomPatternNeon() -> ColorTetra:
+	var theMainColor := Color.BLACK if RNG.chance(80.0) else Color.WHITE
+	var theComplimentary := ColorUtils.randomVibrant()
+	#var theFurShadowMax:float = randf_range(0.4, 0.9)
+	return ColorUtils.ColorTetra.make(
+		theMainColor,
+		#ColorUtils.shadow(theComplimentary, theFurShadowMax*0.5, 1.0),
+		#ColorUtils.shadow(theComplimentary, theFurShadowMax*0.5, 1.0),
+		Color.from_ok_hsl(theComplimentary.h, 0.9, 0.2),
+		theComplimentary,
+		Color.from_ok_hsl(theComplimentary.h, 0.9, 0.7),
+	)
 
 static func randomPatternRealisticAlt() -> ColorTetra:
 	var primary := randomFurColorBright()
@@ -366,19 +467,36 @@ static func randomPatternRealisticAlt() -> ColorTetra:
 	)
 	return ColorTetra.make(primary, secondary, accent, lastColor)
 
-static func randomEyeColorPattern() -> ColorTriade:
-	var mainColor := randomVibrant()
+const EYE_COLORS_REALISTIC:Array[Color] = [
+	Color("a62900ff"), # Brown
+	Color("ba3b00ff"), # Brown 2
+	Color("00BBFF"), # Blue
+	Color("FF9E0C"), # Amber
+	Color("63cf0aff"), # Green
+	Color("A8A8A8"), # Gray
+]
+
+static func generateEyeColorPatternFromColor(_c:Color) -> ColorTriade:
 	return ColorTriade.make(
-		mainColor,
-		jitter(mainColor),
+		_c,
+		jitter(_c),
 		Color.WHITE,
 	)
 
-static func randomHairColorPattern() -> ColorTriade:
+static func randomEyeColorVibrant() -> Color:
+	return randomVibrant()
+
+static func randomEyeColorRealistic() -> Color:
+	var mainColor:Color = RNG.pick(EYE_COLORS_REALISTIC)
+	mainColor = jitter(mainColor, 1.0, 0.02, 0.02)
+	return mainColor
+
+static func randomHairColorNatural() -> Color:
 	var mainColor:Color = RNG.pick(HAIR_COLORS_NATURAL)#randomVibrant() if RNG.chance(50.0) else randomPastel()
+	mainColor = jitter(mainColor, 2.0)
+	return mainColor
+
+static func randomHairColorPastel() -> Color:
+	var mainColor:Color = randomPastel()
 	mainColor = jitter(mainColor)
-	return ColorTriade.make(
-		mainColor,
-		jitter(mainColor),
-		jitter(mainColor),
-	)
+	return mainColor

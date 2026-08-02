@@ -289,6 +289,7 @@ func askCharacterLoadPreset_SERVERRPC(characterID:String, _data:Dictionary):
 	thePreset.loadData(_data)
 	thePreset.applyToCharacter(theCharacter)
 	Network.rpcClients(notifyPresetApplied_RPC.bind(characterID))
+	theCharacter.notifyPresetApplied()
 
 @rpc("authority", "call_remote", "reliable")
 func notifyPresetApplied_RPC(characterID:String):
@@ -406,6 +407,35 @@ func getSimpleGameTextParserText(_id:String, _command:String, _arg:String) -> SG
 	if(characters.has(_id)):
 		return characters[_id].getSimpleGameTextParserText(_id, _command, _arg)
 	return null
+
+func askRandomizeCharacter(character:BaseCharacter, theSettings:RandomizeSettingsHolder):
+	if(!character || !theSettings):
+		return
+	
+	if(Network.isServer()):
+		var theGen := CharacterGenerator.new()
+		theSettings.apply(theGen)
+		
+		theGen.generate(character)
+		Network.rpcClients(notifyPresetApplied_RPC.bind(character.getID()))
+		character.notifyPresetApplied()
+	elif(Network.isClient()):
+		var theID:String = character.getID()
+		var theData := theSettings.saveNetworkData()
+		
+		askRandomizeCharacter_SERVERRPC.rpc_id(1, theID, theData)
+		
+@rpc("any_peer", "call_remote", "reliable")
+func askRandomizeCharacter_SERVERRPC(_charID:String, _data:PackedByteArray):
+	#MULTIPLAYER: Check that this client can edit this character
+	var theCharacter:BaseCharacter = getCharacter(_charID)
+	if(!theCharacter):
+		return
+	var theBins := Bins.readUncompressed(_data)
+	var theSettings:RandomizeSettingsHolder = RandomizeSettingsHolder.new()
+	theSettings.loadNetworkData(theBins)
+	
+	askRandomizeCharacter(theCharacter, theSettings)
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

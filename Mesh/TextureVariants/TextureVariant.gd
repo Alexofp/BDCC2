@@ -18,12 +18,20 @@ var previewPath:String = ""
 
 var flags:Dictionary = {}
 
-var genMain:bool = false
+var genCovers:int = 0
 var genNeck:String = ""
 var genMapR:int = GenColorMapTo.FUR_COLOR2
 var genMapG:int = GenColorMapTo.FUR_COLOR3
 var genMapB:int = GenColorMapTo.FUR_COLOR4
 var genWeight:float = 1.0
+
+const COVERS_MAIN := 1
+const COVERS_ARMS := 2
+const COVERS_LEGS := 4
+const COVERS_EXTRA := 8
+const COVERS_ARMS_NEKO := 16
+const COVERS_LEGS_NEKO := 32
+const COVERS_TATTOO := 64
 
 func getName() -> String:
 	return name
@@ -51,7 +59,7 @@ func parse(entry:Dictionary, _subType:String):
 	if(entry.has("gen")):
 		var theGen:Dictionary = entry["gen"]
 		
-		genMain = theGen.get("main", genMain)
+		genCovers = theGen.get("covers", genCovers)
 		genNeck = theGen.get("neck", genNeck)
 		genMapR = theGen.get("r", genMapR)
 		genMapG = theGen.get("g", genMapG)
@@ -67,3 +75,6 @@ func loadColormask() -> Texture2D:
 	if(pathColormask == ""):
 		return null
 	return load(pathColormask)
+
+func isCovering(_genCoverZone:int) -> bool:
+	return genCovers & _genCoverZone

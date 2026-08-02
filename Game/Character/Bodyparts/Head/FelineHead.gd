@@ -19,12 +19,12 @@ func _init():
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
 	generateSkinLayerMain(headLayers, _gen, TextureVariantType.HeadLayer, "FelineHead")
-	snout = _gen.colors.fur.color1
-	snout.h -= randf_range(0.0, 0.01)
-	snout.s = clampf(snout.s + randf_range(0.0, 0.2), 0.0, 1.0)
-	snout.v = randf_range(0.0, 0.2)
+	snout = _gen.colors.snout
 	shapeRound = randf_range(0.0, 1.0)
 	smallMuzzle = randf_range(0.0, 1.0)
+
+	if(RNG.chance(50.0)):
+		generateSkinLayer(headLayers, _gen, TextureVariantType.HeadLayer, "FelineHead", TextureVariant.COVERS_EXTRA)
 
 func registerForSpecies():
 	addForSpecies("Feline", ANY_GENDER, 1.0)

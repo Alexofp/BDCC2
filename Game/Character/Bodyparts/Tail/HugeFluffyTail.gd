@@ -37,6 +37,9 @@ func generateFor(_gen:CharacterGenerator):
 		TAILTYPE_PLAIN
 	])
 	thickness = randf_range(-0.5, 0.5)
+	taper = randf_range(0.0, 1.0)
+	tip = randf_range(0.0, 1.0)
+	pickPattern(pattern, _gen, TextureVariantType.TailPattern, "HugeFluffyTail")
 
 func _init():
 	super._init()

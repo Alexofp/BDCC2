@@ -24,6 +24,9 @@ var zoneFilter:int = CharCreatorZone.ALL
 
 @onready var personality_label: Label = %PersonalityLabel
 
+@onready var randomize_settings_panel: PanelContainer = $RandomizeSettingsPanel
+@onready var randomize_settings_list: VBoxContainer = %RandomizeSettingsList
+@onready var randomize_settings_button: Button = %RandomizeSettingsButton
 
 var dropdownVarScene := preload("res://UI/VarList/Vars/dropdown_var.tscn")
 
@@ -53,7 +56,7 @@ func _ready() -> void:
 		UIHandler.removeWindow(save_preset_dialog)
 		UIHandler.removeWindow(load_preset_dialog)
 	)
-	pass
+	randomize_settings_panel.visible = false
 
 func setCharacter(newChar:BaseCharacter):
 	if(character != null && is_instance_valid(character)):
@@ -655,3 +658,16 @@ func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
 
 func _on_open_preset_button_pressed() -> void:
 	OS.shell_open(ProjectSettings.globalize_path(CharacterPresetHolder.USERPRESETS_FOLDER))
+
+
+func _on_randomize_settings_button_pressed() -> void:
+	randomize_settings_panel.visible = !randomize_settings_panel.visible
+	if(randomize_settings_panel.visible):
+		randomize_settings_button.text = "v"
+	else:
+		randomize_settings_button.text = "^"
+
+func _on_randomize_button_pressed() -> void:
+	var theSettings:RandomizeSettingsHolder = randomize_settings_list.settings
+	
+	GM.characterRegistry.askRandomizeCharacter(character, theSettings)

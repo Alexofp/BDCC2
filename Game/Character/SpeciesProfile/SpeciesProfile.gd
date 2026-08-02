@@ -42,6 +42,14 @@ func setSecondarySpecies(theSpeciesID:String):
 		return
 	secondarySpecies = theSpeciesID
 
+func setFromArray(_ar:Array[String]):
+	if(_ar.size() == 1):
+		setMainSpecies(_ar[0])
+		setSecondarySpecies("")
+	elif(_ar.size() > 1):
+		setMainSpecies(_ar[0])
+		setSecondarySpecies(_ar[1])
+
 func getMainSpeciesID() -> String:
 	return mainSpecies
 	
