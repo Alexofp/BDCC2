@@ -11,6 +11,8 @@ func start():
 	Log.Print("GameMode.CharacterCreator START()")
 	if(Network.isServer()):
 		var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+		thePC.inventory.clearSlot(InventorySlot.Top)
+		thePC.inventory.clearSlot(InventorySlot.Bottom)
 		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
 		var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
 		myInfo.charID = thePC.getID()

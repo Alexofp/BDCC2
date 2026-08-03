@@ -29,10 +29,11 @@ func registerForSpecies():
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
 	colorRoot = _gen.colors.hair
-	colorTip = ColorUtils.shade(colorTip, randf_range(0.3, 0.7))
+	colorTip = ColorUtils.shade(colorTip, randf_range(0.1, 0.7))
 	shading = randf_range(0.0, 1.0)
 	shine = randf_range(0.2, 0.4)
 	#GEN: Pick random pattern and colors
+	pickPattern(pattern, _gen, TextureVariantType.HairPattern, id, 1.0)
 
 func getBodypartType() -> int:
 	return BodypartType.Hair

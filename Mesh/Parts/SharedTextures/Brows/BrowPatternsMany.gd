@@ -14,6 +14,11 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
+			},
 		},
 		"Brow2": {
 			name = "Brow 2",
@@ -22,6 +27,11 @@ func _init():
 				hasR=true,
 				hasG=false,
 				hasB=false,
+			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
 			},
 		},
 		"Brow3": {
@@ -32,6 +42,11 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
+			},
 		},
 		"Brow4": {
 			name = "Brow 4",
@@ -40,6 +55,11 @@ func _init():
 				hasR=true,
 				hasG=false,
 				hasB=false,
+			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
 			},
 		},
 		"Brow5": {
@@ -50,6 +70,11 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
+			},
 		},
 		"Brow6": {
 			name = "Brow 6",
@@ -59,6 +84,11 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
+			},
 		},
 		"Brow7": {
 			name = "Brow 7",
@@ -67,6 +97,11 @@ func _init():
 				hasR=true,
 				hasG=false,
 				hasB=false,
+			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
 			},
 		},
 	}

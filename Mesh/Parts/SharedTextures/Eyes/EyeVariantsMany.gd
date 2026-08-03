@@ -14,6 +14,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.EYE_COLOR1,
+				g = GenColorMapTo.EYE_COLOR2,
+				b = GenColorMapTo.EYE_COLOR3,
+			},
 		},
 		"Animal": {
 			name = "Animal",
@@ -22,6 +27,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.EYE_COLOR1,
+				g = GenColorMapTo.EYE_COLOR2,
+				b = GenColorMapTo.EYE_COLOR3,
 			},
 		},
 		"Robot": {
@@ -32,6 +42,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.EYE_COLOR1,
+				g = GenColorMapTo.EYE_COLOR2,
+				b = GenColorMapTo.FUR_COLOR_PICK,
+			},
 		},
 		"Demon": {
 			name = "Demon",
@@ -41,6 +56,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.EYE_COLOR1,
+				g = GenColorMapTo.EYE_COLOR2,
+				b = GenColorMapTo.RANDOM_COLOR_VIBRANT,
+			},
 		},
 		"Mystic": {
 			name = "Mystic",
@@ -49,6 +69,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.EYE_COLOR1,
+				g = GenColorMapTo.EYE_COLOR2,
+				b = GenColorMapTo.EYE_COLOR3,
 			},
 		},
 	}

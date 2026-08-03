@@ -238,6 +238,7 @@ ambient_color_energy = 0.1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1921107350]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5693312, 2.4576957)
+visible = false
 light_energy = 0.2
 light_specular = 0.1
 distance_fade_enabled = true

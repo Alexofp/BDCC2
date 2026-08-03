@@ -31,17 +31,21 @@ var faceOverride:Dictionary = {
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
 	
-	eyes["r"] = _gen.colors.eyeL.color1
-	eyes["g"] = _gen.colors.eyeL.color2
-	eyes["b"] = _gen.colors.eyeL.color3
-	if(_gen.colors.eyeL != _gen.colors.eyeR):
-		eyes["id2"] = eyes["id"]
-		eyes["r2"] = _gen.colors.eyeR.color1
-		eyes["g2"] = _gen.colors.eyeR.color2
-		eyes["b2"] = _gen.colors.eyeR.color3
-	
 	#GEN: Pick eyelashes/brows
 	#GEN: Pick mouth colors
+	mouthColor = _gen.colors.flesh
+	tongueColor = _gen.colors.flesh
+	
+	pickPattern(eyes, _gen, TextureVariantType.EyePattern, "def")
+	if(_gen.colors.eyeL != _gen.colors.eyeR):
+		pickPatternBasedOnLeft(eyes, _gen)
+	else:
+		eyes.erase("id2")
+		eyes.erase("r2")
+		eyes.erase("g2")
+		eyes.erase("b2")
+	pickPattern(brows, _gen, TextureVariantType.BrowPattern, "def")
+	pickPattern(eyelashes, _gen, TextureVariantType.EyelashesPattern, "def")
 
 func getBodypartType() -> int:
 	return BodypartType.Head

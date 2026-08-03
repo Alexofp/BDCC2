@@ -8,6 +8,8 @@ const YES := 1
 
 const GENDER_RANDOM:int = -1
 
+var name:String = ""
+var lastName:String = ""
 var species:Array[String] = []
 var gender:int = GENDER_RANDOM #GENDER_RANDOM or Gender.Male/etc
 var penis:int = RANDOM_GENDER_BASED
@@ -24,10 +26,13 @@ var colors:CharGenColorPalette
 
 const HYBRID_GENERATION_CHANCE := 10.0
 
-static func generateSpecies(_hybridChance:float = 0.0) -> Array[String]:
+static func generateSpecies(_hybridChance:float = 0.0, _excludeHumans:bool = false) -> Array[String]:
 	#GEN: Add hybrid support here
-	if(RNG.chance(_hybridChance)):
-		var theSpeciesIDs:Array = GlobalRegistry.species.keys() #GEN: This could be improved with a smarter function
+	var theSpeciesIDs:Array = GlobalRegistry.species.keys() #GEN: This could be improved with a smarter function
+	if(_excludeHumans):
+		theSpeciesIDs.erase("Human")
+	
+	if(_hybridChance >= 100.0 || RNG.chance(_hybridChance)):
 		theSpeciesIDs.shuffle()
 		
 		if(theSpeciesIDs.size() >= 2):
@@ -36,7 +41,7 @@ static func generateSpecies(_hybridChance:float = 0.0) -> Array[String]:
 			]
 	
 	return [
-		RNG.pick(GlobalRegistry.getSpeciesAll().keys()),
+		RNG.pick(theSpeciesIDs),
 	]
 
 func pickSpeciesTraits():
@@ -129,6 +134,14 @@ func generateBasicStuff():
 		species = generateSpecies(HYBRID_GENERATION_CHANCE)
 	if(gender == GENDER_RANDOM):
 		gender = generateGender()
+	if(name.is_empty()):
+		if(gender == Gender.Male):
+			name = RNG.randomMaleName()
+		elif(gender == Gender.Female):
+			name = RNG.randomFemaleName()
+		else:
+			name = RNG.randomMaleName() if RNG.chance(50.0) else RNG.randomFemaleName()
+		lastName = RNG.randomSurName() if RNG.chance(20.0) else ""
 	pickPenisStatus()
 	pickVaginaStatus()
 	pickBreastsStatus()
@@ -156,6 +169,8 @@ func generateNew() -> BaseCharacter:
 	return theChar
 
 func applyStuff():
+	character.charName = name
+	character.lastCharName = lastName
 	character.species.setFromArray(species)
 	character.gender.setGender(gender)
 	character.thickness = randf_range(0.0, 2.0)

@@ -15,6 +15,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"LongHairBow_Tips": {
 			name = "Tips",
@@ -24,6 +29,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 		"ShortHair_Tips": {
@@ -35,6 +45,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"ShortHair_BigStrands": {
 			name = "Big Strands",
@@ -44,6 +59,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 		
@@ -56,6 +76,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"ShortHair2_BigStrands": {
 			name = "Big Strands",
@@ -65,6 +90,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 		"CoolBangsHair_Kidlat": {
@@ -76,6 +106,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"LongHair_Coffee": {
 			name = "Coffee",
@@ -85,6 +120,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 		"Ponytail3_Felina": {
@@ -96,6 +136,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"SideHair_BigStrands": {
 			name = "Big strands",
@@ -105,6 +150,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 		"LongChaosHair_Chaos": {
@@ -116,6 +166,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
+			},
 		},
 		"Ponytail4_Northstar": {
 			name = "Northstar",
@@ -125,6 +180,11 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.HAIR_PATTERN_COLOR1,
+				g = GenColorMapTo.HAIR_PATTERN_COLOR2,
+				b = GenColorMapTo.HAIR_PATTERN_COLOR3,
 			},
 		},
 	}

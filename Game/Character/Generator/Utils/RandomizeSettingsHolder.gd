@@ -9,7 +9,7 @@ var breasts:int = CharacterGenerator.RANDOM_GENDER_BASED
 var paletteType:int = -1
 
 func getSettings() -> Dictionary[String, Dictionary]:
-	var theSpeciesList:Array[Array] = [["", "Random"], [" ", "Random hybrid"]]
+	var theSpeciesList:Array[Array] = [["", "Random"], [" ", "Random hybrid"], ["  ", "Random non-human"]]
 	for theSpeciesID in GlobalRegistry.getSpeciesAll():
 		var theSpecies:SpeciesBase = GlobalRegistry.getSpecies(theSpeciesID)
 		theSpeciesList.append([theSpeciesID, theSpecies.getName()])
@@ -26,8 +26,8 @@ func getSettings() -> Dictionary[String, Dictionary]:
 				[CharacterGenerator.GENDER_RANDOM, "Random"],
 				[Gender.Male, "Male"],
 				[Gender.Female, "Female"],
-				[Gender.Androgynous, "Androgynous"],
-				[Gender.NonBinary, "NonBinary"],
+				#[Gender.Androgynous, "Androgynous"],
+				#[Gender.NonBinary, "NonBinary"],
 			],
 			value = gender,
 		},
@@ -51,6 +51,8 @@ func apply(_gen:CharacterGenerator):
 		_gen.species = []
 	elif(species == " "):
 		_gen.species = CharacterGenerator.generateSpecies(100.0)
+	elif(species == "  "):
+		_gen.species = CharacterGenerator.generateSpecies(0.0, true)
 	else:
 		_gen.species = [species]
 		

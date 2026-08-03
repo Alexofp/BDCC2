@@ -8,6 +8,7 @@ var hair:Color
 var hairBand:Color
 var hairBow:Color
 var hairMisc:Color
+var hairPattern:ColorUtils.ColorTriade
 
 var eyeL:ColorUtils.ColorTriade
 var eyeR:ColorUtils.ColorTriade
@@ -23,6 +24,9 @@ var penis:Color
 
 var tattoo:Color
 var tattoo2:Color
+
+var piercingMetal:Color
+var piercingColor:Color
 
 const HETEROCHROMIA_CHANCE := 10.0
 
@@ -56,6 +60,11 @@ func generateRealistic():
 	hairBand = ColorUtils.randomColor()
 	hairBow = ColorUtils.randomColor()
 	hairMisc = ColorUtils.randomColor()
+	hairPattern = ColorUtils.ColorTriade.make(
+		ColorUtils.jitter(RNG.pick([hair, fur.pick()]), 10.0, 0.3, 0.3),
+		ColorUtils.jitter(RNG.pick([hair, fur.pick()]), 10.0, 0.3, 0.3),
+		ColorUtils.jitter(RNG.pick([hair, fur.pick()]), 10.0, 0.3, 0.3),
+	)
 	
 	eyeL = ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic())
 	eyeR = eyeL if !RNG.chance(HETEROCHROMIA_CHANCE) else ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic())
@@ -81,6 +90,13 @@ func generateRealistic():
 	
 	tattoo = ColorUtils.randomVibrant()
 	tattoo2 = ColorUtils.complementary(tattoo)
+	
+	piercingMetal = RNG.pick([
+		Color.GRAY, Color.DARK_GRAY,
+	])
+	piercingColor = RNG.pick([
+		claws, pawPads, privates, flesh, hair, ColorUtils.highlight(fur.pick()),
+	])
 
 func generatePastel():
 	skin = ColorUtils.skinToneRandom()
@@ -90,6 +106,11 @@ func generatePastel():
 	hairBand = ColorUtils.randomPastel()
 	hairBow = ColorUtils.randomPastel()
 	hairMisc = ColorUtils.randomPastel()
+	hairPattern = ColorUtils.ColorTriade.make(
+		RNG.pick([ColorUtils.jitter(hair, 5.0), fur.pick()]),
+		RNG.pick([ColorUtils.jitter(hair, 5.0), fur.pick()]),
+		RNG.pick([ColorUtils.jitter(hair, 5.0), fur.pick()]),
+	)
 	
 	eyeL = ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic() if RNG.chance(50.0) else ColorUtils.randomVibrant())
 	eyeR = eyeL if !RNG.chance(HETEROCHROMIA_CHANCE) else ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic() if RNG.chance(50.0) else ColorUtils.randomVibrant())
@@ -111,6 +132,13 @@ func generatePastel():
 	
 	tattoo = ColorUtils.randomVibrant() if RNG.chance(20.0) else ColorUtils.randomPastel()
 	tattoo2 = ColorUtils.complementary(tattoo)
+
+	piercingMetal = RNG.pick([
+		Color.GRAY, Color.DARK_GRAY, fluff, claws, tattoo,
+	])
+	piercingColor = RNG.pick([
+		claws, pawPads, privates, flesh, hair, ColorUtils.highlight(fur.pick()),
+	])
 
 func generateOneColor():
 	var theMainColor := ColorUtils.randomVibrant()
@@ -145,6 +173,11 @@ func generateOneColor():
 		hairBand = theComplimentary
 		hairBow = theComplimentary
 		hairMisc = theComplimentary
+	hairPattern = ColorUtils.ColorTriade.make(
+		ColorUtils.jitter(RNG.pick([theMainColor, theMainColor, hair]), 1.0),
+		ColorUtils.jitter(RNG.pick([theMainColor, theMainColor, hair]), 1.0),
+		ColorUtils.highlight(ColorUtils.jitter(RNG.pick([theMainColor, theMainColor, hair]), 1.0)),
+	)
 	
 	eyeL = ColorUtils.generateEyeColorPatternFromColor(theMainColor if RNG.chance(80.0) else theComplimentary)
 	eyeR = eyeL# if !RNG.chance(HETEROCHROMIA_CHANCE) else ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic() if RNG.chance(50.0) else ColorUtils.randomVibrant())
@@ -162,6 +195,13 @@ func generateOneColor():
 	
 	tattoo = theMainColor
 	tattoo2 = ColorUtils.complementary(tattoo)
+
+	piercingMetal = RNG.pick([
+		Color.GRAY, Color.DARK_GRAY, fluff, claws, tattoo,
+	])
+	piercingColor = RNG.pick([
+		claws, pawPads, privates, flesh, hair, ColorUtils.highlight(fur.pick()),
+	])
 
 func generateNeon():
 	skin = ColorUtils.skinToneRandom()
@@ -190,6 +230,11 @@ func generateNeon():
 	hairBand = theMainColor
 	hairBow = theMainColor
 	hairMisc = theMainColor
+	hairPattern = ColorUtils.ColorTriade.make(
+		theMainColor,
+		ColorUtils.jitter(hair, 2.0),
+		theComplimentary,
+	)
 	
 	eyeL = ColorUtils.generateEyeColorPatternFromColor(theMainColor if RNG.chance(80.0) else theComplimentary)
 	eyeR = eyeL# if !RNG.chance(HETEROCHROMIA_CHANCE) else ColorUtils.generateEyeColorPatternFromColor(ColorUtils.randomEyeColorRealistic() if RNG.chance(50.0) else ColorUtils.randomVibrant())
@@ -205,3 +250,10 @@ func generateNeon():
 	
 	tattoo = theMainColor
 	tattoo2 = ColorUtils.complementary(tattoo)
+
+	piercingMetal = RNG.pick([
+		Color.GRAY, Color.DARK_GRAY, fluff, claws, tattoo,
+	])
+	piercingColor = RNG.pick([
+		claws, pawPads, privates, flesh, hair, ColorUtils.highlight(fur.pick()),
+	])

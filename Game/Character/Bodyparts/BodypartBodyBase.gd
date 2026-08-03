@@ -93,9 +93,27 @@ func generateFor(_gen:CharacterGenerator):
 	anusColor = vaginaColor
 	anusInColor = vaginaInColor
 	
-	nipples["r"] = _gen.colors.privates
-	nipples["g"] = ColorUtils.shadow(_gen.colors.privates)
-	nipples["b"] = ColorUtils.highlight(_gen.colors.privates)
+	#nipples["r"] = _gen.colors.privates
+	#nipples["g"] = ColorUtils.shadow(_gen.colors.privates)
+	#nipples["b"] = ColorUtils.highlight(_gen.colors.privates)
+	pickPattern(nipples, _gen, TextureVariantType.NipplePattern, "def")
+	
+	pickPiercings(nipplePiercing, ["p1", "p2", "p3", "p4"], 30.0, [
+		_gen.colors.piercingMetal, _gen.colors.piercingColor, _gen.colors.piercingColor, _gen.colors.piercingColor
+	])
+	if(vagina):
+		pickPiercings(clitPiercing, ["ring", "ring", "ring", "ring", "ring", "bell"], 30.0, [
+			_gen.colors.piercingMetal, _gen.colors.piercingColor, _gen.colors.piercingColor, _gen.colors.piercingColor
+		])
+
+func pickPiercings(_ar:Array, _possibleVals:Array[String], _chance:float, _colors:Array[Color]):
+	if(!RNG.chance(_chance) || _possibleVals.is_empty()):
+		_ar.clear()
+		_ar.append("")
+		return
+	_ar.clear()
+	_ar.append(RNG.pick(_possibleVals))
+	_ar.append_array(_colors)
 
 func getBodypartType() -> int:
 	return BodypartType.Body

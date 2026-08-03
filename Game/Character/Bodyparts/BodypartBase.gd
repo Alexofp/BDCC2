@@ -222,22 +222,43 @@ func generateSkinLayer(_layers:Array, _gen:CharacterGenerator, theType:String, t
 func generateSkinLayerMain(_layers:Array, _gen:CharacterGenerator, theType:String, theSubType:String):
 	generateSkinLayer(_layers, _gen, theType, theSubType, TextureVariant.COVERS_MAIN)
 
-func pickPattern(_pattern:Dictionary, _gen:CharacterGenerator, theType:String, theSubType:String):
+func pickPattern(_pattern:Dictionary, _gen:CharacterGenerator, theType:String, theSubType:String, _weightNothing:float = 0.0):
 	var allIDs:Array = GlobalRegistry.getTextureVariantsIDsOfTypeAndSubType(theType, theSubType)
 	if(allIDs.is_empty()):
 		return
+	var totalWeight:float = 0.0
 	var possibleMain:Dictionary[TextureVariant, float] = {}
 	for theID in allIDs:
 		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
 		if(theTextureVariant.genWeight <= 0.0):
 			continue
 		possibleMain[theTextureVariant] = theTextureVariant.genWeight
+		totalWeight += theTextureVariant.genWeight
 	
 	if(possibleMain.is_empty()):
 		return
+	if(totalWeight < 1.0 && !RNG.chance(totalWeight*100.0)):
+		return
+	if(_weightNothing > 0.0):
+		possibleMain[null] = _weightNothing
 	var theSelected:TextureVariant = RNG.pickWeightedDict(possibleMain)
+	if(!theSelected):
+		return
 	
 	_pattern["id"] = theSelected.id
 	_pattern["r"] = GenColorMapTo.getColor(theSelected.genMapR, _gen)
 	_pattern["g"] = GenColorMapTo.getColor(theSelected.genMapG, _gen)
 	_pattern["b"] = GenColorMapTo.getColor(theSelected.genMapB, _gen)
+
+func pickPatternBasedOnLeft(_pattern:Dictionary, _gen:CharacterGenerator):
+	var theID:String = _pattern.get("id", "")
+	if(theID.is_empty()):
+		return
+	var theSelected:TextureVariant = GlobalRegistry.getTextureVariant(theID)
+	if(!theSelected):
+		return
+	
+	_pattern["id2"] = theSelected.id
+	_pattern["r2"] = GenColorMapTo.getColor(theSelected.genMapR, _gen, true)
+	_pattern["g2"] = GenColorMapTo.getColor(theSelected.genMapG, _gen, true)
+	_pattern["b2"] = GenColorMapTo.getColor(theSelected.genMapB, _gen, true)

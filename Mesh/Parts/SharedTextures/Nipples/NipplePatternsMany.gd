@@ -14,6 +14,11 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.NIPPLE_COLOR,
+				g = GenColorMapTo.NIPPLE_COLOR,
+				b = GenColorMapTo.NIPPLE_COLOR,
+			},
 		},
 		"Big": {
 			name = "Big",
@@ -22,6 +27,12 @@ func _init():
 				hasR=true,
 				hasG=false,
 				hasB=false,
+			},
+			gen = {
+				r = GenColorMapTo.NIPPLE_COLOR,
+				g = GenColorMapTo.NIPPLE_COLOR,
+				b = GenColorMapTo.NIPPLE_COLOR,
+				weight = 0.2,
 			},
 		},
 		"Smooth": {
@@ -32,6 +43,11 @@ func _init():
 				hasG=true,
 				hasB=true,
 			},
+			gen = {
+				r = GenColorMapTo.NIPPLE_COLOR,
+				g = GenColorMapTo.NIPPLE_COLOR_DARK,
+				b = GenColorMapTo.NIPPLE_COLOR_HIGHLIGHT,
+			},
 		},
 		"SmoothSmall": {
 			name = "SmoothSmall",
@@ -40,6 +56,12 @@ func _init():
 				hasR=true,
 				hasG=true,
 				hasB=true,
+			},
+			gen = {
+				r = GenColorMapTo.NIPPLE_COLOR,
+				g = GenColorMapTo.NIPPLE_COLOR_DARK,
+				b = GenColorMapTo.NIPPLE_COLOR_HIGHLIGHT,
+				weight = 0.2,
 			},
 		},
 	}

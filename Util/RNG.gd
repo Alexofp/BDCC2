@@ -168,3 +168,12 @@ static func pickWeightedDict(ar:Dictionary):
 			return i
 			
 	return ar.keys()[0]
+
+static func randomMaleName() -> String:
+	return pick(RNGData.maleNames)
+
+static func randomFemaleName() -> String:
+	return pick(RNGData.femaleNames)
+
+static func randomSurName() -> String:
+	return pick(RNGData.surNames)

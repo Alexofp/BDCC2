@@ -14,5 +14,10 @@ func _init():
 				hasG=false,
 				hasB=false,
 			},
+			gen = {
+				r = GenColorMapTo.COLOR_BLACK,
+				g = GenColorMapTo.COLOR_BLACK,
+				b = GenColorMapTo.COLOR_BLACK,
+			},
 		},
 	}
