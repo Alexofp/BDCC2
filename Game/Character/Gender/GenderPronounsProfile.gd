@@ -16,7 +16,7 @@ func getGenderName() -> String:
 	return Gender.getName(getGender())
 
 func setGender(theGender:int, theCustomGenderName:String = ""):
-	if(gender < 0):
+	if(theGender < 0):
 		assert(false, "BAD GENDER: "+str(theGender))
 		return
 	gender = theGender
