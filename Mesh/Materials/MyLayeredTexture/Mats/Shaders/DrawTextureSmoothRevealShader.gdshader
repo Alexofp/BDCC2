@@ -17,8 +17,8 @@ void blit() {
 	float value = texture(source_texture, UV+vec2(alpha_mask_scroll, -alpha_mask_scroll*7.7321)).r;
 	float alpha = MODULATE.a*alphaMask*smoothstep(cutoff, cutoff + smooth_size, value * (1.0 - smooth_size) + smooth_size);
 	
-     // Read sources and blit
-     COLOR0 = vec4(MODULATE.rgb, alpha);//texture(source_texture,UV) * MODULATE;
-     //COLOR1 = texture(source_texture1,UV);
-     // up to COLOR3
+	 // Read sources and blit
+	 COLOR0 = vec4(MODULATE.rgb, alpha);//texture(source_texture,UV) * MODULATE;
+	 //COLOR1 = texture(source_texture1,UV);
+	 // up to COLOR3
 }

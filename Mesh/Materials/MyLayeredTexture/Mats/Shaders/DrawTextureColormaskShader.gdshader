@@ -21,15 +21,15 @@ void blit() {
 	vec4 color_g = colorG;
 	vec4 color_b = colorB;
 
-    vec4 result = vec4(0.0);
+	vec4 result = vec4(0.0);
 	result += mask.r*color_r*color_r.a;
 	result += mask.g*color_g*color_g.a;
 	result += mask.b*color_b*color_b.a;
 
 	result.a *= mask.a;
 	
-     // Read sources and blit
-     COLOR0 = result;//texture(source_texture,UV) * MODULATE;
-     //COLOR1 = texture(source_texture1,UV);
-     // up to COLOR3
+	 // Read sources and blit
+	 COLOR0 = result;//texture(source_texture,UV) * MODULATE;
+	 //COLOR1 = texture(source_texture1,UV);
+	 // up to COLOR3
 }

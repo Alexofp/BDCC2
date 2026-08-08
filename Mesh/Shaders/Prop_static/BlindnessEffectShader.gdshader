@@ -19,26 +19,26 @@ void vertex() {
 }
 
 void fragment() {
-    float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
-    //vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
+	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
+	//vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
 #if CURRENT_RENDERER == RENDERER_COMPATIBILITY
 	vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
 #else
 	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
 #endif
-    vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
-    view.xyz /= view.w;
-    vec3 world_position = (INV_VIEW_MATRIX * vec4(view.xyz, 1.0)).xyz;
+	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	vec3 world_position = (INV_VIEW_MATRIX * vec4(view.xyz, 1.0)).xyz;
 
-    float d = distance(world_position, v_world_pos);
+	float d = distance(world_position, v_world_pos);
 
-    float fog = smoothstep(
-        fog_radius,
-        fog_radius + fog_falloff,
-        d
-    );
+	float fog = smoothstep(
+		fog_radius,
+		fog_radius + fog_falloff,
+		d
+	);
 
-    //vec3 scene_color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
-    ALBEDO = fog_color.rgb;//mix(scene_color, fog_color.rgb, fog * fog_strength);
+	//vec3 scene_color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+	ALBEDO = fog_color.rgb;//mix(scene_color, fog_color.rgb, fog * fog_strength);
 	ALPHA = mix(0.0, 1.0, fog * fog_strength * fog_color.a);
 }

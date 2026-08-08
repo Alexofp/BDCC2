@@ -20,13 +20,13 @@ void fragment(){
 	vec4 color_g = colorG;
 	vec4 color_b = colorB;
 
-    vec4 result = vec4(0.0);
+	vec4 result = vec4(0.0);
 	result += mask.r*color_r*color_r.a;
 	result += mask.g*color_g*color_g.a;
 	result += mask.b*color_b*color_b.a;
 
 	result.a *= mask.a;
 
-    // Output the final color
-    COLOR = result;
+	// Output the final color
+	COLOR = result;
 }

@@ -17,7 +17,8 @@ color1 = Color(0.20784314, 0.20784314, 0.20784314, 1)
 color2 = Color(0.13333334, 0.13333334, 0.13333334, 1)
 color3 = Color(0, 0.8784314, 1, 1)
 
-[node name="FloorPanelA8x4" parent="." index="0" unique_id=1209930780]
+[node name="FloorPanelA8x4" parent="." index="0" unique_id=572655133]
+transform = Transform3D(1, 0, 0, 0, 0.9999949, 0, 0, 0, 1, 0, 0, 0)
 instance_shader_parameters/roughness_mult = 0.5
 instance_shader_parameters/trim_color_base = Color(0.5254902, 0.5254902, 0.5254902, 1)
 instance_shader_parameters/trim_color_main = Color(0.20784314, 0.20784314, 0.20784314, 1)

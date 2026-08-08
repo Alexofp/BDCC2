@@ -287,7 +287,7 @@ void fragment() {
 	vec4 color_g = color_mask_g;
 	vec4 color_b = color_mask_b;
 
-    vec4 colormask_result = vec4(0.0);
+	vec4 colormask_result = vec4(0.0);
 	colormask_result += colormask_tex.r*color_r*color_r.a;
 	colormask_result += colormask_tex.g*color_g*color_g.a;
 	colormask_result += colormask_tex.b*color_b*color_b.a;
@@ -310,7 +310,7 @@ void fragment() {
 	vec4 color_g = color_mask_g;
 	vec4 color_b = color_mask_b;
 
-    vec4 colormask_result = vec4(0.0);
+	vec4 colormask_result = vec4(0.0);
 	colormask_result += colormask_tex.r*color_r*color_r.a;
 	colormask_result += colormask_tex.g*color_g*color_g.a;
 	colormask_result += colormask_tex.b*color_b*color_b.a;
@@ -448,15 +448,15 @@ void fragment() {
 {
 	float rimOutline = 1.0 - max(dot(NORMAL, VIEW), 0.0); // VIEW is camera dir
 
-    vec3 nOutline = normalize(NORMAL);
-    vec3 dxOutline = dFdx(nOutline);
-    vec3 dyOutline = dFdy(nOutline);
-    float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
+	vec3 nOutline = normalize(NORMAL);
+	vec3 dxOutline = dFdx(nOutline);
+	vec3 dyOutline = dFdy(nOutline);
+	float edgeOutline = dot(dxOutline, dxOutline) + dot(dyOutline, dyOutline);
 	edgeOutline /= dot(VERTEX, VERTEX);
 
-    if (edgeOutline > 0.000001 && rimOutline > outline_thickness) {
-        ALBEDO = mix(ALBEDO, outline_color.rgb, outline_color.a);
-    }
+	if (edgeOutline > 0.000001 && rimOutline > outline_thickness) {
+		ALBEDO = mix(ALBEDO, outline_color.rgb, outline_color.a);
+	}
 }
 #endif
 

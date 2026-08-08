@@ -7,8 +7,8 @@ uniform sampler2D source_texture : hint_blit_source0, filter_linear_mipmap, repe
 // up to 4 sources
 
 void blit() {
-     // Read sources and blit
-     COLOR0 = texture(source_texture,UV) * MODULATE;
-     //COLOR1 = texture(source_texture1,UV);
-     // up to COLOR3
+	 // Read sources and blit
+	 COLOR0 = texture(source_texture,UV) * MODULATE;
+	 //COLOR1 = texture(source_texture1,UV);
+	 // up to COLOR3
 }
