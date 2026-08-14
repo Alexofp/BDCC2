@@ -5,6 +5,7 @@ extends DollPart
 @onready var mouth_mesh: MeshInstance3D = %MouthMesh
 @onready var eye_brows: MeshInstance3D = %EyeBrows
 @onready var eyelashes: MeshInstance3D = %Eyelashes
+@onready var copy_neck_modifier: CopyBoneModifier = %CopyNeckModifier
 
 var eyeMat:ShaderMaterial
 var headMat:ShaderMaterial
@@ -14,6 +15,11 @@ var eyelashesMat:ShaderMaterial
 @onready var face_animator: FaceAnimator = %FaceAnimator
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
+
+func setDoll(theDoll:Doll):
+	super.setDoll(theDoll)
+	if(theDoll):
+		copy_neck_modifier.setTargetSkeleton(theDoll.getBodySkeleton().getSkeleton())
 
 func grabMaterials():
 	headMat = my_human_head.get_surface_override_material(0)
@@ -31,6 +37,16 @@ func applyOption(_optionID:String, _value:Variant):
 		face_animator.setFaceOverrideData(_value)
 	elif(_optionID == "headLayers"):
 		updateHeadTexture()
+	elif(_optionID == "earsElf"):
+		setBlendshape("ElfEars", _value)
+	elif(_optionID == "lipsBig"):
+		setBlendshape("LipsBig", _value)
+	elif(_optionID == "jawWide"):
+		setBlendshape("WideJaw", _value)
+	elif(_optionID == "earsHide"):
+		setBlendshape("HideEars", _value)
+	elif(_optionID == "fangs"):
+		setBlendshape("Fangs", _value)
 
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(headMat == null):
@@ -60,7 +76,7 @@ func updateHeadTexture():
 		colorHighlight.v = minf(1.0, colorHighlight.v*3.0)
 		colorHighlight.s *= 0.1
 		colorHighlight.h += 0.0
-		head_layered_texture.addColorMaskLayer("res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png", colorHighlight, colorLight, colorDark)
+		head_layered_texture.addColorMaskLayer("res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_BaseColor.png", colorHighlight, colorLight, colorDark)
 	
 	addLayersToTexture(head_layered_texture, getOptionValue("headLayers", []))
 

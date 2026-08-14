@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dspayt633y43i"
-path="res://.godot/imported/Lips.png-e82a1b580190349218e564ddb578ebed.ctex"
+uid="uid://lskyp42q4qd1"
+path="res://.godot/imported/HumanFeminineHead_EyeShadow.png-e0cc54e8346f24e9a6eb8d41ff840246.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/Skins/Lips.png"
-dest_files=["res://.godot/imported/Lips.png-e82a1b580190349218e564ddb578ebed.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/HumanFeminineHead_EyeShadow.png"
+dest_files=["res://.godot/imported/HumanFeminineHead_EyeShadow.png-e0cc54e8346f24e9a6eb8d41ff840246.ctex"]
 
 [params]
 

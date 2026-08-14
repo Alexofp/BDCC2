@@ -26,6 +26,9 @@ animation = &"Look_Left"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_epb8q"]
 animation = &"Look_Right"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k4i5w"]
+animation = &"HeadTPose"
+
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_4p5fs"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_c366e")
 blend_point_0/pos = -1.0
@@ -33,12 +36,18 @@ blend_point_0/name = &"Look_Left"
 blend_point_1/node = SubResource("AnimationNodeAnimation_epb8q")
 blend_point_1/pos = 1.0
 blend_point_1/name = &"Look_Right"
+blend_point_2/node = SubResource("AnimationNodeAnimation_k4i5w")
+blend_point_2/pos = 0.0
+blend_point_2/name = &"HeadTPose"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v3v4e"]
 animation = &"Look_Down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nstkn"]
 animation = &"Look_Up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5dbh8"]
+animation = &"HeadTPose"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_h7pv5"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_v3v4e")
@@ -47,6 +56,9 @@ blend_point_0/name = &"Look_Down"
 blend_point_1/node = SubResource("AnimationNodeAnimation_nstkn")
 blend_point_1/pos = 1.0
 blend_point_1/name = &"Look_Up"
+blend_point_2/node = SubResource("AnimationNodeAnimation_5dbh8")
+blend_point_2/pos = 0.0
+blend_point_2/name = &"HeadTPose"
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o81br"]
 
@@ -119,8 +131,8 @@ animation = &"Talking"
 
 [resource]
 resource_local_to_scene = true
-graph_offset = Vector2(-470.46146, 215.55194)
-nodes/output/position = Vector2(1260, 260)
+graph_offset = Vector2(-791.1715, 686.82935)
+nodes/output/position = Vector2(1460, 280)
 nodes/Brows_Add/node = SubResource("AnimationNodeAdd2_c366e")
 nodes/Brows_Add/position = Vector2(980, 60)
 nodes/Brows_Angry/node = SubResource("AnimationNodeBlend2_epb8q")

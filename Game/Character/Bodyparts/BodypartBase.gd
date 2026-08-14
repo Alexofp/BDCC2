@@ -200,7 +200,7 @@ func generateSkinLayer(_layers:Array, _gen:CharacterGenerator, theType:String, t
 	var possibleMain:Dictionary[TextureVariant, float] = {}
 	for theID in allIDs:
 		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
-		if(!theTextureVariant.isCovering(_coverZone) || theTextureVariant.genWeight <= 0.0):
+		if(!theTextureVariant || !theTextureVariant.isCovering(_coverZone) || theTextureVariant.genWeight <= 0.0):
 			continue
 		possibleMain[theTextureVariant] = theTextureVariant.genWeight
 	
@@ -230,7 +230,7 @@ func pickPattern(_pattern:Dictionary, _gen:CharacterGenerator, theType:String, t
 	var possibleMain:Dictionary[TextureVariant, float] = {}
 	for theID in allIDs:
 		var theTextureVariant := GlobalRegistry.getTextureVariant(theID)
-		if(theTextureVariant.genWeight <= 0.0):
+		if(!theTextureVariant || theTextureVariant.genWeight <= 0.0):
 			continue
 		possibleMain[theTextureVariant] = theTextureVariant.genWeight
 		totalWeight += theTextureVariant.genWeight

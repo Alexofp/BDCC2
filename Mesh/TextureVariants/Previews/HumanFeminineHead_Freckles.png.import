@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dspayt633y43i"
-path="res://.godot/imported/Lips.png-e82a1b580190349218e564ddb578ebed.ctex"
+uid="uid://bt31ptti6fqky"
+path="res://.godot/imported/HumanFeminineHead_Freckles.png-c351647f97232de35ea6475ef9cb31f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/Skins/Lips.png"
-dest_files=["res://.godot/imported/Lips.png-e82a1b580190349218e564ddb578ebed.ctex"]
+source_file="res://Mesh/TextureVariants/Previews/HumanFeminineHead_Freckles.png"
+dest_files=["res://.godot/imported/HumanFeminineHead_Freckles.png-c351647f97232de35ea6475ef9cb31f6.ctex"]
 
 [params]
 

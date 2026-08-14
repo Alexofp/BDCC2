@@ -49,6 +49,9 @@ func getAnusInsideNode() -> Node3D:
 func resetBones():
 	skeleton_3d.reset_bone_poses()
 
+func getSkeleton() -> Skeleton3D:
+	return skeleton_3d
+
 func getChestBoneAttachment() -> BoneAttachment3D:
 	return chest_bone_attachment
 

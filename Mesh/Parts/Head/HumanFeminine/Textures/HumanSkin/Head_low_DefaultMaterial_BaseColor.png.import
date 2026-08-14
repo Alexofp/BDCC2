@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvaiqtu6j2dk8"
-path.s3tc="res://.godot/imported/MyHumanHeadV2_low_Face_BaseColor.png-24bcf351abd19e4df94ab30f95bef654.s3tc.ctex"
-path.etc2="res://.godot/imported/MyHumanHeadV2_low_Face_BaseColor.png-24bcf351abd19e4df94ab30f95bef654.etc2.ctex"
+uid="uid://dv84h4o6usueu"
+path.s3tc="res://.godot/imported/Head_low_DefaultMaterial_BaseColor.png-ce6dd3ba3dcedf7f475d225100847266.s3tc.ctex"
+path.etc2="res://.godot/imported/Head_low_DefaultMaterial_BaseColor.png-ce6dd3ba3dcedf7f475d225100847266.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,13 +12,14 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_BaseColor.png"
-dest_files=["res://.godot/imported/MyHumanHeadV2_low_Face_BaseColor.png-24bcf351abd19e4df94ab30f95bef654.s3tc.ctex", "res://.godot/imported/MyHumanHeadV2_low_Face_BaseColor.png-24bcf351abd19e4df94ab30f95bef654.etc2.ctex"]
+source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_BaseColor.png"
+dest_files=["res://.godot/imported/Head_low_DefaultMaterial_BaseColor.png-ce6dd3ba3dcedf7f475d225100847266.s3tc.ctex", "res://.godot/imported/Head_low_DefaultMaterial_BaseColor.png-ce6dd3ba3dcedf7f475d225100847266.etc2.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

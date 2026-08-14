@@ -2,16 +2,16 @@
 
 [ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Shaders/Doll_skeleton/HumanMessShader.gdshader" id="2_wn7nk"]
 [ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="3_wn7nk"]
+[ext_resource type="Texture2D" uid="uid://b0bkd6eemr41n" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_Normal.png" id="4_7hvj7"]
 [ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="4_voov3"]
-[ext_resource type="Texture2D" uid="uid://cq0hn1n6r44g1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_Normal.png" id="5_f0bxi"]
-[ext_resource type="Texture2D" uid="uid://jmf43x40vgxe" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/MyHumanHeadV2_low_Face_ORM.png" id="6_saxrd"]
+[ext_resource type="Texture2D" uid="uid://egig8wfox1ra" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_ORM.png" id="5_pc8ad"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_wn7nk")
-shader_parameter/texture_normal = ExtResource("5_f0bxi")
-shader_parameter/texture_orm = ExtResource("6_saxrd")
+shader_parameter/texture_normal = ExtResource("4_7hvj7")
+shader_parameter/texture_orm = ExtResource("5_pc8ad")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/normal_scale = 1.0
 shader_parameter/ao_light_affect = 0.0

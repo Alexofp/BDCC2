@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0fgasbp7nt7d"
-path.s3tc="res://.godot/imported/SkinMicroDetailN.jpg-8721e8a1991023ac07e4ea01d31a0cb0.s3tc.ctex"
-path.etc2="res://.godot/imported/SkinMicroDetailN.jpg-8721e8a1991023ac07e4ea01d31a0cb0.etc2.ctex"
+uid="uid://egig8wfox1ra"
+path.s3tc="res://.godot/imported/Head_low_DefaultMaterial_ORM.png-b783075af0bdbfec0203419a59fd960b.s3tc.ctex"
+path.etc2="res://.godot/imported/Head_low_DefaultMaterial_ORM.png-b783075af0bdbfec0203419a59fd960b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg"
-dest_files=["res://.godot/imported/SkinMicroDetailN.jpg-8721e8a1991023ac07e4ea01d31a0cb0.s3tc.ctex", "res://.godot/imported/SkinMicroDetailN.jpg-8721e8a1991023ac07e4ea01d31a0cb0.etc2.ctex"]
+source_file="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_ORM.png"
+dest_files=["res://.godot/imported/Head_low_DefaultMaterial_ORM.png-b783075af0bdbfec0203419a59fd960b.s3tc.ctex", "res://.godot/imported/Head_low_DefaultMaterial_ORM.png-b783075af0bdbfec0203419a59fd960b.etc2.ctex"]
 
 [params]
 
@@ -24,11 +24,11 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=3
 roughness/src_normal="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_Normal.png"
 process/channel_remap/red=0
 process/channel_remap/green=1

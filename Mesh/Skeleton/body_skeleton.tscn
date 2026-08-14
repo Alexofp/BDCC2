@@ -82,7 +82,6 @@ pointName = "body"
 skeleton = NodePath("..")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="rig/Skeleton3D" index="3" unique_id=325523931]
-transform = Transform3D(1, -4.4899946e-14, 1.8654927e-15, 4.152393e-14, 1, 1.7881393e-07, -6.3501696e-15, -2.9802322e-07, 0.9999999, -9.863203e-15, 1.5977969, -0.02192907)
 bone_name = "head"
 bone_idx = 24
 
@@ -90,12 +89,10 @@ bone_idx = 24
 pointName = "head"
 
 [node name="HoverTextBoneAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="4" unique_id=1123013807]
-transform = Transform3D(1, -1.4210855e-14, -2.3841848e-07, 6.080616e-08, 0.96693075, 0.25503957, 2.305341e-07, -0.2550396, 0.9669306, -1.4474656e-15, 1.2508789, 0.0337944)
 bone_name = "upper_chest"
 bone_idx = 22
 
 [node name="BoneAttachment3D3" type="BoneAttachment3D" parent="rig/Skeleton3D" index="5" unique_id=1943359537]
-transform = Transform3D(1, -1.4210855e-14, 1.4210855e-14, 1.4210855e-14, 0.96099293, -0.27657318, -1.4210855e-14, 0.27657306, 0.9609928, -8.903914e-15, 1.5329258, -0.040598895)
 bone_name = "neck"
 bone_idx = 23
 
@@ -103,8 +100,10 @@ bone_idx = 23
 transform = Transform3D(1, -1.75604e-15, -1.27497e-15, 1.79189e-15, 0.99959, 0.0286544, 1.22417e-15, -0.0286544, 0.99959, -3.01591e-16, 0.0258747, 0.00271201)
 pointName = "collar"
 
+[node name="DollAttachPoint2" parent="rig/Skeleton3D/BoneAttachment3D3" index="1" unique_id=202182828 instance=ExtResource("2_8r017")]
+pointName = "neck"
+
 [node name="AttachAnkle" type="BoneAttachment3D" parent="rig/Skeleton3D" index="6" unique_id=2133875173]
-transform = Transform3D(-0.99351746, 0.11364613, 0.0030721296, -0.11354905, -0.9906086, -0.07616905, -0.0056131613, -0.07602417, 0.99709344, 0.14639853, 0.5150113, -0.022708464)
 bone_name = "shin.L"
 bone_idx = 3
 
@@ -113,7 +112,6 @@ transform = Transform3D(-1, -8.98641e-09, 8.69597e-08, 0, -0.994703, -0.102793, 
 pointName = "ankle.L"
 
 [node name="AttachAnkle2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="7" unique_id=1280309688]
-transform = Transform3D(-0.9935158, -0.113647, -0.0030692164, 0.113549575, -0.99060786, -0.07617015, 0.00561605, -0.07602483, 0.9970878, -0.14639887, 0.51501155, -0.022708785)
 bone_name = "shin.R"
 bone_idx = 12
 
@@ -122,7 +120,6 @@ transform = Transform3D(-1, -8.98641e-09, 8.69597e-08, 0, -0.994703, -0.102793, 
 pointName = "ankle.R"
 
 [node name="AttachWrist" type="BoneAttachment3D" parent="rig/Skeleton3D" index="8" unique_id=859209891]
-transform = Transform3D(-0.7635978, -0.63798106, 0.09948896, 0.6456719, -0.75566393, 0.10990528, 0.005062577, 0.14816083, 0.98895, -0.4636275, 1.0861272, -0.03143776)
 bone_name = "forearm_twist1.R"
 bone_idx = 71
 
@@ -131,7 +128,6 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 3.2305
 pointName = "wrist.R"
 
 [node name="AttachWrist2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="9" unique_id=508778126]
-transform = Transform3D(-0.7635978, 0.63798106, -0.09948913, -0.64567226, -0.7556637, 0.10990604, -0.0050623147, 0.14816147, 0.9889502, 0.46362752, 1.0861273, -0.031437397)
 bone_name = "forearm_twist1.L"
 bone_idx = 46
 
@@ -140,7 +136,6 @@ transform = Transform3D(-1, 7.64274e-15, 8.74228e-08, 0, -1, 8.74228e-08, 8.7422
 pointName = "wrist.L"
 
 [node name="AttachBreast" type="BoneAttachment3D" parent="rig/Skeleton3D" index="10" unique_id=244121028]
-transform = Transform3D(0.8269866, 0.5570644, 0.07597524, -0.06496247, 0.22890748, -0.9712782, -0.5584559, 0.7982984, 0.22549173, -0.005879449, 1.3043486, -0.022688925)
 bone_name = "breast.L"
 bone_idx = 75
 
@@ -148,7 +143,6 @@ bone_idx = 75
 pointName = "breast.L"
 
 [node name="AttachBreast2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="11" unique_id=506415674]
-transform = Transform3D(0.82698655, -0.5570644, -0.07597517, 0.064962514, 0.22890739, -0.97127837, 0.55845577, 0.7982986, 0.22549173, 0.005879449, 1.3043486, -0.022688918)
 bone_name = "breast.R"
 bone_idx = 76
 
@@ -157,7 +151,6 @@ pointName = "breast.R"
 
 [node name="ChestBoneAttachment" type="BoneAttachment3D" parent="rig/Skeleton3D" index="12" unique_id=1695132856]
 unique_name_in_owner = true
-transform = Transform3D(1, -1.5987212e-14, 2.3841856e-07, 2.8537799e-09, 0.99992836, -0.011969544, -2.384015e-07, 0.011969566, 0.9999283, 1.2354005e-15, 1.1374491, 0.0324366)
 bone_name = "chest"
 bone_idx = 21
 
@@ -166,7 +159,6 @@ pointName = "chest"
 
 [node name="UpperChestBoneAttachment" type="BoneAttachment3D" parent="rig/Skeleton3D" index="13" unique_id=2115797834]
 unique_name_in_owner = true
-transform = Transform3D(1, -1.4210855e-14, -2.3841848e-07, 6.080616e-08, 0.96693075, 0.25503957, 2.305341e-07, -0.2550396, 0.9669306, -1.4474656e-15, 1.2508789, 0.0337944)
 bone_name = "upper_chest"
 bone_idx = 22
 
@@ -174,7 +166,6 @@ bone_idx = 22
 pointName = "upperchest"
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="rig/Skeleton3D" index="14" unique_id=28103149]
-transform = Transform3D(1, 0, 2.3841847e-07, 6.247794e-08, 0.9650538, -0.26205155, -2.3008668e-07, 0.26205155, 0.96505374, 1.1107461e-17, 0.9076568, -0.01598972)
 bone_name = "hips"
 bone_idx = 1
 
@@ -182,7 +173,7 @@ bone_idx = 1
 transform = Transform3D(1, -1.457861e-15, -1.4590591e-15, 1.7021899e-15, 0.9828071, 0.18463802, 1.164799e-15, -0.18463802, 0.9828071, -7.152177e-17, 0.008215368, -0.0015363991)
 pointName = "tail"
 
-[node name="DollAttachPoint4" parent="rig/Skeleton3D/BoneAttachment3D2" index="1" unique_id=202182828 instance=ExtResource("2_8r017")]
+[node name="DollAttachPoint4" parent="rig/Skeleton3D/BoneAttachment3D2" index="1" unique_id=173775754 instance=ExtResource("2_8r017")]
 pointName = "hips"
 
 [node name="DollAttachPoint2" parent="rig/Skeleton3D/BoneAttachment3D2" index="2" unique_id=191697169 instance=ExtResource("2_8r017")]
@@ -229,7 +220,6 @@ unique_name_in_owner = true
 process_material = SubResource("ParticleProcessMaterial_0hbj7")
 
 [node name="VaginaBoneAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="15" unique_id=294877745]
-transform = Transform3D(1, 2.1316282e-14, 2.3841622e-07, 1.563194e-13, -0.99999994, -5.364418e-07, 2.3841727e-07, 5.066395e-07, -0.9999954, 3.5638212e-15, 0.9383854, 0.016255755)
 bone_name = "vagina"
 bone_idx = 79
 
@@ -239,7 +229,6 @@ pointName = "vagina"
 
 [node name="PenisGuide1Attach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="16" unique_id=18289277]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.7422606e-08, -8.742262e-08, -1.4901161e-07, 0.9999999, 2.842171e-14, 0.9999999, 2.3841858e-07, 7.1165345e-15, 0.9315533, 0.29990834)
 bone_name = "penis_guide1"
 bone_idx = 80
 
@@ -249,7 +238,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 
 [node name="PenisGuide2Attach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="17" unique_id=1822733779]
 unique_name_in_owner = true
-transform = Transform3D(-1, 4.2632564e-14, -8.742261e-08, -8.7422606e-08, -2.9802322e-07, 1, 8.526513e-14, 0.9999999, 2.682209e-07, 1.1107461e-17, 0.9315529, 1.6999948)
 bone_name = "penis_guide2"
 bone_idx = 81
 
@@ -258,7 +246,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
 [node name="RHandAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="18" unique_id=1998349193]
-transform = Transform3D(-0.78924286, -0.6102702, 0.06830401, 0.6139974, -0.7860711, 0.07140502, 0.01011531, 0.09829454, 0.9951057, -0.50716347, 1.0345604, -0.021327212)
 bone_name = "hand.R"
 bone_idx = 53
 
@@ -278,7 +265,6 @@ unique_name_in_owner = true
 transform = Transform3D(0.99999994, 1.0768417e-08, -9.313226e-10, -4.976755e-08, 0.9999999, 0, 1.8626451e-09, 7.450581e-09, 1, -0.031209111, 0.13562107, -0.008594463)
 
 [node name="LHandAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="19" unique_id=45440100]
-transform = Transform3D(-0.78924286, 0.6102702, -0.06830419, -0.6139977, -0.78607094, 0.07140578, -0.010115087, 0.0982952, 0.99510586, 0.50716347, 1.0345606, -0.021326814)
 bone_name = "hand.L"
 bone_idx = 28
 
@@ -291,7 +277,6 @@ unique_name_in_owner = true
 transform = Transform3D(0.99999994, 1.0768417e-08, -9.313226e-10, -4.976755e-08, 0.9999999, 0, 1.8626451e-09, 7.450581e-09, 1, 0.031, 0.136, -0.009)
 
 [node name="RFootAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="20" unique_id=371445247]
-transform = Transform3D(-0.9999452, -0.0102431085, 0.001791408, 0.004596511, -0.28087938, 0.9597314, -0.009327535, 0.9596859, 0.28091085, -0.1970922, 0.073141366, -0.056620397)
 bone_name = "foot.R"
 bone_idx = 13
 
@@ -300,7 +285,6 @@ unique_name_in_owner = true
 transform = Transform3D(-1.3145236, -0.19351766, -0.012041316, 0.05008033, -0.41859317, 1.2600942, -0.18731219, 1.2461528, 0.42140648, 0.009907603, 0.060308084, -0.0038589276)
 
 [node name="LFootAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="21" unique_id=1855029797]
-transform = Transform3D(-0.99994683, 0.0102459425, -0.0017897977, -0.004595996, -0.2808813, 0.9597317, 0.009330544, 0.959691, 0.28091398, 0.19709146, 0.07314113, -0.056619756)
 bone_name = "foot.L"
 bone_idx = 4
 

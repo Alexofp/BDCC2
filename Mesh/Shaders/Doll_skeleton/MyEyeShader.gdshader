@@ -39,6 +39,7 @@ void fragment() {
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	BACKLIGHT = vec3(0.1, 0.1, 0.1);
 
 	METALLIC = metallic;
 	SPECULAR = specular;
@@ -64,7 +65,7 @@ void fragment() {
 		vec4 color_g = colorG;
 		vec4 color_b = colorB;
 
-	    vec4 result = vec4(0.0);
+		vec4 result = vec4(0.0);
 		result += mask.r*color_r*color_r.a;
 		result += mask.g*color_g*color_g.a;
 		result += mask.b*color_b*color_b.a;
