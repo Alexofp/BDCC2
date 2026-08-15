@@ -16,6 +16,9 @@ var eyelashesMat:ShaderMaterial
 
 @onready var head_layered_texture: MyLayeredTexture = %HeadLayeredTexture
 
+@onready var eye_move_l: MoveBoneModifier = %EyeMoveL
+@onready var eye_move_r: MoveBoneModifier = %EyeMoveR
+
 func setDoll(theDoll:Doll):
 	super.setDoll(theDoll)
 	if(theDoll):
@@ -38,15 +41,28 @@ func applyOption(_optionID:String, _value:Variant):
 	elif(_optionID == "headLayers"):
 		updateHeadTexture()
 	elif(_optionID == "earsElf"):
-		setBlendshape("ElfEars", _value)
+		setBlendshape("EarsElf", _value)
 	elif(_optionID == "lipsBig"):
 		setBlendshape("LipsBig", _value)
 	elif(_optionID == "jawWide"):
-		setBlendshape("WideJaw", _value)
+		setBlendshape("JawWide", _value)
 	elif(_optionID == "earsHide"):
-		setBlendshape("HideEars", _value)
+		setBlendshape("EarsHide", _value)
+	elif(_optionID == "mouthCurve"):
+		setBlendshape("MouthCurve", _value)
 	elif(_optionID == "fangs"):
 		setBlendshape("Fangs", _value)
+	elif(_optionID == "noseWidth"):
+		setBlendshape("NoseWidth", _value)
+	elif(_optionID == "eyeSpacing"):
+		const EYE_SPACING := 0.005
+		var finalVal:float = 0.0
+		if(_value > 0.0):
+			finalVal = remap(_value, 0.0, 1.0, 0.0, 0.7)
+		if(_value < 0.0):
+			finalVal = remap(_value, 0.0, 1.0, 0.0, 1.5)
+		eye_move_l.translation.x = finalVal*EYE_SPACING
+		eye_move_r.translation.x = -finalVal*EYE_SPACING
 
 func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(headMat == null):

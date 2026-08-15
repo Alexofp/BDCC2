@@ -23,9 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://b0bkd6eemr41n" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_Normal.png" id="19_2k5ae"]
 [ext_resource type="Texture2D" uid="uid://egig8wfox1ra" path="res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_ORM.png" id="20_u2783"]
 [ext_resource type="Script" uid="uid://bh3hkyed4d1yx" path="res://Mesh/Skeleton/Modifiers/CopyBoneModifier.gd" id="22_ecsoo"]
+[ext_resource type="Script" uid="uid://c3cy24fva7gmj" path="res://Mesh/Skeleton/Modifiers/MoveBoneModifier.gd" id="23_2k5ae"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="23_egu43"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ecsoo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -44,7 +45,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2k5ae"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_va7dm"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -63,7 +64,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxhcl"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_2k5ae")
@@ -85,7 +86,7 @@ shader_parameter/glowR = 0.0499999988824
 shader_parameter/glowG = 0.3999999910592
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_va7dm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyh38"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_yxhcl")
@@ -107,7 +108,7 @@ shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
 shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxhcl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pbj62"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_q4ega")
@@ -146,83 +147,87 @@ size = Vector3(0.08959961, 0.037353516, 0.18945313)
 [node name="MyHumanHead" unique_id=1803871471 instance=ExtResource("1_ab4oe")]
 script = ExtResource("2_l4a0u")
 
-[node name="MyHeadRig" parent="." index="0" unique_id=1681346814]
+[node name="MyHeadRig" parent="." index="0" unique_id=394785279]
 script = ExtResource("3_pdg8m")
 attachPoint = "head"
 
-[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=1728761979]
-bones/1/rotation = Quaternion(1.5053006e-06, 0.37700298, 0.926212, 6.1271277e-07)
-bones/2/position = Vector3(1.00204666e-07, 0.08803004, 0.030828055)
-bones/3/position = Vector3(-0.0058409274, 0.08758527, 0.030335419)
-bones/3/rotation = Quaternion(0.3883497, 1.4959395e-06, -6.270724e-07, 0.92151207)
-bones/4/position = Vector3(-0.018672606, 0.08089387, 0.026047314)
-bones/4/rotation = Quaternion(0.38834968, 1.4771911e-06, -5.8258627e-07, 0.92151207)
-bones/5/position = Vector3(0.005841119, 0.087585226, 0.030335262)
-bones/5/rotation = Quaternion(0.38834974, 1.4959386e-06, -6.2707187e-07, 0.92151207)
-bones/6/position = Vector3(0.01867279, 0.08089371, 0.026047127)
-bones/6/rotation = Quaternion(0.38834947, 1.4771924e-06, -5.8258513e-07, 0.92151225)
-bones/7/position = Vector3(-2.305465e-08, 0.044287857, -0.0070928345)
-bones/7/rotation = Quaternion(1.1357111e-07, 0.9322608, 0.36178708, -2.7375963e-06)
-bones/9/position = Vector3(4.4357616e-15, 0.021550637, -5.580326e-09)
-bones/9/rotation = Quaternion(-0.012742426, -5.08584e-07, 6.339363e-08, 0.9999188)
-bones/10/position = Vector3(-0.012408135, 0.08526439, 0.02933688)
-bones/10/rotation = Quaternion(0.38834947, 1.4966123e-06, -6.2867053e-07, 0.92151225)
-bones/11/position = Vector3(0.0124083385, 0.08526439, 0.029336799)
-bones/11/rotation = Quaternion(0.38834947, 1.4966123e-06, -6.2867053e-07, 0.92151225)
-bones/12/rotation = Quaternion(1.874726e-08, 0.67753816, 0.73548764, 4.2872962e-08)
-bones/13/position = Vector3(-2.9144254e-16, 0.01640793, 0.11906384)
-bones/14/position = Vector3(0.022173202, 0.011838481, 0.1056509)
-bones/14/rotation = Quaternion(2.888116e-05, 0.7071149, 0.70709866, 2.8882518e-05)
-bones/15/rotation = Quaternion(0.13303015, -0.04139929, -0.27827507, 0.9503432)
-bones/16/rotation = Quaternion(-0.28630382, 0.032109853, -0.46037415, 0.8396754)
-bones/18/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/19/position = Vector3(-0.022173202, 0.011838481, 0.1056509)
-bones/19/rotation = Quaternion(-2.8881488e-05, 0.7071149, 0.70709866, -2.8882168e-05)
-bones/20/rotation = Quaternion(0.13303015, 0.04139929, 0.27827507, 0.9503432)
-bones/21/rotation = Quaternion(-0.2863088, -0.032113712, 0.460371, 0.83967525)
-bones/23/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/24/rotation = Quaternion(0.0772398, 0.71180195, 0.69025683, -0.10448744)
-bones/25/rotation = Quaternion(0.09039346, 0.47105336, 0.87611496, -0.04858381)
-bones/26/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/27/rotation = Quaternion(1.874726e-08, 0.67753816, 0.73548764, 4.2872962e-08)
-bones/28/rotation = Quaternion(-0.07844386, 0.71974236, 0.6819732, 0.103586406)
-bones/29/rotation = Quaternion(-0.09189016, 0.49860418, 0.8607335, 0.04569326)
-bones/30/rotation = Quaternion(0.7071068, -1.5481955e-06, -1.5481955e-06, 0.7071068)
-bones/31/rotation = Quaternion(0.7071068, -1.8010755e-06, -1.8010755e-06, 0.7071068)
-bones/32/position = Vector3(0.05238024, 0.10899073, 0.104639545)
-bones/32/rotation = Quaternion(0.6678553, 0.23230863, -0.23231296, 0.6678569)
-bones/34/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.7071068)
-bones/35/rotation = Quaternion(0.7071068, 1.8010755e-06, 1.8010755e-06, 0.7071068)
-bones/36/position = Vector3(-0.05238024, 0.10899073, 0.104639545)
-bones/36/rotation = Quaternion(0.6678553, -0.23230863, 0.23231296, 0.6678569)
-bones/37/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/38/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=286100783]
+bones/1/rotation = Quaternion(0.7071068, -1.5481955e-06, -1.5481955e-06, 0.7071068)
+bones/2/rotation = Quaternion(0.7071068, -1.8010755e-06, -1.8010755e-06, 0.7071068)
+bones/3/position = Vector3(0.05238024, 0.10899073, 0.104639545)
+bones/3/rotation = Quaternion(0.6678553, 0.23230863, -0.23231296, 0.6678569)
+bones/5/rotation = Quaternion(0.7071068, 1.5481955e-06, 1.5481955e-06, 0.7071068)
+bones/6/rotation = Quaternion(0.7071068, 1.8010755e-06, 1.8010755e-06, 0.7071068)
+bones/7/position = Vector3(-0.05238024, 0.10899073, 0.104639545)
+bones/7/rotation = Quaternion(0.6678553, -0.23230863, 0.23231296, 0.6678569)
+bones/8/position = Vector3(-1.5282209e-15, -0.064871185, -0.01866988)
+bones/10/rotation = Quaternion(-0.04097646, 4.705093e-08, 1.9296007e-09, 0.9991602)
+bones/11/rotation = Quaternion(0.026706167, 0.017778922, 0.12871473, 0.9911626)
+bones/12/rotation = Quaternion(-0.2560618, -0.032665856, 0.09728567, 0.96119756)
+bones/14/rotation = Quaternion(-0.04097646, 4.705093e-08, 1.9296007e-09, 0.9991602)
+bones/15/rotation = Quaternion(0.026706276, -0.017778885, -0.1287145, 0.99116266)
+bones/16/rotation = Quaternion(-0.25606197, 0.03266602, -0.09728605, 0.96119756)
+bones/18/rotation = Quaternion(0.14948125, 3.492877e-06, -5.280525e-07, 0.9887646)
+bones/19/position = Vector3(-1.20912e-07, 0.09313871, -0.017113943)
+bones/20/position = Vector3(-0.02217335, 0.081676096, -0.02544399)
+bones/20/rotation = Quaternion(0.14949228, -3.686488e-05, -6.901991e-06, 0.9887629)
+bones/21/rotation = Quaternion(0.13303687, -0.041399907, -0.2782822, 0.9503401)
+bones/22/rotation = Quaternion(-0.2862988, 0.03209809, -0.46039897, 0.83966386)
+bones/23/position = Vector3(-0.005841146, 0.09191826, -0.017734662)
+bones/24/position = Vector3(-0.018672835, 0.08635317, -0.022044169)
+bones/24/rotation = Quaternion(0.14948127, 3.490019e-06, -5.091307e-07, 0.9887646)
+bones/25/position = Vector3(0.022173023, 0.08167604, -0.02544425)
+bones/25/rotation = Quaternion(0.14949253, 4.3930377e-05, 5.317293e-06, 0.98876286)
+bones/26/rotation = Quaternion(0.13303715, 0.041400526, 0.2782795, 0.9503408)
+bones/27/rotation = Quaternion(-0.28629735, -0.032097034, 0.46039915, 0.8396644)
+bones/28/position = Vector3(0.0058408948, 0.091918156, -0.017734747)
+bones/29/position = Vector3(0.018672537, 0.08635317, -0.022044398)
+bones/29/rotation = Quaternion(0.1494812, 3.4900186e-06, -5.0913025e-07, 0.9887646)
+bones/30/position = Vector3(-0.012408372, 0.08966169, -0.020118454)
+bones/30/rotation = Quaternion(0.14948118, 3.4944874e-06, -5.387261e-07, 0.9887646)
+bones/31/position = Vector3(0.012408095, 0.08966175, -0.020118617)
+bones/31/rotation = Quaternion(0.14948118, 3.4944874e-06, -5.387261e-07, 0.9887646)
+bones/32/rotation = Quaternion(-0.24623765, 1.8794268e-06, 1.2622129e-06, 0.9692095)
+bones/33/position = Vector3(9.8244826e-08, 0.08802998, 0.030828018)
+bones/34/position = Vector3(-0.005840927, 0.08758522, 0.03033534)
+bones/35/position = Vector3(-0.018672619, 0.080893785, 0.026047345)
+bones/35/rotation = Quaternion(0.38834974, 1.4567348e-06, -5.9120777e-07, 0.92151207)
+bones/36/position = Vector3(0.0058411197, 0.08758521, 0.030335307)
+bones/37/position = Vector3(0.018672764, 0.080893785, 0.026047206)
+bones/37/rotation = Quaternion(0.38834974, 1.4567348e-06, -5.9120777e-07, 0.92151207)
+bones/38/position = Vector3(-2.2603771e-08, 0.044287834, -0.007092828)
+bones/38/rotation = Quaternion(9.057117e-08, 0.9322608, 0.36178708, -2.7376018e-06)
+bones/40/position = Vector3(-2.639913e-14, 0.021550655, -2.1175273e-09)
+bones/40/rotation = Quaternion(-0.012742425, -5.0858216e-07, 6.3393614e-08, 0.9999188)
+bones/41/position = Vector3(-0.012408137, 0.08526443, 0.029336896)
+bones/41/rotation = Quaternion(0.38834947, 1.476156e-06, -6.3729067e-07, 0.92151225)
+bones/42/position = Vector3(0.012408324, 0.085264385, 0.029336814)
 
-[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1128065207]
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=1387704121]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 70.641
-surface_material_override/0 = SubResource("ShaderMaterial_ecsoo")
+surface_material_override/0 = SubResource("ShaderMaterial_u2783")
 
-[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=1104396321]
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=685331910]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 14.128
-surface_material_override/0 = SubResource("ShaderMaterial_2k5ae")
-
-[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1174207178]
-layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_u2783")
-surface_material_override/1 = SubResource("ShaderMaterial_u2783")
-
-[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=704115784]
-unique_name_in_owner = true
-layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_va7dm")
 
-[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1331406114]
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=313706984]
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_yxhcl")
+surface_material_override/1 = SubResource("ShaderMaterial_yxhcl")
+
+[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=946246049]
+unique_name_in_owner = true
+layers = 3
+surface_material_override/0 = SubResource("ShaderMaterial_pyh38")
+
+[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1135658743]
+layers = 3
+surface_material_override/0 = SubResource("ShaderMaterial_pbj62")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 instance=ExtResource("16_o81br")]
 pointName = "hair"
@@ -274,7 +279,7 @@ metadata/_custom_type_script = "uid://bh3hkyed4d1yx"
 setting_count = 1
 settings/0/amount = 1.0
 settings/0/apply_bone_name = "neck"
-settings/0/apply_bone = 39
+settings/0/apply_bone = 8
 settings/0/reference_type = 1
 settings/0/reference_node = NodePath("../../../DollAttachTo")
 settings/0/copy = 7
@@ -282,7 +287,49 @@ settings/0/axes = 7
 settings/0/invert = 0
 settings/0/additive = false
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=115096057]
+[node name="EyeMoveL" type="SkeletonModifier3D" parent="MyHeadRig/Skeleton3D" index="13" unique_id=1379932352]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("23_2k5ae")
+boneName = "DEF-EyeBase.L"
+metadata/_custom_type_script = "uid://c3cy24fva7gmj"
+
+[node name="EyeMoveR" type="SkeletonModifier3D" parent="MyHeadRig/Skeleton3D" index="14" unique_id=1205839379]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("23_2k5ae")
+boneName = "DEF-EyeBase.R"
+metadata/_custom_type_script = "uid://c3cy24fva7gmj"
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1677706644]
 active = false
 autoplay = &"HeadTPose"
 

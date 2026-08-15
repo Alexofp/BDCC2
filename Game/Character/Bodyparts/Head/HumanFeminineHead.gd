@@ -17,7 +17,10 @@ var headLayers:Array = [
 var earsElf:float = 0.0
 var lipsBig:float = 0.0
 var earsHide:float = 0.0
+var eyeSpacing:float = 0.0
+var noseWidth:float = 0.0
 var jawWide:float = 0.0
+var mouthCurve:float = 0.0
 var fangs:float = 0.0
 
 func _init():
@@ -35,6 +38,9 @@ func generateFor(_gen:CharacterGenerator):
 	fangs = clampf(randf_range(0.7, 1.2), 0.0, 1.0) if RNG.chance(fangsChance) else 0.0
 	lipsBig = randf_range(0.0, 1.0)
 	jawWide = randf_range(0.0, 1.0)
+	eyeSpacing = randf_range(-0.4, 0.1)
+	mouthCurve = randf_range(0.0, 1.0)
+	noseWidth = randf_range(0.0, 1.0)
 	
 	var theLipsColor:Color = Color("ff2600ff")
 	theLipsColor.s = maxf(_gen.colors.skin.s*randf_range(2.0, 3.0), 0.3)
@@ -77,8 +83,22 @@ func getOptions() -> Dictionary:
 			max = 1.0,
 			editors = [EDITOR_PART],
 		}
+	theOptions["noseWidth"] = {
+			name = "Nose width",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		}
 	theOptions["jawWide"] = {
 			name = "Wide jaw",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_PART],
+		}
+	theOptions["mouthCurve"] = {
+			name = "Mouth curve",
 			type = "slider",
 			min = 0.0,
 			max = 1.0,
@@ -98,6 +118,15 @@ func getOptions() -> Dictionary:
 			max = 1.0,
 			editors = [EDITOR_PART],
 			editorZone = CharCreatorZone.Mouth,
+		}
+	theOptions["eyeSpacing"] = {
+			name = "Eyes spacing",
+			type = "slider",
+			min = -1.0,
+			max = 1.0,
+			step = 0.1,
+			editors = [EDITOR_PART],
+			#editorZone = CharCreatorZone.Eyes,
 		}
 	return theOptions
 
