@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://fsbesyn36y2r"]
+
+[ext_resource type="Texture2D" uid="uid://cwfqeu2e5y5se" path="res://Mesh/Parts/Head/HumanMasculine/Textures/BeardHairCards.png" id="1_wcmbq"]
+
+[resource]
+resource_local_to_scene = true
+transparency = 4
+albedo_texture = ExtResource("1_wcmbq")

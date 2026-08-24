@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_disabled;
+//render_mode cull_disabled;
 
 #include "KajiyaKayBSDF.gdshaderinc"
 
@@ -55,7 +55,7 @@ void fragment(){
 	vec4 color_g = color_mask_g;
 	vec4 color_b = color_mask_b;
 
-    vec4 colormask_result = vec4(0.0);
+	vec4 colormask_result = vec4(0.0);
 	colormask_result += colormask_tex.r*color_r*color_r.a;
 	colormask_result += colormask_tex.g*color_g*color_g.a;
 	colormask_result += colormask_tex.b*color_b*color_b.a;

@@ -19,6 +19,8 @@ var eyelashesMat:ShaderMaterial
 @onready var eye_move_l: MoveBoneModifier = %EyeMoveL
 @onready var eye_move_r: MoveBoneModifier = %EyeMoveR
 
+var headColorMaskBase:String = "res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_BaseColor.png"
+
 func setDoll(theDoll:Doll):
 	super.setDoll(theDoll)
 	if(theDoll):
@@ -39,7 +41,7 @@ func applyOption(_optionID:String, _value:Variant):
 	if(_optionID == "faceOverride"):
 		face_animator.setFaceOverrideData(_value)
 	elif(_optionID == "headLayers"):
-		updateHeadTexture()
+		triggerHeadTextureUpdate()
 	elif(_optionID == "earsElf"):
 		setBlendshape("EarsElf", _value)
 	elif(_optionID == "lipsBig"):
@@ -69,9 +71,17 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 		return
 	
 	#headMat.set_shader_parameter("albedo", _skinTypeData.color)
-	updateHeadTexture()
+	triggerHeadTextureUpdate()
+
+var updatingHeadTexture:bool = false
+func triggerHeadTextureUpdate():
+	if(updatingHeadTexture):
+		return
+	updatingHeadTexture = true
+	updateHeadTexture.call_deferred()
 
 func updateHeadTexture():
+	updatingHeadTexture = false
 	var theSkinData:SkinTypeData = getSkinData()
 	if(theSkinData == null):
 		return
@@ -92,7 +102,7 @@ func updateHeadTexture():
 		colorHighlight.v = minf(1.0, colorHighlight.v*3.0)
 		colorHighlight.s *= 0.1
 		colorHighlight.h += 0.0
-		head_layered_texture.addColorMaskLayer("res://Mesh/Parts/Head/HumanFeminine/Textures/HumanSkin/Head_low_DefaultMaterial_BaseColor.png", colorHighlight, colorLight, colorDark)
+		head_layered_texture.addColorMaskLayer(headColorMaskBase, colorHighlight, colorLight, colorDark)
 	
 	addLayersToTexture(head_layered_texture, getOptionValue("headLayers", []))
 

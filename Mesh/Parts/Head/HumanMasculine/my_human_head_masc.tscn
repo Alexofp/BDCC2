@@ -1,0 +1,360 @@
+[gd_scene format=3 uid="uid://u65wa1ric8u4"]
+
+[ext_resource type="PackedScene" uid="uid://br23lo0ksllo3" path="res://Mesh/Parts/Head/HumanMasculine/MyHumanHeadMasc.glb" id="1_plgtq"]
+[ext_resource type="Script" uid="uid://cvg1q5wehwnfi" path="res://Mesh/Parts/Head/HumanMasculine/MyHumanHeadMasc.gd" id="2_bmwnc"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_oeew1"]
+[ext_resource type="Shader" uid="uid://dxpy81do4l258" path="res://Mesh/Shaders/Doll_skeleton/CutOutTransparent.gdshader" id="4_emnm3"]
+[ext_resource type="Texture2D" uid="uid://jhs5mw3w2y3p" path="res://Mesh/Parts/SharedTextures/Brows/brow1.png" id="5_hede7"]
+[ext_resource type="Texture2D" uid="uid://dfm8kgkyivw7x" path="res://Mesh/Parts/SharedTextures/Eyelashes/EyelashesBig1.png" id="6_w46of"]
+[ext_resource type="Shader" uid="uid://bw8wuou3de5wa" path="res://Mesh/Shaders/Doll_skeleton/MyEyeShader.gdshader" id="7_3inpn"]
+[ext_resource type="Texture2D" uid="uid://72gdnq0laick" path="res://Mesh/Parts/SharedTextures/Eyes/eye_colormask.png" id="8_0p0qw"]
+[ext_resource type="Texture2D" uid="uid://b5qsa2fvvk5x0" path="res://Mesh/Parts/SharedTextures/Eyes/Eye_low_HumanEyeRight_Normal.png" id="9_cymfw"]
+[ext_resource type="Shader" uid="uid://d2hjvf0rlwkrg" path="res://Mesh/Shaders/Doll_skeleton/Mouth.gdshader" id="10_pooca"]
+[ext_resource type="Texture2D" uid="uid://bx3lmwjs2mg0t" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_BaseColor.png" id="11_7b1kb"]
+[ext_resource type="Texture2D" uid="uid://1v188h0t0al1" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Emit.png" id="12_51nh4"]
+[ext_resource type="Texture2D" uid="uid://bjcbpfemns8s4" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_Normal.png" id="13_jigyc"]
+[ext_resource type="Texture2D" uid="uid://wenkwwijoepq" path="res://Mesh/Parts/Head/HumanFeminine/Textures/Mouth/MyHumanHeadV2Mouth_Mouth_ORM.png" id="14_pdd5m"]
+[ext_resource type="Shader" uid="uid://cetrggfrbohtn" path="res://Mesh/Shaders/Doll_skeleton/HumanMessShader.gdshader" id="15_wprrq"]
+[ext_resource type="Texture2D" uid="uid://d0fgasbp7nt7d" path="res://Mesh/Parts/SharedTextures/DetailMaps/SkinMicroDetailN.jpg" id="17_1nphi"]
+[ext_resource type="Texture2D" uid="uid://cn8h3us7f5f12" path="res://Mesh/Parts/Head/HumanMasculine/Textures/HumanSkin/HeadMale_low_Material_Normal.png" id="18_ffdev"]
+[ext_resource type="Texture2D" uid="uid://dqhmm0j2mbfh6" path="res://Mesh/Cum/Layer/cumlayer2.png" id="18_xc8sf"]
+[ext_resource type="Texture2D" uid="uid://bg2ga5dmvtnud" path="res://Mesh/Parts/Head/HumanMasculine/Textures/HumanSkin/HeadMale_low_Material_ORM.png" id="19_bmwnc"]
+[ext_resource type="PackedScene" uid="uid://3omr6ntpyb48" path="res://Game/Doll/doll_attach_point.tscn" id="21_nb4jd"]
+[ext_resource type="Script" uid="uid://bh3hkyed4d1yx" path="res://Mesh/Skeleton/Modifiers/CopyBoneModifier.gd" id="22_4hs0t"]
+[ext_resource type="Script" uid="uid://c3cy24fva7gmj" path="res://Mesh/Skeleton/Modifiers/MoveBoneModifier.gd" id="23_ypaog"]
+[ext_resource type="PackedScene" uid="uid://di8q5ut8regou" path="res://Game/Doll/FaceAnimator/face_animator.tscn" id="24_vmnxp"]
+[ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="25_ctuml"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffdev"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_emnm3")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("5_hede7")
+shader_parameter/color_mask_r = Color(0, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bmwnc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_emnm3")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("6_w46of")
+shader_parameter/color_mask_r = Color(0, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_geca5"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("7_3inpn")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/texture_normal = ExtResource("9_cymfw")
+shader_parameter/normal_scale = 1.0
+shader_parameter/clearcoat = 1.0
+shader_parameter/clearcoat_roughness = 0.0999999977648
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("8_0p0qw")
+shader_parameter/colorR = Color(0, 0.4, 0.918, 1)
+shader_parameter/colorG = Color(0, 0.631, 1, 1)
+shader_parameter/colorB = Color(1, 1, 1, 1)
+shader_parameter/glowR = 0.0499999988824
+shader_parameter/glowG = 0.3999999910592
+shader_parameter/glowB = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6ekt"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("10_pooca")
+shader_parameter/texture_albedo = ExtResource("11_7b1kb")
+shader_parameter/texture_normal = ExtResource("13_jigyc")
+shader_parameter/texture_orm = ExtResource("14_pdd5m")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_color_mask = ExtResource("12_51nh4")
+shader_parameter/color_mask_r = Color(0.62, 0.209147, 0.1798, 1)
+shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
+shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mw4pw"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("15_wprrq")
+shader_parameter/texture_normal = ExtResource("18_ffdev")
+shader_parameter/texture_orm = ExtResource("19_bmwnc")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.5
+shader_parameter/backlight = Color(0.3, 0.24, 0.24, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_detail_normal_global = ExtResource("17_1nphi")
+shader_parameter/detail_normal_scale = 10.0
+shader_parameter/detail_normal_blend = 0.3
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.8
+shader_parameter/texture_mess_layer = ExtResource("18_xc8sf")
+shader_parameter/messLayerScale = 1.0
+shader_parameter/messColor = Color(1, 1, 1, 1)
+shader_parameter/messRoughness = 0.0
+shader_parameter/messScroll = 0.0
+shader_parameter/messCutoff = 0.0
+shader_parameter/messSmoothSize = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_ecsoo"]
+size = Vector3(0.08959961, 0.037353516, 0.18945313)
+
+[node name="MyHumanHead" unique_id=1803871471 instance=ExtResource("1_plgtq")]
+script = ExtResource("2_bmwnc")
+
+[node name="MyHeadRig" parent="." index="0" unique_id=1559974613]
+script = ExtResource("3_oeew1")
+attachPoint = "head"
+
+[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=1135186030]
+bones/1/position = Vector3(0.016608862, 0.10078328, 0.12124224)
+bones/1/rotation = Quaternion(0.7071068, -1.6324892e-06, -1.6324892e-06, 0.7071068)
+bones/2/position = Vector3(0.034208305, 0.10538794, 0.11747086)
+bones/2/rotation = Quaternion(0.7071068, -1.8010755e-06, -1.8010755e-06, 0.7071068)
+bones/3/position = Vector3(0.05238024, 0.10899073, 0.104639545)
+bones/3/rotation = Quaternion(0.6678553, 0.23230863, -0.23231296, 0.6678569)
+bones/5/position = Vector3(-0.016608862, 0.10078328, 0.12124224)
+bones/5/rotation = Quaternion(0.7071068, 1.6324892e-06, 1.6324892e-06, 0.7071068)
+bones/6/position = Vector3(-0.034208305, 0.10538794, 0.11747086)
+bones/6/rotation = Quaternion(0.7071068, 1.8010755e-06, 1.8010755e-06, 0.7071068)
+bones/7/position = Vector3(-0.05238024, 0.10899073, 0.104639545)
+bones/7/rotation = Quaternion(0.6678553, -0.23230863, 0.23231296, 0.6678569)
+bones/8/position = Vector3(-1.5885025e-15, -0.06525161, -0.02054694)
+bones/10/rotation = Quaternion(-0.04217085, 4.7239467e-08, 1.9939022e-09, 0.99911046)
+bones/11/rotation = Quaternion(0.042988412, 0.023415871, 0.08216717, 0.9954157)
+bones/12/rotation = Quaternion(-0.24946429, -0.035199568, 0.08795402, 0.963739)
+bones/14/rotation = Quaternion(-0.04217085, 4.7239467e-08, 1.9939022e-09, 0.99911046)
+bones/15/rotation = Quaternion(0.04298874, -0.023415131, -0.082167566, 0.9954156)
+bones/16/rotation = Quaternion(-0.24946442, 0.035199396, -0.08795482, 0.96373874)
+bones/18/rotation = Quaternion(0.14948118, 3.4928746e-06, -5.280531e-07, 0.9887646)
+bones/19/position = Vector3(-1.1013218e-07, 0.09806967, -0.015588075)
+bones/20/position = Vector3(-0.026590811, 0.08538911, -0.022912052)
+bones/20/rotation = Quaternion(0.14949228, -4.4017812e-05, -7.4362774e-06, 0.9887629)
+bones/21/rotation = Quaternion(0.1669844, -0.017054817, -0.44354454, 0.88039404)
+bones/22/rotation = Quaternion(-0.29697648, -0.01729971, -0.5728169, 0.7637974)
+bones/23/position = Vector3(-0.005841138, 0.09684916, -0.016208872)
+bones/24/position = Vector3(-0.022140447, 0.0878846, -0.020281691)
+bones/24/rotation = Quaternion(0.14948127, 3.490019e-06, -5.091307e-07, 0.9887646)
+bones/25/position = Vector3(0.026590517, 0.085389, -0.022912472)
+bones/25/rotation = Quaternion(0.14949237, 5.092177e-05, 6.921574e-06, 0.988763)
+bones/26/rotation = Quaternion(0.16697954, 0.017052902, 0.4435413, 0.88039666)
+bones/27/rotation = Quaternion(-0.29697877, 0.01729375, 0.5728057, 0.76380515)
+bones/28/position = Vector3(0.005840906, 0.096849166, -0.016208973)
+bones/29/position = Vector3(0.02214016, 0.08788459, -0.02028196)
+bones/29/rotation = Quaternion(0.14948127, 3.490019e-06, -5.091307e-07, 0.9887646)
+bones/30/position = Vector3(-0.012408374, 0.09459276, -0.018592644)
+bones/30/rotation = Quaternion(0.1494812, 3.4944912e-06, -5.387259e-07, 0.9887646)
+bones/31/position = Vector3(0.0124081, 0.09459275, -0.018592887)
+bones/31/rotation = Quaternion(0.14948137, 3.4944937e-06, -5.387252e-07, 0.9887646)
+bones/32/rotation = Quaternion(-0.24623765, 1.8794268e-06, 1.2622129e-06, 0.9692095)
+bones/33/position = Vector3(1.09369594e-07, 0.09143606, 0.034318928)
+bones/34/position = Vector3(-0.0058409134, 0.090822265, 0.03365294)
+bones/35/position = Vector3(-0.021954123, 0.08215748, 0.029370043)
+bones/35/rotation = Quaternion(0.38834974, 1.4567348e-06, -5.9120777e-07, 0.92151207)
+bones/36/position = Vector3(0.0058411276, 0.090822265, 0.0336529)
+bones/37/position = Vector3(0.021954324, 0.08215731, 0.02936975)
+bones/38/position = Vector3(-2.2603771e-08, 0.044287834, -0.007092828)
+bones/38/rotation = Quaternion(9.057117e-08, 0.9322608, 0.36178708, -2.7376018e-06)
+bones/40/position = Vector3(3.604489e-14, 0.022876054, -1.0996583e-09)
+bones/40/rotation = Quaternion(-0.011923767, -5.0858745e-07, 5.932068e-08, 0.9999289)
+bones/41/position = Vector3(-0.012408128, 0.08835135, 0.03250072)
+bones/41/rotation = Quaternion(0.38834974, 1.4761547e-06, -6.3729266e-07, 0.92151207)
+bones/42/position = Vector3(0.012408335, 0.088351294, 0.032500606)
+bones/42/rotation = Quaternion(0.38834974, 1.4761547e-06, -6.3729266e-07, 0.92151207)
+
+[node name="EyeBrows" parent="MyHeadRig/Skeleton3D" index="0" unique_id=803606866]
+unique_name_in_owner = true
+layers = 3
+lod_bias = 70.641
+surface_material_override/0 = SubResource("ShaderMaterial_ffdev")
+
+[node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=714167642]
+unique_name_in_owner = true
+layers = 3
+lod_bias = 14.128
+surface_material_override/0 = SubResource("ShaderMaterial_bmwnc")
+
+[node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=1353588606]
+layers = 3
+surface_material_override/0 = SubResource("ShaderMaterial_geca5")
+surface_material_override/1 = SubResource("ShaderMaterial_geca5")
+
+[node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=726976353]
+unique_name_in_owner = true
+layers = 3
+surface_material_override/0 = SubResource("ShaderMaterial_y6ekt")
+
+[node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=744150275]
+layers = 3
+surface_material_override/0 = SubResource("ShaderMaterial_mw4pw")
+
+[node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 node_paths=PackedStringArray("skeleton") instance=ExtResource("21_nb4jd")]
+pointName = "hair"
+skeleton = NodePath("..")
+
+[node name="DollAttachPoint2" parent="MyHeadRig/Skeleton3D" index="6" unique_id=280089982 instance=ExtResource("21_nb4jd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0547889, 0.153346, 0.00886823)
+pointName = "ear.L"
+
+[node name="DollAttachPoint3" parent="MyHeadRig/Skeleton3D" index="7" unique_id=605388948 instance=ExtResource("21_nb4jd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 0.153405, 0.009)
+pointName = "ear.R"
+
+[node name="DollAttachPoint4" parent="MyHeadRig/Skeleton3D" index="8" unique_id=97471147 instance=ExtResource("21_nb4jd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0237597, 0.168494, 0.0774401)
+pointName = "horn.L"
+
+[node name="DollAttachPoint5" parent="MyHeadRig/Skeleton3D" index="9" unique_id=1626104585 instance=ExtResource("21_nb4jd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024, 0.168, 0.077)
+pointName = "horn.R"
+
+[node name="DollAttachPoint6" parent="MyHeadRig/Skeleton3D" index="10" unique_id=1050185184 instance=ExtResource("21_nb4jd")]
+pointName = "head_items"
+
+[node name="CopyNeckModifier" type="SkeletonModifier3D" parent="MyHeadRig/Skeleton3D" index="11" unique_id=1832357518]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = false
+influence = 1.0
+script = ExtResource("22_4hs0t")
+target_bone_name = "neck"
+source_bone_name = "neck"
+source_bone_name = "neck"
+target_bone_name = "neck"
+metadata/_custom_type_script = "uid://bh3hkyed4d1yx"
+
+[node name="CopyTransformModifier3D" type="CopyTransformModifier3D" parent="MyHeadRig/Skeleton3D" index="12" unique_id=1758656188]
+setting_count = 1
+settings/0/amount = 1.0
+settings/0/apply_bone_name = "neck"
+settings/0/apply_bone = 8
+settings/0/reference_type = 1
+settings/0/reference_node = NodePath("../../../DollAttachTo")
+settings/0/copy = 7
+settings/0/axes = 7
+settings/0/invert = 0
+settings/0/additive = false
+
+[node name="EyeMoveL" type="SkeletonModifier3D" parent="MyHeadRig/Skeleton3D" index="13" unique_id=1379932352]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("23_ypaog")
+boneName = "DEF-EyeBase.L"
+metadata/_custom_type_script = "uid://c3cy24fva7gmj"
+
+[node name="EyeMoveR" type="SkeletonModifier3D" parent="MyHeadRig/Skeleton3D" index="14" unique_id=1205839379]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("23_ypaog")
+boneName = "DEF-EyeBase.R"
+metadata/_custom_type_script = "uid://c3cy24fva7gmj"
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=932056965]
+active = false
+autoplay = &"HeadTPose"
+
+[node name="FaceAnimator" parent="." index="2" unique_id=423090408 node_paths=PackedStringArray("dollPart", "animPlayer") instance=ExtResource("24_vmnxp")]
+unique_name_in_owner = true
+dollPart = NodePath("..")
+animPlayer = NodePath("../AnimationPlayer")
+
+[node name="HeadLayeredTexture" parent="." index="3" unique_id=233705830 instance=ExtResource("25_ctuml")]
+unique_name_in_owner = true
+resolution = Vector2i(1024, 1024)
+clearColor = Color(1, 1, 1, 1)
+graphicsOptionAutoScale = 1
+
+[node name="DollAttachTo" type="Node3D" parent="." index="4" unique_id=512530004]
+transform = Transform3D(1, 0, 0, 0, 0.9943485, -0.106164835, 0, 0.106164835, 0.9943485, 0, -0.08096528, -0.015864197)
+script = ExtResource("3_oeew1")
+attachPoint = "neck"
+metadata/_custom_type_script = "uid://b17qxyq8oh4kq"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DollAttachTo" index="0" unique_id=30064724]
+visible = false
+mesh = SubResource("BoxMesh_ecsoo")
+
+[connection signal="onTextureUpdated" from="HeadLayeredTexture" to="." method="_on_head_layered_texture_on_texture_updated"]

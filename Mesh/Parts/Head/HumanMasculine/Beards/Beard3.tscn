@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://nx1otxwytnr6"]
+
+[ext_resource type="PackedScene" uid="uid://d35k0o84pg37s" path="res://Mesh/Parts/Head/HumanMasculine/Beards/Beard3.glb" id="1_1ofi0"]
+[ext_resource type="Script" uid="uid://bq2hqnqpieq2t" path="res://Mesh/Parts/Head/HumanMasculine/Beards/Beard.gd" id="2_lnowv"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_nsxkm"]
+[ext_resource type="Material" uid="uid://fsbesyn36y2r" path="res://Mesh/Parts/Head/HumanMasculine/Textures/HumanBeardSimpleMat.tres" id="3_lnowv"]
+
+[node name="Beard3" unique_id=1782399254 instance=ExtResource("1_1ofi0")]
+script = ExtResource("2_lnowv")
+
+[node name="MyHeadRig" parent="." index="0" unique_id=1397940652 node_paths=PackedStringArray("skeletonMeshes")]
+script = ExtResource("2_nsxkm")
+attachPoint = "hair"
+skeletonMeshes = [NodePath("Skeleton3D/Beard3")]
+
+[node name="Skeleton3D" parent="MyHeadRig" index="0" unique_id=1863367553]
+unique_name_in_owner = true
+
+[node name="Beard3" parent="MyHeadRig/Skeleton3D" index="0" unique_id=941208370]
+surface_material_override/0 = ExtResource("3_lnowv")

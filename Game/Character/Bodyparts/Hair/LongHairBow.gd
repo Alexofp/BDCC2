@@ -6,6 +6,9 @@ var bowHide:bool = false
 func _init():
 	super._init()
 	id = "LongHairBow"
+	mascWeight = 0.01
+	femWeight = 1.0
+	androWeight = 0.2
 
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)

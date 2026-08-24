@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://co5cmobw6dm8f"]
+
+[ext_resource type="PackedScene" uid="uid://dne2vfcerr84s" path="res://Mesh/Parts/Hair/Male3/Male3.glb" id="1_3ok3d"]
+[ext_resource type="Script" uid="uid://c1e6m214gq53o" path="res://Mesh/Parts/Hair/Male3/Male3.gd" id="2_xs5ka"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="3_i2dua"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_lapvc"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="4_lapvc"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="5_gv1bx"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="6_1ejsv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s0bv3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_i2dua")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("6_1ejsv")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("5_gv1bx")
+shader_parameter/hair_normal_map = ExtResource("4_lapvc")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p3aqo"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_i2dua")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("6_1ejsv")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("5_gv1bx")
+shader_parameter/hair_normal_map = ExtResource("4_lapvc")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+
+[node name="Male3" unique_id=1328440778 instance=ExtResource("1_3ok3d")]
+script = ExtResource("2_xs5ka")
+
+[node name="Male3Hair" parent="." index="0" unique_id=1115833443]
+script = ExtResource("3_lapvc")
+attachPoint = "hair"
+
+[node name="HairCap3" parent="Male3Hair" index="0" unique_id=146236058]
+surface_material_override/0 = SubResource("ShaderMaterial_s0bv3")
+
+[node name="Male3" parent="Male3Hair" index="1" unique_id=846719648]
+surface_material_override/0 = SubResource("ShaderMaterial_p3aqo")

@@ -225,7 +225,7 @@ func _on_cache_timer_timeout() -> void:
 		cachedTexture = theFuture.result
 		onTextureUpdated.emit(cachedTexture)
 	
-	if(!inProcess):
+	if(!inProcess && get_tree()):
 		await get_tree().process_frame
 		if(!inProcess):
 			sub_viewport.size = Vector2i(32, 32)

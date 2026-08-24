@@ -3,6 +3,9 @@ extends BodypartHairBase
 func _init():
 	super._init()
 	id = "LongCuteHair"
+	mascWeight = 0.01
+	femWeight = 1.0
+	androWeight = 0.2
 
 func getName() -> String:
 	return "Long cute hair"

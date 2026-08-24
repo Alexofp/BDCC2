@@ -262,3 +262,12 @@ func pickPatternBasedOnLeft(_pattern:Dictionary, _gen:CharacterGenerator):
 	_pattern["r2"] = GenColorMapTo.getColor(theSelected.genMapR, _gen, true)
 	_pattern["g2"] = GenColorMapTo.getColor(theSelected.genMapG, _gen, true)
 	_pattern["b2"] = GenColorMapTo.getColor(theSelected.genMapB, _gen, true)
+
+func pickPiercings(_ar:Array, _possibleVals:Array[String], _chance:float, _colors:Array[Color]):
+	if(!RNG.chance(_chance) || _possibleVals.is_empty()):
+		_ar.clear()
+		_ar.append("")
+		return
+	_ar.clear()
+	_ar.append(RNG.pick(_possibleVals))
+	_ar.append_array(_colors)

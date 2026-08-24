@@ -4,10 +4,11 @@ var hairMat:ShaderMaterial
 var rubberBandMat:ShaderMaterial
 
 @onready var ponytail: MeshInstance3D = %Ponytail
+@onready var ponytail_1_bow: MeshInstance3D = %Ponytail1Bow
 
 func grabMaterials():
 	hairMat = ponytail.get_surface_override_material(0)
-	rubberBandMat = ponytail.get_surface_override_material(1)
+	rubberBandMat = ponytail_1_bow.get_surface_override_material(0)
 
 func applyOption(_optionID:String, _value:Variant):
 	applyHairMatOption(hairMat, _optionID, _value)

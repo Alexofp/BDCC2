@@ -5,6 +5,9 @@ var bandColor:Color = Color("171717")
 func _init():
 	super._init()
 	id = "Ponytail4"
+	mascWeight = 0.02
+	femWeight = 1.0
+	androWeight = 1.0
 
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)

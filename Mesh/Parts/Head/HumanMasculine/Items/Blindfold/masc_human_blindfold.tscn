@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://btghi4l0t8elc"]
+
+[ext_resource type="Script" uid="uid://by6b18nda5np4" path="res://Game/Doll/doll_part.gd" id="1_0f31y"]
+[ext_resource type="PackedScene" uid="uid://br61otcq86wpv" path="res://Game/Doll/doll_attach_to.tscn" id="2_fht3r"]
+[ext_resource type="PackedScene" uid="uid://b5joh87av4qa5" path="res://Mesh/Parts/Head/HumanMasculine/Items/Blindfold/MascHumanBlindfold.glb" id="3_fde8u"]
+[ext_resource type="Material" uid="uid://sx83emcekphh" path="res://Mesh/Materials/MyLeatherTrimSmart.tres" id="4_mirsn"]
+
+[node name="MascHumanBlindfold" type="Node3D" unique_id=850586216]
+script = ExtResource("1_0f31y")
+
+[node name="DollAttachTo" parent="." unique_id=1579502542 instance=ExtResource("2_fht3r")]
+attachPoint = "head_items"
+
+[node name="Blindfold" parent="DollAttachTo" unique_id=1824747490 instance=ExtResource("3_fde8u")]
+
+[node name="FemHumanBlindfold" parent="DollAttachTo/Blindfold" index="0" unique_id=1613707657]
+surface_material_override/0 = ExtResource("4_mirsn")
+
+[editable path="DollAttachTo/Blindfold"]

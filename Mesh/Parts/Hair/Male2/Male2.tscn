@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dkyxpg43km214"]
+
+[ext_resource type="PackedScene" uid="uid://dtu8qh3iuln7r" path="res://Mesh/Parts/Hair/Male2/Male2.glb" id="1_y5lqx"]
+[ext_resource type="Script" uid="uid://cls7khoyj4jvt" path="res://Mesh/Parts/Hair/Male2/Male2.gd" id="2_htt5t"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="3_4ki77"]
+[ext_resource type="Shader" uid="uid://dv88a1dd1kygd" path="res://Mesh/Shaders/Hair_all/KajiyaKayHair.gdshader" id="3_e20r0"]
+[ext_resource type="Texture2D" uid="uid://dxpgffls0y83b" path="res://Mesh/SharedMaterials/Hair/Textures/Hair_NormalMap.png" id="4_4ki77"]
+[ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="5_bcw1f"]
+[ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="6_a24da"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdbk3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_e20r0")
+shader_parameter/root_color = Color(0.47, 0.18800002, 0, 1)
+shader_parameter/tip_color = Color(0.26, 0.13173333, 0.06759999, 1)
+shader_parameter/primary_color = Color(0.38, 0.24624, 0.12919998, 1)
+shader_parameter/secondary_color = Color(0.86, 0.6865667, 0.387, 1)
+shader_parameter/primary_shift = 0.0
+shader_parameter/secondary_shift = -0.03299981156749965
+shader_parameter/specular_shift = ExtResource("6_a24da")
+shader_parameter/specular_power = 500.0
+shader_parameter/specular_width = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/ambient_occlusion = 0.0
+shader_parameter/scatter = 1.0
+shader_parameter/use_diffuse_texture = false
+shader_parameter/property_tex = ExtResource("5_bcw1f")
+shader_parameter/hair_normal_map = ExtResource("4_4ki77")
+shader_parameter/color_mask_r = Color(1, 0, 0, 1)
+shader_parameter/color_mask_g = Color(0, 1, 0, 1)
+shader_parameter/color_mask_b = Color(0, 0, 1, 1)
+
+[node name="Male2" unique_id=629185414 instance=ExtResource("1_y5lqx")]
+script = ExtResource("2_htt5t")
+
+[node name="Male2Hair" parent="." index="0" unique_id=910218909]
+script = ExtResource("3_4ki77")
+attachPoint = "hair"
+
+[node name="Male2" parent="Male2Hair" index="0" unique_id=259240006]
+surface_material_override/0 = SubResource("ShaderMaterial_hdbk3")

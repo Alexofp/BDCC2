@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://c3cy24fva7gmj" path="res://Mesh/Skeleton/Modifiers/MoveBoneModifier.gd" id="23_2k5ae"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="23_egu43"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2k5ae"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -45,7 +45,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_va7dm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2783"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_rsisv")
@@ -64,7 +64,7 @@ shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxhcl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_va7dm"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_2k5ae")
@@ -86,7 +86,7 @@ shader_parameter/glowR = 0.0499999988824
 shader_parameter/glowG = 0.3999999910592
 shader_parameter/glowB = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyh38"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxhcl"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_yxhcl")
@@ -108,7 +108,7 @@ shader_parameter/color_mask_g = Color(0.619608, 0.207843, 0.180392, 1)
 shader_parameter/color_mask_b = Color(1, 0.911333, 0.86, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pbj62"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyh38"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_q4ega")
@@ -207,27 +207,27 @@ bones/42/position = Vector3(0.012408324, 0.085264385, 0.029336814)
 unique_name_in_owner = true
 layers = 3
 lod_bias = 70.641
-surface_material_override/0 = SubResource("ShaderMaterial_u2783")
+surface_material_override/0 = SubResource("ShaderMaterial_2k5ae")
 
 [node name="Eyelashes" parent="MyHeadRig/Skeleton3D" index="1" unique_id=685331910]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 14.128
-surface_material_override/0 = SubResource("ShaderMaterial_va7dm")
+surface_material_override/0 = SubResource("ShaderMaterial_u2783")
 
 [node name="Eyes" parent="MyHeadRig/Skeleton3D" index="2" unique_id=313706984]
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_yxhcl")
-surface_material_override/1 = SubResource("ShaderMaterial_yxhcl")
+surface_material_override/0 = SubResource("ShaderMaterial_va7dm")
+surface_material_override/1 = SubResource("ShaderMaterial_va7dm")
 
 [node name="MouthMesh" parent="MyHeadRig/Skeleton3D" index="3" unique_id=946246049]
 unique_name_in_owner = true
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_pyh38")
+surface_material_override/0 = SubResource("ShaderMaterial_yxhcl")
 
 [node name="MyHumanHead" parent="MyHeadRig/Skeleton3D" index="4" unique_id=1135658743]
 layers = 3
-surface_material_override/0 = SubResource("ShaderMaterial_pbj62")
+surface_material_override/0 = SubResource("ShaderMaterial_pyh38")
 
 [node name="DollAttachPoint" parent="MyHeadRig/Skeleton3D" index="5" unique_id=638593198 instance=ExtResource("16_o81br")]
 pointName = "hair"

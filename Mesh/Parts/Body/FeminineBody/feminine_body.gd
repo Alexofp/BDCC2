@@ -282,6 +282,10 @@ func applyPartFlags(_theFlags:Dictionary):
 	else:
 		neck_connector.visible = false
 		neck_connector_furry.visible = true
+	if(_theFlags.has("HumanNeckMale") && _theFlags["HumanNeckMale"]):
+		setBlendshape("MaleNeck", 1.0)
+	else:
+		setBlendshape("MaleNeck", 0.0)
 	updateBreastsCleavage(getOptionValue("breastsCleavage", 0.0))
 	updateCrotch()
 	

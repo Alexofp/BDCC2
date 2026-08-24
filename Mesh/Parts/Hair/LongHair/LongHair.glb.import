@@ -16,6 +16,9 @@ dest_files=["res://.godot/imported/LongHair.glb-e8b278d5c2feca88c8fe6656de7cd372
 nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+mesh_library/create_categories_from_hierarchy=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -48,3 +51,4 @@ _subresources={
 }
 gltf/naming_version=2
 gltf/embedded_image_handling=1
+gltf/texture_map_mode=0

@@ -106,15 +106,6 @@ func generateFor(_gen:CharacterGenerator):
 			_gen.colors.piercingMetal, _gen.colors.piercingColor, _gen.colors.piercingColor, _gen.colors.piercingColor
 		])
 
-func pickPiercings(_ar:Array, _possibleVals:Array[String], _chance:float, _colors:Array[Color]):
-	if(!RNG.chance(_chance) || _possibleVals.is_empty()):
-		_ar.clear()
-		_ar.append("")
-		return
-	_ar.clear()
-	_ar.append(RNG.pick(_possibleVals))
-	_ar.append_array(_colors)
-
 func getBodypartType() -> int:
 	return BodypartType.Body
 
