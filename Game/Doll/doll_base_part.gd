@@ -183,8 +183,17 @@ func triggerAlphaMaskUpdate():
 		theDoll.triggerAlphaMaskUpdate()
 
 func updateBreastsStuff(_part:DollBasePart):
-	var theSagVal:float = clampf(getBodypartOptionValue(BodypartSlot.Body, "breastsSag", 0.0), 0.0, 1.0)
 	var _value:float = getBodypartOptionValue(BodypartSlot.Body, "breasts", 0.0)
+	var theSagVal:float = clampf(getBodypartOptionValue(BodypartSlot.Body, "breastsSag", 0.0), 0.0, 1.0)
+	if(_value > 2.7):
+		if(theSagVal < 0.2):
+			var _sfactor:float = clampf(remap(_value, 2.7, 3.0, 0.0, 1.0), 0.0, 1.0)
+			theSagVal = lerpf(theSagVal, 0.2, _sfactor)
+	var breastFixerValue:float = 0.0
+	if(_value > 2.0):
+		breastFixerValue = clampf(remap(_value, 2.0, 3.0, 0.0, 1.0), 0.0, 1.0) * (1.0 - theSagVal)
+	_part.setBlendshape("BreastsFixer", breastFixerValue)
+	
 	var _valueCleavage:float = getBodypartOptionValue(BodypartSlot.Body, "breastsCleavage", 0.0)
 	if(getCachedPartFlag("ForceBreastCleavage", false)):
 		_valueCleavage = 1.0

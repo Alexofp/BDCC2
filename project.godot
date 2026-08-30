@@ -1301,6 +1301,7 @@ rendering_device/pipeline_cache/save_chunk_size_mb=16.000001
 rendering_device/fallback_to_opengl3=false
 textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
+lights_and_shadows/multi_bounce_occlusion/enabled=true
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
 reflections/reflection_atlas/reflection_size=32
 reflections/reflection_atlas/reflection_size.mobile=32
@@ -1317,8 +1318,8 @@ environment/screen_space_reflection/half_size=false
 global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
 limits/cluster_builder/max_clustered_elements=32.0
-occlusion_culling/use_occlusion_culling=true
 textures/streaming/enabled=true
+occlusion_culling/use_occlusion_culling=true
 
 [version_bumper]
 

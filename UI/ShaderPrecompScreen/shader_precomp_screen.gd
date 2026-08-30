@@ -15,7 +15,7 @@ const BASIC_MATERIALS = [ # Won't be used for skeletal meshes 100%
 ]
 
 const MATERIALS = [
-	"res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres",
+	#"res://Mesh/Clothing/InmateCollar/InmateCollatMat.tres",
 	"res://Mesh/Clothing/InmateCuffs/InmateCuffMat.tres",
 	"res://Mesh/Cum/NurbsCum/CumNurbsMat.tres",
 	"res://Mesh/Materials/PreviewMat.tres",

@@ -298,46 +298,46 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="FeminineBody" unique_id=2091505893 instance=ExtResource("1_y7j6w")]
 script = ExtResource("2_3rtfg")
 
-[node name="rig" parent="." index="0" unique_id=282036359 node_paths=PackedStringArray("skeletonMeshes")]
+[node name="rig" parent="." index="0" unique_id=1774825183 node_paths=PackedStringArray("skeletonMeshes")]
 script = ExtResource("2_i5sai")
 attachPoint = "body"
 skeletonMeshes = [NodePath("Skeleton3D/Body"), NodePath("Skeleton3D/DigiLegs"), NodePath("Skeleton3D/FemaleCrotch"), NodePath("Skeleton3D/FemaleCrotchSpade"), NodePath("Skeleton3D/HandPads"), NodePath("Skeleton3D/MaleCrotch"), NodePath("Skeleton3D/NeckConnector"), NodePath("Skeleton3D/NeckConnectorFurry"), NodePath("Skeleton3D/NeckConnectorFurryFull"), NodePath("Skeleton3D/Nipples"), NodePath("Skeleton3D/PlantiLegs"), NodePath("Skeleton3D/PubicHair"), NodePath("Skeleton3D/FlatCrotch"), NodePath("Skeleton3D/BodyNails"), NodePath("Skeleton3D/DigiLegsClaws"), NodePath("Skeleton3D/DigiLegsPads"), NodePath("Skeleton3D/PlantiLegsNails")]
 
-[node name="Skeleton3D" parent="rig" index="0" unique_id=569798098]
+[node name="Skeleton3D" parent="rig" index="0" unique_id=1249737413]
 unique_name_in_owner = true
 
-[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=1109603556]
+[node name="Body" parent="rig/Skeleton3D" index="0" unique_id=1592226314]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_lvg24")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="BodyNails" parent="rig/Skeleton3D" index="1" unique_id=628217505]
+[node name="BodyNails" parent="rig/Skeleton3D" index="1" unique_id=975639041]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_6yr3c")
 
-[node name="DigiLegs" parent="rig/Skeleton3D" index="2" unique_id=533220539]
+[node name="DigiLegs" parent="rig/Skeleton3D" index="2" unique_id=215486899]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="DigiLegsClaws" parent="rig/Skeleton3D" index="3" unique_id=818763255]
+[node name="DigiLegsClaws" parent="rig/Skeleton3D" index="3" unique_id=1142424749]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_eq2fh")
 
-[node name="DigiLegsPads" parent="rig/Skeleton3D" index="4" unique_id=627343669]
+[node name="DigiLegsPads" parent="rig/Skeleton3D" index="4" unique_id=1449048460]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_6xpr4")
 
-[node name="FemaleCrotch" parent="rig/Skeleton3D" index="5" unique_id=57189290]
+[node name="FemaleCrotch" parent="rig/Skeleton3D" index="5" unique_id=872341475]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = SubResource("ShaderMaterial_w6g44")
 surface_material_override/2 = ExtResource("10_oyfx5")
 
-[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="6" unique_id=270266469]
+[node name="FemaleCrotchSpade" parent="rig/Skeleton3D" index="6" unique_id=744661927]
 unique_name_in_owner = true
 visible = false
 layers = 3
@@ -347,19 +347,19 @@ surface_material_override/1 = SubResource("ShaderMaterial_w6g44")
 surface_material_override/2 = ExtResource("10_oyfx5")
 surface_material_override/3 = SubResource("ShaderMaterial_inra3")
 
-[node name="FlatCrotch" parent="rig/Skeleton3D" index="7" unique_id=1367568445]
+[node name="FlatCrotch" parent="rig/Skeleton3D" index="7" unique_id=1538991048]
 unique_name_in_owner = true
 visible = false
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="HandPads" parent="rig/Skeleton3D" index="8" unique_id=1580837847]
+[node name="HandPads" parent="rig/Skeleton3D" index="8" unique_id=285725160]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_6xpr4")
 
-[node name="MaleCrotch" parent="rig/Skeleton3D" index="9" unique_id=785988285]
+[node name="MaleCrotch" parent="rig/Skeleton3D" index="9" unique_id=942361063]
 unique_name_in_owner = true
 visible = false
 layers = 3
@@ -367,46 +367,46 @@ surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = SubResource("ShaderMaterial_w6g44")
 surface_material_override/2 = ExtResource("10_oyfx5")
 
-[node name="NeckConnector" parent="rig/Skeleton3D" index="10" unique_id=1239915094]
+[node name="NeckConnector" parent="rig/Skeleton3D" index="10" unique_id=194681703]
 unique_name_in_owner = true
 visible = false
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="11" unique_id=2090127424]
+[node name="NeckConnectorFurry" parent="rig/Skeleton3D" index="11" unique_id=482564161]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="12" unique_id=194918229]
+[node name="NeckConnectorFurryFull" parent="rig/Skeleton3D" index="12" unique_id=1721755346]
 visible = false
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="NeckConnectorOLDHEAD" parent="rig/Skeleton3D" index="13" unique_id=537673121]
+[node name="NeckConnectorOLDHEAD" parent="rig/Skeleton3D" index="13" unique_id=1418681108]
 visible = false
 
-[node name="Nipples" parent="rig/Skeleton3D" index="14" unique_id=1279902507]
+[node name="Nipples" parent="rig/Skeleton3D" index="14" unique_id=437648327]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 100.0
 blend_shapes/NipplesNormal = 1.0
 surface_material_override/0 = SubResource("ShaderMaterial_bsu4n")
 
-[node name="PlantiLegs" parent="rig/Skeleton3D" index="15" unique_id=1339953318]
+[node name="PlantiLegs" parent="rig/Skeleton3D" index="15" unique_id=571924838]
 unique_name_in_owner = true
 layers = 3
 surface_material_override/0 = SubResource("ShaderMaterial_xbjfp")
 surface_material_override/1 = ExtResource("10_oyfx5")
 
-[node name="PlantiLegsNails" parent="rig/Skeleton3D" index="16" unique_id=1153747804]
+[node name="PlantiLegsNails" parent="rig/Skeleton3D" index="16" unique_id=1110321719]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_882ok")
 
-[node name="PubicHair" parent="rig/Skeleton3D" index="17" unique_id=578261491]
+[node name="PubicHair" parent="rig/Skeleton3D" index="17" unique_id=2129958832]
 unique_name_in_owner = true
 layers = 3
 lod_bias = 100.0
@@ -446,14 +446,14 @@ attachPoint = "breast.L"
 [node name="MarkerBlendshaped" parent="BreastLAttach" index="0" unique_id=2002273322 node_paths=PackedStringArray("testMeshes") instance=ExtResource("11_d17xq")]
 transform = Transform3D(0.98284775, 0.0008429885, -0.18441707, 0.1841872, -0.054621175, 0.9813724, -0.009245738, -0.9985067, -0.05383955, -0.0018895994, 0.22271062, -0.00072561775)
 testMeshes = [NodePath("../../rig/Skeleton3D/Nipples"), NodePath("../../rig/Skeleton3D/Body")]
-selectedShapekey = "BreastsCleavage"
+selectedShapekey = "BreastsSag"
 blendshapesData = Dictionary[String, Vector3]({
 "BodyBigger": Vector3(1.4901161e-08, 0.0015381575, 0.006202936),
 "BreastsCleavage": Vector3(-0.026029604, 0.009858553, -0.00035248115),
 "BreastsFlat": Vector3(-0.0015297495, 0.008655366, -0.0507877),
-"BreastsHuge": Vector3(0.031797856, -0.077741966, 0.2009918),
+"BreastsHuge": Vector3(0.03607533, -0.014871551, 0.16555282),
 "BreastsPecs": Vector3(-0.013113212, -0.008287475, -0.035422377),
-"BreastsSag": Vector3(0.025778614, -0.27901483, 0.15744269),
+"BreastsSag": Vector3(0.029844044, -0.29103512, 0.103909075),
 "NipplesAnime": Vector3(0, 0, 0.0028351117),
 "NipplesAnimeDown": Vector3(0, -0.0020066448, 0.0018338356),
 "NipplesAreolas": Vector3(-2.910383e-11, 0, 0.005698378),
@@ -461,14 +461,14 @@ blendshapesData = Dictionary[String, Vector3]({
 })
 blendshapesDataScale = Dictionary[String, Vector3]({
 "BodyBigger": Vector3(1.0732832, 1.0732833, 1.0732832),
-"BreastsHuge": Vector3(3, 3, 2.9999995),
-"BreastsSag": Vector3(2.9999998, 3.0000002, 3)
+"BreastsHuge": Vector3(2.9999998, 3.0000002, 2.9999988),
+"BreastsSag": Vector3(2.9999998, 3.0000007, 3.0000002)
 })
 blendshapesDataRot = Dictionary[String, Vector3]({
 "BreastsFlat": Vector3(0.17186594, 1.2932586e-09, 7.561987e-09),
-"BreastsHuge": Vector3(0.13970833, 0.09428701, 0.013168149),
+"BreastsHuge": Vector3(0.08998925, 0.09362957, 0.013092792),
 "BreastsPecs": Vector3(0.15383264, 1.1552697e-09, 7.539613e-09),
-"BreastsSag": Vector3(0.3815393, 0.09340896, 0.034868255)
+"BreastsSag": Vector3(0.44416207, 0.09582656, 0.03583873)
 })
 
 [node name="DollAttachPoint" parent="BreastLAttach/MarkerBlendshaped/Target" parent_id_path=PackedInt32Array(2002273322, 164994705) index="0" unique_id=1523681200 instance=ExtResource("11_uprqo")]
@@ -495,9 +495,9 @@ blendshapesData = Dictionary[String, Vector3]({
 "BodyBigger": Vector3(1.4901161e-08, 0.0015381575, 0.006202936),
 "BreastsCleavage": Vector3(-0.026029604, 0.009858553, -0.00035248115),
 "BreastsFlat": Vector3(-0.0015297495, 0.008655366, -0.0507877),
-"BreastsHuge": Vector3(0.031797856, -0.077741966, 0.2009918),
+"BreastsHuge": Vector3(0.03607533, -0.014871551, 0.16555282),
 "BreastsPecs": Vector3(-0.013113212, -0.008287475, -0.035422377),
-"BreastsSag": Vector3(0.025778614, -0.27901483, 0.15744269),
+"BreastsSag": Vector3(0.029844044, -0.29103512, 0.103909075),
 "NipplesAnime": Vector3(0, 0, 0.0028351117),
 "NipplesAnimeDown": Vector3(0, -0.0020066448, 0.0018338356),
 "NipplesAreolas": Vector3(-2.910383e-11, 0, 0.005698378),
@@ -505,14 +505,14 @@ blendshapesData = Dictionary[String, Vector3]({
 })
 blendshapesDataScale = Dictionary[String, Vector3]({
 "BodyBigger": Vector3(1.0732832, 1.0732833, 1.0732832),
-"BreastsHuge": Vector3(3, 3, 2.9999995),
-"BreastsSag": Vector3(2.9999998, 3.0000002, 3)
+"BreastsHuge": Vector3(2.9999998, 3.0000002, 2.9999988),
+"BreastsSag": Vector3(2.9999998, 3.0000007, 3.0000002)
 })
 blendshapesDataRot = Dictionary[String, Vector3]({
 "BreastsFlat": Vector3(0.17186594, 1.2932586e-09, 7.561987e-09),
-"BreastsHuge": Vector3(0.13970833, 0.09428701, 0.013168149),
+"BreastsHuge": Vector3(0.08998925, 0.09362957, 0.013092792),
 "BreastsPecs": Vector3(0.15383264, 1.1552697e-09, 7.539613e-09),
-"BreastsSag": Vector3(0.3815393, 0.09340896, 0.034868255)
+"BreastsSag": Vector3(0.44416207, 0.09582656, 0.03583873)
 })
 copyDataMarker = NodePath("../../BreastLAttach/MarkerBlendshaped")
 

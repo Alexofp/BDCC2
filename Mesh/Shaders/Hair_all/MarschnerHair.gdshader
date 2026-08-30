@@ -25,6 +25,7 @@ varying vec3 binormal;
 void fragment(){
 	vec3 albedo_texture = texture(diffuse_tex, UV).rgb;
 	mediump vec4 property = texture(property_tex, UV);
+	//vec4 property = texture(property_tex, UV);
 	vec3 basecolor = mix(root_color.rgb, tip_color.rgb, property.b);
 	if(use_diffuse_texture){
 		ALBEDO = albedo_texture;
@@ -39,6 +40,7 @@ void fragment(){
 	//ALPHA_SCISSOR_THRESHOLD = 0.5;
 	ALPHA_HASH_SCALE = 0.01;
 	if(use_flow_map){
+		//vec3 flow = texture(flowmap, UV).rgb;
 		mediump vec3 flow = texture(flowmap, UV).rgb;
 		BINORMAL.xz += flow.rb * 2.0f - 1.0;
 	} else {
@@ -50,6 +52,10 @@ void fragment(){
 }
 
 void light(){
+	//vec3 property = texture(property_tex, UV).rgb;
+	//vec3 V = normalize(VIEW);
+	//vec3 N = normalize(NORMAL);
+	//vec3 B = normalize(binormal);
 	mediump vec3 property = texture(property_tex, UV).rgb;
 	mediump vec3 V = normalize(VIEW);
 	mediump vec3 N = normalize(NORMAL);

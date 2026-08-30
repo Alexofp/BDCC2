@@ -42,3 +42,8 @@ func applyPartFlags(_theFlags:Dictionary):
 		#setBlendshape("CrotchBulge", 1.0)
 	#else:
 		#setBlendshape("CrotchBulge", 0.0)
+
+func getBodyAlphaMask() -> Texture2D:
+	if(getOptionValue("pulledDown", false)):
+		return null
+	return preload("res://Mesh/Clothing/InmateTop/Textures/Alpha_Bra.png")

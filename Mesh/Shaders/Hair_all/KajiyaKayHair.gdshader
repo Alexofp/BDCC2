@@ -35,6 +35,7 @@ varying vec3 binormal;
 
 void fragment(){
 	mediump vec4 property = texture(property_tex, UV);
+	//vec4 property = texture(property_tex, UV);
 	vec3 basecolor = mix(root_color.rgb, tip_color.rgb, property.b);
 	if(use_diffuse_texture){
 		vec3 base_hair = texture(diffuse_texture, UV).rgb;
