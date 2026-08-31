@@ -60,7 +60,7 @@ naming/script_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/asset_placer/plugin.cfg", "res://addons/bdcc2gizmos/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/godot-polyliner/plugin.cfg", "res://addons/myeasycollisionmakerbutton/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/thread_pool/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
+enabled=PackedStringArray("res://addons/asset_placer/plugin.cfg", "res://addons/bdcc2gizmos/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/godot-polyliner/plugin.cfg", "res://addons/myeasycollisionmakerbutton/plugin.cfg", "res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/streamed_texture_reimport_tool/plugin.cfg", "res://addons/thread_pool/plugin.cfg", "res://addons/wigglebone/plugin.cfg")
 
 [global_group]
 
@@ -1319,6 +1319,10 @@ global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
 limits/cluster_builder/max_clustered_elements=32.0
 textures/streaming/enabled=true
+textures/streaming/memory_budget_enabled=true
+textures/streaming/memory_budget_mb=20
+textures/streaming/max_ops_per_second=100
+textures/streaming/max_lod=5
 occlusion_culling/use_occlusion_culling=true
 
 [version_bumper]

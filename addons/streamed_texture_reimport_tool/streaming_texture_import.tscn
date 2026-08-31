@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://b8dkb5qrxp0ob"]
+
+[ext_resource type="Script" uid="uid://di1255tepjcxn" path="res://addons/streamed_texture_reimport_tool/streaming_texture_import.gd" id="1_bkqma"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jdp23"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cx26b"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Window" type="Window" unique_id=575483403]
+disable_3d = true
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(720, 480)
+transient = true
+script = ExtResource("1_bkqma")
+
+[node name="Panel" type="Panel" parent="." unique_id=1825893280]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jdp23")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=743130272]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=915454459]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=925841629]
+layout_mode = 2
+
+[node name="Filter" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2004673586]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Filter Files"
+
+[node name="All" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2074030418]
+unique_name_in_owner = true
+layout_mode = 2
+text = "All"
+
+[node name="None" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=650649432]
+unique_name_in_owner = true
+layout_mode = 2
+text = "None"
+
+[node name="Refresh" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=573764428]
+layout_mode = 2
+text = "Refresh"
+
+[node name="Tree" type="Tree" parent="Panel/MarginContainer/VBoxContainer" unique_id=1828708849]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_cx26b")
+columns = 4
+column_titles_visible = true
+hide_root = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1137131984]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=146032099]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Reimport" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=177588264]
+layout_mode = 2
+text = "Reimport"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Filter" to="." method="_on_filter_text_changed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/All" to="." method="_on_all_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/None" to="." method="_on_none_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer2/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer2/Reimport" to="." method="_on_reimport_pressed"]

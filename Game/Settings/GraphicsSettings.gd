@@ -78,6 +78,17 @@ enum TEXTURESCOMPRESSION {
 }
 var texturesCompression:int
 
+enum TEXTURESTREAMINGBUDGET {
+	POTATO,
+	VERYLOW,
+	LOW,
+	NORMAL,
+	HIGH,
+	VERYHIGH,
+	UNLIMITED,
+}
+var textureStreamingBudget:int
+
 enum SSAO {
 	DISABLED,
 	ENABLED,
@@ -239,6 +250,20 @@ func getSettings() -> Dictionary:
 				[TEXTURESCOMPRESSION.ENABLED, "Enabled (Lower VRAM usage)"],
 			],
 			default = TEXTURESCOMPRESSION.ENABLED,
+		},
+		"textureStreamingBudget": {
+			name = "Texture streaming budget",
+			type = "selector",
+			values = [
+				[TEXTURESTREAMINGBUDGET.POTATO, "Potato (5MB)"],
+				[TEXTURESTREAMINGBUDGET.VERYLOW, "Very low (20MB)"],
+				[TEXTURESTREAMINGBUDGET.LOW, "Low (50MB)"],
+				[TEXTURESTREAMINGBUDGET.NORMAL, "Normal (100MB)"],
+				[TEXTURESTREAMINGBUDGET.HIGH, "High (256MB)"],
+				[TEXTURESTREAMINGBUDGET.VERYHIGH, "Very high (512MB)"],
+				[TEXTURESTREAMINGBUDGET.UNLIMITED, "Unlimited"],
+			],
+			default = TEXTURESTREAMINGBUDGET.NORMAL,
 			addSeparator = true,
 		},
 		"ssaa": {
@@ -402,6 +427,23 @@ func applySettingValue(_settingID:String, newVal:Variant):
 			OPTIONS.triggerLightsQualityChange()
 		"lightShafts":
 			OPTIONS.triggerLightShaftsSettingChange()
+		"textureStreamingBudget":
+			TextureStreaming.min_lod_override = 0
+			if(newVal == TEXTURESTREAMINGBUDGET.POTATO):
+				TextureStreaming.memory_budget_mb_override = 5
+				TextureStreaming.min_lod_override = 1
+			elif(newVal == TEXTURESTREAMINGBUDGET.VERYLOW):
+				TextureStreaming.memory_budget_mb_override = 20
+			elif(newVal == TEXTURESTREAMINGBUDGET.LOW):
+				TextureStreaming.memory_budget_mb_override = 50
+			elif(newVal == TEXTURESTREAMINGBUDGET.NORMAL):
+				TextureStreaming.memory_budget_mb_override = 100
+			elif(newVal == TEXTURESTREAMINGBUDGET.HIGH):
+				TextureStreaming.memory_budget_mb_override = 256
+			elif(newVal == TEXTURESTREAMINGBUDGET.VERYHIGH):
+				TextureStreaming.memory_budget_mb_override = 512
+			elif(newVal == TEXTURESTREAMINGBUDGET.UNLIMITED):
+				TextureStreaming.memory_budget_mb_override = 4096
 	
 	#print("APPLIED: "+_settingID)
 	pass
