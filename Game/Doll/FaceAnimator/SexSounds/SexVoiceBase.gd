@@ -4,6 +4,12 @@ class_name SexVoiceBase
 var id:String = "error"
 var fallbackID:String = ""
 
+var genMasc:float = 0.0
+var genFem:float = 0.0
+var genAndro:float = 0.0
+var genPitchMin:float = 0.9
+var genPitchMax:float = 1.1
+
 var voiceActors:Array[String] = []
 var noisesByType:Dictionary = {}
 var noisesSpecific:Dictionary = {} # [type][mouth][intensity][speed]
@@ -79,8 +85,9 @@ func checkSoundsExist(theType:int, mouthState:int, moanIntensity:int, moanSpeed:
 func playPreview(pitchshift:float = 1.0):
 	if(noisesByType.is_empty()):
 		return
-	var randomType:int = RNG.pick(noisesByType.keys())
-	var theNoises:Array = noisesByType[randomType]
+	#var randomType:int = RNG.pick(noisesByType.keys())
+	#var theNoises:Array = noisesByType[randomType]
+	var theNoises:Array = noisesByType[SexSoundType.Moan] if noisesByType.has(SexSoundType.Moan) else []
 	if(theNoises.is_empty()):
 		return
 	var randomNoise:SexSoundEntry = RNG.pick(theNoises)

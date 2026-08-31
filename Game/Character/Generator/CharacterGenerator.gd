@@ -178,6 +178,7 @@ func applyStuff():
 	character.chubbyness = clampf(randf_range(-2.0, 1.0), 0.0, 1.0)
 	character.buttSize = clampf(randf_range(-1.0, 1.0), 0.0, 1.0)
 	character.muscles = clampf(randf_range(-0.5, 1.0), 0.0, 1.0)
+	character.voice.generate(self)
 	
 	internal_createBodyparts()
 	

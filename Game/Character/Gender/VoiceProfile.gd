@@ -4,6 +4,30 @@ class_name VoiceProfile
 var sexVoice:String = "Fem1"
 var pitch:float = 1.0
 
+func generate(_gen:CharacterGenerator):
+	var _gender:int = _gen.gender
+	var possible:Dictionary[SexVoiceBase, float] = {}
+	for theVoiceID in GlobalRegistry.sexVoices:
+		var theVoice:SexVoiceBase = GlobalRegistry.sexVoices[theVoiceID]
+		if(_gender == Gender.Male):
+			if(theVoice.genMasc > 0.0):
+				possible[theVoice] = theVoice.genMasc
+		elif(_gender == Gender.Female):
+			if(theVoice.genFem > 0.0):
+				possible[theVoice] = theVoice.genFem
+		else:
+			if(theVoice.genAndro > 0.0):
+				possible[theVoice] = theVoice.genAndro
+	
+	if(possible.is_empty()):
+		possible = {GlobalRegistry.sexVoices["Fem1"]: 1.0}
+	
+	var thePickedVoice:SexVoiceBase = RNG.pickWeightedDict(possible)
+	if(!thePickedVoice):
+		return
+	sexVoice = thePickedVoice.id
+	pitch = RNG.randfRange(thePickedVoice.genPitchMin, thePickedVoice.genPitchMax)
+
 func setSexVoice(theVoice:String):
 	sexVoice = theVoice
 

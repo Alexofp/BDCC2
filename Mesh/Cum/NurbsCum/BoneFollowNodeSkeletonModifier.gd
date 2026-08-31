@@ -70,5 +70,5 @@ func _y_look_at_int(from: Transform3D, target: Vector3, interpolation:float=0.5)
 	var v_z: Vector3 = from.basis.x.cross(v_y)
 	v_z = v_z.normalized()
 	var v_x: Vector3 = v_y.cross(v_z)
-	from.basis = from.basis.slerp(Basis(v_x, v_y, v_z), interpolation)
+	from.basis = from.basis.slerp(Basis(v_x, v_y, v_z), interpolation) # Can throw an error apparently
 	return from
