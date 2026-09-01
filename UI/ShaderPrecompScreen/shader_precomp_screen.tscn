@@ -57,12 +57,18 @@ mesh = SubResource("BoxMesh_ycgg1")
 transform = Transform3D(0.11487507, 0, 0, 0, 0.11487507, 0, 0, 0, 0.11487507, 0, 0.3763924, 0)
 visible = false
 
-[node name="Cube" parent="RiggedShapekeyCube2/RiggedShapekeyCube/Skeleton3D" parent_id_path=PackedInt32Array(477841942, 1440648128) index="0" unique_id=684854811]
+[node name="Skeleton3D" parent="RiggedShapekeyCube2/RiggedShapekeyCube" parent_id_path=PackedInt32Array(477841942, 1978061397) index="0" unique_id=1440648128]
+bones/0/skin_scale = Vector3(1, 1, 1)
+
+[node name="Cube" parent="RiggedShapekeyCube2/RiggedShapekeyCube/Skeleton3D" index="0" unique_id=684854811]
 blend_shapes/AShapekey = 0.64383
 
 [node name="RiggedCube2" parent="." unique_id=2031538453 instance=ExtResource("11_qm4el")]
 transform = Transform3D(0.11317764, 0, 0, 0, 0.11317764, 0, 0, 0, 0.11317764, 0.34626985, 0.36798963, 0)
 visible = false
+
+[node name="Skeleton3D" parent="RiggedCube2/RiggedCube" parent_id_path=PackedInt32Array(2031538453, 451770375) index="0" unique_id=1233044830]
+bones/0/skin_scale = Vector3(1, 1, 1)
 
 [node name="WallLight" parent="." unique_id=1410158991 instance=ExtResource("7_47kto")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.296898)
