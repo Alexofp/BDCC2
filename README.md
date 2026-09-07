@@ -12,5 +12,6 @@ Changes compared to the official editor:
 # License
 This project is dual-licensed.
 
-Code - [MIT](LICENSE-CODE.md)
-Assets (meshes, textures, animations, etc) - [CC BY-NC-SA 4.0](LICENSE-ASSETS.md)
+Code - [MIT](LICENSE-CODE)
+
+Assets (meshes, textures, animations, etc) - [CC BY-NC-SA 4.0](LICENSE-ASSETS)
