@@ -8,3 +8,9 @@ https://nightly.link/Alexofp/godot/workflows/runner/bdcc2
 
 Changes compared to the official editor:
 - Enabled support for runtime texture compression in exported builds (used for compressing doll skins on the fly so they don't take up as much VRAM)
+
+# License
+This project is dual-licensed.
+
+Code - [MIT](LICENSE-CODE.md)
+Assets (meshes, textures, animations, etc) - [CC BY-NC-SA 4.0](LICENSE-ASSETS.md)
