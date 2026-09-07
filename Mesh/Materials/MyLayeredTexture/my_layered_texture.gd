@@ -47,6 +47,9 @@ func _ready():
 		OPTIONS.changedCharTextureQuality.connect(characterTextureOptionChanged)
 		characterTextureOptionChanged()
 	set_process(autoUnload)
+	if(OS.is_debug_build()):
+		sub_viewport.get_texture().resource_name = "(ViewportTexture) "+str(get_path())
+		sub_viewport.get_texture().resource_path = "(ViewportTexture) "+str(get_path())
 
 var farTimer:float = 0.0
 var textureSpawned:bool = true
@@ -223,6 +226,9 @@ func _on_cache_timer_timeout() -> void:
 	
 	if(!cachedTexture && theFuture.result):
 		cachedTexture = theFuture.result
+		if(OS.is_debug_build()):
+			cachedTexture.resource_path = "  (CachedVT"+str(textureVersion)+") "+str(get_path())
+			cachedTexture.resource_name = "  (CachedVT) "+str(get_path())
 		onTextureUpdated.emit(cachedTexture)
 	
 	if(!inProcess && get_tree()):

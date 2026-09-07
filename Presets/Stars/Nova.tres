@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterPresetResource" format=3 uid="uid://b1xhfbpimlxsx"]
+[gd_resource type="Resource" script_class="CharacterPresetResource" format=3]
 
-[ext_resource type="Script" uid="uid://bes2u6rlgnoot" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_42ahd"]
+[ext_resource type="Script" path="res://Game/Character/Preset/CharacterPresetResource.gd" id="1_42ahd"]
 
 [resource]
 script = ExtResource("1_42ahd")
@@ -18,8 +18,9 @@ data = {
 &"id": "Body_Nova",
 &"r": Color(0.24705882, 0.24705882, 0.24705882, 1)
 }],
-"breasts": 1.96,
+"breasts": 1.51,
 "breastsCleavage": 0.0,
+"breastsSag": 0.3,
 "claws": 1.0,
 "clawsColor": Color(0.5390625, 0.5390625, 0.5390625, 1),
 "clitPiercing": [""],
@@ -151,8 +152,8 @@ data = {
 },
 "penBallsDrop": 0.0,
 "penBallsScale": 1.0,
-"penisLenMod": 1.0,
-"penisScale": 0.8,
+"penisLenMod": 1.1300000000000001,
+"penisScale": 1.0,
 "shaftColor": Color(0.71875, 0.46606445, 0.517334, 1),
 "skinDataOverride": null
 }

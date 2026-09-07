@@ -20,6 +20,8 @@ func registerAllowedParts():
 	addPart(ANY_GENDER, "LongTail", 1.0)
 	addPart(ANY_GENDER, "PaintbrushTail", 0.5)
 	addPart(ANY_GENDER, "HugeFluffyTail", 0.2)
+	
+	addPart(ANY_GENDER, "CaninePenis", 1.0)
 
 func getCharacterCreatorPartsTemplate(_gender:int) -> Dictionary:
 	var result:Dictionary = {

@@ -1,5 +1,6 @@
 @tool
 extends Path3D
+class_name PenisGuidePath
 
 @export var shaftNode:Node3D
 @export var holeNode:Node3D
@@ -11,6 +12,7 @@ extends Path3D
 
 func _ready() -> void:
 	#print("HUH?")
+	curve = preload("res://Mesh/Parts/Util/Penis/PPGuideCurve.tres")
 	pass
 
 func _process(_delta: float) -> void:

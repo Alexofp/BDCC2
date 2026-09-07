@@ -9,6 +9,10 @@ func calcBreastPhysics(_breasts:float):
 	else:
 		breastWigglePhysics = clamp( remap(_breasts, 1.1, 2.0, 0.1, 1.0) , 0.1, 1.0)
 
+func gatherPartFlags(_theFlags:Dictionary):
+	super.gatherPartFlags(_theFlags)
+	_theFlags["MascCrotch"] = true # Used for pubic hair currently
+
 func applyNormalORMTextures():
 	var _skinType := getSkinType()
 	if(_skinType == SkinType.HumanSkin):

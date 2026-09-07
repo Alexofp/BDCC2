@@ -41,12 +41,20 @@ script = ExtResource("2_bcm5a")
 
 [node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(1221644378) index="0" unique_id=437003019]
 unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
 bones/3/position = Vector3(0.355232, 7.7163384e-07, 7.019003e-15)
+bones/3/skin_scale = Vector3(1, 1, 1)
 bones/4/position = Vector3(-0.355232, 7.7163384e-07, 7.019003e-15)
+bones/4/skin_scale = Vector3(1, 1, 1)
 bones/5/position = Vector3(-3.3750184e-15, 1.19904095e-14, 6.9536785e-21)
 bones/5/rotation = Quaternion(1, -8.7422706e-08, -7.54979e-08, -2.6871746e-07)
+bones/5/skin_scale = Vector3(1, 1, 1)
 bones/6/position = Vector3(0.35523197, -7.628688e-07, -1.4847445e-08)
+bones/6/skin_scale = Vector3(1, 1, 1)
 bones/7/position = Vector3(-0.35523203, -6.6764267e-07, 9.24296e-08)
+bones/7/skin_scale = Vector3(1, 1, 1)
 
 [node name="Carpet" parent="StocksRig/Skeleton3D" index="0" unique_id=1298821543]
 instance_shader_parameters/trim_color_base = Color(0.2, 0.2, 0.2, 1)

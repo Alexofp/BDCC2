@@ -12,6 +12,7 @@ class_name FollowSplineSkeletonModifier
 
 var thicknessAtHole:float = 0.0
 var howDeepTip:float = 0.0
+@export var thicknessMult:float = 1.0
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name == "bone":
@@ -138,7 +139,7 @@ func _process_modification() -> void:
 		#print("a ", factorDeep)
 		
 		if(thicknessCurve):
-			var theThickness:float = thicknessCurve.sample_baked(factorOpen)
+			var theThickness:float = thicknessCurve.sample_baked(factorOpen)*thicknessMult
 			#print(theThickness)
 			thicknessAtHole = theThickness * global_basis.get_scale().x
 			if(holeNode is DollOpenableHole):
@@ -162,6 +163,8 @@ func _y_look_at(from: Transform3D, target: Vector3) -> Transform3D:
 	var v_z: Vector3 = from.basis.x.cross(v_y)
 	v_z = v_z.normalized()
 	var v_x: Vector3 = v_y.cross(v_z)
+	var oldScale := from.basis.get_scale()
 	from.basis = Basis(v_x, v_y, v_z)
+	from.basis = from.basis.scaled(oldScale)
 	#from.basis = from.basis.orthonormalized()
 	return from

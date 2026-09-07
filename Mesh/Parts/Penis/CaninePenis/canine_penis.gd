@@ -5,14 +5,11 @@ extends DollPart
 
 var ballsMat:ShaderMaterial
 var shaftMat:ShaderMaterial
-@export var nodeToScale:Node3D
+#@export var nodeToScale:Node3D
 @export var furTuft:MeshInstance3D
 var tuftMat:ShaderMaterial
-@export var penisModifier:PenisSkeletonModifier
-@export var jiggleModifiers:Array[SkeletonModifier3D] = []
+#@export var penisModifier:PenisSkeletonModifier
 
-@onready var guide_path: Path3D = %GuidePath
-@onready var follow_spline_skeleton_modifier: FollowSplineSkeletonModifier = %FollowSplineSkeletonModifier
 @onready var penis_handler: PenisHandler = %PenisHandler
 
 func grabMaterials():
@@ -20,71 +17,27 @@ func grabMaterials():
 	ballsMat = balls.get_surface_override_material(0)
 	tuftMat = furTuft.get_surface_override_material(0)
 
-var enableTween:Tween
-func enableSplineModifier(doEn:bool, _time:float = 0.5):
-	if(enableTween):
-		enableTween.kill()
-		enableTween = null
-	enableTween = create_tween()
-	enableTween.set_parallel(true)
-	
-	follow_spline_skeleton_modifier.active = true
-	enableTween.tween_property(follow_spline_skeleton_modifier, "influence", 1.0 if doEn else 0.0, _time)
-	for mod in jiggleModifiers:
-		mod.active = true
-		enableTween.tween_property(mod, "influence", 0.0 if doEn else 1.0, _time)
-	enableTween.chain().tween_callback(doEnableSpline.bind(doEn))
-	
-func doEnableSpline(_isEn:bool):
-	follow_spline_skeleton_modifier.active = _isEn
-	for mod in jiggleModifiers:
-		mod.active = !_isEn
-		mod.influenceActualMax = 1.0 if !_isEn else 0.0
-	if(!_isEn):
-		follow_spline_skeleton_modifier.holeNode = null
-		follow_spline_skeleton_modifier.insideNode = null
-		guide_path.holeNode = null
-		guide_path.insideNode = null
-
-func setPenisTargets(holeNode:Node3D, insideNode:Node3D):
-	if(!holeNode || !insideNode):
-		#follow_spline_skeleton_modifier.holeNode = null
-		#follow_spline_skeleton_modifier.insideNode = null
-		#guide_path.holeNode = null
-		#guide_path.insideNode = null
-		enableSplineModifier(false)
-		#follow_spline_skeleton_modifier.active = false
-		#for mod in jiggleModifiers:
-		#	mod.active = true
-		return
-	follow_spline_skeleton_modifier.holeNode = holeNode
-	follow_spline_skeleton_modifier.insideNode = insideNode
-	guide_path.holeNode = holeNode
-	guide_path.insideNode = insideNode
-	enableSplineModifier(true)
-	#for mod in jiggleModifiers:
-	#	mod.active = false
-	#follow_spline_skeleton_modifier.active = true
-
 func applyOption(_optionID:String, _value:Variant):
-	if(_optionID == "penisScale"):
-		if(nodeToScale):
-			nodeToScale.scale = Vector3(_value, _value, _value)
+	if(penis_handler.applyOption(_optionID, _value)):
+		return
+	
+	#if(_optionID == "penisScale"):
+	#	penis_handler.setPenisRootScale(_value)
 	if(_optionID == "furTuft"):
 		if(furTuft):
 			furTuft.visible = _value
 	if(_optionID == "furTuftColor"):
 		if(tuftMat):
 			tuftMat.set_shader_parameter("albedo", _value)
-	if(_optionID == "penisLenMod"):
-		if(penisModifier):
-			penisModifier.lenModifier = _value
-	if(_optionID == "penBallsDrop"):
-		if(penisModifier):
-			penisModifier.ballsDrop = _value
-	if(_optionID == "penBallsScale"):
-		if(penisModifier):
-			penisModifier.ballsScale = _value
+	#if(_optionID == "penisLenMod"):
+		#if(penisModifier):
+			#penisModifier.lenModifier = _value
+	#if(_optionID == "penBallsDrop"):
+		#if(penisModifier):
+			#penisModifier.ballsDrop = _value
+	#if(_optionID == "penBallsScale"):
+		#if(penisModifier):
+			#penisModifier.ballsScale = _value
 	if(_optionID == "shaftColor"):
 		if(shaftMat):
 			shaftMat.set_shader_parameter("albedo", _value)
@@ -118,5 +71,8 @@ func applyPartFlags(_theFlags:Dictionary):
 func supportsPenisGirth() -> bool:
 	return true
 
+# Used to stroking sex anims
 func getPenisGirth() -> float:
-	return remap(nodeToScale.scale.x, 0.0, 0.8, 0.0, 1.0)
+	#return remap(nodeToScale.scale.x, 0.0, 0.8, 0.0, 1.0)
+	#return remap(penis_handler.getPenisRootScale(), 0.0, 0.8, 0.0, 1.0)
+	return penis_handler.getPenisRootScale()

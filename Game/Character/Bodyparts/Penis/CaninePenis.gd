@@ -1,6 +1,6 @@
 extends BodypartPenisBase
 
-var penisScale:float = 0.8
+var penisScale:float = 1.0
 var penisLenMod:float = 1.0
 var penBallsDrop:float = 0.0
 var penBallsScale:float = 1.0

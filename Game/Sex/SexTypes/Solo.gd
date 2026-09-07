@@ -17,10 +17,8 @@ func start_run():
 	playAnim(AnimScene.SoloSex, "start", {dom=ROLE_DOM})
 
 func start_actions(_role:String):
-	if(!hasMainActivity()):
-		if(canDoDomActions(_role)):
-			addAction(action("Stop masturbation").setPriority(-999.9).setExtra(true).do("stopSex").setScore(scoreSexStop(_role)))
-
+	addSexTypeActions(_role)
+	
 func start_do(_role:String, _id:String, _args:Array):
-	if(_id == "stopSex"):
-		getSexEngine().stopSex()
+	if(handleStopSexAction(_role, _id, ROLE_DOM)):
+		return

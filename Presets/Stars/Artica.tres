@@ -161,7 +161,7 @@ data = {
 "penBallsDrop": 0.0,
 "penBallsScale": 1.0,
 "penisLenMod": 1.0,
-"penisScale": 0.8,
+"penisScale": 1.0,
 "shaftColor": Color(0.08459998, 0.9257435, 0.93999994, 1),
 "skinDataOverride": null
 }

@@ -39,7 +39,7 @@ var pubicHairMat:ShaderMaterial
 @onready var digi_legs_pads: MeshInstance3D = %DigiLegsPads
 @onready var planti_legs_nails: MeshInstance3D = %PlantiLegsNails
 
-@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+@onready var skeleton_3d: Node3D = %Skeleton3D
 
 const FUR_BODY_SMART_EXTRA_LAYER_MAT = preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartExtraLayerMat.tres")
 const FUR_BODY_SMART_MAT = preload("res://Mesh/Parts/Body/FeminineBody/FurBodySmartMat.tres")

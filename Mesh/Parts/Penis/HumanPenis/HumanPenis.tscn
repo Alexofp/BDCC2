@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://br0dfwhop3sgk"]
+
+[ext_resource type="PackedScene" uid="uid://csurq4rjfi3yv" path="res://Mesh/Parts/Penis/HumanPenis/HumanPenis.glb" id="1_5mfc4"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_8ks4l"]
+[ext_resource type="Script" uid="uid://c2otsqqfgxkcu" path="res://Mesh/Parts/Penis/HumanPenis/HumanPenis.gd" id="2_whg6u"]
+[ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="4_c5get"]
+[ext_resource type="Shader" uid="uid://bjd3rhhgtibh2" path="res://Mesh/Shaders/Doll_skeleton/HumanPartShader.gdshader" id="4_iixtb"]
+[ext_resource type="Texture2D" uid="uid://dvmu3au5gnjy4" path="res://Mesh/Parts/Body/FeminineBody/Textures/Skin/skinwhite.png" id="5_iixtb"]
+[ext_resource type="Texture2D" uid="uid://bx8jjxba167x" path="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_Normal.png" id="6_wdxt1"]
+[ext_resource type="Texture2D" uid="uid://hbwqeeqjfq4f" path="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_ORM.png" id="7_2jpxm"]
+[ext_resource type="Shader" uid="uid://btqudu3i7uyey" path="res://Mesh/Shaders/Doll_skeleton/BasicTransparentShader.gdshader" id="9_whg6u"]
+[ext_resource type="Texture2D" uid="uid://bcvd0j31y2hro" path="res://Mesh/Parts/Penis/HumanPenis/Textures/PubesTest.png" id="10_egbsy"]
+[ext_resource type="PackedScene" uid="uid://b11j3m713s4da" path="res://Mesh/Parts/Util/Penis/penis_handler.tscn" id="10_hw6u1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_whg6u"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_c5get")
+shader_parameter/albedo = Color(0.59, 0.4602, 0.3304, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 0.882000041895
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/freshnel_width = 5.0
+shader_parameter/freshnel_mod = 0.1
+shader_parameter/freshnel_color = Color(0.05, 0.02, 0.02, 1)
+metadata/_custom_type_script = "uid://bk8a3rmejmdn"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egbsy"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_iixtb")
+shader_parameter/texture_albedo = ExtResource("5_iixtb")
+shader_parameter/texture_normal = ExtResource("6_wdxt1")
+shader_parameter/texture_orm = ExtResource("7_2jpxm")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.60999998636528
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.5
+shader_parameter/backlight = Color(0.4392157, 0.3529412, 0.3529412, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(0.69, 0.26909998, 0.27611488, 1)
+shader_parameter/color_mask_g = Color(0.3851018, 0.15306672, 0.15710694, 1)
+shader_parameter/color_mask_b = Color(1, 0, 0, 0.6784314)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.90000004275
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3mwm"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("9_whg6u")
+shader_parameter/texture_albedo = ExtResource("10_egbsy")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 2.0
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_aahoc"]
+_data = [Vector2(0, 0), 0.0, 4.482575, 0, 1, Vector2(0.12371135, 0.5545454), 0.0, 0.0, 0, 0, Vector2(0.19587629, 0.5454545), -0.33495, -0.33495, 0, 0, Vector2(0.26804125, 0.51818174), 0.0, 0.0, 0, 0, Vector2(0.45017183, 0.51818174), 0.0, 0.0, 0, 0, Vector2(0.628866, 0.51818174), 0.077807434, 0.077807434, 0, 0, Vector2(0.85567015, 0.5363636), 0.0, 0.0, 0, 0, Vector2(1, 0.643717), 0.7438059, 0.0, 1, 0]
+point_count = 8
+
+[node name="HumanPenis" unique_id=1586751346 instance=ExtResource("1_5mfc4")]
+script = ExtResource("2_whg6u")
+
+[node name="HumanPenisRig" parent="." index="0" unique_id=1648142290]
+script = ExtResource("2_8ks4l")
+attachPoint = "penis"
+
+[node name="Fluff" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="0" unique_id=1790795386]
+surface_material_override/0 = SubResource("ShaderMaterial_whg6u")
+
+[node name="HumanPenis" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="1" unique_id=1204338988]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_egbsy")
+
+[node name="Pubes" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="2" unique_id=730475216]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_s3mwm")
+
+[node name="Pubes_001" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="3" unique_id=971768077]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_s3mwm")
+
+[node name="PenisHandler" parent="." index="1" unique_id=1348354297 node_paths=PackedStringArray("part", "skeleton") instance=ExtResource("10_hw6u1")]
+unique_name_in_owner = true
+part = NodePath("..")
+skeleton = NodePath("../HumanPenisRig/Skeleton3D")
+lenModificationTip = "penis.005"
+lenChainLength = 5
+ballsBone = "balls"
+scaleBone = "penisroot"
+scaleBoneDown = "root"
+thicknessCurve = SubResource("Curve_aahoc")
+thicknessMult = 0.7
+penisGuideStart = "guide"
+penisGuideTip = "penis.006"
+penisGuideChainLen = 9
+penisWiggleTip = "penis.006"
+penisWiggleChainLen = 7
+ballsWiggleBone = "balls"
+cumForwardBone = "penis.005"
+cumInsideBone = "penis.003"

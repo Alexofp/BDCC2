@@ -15,13 +15,4 @@ func _init():
 				hasB=true,
 			},
 		},
-		"NoPattern": {
-			name = "No pattern",
-			colormask = "",
-			flags = {
-				hasR=false,
-				hasG=false,
-				hasB=false,
-			},
-		},
 	}

@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dkul1s2b81f38"]
+
+[ext_resource type="Script" uid="uid://bshqtwewno1wn" path="res://Mesh/Parts/Util/Penis/TipCumAttach.gd" id="1_3cw3x"]
+[ext_resource type="PackedScene" uid="uid://dek5xh0as01c2" path="res://Game/Doll/Particles/squirt_particles.tscn" id="1_5n5xu"]
+[ext_resource type="Material" uid="uid://c78mbisnx6xk2" path="res://Mesh/MaterialsPrecompile/Mats_static/SquirtTubeTrailMat.tres" id="2_3cw3x"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5n5xu"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+
+[sub_resource type="Curve" id="Curve_l3vri"]
+_data = [Vector2(0, 0), 0.0, 6.88268, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_mor6m"]
+radius = 0.01
+section_length = 0.1
+curve = SubResource("Curve_l3vri")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3cw3x"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fq41g"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 3.057
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+
+[node name="TipCumAttach" type="BoneAttachment3D" unique_id=1051998037 node_paths=PackedStringArray("cumParticles")]
+script = ExtResource("1_3cw3x")
+cumParticles = [NodePath("Node3D/CumParticlesForward"), NodePath("Node3D/CumParticlesForward2"), NodePath("Node3D/CumParticlesForward3")]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1372224975]
+
+[node name="CumParticlesForward" parent="Node3D" unique_id=227569085 instance=ExtResource("1_5n5xu")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = ExtResource("2_3cw3x")
+amount = 16
+lifetime = 2.0
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_5n5xu")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesForward2" parent="Node3D" unique_id=1833525717 instance=ExtResource("1_5n5xu")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = ExtResource("2_3cw3x")
+amount = 16
+lifetime = 2.0
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_3cw3x")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")
+
+[node name="CumParticlesForward3" parent="Node3D" unique_id=1027651507 instance=ExtResource("1_5n5xu")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.144011, 0.989576, 0, -0.989576, 0.144011, 4.44089e-16, 0.0122022, 0.00177575)
+material_override = ExtResource("2_3cw3x")
+amount = 16
+lifetime = 2.0
+explosiveness = 0.75
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_fq41g")
+draw_pass_1 = SubResource("TubeTrailMesh_mor6m")

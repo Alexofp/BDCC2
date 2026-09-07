@@ -1,0 +1,27 @@
+[remap]
+
+importer="streamed_texture_2d"
+type="StreamedTexture2D"
+uid="uid://bx8jjxba167x"
+path.s3tc="res://.godot/imported/HumanPenis_low_Penis_Normal.png-30824fa0c2f32335f3130b113b5acb42.s3tc.stex"
+path.etc2="res://.godot/imported/HumanPenis_low_Penis_Normal.png-30824fa0c2f32335f3130b113b5acb42.etc2.stex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_Normal.png"
+dest_files=["res://.godot/imported/HumanPenis_low_Penis_Normal.png-30824fa0c2f32335f3130b113b5acb42.s3tc.stex", "res://.godot/imported/HumanPenis_low_Penis_Normal.png-30824fa0c2f32335f3130b113b5acb42.etc2.stex"]
+
+[params]
+
+compress/high_quality=false
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+roughness/mode=1
+roughness/src_normal="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_Normal.png"
+streaming/min_lod_override=0
+streaming/max_lod_override=0

@@ -27,7 +27,7 @@ func registerDefaultBodies():
 	addPart(Gender.Male, "MasculineBody", 1.0)
 	addPart(FALLBACK, "FeminineBody", 1.0)
 	
-	addPart(FALLBACK, "CaninePenis", 1.0)
+	addPart(FALLBACK, "HumanPenis", 1.0)
 
 func registerAllowedParts():
 	registerDefaultBodies()

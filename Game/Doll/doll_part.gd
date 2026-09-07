@@ -144,7 +144,9 @@ func applyPartFlags(_theFlags:Dictionary):
 	pass
 
 func setPenisTargets(_holeNode:Node3D, _insideNode:Node3D):
-	pass
+	var thePPHandler := getPenisHandler()
+	if(thePPHandler):
+		thePPHandler.setPenisTargets(_holeNode, _insideNode)
 
 func setExpressionState(_newExpr:int):
 	return
@@ -247,5 +249,6 @@ func getBreastsWigglePhysics() -> float:
 func supportsPenisGirth() -> bool:
 	return false
 
+# Used to stroking sex anims
 func getPenisGirth() -> float:
 	return 1.0
