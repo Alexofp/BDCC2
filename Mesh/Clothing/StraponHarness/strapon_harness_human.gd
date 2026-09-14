@@ -42,5 +42,5 @@ func supportsPenisGirth() -> bool:
 func getPenisGirth() -> float:
 	return 0.5
 
-func getPenisHandler() -> PenisHandler:
+func getPenisHandler() -> PenisHandlerBase:
 	return penis_handler

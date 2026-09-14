@@ -1164,6 +1164,15 @@ func playPawnNoise(_noiseType:int, _volumeAdd:float = 0.0, _pitch:float = 1.0, _
 func playPawnNoise_RPC(_noiseType:int, _volumeAdd:float, _pitch:float, _dist:float):
 	playPawnNoise(_noiseType, _volumeAdd, _pitch, _dist)
 
+func onOrgasmAny():
+	var theChar := getCharacter()
+	if(theChar):
+		theChar.onOrgasmAny()
+
+func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
+	var theChar := getCharacter()
+	if(theChar):
+		theChar.onOrgasm(_orgasm, _causer)
 
 
 

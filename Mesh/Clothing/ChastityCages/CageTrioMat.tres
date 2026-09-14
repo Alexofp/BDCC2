@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dapn5sofi8k8e"]
+
+[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_all/ORMShader.gdshader" id="1_dd52m"]
+[ext_resource type="Texture2D" uid="uid://bh35yxl1w0ayx" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Material_BaseColor.png" id="2_3g3kq"]
+[ext_resource type="Texture2D" uid="uid://b5fb07j2kc3ta" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Material_Normal.png" id="3_aqewb"]
+[ext_resource type="Texture2D" uid="uid://blmy3hku8c3lr" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Material_ORM.png" id="4_n2tlw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dd52m")
+shader_parameter/texture_albedo = ExtResource("2_3g3kq")
+shader_parameter/texture_normal = ExtResource("3_aqewb")
+shader_parameter/texture_orm = ExtResource("4_n2tlw")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)

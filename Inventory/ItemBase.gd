@@ -97,10 +97,9 @@ func canBeEquippedToAnySlot() -> bool:
 	var theInv:Inventory = getInventory()
 	if(!theInv):
 		return false
-	for theSlot in getSlotsToEquipTo():
-		if(!theInv.hasSlotEquipped(theSlot)):
-			return true
-	return false
+	if(!canBeEquippedOnto(theInv)):
+		return false
+	return true
 
 func getInventory() -> Inventory:
 	if(!invRef):
@@ -132,15 +131,19 @@ func getClothingSelectorPaths() -> Array:
 func getScenePathForCharacter(_slot:int, _theChar:BaseCharacter) -> String:
 	if(!_theChar):
 		return ""
-	for clothingSelectorA in GlobalRegistry.getClothingSelectors():
-		var clothingSelector:ClothingSceneSelector = clothingSelectorA
+	
+	var theSelectors:Array[ClothingSceneSelector] = GlobalRegistry.getClothingSelectorsForItemID(id)
+	for clothingSelector:ClothingSceneSelector in theSelectors:
+		var theBodypartSlot:int = clothingSelector.bodypartSlot
 		
-		if(clothingSelector.itemID != id):
-			continue
-		
-		for bodypartID in clothingSelector.sceneByBodypartID:
-			if(_theChar.hasBodypartID(bodypartID)):
-				return clothingSelector.sceneByBodypartID[bodypartID]
+		if(theBodypartSlot < 0):
+			for bodypartID in clothingSelector.sceneByBodypartID:
+				if(_theChar.hasBodypartID(bodypartID)):
+					return clothingSelector.sceneByBodypartID[bodypartID]
+		else:
+			var theCurrentPart:BodypartBase = _theChar.getBodypart(theBodypartSlot)
+			if(theCurrentPart && clothingSelector.sceneByBodypartID.has(theCurrentPart.id)):
+				return clothingSelector.sceneByBodypartID[theCurrentPart.id]
 		
 	return ""
 

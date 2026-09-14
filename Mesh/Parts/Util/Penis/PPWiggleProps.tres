@@ -8,5 +8,4 @@ spring_freq = 5.0
 angular_damp = 35.0
 linear_scale = 720.0
 swing_span = 0.349066
-gravity = Vector3(0, -10, 0)
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"

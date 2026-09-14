@@ -56,7 +56,7 @@ shader_parameter/color_mask_b = Color(1, 0, 0, 0.6784314)
 shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
 shader_parameter/outline_thickness = 0.90000004275
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3mwm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6sb8r"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("9_whg6u")
@@ -78,29 +78,45 @@ point_count = 8
 [node name="HumanPenis" unique_id=1586751346 instance=ExtResource("1_5mfc4")]
 script = ExtResource("2_whg6u")
 
-[node name="HumanPenisRig" parent="." index="0" unique_id=1648142290]
+[node name="HumanPenisRig" parent="." index="0" unique_id=245371894]
 script = ExtResource("2_8ks4l")
 attachPoint = "penis"
 
-[node name="Fluff" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="0" unique_id=1790795386]
+[node name="Skeleton3D" parent="HumanPenisRig" index="0" unique_id=332031595]
+bones/1/rotation = Quaternion(5.0707064e-07, 0.22607173, 0.97411066, -1.5181719e-07)
+bones/3/position = Vector3(-6.910831e-08, 0.007796701, -0.05797232)
+bones/6/position = Vector3(-3.724328e-08, 0.03249683, -0.031241955)
+bones/7/position = Vector3(1.1216768e-18, 0.016960558, -7.442509e-10)
+bones/8/position = Vector3(-4.5457214e-19, 0.027922973, 0)
+bones/9/position = Vector3(-5.4861265e-19, 0.027922943, 0)
+bones/9/rotation = Quaternion(-4.930344e-32, 0, -6.101927e-31, 1)
+bones/10/position = Vector3(-5.4861265e-19, 0.027922988, 0)
+bones/10/rotation = Quaternion(1.3e-44, 0, -9.183413e-31, 1)
+bones/11/position = Vector3(-5.4861265e-19, 0.027922988, 0)
+bones/12/position = Vector3(-5.4861265e-19, 0.027922958, 0)
+bones/13/position = Vector3(-5.4861265e-19, 0.027923003, 0)
+
+[node name="Fluff" parent="HumanPenisRig/Skeleton3D" index="0" unique_id=1077654771]
 surface_material_override/0 = SubResource("ShaderMaterial_whg6u")
 
-[node name="HumanPenis" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="1" unique_id=1204338988]
+[node name="HumanPenis" parent="HumanPenisRig/Skeleton3D" index="1" unique_id=1075706392]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_egbsy")
 
-[node name="Pubes" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="2" unique_id=730475216]
+[node name="Pubes" parent="HumanPenisRig/Skeleton3D" index="2" unique_id=725229415]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_s3mwm")
+surface_material_override/0 = SubResource("ShaderMaterial_6sb8r")
 
-[node name="Pubes_001" parent="HumanPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1480605158) index="3" unique_id=971768077]
+[node name="Pubes_001" parent="HumanPenisRig/Skeleton3D" index="3" unique_id=1668705853]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_s3mwm")
+surface_material_override/0 = SubResource("ShaderMaterial_6sb8r")
 
-[node name="PenisHandler" parent="." index="1" unique_id=1348354297 node_paths=PackedStringArray("part", "skeleton") instance=ExtResource("10_hw6u1")]
+[node name="PenisHandler" parent="." index="1" unique_id=1348354297 node_paths=PackedStringArray("part", "skeleton", "animPlayer") instance=ExtResource("10_hw6u1")]
 unique_name_in_owner = true
 part = NodePath("..")
 skeleton = NodePath("../HumanPenisRig/Skeleton3D")
+animPlayer = NodePath("../AnimationPlayer")
+straponMode = false
 lenModificationTip = "penis.005"
 lenChainLength = 5
 ballsBone = "balls"
@@ -112,7 +128,10 @@ penisGuideStart = "guide"
 penisGuideTip = "penis.006"
 penisGuideChainLen = 9
 penisWiggleTip = "penis.006"
-penisWiggleChainLen = 7
+penisWiggleChainLen = 8
 ballsWiggleBone = "balls"
 cumForwardBone = "penis.005"
 cumInsideBone = "penis.003"
+cageBone = "cage"
+cagedAnim = "Caged"
+cageScale = 0.87

@@ -13,7 +13,7 @@ static func Printerr(text: String):
 
 static func warning(text: String):
 	var thePrefix:String = getDebugPrefix()
-	print(thePrefix+text)
+	print(thePrefix+"WARNING: "+text)
 	#Console.printLine("[color=yellow]"+text+"[/color]")
 
 static func Print(text: String):

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://3yyqkcnkvksk"]
+
+[ext_resource type="PackedScene" uid="uid://cfp0f4rwhbpq1" path="res://Mesh/Clothing/ChastityCages/CageKey.glb" id="1_trgsn"]
+[ext_resource type="Shader" uid="uid://nppvxa37stu7" path="res://Mesh/Shaders/Prop_all/ORMShader.gdshader" id="2_67kpi"]
+[ext_resource type="Texture2D" uid="uid://db4kk4ux7vnlb" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Key_BaseColor.png" id="3_ipg3p"]
+[ext_resource type="Texture2D" uid="uid://b4lug6c1ot1vu" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Key_Normal.png" id="4_vjesj"]
+[ext_resource type="Texture2D" uid="uid://b7d4b2v0ameb5" path="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Key_ORM.png" id="5_v86vq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grp16"]
+render_priority = 0
+shader = ExtResource("2_67kpi")
+shader_parameter/texture_albedo = ExtResource("3_ipg3p")
+shader_parameter/texture_normal = ExtResource("4_vjesj")
+shader_parameter/texture_orm = ExtResource("5_v86vq")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.0
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[node name="CageKey" unique_id=1033498001 instance=ExtResource("1_trgsn")]
+
+[node name="Key" parent="." index="0" unique_id=1546273034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_grp16")

@@ -19,6 +19,7 @@ var species:Dictionary[String, SpeciesBase] = {}
 var items:Dictionary = {}
 var itemRefs:Dictionary = {}
 var clothingSceneSelectors:Array = []
+var clothingSceneSelectorsByItemID:Dictionary[String, Array] = {}
 var dollPoses:Dictionary = {}
 var aiActions:Dictionary = {}
 var aiActionRefs:Dictionary[String, AIActionBase] = {}
@@ -642,7 +643,14 @@ func registerClothingSelector(path: String):
 	var object = loadedClass.new()
 	
 	if(object is ClothingSceneSelector):
+		if(object.bodypartSlot < 0):
+			Log.warning("A clothing selector for item '"+object.itemID+"' doesn't have a bodypartSlot defined")
 		clothingSceneSelectors.append(object)
+		if(!clothingSceneSelectorsByItemID.has(object.itemID)):
+			var theAr:Array[ClothingSceneSelector] = [object]
+			clothingSceneSelectorsByItemID[object.itemID] = theAr
+		else:
+			clothingSceneSelectorsByItemID[object.itemID].append(object)
 		#items[object.id] = loadedClass
 		#itemRefs[object.id] = object
 
@@ -653,9 +661,17 @@ func registerClothingSelectorFolder(folder: String):
 
 func sortClothingSelectors():
 	clothingSceneSelectors.sort_custom(func(a:ClothingSceneSelector, b:ClothingSceneSelector): return a.priority < b.priority)
+	for theItemID in clothingSceneSelectorsByItemID:
+		var theAr:Array[ClothingSceneSelector] = clothingSceneSelectorsByItemID[theItemID]
+		theAr.sort_custom(func(a:ClothingSceneSelector, b:ClothingSceneSelector): return a.priority < b.priority)
 
 func getClothingSelectors() -> Array:
 	return clothingSceneSelectors
+	
+func getClothingSelectorsForItemID(_itemID:String) -> Array[ClothingSceneSelector]:
+	if(!clothingSceneSelectorsByItemID.has(_itemID)):
+		return []
+	return clothingSceneSelectorsByItemID[_itemID]
 
 
 

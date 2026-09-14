@@ -13,6 +13,7 @@ var pattern:Dictionary = {
 #var shaftColor:Color = Color("954555")
 var pubes:int = 0
 var pubesColor:Color = Color("211e1e66")
+var erection:float = 0.0
 
 func _init():
 	super._init()
@@ -60,6 +61,13 @@ func getOptions() -> Dictionary:
 			#type = "color",
 			#editors = [EDITOR_PART],
 		#}
+	theOptions["erection"] = {
+			name = "Erection",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_INTERACT],
+		}
 	theOptions["pattern"] = {
 			name = "Pattern",
 			type = "pattern",

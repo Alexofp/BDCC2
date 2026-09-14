@@ -37,11 +37,14 @@ var characterRef:WeakRef
 var parts:Array[Dictionary] = [{}, {}]
 var partPaths:Array[Dictionary] = [{}, {}]
 var attachPoints:Dictionary = {}
+var attachPointsList:Array[DollAttachPoint] = []
 
 var animationPartFlags:Dictionary = {} #Used to make the tail go out of the way during sex for example
 var cachedPartFlags:Dictionary = {}
 
 var openMouthTemp:bool = false
+var fullErectionTemp:bool = false
+
 var struggleTimer:float = 0.0
 
 var holeData:DollHoleData = DollHoleData.new()
@@ -293,6 +296,8 @@ func _physics_process(_delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	processLookAt(_delta)
+	doPoseAttachPoints.call_deferred()
+	#doPoseAttachPoints() # Doesn't work
 	
 var partUpdateQueue:Array = []
 var partUpdateQueueTimer:float = 0.0
@@ -484,12 +489,32 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 
 signal attachPointSetupChanged
 
+func sortAttach(a:DollAttachPoint, b:DollAttachPoint) -> bool:
+	#if a.get_path().get_name_count() > b.get_path().get_name_count():
+	#if a.processPrio < b.processPrio:
+	if a.findProcessPrio() < b.findProcessPrio():
+		return true
+	return false
+
+func doPoseAttachPoints():
+	if(attachPointsNeedSorting):
+		doSortAttaches()
+	for theAttachPoint in attachPointsList:
+		theAttachPoint.doPosChilds()
+
+func doSortAttaches():
+	attachPointsList.sort_custom(sortAttach)
+	attachPointsNeedSorting = false
+
+var attachPointsNeedSorting:bool = false
 func setupAttachPoint(attachPoint):
 	var attachPointName:String = attachPoint.pointName
 	
 	#assert(!attachPoints.has(attachPointName), "TRYING TO ADD AN ATTACH POINT WITH THE EXISTING NAME "+str(attachPointName))
 	
 	attachPoints[attachPointName] = attachPoint
+	attachPointsList.append(attachPoint)
+	attachPointsNeedSorting = true
 	attachPointSetupChanged.emit()
 
 func removeAttachPoint(attachPoint):
@@ -498,6 +523,7 @@ func removeAttachPoint(attachPoint):
 	#assert(attachPoints.has(attachPointName), "TRYING TO REMOVE AN ATTACH POINT THAT WAS NEVER ADDED "+str(attachPointName))
 	#assert(attachPoints[attachPointName] == attachPoint, "TRYING TO REMOVE A WRONG ATTACH POINT")
 	
+	attachPointsList.erase(attachPoint)
 	if(attachPoints.has(attachPointName) && attachPoints[attachPointName] == attachPoint):
 		attachPoints.erase(attachPointName)
 		attachPointSetupChanged.emit()
@@ -775,14 +801,22 @@ func _on_voice_handler_on_event(_eventID: String, _args: Array) -> void:
 		return
 	faceAnimator.sendFaceGestureEvent(_eventID, _args)
 
-func doCumVisible(cumForward:bool):
-	var thePenis:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Penis)
+# Color? Intensity? Length?
+func doCumVisible(cumForward:bool, _straponCum:bool = false):
+	doCumVisibleUsingPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Penis, cumForward, _straponCum)
+	# Strapon
+	doCumVisibleUsingPart(BaseCharacter.GENERIC_CLOTHING, InventorySlot.UnderwearBottom, cumForward, _straponCum)
+	# Chastity cage
+	doCumVisibleUsingPart(BaseCharacter.GENERIC_CLOTHING, InventorySlot.Penis, cumForward, _straponCum)
+
+func doCumVisibleUsingPart(_genType:int, _slot:int, cumForward:bool, _straponCum:bool = false):
+	var thePenis:DollPart = getDollPart(_genType, _slot)
 	if(!thePenis):
 		return
-	var penisHandler:PenisHandler = thePenis.getPenisHandler()
+	var penisHandler:PenisHandlerBase = thePenis.getPenisHandler()
 	if(!penisHandler):
 		return
-	penisHandler.cum(cumForward)
+	penisHandler.cum(cumForward, _straponCum)
 
 @onready var breast_l_wiggle: DMWBWiggleRotationModifier3D = %BreastLWiggle
 @onready var breast_r_wiggle: DMWBWiggleRotationModifier3D = %BreastRWiggle
@@ -1014,6 +1048,23 @@ func getBonePos(boneName:String, theOffset:Vector3) -> Vector3:
 func setMouthOpenTemporary(_newOpen:bool):
 	openMouthTemp = _newOpen
 	updateExpressionState()
+
+func setFullErectionTemporary(_newOpen:bool):
+	fullErectionTemp = _newOpen
+	#updateExpressionState()
+
+func getPenisHandlers() -> Array[PenisHandlerBase]:
+	# Faster than iterating over every part
+	var thePenis:DollPart = getDollPart(BaseCharacter.GENERIC_BODYPARTS, BodypartSlot.Penis)
+	if(thePenis):
+		var thePenisHandler := thePenis.getPenisHandler()
+		if(thePenisHandler):
+			return [thePenisHandler]
+			#result.append(thePenisHandler)
+			
+	#var result:Array[PenisHandlerBase] # In case we will need more than one for whatever reason?
+	return []#result
+	
 
 func applyHitRandom(_strength:float):
 	if(!isDollEnabled()):

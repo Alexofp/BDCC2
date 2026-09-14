@@ -44,6 +44,7 @@ func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
 	orgasms.append(_orgasm)
 	orgasmAmount += 1
 	
+	pawn.onOrgasm(_orgasm, _causer)
 	ai.onOrgasm(_orgasm, _causer)
 
 func onOrgasmDenied(_causer:SexParticipantInfo):

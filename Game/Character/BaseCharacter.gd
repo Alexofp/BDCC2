@@ -590,6 +590,12 @@ func setArousal(_howMuch:float):
 func getArousal() -> float:
 	return charState.getArousal()
 
+func onOrgasmAny():
+	charState.onOrgasm()
+
+func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
+	onOrgasmAny()
+
 func resetToBaseEditorState():
 	for bodypartSlot in bodyparts.keys():
 		removeGenericPart(GENERIC_BODYPARTS, bodypartSlot)
@@ -724,7 +730,7 @@ func hasPenis() -> bool:
 
 ## Should return true if the character has a penis and it's not blocked by something like a chastity cage
 func hasReachablePenis() -> bool:
-	return hasPenis()
+	return hasPenis() && !buffsHolder.isPenisBlocked()
 
 func isWearingStrapon() -> bool:
 	return getInventory().isWearingStrapon()
@@ -737,14 +743,14 @@ func hasVagina() -> bool:
 	
 ## Should return true if the character has a vagina and it's not blocked by something like chastity belt or chastity piercings
 func hasReachableVagina() -> bool:
-	return hasVagina()
+	return hasVagina() && !buffsHolder.isVaginaBlocked()
 
 func hasAnus() -> bool:
 	return true
 
 ## Should return true if the character has an anus (always true) and it's not blocked by something like a pear of anguish or whatever
 func hasReachableAnus() -> bool:
-	return hasAnus()
+	return hasAnus() && !buffsHolder.isAnusBlocked()
 
 func isBlind() -> bool:
 	return buffsHolder.isBlind()

@@ -9,7 +9,7 @@
 [ext_resource type="Shader" uid="uid://duvtsbsa2vcm7" path="res://Mesh/Shaders/DollClothes_skeleton/Strapon.gdshader" id="7_ouxew"]
 [ext_resource type="Script" uid="uid://bxwk8n8e7aao3" path="res://Mesh/Parts/Util/Penis/penis_handler.gd" id="14_utkxm"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouxew"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsewm"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("7_ouxew")
@@ -52,13 +52,14 @@ script = ExtResource("3_7vug8")
 attachPoint = "strapon"
 
 [node name="HumanDildo" parent="StraponBasic/StraponPenisRig/Skeleton3D" parent_id_path=PackedInt32Array(1755005206, 244133645) index="0" unique_id=589466943]
-surface_material_override/0 = SubResource("ShaderMaterial_ouxew")
+surface_material_override/0 = SubResource("ShaderMaterial_wsewm")
 
 [node name="PenisHandler" type="Node" parent="StraponBasic/StraponPenisRig" index="1" unique_id=1562637587 node_paths=PackedStringArray("part", "skeleton")]
 unique_name_in_owner = true
 script = ExtResource("14_utkxm")
 part = NodePath("../../..")
 skeleton = NodePath("../Skeleton3D")
+straponMode = true
 lenModificationTip = "penis.006"
 lenChainLength = 6
 thicknessCurve = SubResource("Curve_0j2gv")

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://plvmfl8sltkc"]
+
+[ext_resource type="Script" uid="uid://dmjdbeef004ed" path="res://Mesh/Clothing/ChastityCages/CageFlat.gd" id="1_ce0oc"]
+[ext_resource type="PackedScene" uid="uid://b1u2xgybx485u" path="res://Mesh/Clothing/ChastityCages/CageFlat.glb" id="1_sk5fs"]
+[ext_resource type="Script" uid="uid://b17qxyq8oh4kq" path="res://Game/Doll/doll_attach_to.gd" id="2_ce0oc"]
+[ext_resource type="Script" uid="uid://b46j1fgr7rlpd" path="res://Mesh/Parts/Util/Penis/ChastityCageHandler.gd" id="4_crnr4"]
+[ext_resource type="Material" uid="uid://dapn5sofi8k8e" path="res://Mesh/Clothing/ChastityCages/CageTrioMat.tres" id="4_op025"]
+
+[node name="CageFlat" type="Node3D" unique_id=1304276832]
+script = ExtResource("1_ce0oc")
+
+[node name="Cage" parent="." unique_id=179630167 instance=ExtResource("1_sk5fs")]
+unique_name_in_owner = true
+script = ExtResource("2_ce0oc")
+attachPoint = "chastityCage"
+
+[node name="CageFlat" parent="Cage" index="0" unique_id=598716934]
+surface_material_override/0 = ExtResource("4_op025")
+
+[node name="CageRing" parent="Cage" index="1" unique_id=1202782689]
+surface_material_override/0 = ExtResource("4_op025")
+
+[node name="Lock" parent="Cage" index="2" unique_id=694508105]
+surface_material_override/0 = ExtResource("4_op025")
+
+[node name="ChastityCageHandler" type="Node" parent="Cage" unique_id=2052568860 node_paths=PackedStringArray("part", "cumForwardNode", "cumBackNode")]
+unique_name_in_owner = true
+script = ExtResource("4_crnr4")
+part = NodePath("../..")
+cumForwardNode = NodePath("../ForwardCumNode")
+cumBackNode = NodePath("../ForwardCumNode")
+metadata/_custom_type_script = "uid://b46j1fgr7rlpd"
+
+[node name="ForwardCumNode" type="Marker3D" parent="Cage" unique_id=1149377742]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.011513032)
+
+[editable path="Cage"]

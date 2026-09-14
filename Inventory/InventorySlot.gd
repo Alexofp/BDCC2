@@ -12,9 +12,12 @@ const Ankles = 7
 const Nipples = 8
 const UnderwearTop = 9
 const UnderwearBottom = 10
+const Penis = 11
+const Vagina = 12
+const Anus = 13
 
-const ALL = [Eyes, Mouth, Collar, Top, Bottom, Suit, Wrists, Ankles, Nipples, UnderwearTop, UnderwearBottom]
-const NAMES = ["Eyes", "Mouth", "Collar", "Top", "Bottom", "Suit", "Wrists", "Ankles", "Nipples", "Underwear (top)", "Underwear (bottom)"]
+const ALL = [Eyes, Mouth, Collar, Top, Bottom, Suit, Wrists, Ankles, Nipples, UnderwearTop, UnderwearBottom, Penis, Vagina, Anus]
+const NAMES = ["Eyes", "Mouth", "Collar", "Top", "Bottom", "Suit", "Wrists", "Ankles", "Nipples", "Underwear (top)", "Underwear (bottom)", "Penis", "Vagina", "Anus"]
 
 static func getAll() -> Array:
 	return ALL

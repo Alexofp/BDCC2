@@ -2,6 +2,7 @@ extends RefCounted
 class_name ClothingSceneSelector
 
 var priority:float = 0.0
+var bodypartSlot:int = -1
 var itemID:String = ""
 var sceneByBodypartID:Dictionary = {
 }

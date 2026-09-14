@@ -4,3 +4,4 @@
 
 [node name="PenisHandler" type="Node" unique_id=1348354297]
 script = ExtResource("1_khcqm")
+straponMode = null

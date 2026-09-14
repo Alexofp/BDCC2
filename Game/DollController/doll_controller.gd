@@ -377,6 +377,7 @@ func _physics_process(_delta:float):
 		collision.get_collider().apply_impulse(direction * directional_multiplier, location)
 	
 	processHoverText(_delta)
+	processErection(_delta)
 
 
 func canScrollUp() -> bool:
@@ -816,3 +817,28 @@ func onIgnoredBodyDeleted(_body:PhysicsBody3D):
 	remove_collision_exception_with(_body)
 	ignoreCollisions.erase(_body)
 	#print("ERASING ",_body)
+
+func calculateFinalErection() -> float:
+	var theChar := getCharacter()
+	var theDoll := getDoll()
+	if(!theChar || !theDoll):
+		return 1.0
+	
+	if(theDoll.getCachedPartFlag("ForceLimpPenis", false)):
+		return 0.0
+	if(theDoll.fullErectionTemp):
+		return 1.0
+	
+	return clampf(theChar.charState.getErection(), 0.0, 1.0)
+
+func processErection(_dt:float):
+	var theDoll := getDoll()
+	if(!theDoll):
+		return
+	var thePenisHandlers := theDoll.getPenisHandlers()
+	if(thePenisHandlers.is_empty()):
+		return
+	var theErection := calculateFinalErection()
+	for theHandler:PenisHandlerBase in thePenisHandlers:
+		theHandler.setTargetErection(theErection)
+	

@@ -8,6 +8,7 @@ var character:WeakRef
 var arousal:float = 0.0
 var arousalFade:float = 0.0
 var autoMoan:float = 0.0
+var postOrgasm:float = 0.0
 
 var pain:float = 0.0
 var socialExhaustion:float = 0.0
@@ -16,8 +17,8 @@ var socialExhaustionFade:float = 0.0 # Timer until the exhaustion starts ticking
 var veryRareTimer:float = 0.0 # 10 second timer, no sync
 
 var syncState:SyncState = SyncState.new(self,
-	["arousal", "arousalFade", "autoMoan", "pain", "socialExhaustion", "socialExhaustionFade"],
-	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
+	["arousal", "arousalFade", "autoMoan", "postOrgasm", "pain", "socialExhaustion", "socialExhaustionFade"],
+	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
 )
 func setSyncVar(_var:String, _val:Variant):
 	set(_var, _val)
@@ -74,6 +75,14 @@ func getAutoMoan() -> float:
 func getArousalFadeNormalized() -> float:
 	return arousalFade/5.0
 
+func onOrgasm():
+	postOrgasm = 10.0
+
+func getErection() -> float:
+	if(postOrgasm > 0.0):
+		return clampf(postOrgasm*0.3, 0.0, 1.0)
+	return clampf(arousal*3.0, 0.0, 1.0)
+
 func processTime(_dt:float):
 	if(arousal > 0.0):
 		arousalFade = minf(arousalFade + _dt, 5.0)
@@ -87,6 +96,10 @@ func processTime(_dt:float):
 			arousalFade = 5.0
 	else:
 		arousalFade = 0.0
+	if(postOrgasm > 0.0):
+		postOrgasm -= _dt
+		if(postOrgasm < 0.0):
+			postOrgasm = 0.0
 	
 	# Arousal cap after all arousal calculations
 	if(arousal > 1.0):

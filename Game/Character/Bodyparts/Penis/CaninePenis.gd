@@ -13,6 +13,7 @@ var pattern:Dictionary = {
 var shaftColor:Color = Color("954555")
 var furTuft:bool = true
 var furTuftColor:Color = Color.GRAY
+var erection:float = 0.0
 
 func _init():
 	super._init()
@@ -48,6 +49,13 @@ func getSupportedSkinTypes() -> Dictionary:
 
 func getOptions() -> Dictionary:
 	var theOptions:Dictionary = super.getOptions()
+	theOptions["erection"] = {
+			name = "Erection",
+			type = "slider",
+			min = 0.0,
+			max = 1.0,
+			editors = [EDITOR_INTERACT],
+		}
 	theOptions["shaftColor"] = {
 			name = "Shaft color",
 			type = "color",

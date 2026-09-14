@@ -154,7 +154,7 @@ func setExpressionState(_newExpr:int):
 func getFaceAnimator() -> FaceAnimator:
 	return null
 
-func getPenisHandler() -> PenisHandler:
+func getPenisHandler() -> PenisHandlerBase:
 	return null
 
 func updateBodyMess():

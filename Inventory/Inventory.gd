@@ -197,16 +197,16 @@ func getPickupName() -> String:
 		result.append(theItem.getName())
 	return Util.join(result, ", ")
 
+# Unable to equip items into this slot
 func unableToUseSlot(_invSlot:int) -> bool:
 	var theChar := getChar()
 	if(!theChar):
 		return false
 	
-	#TODO: Make this work at some point
-	#if(_invSlot == InventorySlot.Penis && !theChar.hasBodypart(BodypartSlot.Penis)):
-	#	return true
-	#if(_invSlot == InventorySlot.Vagina && !theChar.hasVagina()):
-	#	return true
+	if(_invSlot == InventorySlot.Penis && !theChar.hasPenis()):
+		return true
+	if(_invSlot == InventorySlot.Vagina && !theChar.hasVagina()):
+		return true
 	
 	return false
 

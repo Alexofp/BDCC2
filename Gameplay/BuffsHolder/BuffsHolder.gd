@@ -10,6 +10,9 @@ const BOUND_LEGS := 8
 const BOUND_GAGGED_SPEECH := 16
 const BOUND_ORAL_BLOCKED := 32
 const BOUND_BITING_BLOCKED := 64
+const BOUND_PENIS_CHASTITY := 128
+const BOUND_VAGINA_CHASTITY := 256
+const BOUND_ANUS_CHASTITY := 512
 var boundFlags:int = 0 # Contains all of the bondage flags
 
 var supression:float = 0.0 # The higher this value is, the slower the domination ticks down
@@ -80,6 +83,15 @@ func isOralBlocked() -> bool:
 
 func isBitingBlocked() -> bool:
 	return boundFlags & BOUND_BITING_BLOCKED
+
+func isPenisBlocked() -> bool:
+	return boundFlags & BOUND_PENIS_CHASTITY
+
+func isVaginaBlocked() -> bool:
+	return boundFlags & BOUND_VAGINA_CHASTITY
+
+func isAnusBlocked() -> bool:
+	return boundFlags & BOUND_ANUS_CHASTITY
 
 func getSupression() -> float:
 	return supression

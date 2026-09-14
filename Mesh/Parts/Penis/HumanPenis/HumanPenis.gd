@@ -51,11 +51,13 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	shaftMat.set_shader_parameter("albedo", _skinTypeData.color)
 	pass
 	
-func getPenisHandler() -> PenisHandler:
+func getPenisHandler() -> PenisHandlerBase:
 	return penis_handler
 
 func gatherPartFlags(_theFlags:Dictionary):
 	_theFlags["CrotchBulge"] = true
+
+var savedCageShapekey:String = ""
 
 func applyPartFlags(_theFlags:Dictionary):
 	updatePubesVis()
@@ -68,6 +70,18 @@ func applyPartFlags(_theFlags:Dictionary):
 		setBlendshape("TaintBulgeLess", 1.0)
 	else:
 		setBlendshape("TaintBulgeLess", 0.0)
+
+	if(!savedCageShapekey.is_empty()):
+		setBlendshape(savedCageShapekey, 0.0)
+		setBlendshape("Caged", 0.0)
+		savedCageShapekey = ""
+	if(_theFlags.has("CageType") && _theFlags["CageType"]):
+		savedCageShapekey = _theFlags["CageType"]
+		setBlendshape(savedCageShapekey, 1.0)
+		setBlendshape("Caged", 1.0)
+		penis_handler.setCaged(true)
+	else:
+		penis_handler.setCaged(false)
 
 func supportsPenisGirth() -> bool:
 	return true

@@ -594,10 +594,8 @@ func setZoneFilter(_zone:int):
 		else:
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 	if(doll):
-		if(_zone == CharCreatorZone.Mouth):
-			doll.setMouthOpenTemporary(true)
-		else:
-			doll.setMouthOpenTemporary(false)
+		doll.setMouthOpenTemporary(_zone == CharCreatorZone.Mouth)
+		doll.setFullErectionTemporary(_zone == CharCreatorZone.Penis)
 		
 func updateSelectedZoneFilter():
 	for zone in categoryToButton:
@@ -612,6 +610,7 @@ func resetCharacterPose():
 		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 	if(doll):
 		doll.setMouthOpenTemporary(false)
+		doll.setFullErectionTemporary(false)
 
 func _on_info_sel_button_pressed() -> void:
 	setTab("info")

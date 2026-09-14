@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_yvati"]
 [ext_resource type="Shader" uid="uid://juh3wfoyltlk" path="res://Mesh/Shaders/Doll_skeleton/FreshnelShader.gdshader" id="8_071js"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xeu6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oebyg"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_oebyg")
@@ -34,7 +34,7 @@ shader_parameter/color_mask_r = Color(1, 0, 0, 1)
 shader_parameter/color_mask_g = Color(0, 1, 0, 1)
 shader_parameter/color_mask_b = Color(0, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ufvt6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w185o"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("8_071js")
@@ -62,16 +62,21 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="Ponytail2" unique_id=1931632876 instance=ExtResource("1_hluix")]
 script = ExtResource("2_jv8h1")
 
-[node name="Ponytail2Rig" parent="." index="0" unique_id=88208367]
+[node name="Ponytail2Rig" parent="." index="0" unique_id=1051654596]
 script = ExtResource("3_pobbw")
 attachPoint = "hair"
 
-[node name="Ponytail2" parent="Ponytail2Rig/Skeleton3D" parent_id_path=PackedInt32Array(199664683) index="0" unique_id=45266224]
-unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_4xeu6")
-surface_material_override/1 = SubResource("ShaderMaterial_ufvt6")
+[node name="Skeleton3D" parent="Ponytail2Rig" index="0" unique_id=2108035319]
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" parent_id_path=PackedInt32Array(199664683) index="1" unique_id=1504233478]
+[node name="Ponytail2" parent="Ponytail2Rig/Skeleton3D" index="0" unique_id=2038332443]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_oebyg")
+surface_material_override/1 = SubResource("ShaderMaterial_w185o")
+
+[node name="TailWiggle" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="1" unique_id=1504233478]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -93,7 +98,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_77wm5")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" parent_id_path=PackedInt32Array(199664683) index="2" unique_id=616222399]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="Ponytail2Rig/Skeleton3D" index="2" unique_id=616222399]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

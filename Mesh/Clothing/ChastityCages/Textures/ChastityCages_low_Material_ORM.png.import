@@ -1,0 +1,27 @@
+[remap]
+
+importer="streamed_texture_2d"
+type="StreamedTexture2D"
+uid="uid://blmy3hku8c3lr"
+path.s3tc="res://.godot/imported/ChastityCages_low_Material_ORM.png-fe6f06edda74771161d338221a945021.s3tc.stex"
+path.etc2="res://.godot/imported/ChastityCages_low_Material_ORM.png-fe6f06edda74771161d338221a945021.etc2.stex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Mesh/Clothing/ChastityCages/Textures/ChastityCages_low_Material_ORM.png"
+dest_files=["res://.godot/imported/ChastityCages_low_Material_ORM.png-fe6f06edda74771161d338221a945021.s3tc.stex", "res://.godot/imported/ChastityCages_low_Material_ORM.png-fe6f06edda74771161d338221a945021.etc2.stex"]
+
+[params]
+
+compress/high_quality=false
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+roughness/mode=3
+roughness/src_normal="res://.godot/imported/ChastityCages_low_Material_Normal.png-114fa918c15fdf2243b2fd2904e931e5.s3tc.stex"
+streaming/min_lod_override=0
+streaming/max_lod_override=0

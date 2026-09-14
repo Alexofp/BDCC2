@@ -1298,6 +1298,11 @@ common/physics_interpolation=true
 
 occlusion_culling/bvh_build_quality=0
 rendering_device/pipeline_cache/save_chunk_size_mb=16.000001
+textures/streaming/enabled=true
+textures/streaming/memory_budget_enabled=true
+textures/streaming/memory_budget_mb=20
+textures/streaming/max_ops_per_second=100
+textures/streaming/max_lod=5
 rendering_device/fallback_to_opengl3=false
 textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
@@ -1318,11 +1323,6 @@ environment/screen_space_reflection/half_size=false
 global_illumination/sdfgi/probe_ray_count=5
 global_illumination/sdfgi/frames_to_update_lights=4
 limits/cluster_builder/max_clustered_elements=32.0
-textures/streaming/enabled=true
-textures/streaming/memory_budget_enabled=true
-textures/streaming/memory_budget_mb=20
-textures/streaming/max_ops_per_second=100
-textures/streaming/max_lod=5
 occlusion_culling/use_occlusion_culling=true
 
 [version_bumper]

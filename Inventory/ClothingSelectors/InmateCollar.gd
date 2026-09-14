@@ -4,6 +4,7 @@ func _init() -> void:
 	priority = 0.0
 	itemID = "InmateCollar"
 	
+	bodypartSlot = BodypartSlot.Body
 	sceneByBodypartID = {
 		"FeminineBody": "res://Mesh/Clothing/InmateCollar/inmate_collar.tscn",
 		"MasculineBody": "res://Mesh/Clothing/InmateCollar/inmate_collar_male.tscn",

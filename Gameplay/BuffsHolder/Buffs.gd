@@ -84,6 +84,36 @@ class BitingBlockedBuff extends Buff:
 	func apply(_holder:BuffsHolder):
 		_holder.boundFlags |= BuffsHolder.BOUND_BITING_BLOCKED
 
+class PenisChastityBuff extends Buff:
+	func _init() -> void:
+		pass
+	func getName() -> String:
+		return "Penis blocked"
+	func getColor() -> Color:
+		return COLOR_DEBUFF
+	func apply(_holder:BuffsHolder):
+		_holder.boundFlags |= BuffsHolder.BOUND_PENIS_CHASTITY
+
+class VaginaChastityBuff extends Buff:
+	func _init() -> void:
+		pass
+	func getName() -> String:
+		return "Vagina blocked"
+	func getColor() -> Color:
+		return COLOR_DEBUFF
+	func apply(_holder:BuffsHolder):
+		_holder.boundFlags |= BuffsHolder.BOUND_VAGINA_CHASTITY
+
+class AnusChastityBuff extends Buff:
+	func _init() -> void:
+		pass
+	func getName() -> String:
+		return "Anus blocked"
+	func getColor() -> Color:
+		return COLOR_DEBUFF
+	func apply(_holder:BuffsHolder):
+		_holder.boundFlags |= BuffsHolder.BOUND_ANUS_CHASTITY
+
 class PainThresholdBuff extends Buff:
 	var pain:float
 	func _init(_pain:float) -> void:
