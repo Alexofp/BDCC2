@@ -78,11 +78,11 @@ point_count = 8
 [node name="HumanPenis" unique_id=1586751346 instance=ExtResource("1_5mfc4")]
 script = ExtResource("2_whg6u")
 
-[node name="HumanPenisRig" parent="." index="0" unique_id=245371894]
+[node name="HumanPenisRig" parent="." index="0" unique_id=1018337494]
 script = ExtResource("2_8ks4l")
 attachPoint = "penis"
 
-[node name="Skeleton3D" parent="HumanPenisRig" index="0" unique_id=332031595]
+[node name="Skeleton3D" parent="HumanPenisRig" index="0" unique_id=970394043]
 bones/1/rotation = Quaternion(5.0707064e-07, 0.22607173, 0.97411066, -1.5181719e-07)
 bones/3/position = Vector3(-6.910831e-08, 0.007796701, -0.05797232)
 bones/6/position = Vector3(-3.724328e-08, 0.03249683, -0.031241955)
@@ -96,18 +96,18 @@ bones/11/position = Vector3(-5.4861265e-19, 0.027922988, 0)
 bones/12/position = Vector3(-5.4861265e-19, 0.027922958, 0)
 bones/13/position = Vector3(-5.4861265e-19, 0.027923003, 0)
 
-[node name="Fluff" parent="HumanPenisRig/Skeleton3D" index="0" unique_id=1077654771]
+[node name="Fluff" parent="HumanPenisRig/Skeleton3D" index="0" unique_id=4195006]
 surface_material_override/0 = SubResource("ShaderMaterial_whg6u")
 
-[node name="HumanPenis" parent="HumanPenisRig/Skeleton3D" index="1" unique_id=1075706392]
+[node name="HumanPenis" parent="HumanPenisRig/Skeleton3D" index="1" unique_id=97455054]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_egbsy")
 
-[node name="Pubes" parent="HumanPenisRig/Skeleton3D" index="2" unique_id=725229415]
+[node name="Pubes" parent="HumanPenisRig/Skeleton3D" index="2" unique_id=1560511365]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_6sb8r")
 
-[node name="Pubes_001" parent="HumanPenisRig/Skeleton3D" index="3" unique_id=1668705853]
+[node name="Pubes_001" parent="HumanPenisRig/Skeleton3D" index="3" unique_id=606646592]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_6sb8r")
 
@@ -126,7 +126,7 @@ thicknessCurve = SubResource("Curve_aahoc")
 thicknessMult = 0.7
 penisGuideStart = "guide"
 penisGuideTip = "penis.006"
-penisGuideChainLen = 9
+penisGuideChainLen = 8
 penisWiggleTip = "penis.006"
 penisWiggleChainLen = 8
 ballsWiggleBone = "balls"

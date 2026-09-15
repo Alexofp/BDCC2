@@ -143,9 +143,9 @@ func _process_modification() -> void:
 			#print(theThickness)
 			thicknessAtHole = theThickness * global_basis.get_scale().x
 			if(holeNode is DollOpenableHole):
-				holeNode.setRawOpenValue(thicknessAtHole)
-				holeNode.setRawHowDeepTip(howDeepTip)
-				holeNode.setFactorDeep(factorDeep)
+				holeNode.setRawOpenValue(thicknessAtHole*influence)
+				holeNode.setRawHowDeepTip(howDeepTip*influence)
+				holeNode.setFactorDeep(factorDeep*influence)
 		#print(holeOffsetOnCurve)
 		#print("BEFORE: ",firstBoneOffsetOnCurve, " AFTER: ",lastBoneOffsetOnCurve)
 

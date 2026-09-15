@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dy0oeh56twjk1" path="res://Mesh/Parts/Penis/CaninePenis/CaninePenis.glb" id="1_v5nas"]
 [ext_resource type="Script" uid="uid://bepjkkyvb5q18" path="res://Util/CaninePenisGuideTest/guide_path.gd" id="2_7cdkb"]
+[ext_resource type="Curve3D" uid="uid://0rs5ofu6ps30" path="res://Mesh/Parts/Util/Penis/PPGuideCurve.tres" id="2_w8wci"]
 [ext_resource type="Script" uid="uid://clc1kuop8qcgb" path="res://Mesh/Skeleton/Modifiers/PenisSkeletonModifier.gd" id="3_wuwq1"]
 [ext_resource type="Script" uid="uid://ddp3batfh4dqr" path="res://Util/CaninePenisGuideTest/FollowSplineSkeletonModifier.gd" id="3_y5bcb"]
 [ext_resource type="PackedScene" uid="uid://cch6fqrdrbsg2" path="res://Util/CaninePenisGuideTest/TorusCloseable.glb" id="5_1rine"]
@@ -19,14 +20,6 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuwq1"]
 
-[sub_resource type="Curve3D" id="Curve3D_y5bcb"]
-bake_interval = 0.01
-_data = {
-"points": PackedVector3Array(0, 0, -0.1, 0, 0, 0.41, 0, 0.0238022, 0.00858939, 0, -0.15718217, -0.12366798, 0, 0.15718217, 0.12366798, 0, 0.100281, 0.599298, 0, -0.09901438, -0.014005494, 0, -0.0497739, -0.00474973, 0, 0.43348, 0.75385),
-"tilts": PackedFloat32Array(0, 0, 0)
-}
-point_count = 3
-
 [sub_resource type="Curve" id="Curve_wuwq1"]
 _data = [Vector2(0, 0), 0.0, 5.65921, 0, 1, Vector2(0.112211, 0.635027), 0.0, 0.0, 0, 0, Vector2(0.171617, 0.504679), 0.0, 0.0, 0, 0, Vector2(0.267327, 0.495989), 0.0, 0.0, 0, 0, Vector2(0.442244, 0.47861), 0.0, 0.0, 0, 0, Vector2(0.617162, 0.504679), 1.59577, 1.59577, 0, 0, Vector2(0.867987, 0.878342), 0.0, 0.0, 0, 0, Vector2(1, 0.643717), -1.77729, 0.0, 1, 0]
 point_count = 8
@@ -43,40 +36,40 @@ environment = SubResource("Environment_y5bcb")
 transform = Transform3D(0.570943, -0.278101, 0.772453, 7.85059e-09, 0.94088, 0.338739, -0.820989, -0.1934, 0.537189, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CaninePenisRig" parent_id_path=PackedInt32Array(1276690905) index="0" unique_id=1770079553]
+[node name="CaninePenisRig" parent="." index="2" unique_id=1141293459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017789455, -0.1223025)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CaninePenisRig" index="0" unique_id=1770079553]
 transform = Transform3D(-0.0615654, -4.43832e-10, -7.82067e-09, -5.00028e-09, 0.0495352, 0.0365537, 6.02944e-09, 0.0365537, -0.0495352, 0, 0.101593, 0.599293)
 visible = false
 mesh = SubResource("TorusMesh_y5bcb")
 skeleton = NodePath("../Skeleton3D/GuidePath/PathFollow3D2")
 
-[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="0" unique_id=172471355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0238022, 0.00858939)
+[node name="Skeleton3D" parent="CaninePenisRig" index="1" unique_id=1152034185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031004064, 0.3148387)
 
-[node name="Balls" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="1" unique_id=835277764]
+[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="0" unique_id=209267466]
 surface_material_override/0 = SubResource("StandardMaterial3D_y5bcb")
 
-[node name="Shaft" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="3" unique_id=431261271]
+[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="2" unique_id=1659455438]
 surface_material_override/0 = SubResource("StandardMaterial3D_wuwq1")
 
-[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="4" unique_id=1390067979 node_paths=PackedStringArray("shaftNode", "holeNode", "insideNode")]
-curve = SubResource("Curve3D_y5bcb")
+[node name="GuidePath" type="Path3D" parent="CaninePenisRig/Skeleton3D" index="3" unique_id=1390067979 node_paths=PackedStringArray("shaftNode", "holeNode", "insideNode")]
+curve = ExtResource("2_w8wci")
 script = ExtResource("2_7cdkb")
-shaftNode = NodePath("../ShaftNode")
+shaftNode = NodePath("../BoneAttachment3D/ShaftNode")
 holeNode = NodePath("../../../HoleNode")
 insideNode = NodePath("../../../InsideNode")
-blendDistance = 0.54
-straightness = 0.41
 
 [node name="PathFollow3D2" type="PathFollow3D" parent="CaninePenisRig/Skeleton3D/GuidePath" index="0" unique_id=65190813]
-transform = Transform3D(-0.999827, -6.346081e-08, -6.01098e-08, 0, 0.68757594, -0.7259071, 8.7407656e-08, -0.7259071, -0.68757594, 0, 0.06798645, 0.57165676)
-progress = 0.582639
+transform = Transform3D(-0.9998299, -6.2187016e-09, -8.71877e-08, 1.6776626e-14, 0.99731106, -0.071133845, 8.7407905e-08, -0.071133845, -0.99731106, -2.2843443e-15, 0.02315865, 0.06844664)
+progress = 0.028707687
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CaninePenisRig/Skeleton3D/GuidePath/PathFollow3D2" index="0" unique_id=1330215079]
 transform = Transform3D(0.0615661, 5.2878e-09, 5.47513e-09, -5.47513e-09, -3.72529e-09, 0.0615661, 5.2878e-09, -0.0615661, -3.72529e-09, 0, 0, 0)
-visible = false
 mesh = SubResource("TorusMesh_y5bcb")
 
-[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="5" unique_id=1256355775]
+[node name="PenisSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="4" unique_id=1256355775]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -99,7 +92,7 @@ chainLength = 5
 ballsBone = "balls"
 metadata/_custom_type_script = "uid://clc1kuop8qcgb"
 
-[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" parent_id_path=PackedInt32Array(997243408) index="6" unique_id=2142040060 node_paths=PackedStringArray("targetPath", "holeNode")]
+[node name="FollowSplineSkeletonModifier" type="SkeletonModifier3D" parent="CaninePenisRig/Skeleton3D" index="5" unique_id=2142040060 node_paths=PackedStringArray("targetPath", "holeNode", "insideNode")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -122,7 +115,15 @@ chainLength = 9
 targetPath = NodePath("../GuidePath")
 thicknessCurve = SubResource("Curve_wuwq1")
 holeNode = NodePath("../../../HoleNode")
+insideNode = NodePath("../../../InsideNode")
 metadata/_custom_type_script = "uid://ddp3batfh4dqr"
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="CaninePenisRig/Skeleton3D" index="6" unique_id=1625978710]
+bone_name = "guide"
+bone_idx = 17
+
+[node name="ShaftNode" type="Marker3D" parent="CaninePenisRig/Skeleton3D/BoneAttachment3D" index="0" unique_id=172471355]
+transform = Transform3D(1, -2.5485142e-15, 1.3877788e-17, 0, -4.3711225e-08, 1, 2.5387168e-15, -1, -4.3711225e-08, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." index="3" unique_id=694898038]
 transform = Transform3D(0.0881608, -0.382377, 0.919791, 0.0364832, 0.924006, 0.380633, -0.995438, 0, 0.0954115, 0.645507, 0.285864, 0.450621)

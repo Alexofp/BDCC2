@@ -89,4 +89,4 @@ func supportsPenisGirth() -> bool:
 func getPenisGirth() -> float:
 	#return remap(nodeToScale.scale.x, 0.0, 0.8, 0.0, 1.0)
 	#return remap(penis_handler.getPenisRootScale(), 0.0, 0.8, 0.0, 1.0)
-	return penis_handler.getPenisRootScale()
+	return penis_handler.getPenisRootScale()*1.2

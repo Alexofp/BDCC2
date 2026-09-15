@@ -27,7 +27,8 @@ var lenModifier:PenisSkeletonModifier
 @export_enum(" ") var penisGuideStart: String
 @export_enum(" ") var penisGuideTip: String
 @export var penisGuideChainLen:int = 1
-var shaftNode:BoneAttachment3D
+var shaftNodeAttach:BoneAttachment3D
+var shaftNode:Node3D
 
 var followSplineModifier:FollowSplineSkeletonModifier
 var guidePath:PenisGuidePath
@@ -105,6 +106,9 @@ func clearModifiers():
 	if(shaftNode):
 		shaftNode.queue_free()
 		shaftNode = null
+	if(shaftNodeAttach):
+		shaftNodeAttach.queue_free()
+		shaftNodeAttach = null
 	if(animPlayer):
 		animPlayer.play(hardAnim, 0.0, 1.0)
 		animPlayer.stop()
@@ -119,9 +123,12 @@ func createModifiers():
 		return
 	
 	if(!penisGuideStart.is_empty()):
-		shaftNode = BoneAttachment3D.new()
-		skeleton.add_child(shaftNode)
-		shaftNode.bone_name = penisGuideStart
+		shaftNodeAttach = BoneAttachment3D.new()
+		skeleton.add_child(shaftNodeAttach)
+		shaftNodeAttach.bone_name = penisGuideStart
+		shaftNode = Node3D.new()
+		shaftNode.rotation_degrees = Vector3(-90.0, 0.0, 0.0)
+		shaftNodeAttach.add_child(shaftNode)
 	
 	lenModifier = PenisSkeletonModifier.new()
 	lenModifier.lenModificationBone = lenModificationTip
@@ -231,57 +238,23 @@ func internalSetGuiding(_guiding:float):
 	guiding = _guiding
 	updateSkeletonModifiers()
 
-var enableTween:Tween
-func enableSplineModifier(doEn:bool, _time:float = 0.5):
-	if(enableTween):
-		enableTween.kill()
-		enableTween = null
-	enableTween = create_tween()
-	enableTween.set_parallel(true)
-	
-	enableTween.tween_method(internalSetGuiding, guiding, 1.0 if doEn else 0.0, _time)
-	#followSplineModifier.active = true
-	#enableTween.tween_property(followSplineModifier, "influence", 1.0 if doEn else 0.0, _time)
-	#for mod in wiggleMods:
-		#mod.active = true
-		#enableTween.tween_property(mod, "influence", 0.0 if doEn else 1.0, _time)
-	enableTween.chain().tween_callback(doEnableSpline.bind(doEn))
-	
-func doEnableSpline(_isEn:bool):
-	if(enableTween):
-		enableTween.kill()
-		enableTween = null
-	guiding = 1.0 if _isEn else 0.0
-	updateSkeletonModifiers()
-	#followSplineModifier.active = _isEn
-	#for mod in wiggleMods:
-		#mod.active = !_isEn
-		#mod.influenceActualMax = 1.0 if !_isEn else 0.0
-	if(!_isEn):
-		followSplineModifier.holeNode = null
-		followSplineModifier.insideNode = null
-		guidePath.holeNode = null
-		guidePath.insideNode = null
+var guidingEnabled:bool = false
+func hasGuideTarget() -> bool:
+	if(!followSplineModifier):
+		return false
+	return guidingEnabled
 
 func setPenisTargets(holeNode:Node3D, insideNode:Node3D):
 	if(!holeNode || !insideNode):
-		#follow_spline_skeleton_modifier.holeNode = null
-		#follow_spline_skeleton_modifier.insideNode = null
-		#guide_path.holeNode = null
-		#guide_path.insideNode = null
-		enableSplineModifier(false)
-		#follow_spline_skeleton_modifier.active = false
-		#for mod in jiggleModifiers:
-		#	mod.active = true
+		guidingEnabled = false
+		checkShouldProcess()
 		return
+	guidingEnabled = true
 	followSplineModifier.holeNode = holeNode
 	followSplineModifier.insideNode = insideNode
 	guidePath.holeNode = holeNode
 	guidePath.insideNode = insideNode
-	enableSplineModifier(true)
-	#for mod in jiggleModifiers:
-	#	mod.active = false
-	#follow_spline_skeleton_modifier.active = true
+	checkShouldProcess()
 
 func getPenisRootScale() -> float:
 	if(!lenModifier):
@@ -339,15 +312,17 @@ func setWiggleModInfluenceExtra(_influence:float):
 		theMod.active = (_influence > 0.0)
 
 func getActualErection() -> float:
-	return maxf(erection, guiding)
+	return erection
 
 func updateSkeletonModifiers():
+	checkNoGuideTarget()
 	var theErection:float = erection#getActualErection()
 	
 	if(cagedState):
 		if(animPlayer):
 			animPlayer.play(cagedAnim, 0.0, 1.0)
 		erection = 0.0
+		guiding = 0.0
 		setGravity(0.0)
 	elif(theErection >= 1.0):
 		if(animPlayer):
@@ -369,7 +344,7 @@ func updateSkeletonModifiers():
 	var theGuidingInfluence:float = clampf(1.0-guiding, 0.0, 1.0)
 	
 	if(followSplineModifier):
-		followSplineModifier.active = (guiding > 0.0 && theErection >= ERECTION_WIGGLE_MIDDLE && !cagedState)
+		followSplineModifier.active = (guiding*theErection > 0.0 && !cagedState)
 		followSplineModifier.influence = guiding*theErection
 	
 	#if(lenModifier):
@@ -388,20 +363,14 @@ func updateSkeletonModifiers():
 	setWiggleModInfluenceExtra(1.0)
 	#setWiggleModInfluenceExtra(theErectionInfluence)
 
-var erectionTween:Tween
 func setErection(_val:float):
 	if(straponMode):
 		return
 	_val = clampf(_val, 0.0, 1.0)
-	#if(erectionTween):
-		#erectionTween.kill()
-		#erectionTween = null
 	if(erectionTarget == _val):
 		return
 	erectionTarget = _val
 	checkShouldProcess()
-	#erectionTween = create_tween()
-	#erectionTween.tween_method(setErectionInstant, erection, _val, absf(erection - _val)*ERECTION_TIME)
 
 const ERECTION_MIDDLE := 0.6
 const ERECTION_WIGGLE_MIDDLE := 0.6
@@ -423,12 +392,18 @@ func setTargetErection(_val:float):
 func getTargetErectionFinal() -> float:
 	if(straponMode):
 		return 1.0
-	return maxf(maxf(erectionTarget, erectionOverrideMax), guiding)
+	if(cagedState):
+		return 0.0
+	return maxf(maxf(erectionTarget, erectionOverrideMax), 1.0 if guidingEnabled else 0.0)
 
 func checkShouldProcess():
 	var shouldUpdate:bool = false
 	var theTarget:float = getTargetErectionFinal()
 	if(theTarget != erection):
+		shouldUpdate = true
+	if(guidingEnabled && guiding < 1.0):
+		shouldUpdate = true
+	if(!guidingEnabled && guiding > 0.0):
 		shouldUpdate = true
 	set_process(shouldUpdate)
 
@@ -439,8 +414,20 @@ func setCaged(_caged:bool):
 	updateSkeletonModifiers()
 	checkShouldProcess()
 
+func checkNoGuideTarget():
+	if(!guidingEnabled && guiding <= 0.0 && followSplineModifier.holeNode):
+		followSplineModifier.holeNode = null
+		followSplineModifier.insideNode = null
+		guidePath.holeNode = null
+		guidePath.insideNode = null
+
 func _process(_delta: float) -> void:
 	var _newErection:float = Util.moveValueTo(erection, getTargetErectionFinal(), _delta*0.5)
+	if(erection > 0.5 && guidingEnabled && guiding < 1.0):
+		guiding = Util.moveValueTo(guiding, 1.0, _delta)
+	elif(!guidingEnabled && guiding > 0.0):
+		guiding = Util.moveValueTo(guiding, 0.0, _delta)
+	checkNoGuideTarget()
 	setErectionInstant(_newErection)
 	checkShouldProcess()
 
