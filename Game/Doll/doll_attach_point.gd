@@ -45,7 +45,7 @@ func _enter_tree() -> void:
 	var doll := getDoll()
 	
 	if(doll == null):
-		Log.error("Attach point couldn't find a doll during creation")
+		#Log.error("Attach point couldn't find a doll during creation")
 		return
 	doll.setupAttachPoint(self)
 
@@ -53,7 +53,7 @@ func _exit_tree() -> void:
 	var doll := getDoll()
 	
 	if(doll == null):
-		Log.error("Attach point couldn't find a doll during deletion")
+		#Log.error("Attach point couldn't find a doll during deletion")
 		return
 	doll.removeAttachPoint(self)
 	

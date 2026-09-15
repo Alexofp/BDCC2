@@ -86,11 +86,11 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 script = ExtResource("2_vlnjl")
 furTuft = NodePath("CaninePenisRig/Skeleton3D/FurPath_001")
 
-[node name="CaninePenisRig" parent="." index="0" unique_id=1591183116]
+[node name="CaninePenisRig" parent="." index="0" unique_id=1141293459]
 script = ExtResource("3_hkkiv")
 attachPoint = "penis"
 
-[node name="Skeleton3D" parent="CaninePenisRig" index="0" unique_id=1932478501]
+[node name="Skeleton3D" parent="CaninePenisRig" index="0" unique_id=1152034185]
 bones/3/position = Vector3(-2.1536572e-13, 0.0065280213, -1.8187019e-07)
 bones/3/rotation = Quaternion(5.746564e-06, -4.2804186e-38, -6.830582e-12, 1)
 bones/4/position = Vector3(-3.077906e-19, 0.015837088, -8.9483976e-14)
@@ -104,13 +104,13 @@ bones/12/position = Vector3(1.6098905e-15, 0.0055534467, -8.013035e-14)
 bones/13/rotation = Quaternion(-2.773854e-08, 0.9990596, -0.043357868, -5.518156e-07)
 bones/18/rotation = Quaternion(6.231943e-07, 0.226072, 0.9741106, -1.2486696e-07)
 
-[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="0" unique_id=2073064583]
+[node name="Balls" parent="CaninePenisRig/Skeleton3D" index="0" unique_id=209267466]
 surface_material_override/0 = SubResource("ShaderMaterial_6kaci")
 
-[node name="FurPath_001" parent="CaninePenisRig/Skeleton3D" index="1" unique_id=1886960028]
+[node name="FurPath_001" parent="CaninePenisRig/Skeleton3D" index="1" unique_id=1506790810]
 surface_material_override/0 = SubResource("ShaderMaterial_im0a1")
 
-[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="2" unique_id=1125246375]
+[node name="Shaft" parent="CaninePenisRig/Skeleton3D" index="2" unique_id=1659455438]
 surface_material_override/0 = SubResource("ShaderMaterial_mor6m")
 
 [node name="PenisHandler" parent="." index="1" unique_id=689451584 node_paths=PackedStringArray("part", "skeleton", "animPlayer") instance=ExtResource("13_6kaci")]

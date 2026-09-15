@@ -189,6 +189,7 @@ func createModifiers():
 	
 func _ready() -> void:
 	if(Engine.is_editor_hint()):
+		set_process(false)
 		return
 	createModifiers()
 

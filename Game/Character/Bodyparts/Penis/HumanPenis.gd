@@ -18,6 +18,7 @@ var erection:float = 0.0
 func _init():
 	super._init()
 	id = "HumanPenis"
+	skinType = SkinType.Auto
 
 func generateFor(_gen:CharacterGenerator):
 	super.generateFor(_gen)
@@ -29,6 +30,8 @@ func generateFor(_gen:CharacterGenerator):
 	if(_gen.species.has("Human")):
 		possiblePubes.append(1)
 	pubes = RNG.pick(possiblePubes)
+	if(pubes == 2):
+		pattern["id"] = "HumanPenis_Anthro"
 	
 	var theR:Color = _gen.colors.penis
 	theR.h -= 0.03
@@ -51,7 +54,9 @@ func getScenePath(_slot:int) -> String:
 
 func getSupportedSkinTypes() -> Dictionary:
 	return {
+		SkinType.Auto: true,
 		SkinType.HumanSkin: true,
+		SkinType.Fur: true,
 	}
 
 func getOptions() -> Dictionary:

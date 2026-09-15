@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://mpq5efkhx6yw"]
+
+[ext_resource type="Shader" uid="uid://bjd3rhhgtibh2" path="res://Mesh/Shaders/Doll_skeleton/HumanPartShader.gdshader" id="1_das1k"]
+[ext_resource type="Texture2D" uid="uid://dvmu3au5gnjy4" path="res://Mesh/Parts/Body/FeminineBody/Textures/Skin/skinwhite.png" id="2_7i52k"]
+[ext_resource type="Texture2D" uid="uid://bx8jjxba167x" path="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_Normal.png" id="3_dgj50"]
+[ext_resource type="Texture2D" uid="uid://hbwqeeqjfq4f" path="res://Mesh/Parts/Penis/HumanPenis/Textures/HumanPenis_low_Penis_ORM.png" id="4_na8ot"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_das1k")
+shader_parameter/texture_albedo = ExtResource("2_7i52k")
+shader_parameter/texture_normal = ExtResource("3_dgj50")
+shader_parameter/texture_orm = ExtResource("4_na8ot")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/normal_scale = 1.0
+shader_parameter/ao_light_affect = 0.60999998636528
+shader_parameter/ao_mult = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/rim = 0.0
+shader_parameter/rim_tint = 0.5
+shader_parameter/subsurface_scattering_strength = 0.5
+shader_parameter/backlight = Color(0.4392157, 0.3529412, 0.3529412, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/color_mask_r = Color(0.69, 0.26909998, 0.27611488, 1)
+shader_parameter/color_mask_g = Color(0.3851018, 0.15306672, 0.15710694, 1)
+shader_parameter/color_mask_b = Color(1, 0, 0, 0.6784314)
+shader_parameter/outline_color = Color(0, 0, 0, 0.74509805)
+shader_parameter/outline_thickness = 0.90000004275

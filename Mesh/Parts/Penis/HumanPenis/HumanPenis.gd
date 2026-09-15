@@ -48,6 +48,17 @@ func applySkinTypeData(_skinType:int, _skinTypeData:SkinTypeData):
 	if(shaftMat == null):
 		return
 	
+	if(_skinType == SkinType.HumanSkin):
+		var newMat:ShaderMaterial = load("res://Mesh/Parts/Penis/HumanPenis/HumanPenisMat.tres").duplicate()
+		applyColormaskPatternToMyMat(newMat, getOptionValue("pattern", {}))
+		human_penis.set_surface_override_material(0, newMat)
+		shaftMat = newMat
+	elif(_skinType == SkinType.Fur):
+		var newMat:ShaderMaterial = load("res://Mesh/Parts/Penis/HumanPenis/HumanPenisFurMat.tres").duplicate()
+		applyColormaskPatternToMyMat(newMat, getOptionValue("pattern", {}))
+		human_penis.set_surface_override_material(0, newMat)
+		shaftMat = newMat
+	
 	shaftMat.set_shader_parameter("albedo", _skinTypeData.color)
 	pass
 	

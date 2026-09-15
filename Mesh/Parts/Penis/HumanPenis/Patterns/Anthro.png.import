@@ -1,0 +1,27 @@
+[remap]
+
+importer="streamed_texture_2d"
+type="StreamedTexture2D"
+uid="uid://cwfouaxpt34uc"
+path.s3tc="res://.godot/imported/Anthro.png-2737f22d955ca66f896d486d78b7358f.s3tc.stex"
+path.etc2="res://.godot/imported/Anthro.png-2737f22d955ca66f896d486d78b7358f.etc2.stex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Mesh/Parts/Penis/HumanPenis/Patterns/Anthro.png"
+dest_files=["res://.godot/imported/Anthro.png-2737f22d955ca66f896d486d78b7358f.s3tc.stex", "res://.godot/imported/Anthro.png-2737f22d955ca66f896d486d78b7358f.etc2.stex"]
+
+[params]
+
+compress/high_quality=false
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+roughness/mode=0
+roughness/src_normal=""
+streaming/min_lod_override=0
+streaming/max_lod_override=0

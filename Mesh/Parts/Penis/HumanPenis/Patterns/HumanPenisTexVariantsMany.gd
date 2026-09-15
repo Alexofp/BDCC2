@@ -15,4 +15,13 @@ func _init():
 				hasB=true,
 			},
 		},
+		"Anthro": {
+			name = "Anthro",
+			colormask = "res://Mesh/Parts/Penis/HumanPenis/Patterns/Anthro.png",
+			flags = {
+				hasR=true,
+				hasG=true,
+				hasB=true,
+			},
+		},
 	}
