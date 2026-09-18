@@ -12,7 +12,9 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	#sayText(ROLE_MAIN, "What's your problem?")
-	say(ROLE_MAIN, "Annoyed", ROLE_TARGET)
+	if(_args.size() > 0):
+		pushDelay(_args[0])
+	pushSay(ROLE_MAIN, "Annoyed", ROLE_TARGET)
 	pushDelay(2.0)
 	pushStopInteraction()
 	#pushSay(ROLE_TARGET, "What?")

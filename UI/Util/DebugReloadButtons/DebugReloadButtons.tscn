@@ -35,5 +35,10 @@ text = "Combat moves"
 layout_mode = 2
 text = "Dialogue reactions"
 
+[node name="InteractionsButton" type="Button" parent="VBoxContainer/ScrollContainer/ButtonList" unique_id=841593935]
+layout_mode = 2
+text = "Interactions"
+
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ButtonList/CombatMovesButton" to="." method="_on_combat_moves_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ButtonList/DialogueButton" to="." method="_on_dialogue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ButtonList/InteractionsButton" to="." method="_on_interactions_button_pressed"]

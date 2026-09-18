@@ -978,6 +978,17 @@ func canDoFakeCombat() -> bool:
 		return false
 	return true
 
+func addStatusEffect(_effectID:String, _seconds:float):
+	var theChar:BaseCharacter = getCharacter()
+	if(theChar):
+		theChar.addStatusEffect(_effectID, _seconds)
+
+func hasStatusEffect(_effectID:String) -> bool:
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return false
+	return theChar.hasStatusEffect(_effectID)
+
 func addAnnoyance(_otherPawn:CharacterPawn, _annoy:float, _showText:bool = true):
 	if(!_otherPawn):
 		return
@@ -1083,12 +1094,12 @@ func updateCollisions():
 	if(theDoll):
 		theDoll.updateCollisions()
 
-const MEH_THRESHOLD := 0.2
-func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN, _colorBad:Color = Color.RED, _colorMeh:Color = Color.YELLOW) -> void:
+const MEH_THRESHOLD := 0.15
+func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Color = Color.GREEN, _colorBad:Color = Color.RED, _colorMeh:Color = Color.YELLOW, _mehThreshold:float = MEH_THRESHOLD) -> void:
 	var finalVal:float = _am*_mult
 	#var theSign := signf(finalVal)
 	
-	if(absf(_mult) < MEH_THRESHOLD):
+	if(absf(_mult) < _mehThreshold || absf(_am) < 0.01):
 		addSmallText(_text+"~~", _colorMeh)
 		return
 	var charAm:int = 1
@@ -1146,11 +1157,39 @@ func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _
 	GM.main.memorySystem.addMemory(getID(), BadMemories.Defeated, _winnerPawn.getID())
 	addAffection(_winnerPawn, -0.5 / (1.0 + theCooldown))
 
-func addAffection(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true):
+func addAffection(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true, _showMessageOtherPawn:bool = true):
 	if(!_otherPawn):
 		return
 	GM.main.relationshipSystem.addAffection(getID(), _otherPawn.getID(), _am)
-	showValueChange("Affection", _am)
+	if(_showMessage):
+		showValueChange("Affection", _am, 1.0, Color.GREEN, Color.RED, Color.YELLOW)
+	if(_showMessageOtherPawn):
+		_otherPawn.showValueChange("Affection", _am, 1.0, Color.GREEN, Color.RED, Color.YELLOW)
+
+func getAffection(_otherPawn:CharacterPawn) -> float:
+	if(!_otherPawn):
+		return 0.0
+	return GM.main.relationshipSystem.getAffection(getID(), _otherPawn.getID())
+
+func addLust(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true, _showMessageOtherPawn:bool = true):
+	if(!_otherPawn):
+		return
+	GM.main.relationshipSystem.addLust(getID(), _otherPawn.getID(), _am)
+	if(_showMessage):
+		showValueChange("Lust", _am, 1.0, Color.HOT_PINK, Color.RED, Color.YELLOW)
+	if(_showMessageOtherPawn):
+		_otherPawn.showValueChange("Lust", _am, 1.0, Color.HOT_PINK, Color.RED, Color.YELLOW)
+
+func addPowerBalance(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true, _showMessageOtherPawn:bool = true):
+	if(!_otherPawn):
+		return
+	
+	GM.main.relationshipSystem.addPowerBalance(getID(), _otherPawn.getID(), _am)
+	if(_showMessage):
+		showValueChange("Power Balance", _am, 1.0, Color.PURPLE, Color.CYAN, Color.YELLOW)
+	if(_showMessageOtherPawn):
+		_otherPawn.showValueChange("Power Balance", -_am, 1.0, Color.PURPLE, Color.CYAN, Color.YELLOW)
+
 
 func playPawnNoise(_noiseType:int, _volumeAdd:float = 0.0, _pitch:float = 1.0, _dist:float = 20.0):
 	if(!PawnNoise.NOISE_TYPE_TO_NOISE.has(_noiseType)):

@@ -27,7 +27,7 @@ func addAffectionRaw(_char1:String, _char2:String, _amount:float):
 	if(_oldAffection != _entry.affection):
 		markToSync(_entry)
 
-const LUST_MAX := 1.0
+const LUST_MAX := 3.0
 func addLustRaw(_char1:String, _char2:String, _amount:float):
 	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
 	if(!_entry):
@@ -36,6 +36,19 @@ func addLustRaw(_char1:String, _char2:String, _amount:float):
 	_entry.lust += _amount
 	_entry.lust = clamp(_entry.lust, 0.0, LUST_MAX)
 	if(_oldValue != _entry.lust):
+		markToSync(_entry)
+
+func addPowerBalanceRaw(_char1:String, _char2:String, _amount:float):
+	var _entry:RelationshipEntry = getOrCreateEntry(_char1, _char2)
+	if(!_entry):
+		return
+	var _oldValue:float = _entry.powerBalance
+	if(_char1 == _entry.char1):
+		_entry.powerBalance += _amount
+	else:
+		_entry.powerBalance -= _amount
+	_entry.powerBalance = clamp(_entry.powerBalance, -POWERBALANCE_MAX, POWERBALANCE_MAX)
+	if(_oldValue != _entry.powerBalance):
 		markToSync(_entry)
 
 func addAffection(_char1:String, _char2:String, _amount:float):
@@ -49,19 +62,20 @@ func addAffection(_char1:String, _char2:String, _amount:float):
 	addAffectionRaw(_char1, _char2, _amount)#*multiplier)
 
 func addLust(_char1:String, _char2:String, _amount:float):
+	var curValue := getLust(_char1, _char2)
+	if(curValue > 1.0 && _amount > 0.0):
+		_amount /= curValue
 	Log.Print("Lust change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addLustRaw(_char1, _char2, _amount)#*multiplier)
 
-const AFFECTION_NONLINEAR_POW := 0.5
-static func affectionToVisualAffection_OLD(_val:float) -> float:
-	if(_val == 0.0):
-		return 0.0
-	if(_val < 0.0):
-		return -pow(-_val, AFFECTION_NONLINEAR_POW)
-	return pow(_val, AFFECTION_NONLINEAR_POW)
-
-static func affectionToVisualAffection(_val:float) -> float:
-	return _val
+func addPowerBalance(_char1:String, _char2:String, _amount:float):
+	var curValue := getPowerBalance(_char1, _char2)
+	if(curValue > 1.0 && _amount > 0.0):
+		_amount /= curValue
+	if(curValue < -1.0 && _amount < 0.0):
+		_amount /= -curValue
+	Log.Print("Power balance change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
+	addPowerBalanceRaw(_char1, _char2, _amount)
 
 func getAffection(_char1:String, _char2:String) -> float:
 	var theEntry := getEntry(_char1, _char2)
@@ -74,6 +88,16 @@ func getLust(_char1:String, _char2:String) -> float:
 	if(!theEntry):
 		return 0.0
 	return clamp(theEntry.lust, 0.0, LUST_MAX)
+
+var POWERBALANCE_MAX:float = 3.0
+# Asymmetrical value!
+# 1.0 = _charFrom dominates _charTo
+# -1.0 = _charFrom is dominated by _charTo
+func getPowerBalance(_charFrom:String, _charTo:String) -> float:
+	var theEntry := getEntry(_charFrom, _charTo)
+	if(!theEntry):
+		return 0.0
+	return clamp(theEntry.powerBalance if theEntry.char1 == _charFrom else (-theEntry.powerBalance), -POWERBALANCE_MAX, POWERBALANCE_MAX)
 
 func getOrCreateHolder(_charID:String) -> RelationshipHolder:
 	if(!GM.main.characterRegistry.hasCharacter(_charID)):

@@ -3,7 +3,15 @@
 [ext_resource type="Script" uid="uid://bvkimfjqasifl" path="res://Game/UI/InteractionUI/InteractionUICharacter.gd" id="1_hn5eq"]
 [ext_resource type="PackedScene" uid="uid://bbdfylawbmgvc" path="res://UI/Util/ProgressBarFancy/ProgressBarFancy.tscn" id="1_iarb2"]
 [ext_resource type="PackedScene" uid="uid://cg70h54tkxn7l" path="res://UI/Util/ProgressBarFancy/ProgressBarMultiStage.tscn" id="2_67k4m"]
-[ext_resource type="Gradient" uid="uid://dbklercyflwp8" path="res://Game/UI/InteractionUI/GradientAffectionGood.tres" id="3_13d36"]
+
+[sub_resource type="Gradient" id="Gradient_67k4m"]
+colors = PackedColorArray(0.22, 0.07479999, 0.07721996, 1, 0.81, 0, 0.5940002, 1)
+
+[sub_resource type="Gradient" id="Gradient_ln36o"]
+colors = PackedColorArray(0.08206002, 0.07479999, 0.22, 1, 0.4859999, 0, 0.81, 1)
+
+[sub_resource type="Gradient" id="Gradient_weqir"]
+colors = PackedColorArray(0.0713, 0.18238997, 0.23, 1, 0, 0.7695, 0.81, 1)
 
 [sub_resource type="Gradient" id="Gradient_13d36"]
 colors = PackedColorArray(0.48556387, 0.2700886, 3.3691526e-07, 1, 0.8103795, 0.5890384, 0, 1)
@@ -30,6 +38,7 @@ theme_override_constants/separation = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1863297457]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
 
 [node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=598559359]
 unique_name_in_owner = true
@@ -42,12 +51,18 @@ unique_name_in_owner = true
 layout_mode = 2
 propertyName = "Affection"
 
-[node name="AffectionBar2" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=319875073 instance=ExtResource("1_iarb2")]
+[node name="LustBar" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1510688591 instance=ExtResource("2_67k4m")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-gradient = ExtResource("3_13d36")
-propertyName = "Affection"
+gradientPositive = SubResource("Gradient_67k4m")
+propertyName = "Lust"
+
+[node name="PowerBalanceBar" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=474825614 instance=ExtResource("2_67k4m")]
+unique_name_in_owner = true
+layout_mode = 2
+gradientPositive = SubResource("Gradient_ln36o")
+gradientNegative = SubResource("Gradient_weqir")
+propertyName = "Power balance"
 
 [node name="Exhaustion" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2000260551 instance=ExtResource("1_iarb2")]
 unique_name_in_owner = true

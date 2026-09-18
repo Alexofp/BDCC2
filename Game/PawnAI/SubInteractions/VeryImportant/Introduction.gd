@@ -1,6 +1,6 @@
 extends InteractionSocialBase
 
-const DEBUG_SKIP_INTRODUCTION := false # Don't forget to change to false
+const DEBUG_SKIP_INTRODUCTION := true # Don't forget to change to false
 
 const INTRODUCTION_NORMAL := "normal"
 const INTRODUCTION_FRIENDLY := "friendly"
@@ -32,6 +32,9 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.VeryImportant]
+
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	if(GM.main.relationshipSystem.knows(_c.main.getID(), _c.target.getID())):

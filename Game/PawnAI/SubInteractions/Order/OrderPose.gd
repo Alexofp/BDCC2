@@ -6,6 +6,9 @@ var poseType:int = DollPoseBase.PoseType.Fullbody
 var poseHandlerType:int = PawnPoseHandler.POSE_IDLE
 var normalText:String = "Stand normally"
 
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
 func _init() -> void:
 	id = "OrderPose"
 	socialActionName = "Change pose"

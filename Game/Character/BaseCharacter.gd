@@ -826,6 +826,12 @@ func getPainLevel() -> float:
 func getPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(getID())
 
+func addStatusEffect(_effectID:String, _seconds:float):
+	pass
+
+func hasStatusEffect(_effectID:String) -> bool:
+	return false
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

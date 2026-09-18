@@ -14,6 +14,9 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	#if(!_c.target.submission.isObeyingPawn(_c.main)): # Replaced with social flag
 	#	return false

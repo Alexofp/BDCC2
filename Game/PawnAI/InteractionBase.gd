@@ -52,7 +52,7 @@ enum QueueEntry {
 func postRegistration():
 	pass
 
-func postCreation():
+func postCreation(_ref:InteractionBase):
 	pass
 
 func involve(_role:int, _pawn:CharacterPawn):
@@ -347,10 +347,10 @@ func processQueue(_dt:float):
 				addAffection(theEntry[1], theEntry[2], theEntry[3])
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionEnd:
-				socialInteractionEnd(theEntry[1] if theEntry.size() > 1 else SocialInteractionHandler.STATUS_AGREE)
+				socialInteractionEnd()
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionDeny:
-				socialInteractionDeny()
+				socialInteractionEndDeny()
 				interactionQueue.pop_front()
 			QueueEntry.SocialInteractionShowSuccess:
 				showInteractionSuccess()
@@ -669,15 +669,27 @@ func addAffection(_role1:int, _role2:int, _am:float):
 	var pawn2 := getPawn(_role2)
 	if(!pawn1 || !pawn2):
 		return
-	
-	GM.main.relationshipSystem.addAffection(pawn1.getCharID(), pawn2.getCharID(), _am)
-	
-	if(_am > 0.0):
-		pawn1.addSmallText("Affection+", Color.GREEN)
-		pawn2.addSmallText("Affection+", Color.GREEN)
-	elif(_am < 0.0):
-		pawn1.addSmallText("Affection-", Color.RED)
-		pawn2.addSmallText("Affection-", Color.RED)
+	pawn1.addAffection(pawn2, _am)
+
+func addLust(_role1:int, _role2:int, _am:float):
+	var pawn1 := getPawn(_role1)
+	var pawn2 := getPawn(_role2)
+	if(!pawn1 || !pawn2):
+		return
+	pawn1.addLust(pawn2, _am)
+
+func addPowerBalance(_role1:int, _role2:int, _am:float):
+	var pawn1:CharacterPawn = getPawn(_role1)
+	var pawn2:CharacterPawn = getPawn(_role2)
+	if(!pawn1 || !pawn2):
+		return
+	pawn1.addPowerBalance(pawn2, _am)
+
+func addSmallText(_role:int, _text:String, _color:Color = Color.WHITE):
+	var pawn1 := getPawn(_role)
+	if(!pawn1):
+		return
+	pawn1.addSmallText(_text, _color)
 
 func canDoSocialActionFinal(_c:SocialInteractionContext) -> bool:
 	return false
@@ -688,10 +700,10 @@ func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 	return []
 
-func socialInteractionEnd(_actualStatus:int = SocialInteractionHandler.STATUS_AGREE):
+func socialInteractionEnd():
 	pass
 
-func socialInteractionDeny():
+func socialInteractionEndDeny():
 	pass
 
 func showInteractionSuccess():

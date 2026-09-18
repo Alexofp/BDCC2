@@ -16,32 +16,26 @@ func _init() -> void:
 	interactionPriority = PRIO_FRIENDLY - 4.1
 
 func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(1.7))
+	addUnlockCondition(SocialUnlockAffectionCondition.new(2.0))
+	pass
 
-func prepareSocialInteraction():
-	setSocialRequiredScore(2.0)
-	addSocial(SocialScoreAffection.new())
-	addSocial(SocialScoreLust.new(0.1))
-	
-	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Embrace))
-	
-	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.5, -0.2))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Embraced))
-	
+func prepareChanceCalculator():
+	var theSICC := SICCSimple.new()
+	theSICC.setChance(SICC.Affection, 0.3, 2.0, 0.9, 3.0)
+	theSICC.setChance(SICC.Lust, 0.0, 0.0, 0.5, 3.0)
+	theSICC.setChance(SICC.PowerBalance, 0.0, 0.0, 0.5, 2.0)
+	setChanceCalculator(theSICC)
 
-#func start(_roles:Dictionary, _args:Array):
-
-func canDoSocialAction(_c:SocialInteractionContext) -> bool:
-	return super.canDoSocialAction(_c)
-
-#func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
-	#if(!canDoSocialAction(_main, _target)):
-		#return []
-	#return [
-		#action(id, socialActionName),
-	#]
-
-#func canCompleteAIGoalAtAll(_interaction:InteractionBase, _goalID:String, _args:Array) -> bool:
-#	return false
+func onSocialInteractionEnd():
+	addSocialExhaustion()
+	addSocialCooldown(1000.0)
+	if(isCriticalSuccess()):
+		addRewardAffection(5.0)
+		addMemoryTarget(FriendlyMemories.Embraced)
+	elif(isCriticalFail()):
+		addRewardAffection(-3.0)
+	elif(isSuccess()):
+		addRewardAffection(2.0)
+		addMemoryTarget(FriendlyMemories.Embraced)
+	elif(isFail()):
+		addRewardAffection(-1.0)

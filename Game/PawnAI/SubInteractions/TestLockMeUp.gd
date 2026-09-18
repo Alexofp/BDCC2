@@ -13,6 +13,9 @@ func _init() -> void:
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
 func start(_roles:Dictionary, _args:Array):
 	sayText(ROLE_MAIN, "Lock me up!")
 

@@ -12,17 +12,23 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY + 1.0
 
-func prepareSocialInteraction():
-	setSocialRequiredScore(-3.0)
-	addSocial(SocialScoreAffection.new())
+func prepareChanceCalculator():
+	setChanceCalculator(SICCChat.new())
 
-	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Chat))
-	
-	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.1, -0.05))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Chat))
-	#addSocial(SocialEffectAddMood.new().addSuccess(MoodStat.Mood, 1.1))
+func onSocialInteractionEnd():
+	addSocialExhaustion()
+	if(isFail()):
+		addSocialCooldown(30.0)
+	#addRewardLust(0.2)
+	#addRewardPowerBalance(0.3)
+	if(isCriticalSuccess()):
+		addRewardAffection(0.5)
+		addMemoryTarget(FriendlyMemories.Chat)
+	elif(isSuccess()):
+		addRewardAffection(1.15)
+		addMemoryTarget(FriendlyMemories.Chat)
+	if(isFail()):
+		addRewardAffection(-0.05)
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
@@ -41,12 +47,14 @@ func _actions(_role:int):
 
 func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
+		socialInteractionAgree()
 		say(ROLE_TARGET, "Sure", ROLE_MAIN)
 		pushDelay(3.0)
 		doRandomTalk()
 		pushSetState("afterTalk")
 		#pushStopInteraction()
 	if(_action.id == "no"):
+		socialInteractionDeny()
 		say(ROLE_TARGET, "No", ROLE_MAIN)
 		pushDelay(2.0)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)

@@ -9,6 +9,9 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Defeated]
 	socialFlags = SOCIALFLAG_ALLOWED_IF_TARGET_DOMINATED
 
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	say(ROLE_MAIN, "DefeatLockUpStart", ROLE_TARGET) #"Talk"

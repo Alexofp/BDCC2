@@ -12,9 +12,18 @@ func processAction(_dt:float):
 	pass
 
 func onGettingHit(_attackContext:AttackContext) -> bool:
-	if(!getPawn().isDefeated()):
-		if(getPawn().combatAI.addEnemy(_attackContext.attacker, CombatPawnAI.ENEMY_GOT_SUDDENLY_ATTACKED)):
-			getPawn().ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
+	var thePawn := getPawn()
+	if(!thePawn.isDefeated()):
+		var theAffection:float = thePawn.getAffection(_attackContext.attacker)
+		if(theAffection >= 1.0 && thePawn.getAnnoyance(_attackContext.attacker) < 0.6):
+			thePawn.addAnnoyance(_attackContext.attacker, 1.0)
+			GM.main.interactionSystem.startInteraction("Annoyed", {
+				main = thePawn,
+				target = _attackContext.attacker,
+			}, [1.0])
+			thePawn.addAffection(_attackContext.attacker, -0.5)
+		elif(thePawn.combatAI.addEnemy(_attackContext.attacker, CombatPawnAI.ENEMY_GOT_SUDDENLY_ATTACKED)):
+			thePawn.ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
 			var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
 			var theAffectionMult:float = maxf(currentCooldown + 1.0, 1.0)
 			

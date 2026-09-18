@@ -15,33 +15,25 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 2.0
 
+func prepareChanceCalculator():
+	var theSICC := SICCSimple.new()
+	theSICC.setChance(SICC.Affection, 0.4, 1.0, 0.9, 2.0)
+	setChanceCalculator(theSICC)
+
 func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(0.3))
+	addUnlockCondition(SocialUnlockAffectionCondition.new(1.0))
+	pass
 
-func prepareSocialInteraction():
-	setSocialRequiredScore(0.5)
-	addSocial(SocialScoreAffection.new())
-	addSocial(SocialScoreLust.new(0.1))
-	
-	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Hug))
-	
-	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.3, -0.1))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Hug))
-	
-
-#func start(_roles:Dictionary, _args:Array):
-
-func canDoSocialAction(_c:SocialInteractionContext) -> bool:
-	return super.canDoSocialAction(_c)
-
-#func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
-	#if(!canDoSocialAction(_main, _target)):
-		#return []
-	#return [
-		#action(id, socialActionName),
-	#]
-
-#func canCompleteAIGoalAtAll(_interaction:InteractionBase, _goalID:String, _args:Array) -> bool:
-#	return false
+func onSocialInteractionEnd():
+	addSocialExhaustion()
+	addSocialCooldown(600.0)
+	if(isCriticalSuccess()):
+		addRewardAffection(2.0)
+		addMemoryTarget(FriendlyMemories.Hug)
+	elif(isCriticalFail()):
+		addRewardAffection(-2.0)
+	elif(isSuccess()):
+		addRewardAffection(1.0)
+		addMemoryTarget(FriendlyMemories.Hug)
+	elif(isFail()):
+		addRewardAffection(-0.3)

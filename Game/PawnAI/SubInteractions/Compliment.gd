@@ -10,21 +10,32 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 1.0
 
-func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(0.1))
+func prepareChanceCalculator():
+	var theSICC := SICCSimple.new()
+	theSICC.setChance(SICC.Affection, 0.3, -0.2, 0.9, 1.5)
+	theSICC.setChance(SICC.Lust, 0.0, 0.0, 0.5, 1.0)
+	#theSICC.critFailChance = 1.0
+	#theSICC.critWinChance = 1.0
+	setChanceCalculator(theSICC)
 
-func prepareSocialInteraction():
-	setSocialRequiredScore(0.2)
-	addSocial(SocialScoreAffection.new())
-	addSocial(SocialScoreLust.new(0.5))
-	
-	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Compliment))
-	
-	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.2, -0.1))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.Compliment))
-	
+func prepareUnlockConditions():
+	#addUnlockCondition(SocialUnlockAffectionCondition.new(0.1))
+	pass
+
+func onSocialInteractionEnd():
+	addSocialExhaustion()
+	addSocialCooldown(600.0)
+	if(isCriticalSuccess()):
+		addRewardAffection(1.0)
+		addMemoryTarget(FriendlyMemories.Compliment)
+	elif(isCriticalFail()):
+		addRewardAffection(-0.5)
+	elif(isSuccess()):
+		addRewardAffection(0.4)
+		addMemoryTarget(FriendlyMemories.Compliment)
+	elif(isFail()):
+		addRewardAffection(-0.1)
+
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
@@ -55,14 +66,19 @@ func answer_actions(_role:int):
 
 func answer_do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
-		#socialInteractionStart()
-		say(ROLE_TARGET, "ComplimentAccept", ROLE_MAIN)
-		pushDelay(3.0)
+		socialInteractionAgree()
+		if(isCritical()):
+			pushDelay(1.0)
+		pushSay(ROLE_TARGET, "ComplimentAccept", ROLE_MAIN)
+		pushDelay(2.0)
 		pushSocialEnd()
 		pushStopInteraction()
 	if(_action.id == "no"):
-		say(ROLE_TARGET, "ComplimentDeny", ROLE_MAIN)
+		socialInteractionDeny()
+		if(isCritical()):
+			pushDelay(1.0)
+		pushSay(ROLE_TARGET, "ComplimentDeny", ROLE_MAIN)
 		pushDelay(2.0)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
-		pushSocialDenied()
+		pushSocialEnd()
 		pushStopInteraction()

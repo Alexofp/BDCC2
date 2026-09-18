@@ -8,3 +8,6 @@ func _init() -> void:
 	poseType = DollPoseBase.PoseType.Arms
 	poseHandlerType = PawnPoseHandler.POSE_ARMS
 	normalText = "Put your hands down"
+
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())

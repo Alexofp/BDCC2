@@ -11,3 +11,6 @@ func _on_combat_moves_button_pressed() -> void:
 
 func _on_dialogue_button_pressed() -> void:
 	GlobalRegistry.reloadReactionBanks()
+
+func _on_interactions_button_pressed() -> void:
+	GlobalRegistry.reloadInteractions()

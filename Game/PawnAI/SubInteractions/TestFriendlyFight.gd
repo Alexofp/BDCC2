@@ -13,6 +13,9 @@ func _init() -> void:
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
 
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	sayText(ROLE_MAIN, "Let's FIGHT!")

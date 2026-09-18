@@ -768,7 +768,7 @@ func registerInteractionFolder(folder: String):
 func createInteraction(id: String) -> InteractionBase:
 	if(interactions.has(id)):
 		var theInteraction:InteractionBase = interactions[id].new()
-		theInteraction.postCreation()
+		theInteraction.postCreation(interactionRefs[id])
 		return theInteraction
 	else:
 		Log.Printerr("ERROR: interaction with the id "+str(id)+" wasn't found")
@@ -1224,6 +1224,16 @@ func reloadReactionBanks():
 		Log.Print("Reloading dialogue reaction banks")
 	mainReactionBank.reset()# = ReactionBank.new()
 	loadMainReactionBankFolder("res://Reactions/Main/")
+
+func reloadInteractions():
+	interactions.clear()
+	interactionRefs.clear()
+	interactionsBySocialType.clear()
+	
+	registerInteractionFolder("res://Game/PawnAI/Interactions/")
+	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
+	sortInteractions()
+
 
 
 

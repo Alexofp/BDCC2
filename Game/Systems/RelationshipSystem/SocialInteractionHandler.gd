@@ -9,11 +9,13 @@ var id:String = ""
 var status:int = STATUS_DENY
 var success:float = 0.0 # A number between 0.0 and 1.0. Never below zero, even if denied
 var showChange:bool = true
+var answer:int = STATUS_AGREE
+var critical:bool = false
 
 var charIDStarter:String = ""
 var charIDTarget:String = ""
 
-var agreeChecks:Array[SocialCheckBase] = []
+var chances:Vector3 = Vector3(1.0, 0.05, 0.05) # Success chance, criticalFailIfNoSuccess, criticalWinIfSuccess
 
 var shouldPlaySuccessNoise:bool = true
 var shouldPlayDenyNoise:bool = true
@@ -25,42 +27,18 @@ func setPawns(_pawnStarter:CharacterPawn, _pawnTarget:CharacterPawn):
 	charIDStarter = _pawnStarter.getCharID()
 	charIDTarget = _pawnTarget.getCharID()
 
+func setChanceCalculatorResult(_chances:Vector3):
+	chances = _chances
+
 # Calculate if the target should agree
 func trySocialInteraction(_socialRequiredAgreeScore:float) -> void:
-	status = STATUS_AGREE
-	var theScore:float = 0.0
-	
-	for check in agreeChecks:
-		check.socialHandler = self
-		theScore = check.getAgreeScore(theScore)
-		check.socialHandler = null
-	
-	if(theScore != 0.0 || _socialRequiredAgreeScore != 0.0):
-		Log.Print("Got score: "+str(Util.roundF(theScore, 2))+" Required score: "+str(Util.roundF(_socialRequiredAgreeScore, 2)))
-	if(status == STATUS_AGREE && theScore < _socialRequiredAgreeScore):
+	var _theAgreeChance:float = chances.x
+	if(_theAgreeChance >= 1.0):
+		status = STATUS_AGREE
+	elif(_theAgreeChance <= 0.0):
 		status = STATUS_DENY
-	
-	for check in agreeChecks:
-		check.socialHandler = self
-		
-		theScore = check.getAgreeScore(theScore)
-		
-		var theStatus:int = check.getAgreeStatus()
-		if(theStatus == STATUS_DENY):
-			Log.Print("Not agreed by: "+str(check))
-			check.socialHandler = null
-			status = theStatus
-			return
-		if(theStatus == STATUS_AGREE):
-			Log.Print("Agreed by: "+str(check))
-			check.socialHandler = null
-			status = theStatus
-			return
-		if(theStatus != STATUS_UNCHANGED):
-			status = theStatus
-			check.socialHandler = null
-			return
-		check.socialHandler = null
+	else:
+		status = RNG.chance(_theAgreeChance*100.0)
 	
 # Should the target agree?
 func scoreAgree() -> float:
@@ -71,24 +49,49 @@ func scoreStatus(_status:int) -> float:
 
 # The interaction is just about to start
 func onStart() -> void:
-	success = 1.0
-	for theCheck in agreeChecks:
-		theCheck.socialHandler = self
-		theCheck.onStart()
-		theCheck.socialHandler = null
-	Log.Print("Success: "+str(int(success*100.0))+"%")
+	pass
+
+# Gets called the moment the npc/player pick the agree/deny option
+func onAnswer(_actualStatus:int, _allowCrits:bool = true):
+	answer = _actualStatus
+	if(_actualStatus == STATUS_AGREE):
+		critical = _allowCrits && RNG.chance(chances.z*100.0)
+		if(critical):
+			playNoise(PawnNoise.GOOD_VERY, -15.0, 1.0)
+		onAgree()
+	if(_actualStatus == STATUS_DENY):
+		critical = _allowCrits && RNG.chance(chances.y*100.0)
+		if(critical):
+			playNoise(PawnNoise.BAD_VERY, -15.0, 1.0)
+		onDeny()
+	
+func onAgree():
+	pass
+
+func onDeny():
+	pass
+
+func isSuccess() -> bool:
+	return answer == STATUS_AGREE
+
+func isFail() -> bool:
+	return answer == STATUS_DENY
+
+func isCriticalSuccess() -> bool:
+	return critical && isSuccess()
+
+func isCriticalFail() -> bool:
+	return critical && isFail()
 
 # The interaction has ended
-func onEnd(_actualStatus:int) -> void:
+func onEnd() -> void:
+	var _actualStatus:int = answer
+	#var _isCritical:bool = critical
+	
 	if(shouldPlaySuccessNoise && _actualStatus == STATUS_AGREE):
 		playSuccessNoise(success)
 	if(shouldPlayDenyNoise && _actualStatus == STATUS_DENY):
 		playSuccessNoise(-1.0*success)
-	
-	for theCheck in agreeChecks:
-		theCheck.socialHandler = self
-		theCheck.onEnd(_actualStatus)
-		theCheck.socialHandler = null
 
 # util
 func getStarterPawn() -> CharacterPawn:
@@ -240,6 +243,3 @@ func showInteractionSuccess():
 	#playSuccessNoise(success)
 	var pawn2 := getTargetPawn()
 	pawn2.addSmallText("Success: "+str(int(success*100.0))+"%", Color.SKY_BLUE)
-
-func add(_check:SocialCheckBase):
-	agreeChecks.append(_check)

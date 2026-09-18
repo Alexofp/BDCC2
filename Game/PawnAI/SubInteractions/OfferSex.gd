@@ -9,20 +9,18 @@ func _init() -> void:
 	interactionPriority = PRIO_FRIENDLY - 5.0
 
 func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(0.6))
+	addUnlockCondition(SocialUnlockAffectionCondition.new(0.0))
 
-func prepareSocialInteraction():
-	setSocialRequiredScore(0.15)
-	addSocial(SocialScoreAffection.new())
-	addSocial(SocialScoreLust.new())
-	
-	addSocial(SocialCheckExhaustion.new())
-	addSocial(SocialCheckCooldown.new(SocialCooldown.Sex))
-	
-	addSocial(SocialEffectAddExhaustion.new())
-	addSocial(SocialEffectAddAffection.new(0.5, -0.3))
-	addSocial(SocialEffectAddMemory.new(FriendlyMemories.GoodSex))
-	
+func prepareChanceCalculator():
+	setChanceCalculator(SICCAlways.new())
+
+func onSocialInteractionEnd():
+	if(isSuccess()):
+		addRewardLust(0.5)
+		addMemoryTarget(FriendlyMemories.GoodSex)
+	if(isFail()):
+		addRewardLust(-0.4)
+		addSocialCooldown()
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
@@ -102,11 +100,9 @@ func onSexEngineResult(_result:SexEngineResult):
 	var theSatisfaction:float = _result.getSatisfactionCharID(getCharID(ROLE_TARGET))
 	
 	if(theSatisfaction < 0.5):
-		socialInteraction.status = SocialInteractionHandler.STATUS_DENY
-		socialInteraction.success = remap(theSatisfaction, 0.5, 0.0, 0.0, 1.0)
+		markAsFail(false, remap(theSatisfaction, 0.5, 0.0, 0.0, 1.0))
 	else:
-		socialInteraction.status = SocialInteractionHandler.STATUS_AGREE
-		socialInteraction.success = remap(theSatisfaction, 0.5, 1.0, 0.0, 1.0)
+		markAsSuccess(false, remap(theSatisfaction, 0.5, 1.0, 0.0, 1.0))
 	setState("afterSex")
 	clearPushQueue()
 	pushDelay(2.0)
