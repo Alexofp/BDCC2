@@ -29,6 +29,7 @@ var tabToName:Dictionary[String, String] = {
 	TAB_INTERACT: "Interact",
 }
 
+@onready var character_tab: VBoxContainer = %CharacterTab
 @onready var interaction_menu_embedded: ScrollContainer = %InteractionMenuEmbedded
 @onready var inventory_ui_embed: VBoxContainer = %InventoryUIEmbed
 @onready var posing_menu: VBoxContainer = %PosingMenu
@@ -40,6 +41,7 @@ func _ready() -> void:
 	setTab(currentTab)
 
 func setCharacter(_char:BaseCharacter):
+	character_tab.setCharacter(_char)
 	if(!_char):
 		charID = ""
 		resetTabs()

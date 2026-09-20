@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cd8ekb517fy1t"]
+
+[ext_resource type="Script" uid="uid://5bqyb3a8aitp" path="res://Game/UI/StatusEffectsUI/StatusEffectsListUI.gd" id="1_fmhpq"]
+[ext_resource type="PackedScene" uid="uid://clnh80cht1la1" path="res://Game/UI/StatusEffectsUI/StatusEffectListEntryUI.tscn" id="1_pefja"]
+
+[node name="StatusEffectsListUI" type="HFlowContainer" unique_id=1973744304]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("1_fmhpq")
+
+[node name="StatusEffectListEntryUI" parent="." unique_id=2094909326 instance=ExtResource("1_pefja")]
+layout_mode = 2
+
+[node name="StatusEffectListEntryUI2" parent="." unique_id=1992855369 instance=ExtResource("1_pefja")]
+layout_mode = 2

@@ -12,6 +12,9 @@ enum {
 	PERSONALITY_UPDATE,
 	FETISHES_UPDATE,
 	LEASHPOINTS_UPDATE,
+	STATUSEFFECT_UPDATE,
+	STATUSEFFECT_ADDED,
+	STATUSEFFECT_REMOVED,
 }
 
 var changeType:int = NOTHING
@@ -24,6 +27,24 @@ var value:Variant
 
 func getType() -> int:
 	return changeType
+
+static func createStatusEffectUpdate() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = STATUSEFFECT_UPDATE
+	return result
+
+static func createStatusEffectAddedUpdate(_effect:StatusEffectBase, _isCombine:bool = false) -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = STATUSEFFECT_ADDED
+	result.optionID = _effect.id
+	result.slot = 1 if _isCombine else 0
+	return result
+
+static func createStatusEffectRemovedUpdate(_effect:StatusEffectBase) -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = STATUSEFFECT_REMOVED
+	result.optionID = _effect.id
+	return result
 
 static func createLeashPointsUpdate() -> BaseCharChange:
 	var result := BaseCharChange.new()

@@ -24,6 +24,7 @@ var personality:Personality = Personality.new()
 var fetishHolder:FetishHolder = FetishHolder.new()
 var memoryHolder:MemoryHolder = MemoryHolder.new()
 var buffsHolder:BuffsHolder = BuffsHolder.new()
+var effectsHolder:StatusEffectsHolder = StatusEffectsHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -51,6 +52,27 @@ func _init():
 	inventory.onEquippedItemOptionChange.connect(onInventoryEquipItemOptionChangeCallback)
 	inventory.setCharacter(self)
 	
+	effectsHolder.onEffectAdded.connect(func(_effect:StatusEffectBase):
+		onChange.emit(BaseCharChange.createStatusEffectAddedUpdate(_effect))
+		if(Network.isServer()):
+			var thePawn := getPawn()
+			if(thePawn):
+				thePawn.addSmallText("+"+_effect.getName(), _effect.getIconBackgroundColor())
+		)
+	effectsHolder.onEffectCombined.connect(func(_effect:StatusEffectBase):
+		onChange.emit(BaseCharChange.createStatusEffectAddedUpdate(_effect, true))
+		)
+	effectsHolder.onEffectRemoved.connect(func(_effect:StatusEffectBase, _holder:StatusEffectsHolder):
+		onChange.emit(BaseCharChange.createStatusEffectRemovedUpdate(_effect))
+		if(Network.isServer()):
+			var thePawn := getPawn()
+			if(thePawn):
+				thePawn.addSmallText("-"+_effect.getName(), Color.RED)
+		)
+	effectsHolder.onEffectsChanged.connect(func():
+		onChange.emit(BaseCharChange.createStatusEffectUpdate())
+		)
+	effectsHolder.setCharacter(self)
 	buffsHolder.setCharacter(self)
 	
 	#inventory.setEquippedItem(InventorySlot.Eyes, GlobalRegistry.createItem("Blindfold"))
@@ -546,14 +568,20 @@ func processTime(_dt:float):
 
 # Once a second or so?
 func processRare(_dt:float):
+	#Log.Print(id+" RARE! "+str(_dt))
 	#print(id+" RARE!")
-	charState.processTime(_dt)
+	effectsHolder.processTime(_dt)
+	if(Network.isServer()):
+		charState.processTime(_dt)
 	buffsHolder.processTime(_dt)
 	#memoryHolder.processRare(_dt, ) # This is called by the MemorySystem
 	pass
 
 # Once every 30 seconds or so?
 func processVeryRare(_dt:float):
+	if(!Network.isServer()):
+		return
+	
 	if(charState.socialExhaustion > 0.0):
 		if(charState.socialExhaustionFade <= GM.main.GB.socialExhaustionRecoverStartAfter):
 			charState.socialExhaustionFade += _dt
@@ -826,11 +854,14 @@ func getPainLevel() -> float:
 func getPawn() -> CharacterPawn:
 	return GM.pawnRegistry.getPawn(getID())
 
-func addStatusEffect(_effectID:String, _seconds:float):
-	pass
+func addStatusEffect(_effectID:String, _seconds:float, _args:Array = []):
+	effectsHolder.addEffect(_effectID, _seconds, _args)
+
+func removeStatusEffect(_effectID:String):
+	effectsHolder.removeEffect(_effectID)
 
 func hasStatusEffect(_effectID:String) -> bool:
-	return false
+	return effectsHolder.hasEffect(_effectID)
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [
@@ -849,6 +880,7 @@ func saveNetworkData() -> Bins:
 	ar.append_array([Bins.BINS, inventory.saveNetworkData()])
 	ar.append_array([Bins.BINS, personality.saveNetworkData()])
 	ar.append_array([Bins.BINS, fetishHolder.saveNetworkData()])
+	ar.append_array([Bins.BINS, effectsHolder.saveNetworkData()])
 	
 	return Bins.saveStartEnd(ar)
 
@@ -879,6 +911,7 @@ func loadNetworkData(_data:Bins):
 	inventory.loadNetworkData(_data.readBins())
 	personality.loadNetworkData(_data.readBins())
 	fetishHolder.loadNetworkData(_data.readBins())
+	effectsHolder.loadNetworkData(_data.readBins())
 	
 	_data.endLoad()
 
@@ -902,6 +935,7 @@ func saveData() -> Dictionary:
 		inventory = inventory.saveData(),
 		personality = personality.saveData(),
 		fetishHolder = fetishHolder.saveData(),
+		effectsHolder = effectsHolder.saveData(),
 	}
 
 func loadData(_data:Dictionary):
@@ -938,3 +972,6 @@ func loadData(_data:Dictionary):
 	
 	if(_data.has("fetishHolder")):
 		fetishHolder.loadData(SAVE.loadVar(_data, "fetishHolder", {}))
+	
+	if(_data.has("effectsHolder")):
+		effectsHolder.loadData(SAVE.loadVar(_data, "effectsHolder", {}))

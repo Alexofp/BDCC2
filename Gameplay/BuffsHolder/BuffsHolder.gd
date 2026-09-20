@@ -54,7 +54,14 @@ func updateBuffs():
 		var theBuffs := theItem.getBuffs()
 		for theBuff in theBuffs:
 			theBuff.apply(self)
-
+	
+	var theEffects:StatusEffectsHolder = character.effectsHolder
+	for theEffectID:String in theEffects.effects:
+		var theEffect:StatusEffectBase = theEffects.effects[theEffectID]
+		var theBuffs := theEffect.getBuffs()
+		for theBuff in theBuffs:
+			theBuff.apply(self)
+	
 func processTime(_dt:float):
 	updateTime -= _dt
 	if(updateTime <= 0.0):

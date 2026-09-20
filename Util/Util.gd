@@ -442,3 +442,36 @@ static func humanReadableList(arr: Array[String], andConnector: String = "and", 
 		if(i <= (arrSize - 3)):
 			res += commaConnector + " "
 	return res
+
+# Example return 6h32m22s
+static func getTimeStringShort(_seconds:int) -> String:
+	var _isNegative:bool = _seconds < 0
+	var total:int = absi(_seconds)
+	
+	@warning_ignore("integer_division")
+	var hours:int = total / 3600
+	@warning_ignore("integer_division")
+	var minutes:int = (total % 3600) / 60
+	var seconds:int = total % 60
+	
+	var result:String = ""
+	if(hours > 0):
+		result += "%dh" % hours
+	if(hours > 0 || minutes > 0):
+		result += "%dm" % minutes
+	result += "%ds" % seconds
+	
+	return ("-" if _isNegative else "") + result
+
+static func getTimeStringShortF(_seconds:float) -> String:
+	return getTimeStringShort(int(roundf(_seconds)))
+
+static func getBuffsTexts(theBuffs:Array[Buff]) -> Array[String]:
+	if(theBuffs.is_empty()):
+		return []
+	var result:Array[String]
+	for theBuff in theBuffs:
+		if(theBuff.invisible):
+			continue
+		result.append("[color=#"+theBuff.getColor().to_html(false)+"]"+theBuff.getName()+" "+theBuff.getBuffText()+"[/color]")
+	return result

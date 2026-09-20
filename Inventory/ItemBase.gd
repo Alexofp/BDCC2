@@ -33,17 +33,7 @@ func getDescriptionFinal() -> String:
 	return result
 
 func getBuffsDescription() -> String:
-	var theBuffs := getBuffs()
-	if(theBuffs.is_empty()):
-		return ""
-	var result:String = ""
-	for theBuff in theBuffs:
-		if(theBuff.invisible):
-			continue
-		if(!result.is_empty()):
-			result += "\n"
-		result += "[color=#"+theBuff.getColor().to_html(false)+"]"+theBuff.getName()+" "+theBuff.getBuffText()+"[/color]"
-	return result
+	return Util.join(Util.getBuffsTexts(getBuffs()), "\n")
 	
 func getInteractOptionsDescription() -> Array[String]:
 	var result:Array[String] = []
@@ -340,6 +330,9 @@ func getBuffs() -> Array[Buff]:
 		buffsNeedUpdate = false
 		staticBuffs = prepareBuffs()
 	return staticBuffs
+
+func markBuffsNeedUpdate():
+	buffsNeedUpdate = true
 
 func getPawn() -> CharacterPawn:
 	var theChar := getCharacter()

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://w1hpye5t7hjr"]
 
 [ext_resource type="Script" uid="uid://bt2s8v78fqqr5" path="res://Game/UI/CharacterMenu/character_menu.gd" id="1_5rlio"]
+[ext_resource type="PackedScene" uid="uid://b6t1761l7thqv" path="res://Game/UI/CharacterMenu/CharacterTab.tscn" id="2_7m32m"]
 [ext_resource type="PackedScene" uid="uid://bea8vmwiu4vwf" path="res://Game/CharacterCreator/InteractionMenu/interaction_menu_embed.tscn" id="2_clhsb"]
 [ext_resource type="PackedScene" uid="uid://nex6xlb2bqnf" path="res://Inventory/UI/inventory_ui_embed.tscn" id="3_7l853"]
 [ext_resource type="PackedScene" uid="uid://bn1nx7qh0s4io" path="res://Game/UI/CharacterMenu/posing_menu.tscn" id="4_aaxik"]
@@ -69,13 +70,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CharacterTab" type="VBoxContainer" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=586260445]
+[node name="CharacterTab" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=276794539 instance=ExtResource("2_7m32m")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="MasturbateButton" type="Button" parent="PanelContainer/VBoxContainer/VBoxContainer/CharacterTab" unique_id=1481229104]
-layout_mode = 2
-text = "Masturbate"
 
 [node name="InteractionMenuEmbedded" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=562291251 instance=ExtResource("2_clhsb")]
 unique_name_in_owner = true
@@ -118,5 +115,4 @@ text = "Close"
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PoseButton" to="." method="_on_pose_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InteractButton" to="." method="_on_interact_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/VBoxContainer/CharacterTab/MasturbateButton" to="." method="_on_masturbate_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CloseControlSpace/CloseButton" to="." method="_on_close_button_pressed"]

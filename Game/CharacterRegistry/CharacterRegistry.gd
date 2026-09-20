@@ -156,30 +156,55 @@ func connectSignalsToCharacter(theChar:BaseCharacter):
 func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 	var theType := _change.getType()
 	
-	match theType:
-		BaseCharChange.PART:
-			if(_change.genericType != BaseCharacter.GENERIC_CLOTHING && Network.isServerNotSingleplayer()):
-				var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
-				Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData().getBytesCompressedSimple() if thePart else PackedByteArray()))
-			pass
-		BaseCharChange.PART_OPTION:
-			if(_change.genericType != BaseCharacter.GENERIC_CLOTHING && Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterPartOptionChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, _change.optionID, _change.value))
-			pass
-		BaseCharChange.CHAR_OPTION:
-			if(Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterOptionChange_RPC.bind(_theChar.getID(), _change.optionID, _theChar.getSyncOptionValue(_change.optionID)))
-			pass
-		BaseCharChange.PART_FILTER:
-			pass
-		BaseCharChange.PERSONALITY_UPDATE:
-			if(Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterPersonalityUpdate_RPC.bind(_theChar.getID(), _theChar.personality.saveNetworkData().getBytesCompressedSimple()))
-			pass
-		BaseCharChange.FETISHES_UPDATE:
-			if(Network.isServerNotSingleplayer()):
-				Network.rpcClients(characterFetishesUpdate_RPC.bind(_theChar.getID(), _theChar.fetishHolder.saveNetworkData().getBytesCompressedSimple()))
-			pass
+	if(!Network.isServerNotSingleplayer()):
+		return
+	if(theType == BaseCharChange.PART):
+		if(_change.genericType != BaseCharacter.GENERIC_CLOTHING):
+			var thePart := _theChar.getGenericPart(_change.genericType, _change.slot)
+			Network.rpcClients(characterPartChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, thePart.id if thePart else "", thePart.saveNetworkData().getBytesCompressedSimple() if thePart else PackedByteArray()))
+	elif(theType == BaseCharChange.PART_OPTION):
+		if(_change.genericType != BaseCharacter.GENERIC_CLOTHING):
+			Network.rpcClients(characterPartOptionChange_RPC.bind(_theChar.getID(), _change.genericType, _change.slot, _change.optionID, _change.value))
+	elif(theType == BaseCharChange.CHAR_OPTION):
+		Network.rpcClients(characterOptionChange_RPC.bind(_theChar.getID(), _change.optionID, _theChar.getSyncOptionValue(_change.optionID)))
+	elif(theType == BaseCharChange.PART_FILTER):
+		pass
+	elif(theType == BaseCharChange.PERSONALITY_UPDATE):
+		Network.rpcClients(characterPersonalityUpdate_RPC.bind(_theChar.getID(), _theChar.personality.saveNetworkData().getBytesCompressedSimple()))
+	elif(theType == BaseCharChange.FETISHES_UPDATE):
+		Network.rpcClients(characterFetishesUpdate_RPC.bind(_theChar.getID(), _theChar.fetishHolder.saveNetworkData().getBytesCompressedSimple()))
+	elif(theType == BaseCharChange.STATUSEFFECT_UPDATE):
+		Network.rpcClients(characterEffectsUpdate_RPC.bind(_theChar.getID(), _theChar.effectsHolder.saveNetworkData().getBytesCompressedSimple()))
+	elif(theType == BaseCharChange.STATUSEFFECT_ADDED):
+		var theEffectID:String = _change.optionID
+		var theEffect:StatusEffectBase = _theChar.effectsHolder.getEffect(theEffectID)
+		if(!theEffect):
+			return
+		Network.rpcClients(characterEffectsAdd_RPC.bind(_theChar.getID(), theEffectID, theEffect.saveNetworkData().getBytes(), _change.slot))
+	elif(theType == BaseCharChange.STATUSEFFECT_REMOVED):
+		var theEffectID:String = _change.optionID
+		Network.rpcClients(characterEffectsRemove_RPC.bind(_theChar.getID(), theEffectID))
+
+@rpc("authority", "call_remote", "reliable")
+func characterEffectsAdd_RPC(_id:String, _effectID:String, _data:PackedByteArray, _slot:int):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.effectsHolder.addEffectFromBinsData(_effectID, Bins.readUncompressed(_data), true if _slot == 1 else false)
+
+@rpc("authority", "call_remote", "reliable")
+func characterEffectsRemove_RPC(_id:String, _effectID:String):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.effectsHolder.removeEffect(_effectID)
+
+@rpc("authority", "call_remote", "reliable")
+func characterEffectsUpdate_RPC(_id:String, _data:PackedByteArray):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.effectsHolder.loadNetworkData(Bins.readCompressedSimple(_data))
 
 @rpc("authority", "call_remote", "reliable")
 func characterFetishesUpdate_RPC(_id:String, _fetishData:PackedByteArray):
@@ -329,7 +354,7 @@ var veryRareTimer:float = 0.0
 var veryRareI:int = 0
 
 func _physics_process(_delta: float) -> void:
-	if(Network.isServer()):
+	if(true || Network.isServer()):
 		#for charID in characters: #TODO: process far-away npcs less often
 		for theCharacter:BaseCharacter in characterList:
 			#var character:BaseCharacter = characters[charID]

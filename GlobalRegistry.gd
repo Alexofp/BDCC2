@@ -58,6 +58,9 @@ var moods:Array[MoodBase]
 var moodByID:Dictionary[String, MoodBase]
 var bodypartSpeciesRegistrations:Dictionary[String, Array] = {} #species = [id, _gender, _weight]
 var bodypartsForAnySpecies:Dictionary[int, Dictionary] = {} # slot, gender, id = weight
+var statusEffects:Dictionary
+var statusEffectRefs:Dictionary[String, StatusEffectBase]
+var statusEffectsAlwaysChecked:Array[StatusEffectBase]
 
 signal initialized
 
@@ -266,6 +269,7 @@ func doInit():
 	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
 	
 	registerMoodsFolder("res://Game/PawnAI/Mood/Moods/")
+	registerStatusEffectsFolder("res://Gameplay/StatusEffects/Effects/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1234,6 +1238,13 @@ func reloadInteractions():
 	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
 	sortInteractions()
 
+func reloadStatusEffects():
+	statusEffects.clear()
+	statusEffectRefs.clear()
+	statusEffectsAlwaysChecked.clear()
+	
+	registerStatusEffectsFolder("res://Gameplay/StatusEffects/Effects/")
+
 
 
 
@@ -1343,3 +1354,40 @@ func getMood(id: String) -> MoodBase:
 
 func getMoods() -> Array[MoodBase]:
 	return moods
+
+
+
+func registerStatusEffect(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is StatusEffectBase):
+		statusEffects[object.id] = loadedClass
+		statusEffectRefs[object.id] = object
+		if(object.alwaysChecked):
+			statusEffectsAlwaysChecked.append(object)
+
+func registerStatusEffectsFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerStatusEffect(scriptPath)
+
+func createStatusEffect(id: String) -> StatusEffectBase:
+	if(statusEffects.has(id)):
+		return statusEffects[id].new()
+	else:
+		Log.Printerr("ERROR: status effect with the id "+str(id)+" wasn't found")
+		return null
+
+func getStatusEffects() -> Dictionary:
+	return statusEffectRefs
+
+func getStatusEffect(id: String) -> StatusEffectBase:
+	if(statusEffectRefs.has(id)):
+		return statusEffectRefs[id]
+	else:
+		Log.Printerr("ERROR: status effect with the id "+str(id)+" wasn't found")
+		return null
+
+func getStatusEffectsAlwaysChecked() -> Array[StatusEffectBase]:
+	return statusEffectsAlwaysChecked

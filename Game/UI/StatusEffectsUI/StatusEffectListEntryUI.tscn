@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://clnh80cht1la1"]
+
+[ext_resource type="Texture2D" uid="uid://bjefxdvk2uab1" path="res://Game/UI/StatusEffectsUI/EffectBG.png" id="1_v8005"]
+[ext_resource type="Script" uid="uid://cy6jst6t51n3k" path="res://Game/UI/StatusEffectsUI/StatusEffectListEntryUI.gd" id="2_v8005"]
+
+[node name="StatusEffectListEntryUI" type="TextureRect" unique_id=2094909326]
+custom_minimum_size = Vector2(40, 40)
+texture = ExtResource("1_v8005")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_v8005")
+
+[node name="EffectIcon" type="TextureRect" parent="." unique_id=342785737]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="." unique_id=1808592122]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "4h21m32s"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

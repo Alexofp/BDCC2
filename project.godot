@@ -48,6 +48,7 @@ CumManager="*res://Mesh/Cum/CumManager.gd"
 AsyncUtil="*uid://c2q042l10cyju"
 Noray="*res://addons/netfox.noray/noray.gd"
 PacketHandshake="*res://addons/netfox.noray/packet-handshake.gd"
+TooltipSystem="*uid://dj0s5bh6nqk0f"
 
 [display]
 

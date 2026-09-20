@@ -38,7 +38,11 @@ func _do(_role:int, _action:InteractionAction):
 		pushSay(ROLE_TARGET, "OrderDominateDenyConsent", ROLE_MAIN)
 		pushDelay(2.0)
 	if(_action.id == "submit"):
-		addPowerBalance(ROLE_MAIN, ROLE_TARGET, 0.25) #TODO: Apply some kind of status effect that prevents the earning of this for some time
+		const cooldownName:String = "DominatedPBCD" #Dominated power balance cooldown
+		if(!hasActionCooldown(ROLE_TARGET, ROLE_MAIN, cooldownName)):
+			addActionCooldown(ROLE_TARGET, ROLE_MAIN, cooldownName, 600.0)
+			addPowerBalance(ROLE_MAIN, ROLE_TARGET, 0.25)
+			
 		pushSay(ROLE_TARGET, "OrderDominateAnswer", ROLE_MAIN)
 		pushDelay(2.0)
 		if(!getPawn(ROLE_TARGET).submission.isObeyingPawn(getPawn(ROLE_MAIN)) && !getPawn(ROLE_TARGET).submission.tryMakeObeyPawn(getPawn(ROLE_MAIN))):

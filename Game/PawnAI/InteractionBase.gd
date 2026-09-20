@@ -770,3 +770,12 @@ func addAnnoyanceMainTarget(_mainAm:float, _targetAm:float):
 
 func doesSupportCombat() -> bool:
 	return false
+
+func addActionCooldown(_roleTarget:int, _roleMain:int, _cooldownID:String, _seconds:float = 600.0):
+	GM.main.relationshipSystem.addActionCooldownPawns(getPawn(_roleTarget), getPawn(_roleMain), _cooldownID, _seconds)
+
+func getActionCooldown(_roleTarget:int, _roleMain:int, _cooldownID:String) -> float:
+	return GM.main.relationshipSystem.getActionCooldownPawns(getPawn(_roleTarget), getPawn(_roleMain), _cooldownID)
+
+func hasActionCooldown(_roleTarget:int, _roleMain:int, _cooldownID:String) -> bool:
+	return GM.main.relationshipSystem.getActionCooldownPawns(getPawn(_roleTarget), getPawn(_roleMain), _cooldownID) > 0.0

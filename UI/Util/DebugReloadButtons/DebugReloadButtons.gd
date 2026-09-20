@@ -14,3 +14,6 @@ func _on_dialogue_button_pressed() -> void:
 
 func _on_interactions_button_pressed() -> void:
 	GlobalRegistry.reloadInteractions()
+
+func _on_effects_button_pressed() -> void:
+	GlobalRegistry.reloadStatusEffects()

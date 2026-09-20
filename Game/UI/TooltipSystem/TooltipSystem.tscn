@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dj0s5bh6nqk0f"]
+
+[ext_resource type="Script" uid="uid://c14p7m53sbn5a" path="res://Game/UI/TooltipSystem/TooltipSystem.gd" id="1_0wdcc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wdcc"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.39, 0.39, 0.39, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="TooltipSystem" type="CanvasLayer" unique_id=1692731111]
+layer = 67
+script = ExtResource("1_0wdcc")
+
+[node name="TooltipPanel" type="PanelContainer" parent="." unique_id=1148247754]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -40.5
+offset_right = 114.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0wdcc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TooltipPanel" unique_id=2109568434]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="TooltipPanel/VBoxContainer" unique_id=1861946494]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="TooltipPanel/VBoxContainer" unique_id=1840817270]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DescLabel" type="RichTextLabel" parent="TooltipPanel/VBoxContainer" unique_id=509743935]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
