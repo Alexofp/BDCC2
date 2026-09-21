@@ -44,7 +44,7 @@ func _do(_role:int, _action:InteractionAction):
 		#socialInteractionStart()
 		refreshDominance(ROLE_TARGET, ROLE_MAIN)
 		sayText(ROLE_MAIN, normalText)
-		pushDelay(2.0)
+		pushDelay()
 		pushEvent("setPose", [""])
 		pushStopInteraction()
 		pushSetState("answer")
@@ -54,7 +54,7 @@ func _do(_role:int, _action:InteractionAction):
 		#socialInteractionStart()
 		refreshDominance(ROLE_TARGET, ROLE_MAIN)
 		sayText(ROLE_MAIN, _action.args[0] if !theDollPose else theDollPose.getOrderDialogue())
-		pushDelay(2.0)
+		pushDelay()
 		pushEvent("setPose", [dollPoseID])
 		pushStopInteraction()
 		pushSetState("answer")
@@ -62,24 +62,3 @@ func _do(_role:int, _action:InteractionAction):
 func onQueueEvent(_eventID:String, _args:Array):
 	if(_eventID == "setPose"):
 		getPawn(ROLE_TARGET).poseHandler.setPoseOf(poseHandlerType, _args[0])
-
-#func answer_actions(_role:int):
-	#if(_role == ROLE_TARGET):
-		#var agreeScore := scoreSocialAgree()
-		#
-		#addAction(action("yes", "Accept", agreeScore))
-		#addAction(action("no", "Deny", 1.0 - agreeScore))
-#
-#func answer_do(_role:int, _action:InteractionAction):
-	#if(_action.id == "yes"):
-		##socialInteractionStart()
-		#say(ROLE_TARGET, "ComplimentAccept", ROLE_MAIN)
-		#pushDelay(3.0)
-		#pushSocialEnd()
-		#pushStopInteraction()
-	#if(_action.id == "no"):
-		#say(ROLE_TARGET, "ComplimentDeny", ROLE_MAIN)
-		#pushDelay(2.0)
-		##pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
-		#pushSocialDenied()
-		#pushStopInteraction()

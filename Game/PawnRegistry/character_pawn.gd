@@ -627,12 +627,33 @@ func playGesture(_gestureID:String):
 		GM.dollHolder.playGesture(theDoll, _gestureID)
 
 func teleport(_globalPos:Vector3, _resetSpeed:bool = true):
+	if(isStandingOrCanGetUpEasily()):
+		getUpFromSittingOnSomething()
 	global_position = _globalPos
 	var theDoll := getDoll()
 	if(theDoll):
 		theDoll.global_position = _globalPos
 		if(_resetSpeed):
 			theDoll.velocity = Vector3.ZERO
+	
+	# Teleport all of our leashed pawns with us. Janky but whatever
+	teleportLeashedToUs(_resetSpeed)
+
+func teleportLeashedToUs(_resetSpeed:bool = true):
+	var theLeashers := GM.main.leash_system.getAllLeashesOfSourceNode(self)
+	for theLeashInstance:LeashInstance in theLeashers:
+		if(theLeashInstance.isTargetAPawn()):
+			theLeashInstance.getTargetPawn().teleport(global_position, _resetSpeed)
+
+func teleportToLeasher() -> bool:
+	if(!isLeashedByAnyone()):
+		return false
+	var theLeashers := GM.main.leash_system.getAllLeashesOfTargetNode(self)
+	for theLeashInstance:LeashInstance in theLeashers:
+		if(theLeashInstance.isSourceAPawn()):
+			teleport(theLeashInstance.getSourcePawn().global_position)
+			return true
+	return false
 
 func isSittingOn(_node:Node3D) -> bool:
 	var theSeat := GM.sitManager.getSeatOfPawn(self)
@@ -1155,6 +1176,8 @@ func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _
 	var theCooldown:float = GM.main.relationshipSystem.getActionCooldown(getID(), _winnerPawn.getID(), SocialCooldown.Defeated)
 	GM.main.relationshipSystem.addActionCooldownPawns(self, _winnerPawn, SocialCooldown.Defeated)
 	GM.main.memorySystem.addMemory(getID(), BadMemories.Defeated, _winnerPawn.getID())
+	if(submission.isObeying()): # If we're dominated, we don't lose affection
+		return
 	addAffection(_winnerPawn, -0.5 / (1.0 + theCooldown))
 
 func addAffection(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true, _showMessageOtherPawn:bool = true):
@@ -1311,6 +1334,9 @@ func isLeashedByAnyone() -> bool:
 	if(!GM.leashSystem.getAllLeashesOfTargetNode(self).is_empty()):
 		return true
 	return false
+
+func isDominatedByAnyone() -> bool:
+	return submission.isObeying()
 
 # LEASH STUFF END
 

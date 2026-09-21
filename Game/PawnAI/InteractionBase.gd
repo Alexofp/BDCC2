@@ -250,13 +250,18 @@ func getRoleOf(_pawn:CharacterPawn) -> int:
 		return -1
 	return pawnToRole[_pawn]
 
-func pushDelay(_delay:float):
+const TALK_DELAY:float = 2.0
+func pushDelay(_delay:float = TALK_DELAY):
 	interactionQueue.append([QueueEntry.Delay, _delay])
 
 func pushSayRaw(_role:int, _text:String):
 	interactionQueue.append([QueueEntry.SayRaw, _role, _text])
 
 func pushSay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
+	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
+	pushDelay()
+
+func pushSayNoDelay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
 	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
 
 func pushLookAt(_role1:int, _role2:int):
@@ -764,9 +769,24 @@ func getAffection(_role1:int, _role2:int) -> float:
 		return 0.0
 	return GM.main.relationshipSystem.getAffection(thePawn1.getCharID(), thePawn2.getCharID())
 
+func addAnnoyanceMain(_mainAm:float):
+	if(_mainAm > 0.0):
+		getPawn(ROLE_MAIN).addAnnoyance(getPawn(ROLE_TARGET), _mainAm)
+func addAnnoyanceTarget(_targetAm:float):
+	if(_targetAm > 0.0):
+		getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), _targetAm)
 func addAnnoyanceMainTarget(_mainAm:float, _targetAm:float):
-	getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), _mainAm)
-	getPawn(ROLE_MAIN).addAnnoyance(getPawn(ROLE_TARGET), _targetAm)
+	addAnnoyanceMain(_mainAm)
+	addAnnoyanceTarget(_targetAm)
+
+func canStartFight(_roleStarter:int, _roleTarget:int, _playerAlwaysCan:bool = true) -> bool:
+	var _pawnStarter := getPawn(_roleStarter)
+	var _pawnTarget := getPawn(_roleTarget)
+	if(!_pawnStarter || !_pawnTarget):
+		return false
+	if(_pawnStarter.combatAI.canAddEnemy(_pawnTarget) || (_playerAlwaysCan && _pawnStarter.isControlledByAnyPlayer())):
+		return true
+	return false
 
 func doesSupportCombat() -> bool:
 	return false

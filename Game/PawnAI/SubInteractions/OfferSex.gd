@@ -27,8 +27,7 @@ func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 
 func start(_roles:Dictionary, _args:Array):
 	startSocialInteraction()
-	say(ROLE_MAIN, "OfferSex", ROLE_TARGET)
-	pushDelay(2.0)
+	pushSay(ROLE_MAIN, "OfferSex", ROLE_TARGET)
 
 func _actions(_role:int):
 	if(_role == ROLE_TARGET):
@@ -40,13 +39,11 @@ func _actions(_role:int):
 func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
 		socialInteractionStart()
-		say(ROLE_TARGET, "Sure", ROLE_MAIN)
-		pushDelay(3.0)
+		pushSay(ROLE_TARGET, "Sure", ROLE_MAIN)
 		pushSetState("follow")
 		#pushStopInteraction()
 	if(_action.id == "no"):
-		say(ROLE_TARGET, "No", ROLE_MAIN)
-		pushDelay(2.0)
+		pushSay(ROLE_TARGET, "No", ROLE_MAIN)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
 		pushSocialDenied()
 		pushStopInteraction()
@@ -73,8 +70,7 @@ func follow_do(_role:int, _action:InteractionAction):
 		#pushStopInteraction()
 		
 	if(_action.id == "cancel"):
-		say(ROLE_MAIN, "OfferSexCancel", ROLE_TARGET)
-		pushDelay(2.0)
+		pushSay(ROLE_MAIN, "OfferSexCancel", ROLE_TARGET)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
 		pushSocialDenied()
 		pushStopInteraction()
@@ -107,6 +103,5 @@ func onSexEngineResult(_result:SexEngineResult):
 	clearPushQueue()
 	pushDelay(2.0)
 	pushSay(ROLE_TARGET, "OfferSexEnd", ROLE_MAIN)
-	pushDelay(2.0)
 	pushSocialEnd()
 	pushStopInteraction()

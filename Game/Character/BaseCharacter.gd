@@ -54,7 +54,7 @@ func _init():
 	
 	effectsHolder.onEffectAdded.connect(func(_effect:StatusEffectBase):
 		onChange.emit(BaseCharChange.createStatusEffectAddedUpdate(_effect))
-		if(Network.isServer()):
+		if(_effect.showAboveCharacter && Network.isServer()):
 			var thePawn := getPawn()
 			if(thePawn):
 				thePawn.addSmallText("+"+_effect.getName(), _effect.getIconBackgroundColor())
@@ -64,7 +64,7 @@ func _init():
 		)
 	effectsHolder.onEffectRemoved.connect(func(_effect:StatusEffectBase, _holder:StatusEffectsHolder):
 		onChange.emit(BaseCharChange.createStatusEffectRemovedUpdate(_effect))
-		if(Network.isServer()):
+		if(_effect.showAboveCharacter && Network.isServer()):
 			var thePawn := getPawn()
 			if(thePawn):
 				thePawn.addSmallText("-"+_effect.getName(), Color.RED)

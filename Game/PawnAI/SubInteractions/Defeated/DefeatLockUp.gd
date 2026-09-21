@@ -115,7 +115,6 @@ func timeToSex_plan(_role:int, _action:AIActionBase) -> AIPlan:
 
 func onSexEngineResult(_result:SexEngineResult):
 	pushSay(ROLE_MAIN, "DefeatLockUpAfterSex", ROLE_TARGET)
-	pushDelay(2.0)
 	pushStopInteraction()
 
 func doingSex_plan(_role:int, _action:AIActionBase) -> AIPlan:
@@ -141,12 +140,10 @@ func onPlanCompleted(_role:int, _action:AIActionBase, _thePlan:AIPlan):
 		if(RNG.chance(100) && theStocksProp && theStocksProp.canStartSexOnProp([getPawn(ROLE_MAIN), theTarget])):
 			setState("justNothing")
 			pushSay(ROLE_MAIN, "DefeatLockUpSex", ROLE_TARGET)
-			pushDelay(2.0)
 			pushSetState("timeToSex")
 		else:
 			setState("afterLock")
 			pushSay(ROLE_MAIN, "DefeatLockUpEnd", ROLE_TARGET)
-			pushDelay(2.0)
 			pushStopInteraction()
 
 func onPlanFail(_role:int, _action:AIActionBase, _thePlan:AIPlan, _failedAction:AIActionBase, _failStatus:int):

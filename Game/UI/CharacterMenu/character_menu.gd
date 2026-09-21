@@ -142,7 +142,5 @@ func shoot_ray():
 		if(GM.pcDoll):
 			GM.dollHolder.askLookAtClear(GM.pcDoll)
 
-func _on_masturbate_button_pressed() -> void:
-	if(GM.pc):
-		GM.sexManager.askStartMasturbation(GM.pc.getID())
-		_on_close_button_pressed()
+func _on_character_tab_on_close_request() -> void:
+	_on_close_button_pressed()

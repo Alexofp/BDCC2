@@ -7,6 +7,7 @@ var time:float = 0.0
 var defaultTime:float = 30.0
 var timed:bool = true # If false, the time isn't used or checked
 var alwaysChecked:bool = false # If true, the status effect will check if it should be applied
+var showAboveCharacter:bool = true # Show the text above the character when they gain/lose the effect
 
 var staticBuffs:Array[Buff]
 var buffsNeedUpdate:bool = true

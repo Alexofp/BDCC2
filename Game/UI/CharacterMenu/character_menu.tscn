@@ -115,4 +115,5 @@ text = "Close"
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PoseButton" to="." method="_on_pose_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/InteractButton" to="." method="_on_interact_button_pressed"]
+[connection signal="onCloseRequest" from="PanelContainer/VBoxContainer/VBoxContainer/CharacterTab" to="." method="_on_character_tab_on_close_request"]
 [connection signal="pressed" from="PanelContainer/CloseControlSpace/CloseButton" to="." method="_on_close_button_pressed"]

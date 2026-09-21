@@ -39,7 +39,6 @@ func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 func start(_roles:Dictionary, _args:Array):
 	refreshDominance(ROLE_TARGET, ROLE_MAIN)
 	pushSay(ROLE_MAIN, OrderToDialogueLine.get(_args[0], "OrderUnknownOrder"), ROLE_TARGET)
-	pushDelay(2.0)
 	pushEvent("doOrder", _args)
 	pushStopInteraction()
 	pass

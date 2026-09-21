@@ -9,6 +9,29 @@ var socialUnlockConditions:Array[SocialUnlockConditionBase] = []
 var socialRequiredAgreeScore:float = 0.0
 var chanceCalculator:SocialInteractionChanceCalculatorBase
 
+const F_NAME := MemorySimpleBank.F_NAME
+const F_DESC := MemorySimpleBank.F_DESC
+const F_STACKMULT := MemorySimpleBank.F_STACKMULT
+const F_STACKMAX := MemorySimpleBank.F_STACKMAX
+const F_PRIORITY := MemorySimpleBank.F_PRIORITY
+const F_DURATION := MemorySimpleBank.F_DURATION
+const F_DURATION_EFFECTS := MemorySimpleBank.F_DURATION_EFFECTS
+const F_MOOD := MemorySimpleBank.F_MOOD
+
+func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
+	return {
+	#"Hug": {
+		#F_NAME: "Hug",
+		#F_DESC: "Getting hugged feels good.",
+		#F_STACKMULT: 0.5,
+		#F_STACKMAX: 3,
+		#F_DURATION: 600,
+		# #F_DURATION_EFFECTS: 30,
+		#
+		#F_MOOD: MoodValues.new().setMood(0.5),
+	#},
+	}
+
 var socialFlags:int = 0
 const SOCIALFLAG_SHOULD_END_TALKING := 1
 const SOCIALFLAG_MUST_BE_INTRODUCED := 2

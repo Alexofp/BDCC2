@@ -62,7 +62,6 @@ func start(_roles:Dictionary, _args:Array):
 	#startSocialInteraction()
 	var theIntroType:String = _args[0] if _args.size() > 0 else "normal"
 	pushSay(ROLE_MAIN, INTRO_TO_START_REACTION.get(theIntroType, "IntroduceNormal"), ROLE_TARGET)
-	pushDelay(2.0)
 
 func _actions(_role:int):
 	if(_role == ROLE_TARGET):
@@ -81,6 +80,5 @@ func _actions(_role:int):
 func _do(_role:int, _action:InteractionAction):
 	var theIntroType:String = _action.id
 	pushSay(ROLE_TARGET, INTRO_TO_REACT_REACTION.get(theIntroType, "IntroduceNormal"), ROLE_MAIN)
-	pushDelay(2.0)
 	pushStopInteraction()
 	GM.main.relationshipSystem.markKnows(getCharID(ROLE_MAIN), getCharID(ROLE_TARGET))

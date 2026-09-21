@@ -12,8 +12,7 @@ func getRequiredRoles(_args:Array) -> Dictionary[int, String]:
 func start(_roles:Dictionary, _args:Array):
 	lookAt(ROLE_MAIN, ROLE_TARGET)
 	#sayText(ROLE_MAIN, "What's your problem?")
-	say(ROLE_MAIN, "OrderDominate", ROLE_TARGET)
-	pushDelay(2.0)
+	pushSay(ROLE_MAIN, "OrderDominate", ROLE_TARGET)
 	#pushStopInteraction()
 	#pushSay(ROLE_TARGET, "What?")
 	#pushLookAt(ROLE_TARGET, ROLE_MAIN)
@@ -36,7 +35,6 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "resist"):
 		setState("resisted")
 		pushSay(ROLE_TARGET, "OrderDominateDenyConsent", ROLE_MAIN)
-		pushDelay(2.0)
 	if(_action.id == "submit"):
 		const cooldownName:String = "DominatedPBCD" #Dominated power balance cooldown
 		if(!hasActionCooldown(ROLE_TARGET, ROLE_MAIN, cooldownName)):
@@ -44,13 +42,11 @@ func _do(_role:int, _action:InteractionAction):
 			addPowerBalance(ROLE_MAIN, ROLE_TARGET, 0.25)
 			
 		pushSay(ROLE_TARGET, "OrderDominateAnswer", ROLE_MAIN)
-		pushDelay(2.0)
 		if(!getPawn(ROLE_TARGET).submission.isObeyingPawn(getPawn(ROLE_MAIN)) && !getPawn(ROLE_TARGET).submission.tryMakeObeyPawn(getPawn(ROLE_MAIN))):
 			# Something went wrong, abort
 			# Should stop the ai goal
 			sendAIGoalEvent(ROLE_MAIN, "cancel")
 			pushSay(ROLE_MAIN, "OrderDominateUnableToDom", ROLE_MAIN)
-			pushDelay(2.0)
 			pushStopInteraction()
 			return
 		pushEvent("startPunish")
@@ -80,5 +76,4 @@ func resisted_do(_role:int, _action:InteractionAction):
 		# Should stop the ai goal
 		sendAIGoalEvent(ROLE_MAIN, "cancel")
 		pushSay(ROLE_MAIN, "OrderDominateAbort", ROLE_MAIN)
-		pushDelay(2.0)
 		pushStopInteraction()

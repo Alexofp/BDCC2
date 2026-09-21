@@ -1,6 +1,7 @@
 extends RefCounted
 class_name MemorySimpleBank
 
+# MAKE SURE THESE ARE SYNCED WITH THE InteractionSocialBase ONES
 const F_NAME := 0
 const F_DESC := 1
 const F_STACKMULT := 2
@@ -18,10 +19,15 @@ const F_MOOD := 10 # How 'good' does this memory makes us feel
 var memories:Dictionary[String, Dictionary]
 
 func createMemories() -> Array[MemorySimple]:
+	return createMemoriesFrom(memories)
+
+static func createMemoriesFrom(_memories:Dictionary[String, Dictionary]) -> Array[MemorySimple]:
+	if(_memories.is_empty()):
+		return []
 	var result:Array[MemorySimple] = []
 	
-	for memoryID in memories:
-		var theEntry:Dictionary = memories[memoryID]
+	for memoryID in _memories:
+		var theEntry:Dictionary = _memories[memoryID]
 		
 		var newMemory := MemorySimple.new()
 		newMemory.id = memoryID
@@ -39,17 +45,17 @@ func createMemories() -> Array[MemorySimple]:
 	
 	return result
 
-func getFloat(_entry:Dictionary, _name:int, _default:float = 0.0) -> float:
+static func getFloat(_entry:Dictionary, _name:int, _default:float = 0.0) -> float:
 	if(!_entry.has(_name)):
 		return _default
 	return _entry[_name]
 
-func getString(_entry:Dictionary, _name:int, _default:String = "") -> String:
+static func getString(_entry:Dictionary, _name:int, _default:String = "") -> String:
 	if(!_entry.has(_name)):
 		return _default
 	return _entry[_name]
 
-func getInt(_entry:Dictionary, _name:int, _default:int = 0) -> int:
+static func getInt(_entry:Dictionary, _name:int, _default:int = 0) -> int:
 	if(!_entry.has(_name)):
 		return _default
 	return _entry[_name]

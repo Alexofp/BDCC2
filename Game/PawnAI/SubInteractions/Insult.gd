@@ -1,6 +1,5 @@
-extends InteractionSocialBase
+extends InteractionSocialSimpleBase
 
-var insultLines: Array[String]
 var meanResponce:String
 var calmResponce:String
 
@@ -11,75 +10,63 @@ func _init() -> void:
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_MEAN + 1.0
+	
+	startLinesTopic = "Insult"
+	startLinesAmount = 4
+	startLineFallback = "You are not very bright, are you?"
+	#answerAcceptActionName = "Accept"
+	#answerAcceptReaction = "ComplimentAccept"
+	#answerAcceptReactionCritical = "ComplimentAccept"
+	#answerDenyActionName = "Deny"
+	#answerDenyReaction = "ComplimentDeny"
+	#answerDenyReactionCritical = "ComplimentDeny"
 
 func prepareChanceCalculator():
-	setChanceCalculator(SICCAlways.new())
+	setChanceCalculator(SICCAlways.new().withCritChances(0.1, 0.0))
 
 func onSocialInteractionEnd():
 	addSocialExhaustion()
 	addRewardAffection(-0.5)
 	addMemoryTarget(BadMemories.Insulted)
 
-func canDoSocialAction(_c:SocialInteractionContext) -> bool:
-	return true
+func onSaidStartLineSimple():
+	addAnnoyanceTarget(0.4)
 
-func start(_roles: Dictionary, _args: Array):
-	startSocialInteraction()
-	insultLines = getXSayLines(4, ROLE_MAIN, "Insult", ROLE_TARGET)
-	if insultLines.is_empty():
-		insultLines = ["You are not very bright, are you?"]
+func getAnswersSimple():
+	var theMainPawn := getPawn(ROLE_MAIN)
+	var theTargetPawn := getPawn(ROLE_TARGET)
+	#var agreeScore := scoreSocialAgree()
+	
+	var theAnnoyance := GM.main.relationshipSystem.getAnnoyancePawns(theTargetPawn, theMainPawn)
+	var theAffection := getAffection(ROLE_MAIN, ROLE_TARGET)
+	var theMeanScore :float = clampf(-theAffection, 0.1, 1.0)
+	
+	if(meanResponce.is_empty()):
+		meanResponce = getSay(ROLE_TARGET, "InsultResponse", ROLE_MAIN)
+	if(calmResponce.is_empty()):
+		calmResponce = getSay(ROLE_TARGET, "InsultResponseOuch", ROLE_MAIN)
+	
+	addAction(action("mean", meanResponce, theMeanScore))
+	addAction(action("calm", calmResponce, 1.0-theMeanScore))
+	if(canStartFight(ROLE_TARGET, ROLE_MAIN)):
+		addAction(action("fight", "*Start Fight*", theAnnoyance*2.0))
 
-func _actions(_role: int):
-	if _role == ROLE_MAIN:
-		for theLine in insultLines:
-			addAction(action("say", theLine).setArgs([theLine]).setScore(1.0))
-
-func _do(_role: int, _action: InteractionAction):
-	if _action.id == "say":
-		socialInteractionStart()
-		sayText(ROLE_MAIN, _action.args[0])
-		pushDelay(2.0)
-		pushSetState("answer")
-
-func answer_actions(_role: int):
-	if _role == ROLE_TARGET:
-		var theMainPawn := getPawn(ROLE_MAIN)
-		var theTargetPawn := getPawn(ROLE_TARGET)
-		#var agreeScore := scoreSocialAgree()
-		
-		var theAnnoyance := GM.main.relationshipSystem.getAnnoyancePawns(theTargetPawn, theMainPawn)
-		var theAffection := getAffection(ROLE_MAIN, ROLE_TARGET)
-		var theMeanScore :float = clampf(-theAffection, 0.1, 1.0)
-		
-		if(meanResponce.is_empty()):
-			meanResponce = getSay(ROLE_TARGET, "InsultResponse", ROLE_MAIN)
-		if(calmResponce.is_empty()):
-			calmResponce = getSay(ROLE_TARGET, "InsultResponseOuch", ROLE_MAIN)
-		
-		addAction(action("mean", meanResponce, theMeanScore))
-		addAction(action("calm", calmResponce, 1.0-theMeanScore))
-		if(theTargetPawn.combatAI.canAddEnemy(theMainPawn)):
-			addAction(action("fight", "*Start Fight*", theAnnoyance*2.0))
-
-func answer_do(_role: int, _action: InteractionAction):
-	if _action.id == "mean":
-		#say(ROLE_TARGET, "InsultAccept", ROLE_MAIN)
+func onAnswerSimple(_id:String, _role:int, _action:InteractionAction):
+	if _id == "mean":
+		socialInteractionAgree()
 		sayText(ROLE_TARGET, _action.actionName)
-		addAnnoyanceMainTarget(0.3, 0.6)
-		pushDelay(2.0)
+		pushDelay()
 		pushSocialEnd()
 		pushStopInteraction()
-	if _action.id == "calm":
-		#say(ROLE_TARGET, "InsultDeny", ROLE_MAIN)
+	if _id == "calm":
+		socialInteractionDeny()
 		sayText(ROLE_TARGET, _action.actionName)
-		addAnnoyanceMainTarget(0.0, 0.3)
-		#getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 0.4)
-		pushDelay(2.0)
+		pushDelay()
 		pushSocialDenied()
 		pushStopInteraction()
-	if _action.id == "fight":
+	if _id == "fight":
 		markInteractionShouldEndTalking()
-		getPawn(ROLE_TARGET).addAnnoyance(getPawn(ROLE_MAIN), 1.0)
+		addAnnoyanceTarget(1.0)
 		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, false)

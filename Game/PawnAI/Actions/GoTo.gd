@@ -66,13 +66,18 @@ func think():
 	var curPos := getPosNoY()
 	var theDist := curPos.distance_squared_to(savedPos)
 	#print(theDist)
-	if(theDist < 0.5 && getPawn().canMove() && !_isLeashed):
+	if(theDist < 0.5 && getPawn().canMove()):
 		stuckTimer += 1
 		if(stuckTimer >= 8):
 			teleportToNextPathPosition()
 			stuckTimer = 0
 		elif((stuckTimer % 3) == 2):
-			doJump()
+			if(_isLeashed && getPawn().teleportToLeasher()):
+				stuckTimer = 0
+			else:
+				doJump()
+		if(stuckTimer == 4):
+			getPawn().teleportLeashedToUs()
 	elif(stuckTimer > 0):
 		stuckTimer = int(stuckTimer * 0.5)
 	

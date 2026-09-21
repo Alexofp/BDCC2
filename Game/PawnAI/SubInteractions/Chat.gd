@@ -35,8 +35,7 @@ func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 
 func start(_roles:Dictionary, _args:Array):
 	startSocialInteraction()
-	say(ROLE_MAIN, "WannaChat", ROLE_TARGET)
-	pushDelay(2.0)
+	pushSay(ROLE_MAIN, "WannaChat", ROLE_TARGET)
 
 func _actions(_role:int):
 	if(_role == ROLE_TARGET):
@@ -48,15 +47,13 @@ func _actions(_role:int):
 func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
 		socialInteractionAgree()
-		say(ROLE_TARGET, "Sure", ROLE_MAIN)
-		pushDelay(3.0)
+		pushSay(ROLE_TARGET, "Sure", ROLE_MAIN)
 		doRandomTalk()
 		pushSetState("afterTalk")
 		#pushStopInteraction()
 	if(_action.id == "no"):
 		socialInteractionDeny()
-		say(ROLE_TARGET, "No", ROLE_MAIN)
-		pushDelay(2.0)
+		pushSay(ROLE_TARGET, "No", ROLE_MAIN)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
 		pushSocialDenied()
 		pushStopInteraction()
@@ -68,11 +65,10 @@ func doRandomTalk():
 	howManyChats += 1
 	socialInteractionStart()
 	pushSay(theTalkerRole, "Talk", theListenerRole)
-	pushDelay(3.0)
 	pushSocialShowSuccess()
 	pushDelay(1.0)
 	pushSay(theListenerRole, "Talk", theTalkerRole)
-	pushDelay(4.0)
+	pushDelay(1.0)
 	pushSocialEnd()
 	pushEvent("afterTalk")
 
@@ -91,8 +87,7 @@ func afterTalk_actions(_role:int):
 		
 func afterTalk_do(_role:int, _action:InteractionAction):
 	if(_action.id == "enough"):
-		say(_role, "EnoughChatSocial", ROLE_MAIN if _role == ROLE_TARGET else ROLE_TARGET)
-		pushDelay(2.0)
+		pushSay(_role, "EnoughChatSocial", ROLE_MAIN if _role == ROLE_TARGET else ROLE_TARGET)
 		pushStopInteraction()
 
 func afterTalk_processRare(_dt:float):

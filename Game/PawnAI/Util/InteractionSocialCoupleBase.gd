@@ -27,8 +27,7 @@ func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 
 func start(_roles:Dictionary, _args:Array):
 	startSocialInteraction()
-	say(ROLE_MAIN, askText, ROLE_TARGET)
-	pushDelay(2.0)
+	pushSay(ROLE_MAIN, askText, ROLE_TARGET)
 
 func _actions(_role:int):
 	if(_role == ROLE_TARGET):
@@ -40,12 +39,13 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
 		#state = "chat"
 		socialInteractionStart()
-		say(ROLE_TARGET, lineSure, ROLE_MAIN)
-		pushDelay(2.0)
+		socialInteractionAgree()
+		pushSay(ROLE_TARGET, lineSure, ROLE_MAIN)
 		pushSetState("doing")
 	if(_action.id == "no"):
-		say(ROLE_TARGET, lineNo, ROLE_MAIN)
-		pushDelay(2.0)
+		socialInteractionStart()
+		socialInteractionDeny()
+		pushSay(ROLE_TARGET, lineNo, ROLE_MAIN)
 		pushSocialDenied()
 		pushStopInteraction()
 

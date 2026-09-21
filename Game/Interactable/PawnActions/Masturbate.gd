@@ -9,7 +9,7 @@ func getVisibleName(_context:PawnActionContext) -> String:
 	return "Masturbate"
 
 func canDoAction(_context:PawnActionContext) -> bool:
-	if(GM.sitManager.isSitting(_context.pawn)):
+	if(!GM.sexManager.canStartMasturbation(_context.pawn)):
 		return false
 	return true
 

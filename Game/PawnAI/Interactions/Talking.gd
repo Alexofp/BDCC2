@@ -30,7 +30,6 @@ func start(_roles:Dictionary, _args:Array):
 		
 		if(theAnnoyance > 0.4 && !isPlayer(ROLE_TARGET)):
 			pushSay(ROLE_TARGET, "GreetFailAnnoyed", ROLE_MAIN)
-			pushDelay(2.0)
 			pushStopInteraction()
 	
 	#startSubInteraction("someTag", "Chat", {main=ROLE_MAIN, target=ROLE_TARGET}, [])

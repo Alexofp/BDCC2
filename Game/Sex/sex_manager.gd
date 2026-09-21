@@ -112,10 +112,28 @@ func askStartMasturbation(_charID:String):
 	else:
 		askStartMasturbation_SERVERRPC(_charID)
 
+func canStartMasturbation(_pawn:CharacterPawn) -> bool:
+	if(GM.sitManager.isSitting(_pawn)):
+		return false
+	if(_pawn.isInCombatMode()):
+		return false
+	if(_pawn.isDoingSomething()):
+		return false
+	if(_pawn.isDoingSex()):
+		return false
+	if(_pawn.isLeashedByAnyone()): # To prevent them from freezing themselves in place?
+		return false
+	if(_pawn.isDominatedByAnyone()): # Maybe the dom should be able to order the sub to masturbate
+		return false
+	
+	return true
+
 @rpc("any_peer", "call_remote", "reliable")
 func askStartMasturbation_SERVERRPC(_pawnID:String):
 	var thePawn := GM.pawnRegistry.getPawn(_pawnID)
 	if(!thePawn):
+		return
+	if(!canStartMasturbation(thePawn)):
 		return
 	var newSex := SexStartConf.new()
 	newSex.sexType = SexType.Solo

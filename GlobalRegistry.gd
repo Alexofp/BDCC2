@@ -251,6 +251,8 @@ func doInit():
 	
 	registerAIActionFolder("res://Game/PawnAI/Actions/")
 	
+	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
+	
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
 	sortInteractions()
@@ -264,7 +266,6 @@ func doInit():
 	registerAIComboFolder("res://Game/Combat/AICombos/")
 	
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
-	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
 	
 	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
 	
@@ -752,7 +753,12 @@ func registerInteraction(path: String):
 				interactionsBySocialType[socialType] = newAr
 			else:
 				interactionsBySocialType[socialType].append(object)
+		
 		object.postRegistration()
+		if(object is InteractionSocialBase):
+			var theMemories:Array[MemorySimple] = MemorySimpleBank.createMemoriesFrom(object.getMemoriesToRegister())
+			for theMemory in theMemories:
+				memories[theMemory.id] = theMemory
 
 func sortInteractions():
 	for socialType in interactionsBySocialType:
@@ -1230,10 +1236,12 @@ func reloadReactionBanks():
 	loadMainReactionBankFolder("res://Reactions/Main/")
 
 func reloadInteractions():
+	memories.clear()
 	interactions.clear()
 	interactionRefs.clear()
 	interactionsBySocialType.clear()
 	
+	registerMemoriesFolder("res://Game/Systems/MemorySystem/Memories/")
 	registerInteractionFolder("res://Game/PawnAI/Interactions/")
 	registerInteractionFolder("res://Game/PawnAI/SubInteractions/")
 	sortInteractions()

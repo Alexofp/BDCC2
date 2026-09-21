@@ -18,7 +18,6 @@ func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 
 func start(_roles:Dictionary, _args:Array):
 	pushSay(ROLE_MAIN, "OrderYoureFree", ROLE_TARGET)
-	pushDelay(2.0)
 	pushEvent("stopOrdering")
 	pushStopInteraction()
 	pass
