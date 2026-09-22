@@ -1,0 +1,30 @@
+def WannaHug
+fill WannaHug simple
+<
+Wanna hug?
+>
+
+fill WannaHug another
+priority 1
+cond target.memory.has("Hug", main)
+<
+Want another hug?
+>
+fill WannaHug third
+priority 2
+cond target.memory.amountOf("Hug", main) == 2
+<
+Want a third hug?
+>
+
+def HugSure
+fallback Sure
+def HugNo
+fallback No
+
+
+def Memory_Hug
+fill Memory_Hug simple
+<
+Got hugged by {target.name}% MemoryRecently%. That felt good.
+>

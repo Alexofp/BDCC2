@@ -15,6 +15,20 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 4.1
 
+func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
+	return {
+		id: {
+			F_NAME: "Embraced",
+			F_DESC: "Getting hugged feels good.",
+			F_STACKMULT: 0.5,
+			F_STACKMAX: 3,
+			F_DURATION: 600,
+			#F_DURATION_EFFECTS: 30,
+			
+			F_MOOD: MoodValues.new().setMood(0.6),
+		},
+	}
+
 func prepareUnlockConditions():
 	addUnlockCondition(SocialUnlockAffectionCondition.new(2.0))
 	pass
@@ -31,11 +45,11 @@ func onSocialInteractionEnd():
 	addSocialCooldown(1000.0)
 	if(isCriticalSuccess()):
 		addRewardAffection(5.0)
-		addMemoryTarget(FriendlyMemories.Embraced)
+		addMemoryTarget(id)
 	elif(isCriticalFail()):
 		addRewardAffection(-3.0)
 	elif(isSuccess()):
 		addRewardAffection(2.0)
-		addMemoryTarget(FriendlyMemories.Embraced)
+		addMemoryTarget(id)
 	elif(isFail()):
 		addRewardAffection(-1.0)

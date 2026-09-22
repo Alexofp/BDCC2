@@ -300,3 +300,8 @@ func doesSupportCombat() -> bool:
 
 func markInteractionShouldEndTalking():
 	socialFlags |= SOCIALFLAG_SHOULD_END_TALKING
+
+func canRoleStopTalkingAtAnyPoint(_role:int) -> bool:
+	if(_role == ROLE_TARGET):
+		return true
+	return false

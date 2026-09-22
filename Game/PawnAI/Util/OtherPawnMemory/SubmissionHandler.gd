@@ -111,6 +111,8 @@ func processSubmission(_dt:float):
 	var theSuppression:float = theChar.buffsHolder.supression if theChar else 0.0
 	var theSupMult:float = clampf(1.0-theSuppression, -0.9, 10.0)
 	
+	if(obeyPawn.isDefeated()):
+		dominance -= _dt * 0.2
 	if(pawn.isLeashedBy(obeyPawn)):
 		dominance += _dt * 0.05
 	elif(pawn.isDoingACoupleAnimation() || pawn.isDoingSex()):

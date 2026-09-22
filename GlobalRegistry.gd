@@ -1234,6 +1234,7 @@ func reloadReactionBanks():
 		Log.Print("Reloading dialogue reaction banks")
 	mainReactionBank.reset()# = ReactionBank.new()
 	loadMainReactionBankFolder("res://Reactions/Main/")
+	loadMainReactionBankFolder("res://Game/PawnAI/SubInteractions/")
 
 func reloadInteractions():
 	memories.clear()

@@ -26,3 +26,9 @@ fill ComplimentDeny simple
 <
 Don't bother.
 >
+
+def Memory_Compliment
+fill Memory_Compliment simple
+<
+I got complimented by {target.name}% MemoryRecently%.
+>

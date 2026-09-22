@@ -1,0 +1,20 @@
+def AskDay_Start
+<
+How was your day?
+>
+
+def AskDay_Nothing
+<
+Nothing much has happened.
+>
+
+def AskDay_End
+<
+That's about it.
+>
+
+def EnoughChatSocial
+fill EnoughChatSocial simple
+<
+That's enough chat for now.
+>

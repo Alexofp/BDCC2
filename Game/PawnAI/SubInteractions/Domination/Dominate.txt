@@ -1,0 +1,23 @@
+def Dominate
+fill Dominate simple
+<
+You gonna do what I tell you to do. Understand?
+>
+
+def DominateAccept
+fill DominateAccept simple
+<
+I submit to you.
+>
+
+def DominateDeny
+fill DominateDeny simple
+<
+What? No.
+>
+
+def DominateDenyCrit
+fill DominateDenyCrit simple
+<
+Go fuck yourself!
+>

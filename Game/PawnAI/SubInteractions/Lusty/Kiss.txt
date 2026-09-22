@@ -1,0 +1,29 @@
+def WannaKiss
+fill WannaKiss simple
+<
+Wanna kiss?
+>
+
+fill WannaKiss another
+priority 1
+cond target.memory.has("Kiss", main)
+<
+Want another kiss?
+>
+fill WannaKiss third
+priority 2
+cond target.memory.amountOf("Kiss", main) == 2
+<
+Want a third kiss?
+>
+
+def KissSure
+fallback Sure
+def KissNo
+fallback No
+
+def Memory_Kiss
+fill Memory_Kiss simple
+<
+Got kissed by {target.name}% MemoryRecently%. That felt good.
+>

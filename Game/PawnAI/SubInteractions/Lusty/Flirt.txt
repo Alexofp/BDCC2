@@ -1,0 +1,39 @@
+def Flirt
+fill Flirt simple
+<
+You're a charming one. I like you.
+I’d let you ruin my sleep schedule.
+I’m not saying you’re my type, but I am saying my type is now you.
+Come here often? Because I’d like you to.
+I’m going to kiss you someday. Consider this a warning.
+I like you. I’m not going to pretend I don’t.
+Are you made of sugar? Because you’re sweet.
+I feel like we have a really special connection. I like you.
+You're the highlight of my day, you know that?
+I bet you're a great kisser.
+You're trouble, aren't you? I like trouble.
+If I said you had a beautiful body, would you hold it against me?
+You make my heart beat a little faster. I think I like you.
+I've been thinking.. I really like you. Like, really like you.
+I love spending time with you, you know? You're cute.
+Can I tell you something? I think you're wonderful.
+You have a body made for sin. I like you.
+>
+
+def FlirtAccept
+fill FlirtAccept simple
+<
+Thank you.
+>
+
+def FlirtDeny
+fill FlirtDeny simple
+<
+Don't bother.
+>
+
+def Memory_Flirt
+fill Memory_Flirt simple
+<
+I got flirted on by {target.name}% MemoryRecently%.
+>

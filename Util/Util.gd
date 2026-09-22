@@ -87,7 +87,7 @@ static func getFilesInFolderSmart(folder: String, extension:String, includeThisF
 			if dir.current_is_dir():
 				if(includeSubFolders):
 					var full_path = folder.path_join(file_name)
-					result.append_array(getScriptsInFolderSmart(full_path, true, reqursive))
+					result.append_array(getFilesInFolderSmart(full_path, extension, true, reqursive))
 				#print("Found directory: " + file_name)
 			else:
 				if(!includeThisFolder):

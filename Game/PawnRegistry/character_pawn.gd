@@ -422,8 +422,10 @@ func canStartTalkAtAll() -> bool:
 		return false
 	return true
 
-func canStartTalkWith(_starter:CharacterPawn) -> bool:
-	if(!canStartTalkAtAll() || !_starter.canStartTalkAtAll()):
+func canStartTalkWith(_target:CharacterPawn) -> bool:
+	if(!canStartTalkAtAll() || !_target.canStartTalkAtAll()):
+		return false
+	if(submission.isObeyingPawn(_target)): # If we're dominated, we can't talk with our dom
 		return false
 	#if(isDoingSomething() && is)
 	#if(combatAI.hasEnemies()):

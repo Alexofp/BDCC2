@@ -1,0 +1,18 @@
+def WannaEmbrace
+fill WannaEmbrace simple
+<
+Can I hug you tightly?
+>
+
+fill WannaEmbrace another
+priority 1
+cond target.memory.has("Embraced", main)
+<
+Can I hug you tightly again?
+>
+
+def Memory_Embrace
+fill Memory_Embrace simple
+<
+Got embraced by {target.name}% MemoryRecently%. That felt very good.
+>

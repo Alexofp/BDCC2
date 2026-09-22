@@ -18,7 +18,7 @@ func getVisibleName(_context:PawnActionContext) -> String:
 func canDoAction(_context:PawnActionContext) -> bool:
 	if(!_context.isTargetAPawn()):
 		return false
-	if(!_context.target.canStartTalkWith(_context.pawn)):
+	if(!_context.pawn.canStartTalkWith(_context.target)):
 		return false
 	return true
 

@@ -3,24 +3,32 @@ extends InteractionSocialBase
 func _init() -> void:
 	id = "OfferSex"
 	socialActionName = "Offer sex"
-	socialActionCategory = CATEGORY_FRIENDLY
+	socialActionCategory = CATEGORY_LUSTY
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 5.0
 
 func prepareUnlockConditions():
-	addUnlockCondition(SocialUnlockAffectionCondition.new(0.0))
+	#addUnlockCondition(SocialUnlockAffectionCondition.new(0.0))
+	pass
 
 func prepareChanceCalculator():
-	setChanceCalculator(SICCAlways.new())
+	var theSICC := SICCSimple.new().withCritChances(0.3, 0.0)
+	theSICC.setChance(SICC.Lust, 0.04, 0.5, 1.0, 3.0)
+	theSICC.setChance(SICC.PowerBalance, 0.0, 1.0, 1.0, 3.0)
+	setChanceCalculator(theSICC)
 
 func onSocialInteractionEnd():
 	if(isSuccess()):
 		addRewardLust(0.5)
 		addMemoryTarget(FriendlyMemories.GoodSex)
 	if(isFail()):
-		addRewardLust(-0.4)
+		addRewardAffection(-0.3)
+		#addSocialCooldown()
+	if(isCriticalFail()):
+		addAnnoyanceTarget(1.0)
 		addSocialCooldown()
+		markInteractionShouldEndTalking()
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
@@ -39,11 +47,14 @@ func _actions(_role:int):
 func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "yes"):
 		socialInteractionStart()
+		socialInteractionAgree()
 		pushSay(ROLE_TARGET, "Sure", ROLE_MAIN)
 		pushSetState("follow")
 		#pushStopInteraction()
 	if(_action.id == "no"):
-		pushSay(ROLE_TARGET, "No", ROLE_MAIN)
+		socialInteractionStart()
+		socialInteractionDeny()
+		pushSay(ROLE_TARGET, "OfferSexDeny" if !isCriticalFail() else "OfferSexDenyCrit", ROLE_MAIN)
 		#pushAddAffection(ROLE_MAIN, ROLE_TARGET, -0.1)
 		pushSocialDenied()
 		pushStopInteraction()

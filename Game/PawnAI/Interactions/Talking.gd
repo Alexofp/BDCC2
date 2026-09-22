@@ -94,6 +94,22 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "fight"):
 		#startSubInteraction("ff", "FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
 		startInteraction("FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})
+	if(_action.id == "base_cancel_talk"):
+		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
+			say(ROLE_TARGET, "TalkStopWastingTime", ROLE_MAIN)
+		stopLookAt(ROLE_MAIN)
+		stopLookAt(ROLE_TARGET)
+		stopInteraction()
+
+func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
+	var theActions := super.getActionsFor(_pawn)
+	
+	#if(subInteraction && (subInteraction is InteractionSocialBase) && subInteraction.canDoActions()):
+	if(!subInteraction && canDoActions() && getRoleOf(_pawn) != ROLE_MAIN):
+		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
+			addAction(action("base_cancel_talk", "Cancel talk").setOnTimeout(30.0))
+	
+	return theActions
 
 func getActions(_role:int):
 	pass

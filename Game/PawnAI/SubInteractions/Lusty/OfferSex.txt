@@ -1,0 +1,33 @@
+def OfferSex
+fill OfferSex simple
+<
+Wanna fuck?
+>
+
+def OfferSexEnd
+fill OfferSexEnd simple
+<
+Thanks. That was fun.
+>
+
+def OfferSexCancel
+fill OfferSexCancel simple
+<
+I changed my mind.
+>
+
+def OfferSexDeny
+fill OfferSexDeny simple
+<
+No.
+I don't wanna have sex with you.
+Sex? No.
+>
+
+def OfferSexDenyCrit
+fill OfferSexDenyCrit simple
+<
+No. Go fuck yourself instead.
+Fuck you, don't ask me that.
+How about you go fuck yourself instead.
+>

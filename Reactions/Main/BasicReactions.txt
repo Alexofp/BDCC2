@@ -18,30 +18,6 @@ I don't want to talk with you.
 You're being annoying, go away.
 >
 
-def WannaChat
-fill WannaChat simple
-<
-Wanna chat?
->
-
-def WannaHug
-fill WannaHug simple
-<
-Wanna hug?
->
-
-fill WannaHug another
-priority 1
-cond target.memory.has("Hug", main)
-<
-Want another hug?
->
-fill WannaHug third
-priority 2
-cond target.memory.amountOf("Hug", main) == 2
-<
-Want a third hug?
->
 
 def Sure
 fill Sure simple
@@ -56,10 +32,6 @@ fill No simple
 No.
 >
 
-def HugSure
-fallback Sure
-def HugNo
-fallback No
 
 def NeverMind
 fill NeverMind simple
@@ -74,10 +46,10 @@ fill EnoughChat simple
 That's enough for now.
 >
 
-def EnoughChatSocial
-fill EnoughChatSocial simple
+def TalkStopWastingTime
+fill TalkStopWastingTime simple
 <
-That's enough chat for now.
+Stop wasting my time.
 >
 
 def Annoyed
@@ -93,160 +65,4 @@ def AnnoyedStartFight
 fill AnnoyedStartFight simple
 <
 Alright, now you're getting it!
->
-
-def Talk
-fill Talk
-<
-%Talk_Start%%Talk_Dots%%Talk_Incite%%Talk_Dots%%Talk_Middle%%Talk_Dots%%Talk_End%.
->
-
-def Talk_Start
-fill Talk_Start simple
-<
-Hey
-So
-Well
-Um
-I mean
-Look
-Right
-Okay, so
-Funny thing is
-You know
-Honestly
-Just saying
-Here’s the thing
-Not to ramble, but
-I was thinking
-It’s like
-Anyway
-Actually
-So, yeah
->
-
-def Talk_Incite
-fill Talk_Incite simple
-<
-did you hear about
-word is
-they’re saying
-I heard from someone
-people keep talking about
-the whole block knows
-nobody’s saying it out loud, but
-it’s going around that
-you didn’t hear this from me, but
-rumor has it
-they’ve been whispering about
->
-
-def Talk_Middle
-fill Talk_Middle simple
-<
-before I forget
-and then I just
-which was weird because
-you know what I mean
-but it wasn’t really like that
-and that’s when it got strange
-or maybe not strange, just
-kind of impossible to explain
-if that makes any sense
-which is why I said
-and I still don’t know why
-like I was supposed to
-and then everything sort of
-but only for a second
-as if that changed something
-or at least I thought so
-and that’s where it gets messy
-which, honestly, is normal
-then I figured maybe
-like, out of nowhere
-and then, well
->
-
-def Talk_End
-fill Talk_End simple
-<
-yep
-or something
-I guess
-that’s all
-more or less
-probably
-you know
-that’s what happened
-end of story
-sort of
-I think
-anyway
-whatever that means
-and that was it
-so, yeah
-I’m not sure
-maybe
-right
-done
-there you go
->
-
-def Talk_Dots
-fill Talk_Dots dots
-<
-.. ...
-... ...
-... ..
-... ... ..
-... .. ...
-.. ...
-.... ...
->
-
-
-def AskDay_Start
-<
-How was your day?
->
-
-def AskDay_Nothing
-<
-Nothing much has happened.
->
-
-def AskDay_End
-<
-That's about it.
->
-
-def OfferSex
-fill OfferSex simple
-<
-Wanna fuck?
->
-
-def OfferSexEnd
-fill OfferSexEnd simple
-<
-Thanks. That was fun.
->
-
-def OfferSexCancel
-fill OfferSexCancel simple
-<
-I changed my mind.
->
-
-def WannaEmbrace
-fill WannaEmbrace simple
-<
-Can I hug you tightly?
->
-
-fill WannaEmbrace another
-priority 1
-cond target.memory.has("Embraced", main)
-<
-Can I hug you tightly again?
 >

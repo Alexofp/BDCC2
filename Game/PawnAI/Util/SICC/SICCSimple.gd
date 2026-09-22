@@ -39,3 +39,8 @@ func getActionPostfix(_context:SocialInteractionContext) -> String:
 		return "Chance >95%"
 	
 	return "Chance ~"+str(roundf(theChance*20.0)*5.0)+"%"
+
+func withCritChances(_failChance:float, _critWinChance:float) -> SICCSimple:
+	critWinChance = _critWinChance
+	critFailChance = _failChance
+	return self

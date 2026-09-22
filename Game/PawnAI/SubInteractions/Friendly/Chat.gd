@@ -12,6 +12,20 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY + 1.0
 
+func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
+	return {
+		id: {
+			F_NAME: "Chat",
+			F_DESC: "I had a good chat.",
+			F_STACKMULT: 0.7,
+			F_STACKMAX: 5,
+			F_DURATION: 240,
+			#F_DURATION_EFFECTS: 60,
+			
+			F_MOOD: MoodValues.new().setMood(0.3),
+		},
+	}
+
 func prepareChanceCalculator():
 	setChanceCalculator(SICCChat.new())
 
@@ -23,10 +37,10 @@ func onSocialInteractionEnd():
 	#addRewardPowerBalance(0.3)
 	if(isCriticalSuccess()):
 		addRewardAffection(0.5)
-		addMemoryTarget(FriendlyMemories.Chat)
+		addMemoryTarget(id)
 	elif(isSuccess()):
-		addRewardAffection(1.15)
-		addMemoryTarget(FriendlyMemories.Chat)
+		addRewardAffection(0.15)
+		addMemoryTarget(id)
 	if(isFail()):
 		addRewardAffection(-0.05)
 

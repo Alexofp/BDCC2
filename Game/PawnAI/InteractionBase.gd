@@ -7,6 +7,9 @@ const ROLE_EXTRA = 2
 const ROLE_EXTRA2 = 3
 
 const CATEGORY_FRIENDLY:Array[String] = ["Friendly"]
+const CATEGORY_LUSTY:Array[String] = ["Lusty"]
+const CATEGORY_DOM:Array[String] = ["Domination"]
+const CATEGORY_SUB:Array[String] = ["Submission"]
 const CATEGORY_ORDER:Array[String] = ["Order"]
 const CATEGORY_ORDER_POSING:Array[String] = ["Posing"]
 const CATEGORY_MEAN:Array[String] = ["Mean"]
@@ -150,7 +153,7 @@ func processInteraction(_dt:float):
 		processRareAlways(theDeltaTime)
 	
 	elapsedTime += _dt
-	if(!subInteraction && interactionQueue.is_empty()):
+	if(!subInteraction && canDoActions()):
 		timeoutTime += _dt
 	
 	processQueue(_dt)
@@ -217,7 +220,7 @@ func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
 	if(subInteraction):
 		return subInteraction.getActionsFor(_pawn)
 	
-	if(!interactionQueue.is_empty()):
+	if(!canDoActions()):
 		return []
 	
 	if(!pawnToRole.has(_pawn)):
@@ -229,6 +232,11 @@ func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
 	else:
 		getActions(pawnToRole[_pawn])
 	return tempActions
+
+func canDoActions() -> bool:
+	if(!interactionQueue.is_empty()):
+		return false
+	return true
 
 func getPawn(_role:int) -> CharacterPawn:
 	if(!roleToPawn.has(_role)):
@@ -799,3 +807,10 @@ func getActionCooldown(_roleTarget:int, _roleMain:int, _cooldownID:String) -> fl
 
 func hasActionCooldown(_roleTarget:int, _roleMain:int, _cooldownID:String) -> bool:
 	return GM.main.relationshipSystem.getActionCooldownPawns(getPawn(_roleTarget), getPawn(_roleMain), _cooldownID) > 0.0
+
+func isObeying(_roleSub:int, _roleDom:int) -> bool:
+	var theSub:CharacterPawn = getPawn(_roleSub)
+	var theDom:CharacterPawn = getPawn(_roleDom)
+	if(!theSub || !theDom):
+		return false
+	return theSub.submission.isObeyingPawn(theDom)
