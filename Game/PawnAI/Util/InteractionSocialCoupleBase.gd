@@ -32,17 +32,25 @@ func start(_roles:Dictionary, _args:Array):
 func _actions(_role:int):
 	if(_role == ROLE_TARGET):
 		var agreeScore := scoreSocialAgree()
-		addAction(action("yes", "Yes", agreeScore))
-		addAction(action("no", "No", 1.0 - agreeScore))
+		addAction(action("base_yes", "Yes", agreeScore))
+		addAction(action("base_no", "No", 1.0 - agreeScore))
+	if(_role == ROLE_MAIN):
+		addAction(action("base_cancel_main", "Cancel talk").setOnTimeout(10.0).setShowAfter(5.0))
 
 func _do(_role:int, _action:InteractionAction):
-	if(_action.id == "yes"):
+	if(_action.id == "base_cancel_main"):
+		markInteractionShouldEndTalking()
+		if(!isObeying(ROLE_MAIN, ROLE_TARGET)):
+			say(ROLE_MAIN, "TalkStopWastingTime", ROLE_TARGET)
+			addAnnoyanceMain(0.2)
+		pushStopInteraction()
+	if(_action.id == "base_yes"):
 		#state = "chat"
 		socialInteractionStart()
 		socialInteractionAgree()
 		pushSay(ROLE_TARGET, lineSure, ROLE_MAIN)
 		pushSetState("doing")
-	if(_action.id == "no"):
+	if(_action.id == "base_no"):
 		socialInteractionStart()
 		socialInteractionDeny()
 		pushSay(ROLE_TARGET, lineNo, ROLE_MAIN)

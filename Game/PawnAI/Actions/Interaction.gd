@@ -52,7 +52,7 @@ func think():
 	if(!theInteraction):
 		completeAction()
 		return
-	var thePawn := getPawn()
+	var thePawn:CharacterPawn = getPawn()
 	theInteraction.thinkFor(thePawn, self)
 	
 	# Action selection
@@ -64,12 +64,14 @@ func think():
 	for theAction in theActions:
 		if(theAction.disabled):
 			continue
+		if(!theAction.shouldShowAction(theInteraction, thePawn)):
+			continue
 		var actionScore:float = theAction.score
 		actionScore = ai.goalHandler.getInteractionActionScoreOverride(theInteraction, theAction, actionScore)
 		if(theAction.fallbackScore > 0.0):
 			theFallbackMap[theAction] = theAction.fallbackScore
 			fullFallbackScore += theAction.fallbackScore
-		if(theAction.timeoutTime > 0.0 && theInteraction.timeoutTime >= theAction.timeoutTime):
+		if(theAction.timeoutTime > 0.0 && theAction.interaction && theAction.interaction.timeoutTime >= theAction.timeoutTime):
 			actionScore = maxf(actionScore, theAction.timeoutScore)
 		
 		if(actionScore <= 0.0):

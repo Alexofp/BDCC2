@@ -1,0 +1,23 @@
+def SubmitAsk
+fill SubmitAsk simple
+<
+I wanna submit to you. Please do whatever you want with me.
+>
+
+def SubmitAccept
+fill SubmitAccept simple
+<
+Alright.
+>
+
+def SubmitDeny
+fill SubmitDeny simple
+<
+What? No.
+>
+
+def SubmitDenyCrit
+fill SubmitDenyCrit simple
+<
+What? Fuck no. Go away.
+>

@@ -14,7 +14,7 @@ func start(_roles:Dictionary, _args:Array):
 	#sayText(ROLE_MAIN, "What's your problem?")
 	if(_args.size() > 0):
 		pushDelay(_args[0])
-	pushSay(ROLE_MAIN, "Annoyed", ROLE_TARGET)
+	say(ROLE_MAIN, "Annoyed", ROLE_TARGET)
 	pushStopInteraction()
 	#pushSay(ROLE_TARGET, "What?")
 	#pushLookAt(ROLE_TARGET, ROLE_MAIN)

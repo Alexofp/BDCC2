@@ -10,8 +10,8 @@ var category:Array[String]
 var fallbackScore:float = 0.0 # Fallback actions will be chosen if no other actions have score
 var timeoutTime:float = 0.0 # Timeout actions are chosen after this amount of seconds passes with nobody picking any action
 var timeoutScore:float = 1.0 # Score of the timeout action
-var locked:bool = false
-var lockedScore:float = 0.0
+var timeoutOnly:bool = false # Only show this action after timeoutShow seconds have passed
+var timeoutShow:float = 0.0
 var interaction:InteractionBase
 
 static func create(_id:String, _name:String) -> InteractionAction:
@@ -44,3 +44,13 @@ func setOnTimeout(_time:float, _score:float = 1.0) -> InteractionAction:
 func setDisabled(_dis:bool) -> InteractionAction:
 	disabled = _dis
 	return self
+
+func setShowAfter(_time:float) -> InteractionAction:
+	timeoutOnly = (_time > 0.0)
+	timeoutShow = _time
+	return self
+
+func shouldShowAction(_interaction:InteractionBase, _pawn:CharacterPawn) -> bool:
+	if(timeoutOnly && interaction && interaction.timeoutTime < timeoutShow):
+		return false
+	return true

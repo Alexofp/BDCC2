@@ -200,6 +200,9 @@ func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
 		return
 	if(_actionEntry.interaction != self):
 		return
+	# Can't do the action if we can't see it
+	if(!_actionEntry.shouldShowAction(self, _pawn)):
+		return
 	
 	if(!pawnToRole.has(_pawn)):
 		return

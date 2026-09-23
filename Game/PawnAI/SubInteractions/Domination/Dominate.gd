@@ -50,3 +50,11 @@ func onSocialInteractionEnd():
 	elif(isFail()):
 		addAnnoyanceTarget(0.6)
 		addRewardAffection(-0.2)
+
+	if((isCriticalSuccess() || isSuccess()) && !isPlayer(ROLE_MAIN)):
+		#markInteractionShouldEndTalking()
+		#stopInteraction()
+		startInteraction("Defeated", {
+			main = getPawn(ROLE_MAIN),
+			target = getPawn(ROLE_TARGET),
+		})

@@ -1355,7 +1355,10 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 		var theInteractActions := interaction.getActionsFor(self)
 		
 		var _i:int = 0
-		for theAction in theInteractActions:
+		for theAction:InteractionAction in theInteractActions:
+			if(!theAction.shouldShowAction(interaction, self)):
+				_i += 1
+				continue
 			result.append(InteractEntryDo.create("InteractionAction", [
 				theAction.actionName, _i, theAction.id,
 			]).setDisabled(theAction.disabled).setSubCategory(theAction.category))

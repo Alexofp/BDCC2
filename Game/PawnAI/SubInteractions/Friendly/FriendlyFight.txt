@@ -1,0 +1,17 @@
+def FriendlyFightAsk
+fill FriendlyFightAsk simple
+<
+Wanna do a friendly fight?
+>
+
+def FriendlyFightAccept
+fill FriendlyFightAccept simple
+<
+Alright, let's fight.
+>
+
+def FriendlyFightDeny
+fill FriendlyFightDeny simple
+<
+I'd rather not.
+>

@@ -22,7 +22,7 @@ func doAction(_context:PawnActionContext) -> bool:
 	
 	var _indx:int = _context.getArg(ARG_INDEX, 0)
 	var _actionID:String = _context.getArg(ARG_ACTIONID, "")
-	var theActions := theInteraction.getActionsFor(_context.pawn)
+	var theActions:Array[InteractionAction] = theInteraction.getActionsFor(_context.pawn)
 	
 	if(_indx < 0 || _indx >= theActions.size() || theActions[_indx].id != _actionID):
 		return false

@@ -14,9 +14,12 @@ func setAI(_ai:PawnAI):
 	interactionToGoal.clear()
 	addStaticGoals()
 
+func isControlledByAnyPlayer() -> bool:
+	return ai.getPawn().isControlledByAnyPlayer()
+
 func addGoal(_goalID:String, _args:Array = [], _checkHasSame:bool = true) -> AIGoalBase:
-	if(ai.getPawn().isControlledByAnyPlayer()):
-		return null
+	#if(ai.getPawn().isControlledByAnyPlayer()):
+	#	return null
 	
 	var newGoal:AIGoalBase = GlobalRegistry.createAIGoal(_goalID)
 	if(!newGoal):
@@ -76,6 +79,9 @@ func cleanDeletedGoals():
 	#goals.filter(func(_el:AIGoalBase): return !_el.wasDeleted)
 
 func processRare(_dt:float):
+	if(isControlledByAnyPlayer()):
+		setCurrentGoal(null)
+		return
 	sortGoals()
 	
 	for theGoal in goals:

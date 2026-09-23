@@ -28,7 +28,7 @@ func start(_roles:Dictionary, _args:Array):
 		
 		var theAnnoyance:float = GM.main.relationshipSystem.getAnnoyancePawns(getPawn(ROLE_TARGET), getPawn(ROLE_MAIN))
 		
-		if(theAnnoyance > 0.4 && !isPlayer(ROLE_TARGET)):
+		if(theAnnoyance > 0.0 && !isPlayer(ROLE_TARGET)):
 			pushSay(ROLE_TARGET, "GreetFailAnnoyed", ROLE_MAIN)
 			pushStopInteraction()
 	
@@ -97,6 +97,7 @@ func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "base_cancel_talk"):
 		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
 			say(ROLE_TARGET, "TalkStopWastingTime", ROLE_MAIN)
+			addAnnoyanceTarget(0.2)
 		stopLookAt(ROLE_MAIN)
 		stopLookAt(ROLE_TARGET)
 		stopInteraction()
@@ -107,7 +108,7 @@ func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
 	#if(subInteraction && (subInteraction is InteractionSocialBase) && subInteraction.canDoActions()):
 	if(!subInteraction && canDoActions() && getRoleOf(_pawn) != ROLE_MAIN):
 		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
-			addAction(action("base_cancel_talk", "Cancel talk").setOnTimeout(30.0))
+			addAction(action("base_cancel_talk", "Cancel talk").setOnTimeout(15.0).setShowAfter(5.0))
 	
 	return theActions
 

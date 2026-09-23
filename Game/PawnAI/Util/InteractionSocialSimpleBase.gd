@@ -79,14 +79,24 @@ func _actions(_role:int):
 			startLines = ["Something broke!!!"]
 		for theLine:String in startLines:
 			addAction(action("base_say", theLine).setArgs([theLine]).setScore(1.0))
+	if(_role == ROLE_TARGET):
+		addAction(action("base_cancel_annoyed", "Cancel talk").setOnTimeout(10.0).setShowAfter(5.0))
 
 func _do(_role:int, _action:InteractionAction):
 	if(_action.id == "base_say"):
 		doStartWithLine(_action.args[0])
+	if(_action.id == "base_cancel_annoyed"):
+		markInteractionShouldEndTalking()
+		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
+			say(ROLE_TARGET, "TalkStopWastingTime", ROLE_MAIN)
+			addAnnoyanceTarget(0.2)
+		pushStopInteraction()
 
 func answer_actions(_role:int):
 	if(_role == ROLE_TARGET):
 		getAnswersSimple()
+	if(_role == ROLE_MAIN):
+		addAction(action("base_cancel_main", "Cancel talk").setOnTimeout(10.0).setShowAfter(5.0))
 
 func getAnswersSimple():
 	var agreeScore := scoreSocialAgree()
@@ -95,7 +105,13 @@ func getAnswersSimple():
 
 func answer_do(_role:int, _action:InteractionAction):
 	pickedOption = _action.id
-	if(_action.id == "base_yes"):
+	if(_action.id == "base_cancel_main"):
+		markInteractionShouldEndTalking()
+		if(!isObeying(ROLE_MAIN, ROLE_TARGET)):
+			say(ROLE_MAIN, "TalkStopWastingTime", ROLE_TARGET)
+			addAnnoyanceMain(0.2)
+		pushStopInteraction()
+	elif(_action.id == "base_yes"):
 		socialInteractionAgree()
 		if(isCritical()):
 			pushDelay(1.0)
