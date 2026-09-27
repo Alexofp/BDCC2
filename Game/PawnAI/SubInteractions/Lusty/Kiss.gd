@@ -13,7 +13,7 @@ func _init() -> void:
 	lineNo = "KissNo"
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 2.0
+	interactionPriority = PRIO_LUSTY - 2.0
 
 func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 	return {
@@ -31,7 +31,7 @@ func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	theSICC.setChance(SICC.Lust, 0.4, 1.0, 0.9, 2.0)
+	theSICC.setChance(RSValue.Lust, 0.4, 1.0, 0.9, 2.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():

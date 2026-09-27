@@ -1,0 +1,23 @@
+def ApologizeStart
+fill ApologizeStart simple
+<
+I wanna apologize for what happened.
+>
+
+def ApologizeAccept
+fill ApologizeAccept simple
+<
+Apology accepted.
+>
+
+def ApologizeDeny
+fill ApologizeDeny simple
+<
+I'm still angry at you.
+>
+
+def Memory_Apologize
+fill Memory_Apologize simple
+<
+I got an apology from {target.name}% MemoryRecently%.
+>

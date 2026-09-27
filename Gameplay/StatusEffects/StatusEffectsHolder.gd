@@ -103,6 +103,16 @@ func getChar() -> BaseCharacter:
 		return null
 	return charRef.get_ref()
 
+func notifySocialInteractionEnd(_interaction:InteractionSocialBase, _role:int):
+	for theEffectID:String in effects:
+		var theEffect:StatusEffectBase = effects[theEffectID]
+		theEffect.onSocialInteractionEnd(_interaction, _role)
+
+func onSexEngineResult(_result:SexEngineResult):
+	for theEffectID:String in effects:
+		var theEffect:StatusEffectBase = effects[theEffectID]
+		theEffect.onSexEngineResult(_result)
+
 func saveData() -> Dictionary:
 	var effectsData:Array[Dictionary] = []
 	

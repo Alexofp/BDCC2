@@ -95,6 +95,12 @@ func getDescriptionForStatusEffect() -> String:
 	
 	return theResult
 
+func onSocialInteractionEnd(_interaction:InteractionSocialBase, _role:int):
+	return
+
+func onSexEngineResult(_result:SexEngineResult):
+	pass
+
 func saveData() -> Dictionary:
 	return {
 		t = time,

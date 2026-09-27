@@ -126,3 +126,21 @@ class PainThresholdBuff extends Buff:
 		return COLOR_BUFF if pain >= 0 else COLOR_DEBUFF
 	func apply(_holder:BuffsHolder):
 		_holder.painThreshold += pain
+
+class SocialInteractionChanceBuff extends Buff:
+	var interactionID:String = ""
+	var howMuch:float = 0.0
+	func _init(_interactionID:String, _howMuch:float) -> void:
+		interactionID = _interactionID
+		howMuch = _howMuch
+	func getName() -> String:
+		var theInteraction := GlobalRegistry.getInteractionRef(interactionID)
+		if(!theInteraction || !(theInteraction is InteractionSocialBase)):
+			return "Unknown interaction chance"
+		return "'"+theInteraction.socialActionName+"' agree chance"
+	func getBuffText() -> String:
+		return buffF(howMuch*100.0)
+	func getColor() -> Color:
+		return COLOR_BUFF if howMuch >= 0 else COLOR_DEBUFF
+	func apply(_holder:BuffsHolder):
+		_holder.buff_AddSocialInteractionChanceBuff(interactionID, howMuch)

@@ -108,7 +108,7 @@ func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
 	#if(subInteraction && (subInteraction is InteractionSocialBase) && subInteraction.canDoActions()):
 	if(!subInteraction && canDoActions() && getRoleOf(_pawn) != ROLE_MAIN):
 		if(!isObeying(ROLE_TARGET, ROLE_MAIN)):
-			addAction(action("base_cancel_talk", "Cancel talk").setOnTimeout(15.0).setShowAfter(5.0))
+			addAction(action("base_cancel_talk", "Cancel talk").setOnTimeout(25.0).setShowAfter(5.0))
 	
 	return theActions
 

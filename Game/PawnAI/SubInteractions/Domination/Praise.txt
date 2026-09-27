@@ -1,0 +1,45 @@
+def PraiseStart
+fill PraiseStart simple
+<
+You're a cute little pet.
+You're being so good for me.
+Look at you, you're so obedient.
+You're such a treasure.
+You're so cute when you obey me.
+You're my perfect little toy.
+You're so cute and adorable, my dear.
+>
+
+fill PraiseStart girl
+cond target.isGirl
+<
+You're a good girl, you know that?
+You're such a good girl.
+Such a needy little thing, aren't you? My needy girl.
+>
+
+fill PraiseStart boy
+cond target.isBoy
+<
+You're a good boy, you know that?
+You're such a good boy.
+Such a needy little thing, aren't you? My needy boy.
+>
+
+def PraiseAccept
+fill PraiseAccept simple
+<
+Thank you.
+>
+
+def PraiseDeny
+fill PraiseDeny simple
+<
+Don't bother.
+>
+
+def Memory_Praise
+fill Memory_Praise simple
+<
+I got praised by {target.name}% MemoryRecently%.
+>

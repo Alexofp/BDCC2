@@ -31,7 +31,7 @@ func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	theSICC.setChance(SICC.Affection, 0.4, 1.0, 0.9, 2.0)
+	theSICC.setChance(RSValue.Affection, 0.4, 1.0, 0.9, 2.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():

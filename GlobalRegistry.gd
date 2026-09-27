@@ -608,6 +608,8 @@ func registerItem(path: String):
 		var theClothingSelectorPaths:Array= object.getClothingSelectorPaths()
 		for thePath in theClothingSelectorPaths:
 			registerClothingSelector(thePath)
+		
+		object.postRegistration()
 
 func registerItemFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
@@ -619,6 +621,7 @@ func createItem(id: String, genID:bool = true) -> ItemBase:
 		var theItem:ItemBase = items[id].new()
 		if(genID):
 			theItem.uniqueID = generateUniqueItemID()
+		theItem.postCreation(getItemRef(id))
 		return theItem
 	else:
 		Log.Printerr("ERROR: item with the id "+str(id)+" wasn't found")
@@ -1237,6 +1240,7 @@ func reloadReactionBanks():
 	loadMainReactionBankFolder("res://Game/PawnAI/SubInteractions/")
 
 func reloadInteractions():
+	reloadReactionBanks()
 	memories.clear()
 	interactions.clear()
 	interactionRefs.clear()
@@ -1391,6 +1395,9 @@ func createStatusEffect(id: String) -> StatusEffectBase:
 func getStatusEffects() -> Dictionary:
 	return statusEffectRefs
 
+func hasStatusEffect(id: String) -> bool:
+	return statusEffectRefs.has(id)
+	
 func getStatusEffect(id: String) -> StatusEffectBase:
 	if(statusEffectRefs.has(id)):
 		return statusEffectRefs[id]

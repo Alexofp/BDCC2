@@ -72,6 +72,12 @@ func isAre() -> String:
 func himselfHerself() -> String:
 	return getPronoun(PronounType.HimselfHerself)
 
+func isBoy() -> bool:
+	return gender == Gender.Male
+
+func isGirl() -> bool:
+	return gender == Gender.Female
+
 func saveData() -> Dictionary:
 	return {
 		gender = gender,

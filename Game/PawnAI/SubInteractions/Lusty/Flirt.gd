@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_LUSTY
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 1.0
+	interactionPriority = PRIO_LUSTY - 1.0
 	
 	startLinesTopic = id
 	startLinesAmount = 1
@@ -36,8 +36,8 @@ func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	theSICC.setChance(SICC.Affection, 0.0, -0.2, 0.8, 1.5)
-	theSICC.setChance(SICC.Lust, 0.1, 0.0, 1.0, 1.0)
+	theSICC.setChance(RSValue.Affection, 0.0, -0.2, 0.8, 1.5)
+	theSICC.setChance(RSValue.Lust, 0.1, 0.0, 1.0, 1.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():
@@ -50,10 +50,13 @@ func onSocialInteractionEnd():
 	if(isCriticalSuccess()):
 		addRewardLust(1.0)
 		addMemoryTarget(id)
+		addStatusEffect(ROLE_TARGET, StatusEffect.SocialLusty, 120.0)
+		addStatusEffect(ROLE_TARGET, StatusEffect.SocialHorny, 120.0)
 	elif(isCriticalFail()):
 		addRewardLust(-0.5)
 	elif(isSuccess()):
 		addRewardLust(0.4)
 		addMemoryTarget(id)
+		addStatusEffect(ROLE_TARGET, StatusEffect.SocialLusty, 120.0)
 	elif(isFail()):
 		addRewardLust(-0.1)

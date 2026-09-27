@@ -21,6 +21,8 @@ const UID_DOLL = 0
 const UID_PATH = 1
 const UID_NULL = 2
 
+signal onClearInteractUICategory # Used in InteractBigUI
+
 func _ready():
 	#Network.playerConnected.connect(onPlayerConnected)
 	pass
@@ -427,7 +429,7 @@ func makePawnOpenInteractMenuSpecific(_pawn:CharacterPawn, _target:Node3D):
 		return
 	if(Network.isServerNotSingleplayer()):
 		var theInfo := Network.getPlayerInfoControllingCharID(_pawn.getCharID())
-		if(!theInfo):
+		if(!theInfo || theInfo.isUs()):
 			return
 		#Log.Print(str(theInfo.id))
 		makePawnOpenInteractMenuSpecific_RPC.rpc_id(theInfo.id, getUniqueIDOf(_target))
@@ -440,3 +442,24 @@ func makePawnOpenInteractMenuSpecific_RPC(_targetAr:Array):
 		return
 	#print(_target is CharacterPawn)
 	GM.main.showInteractMenuSpecific(_target)
+
+func askPawnClearInteractUICategory(_pawn:CharacterPawn):
+	if(!_pawn || !_pawn.isControlledByAnyPlayer()):
+		return
+	if(_pawn.isControlledByUs()):
+		onClearInteractUICategory.emit()
+		return
+	if(Network.isServerNotSingleplayer()):
+		var theInfo := Network.getPlayerInfoControllingCharID(_pawn.getCharID())
+		if(!theInfo || theInfo.isUs()):
+			return
+		#Log.Print(str(theInfo.id))
+		askPawnClearInteractUICategory_RPC.rpc_id(theInfo.id, _pawn.getCharID())
+		return
+
+@rpc("authority", "call_remote", "reliable")
+func askPawnClearInteractUICategory_RPC(_pawnID:String):
+	var thePawn:CharacterPawn = pawnRegistry.getPawn(_pawnID)
+	if(!thePawn):
+		return
+	askPawnClearInteractUICategory(thePawn)

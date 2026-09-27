@@ -8,17 +8,17 @@ func _init() -> void:
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 1.0
 	
-	startLinesTopic = "Compliment"
+	startLinesTopic = id+"Start"
 	startLinesAmount = 4
 	startLineFallback = "You look nice today."
 	
 	answerAcceptActionName = "Accept"
 	answerDenyActionName = "Deny"
 	
-	answerAcceptReaction = "ComplimentAccept"
-	answerAcceptReactionCritical = "ComplimentAccept"
-	answerDenyReaction = "ComplimentDeny"
-	answerDenyReactionCritical = "ComplimentDeny"
+	answerAcceptReaction = id+"Accept"
+	answerAcceptReactionCritical = id+"Accept"
+	answerDenyReaction = id+"Deny"
+	answerDenyReactionCritical = id+"Deny"
 	
 func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 	return {
@@ -36,12 +36,12 @@ func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	theSICC.setChance(SICC.Affection, 0.3, -0.2, 0.9, 1.5)
-	theSICC.setChance(SICC.Lust, 0.0, 0.0, 0.5, 1.0)
+	theSICC.setChance(RSValue.Affection, 0.3, -0.2, 0.9, 1.5)
+	theSICC.setChance(RSValue.Lust, 0.0, 0.0, 0.5, 1.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():
-	#addUnlockCondition(SocialUnlockAffectionCondition.new(0.1))
+	addUnlockCondition(SocialUnlockAffectionCondition.new(-0.1))
 	pass
 
 func onSocialInteractionEnd():

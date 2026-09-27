@@ -26,8 +26,8 @@ func _init() -> void:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	#theSICC.setChance(SICC.Affection, 0.3, -0.2, 0.9, 1.5)
-	#theSICC.setChance(SICC.Lust, 0.0, 0.0, 0.5, 1.0)
+	#theSICC.setChance(RSValue.Affection, 0.3, -0.2, 0.9, 1.5)
+	#theSICC.setChance(RSValue.Lust, 0.0, 0.0, 0.5, 1.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():

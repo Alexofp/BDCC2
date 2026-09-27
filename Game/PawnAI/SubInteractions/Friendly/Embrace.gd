@@ -13,7 +13,7 @@ func _init() -> void:
 	lineNo = "HugNo"
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 4.1
+	interactionPriority = PRIO_FRIENDLY - 6.1
 
 func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 	return {
@@ -35,9 +35,9 @@ func prepareUnlockConditions():
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new()
-	theSICC.setChance(SICC.Affection, 0.3, 2.0, 0.9, 3.0)
-	theSICC.setChance(SICC.Lust, 0.0, 0.0, 0.5, 3.0)
-	theSICC.setChance(SICC.PowerBalance, 0.0, 0.0, 0.5, 2.0)
+	theSICC.setChance(RSValue.Affection, 0.3, 2.0, 0.9, 3.0)
+	theSICC.setChance(RSValue.Lust, 0.0, 0.0, 0.5, 3.0)
+	theSICC.setChance(RSValue.PowerBalance, 0.0, 0.0, 0.5, 2.0)
 	setChanceCalculator(theSICC)
 
 func onSocialInteractionEnd():

@@ -76,3 +76,14 @@ func getOptions() -> Dictionary:
 		#ZoneCover.Vagina: !shifted,
 		#ZoneCover.Anus: !shifted,
 	#}
+
+func getBuyPrice() -> int:
+	return 8
+
+func getItemValues() -> Array[ItemValue]:
+	return [
+		ItemValue.baseValue(0.4),
+		ItemValue.personalityBased(PersonalityStat.Dominant, 0.5),
+		ItemValue.personalityBased(PersonalityStat.Libido, 0.3),
+		ItemValue.itemValueTagBased(ItemValueTag.Strapon, 1.0),
+	]

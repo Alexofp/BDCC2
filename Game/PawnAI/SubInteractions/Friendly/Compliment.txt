@@ -1,5 +1,5 @@
-def Compliment
-fill Compliment simple
+def ComplimentStart
+fill ComplimentStart simple
 <
 You look nice.
 You are nice.

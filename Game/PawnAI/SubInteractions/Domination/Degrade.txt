@@ -1,0 +1,44 @@
+def DegradeStart
+fill DegradeStart simple
+<
+You're just a worthless little thing, aren't you?
+Look at you, so desperate for my attention.
+You're nothing but a toy for me to use.
+You are worthless, you know that?
+You are a pathetic thing. Absolutely pathetic.
+You'd do anything I say, wouldn't you? Anything at all. So pathetic.
+You're such a dirty little slut, aren't you?
+You're such a desperate little whore. Needy and shameless.
+You're just a hole for me to use, aren't you, bitch?
+You're such a pathetic little bitch, aren't you?
+>
+
+fill DegradeStart girl
+cond target.isGirl
+<
+You are such a slutty girl.
+>
+
+fill DegradeStart boy
+cond target.isBoy
+<
+You are such a slutty boy.
+>
+
+def DegradeAccept
+fill DegradeAccept simple
+<
+Yes.. thank you.
+>
+
+def DegradeDeny
+fill DegradeDeny simple
+<
+Fuck you.
+>
+
+def Memory_Degrade
+fill Memory_Degrade simple
+<
+I got degraded by {target.name}% MemoryRecently%.
+>

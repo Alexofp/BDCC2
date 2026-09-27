@@ -433,6 +433,10 @@ func getPawnProperty(_pawn:CharacterPawn, _property:String) -> ReactionSystemRun
 	
 	var theCharacter := _pawn.getCharacter()
 	
+	if(_property == "isBoy"):
+		return createValue(theCharacter.gender.isBoy())
+	if(_property == "isGirl"):
+		return createValue(theCharacter.gender.isGirl())
 	if(_property == "memory"):
 		return createValue(theCharacter.memoryHolder)
 	if(_property == "pain"):

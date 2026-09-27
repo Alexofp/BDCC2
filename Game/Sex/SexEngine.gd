@@ -873,9 +873,10 @@ func onSexEngineResult(_result:SexEngineResult):
 	var checkedInteractions:Dictionary[InteractionBase, bool]
 	
 	for charID in _result.participants:
-		var thePawn := GM.main.pawn_registry.getPawn(charID)
+		var thePawn:CharacterPawn = GM.main.pawn_registry.getPawn(charID)
 		if(!thePawn):
 			continue
+		thePawn.onSexEngineResult(_result)
 		var theInteraction := thePawn.getInteraction()
 		if(theInteraction && !checkedInteractions.has(theInteraction)):
 			checkedInteractions[theInteraction] = true

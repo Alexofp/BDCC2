@@ -102,3 +102,4 @@ func stopAllInteractionsWith(_pawn:CharacterPawn):
 		
 		if(theInteraction.isPawnInvolved(_pawn)):
 			removeInteraction(theInteraction)
+	GI.askPawnClearInteractUICategory(_pawn) # Clears their selected category if they picked something

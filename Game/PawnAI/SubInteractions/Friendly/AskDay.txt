@@ -12,9 +12,3 @@ def AskDay_End
 <
 That's about it.
 >
-
-def EnoughChatSocial
-fill EnoughChatSocial simple
-<
-That's enough chat for now.
->

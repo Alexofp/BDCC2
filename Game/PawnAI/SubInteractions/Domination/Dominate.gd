@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_DOM
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 1.0
+	interactionPriority = PRIO_DOMINATION - 1.0
 	
 	startLinesTopic = "Dominate"
 	startLineFallback = "You gonna do what I tell you to do."
@@ -25,7 +25,7 @@ func getMemoriesToRegister() -> Dictionary[String, Dictionary]:
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new().withCritChances(0.5, 0.0)
-	theSICC.setChance(SICC.PowerBalance, 0.03, 0.0, 1.0, 2.0)
+	theSICC.setChance(RSValue.PowerBalance, 0.03, 0.0, 1.0, 2.0)
 	setChanceCalculator(theSICC)
 
 func prepareUnlockConditions():

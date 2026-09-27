@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_LUSTY
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 5.0
+	interactionPriority = PRIO_LUSTY - 3.0
 
 func prepareUnlockConditions():
 	#addUnlockCondition(SocialUnlockAffectionCondition.new(0.0))
@@ -14,8 +14,8 @@ func prepareUnlockConditions():
 
 func prepareChanceCalculator():
 	var theSICC := SICCSimple.new().withCritChances(0.3, 0.0)
-	theSICC.setChance(SICC.Lust, 0.04, 0.5, 1.0, 3.0)
-	theSICC.setChance(SICC.PowerBalance, 0.0, 1.0, 1.0, 3.0)
+	theSICC.setChance(RSValue.Lust, 0.04, 0.5, 1.0, 3.0)
+	theSICC.setChance(RSValue.PowerBalance, 0.0, 1.0, 1.0, 3.0)
 	setChanceCalculator(theSICC)
 
 func onSocialInteractionEnd():

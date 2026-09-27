@@ -39,10 +39,13 @@ const SOCIALFLAG_ONLY_IF_TARGET_DOMINATED := 4
 const SOCIALFLAG_ALLOWED_IF_TARGET_DOMINATED := 8
 const SOCIALFLAG_SUPPORTS_COMBAT := 16
 
-const PRIO_FRIENDLY := 2000.0
-const PRIO_ROMANTIC := 1500.0
-const PRIO_MEAN := 1000.0
+const PRIO_FRIENDLY := 1000.0
+const PRIO_LUSTY := 900.0
+const PRIO_MEAN := 800.0
+const PRIO_DOMINATION := 700.0
+const PRIO_SUBMISSION := 600.0
 const PRIO_ORDER := 500.0
+const PRIO_DEBUG := 100.0
 
 func _init() -> void:
 	id = ""
@@ -181,11 +184,12 @@ func socialInteractionDeny():
 	socialInteractionSendAnswer(SocialInteractionHandler.STATUS_DENY)
 
 func socialInteractionEnd():
-	if(!socialInteraction):
-		onSocialInteractionEnd()
-		return
-	socialInteraction.onEnd()
+	if(socialInteraction):
+		socialInteraction.onEnd()
 	onSocialInteractionEnd()
+	for _role:int in roleToPawn:
+		var thePawn:CharacterPawn = roleToPawn[_role]
+		thePawn.notifySocialInteractionEnd(self, _role)
 
 ## Use this function to handle your custom agree status.
 func onSocialInteractionEnd():

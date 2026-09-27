@@ -7,7 +7,9 @@ var coupleAnimTime:float = 4.0
 var giveUpTimer:int = 0
 
 var lineSure:String = "Sure"
+var lineSureCrit:String = ""
 var lineNo:String = "No"
+var lineNoCrit:String = ""
 
 func _init() -> void:
 	id = ""
@@ -48,12 +50,18 @@ func _do(_role:int, _action:InteractionAction):
 		#state = "chat"
 		socialInteractionStart()
 		socialInteractionAgree()
-		pushSay(ROLE_TARGET, lineSure, ROLE_MAIN)
+		var theLine:String = lineSure
+		if(isCriticalSuccess() && !lineSureCrit.is_empty()):
+			theLine = lineSureCrit
+		pushSay(ROLE_TARGET, theLine, ROLE_MAIN)
 		pushSetState("doing")
 	if(_action.id == "base_no"):
 		socialInteractionStart()
 		socialInteractionDeny()
-		pushSay(ROLE_TARGET, lineNo, ROLE_MAIN)
+		var theLine:String = lineNo
+		if(isCriticalFail() && !lineNoCrit.is_empty()):
+			theLine = lineNoCrit
+		pushSay(ROLE_TARGET, theLine, ROLE_MAIN)
 		pushSocialDenied()
 		pushStopInteraction()
 

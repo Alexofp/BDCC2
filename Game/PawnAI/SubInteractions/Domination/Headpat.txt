@@ -1,0 +1,17 @@
+def HeadpatStart
+fill HeadpatStart simple
+<
+Can I pat your head? I really want to.
+>
+
+def HeadpatSure
+fill HeadpatSure simple
+<
+Sure, you can pat me.
+>
+
+def HeadpatNo
+fill HeadpatNo simple
+<
+Rather not.
+>

@@ -14,15 +14,16 @@ const BOUND_PENIS_CHASTITY := 128
 const BOUND_VAGINA_CHASTITY := 256
 const BOUND_ANUS_CHASTITY := 512
 var boundFlags:int = 0 # Contains all of the bondage flags
-
 var supression:float = 0.0 # The higher this value is, the slower the domination ticks down
-
 var painThreshold:float = 0.0 # How much extra pain can you take
+
+var socialInteractions:Dictionary[String, float] = {} #nosync, makes the npc more/less likely to agree to this social interaction. 1.0 = always agrees, -1.0 = never agrees
 
 func reset():
 	boundFlags = 0
 	supression = 0.0
 	painThreshold = 0.0
+	socialInteractions.clear()
 
 var syncState:SyncState = SyncState.new(self,
 	["boundFlags", "supression", "painThreshold"],
@@ -105,3 +106,14 @@ func getSupression() -> float:
 
 func getPainExtraThreshold() -> float:
 	return painThreshold
+
+func buff_AddSocialInteractionChanceBuff(_interactionID:String, _chance:float):
+	if(!socialInteractions.has(_interactionID)):
+		socialInteractions[_interactionID] = _chance
+	else:
+		socialInteractions[_interactionID] += _chance
+
+func getChanceModForSocialInteraction(_interactionID:String) -> float:
+	if(!socialInteractions.has(_interactionID)):
+		return 0.0
+	return socialInteractions[_interactionID]

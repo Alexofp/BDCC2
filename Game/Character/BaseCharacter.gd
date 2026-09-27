@@ -100,6 +100,8 @@ func _init():
 	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateTop"))
 	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateShorts"))
 	
+	gender.setGender(Gender.Female)
+	
 	#body.setOptionValue("thickness", 2.0)
 	#body.setOptionValue("thickness", 0.0)
 	pass

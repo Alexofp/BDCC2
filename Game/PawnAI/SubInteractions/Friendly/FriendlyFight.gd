@@ -8,7 +8,7 @@ func _init() -> void:
 	#socialFlags = SOCIALFLAG_SHOULD_END_TALKING | SOCIALFLAG_SUPPORTS_COMBAT
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = 4.0
+	interactionPriority = PRIO_FRIENDLY - 7.0
 
 	startLinesTopic = "FriendlyFightAsk"
 	startLineFallback = "Wanna do a friendly fight?"

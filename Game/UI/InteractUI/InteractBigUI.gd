@@ -14,6 +14,8 @@ func _ready() -> void:
 	shouldBeVisible = false
 	visible = false
 	modulate = Color.TRANSPARENT
+	
+	GI.onClearInteractUICategory.connect(clearSubCategory)
 
 func updateActionList():
 	Util.delete_children(action_list)

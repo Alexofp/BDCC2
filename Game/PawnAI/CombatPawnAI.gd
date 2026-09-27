@@ -135,8 +135,10 @@ func processRare(_dt:float):
 	toRem.clear()
 	for enemyPawn in activeEnemies:
 		var theActiveEnemy:ActiveEnemy = activeEnemies[enemyPawn]
-		theActiveEnemy.agroScore *= 0.9
+		theActiveEnemy.agroScore *= 0.6
 		theActiveEnemy.agroScore += maxf(30.0 - pawn.global_position.distance_squared_to(enemyPawn.global_position), 0.0)
+		#print(theActiveEnemy.agroScore)
+		
 		#print(theActiveEnemy.agroScore)
 		
 		if(theActiveEnemy.agroScore < 0.1):

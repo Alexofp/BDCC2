@@ -1238,6 +1238,21 @@ func onOrgasm(_orgasm:SexOrgasmInfo, _causer:SexParticipantInfo):
 	if(theChar):
 		theChar.onOrgasm(_orgasm, _causer)
 
+# ehh. But what do. Called from the social interaction
+func notifySocialInteractionEnd(_interaction:InteractionSocialBase, _role:int):
+	var theChar := getCharacter()
+	if(!theChar):
+		return
+	theChar.effectsHolder.notifySocialInteractionEnd(_interaction, _role)
+
+func onSexEngineResult(_result:SexEngineResult):
+	var theChar := getCharacter()
+	if(!theChar):
+		return
+	theChar.effectsHolder.onSexEngineResult(_result)
+
+
+
 
 
 # LEASH STUFF

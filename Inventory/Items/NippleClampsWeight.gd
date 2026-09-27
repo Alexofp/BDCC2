@@ -21,3 +21,12 @@ func prepareBuffs() -> Array[Buff]:
 	return [
 		Buffs.SuppressionBuff.new(0.2),
 	]
+
+func getBuyPrice() -> int:
+	return 12
+
+func getItemValues() -> Array[ItemValue]:
+	return [
+		ItemValue.baseValue(0.5),
+		ItemValue.itemValueTagBased(ItemValueTag.KinkyClothing, 1.0),
+	]

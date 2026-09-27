@@ -14,6 +14,7 @@ const CATEGORY_ORDER:Array[String] = ["Order"]
 const CATEGORY_ORDER_POSING:Array[String] = ["Posing"]
 const CATEGORY_MEAN:Array[String] = ["Mean"]
 const CATEGORY_TEST:Array[String] = ["Test"]
+const CATEGORY_DEBUG:Array[String] = ["Debug"]
 
 var id:String = ""
 var registerForInteractionType:Array[int]
@@ -251,6 +252,12 @@ func getChar(_role:int) -> BaseCharacter:
 		return null
 	return roleToPawn[_role].getCharacter()
 
+func getInventory(_role:int) -> Inventory:
+	var theChar := getChar(_role)
+	if(!theChar):
+		return null
+	return theChar.inventory
+
 func getCharID(_role:int) -> String:
 	if(!roleToPawn.has(_role)):
 		return ""
@@ -267,6 +274,7 @@ func pushDelay(_delay:float = TALK_DELAY):
 
 func pushSayRaw(_role:int, _text:String):
 	interactionQueue.append([QueueEntry.SayRaw, _role, _text])
+	pushDelay()
 
 func pushSay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
 	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
@@ -316,12 +324,15 @@ func getState() -> String:
 	return stateRaw
 
 func setState(_newState:String): #, _doReplan:bool = true
+	var oldState:String = stateRaw
 	elapsedTime = 0.0
 	timeoutTime = 0.0
 	state = _newState
 	stateRaw = _newState
 	#if(_doReplan):
 	replan()
+	if(stateRaw != oldState):
+		clearUICategory()
 
 func replan():
 	for thePawn in pawnToRole:
@@ -817,3 +828,28 @@ func isObeying(_roleSub:int, _roleDom:int) -> bool:
 	if(!theSub || !theDom):
 		return false
 	return theSub.submission.isObeyingPawn(theDom)
+
+# Clears the selected category of the UI
+func clearUICategory():
+	if(!subInteraction):
+		return
+	for _pawn:CharacterPawn in pawnToRole:
+		GI.askPawnClearInteractUICategory(_pawn)
+
+func addStatusEffect(_role:int, _effectID:String, _seconds:float, _args:Array = []):
+	var theChar := getChar(_role)
+	if(!theChar):
+		return
+	theChar.addStatusEffect(_effectID, _seconds, _args)
+
+func removeStatusEffect(_role:int, _effectID:String):
+	var theChar := getChar(_role)
+	if(!theChar):
+		return
+	theChar.removeStatusEffect(_effectID)
+
+func hasStatusEffect(_role:int, _effectID:String) -> bool:
+	var theChar := getChar(_role)
+	if(!theChar):
+		return false
+	return theChar.hasStatusEffect(_effectID)

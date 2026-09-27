@@ -4,6 +4,12 @@ fill WannaChat simple
 Wanna chat?
 >
 
+def EnoughChatSocial
+fill EnoughChatSocial simple
+<
+That's enough chat for now.
+>
+
 def Talk
 fill Talk
 <
@@ -112,7 +118,6 @@ fill Talk_Dots dots
 .. ...
 .... ...
 >
-
 
 def Memory_Chat
 fill Memory_Chat simple

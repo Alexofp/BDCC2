@@ -83,3 +83,12 @@ func getCoveredZones() -> Dictionary[int, bool]:
 		ZoneCover.Vagina: !shifted,
 		ZoneCover.Anus: !shifted,
 	}
+
+func getBuyPrice() -> int:
+	return 4
+
+func getItemValues() -> Array[ItemValue]:
+	return [
+		ItemValue.baseValue(0.5),
+		ItemValue.itemValueTagBased(ItemValueTag.Underwear, 1.0),
+	]

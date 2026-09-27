@@ -10,6 +10,18 @@ var currentSlot:int = -1
 var staticBuffs:Array[Buff]
 var buffsNeedUpdate:bool = true
 
+const CACHEDFLAG_NOGIFTING:int = 1
+var cachedFlags:int = 0
+
+# Runs on the ref, can do all the expensive calculations here
+func postRegistration():
+	if(getItemValues().is_empty()):
+		cachedFlags |= CACHEDFLAG_NOGIFTING
+
+# Runs on the created instance, gets a ref as an argument
+func postCreation(_ref:ItemBase):
+	cachedFlags = _ref.cachedFlags
+
 func _init():
 	super._init()
 
@@ -378,6 +390,69 @@ func doDelayedDisplaceAction(_anim:String, _time:float, _actionID:String, _args:
 			return
 	playGesture(_anim)
 	startDelayedDoAction(_text, _time, _actionID, _args)
+
+func getBuyPrice() -> int:
+	return 1
+
+func getSellPrice() -> int:
+	return floori(float(getBuyPrice())*0.5)
+
+# All of these used for the GiveGift social interaction
+func getItemValues() -> Array[ItemValue]:
+	return []
+
+# If gift is meh = 30% effect
+# If gift is good = 100% effect
+# If gift is great = 200% effect
+func getGiftRelationshipChanges(_ctx:ItemValueContext) -> Dictionary[int, float]:
+	return {
+		RSValue.Affection: 1.0,
+	}
+
+# 0.9 = 10% value lost for each item that the target already has
+# 1.0 = no value is lost
+func getGiftAlreadyHasThisItemValueDebuff() -> float:
+	return 0.9
+
+func getGiftCooldownID() -> String:
+	return id
+
+const GIFT_COOLDOWN_TIME:float = 600.0 # Takes 10 minutes for one 'stack' of gift cooldown to go away
+func getGiftCooldownAmount() -> float:
+	return GIFT_COOLDOWN_TIME
+
+# 0.8 = each stack of cooldown will multiply the item value by 80%
+# Keep in mind that you also get 20% value reduction just for each gift
+func getGiftCooldownEffect() -> float:
+	return 0.8
+
+func getGiftCooldownIDFinal() -> String:
+	return "itemGiftCD_"+id
+
+# <= 0.0 = bad
+# 0.0 - 0.45 = okay (meh)
+# 0.45 - 1.0 = good!
+# >= 1.0 = great!
+func calculateItemValue(_ctx:ItemValueContext) -> float:
+	var theValue:float = 0.0
+	var theValues:Array[ItemValue] = getItemValues()
+	for theItemValue:ItemValue in theValues:
+		theValue += theItemValue.calcValueFor(_ctx)
+	for theItemValue:ItemValue in theValues:
+		theValue = theItemValue.calcValueForFinal(theValue, _ctx)
+	
+	return theValue
+
+func canGiftItemAtAll() -> bool:
+	if(cachedFlags & CACHEDFLAG_NOGIFTING):
+		return false
+	return true
+
+# GiveGift stuff end
+
+# Just in case I need it later
+func getItemAmount() -> int:
+	return 1
 
 func saveNetworkData() -> Bins:
 	var data := super.saveNetworkData()

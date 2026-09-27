@@ -23,3 +23,14 @@ func prepareBuffs() -> Array[Buff]:
 		Buffs.BitingBlockedBuff.new(),
 		Buffs.SuppressionBuff.new(0.15),
 	]
+
+func getBuyPrice() -> int:
+	return 5
+
+func getItemValues() -> Array[ItemValue]:
+	return [
+		ItemValue.baseValue(0.3),
+		ItemValue.personalityBased(PersonalityStat.Dominant, 0.5),
+		ItemValue.personalityBased(PersonalityStat.Mean, 0.2),
+		ItemValue.itemValueTagBased(ItemValueTag.BondageGear, 1.0),
+	]

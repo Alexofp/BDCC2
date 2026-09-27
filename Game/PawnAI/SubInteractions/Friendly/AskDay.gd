@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_FRIENDLY
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_FRIENDLY - 3.0
+	interactionPriority = PRIO_FRIENDLY - 51.0
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	return true
@@ -16,7 +16,7 @@ func prepareChanceCalculator():
 
 func start(_roles:Dictionary, _args:Array):
 	#startSocialInteraction()
-	say(ROLE_MAIN, "AskDay_Start", ROLE_TARGET)
+	pushSay(ROLE_MAIN, "AskDay_Start", ROLE_TARGET)
 	
 	var theTarget := getPawn(ROLE_TARGET)
 	var theMemories:MemoryHolder = theTarget.getMemoryHolder()
@@ -27,7 +27,7 @@ func start(_roles:Dictionary, _args:Array):
 	else:
 		for theReaction in theReactions:
 			pushSayRaw(ROLE_TARGET, theReaction.line)
-			pushDelay(3.0)
+			pushDelay(1.0)
 		pushSay(ROLE_TARGET, "AskDay_End", ROLE_MAIN)
 	
 	pushStopInteraction()

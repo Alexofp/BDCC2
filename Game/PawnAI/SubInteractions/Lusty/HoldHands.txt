@@ -1,0 +1,16 @@
+def HoldHandsStart
+fill HoldHandsStart simple
+<
+Wanna hold hands?
+>
+
+def HoldHandsSure
+fallback Sure
+def HoldHandsNo
+fallback No
+
+def Memory_HoldHands
+fill Memory_HoldHands simple
+<
+I held hands with {target.name}% MemoryRecently%. That felt kinky.
+>

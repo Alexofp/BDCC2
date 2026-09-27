@@ -1,0 +1,47 @@
+def GiveGiftBegin
+fill GiveGiftBegin simple
+<
+I wanna gift you this..
+>
+
+def GiveGiftNothing
+fill GiveGiftNothing simple
+<
+Never mind.
+>
+
+def GiveGiftGive
+fill GiveGiftGive simple_needs_var_support
+<
+%itemName%. Do you like it?
+>
+
+def GiveGiftAcceptMeh
+fill GiveGiftAcceptMeh simple
+<
+Oh, uh.. thanks, I guess.
+>
+
+def GiveGiftAccept
+fill GiveGiftAccept simple
+<
+Oh, thanks.
+>
+
+def GiveGiftAcceptCrit
+fill GiveGiftAcceptCrit simple
+<
+Oh, wow. I really needed that, thank you!
+>
+
+def GiveGiftDeny
+fill GiveGiftDeny simple
+<
+No, sorry, don't need it.
+>
+
+def GiveGiftDenyCrit
+fill GiveGiftDenyCrit simple
+<
+How dare you try to give me that!
+>

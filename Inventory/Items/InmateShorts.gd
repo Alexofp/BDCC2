@@ -96,3 +96,12 @@ func getCoveredZones() -> Dictionary[int, bool]:
 		ZoneCover.Anus: !pulledDown,
 		ZoneCover.Thighs: pulledDown, # Shorts cover the thighs if pulled down
 	}
+
+func getBuyPrice() -> int:
+	return 5
+
+func getItemValues() -> Array[ItemValue]:
+	return [
+		ItemValue.baseValue(0.5),
+		ItemValue.itemValueTagBased(ItemValueTag.InmateClothing, 1.0),
+	]

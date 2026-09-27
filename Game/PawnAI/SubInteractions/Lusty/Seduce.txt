@@ -1,0 +1,23 @@
+def SeduceStart
+fill SeduceStart simple
+<
+You are sexy.
+>
+
+def SeduceAccept
+fill SeduceAccept simple
+<
+You're making me so horny all of the sudden.
+>
+
+def SeduceDeny
+fill SeduceDeny simple
+<
+Don't bother.
+>
+
+def Memory_Seduce
+fill Memory_Seduce simple
+<
+I got hit on by {target.name}% MemoryRecently%. Made me so horny.
+>

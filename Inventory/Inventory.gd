@@ -71,6 +71,18 @@ func findItemByUniqueID(_uid:int) -> ItemBase:
 			return theItem
 	return null
 
+func findItemByUniqueIDOnlyEquipped(_uid:int) -> ItemBase:
+	for slot in equipped:
+		if(equipped[slot].uniqueID == _uid):
+			return equipped[slot]
+	return null
+
+func findItemByUniqueIDOnlyStored(_uid:int) -> ItemBase:
+	for theItem in items:
+		if(theItem.uniqueID == _uid):
+			return theItem
+	return null
+
 func removeItem(theItem:ItemBase) -> bool:
 	assert(theItem.getInventory() == self, "BAD ITEM OR INVENTORY")
 	if(theItem.currentSlot >= 0):
@@ -294,6 +306,21 @@ func isWearingStrapon() -> bool:
 	if(!theItem):
 		return false
 	return theItem.isStrapon()
+
+func getAmountOfItemID(_itemID:String, _includeEquipped:bool = true, _includeStored:bool = true) -> int:
+	var result:int = 0
+	
+	if(_includeEquipped):
+		for invSlot in equipped:
+			var theItem:ItemBase = equipped[invSlot]
+			if(theItem.id == _itemID):
+				result += theItem.getItemAmount()
+	if(_includeStored):
+		for theItem:ItemBase in items:
+			if(theItem.id == _itemID):
+				result += theItem.getItemAmount()
+	
+	return result
 
 func saveNetworkData() -> Bins:
 	var ar:Array = [

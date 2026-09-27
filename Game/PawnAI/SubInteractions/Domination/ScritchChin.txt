@@ -1,0 +1,17 @@
+def ScritchChinStart
+fill ScritchChinStart simple
+<
+Can I scritch your chin? I really want to.
+>
+
+def ScritchChinSure
+fill ScritchChinSure simple
+<
+Alright.
+>
+
+def ScritchChinNo
+fill ScritchChinNo simple
+<
+What? No.
+>
