@@ -1,0 +1,5 @@
+def StartFightStart
+fill StartFightStart simple
+<
+I'm gonna fight you!
+>

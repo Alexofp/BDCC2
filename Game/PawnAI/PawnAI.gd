@@ -265,7 +265,7 @@ func reactDelayedAction(_action:ActionSystemEntry):
 	
 	if(pawn.addAnnoyanceOrAddEnemy(_action.user, 0.7)):
 		#pawn.combatAI.addEnemy(_action.user)
-		pawn.sayReaction("AnnoyedStartFight", false, _action.user)
+		pawn.sayReaction("AnnoyedStartFight", TalkGesture.None, _action.user)
 		pass
 	else:
 		GM.main.interactionSystem.startInteraction("Annoyed", {

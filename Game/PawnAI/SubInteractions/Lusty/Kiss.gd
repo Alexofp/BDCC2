@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_LUSTY
 	
 	askText = "WannaKiss"
-	coupleAnim = "Hug"
+	coupleAnim = "Kiss"
 	coupleAnimTime = 4.0
 	
 	lineSure = "KissSure"

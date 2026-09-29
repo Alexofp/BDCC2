@@ -272,16 +272,16 @@ const TALK_DELAY:float = 2.0
 func pushDelay(_delay:float = TALK_DELAY):
 	interactionQueue.append([QueueEntry.Delay, _delay])
 
-func pushSayRaw(_role:int, _text:String):
-	interactionQueue.append([QueueEntry.SayRaw, _role, _text])
+func pushSayRaw(_role:int, _text:String, _talkGesture:int = TalkGesture.Chat):
+	interactionQueue.append([QueueEntry.SayRaw, _role, _text, _talkGesture])
 	pushDelay()
 
-func pushSay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
-	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
+func pushSay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}, _talkGesture:int = TalkGesture.Chat):
+	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args, _talkGesture])
 	pushDelay()
 
-func pushSayNoDelay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}):
-	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args])
+func pushSayNoDelay(_role:int, _text:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}, _talkGesture:int = TalkGesture.Chat):
+	interactionQueue.append([QueueEntry.Say, _role, _text, _roleTarget, _args, _talkGesture])
 
 func pushLookAt(_role1:int, _role2:int):
 	interactionQueue.append([QueueEntry.LookAt, _role1, _role2])
@@ -350,10 +350,10 @@ func processQueue(_dt:float):
 					interactionQueue.pop_front()
 				break
 			QueueEntry.SayRaw:
-				sayText(theEntry[1], theEntry[2])
+				sayText(theEntry[1], theEntry[2], theEntry[3])
 				interactionQueue.pop_front()
 			QueueEntry.Say:
-				say(theEntry[1], theEntry[2], theEntry[3], theEntry[4])
+				say(theEntry[1], theEntry[2], theEntry[3], theEntry[4], theEntry[5])
 				interactionQueue.pop_front()
 			QueueEntry.Event:
 				onQueueEvent(theEntry[1], theEntry[2])
@@ -465,14 +465,14 @@ func getSay(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictiona
 		return "#WRITE_ME: "+_reaction+"#"
 	return theReaction.line
 
-func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}, _talkGesture:bool = true):
+func say(_roleSay:int, _reaction:String, _roleTarget:int = -1, _args:Dictionary[String, Variant] = {}, _talkGesture:int = TalkGesture.Chat):
 	sayText(_roleSay, getSay(_roleSay, _reaction, _roleTarget, _args), _talkGesture)
 
-func sayText(_role:int, _text:String, talkGesture:bool = true):
+func sayText(_role:int, _text:String, _talkGesture:int = TalkGesture.Chat):
 	#print(str(_role)+": "+_text)
 	var thePawn := getPawn(_role)
 	if(thePawn):
-		thePawn.sayText(_text, talkGesture)
+		thePawn.sayText(_text, _talkGesture)
 	else:
 		Log.error(str(id)+" NOT FOUND ROLE "+str(_role)+" TO SAY TEXT: "+str(_text))
 
@@ -487,10 +487,10 @@ func doGesture(_role:int, _gestureID:String):
 	if(thePawn):
 		thePawn.playGesture(_gestureID)
 
-func doTalkGesture(_role:int):
+func doTalkGesture(_role:int, _talkGesture:int = TalkGesture.Chat):
 	var thePawn := getPawn(_role)
 	if(thePawn):
-		thePawn.doTalkGesture()
+		thePawn.doTalkGesture(_talkGesture)
 
 func startAction(_role:int, actionID:String, args:Array = []):
 	var thePawn:CharacterPawn = getPawn(_role)
@@ -806,9 +806,7 @@ func canStartFight(_roleStarter:int, _roleTarget:int, _playerAlwaysCan:bool = tr
 	var _pawnTarget := getPawn(_roleTarget)
 	if(!_pawnStarter || !_pawnTarget):
 		return false
-	if(_pawnStarter.combatAI.canAddEnemy(_pawnTarget) || (_playerAlwaysCan && _pawnStarter.isControlledByAnyPlayer())):
-		return true
-	return false
+	return _pawnStarter.canStartFight(_pawnTarget)
 
 func doesSupportCombat() -> bool:
 	return false

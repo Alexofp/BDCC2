@@ -1,0 +1,41 @@
+def WorshipStart
+fill WorshipStart simple
+<
+You are amazing, simply perfect. I'd do anything for you.
+I'd do anything for you. You're great.
+I really want to make you happy. You deserve it.
+>
+
+fill WorshipStart girl
+cond target.isGirl
+<
+You deserve to be spoiled, my queen.
+You're perfect, mistress. I wanna worship you.
+>
+
+fill WorshipStart boy
+cond target.isBoy
+<
+You deserve to be spoiled, my master.
+You're perfect, master. I wanna worship you.
+>
+
+def WorshipAccept
+fill WorshipAccept simple
+<
+Thank you.
+Cute.
+Good little pet.
+>
+
+def WorshipDeny
+fill WorshipDeny simple
+<
+Don't bother.
+>
+
+def Memory_Worship
+fill Memory_Worship simple
+<
+I got worshipped by {target.name}% MemoryRecently%.
+>

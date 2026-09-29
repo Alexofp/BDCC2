@@ -36,6 +36,7 @@ const ENEMY_GENERIC := 0
 const ENEMY_GOT_SUDDENLY_ATTACKED := 1
 const ENEMY_FRIENDLY_FIGHT := 2
 const ENEMY_SOCIAL_INTERACITON := 3
+const ENEMY_DECIDED_TO_ATTACK := 4
 
 class ActiveEnemy:
 	var agroScore:float

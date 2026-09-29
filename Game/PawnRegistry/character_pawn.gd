@@ -1138,7 +1138,7 @@ func showValueChange(_text:String, _am:float, _mult:float = 1.0, _colorGood:Colo
 		var theChars:String = "-".repeat(charAm)
 		addSmallText(_text+theChars, _colorBad)
 
-func sayReaction(_reaction:String, _talkGesture:bool = true, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}):
+func sayReaction(_reaction:String, _talkGesture:int = TalkGesture.Chat, _target:CharacterPawn = null, _args:Dictionary[String, Variant] = {}):
 	var theContext := ReactionSystem.ReactionContext.new()
 	theContext.main = getCharacter()
 	theContext.target = _target.getCharacter() if _target else null
@@ -1146,26 +1146,30 @@ func sayReaction(_reaction:String, _talkGesture:bool = true, _target:CharacterPa
 	var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	if(!theReaction):
 		Log.Printerr("# WRITE ME: "+_reaction+" #")
-		sayText("#WRITE_ME: "+_reaction+"#", true)
+		sayText("#WRITE_ME: "+_reaction+"#")
 		return
 	sayText(theReaction.line, _talkGesture)
 
-func sayText(_text:String, talkGesture:bool = true):
+func sayText(_text:String, _talkGesture:int = TalkGesture.Chat):
 	#print(str(_role)+": "+_text)
 	sayAdvanced(CharacterPawn.parseSayTextToArray(_text))
-	if(talkGesture):
-		doTalkGesture()
+	doTalkGesture(_talkGesture)
 
-func doTalkGesture():
-	playGesture(RNG.pick([
-		DollGesture.Talking1Hand,
-		DollGesture.Talking2Hands,
-		DollGesture.HeadGesture,
-		DollGesture.HeadGestureShort,
-		DollGesture.HeadNod,
-		DollGesture.HappyHand,
-		DollGesture.LookAway,
-	]))
+func doTalkGesture(_talkGesture:int = TalkGesture.Chat):
+	if(_talkGesture == TalkGesture.Angry):
+		playGesture(RNG.pick([
+			DollGesture.FuckOff,
+		]))
+	elif(_talkGesture == TalkGesture.Chat):
+		playGesture(RNG.pick([
+			DollGesture.Talking1Hand,
+			DollGesture.Talking2Hands,
+			DollGesture.HeadGesture,
+			DollGesture.HeadGestureShort,
+			DollGesture.HeadNod,
+			DollGesture.HappyHand,
+			DollGesture.LookAway,
+		]))
 
 # Only gets called if we're nearby
 func onDefeatingAnotherPawn(_defeatedPawn:CharacterPawn, _weDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
@@ -1251,7 +1255,28 @@ func onSexEngineResult(_result:SexEngineResult):
 		return
 	theChar.effectsHolder.onSexEngineResult(_result)
 
+func onGettingAttackedEnemyAdded(_attacker:CharacterPawn, _changeAffection:bool = true):
+	if(!_attacker):
+		return
+	ai.goalHandler.addGoal("PunishIfDefeated", [_attacker])
+	if(_changeAffection):
+		var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(self, _attacker, SocialCooldown.Attacked)
+		var theAffectionMult:float = maxf(currentCooldown + 1.0, 1.0)
+		var toRemoveAffection:float = -0.5 / theAffectionMult
+		addAffection(_attacker, toRemoveAffection)
+	GM.main.memorySystem.addMemory(self.getCharID(), "Attacked", _attacker.getCharID())
+	GM.main.relationshipSystem.addActionCooldownPawns(self, _attacker, SocialCooldown.Attacked)
+	addAnnoyance(_attacker, 1.0)
 
+func canStartFight(_otherPawn:CharacterPawn, _playerAlwaysCan:bool = true) -> bool:
+	if(!_otherPawn):
+		return false
+	if(combatAI.canAddEnemy(_otherPawn) || (_playerAlwaysCan && isControlledByAnyPlayer())):
+		return true
+	return false
+
+func addEnemy(_pawn:CharacterPawn, _type:int = CombatPawnAI.ENEMY_GENERIC) -> CombatPawnAI.ActiveEnemy:
+	return combatAI.addEnemy(_pawn, _type)
 
 
 

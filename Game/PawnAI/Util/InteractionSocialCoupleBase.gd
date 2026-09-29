@@ -4,6 +4,7 @@ class_name InteractionSocialCoupleBase
 var askText:String = "WannaHug"
 var coupleAnim:String = "Hug"
 var coupleAnimTime:float = 4.0
+var coupleAnimReverse:bool = false
 var giveUpTimer:int = 0
 
 var lineSure:String = "Sure"
@@ -67,7 +68,10 @@ func _do(_role:int, _action:InteractionAction):
 
 func onQueueEvent(_eventID:String, _args:Array):
 	if(_eventID == "hug"):
-		GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+		if(!coupleAnimReverse):
+			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+		else:
+			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_TARGET), getPawn(ROLE_MAIN))
 
 func doing_processRare(_dt:float):
 	var theMain := getPawn(ROLE_MAIN)

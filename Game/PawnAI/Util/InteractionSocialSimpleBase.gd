@@ -4,6 +4,7 @@ class_name InteractionSocialSimpleBase
 var startLinesTopic:String = "" #"Compliment"
 var startLinesAmount:int = 1
 var startLineFallback:String = "You look nice today."
+var startLineTalkGesture:int = TalkGesture.Chat
 
 var answerAcceptActionName:String = "Accept"
 var answerDenyActionName:String = "Deny"
@@ -61,7 +62,7 @@ func start(_roles:Dictionary, _args:Array):
 
 func doStartWithLine(_line:String):
 	socialInteractionStart()
-	sayText(ROLE_MAIN, _line)
+	sayText(ROLE_MAIN, _line, startLineTalkGesture)
 	pushDelay()
 	pushEvent("saidLine")
 	pushSetState("answer")

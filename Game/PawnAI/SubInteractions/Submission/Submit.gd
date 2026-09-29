@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_SUB
 	
 	registerForInteractionType = [InteractionType.Talking]
-	interactionPriority = PRIO_SUBMISSION - 1.0
+	interactionPriority = PRIO_SUBMISSION - 3.0
 	
 	startLinesTopic = "SubmitAsk"
 	startLineFallback = "I wanna submit to you."
@@ -40,7 +40,7 @@ func onSocialInteractionEnd():
 		addAnnoyanceTarget(1.0)
 		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
-		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, false)
+		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, TalkGesture.None)
 		pushDelay(1.0)
 		pushSocialDenied()
 		pushStopInteraction()

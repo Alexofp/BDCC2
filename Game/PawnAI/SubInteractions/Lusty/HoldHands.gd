@@ -2,11 +2,11 @@ extends InteractionSocialCoupleBase
 
 func _init() -> void:
 	id = "HoldHands"
-	socialActionName = "HoldHands"
+	socialActionName = "Hold hands"
 	socialActionCategory = CATEGORY_LUSTY
 	
 	askText = id+"Start"
-	coupleAnim = "Hug"
+	coupleAnim = "HoldHands"
 	coupleAnimTime = 4.0
 	
 	lineSure = id+"Sure"

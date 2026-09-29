@@ -6,7 +6,7 @@ func _init() -> void:
 	socialActionCategory = CATEGORY_DOM
 	
 	askText = id+"Start"
-	coupleAnim = "Hug"
+	coupleAnim = "Headpat"
 	coupleAnimTime = 4.0
 	
 	lineSure = id+"Sure"

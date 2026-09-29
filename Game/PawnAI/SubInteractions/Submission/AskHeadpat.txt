@@ -1,0 +1,17 @@
+def AskHeadpatStart
+fill AskHeadpatStart simple
+<
+Can you pat me please?
+>
+
+def AskHeadpatSure
+fill AskHeadpatSure simple
+<
+Alright. Come here.
+>
+
+def AskHeadpatNo
+fill AskHeadpatNo simple
+<
+Not in the mood.
+>

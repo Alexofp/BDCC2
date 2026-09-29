@@ -219,6 +219,6 @@ func getAskDayReactions(_askingPawn:CharacterPawn, _maxAmount:int = 3) -> Array[
 	#var theReaction := GM.main.reactionSystem.generateReaction(_reaction, theContext)
 	#if(!theReaction):
 		#Log.Printerr("# WRITE ME: "+_reaction+" #")
-		#sayText(_roleSay, "#WRITE_ME: "+_reaction+"#", true)
+		#sayText(_roleSay, "#WRITE_ME: "+_reaction+"#")
 		#return
-	#sayText(_roleSay, theReaction.line, true)
+	#sayText(_roleSay, theReaction.line)

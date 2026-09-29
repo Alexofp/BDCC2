@@ -14,6 +14,7 @@ func _init() -> void:
 	startLinesTopic = "Insult"
 	startLinesAmount = 4
 	startLineFallback = "You are not very bright, are you?"
+	startLineTalkGesture = TalkGesture.Angry
 	#answerAcceptActionName = "Accept"
 	#answerAcceptReaction = "ComplimentAccept"
 	#answerAcceptReactionCritical = "ComplimentAccept"
@@ -69,7 +70,7 @@ func onAnswerSimple(_id:String, _role:int, _action:InteractionAction):
 		addAnnoyanceTarget(1.0)
 		getPawn(ROLE_TARGET).combatAI.addEnemy(getPawn(ROLE_MAIN), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
 		getPawn(ROLE_MAIN).combatAI.addEnemy(getPawn(ROLE_TARGET), CombatPawnAI.ENEMY_SOCIAL_INTERACITON)
-		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, false)
+		say(ROLE_TARGET, "InsultResponseFight", ROLE_MAIN, {}, TalkGesture.None)
 		pushDelay(1.0)
 		pushSocialDenied()
 		pushStopInteraction()

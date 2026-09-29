@@ -23,19 +23,7 @@ func onGettingHit(_attackContext:AttackContext) -> bool:
 			}, [1.0])
 			thePawn.addAffection(_attackContext.attacker, -0.5)
 		elif(thePawn.combatAI.addEnemy(_attackContext.attacker, CombatPawnAI.ENEMY_GOT_SUDDENLY_ATTACKED)):
-			thePawn.ai.goalHandler.addGoal("PunishIfDefeated", [_attackContext.attacker])
-			var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
-			var theAffectionMult:float = maxf(currentCooldown + 1.0, 1.0)
-			
-			var toRemoveAffection:float = -0.5 / theAffectionMult
-			
-			GM.main.relationshipSystem.addAffection(_attackContext.target.getCharID(), _attackContext.attacker.getCharID(), toRemoveAffection)
-			_attackContext.target.showValueChange("Affection", signf(toRemoveAffection), 2.0/theAffectionMult)
-			
-			GM.main.memorySystem.addMemory(_attackContext.target.getCharID(), "Attacked", _attackContext.attacker.getCharID())
-			
-			GM.main.relationshipSystem.addActionCooldownPawns(_attackContext.target, _attackContext.attacker, SocialCooldown.Attacked)
-			_attackContext.target.addAnnoyance(_attackContext.attacker, 1.0)
+			thePawn.onGettingAttackedEnemyAdded(_attackContext.attacker)
 		startSubActionUnlessSameTag("Combat")
 	return true
 
