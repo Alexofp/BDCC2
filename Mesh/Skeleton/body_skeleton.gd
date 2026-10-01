@@ -19,6 +19,8 @@ class_name BodySkeleton
 @onready var punch_hit_vfxr: Node3D = %PunchHitVFXR
 @onready var punch_hit_vfxl: Node3D = %PunchHitVFXL
 
+@onready var vision_eyes: Marker3D = %VisionEyes
+
 @onready var squirt_particles_1: GPUParticles3D = %SquirtParticles1
 @onready var squirt_particles_2: GPUParticles3D = %SquirtParticles2
 @onready var squirt_particles_3: GPUParticles3D = %SquirtParticles3

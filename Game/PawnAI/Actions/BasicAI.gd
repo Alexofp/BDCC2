@@ -36,8 +36,15 @@ func think():
 			#continue
 		#getPawn().combatAI.addEnemy(otherPawnInteractor.pawn)
 	
+	var _pawn:CharacterPawn = getPawn()
 	if(isThisActionHandlingCombat()):
-		if(getPawn().combatAI.hasEnemies()):
+		var _seePawns := _pawn.getVision().getSeePawns()
+		for thePawn:CharacterPawn in _seePawns:
+			var _attackReason:int = _pawn.shouldAddEnemyOnSight(thePawn)
+			if(_attackReason > 0 && !_pawn.combatAI.hasEnemy(thePawn)):
+				_pawn.addEnemy(thePawn, _attackReason)
+		
+		if(_pawn.combatAI.hasEnemies() && !_pawn.isDefeated()):
 			startSubActionUnlessSameTag("Combat")
 			return
 	

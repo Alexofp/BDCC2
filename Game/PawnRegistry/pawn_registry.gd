@@ -4,12 +4,14 @@ class_name PawnRegistry
 var pawnScene := preload("res://Game/PawnRegistry/character_pawn.tscn")
 
 var pawns:Dictionary[String, CharacterPawn] = {}
+var pawnList:Array[CharacterPawn] = []
+var updateSemiI:int = 0
 
 signal onPawnCreated(pawn)
 signal onPawnDeleted(pawn)
 signal onPawnListChanged
 
-const GRID_SIZE = 10
+const GRID_SIZE:float = 25
 var sparsePawnGrid:Dictionary[Vector2i, Array] = {}
 
 func _ready() -> void:
@@ -19,6 +21,22 @@ func _ready() -> void:
 func hasPawn(charID:String) -> bool:
 	return pawns.has(charID)
 
+func _physics_process(_delta: float) -> void:
+	var pawnAm:int = pawnList.size()
+	if(pawnAm <= 0):
+		return
+	var howManyToUpdate:int = mini(pawnAm, int(ceilf(float(pawnAm)*0.25)))
+	var fractionOfUpdated:float = float(pawnAm)/float(howManyToUpdate)
+	
+	var properDeltaTime:float = _delta*fractionOfUpdated
+	
+	while(howManyToUpdate > 0):
+		if(updateSemiI >= pawnList.size()):
+			updateSemiI = 0
+		pawnList[updateSemiI].processSemiOften(properDeltaTime)
+		updateSemiI += 1
+		howManyToUpdate -= 1
+
 @rpc("authority", "call_remote", "reliable")
 func createPawnRPC(charID:String, data:Dictionary):
 	Log.Print("CREATEPAWN_RPC "+str(charID)+" "+str(data))
@@ -26,6 +44,7 @@ func createPawnRPC(charID:String, data:Dictionary):
 	thePawn.name = charID
 	thePawn.id = charID
 	pawns[thePawn.id] = thePawn
+	pawnList.append(thePawn)
 	
 	thePawn.tree_exiting.connect(pawnDeleteCleanup.bind(thePawn))
 	
@@ -56,6 +75,7 @@ func createPawn(charID:String) -> CharacterPawn:
 	thePawn.name = charID
 	thePawn.id = charID
 	pawns[thePawn.id] = thePawn
+	pawnList.append(thePawn)
 	
 	thePawn.tree_exiting.connect(pawnDeleteCleanup.bind(thePawn))
 	
@@ -81,13 +101,16 @@ func deletePawn(charID:String):
 	if(!hasPawn(charID)):
 		assert(false, "Pawn doesn't exist")
 		return
-	pawns[charID].queue_free()
+	var thePawn:CharacterPawn = pawns[charID]
+	thePawn.queue_free()
 	pawns.erase(charID)
+	pawnList.erase(thePawn)
 
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(deletePawnRPC.bind(charID))
 
 func pawnDeleteCleanup(thePawn:CharacterPawn):
+	thePawn.notifyOnDelete()
 	onPawnDeleted.emit(thePawn) # Should this happen after the erase?
 	
 	if(thePawn.getInteraction()):
@@ -96,6 +119,7 @@ func pawnDeleteCleanup(thePawn:CharacterPawn):
 	if(thePawn.is_inside_tree()):
 		thePawn.name = "TO_BE_DELETED"
 	pawns.erase(thePawn.id)
+	pawnList.erase(thePawn)
 	
 	removePawnFromSparseGridSpecific(thePawn, thePawn.gridPos)
 	
@@ -108,6 +132,7 @@ func clearPawns():
 	for charID in pawns.keys():
 		pawns[charID].queue_free()
 	pawns = {}
+	pawnList = []
 
 func shouldPawnDollBeSpawned(_thePawn:CharacterPawn) -> bool:
 	for playerID in Network.players:
@@ -143,17 +168,55 @@ func getPawnsNear(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
 				for thePawn in thePawns:
 					if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
 						result.append(thePawn)
+	return result
+
+func getPawnsNearDict(_pos:Vector3, _radius:float) -> Dictionary[CharacterPawn, float]:
+	var result:Dictionary[CharacterPawn, float] = {}
+	var radSquared:float = _radius * _radius
+	var gridSizeToCheck:int = int(ceil(_radius/GRID_SIZE))
+	var gridPos:= getGridPos(_pos)
+	
+	for _x in range(gridPos.x - gridSizeToCheck, gridPos.x + gridSizeToCheck + 1):
+		for _y in range(gridPos.y - gridSizeToCheck, gridPos.y + gridSizeToCheck + 1):
+			var finalGridPos:Vector2i = Vector2i(_x, _y)
 			
+			if(sparsePawnGrid.has(finalGridPos)):
+				var thePawns:Array = sparsePawnGrid[finalGridPos]
+				for thePawn in thePawns:
+					var theDistSquared:float = thePawn.global_position.distance_squared_to(_pos)
+					if(theDistSquared <= radSquared):
+						result[thePawn] = theDistSquared
+	return result
+
+# Skips the distance check, just returns a list of pawns that are in the affected grid cells
+func getPawnsNearRoughly(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
+	var result:Array[CharacterPawn] = []
+	#var radSquared:float = _radius * _radius
+	var gridSizeToCheck:int = int(ceil(_radius/GRID_SIZE))
+	var gridPos:= getGridPos(_pos)
+	
+	for _x in range(gridPos.x - gridSizeToCheck, gridPos.x + gridSizeToCheck + 1):
+		for _y in range(gridPos.y - gridSizeToCheck, gridPos.y + gridSizeToCheck + 1):
+			var finalGridPos:Vector2i = Vector2i(_x, _y)
+			
+			if(sparsePawnGrid.has(finalGridPos)):
+				var thePawns:Array = sparsePawnGrid[finalGridPos]
+				for thePawn in thePawns:
+					#if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
+					result.append(thePawn)
 	return result
 	
 func getPawnsNearSlow(_pos:Vector3, _radius:float) -> Array[CharacterPawn]:
 	var result:Array[CharacterPawn] = []
 	var radSquared:float = _radius * _radius
 	
-	for charID in pawns:
-		var thePawn:CharacterPawn = pawns[charID]
+	for thePawn:CharacterPawn in pawnList:
 		if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
 			result.append(thePawn)
+	#for charID in pawns:
+	#	var thePawn:CharacterPawn = pawns[charID]
+	#	if(thePawn.global_position.distance_squared_to(_pos) <= radSquared):
+	#		result.append(thePawn)
 	
 	return result
 

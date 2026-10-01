@@ -32,11 +32,11 @@ var comboContext:AIComboContext = AIComboContext.new()
 class RecentlyDefeatedEnemy:
 	var timer:float
 
-const ENEMY_GENERIC := 0
-const ENEMY_GOT_SUDDENLY_ATTACKED := 1
-const ENEMY_FRIENDLY_FIGHT := 2
-const ENEMY_SOCIAL_INTERACITON := 3
-const ENEMY_DECIDED_TO_ATTACK := 4
+const ENEMY_GENERIC := 1
+const ENEMY_GOT_SUDDENLY_ATTACKED := 2
+const ENEMY_FRIENDLY_FIGHT := 3
+const ENEMY_SOCIAL_INTERACITON := 4
+const ENEMY_DECIDED_TO_ATTACK := 5
 
 class ActiveEnemy:
 	var agroScore:float
@@ -92,6 +92,8 @@ func addEnemy(_pawn:CharacterPawn, _type:int = ENEMY_GENERIC) -> ActiveEnemy:
 	activeEnemies[_pawn] = newActiveEnemy
 	_pawn.tree_exiting.connect(removeEnemy.bind(_pawn))
 	
+	pawn.getVision().makeSeePawn(_pawn) # Make sure we can see the pawn
+	
 	return newActiveEnemy
 
 func removeEnemy(_pawn:CharacterPawn) -> bool:
@@ -125,10 +127,11 @@ func processRare(_dt:float):
 		clearEnemies() # Players don't have ai-assigned enemies
 		return
 	toRem.clear()
+	var theVision:PawnVision = pawn.getVision()
 	for enemyPawn in recentlyDefeatedEnemies:
 		var theRecentlyDefeatedEnemy:RecentlyDefeatedEnemy = recentlyDefeatedEnemies[enemyPawn]
 		theRecentlyDefeatedEnemy.timer -= _dt
-		if(!enemyPawn.isDefeated() || theRecentlyDefeatedEnemy.timer <= 0.0 || enemyPawn.global_position.distance_squared_to(pawn.global_position) > 400.0):
+		if(!enemyPawn.isDefeated() || theRecentlyDefeatedEnemy.timer <= 0.0 || !theVision.canSeePawn(enemyPawn) || enemyPawn.global_position.distance_squared_to(pawn.global_position) > 400.0):
 			toRem.append(enemyPawn)
 	for thePawn in toRem:
 		removeRecentlyDefeatedEnemy(thePawn)

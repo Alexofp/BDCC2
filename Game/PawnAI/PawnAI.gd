@@ -5,9 +5,10 @@ const DEBUG_AI := true
 const DEBUG_RELATIONSHIPS := false
 
 var pawn:CharacterPawn
+var vision:PawnVision
 
-var bigUpdateTime:float = 0.0
-var nextBigUpdateAt:float = 1.0
+#var bigUpdateTime:float = 0.0 # Unused because processRare now called inside the pawn
+#var nextBigUpdateAt:float = 1.0
 
 var currentMoveTarget:Vector3
 var shouldRunToTarget:bool = false
@@ -21,8 +22,14 @@ func _init() -> void:
 	pass
 
 func setPawn(_thePawn:CharacterPawn):
+	assert(!pawn, "Pawn already assigned!")
 	pawn = _thePawn
 	goalHandler.setAI(self)
+	pawn.onPawnDelete.connect(func():
+		pawn = null
+	)
+	vision = PawnVision.new()
+	vision.setPawn(_thePawn)
 
 func getPawn() -> CharacterPawn:
 	return pawn
@@ -79,6 +86,7 @@ func doJump():
 func processAI(_dt:float):
 	if(!pawn):
 		return
+	#vision.processVision(_dt) # Called inside the pawn now
 	if(pawn.isControlledByAnyPlayer()):
 		stopAction()
 		return
@@ -94,11 +102,11 @@ func processAI(_dt:float):
 	#else:
 	#	pass
 	
-	bigUpdateTime += _dt
-	if(bigUpdateTime >= nextBigUpdateAt):
-		nextBigUpdateAt = 1.0
-		processRare(bigUpdateTime)
-		bigUpdateTime = 0.0
+	#bigUpdateTime += _dt # Called inside the pawn now
+	#if(bigUpdateTime >= nextBigUpdateAt):
+	#	nextBigUpdateAt = 1.0
+	#	processRare(bigUpdateTime)
+	#	bigUpdateTime = 0.0
 	
 	#if(!isPC):
 	var theNavAgent:NavigationAgent3D = pawn.getNavAgent()
@@ -197,6 +205,8 @@ func getDebugText() -> String:
 		resultTexts.append(preText+theAction.id+": "+theAction.getDebugText())
 		preText += "-"
 		theAction = theAction.subAction
+	
+	resultTexts.append(vision.getDebugString())
 	
 	return ""+Util.join(resultTexts, "\n")
 

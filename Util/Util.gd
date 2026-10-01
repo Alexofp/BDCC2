@@ -389,20 +389,6 @@ static func getNextInArray(_ar:Array, _val:Variant) -> Variant:
 	
 	return _ar[_indx]
 
-## returns dictionary containing "position", "normal", "collider", "shape"
-## returns empty dictionary if nothing hit.
-static func castRaySlow(_node:Node, start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_objects := [], collide_with_areas := false, hit_from_inside := false) -> Dictionary:
-	var global_world : World3D = _node.get_world_3d()
-	var ray_cast_query := PhysicsRayQueryParameters3D.new()
-	var space_state := global_world.direct_space_state
-	ray_cast_query.collide_with_areas = collide_with_areas
-	ray_cast_query.hit_from_inside = hit_from_inside
-	ray_cast_query.from = start
-	ray_cast_query.to = end
-	ray_cast_query.exclude = ignore_objects
-	ray_cast_query.collision_mask = mask
-	return space_state.intersect_ray(ray_cast_query)
-
 static func readFile(_path:String) -> String:
 	var file := FileAccess.open(_path, FileAccess.READ)
 	if(!file):
@@ -475,3 +461,33 @@ static func getBuffsTexts(theBuffs:Array[Buff]) -> Array[String]:
 			continue
 		result.append("[color=#"+theBuff.getColor().to_html(false)+"]"+theBuff.getName()+" "+theBuff.getBuffText()+"[/color]")
 	return result
+
+static var ray_cast_query := PhysicsRayQueryParameters3D.new()
+static var ray_cast_result := PhysicsIntersectRayResult3D.new()
+static var ray_cast_space:PhysicsDirectSpaceState3D
+
+## returns dictionary containing "position", "normal", "collider", "shape"
+## returns empty dictionary if nothing hit.
+static func castRaySlow(_node:Node, start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_objects := [], collide_with_areas := false, hit_from_inside := false) -> Dictionary:
+	var global_world : World3D = _node.get_world_3d()
+	var space_state := global_world.direct_space_state
+	ray_cast_query.collide_with_areas = collide_with_areas
+	ray_cast_query.hit_from_inside = hit_from_inside
+	ray_cast_query.from = start
+	ray_cast_query.to = end
+	ray_cast_query.exclude = ignore_objects
+	ray_cast_query.collision_mask = mask
+	return space_state.intersect_ray(ray_cast_query)
+
+static func castRay(start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_objects:Array[RID]= [], collide_with_areas := false, hit_from_inside := false) -> PhysicsIntersectRayResult3D:
+	ray_cast_query.collide_with_areas = collide_with_areas
+	ray_cast_query.hit_from_inside = hit_from_inside
+	ray_cast_query.from = start
+	ray_cast_query.to = end
+	ray_cast_query.exclude = ignore_objects
+	ray_cast_query.collision_mask = mask
+	if(!ray_cast_space && DummyNode3D):
+		ray_cast_space = DummyNode3D.get_world_3d().direct_space_state
+	if(!ray_cast_space.intersect_ray_into(ray_cast_query, ray_cast_result)):
+		return null
+	return ray_cast_result

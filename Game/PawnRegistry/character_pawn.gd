@@ -32,6 +32,8 @@ signal dollSpawned(doll)
 signal dollDespawned(doll)
 signal dollSwitched(newdoll, olddoll)
 
+signal onPawnDelete
+
 var gridPos:Vector2i
 
 var pawnActionContext:PawnActionContext
@@ -154,6 +156,50 @@ func _process(_delta: float) -> void:
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
 
+func _physics_process(_dt: float) -> void:
+	#if(!isControlledByUs()):
+	#	if(isDollSpawned()):
+	#		getDoll().reset_input()
+	updateDelayedActionCache()
+	if(Network.isServer()):
+		ai.processAI(_dt)
+	calcHoverTextProgressBarInfo()
+	processPoseSpot()
+	
+	combatMovePlayer.processCombatPlayer(_dt)
+	
+	if(isControlledByAnyPlayer()):
+		var theDoll := getDoll()
+		navigation_agent_3d.velocity = theDoll.velocity if theDoll else Vector3.ZERO
+		#if(navigation_agent_3d.avoidance_enabled):
+		#	navigation_agent_3d.avoidance_enabled = false
+	else:
+		var theDir := (navigation_agent_3d.get_next_path_position() - global_position) if !navigation_agent_3d.is_navigation_finished() else Vector3.ZERO
+		var theDirLen:float = theDir.length()
+		if(theDirLen > 1.0):
+			theDir /= theDirLen
+		navigation_agent_3d.velocity = theDir*3.0#getDoll().velocity
+		#if(!navigation_agent_3d.avoidance_enabled):
+		#	navigation_agent_3d.avoidance_enabled = true
+	#DebugDraw.draw_line_3d(global_position, global_position+safeNavAgentVelocity, Color.GREEN)
+
+# Called roughly 4-5 times a second from inside the pawn registry
+func processSemiOften(_dt:float):
+	rareUpdateTimer -= _dt
+	if(rareUpdateTimer <= 0.0):
+		rareUpdateTimer = 1.0
+		processRare(rareUpdateTimer)
+	
+	veryRareUpdateTimer -= _dt
+	if(veryRareUpdateTimer <= 0.0):
+		veryRareUpdateTimer = RNG.randfRange(9.0, 11.0)
+		processVeryRare(veryRareUpdateTimer)
+	
+	submission.processSubmission(_dt)
+	poseHandler.process(_dt)
+	if(Network.isServer()):
+		ai.vision.processVision(_dt)
+
 # Gets called every second or so
 func processRare(_dt:float):
 	if(Network.isServer()):
@@ -174,46 +220,9 @@ func processRare(_dt:float):
 					continue
 				interactionUIPawnIDs.append(thePawn.getID())
 	
+		ai.processRare(_dt)
+	
 	poseHandler.processRare(_dt)
-
-func _physics_process(_delta: float) -> void:
-	#if(!isControlledByUs()):
-	#	if(isDollSpawned()):
-	#		getDoll().reset_input()
-	updateDelayedActionCache()
-	if(Network.isServer()):
-		ai.processAI(_delta)
-	calcHoverTextProgressBarInfo()
-	processPoseSpot()
-	submission.processSubmission(_delta)
-	
-	combatMovePlayer.processCombatPlayer(_delta)
-	poseHandler.process(_delta)
-	
-	rareUpdateTimer -= _delta
-	if(rareUpdateTimer <= 0.0):
-		rareUpdateTimer = 1.0
-		processRare(rareUpdateTimer)
-	
-	veryRareUpdateTimer -= _delta
-	if(veryRareUpdateTimer <= 0.0):
-		veryRareUpdateTimer = RNG.randfRange(9.0, 11.0)
-		processVeryRare(veryRareUpdateTimer)
-
-	if(isControlledByAnyPlayer()):
-		var theDoll := getDoll()
-		navigation_agent_3d.velocity = theDoll.velocity if theDoll else Vector3.ZERO
-		#if(navigation_agent_3d.avoidance_enabled):
-		#	navigation_agent_3d.avoidance_enabled = false
-	else:
-		var theDir := (navigation_agent_3d.get_next_path_position() - global_position) if !navigation_agent_3d.is_navigation_finished() else Vector3.ZERO
-		var theDirLen:float = theDir.length()
-		if(theDirLen > 1.0):
-			theDir /= theDirLen
-		navigation_agent_3d.velocity = theDir*3.0#getDoll().velocity
-		#if(!navigation_agent_3d.avoidance_enabled):
-		#	navigation_agent_3d.avoidance_enabled = true
-	#DebugDraw.draw_line_3d(global_position, global_position+safeNavAgentVelocity, Color.GREEN)
 
 # Gets called every 10 seconds or so (random between 9.0 and 11.0)
 func processVeryRare(_dt:float):
@@ -799,6 +808,21 @@ func getYRotation() -> float:
 		return doll.getYRotation()
 	return global_rotation.y
 
+func getYRotationHead() -> float:
+	if(doll):
+		return doll.getYRotationHead()
+	return global_rotation.y
+
+func getEyesPosition() -> Vector3:
+	if(doll):
+		return doll.getEyesPosition()
+	return global_position+Vector3(0.0, 1.0, 0.0)
+
+func getEyesNode() -> Node3D:
+	if(doll):
+		return doll.getBodySkeleton().vision_eyes
+	return null
+
 func processHit(_attackContext:AttackContext) -> int:
 	return state.processHit(_attackContext)
 
@@ -1027,6 +1051,41 @@ func addAnnoyanceOrAddEnemy(_otherPawn:CharacterPawn, _annoy:float, _showText:bo
 	if(getAnnoyance(_otherPawn) >= 1.0 && combatAI.addEnemy(_otherPawn, _enemyType)):
 		return true
 	return false
+
+# Returns the addEnemy's second argument. If <= 0, no attack
+func shouldAddEnemyOnSight(_otherPawn:CharacterPawn) -> int:
+	#if(true):
+	#	return CombatPawnAI.ENEMY_GENERIC
+	return -1
+
+func canSeePawn(_otherPawn:CharacterPawn) -> bool:
+	return ai.vision.canSeePawn(_otherPawn)
+
+func calculateIsBlind() -> bool:
+	var theChar := getCharacter()
+	if(!theChar):
+		return false
+	return theChar.isBlind()
+
+# Pls don't call too often
+# Returns {node = score}
+func getPossibleLookAtNodes() -> Dictionary[Node3D, float]:
+	if(isInCombat()):
+		return {}
+	var result:Dictionary[Node3D, float]
+	
+	var _theVision:PawnVision = getVision()
+	for thePawn:CharacterPawn in _theVision.getSeePawns():
+		if(!thePawn.isDollSpawned()):
+			continue
+		var theEyesNode := thePawn.getEyesNode()
+		if(!theEyesNode):
+			continue
+		var theScore:float = _theVision.getLookAtScoreGeneric(theEyesNode.global_position)
+		if(theScore <= 0.0):
+			continue
+		result[theEyesNode] = theScore
+	return result
 
 func getAnnoyance(_otherPawn:CharacterPawn) -> float:
 	if(!_otherPawn):
@@ -1277,6 +1336,14 @@ func canStartFight(_otherPawn:CharacterPawn, _playerAlwaysCan:bool = true) -> bo
 
 func addEnemy(_pawn:CharacterPawn, _type:int = CombatPawnAI.ENEMY_GENERIC) -> CombatPawnAI.ActiveEnemy:
 	return combatAI.addEnemy(_pawn, _type)
+
+func notifyOnDelete():
+	onPawnDelete.emit()
+
+func getVision() -> PawnVision:
+	return ai.vision
+
+
 
 
 

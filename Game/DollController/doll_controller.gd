@@ -331,6 +331,7 @@ func _physics_process(_delta:float):
 	var theIsControlledByUs:bool = isControlledByUs()
 	#if(theIsControlledByUs):
 	processCameraBlindness()
+	processRandomLookAt(_delta)
 
 	if(theIsControlledByUs):
 		doll_controls.resetInput()
@@ -681,7 +682,40 @@ func _on_doll_on_gesture_play(gestureID: String, playFullBody: bool, playPartial
 
 func playGesture(gestureID: String):
 	GM.dollHolder.askPlayGesture(self, gestureID)
-	
+
+	#lookAtNode = _node
+	#lookAtTimer = _howLong
+	#isLookAtCustom = false
+var randomLookAtTimer:float = 0.0
+func processRandomLookAt(_dt:float):
+	if(doll.lookAtTimer > 0.0 || doll.isLookAtCustom || !Network.isServer()):
+		return
+	randomLookAtTimer -= _dt
+	if(randomLookAtTimer <= 0.0):
+		if(lookAtRandom()):
+			randomLookAtTimer = randf_range(3.0, 10.0)
+		else:
+			randomLookAtTimer = randf_range(1.0, 2.0)
+
+func lookAtRandom() -> bool:
+	if(!pawn):
+		return false
+	var theTargets := pawn.getPossibleLookAtNodes()
+	if(theTargets.is_empty()):
+		return false
+	var totalScore:float = 0.0
+	for theNode in theTargets:
+		var theScore:float = theTargets[theNode]
+		totalScore += theScore
+	if(totalScore < 1.0 && !RNG.chance(totalScore*100.0)):
+		return false
+	var randomLookAt:Node3D = RNG.pickWeightedDict(theTargets)
+	if(!randomLookAt):
+		return false
+	GM.dollHolder.askLookAt(self, randomLookAt, 5.0)
+	#lookAt(randomLookAt)
+	return true
+
 func lookAt(_node:Node3D):
 	getDoll().lookAt(_node)
 
@@ -743,6 +777,12 @@ func getLocalVelocity() -> Vector3:
 
 func getYRotation() -> float:
 	return model_root.global_rotation.y
+
+func getYRotationHead() -> float:
+	return doll.getBodySkeleton().vision_eyes.global_rotation.y
+
+func getEyesPosition() -> Vector3:
+	return doll.getBodySkeleton().vision_eyes.global_position
 
 var ignoreCollisionsPawns:Dictionary[CharacterPawn, bool]
 func updateCollisions():

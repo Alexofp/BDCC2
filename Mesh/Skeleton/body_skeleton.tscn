@@ -173,6 +173,10 @@ bone_idx = 24
 [node name="DollAttachPoint" parent="rig/Skeleton3D/BoneAttachment3D" index="0" unique_id=1404188762 instance=ExtResource("2_8r017")]
 pointName = "head"
 
+[node name="VisionEyes" type="Marker3D" parent="rig/Skeleton3D/BoneAttachment3D" index="1" unique_id=1768001808]
+unique_name_in_owner = true
+transform = Transform3D(1, 5.559626e-22, 0, 1.135499e-21, 1, 0, 0, 0, 1, 2.9844833e-15, 0.06646967, 1.8626451e-08)
+
 [node name="HoverTextBoneAttach" type="BoneAttachment3D" parent="rig/Skeleton3D" index="4" unique_id=1123013807]
 bone_name = "upper_chest"
 bone_idx = 22

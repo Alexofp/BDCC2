@@ -14,6 +14,9 @@ func onEnd():
 	pass
 
 func processAction(_dt:float):
+	if(getPawn().isDefeated()):
+		failAction()
+		return
 	getPawn().combatAI.processAI(_dt)
 
 func think():
