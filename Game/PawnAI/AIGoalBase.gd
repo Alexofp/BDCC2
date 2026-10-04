@@ -117,3 +117,19 @@ func isStaticGoal() -> bool:
 
 func handleInteractionEvent(_interaction:InteractionBase, _eventID:String, _args:Array) -> bool:
 	return false
+
+func isSocialInteraction(_interaction:InteractionBase, _action:InteractionAction, _socialInteractionID:String, _args:Array = []) -> bool:
+	if(_interaction.id != "Talking"):
+		return false
+	if(_action.id != "startSocial"):
+		return false
+	if(_action.args[0].id != _socialInteractionID):
+		return false
+	if(_action.args[1] != _args):
+		return false
+	return true
+
+func isTalkingInteraction(_interaction:InteractionBase) -> bool:
+	if(_interaction.id != "Talking"):
+		return false
+	return true

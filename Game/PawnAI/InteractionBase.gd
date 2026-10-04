@@ -111,6 +111,14 @@ func startFinal(_roles:Dictionary, _args:Array) -> bool:
 func start(_roles:Dictionary, _args:Array):
 	pass
 
+func onEndFinal():
+	for theRole:int in roleToPawn:
+		var thePawn:CharacterPawn = roleToPawn[theRole]
+		if(thePawn):
+			thePawn.onInteractionEnd(self, theRole)
+	stopSubInteraction()
+	onEnd()
+
 func onEnd():
 	pass
 
@@ -415,9 +423,10 @@ func stopInteraction():
 func stopSubInteraction():
 	if(!subInteraction):
 		return
+	subInteraction.onEndFinal()
 	var theInteraction := subInteraction
 	subInteraction = null
-	theInteraction.onEnd()
+	#theInteraction.onEndFinal()
 	onSubInteractionEnd(theInteraction)
 	theInteraction.parentInteraction = null
 	theInteraction.wasDeleted = true

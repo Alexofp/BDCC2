@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Dominate"
 	socialActionName = "Dominate"
 	socialActionCategory = CATEGORY_DOM
+	socialIATags = {IATag.Dominate: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_DOMINATION - 1.0

@@ -61,6 +61,7 @@ var bodypartsForAnySpecies:Dictionary[int, Dictionary] = {} # slot, gender, id =
 var statusEffects:Dictionary
 var statusEffectRefs:Dictionary[String, StatusEffectBase]
 var statusEffectsAlwaysChecked:Array[StatusEffectBase]
+var goalGenerators:Dictionary
 
 signal initialized
 
@@ -268,6 +269,8 @@ func doInit():
 	registerCoupleAnimsFolder("res://Game/Systems/CoupleAnimsSystem/Anims/")
 	
 	registerSexDialogueChains("res://Game/Sex/SexDialogueChains/")
+	
+	registerGoalGeneratorsFolder("res://Game/PawnAI/GoalGenerators/")
 	
 	registerMoodsFolder("res://Game/PawnAI/Mood/Moods/")
 	registerStatusEffectsFolder("res://Gameplay/StatusEffects/Effects/")
@@ -1407,3 +1410,28 @@ func getStatusEffect(id: String) -> StatusEffectBase:
 
 func getStatusEffectsAlwaysChecked() -> Array[StatusEffectBase]:
 	return statusEffectsAlwaysChecked
+
+
+
+
+func registerGoalGenerator(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is GoalGeneratorBase):
+		goalGenerators[object.id] = loadedClass
+
+func registerGoalGeneratorsFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerGoalGenerator(scriptPath)
+
+func createGoalGenerator(id: String) -> GoalGeneratorBase:
+	if(goalGenerators.has(id)):
+		return goalGenerators[id].new()
+	else:
+		Log.Printerr("ERROR: goal generator with the id "+str(id)+" wasn't found")
+		return null
+
+func getGoalGenerators() -> Dictionary:
+	return goalGenerators

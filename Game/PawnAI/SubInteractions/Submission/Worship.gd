@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Worship"
 	socialActionName = "Worship"
 	socialActionCategory = CATEGORY_SUB
+	socialIATags = {IATag.Submission: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_SUBMISSION - 1.0

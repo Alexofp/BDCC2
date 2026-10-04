@@ -123,6 +123,8 @@ func processVision(_dt:float):
 					theSeen.seen = true # On see
 					theSeen.time = 0.0
 					seePawns.append(thePawn)
+					
+					pawn.ai.onSeeNewPawn(thePawn)
 			else:
 				theSeen.detection -= _dt
 				#Log.Print("DETECTION<: "+str(theSeen.detection))

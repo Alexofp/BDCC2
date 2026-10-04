@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "StartFight"
 	socialActionName = "Start a fight"
 	socialActionCategory = CATEGORY_MEAN
+	socialIATags = {IATag.StartFight: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_MEAN - 5.0
@@ -37,5 +38,5 @@ func onQueueEvent(_eventID:String, _args:Array):
 		var theMain:CharacterPawn = getPawn(ROLE_MAIN)
 		#if(theTarget.addEnemy(theMain, CombatPawnAI.ENEMY_GOT_SUDDENLY_ATTACKED)):
 		if(theMain.addEnemy(theTarget, CombatPawnAI.ENEMY_DECIDED_TO_ATTACK) || theTarget.addEnemy(theMain, CombatPawnAI.ENEMY_DECIDED_TO_ATTACK)):
-			theMain.ai.goalHandler.addGoal("PunishIfDefeated", [theTarget])
+			#theMain.ai.goalHandler.addGoal("PunishIfDefeated", [theTarget])
 			theTarget.onGettingAttackedEnemyAdded(theMain)

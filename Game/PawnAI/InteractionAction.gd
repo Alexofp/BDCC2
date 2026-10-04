@@ -12,6 +12,8 @@ var timeoutTime:float = 0.0 # Timeout actions are chosen after this amount of se
 var timeoutScore:float = 1.0 # Score of the timeout action
 var timeoutOnly:bool = false # Only show this action after timeoutShow seconds have passed
 var timeoutShow:float = 0.0
+var chance:float = 1.0 # Only used for ai
+var aiTags:Dictionary[int, float] = {} # Only used for ai
 var interaction:InteractionBase
 
 static func create(_id:String, _name:String) -> InteractionAction:
@@ -19,6 +21,21 @@ static func create(_id:String, _name:String) -> InteractionAction:
 	theAction.id = _id
 	theAction.actionName = _name
 	return theAction
+
+func setAll(_category:Array[String], _score:float, _chance:float, _aiTags:Dictionary[int, float]) -> InteractionAction:
+	category = _category
+	score = _score
+	chance = _chance
+	aiTags = _aiTags
+	return self
+
+func setAITags(_tags:Dictionary[int, float]) -> InteractionAction:
+	aiTags = _tags
+	return self
+
+func setChance(_c:float) -> InteractionAction:
+	chance = _c
+	return self
 
 func setArgs(_args:Array) -> InteractionAction:
 	args = _args

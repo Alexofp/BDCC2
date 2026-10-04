@@ -6,13 +6,17 @@ var ai:PawnAI
 var goals:Array[AIGoalBase]
 var currentGoal:AIGoalBase
 
+var goalGenerators:Array[GoalGeneratorBase]
+
 var interactionToGoal:Dictionary[String, Array]
 
 func setAI(_ai:PawnAI):
 	ai = _ai
 	goals.clear()
 	interactionToGoal.clear()
+	goalGenerators.clear()
 	addStaticGoals()
+	addGoalGenerators()
 
 func isControlledByAnyPlayer() -> bool:
 	return ai.getPawn().isControlledByAnyPlayer()
@@ -65,6 +69,23 @@ func addStaticGoals():
 	for staticGoalRef in GlobalRegistry.getAIGoalsStaticRefs():
 		addGoal(staticGoalRef.id)
 
+func addGoalGenerator(_id:String):
+	var theGen:GoalGeneratorBase = GlobalRegistry.createGoalGenerator(_id)
+	if(!theGen):
+		return
+	addGoalGeneratorObject(theGen)
+
+func addGoalGeneratorObject(_gen:GoalGeneratorBase):
+	if(!_gen.shouldApplyTo(ai.pawn)):
+		return
+	goalGenerators.append(_gen)
+	_gen.setPawn(ai.pawn)
+	_gen.start()
+
+func addGoalGenerators():
+	for _id in GlobalRegistry.getGoalGenerators():
+		addGoalGenerator(_id)
+
 func sortGoals():
 	goals.sort_custom(func(a:AIGoalBase, b:AIGoalBase): return a.getPriority() > b.getPriority())
 
@@ -78,10 +99,21 @@ func cleanDeletedGoals():
 			goals.remove_at(_indx)
 	#goals.filter(func(_el:AIGoalBase): return !_el.wasDeleted)
 
+func isBusy() -> bool:
+	if(currentGoal && currentGoal.isImportant()):
+		return true
+	var _pawn:CharacterPawn = ai.pawn
+	return _pawn.isDoingSomething() || _pawn.isDefeated() || _pawn.hasInteraction() || _pawn.isInCombat() || _pawn.isDoingSex()
+
 func processRare(_dt:float):
 	if(isControlledByAnyPlayer()):
 		setCurrentGoal(null)
 		return
+
+	if(!isBusy()):
+		for theGen:GoalGeneratorBase in goalGenerators:
+			theGen.processRare(_dt)
+	
 	sortGoals()
 	
 	for theGoal in goals:
@@ -203,3 +235,32 @@ func handleInteractionEvent(_interaction:InteractionBase, _eventID:String, _args
 	#if(currentGoal):
 	#	return currentGoal.handleInteractionEvent(_interaction, _eventID, _args)
 	return false
+
+func isPlayer() -> bool:
+	return ai && ai.pawn && ai.pawn.isControlledByAnyPlayer()
+
+func onSeeNewPawn(_pawn:CharacterPawn):
+	if(isPlayer()):
+		return
+	for theGen:GoalGeneratorBase in goalGenerators:
+		theGen.onSeeNewPawn(_pawn)
+
+# Only gets called if we're nearby
+func onDefeatingAnotherPawn(_defeatedPawn:CharacterPawn, _weDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
+	if(isPlayer()):
+		return
+	for theGen:GoalGeneratorBase in goalGenerators:
+		theGen.onDefeatingAnotherPawn(_defeatedPawn, _weDidLastBlow, _friendlyFight, _cause)
+
+# Only gets called if we're nearby
+func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
+	if(isPlayer()):
+		return
+	for theGen:GoalGeneratorBase in goalGenerators:
+		theGen.onDefeatedByAnotherPawn(_winnerPawn, _theyDidLastBlow, _friendlyFight, _cause)
+
+func onInteractionEnd(_interaction:InteractionBase, _role:int):
+	if(isPlayer()):
+		return
+	for theGen:GoalGeneratorBase in goalGenerators:
+		theGen.onInteractionEnd(_interaction, _role)

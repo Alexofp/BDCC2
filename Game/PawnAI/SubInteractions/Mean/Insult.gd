@@ -7,6 +7,7 @@ func _init() -> void:
 	id = "Insult"
 	socialActionName = "Insult"
 	socialActionCategory = CATEGORY_MEAN
+	socialIATags = {IATag.Mean: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_MEAN + 1.0

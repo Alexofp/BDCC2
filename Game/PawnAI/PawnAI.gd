@@ -129,6 +129,9 @@ func teleportToNextPathPosition() -> bool:
 	return true
 
 func processRare(_dt:float):
+	if(pawn.isControlledByAnyPlayer()):
+		stopAction()
+		return
 	if(!aiAction):
 		startAction("BasicAI")
 	if(pawn.isDefeated() && aiAction && aiAction.shouldTryToRecoverIfDefeated()):
@@ -232,6 +235,8 @@ func onGettingHit(_attack:AttackContext):
 	lowestAIAction.onGettingHitFinal(_attack)
 
 func checkCombatMode():
+	if(getPawn().isControlledByAnyPlayer()):
+		return
 	if(!lowestAIAction):
 		getPawn().exitCombatMode()
 		return
@@ -302,3 +307,6 @@ func onCurrentAIGoalSwitch():
 #Social: Send this to the interactions/ai-goals?
 func onDefeated(_cause:DefeatCause):
 	pass
+
+func onSeeNewPawn(_thePawn:CharacterPawn):
+	goalHandler.onSeeNewPawn(_thePawn)

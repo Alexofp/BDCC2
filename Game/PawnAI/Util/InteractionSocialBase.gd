@@ -7,6 +7,7 @@ var socialInteraction:SocialInteractionHandler
 var socialDefaultScore:float = 0.0
 var socialUnlockConditions:Array[SocialUnlockConditionBase] = []
 var socialRequiredAgreeScore:float = 0.0
+var socialIATags:Dictionary[int, float] = {} # Social interaction action tags, used for ai
 var chanceCalculator:SocialInteractionChanceCalculatorBase
 
 const F_NAME := MemorySimpleBank.F_NAME
@@ -112,8 +113,11 @@ func getSocialActions(_c:SocialInteractionContext) -> Array[InteractionAction]:
 			action(id, getSocialActionName(_c, true)).setCategory(socialActionCategory).setDisabled(true),
 		]
 	
+	var _chance:float = 1.0
+	if(chanceCalculator):
+		_chance = chanceCalculator.calculateChances(_c).x
 	return [
-		action(id, getSocialActionName(_c)).setCategory(socialActionCategory).setScore(getSocialActionScore(_c)),
+		action(id, getSocialActionName(_c)).setAll(socialActionCategory, getSocialActionScore(_c), _chance, socialIATags),
 	]
 
 func getRequiredRoles(_args:Array) -> Dictionary[int, String]:

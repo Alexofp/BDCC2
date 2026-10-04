@@ -29,8 +29,7 @@ func processInteractions(_dt:float):
 func removeInteraction(_interaction:InteractionBase):
 	if(!_interaction || _interaction.wasDeleted):
 		return
-	_interaction.stopSubInteraction()
-	_interaction.onEnd()
+	_interaction.onEndFinal()
 	for thePawn in _interaction.pawnToRole:
 		#var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theCharID)
 		if(thePawn && thePawn.getInteraction() == _interaction):

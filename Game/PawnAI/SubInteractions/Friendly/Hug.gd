@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Hug"
 	socialActionName = "Hug"
 	socialActionCategory = CATEGORY_FRIENDLY
+	socialIATags = {IATag.Friendly: 1.0}
 	
 	askText = "WannaHug"
 	coupleAnim = "Hug"

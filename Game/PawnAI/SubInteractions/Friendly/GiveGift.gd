@@ -8,6 +8,7 @@ func _init() -> void:
 	id = "GiveGift"
 	socialActionName = "Give gift"
 	socialActionCategory = CATEGORY_FRIENDLY
+	socialIATags = {IATag.GiveGift: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 11.0

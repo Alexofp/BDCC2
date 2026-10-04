@@ -8,6 +8,7 @@ func _init() -> void:
 	id = "Chat"
 	socialActionName = "Chat"
 	socialActionCategory = CATEGORY_FRIENDLY
+	socialIATags = {IATag.Friendly: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY + 1.0
@@ -57,8 +58,16 @@ func _actions(_role:int):
 		
 		addAction(action("yes", "Yes", agreeScore))
 		addAction(action("no", "No", 1.0 - agreeScore))
+	if(_role == ROLE_MAIN):
+		addAction(action("base_cancel_main", "Cancel chat").setOnTimeout(10.0).setShowAfter(5.0))
 
 func _do(_role:int, _action:InteractionAction):
+	if(_action.id == "base_cancel_main"):
+		markInteractionShouldEndTalking()
+		if(!isObeying(ROLE_MAIN, ROLE_TARGET)):
+			say(ROLE_MAIN, "TalkStopWastingTime", ROLE_TARGET)
+			addAnnoyanceMain(0.2)
+		pushStopInteraction()
 	if(_action.id == "yes"):
 		socialInteractionAgree()
 		pushSay(ROLE_TARGET, "Sure", ROLE_MAIN)
@@ -79,7 +88,7 @@ func doRandomTalk():
 	howManyChats += 1
 	socialInteractionStart()
 	pushSay(theTalkerRole, "Talk", theListenerRole)
-	pushSocialShowSuccess()
+	#pushSocialShowSuccess()
 	pushDelay(1.0)
 	pushSay(theListenerRole, "Talk", theTalkerRole)
 	pushDelay(1.0)

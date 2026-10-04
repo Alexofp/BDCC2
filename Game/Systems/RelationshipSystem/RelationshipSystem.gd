@@ -299,30 +299,27 @@ func getAnnoyance(_charAnnoyed:String, _charWhoIsAnnoying:String) -> float:
 		return 0.0
 	return theEntry.annoyed
 
-func addActionCooldownPawns(_charTarget:CharacterPawn, _charActor:CharacterPawn, _actionID:String, _am:float = 1.0):
+func addActionCooldownPawns(_charTarget:CharacterPawn, _charActor:CharacterPawn, _actionID:String, _seconds:float, _add:bool = true):
 	if(!_charTarget || !_charActor):
 		return
-	addActionCooldown(_charTarget.getCharID(), _charActor.getCharID(), _actionID, _am)
+	_charTarget.cooldowns.addCharIDCooldown(_charActor.getCharID(), _actionID, _seconds, _add)
 
-func addActionCooldown(_charTarget:String, _charActor:String, _actionID:String, _am:float = 1.0):
-	if(_actionID.is_empty()):
+func addActionCooldown(_charTarget:String, _charActor:String, _actionID:String, _seconds:float, _add:bool = true):
+	var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(_charTarget)
+	if(!thePawn):
 		return
-	var theEntry := getOrCreateShortTerm(_charTarget, _charActor)
-	if(!theEntry.actionCooldowns.has(_actionID)):
-		theEntry.actionCooldowns[_actionID] = _am
-	else:
-		theEntry.actionCooldowns[_actionID] += _am
+	thePawn.cooldowns.addCharIDCooldown(_charActor, _actionID, _seconds, _add)
 
 func getActionCooldownPawns(_charTarget:CharacterPawn, _charActor:CharacterPawn, _actionID:String) -> float:
 	if(!_charTarget || !_charActor):
 		return 0.0
-	return getActionCooldown(_charTarget.getCharID(), _charActor.getCharID(), _actionID)
+	return _charTarget.cooldowns.getCharIDCooldown(_charActor.getCharID(), _actionID)
 
 func getActionCooldown(_charTarget:String, _charActor:String, _actionID:String) -> float:
-	var theEntry := getShortTerm(_charTarget, _charActor)
-	if(!theEntry):
+	var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(_charTarget)
+	if(!thePawn):
 		return 0.0
-	return theEntry.actionCooldowns.get(_actionID, 0.0)
+	return thePawn.cooldowns.getCharIDCooldown(_charActor, _actionID)
 
 var rareUpdateI:int = 0
 
@@ -407,9 +404,9 @@ func getDebugTextLinesFor(_pawn:CharacterPawn) -> Array[String]:
 	if(theShortEntry):
 		if(theShortEntry.annoyed > 0.0):
 			theStuff.append("Annoy:"+str(Util.roundF(theShortEntry.annoyed,2)))
-		for theKey in theShortEntry.actionCooldowns:
-			theStuff.append(theKey+":"+str(Util.roundF(theShortEntry.actionCooldowns[theKey],2)))
-	
+		#for theKey in theShortEntry.actionCooldowns:
+		#	theStuff.append(theKey+":"+str(Util.roundF(theShortEntry.actionCooldowns[theKey],2)))
+
 	if(theStuff.is_empty()):
 		return []
 	return [Util.join(theStuff, ",")]

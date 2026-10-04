@@ -69,7 +69,7 @@ func _actions(_role:int):
 			
 			#addAction(action("fight", "Friendly fight!", 0.0))
 			
-			addAction(action("stop", "Never mind", 0.0).setOnTimeout(5.0))
+			addAction(action("stop", "Never mind", 0.0).setFallback(1.0))#.setOnTimeout(4.0))
 		
 
 func _do(_role:int, _action:InteractionAction):

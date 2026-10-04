@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Flirt"
 	socialActionName = "Flirt"
 	socialActionCategory = CATEGORY_LUSTY
+	socialIATags = {IATag.Lusty: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_LUSTY - 1.0

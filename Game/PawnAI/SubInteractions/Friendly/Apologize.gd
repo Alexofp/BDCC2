@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "Apologize"
 	socialActionName = "Apologize"
 	socialActionCategory = CATEGORY_FRIENDLY
+	socialIATags = {IATag.Apologize: 1.0}
 	
 	registerForInteractionType = [InteractionType.Talking]
 	interactionPriority = PRIO_FRIENDLY - 1.0

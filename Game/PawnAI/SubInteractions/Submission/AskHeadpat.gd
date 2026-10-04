@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "AskHeadpat"
 	socialActionName = "Ask for headpats"
 	socialActionCategory = CATEGORY_SUB
+	socialIATags = {IATag.Submission: 1.0}
 	
 	askText = id+"Start"
 	coupleAnim = "Headpat"

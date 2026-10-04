@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "HoldHands"
 	socialActionName = "Hold hands"
 	socialActionCategory = CATEGORY_LUSTY
+	socialIATags = {IATag.Lusty: 1.0}
 	
 	askText = id+"Start"
 	coupleAnim = "HoldHands"

@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "FriendlyFight"
 	socialActionName = "Friendly Fight"
 	socialActionCategory = CATEGORY_FRIENDLY
+	socialIATags = {IATag.FriendlyFight: 1.0}
 	
 	#socialFlags = SOCIALFLAG_SHOULD_END_TALKING | SOCIALFLAG_SUPPORTS_COMBAT
 	

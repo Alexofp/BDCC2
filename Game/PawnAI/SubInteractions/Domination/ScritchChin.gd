@@ -4,6 +4,7 @@ func _init() -> void:
 	id = "ScritchChin"
 	socialActionName = "Scritch chin"
 	socialActionCategory = CATEGORY_DOM
+	socialIATags = {IATag.Domination: 1.0}
 	
 	askText = id+"Start"
 	coupleAnim = "ScritchChin"

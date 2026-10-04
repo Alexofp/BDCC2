@@ -26,6 +26,7 @@ var interaction:InteractionBase
 var submission:SubmissionHandler
 var poseHandler:PawnPoseHandler
 var mood:MoodHandler
+var cooldowns:PawnCooldowns = PawnCooldowns.new()
 var interactionUIPawnIDs:Array[String] = []
 
 signal dollSpawned(doll)
@@ -203,6 +204,7 @@ func processSemiOften(_dt:float):
 # Gets called every second or so
 func processRare(_dt:float):
 	if(Network.isServer()):
+		cooldowns.processCooldowns(_dt)
 		var _isControlledByPC := isControlledByAnyPlayer()
 		if(!_isControlledByPC):
 			poseHandler.tickAI(_dt)
@@ -338,6 +340,7 @@ func saveData() -> Dictionary:
 		pos = position,
 		state = pawnState,
 		poseHandler = poseHandler.saveData(),
+		cds = cooldowns.saveData(),
 	}
 
 func loadData(_data:Dictionary):
@@ -345,6 +348,7 @@ func loadData(_data:Dictionary):
 	pawnState = SAVE.loadVar(_data, "state", STATE_NORMAL)
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
 	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
+	cooldowns.loadData(SAVE.loadVar(_data, "cds", {}))
 
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:
 	var tempDoll = doll
@@ -427,7 +431,7 @@ func canStartTalkAtAll() -> bool:
 		return false
 	if(isDefeated() || isCollapsed()):
 		return false
-	if(combatAI.hasEnemies()):
+	if(isInCombat()):
 		return false
 	return true
 
@@ -1232,14 +1236,15 @@ func doTalkGesture(_talkGesture:int = TalkGesture.Chat):
 
 # Only gets called if we're nearby
 func onDefeatingAnotherPawn(_defeatedPawn:CharacterPawn, _weDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
-	pass
+	ai.goalHandler.onDefeatingAnotherPawn(_defeatedPawn, _weDidLastBlow, _friendlyFight, _cause)
 	
 # Only gets called if we're nearby
 func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
+	ai.goalHandler.onDefeatedByAnotherPawn(_winnerPawn, _theyDidLastBlow, _friendlyFight, _cause)
 	if(_friendlyFight):
 		return
-	var theCooldown:float = GM.main.relationshipSystem.getActionCooldown(getID(), _winnerPawn.getID(), SocialCooldown.Defeated)
-	GM.main.relationshipSystem.addActionCooldownPawns(self, _winnerPawn, SocialCooldown.Defeated)
+	var theCooldown:float = GM.main.relationshipSystem.getActionCooldown(getID(), _winnerPawn.getID(), SocialCooldown.Defeated)/300.0
+	GM.main.relationshipSystem.addActionCooldownPawns(self, _winnerPawn, SocialCooldown.Defeated, 300.0)
 	GM.main.memorySystem.addMemory(getID(), BadMemories.Defeated, _winnerPawn.getID())
 	if(submission.isObeying()): # If we're dominated, we don't lose affection
 		return
@@ -1308,6 +1313,9 @@ func notifySocialInteractionEnd(_interaction:InteractionSocialBase, _role:int):
 		return
 	theChar.effectsHolder.notifySocialInteractionEnd(_interaction, _role)
 
+func onInteractionEnd(_interaction:InteractionBase, _role:int):
+	ai.goalHandler.onInteractionEnd(_interaction, _role)
+
 func onSexEngineResult(_result:SexEngineResult):
 	var theChar := getCharacter()
 	if(!theChar):
@@ -1317,14 +1325,14 @@ func onSexEngineResult(_result:SexEngineResult):
 func onGettingAttackedEnemyAdded(_attacker:CharacterPawn, _changeAffection:bool = true):
 	if(!_attacker):
 		return
-	ai.goalHandler.addGoal("PunishIfDefeated", [_attacker])
+	#ai.goalHandler.addGoal("PunishIfDefeated", [_attacker])
 	if(_changeAffection):
-		var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(self, _attacker, SocialCooldown.Attacked)
+		var currentCooldown := GM.main.relationshipSystem.getActionCooldownPawns(self, _attacker, SocialCooldown.Attacked)/300.0
 		var theAffectionMult:float = maxf(currentCooldown + 1.0, 1.0)
 		var toRemoveAffection:float = -0.5 / theAffectionMult
 		addAffection(_attacker, toRemoveAffection)
 	GM.main.memorySystem.addMemory(self.getCharID(), "Attacked", _attacker.getCharID())
-	GM.main.relationshipSystem.addActionCooldownPawns(self, _attacker, SocialCooldown.Attacked)
+	GM.main.relationshipSystem.addActionCooldownPawns(self, _attacker, SocialCooldown.Attacked, 300.0)
 	addAnnoyance(_attacker, 1.0)
 
 func canStartFight(_otherPawn:CharacterPawn, _playerAlwaysCan:bool = true) -> bool:
@@ -1342,6 +1350,51 @@ func notifyOnDelete():
 
 func getVision() -> PawnVision:
 	return ai.vision
+
+func addCooldown(_id:String, _seconds:float):
+	cooldowns.addCooldown(_id, _seconds)
+
+func getCooldown(_id:String) -> float:
+	return cooldowns.getCooldown(_id)
+
+func hasCooldown(_id:String) -> bool:
+	return cooldowns.hasCooldown(_id)
+
+# Fairly slow, use rarely
+# Calculates a total score of how many social actions we can do with certain ai tags, used for ai decisions
+func getSocialInteractionsTotalScoreBasedOnTags(_targetPawn:CharacterPawn, _actionTags:Dictionary[int, float]) -> float:
+	var theSocialContext:SocialInteractionContext = SocialInteractionContext.new()
+	theSocialContext.setup(self, _targetPawn)
+	
+	var result:float = 0.0
+	# Somehow only get the interactions that have our needed tags?
+	var allTheInteractions := GlobalRegistry.getInteractionsBySocialType(InteractionType.Talking)
+	for theInteraction:InteractionBase in allTheInteractions:
+		#if(theInteraction is InteractionSocialBase): # Filter based on tags?
+		#	var _theirTags := theInteraction.socialIATags
+		#	var _haveAny:bool = false
+		var theActions := theInteraction.getSocialActions(theSocialContext)
+		
+		for theAction:InteractionAction in theActions:
+			if(theAction.disabled):
+				continue
+			#if(!theAction.shouldShowAction(theInteraction, self)):
+			#	continue
+			var theScore:float = theAction.score
+			
+			var _theirTags:Dictionary[int, float] = theAction.aiTags
+			for _ourTag:int in _actionTags:
+				if(!_theirTags.has(_ourTag)):
+					continue
+				theScore += _theirTags[_ourTag]*_actionTags[_ourTag]
+			
+			theScore *= theAction.chance
+			if(theScore > 0.0):
+				result += theScore
+	return result
+
+
+
 
 
 
