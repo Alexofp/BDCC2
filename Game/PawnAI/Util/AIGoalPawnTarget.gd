@@ -8,6 +8,8 @@ var targetID:String
 func isSameAs(_otherGoal:AIGoalBase) -> bool:
 	if(!super.isSameAs(_otherGoal)):
 		return false
+	if(id != _otherGoal.id):
+		return false
 	if(targetID != _otherGoal.targetID):
 		return false
 	return true

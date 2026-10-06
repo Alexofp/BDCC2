@@ -362,7 +362,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.343, -0.095)
 
 [node name="HoverTextAdvanced" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" parent_id_path=PackedInt32Array(1490678536, 1943359537) index="2" unique_id=861588921 instance=ExtResource("7_p36ij")]
 unique_name_in_owner = true
-transform = Transform3D(1, -8.536504e-22, 4.2351647e-22, 7.543887e-22, 1, -1.8626451e-09, 4.2351647e-22, 1.8626451e-09, 1, 1.6940659e-21, 0.34299982, -0.094999984)
+transform = Transform3D(1, -8.536504e-22, 4.2351647e-22, 7.543887e-22, 1, -1.8626451e-09, 4.2351647e-22, 1.8626451e-09, 1, 0, 0.343, 0)
 
 [node name="RadialDollBars" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D3" parent_id_path=PackedInt32Array(1490678536, 1943359537) index="3" unique_id=49662393 instance=ExtResource("8_doc38")]
 unique_name_in_owner = true

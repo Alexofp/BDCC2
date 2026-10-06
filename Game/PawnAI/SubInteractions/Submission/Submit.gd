@@ -46,6 +46,7 @@ func onSocialInteractionEnd():
 		pushSocialDenied()
 		pushStopInteraction()
 	elif(isSuccess()):
+		markInteractionShouldEndTalking()
 		addRewardPowerBalance(-0.1)
 		getPawn(ROLE_MAIN).submission.tryMakeObeyPawn(getPawn(ROLE_TARGET))
 	elif(isFail()):

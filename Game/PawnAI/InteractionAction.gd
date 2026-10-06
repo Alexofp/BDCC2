@@ -15,12 +15,21 @@ var timeoutShow:float = 0.0
 var chance:float = 1.0 # Only used for ai
 var aiTags:Dictionary[int, float] = {} # Only used for ai
 var interaction:InteractionBase
+var canDoBitfield:int = PawnActionBase.CAN_COLLAPSED | PawnActionBase.CAN_DEFEATED
 
 static func create(_id:String, _name:String) -> InteractionAction:
 	var theAction := InteractionAction.new()
 	theAction.id = _id
 	theAction.actionName = _name
 	return theAction
+
+func setCanDoBitfield(_bits:int) -> InteractionAction:
+	canDoBitfield = _bits
+	return self
+
+func allowDuringCoupleAnim() -> InteractionAction:
+	canDoBitfield |= PawnActionBase.CAN_COUPLE_ANIM
+	return self
 
 func setAll(_category:Array[String], _score:float, _chance:float, _aiTags:Dictionary[int, float]) -> InteractionAction:
 	category = _category

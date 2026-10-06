@@ -10,6 +10,7 @@ var stuckTimer:int = 0
 var savedPos:Vector3 = Vector3(0.0, 0.0, 0.0)
 var completeDistance:float = 2.0
 var run:bool = false
+var runDist:float = 5.0
 
 func _init() -> void:
 	id = "GoTo"
@@ -21,6 +22,13 @@ func start(_args:Array):
 	target = _args[0]
 	goTowards(target)
 	savedPos = getPosNoY()
+	if(_args.size() > 1 && _args[1] is bool):
+		run = _args[1]
+	elif(_args.size() > 1):
+		run = _args[1] > 0.0
+		runDist = _args[1]
+	if(_args.size() > 2):
+		completeDistance = _args[2]
 
 func onEnd():
 	stopWalking()
@@ -76,7 +84,7 @@ func think():
 				stuckTimer = 0
 			else:
 				doJump()
-		if(stuckTimer == 4):
+		if(stuckTimer == 3):
 			getPawn().teleportLeashedToUs()
 	elif(stuckTimer > 0):
 		stuckTimer = int(stuckTimer * 0.5)

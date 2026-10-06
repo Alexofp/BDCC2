@@ -435,6 +435,19 @@ func canStartTalkAtAll() -> bool:
 		return false
 	return true
 
+func isTalkingWithAsStarter(_target:CharacterPawn) -> bool:
+	if(!interaction || interaction.id != "Talking" || interaction.getPawn(interaction.ROLE_MAIN) != self || interaction.getPawn(interaction.ROLE_TARGET) != _target):
+		return false
+	return true
+
+func isTalkingWithAsReactor(_target:CharacterPawn) -> bool:
+	if(!interaction || interaction.id != "Talking" || interaction.getPawn(interaction.ROLE_MAIN) != _target || interaction.getPawn(interaction.ROLE_TARGET) != self):
+		return false
+	return true
+
+func isTalkingWith(_target:CharacterPawn) -> bool:
+	return isTalkingWithAsStarter(_target) || isTalkingWithAsReactor(_target)
+
 func canStartTalkWith(_target:CharacterPawn) -> bool:
 	if(!canStartTalkAtAll() || !_target.canStartTalkAtAll()):
 		return false
@@ -1264,6 +1277,16 @@ func getAffection(_otherPawn:CharacterPawn) -> float:
 		return 0.0
 	return GM.main.relationshipSystem.getAffection(getID(), _otherPawn.getID())
 
+func getLust(_otherPawn:CharacterPawn) -> float:
+	if(!_otherPawn):
+		return 0.0
+	return GM.main.relationshipSystem.getLust(getID(), _otherPawn.getID())
+
+func getPowerBalance(_otherPawn:CharacterPawn) -> float:
+	if(!_otherPawn):
+		return 0.0
+	return GM.main.relationshipSystem.getPowerBalance(getID(), _otherPawn.getID())
+
 func addLust(_otherPawn:CharacterPawn, _am:float, _showMessage:bool = true, _showMessageOtherPawn:bool = true):
 	if(!_otherPawn):
 		return
@@ -1359,6 +1382,21 @@ func getCooldown(_id:String) -> float:
 
 func hasCooldown(_id:String) -> bool:
 	return cooldowns.hasCooldown(_id)
+
+func addCooldownForPawn(_otherPawn:CharacterPawn, _id:String, _seconds:float):
+	if(!_otherPawn):
+		return
+	cooldowns.addCharIDCooldown(_otherPawn.getCharID(), _id, _seconds)
+
+func getCooldownForPawn(_otherPawn:CharacterPawn, _id:String) -> float:
+	if(!_otherPawn):
+		return 0.0
+	return cooldowns.getCharIDCooldown(_otherPawn.getCharID(), _id)
+
+func hasCooldownForPawn(_otherPawn:CharacterPawn, _id:String) -> bool:
+	if(!_otherPawn):
+		return false
+	return cooldowns.hasCharIDCooldown(_otherPawn.getCharID(), _id)
 
 # Fairly slow, use rarely
 # Calculates a total score of how many social actions we can do with certain ai tags, used for ai decisions
@@ -1519,9 +1557,11 @@ func getActionsBigSelf() -> Array[InteractEntryDo]:
 			if(!theAction.shouldShowAction(interaction, self)):
 				_i += 1
 				continue
-			result.append(InteractEntryDo.create("InteractionAction", [
+			var theEntry:InteractEntryDo = InteractEntryDo.create("InteractionAction", [
 				theAction.actionName, _i, theAction.id,
-			]).setDisabled(theAction.disabled).setSubCategory(theAction.category))
+			]).setDisabled(theAction.disabled).setSubCategory(theAction.category)
+			theEntry.action.canDoBitfield = theAction.canDoBitfield
+			result.append(theEntry)
 			_i += 1
 	
 	if(theSexEngine):

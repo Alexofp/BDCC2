@@ -16,7 +16,26 @@ func canStart(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn
 		return false
 	return true
 
-func start(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn) -> CoupleAnimEntry:
+func isPairDoingAnyAnim(_pawnMain:CharacterPawn, _pawnTarget:CharacterPawn, _biDirectional:bool = true) -> bool:
+	if(!_pawnMain || !_pawnTarget):
+		return false
+	if(!pawnToEntry.has(_pawnMain)):
+		return false
+	var theEntry:CoupleAnimEntry = pawnToEntry[_pawnMain]
+	if(theEntry.main == _pawnMain && theEntry.target == _pawnTarget):
+		return true
+	if(_biDirectional && theEntry.main == _pawnTarget && theEntry.target == _pawnMain):
+		return true
+	return false
+
+func isDoingAnyAnim(_pawnMain:CharacterPawn) -> bool:
+	if(!_pawnMain):
+		return false
+	if(!pawnToEntry.has(_pawnMain)):
+		return false
+	return true
+
+func start(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn, _infinite:bool = false) -> CoupleAnimEntry:
 	if(!canStart(_animID, _pawnMain, _pawnTarget)):
 		return null
 	var theAnim := GlobalRegistry.getCoupleAnim(_animID)
@@ -28,6 +47,7 @@ func start(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn) -
 	newEntry.anim = theAnim
 	newEntry.main = _pawnMain
 	newEntry.target = _pawnTarget
+	newEntry.infTimer = _infinite
 	
 	var theStop := stop.bind(newEntry)
 	newEntry.onAnimEnded.connect(theStop)
@@ -42,8 +62,11 @@ func start(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn) -
 	
 	return newEntry
 
-func stop(_entry:CoupleAnimEntry):
+func stop(_entry:CoupleAnimEntry, _instant:bool = true):
 	if(_entry.wasDeleted):
+		return
+	if(!_instant):
+		_entry.shouldEnd = true
 		return
 	_entry.onEnd()
 	_entry.wasDeleted = true
@@ -55,10 +78,10 @@ func stop(_entry:CoupleAnimEntry):
 		pawnToEntry.erase(_entry.target)
 		_entry.target.tree_exiting.disconnect(_entry.stopMe)
 
-func stopFor(_pawn:CharacterPawn):
+func stopFor(_pawn:CharacterPawn, _instant:bool = true):
 	if(!pawnToEntry.has(_pawn)):
 		return
-	stop(pawnToEntry[_pawn])
+	stop(pawnToEntry[_pawn], _instant)
 
 func _process(_delta: float) -> void:
 	if(!Network.isServer()):

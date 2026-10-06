@@ -159,15 +159,34 @@ static func pickWeightedDict(ar:Dictionary):
 	
 	var sum = 0.0
 	for w in ar:
-		sum += max(ar[w], 0.0)
+		sum += maxf(ar[w], 0.0)
 	
 	var r:float = randf_range(0.0, sum)
 	for i in ar:
-		r -= max(ar[i], 0.0)
+		r -= maxf(ar[i], 0.0)
 		if r <= 0.0:
 			return i
 			
 	return ar.keys()[0]
+
+static func grabWeightedDict(ar:Dictionary):
+	if(ar.is_empty()):
+		return null
+	
+	var sum = 0.0
+	for w in ar:
+		sum += maxf(ar[w], 0.0)
+	
+	var r:float = randf_range(0.0, sum)
+	for i in ar:
+		r -= maxf(ar[i], 0.0)
+		if r <= 0.0:
+			ar.erase(i)
+			return i
+			
+	var pickedKey = ar.keys()[0]
+	ar.erase(pickedKey)
+	return pickedKey
 
 static func randomMaleName() -> String:
 	return pick(RNGData.maleNames)

@@ -12,6 +12,7 @@ var vision:PawnVision
 
 var currentMoveTarget:Vector3
 var shouldRunToTarget:bool = false
+var shouldRunDistance:float = 5.0
 
 var aiAction:AIActionBase
 var lowestAIAction:AIActionBase
@@ -52,8 +53,9 @@ func goTowardsRaw(_pos:Vector3, _dt:float, shouldRun:bool=false):
 		return
 	pawn.goTowardsRaw(_pos, _dt, shouldRun)
 
-func goTowards(_pos:Vector3, shouldRun:bool=false):
+func goTowards(_pos:Vector3, shouldRun:bool=false, _shouldRunDist:float = 5.0):
 	shouldRunToTarget = shouldRun
+	shouldRunDistance = _shouldRunDist
 	
 	if(currentMoveTarget.distance_squared_to(_pos) < 0.1 || !pawn):
 		return
@@ -115,8 +117,13 @@ func processAI(_dt:float):
 	var next_path_position: Vector3 = pawn.getNavAgentNextPathPosAvoidance()#theNavAgent.get_next_path_position()
 	if theNavAgent.is_navigation_finished():
 		return
-
-	goTowardsRaw(next_path_position, _dt, shouldRunToTarget)
+	
+	var theDist:float = pawn.global_position.distance_squared_to(currentMoveTarget)
+	var _shouldRun:bool = false
+	if(shouldRunToTarget && (theDist >= shouldRunDistance*shouldRunDistance)):
+		_shouldRun = true
+	
+	goTowardsRaw(next_path_position, _dt, _shouldRun)
 	#velocity = current_agent_position.direction_to(next_path_position) * movement_speed
 	#move_and_slide()
 

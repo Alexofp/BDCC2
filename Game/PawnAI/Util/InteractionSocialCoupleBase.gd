@@ -69,9 +69,9 @@ func _do(_role:int, _action:InteractionAction):
 func onQueueEvent(_eventID:String, _args:Array):
 	if(_eventID == "hug"):
 		if(!coupleAnimReverse):
-			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_MAIN), getPawn(ROLE_TARGET), true)
 		else:
-			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_TARGET), getPawn(ROLE_MAIN))
+			GM.main.coupleAnimsSystem.start(coupleAnim, getPawn(ROLE_TARGET), getPawn(ROLE_MAIN), true)
 
 func doing_processRare(_dt:float):
 	var theMain := getPawn(ROLE_MAIN)
@@ -89,7 +89,8 @@ func doing_processRare(_dt:float):
 			pushDelay(coupleAnimTime*0.5)
 			pushSocialEnd()
 			pushDelay(coupleAnimTime*0.5)
-			pushStopInteraction()
+			pushSetState("canstopanim")
+			#pushStopInteraction()
 		else:
 			giveUpTimer += 1
 			if(giveUpTimer > 7):
@@ -98,5 +99,34 @@ func doing_processRare(_dt:float):
 func doing_plan(_role:int, _action:AIActionBase) -> AIPlan:
 	return planApproachEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
 	
-func plan(_role:int, _action:AIActionBase) -> AIPlan:
-	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
+#func plan(_role:int, _action:AIActionBase) -> AIPlan:
+#	return planFaceEachOther(ROLE_MAIN, ROLE_TARGET, _role, _action)
+
+func canstopanim_actions(_role:int):
+	var _hasPlayer:bool = false
+	if(isPlayer(ROLE_MAIN) || isPlayer(ROLE_TARGET)):
+		_hasPlayer = true
+	if(_role == ROLE_TARGET):
+		addAction(action("stop_anim", "Stop interaction").allowDuringCoupleAnim().setScore(0.0 if _hasPlayer else 1.0))
+	if(_role == ROLE_MAIN):
+		addAction(action("stop_anim", "Stop interaction").allowDuringCoupleAnim().setScore(0.0 if _hasPlayer else 1.0))
+
+func canstopanim_do(_role:int, _action:InteractionAction):
+	if(_action.id == "stop_anim"):
+		GM.main.coupleAnimsSystem.stopFor(getPawn(ROLE_MAIN), false)
+		pushDelay(0.3)
+		pushStopInteraction()
+
+func canstopanim_processRare(_dt:float):
+	if(!GM.main.coupleAnimsSystem.isPairDoingAnyAnim(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))):
+		stopInteraction()
+		return
+
+func onEnd():
+	super.onEnd()
+	var _pawnMain := getPawn(ROLE_MAIN)
+	var _pawnTarget := getPawn(ROLE_TARGET)
+	if(!_pawnMain || !_pawnTarget):
+		return
+	if(!GM.main.coupleAnimsSystem.isPairDoingAnyAnim(_pawnMain, _pawnTarget)):
+		GM.main.coupleAnimsSystem.stopFor(_pawnMain)

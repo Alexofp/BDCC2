@@ -5,7 +5,7 @@ func _init() -> void:
 	#importantChain = true
 
 func _lines():
-	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexMore", "breedMe", SCORE_NOT_RESISTING).addLustAll(0.2)
+	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexMore", "breedMe", SCORE_NOT_RESISTING).addLustAll(0.2).addRS(RSValue.Lust, 0.05)
 	addXLines(2, ROLE_MAIN, ROLE_TARGET, "SexBegSexStop", "pleaseStop", SCORE_RESISTING)
 
 func breedMe_lines():

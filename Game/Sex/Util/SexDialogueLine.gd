@@ -18,6 +18,7 @@ const EFFECT_ANGER := 2
 const EFFECT_RESISTANCE := 3
 const EFFECT_LUST := 4
 const EFFECT_LUST_ALL := 5
+const EFFECT_RELATIONSHIP_VALUE := 6
 
 func calculateArgs() -> Dictionary[String, Variant]:
 	var theSex:SexEngine = chain.handler.getSex()
@@ -71,6 +72,10 @@ func addLustAll(_amount:float) -> SexDialogueLine:
 	effects.append([EFFECT_LUST_ALL, _amount])
 	return self
 
+func addRS(_rs:int, _am:float) -> SexDialogueLine:
+	effects.append([EFFECT_RELATIONSHIP_VALUE, _rs, _am])
+	return self
+
 func stopChain(_role:int, _amount:float) -> SexDialogueLine:
 	effects.append([EFFECT_STOP_CHAIN])
 	return self
@@ -106,5 +111,10 @@ func doEffects():
 		elif(theEffectType == EFFECT_LUST_ALL):
 			for theInfo in chain.participantToRole:
 				theInfo.ai.addLust(theEffectEntry[1])
+		elif(theEffectType == EFFECT_RELATIONSHIP_VALUE):
+			var theMainInfo:SexParticipantInfo = chain.getRole(chain.ROLE_MAIN)
+			var theTargetInfo:SexParticipantInfo = chain.getRole(chain.ROLE_TARGET)
+			if(theMainInfo && theTargetInfo):
+				RSValue.addValuePawnsShowMessage(theEffectEntry[1], theMainInfo.getPawn(), theTargetInfo.getPawn(), theEffectEntry[2])
 		elif(theEffectType == EFFECT_STOP_CHAIN):
 			chain.stopMe()

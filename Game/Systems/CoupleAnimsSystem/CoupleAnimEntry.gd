@@ -12,6 +12,8 @@ const STATE_INTERPOLATE_OUT := 2
 var time:float = 0.0
 var state:int = STATE_INTERPOLATE_IN
 var wasDeleted:bool = false
+var infTimer:bool = false # If true, this couple anim will never end
+var shouldEnd:bool = false
 
 var pos:Transform3D
 var mainPos:Transform3D
@@ -63,7 +65,7 @@ func onEnd():
 		target.doCoupleAnim("")
 
 func processAnim(_dt:float):
-	if(isImpossible()):
+	if(isImpossible() || shouldEndInstantly()):
 		stopMe()
 		return
 	time += _dt
@@ -84,7 +86,7 @@ func processAnim(_dt:float):
 		main.setGlobalTransform(mainPos)
 		target.setGlobalTransform(targetPos)
 		
-		if(time >= anim.time):
+		if((time >= anim.time && !infTimer) || shouldEnd):
 			setState(STATE_INTERPOLATE_OUT)
 			main.doCoupleAnim("")
 			target.doCoupleAnim("")
@@ -111,6 +113,13 @@ func isImpossible() -> bool:
 	if(!main || !is_instance_valid(main)):
 		return true
 	if(!target || !is_instance_valid(target)):
+		return true
+	return false
+
+func shouldEndInstantly() -> bool:
+	if(main.isDefeated() || main.isDoingSex()):
+		return true
+	if(target.isDefeated() || target.isDoingSex()):
 		return true
 	return false
 

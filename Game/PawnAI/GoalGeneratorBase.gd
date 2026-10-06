@@ -43,7 +43,9 @@ func processRare(_dt:float):
 		onGenGoals()
 
 func addGoal(_id:String, _args:Array = [], _avoidSame:bool = true):
-	pawn.ai.goalHandler.addGoal(_id, _args, _avoidSame)
+	var theGoal:AIGoalBase = pawn.ai.goalHandler.addGoal(_id, _args, _avoidSame)
+	if(theGoal):
+		theGoal.goalGenerator = id
 
 func getSeePawns() -> Array[CharacterPawn]:
 	return pawn.ai.vision.getSeePawns()
@@ -73,3 +75,6 @@ func isBusyOtherExceptDefeated(_pawn:CharacterPawn) -> bool:
 
 func setTimerMin(_time:float):
 	time = minf(time, _time)
+
+func onOurGoalEnd(_goal:AIGoalBase):
+	return

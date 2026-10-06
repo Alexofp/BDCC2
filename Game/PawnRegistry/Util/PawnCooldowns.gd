@@ -4,6 +4,9 @@ class_name PawnCooldowns
 const FriendlyInteraction:String = "intFr"
 const MeanInteraction:String = "intMean"
 const HelpfulInteraction:String = "intHelp"
+const DomInteraction:String = "intDom"
+const SubInteraction:String = "intSub"
+const GenericInteraction:String = "intGen"
 
 var cooldowns:Dictionary[String, float]
 var charCooldowns:Dictionary[String, float]

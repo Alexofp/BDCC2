@@ -652,8 +652,13 @@ func processHoverText(_dt:float):
 				if(!theLines.is_empty()):
 					finalText += Util.join(theLines, "\n")+"\n"
 	
+	var _hasSmallText:bool = false
 	if(thePawn && !isControlledByUs()):
-		hover_text.setSmallHoverText(thePawn.submission.getHoverText())
+		var theSmallText:String = thePawn.submission.getHoverText()
+		
+		if(!theSmallText.is_empty()):
+			_hasSmallText = true
+		hover_text.setSmallHoverText(theSmallText)
 	else:
 		hover_text.setSmallHoverText("")
 	
@@ -661,6 +666,12 @@ func processHoverText(_dt:float):
 	if(!theExtraPawnHoverText.is_empty()):
 		finalText += theExtraPawnHoverText + "\n"
 	
+	if(!finalText.is_empty() || _hasSmallText):
+		var theSpot:PoseSpot = getPoseSpot()
+		if(theSpot):
+			hover_text.position.z = theSpot.hoverTextForward
+		else:
+			hover_text.position.z = 0.1
 	hover_text.setHoverText(finalText)
 	
 	#hover_text.setProgressInfos(["Doing something", "asd"], [0.3, 0.5])

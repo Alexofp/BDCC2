@@ -331,7 +331,7 @@ func makeSureLeashed(_otherPawn:CharacterPawn) -> bool:
 	startSubActionUnlessSameTag("LeashPawn", [_otherPawn])
 	return false
 
-func goTo(_pos:Vector3, _run:bool = false, _tag:String = "", _dist:float=1.5) -> bool:
+func goTo(_pos:Vector3, _run:bool = false, _tag:String = "", _dist:float=1.5, _runDist:float = 5.0) -> bool:
 	if(getPawn().global_position.distance_squared_to(_pos) <= (_dist*_dist)):
 		return true
 	
@@ -346,6 +346,7 @@ func goTo(_pos:Vector3, _run:bool = false, _tag:String = "", _dist:float=1.5) ->
 	subAction.target = _pos
 	subAction.run = _run
 	subAction.completeDistance = _dist
+	subAction.runDist = _runDist
 	return false
 
 func strSmart(_val:Variant) -> String:

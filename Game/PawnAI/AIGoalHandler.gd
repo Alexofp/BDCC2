@@ -7,6 +7,7 @@ var goals:Array[AIGoalBase]
 var currentGoal:AIGoalBase
 
 var goalGenerators:Array[GoalGeneratorBase]
+var goalGeneratorsDict:Dictionary[String, GoalGeneratorBase]
 
 var interactionToGoal:Dictionary[String, Array]
 
@@ -15,6 +16,7 @@ func setAI(_ai:PawnAI):
 	goals.clear()
 	interactionToGoal.clear()
 	goalGenerators.clear()
+	goalGeneratorsDict.clear()
 	addStaticGoals()
 	addGoalGenerators()
 
@@ -63,6 +65,11 @@ func removeGoal(_goal:AIGoalBase):
 		if(!interactionToGoal.has(interactionID)):
 			continue
 		interactionToGoal[interactionID].erase(_goal)
+	
+	if(!_goal.goalGenerator.is_empty() && goalGeneratorsDict.has(_goal.goalGenerator)):
+		var theGen:GoalGeneratorBase = goalGeneratorsDict[_goal.goalGenerator]
+		theGen.onOurGoalEnd(_goal)
+	
 	Log.Print("REMOVING GOAL: "+_goal.id)
 
 func addStaticGoals():
@@ -79,6 +86,7 @@ func addGoalGeneratorObject(_gen:GoalGeneratorBase):
 	if(!_gen.shouldApplyTo(ai.pawn)):
 		return
 	goalGenerators.append(_gen)
+	goalGeneratorsDict[_gen.id] = _gen
 	_gen.setPawn(ai.pawn)
 	_gen.start()
 
@@ -262,5 +270,7 @@ func onDefeatedByAnotherPawn(_winnerPawn:CharacterPawn, _theyDidLastBlow:bool, _
 func onInteractionEnd(_interaction:InteractionBase, _role:int):
 	if(isPlayer()):
 		return
+	for theGoal:AIGoalBase in goals:
+		theGoal.onInteractionEnd(_interaction, _role)
 	for theGen:GoalGeneratorBase in goalGenerators:
 		theGen.onInteractionEnd(_interaction, _role)

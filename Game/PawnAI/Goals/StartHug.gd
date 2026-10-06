@@ -38,26 +38,15 @@ func onDelayedAction(_action:ActionSystemEntry, _context:PawnActionContext):
 func processRare(_dt:float):
 	pass
 
-func isSocialInteraction(_interaction:InteractionBase, _action:InteractionAction, _socialInteractionID:String, _args:Array = []) -> bool:
-	if(_interaction.id != "Talking"):
-		return false
-	if(_action.id != "startSocial"):
-		return false
-	if(_action.args[0].id != _socialInteractionID):
-		return false
-	if(_action.args[1] != _args):
-		return false
-	return true
-
 func getInteractionActionScoreOverride(_interaction:InteractionBase, _action:InteractionAction, _score:float) -> float:
-	if(isSocialInteraction(_interaction, _action, "Hug")):
+	if(isStartSocialInteraction(_interaction, _action, "Hug")):
 		return 1.0
 	return _score
 
 func handleInteractionAction(_pawn:CharacterPawn, _interaction:InteractionBase, _action:InteractionAction) -> bool:
 	if(_pawn != pawn):
 		return false
-	if(isSocialInteraction(_interaction, _action, "Hug")):
+	if(isStartSocialInteraction(_interaction, _action, "Hug")):
 		satisfyGoal()
 		return true
 	return false

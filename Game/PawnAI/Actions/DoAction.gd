@@ -48,7 +48,7 @@ func think():
 			completeAction() # Some way to detect if the delayed action failed
 		return
 	
-	if(!goTo(theTargetPawn.global_position)):
+	if(!goTo(theTargetPawn.global_position, true, "", 3.0, 5.0)):
 		return
 	if(hasSubAction() || isDoingDelayedActions()):
 		return

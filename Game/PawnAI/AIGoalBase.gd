@@ -9,6 +9,14 @@ var handlingInteractions:Array[String] # The IDs of the interactions that this g
 var mainGoal:bool = true # if false, the goal will only influence the existing actions, not give new ones
 var wasDeleted:bool = false
 var importantGoal:bool = false
+var goalGenerator:String = "" # Which goal generator created us, used to do a callback
+
+var goalOutcome:int = STATUS_UNDECIDED
+
+const STATUS_UNDECIDED:int = -1
+const STATUS_FAILED:int = 0
+const STATUS_SATISFIED:int = 1
+const STATUS_CANCELLED:int = 2
 
 # FUNCTIONS TO OVERRIDE
 
@@ -87,12 +95,15 @@ func stopMe():
 	pawn.ai.goalHandler.removeGoal(self)
 
 func satisfyGoal():
+	goalOutcome = STATUS_SATISFIED
 	stopMe()
 
 func failGoal():
+	goalOutcome = STATUS_FAILED
 	stopMe()
 
 func cancelGoal():
+	goalOutcome = STATUS_CANCELLED
 	stopMe()
 
 func processRareFinal(_dt:float):
@@ -118,7 +129,7 @@ func isStaticGoal() -> bool:
 func handleInteractionEvent(_interaction:InteractionBase, _eventID:String, _args:Array) -> bool:
 	return false
 
-func isSocialInteraction(_interaction:InteractionBase, _action:InteractionAction, _socialInteractionID:String, _args:Array = []) -> bool:
+func isStartSocialInteraction(_interaction:InteractionBase, _action:InteractionAction, _socialInteractionID:String, _args:Array = []) -> bool:
 	if(_interaction.id != "Talking"):
 		return false
 	if(_action.id != "startSocial"):
@@ -133,3 +144,11 @@ func isTalkingInteraction(_interaction:InteractionBase) -> bool:
 	if(_interaction.id != "Talking"):
 		return false
 	return true
+
+func isSocialInteraction(_interaction:InteractionBase) -> bool:
+	if(_interaction is InteractionSocialBase):
+		return true
+	return false
+
+func onInteractionEnd(_interaction:InteractionBase, _role:int):
+	pass

@@ -3,6 +3,7 @@ class_name PoseSpot
 
 #var sitter:WeakRef
 var doll:DollController
+@export var hoverTextForward:float = 0.0
 
 signal onPawnSwitch(newPawn)
 signal onDollSwitch(newDoll, oldDoll)
