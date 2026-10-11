@@ -13,9 +13,13 @@ signal onEquippedItemOptionChange(optionID:String, value:Variant, part:ItemBase,
 signal onChange(_change:InventoryChange)
 
 func register():
+	if(!GM.inventoryRegistry):
+		return
 	GM.inventoryRegistry.registerInventory(self)
 
 func unregister():
+	if(!GM.inventoryRegistry):
+		return
 	GM.inventoryRegistry.unregisterInventory(self)
 
 func getEquippedItems() -> Dictionary[int, ItemBase]:
@@ -110,6 +114,10 @@ func addItem(_item:ItemBase):
 	_item.currentSlot = -1
 	_item.setInventory(self)
 	onChange.emit(InventoryChange.makeItemAdded(self, _item))
+
+func clear():
+	for _slot:int in equipped.keys():
+		clearSlot(_slot)
 
 func clearSlot(_slot:int) -> ItemBase:
 	if(!equipped.has(_slot)):

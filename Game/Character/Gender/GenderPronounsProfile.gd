@@ -15,6 +15,9 @@ func getGenderName() -> String:
 		return customGenderName
 	return Gender.getName(getGender())
 
+func getEditorName() -> String:
+	return getGenderName()+" ("+getPronounsName()+")"
+
 func setGender(theGender:int, theCustomGenderName:String = ""):
 	if(theGender < 0):
 		assert(false, "BAD GENDER: "+str(theGender))

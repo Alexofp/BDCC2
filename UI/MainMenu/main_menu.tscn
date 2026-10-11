@@ -14,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_jld46")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=187168725]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +24,6 @@ grow_vertical = 2
 
 [node name="MainList" type="VBoxContainer" parent="CenterContainer" unique_id=963388035]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -31,6 +31,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "Play"
+
+[node name="NewButton" type="Button" parent="CenterContainer/MainList" unique_id=1148423958]
+layout_mode = 2
+size_flags_vertical = 3
+text = "New game"
 
 [node name="MultiplayerButton" type="Button" parent="CenterContainer/MainList" unique_id=1049563296]
 layout_mode = 2
@@ -118,6 +123,7 @@ text = "Back"
 
 [node name="NorayTunnelList" type="VBoxContainer" parent="CenterContainer" unique_id=1618989062]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -166,6 +172,7 @@ layout_mode = 2
 
 [node name="NorayRelayBottomList" type="VBoxContainer" parent="." unique_id=512308833]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -242,6 +249,7 @@ grow_vertical = 0
 layout_mode = 2
 
 [connection signal="pressed" from="CenterContainer/MainList/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainList/NewButton" to="." method="_on_new_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/CharEditorButton" to="." method="_on_char_editor_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/SettingsButton" to="." method="_on_settings_button_pressed"]

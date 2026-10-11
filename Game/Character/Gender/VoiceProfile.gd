@@ -48,6 +48,13 @@ func playPreview():
 	if(theVoice):
 		theVoice.playPreview(getVoicePitch())
 
+func getEditorName() -> String:
+	var theVoice:SexVoiceBase = GlobalRegistry.getSexVoice(sexVoice)
+	if(!theVoice):
+		return "Unknown voice"
+	#return theVoice.getName()+" Pitch: "+str(Util.roundF(pitch*100.0,0))+"%"
+	return theVoice.getName()+" ("+str(roundi(pitch*100.0))+"% pitch)"
+
 func saveData() -> Dictionary:
 	return {
 		sexVoice = sexVoice,

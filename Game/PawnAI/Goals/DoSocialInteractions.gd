@@ -24,7 +24,7 @@ func isImpossible() -> bool:
 		return true
 	if(thePawn.global_position.distance_squared_to(pawn.global_position) > 625.0): # 25 meters
 		return true
-	if(pawn.isInCombat()):
+	if(pawn.isInCombat() || thePawn.isInCombat()):
 		return true
 	# if no possible actions with the target that satisfy us, abort?
 	

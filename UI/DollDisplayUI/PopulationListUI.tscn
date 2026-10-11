@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://b3g5eatqg0vjc"]
+
+[ext_resource type="Script" uid="uid://bcor2cg44sgbr" path="res://UI/DollDisplayUI/PopulationListUI.gd" id="1_jpgbp"]
+[ext_resource type="PackedScene" uid="uid://703y4fpprb1q" path="res://UI/DollDisplayUI/DollDisplayUI.tscn" id="2_t5263"]
+[ext_resource type="PackedScene" uid="uid://dh1lsikden6wt" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingsList.tscn" id="3_krall"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_184ox"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="PopulationListUI" type="HBoxContainer" unique_id=2062715245]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jpgbp")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=676737292]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="CharacterDescLabel" type="RichTextLabel" parent="VBoxContainer2" unique_id=856373175]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "asd"
+
+[node name="ShowFullInfoButton" type="Button" parent="VBoxContainer2" unique_id=1565876437]
+layout_mode = 2
+text = "Show full info"
+
+[node name="PlayerDollDisplayUI" parent="." unique_id=918128648 instance=ExtResource("2_t5263")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=78494343]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="EditButtons" type="VBoxContainer" parent="VBoxContainer" unique_id=1232278990]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RandomizeHBox" type="HBoxContainer" parent="VBoxContainer/EditButtons" unique_id=126562625]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RandomizeSettingsButton" type="Button" parent="VBoxContainer/EditButtons/RandomizeHBox" unique_id=931225127]
+unique_name_in_owner = true
+layout_mode = 2
+text = "<"
+
+[node name="RandomizeSettingsPanel" type="PanelContainer" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton" unique_id=1229517310]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -268.0
+offset_top = 7.0
+offset_right = -42.0
+offset_bottom = 229.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_184ox")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton/RandomizeSettingsPanel" unique_id=1271738836]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton/RandomizeSettingsPanel/MarginContainer" unique_id=121626525]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton/RandomizeSettingsPanel/MarginContainer/ScrollContainer" unique_id=712491844]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton/RandomizeSettingsPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1893556997]
+layout_mode = 2
+text = "Randomize"
+horizontal_alignment = 1
+
+[node name="RandomizeSettingsList" parent="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton/RandomizeSettingsPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1956063153 instance=ExtResource("3_krall")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RandomizeButton" type="Button" parent="VBoxContainer/EditButtons/RandomizeHBox" unique_id=1220633206]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Randomize"
+
+[node name="EditButton" type="Button" parent="VBoxContainer/EditButtons" unique_id=775180657]
+layout_mode = 2
+text = "Edit character"
+
+[node name="CharItemList" type="ItemList" parent="VBoxContainer" unique_id=1609022357]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer2/ShowFullInfoButton" to="." method="_on_show_full_info_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/EditButtons/RandomizeHBox/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/EditButtons/RandomizeHBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/EditButtons/EditButton" to="." method="_on_edit_button_pressed"]
+[connection signal="item_selected" from="VBoxContainer/CharItemList" to="." method="_on_char_item_list_item_selected"]

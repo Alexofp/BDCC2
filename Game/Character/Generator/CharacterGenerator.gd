@@ -173,10 +173,10 @@ func applyStuff():
 	character.lastCharName = lastName
 	character.species.setFromArray(species)
 	character.gender.setGender(gender)
-	character.thickness = randf_range(0.0, 2.0)
+	character.thickness = randf_range(0.0, 2.0) if gender != Gender.Male else randf_range(0.8, 1.2)
 	character.smoothBody = randf_range(0.0, 1.0)
 	character.chubbyness = clampf(randf_range(-2.0, 1.0), 0.0, 1.0)
-	character.buttSize = clampf(randf_range(-1.0, 1.0), 0.0, 1.0)
+	character.buttSize = clampf(randf_range(-1.0, 1.0) if gender != Gender.Male else randf_range(-1.0, 0.5), 0.0, 1.0)
 	character.muscles = clampf(randf_range(-0.5, 1.0), 0.0, 1.0)
 	character.voice.generate(self)
 	

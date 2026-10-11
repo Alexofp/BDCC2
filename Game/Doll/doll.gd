@@ -11,6 +11,7 @@ class_name Doll
 @onready var alpha_mask_texture: MyLayeredTexture = %AlphaMaskTexture
 
 @export var disableInternalAnimPlayer:bool = false
+@export var fastPartLoad:bool = false
 @onready var hover_text_advanced: HoverTextAdvanced = %HoverTextAdvanced
 @onready var radial_doll_bars: Node3D = %RadialDollBars
 
@@ -114,6 +115,13 @@ func setCharacter(theChar:BaseCharacter):
 	if(currentChar != null):
 		currentChar.onChange.disconnect(onCharChange)
 		currentChar.getBodyMess().onChange.disconnect(onUpdateBodyMess)
+	
+	if(!theChar):
+		characterRef = null
+		updateFromCharacter()
+		voice_handler.setCharID("")
+		radial_doll_bars.setCharacter(null)
+		return
 	
 	characterRef = weakref(theChar)
 	updateFromCharacter()
@@ -256,6 +264,7 @@ func clear():
 			bodypartDollPart.queue_free()
 	parts = [{}, {}]
 	partPaths = [{}, {}]
+	holeDataSubs = [[], []]
 
 func doesDollNeedMoreUpdating() -> bool:
 	if(!partUpdateQueue.is_empty()):
@@ -267,15 +276,18 @@ func doDollUpdate() -> float:
 	if(partUpdateQueue.is_empty()):
 		if(partUpdateHappening.is_empty()):
 			return -1.0
-		return 0.1
+		return 0.02
 	var theEntry:Array = partUpdateQueue.pop_front()
 	if(isPartUpdateHappening(theEntry[0], theEntry[1])):
 		partUpdateQueue.append([theEntry[0], theEntry[1]])
 	else:
 		updatePartFromCharacter(theEntry[0], theEntry[1])
-	return 0.1
+	return 0.02
 
 func _physics_process(_delta: float) -> void:
+	if(holeDataDirty && partUpdateQueue.is_empty()):
+		updateDollHoleData()
+	
 	if(false && !partUpdateQueue.is_empty()): # Happens inside ProcessBalancer now
 		partUpdateQueueTimer -= _delta
 		if(partUpdateQueueTimer <= 0.0):
@@ -291,6 +303,11 @@ func _physics_process(_delta: float) -> void:
 		if(struggleTimer <= 0.0):
 			struggleTimer = 0.0
 			skeleton_hit_modifier.stopStruggle()
+	
+	if(idleAnimOverrideTime > 0.0):
+		idleAnimOverrideTime -= _delta
+		if(idleAnimOverrideTime <= 0.0):
+			idleAnimOverride = ""
 	
 	updateBodyStuff()
 
@@ -325,11 +342,16 @@ func updateFromCharacter():
 		return
 	
 	var genericParts:Dictionary = character.getGenericParts()
-	for genericType in genericParts:
-		for bodypartSlot in genericParts[genericType]:
-			#partUpdateQueue.append([genericType, bodypartSlot])
-			updatePartFromCharacterDelayed(genericType, bodypartSlot)
-			#updatePartFromCharacter(genericType, bodypartSlot)
+	if(!fastPartLoad):
+		for genericType in genericParts:
+			for bodypartSlot in genericParts[genericType]:
+				#partUpdateQueue.append([genericType, bodypartSlot])
+				updatePartFromCharacterDelayed(genericType, bodypartSlot)
+				#updatePartFromCharacter(genericType, bodypartSlot)
+	else:
+		for genericType in genericParts:
+			for bodypartSlot in genericParts[genericType]:
+				updatePartFromCharacter(genericType, bodypartSlot)
 
 	for optionID in character.getSyncOptions():
 		onCharOptionChange(optionID)
@@ -562,12 +584,16 @@ func isWalking() -> bool:
 func isStanding() -> bool:
 	return locomotionState == LOCOMOTION_STAND
 
-var currentWalkAnim:String = "unisex"
+var currentWalkAnim:String = "WalkUnisex"
 var currentWalkAnimSpeed:float = 1.0
-var currentIdleAnim:String = "normal1"
+var currentIdleAnim:String = "IdleUnisex"
 var currentIdleAnimSpeed:float = 1.0
-var currentRunAnim:String = "run"
+var currentRunAnim:String = "Run"
 var currentRunAnimSpeed:float = 1.0
+
+var idleAnimOverride:String = ""
+var idleAnimOverrideTime:float = 0.0
+
 func setWalkAnim(_walkAnim:String):
 	currentWalkAnim = _walkAnim
 
@@ -579,7 +605,11 @@ func setRunAnim(_walkAnim:String):
 
 func animStand():
 	locomotionState = LOCOMOTION_STAND
-	travelLocomotion(currentIdleAnim, currentIdleAnimSpeed)
+	travelLocomotion(currentIdleAnim if idleAnimOverride.is_empty() else idleAnimOverride, currentIdleAnimSpeed)
+
+func overrideStandTemp(_newStand:String, _time:float):
+	idleAnimOverride = _newStand
+	idleAnimOverrideTime = _time
 
 func animAttack():
 	locomotionState = LOCOMOTION_STAND
@@ -1125,7 +1155,7 @@ func triggerHoleDataUpdate():
 	if(holeDataDirty):
 		return
 	holeDataDirty = true
-	updateDollHoleData.call_deferred()
+	#updateDollHoleData.call_deferred()
 
 func updateDollHoleData():
 	holeDataDirty = false

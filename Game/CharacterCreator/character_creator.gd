@@ -27,6 +27,9 @@ var zoneFilter:int = CharCreatorZone.ALL
 @onready var randomize_settings_panel: PanelContainer = $RandomizeSettingsPanel
 @onready var randomize_settings_list: VBoxContainer = %RandomizeSettingsList
 @onready var randomize_settings_button: Button = %RandomizeSettingsButton
+@onready var load_preset_button: Button = %LoadPresetButton
+@onready var save_preset_button: Button = %SavePresetButton
+@onready var cancel_button: Button = %CancelButton
 
 var dropdownVarScene := preload("res://UI/VarList/Vars/dropdown_var.tscn")
 
@@ -37,14 +40,21 @@ var regionRememberOpen:Dictionary = {}
 var charCreatorWizardWindow := preload("res://Game/CharacterCreator/char_creator_wizard_window.tscn")
 
 var character:BaseCharacter
+var customDoll:Doll
 var doll:Doll
 var cachedDoll:Doll
 
+var editingPreset:CharacterPreset
+var standaloneMode:bool = false
+
 signal onConfirmPressed
+signal onPresetConfirmed(_preset:CharacterPreset)
+signal onCancelPressed
 
 signal onUpdateBaseSkinTypesList
 
 func _ready() -> void:
+	cancel_button.visible = false
 	#updateSelectedTab()
 	#updatePartOptionsList()
 	character_creator_camera_setup.setCharCreator(self)
@@ -57,6 +67,9 @@ func _ready() -> void:
 		UIHandler.removeWindow(load_preset_dialog)
 	)
 	randomize_settings_panel.visible = false
+
+func setCustomDoll(_doll:Doll):
+	customDoll = _doll
 
 func setCharacter(newChar:BaseCharacter):
 	if(character != null && is_instance_valid(character)):
@@ -368,6 +381,14 @@ func onBodypartChangeOption(_id:String, value, bodypartSlot:int):
 
 
 func _on_confirm_button_pressed() -> void:
+	if(standaloneMode):
+		if(!editingPreset || editingPreset.embedded || editingPreset.generated):
+			save_preset_dialog.popup_centered()
+			#if(save_preset_line_edit.text == ""):
+			save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+			return
+		editingPreset.loadFromCharacter(character)
+		onPresetConfirmed.emit(editingPreset)
 	onConfirmPressed.emit()
 
 func _enter_tree() -> void:
@@ -388,6 +409,9 @@ func _on_char_sel_button_pressed() -> void:
 func _on_char_var_list_on_var_change(id: String, value: Variant) -> void:
 	if(!character):
 		return
+	if(id == CharOption.walkAnim):
+		if(doll):
+			doll.overrideStandTemp(value, 3.0)
 	GM.characterRegistry.askCharacterSyncOptionChange(character, id, value)
 	#character.applyCharChange(id, value)
 
@@ -447,12 +471,24 @@ func _on_save_preset_button_pressed() -> void:
 func _on_save_preset_dialog_confirmed() -> void:
 	if(!character):
 		return
+		
 	#resetCharacterPose()
 	var theName:String = save_preset_line_edit.text
 	theName = Util.sanitizeFileName(theName)
 	
-	var newPreset:CharacterPreset = CharacterPreset.new()
-	newPreset.loadFromCharacter(character)
+	if(standaloneMode):
+		editingPreset = getPreset()
+		editingPreset.embedded = false
+		editingPreset.generated = false
+		editingPreset.setFilenameUserPreset(theName)
+		#editingPreset.savePreset(theName)
+		GM.presets.rescanUserPresets()
+		#character_preset_selector.updateAll()
+		#editingPreset.loadFromCharacter(character)
+		onPresetConfirmed.emit(editingPreset)
+		return
+	
+	var newPreset:CharacterPreset = getPreset()
 	newPreset.savePreset(theName)
 	GM.presets.rescanUserPresets()
 	character_preset_selector.updateAll()
@@ -464,16 +500,24 @@ func _on_load_preset_dialogue_confirmed() -> void:
 	if(character_preset_selector.getSelectedPreset() == null):
 		return
 	var newPreset:CharacterPreset = character_preset_selector.getSelectedPreset()
-	#var newPreset:CharacterPreset = CharacterPreset.new()
-	#if(!newPreset.loadPreset("test")):
-	#	return
-	GM.characterRegistry.askCharacterLoadPreset(character, newPreset)
-	save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())
-	#print(save_preset_line_edit.text)
+	#GM.characterRegistry.askCharacterLoadPreset(character, newPreset)
+	#save_preset_line_edit.text = Util.sanitizeFileName(newPreset.filename.get_basename().get_file())
+	loadPreset(newPreset)
 	pass
 
+func loadPreset(_preset:CharacterPreset):
+	GM.characterRegistry.askCharacterLoadPreset(character, _preset)
+	save_preset_line_edit.text = Util.sanitizeFileName(_preset.filename.get_basename().get_file())
+
+func getPreset() -> CharacterPreset:
+	var newPreset:CharacterPreset = CharacterPreset.new()
+	newPreset.loadFromCharacter(character)
+	return newPreset
+
 func _process(_delta: float) -> void:
-	if(character):
+	if(customDoll):
+		doll = customDoll
+	elif(character):
 		var thePawn := GM.pawnRegistry.getPawn(character.getID())
 		if(thePawn):
 			doll = thePawn.getDoll().getDoll() if thePawn.getDoll() else null
@@ -493,6 +537,10 @@ func _process(_delta: float) -> void:
 @onready var character_creator_camera_setup: CharacterCreatorCameraSetup = %CharacterCreatorCameraSetup
 @onready var dragger_control: Control = %DraggerControl
 var controllingCamera:bool = false
+
+func setCustomCameraSetup(_setup:CharacterCreatorCameraSetup):
+	character_creator_camera_setup = _setup
+	character_creator_camera_setup.setCharCreator(self)
 
 func _on_dragger_control_gui_input(event: InputEvent) -> void:
 	if(event is InputEventMouseButton):
@@ -583,7 +631,7 @@ func setZoneFilter(_zone:int):
 	updateSelectedZoneFilter()
 	if(currentTab == "options"):
 		updatePartOptionsList()
-	var thePawn := GM.main.pawn_registry.getPawn(character.getID()) if character else null
+	var thePawn := GM.main.pawn_registry.getPawn(character.getID()) if character && GM.main else null
 	if(thePawn):
 		if(_zone == CharCreatorZone.Legs):
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "ShowFoot")
@@ -604,7 +652,7 @@ func updateSelectedZoneFilter():
 func resetCharacterPose():
 	if(!character):
 		return
-	var thePawn := GM.main.pawn_registry.getPawn(character.getID())
+	var thePawn:CharacterPawn = GM.main.pawn_registry.getPawn(character.getID()) if GM.main else null
 	if(thePawn):
 		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
 		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
@@ -670,3 +718,17 @@ func _on_randomize_button_pressed() -> void:
 	var theSettings:RandomizeSettingsHolder = randomize_settings_list.settings
 	
 	GM.characterRegistry.askRandomizeCharacter(character, theSettings)
+
+func setEditingPreset(_preset:CharacterPreset):
+	if(!_preset):
+		editingPreset = null
+	else:
+		editingPreset = _preset.makeCopy()
+		loadPreset(editingPreset)
+	standaloneMode = true
+	load_preset_button.visible = false
+	save_preset_button.visible = false
+	cancel_button.visible = true
+
+func _on_cancel_button_pressed() -> void:
+	onCancelPressed.emit()

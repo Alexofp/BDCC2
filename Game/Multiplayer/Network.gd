@@ -481,9 +481,10 @@ func clientAskGameInfo_SERVERRPC():
 		return
 	Log.Print("Received ask for game info, sending it to "+str(multiplayer.get_remote_sender_id()))
 	
-	var gameState:Dictionary = {
+	var gameState:Dictionary = { # save the gamemode's stuff?
 		map = GM.main.mapPath,
 		mode = GM.main.gameMode.id,
+		modeData = GM.main.gameMode.saveData(),
 	}
 	clientAskGameInfo_RPC.rpc_id(multiplayer.get_remote_sender_id(), gameState)
 

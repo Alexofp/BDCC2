@@ -32,8 +32,8 @@ var combatAI:CombatAIProfile = CombatAIProfile.new()
 
 signal onChange(change:BaseCharChange)
 
-const GENERIC_BODYPARTS = 0
-const GENERIC_CLOTHING = 1
+const GENERIC_BODYPARTS:int = 0
+const GENERIC_CLOTHING:int = 1
 
 func getID() -> String:
 	return id
@@ -88,6 +88,9 @@ func _init():
 		onChange.emit(BaseCharChange.createFetishesUpdate())
 		)
 	
+	pass
+
+func resetToDefaultPCCharacter():
 	skinTypes.create(SkinType.HumanSkin)
 	skinTypes.setColor(SkinType.HumanSkin, Color("fab6a5"))
 	
@@ -96,15 +99,11 @@ func _init():
 	
 	addBodypart(BodypartSlot.Head, load("res://Game/Character/Bodyparts/Head/HumanFeminineHead.gd").new())
 	addBodypart(BodypartSlot.Hair, load("res://Game/Character/Bodyparts/Hair/Ponytail1.gd").new())
-	
-	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateTop"))
-	inventory.equipItemFreeSlot(GlobalRegistry.createItem("InmateShorts"))
-	
 	gender.setGender(Gender.Female)
+	inventory.clear()
 	
 	#body.setOptionValue("thickness", 2.0)
 	#body.setOptionValue("thickness", 0.0)
-	pass
 
 func onSkinTypeChanged(_skinType:int, _skinTypeData:SkinTypeData):
 	#triggerUpdateAllSkinTypes()
@@ -662,7 +661,7 @@ func triggerUpdatePartFilter():
 	updatePartFilter()
 
 func updatePartFilter():
-	var theSex:SexEngine = GM.sexManager.getSexEngineOfCharID(getID())
+	var theSex:SexEngine = GM.sexManager.getSexEngineOfCharID(getID()) if GM.sexManager else null
 	var theSexHideTags:Array = theSex.getSexHideTagsFor(getID()) if theSex else []
 	
 	var shouldEmit:bool = false
@@ -854,7 +853,7 @@ func getPainLevel() -> float:
 	return charState.getPainLevel()
 
 func getPawn() -> CharacterPawn:
-	return GM.pawnRegistry.getPawn(getID())
+	return GM.pawnRegistry.getPawn(getID()) if GM.pawnRegistry else null
 
 func addStatusEffect(_effectID:String, _seconds:float, _args:Array = []):
 	effectsHolder.addEffect(_effectID, _seconds, _args)

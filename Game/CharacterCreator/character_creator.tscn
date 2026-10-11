@@ -59,12 +59,19 @@ layout_mode = 2
 text = "Wizard"
 
 [node name="LoadPresetButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1319166611]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Load preset"
 
 [node name="SavePresetButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1161693285]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Save preset"
+
+[node name="CancelButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=944254443]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
 
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=2117437613]
 layout_mode = 2
@@ -338,6 +345,7 @@ layout_mode = 2
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/LoadPresetButton" to="." method="_on_load_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/SavePresetButton" to="." method="_on_save_preset_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]

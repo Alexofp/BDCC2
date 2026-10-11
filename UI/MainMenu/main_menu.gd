@@ -6,6 +6,7 @@ const SCREEN_MULT_LAN = 2
 #const SCREEN_MULT_NODETUNNEL = 3
 const SCREEN_SETTINGS = 4
 const SCREEN_MULT_NORAY = 5
+const SCREEN_START_GAME = 6
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
@@ -31,7 +32,7 @@ var currentScreen:int = -1
 @onready var noray_relay_server_edit: LineEdit = %NorayRelayServerEdit
 @onready var noray_relay_list: OptionButton = %NorayRelayList
 @onready var controls_panel_container: PanelContainer = %ControlsPanelContainer
-
+var startGameUI:StartGameUI
 
 func _ready() -> void:
 	setScreen(SCREEN_MAIN)
@@ -53,17 +54,30 @@ func setScreen(_screen:int):
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	lan_list.visible = (_screen == SCREEN_MULT_LAN)
 	settings_tab.visible = (_screen == SCREEN_SETTINGS)
+	if(_screen == SCREEN_START_GAME):
+		if(!startGameUI):
+			startGameUI = load("res://Game/UI/StartGameUI/StartGameUI.tscn").instantiate()
+			add_child(startGameUI)
+			startGameUI.onCancelPressed.connect(_on_start_game_ui_on_cancel_pressed)
+			startGameUI.onStartPressed.connect(startGameUIStart)
+	else:
+		if(startGameUI):
+			startGameUI.queue_free()
+			startGameUI = null
 	
 	noray_tunnel_list.visible = (_screen == SCREEN_MULT_NORAY)
 	noray_relay_bottom_list.visible = (_screen == SCREEN_MULT_NORAY)
 
+func startGameUIStart(_start:StartGameHolder):
+	GM.startNewGame(_start)
+
 func _on_play_button_pressed() -> void:
 	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
 	#get_tree().change_scene_to_file("res://Game/Main.tscn")
-	GM.startGame("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
+	GM.startGame_OLD("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
 
 func _on_char_editor_button_pressed() -> void:
-	GM.startGame("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
+	GM.startGame_OLD("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
 
 func _on_editor_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Game/IngameEditor/build_test.tscn")
@@ -143,3 +157,9 @@ func updateNorayRelayList():
 
 func _on_noray_relay_list_item_selected(_index: int) -> void:
 	updateNorayRelayList()
+
+func _on_start_game_ui_on_cancel_pressed() -> void:
+	setScreen(SCREEN_MAIN)
+
+func _on_new_button_pressed() -> void:
+	setScreen(SCREEN_START_GAME)

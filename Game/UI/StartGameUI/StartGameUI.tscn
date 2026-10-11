@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://ebcb8ynffc5v"]
+
+[ext_resource type="Script" uid="uid://dgc5t07babofx" path="res://Game/UI/StartGameUI/StartGameUI.gd" id="1_rvtpj"]
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="2_wj8ja"]
+[ext_resource type="PackedScene" uid="uid://fmwtu0dh57w6" path="res://Game/UI/StartGameUI/PresetSelectorUI.tscn" id="3_x1207"]
+[ext_resource type="PackedScene" uid="uid://b3g5eatqg0vjc" path="res://UI/DollDisplayUI/PopulationListUI.tscn" id="4_8mwbe"]
+
+[node name="StartGameUI" type="Control" unique_id=515106228]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rvtpj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=233859587]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tabs" type="TabContainer" parent="VBoxContainer" unique_id=898299074]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+tab_sizing = 3
+current_tab = 3
+
+[node name="Gamemode" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=865200540]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Tabs/Gamemode" unique_id=881412733]
+layout_mode = 2
+
+[node name="FirstTabVarList" parent="VBoxContainer/Tabs/Gamemode/VBoxContainer" unique_id=1665835109 instance=ExtResource("2_wj8ja")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MultiplayerVarList" parent="VBoxContainer/Tabs/Gamemode/VBoxContainer" unique_id=1452530832 instance=ExtResource("2_wj8ja")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Settings" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=1109286827]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_tab_index = 1
+
+[node name="GamemodeVarList" parent="VBoxContainer/Tabs/Settings" unique_id=1577504849 instance=ExtResource("2_wj8ja")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Player" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=1182394681]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_tab_index = 2
+
+[node name="PresetSelectorUI" parent="VBoxContainer/Tabs/Player" unique_id=2130572461 node_paths=PackedStringArray("charCreatorNode", "charCreatorHide") instance=ExtResource("3_x1207")]
+unique_name_in_owner = true
+layout_mode = 2
+charCreatorNode = NodePath("../../../..")
+charCreatorHide = NodePath("../../..")
+
+[node name="Population" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=535128895]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_tab_index = 3
+
+[node name="PopulationListUI" parent="VBoxContainer/Tabs/Population" unique_id=2062715245 node_paths=PackedStringArray("charCreatorNode", "charCreatorHide") instance=ExtResource("4_8mwbe")]
+unique_name_in_owner = true
+layout_mode = 2
+charCreatorNode = NodePath("../../../..")
+charCreatorHide = NodePath("../../..")
+
+[node name="Overview" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=936761894]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_tab_index = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Tabs/Overview" unique_id=1109493336]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Tabs/Overview/CenterContainer" unique_id=1834894751]
+layout_mode = 2
+
+[node name="ReasonLabel" type="Label" parent="VBoxContainer/Tabs/Overview/CenterContainer/VBoxContainer" unique_id=523788552]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer/Tabs/Overview/CenterContainer/VBoxContainer" unique_id=2049909309]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "START GAME"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=104708720]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1057310565]
+layout_mode = 2
+text = "Cancel new game"
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=2102629713]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PrevTabButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1168760762]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Prev Tab"
+
+[node name="NextTabButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1557403907]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Next Tab"
+
+[connection signal="tab_changed" from="VBoxContainer/Tabs" to="." method="_on_tabs_tab_changed"]
+[connection signal="onVarChange" from="VBoxContainer/Tabs/Gamemode/VBoxContainer/FirstTabVarList" to="." method="_on_first_tab_var_list_on_var_change"]
+[connection signal="onVarChange" from="VBoxContainer/Tabs/Gamemode/VBoxContainer/MultiplayerVarList" to="." method="_on_multiplayer_var_list_on_var_change"]
+[connection signal="visibility_changed" from="VBoxContainer/Tabs/Settings" to="." method="_on_settings_visibility_changed"]
+[connection signal="onVarChange" from="VBoxContainer/Tabs/Settings/GamemodeVarList" to="." method="_on_gamemode_var_list_on_var_change"]
+[connection signal="onPresetSelected" from="VBoxContainer/Tabs/Player/PresetSelectorUI" to="." method="_on_preset_selector_ui_on_preset_selected"]
+[connection signal="visibility_changed" from="VBoxContainer/Tabs/Population" to="." method="_on_population_visibility_changed"]
+[connection signal="visibility_changed" from="VBoxContainer/Tabs/Overview" to="." method="_on_overview_visibility_changed"]
+[connection signal="pressed" from="VBoxContainer/Tabs/Overview/CenterContainer/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PrevTabButton" to="." method="_on_prev_tab_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NextTabButton" to="." method="_on_next_tab_button_pressed"]

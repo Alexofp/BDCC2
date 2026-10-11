@@ -3,7 +3,7 @@ extends GoalGeneratorBase
 func _init() -> void:
 	id = "SocialGoalGenerator"
 	minTime = 10.0
-	maxTime = 30.0
+	maxTime = 300.0
 
 func shouldApplyTo(_pawn:CharacterPawn) -> bool:
 	return true
@@ -55,6 +55,8 @@ func onGenGoals():
 
 func onDefeatingAnotherPawn(_defeatedPawn:CharacterPawn, _weDidLastBlow:bool, _friendlyFight:bool, _cause:DefeatCause):
 	if(_friendlyFight):
+		return
+	if(_defeatedPawn.isDominatedByAnyone()):
 		return
 	addGoal("PunishIfDefeated", [_defeatedPawn])
 

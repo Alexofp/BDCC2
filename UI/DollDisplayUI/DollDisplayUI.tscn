@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://703y4fpprb1q"]
+
+[ext_resource type="Environment" uid="uid://cfeg5fu5v0p4o" path="res://Mesh/Enviroment/GameEnv.tres" id="1_4k5jo"]
+[ext_resource type="Script" uid="uid://2lt1dl0u75j" path="res://UI/DollDisplayUI/DollDisplayUI.gd" id="1_d5tq3"]
+[ext_resource type="PackedScene" uid="uid://y65ir3supv5s" path="res://Game/Doll/doll.tscn" id="2_d5tq3"]
+[ext_resource type="PackedScene" uid="uid://bwv5juyft3osa" path="res://Game/CharacterCreator/character_creator_camera_setup.tscn" id="4_4y8k5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4y8k5"]
+size = Vector3(2, 1, 2)
+
+[node name="DollDisplayUI" type="SubViewportContainer" unique_id=918128648]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+script = ExtResource("1_d5tq3")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1166039797]
+unique_name_in_owner = true
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport" unique_id=820584807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_4y8k5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport" unique_id=753401486]
+environment = ExtResource("1_4k5jo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport" unique_id=940472478]
+unique_name_in_owner = true
+transform = Transform3D(0.9659258, 0.22414398, -0.12940963, 3.871436e-08, 0.49999994, 0.8660255, 0.2588192, -0.8365163, 0.48296285, 0, 1.0453069, 0)
+light_energy = 0.5
+
+[node name="Doll" parent="SubViewport" unique_id=777326594 instance=ExtResource("2_d5tq3")]
+unique_name_in_owner = true
+fastPartLoad = true
+
+[node name="CharacterCreatorCameraSetup" parent="SubViewport" unique_id=2013687957 instance=ExtResource("4_4y8k5")]
+unique_name_in_owner = true
+physics_interpolation_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

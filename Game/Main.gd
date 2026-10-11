@@ -41,16 +41,23 @@ var reactionSystem:ReactionSystem = ReactionSystem.new()
 var gameMode:GameModeBase
 var mapPath:String = ""
 
-func loadModeOnMap(_map:String, _mode:int, _args:Array):
+func loadStartGameHolder(_holder:StartGameHolder):
+	await loadModeOnMap(_holder.gameModeDef.getMapScenePath(), _holder.gameModeDef.id, [], {})
+	if(gameMode):
+		gameMode.startNewGame(_holder)
+
+func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary):
 	mapPath = _map
-	if(!GameMode.SCENES.has(_mode)):
+	
+	var _gameModeDef:GameModeDef = GlobalRegistry.getGameModeDefRef(_mode)
+	if(!_gameModeDef):
 		Log.Printerr("UNKNOWN GAME MODE: "+str(_mode))
-	else:
-		var theScene:PackedScene = load(GameMode.SCENES[_mode])
-		var theMode:GameModeBase = theScene.instantiate()
-		add_child(theMode)
-		theMode.initArgs(_args)
-		gameMode = theMode
+		return
+	var theScene:PackedScene = load(_gameModeDef.scenePath)
+	var theMode:GameModeBase = theScene.instantiate()
+	add_child(theMode)
+	theMode.initArgs(_args)
+	gameMode = theMode
 	
 	#var theFuture := ThreadedResourceLoader.loadFuture(_map)
 	#await theFuture.task_completed
@@ -65,6 +72,9 @@ func loadModeOnMap(_map:String, _mode:int, _args:Array):
 	add_child(theMapNode)
 	building_platform_8x_8.queue_free()
 	OPTIONS.graphics.updateDynamicGI()
+	
+	if(!_modeData.is_empty()):
+		gameMode.loadData(_modeData)
 
 func startGame():
 	if(gameMode):

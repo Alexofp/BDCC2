@@ -13,6 +13,10 @@ func _ready() -> void:
 	fadeOut(true)
 
 func setCharacter(_char:BaseCharacter):
+	if(!GM.pawnRegistry || !_char):
+		character = null
+		pawn = null
+		return
 	character = _char
 	pawn = GM.pawnRegistry.getPawn(character.getID()) if character else null
 	

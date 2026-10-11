@@ -11,10 +11,17 @@ var selectedMode:int = SELECTED_ALL
 var selectedPack:CharacterPresetPack = null
 var presets:Array[CharacterPreset] = []
 var selectedPreset:CharacterPreset = null
+var extraPresets:Array[CharacterPreset] = []
+
+signal onPresetSelected(_preset:CharacterPreset)
 
 func _ready() -> void:
+	if(!GM.presets):
+		await GlobalRegistry.initialized
+	
 	updatePackSelectorList()
 	updatePresetList()
+	GM.presets.onPresetsRescanned.connect(updateAll)
 
 func setSelectedPack(_pack:CharacterPresetPack):
 	selectedMode = SELECTED_PACK
@@ -22,29 +29,63 @@ func setSelectedPack(_pack:CharacterPresetPack):
 	updatePackSelectorList()
 	updatePresetList()
 
-func setSelectedPreset(_preset:CharacterPreset):
+func setSelectedPresetByPath(_path:String, _callSignal:bool = false, _alwaysSelectAll:bool = false):
+	if(_path.is_empty()):
+		return
+	for preset in GM.presets.userPresets:
+		if(preset.filename == _path):
+			setSelectedPreset(preset, _callSignal, _alwaysSelectAll)
+			return
+	for pack in GM.presets.packs:
+		for preset in pack.presets:
+			if(preset.filename == _path):
+				setSelectedPreset(preset, _callSignal, _alwaysSelectAll)
+				return
+	for preset in extraPresets:
+		if(preset.filename == _path):
+			setSelectedPreset(preset, _callSignal, _alwaysSelectAll)
+			return
+	
+func setSelectedPreset(_preset:CharacterPreset, _callSignal:bool = false, _alwaysSelectAll:bool = false):
 	if(!_preset):
 		selectedMode = SELECTED_ALL
 		selectedPreset = null
 		updatePresetList()
+		if(_callSignal):
+			onPresetSelected.emit(null)
 		return
-	for preset in GM.presets.userPresets:
+	for preset:CharacterPreset in extraPresets:
 		if(preset == _preset):
-			selectedMode = SELECTED_USER
+			selectedMode = SELECTED_ALL
 			selectedPreset = _preset
 			selectedPack = null
 			updatePackSelectorList()
 			updatePresetList()
+			if(_callSignal):
+				onPresetSelected.emit(selectedPreset)
+			return
+	
+	for preset in GM.presets.userPresets:
+		if(preset == _preset):
+			selectedMode = SELECTED_USER if !_alwaysSelectAll else SELECTED_ALL
+			selectedPreset = _preset
+			selectedPack = null
+			updatePackSelectorList()
+			updatePresetList()
+			if(_callSignal):
+				onPresetSelected.emit(selectedPreset)
 			return
 	
 	for pack in GM.presets.packs:
 		for preset in pack.presets:
 			if(preset == _preset):
-				selectedMode = SELECTED_PACK
+				selectedMode = SELECTED_PACK if !_alwaysSelectAll else SELECTED_ALL
 				selectedPreset = _preset
-				selectedPack = pack
+				selectedPack = pack if !_alwaysSelectAll else null
 				updatePackSelectorList()
 				updatePresetList()
+				if(_callSignal):
+					onPresetSelected.emit(selectedPreset)
 				return
 
 func updateAll():
@@ -78,6 +119,10 @@ func updatePresetList():
 	
 	if(selectedMode == SELECTED_ALL):
 		presets = []
+		presets.append_array(extraPresets)
+		for preset in extraPresets:
+			presetNames.append("Generated")
+			
 		presets.append_array(GM.presets.userPresets)
 		for preset in GM.presets.userPresets:
 			presetNames.append("User presets")
@@ -123,6 +168,11 @@ func _on_preset_list_item_selected(_index: int) -> void:
 	if(_index < 0 || _index >= presets.size()):
 		return
 	selectedPreset = presets[_index]
+	onPresetSelected.emit(selectedPreset)
 
 func getSelectedPreset() -> CharacterPreset:
 	return selectedPreset
+
+func setExtraPresets(_presets:Array[CharacterPreset]):
+	extraPresets = _presets
+	updatePresetList()

@@ -8,4 +8,4 @@ script = ExtResource("1_3gty4")
 
 [node name="SitSpot" parent="." unique_id=2056142771 instance=ExtResource("2_bms8v")]
 unique_name_in_owner = true
-hoverTextForward = 0.3
+hoverTextForward = 0.7

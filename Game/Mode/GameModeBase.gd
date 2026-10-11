@@ -1,7 +1,7 @@
 extends Node3D
 class_name GameModeBase
 
-var id:int = -1
+var id:String = ""
 
 ## Called when the gamemode is created. The map isn't loaded yet by this point
 func initArgs(_args:Array):
@@ -141,3 +141,48 @@ func askSwitchToCharID_SERVERRPC(newPawnID:String):
 
 func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = Vector3(0.0, 0.0, 0.0)):
 	GM.dollHolder.checkOutOfBoundsCharacters(_lowPoint, _resetPoint)
+
+func startNewGame(_holder:StartGameHolder):
+	loadFromDef(_holder.gameModeDef)
+	if(Network.isServer()):
+		createPopulationNewGame(_holder)
+		createPlayerNewGame(_holder)
+
+func createPopulationNewGame(_holder:StartGameHolder):
+	var _i:int = 0
+	for theStartChar:StartGameCharHolder in _holder.population:
+		if(!theStartChar.preset):
+			Log.Printerr("Bad preset!")
+			continue
+		var _theChar:BaseCharacter = GM.characterRegistry.createCharacter()
+		theStartChar.preset.applyToCharacter(_theChar)
+		giveDefaultStuff(_theChar)
+		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(_theChar.getID())
+		_thePawn.position.x = 2.0 + _i*2.0
+		_i += 1
+
+func createPlayerNewGame(_holder:StartGameHolder):
+	var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+	_holder.playerPreset.preset.applyToCharacter(thePC)
+	giveDefaultStuff(thePC)
+	#thePC.resetToDefaultPCCharacter()
+	var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
+	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
+	myInfo.charID = thePC.getID()
+
+func giveDefaultStuff(_char:BaseCharacter):
+	if(_char.gender.getGender() != Gender.Male):
+		_char.inventory.equipItem(GlobalRegistry.createItem("InmateTop"), InventorySlot.Top)
+	else:
+		_char.inventory.equipItem(GlobalRegistry.createItem("InmateTankTop"), InventorySlot.Top)
+	_char.inventory.equipItem(GlobalRegistry.createItem("InmateShorts"), InventorySlot.Bottom)
+	_char.inventory.equipItem(GlobalRegistry.createItem("InmateCollar"), InventorySlot.Collar)
+
+func loadFromDef(_modeRef:GameModeDef):
+	pass
+
+func saveData() -> Dictionary:
+	return {}
+
+func loadData(_data:Dictionary):
+	pass

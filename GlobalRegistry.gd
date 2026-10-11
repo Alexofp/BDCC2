@@ -62,6 +62,8 @@ var statusEffects:Dictionary
 var statusEffectRefs:Dictionary[String, StatusEffectBase]
 var statusEffectsAlwaysChecked:Array[StatusEffectBase]
 var goalGenerators:Dictionary
+var gameModeDefs:Dictionary
+var gameModeDefRefs:Dictionary[String, GameModeDef]
 
 signal initialized
 
@@ -212,6 +214,8 @@ func doInit():
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var start := Time.get_ticks_usec()
+	
+	registerGameModeDefFolder("res://Game/Mode/ModeDefs/")
 	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
@@ -1435,3 +1439,36 @@ func createGoalGenerator(id: String) -> GoalGeneratorBase:
 
 func getGoalGenerators() -> Dictionary:
 	return goalGenerators
+
+
+
+
+func registerGameModeDef(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is GameModeDef):
+		gameModeDefs[object.id] = loadedClass
+		gameModeDefRefs[object.id] = object
+
+func registerGameModeDefFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerGameModeDef(scriptPath)
+
+func createGameModeDef(id: String) -> GameModeDef:
+	if(gameModeDefs.has(id)):
+		return gameModeDefs[id].new()
+	else:
+		Log.Printerr("ERROR: game mode def with the id "+str(id)+" wasn't found")
+		return null
+
+func getGameModeDefRef(id: String) -> GameModeDef:
+	if(gameModeDefRefs.has(id)):
+		return gameModeDefRefs[id]
+	else:
+		Log.Printerr("ERROR: game mode def with the id "+str(id)+" wasn't found")
+		return null
+
+func getGameModeDefRefs() -> Dictionary:
+	return gameModeDefRefs

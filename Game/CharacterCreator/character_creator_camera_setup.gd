@@ -80,6 +80,23 @@ func handleZoom(mouseZ:float):
 		currentFOV = 10.0
 	priority_camera.fov = currentFOV
 
+func passInputEvent(event: InputEvent, _controllingCamera:bool) -> bool:
+	if(event is InputEventMouseButton):
+		#if(event.button_index == MOUSE_BUTTON_LEFT):
+			#if(event.pressed):
+				#UIHandler.releaseUIFocus()
+		if(event.button_index == MOUSE_BUTTON_WHEEL_DOWN):
+			handleZoom(1.0)
+			return true
+		if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
+			handleZoom(-1.0)
+			return true
+	if(_controllingCamera && (event is InputEventMouseMotion)):
+		var mouseD:Vector2 = event.relative
+		handleMouseMove(mouseD)
+		return true
+	return false
+
 func handleMouseMove(mouseD:Vector2):
 	const sensivity = 0.3
 	

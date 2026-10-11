@@ -6,6 +6,9 @@ func _init():
 	skinType = SkinType.Auto
 	breasts = 0.0
 
+func generateFor(_gen:CharacterGenerator):
+	super.generateFor(_gen)
+
 func getName() -> String:
 	return "Masculine body"
 

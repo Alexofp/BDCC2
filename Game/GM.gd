@@ -66,7 +66,7 @@ static func getPCPawn() -> CharacterPawn:
 static func getCharacterRegistry() -> CharacterRegistry:
 	if(main != null):
 		return main.getCharacterRegistry()
-	return null
+	return characterRegistry
 
 static func getInventoryRegistry() -> InventoryRegistry:
 	if(main != null):
@@ -121,14 +121,39 @@ static func sendChat(_text:String):
 
 static var changingScene:bool = false
 
-static func startGame(_map:String, _mode:int, _args:Array = []):
+static func startNewGame(_holder:StartGameHolder):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
 	GI.get_tree().paused = true
 	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GI.get_tree().scene_changed
-	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	#await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args, {})
+	await GI.get_tree().current_scene.loadStartGameHolder(_holder)
+	var _connector := _holder.multiplayer.createNetworkConnector()
+	LoadingScreen.setText("Hosting.." if _connector else "Loading..")
+	
+	Network.setMyNickname("SERVER")
+	
+	if(_connector):
+		var res = await Network.host(_connector)#hostFunc.call(_nickname) #Network.hostLAN(_nickname)
+		if(res.isError()):
+			errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
+			return
+	GM.main.startGame()
+	#await GI.get_tree().create_timer(2.0).timeout
+	GI.get_tree().paused = false
+	changingScene = false
+	LoadingScreen.finishLoad()
+	
+static func startGame_OLD(_map:String, _mode:String, _args:Array = []):
+	assert(!changingScene, "Already changing a scene!")
+	LoadingScreen.startLoad()
+	changingScene = true
+	GI.get_tree().paused = true
+	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
+	await GI.get_tree().scene_changed
+	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args, {})
 	GM.main.startGame()
 	GI.get_tree().paused = false
 	changingScene = false
@@ -146,14 +171,14 @@ static func startMainMenu():
 static func isChangingScene() -> bool:
 	return changingScene
 
-static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String, _map:String, _mode:int, _args:Array = []):
+static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String, _map:String, _mode:String, _args:Array = []):
 	assert(!changingScene, "Already changing a scene!")
 	LoadingScreen.startLoad()
 	changingScene = true
 	GI.get_tree().paused = true
 	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GI.get_tree().scene_changed
-	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args)
+	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args, {})
 	LoadingScreen.setText("Hosting..")
 	
 	Network.setMyNickname(_nickname)
@@ -168,14 +193,14 @@ static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String,
 	changingScene = false
 	LoadingScreen.finishLoad()
 
-static func hostLANGame(_nickname:String, _map:String, _mode:int, _args:Array = []):
+static func hostLANGame(_nickname:String, _map:String, _mode:String, _args:Array = []):
 	var theConnector := LANNetworkConnector.new()
 	#theConnector.setHostPort(relayServer, relayServerPort)
 	
 	await internal_hostGame(theConnector, _nickname, _map, _mode, _args)
 	pass
 
-static func hostNoray(_nickname:String, _map:String, _mode:int, _args:Array = [], relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT):
+static func hostNoray(_nickname:String, _map:String, _mode:String, _args:Array = [], relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT):
 	var theConnector := NorayNetworkConnector.new()
 	theConnector.setRelay(relayServer, relayServerPort)
 	
@@ -196,12 +221,13 @@ static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String)
 		errorOutToMainMenu(res.result if res.result is String else "Failed to get game info")
 		return
 	var mapToLoad:String = res.result["map"]
-	var modeToLoad:int = res.result["mode"]
+	var modeToLoad:String = res.result["mode"]
+	var modeDataToLoad:Dictionary = res.result["modeData"]
 	var modeArgs:Array = []
 	LoadingScreen.setText("Loading map..")
 	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GI.get_tree().scene_changed
-	await GI.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs)
+	await GI.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs, modeDataToLoad)
 	LoadingScreen.setText("Loading game state..")
 	res = await Network.clientAskToJoin(_nickname)
 	if(res.error):

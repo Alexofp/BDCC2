@@ -18,10 +18,54 @@ var voice:VoiceProfile = VoiceProfile.new()
 var idleAnim:String = "IdleUnisex"
 var walkAnim:String = "WalkUnisex"
 
+var personality:Personality = Personality.new()
+var fetishHolder:FetishHolder = FetishHolder.new()
+
 # no sync
 var embedded:bool = false
 var filename:String = ""
+var generated:bool = false
 # end no sync
+
+func getDescriptionLines(_showSpoilers:bool=true) -> Array[String]:
+	var _idlePose:DollAnimBase = GlobalRegistry.getDollAnim(idleAnim)
+	var _walkPose:DollAnimBase = GlobalRegistry.getDollAnim(walkAnim)
+	
+	var theLines:Array[String] = [
+		"Name: "+str(charName)
+	]
+	if(!lastCharName.is_empty()):
+		theLines.append("Last name: "+str(lastCharName))
+	theLines.append("Gender: "+gender.getEditorName())
+	theLines.append("Species: "+species.getName())
+	theLines.append("")
+	theLines.append("Voice: "+voice.getEditorName())
+	theLines.append("Idle type: "+(_idlePose.getVisibleName(idleAnim) if _idlePose else idleAnim))
+	theLines.append("Walk type: "+(_walkPose.getVisibleName(walkAnim) if _walkPose else walkAnim))
+	theLines.append("")
+	theLines.append("Personality:")
+	for _stat:String in GlobalRegistry.personalityStats:
+		var _persStat:PersonalityStatBase = GlobalRegistry.personalityStats[_stat]
+		var _am:float = personality.getStat(_stat)
+		if(_showSpoilers):
+			theLines.append(_persStat.getVisibleName()+": "+str(Util.roundF(_am*100.0, 1))+"%")
+		else:
+			theLines.append(_persStat.getVisibleName()+": hidden")
+	
+	theLines.append("")
+	theLines.append("Fetishes:")
+	for _fetish:String in GlobalRegistry.fetishes:
+		var _fetishRef:FetishBase = GlobalRegistry.fetishes[_fetish]
+		var _amPerf:float = fetishHolder.getPerforming(_fetish)
+		var _amRec:float = fetishHolder.getReceiving(_fetish)
+		if(_showSpoilers):
+			theLines.append(_fetishRef.getVisibleName())
+			theLines.append("- Performing: "+str(Util.roundF(_amPerf*100.0, 1))+"%")
+			theLines.append("- Receiving: "+str(Util.roundF(_amRec*100.0, 1))+"%")
+		else:
+			theLines.append(_fetishRef.getVisibleName()+": hidden")
+		
+	return theLines
 
 func getEditorName() -> String:
 	if(filename != ""):
@@ -44,17 +88,19 @@ func loadFromCharacter(_char:BaseCharacter):
 	
 	charName = _char.charName
 	lastCharName = _char.lastCharName
-	gender.loadData(_char.gender.saveData())
-	species.loadData(_char.species.saveData())
+	gender.loadData(_char.gender.saveData().duplicate(true))
+	species.loadData(_char.species.saveData().duplicate(true))
 	bodySize = _char.bodySize
 	thickness = _char.thickness
 	chubbyness = _char.chubbyness
 	buttSize = _char.buttSize
 	smoothBody = _char.smoothBody
 	muscles = _char.muscles
-	voice.loadData(_char.voice.saveData())
+	voice.loadData(_char.voice.saveData().duplicate(true))
 	walkAnim = _char.walkAnim
 	idleAnim = _char.idleAnim
+	personality.loadData(_char.personality.saveData().duplicate(true))
+	fetishHolder.loadData(_char.fetishHolder.saveData().duplicate(true))
 
 func applyToCharacter(_char:BaseCharacter):
 	_char.applyCharChange(CharOption.name, charName)
@@ -75,6 +121,8 @@ func applyToCharacter(_char:BaseCharacter):
 		_char.removeGenericPart(BaseCharacter.GENERIC_BODYPARTS, bodypartSlot)
 		
 	_char.skinTypes.loadData(skinTypes.saveData().duplicate(true))
+	_char.personality.loadData(personality.saveData().duplicate(true))
+	_char.fetishHolder.loadData(fetishHolder.saveData().duplicate(true))
 		
 	for bodypartSlotString in bodyparts:
 		var bodypartSlot:int = BodypartSlot.slotFromString(bodypartSlotString)
@@ -110,6 +158,8 @@ func saveData() -> Dictionary:
 		voice = voice.saveData(),
 		walkAnim = walkAnim,
 		idleAnim = idleAnim,
+		personality = personality.saveData(),
+		fetishHolder = fetishHolder.saveData(),
 	}
 
 func loadData(_data:Dictionary):
@@ -133,6 +183,18 @@ func loadData(_data:Dictionary):
 	walkAnim = SAVE.loadVar(_data, "walkAnim", "WalkUnisex")
 	if(!GlobalRegistry.getDollAnim(walkAnim)):
 		walkAnim = "WalkUnisex"
+	if(_data.has("personality")):
+		personality.loadData(SAVE.loadVar(_data, "personality", {}))
+	if(_data.has("fetishHolder")):
+		fetishHolder.loadData(SAVE.loadVar(_data, "fetishHolder", {}))
+
+func makeCopy() -> CharacterPreset:
+	var _newPreset:CharacterPreset = CharacterPreset.new()
+	_newPreset.loadData(saveData().duplicate(true))
+	_newPreset.filename = filename
+	_newPreset.embedded = embedded
+	_newPreset.generated = generated
+	return _newPreset
 
 func saveToFile(path:String) -> bool:
 	var newPreset:CharacterPresetResource = CharacterPresetResource.new()
@@ -146,6 +208,23 @@ func savePreset(name:String) -> bool:
 	if(name == ""):
 		return false
 	return saveToFile(CharacterPresetHolder.USERPRESETS_FOLDER.path_join(name+".tres"))
+
+func setFilenameUserPreset(_name:String) -> bool:
+	_name = Util.sanitizeFileName(_name)
+	if(_name == ""):
+		return false
+	filename = CharacterPresetHolder.USERPRESETS_FOLDER.path_join(_name+".tres")
+	return true
+
+func doSave() -> bool:
+	if(filename.is_empty() || embedded):
+		return false
+	return saveToFile(filename)
+
+func doLoad() -> bool:
+	if(filename.is_empty() || embedded):
+		return false
+	return loadFromFile(filename)
 
 func loadFromFile(path:String) -> bool:
 	var thePresetResource = ResourceLoader.load(path)
@@ -162,3 +241,26 @@ func loadPreset(name:String) -> bool:
 
 func canBeEdited() -> bool:
 	return filename.begins_with("user://")
+
+func doResetToDefaultPC():
+	var newChar:BaseCharacter = BaseCharacter.new()
+	newChar.resetToDefaultPCCharacter()
+	loadFromCharacter(newChar)
+
+func doRandomize(_settings:RandomizeSettingsHolder = null):
+	if(!_settings):
+		_settings = RandomizeSettingsHolder.new()#randomize_settings_list.settings
+	var theGen := CharacterGenerator.new()
+	_settings.apply(theGen)
+	var newChar:BaseCharacter = BaseCharacter.new()
+	theGen.generate(newChar)
+	loadFromCharacter(newChar)
+
+func isSameAs(_otherPreset:CharacterPreset) -> bool:
+	if(_otherPreset == self):
+		return true
+	if(filename != _otherPreset.filename || filename.is_empty()):
+		return false
+	#if(charName != _otherPreset.charName):
+	#	return false
+	return true

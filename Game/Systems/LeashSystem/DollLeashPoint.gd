@@ -10,8 +10,8 @@ var pawn:CharacterPawn
 func _ready() -> void:
 	super._ready()
 	doll = findDollController()
-	if(!doll):
-		Log.Printerr("SPAWNED A DOLL LEASH POINT THAT ISN'T ATTACHED TO A DOLL CONTROLLER.")
+	if(!doll): # We assume we are running without a doll controller
+		#Log.Printerr("SPAWNED A DOLL LEASH POINT THAT ISN'T ATTACHED TO A DOLL CONTROLLER.")
 		return
 	pawn = doll.getPawn()
 	if(!pawn):
