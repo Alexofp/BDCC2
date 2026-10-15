@@ -18,6 +18,7 @@ var voice:VoiceProfile = VoiceProfile.new()
 var idleAnim:String = "IdleUnisex"
 var walkAnim:String = "WalkUnisex"
 
+var traitHolder:TraitHolder = TraitHolder.new()
 var personality:Personality = Personality.new()
 var fetishHolder:FetishHolder = FetishHolder.new()
 
@@ -26,6 +27,19 @@ var embedded:bool = false
 var filename:String = ""
 var generated:bool = false
 # end no sync
+
+func canBeDeleted() -> bool:
+	if(embedded || filename.is_empty() || generated || !filename.begins_with("user://Game/UserPresets/")):
+		return false
+	return true
+
+func deletePreset() -> bool:
+	if(!canBeDeleted()):
+		return false
+	DirAccess.remove_absolute(filename)
+	if(GM.presets):
+		GM.presets.rescanUserPresets()
+	return true
 
 func getDescriptionLines(_showSpoilers:bool=true) -> Array[String]:
 	var _idlePose:DollAnimBase = GlobalRegistry.getDollAnim(idleAnim)
@@ -43,6 +57,15 @@ func getDescriptionLines(_showSpoilers:bool=true) -> Array[String]:
 	theLines.append("Idle type: "+(_idlePose.getVisibleName(idleAnim) if _idlePose else idleAnim))
 	theLines.append("Walk type: "+(_walkPose.getVisibleName(walkAnim) if _walkPose else walkAnim))
 	theLines.append("")
+	if(_showSpoilers):
+		var theTraitNames:Array[String]
+		for _trait:TraitBase in traitHolder.cachedList:
+			theTraitNames.append(_trait.getName())
+		theLines.append("Traits: "+(Util.join(theTraitNames, ", ") if !theTraitNames.is_empty() else "- No traits -"))
+	else:
+		theLines.append("Traits: Hidden")
+	theLines.append("")
+	
 	theLines.append("Personality:")
 	for _stat:String in GlobalRegistry.personalityStats:
 		var _persStat:PersonalityStatBase = GlobalRegistry.personalityStats[_stat]
@@ -60,8 +83,9 @@ func getDescriptionLines(_showSpoilers:bool=true) -> Array[String]:
 		var _amRec:float = fetishHolder.getReceiving(_fetish)
 		if(_showSpoilers):
 			theLines.append(_fetishRef.getVisibleName())
-			theLines.append("- Performing: "+str(Util.roundF(_amPerf*100.0, 1))+"%")
-			theLines.append("- Receiving: "+str(Util.roundF(_amRec*100.0, 1))+"%")
+			
+			theLines.append("- "+_fetishRef.getNamePerforming()+": "+str(Util.roundF(_amPerf*100.0, 1))+"%")
+			theLines.append("- "+_fetishRef.getNameReceiving()+": "+str(Util.roundF(_amRec*100.0, 1))+"%")
 		else:
 			theLines.append(_fetishRef.getVisibleName()+": hidden")
 		
@@ -99,6 +123,7 @@ func loadFromCharacter(_char:BaseCharacter):
 	voice.loadData(_char.voice.saveData().duplicate(true))
 	walkAnim = _char.walkAnim
 	idleAnim = _char.idleAnim
+	traitHolder.loadData(_char.traitHolder.saveData().duplicate(true))
 	personality.loadData(_char.personality.saveData().duplicate(true))
 	fetishHolder.loadData(_char.fetishHolder.saveData().duplicate(true))
 
@@ -121,6 +146,7 @@ func applyToCharacter(_char:BaseCharacter):
 		_char.removeGenericPart(BaseCharacter.GENERIC_BODYPARTS, bodypartSlot)
 		
 	_char.skinTypes.loadData(skinTypes.saveData().duplicate(true))
+	_char.traitHolder.loadData(traitHolder.saveData().duplicate(true))
 	_char.personality.loadData(personality.saveData().duplicate(true))
 	_char.fetishHolder.loadData(fetishHolder.saveData().duplicate(true))
 		
@@ -158,6 +184,7 @@ func saveData() -> Dictionary:
 		voice = voice.saveData(),
 		walkAnim = walkAnim,
 		idleAnim = idleAnim,
+		traitHolder = traitHolder.saveData(),
 		personality = personality.saveData(),
 		fetishHolder = fetishHolder.saveData(),
 	}
@@ -183,6 +210,8 @@ func loadData(_data:Dictionary):
 	walkAnim = SAVE.loadVar(_data, "walkAnim", "WalkUnisex")
 	if(!GlobalRegistry.getDollAnim(walkAnim)):
 		walkAnim = "WalkUnisex"
+	if(_data.has("traitHolder")):
+		traitHolder.loadData(SAVE.loadVar(_data, "traitHolder", {}))
 	if(_data.has("personality")):
 		personality.loadData(SAVE.loadVar(_data, "personality", {}))
 	if(_data.has("fetishHolder")):

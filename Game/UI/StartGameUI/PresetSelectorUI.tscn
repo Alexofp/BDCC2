@@ -62,6 +62,11 @@ text = "New preset"
 layout_mode = 2
 text = "Edit preset"
 
+[node name="DeletePresetButton" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=289885420]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Delete preset"
+
 [node name="RandomizeHBox" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=308637587]
 unique_name_in_owner = true
 layout_mode = 2
@@ -126,10 +131,20 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Confirm preset"
 
+[node name="DeletePresetDialog" type="ConfirmationDialog" parent="." unique_id=524295126]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Delete preset"
+size = Vector2i(200, 80)
+ok_button_text = "Delete"
+dialog_text = "Are you sure?"
+
 [connection signal="pressed" from="VBoxContainer2/ShowFullInfoButton" to="." method="_on_show_full_info_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/NewPresetButton" to="." method="_on_new_preset_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/EditPresetButton" to="." method="_on_edit_preset_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/DeletePresetButton" to="." method="_on_delete_preset_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/RandomizeHBox/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/RandomizeHBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="onPresetSelected" from="VBoxContainer/PlayerPresetSelect" to="." method="_on_player_preset_select_on_preset_selected"]
 [connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="confirmed" from="DeletePresetDialog" to="." method="_on_delete_preset_dialog_confirmed"]

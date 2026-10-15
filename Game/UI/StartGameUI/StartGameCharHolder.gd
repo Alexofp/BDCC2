@@ -5,22 +5,28 @@ var preset:CharacterPreset
 # Char type?
 
 func _init() -> void:
-	preset = CharacterPreset.new()
-	preset.charName = "TEST"
-	preset.lastCharName = "MEW"
-	#preset.doRandomize()
-	preset.generated = true
-	preset.embedded = true
+	checkPreset()
 	#Network.rpcClients(notifyPresetApplied_RPC.bind(character.getID()))
 	#character.notifyPresetApplied()
 	#GM.characterRegistry.askRandomizeCharacter(character, theSettings)
 	if(GM.presets):
 		GM.presets.onPresetsRescanned.connect(updatePreset)
-	
+
+func checkPreset():
+	if(preset):
+		return
+	preset = CharacterPreset.new()
+	preset.charName = "TEST"
+	preset.lastCharName = "MEW"
+	preset.generated = true
+	preset.embedded = true
+
 func doRandomize():
+	checkPreset()
 	preset.doRandomize()
 
 func doResetToDefaultPC():
+	checkPreset()
 	preset.doResetToDefaultPC()
 
 func isReady() -> bool:

@@ -1431,6 +1431,18 @@ func getSocialInteractionsTotalScoreBasedOnTags(_targetPawn:CharacterPawn, _acti
 				result += theScore
 	return result
 
+func getTraits() -> Array[TraitBase]:
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return []
+	return theChar.traitHolder.getTraits()
+
+func getTraitHolder() -> TraitHolder:
+	var theChar:BaseCharacter = getCharacter()
+	if(!theChar):
+		return null
+	return theChar.traitHolder
+
 
 
 

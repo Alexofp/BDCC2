@@ -40,6 +40,23 @@ func clear():
 	onStatsFullUpdate.emit()
 	onStatsUpdated.emit()
 
+func generatePersonalityGen(_generator:CharacterGenerator):
+	generatePersonality(_generator)
+	
+func generatePersonality(_gen:CharacterGenerator = null):
+	var _char:BaseCharacter = getChar() if !_gen else _gen.character
+	var theTraits:Array[TraitBase] = _char.traitHolder.getTraits()
+	
+	for _persID:String in GlobalRegistry.personalityStats:
+		var thePersStat:PersonalityStatBase = GlobalRegistry.personalityStats[_persID]
+		var _value:float = thePersStat.generateInitialValue(_char, _gen)
+		for theTrait:TraitBase in theTraits:
+			if(!theTrait.personalityChanges.has(_persID)):
+				continue
+			var theVal:Vector2 = theTrait.personalityChanges[_persID]
+			_value += randf_range(theVal.x, theVal.y)
+		setStat(_persID, _value)
+
 func saveNetworkData() -> Bins:
 	var Ar:Array = [
 		Bins.I8, stats.size(),

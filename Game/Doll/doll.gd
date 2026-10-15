@@ -56,6 +56,19 @@ var lookModHead:float = 1.0
 var lookModNeck:float = 1.0
 var lookModChest:float = 1.0
 
+# Anim stuff
+var currentWalkAnim:String = "WalkUnisex"
+var currentWalkAnimSpeed:float = 1.0
+var currentIdleAnim:String = "IdleUnisex"
+var currentIdleAnimSpeed:float = 1.0
+var currentRunAnim:String = "Run"
+var currentRunAnimSpeed:float = 1.0
+var rightArmPose:String = ""
+var currentArmsPose:String = ""
+
+var idleAnimOverride:String = ""
+var idleAnimOverrideTime:float = 0.0
+
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
 func updateAnimPlayer():
@@ -584,16 +597,6 @@ func isWalking() -> bool:
 func isStanding() -> bool:
 	return locomotionState == LOCOMOTION_STAND
 
-var currentWalkAnim:String = "WalkUnisex"
-var currentWalkAnimSpeed:float = 1.0
-var currentIdleAnim:String = "IdleUnisex"
-var currentIdleAnimSpeed:float = 1.0
-var currentRunAnim:String = "Run"
-var currentRunAnimSpeed:float = 1.0
-
-var idleAnimOverride:String = ""
-var idleAnimOverrideTime:float = 0.0
-
 func setWalkAnim(_walkAnim:String):
 	currentWalkAnim = _walkAnim
 
@@ -610,6 +613,10 @@ func animStand():
 func overrideStandTemp(_newStand:String, _time:float):
 	idleAnimOverride = _newStand
 	idleAnimOverrideTime = _time
+
+func overrideStandTempClear():
+	idleAnimOverride = ""
+	idleAnimOverrideTime = 0.0
 
 func animAttack():
 	locomotionState = LOCOMOTION_STAND
@@ -884,24 +891,22 @@ func updatePartFilter():
 				#updatePartFromCharacter(genericType, bodypartSlot)
 				updatePartFromCharacterDelayed(genericType, bodypartSlot)
 
-var rightArmPose:String = ""
-
 func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 	var theChar:BaseCharacter = getChar()
 	if(!theChar):
 		#setIdleAnim("normal1")
 		return
-	var thePawn := theChar.getPawn() #ANIM: Probably pretty slow
-	if(!thePawn):
-		return
+	#var thePawn := theChar.getPawn() #ANIM: Probably pretty slow
+	#if(!thePawn):
+	#	return
 	#setIdleAnim(theChar.getIdleAnim())
 	var _isLocomotion:bool = false
 	if(!theAnimationTree):
 		theAnimationTree = animation_tree
 		_isLocomotion = true
 	
-	var theArms := thePawn.poseHandler.getArms()
-	var theArmsPose:String = theArms.getAnimName() if theArms else ""
+	#var theArms := thePawn.poseHandler.getArms()
+	var theArmsPose:String = currentArmsPose
 	if(_isLocomotion && !locomotionSupportsArmPoses):
 		theArmsPose = ""
 

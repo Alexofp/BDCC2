@@ -43,6 +43,38 @@ func getPerforming(_fetishID:String) -> float:
 func getReceiving(_fetishID:String) -> float:
 	return receiving.getFetish(_fetishID)
 
+func generateFetishesGen(_generator:CharacterGenerator):
+	generateFetishes(_generator)
+	
+func generateFetishes(_gen:CharacterGenerator = null):
+	var _char:BaseCharacter = getChar() if !_gen else _gen.character
+	var theTraits:Array[TraitBase] = _char.traitHolder.getTraits()
+	
+	for _fetishID:String in GlobalRegistry.fetishes:
+		var theFetish:FetishBase = GlobalRegistry.fetishes[_fetishID]
+		#if(theFetish.shouldApplyToReceiving(_char)):
+		if(true):
+			var _value:float = theFetish.generateInitialValueReceiving(_char, _gen)
+			
+			for theTrait:TraitBase in theTraits:
+				if(!theTrait.fetishChangesReceiving.has(_fetishID)):
+					continue
+				var theVal:Vector2 = theTrait.fetishChangesReceiving[_fetishID]
+				_value += randf_range(theVal.x, theVal.y)
+			setReceiving(_fetishID, _value)
+		#if(theFetish.shouldApplyToPerforming(_char)):
+		if(true):
+			var _value:float = theFetish.generateInitialValuePerforming(_char, _gen)
+			
+			for theTrait:TraitBase in theTraits:
+				if(!theTrait.fetishChangesPerforming.has(_fetishID)):
+					continue
+				var theVal:Vector2 = theTrait.fetishChangesPerforming[_fetishID]
+				_value += randf_range(theVal.x, theVal.y)
+			setPerforming(_fetishID, _value)
+		
+		
+		
 func saveNetworkData() -> Bins:
 	var Ar:Array = [
 		Bins.BINS, performing.saveNetworkData(),

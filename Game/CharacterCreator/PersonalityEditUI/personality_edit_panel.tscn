@@ -3,6 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://cvorprfmq1dbf" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_ui.tscn" id="1_74ws1"]
 [ext_resource type="Script" uid="uid://cyjl300ipdyr7" path="res://Game/CharacterCreator/PersonalityEditUI/personality_edit_panel.gd" id="1_fvvf0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvvf0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.9137255)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="PersonalityEditPanel" type="PanelContainer" unique_id=893484813]
 anchors_preset = 8
 anchor_left = 0.5
@@ -10,11 +22,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -290.0
-offset_top = -120.0
+offset_top = -135.0
 offset_right = 290.0
-offset_bottom = 120.0
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fvvf0")
 script = ExtResource("1_fvvf0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=354445740]
@@ -24,6 +37,10 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="RandomizeButton" type="Button" parent="VBoxContainer" unique_id=1554302405]
+layout_mode = 2
+text = "Randomize personality"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=367796812]
 layout_mode = 2
@@ -38,5 +55,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
+[connection signal="pressed" from="VBoxContainer/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

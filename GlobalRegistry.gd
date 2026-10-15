@@ -64,6 +64,8 @@ var statusEffectsAlwaysChecked:Array[StatusEffectBase]
 var goalGenerators:Dictionary
 var gameModeDefs:Dictionary
 var gameModeDefRefs:Dictionary[String, GameModeDef]
+var traits:Dictionary[String, TraitBase]
+var traitScores:Dictionary[TraitBase, float]
 
 signal initialized
 
@@ -278,6 +280,7 @@ func doInit():
 	
 	registerMoodsFolder("res://Game/PawnAI/Mood/Moods/")
 	registerStatusEffectsFolder("res://Gameplay/StatusEffects/Effects/")
+	registerTraitFolder("res://Game/Character/Traits/Traits/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1472,3 +1475,32 @@ func getGameModeDefRef(id: String) -> GameModeDef:
 
 func getGameModeDefRefs() -> Dictionary:
 	return gameModeDefRefs
+
+
+
+
+func registerTrait(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is TraitBase):
+		traits[object.id] = object
+		traitScores[object] = object.generateScore
+
+func registerTraitFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerTrait(scriptPath)
+
+func getTrait(id: String) -> TraitBase:
+	if(traits.has(id)):
+		return traits[id]
+	else:
+		Log.Printerr("ERROR: trait with the id "+str(id)+" wasn't found")
+		return null
+
+func getTraits() -> Dictionary[String, TraitBase]:
+	return traits
+
+func getTraitScores() -> Dictionary[TraitBase, float]:
+	return traitScores

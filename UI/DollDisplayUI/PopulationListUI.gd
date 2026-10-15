@@ -88,7 +88,10 @@ func _on_edit_button_pressed() -> void:
 	if(!charCreatorNode || !charCreatorHide || !allowEdit || !charHolder):
 		return
 	presetSelectorUI = PRESET_SELECTOR_UI.instantiate()
+	presetSelectorUI.charCreatorHide = self
+	presetSelectorUI.charCreatorNode = charCreatorNode
 	charCreatorHide.visible = false
+	visible = false
 	presetSelectorUI.addConfirm = true
 	charCreatorNode.add_child(presetSelectorUI)
 	presetSelectorUI.setCharHolder(charHolder)
@@ -98,5 +101,8 @@ func onPresetSelectorConfirm():
 	charCreatorHide.visible = true
 	presetSelectorUI.queue_free()
 	presetSelectorUI = null
+	if(!charHolder.preset):
+		charHolder.doResetToDefaultPC()
 	updateSelectedChar()
 	updatePopulationList()
+	visible = true

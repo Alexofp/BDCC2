@@ -242,6 +242,13 @@ func processChar(_delta:float):
 	doll.currentWalkAnimSpeed = pawn.poseHandler.walkEntry.animSpeed
 	doll.currentRunAnim = pawn.poseHandler.runEntry.id
 	doll.currentRunAnimSpeed = pawn.poseHandler.runEntry.animSpeed
+	
+	var theArms := pawn.poseHandler.getArms()
+	var theArmsPose:String = theArms.getAnimName() if theArms else ""
+	doll.currentArmsPose = theArmsPose
+	#if(_isLocomotion && !doll.locomotionSupportsArmPoses):
+	#	theArmsPose = ""
+
 	#doll.setIdleAnim(pawn.poseHandler.idleAnim)
 	#doll.setWalkAnim(pawn.poseHandler.walkAnim)
 	#doll.setRunAnim(pawn.poseHandler.runAnim)

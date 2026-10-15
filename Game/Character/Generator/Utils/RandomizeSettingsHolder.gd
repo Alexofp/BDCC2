@@ -7,6 +7,7 @@ var penis:int = CharacterGenerator.RANDOM_GENDER_BASED
 var vagina:int = CharacterGenerator.RANDOM_GENDER_BASED
 var breasts:int = CharacterGenerator.RANDOM_GENDER_BASED
 var paletteType:int = -1
+var randomizePersonality:bool = true
 
 func getSettings() -> Dictionary[String, Dictionary]:
 	var theSpeciesList:Array[Array] = [["", "Random"], [" ", "Random hybrid"], ["  ", "Random non-human"]]
@@ -58,6 +59,7 @@ func apply(_gen:CharacterGenerator):
 		
 	_gen.paletteType = paletteType
 	_gen.gender = gender
+	_gen.randomizePersonality = randomizePersonality
 
 func saveData() -> Dictionary:
 	return {
@@ -67,6 +69,7 @@ func saveData() -> Dictionary:
 		vagina = vagina,
 		breasts = breasts,
 		paletteType = paletteType,
+		rp = randomizePersonality,
 	}
 
 func loadData(_data:Dictionary):
@@ -76,6 +79,7 @@ func loadData(_data:Dictionary):
 	vagina = SAVE.loadVar(_data, "vagina", CharacterGenerator.RANDOM_GENDER_BASED)
 	breasts = SAVE.loadVar(_data, "breasts", CharacterGenerator.RANDOM_GENDER_BASED)
 	paletteType = SAVE.loadVar(_data, "paletteType", -1)
+	randomizePersonality = SAVE.loadVar(_data, "rp", false)
 
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
@@ -85,6 +89,7 @@ func saveNetworkData() -> Bins:
 		Bins.I8, vagina,
 		Bins.I8, breasts,
 		Bins.I8, paletteType,
+		Bins.Bool, randomizePersonality,
 	])
 
 func loadNetworkData(_data:Bins):
@@ -95,4 +100,5 @@ func loadNetworkData(_data:Bins):
 	vagina = _data.readI8()
 	breasts = _data.readI8()
 	paletteType = _data.readI8()
+	randomizePersonality = _data.readBool()
 	_data.endLoad()

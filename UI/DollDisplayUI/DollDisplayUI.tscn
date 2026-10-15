@@ -21,8 +21,10 @@ script = ExtResource("1_d5tq3")
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
+msaa_3d = 1
+screen_space_aa = 2
 size = Vector2i(1152, 648)
-render_target_update_mode = 4
+render_target_update_mode = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport" unique_id=820584807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -34,7 +36,7 @@ environment = ExtResource("1_4k5jo")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport" unique_id=940472478]
 unique_name_in_owner = true
 transform = Transform3D(0.9659258, 0.22414398, -0.12940963, 3.871436e-08, 0.49999994, 0.8660255, 0.2588192, -0.8365163, 0.48296285, 0, 1.0453069, 0)
-light_energy = 0.5
+light_energy = 0.3
 
 [node name="Doll" parent="SubViewport" unique_id=777326594 instance=ExtResource("2_d5tq3")]
 unique_name_in_owner = true
@@ -43,5 +45,10 @@ fastPartLoad = true
 [node name="CharacterCreatorCameraSetup" parent="SubViewport" unique_id=2013687957 instance=ExtResource("4_4y8k5")]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="SubViewport" unique_id=1872855335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.0842133, 4.2037926)
+ambient_mode = 2
+ambient_color = Color(0.36282963, 0.36282942, 0.36282936, 1)
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

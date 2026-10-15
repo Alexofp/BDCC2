@@ -110,6 +110,21 @@ func onCharacterSetPersonality_SERVERRPC(charID:String, personalityData:PackedBy
 	theCharacter.personality.loadNetworkData(Bins.readCompressedSimple(personalityData))
 	
 
+func askCharacterSetTraits(character:BaseCharacter, _traits:TraitHolder):
+	if(Network.isServer()):
+		character.traitHolder.loadData(_traits.saveData().duplicate(true))
+	else:
+		onCharacterSetTraits_SERVERRPC.rpc_id(1, character.getID(), _traits.saveNetworkData().getBytesCompressedSimple())
+		
+@rpc("any_peer", "call_remote", "reliable")
+func onCharacterSetTraits_SERVERRPC(charID:String, _data:PackedByteArray):
+	# Do server checks here
+	var theCharacter:BaseCharacter = getCharacter(charID)
+	if(!theCharacter):
+		return
+	theCharacter.traitHolder.loadNetworkData(Bins.readCompressedSimple(_data))
+	
+
 func askCharacterSetFetishHolder(character:BaseCharacter, fetishHolder:FetishHolder):
 	if(Network.isServer()):
 		character.fetishHolder.loadNetworkData(fetishHolder.saveNetworkData().prepareToRead())
@@ -171,6 +186,8 @@ func onCharChange(_change:BaseCharChange, _theChar:BaseCharacter):
 		pass
 	elif(theType == BaseCharChange.PERSONALITY_UPDATE):
 		Network.rpcClients(characterPersonalityUpdate_RPC.bind(_theChar.getID(), _theChar.personality.saveNetworkData().getBytesCompressedSimple()))
+	elif(theType == BaseCharChange.TRAITS_UPDATE):
+		Network.rpcClients(characterTraitsUpdate_RPC.bind(_theChar.getID(), _theChar.traitHolder.saveNetworkData().getBytesCompressedSimple()))
 	elif(theType == BaseCharChange.FETISHES_UPDATE):
 		Network.rpcClients(characterFetishesUpdate_RPC.bind(_theChar.getID(), _theChar.fetishHolder.saveNetworkData().getBytesCompressedSimple()))
 	elif(theType == BaseCharChange.STATUSEFFECT_UPDATE):
@@ -219,6 +236,13 @@ func characterPersonalityUpdate_RPC(_id:String, _persData:PackedByteArray):
 	if(!theCharacter):
 		return
 	theCharacter.personality.loadNetworkData(Bins.readCompressedSimple(_persData))
+
+@rpc("authority", "call_remote", "reliable")
+func characterTraitsUpdate_RPC(_id:String, _data:PackedByteArray):
+	var theCharacter:BaseCharacter = getCharacter(_id)
+	if(!theCharacter):
+		return
+	theCharacter.traitHolder.loadNetworkData(Bins.readCompressedSimple(_data))
 
 @rpc("authority", "call_remote", "reliable")
 func characterOptionChange_RPC(_id:String, _optionID:String, _value:Variant):

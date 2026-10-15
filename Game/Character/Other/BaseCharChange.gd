@@ -15,6 +15,7 @@ enum {
 	STATUSEFFECT_UPDATE,
 	STATUSEFFECT_ADDED,
 	STATUSEFFECT_REMOVED,
+	TRAITS_UPDATE,
 }
 
 var changeType:int = NOTHING
@@ -96,6 +97,11 @@ static func createAutoSkinUpdate() -> BaseCharChange:
 static func createPresetApplied() -> BaseCharChange:
 	var result := BaseCharChange.new()
 	result.changeType = PRESET_APPLIED
+	return result
+	
+static func createTraitsUpdate() -> BaseCharChange:
+	var result := BaseCharChange.new()
+	result.changeType = TRAITS_UPDATE
 	return result
 
 func saveData() -> Dictionary:

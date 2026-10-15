@@ -79,6 +79,20 @@ func addAffection(_char1:String, _char2:String, _amount:float):
 	
 	_amount = scaleAddValue(_amount, currentAffection)
 	
+	var _trait1:TraitHolder = getTraitHolder(_char1)
+	var _trait2:TraitHolder = getTraitHolder(_char2)
+	if(_trait1 && _trait2):
+		if(_amount > 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.affectionGainMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.affectionGainMult
+		if(_amount < 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.affectionLossMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.affectionLossMult
+	
 	#var multiplier := maxf(1.0 - pow(absf(currentAffection), 2.0), 0.05)
 	Log.Print("Affection change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addAffectionRaw(_char1, _char2, _amount)#*multiplier)
@@ -88,6 +102,20 @@ func addLust(_char1:String, _char2:String, _amount:float):
 	
 	_amount = scaleAddValue(_amount, curValue)
 	
+	var _trait1:TraitHolder = getTraitHolder(_char1)
+	var _trait2:TraitHolder = getTraitHolder(_char2)
+	if(_trait1 && _trait2):
+		if(_amount > 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.lustGainMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.lustGainMult
+		if(_amount < 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.lustLossMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.lustLossMult
+	
 	Log.Print("Lust change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addLustRaw(_char1, _char2, _amount)#*multiplier)
 
@@ -95,6 +123,20 @@ func addPowerBalance(_char1:String, _char2:String, _amount:float):
 	var curValue := getPowerBalance(_char1, _char2)
 	
 	_amount = scaleAddValue(_amount, curValue)
+	
+	var _trait1:TraitHolder = getTraitHolder(_char1)
+	var _trait2:TraitHolder = getTraitHolder(_char2)
+	if(_trait1 && _trait2):
+		if(_amount > 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.powerBalanceGainMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.powerBalanceLossMult
+		if(_amount < 0.0):
+			for theTrait:TraitBase in _trait1.cachedListRelationshipGainLoss:
+				_amount *= theTrait.powerBalanceLossMult
+			for theTrait:TraitBase in _trait2.cachedListRelationshipGainLoss:
+				_amount *= theTrait.powerBalanceGainMult
 	
 	Log.Print("Power balance change: "+_char1+"  "+_char2+"  "+str(Util.roundF(_amount, 2)))
 	addPowerBalanceRaw(_char1, _char2, _amount)
@@ -410,6 +452,12 @@ func getDebugTextLinesFor(_pawn:CharacterPawn) -> Array[String]:
 	if(theStuff.is_empty()):
 		return []
 	return [Util.join(theStuff, ",")]
+
+func getTraitHolder(_charID:String) -> TraitHolder:
+	var theChar:BaseCharacter = GM.characterRegistry.getCharacter(_charID)
+	if(!theChar):
+		return null
+	return theChar.traitHolder
 
 func saveNetworkData() -> Bins:
 	var Ar:Array = [

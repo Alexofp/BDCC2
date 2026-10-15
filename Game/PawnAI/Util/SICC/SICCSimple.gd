@@ -27,6 +27,14 @@ func calculateChances(_context:SocialInteractionContext) -> Vector3:
 	elif(theBuffChanceMod < 0.0):
 		theChance = lerpf(theChance, 0.0, -clampf(theBuffChanceMod, -1.0, 1.0))
 	
+	for theTrait:TraitBase in _context.target.getTraits():
+		if(theTrait.interactionAgreeChanceMods.has(id)):
+			var theTraitMod:float = theTrait.interactionAgreeChanceMods[id]
+			if(theTraitMod > 0.0):
+				theChance = theChance*(1.0-theTraitMod) + 1.0*theTraitMod
+			if(theTraitMod < 0.0):
+				theChance = theChance*(1.0+theTraitMod)
+	
 	var _critWin:float = (critWinChance / theChance) if theChance > 0.1 else (critWinChance/0.1) # Makes the good crits more likely if you risk a low chance
 	var _critFail:float = critFailChance
 	

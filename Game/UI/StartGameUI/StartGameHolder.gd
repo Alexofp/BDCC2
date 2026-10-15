@@ -29,6 +29,10 @@ func isReadyGetReason() -> String:
 	var _prReadyReason:String = playerPreset.isReadyGetReason()
 	if(!_prReadyReason.is_empty()):
 		return _prReadyReason
+	for theCharHolder:StartGameCharHolder in population:
+		var theCharReadyReason:String = theCharHolder.isReadyGetReason()
+		if(!theCharReadyReason.is_empty()):
+			return theCharReadyReason
 	return ""
 
 func resetToDefault():

@@ -11,7 +11,8 @@ extends HBoxContainer
 @onready var randomize_settings_list: VBoxContainer = %RandomizeSettingsList
 @onready var character_desc_label: RichTextLabel = %CharacterDescLabel
 @onready var confirm_button: Button = %ConfirmButton
-
+@onready var delete_preset_button: Button = %DeletePresetButton
+@onready var delete_preset_dialog: ConfirmationDialog = %DeletePresetDialog
 
 @export var charCreatorNode:Control
 @export var charCreatorHide:Control
@@ -36,6 +37,7 @@ func setCharHolder(_holder:StartGameCharHolder):
 
 func updatePlayerPresetList():
 	if(!charHolder):
+		player_preset_select.setExtraPresets([])
 		return
 	if(charHolder.preset && charHolder.preset.generated):
 		var _ar:Array[CharacterPreset] = [charHolder.preset]
@@ -51,6 +53,7 @@ func updatePlayerPresetList():
 	
 func _ready() -> void:
 	randomize_settings_panel.visible = false
+	delete_preset_button.visible = false
 	confirm_button.visible = addConfirm
 
 func showCharCreator(_preset:CharacterPreset = null):
@@ -117,6 +120,7 @@ func updateSelectedPreset():
 	if(!charHolder.preset):
 		return
 	randomize_h_box.visible = charHolder.preset.generated
+	delete_preset_button.visible = charHolder.preset.canBeDeleted()
 
 func _on_randomize_button_pressed() -> void:
 	if(!charHolder || !charHolder.preset || !charHolder.preset.generated):
@@ -149,3 +153,20 @@ func _on_show_full_info_button_pressed() -> void:
 
 func _on_confirm_button_pressed() -> void:
 	onConfirm.emit()
+
+func _on_delete_preset_button_pressed() -> void:
+	if(!charHolder || !charHolder.preset || !charHolder.preset.canBeDeleted()):
+		return
+	delete_preset_dialog.popup_centered()
+
+func _on_delete_preset_dialog_confirmed() -> void:
+	if(!charHolder || !charHolder.preset || !charHolder.preset.canBeDeleted()):
+		return
+	if(!charHolder.preset.deletePreset()):
+		return
+	#charHolder = null
+	charHolder.preset = null
+	player_preset_select.setSelectedPreset(null)
+	player_doll_display_ui.loadFromPreset(null)
+	updateSelectedPreset()
+	updatePlayerPresetList()

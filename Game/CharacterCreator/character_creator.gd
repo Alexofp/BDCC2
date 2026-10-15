@@ -30,6 +30,7 @@ var zoneFilter:int = CharCreatorZone.ALL
 @onready var load_preset_button: Button = %LoadPresetButton
 @onready var save_preset_button: Button = %SavePresetButton
 @onready var cancel_button: Button = %CancelButton
+@onready var cancel_changes_dialog: ConfirmationDialog = %CancelChangesDialog
 
 var dropdownVarScene := preload("res://UI/VarList/Vars/dropdown_var.tscn")
 
@@ -46,6 +47,13 @@ var cachedDoll:Doll
 
 var editingPreset:CharacterPreset
 var standaloneMode:bool = false
+var standaloneFillingMisisng:bool = false
+var standaloneMissing:Array[int] = []
+var standaloneFilled:Dictionary[int, bool] = {}
+const MISSING_FILENAME:int = 0
+const MISSING_TRAITS:int = 1
+const MISSING_PERSONALITY:int = 2
+const MISSING_FETISHES:int = 3
 
 signal onConfirmPressed
 signal onPresetConfirmed(_preset:CharacterPreset)
@@ -379,16 +387,70 @@ func onBodypartChangeOption(_id:String, value, bodypartSlot:int):
 	#bodypart.setOptionValue(_id, value)
 	GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, _id, value)
 
+func checkStandaloneMissing():
+	if(!standaloneMode):
+		return
+	standaloneMissing = []
+	if(!editingPreset || editingPreset.embedded || editingPreset.generated):
+		standaloneMissing.append(MISSING_FILENAME)
+	if(!standaloneFilled.has(MISSING_TRAITS)):
+		standaloneMissing.append(MISSING_TRAITS)
+	if(!standaloneFilled.has(MISSING_PERSONALITY)):
+		standaloneMissing.append(MISSING_PERSONALITY)
+	if(!standaloneFilled.has(MISSING_FETISHES)):
+		standaloneMissing.append(MISSING_FETISHES)
+
+func standaloneTryToConfirm(_thing:int = -1) -> bool:
+	if(!standaloneMode):
+		return false
+	
+	if(_thing > 0):
+		standaloneFilled[_thing] = true
+	
+	if(_thing > 0 && !standaloneMissing.has(_thing)):
+		return false
+	
+	if(standaloneMissing.has(_thing)):
+		standaloneMissing.erase(_thing)
+	
+	if(standaloneMissing.is_empty()): # All is done
+		editingPreset.loadFromCharacter(character)
+		onPresetConfirmed.emit(editingPreset)
+		return true
+
+	var _theNewThing:int = standaloneMissing[0]
+	if(_theNewThing == MISSING_FILENAME):
+		save_preset_dialog.popup_centered()
+		#if(save_preset_line_edit.text == ""):
+		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+		return true
+	if(_theNewThing == MISSING_TRAITS):
+		_on_edit_traits_button_pressed()
+		return true
+	if(_theNewThing == MISSING_PERSONALITY):
+		_on_edit_personality_button_pressed()
+		return true
+	if(_theNewThing == MISSING_FETISHES):
+		_on_edit_fetishes_button_pressed()
+		return true
+		
+	return false
+	
 
 func _on_confirm_button_pressed() -> void:
 	if(standaloneMode):
-		if(!editingPreset || editingPreset.embedded || editingPreset.generated):
-			save_preset_dialog.popup_centered()
-			#if(save_preset_line_edit.text == ""):
-			save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
-			return
-		editingPreset.loadFromCharacter(character)
-		onPresetConfirmed.emit(editingPreset)
+		checkStandaloneMissing()
+		standaloneTryToConfirm()
+		
+		#if(!editingPreset || editingPreset.embedded || editingPreset.generated):
+		#	save_preset_dialog.popup_centered()
+		#	#if(save_preset_line_edit.text == ""):
+		#	save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+		#	return
+		#editingPreset.loadFromCharacter(character)
+		#onPresetConfirmed.emit(editingPreset)
+		return
+		
 	onConfirmPressed.emit()
 
 func _enter_tree() -> void:
@@ -485,7 +547,8 @@ func _on_save_preset_dialog_confirmed() -> void:
 		GM.presets.rescanUserPresets()
 		#character_preset_selector.updateAll()
 		#editingPreset.loadFromCharacter(character)
-		onPresetConfirmed.emit(editingPreset)
+		#onPresetConfirmed.emit(editingPreset)
+		standaloneTryToConfirm(MISSING_FILENAME)
 		return
 	
 	var newPreset:CharacterPreset = getPreset()
@@ -641,6 +704,17 @@ func setZoneFilter(_zone:int):
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "ShowHands")
 		else:
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
+	elif(doll):
+		if(_zone == CharCreatorZone.Legs):
+			doll.overrideStandTemp("PoseShowFoot", 999999.9)
+		else:
+			doll.overrideStandTempClear()
+		if(_zone == CharCreatorZone.Hands):
+			doll.currentArmsPose = "ArmsShowHands"
+		else:
+			doll.currentArmsPose = ""
+		doll.updatePose()
+	
 	if(doll):
 		doll.setMouthOpenTemporary(_zone == CharCreatorZone.Mouth)
 		doll.setFullErectionTemporary(_zone == CharCreatorZone.Penis)
@@ -656,6 +730,10 @@ func resetCharacterPose():
 	if(thePawn):
 		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
 		GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
+	elif(doll):
+		doll.currentArmsPose = ""
+		doll.updatePose()
+		doll.overrideStandTempClear()
 	if(doll):
 		doll.setMouthOpenTemporary(false)
 		doll.setFullErectionTemporary(false)
@@ -680,7 +758,10 @@ func _on_edit_personality_button_pressed() -> void:
 	var newPanel := PERSONALITY_EDIT_PANEL.instantiate()
 	add_child(newPanel)
 	newPanel.setPersonalityCopy(character.personality)
-	newPanel.onCancel.connect(func(): newPanel.queue_free())
+	newPanel.onCancel.connect(func():
+		clearStandaloneMissing()
+		newPanel.queue_free()
+		)
 	newPanel.onSave.connect(onPersEditApply.bind(newPanel))
 
 func onPersEditApply(_pers:Personality, _control:Control):
@@ -688,20 +769,31 @@ func onPersEditApply(_pers:Personality, _control:Control):
 	GM.characterRegistry.askCharacterSetPersonality(character, _pers)
 	#character.personality.loadData(_pers.saveData().duplicate(true))
 	updateInfoTab()
+	standaloneTryToConfirm(MISSING_PERSONALITY)
 
 const FETISHES_EDIT_PANEL = preload("res://Game/CharacterCreator/FetishesEditUI/fetishes_edit_panel.tscn")
+
+func clearStandaloneMissing():
+	if(!standaloneMode):
+		return
+	standaloneFillingMisisng = false
+	standaloneMissing.clear()
 
 func _on_edit_fetishes_button_pressed() -> void:
 	var newPanel := FETISHES_EDIT_PANEL.instantiate()
 	add_child(newPanel)
 	newPanel.setFetishHolderCopy(character.fetishHolder)
-	newPanel.onCancel.connect(func(): newPanel.queue_free())
+	newPanel.onCancel.connect(func():
+		newPanel.queue_free()
+		clearStandaloneMissing()
+	)
 	newPanel.onSave.connect(onFetishEditApply.bind(newPanel))
 
 func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
 	_control.queue_free()
 	GM.characterRegistry.askCharacterSetFetishHolder(character, _fetishes)
 	updateInfoTab()
+	standaloneTryToConfirm(MISSING_FETISHES)
 
 func _on_open_preset_button_pressed() -> void:
 	OS.shell_open(ProjectSettings.globalize_path(CharacterPresetHolder.USERPRESETS_FOLDER))
@@ -716,6 +808,7 @@ func _on_randomize_settings_button_pressed() -> void:
 
 func _on_randomize_button_pressed() -> void:
 	var theSettings:RandomizeSettingsHolder = randomize_settings_list.settings
+	theSettings.randomizePersonality = false
 	
 	GM.characterRegistry.askRandomizeCharacter(character, theSettings)
 
@@ -731,4 +824,28 @@ func setEditingPreset(_preset:CharacterPreset):
 	cancel_button.visible = true
 
 func _on_cancel_button_pressed() -> void:
+	cancel_changes_dialog.popup_centered()
+	#onCancelPressed.emit()
+
+const TRAIT_EDIT_PANEL = preload("res://Game/CharacterCreator/TraitsEditUI/TraitEditPanel.tscn")
+
+func _on_edit_traits_button_pressed() -> void:
+	var newPanel := TRAIT_EDIT_PANEL.instantiate()
+	add_child(newPanel)
+	newPanel.setTraitHolder(character.traitHolder)
+	newPanel.onCancel.connect(func():
+		clearStandaloneMissing()
+		newPanel.queue_free()
+		)
+	newPanel.onSave.connect(onTraitEditApply.bind(newPanel))
+
+func onTraitEditApply(_traits:TraitHolder, _control:Control):
+	_control.queue_free()
+	#GM.characterRegistry.askCharacterSetPersonality(character, _pers)
+	GM.characterRegistry.askCharacterSetTraits(character, _traits)
+	#character.personality.loadData(_pers.saveData().duplicate(true))
+	updateInfoTab()
+	standaloneTryToConfirm(MISSING_TRAITS)
+	
+func _on_cancel_changes_dialog_confirmed() -> void:
 	onCancelPressed.emit()

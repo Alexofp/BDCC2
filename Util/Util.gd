@@ -491,3 +491,15 @@ static func castRay(start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ign
 	if(!ray_cast_space.intersect_ray_into(ray_cast_query, ray_cast_result)):
 		return null
 	return ray_cast_result
+
+static func fuzzySearchResultToStringArray(_ar:Array[FuzzySearchMatch]) -> Array[String]:
+	var _res:Array[String]
+	for _en:FuzzySearchMatch in _ar:
+		_res.append(_en.target)
+	return _res
+
+static func fuzzySearchResultToIndexArray(_ar:Array[FuzzySearchMatch]) -> Array[int]:
+	var _res:Array[int]
+	for _en:FuzzySearchMatch in _ar:
+		_res.append(_en.original_index)
+	return _res

@@ -11,6 +11,7 @@ func setFetishHolder(_fetishHolder:FetishHolder):
 func setFetishHolderCopy(_fetishHolder:FetishHolder):
 	var newHolder := FetishHolder.new()
 	newHolder.loadData(_fetishHolder.saveData().duplicate(true))
+	newHolder.setChar(_fetishHolder.getChar())
 	fetishes_edit_ui.setFetishHolder(newHolder)
 
 func _on_save_button_pressed() -> void:
@@ -18,3 +19,7 @@ func _on_save_button_pressed() -> void:
 
 func _on_cancel_button_pressed() -> void:
 	onCancel.emit()
+
+func _on_randomize_button_pressed() -> void:
+	fetishes_edit_ui.fetishes.generateFetishes()
+	fetishes_edit_ui.updateEntries()

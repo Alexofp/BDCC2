@@ -45,7 +45,7 @@ func getLabelText() -> String:
 
 func updateValueLabel():
 	value_label.text = getLabelText()
-	print(value, " ",value_label.text)
+	#print(value, " ",value_label.text)
 	
 
 func getValue() -> float:

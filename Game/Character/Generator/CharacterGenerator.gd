@@ -16,6 +16,7 @@ var penis:int = RANDOM_GENDER_BASED
 var vagina:int = RANDOM_GENDER_BASED
 var breasts:int = RANDOM_GENDER_BASED
 var speciesTraits:Dictionary[String, float] = {} # trait = float
+var randomizePersonality:bool = true
 
 var parts:Dictionary[int, String] = {} # slot = part id
 
@@ -179,6 +180,10 @@ func applyStuff():
 	character.buttSize = clampf(randf_range(-1.0, 1.0) if gender != Gender.Male else randf_range(-1.0, 0.5), 0.0, 1.0)
 	character.muscles = clampf(randf_range(-0.5, 1.0), 0.0, 1.0)
 	character.voice.generate(self)
+	if(randomizePersonality):
+		character.traitHolder.randomizeTraitsGen(self)
+		character.personality.generatePersonalityGen(self)
+		character.fetishHolder.generateFetishesGen(self)
 	
 	internal_createBodyparts()
 	

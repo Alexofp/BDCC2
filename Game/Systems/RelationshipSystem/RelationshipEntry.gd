@@ -17,9 +17,26 @@ func copyFrom(_otherEntry:RelationshipEntry):
 	powerBalance = _otherEntry.powerBalance
 
 func decayEntryShouldRemove(_dt:float) -> bool:
-	affection = Util.moveValueTo(affection, 0.0, _dt*0.00001)
-	lust = Util.moveValueTo(lust, 0.0, _dt*0.00001)
-	powerBalance = Util.moveValueTo(powerBalance, 0.0, _dt*0.00001)
+	var _char1:BaseCharacter = GM.characterRegistry.getCharacter(char1)
+	var _char2:BaseCharacter = GM.characterRegistry.getCharacter(char2)
+	var _traits1:Array[TraitBase] = _char1.traitHolder.cachedListPassiveRelationshipLoss
+	var _traits2:Array[TraitBase] = _char2.traitHolder.cachedListPassiveRelationshipLoss
+	
+	var _affectionLossMult:float = 1.0
+	var _lustLossMult:float = 1.0
+	var _pbLossMult:float = 1.0
+	for theTrait:TraitBase in _traits1:
+		_affectionLossMult *= theTrait.passiveAffectionLossMult
+		_lustLossMult *= theTrait.passiveLustLossMult
+		_pbLossMult *= theTrait.passivePowerBalanceLossMult
+	for theTrait:TraitBase in _traits2:
+		_affectionLossMult *= theTrait.passiveAffectionLossMult
+		_lustLossMult *= theTrait.passiveLustLossMult
+		_pbLossMult *= theTrait.passivePowerBalanceLossMult
+	
+	affection = Util.moveValueTo(affection, 0.0, _dt*0.00001*_affectionLossMult)
+	lust = Util.moveValueTo(lust, 0.0, _dt*0.00001*_lustLossMult)
+	powerBalance = Util.moveValueTo(powerBalance, 0.0, _dt*0.00001*_pbLossMult)
 	
 	# Should remove check
 	if(absf(affection)<0.001 && absf(lust)<0.001 && absf(powerBalance)<0.001):

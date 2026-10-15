@@ -25,6 +25,7 @@ var fetishHolder:FetishHolder = FetishHolder.new()
 var memoryHolder:MemoryHolder = MemoryHolder.new()
 var buffsHolder:BuffsHolder = BuffsHolder.new()
 var effectsHolder:StatusEffectsHolder = StatusEffectsHolder.new()
+var traitHolder:TraitHolder = TraitHolder.new()
 
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
@@ -74,6 +75,10 @@ func _init():
 		)
 	effectsHolder.setCharacter(self)
 	buffsHolder.setCharacter(self)
+	traitHolder.setCharacter(self)
+	traitHolder.onTraitsUpdated.connect(func():
+		onChange.emit(BaseCharChange.createTraitsUpdate())
+		)
 	
 	#inventory.setEquippedItem(InventorySlot.Eyes, GlobalRegistry.createItem("Blindfold"))
 	
@@ -587,7 +592,7 @@ func processVeryRare(_dt:float):
 		if(charState.socialExhaustionFade <= GM.main.GB.socialExhaustionRecoverStartAfter):
 			charState.socialExhaustionFade += _dt
 		else:
-			charState.socialExhaustion -= _dt * GM.main.GB.socialExhaustionRecoverRate
+			charState.socialExhaustion -= _dt * GM.main.GB.socialExhaustionRecoverRate * traitHolder.getSocialExhaustionDecayMult()
 			if(charState.socialExhaustion < 0.0):
 				charState.socialExhaustion = 0.0
 	else:
@@ -600,7 +605,7 @@ func getSocialExhaustion() -> float:
 	return charState.socialExhaustion
 
 func addSocialExhaustion(_am:float):
-	charState.socialExhaustion += _am
+	charState.socialExhaustion += _am * traitHolder.getSocialExhaustionGainMult()
 	charState.socialExhaustionFade = 0.0
 	#charState.socialExhaustion = clampf(charState.socialExhaustion, 0.0, 1.0)
 
@@ -882,6 +887,7 @@ func saveNetworkData() -> Bins:
 	ar.append_array([Bins.BINS, personality.saveNetworkData()])
 	ar.append_array([Bins.BINS, fetishHolder.saveNetworkData()])
 	ar.append_array([Bins.BINS, effectsHolder.saveNetworkData()])
+	ar.append_array([Bins.BINS, traitHolder.saveNetworkData()])
 	
 	return Bins.saveStartEnd(ar)
 
@@ -913,6 +919,7 @@ func loadNetworkData(_data:Bins):
 	personality.loadNetworkData(_data.readBins())
 	fetishHolder.loadNetworkData(_data.readBins())
 	effectsHolder.loadNetworkData(_data.readBins())
+	traitHolder.loadNetworkData(_data.readBins())
 	
 	_data.endLoad()
 
@@ -937,6 +944,7 @@ func saveData() -> Dictionary:
 		personality = personality.saveData(),
 		fetishHolder = fetishHolder.saveData(),
 		effectsHolder = effectsHolder.saveData(),
+		traitHolder = traitHolder.saveData(),
 	}
 
 func loadData(_data:Dictionary):
@@ -976,3 +984,6 @@ func loadData(_data:Dictionary):
 	
 	if(_data.has("effectsHolder")):
 		effectsHolder.loadData(SAVE.loadVar(_data, "effectsHolder", {}))
+	
+	if(_data.has("traitHolder")):
+		traitHolder.loadData(SAVE.loadVar(_data, "traitHolder", {}))

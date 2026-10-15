@@ -23,6 +23,10 @@ func calcTalkScore(_pawn:CharacterPawn) -> float:
 	
 	if(pawn.getAnnoyance(_pawn) > 0.0 || _pawn.getAnnoyance(pawn) > 0.0):
 		theScore *= 0.1 # Can still ocassionally bug annoyed pawns
+
+	for theTrait:TraitBase in pawn.getTraits():
+		theScore = theTrait.processSocialGoalScore(theScore, pawn, _pawn)
+	
 	return theScore
 
 func onGenGoals():
@@ -90,6 +94,8 @@ func tryAddTheSocialGoal(_pawn:CharacterPawn) -> bool:
 		IATag.Submission: -_powerbalance*0.7+0.03 - _persDommy,
 		IATag.Submit: -_powerbalance*0.3+0.01 - _persDommy*0.3,
 	}
+	for theTrait:TraitBase in pawn.getTraits():
+		theTrait.proccessSocialInteractionTags(theTagWeights, pawn, _pawn)
 	
 	var thePickedTag:int = RNG.pickWeightedDict(theTagWeights)
 	

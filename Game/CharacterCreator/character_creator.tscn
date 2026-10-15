@@ -48,11 +48,15 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
+[node name="CancelButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=944254443]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer" unique_id=976338200]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.01
-mouse_filter = 2
 
 [node name="WizardButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=828966064]
 layout_mode = 2
@@ -68,11 +72,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Save preset"
 
-[node name="CancelButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=944254443]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Cancel"
-
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=2117437613]
 layout_mode = 2
 text = "Confirm"
@@ -84,7 +83,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.01
-mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=808265414]
 layout_mode = 2
@@ -262,7 +260,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "INFO TABBBB"
 
-[node name="EditPersonalityButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=98072370]
+[node name="EditTraitsButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=98072370]
+layout_mode = 2
+text = "Edit Traits"
+
+[node name="EditPersonalityButton2" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer" unique_id=434001940]
 layout_mode = 2
 text = "Edit Personality"
 
@@ -342,11 +344,21 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="CancelChangesDialog" type="ConfirmationDialog" parent="." unique_id=1363456132]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Cancel changes?"
+size = Vector2i(219, 80)
+ok_button_text = "Yes"
+cancel_button_text = "No"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/Control" to="." method="_on_dragger_control_gui_input"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/LoadPresetButton" to="." method="_on_load_preset_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/SavePresetButton" to="." method="_on_save_preset_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer2/Control" to="." method="_on_dragger_control_gui_input"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/HBoxContainer/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/DraggerControl" to="." method="_on_dragger_control_gui_input"]
@@ -356,8 +368,10 @@ layout_mode = 2
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/InfoSelButton" to="." method="_on_info_sel_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SkinSelButton" to="." method="_on_skin_sel_button_pressed"]
 [connection signal="onVarChange" from="HBoxContainer/PanelContainer/VBoxContainer/CharTab/ScrollContainer/VBoxContainer/CharVarList" to="." method="_on_char_var_list_on_var_change"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditPersonalityButton" to="." method="_on_edit_personality_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditTraitsButton" to="." method="_on_edit_traits_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditPersonalityButton2" to="." method="_on_edit_personality_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/InfoTab/ScrollContainer/VBoxContainer/EditFetishesButton" to="." method="_on_edit_fetishes_button_pressed"]
 [connection signal="confirmed" from="SavePresetDialog" to="." method="_on_save_preset_dialog_confirmed"]
 [connection signal="pressed" from="SavePresetDialog/VBoxContainer/OpenPresetButton" to="." method="_on_open_preset_button_pressed"]
 [connection signal="confirmed" from="LoadPresetDialog" to="." method="_on_load_preset_dialogue_confirmed"]
+[connection signal="confirmed" from="CancelChangesDialog" to="." method="_on_cancel_changes_dialog_confirmed"]
