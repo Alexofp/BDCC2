@@ -1443,7 +1443,23 @@ func getTraitHolder() -> TraitHolder:
 		return null
 	return theChar.traitHolder
 
+func getTraitValueMult(_traitValue:int) -> float:
+	var theTraitHolder:TraitHolder = getTraitHolder()
+	if(!theTraitHolder):
+		return 1.0
+	return theTraitHolder.getTraitValueMult(_traitValue)
 
+func getTraitValueSum(_traitValue:int) -> float:
+	var theTraitHolder:TraitHolder = getTraitHolder()
+	if(!theTraitHolder):
+		return 0.0
+	return theTraitHolder.getTraitValueSum(_traitValue)
+
+func hasItemsCanGift() -> bool:
+	for theItem:ItemBase in getCharacter().inventory.items:
+		if(theItem.canGiftItemAtAll()):
+			return true
+	return false
 
 
 

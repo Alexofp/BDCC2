@@ -2,7 +2,7 @@ extends TraitBase
 
 func _init() -> void:
 	id = Trait.Asexual
-	compatibilityType = "slut"
+	compatibilityType = "sex"
 	generateScore = 0.3
 	
 	personalityChanges = {
@@ -13,10 +13,25 @@ func _init() -> void:
 		"OfferSex": -0.5,
 		"HoldHands": -0.1,
 	}
-	lustGainMult = 0.5
 	
-	passiveAffectionLossMult = 0.5
-	affectionGainMult = 1.3
+	values = {
+		TraitValue.PassiveAffectionLoss: 0.5,
+		TraitValue.AffectionGain: 1.3,
+		TraitValue.LustGain: 0.5,
+	}
+	itemTagValue = {
+		ItemValueTag.KinkyClothing: -0.3,
+	}
+	fetishChangesReceiving = {
+		Fetish.SexVaginal: Vector2(-0.5, 0.0),
+		Fetish.SexAnal: Vector2(-0.5, 0.0),
+		Fetish.Tribadism: Vector2(-0.5, 0.0),
+	}
+	fetishChangesPerforming = {
+		Fetish.SexVaginal: Vector2(-0.5, 0.0),
+		Fetish.SexAnal: Vector2(-0.5, 0.0),
+		Fetish.Tribadism: Vector2(-0.5, 0.0),
+	}
 
 func getName() -> String:
 	return "Asexual"

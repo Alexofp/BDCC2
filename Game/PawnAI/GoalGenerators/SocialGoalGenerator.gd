@@ -93,7 +93,11 @@ func tryAddTheSocialGoal(_pawn:CharacterPawn) -> bool:
 		IATag.Dominate: _powerbalance*0.3+0.01 + _persDommy*0.3,
 		IATag.Submission: -_powerbalance*0.7+0.03 - _persDommy,
 		IATag.Submit: -_powerbalance*0.3+0.01 - _persDommy*0.3,
+		#IATag.GiveGift: _affection*0.1*_giveGiftsMult,
 	}
+	if(pawn.hasItemsCanGift()):
+		theTagWeights[IATag.GiveGift] = _affection*0.1
+	
 	for theTrait:TraitBase in pawn.getTraits():
 		theTrait.proccessSocialInteractionTags(theTagWeights, pawn, _pawn)
 	

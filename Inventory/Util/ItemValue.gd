@@ -37,7 +37,11 @@ class ItemValueTagBased extends ItemValue:
 	var tag:int
 	var mod:float = 1.0
 	func calcValueFor(_ctx:ItemValueContext) -> float:
-		return 0.0*mod
+		var _value:float = 0.0
+		for theTrait:TraitBase in _ctx.target.traitHolder.getTraits():
+			if(theTrait.itemTagValue.has(tag)):
+				_value += theTrait.itemTagValue[tag]
+		return _value*mod
 static func itemValueTagBased(_tag:int, _mod:float = 1.0) -> ItemValueTagBased:
 	var theV := ItemValueTagBased.new()
 	theV.tag = _tag

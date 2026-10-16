@@ -7,25 +7,17 @@ var id:String = ""
 var compatibilityType:String = "" # You can only have 1 trait with the same compatibilityType
 var generateScore:float = 1.0 # The higher the number, the more likely that this trait will be picked
 
+# Vector2 means the final value shift is calculated as a random number between X and Y of the vec2
 var personalityChanges:Dictionary[String, Vector2] # personality stat = vec2(min change, max change)
 var fetishChangesPerforming:Dictionary[String, Vector2] # fetish = vec2(min change, max change)
 var fetishChangesReceiving:Dictionary[String, Vector2] # fetish = vec2(min change, max change)
 
-var affectionGainMult:float = 1.0
-var affectionLossMult:float = 1.0
-var lustGainMult:float = 1.0
-var lustLossMult:float = 1.0
-var powerBalanceGainMult:float = 1.0
-var powerBalanceLossMult:float = 1.0
-
-var passiveAffectionLossMult:float = 1.0
-var passiveLustLossMult:float = 1.0
-var passivePowerBalanceLossMult:float = 1.0
-
-var socialExhaustionGainMult:float = 1.0 # Multiplies the gained social exhaustion
-var socialExhaustionDecayMult:float = 1.0 # How fast does the social exhaustion go away
-
 var interactionAgreeChanceMods:Dictionary[String, float] # 1.0 = will always agree, 0.1 = 10% closer to agreeing, -1.0 = will never agree, -0.3 = 30% less chance of agreeing
+#"Flirt": 0.3, # Makes this character more likely to agree to a Flirting attempt by 30%
+
+var itemTagValue:Dictionary[int, float] # Adds to the item value depending on the item tags
+
+var values:Dictionary[int, float]
 
 func getName() -> String:
 	return "Fill me"

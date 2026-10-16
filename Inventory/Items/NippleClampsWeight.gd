@@ -29,4 +29,5 @@ func getItemValues() -> Array[ItemValue]:
 	return [
 		ItemValue.baseValue(0.5),
 		ItemValue.itemValueTagBased(ItemValueTag.KinkyClothing, 1.0),
+		ItemValue.itemValueTagBased(ItemValueTag.PrincessGift, 1.0),
 	]

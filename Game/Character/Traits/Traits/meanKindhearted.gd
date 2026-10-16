@@ -19,3 +19,5 @@ func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:Charac
 	_tags[IATag.Mean] *= 0.2
 	_tags[IATag.StartFight] *= 0.2
 	_tags[IATag.Helpful] *= 2.0
+	_tags[IATag.Apologize] *= 1.5
+	_tags[IATag.GiveGift] *= 1.2

@@ -860,3 +860,15 @@ func hasStatusEffect(_role:int, _effectID:String) -> bool:
 	if(!theChar):
 		return false
 	return theChar.hasStatusEffect(_effectID)
+
+func getTraitValueMult(_role:int, _traitValue:int) -> float:
+	var thePawn:CharacterPawn = getPawn(_role)
+	if(!thePawn):
+		return 1.0
+	return thePawn.getTraitValueMult(_traitValue)
+
+func getTraitValueSum(_role:int, _traitValue:int) -> float:
+	var thePawn:CharacterPawn = getPawn(_role)
+	if(!thePawn):
+		return 0.0
+	return thePawn.getTraitValueSum(_traitValue)

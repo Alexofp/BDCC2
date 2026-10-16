@@ -6,9 +6,11 @@ func _init() -> void:
 	
 	personalityChanges = {
 	}
-	socialExhaustionGainMult = 0.6
-	socialExhaustionDecayMult = 1.2
-	affectionGainMult = 1.1
+	values = {
+		TraitValue.AffectionGain: 1.1,
+		TraitValue.SocialExhaustionGain: 0.6,
+		TraitValue.SocialExhaustionDecay: 1.2,
+	}
 
 func getName() -> String:
 	return "Extravert"

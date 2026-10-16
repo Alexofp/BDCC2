@@ -7,7 +7,9 @@ func _init() -> void:
 	personalityChanges = {
 		PersonalityStat.Mean: Vector2(-0.3, -0.1),
 	}
-	passiveAffectionLossMult = 0.5
+	values = {
+		TraitValue.PassiveAffectionLoss: 0.5,
+	}
 
 func getName() -> String:
 	return "Introvert"

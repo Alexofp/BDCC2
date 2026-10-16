@@ -19,20 +19,10 @@ func copyFrom(_otherEntry:RelationshipEntry):
 func decayEntryShouldRemove(_dt:float) -> bool:
 	var _char1:BaseCharacter = GM.characterRegistry.getCharacter(char1)
 	var _char2:BaseCharacter = GM.characterRegistry.getCharacter(char2)
-	var _traits1:Array[TraitBase] = _char1.traitHolder.cachedListPassiveRelationshipLoss
-	var _traits2:Array[TraitBase] = _char2.traitHolder.cachedListPassiveRelationshipLoss
 	
-	var _affectionLossMult:float = 1.0
-	var _lustLossMult:float = 1.0
-	var _pbLossMult:float = 1.0
-	for theTrait:TraitBase in _traits1:
-		_affectionLossMult *= theTrait.passiveAffectionLossMult
-		_lustLossMult *= theTrait.passiveLustLossMult
-		_pbLossMult *= theTrait.passivePowerBalanceLossMult
-	for theTrait:TraitBase in _traits2:
-		_affectionLossMult *= theTrait.passiveAffectionLossMult
-		_lustLossMult *= theTrait.passiveLustLossMult
-		_pbLossMult *= theTrait.passivePowerBalanceLossMult
+	var _affectionLossMult:float = _char1.traitHolder.getTraitValueMult(TraitValue.PassiveAffectionLoss) * _char2.traitHolder.getTraitValueMult(TraitValue.PassiveAffectionLoss)
+	var _lustLossMult:float = _char1.traitHolder.getTraitValueMult(TraitValue.PassiveLustLoss) * _char2.traitHolder.getTraitValueMult(TraitValue.PassiveLustLoss)
+	var _pbLossMult:float = _char1.traitHolder.getTraitValueMult(TraitValue.PassivePowerBalanceLoss) * _char2.traitHolder.getTraitValueMult(TraitValue.PassivePowerBalanceLoss)
 	
 	affection = Util.moveValueTo(affection, 0.0, _dt*0.00001*_affectionLossMult)
 	lust = Util.moveValueTo(lust, 0.0, _dt*0.00001*_lustLossMult)

@@ -40,22 +40,25 @@ func onSocialInteractionEnd():
 
 func canDoSocialAction(_c:SocialInteractionContext) -> bool:
 	# If we have anything that we can gift
-	return true
+	return _c.main.hasItemsCanGift()
 
 func start(_roles:Dictionary, _args:Array):
 	startSocialInteraction()
 	socialInteractionStart()
 	pushSay(ROLE_MAIN, "GiveGiftBegin", ROLE_TARGET)
 
+var cacheItemToValue:Dictionary[int, float]
 func _actions(_role:int):
 	if(_role == ROLE_MAIN):
-		addAction(action("give_nothing", "Cancel the gift").setFallback(1.0))
+		addAction(action("give_nothing", "Cancel the gift").setFallback(1.0).setOnTimeout(5.0))
 		
 		var theInv := getInventory(ROLE_MAIN)
-		for theItem:ItemBase in theInv.items:
+		for theItem:ItemBase in theInv.items: # Cache these actions?
 			if(!theItem.canGiftItemAtAll()):
 				continue
-			addAction(action("gift", theItem.getName(), 1.0).setArgs([theItem.uniqueID]))
+			if(!cacheItemToValue.has(theItem.uniqueID)):
+				cacheItemToValue[theItem.uniqueID] = calcGiftValueOf(theItem)
+			addAction(action("gift", theItem.getName()+" (Value: "+str(int(Util.roundF(cacheItemToValue[theItem.uniqueID]*100.0)))+"%)", cacheItemToValue[theItem.uniqueID]).setArgs([theItem.uniqueID]))
 			
 	if(_role == ROLE_TARGET):
 		addAction(action("base_cancel_annoyed", "Cancel talk").setOnTimeout(10.0).setShowAfter(5.0))
@@ -68,9 +71,9 @@ func _do(_role:int, _action:InteractionAction):
 		var theValue:float = calcGiftValue()
 		if(theValue >= 1.0):
 			giftOutcome = 3
-		elif(theValue >= 0.45):
+		elif(theValue >= 0.45 || (theValue>0.0 && RNG.chance(theValue*30.0))):
 			giftOutcome = 2
-		elif(theValue > 0.0):
+		elif(theValue > 0.0 || (theValue>0.0 && RNG.chance(theValue*100.0))):
 			giftOutcome = 1
 		else:
 			giftOutcome = 0
@@ -105,6 +108,7 @@ func onQueueEvent(_eventID:String, _args:Array):
 			theMult = 2.0
 		if(savedGiftValue < 0.2):
 			theMult = clampf(savedGiftValue, 0.0, 0.2)
+		theMult *= getTraitValueMult(ROLE_TARGET, TraitValue.GiftReward)
 		
 		for _rsValue:int in relationshipChanges:
 			var theVal:float = relationshipChanges[_rsValue]
@@ -179,7 +183,9 @@ func getGiftedItem() -> ItemBase:
 	return theInv.findItemByUniqueIDOnlyStored(itemUniqueID)
 
 func calcGiftValue() -> float:
-	var theItem := getGiftedItem()
+	return calcGiftValueOf(getGiftedItem())
+	
+func calcGiftValueOf(theItem:ItemBase) -> float:
 	if(!theItem):
 		return 0.0
 	var theTargetInv:Inventory = getInventory(ROLE_TARGET)
@@ -196,5 +202,7 @@ func calcGiftValue() -> float:
 		theValue *= pow(theItem.getGiftCooldownEffect(), theCooldownStacks)
 	if(theInteractionCooldownStacks > 0.0): # Each gift makes the next gift 20% less valuable
 		theValue *= pow(0.8, theInteractionCooldownStacks)
+	
+	theValue *= getTraitValueMult(ROLE_TARGET, TraitValue.GiftValue)
 	
 	return theValue
