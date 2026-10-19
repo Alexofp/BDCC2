@@ -28,5 +28,9 @@ func getDescription() -> String:
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
 	pass
 
+func multTag(_tags:Dictionary[int, float], _tag:int, _mult:float):
+	if(_tags.has(_tag)):
+		_tags[_tag] *= _mult
+
 func processSocialGoalScore(_score:float, _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
 	return _score

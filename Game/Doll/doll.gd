@@ -451,6 +451,8 @@ func updatePartFromCharacter(genericType:int, bodypartSlot:int):
 		dollScene.visible = false
 		parts_node.add_child(dollScene)
 		
+		if(!get_tree()): # Something blew up, shouldn't happen normally. Happened to me when going to menu while the dolls were spawning
+			return
 		await get_tree().create_timer(0.1).timeout
 		if(!dollScene):
 			removePartUpdateHappening(genericType, bodypartSlot)

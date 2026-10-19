@@ -67,6 +67,7 @@ var typingStatus:int = GI.TYPING_NONE
 var uniqueID:int = -1
 #@onready var sit_node: SynchronizedTargetNode = %SitNode
 
+var charID:String
 var pawn:CharacterPawn
 
 @export var expressionState:int = DollExpressionState.Normal
@@ -526,10 +527,11 @@ func saveNetworkData() -> Bins:
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
-	pawn = GM.pawnRegistry.getPawn(_data.readStrShort())
+	charID = _data.readStrShort()
+	pawn = GM.pawnRegistry.getPawn(charID) # Pawns are created before dolls so it should work
 	uniqueID = _data.readI32()
 	_data.endLoad()
-	name = str(uniqueID)
+	#name = str(uniqueID)
 	
 	updateControlsMultiplayerAuthority()
 	updatePoseSpot()
@@ -538,13 +540,17 @@ func saveData() -> Dictionary:
 	return {
 		charID = pawn.id,
 		UID = uniqueID,
+		pos = position,
 	}
 
 func loadData(_data:Dictionary):
-	pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(_data, "charID", ""))
+	charID = SAVE.loadVar(_data, "charID", "")
+	pawn = GM.pawnRegistry.getPawn(charID) # Pawns are created before dolls so it should work
 	uniqueID = SAVE.loadVar(_data, "UID", uniqueID)
-	name = str(uniqueID)
-	
+	position = SAVE.loadVar(_data, "pos", position)
+	#name = str(uniqueID)
+
+func afterAddedToDollHolder():
 	updateControlsMultiplayerAuthority()
 	updatePoseSpot()
 

@@ -2,6 +2,7 @@ extends Node
 class_name NetworkPlayerInfo
 
 var id:int = 1 # no save
+var profile:PlayerProfile = PlayerProfile.new()
 
 @export var nickname:String = "ERROR_BAD_NAME?": set = changeNickname
 var charID:String: # = "": set = changeCurrentCharID # Which character does this player currently control
@@ -16,7 +17,7 @@ var charID:String: # = "": set = changeCurrentCharID # Which character does this
 var connecting:bool = false # Is this player still connecting to the server. If true, they won't receive game RPCs
 
 func changeNickname(newName:String):
-	Log.Print("SWITCHED NAME: "+newName)
+	#Log.Print("SWITCHED NAME: "+newName)
 	nickname = newName
 	if(is_inside_tree()):
 		Network.notifyNameChanged(self)
@@ -41,11 +42,13 @@ func saveData() -> Dictionary:
 	return {
 		id = id,
 		nickname = nickname,
+		profile = profile.saveData(),
 	}
 
 func loadData(_data:Dictionary):
 	id = SAVE.loadVar(_data, "id", -1)
 	nickname = SAVE.loadVar(_data, "nickname", "ERROR??")
+	profile.loadData(SAVE.loadVar(_data, "profile", {}))
 
 func getDebugData() -> Dictionary:
 	return {

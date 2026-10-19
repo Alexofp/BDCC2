@@ -11,6 +11,7 @@ signal onSandboxMenuButton
 
 @onready var room_id_panel: PanelContainer = %RoomIDPanel
 @onready var room_id_line_edit: LineEdit = %RoomIDLineEdit
+@onready var save_button: Button = %SaveButton
 
 var settingsScene = preload("res://UI/Settings/in_game_settings.tscn")
 
@@ -51,6 +52,7 @@ func onSettingsSaveOrCancel(theSettings:Control):
 func _on_visibility_changed() -> void:
 	if(visible):
 		continue_button.grab_focus()
+		updateInGameMenu()
 
 func _on_sandbox_menu_button_pressed() -> void:
 	onSandboxMenuButton.emit()
@@ -67,3 +69,9 @@ func _on_toggle_room_id_button_pressed() -> void:
 
 func _on_copy_room_id_button_pressed() -> void:
 	DisplayServer.clipboard_set(Network.roomID)
+
+func updateInGameMenu():
+	save_button.visible = GM.main.canSaveGame()
+
+func _on_save_button_pressed() -> void:
+	GM.main.saveGame()

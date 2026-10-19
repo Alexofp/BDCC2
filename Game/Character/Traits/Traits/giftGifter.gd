@@ -26,3 +26,4 @@ func getDescription() -> String:
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
 	if(_tags.has(IATag.GiveGift)):
 		_tags[IATag.GiveGift] = maxf(0.1, _tags[IATag.GiveGift]*5.0)
+		#multTag(_tags, IATag.GiveGift, 5.0)

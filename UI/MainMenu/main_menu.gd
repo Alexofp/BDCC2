@@ -26,6 +26,9 @@ var currentScreen:int = -1
 @onready var tools_container: PanelContainer = %ToolsContainer
 @onready var settings_tab: MarginContainer = %SettingsTab
 
+@onready var lan_server_password: LineEdit = %LanServerPassword
+@onready var noray_server_password: LineEdit = %NorayServerPassword
+
 @onready var noray_tunnel_list: VBoxContainer = %NorayTunnelList
 @onready var noray_room_edit: LineEdit = %NorayRoomEdit
 @onready var noray_relay_bottom_list: VBoxContainer = %NorayRelayBottomList
@@ -72,9 +75,8 @@ func startGameUIStart(_start:StartGameHolder):
 	GM.startNewGame(_start)
 
 func _on_play_button_pressed() -> void:
-	#get_tree().change_scene_to_file("res://Game/Sandbox/Sandbox.tscn")
-	#get_tree().change_scene_to_file("res://Game/Main.tscn")
-	GM.startGame_OLD("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
+	#GM.startGame_OLD("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
+	GM.loadSavedGame("user://Game/Saves/test.save")
 
 func _on_char_editor_button_pressed() -> void:
 	GM.startGame_OLD("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
@@ -107,7 +109,7 @@ func _on_lan_join_button_pressed() -> void:
 	var theNickame:String = nickname_edit.text if !nickname_edit.text.is_empty() else "Client"
 	var theIP:String = lan_ip_edit.text if !lan_ip_edit.text.is_empty() else "127.0.0.1"
 	
-	GM.joinLANGame(theNickame, theIP)
+	GM.joinLANGame(theNickame, theIP, lan_server_password.text)
 
 
 func _on_settings_button_pressed() -> void:
@@ -140,7 +142,7 @@ func _on_noray_join_button_pressed() -> void:
 	if(theRoomID.is_empty()):
 		return
 	
-	GM.joinNorayGame(theNickame, theRoomID, ipPort[0], ipPort[1], true)
+	GM.joinNorayGame(theNickame, theRoomID, ipPort[0], ipPort[1], true, noray_server_password.text)
 
 func _on_noray_tunnel_button_pressed() -> void:
 	setScreen(SCREEN_MULT_NORAY)

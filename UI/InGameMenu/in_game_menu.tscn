@@ -49,6 +49,11 @@ text = "Sandbox Menu"
 layout_mode = 2
 text = "Settings"
 
+[node name="SaveButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=661003628]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save prison"
+
 [node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=877833237]
 layout_mode = 2
 text = "Exit"
@@ -121,5 +126,6 @@ grow_horizontal = 0
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/CharCreatorButton" to="." method="_on_char_creator_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SandboxMenuButton" to="." method="_on_sandbox_menu_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer/CopyRoomIDButton" to="." method="_on_copy_room_id_button_pressed"]

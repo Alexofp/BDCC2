@@ -75,7 +75,7 @@ func doHost() -> FuncResultOrError:
 	Log.Print("Starting host on port " + str(port))
 	
 	var peer = ENetMultiplayerPeer.new()
-	var error := peer.create_server(port)
+	var error := peer.create_server(port, maxPlayers)
 	if(error != OK):
 		var errorText:String = "Failed to listen on "+str(port)+" port, error = "+str(error_string(error))
 		Log.Printerr(errorText)

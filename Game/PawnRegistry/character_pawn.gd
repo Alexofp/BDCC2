@@ -289,18 +289,29 @@ func spawnDoll():
 	if(!Network.isServer()):
 		return
 	if(doll):
-		assert(false, "Doll already spawned")
+		#assert(false, "Doll already spawned")
 		return
-	var newDoll: = GM.dollHolder.createDollControllerForPawn(self)
-	newDoll.tree_exiting.connect(dollOnDelete)
-	doll_node.setNode(newDoll)
+	GM.dollHolder.createDollControllerForPawn(self)
+	#var newDoll: = GM.dollHolder.createDollControllerForPawn(self)
+	#newDoll.tree_exiting.connect(dollOnDelete)
+	#doll_node.setNode(newDoll)
+
+func notifyDollSpawned(_doll:DollController):
+	doll = _doll
+	if(Network.isServer()):
+		doll_node.setNode(_doll)
+
+func notifyDollDespawned(_doll:DollController):
+	doll = null
+	if(Network.isServer()):
+		doll_node.setNode(null)
 
 func despawnDoll():
 	if(!doll):
-		assert(false, "Doll doesn't exist")
+		#assert(false, "Doll doesn't exist")
 		return
 	GM.dollHolder.deleteDoll(doll)
-	doll_node.setNode(null)
+	#doll_node.setNode(null)
 
 func dollOnDelete():
 	doll_node.setNode(null)
@@ -350,18 +361,22 @@ func loadData(_data:Dictionary):
 	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
 	cooldowns.loadData(SAVE.loadVar(_data, "cds", {}))
 
+var tempDoll
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:
-	var tempDoll = doll
+	#var tempDoll = doll
 	doll = newNode
 	
-	if(doll):
+	if(!tempDoll && doll):
+		tempDoll = doll
 		Log.Print("Doll spawned for "+getCharID())
 		doll.updatePoseSpot()
 		dollSpawned.emit(doll)
 	elif(tempDoll && !doll):
+		tempDoll = null
 		Log.Print("Doll despawned for "+getCharID())
 		dollDespawned.emit(tempDoll)
 	if(doll != tempDoll):
+		tempDoll = doll
 		dollSwitched.emit(doll, tempDoll)
 
 #func _on_sit_node_on_node_changed(newNode: Variant) -> void:

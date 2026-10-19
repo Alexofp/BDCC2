@@ -133,7 +133,7 @@ static func startNewGame(_holder:StartGameHolder):
 	var _connector := _holder.multiplayer.createNetworkConnector()
 	LoadingScreen.setText("Hosting.." if _connector else "Loading..")
 	
-	Network.setMyNickname("SERVER")
+	#Network.setMyNickname("SERVER")
 	
 	if(_connector):
 		var res = await Network.host(_connector)#hostFunc.call(_nickname) #Network.hostLAN(_nickname)
@@ -159,12 +159,22 @@ static func startGame_OLD(_map:String, _mode:String, _args:Array = []):
 	changingScene = false
 	LoadingScreen.finishLoad()
 
+# Uses async
 static func startMainMenu():
 	assert(!changingScene, "Already changing a scene!")
 	changingScene = true
 	#TODO: STOP NETWORK
 	Network.stopMultiplayer()
 	GI.get_tree().change_scene_to_file("res://UI/MainMenu/main_menu.tscn")
+	await GI.get_tree().scene_changed
+	changingScene = false
+
+# Uses async
+static func startMainGameScene():
+	assert(!changingScene, "Already changing a scene!")
+	changingScene = true
+	Network.stopMultiplayer()
+	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GI.get_tree().scene_changed
 	changingScene = false
 
@@ -181,7 +191,7 @@ static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String,
 	await GI.get_tree().current_scene.loadModeOnMap(_map, _mode, _args, {})
 	LoadingScreen.setText("Hosting..")
 	
-	Network.setMyNickname(_nickname)
+	#Network.setMyNickname(_nickname)
 	
 	var res = await Network.host(_connector)#hostFunc.call(_nickname) #Network.hostLAN(_nickname)
 	if(res.isError()):
@@ -237,13 +247,15 @@ static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String)
 	GI.get_tree().paused = false
 	LoadingScreen.finishLoad()
 
-static func joinLANGame(_nickname:String, _ip:String):
+static func joinLANGame(_nickname:String, _ip:String, _serverPassword:String = ""):
+	Network.serverPassword = _serverPassword
 	var theConnector := LANNetworkConnector.new()
 	theConnector.setJoinIPAndPortFromString(_ip)
 	
 	await internal_joinGame(theConnector, _nickname)
 
-static func joinNorayGame(_nickname:String, _roomID:String, relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT, forceRelay:bool = false):
+static func joinNorayGame(_nickname:String, _roomID:String, relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT, forceRelay:bool = false, _serverPassword:String = ""):
+	Network.serverPassword = _serverPassword
 	var theConnector := NorayNetworkConnector.new()
 	theConnector.setRelay(relayServer, relayServerPort, forceRelay)
 	theConnector.setRoomID(_roomID)
@@ -266,6 +278,49 @@ static func errorOutToMainMenu(_errorText:String):
 static func getWorld() -> World:
 	return GI.world
 
+static func loadSavedGame(_savePath:String, _multiplayer:StartGameMultiplayer = null):
+	LoadingScreen.startLoad()
+	LoadingScreen.setText("Starting..")
+	var file := FileAccess.open(_savePath, FileAccess.READ)
+	if(!file):
+		errorOutToMainMenu("Failed to load saved game: "+error_string(FileAccess.get_open_error()))
+		return
+	var saveContent:String = file.get_as_text()
+	#var theJsonSave := JSON.new()
+	#var _jsonError:int = theJsonSave.parse(saveContent)
+	#if(_jsonError != OK):
+	#	errorOutToMainMenu("Failed to parse saved game: "+error_string(_jsonError)+". Json Error: Line: "+str(theJsonSave.get_error_line())+" Error: "+theJsonSave.get_error_message())
+	#	return
+	#if(theJsonSave.data == null || !(theJsonSave.data is Dictionary)):
+	#	errorOutToMainMenu("Failed to parse saved game, corrupt data")
+	#	return
+	#var theGameData:Dictionary = theJsonSave.data
+	var theData = str_to_var(saveContent)
+	if(theData == null || !(theData is Dictionary)):
+		errorOutToMainMenu("Failed to parse saved game, corrupt data")
+		return
+	var theGameData:Dictionary = theData
+	
+	await startMainGameScene()
+	GI.get_tree().paused = true
+	changingScene = true
+	LoadingScreen.setText("Loading game..")
+	var _succ:bool = await GI.get_tree().current_scene.loadData(theGameData)
+	if(!_succ):
+		errorOutToMainMenu("Failed to load gamemode data, corrupt save?")
+		return
+
+	var _connector := _multiplayer.createNetworkConnector() if _multiplayer else null
+	LoadingScreen.setText("Hosting.." if _connector else "Loading..")
+	if(_connector):
+		var res = await Network.host(_connector)#hostFunc.call(_nickname) #Network.hostLAN(_nickname)
+		if(res.isError()):
+			errorOutToMainMenu(res.result if res.result is String else "Unable to start hosting")
+			return
+	changingScene = false
+	GI.get_tree().paused = false
+	LoadingScreen.finishLoad()
+
 static var fallbackGB:GameBalance
 static func getGameBalance() -> GameBalance:
 	if(!main):
@@ -275,3 +330,6 @@ static func getGameBalance() -> GameBalance:
 		assert(false, "Accessed fallback GameBalance object, something went wrong!")
 		return fallbackGB
 	return main.GB
+
+static func getGameVersionStr() -> String:
+	return ProjectSettings.get_setting("application/config/version")

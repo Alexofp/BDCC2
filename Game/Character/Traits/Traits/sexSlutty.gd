@@ -36,5 +36,5 @@ func getDescription() -> String:
 	return "Likes doing sex and prostitution"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	_tags[IATag.OfferSex] *= 2.0
-	_tags[IATag.Lusty] *= 2.0
+	multTag(_tags, IATag.OfferSex, 2.0)
+	multTag(_tags, IATag.Lusty, 2.0)

@@ -3,6 +3,54 @@ class_name GameModeBase
 
 var id:String = ""
 
+var playersData:Array[PlayerData]
+var fallbackGID:String = "" # What player data should we use in case we can't find ours
+
+# Use a dict to optimize this?
+func getPlayerDataForCharID(_charID:String) -> PlayerData:
+	for theData:PlayerData in playersData:
+		if(theData.charID == _charID):
+			return theData
+	return null
+
+func findPlayerDataForProfile(_profile:PlayerProfile, _lookForFallbackInSinglePlayer:bool = true) -> PlayerData:
+	for _data:PlayerData in playersData:
+		if(_data.gid == _profile.gid):
+			return _data
+	# If we're doing singleplayer, try to find the data of the player who started this game
+	if(_lookForFallbackInSinglePlayer && !Network.isMultiplayer() && !fallbackGID.is_empty()):
+		for _data:PlayerData in playersData:
+			if(_data.gid == fallbackGID):
+				return _data
+		# Return any data? First would probably be the good one
+		if(!playersData.is_empty()):
+			return playersData[0]
+	return null
+
+func assignPlayerData(_char:BaseCharacter, _profile:PlayerProfile):
+	for _existing:PlayerData in playersData:
+		if(_existing.gid == _profile.gid):
+			_existing.charID = _char.getID()
+			return
+	var _newPlayerData:PlayerData = PlayerData.new()
+	_newPlayerData.charID = _char.getID()
+	_newPlayerData.gid = _profile.gid
+	_newPlayerData.playerName = _profile.nickname
+	playersData.append(_newPlayerData)
+
+# Called after the game was loaded from a save. Only realistically gets called on the server
+func afterGameLoad():
+	if(!Network.isServer()):
+		return
+	var myInfo := Network.getMyPlayerInfo()
+	if(!myInfo): # Dedicated server or something
+		return
+	var bestPlayerInfo := findPlayerDataForProfile(myInfo.profile, true)
+	if(!bestPlayerInfo): # Rip, we would probably have to create a new character
+		return
+	myInfo.charID = bestPlayerInfo.charID
+	#assignPlayerData() ?
+
 ## Called when the gamemode is created. The map isn't loaded yet by this point
 func initArgs(_args:Array):
 	print("initArgs: "+str(id))
@@ -15,13 +63,28 @@ func start():
 func onPlayerConnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player connected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
 	if(Network.isServer()):
+		# Check if they have a character already
+		var _theirPlayerData:PlayerData = findPlayerDataForProfile(_player_info.profile)
+		if(_theirPlayerData && GM.characterRegistry.getCharacter(_theirPlayerData.charID)):
+			var theCharID:String = _theirPlayerData.charID
+			var _oldChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
+			if(!GM.pawnRegistry.hasPawn(theCharID)):
+				GM.pawnRegistry.createPawn(theCharID)
+			_player_info.charID = theCharID
+			assignPlayerData(_oldChar, _player_info.profile) # Just in case
+			return
+		# Make them a new character
 		var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+		thePC.resetToDefaultPCCharacter()
+		giveDefaultStuff(thePC)
 		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
 		_player_info.charID = thePC.getID()
 		
+		assignPlayerData(thePC, _player_info.profile)
+		
 func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player disconnected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
-	if(Network.isServer()):
+	if(Network.isServer() && GM.pawnRegistry):
 		GM.pawnRegistry.deletePawnOfNetworkPlayer(_player_info)
 	pass
 
@@ -148,7 +211,7 @@ func startNewGame(_holder:StartGameHolder):
 		createPopulationNewGame(_holder)
 		createPlayerNewGame(_holder)
 
-func createPopulationNewGame(_holder:StartGameHolder):
+func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
 	var _i:int = 0
 	for theStartChar:StartGameCharHolder in _holder.population:
 		if(!theStartChar.preset):
@@ -157,18 +220,25 @@ func createPopulationNewGame(_holder:StartGameHolder):
 		var _theChar:BaseCharacter = GM.characterRegistry.createCharacter()
 		theStartChar.preset.applyToCharacter(_theChar)
 		giveDefaultStuff(_theChar)
-		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(_theChar.getID())
-		_thePawn.position.x = 2.0 + _i*2.0
+		if(_spawnAsPawn):
+			var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(_theChar.getID())
+			_thePawn.position.x = 2.0 + _i*2.0
 		_i += 1
 
-func createPlayerNewGame(_holder:StartGameHolder):
+func createPlayerNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true) -> BaseCharacter:
 	var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
 	_holder.playerPreset.preset.applyToCharacter(thePC)
 	giveDefaultStuff(thePC)
 	#thePC.resetToDefaultPCCharacter()
-	var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
+	if(_spawnAsPawn):
+		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
 	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
 	myInfo.charID = thePC.getID()
+	
+	assignPlayerData(thePC, MyProfile.profile)
+	fallbackGID = MyProfile.profile.gid
+	
+	return thePC
 
 func giveDefaultStuff(_char:BaseCharacter):
 	if(_char.gender.getGender() != Gender.Male):
@@ -181,8 +251,29 @@ func giveDefaultStuff(_char:BaseCharacter):
 func loadFromDef(_modeRef:GameModeDef):
 	pass
 
+func getSaveFinalPath() -> String:
+	return "user://Game/Saves/test.save"
+
+func canSaveGame() -> bool:
+	return true
+
 func saveData() -> Dictionary:
-	return {}
+	var _playerData:Array[Dictionary]
+	for thePlayerData:PlayerData in playersData:
+		_playerData.append(thePlayerData.saveData())
+	
+	return {
+		playersData = _playerData,
+		fallbackGID = fallbackGID,
+	}
 
 func loadData(_data:Dictionary):
-	pass
+	playersData.clear()
+	
+	fallbackGID = SAVE.loadVar(_data, "fallbackGID", "")
+	
+	var _playerData:Array = SAVE.loadVar(_data, "playersData", [])
+	for thePlayerEntry:Dictionary in _playerData:
+		var _newPlayerData:PlayerData = PlayerData.new()
+		_newPlayerData.loadData(thePlayerEntry)
+		playersData.append(_newPlayerData)

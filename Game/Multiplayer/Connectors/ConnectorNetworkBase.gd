@@ -1,6 +1,8 @@
 extends Node
 class_name ConnectorNetworkBase
 
+var maxPlayers:int = 32
+
 # Errors
 #const OK = 0
 const ERROR_GENERIC = 1

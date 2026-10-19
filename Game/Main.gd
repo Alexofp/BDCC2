@@ -41,22 +41,76 @@ var reactionSystem:ReactionSystem = ReactionSystem.new()
 var gameMode:GameModeBase
 var mapPath:String = ""
 
+func canSaveGame() -> bool:
+	if(Network.isClient()):
+		return false
+	if(!gameMode.canSaveGame()):
+		return false
+	return true
+
+func saveGame() -> String:
+	if(!canSaveGame()):
+		return "Unable to save the game in this state"
+	
+	var thePath:String = gameMode.getSaveFinalPath()
+	if(thePath.is_empty()):
+		return "Unable to save game, gamemode didn't provide a save path"
+		
+	DirAccess.make_dir_recursive_absolute(thePath.get_base_dir())
+	
+	var theData:Dictionary = saveData()
+	var theFile := FileAccess.open(thePath, FileAccess.WRITE)
+	if(!theFile):
+		return "Unable to save game: "+error_string(FileAccess.get_open_error())
+	
+	#theFile.store_string(JSON.stringify(theData, "\t", false))
+	theFile.store_string(var_to_str(theData))
+	return ""
+
+func saveData() -> Dictionary:
+	var _data:Dictionary = {
+		saveVersion = 1,
+		gameVersion = GM.getGameVersionStr(),
+		gameModeID = gameMode.id,
+		gameMode = gameMode.saveData(),
+		mapPath = mapPath, # Save some kind of map data instead?
+		gi = GI.saveFullData(),
+	}
+	return _data
+
+# Has async in it to load the map
+func loadData(_data:Dictionary) -> bool:
+	#GI.get_tree().paused = true
+	var theGameModeID:String = SAVE.loadVar(_data, "gameModeID", "")
+	var theGameModeData:Dictionary = SAVE.loadVar(_data, "gameMode", {})
+	var theMapPath:String = SAVE.loadVar(_data, "mapPath", "")
+	var theGIData:Dictionary = SAVE.loadVar(_data, "gi", {})
+	
+	var _succ:bool = await loadModeOnMap(theMapPath, theGameModeID, [], theGameModeData, false)
+	if(!_succ):
+		return false
+	GI.loadFullData(theGIData)
+	gameMode.afterGameLoad()
+	#GI.get_tree().paused = false
+	return true
+
 func loadStartGameHolder(_holder:StartGameHolder):
 	await loadModeOnMap(_holder.gameModeDef.getMapScenePath(), _holder.gameModeDef.id, [], {})
 	if(gameMode):
 		gameMode.startNewGame(_holder)
 
-func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary):
+func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary, _doInit:bool = true) -> bool:
 	mapPath = _map
 	
 	var _gameModeDef:GameModeDef = GlobalRegistry.getGameModeDefRef(_mode)
 	if(!_gameModeDef):
 		Log.Printerr("UNKNOWN GAME MODE: "+str(_mode))
-		return
+		return false
 	var theScene:PackedScene = load(_gameModeDef.scenePath)
 	var theMode:GameModeBase = theScene.instantiate()
 	add_child(theMode)
-	theMode.initArgs(_args)
+	if(_doInit):
+		theMode.initArgs(_args)
 	gameMode = theMode
 	
 	#var theFuture := ThreadedResourceLoader.loadFuture(_map)
@@ -67,7 +121,7 @@ func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary)
 	if(!theMap):
 		Log.Printerr("Failed to load the map: "+str(_map))
 		# Do something here? Load a placeholder map?
-		return
+		return false
 	var theMapNode:Node3D = theMap.instantiate()
 	add_child(theMapNode)
 	building_platform_8x_8.queue_free()
@@ -75,6 +129,7 @@ func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary)
 	
 	if(!_modeData.is_empty()):
 		gameMode.loadData(_modeData)
+	return true
 
 func startGame():
 	if(gameMode):
@@ -88,10 +143,12 @@ func _init():
 
 func _enter_tree() -> void:
 	GM.main = self
+	Network.onMainCreated()
 
 func _exit_tree() -> void:
 	if(GM.main == self):
 		GM.main = null
+		Network.onMainDeleted()
 
 func onMultiplayerPreStart(_isHost:bool):
 	Log.Print("onMultiplayerStart(isHost="+str(_isHost)+")")

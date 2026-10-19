@@ -22,6 +22,6 @@ func getDescription() -> String:
 	return "Likes to be mean to others"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	_tags[IATag.Mean] *= 2.0
-	_tags[IATag.StartFight] *= 1.4
-	_tags[IATag.Helpful] *= 0.6
+	multTag(_tags, IATag.Mean, 2.0)
+	multTag(_tags, IATag.StartFight, 1.4)
+	multTag(_tags, IATag.Helpful, 0.6)

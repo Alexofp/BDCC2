@@ -386,6 +386,8 @@ func saveData() -> Dictionary:
 	}
 
 func loadData(_data:Dictionary):
+	unregister()
+	uniqueID = -1
 	GM.inventoryRegistry.registerNetworkInventory(self, SAVE.loadVar(_data, "uniqueID", -1))
 	
 	for invSlot in equipped.keys():

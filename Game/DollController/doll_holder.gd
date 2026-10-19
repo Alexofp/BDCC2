@@ -5,8 +5,24 @@ class_name DollHolder
 
 var dollControllerScene := preload("res://Game/DollController/doll_controller.tscn")
 
+var lastUniqueID:int = 0
+
+var dollList:Array[DollController]
+var uidToDoll:Dictionary[int, DollController]
+var charIDToDoll:Dictionary[String, DollController]
+
 var curDoll:DollController
 signal onCurrentDollSwitch(oldDoll, newDoll)
+
+func addDollToLists(_doll:DollController):
+	dollList.append(_doll)
+	uidToDoll[_doll.uniqueID] = _doll
+	charIDToDoll[_doll.getCharacter().getID()] = _doll
+
+func removeDollFromLists(_doll:DollController):
+	dollList.erase(_doll)
+	uidToDoll.erase(_doll.uniqueID)
+	charIDToDoll.erase(_doll.getCharacter().getID())
 
 func _ready() -> void:
 	GI.dollHolder = self
@@ -29,9 +45,10 @@ func findDollByCharID(_charID:String) -> DollController:
 	var thePawn := GM.pawnRegistry.getPawn(_charID)
 	return thePawn.getDoll() if thePawn else null
 
-var lastUniqueID:int = 0
 func generateUniqueDollID() -> int:
 	lastUniqueID += 1
+	while(findDollWithUniqueID(lastUniqueID)):
+		lastUniqueID += 1
 	return lastUniqueID
 	
 func createDollControllerForPawn(pawn:CharacterPawn) -> DollController:
@@ -40,27 +57,22 @@ func createDollControllerForPawn(pawn:CharacterPawn) -> DollController:
 	return theDoll
 	
 func createDollControllerFor(pawn:CharacterPawn, character:BaseCharacter) -> DollController:
-	if(Network.isServer()):
-		Log.Print("createDollControllerFor "+str(character.getID()))
-		
-		var newUniqueID:int = generateUniqueDollID()
-		var theDoll:DollController= dollControllerScene.instantiate()
-		theDoll.name = str(newUniqueID)
-		#theDoll.characterID = character.getID()
-		theDoll.pawn = pawn
-		theDoll.uniqueID = newUniqueID
-		theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
-		dolls.add_child(theDoll, true)
-		
-		if(Network.isServerNotSingleplayer()):
-			Network.rpcClients(createDollController_RPC.bind(theDoll.saveData()))
-		
-		return theDoll
-	return null
+	if(!Network.isServer()):
+		return null
+	Log.Print("createDollControllerFor "+str(character.getID()))
+	var newUniqueID:int = generateUniqueDollID()
+	var theDoll:DollController= dollControllerScene.instantiate()
+	theDoll.charID = pawn.getID()
+	theDoll.pawn = pawn
+	theDoll.uniqueID = newUniqueID
+	addExistingDollController(theDoll)
+	return theDoll
 
 func onDollDeleted(doll:DollController):
 	if(doll.is_inside_tree()):
-		doll.name = "TO_BE_DELETED"
+		doll.name += "_DELETED"
+	removeDollFromLists(doll)
+	doll.pawn.notifyDollDespawned(doll)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(deleteDoll_RPC.bind(doll.uniqueID))
 
@@ -74,24 +86,42 @@ func deleteDoll_RPC(uniqueID:int):
 
 @rpc("authority", "call_remote", "reliable")
 func createDollController_RPC(dollData:Dictionary):
-	Log.Print("Creating doll for UID="+str(dollData["UID"]))
 	var theDoll:DollController= dollControllerScene.instantiate()
-	theDoll.name = str(SAVE.loadVar(dollData, "UID", 0))
-	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
-	theDoll.pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(dollData, "charID", ""))
+	theDoll.charID = SAVE.loadVar(dollData, "charID", "")
+	theDoll.pawn = GM.pawnRegistry.getPawn(theDoll.charID)
 	theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
+	addExistingDollController(theDoll)
+
+# Doll must have:
+# uniqueID defined
+# charID defined
+# pawn defined
+func addExistingDollController(theDoll:DollController):
+	Log.Print("Adding doll for UID="+str(theDoll.uniqueID))
+	theDoll.name = str(theDoll.uniqueID)
+	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
+	#theDoll.pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(dollData, "charID", ""))
+	#theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
 	dolls.add_child(theDoll)
-	theDoll.loadData(dollData)
+	#theDoll.loadData(dollData)
+	addDollToLists(theDoll)
+	theDoll.afterAddedToDollHolder()
+	theDoll.pawn.notifyDollSpawned(theDoll)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(createDollController_RPC.bind(theDoll.saveData()))
 
 func clearDolls():
 	Util.delete_children(dolls)
+	dollList.clear()
+	uidToDoll.clear()
+	charIDToDoll.clear()
 	
 func deleteDoll(theDoll:DollController):
 	theDoll.queue_free()
 
 func deleteDollsOfNetworkPlayerID(clientID:int):
-	var toRemove:Array = []
-	for doll in dolls.get_children():
+	var toRemove:Array[DollController] = []
+	for doll:DollController in dollList:
 		if(!(doll is DollController)):
 			continue
 		if(doll.networkPlayerID == clientID):
@@ -100,18 +130,12 @@ func deleteDollsOfNetworkPlayerID(clientID:int):
 		doll.queue_free()
 
 func findDollWithUniqueID(theID:int) -> DollController:
-	if(dolls.has_node(str(theID))):
-		return dolls.get_node(str(theID))
-	#
-	#for doll in dolls.get_children():
-		#if(!(doll is DollController)):
-			#continue
-		#if(doll.uniqueID == theID):
-			#return doll
-	return null
+	if(!uidToDoll.has(theID)):
+		return null
+	return uidToDoll[theID]
 
 func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = Vector3(0.0, 0.0, 0.0)):
-	for doll in dolls.get_children():
+	for doll:DollController in dollList:
 		if(!(doll is DollController)):
 			continue
 		if(doll is DollController):
@@ -143,24 +167,38 @@ func notifyCurrentDollSwitch(_newDoll:DollController):
 	onCurrentDollSwitch.emit(oldDoll, curDoll)
 
 func saveNetworkData() -> Bins:
-	return Bins.saveStartEnd([
-		Bins.Var, saveData(),
-	])
+	var Ar:Array = [
+		Bins.U16, dollList.size(),
+	]
+	for theDoll:DollController in dollList:
+		Ar.append_array([
+			Bins.BINS, theDoll.saveNetworkData(),
+		])
+	
+	return Bins.saveStartEnd(Ar)
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
+	clearDolls()
+	
+	var _dollAm:int = _data.readU16()
+	for _i:int in _dollAm:
+		var theDoll:DollController = dollControllerScene.instantiate()
+		theDoll.loadNetworkData(_data.readBins())
+		addExistingDollController(theDoll)
+	
 	loadData(_data.readVar())
 	_data.endLoad()
 
 func saveData() -> Dictionary:
 	var dollData:Array = []
 	
-	for doll in dolls.get_children():
-		if(doll is DollController):
-			dollData.append(doll.saveData())
+	for doll:DollController in dollList:
+		dollData.append(doll.saveData())
 	
 	return {
 		dolls = dollData,
+		lastUniqueID = lastUniqueID,
 	}
 
 func loadData(_data:Dictionary):
@@ -168,7 +206,11 @@ func loadData(_data:Dictionary):
 	
 	var dollData:Array = SAVE.loadVar(_data, "dolls", [])
 	for dollEntry in dollData:
-		createDollController_RPC(dollEntry)
+		var theDoll:DollController = dollControllerScene.instantiate()
+		theDoll.loadData(dollEntry)
+		addExistingDollController(theDoll)
+		#createDollController_RPC(dollEntry)
+	lastUniqueID = SAVE.loadVar(_data, "lastUniqueID", 0)
 
 @rpc("authority", "call_remote", "reliable")
 func playGesture_RPC(theDollID:int, _gestureID:String):

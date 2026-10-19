@@ -24,4 +24,4 @@ func getDescription() -> String:
 	return "Wants better gifts, higher affection gain for good gifts"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	_tags[IATag.GiveGift] *= 0.2 # Pretty much never gives gifts
+	multTag(_tags, IATag.GiveGift, 0.2) # Pretty much never gives gifts

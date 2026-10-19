@@ -29,7 +29,7 @@ func doHost() -> FuncResultOrError:
 	#setMyNickname(hostNickname)
 	
 	var peer := ENetMultiplayerPeer.new()
-	var error := peer.create_server(port, Network.MAX_PLAYERS)
+	var error := peer.create_server(port, maxPlayers)#Network.MAX_PLAYERS)
 	if error:
 		Log.Printerr("Network unable to start hosting, error = "+str(error_string(error)))
 		var errorText:String = error_string(error)

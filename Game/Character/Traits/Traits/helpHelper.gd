@@ -18,5 +18,4 @@ func getDescription() -> String:
 	return "Likes to help people who are helpless rather than take advantage of them"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	#_tags[IATag.StartFight] *= 0.8
-	_tags[IATag.Helpful] *= 2.0
+	multTag(_tags, IATag.Helpful, 2.0)

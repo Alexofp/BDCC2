@@ -21,17 +21,21 @@ func _init() -> void:
 
 func createNetworkConnector() -> ConnectorNetworkBase:
 	if(multiplayer == LAN):
+		Network.serverPassword = password
 		var newLan := LANNetworkConnector.new()
 		newLan.port = lanPort
+		newLan.maxPlayers = maxPlayers
 		return newLan
 	
 	if(multiplayer == NORAY):
+		Network.serverPassword = password
 		var newCon := NorayNetworkConnector.new()
 		var theSpread:Array = getNorayServer().split(":")
 		if(theSpread.size() > 0):
 			newCon.relayServer = theSpread[0]
 		if(theSpread.size() > 1):
 			newCon.relayServerPort = int(theSpread[1])
+		newCon.maxPlayers = maxPlayers
 		return newCon
 	
 	return null

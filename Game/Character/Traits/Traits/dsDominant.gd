@@ -33,7 +33,7 @@ func getDescription() -> String:
 	return "Likes to dominate"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	_tags[IATag.Dominate] *= 2.0
-	_tags[IATag.Domination] *= 3.0
-	_tags[IATag.Submission] *= 0.5
-	_tags[IATag.Submit] *= 0.5
+	multTag(_tags, IATag.Dominate, 2.0)
+	multTag(_tags, IATag.Domination, 3.0)
+	multTag(_tags, IATag.Submission, 0.5)
+	multTag(_tags, IATag.Submit, 0.5)

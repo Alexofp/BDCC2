@@ -6,7 +6,7 @@ const ERROR_GENERIC = 1
 
 const SERVER_PORT = 12345
 const SERVER_ADDRESS: String = "127.0.0.1"
-const MAX_PLAYERS : int = 32
+#const MAX_PLAYERS : int = 32
 
 var players:Dictionary[int, NetworkPlayerInfo]
 var playerControlsCharID:Dictionary[int, String]
@@ -26,6 +26,7 @@ signal multiplayerEnded(isHost:bool)
 
 var networkPlayerInfoScene := preload("res://Game/Multiplayer/NetworkPlayerInfo.tscn")
 
+var serverPassword:String = ""
 var roomID:String = ""
 signal roomIDChanged(newRoomID:String)
 
@@ -64,19 +65,100 @@ func join(_connector:ConnectorNetworkBase) -> FuncResultOrError:
 	return theRes
 
 func stopMultiplayer():
+	#if(!isMultiplayer()): # Is this needed?
+	#	return
 	if(connector):
 		roomID = ""
 		roomIDChanged.emit(roomID)
 		connector.stopMultiplayer()
 		connector.queue_free()
 		connector = null
+		serverPassword = ""
 		#NetworkTime.stop()
-	if(!isMultiplayer()):
+		#multiplayer.auth_callback = Callable()
+		multiplayerEnded.emit(isServer())
+		multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+		#players.clear()
+		serverDisconnected.emit()
+
+# Connection process
+# 1. authenticatingOurselvesToServer() gets called on a client. Client sends their profile data and server password
+# 2. onAuthenticateDataCallback() gets called on the server. Server checks if password is correct and that we don't have the client with this profile already
+# - Server either accepts the auth or refuses the client
+
+# Called on the client and server but nothing happens on the server
+func onAuthenticatingOurselvesToServer(peer:int):
+	Log.Print("onAuthenticatingOurselvesToServer peer: "+str(peer))
+	if multiplayer.is_server():
 		return
-	multiplayerEnded.emit(isServer())
-	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
-	#players.clear()
-	serverDisconnected.emit()
+	assert(peer == 1)
+	#pending[peer] = _crypto.generate_random_bytes(RND_SIZE)
+	var _data:Array = [
+		Bins.U16, 1, # 1 means we want to connect
+		Bins.StrShort, GM.getGameVersionStr(),
+		Bins.StrShort, serverPassword,
+		Bins.StrShort, MyProfile.profile.gid,
+	]
+	#multiplayer.send_auth(peer, Bins.saveStartEnd([Bins.StrShort, "Hello world!"]).getBytes())
+	multiplayer.send_auth(peer, Bins.saveStartEnd(_data).getBytes())
+
+func checkConnectedClientReason(_peer:int, _data:PackedByteArray) -> String:
+	var _bins:Bins = Bins.readUncompressed(_data)
+	_bins.loadStart() #TODO: Some mode for Bins that won't crash everything on error?
+	var _clientIntent:int = _bins.readU16()
+	if(_clientIntent != 1):
+		return "Wrong client intent"
+	var _theirGameVersion:String = _bins.readStrShort()
+	if(_theirGameVersion != GM.getGameVersionStr()):
+		return "Wrong game version, server is running on '"+GM.getGameVersionStr()+"', Client version is '"+_theirGameVersion+"'"
+	
+	var _theirPass:String = _bins.readStrShort()
+	if(!serverPassword.is_empty() && _theirPass != serverPassword):
+		return "Client tried to join with a wrong password!"
+	var _theirGID:String = _bins.readStrShort()
+	if(isPlayerGIDConnected(_theirGID)):
+		return "Client tried to join but already have a client with this Profile ID!"
+	_bins.endLoad()
+	return "" # All good
+
+# Called on the server or the client when send_auth gets called
+func onAuthenticateDataCallback(_peer:int, _data:PackedByteArray):
+	Log.Print("onAuthenticateDataCallback peer: "+str(_peer)+" size: "+str(_data.size()))
+	if multiplayer.is_server():
+		# Check server password
+		# Check that we don't already have a player with this profile gid
+		var theBadReason:String = checkConnectedClientReason(_peer, _data)
+		if(!theBadReason.is_empty()):
+			refuseAuth(_peer, theBadReason)
+		else:
+			#TODO: Remember their profile id and make sure it matches the one they send after
+			multiplayer.send_auth(_peer, Bins.saveStartEnd([Bins.StrShort, "Yes, hai!"]).getBytes())
+			multiplayer.complete_auth(_peer)
+		
+		#if(true):
+		#	refuseAuth(_peer)
+		#	return
+		##multiplayer.send_auth(peer, _crypto.hmac_digest(HashingContext.HASH_SHA256, _secret, full))
+		#multiplayer.send_auth(_peer, Bins.saveStartEnd([Bins.StrShort, "Yes, hai!"]).getBytes())
+		#multiplayer.complete_auth(_peer)
+	else:
+		# Get some message from the server?
+		multiplayer.complete_auth(_peer)
+		pass
+	
+# Called on server
+func refuseAuth(peer:int, _p_msg:String=""):
+	multiplayer.disconnect_peer(peer)
+	#pending.erase(peer)
+	#_auth_failed(peer)
+	#auth_failed.emit(peer, p_msg)
+
+func onAuthFailed(_peer:int):
+	Log.Print("onAuthFailed peer: "+str(_peer))
+	#auth_failed.emit(peer, "")
+	#stopMultiplayer()
+	GM.errorOutToMainMenu("Auth failed. Either wrong server password or same player profile as the existing one")
+	pass
 
 func setMyNickname(newName:String):
 	var myInfo:NetworkPlayerInfo = getMyPlayerInfo()
@@ -84,10 +166,12 @@ func setMyNickname(newName:String):
 		myInfo.nickname = newName
 		#TODO: Sync it with the server
 
-func createPlayerInfo(theId:int, theNickname:String) -> NetworkPlayerInfo:
+func createPlayerInfo(theId:int, _profile:PlayerProfile) -> NetworkPlayerInfo:
 	var info:NetworkPlayerInfo = networkPlayerInfoScene.instantiate()
 	info.id = theId
-	info.nickname = theNickname
+	info.profile = _profile
+	info.nickname = _profile.nickname
+	#info.nickname = theNickname
 	return info
 	
 @rpc("authority", "call_remote", "reliable")
@@ -338,16 +422,32 @@ func applyJoinGameNetworkData(_bytes:PackedByteArray):
 @rpc("authority", "call_remote", "reliable")
 func notifyMultiplayerStarted():
 	Log.Print("RECEIVED NOTIFY MULTIPLAYER STARTED FROM "+str(multiplayer.get_remote_sender_id()))
-	
+
+func checkIsDedicatedServer() -> bool:
+	return OS.has_feature("dedicated_server") || (DisplayServer.get_name() == "headless")
+
+func onMainCreated():
+	clearPlayers()
+	# If we're a dedicated server, we shouldn't do this!
+	if(!checkIsDedicatedServer()):
+		var myInfo := createPlayerInfo(1, MyProfile.profile)
+		registerPlayerInfo(myInfo)
+
+func onMainDeleted():
+	clearPlayers()
 
 func _ready() -> void:
-	var myInfo := createPlayerInfo(1, "Player")
-	registerPlayerInfo(myInfo)
+	#var myInfo := createPlayerInfo(1, "Player")
+	#var myInfo := createPlayerInfo(1, MyProfile.profile)
+	#registerPlayerInfo(myInfo)
 	
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.peer_connected.connect(_on_player_connected)
+	multiplayer.peer_authenticating.connect(onAuthenticatingOurselvesToServer)
+	multiplayer.peer_authentication_failed.connect(onAuthFailed)
+	multiplayer.auth_callback = onAuthenticateDataCallback
 
 func _on_player_disconnected(id):
 	if(Network.isServer()):
@@ -502,8 +602,9 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	
 	preMultiplayerStarted.emit(false)
 	clearPlayers()
-	Log.Print("Asking to join with nickname "+_nickname)
-	clientAskToJoin_SERVERRPC.rpc_id(1, _nickname)
+	Log.Print("Asking to join with my profile "+MyProfile.profile.nickname)
+	#clientAskToJoin_SERVERRPC.rpc_id(1, _nickname)
+	clientAskToJoin_SERVERRPC.rpc_id(1, MyProfile.profile.saveData())
 	
 	#await internal_clientAskToJoin
 	var timeoutRes := await AsyncUtil.timeout(internal_clientAskToJoin, 30.0)
@@ -519,14 +620,16 @@ func clientAskToJoin(_nickname:String) -> FuncResultOrError:
 	return FuncResultOrError.createResult(true)
 
 @rpc("any_peer", "call_remote", "reliable")
-func clientAskToJoin_SERVERRPC(nickname:String):
+func clientAskToJoin_SERVERRPC(_profileData:Dictionary):
 	if(!isServer()):
 		return
+	var _profile:PlayerProfile = PlayerProfile.new()
+	_profile.loadData(_profileData) #TODO: Network: Kick player if bad profile data?
 	
 	Log.Print("Received ask to join from "+str(multiplayer.get_remote_sender_id()))
 	
 	Log.Print("Registring new player "+str(multiplayer.get_remote_sender_id()))
-	var myInfo := createPlayerInfo(multiplayer.get_remote_sender_id(), nickname)
+	var myInfo := createPlayerInfo(multiplayer.get_remote_sender_id(), _profile)
 	myInfo.connecting = true
 	registerPlayerInfo(myInfo)
 	
@@ -568,3 +671,10 @@ func asyncCondition(cond: Callable, timeout: float = 10.0) -> Error:
 		if Time.get_ticks_msec() > timeout:
 			return ERR_TIMEOUT
 	return OK
+
+func isPlayerGIDConnected(_gid:String) -> bool:
+	for _id:int in players:
+		var theInfo:NetworkPlayerInfo = players[_id]
+		if(theInfo.profile && theInfo.profile.gid == _gid):
+			return true
+	return false

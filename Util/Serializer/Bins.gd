@@ -164,6 +164,9 @@ func save(_ar:Array, _addSaveMarker:bool = false):
 func saveVar(_var:Variant):
 	bytes.append_array(var_to_bytes(_var))
 
+func hasBytes(_am:int) -> bool:
+	return bytes.get_available_bytes() > _am
+
 # Start of read functions
 
 func read(_readType:int) -> Variant:

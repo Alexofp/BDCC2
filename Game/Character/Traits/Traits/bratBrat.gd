@@ -26,7 +26,7 @@ func getDescription() -> String:
 	return "Likes to disobey"
 
 func proccessSocialInteractionTags(_tags:Dictionary[int, float], _ourPawn:CharacterPawn, _targetPawn:CharacterPawn):
-	_tags[IATag.Submit] *= 1.2
-	_tags[IATag.Submission] *= 2.0
-	_tags[IATag.Domination] *= 1.5
-	_tags[IATag.Apologize] *= 1.3
+	multTag(_tags, IATag.Submit, 1.2)
+	multTag(_tags, IATag.Submission, 2.0)
+	multTag(_tags, IATag.Domination, 1.5)
+	multTag(_tags, IATag.Apologize, 1.3)
