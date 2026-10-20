@@ -541,6 +541,9 @@ func saveData() -> Dictionary:
 		charID = pawn.id,
 		UID = uniqueID,
 		pos = position,
+		ang = getYRotation(), # We rely on the dolls always being upright
+		kv = knockbackVelocity,
+		ht = hoverTexts,
 	}
 
 func loadData(_data:Dictionary):
@@ -548,6 +551,9 @@ func loadData(_data:Dictionary):
 	pawn = GM.pawnRegistry.getPawn(charID) # Pawns are created before dolls so it should work
 	uniqueID = SAVE.loadVar(_data, "UID", uniqueID)
 	position = SAVE.loadVar(_data, "pos", position)
+	setYRotation.call_deferred(SAVE.loadVar(_data, "ang", 0.0))
+	knockbackVelocity = SAVE.loadVar(_data, "kv", Vector3.ZERO)
+	hoverTexts = SAVE.loadVar(_data, "ht", [])
 	#name = str(uniqueID)
 
 func afterAddedToDollHolder():
@@ -722,8 +728,8 @@ func processRandomLookAt(_dt:float):
 			randomLookAtTimer = randf_range(1.0, 2.0)
 
 func lookAtRandom() -> bool:
-	if(!pawn):
-		return false
+	if(!pawn || isControlledByAnyPlayer()):
+		return true # So it checks it less
 	var theTargets := pawn.getPossibleLookAtNodes()
 	if(theTargets.is_empty()):
 		return false
@@ -801,6 +807,9 @@ func getLocalVelocity() -> Vector3:
 
 func getYRotation() -> float:
 	return model_root.global_rotation.y
+
+func setYRotation(_rot:float):
+	model_root.global_rotation.y = _rot
 
 func getYRotationHead() -> float:
 	return doll.getBodySkeleton().vision_eyes.global_rotation.y

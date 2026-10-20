@@ -20,6 +20,22 @@ var temporaryDominance:float = 0.0 # Dominant or Subby
 var values:MoodValues = MoodValues.new()
 var effects:MoodEffects = MoodEffects.new()
 
+func saveData() -> Dictionary:
+	return {
+		m = temporaryMood,
+		a = temporaryAnger,
+		h = temporaryHorny,
+		d = temporaryDominance,
+	}
+
+# Probably should be loaded late?
+func loadData(_data:Dictionary):
+	temporaryMood = SAVE.loadVar(_data, "m", 0.0)
+	temporaryAnger = SAVE.loadVar(_data, "a", 0.0)
+	temporaryHorny = SAVE.loadVar(_data, "h", 0.0)
+	temporaryDominance = SAVE.loadVar(_data, "d", 0.0)
+	updateMoods()
+
 func setPawn(_p:CharacterPawn):
 	pawn = _p
 
@@ -29,13 +45,6 @@ func processRare(_dt:float):
 	temporaryAnger = tickValueDown(temporaryAnger)
 	temporaryHorny = tickValueDown(temporaryHorny)
 	temporaryDominance = tickValueDown(temporaryDominance)
-	
-	values.clear()
-	values.mood += temporaryMood
-	values.anger += temporaryAnger
-	values.horny += temporaryHorny
-	values.dominance += temporaryDominance
-	values.combineWith(pawn.getCharacter().memoryHolder.moodValues)
 	
 	updateMoods()
 
@@ -56,6 +65,14 @@ func calcMoodNames() -> Array[String]:
 func updateMoods():
 	if(!Network.isServer()):
 		return
+		
+	values.clear()
+	values.mood += temporaryMood
+	values.anger += temporaryAnger
+	values.horny += temporaryHorny
+	values.dominance += temporaryDominance
+	values.combineWith(pawn.getCharacter().memoryHolder.moodValues)
+		
 	moods.clear()
 	effects.clear()
 	for theMood in GlobalRegistry.getMoods():

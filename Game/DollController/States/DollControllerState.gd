@@ -322,3 +322,10 @@ func processDollLookAtModifiers(_doll:DollController, _dt:float):
 	theDoll.lookModHead = Util.moveValueTo(theDoll.lookModHead, theVec.x, _dt)
 	theDoll.lookModNeck = Util.moveValueTo(theDoll.lookModNeck, theVec.y, _dt)
 	theDoll.lookModChest = Util.moveValueTo(theDoll.lookModChest, theVec.z, _dt)
+
+# Not really called currently because there isn't much to save. Might change
+func saveData() -> Dictionary:
+	return {}
+
+func loadData(_data:Dictionary):
+	pass

@@ -38,7 +38,7 @@ func _physics_process(_delta: float) -> void:
 		howManyToUpdate -= 1
 
 @rpc("authority", "call_remote", "reliable")
-func createPawnRPC(charID:String, data:Dictionary):
+func createPawnRPC(charID:String, data:Dictionary) -> CharacterPawn:
 	Log.Print("CREATEPAWN_RPC "+str(charID)+" "+str(data))
 	var thePawn:CharacterPawn= pawnScene.instantiate()
 	thePawn.name = charID
@@ -54,6 +54,7 @@ func createPawnRPC(charID:String, data:Dictionary):
 	insertPawnIntoSparseGrid(thePawn)
 	onPawnCreated.emit(thePawn)
 	onPawnListChanged.emit()
+	return thePawn
 
 @rpc("authority", "call_remote", "reliable")
 func deletePawnRPC(charID:String):
@@ -334,7 +335,17 @@ func saveData() -> Dictionary:
 func loadData(_data:Dictionary):
 	clearPawns()
 	
-	Log.Print(str(_data))
+	var pawnToLateData:Dictionary[CharacterPawn, Dictionary]
+	
+	#Log.Print(str(_data))
 	var pawnData:Array = SAVE.loadVar(_data, "pawns", [])
 	for pawnEntry in pawnData:
-		createPawnRPC(SAVE.loadVar(pawnEntry, "id", ""), SAVE.loadVar(pawnEntry, "data", {}))
+		var theData:Dictionary = SAVE.loadVar(pawnEntry, "data", {})
+		var thePawn:CharacterPawn = createPawnRPC(SAVE.loadVar(pawnEntry, "id", ""), theData)
+		if(thePawn):
+			pawnToLateData[thePawn] = theData
+	
+	# Gotta load stuff twice because some of the pawn's stuff depends on having other pawns available
+	for thePawn:CharacterPawn in pawnToLateData:
+		var theData:Dictionary = pawnToLateData[thePawn]
+		thePawn.loadDataLate(theData)

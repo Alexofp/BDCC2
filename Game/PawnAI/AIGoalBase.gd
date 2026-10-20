@@ -20,6 +20,16 @@ const STATUS_CANCELLED:int = 2
 
 # FUNCTIONS TO OVERRIDE
 
+func saveData() -> Dictionary:
+	return {
+		gg = goalGenerator,
+		go = goalOutcome,
+	}
+
+func loadData(_data:Dictionary):
+	goalGenerator = SAVE.loadStr(_data, "gg")
+	goalOutcome = SAVE.loadInt(_data, "go", STATUS_UNDECIDED)
+
 func getName() -> String:
 	return id
 

@@ -6,6 +6,24 @@ var extraIntent:int = -1
 var interactionAmount:int = 3
 var didInteractions:Dictionary[String, int]
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["intent"] = intent
+	_data["eintent"] = extraIntent
+	_data["intAm"] = interactionAmount
+	_data["didint"] = didInteractions
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	intent = SAVE.loadInt(_data, "intent", IATag.Friendly)
+	extraIntent = SAVE.loadInt(_data, "eintent", -1)
+	interactionAmount = SAVE.loadInt(_data, "intAm", 3)
+	var theDidInteractions:Dictionary = SAVE.loadDict(_data, "didint", {})
+	didInteractions.clear()
+	for _theIntStr:String in theDidInteractions:
+		didInteractions[_theIntStr] = theDidInteractions[_theIntStr]
+
 func _init() -> void:
 	id = "DoSocialInteractions"
 	handlingInteractions = ["Talking"]

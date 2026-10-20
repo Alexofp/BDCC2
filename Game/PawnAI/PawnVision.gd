@@ -8,6 +8,50 @@ var blind:bool = false
 
 var seePawns:Array[CharacterPawn] = []
 
+func saveData() -> Dictionary:
+	var memoryData:Array = []
+	for thePawn:CharacterPawn in memory:
+		var theSeen:MaybeSeenPawn = memory[thePawn]
+		if(theSeen.shouldRemove):
+			continue
+		memoryData.append({
+			id = thePawn.getID(),
+			s = theSeen.seen,
+			t = theSeen.time,
+			d = theSeen.detection,
+			rh = theSeen.rememberHostile,
+			stf = theSeen.seenThisFrame,
+		})
+	return {
+		memory = memoryData,
+	}
+
+# Must be loaded late
+func loadData(_data:Dictionary):
+	checkHostileStatus()
+	
+	memory.clear()
+	seePawns.clear()
+	
+	var memoryData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "memory")
+	for theEntry:Dictionary in memoryData:
+		var theID:String = SAVE.loadStr(theEntry, "id")
+		var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theID)
+		if(!thePawn):
+			continue
+		var newSeen:MaybeSeenPawn = MaybeSeenPawn.new()
+		newSeen.vision = weakref(self)
+		newSeen.seen = SAVE.loadBool(theEntry, "s")
+		newSeen.time = SAVE.loadFloat(theEntry, "t")
+		newSeen.detection = SAVE.loadFloat(theEntry, "d")
+		newSeen.rememberHostile = SAVE.loadBool(theEntry, "rh")
+		newSeen.seenThisFrame = SAVE.loadFloat(theEntry, "stf")
+		
+		thePawn.onPawnDelete.connect(newSeen.onPawnDelete.bind(thePawn))
+		memory[thePawn] = newSeen
+		if(newSeen.seen):
+			seePawns.append(thePawn)
+
 class MaybeSeenPawn:
 	var vision:WeakRef
 	var seen:bool = false # rename to aware?

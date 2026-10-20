@@ -4,12 +4,58 @@ class_name AIGoalHandler
 var ai:PawnAI
 
 var goals:Array[AIGoalBase]
+var staticGoals:Dictionary[String, AIGoalBase]
 var currentGoal:AIGoalBase
 
 var goalGenerators:Array[GoalGeneratorBase]
 var goalGeneratorsDict:Dictionary[String, GoalGeneratorBase]
 
 var interactionToGoal:Dictionary[String, Array]
+
+func saveData() -> Dictionary:
+	var theGoalStuff:Array[Dictionary] = []
+	for theGoal:AIGoalBase in goals:
+		if(theGoal.wasDeleted):
+			continue
+		theGoalStuff.append({
+			id = theGoal.id,
+			st = theGoal.isStaticGoal(),
+			cur = (currentGoal == theGoal),
+			data = theGoal.saveData(),
+		})
+	return {
+		goals = theGoalStuff,
+	}
+
+func loadData(_data:Dictionary):
+	clearGoals()
+	addStaticGoals()
+	
+	var theGoalStuff:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "goals")
+	for theGoalEntry:Dictionary in theGoalStuff:
+		var theID:String = SAVE.loadStr(theGoalEntry, "id")
+		var _isStatic:bool = SAVE.loadBool(theGoalEntry, "st")
+		var _isCur:bool = SAVE.loadBool(theGoalEntry, "cur")
+		var theData:Dictionary = SAVE.loadDict(theGoalEntry, "data")
+		
+		if(_isStatic):
+			if(!staticGoals.has(theID)):
+				continue
+			var theExistingStaticGoal:AIGoalBase = staticGoals[theID]
+			theExistingStaticGoal.loadData(theData)
+			if(_isCur):
+				currentGoal = theExistingStaticGoal
+			continue
+		
+		var newGoal:AIGoalBase = GlobalRegistry.createAIGoal(theID)
+		if(!newGoal || newGoal.isStaticGoal()):
+			continue
+		newGoal.setPawn(ai.getPawn())
+		goals.append(newGoal)
+		internal_addGoalToLists(newGoal)
+		if(_isCur):
+			currentGoal = newGoal
+	pass
 
 func setAI(_ai:PawnAI):
 	ai = _ai
@@ -40,23 +86,36 @@ func addGoal(_goalID:String, _args:Array = [], _checkHasSame:bool = true) -> AIG
 	
 	goals.append(newGoal)
 	newGoal.startFinal()
-	for interactionID in newGoal.handlingInteractions:
-		if(!interactionToGoal.has(interactionID)):
-			var _newAr:Array[AIGoalBase] = [newGoal]
-			interactionToGoal[interactionID] = _newAr
-		else:
-			interactionToGoal[interactionID].append(newGoal)
+	internal_addGoalToLists(newGoal)
+
 	if(!newGoal.isStaticGoal()):
 		Log.Print("ADDED NEW GOAL: "+_goalID+" "+str(_args))
 	return newGoal
 
-func removeGoal(_goal:AIGoalBase):
+func internal_addGoalToLists(_goal:AIGoalBase):
+	if(_goal.isStaticGoal()):
+		staticGoals[_goal.id] = _goal
+	
+	for interactionID in _goal.handlingInteractions:
+		if(!interactionToGoal.has(interactionID)):
+			var _newAr:Array[AIGoalBase] = [_goal]
+			interactionToGoal[interactionID] = _newAr
+		else:
+			interactionToGoal[interactionID].append(_goal)
+
+func clearGoals():
+	for theGoal:AIGoalBase in goals.duplicate():
+		removeGoal(theGoal, true)
+
+func removeGoal(_goal:AIGoalBase, _removeStatic:bool = false):
 	if(currentGoal == _goal):
 		setCurrentGoal(null)
 	
-	if(_goal.isStaticGoal()):
+	if(!_removeStatic && _goal.isStaticGoal()):
 		#Log.Printerr("TRYING TO REMOVE A STATIC GOAL FROM PAWN AI: "+_goal.id)
 		return
+	if(_goal.isStaticGoal()):
+		staticGoals.erase(_goal.id)
 	#goals.erase(_goal)
 	if(_goal.wasDeleted):
 		return

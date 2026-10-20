@@ -11,6 +11,29 @@ var obeyTask:int = ObeyTask.Nothing
 var obeyPose:String = ""
 var obeyPoseHands:String = ""
 
+func saveData() -> Dictionary:
+	if(dominance <= 0.0):
+		return {
+			dom = dominance,
+		}
+	return {
+		dom = dominance,
+		obeyCharID = obeyCharID,
+		obeyTask = obeyTask,
+		obeyPose = obeyPose,
+		obeyPoseHands = obeyPoseHands,
+	}
+
+# Must be loaded late
+func loadData(_data:Dictionary):
+	dominance = SAVE.loadVar(_data, "dom", 0.0)
+	if(dominance > 0.0):
+		obeyCharID = SAVE.loadVar(_data, "obeyCharID", "")
+		obeyPawn = GM.main.pawn_registry.getPawn(obeyCharID)
+		obeyTask = SAVE.loadVar(_data, "obeyTask", ObeyTask.Nothing)
+		obeyPose = SAVE.loadVar(_data, "obeyPose", "")
+		obeyPoseHands = SAVE.loadVar(_data, "obeyPoseHands", "")
+
 func setPawn(_p:CharacterPawn):
 	pawn = _p
 

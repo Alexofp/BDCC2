@@ -349,17 +349,35 @@ func loadNetworkData(_data:Bins):
 func saveData() -> Dictionary:
 	return {
 		pos = position,
+		ang = rotation.y,
 		state = pawnState,
 		poseHandler = poseHandler.saveData(),
 		cds = cooldowns.saveData(),
+		ct = combatTimer,
+		
+		sub = submission.saveData(),
+		mood = mood.saveData(),
+		comai = combatAI.saveData(),
+		ai = ai.saveData(),
 	}
 
 func loadData(_data:Dictionary):
 	position = SAVE.loadVar(_data, "pos", position)
+	rotation.y = SAVE.loadVar(_data, "ang", 0.0)
+	combatTimer = SAVE.loadVar(_data, "ct", 0.0)
 	pawnState = SAVE.loadVar(_data, "state", STATE_NORMAL)
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
 	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
 	cooldowns.loadData(SAVE.loadVar(_data, "cds", {}))
+
+# If the thing includes finding other pawns or being inside a scene tree, gotta do it here
+func loadDataLate(_data:Dictionary):
+	submission.loadData(SAVE.loadVar(_data, "sub", {}))
+	mood.loadData(SAVE.loadVar(_data, "mood", {}))
+	combatAI.loadData(SAVE.loadDict(_data, "comai"))
+	ai.loadData(SAVE.loadDict(_data, "ai"))
+	
+	GM.pawnRegistry.checkPawnSparseGrid(self)
 
 var tempDoll
 func _on_doll_node_on_node_changed(newNode: Variant) -> void:

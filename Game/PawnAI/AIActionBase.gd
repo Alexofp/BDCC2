@@ -13,6 +13,14 @@ var curPlan:AIPlan
 var subAction:AIActionBase
 var parentAction:AIActionBase
 
+func saveData() -> Dictionary:
+	return {
+		actionTag = actionTag,
+	}
+
+func loadData(_data:Dictionary):
+	actionTag = SAVE.loadStr(_data, "actionTag")
+
 const STATUS_UNKNOWN = 0
 const STATUS_COMPLETED = 1
 const STATUS_FAILED = 2

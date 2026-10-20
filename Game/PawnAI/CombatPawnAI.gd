@@ -42,6 +42,35 @@ class ActiveEnemy:
 	var agroScore:float
 	var type:int = ENEMY_GENERIC
 
+func saveData() -> Dictionary:
+	var enemyStuff:Array = []
+	for thePawn:CharacterPawn in activeEnemies:
+		var theEn:ActiveEnemy = activeEnemies[thePawn]
+		enemyStuff.append({
+			id = thePawn.getID(),
+			ags = theEn.agroScore,
+			t = theEn.type,
+		})
+	return {
+		ae = enemyStuff,
+	}
+
+# Must be loaded late
+func loadData(_data:Dictionary):
+	activeEnemies.clear()
+	
+	var enemyStuff:Array = SAVE.loadVar(_data, "ae", [])
+	for theEntry:Dictionary in enemyStuff:
+		var theID:String = SAVE.loadStr(theEntry, "id", "")
+		var thePawn:CharacterPawn = GM.pawnRegistry.getPawn(theID)
+		if(!thePawn):
+			continue
+		var newActiveEnemy:ActiveEnemy = ActiveEnemy.new()
+		newActiveEnemy.agroScore = SAVE.loadFloat(theEntry, "ags", 0.0)
+		newActiveEnemy.type = SAVE.loadInt(theEntry, "t", ENEMY_GENERIC)
+		activeEnemies[thePawn] = newActiveEnemy
+		thePawn.tree_exiting.connect(removeEnemy.bind(thePawn))
+	
 func setPawn(_pawn:CharacterPawn):
 	pawn = _pawn
 	comboContext.pawn = _pawn

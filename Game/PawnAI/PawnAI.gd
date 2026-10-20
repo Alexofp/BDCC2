@@ -19,6 +19,27 @@ var lowestAIAction:AIActionBase
 
 var goalHandler:AIGoalHandler = AIGoalHandler.new()
 
+func saveData() -> Dictionary:
+	return {
+		cmt = currentMoveTarget,
+		srtt = shouldRunToTarget,
+		srd = shouldRunDistance,
+		vision = vision.saveData(),
+		goals = goalHandler.saveData(),
+	}
+
+# Must be loaded late
+func loadData(_data:Dictionary):
+	currentMoveTarget = SAVE.loadVec3(_data, "cmt")
+	shouldRunToTarget = SAVE.loadBool(_data, "srtt")
+	shouldRunDistance = SAVE.loadFloat(_data, "srd")
+	vision.loadData(SAVE.loadDict(_data, "vision"))
+	goalHandler.loadData(SAVE.loadDict(_data, "goals"))
+	
+	aiAction = null # Trying to save/load these is too much work. Might as well just let the goal give us a new action
+	lowestAIAction = null
+	#lowestAIAction = findLowestAIAction()
+
 func _init() -> void:
 	pass
 
@@ -304,6 +325,12 @@ func getActionThatHandlesCombat() -> AIActionBase:
 			return theAction
 		theAction = theAction.parentAction
 	return null
+
+func findLowestAIAction() -> AIActionBase:
+	var theAction:AIActionBase = aiAction
+	while(theAction && theAction.subAction):
+		theAction = theAction.subAction
+	return theAction
 
 func onCurrentAIGoalSwitch():
 	#var _newGoal := goalHandler.getCurrentGoal()

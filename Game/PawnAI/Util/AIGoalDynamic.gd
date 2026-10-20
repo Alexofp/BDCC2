@@ -6,6 +6,15 @@ class_name AIGoalDynamic
 var elapsedTime:float = 0.0
 var goalTimeout:float = 30.0
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["et"] = elapsedTime
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	elapsedTime = SAVE.loadFloat(_data, "et")
+
 func processRareFinal(_dt:float):
 	elapsedTime += _dt
 	if(goalTimeout > 0.0 && elapsedTime >= goalTimeout):

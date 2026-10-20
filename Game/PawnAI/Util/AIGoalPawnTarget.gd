@@ -5,6 +5,15 @@ class_name AIGoalPawnTarget
 
 var targetID:String
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["tid"] = targetID
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	targetID = SAVE.loadStr(_data, "tid")
+
 func isSameAs(_otherGoal:AIGoalBase) -> bool:
 	if(!super.isSameAs(_otherGoal)):
 		return false
