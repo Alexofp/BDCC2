@@ -39,11 +39,14 @@ func saveFullNetworkData() -> Bins:
 		Bins.BINS, characterRegistry.saveNetworkData(),
 		Bins.BINS, pawnRegistry.saveNetworkData(),
 		Bins.BINS, dollHolder.saveNetworkData(),
-		Bins.BINS, sexManager.saveNetworkData(),
 		Bins.BINS, leashSystem.saveNetworkData(),
 		Bins.BINS, networkedNodes.saveNetworkData(),
+		Bins.BINS, sexManager.saveNetworkData(),
 		Bins.BINS, sitManager.saveNetworkData(),
 		Bins.BINS, GM.main.relationshipSystem.saveNetworkData(),
+		Bins.BINS, GM.main.interactionSystem.saveNetworkData(),
+		Bins.BINS, GM.main.coupleAnimsSystem.saveNetworkData(),
+		Bins.BINS, GM.main.action_system.saveNetworkData(),
 	])
 	return data.endSave()
 
@@ -54,11 +57,14 @@ func loadFullNetworkData(_data:Bins):
 	characterRegistry.loadNetworkData(_data.readBins())
 	pawnRegistry.loadNetworkData(_data.readBins())
 	dollHolder.loadNetworkData(_data.readBins())
-	sexManager.loadNetworkData(_data.readBins())
 	leashSystem.loadNetworkData(_data.readBins())
 	networkedNodes.loadNetworkData(_data.readBins())
+	sexManager.loadNetworkData(_data.readBins()) # Relies on networked nodes for props
 	sitManager.loadNetworkData(_data.readBins())
 	GM.main.relationshipSystem.loadNetworkData(_data.readBins())
+	GM.main.interactionSystem.loadNetworkData(_data.readBins())
+	GM.main.coupleAnimsSystem.loadNetworkData(_data.readBins())
+	GM.main.action_system.loadNetworkData(_data.readBins())
 	_data.endLoad()
 
 func saveFullData() -> Dictionary:
@@ -68,22 +74,30 @@ func saveFullData() -> Dictionary:
 		characterRegistry = characterRegistry.saveData(),
 		pawnRegistry = pawnRegistry.saveData(),
 		dolls = dollHolder.saveData(),
-		sexManager = sexManager.saveData(),
 		networkedNodes = networkedNodes.saveData(),
+		sexManager = sexManager.saveData(), # Relies on networked nodes for props
 		sitManager = sitManager.saveData(),
 		relationshipSystem = GM.main.relationshipSystem.saveData(),
+		interactionSystem = GM.main.interactionSystem.saveData(),
+		coupleAnimsSystem = GM.main.coupleAnimsSystem.saveData(),
+		actionSystem = GM.main.action_system.saveData(),
+		leashSystem = GM.main.leash_system.saveData(),
 	}
 
 func loadFullData(_data:Dictionary):
-	GM.main.timeManager.loadData(SAVE.loadVar(_data, "timeManager", {}))
-	inventoryRegistry.loadData(SAVE.loadVar(_data, "inventoryRegistry", {}))
-	characterRegistry.loadData(SAVE.loadVar(_data, "characterRegistry", {}))
-	pawnRegistry.loadData(SAVE.loadVar(_data, "pawnRegistry", {}))
-	dollHolder.loadData(SAVE.loadVar(_data, "dolls", {}))
-	sexManager.loadData(SAVE.loadVar(_data, "sexManager", {}))
-	networkedNodes.loadData(SAVE.loadVar(_data, "networkedNodes", {}))
-	sitManager.loadData(SAVE.loadVar(_data, "sitManager", {}))
-	GM.main.relationshipSystem.loadData(SAVE.loadVar(_data, "relationshipSystem", {}))
+	GM.main.timeManager.loadData(SAVE.loadDict(_data, "timeManager"))
+	inventoryRegistry.loadData(SAVE.loadDict(_data, "inventoryRegistry"))
+	characterRegistry.loadData(SAVE.loadDict(_data, "characterRegistry"))
+	pawnRegistry.loadData(SAVE.loadDict(_data, "pawnRegistry"))
+	dollHolder.loadData(SAVE.loadDict(_data, "dolls"))
+	networkedNodes.loadData(SAVE.loadDict(_data, "networkedNodes"))
+	sexManager.loadData(SAVE.loadDict(_data, "sexManager"))
+	sitManager.loadData(SAVE.loadDict(_data, "sitManager"))
+	GM.main.relationshipSystem.loadData(SAVE.loadDict(_data, "relationshipSystem"))
+	GM.main.interactionSystem.loadData(SAVE.loadDict(_data, "interactionSystem"))
+	GM.main.coupleAnimsSystem.loadData(SAVE.loadDict(_data, "coupleAnimsSystem"))
+	GM.main.action_system.loadData(SAVE.loadDict(_data, "actionSystem"))
+	GM.main.leash_system.loadData(SAVE.loadDict(_data, "leashSystem"))
 
 func registerOnServerCommand(_command:int, _theObj:Object, functionName:String, callType:int, argsList:Array):
 	if(serverCommandObjects.has(_command)):

@@ -8,8 +8,8 @@ func _init() -> void:
 
 func isImpossible() -> bool:
 	var thePawn := getTarget()
-	#if(!thePawn || !thePawn.isDefeated()):
-	#	return true
+	if(!thePawn):
+		return true
 	if(thePawn.global_position.distance_squared_to(pawn.global_position) > 625.0): # 25 meters
 		return true
 	return false

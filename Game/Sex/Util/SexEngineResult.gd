@@ -6,6 +6,30 @@ var didAnything:bool
 var domsLostGrip:bool
 var mode:int = SexEngine.MODE_NORMAL
 
+func saveData() -> Dictionary:
+	var theParticipantsData:Array[Dictionary]
+	for theCharID:String in participants:
+		var theParticipant:Participant = participants[theCharID]
+		theParticipantsData.append(theParticipant.saveData())
+	
+	return {
+		ps = theParticipantsData,
+		da = didAnything,
+		dlg = domsLostGrip,
+		m = mode,
+	}
+
+func loadData(_data:Dictionary):
+	participants.clear()
+	var theParticipantsData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "ps")
+	for theEntry:Dictionary in theParticipantsData:
+		var newPart:Participant = Participant.new()
+		newPart.loadData(theEntry)
+		participants[newPart.charID] = newPart
+	didAnything = SAVE.loadBool(_data, "da")
+	domsLostGrip = SAVE.loadBool(_data, "dlg")
+	mode = SAVE.loadInt(_data, "mode")
+
 func getSatisfactionCharID(_charID:String) -> float:
 	if(!participants.has(_charID)):
 		return 0.5
@@ -31,7 +55,27 @@ class Participant:
 	var frustrationRaw:float = 0.0
 	var orgasms:int = 0
 	var orgasmsDenied:int = 0
-
+	
+	func saveData() -> Dictionary:
+		return {
+			c = charID,
+			r = role,
+			s = satisfaction,
+			sr = satisfactionRaw,
+			fr = frustrationRaw,
+			o = orgasms,
+			od = orgasmsDenied,
+		}
+	
+	func loadData(_data:Dictionary):
+		charID = SAVE.loadStr(_data, "c")
+		role = SAVE.loadInt(_data, "r")
+		satisfaction = SAVE.loadFloat(_data, "s")
+		satisfactionRaw = SAVE.loadFloat(_data, "sr")
+		frustrationRaw = SAVE.loadFloat(_data, "fr")
+		orgasms = SAVE.loadInt(_data, "o")
+		orgasmsDenied = SAVE.loadInt(_data, "od")
+	
 	func fillFromInfo(_info:SexParticipantInfo):
 		charID = _info.getID()
 		role = _info.role

@@ -12,6 +12,15 @@ var lineSureCrit:String = ""
 var lineNo:String = "No"
 var lineNoCrit:String = ""
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["giveUpTimer"] = giveUpTimer
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	giveUpTimer = SAVE.loadInt(_data, "giveUpTimer")
+
 func _init() -> void:
 	id = ""
 
@@ -48,7 +57,7 @@ func _do(_role:int, _action:InteractionAction):
 			addAnnoyanceMain(0.2)
 		pushStopInteraction()
 	if(_action.id == "base_yes"):
-		#state = "chat"
+		#setState("chat")
 		socialInteractionStart()
 		socialInteractionAgree()
 		var theLine:String = lineSure

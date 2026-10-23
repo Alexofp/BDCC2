@@ -9,6 +9,9 @@ func _init() -> void:
 	GI.sexManager = self
 
 func addSexInternal(theNode:SexEngine):
+	if(sexEngines.has(theNode)):
+		assert(false, "Trying to add the same sex engine twice!")
+		return
 	sexEngines.append(theNode)
 
 func removeSexInternal(theNode:SexEngine):
@@ -52,8 +55,19 @@ func startSex(_conf:SexStartConf) -> SexEngine:
 	newSexEngine.start(_conf.sexType, roleToID, _conf.args)
 	
 	#GI.networkedNodes.notifySpawned(newSexEngine)
-	
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(spawnSexEngine_RPC.bind(newSexEngine.saveData()))
 	return newSexEngine
+
+@rpc("authority", "call_remote", "reliable")
+func spawnSexEngine_RPC(theEntry:Dictionary):
+	var newSexEngine:SexEngine = sexEngineScene.instantiate()
+	newSexEngine.name = SAVE.loadStr(theEntry, "name", "borke")
+	add_child(newSexEngine, true)
+	newSexEngine.loadData(theEntry)
+	#if(newSexEngine.shouldBeRemoved):
+	#	newSexEngine.name += "_FAILED_TO_LOAD"
+	#	newSexEngine.queue_free()
 
 func checkPawnsInternal(pawns:Dictionary) -> bool:
 	var uniqueCharIDs:Array = []
@@ -143,16 +157,38 @@ func askStartMasturbation_SERVERRPC(_pawnID:String):
 	startSex(newSex)
 
 func saveNetworkData() -> Bins:
-	return Bins.saveStartEnd()
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
 
 func loadNetworkData(_data:Bins):
 	_data.loadStart()
-	
+	loadData(_data.readVar())
 	_data.endLoad()
 
 func saveData() -> Dictionary:
-	return {}
+	var sexDatas:Array[Dictionary]
+	for theSexEngine:SexEngine in sexEngines:
+		sexDatas.append(theSexEngine.saveData())
+	
+	return {
+		sexEngines = sexDatas,
+	}
 
 func loadData(_data:Dictionary):
-	#sexEngines.clear()
-	pass
+	for theSexEngine:SexEngine in sexEngines.duplicate():
+		theSexEngine.queue_free()
+		theSexEngine.name += "_DELETED"
+	sexEngines.clear()
+	
+	var sexDatas:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "sexEngines")
+	for theEntry:Dictionary in sexDatas:
+		var newSexEngine:SexEngine = sexEngineScene.instantiate()
+		newSexEngine.name = SAVE.loadStr(theEntry, "name", "borke")
+		add_child(newSexEngine, true)
+		newSexEngine.loadData(theEntry)
+		if(newSexEngine.shouldBeRemoved):
+			newSexEngine.name += "_FAILED_TO_LOAD"
+			newSexEngine.queue_free()
+			continue
+		

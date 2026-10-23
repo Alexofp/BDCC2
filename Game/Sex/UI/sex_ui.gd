@@ -56,18 +56,23 @@ func onActionButtonPressed(_indx:int):
 func getResist() -> ResistMinigameNode:
 	return sexEngine.resistMinigame if sexEngine else null
 
+func onSexEngineGone(_engine:SexEngine):
+	setEngine(null)
+
 func setEngine(theEngine:SexEngine):
 	if(sexEngine):
 		sexEngine.onAnimSceneSwitched.disconnect(onSexEngineAnimSceneSwitched)
 		sexEngine.onParticipantUpdate.disconnect(onSexEngineParticipantUpdate)
 		sexEngine.onSexChange.disconnect(onSexEngineChange)
 		sexEngine.resistMinigame.onUpdate.disconnect(onResistMinigameUpdate)
+		sexEngine.tree_exiting.disconnect(onSexEngineGone.bind(sexEngine))
 	sexEngine = theEngine
 	if(sexEngine):
 		sexEngine.onAnimSceneSwitched.connect(onSexEngineAnimSceneSwitched)
 		sexEngine.onParticipantUpdate.connect(onSexEngineParticipantUpdate)
 		sexEngine.onSexChange.connect(onSexEngineChange)
 		sexEngine.resistMinigame.onUpdate.connect(onResistMinigameUpdate)
+		sexEngine.tree_exiting.connect(onSexEngineGone.bind(sexEngine))
 		playQuickFade()
 	
 	updateSexParticipantsList()

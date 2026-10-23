@@ -13,6 +13,9 @@ func setInfo(_info:SexParticipantInfo):
 func _process(_delta: float) -> void:
 	if(!info):
 		return
+	if(!info.getSexEngine()):
+		assert(false, "LINGERING SEX PARTICIPANT INFO!")
+		return
 	var character:BaseCharacter = GM.characterRegistry.getCharacter(info.getID())
 	if(!character):
 		return

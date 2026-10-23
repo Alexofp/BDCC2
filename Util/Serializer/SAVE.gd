@@ -5,7 +5,7 @@ static func loadVar(_data:Dictionary, _theKey:String, _default):
 	if(!_data.has(_theKey)):
 		return _default
 		
-	if(_default != null && typeof(_data[_theKey]) != typeof(_default) && !(typeof(_data[_theKey]) == TYPE_FLOAT && typeof(_default) == TYPE_INT)):
+	if(_default != null && typeof(_data[_theKey]) != typeof(_default) && !(typeof(_data[_theKey]) == TYPE_FLOAT && typeof(_default) == TYPE_INT) && !(typeof(_data[_theKey]) == TYPE_STRING_NAME && typeof(_default) == TYPE_STRING)):
 		Log.Printerr("Value mismatch when loading. Key is "+str(_theKey)+" Value is '"+str(_data[_theKey])+"' Default is '"+str(_default)+"'")
 		return _default
 
@@ -33,6 +33,8 @@ static func loadDict(_data:Dictionary, _theKey:String, _default:Dictionary = {})
 	return loadVar(_data, _theKey, _default)
 static func loadBool(_data:Dictionary, _theKey:String, _default:bool = false) -> bool:
 	return loadVar(_data, _theKey, _default)
+static func loadTransform(_data:Dictionary, _theKey:String, _default:Transform3D = Transform3D.IDENTITY) -> Transform3D:
+	return loadVar(_data, _theKey, _default)
 
 static func loadIntoVar(_data:Dictionary, _obj:Object, _theVar:String, _default):
 	_obj.set(_theVar, loadVar(_data, _theVar, _default))
@@ -40,3 +42,9 @@ static func loadIntoVar(_data:Dictionary, _obj:Object, _theVar:String, _default)
 static func loadIntoVarIfExists(_data:Dictionary, _obj:Object, _theVar:String):
 	if(_data.has(_theVar)):
 		_obj.set(_theVar, _data[_theVar])
+
+static func getNodePath(_node:Node) -> NodePath:
+	return _node.get_path()
+
+static func loadNodeByPath(_data:Dictionary, _theKey:String) -> Node:
+	return GI.get_tree().root.get_node_or_null(SAVE.loadVar(_data, _theKey, NodePath()))

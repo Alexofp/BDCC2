@@ -8,6 +8,32 @@ var amountStarted:Dictionary[String, int] = {} # chain id = amount started
 var noAnswerTimer:float = 0.0
 var wantStop:bool = false
 
+func saveData() -> Dictionary:
+	var theChains:Array[Dictionary]
+	for theChain:SexDialogueChain in chains:
+		theChains.append(theChain.saveData())
+	return {
+		chains = theChains,
+		amSt = amountStarted,
+		nat = noAnswerTimer,
+		ws = wantStop,
+	}
+
+func loadData(_data:Dictionary):
+	chains.clear()
+	var theChainData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "chains")
+	for theEntry:Dictionary in theChainData:
+		var theChain:SexDialogueChain = SexDialogueChain.new()
+		theChain.setHandler(self)
+		theChain.loadData(theEntry)
+		if(theChain.wasDeleted):
+			continue
+		chains.append(theChain)
+	amountStarted.clear()
+	amountStarted.merge(SAVE.loadDict(_data, "amSt"))
+	noAnswerTimer = SAVE.loadFloat(_data, "nat")
+	wantStop = SAVE.loadBool(_data, "ws")
+
 func setSex(_sex:SexEngine):
 	sex = _sex
 

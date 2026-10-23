@@ -3,6 +3,17 @@ extends InteractionSocialSimpleBase
 var meanResponce:String
 var calmResponce:String
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["meanResponce"] = meanResponce
+	_data["calmResponce"] = calmResponce
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	meanResponce = SAVE.loadStr(_data, "meanResponce")
+	calmResponce = SAVE.loadStr(_data, "calmResponce")
+
 func _init() -> void:
 	id = "Insult"
 	socialActionName = "Insult"

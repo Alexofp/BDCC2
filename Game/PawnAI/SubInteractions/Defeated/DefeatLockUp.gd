@@ -82,7 +82,7 @@ func start(_roles:Dictionary, _args:Array):
 		#stopLookAt(ROLE_TARGET)
 		#stopInteraction()
 	#if(_action.id == "lock"):
-		#state = "lockme"
+		#setState("lockme")
 		#sayText(ROLE_MAIN, "Lock me up!")
 	#if(_action.id == "fight"):
 		##startSubInteraction("ff", "FriendlyFight", {main=getPawn(ROLE_MAIN),target=getPawn(ROLE_TARGET)})

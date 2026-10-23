@@ -21,6 +21,46 @@ var targetPos:Transform3D
 var mainInitialPos:Transform3D
 var targetInitialPos:Transform3D
 
+func saveData() -> Dictionary:
+	return {
+		id = anim.id,
+		main = main.getID(),
+		target = target.getID(),
+		t = time,
+		s = state,
+		it = infTimer,
+		se = shouldEnd,
+		p = pos,
+		mp = mainPos,
+		tp = targetPos,
+		mip = mainInitialPos,
+		tip = targetInitialPos,
+	}
+
+func loadData(_data:Dictionary):
+	var theAnimID:String = SAVE.loadStr(_data, "id")
+	anim = GlobalRegistry.getCoupleAnim(theAnimID)
+	var theMainID:String = SAVE.loadStr(_data, "main")
+	var theTargetID:String = SAVE.loadStr(_data, "target")
+	main = GM.pawnRegistry.getPawn(theMainID)
+	target = GM.pawnRegistry.getPawn(theTargetID)
+	if(!anim || !main || !target):
+		wasDeleted = true
+		shouldEnd = true
+		return
+	time = SAVE.loadFloat(_data, "t")
+	state = SAVE.loadInt(_data, "s")
+	infTimer = SAVE.loadBool(_data, "it")
+	shouldEnd = SAVE.loadBool(_data, "se")
+	pos = SAVE.loadTransform(_data, "p")
+	mainPos = SAVE.loadTransform(_data, "mp")
+	targetPos = SAVE.loadTransform(_data, "tp")
+	mainInitialPos = SAVE.loadTransform(_data, "mip")
+	targetInitialPos = SAVE.loadTransform(_data, "tip")
+
+	main.doCoupleAnim(anim.animMain)
+	target.doCoupleAnim(anim.animTarget)
+
 const SMOOTH_CURVE := preload("res://addons/LayeredAnimPlayer/XFadeCurves/Smooth.tres")
 
 signal onAnimEnded

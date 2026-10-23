@@ -17,6 +17,18 @@ var answerDenyReactionCritical:String = "ComplimentDeny"
 var pickedOption:String = ""
 var startLines:Array[String]
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["pickedOption"] = pickedOption
+	_data["startLines"] = startLines
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	pickedOption = SAVE.loadStr(_data, "pickedOption")
+	startLines.clear()
+	startLines.append_array(SAVE.loadArray(_data, "startLines"))
+
 func _init() -> void:
 	id = "ERROR"
 	socialActionName = "FILL ME"

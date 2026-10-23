@@ -57,7 +57,8 @@ func doLeanStuff():
 	var newWallHandler:Node3D = theHandler.instantiate()
 	GM.netNodes.add_child(newWallHandler, true)
 	newWallHandler.global_transform = theTransform
-	GM.netNodes.notifySpawned(newWallHandler)
+	#GM.netNodes.notifySpawned(newWallHandler)
+	GM.netNodes.makeNodeNetDynamic(newWallHandler)
 	
 	newWallHandler.setSitter("dom", getPawn())
 	

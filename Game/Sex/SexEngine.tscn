@@ -39,7 +39,7 @@ properties/8/replication_mode = 2
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o3r2a"]
 length = 0.001
 
-[node name="SexEngine" type="Node3D" unique_id=2073565894 groups=["Networked"]]
+[node name="SexEngine" type="Node3D" unique_id=2073565894]
 script = ExtResource("1_ki4rl")
 
 [node name="FreeCamera" type="Camera3D" parent="." unique_id=1954037168]

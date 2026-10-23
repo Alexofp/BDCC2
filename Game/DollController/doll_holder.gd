@@ -62,6 +62,7 @@ func createDollControllerFor(pawn:CharacterPawn, character:BaseCharacter) -> Dol
 	Log.Print("createDollControllerFor "+str(character.getID()))
 	var newUniqueID:int = generateUniqueDollID()
 	var theDoll:DollController= dollControllerScene.instantiate()
+	#theDoll.position = Vector3(99312.0, 12312.0, -3134.0)
 	theDoll.charID = pawn.getID()
 	theDoll.pawn = pawn
 	theDoll.uniqueID = newUniqueID
@@ -87,6 +88,7 @@ func deleteDoll_RPC(uniqueID:int):
 @rpc("authority", "call_remote", "reliable")
 func createDollController_RPC(dollData:Dictionary):
 	var theDoll:DollController= dollControllerScene.instantiate()
+	theDoll.position = Vector3(99312.0, 12312.0, -3134.0) # So they don't collide with anything
 	theDoll.charID = SAVE.loadVar(dollData, "charID", "")
 	theDoll.pawn = GM.pawnRegistry.getPawn(theDoll.charID)
 	theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
@@ -184,6 +186,7 @@ func loadNetworkData(_data:Bins):
 	var _dollAm:int = _data.readU16()
 	for _i:int in _dollAm:
 		var theDoll:DollController = dollControllerScene.instantiate()
+		theDoll.position = Vector3(99312.0, 12312.0, -3134.0)
 		theDoll.loadNetworkData(_data.readBins())
 		addExistingDollController(theDoll)
 	
@@ -207,6 +210,7 @@ func loadData(_data:Dictionary):
 	var dollData:Array = SAVE.loadVar(_data, "dolls", [])
 	for dollEntry in dollData:
 		var theDoll:DollController = dollControllerScene.instantiate()
+		theDoll.position = Vector3(99312.0, 12312.0, -3134.0)
 		theDoll.loadData(dollEntry)
 		addExistingDollController(theDoll)
 		#createDollController_RPC(dollEntry)

@@ -4,6 +4,45 @@ class_name CoupleAnimsSystem
 var entries:Array[CoupleAnimEntry]
 var pawnToEntry:Dictionary[CharacterPawn, CoupleAnimEntry]
 
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd([
+		Bins.Var, saveData(),
+	])
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	loadData(_data.readVar())
+	_data.endLoad()
+
+func saveData() -> Dictionary:
+	var theEntryData:Array[Dictionary]
+	for theEntry:CoupleAnimEntry in entries:
+		if(theEntry.wasDeleted || theEntry.shouldEndInstantly()):
+			continue
+		theEntryData.append(theEntry.saveData())
+	return {
+		entries = theEntryData,
+	}
+
+func loadData(_data:Dictionary):
+	entries.clear()
+	pawnToEntry.clear()
+	
+	var theEntryData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "entries")
+	for theEntry:Dictionary in theEntryData:
+		var newEntry:CoupleAnimEntry = CoupleAnimEntry.new()
+		newEntry.loadData(theEntry)
+		if(newEntry.wasDeleted):
+			continue
+		var theStop := stop.bind(newEntry)
+		newEntry.onAnimEnded.connect(theStop)
+		newEntry.main.tree_exiting.connect(newEntry.stopMe)
+		newEntry.target.tree_exiting.connect(newEntry.stopMe)
+		
+		entries.append(newEntry)
+		pawnToEntry[newEntry.main] = newEntry
+		pawnToEntry[newEntry.target] = newEntry
+
 func canStart(_animID:String, _pawnMain:CharacterPawn, _pawnTarget:CharacterPawn) -> bool:
 	if(!_pawnMain || !_pawnTarget):
 		return false

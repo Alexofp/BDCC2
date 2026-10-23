@@ -728,7 +728,7 @@ func processRandomLookAt(_dt:float):
 			randomLookAtTimer = randf_range(1.0, 2.0)
 
 func lookAtRandom() -> bool:
-	if(!pawn || isControlledByAnyPlayer()):
+	if(!pawn || isControlledByAnyPlayer() || pawn.isDoingSex() || pawn.isDoingACoupleAnimation() || pawn.isDoingSomething()):
 		return true # So it checks it less
 	var theTargets := pawn.getPossibleLookAtNodes()
 	if(theTargets.is_empty()):

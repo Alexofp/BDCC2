@@ -67,8 +67,10 @@ enabled=PackedStringArray("res://addons/asset_placer/plugin.cfg", "res://addons/
 
 [global_group]
 
-Networked="Automatically spawn/despawn/sync this node over the network"
-Navmesh=""
+Navmesh="Marks this node to be used by the navmesh generation"
+SyncStatic="Sync/save/load this prop. Static props only (ones that are spawned with the map)"
+SyncChild="Also gets sync'd when the scene root gets sync'd. Use for child nodes that need to be sync'd"
+SyncDynamic="Spawn/delete/sync/save/load this prop. Dynamic props only (ones that get spawned during gameplay)"
 
 [input]
 

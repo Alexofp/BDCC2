@@ -334,11 +334,17 @@ func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I32, uniqueID,
 		Bins.I32, equipped.size(),
+		Bins.I32, items.size(),
 	]
 	
 	for invSlot in equipped:
 		var theItem:ItemBase = equipped[invSlot]
 		ar.append_array([Bins.I8, invSlot])
+		ar.append_array([Bins.StrShort, theItem.id])
+		ar.append_array([Bins.I32, theItem.uniqueID])
+		ar.append_array([Bins.BINS, theItem.saveNetworkData()])
+	
+	for theItem:ItemBase in items:
 		ar.append_array([Bins.StrShort, theItem.id])
 		ar.append_array([Bins.I32, theItem.uniqueID])
 		ar.append_array([Bins.BINS, theItem.saveNetworkData()])
@@ -354,7 +360,7 @@ func loadNetworkData(_data:Bins):
 	GM.inventoryRegistry.registerNetworkInventory(self, _data.readI32())
 	
 	var theItemAmount:int = _data.readI32()
-	for _i in range(theItemAmount):
+	for _i in theItemAmount:
 		var invSlot:int = _data.readI8()
 		var itemID:String = _data.readStrShort()
 		var uid:int = _data.readI32()
@@ -368,6 +374,21 @@ func loadNetworkData(_data:Bins):
 		theItem.loadNetworkData(itemData)
 		setEquippedItem(invSlot, theItem)
 	
+	for theItem:ItemBase in items.duplicate():
+		removeItem(theItem)
+	items.clear()
+	for _i in _data.readI32():
+		var itemID:String = _data.readStrShort()
+		var uid:int = _data.readI32()
+		var itemData:Bins = _data.readBins()
+		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
+		if(!theItem):
+			continue
+		#theItem.currentSlot = invSlot
+		theItem.uniqueID = uid
+		theItem.loadNetworkData(itemData)
+		addItem(theItem)
+	
 	_data.endLoad()
 
 func saveData() -> Dictionary:
@@ -379,10 +400,18 @@ func saveData() -> Dictionary:
 			uid = theItem.uniqueID,
 			data = theItem.saveData(),
 		}
+	var theItemData:Array[Dictionary]
+	for theItem:ItemBase in items:
+		theItemData.append({
+			id = theItem.id,
+			uid = theItem.uniqueID,
+			data = theItem.saveData(),
+		})
 	
 	return {
 		uniqueID = uniqueID,
 		equipped = equippedData,
+		items = theItemData,
 	}
 
 func loadData(_data:Dictionary):
@@ -400,7 +429,24 @@ func loadData(_data:Dictionary):
 		var itemID:String = SAVE.loadVar(itemData, "id", "")
 		var uid:int = SAVE.loadVar(itemData, "uid", 0)
 		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
+		if(!theItem):
+			continue
 		theItem.currentSlot = invSlot
 		theItem.uniqueID = uid
-		theItem.loadData(SAVE.loadVar(itemData, "data", {}))
+		theItem.loadData(SAVE.loadDict(itemData, "data"))
 		setEquippedItem(invSlot, theItem)
+	
+	for theItem:ItemBase in items.duplicate():
+		removeItem(theItem)
+	items.clear()
+	var theItemsData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "items")
+	for theItemData:Dictionary in theItemsData:
+		var itemID:String = SAVE.loadVar(theItemData, "id", "")
+		var uid:int = SAVE.loadVar(theItemData, "uid", 0)
+		var theItem:ItemBase = GlobalRegistry.createItem(itemID, false)
+		if(!theItem):
+			continue
+		#theItem.currentSlot = invSlot
+		theItem.uniqueID = uid
+		theItem.loadData(SAVE.loadDict(theItemData, "data"))
+		addItem(theItem)

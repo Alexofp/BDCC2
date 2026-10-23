@@ -9,6 +9,54 @@ var actionByUniqueID:Dictionary[int, ActionSystemEntry]
 
 var lastUniqueID:int = 0
 
+var ignoreTicks:int = 0 # no save
+
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	_data.endLoad()
+
+func saveData() -> Dictionary:
+	var theActions:Array[Dictionary]
+	for theAction:ActionSystemEntry in actions:
+		theActions.append(theAction.saveData())
+	
+	return {
+		lastUniqueID = lastUniqueID,
+		actions = theActions,
+	}
+
+func loadData(_data:Dictionary):
+	ignoreTicks = 2 # To let physics checks happen
+	actions.clear()
+	userToActions.clear()
+	targetToActions.clear()
+	extraTargetToActions.clear()
+	actionByUniqueID.clear()
+	
+	lastUniqueID = SAVE.loadInt(_data, "lastUniqueID")
+	
+	var theActions:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "actions")
+	for theEntry:Dictionary in theActions:
+		var _actionEntry:ActionSystemEntry = ActionSystemEntry.new()
+		_actionEntry.loadData(theEntry)
+		if(_actionEntry.uniqueID < 0): # Bad entry
+			continue
+		var theUser := _actionEntry.user
+		var theTarget := _actionEntry.target.node if _actionEntry.target else null
+		
+		theUser.tree_exiting.connect(_actionEntry.deleteMe)
+		if(theUser != theTarget): # To avoid connecting the signal twice if target = user
+			theTarget.tree_exiting.connect(_actionEntry.deleteMe)
+			
+		for extraTarget in _actionEntry.extraTargets:
+			extraTarget.node.tree_exiting.connect(_actionEntry.deleteMe)
+
+		actions.append(_actionEntry)
+		internal_addActionToLists(_actionEntry)
+
 func _ready() -> void:
 	GI.actionSystem = self
 
@@ -134,6 +182,19 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 	_actionEntry.uniqueID = lastUniqueID
 	
 	actions.append(_actionEntry)
+	internal_addActionToLists(_actionEntry)
+
+	#if(_actionEntry.target.node is CharacterPawn):
+		#_actionEntry.target.node.ai.reactDelayedAction(_actionEntry)
+	#for extraTarget in _actionEntry.extraTargets:
+		#if(extraTarget.node is CharacterPawn):
+			#extraTarget.node.ai.reactDelayedAction(_actionEntry)
+	
+	return true
+	
+func internal_addActionToLists(_actionEntry:ActionSystemEntry):
+	var theUser := _actionEntry.user
+	var theTarget := _actionEntry.target.node if _actionEntry.target else null
 	actionByUniqueID[_actionEntry.uniqueID] = _actionEntry
 	
 	if(!userToActions.has(theUser)):
@@ -155,14 +216,6 @@ func startAction(_actionEntry:ActionSystemEntry) -> bool:
 		else:
 			extraTargetToActions[extraTarget].append(_actionEntry)
 	
-	#if(_actionEntry.target.node is CharacterPawn):
-		#_actionEntry.target.node.ai.reactDelayedAction(_actionEntry)
-	#for extraTarget in _actionEntry.extraTargets:
-		#if(extraTarget.node is CharacterPawn):
-			#extraTarget.node.ai.reactDelayedAction(_actionEntry)
-	
-	return true
-	
 func processActions(_delta:float):
 	var actionsAm:int = actions.size()
 	
@@ -171,76 +224,6 @@ func processActions(_delta:float):
 		var theAction := actions[_indx]
 		
 		theAction.processAction(_delta)
-		#if(true):
-			#continue
-		#
-		#var theUser := theAction.user
-		#var theTarget := theAction.target.node
-		#
-		## Better way to check if the pawn was deleted?
-		#if(!theUser || !is_instance_valid(theUser)):
-			## Cancel instead?
-			#deleteAction(theAction)
-			#continue
-		#
-		#if(theAction.userMove != ActionSystemEntry.MOVE_CANMOVE):
-			#var speedUser := getSpeedOf(theUser)
-			#if(theAction.userMove == ActionSystemEntry.MOVE_NO_MOVEMENT && speedUser.length_squared() >= 1.0):
-				#cancelAction(theAction)
-				#continue
-			#if(theAction.userMove == ActionSystemEntry.MOVE_NO_RUNNING && speedUser.length_squared() >= 16.0):
-				#cancelAction(theAction)
-				#continue
-		#
-		#if(theAction.target.shouldCancelAction(theAction)):
-			#cancelAction(theAction)
-			#continue
-		#
-		#var didCancel:bool = false
-		#for extraTarget in theAction.extraTargets:
-			#if(extraTarget.shouldCancelAction(theAction)):
-				#cancelAction(theAction)
-				#didCancel = true
-				#break
-		#if(didCancel):
-			#continue
-		#
-		#var thePawnAction := theAction.action
-		#var theContext := theAction.user.pawnActionContext
-		#theContext.target = theTarget
-		#theContext.args = theAction.args
-		#if(!thePawnAction.canDoDelayedAction(theContext)):
-			#theContext.clearContext()
-			#cancelAction(theAction)
-			#continue
-		#
-		#var timePassMult:float = 1.0
-		#if(theAction.needsConsent() && theAction.didEveryoneConsent()):
-			##theContext.clearContext()
-			##doAction(theAction)
-			##continue
-			#timePassMult *= theAction.consentTimeMult
-		#
-		#theAction.timePassed += _delta * timePassMult
-		#if(theAction.timePassed >= theAction.timeFull):
-			#theContext.clearContext()
-			#
-			#var shouldDoTheAction:bool = true
-			#if(theAction.target.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-				#shouldDoTheAction = false
-			#for extraTarget in theAction.extraTargets:
-				#if(extraTarget.timerType == ActionSystemEntry.TIMER_MUST_CONSENT):
-					#shouldDoTheAction = false
-					#break
-			#
-			#if(shouldDoTheAction):
-				#doAction(theAction)
-			#else:
-				#cancelAction(theAction)
-			#continue
-		#else:
-			#theAction.doAIDecisions()
-		#theContext.clearContext()
 
 func cancelAllActionsOfUser(_user:CharacterPawn):
 	if(!userToActions.has(_user)):
@@ -332,8 +315,15 @@ func findActionEntryByUniqueID(_uid:int) -> ActionSystemEntry:
 	return actionByUniqueID[_uid]
 
 func _process(_delta: float) -> void:
+	if(ignoreTicks > 0):
+		return
 	processActions(_delta)
 
+func _physics_process(_delta: float) -> void:
+	if(ignoreTicks > 0):
+		ignoreTicks -= 1
+		return
+		
 func onPawnHit(_pawn:CharacterPawn, _attackContext:AttackContext):
 	var allTheActions := getAllActionsOfUser(_pawn)
 	

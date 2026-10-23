@@ -27,6 +27,43 @@ const SCORE_KIND := 2
 const SCORE_RESISTING := 1 # same as angry
 const SCORE_NOT_RESISTING := 2 # same as kind
 
+func saveData() -> Dictionary:
+	var theRoleToCharID:Dictionary[int, String]
+	for theRole:int in roleToParticipants:
+		var thePart:SexParticipantInfo = roleToParticipants[theRole]
+		theRoleToCharID[theRole] = thePart.getID()
+	return {
+		roles = theRoleToCharID,
+		s = state,
+		tot = timeOutTime,
+		aID = activity.uniqueID if activity else -1,
+	}
+
+func loadData(_data:Dictionary):
+	var theSexEngine := getSex()
+	roleToParticipants.clear()
+	participantToRole.clear()
+	var theRoleToCharID:Dictionary = SAVE.loadDict(_data, "roles")
+	for theRole:int in theRoleToCharID:
+		var theCharID:String = theRoleToCharID[theRole]
+		var theInfo:SexParticipantInfo = theSexEngine.getInfo(theCharID)
+		if(!theInfo):
+			wasDeleted = true
+			return
+		roleToParticipants[theRole] = theInfo
+		participantToRole[theInfo] = theRole
+	
+	state = SAVE.loadStr(_data, "s")
+	timeOutTime = SAVE.loadFloat(_data, "tot")
+	var theActivityUID:int = SAVE.loadInt(_data, "aID", -1)
+	if(theActivityUID >= 0):
+		activity = theSexEngine.findActivityByUID(theActivityUID)
+		if(!activity):
+			wasDeleted = true
+			return
+	
+	currentLines = getLinesFinal()
+
 func setupChain(_handler:SexDialogueHandler, _main:SexParticipantInfo, _target:SexParticipantInfo):
 	setHandler(_handler)
 	involveRole(ROLE_MAIN, _main)

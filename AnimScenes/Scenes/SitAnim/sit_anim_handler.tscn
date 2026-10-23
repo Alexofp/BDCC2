@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="5_r2mff"]
 [ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="6_nu5hp"]
 
-[node name="SitAnimHandler" type="Node3D" unique_id=1469755165 groups=["Networked"]]
+[node name="SitAnimHandler" type="Node3D" unique_id=1469755165]
 script = ExtResource("1_hkxcb")
 
 [node name="StandSpot" type="Marker3D" parent="." unique_id=91680705]

@@ -313,6 +313,11 @@ func loadCategoriesData(_data:Bins):
 func setPawn(_p:CharacterPawn):
 	pawn = _p
 
+func forceUpdateArea():
+	var theAreas:Array[Area3D] = get_overlapping_areas()
+	for theArea:Area3D in theAreas:
+		_on_area_entered(theArea)
+
 func _on_area_entered(area: Area3D) -> void:
 	if(area is PawnInteractor):
 		if(!nearbyPawns.has(area)):

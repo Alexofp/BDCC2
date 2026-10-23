@@ -36,7 +36,7 @@ shader_parameter/color_mask_g = Color(0.55, 0.5269, 0.50049996, 1)
 shader_parameter/color_mask_b = Color(1, 0.74509805, 0.61960787, 1)
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
-[node name="Stocks" unique_id=1580582023 instance=ExtResource("1_wfhsi")]
+[node name="Stocks" unique_id=1580582023 groups=["SyncStatic"] instance=ExtResource("1_wfhsi")]
 script = ExtResource("2_bcm5a")
 
 [node name="Skeleton3D" parent="StocksRig" parent_id_path=PackedInt32Array(1221644378) index="0" unique_id=437003019]
@@ -68,7 +68,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_bgnum")
 collision_layer = 2
 collision_mask = 2
 
-[node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") instance=ExtResource("3_we5c1")]
+[node name="StocksAnimHandler" parent="." index="2" unique_id=1469755165 node_paths=PackedStringArray("stocks") groups=["SyncChild"] instance=ExtResource("3_we5c1")]
 unique_name_in_owner = true
 stocks = NodePath("..")
 

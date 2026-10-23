@@ -51,6 +51,9 @@ func loadData(_data:Dictionary):
 		if(!newGoal || newGoal.isStaticGoal()):
 			continue
 		newGoal.setPawn(ai.getPawn())
+		newGoal.loadData(theData)
+		if(newGoal.wasDeleted):
+			continue
 		goals.append(newGoal)
 		internal_addGoalToLists(newGoal)
 		if(_isCur):

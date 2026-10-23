@@ -247,7 +247,7 @@ func spawnItem(_pos:Vector3, _item:ItemBase):
 	GM.main.add_child(theItem, true)
 	theItem.global_position = _pos
 	
-	GM.netNodes.makeNodeNetworked(theItem)
+	GM.netNodes.makeNodeNetDynamic(theItem)
 	theItem.inventory.addItem(_item)
 
 func saveNetworkData() -> Bins:

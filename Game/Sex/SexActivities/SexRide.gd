@@ -22,6 +22,19 @@ const SEX_AROUSAL_GAIN = [
 
 const MAINANIM = AnimScene.SexCowgirl
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["sexSpeed"] = sexSpeed
+	_data["vag"] = isVaginal
+	_data["dsjct"] = didSubJustCumTimer
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	sexSpeed = SAVE.loadInt(_data, "sexSpeed", SEX_SPEED_SLOW)
+	isVaginal = SAVE.loadBool(_data, "vag")
+	didSubJustCumTimer = SAVE.loadFloat(_data, "dsjct")
+
 func _init():
 	id = SexActivity.SexRide
 	poseSupport = true

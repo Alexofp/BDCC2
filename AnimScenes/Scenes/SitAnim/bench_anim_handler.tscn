@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="6_ra3ow"]
 [ext_resource type="PackedScene" uid="uid://dp4uuiyogya06" path="res://AnimScenes/Scenes/SitAnim/sit_anim_scene.tscn" id="6_ud5bg"]
 
-[node name="BenchAnimHandler" type="Node3D" unique_id=1764538836 groups=["Networked"]]
+[node name="BenchAnimHandler" type="Node3D" unique_id=1764538836]
 script = ExtResource("2_34f0x")
 
 [node name="StandSpotLeft" type="Marker3D" parent="." unique_id=526192901]

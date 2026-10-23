@@ -17,6 +17,15 @@ const SEX_AROUSAL_GAIN = [
 ]
 var sexSpeed:int = SEX_SPEED_SLOW
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["sexSpeed"] = sexSpeed
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	sexSpeed = SAVE.loadInt(_data, "sexSpeed", SEX_SPEED_SLOW)
+
 func _init():
 	id = SexActivity.SoloStroke
 	poseSupport = true

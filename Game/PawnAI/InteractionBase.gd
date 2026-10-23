@@ -23,8 +23,7 @@ var interactionPriority:float = 10.0 # Higher value means the interaction's acti
 var roleToPawn:Dictionary[int, CharacterPawn]
 var pawnToRole:Dictionary[CharacterPawn, int]
 
-var state:String = "": set = setState, get = getState
-var stateRaw:String = ""
+var state:String = ""
 var elapsedTime:float = 0.0 # Time since last setState() call
 var timeoutTime:float = 0.0 # Time since last action
 
@@ -52,6 +51,63 @@ enum QueueEntry {
 	SocialInteractionDeny,
 	SocialInteractionShowSuccess,
 }
+
+func saveData() -> Dictionary:
+	var theRoleData:Dictionary[int, String]
+	for _role:int in roleToPawn:
+		theRoleData[_role] = roleToPawn[_role].getID()
+	
+	return {
+		roles = theRoleData,
+		state = state,
+		et = elapsedTime,
+		tt = timeoutTime,
+		it = interactionTag,
+		iq = interactionQueue,
+		sub = {id=subInteraction.id, data=subInteraction.saveData()} if subInteraction else {},
+	}
+
+func loadData(_data:Dictionary):
+	var _interactionBroke:bool = false
+	roleToPawn.clear()
+	pawnToRole.clear()
+	
+	var _isSubInteraction:bool = (parentInteraction != null)
+	
+	var theRoleData:Dictionary = SAVE.loadDict(_data, "roles")
+	for _theRole:int in theRoleData:
+		var thePawnID:String = theRoleData[_theRole]
+		var thePawn:CharacterPawn = GM.main.pawn_registry.getPawn(thePawnID)
+		if(!thePawn):
+			_interactionBroke = true
+			continue
+		roleToPawn[_theRole] = thePawn
+		pawnToRole[thePawn] = _theRole
+		if(!_isSubInteraction):
+			thePawn.interaction = self
+	
+	state = SAVE.loadStr(_data, "state")
+	elapsedTime = SAVE.loadFloat(_data, "et")
+	timeoutTime = SAVE.loadFloat(_data, "tt")
+	interactionTag = SAVE.loadStr(_data, "it")
+	interactionQueue = SAVE.loadArray(_data, "iq")
+	rareTimer = RNG.randfRange(0.0, 0.5)
+	
+	var theSubInteractionData:Dictionary = SAVE.loadDict(_data, "sub")
+	if(!theSubInteractionData.is_empty()):
+		var theSubID:String = SAVE.loadStr(theSubInteractionData, "id")
+		var theSubData:Dictionary = SAVE.loadDict(theSubInteractionData, "data")
+		var theSubInteraction:InteractionBase = GlobalRegistry.createInteraction(theSubID)
+		if(!theSubInteraction):
+			wasDeleted = true
+		else:
+			subInteraction = theSubInteraction
+			theSubInteraction.parentInteraction = self
+			subInteraction.loadData(theSubData)
+			if(subInteraction.wasDeleted):
+				wasDeleted = true
+	
+	wasDeleted = _interactionBroke
 
 func postRegistration():
 	pass
@@ -226,7 +282,7 @@ func doActionFor(_pawn:CharacterPawn, _actionEntry:InteractionAction):
 		otherPawn.ai.goalHandler.handleInteractionAction(_pawn, self, _actionEntry)
 
 func getStateFunc(_name:String) -> String:
-	return stateRaw+"_"+_name
+	return state+"_"+_name
 
 func getActionsFor(_pawn:CharacterPawn) -> Array[InteractionAction]:
 	if(subInteraction):
@@ -329,17 +385,16 @@ func onQueueEvent(_eventID:String, _args:Array):
 	pass
 
 func getState() -> String:
-	return stateRaw
+	return state
 
 func setState(_newState:String): #, _doReplan:bool = true
-	var oldState:String = stateRaw
+	var oldState:String = state
 	elapsedTime = 0.0
 	timeoutTime = 0.0
 	state = _newState
-	stateRaw = _newState
 	#if(_doReplan):
 	replan()
-	if(stateRaw != oldState):
+	if(state != oldState):
 		clearUICategory()
 
 func replan():

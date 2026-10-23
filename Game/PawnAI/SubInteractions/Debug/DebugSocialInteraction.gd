@@ -2,6 +2,15 @@ extends InteractionSocialBase
 
 var valueToEdit:int = -1
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["valueToEdit"] = valueToEdit
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	valueToEdit = SAVE.loadInt(_data, "valueToEdit", -1)
+
 func _init() -> void:
 	id = "DebugSocialInteraction"
 	socialActionName = "Relationship values"

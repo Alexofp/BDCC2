@@ -71,7 +71,7 @@ var savedCharPositions:Dictionary[String, Vector3]
 var timeSinceAnyActions:float = 0.0
 var lostGrip:bool = false
 
-var eventQueue:Array[SexEngineQueueEntry] = []
+var eventQueue:Array[SexEngineQueueEntry] = [] #TODO: Needs to be saved somehow
 
 var dialogue:SexDialogueHandler
 
@@ -83,7 +83,11 @@ var sexResult:SexEngineResult
 var endOfSexTimer:float = 0.0
 const END_OF_SEX_TIME := 2.0
 var wasDeleted:bool = false
+var shouldBeRemoved:bool = false # No save?
+var lastActivityUID:int = 0
 @export var sexResultText:String
+
+var processTime:float = 0.05 # No save
 
 # event queue stuff
 const QUEUE_DELAY = 0
@@ -107,6 +111,174 @@ const JUST_SKIP_QUEUE_TYPES = [
 ]
 
 var autoEquipAfterEndItems:Dictionary[String, Array] = {} #charID = [slot, unique item id]
+
+#TODO: Finish this
+func saveData() -> Dictionary:
+	var sexActivityData = null
+	if(sexActivity):
+		sexActivityData = {
+			id = sexActivity.id,
+			data = sexActivity.saveData(),
+		}
+	var theSexActivitiesData:Array[Dictionary]
+	for theSideSexActivity:SexSideActivity in sideActivities:
+		theSexActivitiesData.append({
+			id = theSideSexActivity.id,
+			data = theSideSexActivity.saveData(),
+		})
+	
+	var participantsData:Dictionary = {}
+	for charID in participants:
+		participantsData[charID] = participants[charID].saveData()
+	
+	var thePropData:Array
+	for thePropID:String in props:
+		var theProp:Node3D = props[thePropID]
+		thePropData.append({
+			id = thePropID,
+			path = SAVE.getNodePath(theProp),
+		})
+	
+	return {
+		name = str(name),
+		state = state,
+		tt = transitionTimer,
+		ttf = transitionTimerFull,
+		gl = gripLevel,
+		sm = sexMode,
+		at = actionTexts,
+		cds = cooldowns,
+		tiuids = tempItemUIDs,
+		ib = itemBelong,
+		scp = savedCharPositions,
+		tsaa = timeSinceAnyActions,
+		lg = lostGrip,
+		participants = participantsData,
+		props = thePropData,
+		sexType = {
+			id = sexType.id,
+			data = sexType.saveData(),
+		},
+		sideActivities = theSexActivitiesData,
+		sexActivity = sexActivityData,
+		animPlayer = anim_scene_player.saveData(),
+		rotY = tweaker.rotation.y,
+		posx = tweaker.position.x,
+		posy = tweaker.position.y,
+		posz = tweaker.position.z,
+		lauid = lastActivityUID,
+		dialogue = dialogue.saveData(),
+		ses = sexEngineState,
+		sr = sexResult.saveData() if sexResult else {},
+		eost = endOfSexTimer,
+		srt = sexResultText,
+		queue = saveQueueData(),
+		aeaei = autoEquipAfterEndItems, # Beatiful name
+	}
+
+func loadData(_data:Dictionary):
+	name = SAVE.loadStr(_data, "name")
+	if(name.is_empty()):
+		shouldBeRemoved = true
+		return
+	state = SAVE.loadInt(_data, "state", STATE_NORMAL)
+	transitionTimer = SAVE.loadFloat(_data, "tt")
+	transitionTimerFull = SAVE.loadFloat(_data, "ttf")
+	gripLevel = SAVE.loadFloat(_data, "gl")
+	sexMode = SAVE.loadInt(_data, "sm", MODE_FORCED)
+	actionTexts = SAVE.loadArray(_data, "at")
+	cooldowns.clear()
+	cooldowns.merge(SAVE.loadDict(_data, "cds"))
+	tempItemUIDs.clear()
+	tempItemUIDs.append_array(SAVE.loadArray(_data, "tiuids"))
+	itemBelong.clear()
+	itemBelong.merge(SAVE.loadDict(_data, "ib"))
+	savedCharPositions.clear()
+	savedCharPositions.merge(SAVE.loadDict(_data, "scp"))
+	timeSinceAnyActions = SAVE.loadFloat(_data, "tsaa")
+	lostGrip = SAVE.loadBool(_data, "lg")
+	lastActivityUID = SAVE.loadInt(_data, "lauid")
+	sexEngineState = SAVE.loadInt(_data, "ses", ENGINE_STATE_SEX)
+	var theSexResultData:Dictionary = SAVE.loadDict(_data, "sr")
+	if(theSexResultData.is_empty()):
+		sexResult = null
+	else:
+		sexResult = SexEngineResult.new()
+		sexResult.loadData(theSexResultData)
+	endOfSexTimer = SAVE.loadFloat(_data, "eost")
+	sexResultText = SAVE.loadStr(_data, "srt")
+	autoEquipAfterEndItems.clear()
+	autoEquipAfterEndItems.merge(SAVE.loadDict(_data, "aeaei"))
+	
+	participants.clear()
+	var participantsData:Dictionary = SAVE.loadVar(_data, "participants", {})
+	for charID:String in participantsData:
+		var newParticipant:SexParticipantInfo = SexParticipantInfo.new()
+		newParticipant.id = charID
+		newParticipant.setSexEngine(self)
+		participants[charID] = newParticipant
+		newParticipant.loadData(participantsData[charID])
+	
+	props.clear()
+	var thePropData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "props")
+	for theEntry:Dictionary in thePropData:
+		var thePropID:String = SAVE.loadStr(theEntry, "id")
+		var theProp:Node3D = SAVE.loadNodeByPath(theEntry, "path")
+		if(!theProp):
+			shouldBeRemoved = true
+			return
+		props[thePropID] = theProp
+		theProp.tree_exiting.connect(removeSex)
+	
+	var sexTypeData:Dictionary = SAVE.loadVar(_data, "sexType", {})
+	sexType = GlobalRegistry.createSexActivity(SAVE.loadVar(sexTypeData, "id", ""))
+	sexType.setSexEngine(self)
+	sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
+	
+	var activityData = SAVE.loadVar(_data, "sexActivity", null)
+	if(activityData == null):
+		sexActivity = null
+	elif(activityData is Dictionary):
+		sexActivity = GlobalRegistry.createSexActivity(SAVE.loadVar(activityData, "id", ""))
+		sexActivity.setSexEngine(self)
+		sexActivity.loadData(SAVE.loadVar(activityData, "data", {}))
+	
+	sideActivities.clear()
+	var theSideActivityData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "sideActivities")
+	for theEntry:Dictionary in theSideActivityData:
+		var theID:String = SAVE.loadStr(theEntry, "id")
+		var theData:Dictionary = SAVE.loadDict(theEntry, "data")
+		var theSideAct:SexSideActivity = GlobalRegistry.createSexActivity(theID)
+		if(!theSideAct):
+			continue
+		sideActivities.append(theSideAct)
+		theSideAct.setSexEngine(self)
+		theSideAct.loadData(theData)
+	
+	dialogue = SexDialogueHandler.new()
+	dialogue.setSex(self)
+	dialogue.loadData(SAVE.loadDict(_data, "dialogue")) # Relies on activities
+	
+	loadQueueData(SAVE.loadArrayOfDicts(_data, "queue"))
+	
+	anim_scene_player.loadData(SAVE.loadVar(_data, "animPlayer", {}))
+	tweaker.rotation.y = SAVE.loadVar(_data, "rotY", 0.0)
+	var thePos:Vector3
+	thePos.x = SAVE.loadVar(_data, "posx", 0.0)
+	thePos.y = SAVE.loadVar(_data, "posy", 0.0)
+	thePos.z = SAVE.loadVar(_data, "posz", 0.0)
+	tweaker.position = thePos
+
+func generateNewActivityUID() -> int:
+	lastActivityUID += 1
+	return lastActivityUID
+
+func findActivityByUID(_uid:int) -> SexEngineActivityBase:
+	for theAct:SexEngineActivityBase in getAllActivities():
+		if(theAct.uniqueID == _uid):
+			return theAct
+	return null
+
 
 func pushToQueue(_obj, _entry:SexEngineQueueEntry):
 	eventQueue.append(_entry.setObj(_obj))
@@ -240,16 +412,26 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 	dialogue.setSex(self)
 	
 	var theSexType:SexTypeBase = GlobalRegistry.createSexActivity(sexTypeID)
+	theSexType.uniqueID = generateNewActivityUID()
 	theSexType.setSexEngine(self)
 	sexType = theSexType
 	sexType.start(roles, args)
 	
-	GI.networkedNodes.notifySpawned(self)
+	#GI.networkedNodes.notifySpawned(self)
 	sexType.onStartFinal()
 
 	for charID in participants:
 		participants[charID].onSexStart()
-	process_timer.start(0.1)
+	#process_timer.start(0.1)
+
+func _physics_process(_delta: float) -> void:
+	if(!Network.isServer()):
+		return
+	processTime += _delta
+	if(processTime >= 0.1):
+		doProcess(processTime)
+		dialogue.process(processTime)
+		processTime = 0.0
 
 func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 	var newInfo:SexParticipantInfo = SexParticipantInfo.new()
@@ -288,6 +470,7 @@ func getInfo(theID:String) -> SexParticipantInfo:
 
 func addProp(propID:String, theNode:Node3D):
 	props[propID] = theNode
+	theNode.tree_exiting.connect(removeSex)
 
 func getProp(_propID:String) -> Node3D:
 	if(!props.has(_propID)):
@@ -754,6 +937,7 @@ func startMainActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	var theActivity:SexMainActivity = GlobalRegistry.createSexActivity(activityID)
 	if(!theActivity):
 		return null
+	theActivity.uniqueID = generateNewActivityUID()
 	theActivity.setSexEngine(self)
 	sexActivity = theActivity
 	sexActivity.start(_roles, _args)
@@ -780,6 +964,7 @@ func startSideActivity(activityID:String, _roles:Dictionary, _args:Dictionary = 
 	var theActivity:SexSideActivity = GlobalRegistry.createSexActivity(activityID)
 	if(!theActivity):
 		return null
+	theActivity.uniqueID = generateNewActivityUID()
 	theActivity.setSexEngine(self)
 	sideActivities.append(theActivity)
 	theActivity.start(_roles, _args)
@@ -937,10 +1122,11 @@ func _on_anim_scene_player_on_scene_switched() -> void:
 	onAnimSceneSwitched.emit()
 	onSexChange.emit(SexEngineChange.makeSceneChange())
 
-@onready var process_timer: Timer = %ProcessTimer
+#@onready var process_timer: Timer = %ProcessTimer
 func _on_process_timer_timeout() -> void:
-	doProcess(process_timer.wait_time)
-	dialogue.process(process_timer.wait_time)
+	#doProcess(process_timer.wait_time)
+	#dialogue.process(process_timer.wait_time)
+	pass
 
 func getRolePawn(_role:String) -> CharacterPawn:
 	if(!sexType):
@@ -1540,6 +1726,41 @@ func getAllSexTags(_charID:String, _targetID:String) -> int:
 func hasInfoSexTag(_charID:String, _targetID:String, _tag:int) -> bool:
 	return getAllSexTags(_charID, _targetID) & _tag
 
+func saveQueueData() -> Array[Dictionary]:
+	var theQueueData:Array[Dictionary]
+	for theQueueElement:SexEngineQueueEntry in eventQueue:
+		var _theData:Dictionary = {
+			type = theQueueElement.type,
+			data = theQueueElement.saveData(),
+		}
+		if(theQueueElement.obj):
+			if(theQueueElement.obj.getSexEngine()):
+				_theData["objUID"] = theQueueElement.obj.uniqueID
+				_theData["objID"] = theQueueElement.obj.id
+			else:
+				#_theData["objUID"] = -1
+				_theData["objID"] = theQueueElement.obj.id
+		
+		theQueueData.append(_theData)
+	return theQueueData
+
+func loadQueueData(_datas:Array[Dictionary]):
+	eventQueue.clear()
+	for _data:Dictionary in _datas:
+		var theType:int = SAVE.loadInt(_data, "type")
+		var theEntry:SexEngineQueueEntry = SexEngineQueueEntry.createEntry(theType)
+		if(!theEntry):
+			continue
+		if(_data.has("objUID")):
+			var theUID:int = SAVE.loadInt(_data, "objUID", -1)
+			theEntry.obj = findActivityByUID(theUID)
+		elif(_data.has("objID")):
+			var theID:String = SAVE.loadStr(_data, "objID")
+			theEntry.obj = GlobalRegistry.getSexActivityRef(theID)
+		var theData:Dictionary = SAVE.loadDict(_data, "data")
+		theEntry.loadData(theData)
+		eventQueue.append(theEntry)
+
 func saveNetworkData() -> Bins:
 	return Bins.saveStartEnd([
 		Bins.Var, saveData(),
@@ -1549,61 +1770,3 @@ func loadNetworkData(_data:Bins):
 	_data.loadStart()
 	loadData(_data.readVar())
 	_data.endLoad()
-
-#TODO: Finish this
-func saveData() -> Dictionary:
-	var sexActivityData = null
-	if(sexActivity):
-		sexActivityData = {
-			id = sexActivity.id,
-			data = sexActivity.saveData(),
-		}
-	var participantsData:Dictionary = {}
-	for charID in participants:
-		participantsData[charID] = participants[charID].saveData()
-	
-	#TODO: FORGOT TO SAVE SIDE SEX ACTIVITIES
-	
-	return {
-		participants = participantsData,
-		sexType = {
-			id = sexType.id,
-			data = sexType.saveData(),
-		},
-		sexActivity = sexActivityData,
-		animPlayer = anim_scene_player.saveData(),
-		sexMode = sexMode,
-		rotY = tweaker.rotation.y,
-		posx = tweaker.position.x,
-		posy = tweaker.position.y,
-		posz = tweaker.position.z,
-	}
-
-func loadData(_data:Dictionary):
-	sexMode = SAVE.loadVar(_data, "sexMode", MODE_NORMAL)
-	
-	participants.clear()
-	var participantsData:Dictionary = SAVE.loadVar(_data, "participants", {})
-	for charID in participantsData:
-		syncParticipant_RPC(charID, participantsData[charID])
-	
-	var sexTypeData:Dictionary = SAVE.loadVar(_data, "sexType", {})
-	sexType = GlobalRegistry.createSexActivity(SAVE.loadVar(sexTypeData, "id", ""))
-	sexType.setSexEngine(self)
-	sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
-	
-	var activityData = SAVE.loadVar(_data, "sexActivity", null)
-	if(activityData == null):
-		sexActivity = null
-	elif(activityData is Dictionary):
-		sexActivity = GlobalRegistry.createSexActivity(SAVE.loadVar(activityData, "id", ""))
-		sexActivity.setSexEngine(self)
-		sexActivity.loadData(SAVE.loadVar(activityData, "data", {}))
-	
-	anim_scene_player.loadData(SAVE.loadVar(_data, "animPlayer", {}))
-	tweaker.rotation.y = SAVE.loadVar(_data, "rotY", 0.0)
-	var thePos:Vector3
-	thePos.x = SAVE.loadVar(_data, "posx", 0.0)
-	thePos.y = SAVE.loadVar(_data, "posy", 0.0)
-	thePos.z = SAVE.loadVar(_data, "posz", 0.0)
-	tweaker.position = thePos

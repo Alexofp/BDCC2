@@ -4,6 +4,19 @@ var howManyChats:int = 0
 var talkTimer:float = 0.0
 var mainTurn:bool = true
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["howManyChats"] = howManyChats
+	_data["talkTimer"] = talkTimer
+	_data["mainTurn"] = mainTurn
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	howManyChats = SAVE.loadInt(_data, "howManyChats")
+	talkTimer = SAVE.loadFloat(_data, "talkTimer")
+	mainTurn = SAVE.loadBool(_data, "mainTurn", true)
+
 func _init() -> void:
 	id = "Chat"
 	socialActionName = "Chat"

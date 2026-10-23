@@ -6,6 +6,15 @@ var poseType:int = DollPoseBase.PoseType.Fullbody
 var poseHandlerType:int = PawnPoseHandler.POSE_IDLE
 var normalText:String = "Stand normally"
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["dollPoseID"] = dollPoseID
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	dollPoseID = SAVE.loadStr(_data, "dollPoseID")
+
 func prepareChanceCalculator():
 	setChanceCalculator(SICCAlways.new())
 

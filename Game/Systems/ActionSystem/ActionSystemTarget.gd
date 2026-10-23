@@ -13,6 +13,24 @@ const AI_DECISION_DENY := 2 # Deny or resist
 
 var aiDecision:int = AI_DECISION_UNDECIDED
 
+func saveData() -> Dictionary:
+	return {
+		node = node.get_path(),
+		tt = timerType,
+		ct = conditionType,
+		tm = targetMove,
+		dc = didConsent,
+		ai = aiDecision,
+	}
+
+func loadData(_data:Dictionary):
+	node = GI.get_tree().root.get_node_or_null(SAVE.loadVar(_data, "node", NodePath()))
+	timerType = SAVE.loadInt(_data, "tt", ActionSystemEntry.TIMER_ONLY)
+	conditionType = SAVE.loadInt(_data, "ct", ActionSystemEntry.CONDITION_DISTANCE)
+	targetMove = SAVE.loadInt(_data, "tm", ActionSystemEntry.MOVE_CANMOVE)
+	didConsent = SAVE.loadBool(_data, "dc")
+	aiDecision = SAVE.loadInt(_data, "ai", AI_DECISION_UNDECIDED)
+
 func shouldCancelAction(theAction:ActionSystemEntry) -> bool:
 	var theUser := theAction.user
 	var theTarget := node

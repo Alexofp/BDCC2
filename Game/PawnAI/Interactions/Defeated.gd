@@ -3,6 +3,16 @@ extends InteractionBase
 var didSomething:bool = false
 var socialContext:SocialInteractionContext = SocialInteractionContext.new()
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["didSomething"] = didSomething
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	didSomething = SAVE.loadBool(_data, "didSomething")
+	socialContext.setup(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
+
 func _init() -> void:
 	id = "Defeated"
 

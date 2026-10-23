@@ -11,7 +11,9 @@ func loadNetworkData(_data:Bins):
 	_data.endLoad()
 
 func saveData() -> Dictionary:
-	return {}
+	return {
+		pos = position,
+	}
 
 func loadData(_data:Dictionary):
-	pass
+	position = SAVE.loadVec3(_data, "pos", position)

@@ -19,7 +19,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 
-[node name="Bench" unique_id=660394359 groups=["Networked"] instance=ExtResource("1_llgmc")]
+[node name="Bench" unique_id=660394359 groups=["SyncStatic"] instance=ExtResource("1_llgmc")]
 script = ExtResource("2_h16yf")
 roughness = 0.5
 colorbase = Color(0.53, 0.53, 0.53, 1)
@@ -46,7 +46,7 @@ shape = SubResource("BoxShape3D_x22yw")
 transform = Transform3D(1, 0, 0, 0, 0.966743, 0.255749, 0, -0.255749, 0.966743, 0, 0.195936, -0.278135)
 shape = SubResource("BoxShape3D_ft0qw")
 
-[node name="BenchAnimHandler" parent="." index="1" unique_id=336954718 instance=ExtResource("3_h16yf")]
+[node name="BenchAnimHandler" parent="." index="1" unique_id=336954718 groups=["SyncChild"] instance=ExtResource("3_h16yf")]
 
 [node name="SafeMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="2" unique_id=196438920]
 replication_config = SubResource("SceneReplicationConfig_xplsm")

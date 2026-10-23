@@ -20,6 +20,30 @@ var chances:Vector3 = Vector3(1.0, 0.05, 0.05) # Success chance, criticalFailIfN
 var shouldPlaySuccessNoise:bool = true
 var shouldPlayDenyNoise:bool = true
 
+func saveData() -> Dictionary:
+	return {
+		id = id,
+		s = status,
+		su = success,
+		sc = showChange,
+		a = answer,
+		c = critical,
+		ids = charIDStarter,
+		idt = charIDTarget,
+		ch = chances,
+	}
+
+func loadData(_data:Dictionary):
+	id = SAVE.loadStr(_data, "id")
+	status = SAVE.loadInt(_data, "s", STATUS_DENY)
+	success = SAVE.loadFloat(_data, "su")
+	showChange = SAVE.loadBool(_data, "sc")
+	answer = SAVE.loadInt(_data, "a", STATUS_AGREE)
+	critical = SAVE.loadBool(_data, "c")
+	charIDStarter = SAVE.loadStr(_data, "ids")
+	charIDTarget = SAVE.loadStr(_data, "idt")
+	chances = SAVE.loadVec3(_data, "ch")
+
 func _init() -> void:
 	pass
 
@@ -31,7 +55,7 @@ func setChanceCalculatorResult(_chances:Vector3):
 	chances = _chances
 
 # Calculate if the target should agree
-func trySocialInteraction(_socialRequiredAgreeScore:float) -> void:
+func trySocialInteraction() -> void:
 	var _theAgreeChance:float = chances.x
 	if(_theAgreeChance >= 1.0):
 		status = STATUS_AGREE

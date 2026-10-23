@@ -32,9 +32,58 @@ var target:ActionSystemTarget
 var extraTargets:Array[ActionSystemTarget]
 
 var action:PawnActionBase
-var args:Array
+var args:Array # MUST be simple data that can be saved/loaded easily like strings/numbers/etc. No references
 
 var actionText:String = ""
+
+func saveData() -> Dictionary:
+	var theExtraTargets:Array[Dictionary]
+	for theTarget:ActionSystemTarget in extraTargets:
+		theExtraTargets.append(theTarget.saveData())
+	
+	return {
+		uid = uniqueID,
+		um = userMove,
+		ct = cancelType,
+		cih = cancelIfHit,
+		tf = timeFull,
+		tp = timePassed,
+		ctm = consentTimeMult,
+		user = user.getID(),
+		target = target.saveData(),
+		extraTargets = theExtraTargets,
+		action = action.id,
+		args = args,
+		at = actionText,
+	}
+
+func loadData(_data:Dictionary):
+	uniqueID = SAVE.loadInt(_data, "uid", -1)
+	userMove = SAVE.loadInt(_data, "um", MOVE_CANMOVE)
+	cancelType = SAVE.loadInt(_data, "ct", CANCEL_ALLOW)
+	cancelIfHit = SAVE.loadBool(_data, "cih")
+	timeFull = SAVE.loadFloat(_data, "tf", 1.0)
+	timePassed = SAVE.loadFloat(_data, "tp")
+	consentTimeMult = SAVE.loadFloat(_data, "ctm", 2.0)
+	var theUserID:String = SAVE.loadStr(_data, "user")
+	user = GM.pawnRegistry.getPawn(theUserID)
+	target = ActionSystemTarget.new()
+	target.loadData(SAVE.loadDict(_data, "target"))
+	extraTargets.clear()
+	var theExtraTargetsData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "extraTargets")
+	for theExtra:Dictionary in theExtraTargetsData:
+		var newExtraTarget:ActionSystemTarget = ActionSystemTarget.new()
+		newExtraTarget.loadData(theExtra)
+		if(!newExtraTarget.node):
+			uniqueID = -1 # So we become invalid
+		extraTargets.append(newExtraTarget)
+	var theActionID:String = SAVE.loadStr(_data, "action")
+	action = GlobalRegistry.getPawnAction(theActionID)
+	args = SAVE.loadArray(_data, "args")
+	actionText = SAVE.loadStr(_data, "at")
+	
+	if(!user || !action): # So we become invalid
+		uniqueID = -1
 
 static func create(_text:String, _user:CharacterPawn, _target:Node, _timer:float, _action:PawnActionBase, _args:Array = []) -> ActionSystemEntry:
 	var newEntry := ActionSystemEntry.new()

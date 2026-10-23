@@ -5,6 +5,12 @@ var type:int = SexEngine.QUEUE_DELAY
 var obj:SexEngineActivityBase
 var justSkip:bool = false
 
+func saveData() -> Dictionary:
+	return {}
+
+func loadData(_data:Dictionary):
+	pass
+
 func setObj(_obj) -> SexEngineQueueEntry:
 	obj = _obj
 	return self
@@ -21,6 +27,14 @@ class Delay extends SexEngineQueueEntry:
 		theEntry.time = _time
 		theEntry.elapsedTime = 0.0
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			t = time,
+			et = elapsedTime,
+		}
+	func loadData(_data:Dictionary):
+		time = SAVE.loadFloat(_data, "t")
+		elapsedTime = SAVE.loadFloat(_data, "et")
 
 class CancelStopper extends SexEngineQueueEntry:
 	static func create() -> CancelStopper:
@@ -39,6 +53,15 @@ class CancelCatcher extends SexEngineQueueEntry:
 		theEntry.event = _event
 		theEntry.justSkip = true
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			s = state,
+			event = event.saveData(),
+		}
+	func loadData(_data:Dictionary):
+		state = SAVE.loadStr(_data, "s")
+		event = SexEvent.new()
+		event.loadData(SAVE.loadDict(_data, "event"))
 
 class DelayCanCancel extends SexEngineQueueEntry:
 	var time:float = 1.0
@@ -54,6 +77,16 @@ class DelayCanCancel extends SexEngineQueueEntry:
 	func supplyActionContext(_activity:SexEngineActivityBase, _role:String, _action:SexAction):
 		obj = _activity
 		role = _role
+	func saveData() -> Dictionary:
+		return {
+			t = time,
+			et = elapsedTime,
+			role = role,
+		}
+	func loadData(_data:Dictionary):
+		time = SAVE.loadFloat(_data, "t")
+		elapsedTime = SAVE.loadFloat(_data, "et")
+		role = SAVE.loadStr(_data, "role")
 
 class SetState extends SexEngineQueueEntry:
 	var state:String
@@ -62,6 +95,12 @@ class SetState extends SexEngineQueueEntry:
 		theEntry.type = SexEngine.QUEUE_SET_STATE
 		theEntry.state = _state
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			s = state,
+		}
+	func loadData(_data:Dictionary):
+		state = SAVE.loadStr(_data, "s")
 
 class Event extends SexEngineQueueEntry:
 	var state:String
@@ -72,6 +111,15 @@ class Event extends SexEngineQueueEntry:
 		theEntry.state = _state
 		theEntry.event = _event
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			s = state,
+			event = event.saveData(),
+		}
+	func loadData(_data:Dictionary):
+		state = SAVE.loadStr(_data, "s")
+		event = SexEvent.new()
+		event.loadData(SAVE.loadDict(_data, "event"))
 
 class AutoAction extends SexEngineQueueEntry:
 	var state:String
@@ -90,6 +138,18 @@ class AutoAction extends SexEngineQueueEntry:
 		obj = _activity
 		state = _activity.getState()
 		role = _role
+	func saveData() -> Dictionary:
+		return {
+			s = state,
+			role = role,
+			aid = actionID,
+			args = args,
+		}
+	func loadData(_data:Dictionary):
+		state = SAVE.loadStr(_data, "s")
+		role = SAVE.loadStr(_data, "role")
+		actionID = SAVE.loadStr(_data, "aid")
+		args = SAVE.loadArray(_data, "args")
 
 class ActionText extends SexEngineQueueEntry:
 	var text:String
@@ -98,6 +158,12 @@ class ActionText extends SexEngineQueueEntry:
 		theEntry.type = SexEngine.QUEUE_ACTIONTEXT
 		theEntry.text = _text
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			t = text,
+		}
+	func loadData(_data:Dictionary):
+		text = SAVE.loadStr(_data, "t")
 
 class CommentOnAction extends SexEngineQueueEntry:
 	var line:String
@@ -110,6 +176,16 @@ class CommentOnAction extends SexEngineQueueEntry:
 		theEntry.starterID = _starterID
 		theEntry.targetID = _targetID
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			l = line,
+			sid = starterID,
+			tid = targetID,
+		}
+	func loadData(_data:Dictionary):
+		line = SAVE.loadStr(_data, "l")
+		starterID = SAVE.loadStr(_data, "sid")
+		targetID = SAVE.loadStr(_data, "tid")
 
 class ConsentCheck extends SexEngineQueueEntry:
 	var delay:float
@@ -123,6 +199,34 @@ class ConsentCheck extends SexEngineQueueEntry:
 	var consentID:String = ""
 	var starterID:String = ""
 	var roles:Dictionary[String, String]
+	func saveData() -> Dictionary:
+		return {
+			d = delay,
+			de = delayElapsed,
+			df = delayForced,
+			ntc = needToConsent,
+			cs = consentStrategy,
+			ca = consentArgs,
+			ht = hoverTexts,
+			r = resisted,
+			cid = consentID,
+			sid = starterID,
+			roles = roles,
+		}
+	func loadData(_data:Dictionary):
+		delay = SAVE.loadFloat(_data, "d")
+		delayElapsed = SAVE.loadFloat(_data, "de")
+		delayForced = SAVE.loadFloat(_data, "df")
+		needToConsent.clear()
+		needToConsent.merge(SAVE.loadDict(_data, "ntc"))
+		consentStrategy = SAVE.loadInt(_data, "cs")
+		consentArgs = SAVE.loadArray(_data, "ca")
+		hoverTexts = SAVE.loadArray(_data, "ht")
+		resisted = SAVE.loadBool(_data, "r")
+		consentID = SAVE.loadStr(_data, "cid")
+		starterID = SAVE.loadStr(_data, "sid")
+		roles.clear()
+		roles.merge(SAVE.loadDict(_data, "roles"))
 	
 	static func create(_consentID:String, _delay:float, _delayForced:float, _needToConsent:Dictionary[String, bool], _consentStrategy:int, _consentArgs:Array, _hoverTexts:Array) -> ConsentCheck:
 		var theEntry := ConsentCheck.new()
@@ -172,12 +276,32 @@ class ResistMinigameStart extends SexEngineQueueEntry:
 		theEntry.type = SexEngine.QUEUE_RESIST_MINIGAME
 		theEntry.state = _state
 		return theEntry
+	func saveData() -> Dictionary:
+		return {
+			st = started,
+			s = state,
+		}
+	func loadData(_data:Dictionary):
+		started = SAVE.loadBool(_data, "st")
+		state = SAVE.loadStr(_data, "s")
 
 class Expose extends SexEngineQueueEntry:
 	var giverID:String
 	var receiverID:String
 	var fetishID:String
 	var intensity:float
+	func saveData() -> Dictionary:
+		return {
+			gid = giverID,
+			rid = receiverID,
+			fid = fetishID,
+			i = intensity,
+		}
+	func loadData(_data:Dictionary):
+		giverID = SAVE.loadStr(_data, "gid")
+		receiverID = SAVE.loadStr(_data, "rid")
+		fetishID = SAVE.loadStr(_data, "fid")
+		intensity = SAVE.loadFloat(_data, "i")
 	static func create(_giverID:String, _receiverID:String, _fetishID:String, _intensity:float) -> Expose:
 		var theEntry := Expose.new()
 		theEntry.type = SexEngine.QUEUE_EXPOSE
@@ -198,6 +322,19 @@ class StartActivity extends SexEngineQueueEntry:
 	var roles:Dictionary[String, String]
 	var args:Dictionary
 	var isMain:bool
+	func saveData() -> Dictionary:
+		return {
+			aid = activityID,
+			roles = roles,
+			args = args,
+			im = isMain,
+		}
+	func loadData(_data:Dictionary):
+		activityID = SAVE.loadStr(_data, "aid")
+		roles.clear()
+		roles.merge(SAVE.loadDict(_data, "roles"))
+		args = SAVE.loadDict(_data, "args")
+		isMain = SAVE.loadBool(_data, "im")
 	static func create(_activityID:String, _roles:Dictionary[String, String], _args:Dictionary, _isMain:bool = true) -> StartActivity:
 		var theEntry := StartActivity.new()
 		theEntry.type = SexEngine.QUEUE_START_MAIN_ACTIVITY
@@ -212,3 +349,42 @@ class StartActivity extends SexEngineQueueEntry:
 		if(theRef):
 			isMain = (theRef is SexMainActivity)
 		#assert(false, "bad")
+
+static func createEntry(_type:int) -> SexEngineQueueEntry:
+	var result:SexEngineQueueEntry
+	if(_type == SexEngine.QUEUE_DELAY):
+		result = Delay.new()
+	elif(_type == SexEngine.QUEUE_CANCEL_STOPPER):
+		result = CancelStopper.new()
+		result.justSkip = true
+	elif(_type == SexEngine.QUEUE_CANCEL_CATCHER):
+		result = CancelCatcher.new()
+		result.justSkip = true
+	elif(_type == SexEngine.QUEUE_DELAY_CANCANCEL):
+		result = DelayCanCancel.new()
+	elif(_type == SexEngine.QUEUE_SET_STATE):
+		result = SetState.new()
+	elif(_type == SexEngine.QUEUE_EVENT):
+		result = Event.new()
+	elif(_type == SexEngine.QUEUE_AUTOACTION):
+		result = AutoAction.new()
+	elif(_type == SexEngine.QUEUE_ACTIONTEXT):
+		result = ActionText.new()
+	elif(_type == SexEngine.QUEUE_COMMENT_ON_ACTION):
+		result = CommentOnAction.new()
+	elif(_type == SexEngine.QUEUE_CONSENT_CHECK):
+		result = ConsentCheck.new()
+	elif(_type == SexEngine.QUEUE_RESIST_MINIGAME):
+		result = ResistMinigameStart.new()
+	elif(_type == SexEngine.QUEUE_EXPOSE):
+		result = Expose.new()
+	elif(_type == SexEngine.QUEUE_START_MAIN_ACTIVITY):
+		result = StartActivity.new()
+		result.isMain = true
+	elif(_type == SexEngine.QUEUE_START_SIDE_ACTIVITY):
+		result = StartActivity.new()
+		result.isMain = false
+		
+	if(result):
+		result.type = _type
+	return result

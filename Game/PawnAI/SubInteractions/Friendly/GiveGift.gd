@@ -4,6 +4,19 @@ var itemUniqueID:int = -1
 var giftOutcome:int = 0 # 0 = nope, 1 = meh, 2 = good, 3 = great
 var savedGiftValue:float = 0.0
 
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	_data["itemUniqueID"] = itemUniqueID
+	_data["giftOutcome"] = giftOutcome
+	_data["savedGiftValue"] = savedGiftValue
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	itemUniqueID = SAVE.loadInt(_data, "itemUniqueID", -1)
+	giftOutcome = SAVE.loadInt(_data, "giftOutcome", 0)
+	savedGiftValue = SAVE.loadFloat(_data, "savedGiftValue")
+
 func _init() -> void:
 	id = "GiveGift"
 	socialActionName = "Give gift"

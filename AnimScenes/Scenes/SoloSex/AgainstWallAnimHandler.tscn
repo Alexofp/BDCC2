@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdiabd85ajb0x" path="res://AnimScenes/Scenes/SoloSex/AgainstWallSolo.tscn" id="3_x0k8v"]
 [ext_resource type="PackedScene" uid="uid://ds6l03e8q66mb" path="res://Game/Interactable/PawnInteractable.tscn" id="5_ypttl"]
 
-[node name="AgainstWallAnimHandler" type="Node3D" unique_id=1469755165 groups=["Networked"]]
+[node name="AgainstWallAnimHandler" type="Node3D" unique_id=1469755165]
 script = ExtResource("1_x0k8v")
 
 [node name="StandSpot" type="Marker3D" parent="." unique_id=91680705]

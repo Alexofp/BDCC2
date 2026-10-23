@@ -102,3 +102,46 @@ func stopAllInteractionsWith(_pawn:CharacterPawn):
 		if(theInteraction.isPawnInvolved(_pawn)):
 			removeInteraction(theInteraction)
 	GI.askPawnClearInteractUICategory(_pawn) # Clears their selected category if they picked something
+
+func stopAllInteractions():
+	var interactionAmount:int = interactions.size()
+	for _i in range(interactionAmount):
+		var theInteraction:InteractionBase = interactions[interactionAmount-_i-1]
+		removeInteraction(theInteraction)
+
+func saveNetworkData() -> Bins:
+	return Bins.saveStartEnd()
+
+func loadNetworkData(_data:Bins):
+	_data.loadStart()
+	
+	_data.endLoad()
+
+func saveData() -> Dictionary:
+	var theInteractionsData:Array[Dictionary]
+	for theInteraction:InteractionBase in interactions:
+		if(theInteraction.wasDeleted):
+			continue
+		theInteractionsData.append({
+			id = theInteraction.id,
+			data = theInteraction.saveData(),
+		})
+	
+	return {
+		interactions = theInteractionsData,
+	}
+
+func loadData(_data:Dictionary):
+	stopAllInteractions()
+	
+	var theInteractionsData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "interactions")
+	for theEntry:Dictionary in theInteractionsData:
+		var theID:String = SAVE.loadStr(theEntry, "id")
+		var theData:Dictionary = SAVE.loadDict(theEntry, "data")
+		var theInteraction:InteractionBase = GlobalRegistry.createInteraction(theID)
+		if(!theInteraction):
+			continue
+		theInteraction.loadData(theData)
+		if(theInteraction.wasDeleted): # Avoid adding it if it didn't load fully
+			continue
+		interactions.append(theInteraction)

@@ -17,6 +17,40 @@ var orgasms:Array[SexOrgasmInfo] = []
 var orgasmAmount:int = 0
 var orgasmsDeniedAmount:int = 0
 
+func saveData() -> Dictionary:
+	var theOrgasmData:Array[Dictionary]
+	for theOrgasm:SexOrgasmInfo in orgasms:
+		theOrgasmData.append(theOrgasm.saveData())
+	
+	return {
+		role = role,
+		autoConsent = autoConsent,
+		pcAuto = pcAuto,
+		targetID = targetID,
+		fsuid = freeStraponUniqueID,
+		oa = orgasmAmount,
+		oda = orgasmsDeniedAmount,
+		orgasms = theOrgasmData,
+	}
+
+func loadData(_data:Dictionary):
+	role = SAVE.loadInt(_data, "role", SexRole.Dom)
+	autoConsent = SAVE.loadBool(_data, "autoConsent", false)
+	pcAuto = SAVE.loadBool(_data, "pcAuto", false)
+	targetID = SAVE.loadStr(_data, "targetID")
+	freeStraponUniqueID = SAVE.loadInt(_data, "fsuid")
+	orgasmAmount = SAVE.loadInt(_data, "oa")
+	orgasmsDeniedAmount = SAVE.loadInt(_data, "oda")
+	orgasms.clear()
+	var theOrgasmData:Array[Dictionary] = SAVE.loadArrayOfDicts(_data, "orgasms")
+	for theEntry:Dictionary in theOrgasmData:
+		var newOrgasm:SexOrgasmInfo = SexOrgasmInfo.new()
+		newOrgasm.loadData(theEntry)
+		orgasms.append(newOrgasm)
+	ai = SexParticipantAI.new()
+	ai.setParticipant(self)
+	pawn = GM.pawnRegistry.getPawn(id)
+
 func setupInfo(_infoDict:Dictionary) -> bool:
 	if(!_infoDict.has("id")):
 		return false
@@ -257,15 +291,3 @@ func loadNetworkData(_data:Bins):
 	autoConsent = _data.readBool()
 	pcAuto = _data.readBool()
 	_data.endLoad()
-
-func saveData() -> Dictionary:
-	return {
-		role = role,
-		autoConsent = autoConsent,
-		pcAuto = pcAuto,
-	}
-
-func loadData(_data:Dictionary):
-	role = SAVE.loadVar(_data, "role", SexRole.Dom)
-	autoConsent = SAVE.loadVar(_data, "autoConsent", false)
-	pcAuto = SAVE.loadVar(_data, "pcAuto", false)

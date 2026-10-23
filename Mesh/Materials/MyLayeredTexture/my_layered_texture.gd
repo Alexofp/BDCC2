@@ -226,7 +226,7 @@ func _on_cache_timer_timeout() -> void:
 	
 	if(!cachedTexture && theFuture.result):
 		cachedTexture = theFuture.result
-		if(OS.is_debug_build()):
+		if(OS.is_debug_build() && is_inside_tree() && !is_queued_for_deletion()):
 			cachedTexture.resource_path = "  (CachedVT"+str(textureVersion)+") "+str(get_path())
 			cachedTexture.resource_name = "  (CachedVT) "+str(get_path())
 		onTextureUpdated.emit(cachedTexture)

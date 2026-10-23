@@ -88,7 +88,7 @@ func spawnCubeOnServer(thePos:Vector3):
 	
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
-	GI.networkedNodes.notifySpawned(theCube)
+	GI.networkedNodes.makeNodeNetDynamic(theCube)
 
 
 func _on_spawn_bench_button_pressed() -> void:
@@ -105,7 +105,7 @@ func spawnBenchOnServer(thePos:Vector3):
 	
 	GM.main.add_child(theCube, true)
 	theCube.global_position = thePos
-	GI.networkedNodes.notifySpawned(theCube)
+	GI.networkedNodes.makeNodeNetDynamic(theCube)
 
 func _on_start_sex_button_pressed() -> void:
 	if(pawn_list.get_selected_items().is_empty()):

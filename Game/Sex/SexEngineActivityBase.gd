@@ -25,6 +25,7 @@ const CATEGORY_SEX:Array[String] = ["Sex"]
 
 var id:String = "error"
 var engineRef:WeakRef
+var uniqueID:int = -1
 
 # role = id
 var roleToID:Dictionary[String, String] = {}
@@ -32,11 +33,27 @@ var idToRole:Dictionary[String, String] = {}
 
 var state:String = ""
 
-var canDoTasks:Dictionary[String, bool] = {}
+var canDoTasks:Dictionary[String, bool] = {} # no save
 var poseSupport:bool = false # no save. Is the pose support enabled for this activity
 var pose:String = ""
 
 var wasDeleted:bool = false
+
+func saveData() -> Dictionary:
+	return {
+		roleToID = roleToID,
+		idToRole = idToRole,
+		uid = uniqueID,
+		state = state,
+		pose = pose,
+	}
+
+func loadData(_data:Dictionary):
+	roleToID = SAVE.loadVar(_data, "roleToID", {})
+	idToRole = SAVE.loadVar(_data, "idToRole", {})
+	uniqueID = SAVE.loadInt(_data, "uid", -1)
+	state = SAVE.loadStr(_data, "state")
+	pose = SAVE.loadStr(_data, "pose")
 
 func getActivityType() -> int:
 	return ACTIVITY_SEXTYPE
@@ -936,13 +953,3 @@ func loadNetworkData(_data:Bins):
 	_data.loadStart()
 	loadData(_data.readVar())
 	_data.endLoad()
-
-func saveData() -> Dictionary:
-	return {
-		roleToID = roleToID,
-		idToRole = idToRole,
-	}
-
-func loadData(_data:Dictionary):
-	roleToID = SAVE.loadVar(_data, "roleToID", {})
-	idToRole = SAVE.loadVar(_data, "idToRole", {})

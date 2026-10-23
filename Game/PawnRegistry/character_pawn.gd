@@ -369,9 +369,13 @@ func loadData(_data:Dictionary):
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
 	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
 	cooldowns.loadData(SAVE.loadVar(_data, "cds", {}))
+	
+	rareUpdateTimer = RNG.randfRange(0.0, 1.0)
+	veryRareUpdateTimer = RNG.randfRange(9.0, 11.0)
 
 # If the thing includes finding other pawns or being inside a scene tree, gotta do it here
 func loadDataLate(_data:Dictionary):
+	#pawn_interactor.forceUpdateArea() # Doesn't do anything
 	submission.loadData(SAVE.loadVar(_data, "sub", {}))
 	mood.loadData(SAVE.loadVar(_data, "mood", {}))
 	combatAI.loadData(SAVE.loadDict(_data, "comai"))

@@ -6,9 +6,19 @@ var socialActionCategory:Array[String]
 var socialInteraction:SocialInteractionHandler
 var socialDefaultScore:float = 0.0
 var socialUnlockConditions:Array[SocialUnlockConditionBase] = []
-var socialRequiredAgreeScore:float = 0.0
 var socialIATags:Dictionary[int, float] = {} # Social interaction action tags, used for ai
 var chanceCalculator:SocialInteractionChanceCalculatorBase
+
+func saveData() -> Dictionary:
+	var _data:Dictionary = super.saveData()
+	if(socialInteraction):
+		_data["soi"] = socialInteraction.saveData()
+	return _data
+
+func loadData(_data:Dictionary):
+	super.loadData(_data)
+	if(socialInteraction):
+		socialInteraction.loadData(SAVE.loadDict(_data, "soi"))
 
 const F_NAME := MemorySimpleBank.F_NAME
 const F_DESC := MemorySimpleBank.F_DESC
@@ -72,9 +82,6 @@ func postCreation(_ref:InteractionBase):
 	chanceCalculator = _ref.chanceCalculator # Faster rather than re-creating it
 	socialInteraction = SocialInteractionHandler.new()
 	#socialInteraction.chanceCalculator = chanceCalculator
-
-func setSocialRequiredScore(_score:float):
-	socialRequiredAgreeScore = _score
 
 func addSocialUnlockCondition():
 	pass
@@ -152,7 +159,7 @@ func startSocialInteraction() -> bool:
 	# Somehow avoid re-creating the context? It's fine since it's done once..
 	socialInteraction.setChanceCalculatorResult(chanceCalculator.calculateChances(SocialInteractionContext.new().setup(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))))
 	socialInteraction.setPawns(getPawn(ROLE_MAIN), getPawn(ROLE_TARGET))
-	socialInteraction.trySocialInteraction(socialRequiredAgreeScore)
+	socialInteraction.trySocialInteraction()
 	return true
 	
 func scoreSocialAgree() -> float:
