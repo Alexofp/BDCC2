@@ -21,6 +21,12 @@ func canPickFromStartMenu() -> bool:
 func getPopulationSize() -> int:
 	return 0
 
+func getPrisonName() -> String:
+	return id
+
+func getSaveFinalPath() -> String:
+	return "user://Game/Saves/"+getPrisonName()+".save"
+
 func getMapScenePath() -> String:
 	return "res://Maps/Prison/prison.tscn"
 

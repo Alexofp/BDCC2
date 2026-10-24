@@ -279,6 +279,9 @@ static func getWorld() -> World:
 	return GI.world
 
 static func loadSavedGame(_savePath:String, _multiplayer:StartGameMultiplayer = null):
+	#var theInfo := GameShortInfo.tryGetInfoFromSavePath(_savePath)
+	#if(theInfo):
+	#	print(theInfo.saveData())
 	LoadingScreen.startLoad()
 	LoadingScreen.setText("Starting..")
 	var file := FileAccess.open(_savePath, FileAccess.READ)
@@ -305,6 +308,7 @@ static func loadSavedGame(_savePath:String, _multiplayer:StartGameMultiplayer = 
 	GI.get_tree().paused = true
 	changingScene = true
 	LoadingScreen.setText("Loading game..")
+	GM.main.gameSavePath = _savePath
 	var _succ:bool = await GI.get_tree().current_scene.loadData(theGameData)
 	if(!_succ):
 		errorOutToMainMenu("Failed to load gamemode data, corrupt save?")

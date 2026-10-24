@@ -11,18 +11,37 @@ const SYNC_STATIC_GROUP = "SyncStatic"
 const SYNC_DYNAMIC_GROUP = "SyncDynamic"
 const SYNC_CHILD_GROUP = "SyncChild"
 
+const DYN_NAME_SUFFIX:String = "_DYN"
+const META_NAME:String = "DynID"
+
+var lastUID:int = 0
+
 func isStatic(_node:Node) -> bool:
 	return _node.is_in_group(SYNC_STATIC_GROUP)
 
 func isDynamic(_node:Node) -> bool:
 	return _node.is_in_group(SYNC_DYNAMIC_GROUP)
 
-## Marks this node to be synched and saved/loaded
-func makeNodeNetDynamic(_node:Node):
+func generateNewUID() -> int:
+	lastUID += 1
+	return lastUID
+
+func giveDynamicNodeNewName(_node:Node):
+	if(!_node):
+		return
+	var _newUID:int = generateNewUID()
+	_node.name += DYN_NAME_SUFFIX+str(_newUID)
+	_node.set_meta(META_NAME, _newUID)
+
+## Marks this node to be synched and saved/loaded.
+## CHANGES ITS NAME.
+func makeNodeNetDynamic(_node:Node, _giveNewUID:bool = true):
 	if(!Network.isServer() || !_node):
 		return
 	if(_node.is_in_group(SYNC_DYNAMIC_GROUP)):
 		return
+	if(_giveNewUID):
+		giveDynamicNodeNewName(_node)
 	_node.remove_from_group(SYNC_STATIC_GROUP)
 	_node.add_to_group(SYNC_DYNAMIC_GROUP)
 	if(Network.isServerNotSingleplayer()):
@@ -47,7 +66,7 @@ func notifySpawned(_node:Node):
 	Network.rpcClients(spawnNetworkedNode_RPC.bind(
 		_node.scene_file_path, str(_node.get_parent().get_path()), _node.name, nodeData
 	))
-	var allNetworked:Array = []
+	var allNetworked:Array[Node] = []
 	getAllNetChildNodesOfRecursive(_node, allNetworked)
 	for childNode in allNetworked:
 		var childNodeData:Dictionary = childNode.saveData() if childNode.has_method("saveData") else {}
@@ -59,9 +78,11 @@ func notifySpawned(_node:Node):
 			childNode.scene_file_path, str(childNode.get_parent().get_path()), childNode.name, childNodeData
 		))
 	
-func getAllNetChildNodesOfRecursive(_node:Node, _ar:Array):
+func getAllNetChildNodesOfRecursive(_node:Node, _ar:Array[Node]):
 	for child in _node.get_children():
-		#if(child.is_in_group(SYNC_STATIC_GROUP) || child.is_in_group(SYNC_DYNAMIC_GROUP)):
+		if(child.is_in_group(SYNC_STATIC_GROUP) || child.is_in_group(SYNC_DYNAMIC_GROUP)):
+			assert(false, "FOUND A STATIC/DYNAMIC PROP INSIDE ANOTHER STATIC/DYNAMIC PROP. THIS IS NOT ALLOWED.")
+			continue
 		if(child.is_in_group(SYNC_CHILD_GROUP)):
 			_ar.append(child)
 		
@@ -205,7 +226,7 @@ func deleteDynamicNodes():
 		theNode.name += "_DELETED"
 		theNode.queue_free()
 
-func loadNodes(_nodes:Array[Dictionary], _isDynamic:bool = false, theLateLoadNodes:Dictionary[Node, Dictionary] = {}):
+func loadNodes(_nodes:Array[Dictionary], _isDynamic:bool = false, theLateLoadNodes:Dictionary[Node, Dictionary] = {}, _isSyncChilds:bool = false):
 	#var _lateNodes:Dictionary[Node, Dictionary]
 	for theEntry:Dictionary in _nodes:
 		var theFile:String = SAVE.loadStr(theEntry, "file")
@@ -213,6 +234,13 @@ func loadNodes(_nodes:Array[Dictionary], _isDynamic:bool = false, theLateLoadNod
 		if(theFile.is_empty() || thePath.is_empty()):
 			continue
 		var theData:Dictionary = SAVE.loadDict(theEntry, "data")
+		
+		#if(!_isSyncChilds):
+		var theChilds:Array[Dictionary] = SAVE.loadArrayOfDicts(theEntry, "childs") if theEntry.has("childs") else ([] as Array[Dictionary])
+		
+		# Load childs before parent?
+		if(!theChilds.is_empty()):
+			loadNodes(theChilds, false, theLateLoadNodes, true)
 		
 		var theName:String = thePath.get_name(thePath.get_name_count()-1)
 		var theParentPath:NodePath = thePath.slice(0, thePath.get_name_count()-1)
@@ -250,8 +278,13 @@ func loadNodes(_nodes:Array[Dictionary], _isDynamic:bool = false, theLateLoadNod
 				continue
 			var theThing:Node = theThingScene.instantiate()
 			theThing.name = theName
-			theParentNode.add_child(theThing, true)
+			theParentNode.add_child(theThing)
 			theThing.name = theName
+			if(_isDynamic):
+				var theUID:int = SAVE.loadInt(theEntry, "uid", -1)
+				theThing.set_meta(META_NAME, theUID)
+				if(theUID > lastUID):
+					lastUID = theUID
 			if(theEntry.has("pos") && (theThing is Node3D)):
 				theThing.position = SAVE.loadVec3(theEntry, "pos")
 				theThing.rotation = SAVE.loadVec3(theEntry, "ang")
@@ -261,12 +294,12 @@ func loadNodes(_nodes:Array[Dictionary], _isDynamic:bool = false, theLateLoadNod
 			if(theThing.has_method("loadDataLate")):
 				#_lateNodes[theThing] = theData
 				theLateLoadNodes[theThing] = theData
-			makeNodeNetDynamic(theThing)
+			makeNodeNetDynamic(theThing, false)
 	
 	#for theNode:Node in _lateNodes:
 	#	theNode.loadDataLate(_lateNodes[theNode])
 	
-func saveNodes(_nodes:Array[Node], _isDynamic:bool = false) -> Array[Dictionary]:
+func saveNodes(_nodes:Array[Node], _isDynamic:bool = false, _isSyncChilds:bool = false) -> Array[Dictionary]:
 	var nodesData:Array[Dictionary] = []
 	
 	for theNode:Node in _nodes: # Sort by parent nodepath lengths?
@@ -281,16 +314,17 @@ func saveNodes(_nodes:Array[Node], _isDynamic:bool = false) -> Array[Dictionary]
 			#name = str(theNode.name),
 			data = theNode.saveData() if theNode.has_method("saveData") else {},
 		}
-		if(isDynamic(theNode) && (theNode is Node3D)):
+		if(_isDynamic):
+			theData["uid"] = theNode.get_meta(META_NAME, -1)
+		if(isDynamic(theNode) && (theNode is Node3D) && !theData["data"].has("pos")):
 			theData["pos"] = theNode.position
 			theData["ang"] = theNode.rotation
 		
-		# MAKE ME WORK
-		#var allNetworked:Array = []
-		#getAllNetChildNodesOfRecursive(theNode, allNetworked)
-		#if(!allNetworked.is_empty()):
-		#	var theChildDatas:Array[Dictionary]
-		#	theData["childs"] = 
+		if(!_isSyncChilds):
+			var allNetworked:Array[Node] = []
+			getAllNetChildNodesOfRecursive(theNode, allNetworked)
+			if(!allNetworked.is_empty()):
+				theData["childs"] = saveNodes(allNetworked, false, true)
 		
 		nodesData.append(theData)
 		
@@ -298,11 +332,13 @@ func saveNodes(_nodes:Array[Node], _isDynamic:bool = false) -> Array[Dictionary]
 
 func saveData() -> Dictionary:
 	return {
+		lastUID = lastUID,
 		nodesStatic = saveNodes(getAllStaticSyncNodes(), false),
 		nodesDynamic = saveNodes(getAllDynamicSyncNodes(), true),
 	}
 
 func loadData(_data:Dictionary):
+	lastUID = SAVE.loadInt(_data, "lastUID")
 	deleteDynamicNodes()
 	var theLateLoadNodes:Dictionary[Node, Dictionary]
 	loadNodes(SAVE.loadArrayOfDicts(_data, "nodesStatic"), false, theLateLoadNodes)

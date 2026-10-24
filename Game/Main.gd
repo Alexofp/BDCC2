@@ -40,6 +40,24 @@ var reactionSystem:ReactionSystem = ReactionSystem.new()
 
 var gameMode:GameModeBase
 var mapPath:String = ""
+var prisonName:String = "BDCC"
+var timePlayedSaved:int = 0
+var timeGameStart:int = 0 # no save
+var gameSavePath:String = ""
+
+const GAME_INFO_KEY:String = "___info"
+
+func getGameShortInfo() -> GameShortInfo:
+	var theInfo:GameShortInfo = GameShortInfo.new()
+	theInfo.prisonName = prisonName
+	theInfo.gameModeID = gameMode.id
+	theInfo.mapPath = mapPath
+	theInfo.playerName = GM.pc.getFullName() if GM.pc else "Unknown"
+	theInfo.timePlayed = getTimePlayedSeconds()
+	theInfo.gameVersion = GM.getGameVersionStr()
+	return theInfo
+
+#func loadGameShortInfoFrom
 
 func canSaveGame() -> bool:
 	if(Network.isClient()):
@@ -52,13 +70,18 @@ func saveGame() -> String:
 	if(!canSaveGame()):
 		return "Unable to save the game in this state"
 	
-	var thePath:String = gameMode.getSaveFinalPath()
+	#var thePath:String = gameMode.getSaveFinalPath()
+	#if(thePath.is_empty()):
+	#	return "Unable to save game, gamemode didn't provide a save path"
+	
+	var thePath:String = gameSavePath
 	if(thePath.is_empty()):
-		return "Unable to save game, gamemode didn't provide a save path"
+		return "Unable to save game, no save path"
 		
 	DirAccess.make_dir_recursive_absolute(thePath.get_base_dir())
 	
 	var theData:Dictionary = saveData()
+	theData[GAME_INFO_KEY] = getGameShortInfo().saveData()
 	var theFile := FileAccess.open(thePath, FileAccess.WRITE)
 	if(!theFile):
 		return "Unable to save game: "+error_string(FileAccess.get_open_error())
@@ -74,6 +97,8 @@ func saveData() -> Dictionary:
 		gameModeID = gameMode.id,
 		gameMode = gameMode.saveData(),
 		mapPath = mapPath, # Save some kind of map data instead?
+		prisonName = prisonName,
+		timePlayed = getTimePlayedSeconds(),
 		gi = GI.saveFullData(),
 	}
 	return _data
@@ -85,6 +110,8 @@ func loadData(_data:Dictionary) -> bool:
 	var theGameModeData:Dictionary = SAVE.loadVar(_data, "gameMode", {})
 	var theMapPath:String = SAVE.loadVar(_data, "mapPath", "")
 	var theGIData:Dictionary = SAVE.loadVar(_data, "gi", {})
+	prisonName = SAVE.loadStr(_data, "prisonName")
+	timePlayedSaved = SAVE.loadInt(_data, "timePlayed")
 	
 	var _succ:bool = await loadModeOnMap(theMapPath, theGameModeID, [], theGameModeData, false)
 	if(!_succ):
@@ -97,6 +124,8 @@ func loadData(_data:Dictionary) -> bool:
 func loadStartGameHolder(_holder:StartGameHolder):
 	await loadModeOnMap(_holder.gameModeDef.getMapScenePath(), _holder.gameModeDef.id, [], {})
 	if(gameMode):
+		prisonName = _holder.gameModeDef.getPrisonName()
+		gameSavePath = _holder.gameModeDef.getSaveFinalPath()
 		gameMode.startNewGame(_holder)
 
 func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary, _doInit:bool = true) -> bool:
@@ -123,7 +152,8 @@ func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary,
 		# Do something here? Load a placeholder map?
 		return false
 	var theMapNode:Node3D = theMap.instantiate()
-	add_child(theMapNode)
+	theMapNode.name = "Map"
+	add_child(theMapNode, true)
 	building_platform_8x_8.queue_free()
 	OPTIONS.graphics.updateDynamicGI()
 	
@@ -187,7 +217,7 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 
 func _ready() -> void:
 	#print("MEOW: "+str(Util.getResourcesFromFolderSmart("res://Sounds/", ["wav"], true, true, true, false)))
-	
+	timeGameStart = int(Time.get_unix_time_from_system())
 	hideAllMenus()
 	sit_manager.connectSignals()
 	Network.preMultiplayerStarted.connect(onMultiplayerPreStart)
@@ -380,3 +410,6 @@ func checkCanLean(_globalPos:Vector3, _globalRot:Vector3) -> bool:
 	wall_checker.global_position = _globalPos
 	wall_checker.global_rotation = _globalRot
 	return wall_checker.checkCanLean()
+
+func getTimePlayedSeconds() -> int:
+	return timePlayedSaved + maxi(0, int(Time.get_unix_time_from_system())-timeGameStart)
