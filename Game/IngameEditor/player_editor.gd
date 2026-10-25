@@ -1325,7 +1325,7 @@ func _on_editor_id_pressed(_id: int) -> void:
 	if(_id == 1):
 		position = Vector3()
 	if(_id == 2):
-		var _ok = OS.shell_open(ProjectSettings.globalize_path(dirBase.path_join("Maps/")))
+		var _ok = OS.shell_show_in_file_manager(ProjectSettings.globalize_path(dirBase.path_join("Maps/")))
 
 func toggleBuildingPlatform(showMessages:bool=false):
 	if(buildingPlatform != null):

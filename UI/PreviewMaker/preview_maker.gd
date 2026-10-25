@@ -169,7 +169,7 @@ func get_aabb(node: Node) -> AABB:
 
 
 func _on_open_folder_button_pressed() -> void:
-	OS.shell_open(ProjectSettings.globalize_path(getSavePreviewFolder()))
+	OS.shell_show_in_file_manager(ProjectSettings.globalize_path(getSavePreviewFolder()))
 
 func _on_close_button_pressed() -> void:
 	GM.startMainMenu()

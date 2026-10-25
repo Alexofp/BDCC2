@@ -60,29 +60,27 @@ func getGameShortInfo() -> GameShortInfo:
 #func loadGameShortInfoFrom
 
 func canSaveGame() -> bool:
+	return canSaveGameReason().is_empty()
+
+func canSaveGameReason() -> String:
 	if(Network.isClient()):
-		return false
+		return "Can't save the game if we're a client connected to a server"
 	if(!gameMode.canSaveGame()):
-		return false
-	return true
+		return "Gamemode prevents saving the game"
+	if(gameSavePath.is_empty()):
+		return "Unable to save game, no save path"
+	return ""
 
 func saveGame() -> String:
-	if(!canSaveGame()):
-		return "Unable to save the game in this state"
+	var _canSaveReason:String = canSaveGameReason()
+	if(!_canSaveReason.is_empty()):
+		return _canSaveReason
 	
-	#var thePath:String = gameMode.getSaveFinalPath()
-	#if(thePath.is_empty()):
-	#	return "Unable to save game, gamemode didn't provide a save path"
-	
-	var thePath:String = gameSavePath
-	if(thePath.is_empty()):
-		return "Unable to save game, no save path"
-		
-	DirAccess.make_dir_recursive_absolute(thePath.get_base_dir())
+	DirAccess.make_dir_recursive_absolute(gameSavePath.get_base_dir())
 	
 	var theData:Dictionary = saveData()
 	theData[GAME_INFO_KEY] = getGameShortInfo().saveData()
-	var theFile := FileAccess.open(thePath, FileAccess.WRITE)
+	var theFile := FileAccess.open(gameSavePath, FileAccess.WRITE)
 	if(!theFile):
 		return "Unable to save game: "+error_string(FileAccess.get_open_error())
 	

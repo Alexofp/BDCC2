@@ -8,6 +8,9 @@ var mapPath:String = ""
 var timePlayed:int = 0 # Seconds
 var gameVersion:String = "0.0.0"
 
+var savePath:String = "" # no save
+var corrupted:bool = false # no save
+
 func saveData() -> Dictionary:
 	return {
 		prisonName = prisonName,
@@ -26,16 +29,19 @@ func loadData(_data:Dictionary):
 	timePlayed = SAVE.loadInt(_data, "timePlayed")
 	gameVersion = SAVE.loadStr(_data, "gameVersion", "0.0.0")
 
-static func tryGetInfoFromSavePath(_path:String) -> GameShortInfo:
+static func tryGetInfoFromSavePath(_path:String, _getCorruptOnError:bool = true) -> GameShortInfo:
 	var theFile:FileAccess = FileAccess.open(_path, FileAccess.READ)
 	if(!theFile):
 		return null
+	var theCorruptInfo:GameShortInfo = GameShortInfo.new()
+	theCorruptInfo.corrupted = true
+	theCorruptInfo.savePath = _path
 	var theFirstLine:String = theFile.get_line()
 	if(theFirstLine.strip_edges() != "{"):
-		return null
+		return theCorruptInfo if _getCorruptOnError else null
 	var secondLineMustBe:String = "\""+MainScene.GAME_INFO_KEY+"\": {"
 	if(theFile.get_line().strip_edges() != secondLineMustBe):
-		return null
+		return theCorruptInfo if _getCorruptOnError else null
 	var theLines:Array[String] = ["{"]
 	var _foundDicts:int = 1
 	var _tooMany:int = 100
@@ -56,8 +62,15 @@ static func tryGetInfoFromSavePath(_path:String) -> GameShortInfo:
 	
 	var theInfoVarRaw = str_to_var(Util.join(theLines, "\n"))
 	if(!(theInfoVarRaw is Dictionary)):
-		return null
+		return theCorruptInfo if _getCorruptOnError else null
 	var theInfoVar:Dictionary = theInfoVarRaw
 	var theInfo:GameShortInfo = GameShortInfo.new()
+	theInfo.savePath = _path
 	theInfo.loadData(theInfoVar)
 	return theInfo
+
+func getGameModeName() -> String:
+	var theGameMode:GameModeDef = GlobalRegistry.getGameModeDefRef(gameModeID)
+	if(!theGameMode):
+		return "Unknown:"+gameModeID
+	return theGameMode.getName()

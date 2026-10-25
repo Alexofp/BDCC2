@@ -44,7 +44,7 @@ func rescanUserPresets():
 	userPresets = loadPacksFromFolder(USERPRESETS_FOLDER, true)
 	#userPresets.clear()
 	#
-	#var thePaths := Util.getFilesInFolderSmart(USERPRESETS_FOLDER, "tres", true, false, false)
+	#var thePaths := Util.getFilesInFolderSmart(USERPRESETS_FOLDER, ["tres"], true, false, false)
 	#
 	#for path in thePaths:
 		#var thePreset:CharacterPreset = CharacterPreset.new()

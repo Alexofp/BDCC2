@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://d0jlfaynk47mq"]
+
+[ext_resource type="Script" uid="uid://b6uhteskuirli" path="res://UI/LoadGameUI/SelectSaveEntryUI.gd" id="1_1hcgu"]
+[ext_resource type="StyleBox" uid="uid://5gq0v8e324yu" path="res://UI/LoadGameUI/SaveSelected.tres" id="1_ftrwb"]
+
+[node name="SelectSaveEntryUI" type="PanelContainer" unique_id=672235612]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_styles/panel = ExtResource("1_ftrwb")
+script = ExtResource("1_1hcgu")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=544097024]
+layout_mode = 2
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 11
+theme_override_constants/margin_right = 11
+theme_override_constants/margin_bottom = 11
+
+[node name="TextLabel" type="Label" parent="MarginContainer" unique_id=1770525810]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1, 5)
+layout_mode = 2
+text = "BDCC"
+autowrap_mode = 3
+
+[node name="Presser" type="TextureButton" parent="." unique_id=695343132]
+layout_mode = 2
+
+[connection signal="pressed" from="Presser" to="." method="_on_presser_pressed"]

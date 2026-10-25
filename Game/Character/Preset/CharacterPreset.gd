@@ -164,6 +164,8 @@ func applyToCharacter(_char:BaseCharacter):
 		theBodypart.loadData(theBodypartEntry["data"] if theBodypartEntry.has("data") else {})
 		_char.addBodypart(bodypartSlot, theBodypart)
 	
+	if(!embedded && !generated):
+		_char.presetPath = filename
 	_char.notifyPresetApplied()
 	
 func saveData() -> Dictionary:

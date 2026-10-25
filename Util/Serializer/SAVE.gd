@@ -48,3 +48,24 @@ static func getNodePath(_node:Node) -> NodePath:
 
 static func loadNodeByPath(_data:Dictionary, _theKey:String) -> Node:
 	return GI.get_tree().root.get_node_or_null(SAVE.loadVar(_data, _theKey, NodePath()))
+
+const SAVES_FOLDER:String = "user://Game/Saves/"
+const SAVE_EXTENSION:String = "bdcc2"
+static func getAllSaves() -> Array[String]:
+	return Util.getFilesInFolderSmart(SAVES_FOLDER, [SAVE_EXTENSION], true, false, false, true)
+
+static func getAllSaveInfos(_getCorruptOnError:bool = true) -> Array[GameShortInfo]:
+	var result:Array[GameShortInfo]
+	var theSaves:Array[String] = getAllSaves()
+	for thePath:String in theSaves:
+		var newInfo:GameShortInfo = GameShortInfo.tryGetInfoFromSavePath(thePath, _getCorruptOnError)
+		if(!newInfo):
+			continue
+		result.append(newInfo)
+	return result
+
+static func constructSaveFilepath(_name:String) -> String:
+	return SAVES_FOLDER.path_join(Util.sanitizeFileName(_name)+"."+SAVE_EXTENSION)
+
+static func findUniqueSaveFilepathFromName(_name:String) -> String:
+	return Util.findUniqueFilepath(constructSaveFilepath(_name))

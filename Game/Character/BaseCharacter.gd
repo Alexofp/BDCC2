@@ -2,6 +2,7 @@ extends RefCounted
 class_name BaseCharacter
 
 var id:String = ""
+var presetPath:String = "" # Path to the preset that was used to make this character. Could be empty
 var bodyparts:Dictionary[int, BodypartBase] = {}
 var skinTypes:SkinTypeProfile = SkinTypeProfile.new()
 
@@ -937,6 +938,7 @@ func saveData() -> Dictionary:
 		charData[syncOption] = getSyncOptionValue(syncOption)
 	
 	return {
+		presetPath = presetPath,
 		bodyparts = bodypartsData,
 		charData = charData,
 		charState = charState.saveData(),
@@ -951,10 +953,10 @@ func loadData(_data:Dictionary):
 	if(_data.has("bodyparts")):
 		clearBodyparts()
 		
-		var bodypartsData:Dictionary = SAVE.loadVar(_data, "bodyparts", {})
+		var bodypartsData:Dictionary = SAVE.loadDict(_data, "bodyparts")
 		for bodypartSlotStr in bodypartsData:
-			var bodypartData:Dictionary = SAVE.loadVar(bodypartsData, str(bodypartSlotStr), {})
-			var bodypartID:String = SAVE.loadVar(bodypartData, "id", "")
+			var bodypartData:Dictionary = SAVE.loadDict(bodypartsData, str(bodypartSlotStr))
+			var bodypartID:String = SAVE.loadStr(bodypartData, "id", "")
 			if(bodypartID == ""):
 				Log.Printerr("Empty bodypart ID received in BaseCharacter.loadData")
 				continue
@@ -962,28 +964,31 @@ func loadData(_data:Dictionary):
 			if(!theBodypart):
 				Log.Printerr("Bad bodypart id in BaseCharacter.loadData, id='"+str(bodypartID)+"'")
 				continue
-			theBodypart.loadData(SAVE.loadVar(bodypartData, "data", {}))
+			theBodypart.loadData(SAVE.loadDict(bodypartData, "data"))
 			addBodypart(int(bodypartSlotStr), theBodypart)
 	
 	if(_data.has("charData")):
-		var charData:Dictionary = SAVE.loadVar(_data, "charData", {})
+		var charData:Dictionary = SAVE.loadDict(_data, "charData")
 		for syncOption in charData:
 			applyCharChange(syncOption, charData[syncOption])
 	
 	if(_data.has("charState")):
-		charState.loadData(SAVE.loadVar(_data, "charState", {}))
+		charState.loadData(SAVE.loadDict(_data, "charState"))
 	
 	if(_data.has("inventory")):
-		inventory.loadData(SAVE.loadVar(_data, "inventory", {}))
+		inventory.loadData(SAVE.loadDict(_data, "inventory"))
 	
 	if(_data.has("personality")):
-		personality.loadData(SAVE.loadVar(_data, "personality", {}))
+		personality.loadData(SAVE.loadDict(_data, "personality"))
 	
 	if(_data.has("fetishHolder")):
-		fetishHolder.loadData(SAVE.loadVar(_data, "fetishHolder", {}))
+		fetishHolder.loadData(SAVE.loadDict(_data, "fetishHolder"))
 	
 	if(_data.has("effectsHolder")):
-		effectsHolder.loadData(SAVE.loadVar(_data, "effectsHolder", {}))
+		effectsHolder.loadData(SAVE.loadDict(_data, "effectsHolder"))
 	
 	if(_data.has("traitHolder")):
-		traitHolder.loadData(SAVE.loadVar(_data, "traitHolder", {}))
+		traitHolder.loadData(SAVE.loadDict(_data, "traitHolder"))
+	
+	if(_data.has("presetPath")):
+		presetPath = SAVE.loadStr(_data, "presetPath")

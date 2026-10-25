@@ -251,9 +251,6 @@ func giveDefaultStuff(_char:BaseCharacter):
 func loadFromDef(_modeRef:GameModeDef):
 	pass
 
-func getSaveFinalPath() -> String:
-	return "user://Game/Saves/test.save"
-
 func canSaveGame() -> bool:
 	return true
 

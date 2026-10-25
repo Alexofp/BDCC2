@@ -39,6 +39,7 @@ func loadData(_data:Dictionary):
 	aiAction = null # Trying to save/load these is too much work. Might as well just let the goal give us a new action
 	lowestAIAction = null
 	#lowestAIAction = findLowestAIAction()
+	pawn.getNavAgent().target_position = currentMoveTarget
 
 func _init() -> void:
 	pass
@@ -79,6 +80,7 @@ func goTowards(_pos:Vector3, shouldRun:bool=false, _shouldRunDist:float = 5.0):
 	shouldRunDistance = _shouldRunDist
 	
 	if(currentMoveTarget.distance_squared_to(_pos) < 0.1 || !pawn):
+		#pawn.getNavAgent().target_position = currentMoveTarget
 		return
 	
 	currentMoveTarget = _pos

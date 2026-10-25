@@ -7,6 +7,7 @@ const SCREEN_MULT_LAN = 2
 const SCREEN_SETTINGS = 4
 const SCREEN_MULT_NORAY = 5
 const SCREEN_START_GAME = 6
+const SCREEN_LOAD_GAME = 7
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
@@ -36,6 +37,7 @@ var currentScreen:int = -1
 @onready var noray_relay_list: OptionButton = %NorayRelayList
 @onready var controls_panel_container: PanelContainer = %ControlsPanelContainer
 var startGameUI:StartGameUI
+var loadGameUI:Control
 
 func _ready() -> void:
 	setScreen(SCREEN_MAIN)
@@ -68,6 +70,16 @@ func setScreen(_screen:int):
 			startGameUI.queue_free()
 			startGameUI = null
 	
+	if(_screen == SCREEN_LOAD_GAME):
+		if(!loadGameUI):
+			loadGameUI = load("res://UI/LoadGameUI/LoadGameUI.tscn").instantiate()
+			add_child(loadGameUI)
+			loadGameUI.onBackPressed.connect(_on_load_game_ui_on_cancel_pressed)
+	else:
+		if(loadGameUI):
+			loadGameUI.queue_free()
+			loadGameUI = null
+	
 	noray_tunnel_list.visible = (_screen == SCREEN_MULT_NORAY)
 	noray_relay_bottom_list.visible = (_screen == SCREEN_MULT_NORAY)
 
@@ -76,7 +88,8 @@ func startGameUIStart(_start:StartGameHolder):
 
 func _on_play_button_pressed() -> void:
 	#GM.startGame_OLD("res://Maps/Prison/prison.tscn", GameMode.Sandbox)
-	GM.loadSavedGame("user://Game/Saves/test.save")
+	#GM.loadSavedGame("user://Game/Saves/test.save")
+	setScreen(SCREEN_LOAD_GAME)
 
 func _on_char_editor_button_pressed() -> void:
 	GM.startGame_OLD("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
@@ -161,6 +174,8 @@ func _on_noray_relay_list_item_selected(_index: int) -> void:
 	updateNorayRelayList()
 
 func _on_start_game_ui_on_cancel_pressed() -> void:
+	setScreen(SCREEN_MAIN)
+func _on_load_game_ui_on_cancel_pressed() -> void:
 	setScreen(SCREEN_MAIN)
 
 func _on_new_button_pressed() -> void:

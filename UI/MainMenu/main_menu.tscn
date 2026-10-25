@@ -24,7 +24,6 @@ grow_vertical = 2
 
 [node name="MainList" type="VBoxContainer" parent="CenterContainer" unique_id=963388035]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -41,7 +40,7 @@ text = "New game"
 [node name="MultiplayerButton" type="Button" parent="CenterContainer/MainList" unique_id=1049563296]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Multiplayer"
+text = "Join game"
 
 [node name="CharEditorButton" type="Button" parent="CenterContainer/MainList" unique_id=115823259]
 layout_mode = 2
@@ -129,6 +128,7 @@ text = "Back"
 
 [node name="NorayTunnelList" type="VBoxContainer" parent="CenterContainer" unique_id=1618989062]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -265,7 +265,6 @@ layout_mode = 2
 [connection signal="pressed" from="CenterContainer/MainList/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainList/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/LanButton" to="." method="_on_lan_button_pressed"]
-[connection signal="pressed" from="CenterContainer/MultiplayerList/NodeTunnelButton" to="." method="_on_node_tunnel_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/NorayTunnelButton" to="." method="_on_noray_tunnel_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MultiplayerList/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LanList/LanHostButton" to="." method="_on_lan_host_button_pressed"]

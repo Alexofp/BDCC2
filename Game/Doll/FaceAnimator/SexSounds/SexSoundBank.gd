@@ -74,7 +74,7 @@ func addFullMoanSetup(voiceID:String, voiceActor:String, basePath:String):
 func getEntriesFromFolder(folder:String, exts:Array[String]=["ogg", "wav", "mp3"]) -> Array:
 	if(!Util.folderExists(folder)):
 		return []
-	var theFiles:Array = Util.getResourcesFromFolder(folder, exts)#Util.getFilesInFolderSmartFixPath(folder, ext, true, false, false)
+	var theFiles:Array = Util.getResourcesFromFolder(folder, exts)#Util.getFilesInFolderSmartFixPath(folder, [ext], true, false, false)
 	
 	var result:Array = []
 	

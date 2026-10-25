@@ -72,33 +72,36 @@ static func getScriptsInFolder(folder: String) -> Array[String]:
 	#return result
 
 static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
-	#return getFilesInFolderSmart(folder, "gd", includeThisFolder, includeSubFolders, reqursive)
+	#return getFilesInFolderSmart(folder, ["gd"], includeThisFolder, includeSubFolders, reqursive)
 	return getResourcesFromFolderSmart(folder, ["gd"], includeThisFolder, includeSubFolders, reqursive)
 
-static func getFilesInFolderSmart(folder: String, extension:String, includeThisFolder = true, includeSubFolders = true, reqursive = true) -> Array:
-	var result:Array = []
-	
+static func getFilesInFolderSmart(folder: String, extensions:Array[String], includeThisFolder = true, includeSubFolders = true, reqursive = true, _lowercaseExt:bool = true) -> Array[String]:
 	var dir = DirAccess.open(folder)
-	if dir:
-		dir.include_navigational = false
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				if(includeSubFolders):
-					var full_path = folder.path_join(file_name)
-					result.append_array(getFilesInFolderSmart(full_path, extension, true, reqursive))
-				#print("Found directory: " + file_name)
-			else:
-				if(!includeThisFolder):
-					file_name = dir.get_next()
-					continue
-				if(file_name.get_extension() == extension):
-					var full_path = folder.path_join(file_name)
-					result.append(full_path)
-			file_name = dir.get_next()
-	else:
+	if(!dir):
 		Log.Printerr("An error occurred when trying to access the path "+folder)
+		return []
+
+	var result:Array[String] = []
+	dir.include_navigational = false
+	dir.list_dir_begin()
+	var file_name:String = dir.get_next()
+	while file_name != "":
+		if dir.current_is_dir():
+			if(includeSubFolders):
+				var full_path:String = folder.path_join(file_name)
+				result.append_array(getFilesInFolderSmart(full_path, extensions, true, reqursive))
+			#print("Found directory: " + file_name)
+		else:
+			if(!includeThisFolder):
+				file_name = dir.get_next()
+				continue
+			var theExt:String = file_name.get_extension()
+			if(_lowercaseExt):
+				theExt = theExt.to_lower()
+			if(extensions.is_empty() || extensions.has(theExt)):
+				var full_path:String = folder.path_join(file_name)
+				result.append(full_path)
+		file_name = dir.get_next()
 	
 	return result
 
@@ -115,6 +118,7 @@ static func fix_resource_path_only_remap(file:String) -> String:
 		file = file.trim_suffix(".remap")
 	return file
 
+# Not needed anymore probably.
 static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThisFolder = true, includeSubFolders = true, reqursive = true, getFullPath:bool = true) -> Array:
 	var result:Array = []
 	
@@ -127,7 +131,7 @@ static func getFilesInFolderSmartFixPath(folder: String, ext: String, includeThi
 			if dir.current_is_dir():
 				if(includeSubFolders):
 					var full_path = folder.path_join(file_name)
-					result.append_array(getFilesInFolderSmart(full_path, ext, true, reqursive))
+					result.append_array(getFilesInFolderSmart(full_path, [ext], true, reqursive))
 				#print("Found directory: " + file_name)
 			else:
 				if(!includeThisFolder):
@@ -182,11 +186,41 @@ static func sanitizeCharacterName(_theName:String) -> String:
 	
 	return result
 
-static func sanitizeFileName(_theName:String) -> String:
+static func sanitizeFileName(_theName:String, _replaceSpaces:bool = true) -> String:
 	_theName = _theName.strip_escapes()
 	_theName = _theName.validate_filename()
+	if(_replaceSpaces):
+		_theName = _theName.replace(" ", "_")
 	return _theName
+
+static func fileExists(_path:String) -> bool:
+	return FileAccess.file_exists(_path)
+
+static func addPostfixToFilename(_filename:String, _postfix:String) -> String:
+	var theExt:String = _filename.get_extension()
+	return _filename.get_basename()+_postfix+(("."+theExt) if !theExt.is_empty() else "")
+
+static func constructFilepathFromDirNameExt(_dir:String, _filename:String, _ext:String) -> String:
+	var _res:String = _dir.path_join(_filename)
+	if(!_ext.is_empty()):
+		_res += "."+_ext
+	return _res
+
+static func findUniqueFilepath(_filename:String, _postfix:String = "_", _replaceSpaces:bool = true) -> String:
+	var theBase:String = _filename.get_base_dir()
+	var theFilenameNoExt:String = _filename.get_file().get_basename()
+	var theExtension:String = _filename.get_extension()
 	
+	theFilenameNoExt = sanitizeFileName(theFilenameNoExt, _replaceSpaces)
+	theExtension = sanitizeFileName(theExtension, _replaceSpaces)
+	
+	var _testPath:String = constructFilepathFromDirNameExt(theBase, theFilenameNoExt, theExtension)
+	if(!FileAccess.file_exists(_testPath)):
+		return _testPath
+	var _i:int = 2
+	while(FileAccess.file_exists( constructFilepathFromDirNameExt(theBase, theFilenameNoExt+_postfix+str(_i), theExtension) )):
+		_i += 1
+	return constructFilepathFromDirNameExt(theBase, theFilenameNoExt+_postfix+str(_i), theExtension)
 
 static func folderExists(path:String) -> bool:
 	#var dir = DirAccess.open(path)

@@ -422,7 +422,7 @@ func standaloneTryToConfirm(_thing:int = -1) -> bool:
 	if(_theNewThing == MISSING_FILENAME):
 		save_preset_dialog.popup_centered()
 		#if(save_preset_line_edit.text == ""):
-		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName())
 		return true
 	if(_theNewThing == MISSING_TRAITS):
 		_on_edit_traits_button_pressed()
@@ -445,7 +445,7 @@ func _on_confirm_button_pressed() -> void:
 		#if(!editingPreset || editingPreset.embedded || editingPreset.generated):
 		#	save_preset_dialog.popup_centered()
 		#	#if(save_preset_line_edit.text == ""):
-		#	save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+		#	save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName())
 		#	return
 		#editingPreset.loadFromCharacter(character)
 		#onPresetConfirmed.emit(editingPreset)
@@ -528,7 +528,7 @@ func _on_save_preset_button_pressed() -> void:
 		return
 	save_preset_dialog.popup_centered()
 	if(save_preset_line_edit.text == ""):
-		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName()).replace(" ", "")
+		save_preset_line_edit.text = Util.sanitizeFileName(character.getFullName())
 
 func _on_save_preset_dialog_confirmed() -> void:
 	if(!character):
@@ -796,7 +796,7 @@ func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
 	standaloneTryToConfirm(MISSING_FETISHES)
 
 func _on_open_preset_button_pressed() -> void:
-	OS.shell_open(ProjectSettings.globalize_path(CharacterPresetHolder.USERPRESETS_FOLDER))
+	OS.shell_show_in_file_manager(ProjectSettings.globalize_path(CharacterPresetHolder.USERPRESETS_FOLDER))
 
 
 func _on_randomize_settings_button_pressed() -> void:

@@ -1238,7 +1238,7 @@ func loadMainReactionBank(_path:String) -> bool:
 	return true
 	
 func loadMainReactionBankFolder(folder: String):
-	var scripts = Util.getFilesInFolderSmart(folder, "txt")
+	var scripts = Util.getFilesInFolderSmart(folder, ["txt"])
 	for scriptPath in scripts:
 		loadMainReactionBank(scriptPath)
 

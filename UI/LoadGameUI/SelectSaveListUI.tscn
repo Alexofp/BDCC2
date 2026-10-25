@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cg0102fql5ys2"]
+
+[ext_resource type="Script" uid="uid://cnudlt76h1bm4" path="res://UI/LoadGameUI/SelectSaveListUI.gd" id="1_6hs56"]
+[ext_resource type="PackedScene" uid="uid://d0jlfaynk47mq" path="res://UI/LoadGameUI/SelectSaveEntryUI.tscn" id="1_cljfm"]
+
+[node name="SelectSaveListUI" type="VBoxContainer" unique_id=1286204901]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 127.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_6hs56")
+
+[node name="SelectSaveEntryUI" parent="." unique_id=672235612 instance=ExtResource("1_cljfm")]
+layout_mode = 2
