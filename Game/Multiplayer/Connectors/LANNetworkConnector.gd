@@ -5,38 +5,72 @@ const DEFAULT_IP := "127.0.0.1"
 const DEFAULT_PORT := 12345
 
 var ip:String = DEFAULT_IP
-var port:int = DEFAULT_PORT
+var hostPort:int = DEFAULT_PORT
+
+func _init() -> void:
+	id = "LANNetworkConnector"
+
+func getName() -> String:
+	return "LAN connector"
+
+func getListName() -> String:
+	return "LAN (connect by ip)"
+
+func getHostSettings() -> Dictionary:
+	return {
+		maxPlayers = {
+			name = "Max players",
+			type = "int",
+			value = maxPlayers,
+		},
+		password = {
+			name = "Password",
+			type = "string",
+			value = password,
+		},
+		hostPort = {
+			name = "LAN port",
+			type = "int",
+			value = hostPort,
+		},
+	}
+
+func getJoinSettings() -> Dictionary:
+	return {
+		ip = {
+			name = "IP address",
+			type = "string",
+			value = ip,
+		},
+		password = {
+			name = "Password",
+			type = "string",
+			value = password,
+		},
+	}
 
 func setJoinIPAndPortFromString(_ip:String):
-	var theSplit := _ip.split(":", false, 1)
-	if(theSplit.size() == 1):
-		ip = theSplit[0]
-		port = DEFAULT_PORT
-	if(theSplit.size() == 2):
-		ip = theSplit[0]
-		port = int(theSplit[1])
+	ip = _ip
 
 func setJoinIP(_ip:String, _port:int):
-	ip = _ip
-	port = _port
+	ip = _ip+":"+str(_port)
 
 func setHostPort(_port:int):
-	ip = "0.0.0.0"
-	port = _port
+	hostPort = _port
 
 func doHost() -> FuncResultOrError:
 	#preMultiplayerStarted.emit(true)
 	#setMyNickname(hostNickname)
 	
 	var peer := ENetMultiplayerPeer.new()
-	var error := peer.create_server(port, maxPlayers)#Network.MAX_PLAYERS)
+	var error := peer.create_server(hostPort, maxPlayers)#Network.MAX_PLAYERS)
 	if error:
 		Log.Printerr("Network unable to start hosting, error = "+str(error_string(error)))
 		var errorText:String = error_string(error)
 		if(error == ERR_ALREADY_IN_USE):
 			errorText = "The multiplayer peer is already in use. Restart the game."
 		elif(error == ERR_CANT_CREATE):
-			errorText = "Unable to start hosting. The port "+str(port)+" might already be in use by another application."
+			errorText = "Unable to start hosting. The port "+str(hostPort)+" might already be in use by another application."
 		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
 	multiplayer.multiplayer_peer = peer
 	
@@ -49,7 +83,8 @@ func doJoin() -> FuncResultOrError:
 	var peer := ENetMultiplayerPeer.new()
 	Log.Print("Connecting to server..")#+str(_ip)
 	
-	var error := peer.create_client(ip, port)
+	var theIPAndPort:Array = Util.getIPAndPort(ip, DEFAULT_PORT)
+	var error := peer.create_client(theIPAndPort[0], theIPAndPort[1])
 	if error:
 		Log.Printerr("Network unable to start connecting, error = "+str(error_string(error)))
 		return FuncResultOrError.createError(ERROR_GENERIC, error_string(error))

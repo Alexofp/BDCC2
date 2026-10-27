@@ -1,7 +1,29 @@
 extends Node
 class_name ConnectorNetworkBase
 
+var id:String = "ERROR"
 var maxPlayers:int = 32
+var password:String
+
+func getName() -> String:
+	return "Fill me!"
+
+func getListName() -> String:
+	return getName()
+
+func getJoinSettings() -> Dictionary:
+	return {}
+
+func applyJoinSetting(_id:String, _value) -> bool:
+	set(_id, _value)
+	return false
+
+func getHostSettings() -> Dictionary:
+	return {}
+
+func applyHostSetting(_id:String, _value) -> bool:
+	set(_id, _value)
+	return false
 
 # Errors
 #const OK = 0

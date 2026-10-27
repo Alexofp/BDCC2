@@ -38,6 +38,7 @@ func host(_connector:ConnectorNetworkBase) -> FuncResultOrError:
 	tryGetCustomMOTD()
 	stopMultiplayer()
 	connector = _connector
+	serverPassword = connector.password
 	if(!connector):
 		return null
 		

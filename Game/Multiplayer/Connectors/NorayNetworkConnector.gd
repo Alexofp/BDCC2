@@ -1,7 +1,7 @@
 extends ConnectorNetworkBase
 class_name NorayNetworkConnector
 
-const NORAY_SERVER = "2.27.16.181"#"tomfol.io"
+const NORAY_SERVER = "2.27.16.181:8890"#"tomfol.io"
 const NORAY_PORT = 8890
 
 const NORAY_SERVERS = [
@@ -13,19 +13,105 @@ enum NorayRole { NONE, HOST, CLIENT }
 var norayRole := NorayRole.NONE
 
 var relayServer:String = NORAY_SERVER
-var relayServerPort:int = NORAY_PORT
+#var relayServerPort:int = NORAY_PORT
 var forceRelay:bool = false
+var relayServerCustom:String = ""
+var roomID:String = ""
 
-func requiresRelayServer() -> bool:
-	return true
+func _init() -> void:
+	id = "NorayNetworkConnector"
 
-func getRelayServerList() -> Array[String]:
-	return NORAY_SERVERS
+func getName() -> String:
+	return "Noray connector"
+
+func getListName() -> String:
+	return "Internet (connect by room code, Noray)"
+
+#func requiresRelayServer() -> bool:
+#	return true
+#
+#func getRelayServerList() -> Array[String]:
+#	return NORAY_SERVERS
+
+func getHostSettings() -> Dictionary:
+	var theSettings:Dictionary = {
+		maxPlayers = {
+			name = "Max players",
+			type = "int",
+			value = maxPlayers,
+		},
+		password = {
+			name = "Password",
+			type = "string",
+			value = password,
+		},
+		relayServer = {
+			name = "Relay server",
+			type = "selector",
+			value = relayServer,
+			values = NorayNetworkConnector.NORAY_SERVERS+["-Custom-"],
+		},
+	}
+	if(relayServer == "-Custom-"):
+		theSettings["relayServerCustom"] = {
+			name = "Relay server ip/port",
+			type = "string",
+			value = relayServerCustom,
+		}
+	return theSettings
+
+func getJoinSettings() -> Dictionary:
+	var theSettings:Dictionary = {
+		roomID = {
+			name = "Room ID",
+			type = "string",
+			value = roomID,
+		},
+		password = {
+			name = "Server password",
+			type = "string",
+			value = password,
+		},
+		relayServer = {
+			name = "Relay server",
+			type = "selector",
+			value = relayServer,
+			values = NorayNetworkConnector.NORAY_SERVERS+["-Custom-"],
+		},
+	}
+	if(relayServer == "-Custom-"):
+		theSettings["relayServerCustom"] = {
+			name = "Relay server ip/port",
+			type = "string",
+			value = relayServerCustom,
+		}
+	
+	return theSettings
+
+func applyHostSetting(_id:String, _value) -> bool:
+	var _res:bool = super.applyHostSetting(_id, _value)
+	if(_id == "relayServer"):
+		return true
+	return _res
+
+func applyJoinSetting(_id:String, _value) -> bool:
+	var _res:bool = super.applyHostSetting(_id, _value)
+	if(_id == "relayServer"):
+		return true
+	return _res
+
+func getFinalRelayServer() -> String:
+	if(relayServer == "-Custom-"):
+		return relayServerCustom
+	return relayServer
+
+func getFinalRelayIPAndPort() -> Array:
+	return Util.getIPAndPort(getFinalRelayServer(), NORAY_PORT)
 
 func setRelay(_ip:String, _port:int, _force:bool = false):
 	assert(norayRole == NorayRole.NONE, "Can't change relay while connected")
-	relayServer = _ip
-	relayServerPort = _port
+	relayServer = _ip+":"+str(_port)
+	#relayServerPort = _port
 	forceRelay = _force
 
 func stopMultiplayer():
@@ -43,6 +129,7 @@ func doJoin() -> FuncResultOrError:
 	if(errorBig.isError()):
 		return errorBig
 	
+	Network.roomID = roomID
 	assert(!Network.roomID.is_empty(), "Trying to use an EMPTY room id")
 	if(forceRelay):
 		Noray.connect_relay(Network.roomID)
@@ -109,7 +196,8 @@ func norayPrepare() -> FuncResultOrError:
 	Noray.process_mode = Node.PROCESS_MODE_ALWAYS
 	PacketHandshake.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	var error = await Noray.connect_to_host(relayServer, relayServerPort)
+	var theFinalServerAndPort:Array = getFinalRelayIPAndPort()
+	var error = await Noray.connect_to_host(theFinalServerAndPort[0], theFinalServerAndPort[1])
 	if(error != OK):
 		var errorText:String = "Failed to connect to Noray, error = "+str(error_string(error))
 		Log.Printerr(errorText)

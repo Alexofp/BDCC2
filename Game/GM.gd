@@ -247,6 +247,10 @@ static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String)
 	GI.get_tree().paused = false
 	LoadingScreen.finishLoad()
 
+static func joinMultiplayerGame(_connector:ConnectorNetworkBase):
+	Network.serverPassword = _connector.password
+	await internal_joinGame(_connector, "")
+
 static func joinLANGame(_nickname:String, _ip:String, _serverPassword:String = ""):
 	Network.serverPassword = _serverPassword
 	var theConnector := LANNetworkConnector.new()

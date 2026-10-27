@@ -66,6 +66,8 @@ var gameModeDefs:Dictionary
 var gameModeDefRefs:Dictionary[String, GameModeDef]
 var traits:Dictionary[String, TraitBase]
 var traitScores:Dictionary[TraitBase, float]
+var networkConnectors:Dictionary
+var networkConnectorRefs:Dictionary[String, ConnectorNetworkBase]
 
 signal initialized
 
@@ -281,6 +283,8 @@ func doInit():
 	registerMoodsFolder("res://Game/PawnAI/Mood/Moods/")
 	registerStatusEffectsFolder("res://Gameplay/StatusEffects/Effects/")
 	registerTraitFolder("res://Game/Character/Traits/Traits/")
+	
+	registerNetworkConnectorFolder("res://Game/Multiplayer/Connectors/")
 	
 	# After all the registrations
 	GM.presets = CharacterPresetHolder.new() # Depends on Doll Anims
@@ -1504,3 +1508,36 @@ func getTraits() -> Dictionary[String, TraitBase]:
 
 func getTraitScores() -> Dictionary[TraitBase, float]:
 	return traitScores
+
+
+
+
+func registerNetworkConnector(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is ConnectorNetworkBase):
+		networkConnectors[object.id] = loadedClass
+		networkConnectorRefs[object.id] = object
+
+func registerNetworkConnectorFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerNetworkConnector(scriptPath)
+
+func getNetworkConnectorRef(id: String) -> ConnectorNetworkBase:
+	if(networkConnectorRefs.has(id)):
+		return networkConnectorRefs[id]
+	else:
+		Log.Printerr("ERROR: network connector with the id "+str(id)+" wasn't found")
+		return null
+
+func createNetworkConnector(id: String) -> ConnectorNetworkBase:
+	if(networkConnectors.has(id)):
+		return networkConnectors[id].new()
+	else:
+		Log.Printerr("ERROR: network connector with the id "+str(id)+" wasn't found")
+		return null
+
+func getNetworkConnectorRefs() -> Dictionary[String, ConnectorNetworkBase]:
+	return networkConnectorRefs

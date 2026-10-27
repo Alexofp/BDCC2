@@ -1,44 +1,11 @@
 extends RefCounted
 class_name StartGameMultiplayer
 
-const NO:int = 0
-const LAN:int = 1
-const NORAY:int = 2
-
-var multiplayer:int = NO
-var maxPlayers:int = 32
-var password:String = ""
-
-# Lan-specific
-var lanPort:int = LANNetworkConnector.DEFAULT_PORT
-
-# Noray-specific
-var norayServer:String = ""
-var norayServerCustom:String = ""
-
-func _init() -> void:
-	norayServer = NorayNetworkConnector.NORAY_SERVERS[0]
+var multiplayer:String = ""
+var connector:ConnectorNetworkBase
 
 func createNetworkConnector() -> ConnectorNetworkBase:
-	if(multiplayer == LAN):
-		Network.serverPassword = password
-		var newLan := LANNetworkConnector.new()
-		newLan.port = lanPort
-		newLan.maxPlayers = maxPlayers
-		return newLan
-	
-	if(multiplayer == NORAY):
-		Network.serverPassword = password
-		var newCon := NorayNetworkConnector.new()
-		var theSpread:Array = getNorayServer().split(":")
-		if(theSpread.size() > 0):
-			newCon.relayServer = theSpread[0]
-		if(theSpread.size() > 1):
-			newCon.relayServerPort = int(theSpread[1])
-		newCon.maxPlayers = maxPlayers
-		return newCon
-	
-	return null
+	return connector
 
 func getSettings() -> Dictionary:
 	var theGameModesValues:Array = []
@@ -46,62 +13,36 @@ func getSettings() -> Dictionary:
 		var theGameModeDefRef:GameModeDef = GlobalRegistry.getGameModeDefRef(theGameModeID)
 		theGameModesValues.append([theGameModeID, theGameModeDefRef.getName()])
 	
+	var theMultList:Array = [
+		["", "Singleplayer"],
+	]
+	for theID:String in GlobalRegistry.networkConnectorRefs:
+		var theConnector:ConnectorNetworkBase = GlobalRegistry.networkConnectorRefs[theID]
+		theMultList.append([
+			theID, theConnector.getListName(),
+		])
+	
 	var result:Dictionary = {
 		"multiplayer": {
 			name = "Multiplayer",
 			type = "selector",
 			value = multiplayer,
-			values = [
-				[NO, "Singleplayer"],
-				[LAN, "LAN (connect by ip)"],
-				[NORAY, "Internet (connect by room code)"],
-			],
+			values = theMultList,
 		},
 	}
-	if(multiplayer != NO):
-		result["maxPlayers"] = {
-			name = "Max players",
-			type = "int",
-			value = maxPlayers,
-		}
-		result["password"] = {
-			name = "Password",
-			type = "string",
-			value = password,
-		}
-	if(multiplayer == LAN):
-		result["lanPort"] = {
-			name = "LAN port",
-			type = "int",
-			value = lanPort,
-		}
-	if(multiplayer == NORAY):
-		result["norayServer"] = {
-			name = "Relay server",
-			type = "selector",
-			value = norayServer,
-			values = NorayNetworkConnector.NORAY_SERVERS+["-Custom-"],
-		}
-	if(norayServer == "-Custom-"):
-		result["norayServerCustom"] = {
-			name = "Relay server ip/port",
-			type = "string",
-			value = norayServerCustom,
-		}
+	if(connector):
+		result.merge(connector.getHostSettings())
 	
 	return result
 
 func applySetting(_id:String, _value) -> bool:
 	set(_id, _value)
 	if(_id == "multiplayer"):
+		if(_value == ""):
+			connector = null
+		else:
+			connector = GlobalRegistry.createNetworkConnector(_value)
 		return true
-	if(_id == "norayServer"):
-		if(norayServer == "-Custom-"):
-			norayServerCustom = ""
-		return true
+	elif(connector):
+		return connector.applyHostSetting(_id, _value)
 	return false
-
-func getNorayServer() -> String:
-	if(!norayServerCustom.is_empty()):
-		return norayServerCustom
-	return norayServer

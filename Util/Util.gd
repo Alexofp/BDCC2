@@ -546,3 +546,11 @@ static func fuzzySearchResultToIndexArray(_ar:Array[FuzzySearchMatch]) -> Array[
 	for _en:FuzzySearchMatch in _ar:
 		_res.append(_en.original_index)
 	return _res
+
+static func getIPAndPort(_str:String, _defaultPort:int = 12345, _defaultIP:String = "127.0.0.1") -> Array:
+	var theSplit:Array = _str.split(":", false, 1)
+	if(theSplit.is_empty()):
+		return [_defaultIP, _defaultPort]
+	if(theSplit.size() == 1):
+		return [theSplit[0], _defaultPort]
+	return [theSplit[0], int(theSplit[1])]
