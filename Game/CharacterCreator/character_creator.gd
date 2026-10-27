@@ -61,6 +61,8 @@ signal onCancelPressed
 
 signal onUpdateBaseSkinTypesList
 
+@export var editCharacterDirectlyMode:bool = false # If true, doesn't rely on CharacterRegistry
+
 func _ready() -> void:
 	cancel_button.visible = false
 	#updateSelectedTab()
@@ -202,42 +204,11 @@ func changeSkinTypeDataColor(skinType:int, theColor:Color):
 	skinTypeData.color = theColor
 	#character.triggerUpdateAllSkinTypes()
 
-	GM.characterRegistry.askCharacterChangeBaseSkinTypeData(character, skinType, skinTypeData)
+	if(editCharacterDirectlyMode):
+		character.setBaseSkinTypeData(skinType, skinTypeData)
+	else:
+		GM.characterRegistry.askCharacterChangeBaseSkinTypeData(character, skinType, skinTypeData)
 	
-#
-#func chanceSkinTypeDataBodypartColor(theColor:Color, bodypartSlot:int):
-	#if(character == null):
-		#return
-	#
-	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-	#if(bodypart.skinDataOverride == null):
-		#return
-	#var newSkinData:SkinTypeData = bodypart.skinDataOverride.makeCopy()
-	##bodypart.skinDataOverride.color = theColor
-	##character.triggerUpdateAllSkinTypes()
-	#newSkinData.color = theColor
-	#GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, "skinDataOverride", newSkinData)
-
-#func onSkinTypeOverrideSelected(skinTypeIndex:int, bodypartSlot:int):
-	#if(character == null):
-		#return
-	#
-	#var bodypart:BodypartBase = character.getBodypart(bodypartSlot)
-#
-	#var selectedSkinType:int = bodypart.getSupportedSkinTypes().keys()[skinTypeIndex]
-	#var newSkinTypeData:SkinTypeData = null
-	#if(bodypart.skinDataOverride != null):
-		#newSkinTypeData = bodypart.skinDataOverride.makeCopy()
-		##newSkinTypeData.skinType = selectedSkinType
-	#GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, selectedSkinType, newSkinTypeData)
-	#GM.characterRegistry.askCharacterBodypartSkinTypeChange(character, bodypartSlot, selectedSkinType, newSkinTypeData)
-	##bodypart.skinType = selectedSkinType
-	##if(bodypart.skinDataOverride != null):
-	##	bodypart.skinDataOverride.skinType = selectedSkinType
-	##character.updateAllSkinTypes()
-	##updateSkinTab()
-	##updatePartOptionsList()
-
 func updatePartsList():
 	Util.delete_children(parts_list)
 	
@@ -266,20 +237,29 @@ func updatePartsList():
 		})
 		newDropDown.onValueChange.connect(onBodypartDropdownPicked)
 
-func onBodypartDropdownPicked(_id:int, _value):
-	if(_value == null):
-		_value = ""
+func onBodypartDropdownPicked(_id:int, _partID):
+	if(_partID == null):
+		_partID = ""
 	
-	if(_value == ""):
-		GM.characterRegistry.askCharacterPartChange(character, BaseCharacter.GENERIC_BODYPARTS, _id, "", {})
+	if(_partID == ""):
+		if(editCharacterDirectlyMode):
+			character.addGenericPartTryKeepProperties(BaseCharacter.GENERIC_BODYPARTS, _id, null)
+		else:
+			GM.characterRegistry.askCharacterPartChange(character, BaseCharacter.GENERIC_BODYPARTS, _id, "", {})
 		#character.clearBodypart(_id)
 		return
 	
-	#var newBodypart:BodypartBase = GlobalRegistry.createBodypart(_value)
-	#if(newBodypart == null):
-	#	return
-	#character.addBodypart(_id, newBodypart)
-	GM.characterRegistry.askCharacterPartChange(character, BaseCharacter.GENERIC_BODYPARTS, _id, _value, {})
+	if(editCharacterDirectlyMode):
+		if(!character):
+			return
+		var bodypart:GenericPart = GlobalRegistry.createGenericPart(BaseCharacter.GENERIC_BODYPARTS, _partID)
+		#if(bodypart):
+		#	bodypart.loadData(_newPartData)
+		#character.addGenericPart(genericType, partSlot, bodypart)
+		character.addGenericPartTryKeepProperties(BaseCharacter.GENERIC_BODYPARTS, _id, bodypart)
+	else:
+		#												genericType:int, partSlot:int, _newPartID:String, _newPartData:Dictionary
+		GM.characterRegistry.askCharacterPartChange(character, BaseCharacter.GENERIC_BODYPARTS, _id, _partID, {})
 
 func updatePartOptionsList():
 	if(currentTab != "options"):
@@ -385,7 +365,15 @@ func onBodypartChangeOption(_id:String, value, bodypartSlot:int):
 	if(bodypart == null):
 		return
 	#bodypart.setOptionValue(_id, value)
-	GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, _id, value)
+	if(editCharacterDirectlyMode):
+		if(!character):
+			return
+		var genericPart:GenericPart = character.getGenericPart(BaseCharacter.GENERIC_BODYPARTS, bodypartSlot)
+		if(!genericPart):
+			return
+		genericPart.setOptionValue(_id, value)
+	else:
+		GM.characterRegistry.askCharacterPartOptionChange(character, BaseCharacter.GENERIC_BODYPARTS, bodypartSlot, _id, value)
 
 func checkStandaloneMissing():
 	if(!standaloneMode):
@@ -474,7 +462,10 @@ func _on_char_var_list_on_var_change(id: String, value: Variant) -> void:
 	if(id == CharOption.walkAnim):
 		if(doll):
 			doll.overrideStandTemp(value, 3.0)
-	GM.characterRegistry.askCharacterSyncOptionChange(character, id, value)
+	if(editCharacterDirectlyMode):
+		character.applyCharChange(id, value)
+	else:
+		GM.characterRegistry.askCharacterSyncOptionChange(character, id, value)
 	#character.applyCharChange(id, value)
 
 var wizardWindow:ConfirmationDialog
@@ -507,7 +498,10 @@ func onWizardSubmit(_window, _data:Dictionary):
 		wizardWindow.queue_free()
 		wizardWindow = null
 	
-	GM.characterRegistry.askCharacterWizardSubmit(character, _data)
+	if(editCharacterDirectlyMode):
+		CharacterRegistry.characterWizardSubmitDo(character, _data)
+	else:
+		GM.characterRegistry.askCharacterWizardSubmit(character, _data)
 
 @onready var save_preset_dialog: ConfirmationDialog = %SavePresetDialog
 @onready var save_preset_line_edit: LineEdit = %SavePresetLineEdit
@@ -569,7 +563,10 @@ func _on_load_preset_dialogue_confirmed() -> void:
 	pass
 
 func loadPreset(_preset:CharacterPreset):
-	GM.characterRegistry.askCharacterLoadPreset(character, _preset)
+	if(editCharacterDirectlyMode):
+		_preset.applyToCharacter(character)
+	else:
+		GM.characterRegistry.askCharacterLoadPreset(character, _preset)
 	save_preset_line_edit.text = Util.sanitizeFileName(_preset.filename.get_basename().get_file())
 
 func getPreset() -> CharacterPreset:
@@ -766,7 +763,10 @@ func _on_edit_personality_button_pressed() -> void:
 
 func onPersEditApply(_pers:Personality, _control:Control):
 	_control.queue_free()
-	GM.characterRegistry.askCharacterSetPersonality(character, _pers)
+	if(editCharacterDirectlyMode):
+		character.personality.loadNetworkData(_pers.saveNetworkData().prepareToRead())
+	else:
+		GM.characterRegistry.askCharacterSetPersonality(character, _pers)
 	#character.personality.loadData(_pers.saveData().duplicate(true))
 	updateInfoTab()
 	standaloneTryToConfirm(MISSING_PERSONALITY)
@@ -791,7 +791,10 @@ func _on_edit_fetishes_button_pressed() -> void:
 
 func onFetishEditApply(_fetishes:FetishHolder, _control:Control):
 	_control.queue_free()
-	GM.characterRegistry.askCharacterSetFetishHolder(character, _fetishes)
+	if(editCharacterDirectlyMode):
+		character.fetishHolder.loadNetworkData(_fetishes.saveNetworkData().prepareToRead())
+	else:
+		GM.characterRegistry.askCharacterSetFetishHolder(character, _fetishes)
 	updateInfoTab()
 	standaloneTryToConfirm(MISSING_FETISHES)
 
@@ -810,7 +813,15 @@ func _on_randomize_button_pressed() -> void:
 	var theSettings:RandomizeSettingsHolder = randomize_settings_list.settings
 	theSettings.randomizePersonality = false
 	
-	GM.characterRegistry.askRandomizeCharacter(character, theSettings)
+	if(editCharacterDirectlyMode):
+		var theGen := CharacterGenerator.new()
+		theSettings.apply(theGen)
+		
+		theGen.generate(character)
+		#Network.rpcClients(notifyPresetApplied_RPC.bind(character.getID()))
+		character.notifyPresetApplied()
+	else:
+		GM.characterRegistry.askRandomizeCharacter(character, theSettings)
 
 func setEditingPreset(_preset:CharacterPreset):
 	if(!_preset):
@@ -842,7 +853,10 @@ func _on_edit_traits_button_pressed() -> void:
 func onTraitEditApply(_traits:TraitHolder, _control:Control):
 	_control.queue_free()
 	#GM.characterRegistry.askCharacterSetPersonality(character, _pers)
-	GM.characterRegistry.askCharacterSetTraits(character, _traits)
+	if(editCharacterDirectlyMode):
+		character.traitHolder.loadData(_traits.saveData().duplicate(true))
+	else:
+		GM.characterRegistry.askCharacterSetTraits(character, _traits)
 	#character.personality.loadData(_pers.saveData().duplicate(true))
 	updateInfoTab()
 	standaloneTryToConfirm(MISSING_TRAITS)

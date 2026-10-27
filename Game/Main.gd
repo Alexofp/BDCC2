@@ -11,6 +11,7 @@ var GB:GameBalance = GameBalance.new()
 @onready var interact_menu: Control = %InteractMenu
 @onready var world: World = %World
 
+var welcomeUI:Control
 var character_creator:Node
 
 @onready var inventory_registry: InventoryRegistry = %InventoryRegistry
@@ -65,7 +66,7 @@ func canSaveGame() -> bool:
 func canSaveGameReason() -> String:
 	if(Network.isClient()):
 		return "Can't save the game if we're a client connected to a server"
-	if(!gameMode.canSaveGame()):
+	if(!gameMode || !gameMode.canSaveGame()):
 		return "Gamemode prevents saving the game"
 	if(gameSavePath.is_empty()):
 		return "Unable to save game, no save path"
@@ -196,6 +197,10 @@ func onMultiplayerPreStart(_isHost:bool):
 func onMultiplayerStart(_isHost:bool):
 	pass
 
+func onPlayerConnectedLate(_peer_id:int, _player_info:NetworkPlayerInfo):
+	if(gameMode):
+		gameMode.onPlayerConnectedLate(_peer_id, _player_info)
+	
 func onPlayerConnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	Log.Print("Player connected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
 	#if(Network.isServer()):
@@ -221,6 +226,7 @@ func _ready() -> void:
 	Network.preMultiplayerStarted.connect(onMultiplayerPreStart)
 	Network.multiplayerStarted.connect(onMultiplayerStart)
 	Network.playerConnected.connect(onPlayerConnected)
+	Network.playerConnectedLate.connect(onPlayerConnectedLate)
 	Network.playerDisconnected.connect(onPlayerDisconnected)
 
 	#var thePC:BaseCharacter = characterRegistry.createCharacter()
@@ -306,12 +312,26 @@ func hideCharacterMenu():
 func _on_in_game_menu_on_char_creator_button() -> void:
 	hideAllMenus()
 	showCharacterCreator()
-	
+
+func showWelcomeClientUI(_customMOTD:String = ""):
+	if(welcomeUI):
+		return
+	welcomeUI = load("res://UI/WelcomeClientUI/WelcomeClientUI.tscn").instantiate()
+	main_ui_layer.add_child(welcomeUI)
+	if(!_customMOTD.is_empty()):
+		welcomeUI.setMOTD(_customMOTD)
+
+func hideWelcomeClientUI():
+	if(!welcomeUI):
+		return
+	welcomeUI.queue_free()
+	welcomeUI = null
+
 func showCharacterCreator():
 	if(character_creator != null && is_instance_valid(character_creator)):
 		return
 	
-	character_creator = preload("res://Game/CharacterCreator/character_creator.tscn").instantiate()
+	character_creator = load("res://Game/CharacterCreator/character_creator.tscn").instantiate()
 	main_ui_layer.add_child(character_creator)
 	
 	character_creator.setCharacter(GM.pc)

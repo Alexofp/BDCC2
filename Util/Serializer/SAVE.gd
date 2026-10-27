@@ -52,7 +52,11 @@ static func loadNodeByPath(_data:Dictionary, _theKey:String) -> Node:
 const SAVES_FOLDER:String = "user://Game/Saves/"
 const SAVE_EXTENSION:String = "bdcc2"
 static func getAllSaves() -> Array[String]:
-	return Util.getFilesInFolderSmart(SAVES_FOLDER, [SAVE_EXTENSION], true, false, false, true)
+	if(!DirAccess.dir_exists_absolute(SAVES_FOLDER)):
+		return []
+	var theSaves:Array[String] = Util.getFilesInFolderSmart(SAVES_FOLDER, [SAVE_EXTENSION], true, false, false, true)
+	Util.sortFilePathsByModifiedData(theSaves)
+	return theSaves
 
 static func getAllSaveInfos(_getCorruptOnError:bool = true) -> Array[GameShortInfo]:
 	var result:Array[GameShortInfo]

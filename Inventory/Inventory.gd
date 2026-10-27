@@ -357,10 +357,15 @@ func loadNetworkData(_data:Bins):
 		clearSlot(invSlot)
 	equipped.clear()
 	
+	if(uniqueID >= 0):
+		unregister()
+	uniqueID = -1
 	GM.inventoryRegistry.registerNetworkInventory(self, _data.readI32())
 	
-	var theItemAmount:int = _data.readI32()
-	for _i in theItemAmount:
+	var equipAm:int = _data.readI32()
+	var storedAm:int = _data.readI32()
+	
+	for _i in equipAm:
 		var invSlot:int = _data.readI8()
 		var itemID:String = _data.readStrShort()
 		var uid:int = _data.readI32()
@@ -377,7 +382,7 @@ func loadNetworkData(_data:Bins):
 	for theItem:ItemBase in items.duplicate():
 		removeItem(theItem)
 	items.clear()
-	for _i in _data.readI32():
+	for _i in storedAm:
 		var itemID:String = _data.readStrShort()
 		var uid:int = _data.readI32()
 		var itemData:Bins = _data.readBins()
@@ -415,7 +420,8 @@ func saveData() -> Dictionary:
 	}
 
 func loadData(_data:Dictionary):
-	unregister()
+	if(uniqueID >= 0):
+		unregister()
 	uniqueID = -1
 	GM.inventoryRegistry.registerNetworkInventory(self, SAVE.loadVar(_data, "uniqueID", -1))
 	

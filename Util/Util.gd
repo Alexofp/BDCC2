@@ -78,7 +78,7 @@ static func getScriptsInFolderSmart(folder: String, includeThisFolder = true, in
 static func getFilesInFolderSmart(folder: String, extensions:Array[String], includeThisFolder = true, includeSubFolders = true, reqursive = true, _lowercaseExt:bool = true) -> Array[String]:
 	var dir = DirAccess.open(folder)
 	if(!dir):
-		Log.Printerr("An error occurred when trying to access the path "+folder)
+		Log.Printerr("An error occurred when trying to access the path '"+folder+"'  Error="+error_string(DirAccess.get_open_error()))
 		return []
 
 	var result:Array[String] = []
@@ -104,6 +104,15 @@ static func getFilesInFolderSmart(folder: String, extensions:Array[String], incl
 		file_name = dir.get_next()
 	
 	return result
+
+static func sortFilePathsByModifiedData(_paths:Array[String], _newestFirst:bool = true):
+	var _pathToModifiedTime:Dictionary[String, int]
+	for thePath:String in _paths:
+		_pathToModifiedTime[thePath] = FileAccess.get_modified_time(thePath)
+	if(_newestFirst):
+		_paths.sort_custom(func(a:String, b:String): return _pathToModifiedTime[a] > _pathToModifiedTime[b])
+	else:
+		_paths.sort_custom(func(a:String, b:String): return _pathToModifiedTime[a] < _pathToModifiedTime[b])
 
 # Might need to be removed after getResources funcs were added
 static func fix_resource_path(file:String) -> String:

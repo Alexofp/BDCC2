@@ -33,6 +33,7 @@ size_flags_vertical = 3
 text = "Play"
 
 [node name="NewButton" type="Button" parent="CenterContainer/MainList" unique_id=1148423958]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "New game"

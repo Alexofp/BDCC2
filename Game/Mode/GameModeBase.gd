@@ -60,27 +60,72 @@ func initArgs(_args:Array):
 func start():
 	print("Starting mode: "+str(id))
 
+@rpc("authority", "call_remote", "reliable")
+func openWelcomeMenu_RPC(_customMOTD:String):
+	GM.main.showWelcomeClientUI(_customMOTD)
+
+@rpc("authority", "call_remote", "reliable")
+func closeWelcomeMenu_RPC():
+	GM.main.hideWelcomeClientUI()
+
+func askToJoinWithPreset(_preset:CharacterPreset):
+	if(!Network.isClient()):
+		return
+	askToJoinWithPreset_SERVERRPC.rpc_id(1, _preset.saveData())
+
+@rpc("any_peer", "call_remote", "reliable")
+func askToJoinWithPreset_SERVERRPC(_presetData:Dictionary):
+	if(!Network.isServer()):
+		return
+	var _player_info:NetworkPlayerInfo = Network.getRPCPlayerInfo()
+	if(!_player_info || !_player_info.charID.is_empty()):
+		return
+	closeWelcomeMenu_RPC.rpc_id(_player_info.id)
+	
+	var thePreset:CharacterPreset = CharacterPreset.new()
+	thePreset.loadData(_presetData)
+	
+	# Make them a new character
+	var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+	#thePC.resetToDefaultPCCharacter()
+	thePreset.applyToCharacter(thePC)
+	giveDefaultStuff(thePC)
+	var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
+	_player_info.charID = thePC.getID()
+	
+	assignPlayerData(thePC, _player_info.profile)
+
+# Called after the client has received all the world data
+func onPlayerConnectedLate(_peer_id:int, _player_info:NetworkPlayerInfo):
+	onPlayerConnectedDoStuff(_peer_id, _player_info)
+	pass
+	
 func onPlayerConnected(_peer_id:int, _player_info:NetworkPlayerInfo):
+	pass
+	
+func onPlayerConnectedDoStuff(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player connected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
-	if(Network.isServer()):
-		# Check if they have a character already
-		var _theirPlayerData:PlayerData = findPlayerDataForProfile(_player_info.profile)
-		if(_theirPlayerData && GM.characterRegistry.getCharacter(_theirPlayerData.charID)):
-			var theCharID:String = _theirPlayerData.charID
-			var _oldChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
-			if(!GM.pawnRegistry.hasPawn(theCharID)):
-				GM.pawnRegistry.createPawn(theCharID)
-			_player_info.charID = theCharID
-			assignPlayerData(_oldChar, _player_info.profile) # Just in case
-			return
-		# Make them a new character
+	if(!Network.isServer()):
+		return
+	# Check if they have a character already
+	var _theirPlayerData:PlayerData = findPlayerDataForProfile(_player_info.profile)
+	if(_theirPlayerData && GM.characterRegistry.getCharacter(_theirPlayerData.charID)):
+		var theCharID:String = _theirPlayerData.charID
+		var _oldChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
+		if(!GM.pawnRegistry.hasPawn(theCharID)):
+			GM.pawnRegistry.createPawn(theCharID)
+		_player_info.charID = theCharID
+		assignPlayerData(_oldChar, _player_info.profile) # Just in case
+		return
+	# Make them a new character
+	if(false):
 		var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
 		thePC.resetToDefaultPCCharacter()
 		giveDefaultStuff(thePC)
 		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
 		_player_info.charID = thePC.getID()
-		
 		assignPlayerData(thePC, _player_info.profile)
+	openWelcomeMenu_RPC.rpc_id(_peer_id, Network.customMOTD)
 		
 func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player disconnected: "+_player_info.nickname+" (id="+str(_peer_id)+")")

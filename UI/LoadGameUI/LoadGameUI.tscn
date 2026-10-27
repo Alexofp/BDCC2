@@ -2,6 +2,19 @@
 
 [ext_resource type="Script" uid="uid://d1mm6bw664pvv" path="res://UI/LoadGameUI/LoadGameUI.gd" id="1_8a36k"]
 [ext_resource type="PackedScene" uid="uid://cg0102fql5ys2" path="res://UI/LoadGameUI/SelectSaveListUI.tscn" id="2_ruab7"]
+[ext_resource type="PackedScene" uid="uid://cl1qudmxeb6r2" path="res://UI/VarList/VarList.tscn" id="3_6g57a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ruab7"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.23, 0.23, 0.23, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="LoadGameUI" type="VBoxContainer" unique_id=1092596836]
 anchors_preset = 15
@@ -11,78 +24,95 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8a36k")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=380110144]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=283714382]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ruab7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=380110144]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=651594642]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=651594642]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=2080316846]
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=2080316846]
 layout_mode = 2
 text = "Select save"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer" unique_id=1068982465]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=1068982465]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SelectSaveListUI" parent="HBoxContainer/VBoxContainer/ScrollContainer" unique_id=1286204901 instance=ExtResource("2_ruab7")]
+[node name="SelectSaveListUI" parent="PanelContainer/HBoxContainer/VBoxContainer/ScrollContainer" unique_id=1286204901 instance=ExtResource("2_ruab7")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=1598903258]
+[node name="NewGameButton" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=1478131129]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New game"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer" unique_id=1598903258]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=493923546]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer" unique_id=493923546]
 layout_mode = 2
 
-[node name="Spacer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1813012019]
+[node name="Spacer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1813012019]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/Spacer" unique_id=2097553448]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/Spacer" unique_id=2097553448]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SaveDescLabel" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/Spacer/VBoxContainer" unique_id=1870423706]
+[node name="SaveDescLabel" type="Label" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/Spacer/VBoxContainer" unique_id=1870423706]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 text = "Text"
 autowrap_mode = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1615594190]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1615594190]
 layout_mode = 2
 alignment = 2
 
-[node name="DeleteButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1770090001]
+[node name="DeleteButton" type="Button" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1770090001]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Delete save"
 
-[node name="Control" type="Control" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1803234855]
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1803234855]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OpenFolderButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=458937648]
+[node name="OpenFolderButton" type="Button" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=458937648]
 layout_mode = 2
 text = "Open saves folder"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=767229674]
+[node name="MultiplayerVarList" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1665835109 instance=ExtResource("3_6g57a")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1408833602]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=767229674]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1408833602]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Play"
 
-[node name="BackButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1634250496]
+[node name="BackButton" type="Button" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1634250496]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 text = "Back"
 
 [node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="." unique_id=801122833]
@@ -92,9 +122,11 @@ size = Vector2i(321, 100)
 ok_button_text = "DELETE SAVE"
 dialog_text = "Do you really want to DELETE this save?"
 
-[connection signal="onEntrySelected" from="HBoxContainer/VBoxContainer/ScrollContainer/SelectSaveListUI" to="." method="_on_select_save_list_ui_on_entry_selected"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/DeleteButton" to="." method="_on_delete_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/OpenFolderButton" to="." method="_on_open_folder_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="onEntrySelected" from="PanelContainer/HBoxContainer/VBoxContainer/ScrollContainer/SelectSaveListUI" to="." method="_on_select_save_list_ui_on_entry_selected"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/OpenFolderButton" to="." method="_on_open_folder_button_pressed"]
+[connection signal="onVarChange" from="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MultiplayerVarList" to="." method="_on_multiplayer_var_list_on_var_change"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="confirmed" from="ConfirmDeleteDialog" to="." method="_on_confirm_delete_dialog_confirmed"]

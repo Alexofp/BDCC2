@@ -151,8 +151,9 @@ func hasCharacter(theID:String) -> bool:
 	return characters.has(theID)
 
 func generateNewUniqueID() -> String:
-	lastUniqueID += 1
-	return "npc"+str(lastUniqueID-1)
+	while(characters.has("npc"+str(lastUniqueID))):
+		lastUniqueID += 1
+	return "npc"+str(lastUniqueID)
 
 func addCharacter(theChar:BaseCharacter):
 	assert(theChar.getID() != "", "EMPTY CHARACTER ID")
@@ -361,7 +362,7 @@ func askCharacterWizardSubmit_SERVERRPC(characterID:String, _data:Dictionary):
 		return
 	characterWizardSubmitDo(theCharacter, _data)
 
-func characterWizardSubmitDo(character:BaseCharacter, _data:Dictionary):
+static func characterWizardSubmitDo(character:BaseCharacter, _data:Dictionary):
 	var newName:String = _data[CharOption.name]
 	var newGenderData:Dictionary = _data[CharOption.gender]
 	var newSpeciesData:Dictionary = _data[CharOption.species]
@@ -515,10 +516,12 @@ func saveData() -> Dictionary:
 		}
 	
 	return {
+		lastUniqueID = lastUniqueID,
 		characters = charactersData,
 	}
 
 func loadData(_data:Dictionary):
+	lastUniqueID = SAVE.loadInt(_data, "lastUniqueID", 0)
 	clearCharacters()
 	
 	var newChars:Dictionary = SAVE.loadVar(_data, "characters", {})

@@ -87,6 +87,9 @@ func processCharacterID():
 		getDoll().setCharacter(theChar)
 		updateCollisions()
 
+func getCharID() -> String:
+	return charID
+
 func canSit() -> bool:
 	return pawn.state.canSit()
 
@@ -533,8 +536,9 @@ func loadNetworkData(_data:Bins):
 	_data.endLoad()
 	#name = str(uniqueID)
 	
-	updateControlsMultiplayerAuthority()
-	updatePoseSpot()
+#func loadDataLate():
+#	updateControlsMultiplayerAuthority()
+#	updatePoseSpot()
 
 func saveData() -> Dictionary:
 	return {

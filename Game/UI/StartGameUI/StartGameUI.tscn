@@ -29,7 +29,7 @@ layout_mode = 2
 size_flags_vertical = 3
 tab_alignment = 1
 tab_sizing = 3
-current_tab = 3
+current_tab = 2
 
 [node name="Gamemode" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=865200540]
 unique_name_in_owner = true
@@ -68,7 +68,6 @@ layout_mode = 2
 
 [node name="Player" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=1182394681]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
@@ -84,6 +83,7 @@ charCreatorHide = NodePath("../../..")
 
 [node name="Population" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=535128895]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12

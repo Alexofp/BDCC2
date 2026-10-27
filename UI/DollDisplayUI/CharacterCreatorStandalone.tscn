@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://703y4fpprb1q" path="res://UI/DollDisplayUI/DollDisplayUI.tscn" id="1_hpdk4"]
 [ext_resource type="Script" uid="uid://bgju7dk58xmtx" path="res://UI/DollDisplayUI/CharacterCreatorStandalone.gd" id="1_xolxj"]
 [ext_resource type="PackedScene" uid="uid://cy3s2sf36wvtd" path="res://Game/CharacterCreator/character_creator.tscn" id="2_axtin"]
-[ext_resource type="Script" uid="uid://7gh515vs5ir8" path="res://Game/CharacterRegistry/CharacterRegistry.gd" id="4_5nkjm"]
 
 [node name="CharacterCreatorStandalone" type="Control" unique_id=1621608175]
 layout_mode = 3
@@ -14,11 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xolxj")
 
-[node name="CharacterRegistry" type="Node" parent="." unique_id=1290708309]
-unique_name_in_owner = true
-script = ExtResource("4_5nkjm")
-metadata/_custom_type_script = "uid://7gh515vs5ir8"
-
 [node name="DollDisplayUI" parent="." unique_id=918128648 instance=ExtResource("1_hpdk4")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -26,6 +20,7 @@ layout_mode = 1
 [node name="CharacterCreator" parent="." unique_id=1462646805 instance=ExtResource("2_axtin")]
 unique_name_in_owner = true
 layout_mode = 1
+editCharacterDirectlyMode = true
 
 [connection signal="onCancelPressed" from="CharacterCreator" to="." method="_on_character_creator_on_cancel_pressed"]
 [connection signal="onConfirmPressed" from="CharacterCreator" to="." method="_on_character_creator_on_confirm_pressed"]

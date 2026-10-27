@@ -19,6 +19,8 @@ func setCharacter(_char:BaseCharacter):
 		return
 	character = _char
 	pawn = GM.pawnRegistry.getPawn(character.getID()) if character else null
+	if(!pawn):
+		return
 	
 	pain_bar.progress = character.charState.getPainLevel() if character else 0.0
 	pain_bar.colorMain = GRADIENT_PAIN.sample(pain_bar.progress)

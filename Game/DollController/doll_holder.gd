@@ -22,7 +22,7 @@ func addDollToLists(_doll:DollController):
 func removeDollFromLists(_doll:DollController):
 	dollList.erase(_doll)
 	uidToDoll.erase(_doll.uniqueID)
-	charIDToDoll.erase(_doll.getCharacter().getID())
+	charIDToDoll.erase(_doll.getCharID())
 
 func _ready() -> void:
 	GI.dollHolder = self
@@ -98,7 +98,7 @@ func createDollController_RPC(dollData:Dictionary):
 # uniqueID defined
 # charID defined
 # pawn defined
-func addExistingDollController(theDoll:DollController):
+func addExistingDollController(theDoll:DollController, _networkData:Bins = null):
 	Log.Print("Adding doll for UID="+str(theDoll.uniqueID))
 	theDoll.name = str(theDoll.uniqueID)
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
@@ -190,7 +190,7 @@ func loadNetworkData(_data:Bins):
 		theDoll.loadNetworkData(_data.readBins())
 		addExistingDollController(theDoll)
 	
-	loadData(_data.readVar())
+	#loadData(_data.readVar())
 	_data.endLoad()
 
 func saveData() -> Dictionary:

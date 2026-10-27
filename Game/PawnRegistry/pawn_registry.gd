@@ -103,6 +103,9 @@ func deletePawn(charID:String):
 		assert(false, "Pawn doesn't exist")
 		return
 	var thePawn:CharacterPawn = pawns[charID]
+	if(GM.dollHolder && thePawn.isDollSpawned()):
+		GM.dollHolder.deleteDoll(thePawn.getDoll())
+	
 	thePawn.queue_free()
 	pawns.erase(charID)
 	pawnList.erase(thePawn)

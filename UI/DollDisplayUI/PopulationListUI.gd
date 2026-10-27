@@ -97,7 +97,7 @@ func _on_edit_button_pressed() -> void:
 	presetSelectorUI.setCharHolder(charHolder)
 	presetSelectorUI.onConfirm.connect(onPresetSelectorConfirm)
 
-func onPresetSelectorConfirm():
+func onPresetSelectorConfirm(_preset:CharacterPreset):
 	charCreatorHide.visible = true
 	presetSelectorUI.queue_free()
 	presetSelectorUI = null

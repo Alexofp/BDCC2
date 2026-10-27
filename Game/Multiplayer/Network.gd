@@ -13,6 +13,7 @@ var playerControlsCharID:Dictionary[int, String]
 var charIDControlledByPlayer:Dictionary[String, int]
 
 signal playerConnected(peer_id, player_info)
+signal playerConnectedLate(peer_id, player_info)
 signal playerDisconnected(peer_id, player_info)
 signal playerListUpdated
 signal serverDisconnected
@@ -31,8 +32,10 @@ var roomID:String = ""
 signal roomIDChanged(newRoomID:String)
 
 var connector:ConnectorNetworkBase
+var customMOTD:String = ""
 
 func host(_connector:ConnectorNetworkBase) -> FuncResultOrError:
+	tryGetCustomMOTD()
 	stopMultiplayer()
 	connector = _connector
 	if(!connector):
@@ -639,11 +642,14 @@ func clientAskToJoin_SERVERRPC(_profileData:Dictionary):
 	Log.Print("Sending full game data to "+str(multiplayer.get_remote_sender_id()))
 	clientAskToJoin_RPC.rpc_id(multiplayer.get_remote_sender_id(), GI.saveFullNetworkData().getBytesCompressedSimple())
 	
+	
 	#Log.Print("UNCOMPRESSED NEW: "+str(GI.saveFullNetworkData().getBytes().size()))
 	#Log.Print("COMPRESSION NEW: "+str(GI.saveFullNetworkData().getBytesCompressedSimple().size()))
 	#Log.Print("COMPRESSION OLD: "+str(var_to_bytes(GI.saveFullData()).size()))
 	
 	myInfo.connecting = false
+	
+	playerConnectedLate.emit(multiplayer.get_remote_sender_id(), myInfo)
 	
 	#GI.applyFullNetworkData.rpc_id(multiplayer.get_remote_sender_id(), GI.saveFullNetworkData())
 
@@ -678,3 +684,14 @@ func isPlayerGIDConnected(_gid:String) -> bool:
 		if(theInfo.profile && theInfo.profile.gid == _gid):
 			return true
 	return false
+
+const CustomMOTDPath:String = "user://Game/Server/ServerMOTD.txt"
+func tryGetCustomMOTD():
+	if(!FileAccess.file_exists(CustomMOTDPath)):
+		customMOTD = ""
+		return
+	var theFile:FileAccess = FileAccess.open(CustomMOTDPath, FileAccess.READ)
+	if(!theFile):
+		return
+	customMOTD = theFile.get_as_text()
+	theFile.close()

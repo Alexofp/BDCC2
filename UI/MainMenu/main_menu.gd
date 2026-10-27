@@ -75,6 +75,7 @@ func setScreen(_screen:int):
 			loadGameUI = load("res://UI/LoadGameUI/LoadGameUI.tscn").instantiate()
 			add_child(loadGameUI)
 			loadGameUI.onBackPressed.connect(_on_load_game_ui_on_cancel_pressed)
+			loadGameUI.onNewGamePressed.connect(setScreen.bind(SCREEN_START_GAME))
 	else:
 		if(loadGameUI):
 			loadGameUI.queue_free()

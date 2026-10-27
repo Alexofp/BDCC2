@@ -419,9 +419,9 @@ func getPoseSpot() -> PoseSpot:
 
 func _exit_tree() -> void:
 	GM.sitManager.handleDeletionOfPawn(self)
-	if(Network.isServer()):
-		if(doll):
-			despawnDoll()
+	#if(Network.isServer()):
+	#	if(doll):
+	#		despawnDoll()
 
 func canSit() -> bool:
 	return !GM.sitManager.isSitting(self)

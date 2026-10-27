@@ -28,7 +28,7 @@ const CHARACTER_CREATOR_STANDALONE = preload("res://UI/DollDisplayUI/CharacterCr
 #var generatedPreset:CharacterPreset
 
 signal onPresetSelected(_preset:CharacterPreset)
-signal onConfirm
+signal onConfirm(_preset:CharacterPreset)
 
 func setCharHolder(_holder:StartGameCharHolder):
 	charHolder = _holder
@@ -115,6 +115,9 @@ func _on_player_preset_select_on_preset_selected(_preset: CharacterPreset) -> vo
 	onPresetSelected.emit(charHolder.preset)
 	updateSelectedPreset()
 
+func getPreset() -> CharacterPreset:
+	return charHolder.preset
+
 func updateSelectedPreset():
 	updateCharacterDescLabel()
 	if(!charHolder.preset):
@@ -152,7 +155,7 @@ func _on_show_full_info_button_pressed() -> void:
 	updateCharacterDescLabel()
 
 func _on_confirm_button_pressed() -> void:
-	onConfirm.emit()
+	onConfirm.emit(charHolder.preset)
 
 func _on_delete_preset_button_pressed() -> void:
 	if(!charHolder || !charHolder.preset || !charHolder.preset.canBeDeleted()):

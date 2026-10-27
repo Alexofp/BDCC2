@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bsvwa7a853ycd"]
+
+[ext_resource type="Script" uid="uid://d21m57fy5uulx" path="res://UI/WelcomeClientUI/WelcomeClientUI.gd" id="1_lrtpc"]
+[ext_resource type="PackedScene" uid="uid://fmwtu0dh57w6" path="res://Game/UI/StartGameUI/PresetSelectorUI.tscn" id="2_0y2d0"]
+
+[node name="WelcomeClientUI" type="Control" unique_id=966428503]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lrtpc")
+
+[node name="WelcomePanel" type="PanelContainer" parent="." unique_id=1285063768]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(800, 550)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 83.55554
+offset_top = 47.0
+offset_right = -83.55554
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel" unique_id=1493059765]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer" unique_id=602696540]
+layout_mode = 2
+
+[node name="MotdLabel" type="RichTextLabel" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=1280601640]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center]Welcome to the server[/center]
+Rules:
+Don't be a dick."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=376474686]
+layout_mode = 2
+alignment = 1
+
+[node name="DisconnectButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=235680532]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="MakeCharacterButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=464696532]
+layout_mode = 2
+text = "Make a new character"
+
+[node name="PresetSelectorUI" parent="." unique_id=2130572461 node_paths=PackedStringArray("charCreatorNode", "charCreatorHide") instance=ExtResource("2_0y2d0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+charCreatorNode = NodePath("..")
+charCreatorHide = NodePath("../WelcomePanel")
+addConfirm = true
+
+[connection signal="meta_clicked" from="WelcomePanel/MarginContainer/VBoxContainer/MotdLabel" to="." method="_on_motd_label_meta_clicked"]
+[connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
+[connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/MakeCharacterButton" to="." method="_on_make_character_button_pressed"]
+[connection signal="onConfirm" from="PresetSelectorUI" to="." method="_on_preset_selector_ui_on_confirm"]

@@ -4,7 +4,6 @@ extends Control
 @onready var character_creator: Control = %CharacterCreator
 
 @export var startWithNewChar:bool = false
-@onready var character_registry: CharacterRegistry = %CharacterRegistry
 
 var character:BaseCharacter
 var preset:CharacterPreset
@@ -14,11 +13,10 @@ signal onConfirm(_preset:CharacterPreset)
 signal onCancel
 
 func _enter_tree() -> void:
-	GM.characterRegistry = %CharacterRegistry
-
+	pass
+	
 func _exit_tree() -> void:
-	#if(GM.characterRegistry == %CharacterRegistry):
-	GM.characterRegistry = null
+	pass
 
 func loadPreset(_preset:CharacterPreset):
 	preset = _preset
