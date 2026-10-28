@@ -59,7 +59,7 @@ func isUs() -> bool:
 	return Network.getMultiplayerID() == id
 
 func getName() -> String:
-	return nickname
+	return nickname if !profile else profile.nickname
 
 func sendToChat(_text:String):
 	Network.sentToChat(id, _text)

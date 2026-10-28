@@ -21,3 +21,10 @@ text = "Players:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="AdminPanelButton" type="Button" parent="VBoxContainer" unique_id=2081628479]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Admin panel"
+
+[connection signal="pressed" from="VBoxContainer/AdminPanelButton" to="." method="_on_admin_panel_button_pressed"]

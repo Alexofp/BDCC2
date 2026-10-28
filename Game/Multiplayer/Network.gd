@@ -200,6 +200,8 @@ func registerPlayerInfo(info:NetworkPlayerInfo, isConnect:bool = true):
 	if(isConnect):
 		playerConnected.emit(info.id, info)
 		playerListUpdated.emit()
+		if(info.id != 1): # Ignore server connect
+			sendChatGlobal("'"+info.getName()+"' has connected")
 
 @rpc("authority", "call_remote", "reliable")
 func deletePlayerInfoByID_RPC(theID:int):
@@ -222,6 +224,7 @@ func deletePlayerInfoByID(theID:int, isDisconnect:bool = true):
 		if(theData):
 			playerDisconnected.emit(theID, theData)
 			playerListUpdated.emit()
+			sendChatGlobal("'"+theData.getName()+"' has disconnected")
 		else:
 			Log.Printerr("TRIED TO ERASE A PLAYER THAT WASN'T IN OUR PLAYER LIST")
 
@@ -533,6 +536,19 @@ func getPlayerInfo(_pcID:int) -> NetworkPlayerInfo:
 		return null
 	return players[_pcID]
 
+func askKickPlayer(_id:int):
+	kickPlayer(_id)
+
+func kickPlayer(_id:int) -> bool:
+	if(isClientOrSingleplayer()):
+		return false
+	if(!players.has(_id)):
+		return false
+	if(_id == 1):
+		return false
+	multiplayer.multiplayer_peer.disconnect_peer(_id)
+	return true
+
 # This function would only send the rpc to clients that are fully connected
 func rpcClients(callable:Callable, debugOutput:bool = false):
 	for playerID in players:
@@ -696,3 +712,29 @@ func tryGetCustomMOTD():
 		return
 	customMOTD = theFile.get_as_text()
 	theFile.close()
+
+# Check the network info too? For dedicated servers
+func doWeHaveAdminRights() -> bool:
+	if(isServer()):
+		return true
+	return false
+
+# Only server can do this to avoid spam
+func sendChatGlobal(_text:String):
+	if(!Network.isServer()):
+		return
+	for theID:int in players:
+		var theInfo:NetworkPlayerInfo = players[theID]
+		theInfo.sendToChat(_text)
+
+func askSendOOCMessage(_text:String):
+	if(isServer()):
+		askSendOOCMessage_SERVERRPC(_text)
+	else:
+		askSendOOCMessage_SERVERRPC.rpc_id(1, _text)
+
+func askSendOOCMessage_SERVERRPC(_text:String):
+	var theInfo:NetworkPlayerInfo = getSenderPlayerInfo()
+	if(!theInfo):
+		return
+	sendChatGlobal("OOC("+theInfo.getName()+"): "+_text)

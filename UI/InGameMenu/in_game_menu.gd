@@ -12,6 +12,7 @@ signal onSandboxMenuButton
 @onready var room_id_panel: PanelContainer = %RoomIDPanel
 @onready var room_id_line_edit: LineEdit = %RoomIDLineEdit
 @onready var save_button: Button = %SaveButton
+@onready var admin_panel_holder: PanelContainer = %AdminPanelHolder
 
 var settingsScene = preload("res://UI/Settings/in_game_settings.tscn")
 
@@ -22,6 +23,9 @@ func _exit_tree() -> void:
 	UIHandler.removeUI(self)
 
 func tryCloseMenu() -> bool:
+	if(admin_panel_holder.visible):
+		admin_panel_holder.visible = false
+		return true
 	visible = false
 	return true
 
@@ -75,3 +79,10 @@ func updateInGameMenu():
 
 func _on_save_button_pressed() -> void:
 	GM.main.saveGame()
+
+
+func _on_admin_panel_on_close_pressed() -> void:
+	admin_panel_holder.visible = false
+
+func _on_multiplayer_info_list_on_admin_panel_open() -> void:
+	admin_panel_holder.visible = true

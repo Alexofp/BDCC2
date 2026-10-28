@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c3simn20mij3o" path="res://Game/Multiplayer/UI/multiplayer_info_list.tscn" id="2_qr8r0"]
 [ext_resource type="PackedScene" uid="uid://c50js2bfmbaqi" path="res://UI/Util/controls_help_text_label.tscn" id="3_by56l"]
 [ext_resource type="PackedScene" uid="uid://35bqasfm8xo" path="res://UI/Util/DebugReloadButtons/DebugReloadButtons.tscn" id="4_o43we"]
+[ext_resource type="PackedScene" uid="uid://bid5y3t5egjpq" path="res://UI/AdminPanel/AdminPanel.tscn" id="5_60p21"]
 
 [node name="InGameMenu" type="Control" unique_id=1194714149]
 layout_mode = 3
@@ -96,6 +97,7 @@ offset_left = -222.0
 offset_top = -146.0
 offset_bottom = 110.0
 grow_horizontal = 0
+adminPanel = true
 
 [node name="ControlsContainer" type="PanelContainer" parent="." unique_id=1188411000]
 layout_mode = 1
@@ -121,6 +123,24 @@ offset_right = -231.0
 offset_bottom = 88.5
 grow_horizontal = 0
 
+[node name="AdminPanelHolder" type="PanelContainer" parent="." unique_id=1426630440]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 111.0
+offset_top = 38.0
+offset_right = -111.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AdminPanel" parent="AdminPanelHolder" unique_id=806304508 instance=ExtResource("5_60p21")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/CharCreatorButton" to="." method="_on_char_creator_button_pressed"]
@@ -129,3 +149,5 @@ grow_horizontal = 0
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/RoomIDPanel/VBoxContainer/HBoxContainer/CopyRoomIDButton" to="." method="_on_copy_room_id_button_pressed"]
+[connection signal="onAdminPanelOpen" from="MultiplayerInfoList" to="." method="_on_multiplayer_info_list_on_admin_panel_open"]
+[connection signal="onClosePressed" from="AdminPanelHolder/AdminPanel" to="." method="_on_admin_panel_on_close_pressed"]

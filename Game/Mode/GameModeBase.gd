@@ -61,12 +61,33 @@ func start():
 	print("Starting mode: "+str(id))
 
 @rpc("authority", "call_remote", "reliable")
-func openWelcomeMenu_RPC(_customMOTD:String):
-	GM.main.showWelcomeClientUI(_customMOTD)
+func openWelcomeMenu_RPC(_data:Dictionary):
+	GM.main.showWelcomeClientUI(_data)
 
 @rpc("authority", "call_remote", "reliable")
 func closeWelcomeMenu_RPC():
 	GM.main.hideWelcomeClientUI()
+
+func askToJoinAsMyCharacter():
+	if(!Network.isClient()):
+		return
+	askToJoinAsMyCharacter_SERVERRPC.rpc_id(1)
+
+@rpc("any_peer", "call_remote", "reliable")
+func askToJoinAsMyCharacter_SERVERRPC():
+	var _player_info:NetworkPlayerInfo = Network.getRPCPlayerInfo()
+	if(!_player_info || !_player_info.charID.is_empty()):
+		return
+	var _theirPlayerData:PlayerData = findPlayerDataForProfile(_player_info.profile)
+	if(_theirPlayerData && GM.characterRegistry.getCharacter(_theirPlayerData.charID)):
+		var theCharID:String = _theirPlayerData.charID
+		var _oldChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
+		if(!GM.pawnRegistry.hasPawn(theCharID)):
+			GM.pawnRegistry.createPawn(theCharID)
+		_player_info.charID = theCharID
+		assignPlayerData(_oldChar, _player_info.profile) # Just in case
+		closeWelcomeMenu_RPC.rpc_id(_player_info.id)
+		return
 
 func askToJoinWithPreset(_preset:CharacterPreset):
 	if(!Network.isClient()):
@@ -112,8 +133,13 @@ func onPlayerConnectedDoStuff(_peer_id:int, _player_info:NetworkPlayerInfo):
 	if(_theirPlayerData && GM.characterRegistry.getCharacter(_theirPlayerData.charID)):
 		var theCharID:String = _theirPlayerData.charID
 		var _oldChar:BaseCharacter = GM.characterRegistry.getCharacter(theCharID)
-		if(!GM.pawnRegistry.hasPawn(theCharID)):
-			GM.pawnRegistry.createPawn(theCharID)
+		if(!GM.pawnRegistry.hasPawn(theCharID)): # If no pawn, show them a menu
+			#GM.pawnRegistry.createPawn(theCharID)
+			openWelcomeMenu_RPC.rpc_id(_peer_id, {
+				motd = Network.customMOTD,
+				charName = _oldChar.getFullName(),
+			})
+			return
 		_player_info.charID = theCharID
 		assignPlayerData(_oldChar, _player_info.profile) # Just in case
 		return
@@ -125,7 +151,9 @@ func onPlayerConnectedDoStuff(_peer_id:int, _player_info:NetworkPlayerInfo):
 		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
 		_player_info.charID = thePC.getID()
 		assignPlayerData(thePC, _player_info.profile)
-	openWelcomeMenu_RPC.rpc_id(_peer_id, Network.customMOTD)
+	openWelcomeMenu_RPC.rpc_id(_peer_id, {
+		motd = Network.customMOTD,
+	})
 		
 func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player disconnected: "+_player_info.nickname+" (id="+str(_peer_id)+")")

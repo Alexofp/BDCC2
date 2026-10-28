@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bid5y3t5egjpq"]
+
+[ext_resource type="Script" uid="uid://dc0y2sl2bhide" path="res://UI/AdminPanel/AdminPanel.gd" id="1_vw7fr"]
+
+[node name="AdminPanel" type="PanelContainer" unique_id=806304508]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vw7fr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=749359585]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=369898075]
+layout_mode = 2
+text = "Admin panel"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/Label" unique_id=265856251]
+layout_mode = 1
+offset_right = 137.0
+offset_bottom = 31.0
+text = "Close"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1405495059]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1081638080]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=732571329]
+layout_mode = 2
+text = "Connected players"
+horizontal_alignment = 1
+
+[node name="ClientList" type="ItemList" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1248047224]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=90810256]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerDescLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=135888004]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=676393840]
+layout_mode = 2
+
+[node name="KickButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=348340637]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kick player"
+
+[connection signal="pressed" from="VBoxContainer/Label/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer2/ClientList" to="." method="_on_client_list_item_selected"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/KickButton" to="." method="_on_kick_button_pressed"]

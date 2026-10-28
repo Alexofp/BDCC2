@@ -330,6 +330,8 @@ func handleChatSend(_playerInfo:NetworkPlayerInfo, _text:String):
 			_playerInfo.sendToChat("Meow meow :3")
 		elif(commandType == "echo"):
 			_playerInfo.sendToChat("Echoing back: "+commandArgText)
+		elif(commandType == "ooc"):
+			Network.askSendOOCMessage(commandArgText)
 		elif(commandType == "me"):
 			if(thePawn):
 				thePawn.sayAdvanced(CharacterPawn.parseMeTextToArray(commandArgText))

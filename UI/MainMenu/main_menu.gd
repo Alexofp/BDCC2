@@ -9,6 +9,7 @@ const SCREEN_SETTINGS = 4
 const SCREEN_START_GAME = 6
 const SCREEN_LOAD_GAME = 7
 const SCREEN_MULT_SETTINGS = 8
+const SCREEN_PROFILE = 9
 
 const BACKSCREENS = {
 	SCREEN_MULTIPLAYER: SCREEN_MAIN,
@@ -28,13 +29,14 @@ var currentConnector:ConnectorNetworkBase
 @onready var net_connector_list: VBoxContainer = %NetConnectorList
 @onready var net_var_list: VarList = %NetVarList
 @onready var net_join_list: VBoxContainer = %NetJoinList
+@onready var profile_screen: PanelContainer = %ProfileScreen
 
 @onready var controls_panel_container: PanelContainer = %ControlsPanelContainer
 var startGameUI:StartGameUI
 var loadGameUI:Control
 
 func _ready() -> void:
-	setScreen(SCREEN_MAIN)
+	setScreen(SCREEN_MAIN if !MyProfile.isNewPlayer() else SCREEN_PROFILE)
 	
 	for theID:String in GlobalRegistry.networkConnectorRefs:
 		var theConnector:ConnectorNetworkBase = GlobalRegistry.networkConnectorRefs[theID]
@@ -55,6 +57,7 @@ func setScreen(_screen:int):
 	multiplayer_list.visible = (_screen == SCREEN_MULTIPLAYER)
 	settings_tab.visible = (_screen == SCREEN_SETTINGS)
 	net_join_list.visible = (_screen == SCREEN_MULT_SETTINGS)
+	profile_screen.visible = (_screen == SCREEN_PROFILE)
 	
 	if(_screen == SCREEN_MULT_SETTINGS):
 		net_var_list.setVars(currentConnector.getJoinSettings() if currentConnector else {})
@@ -176,3 +179,9 @@ func _on_join_button_pressed() -> void:
 	if(!currentConnector):
 		return
 	GM.joinMultiplayerGame(currentConnector)
+
+func _on_profile_screen_on_confirm() -> void:
+	setScreen(SCREEN_MAIN)
+
+func _on_profile_button_pressed() -> void:
+	setScreen(SCREEN_PROFILE)

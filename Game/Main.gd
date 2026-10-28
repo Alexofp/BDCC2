@@ -313,13 +313,13 @@ func _on_in_game_menu_on_char_creator_button() -> void:
 	hideAllMenus()
 	showCharacterCreator()
 
-func showWelcomeClientUI(_customMOTD:String = ""):
+func showWelcomeClientUI(_data:Dictionary = {}):
 	if(welcomeUI):
 		return
 	welcomeUI = load("res://UI/WelcomeClientUI/WelcomeClientUI.tscn").instantiate()
 	main_ui_layer.add_child(welcomeUI)
-	if(!_customMOTD.is_empty()):
-		welcomeUI.setMOTD(_customMOTD)
+	if(!_data.is_empty()):
+		welcomeUI.loadData(_data)
 
 func hideWelcomeClientUI():
 	if(!welcomeUI):

@@ -54,7 +54,7 @@ func loadMainProfile() -> bool:
 	return true
 
 func debugModifyProfile():
-	if(!DEBUG_MULTIPLAYER_TEST):
+	if(!DEBUG_MULTIPLAYER_TEST || !OS.is_debug_build()):
 		return
 	nickname += "_"+generateNewGID(3)
 	gid += "_"+generateNewGID(3)

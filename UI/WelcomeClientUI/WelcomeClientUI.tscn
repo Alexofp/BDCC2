@@ -55,8 +55,14 @@ layout_mode = 2
 text = "Disconnect"
 
 [node name="MakeCharacterButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=464696532]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Make a new character"
+
+[node name="JoinButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1192807908]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Join as X"
 
 [node name="PresetSelectorUI" parent="." unique_id=2130572461 node_paths=PackedStringArray("charCreatorNode", "charCreatorHide") instance=ExtResource("2_0y2d0")]
 unique_name_in_owner = true
@@ -69,4 +75,5 @@ addConfirm = true
 [connection signal="meta_clicked" from="WelcomePanel/MarginContainer/VBoxContainer/MotdLabel" to="." method="_on_motd_label_meta_clicked"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/MakeCharacterButton" to="." method="_on_make_character_button_pressed"]
+[connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="onConfirm" from="PresetSelectorUI" to="." method="_on_preset_selector_ui_on_confirm"]
