@@ -16,6 +16,7 @@ signal onTyping(text:String)
 
 func _ready() -> void:
 	GameChat.onMessage.connect(onGameChatMessage)
+	GameChat.onClear.connect(onGameChatClear)
 	
 	scrollbar.changed.connect(handleScrollbarChanged)
 	max_scroll_length = scrollbar.max_value
@@ -33,7 +34,9 @@ func addChat(_text:String):
 	while(messages.size() > GameChat.MAX_MESSAGES):
 		var theMessage:Control = messages.pop_front()
 		theMessage.queue_free()
-	
+
+func onGameChatClear():
+	fullUpdate()
 
 func onGameChatMessage(_text:String):
 	addChat(_text)

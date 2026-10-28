@@ -1,0 +1,14 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.3
+reloadable = false
+
+[libraries]
+linux.debug.x86_64 =     "bin/libnodetunnel.so"
+linux.release.x86_64 =   "bin/libnodetunnel.so"
+windows.debug.x86_64 =   "bin/nodetunnel.dll"
+windows.release.x86_64 = "bin/nodetunnel.dll"
+macos.debug =            "bin/libnodetunnel.dylib"
+macos.release =          "bin/libnodetunnel.dylib"
+macos.debug.arm64 =      "bin/libnodetunnel.dylib"
+macos.release.arm64 =    "bin/libnodetunnel.dylib"

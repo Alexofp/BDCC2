@@ -721,7 +721,7 @@ func doWeHaveAdminRights() -> bool:
 
 # Only server can do this to avoid spam
 func sendChatGlobal(_text:String):
-	if(!Network.isServer()):
+	if(!Network.isServerNotSingleplayer()):
 		return
 	for theID:int in players:
 		var theInfo:NetworkPlayerInfo = players[theID]

@@ -1,12 +1,11 @@
 extends ConnectorNetworkBase
-class_name NorayNetworkConnector
 
-const NORAY_SERVER = "2.27.16.181:8890"#"tomfol.io"
+const NORAY_SERVER = "tomfol.io" #"2.27.16.181:8890"#
 const NORAY_PORT = 8890
 
 const NORAY_SERVERS = [
-	"2.27.16.181:8890",
 	"tomfol.io:8890",
+	#"2.27.16.181:8890", # Doesn't work well enough, ehh
 ]
 
 enum NorayRole { NONE, HOST, CLIENT }
@@ -17,15 +16,19 @@ var relayServer:String = NORAY_SERVER
 var forceRelay:bool = false
 var relayServerCustom:String = ""
 var roomID:String = ""
+var serverPeer:ENetMultiplayerPeer
 
 func _init() -> void:
 	id = "NorayNetworkConnector"
+	Network.playerListUpdated.connect(onUpdatePlayerList)
+	
+	disabled = true
 
 func getName() -> String:
 	return "Noray connector"
 
 func getListName() -> String:
-	return "Internet (connect by room code, Noray)"
+	return "Internet (Noray)"
 
 #func requiresRelayServer() -> bool:
 #	return true
@@ -45,12 +48,12 @@ func getHostSettings() -> Dictionary:
 			type = "string",
 			value = password,
 		},
-		relayServer = {
-			name = "Relay server",
-			type = "selector",
-			value = relayServer,
-			values = NorayNetworkConnector.NORAY_SERVERS+["-Custom-"],
-		},
+		#relayServer = {
+		#	name = "Relay server",
+		#	type = "selector",
+		#	value = relayServer,
+		#	values = NORAY_SERVERS+["-Custom-"],
+		#},
 	}
 	if(relayServer == "-Custom-"):
 		theSettings["relayServerCustom"] = {
@@ -72,12 +75,12 @@ func getJoinSettings() -> Dictionary:
 			type = "string",
 			value = password,
 		},
-		relayServer = {
-			name = "Relay server",
-			type = "selector",
-			value = relayServer,
-			values = NorayNetworkConnector.NORAY_SERVERS+["-Custom-"],
-		},
+		#relayServer = {
+		#	name = "Relay server",
+		#	type = "selector",
+		#	value = relayServer,
+		#	values = NORAY_SERVERS+["-Custom-"],
+		#},
 	}
 	if(relayServer == "-Custom-"):
 		theSettings["relayServerCustom"] = {
@@ -169,6 +172,7 @@ func doHost() -> FuncResultOrError:
 		return FuncResultOrError.createError(ERROR_GENERIC, errorText)
 	
 	get_tree().get_multiplayer().multiplayer_peer = peer
+	serverPeer = peer
 	Log.Print("Listening on port " + str(port))
 	
 	while peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
@@ -181,6 +185,7 @@ func doHost() -> FuncResultOrError:
 	
 	get_tree().get_multiplayer().server_relay = true
 	
+	onUpdatePlayerList()
 	setRoomID(Noray.oid)
 	
 	return FuncResultOrError.createResult(true)
@@ -310,3 +315,7 @@ func norayHandleConnect(address: String, port: int) -> Error:
 		Log.Print("Handshake to %s:%s concluded" % [address, port])
 
 	return err
+
+func onUpdatePlayerList():
+	if(Network.isServerNotSingleplayer() && serverPeer):
+		serverPeer.refuse_new_connections = Network.players.size() >= maxPlayers

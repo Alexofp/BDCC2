@@ -1,5 +1,4 @@
 extends ConnectorNetworkBase
-class_name LANNetworkConnector
 
 const DEFAULT_IP := "127.0.0.1"
 const DEFAULT_PORT := 12345

@@ -203,19 +203,6 @@ static func internal_hostGame(_connector:ConnectorNetworkBase, _nickname:String,
 	changingScene = false
 	LoadingScreen.finishLoad()
 
-static func hostLANGame(_nickname:String, _map:String, _mode:String, _args:Array = []):
-	var theConnector := LANNetworkConnector.new()
-	#theConnector.setHostPort(relayServer, relayServerPort)
-	
-	await internal_hostGame(theConnector, _nickname, _map, _mode, _args)
-	pass
-
-static func hostNoray(_nickname:String, _map:String, _mode:String, _args:Array = [], relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT):
-	var theConnector := NorayNetworkConnector.new()
-	theConnector.setRelay(relayServer, relayServerPort)
-	
-	await internal_hostGame(theConnector, _nickname, _map, _mode, _args)
-
 static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String):
 	#Network.joinGame(_nickname, _ip)
 	LoadingScreen.startLoad()
@@ -251,21 +238,6 @@ static func joinMultiplayerGame(_connector:ConnectorNetworkBase):
 	Network.serverPassword = _connector.password
 	await internal_joinGame(_connector, "")
 
-static func joinLANGame(_nickname:String, _ip:String, _serverPassword:String = ""):
-	Network.serverPassword = _serverPassword
-	var theConnector := LANNetworkConnector.new()
-	theConnector.setJoinIPAndPortFromString(_ip)
-	
-	await internal_joinGame(theConnector, _nickname)
-
-static func joinNorayGame(_nickname:String, _roomID:String, relayServer:String = Network.NORAY_SERVER, relayServerPort:int = Network.NORAY_PORT, forceRelay:bool = false, _serverPassword:String = ""):
-	Network.serverPassword = _serverPassword
-	var theConnector := NorayNetworkConnector.new()
-	theConnector.setRelay(relayServer, relayServerPort, forceRelay)
-	theConnector.setRoomID(_roomID)
-	
-	await internal_joinGame(theConnector, _nickname)
-	
 static func isInGame() -> bool:
 	return main != null
 

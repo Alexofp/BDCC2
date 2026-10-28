@@ -2,6 +2,7 @@ extends Node
 class_name ConnectorNetworkBase
 
 var id:String = "ERROR"
+var disabled:bool = false
 var maxPlayers:int = 32
 var password:String
 

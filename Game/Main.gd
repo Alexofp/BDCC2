@@ -219,6 +219,7 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	pass
 
 func _ready() -> void:
+	GameChat.clear()
 	#print("MEOW: "+str(Util.getResourcesFromFolderSmart("res://Sounds/", ["wav"], true, true, true, false)))
 	timeGameStart = int(Time.get_unix_time_from_system())
 	hideAllMenus()

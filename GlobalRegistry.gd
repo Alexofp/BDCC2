@@ -1517,6 +1517,8 @@ func registerNetworkConnector(path: String):
 	var object = loadedClass.new()
 	
 	if(object is ConnectorNetworkBase):
+		if(object.disabled):
+			return
 		networkConnectors[object.id] = loadedClass
 		networkConnectorRefs[object.id] = object
 

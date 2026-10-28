@@ -5,6 +5,7 @@ const MAX_MESSAGES = 20
 var messages:Array[String] = []
 
 signal onMessage(text)
+signal onClear
 
 func addChat(_text:String):
 	messages.append(_text)
@@ -15,3 +16,8 @@ func addChat(_text:String):
 
 func getMessages() -> Array[String]:
 	return messages
+
+func clear(_sendSignal:bool = true):
+	messages.clear()
+	if(_sendSignal):
+		onClear.emit()

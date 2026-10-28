@@ -111,22 +111,6 @@ func _on_multiplayer_button_pressed() -> void:
 func _on_back_button_pressed() -> void:
 	setScreen(BACKSCREENS[currentScreen] if BACKSCREENS.has(currentScreen) else SCREEN_MAIN)
 
-#func _on_lan_button_pressed() -> void:
-#	setScreen(SCREEN_MULT_LAN)
-
-#func _on_lan_host_button_pressed() -> void:
-#	var theNickame:String = nickname_edit.text if nickname_edit.text else "Host"
-#	
-#	GM.hostLANGame(theNickame, "res://Maps/Prison/prison.tscn", GameMode.Sandbox)
-	#GM.hostLANGame(theNickame, "res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
-
-#func _on_lan_join_button_pressed() -> void:
-#	var theNickame:String = nickname_edit.text if !nickname_edit.text.is_empty() else "Client"
-#	var theIP:String = lan_ip_edit.text if !lan_ip_edit.text.is_empty() else "127.0.0.1"
-#	
-#	GM.joinLANGame(theNickame, theIP, lan_server_password.text)
-
-
 func _on_settings_button_pressed() -> void:
 	setScreen(SCREEN_SETTINGS)
 
@@ -134,32 +118,6 @@ func _on_settings_ui_on_cancel_pressed() -> void:
 	_on_back_button_pressed()
 func _on_settings_ui_on_save_pressed() -> void:
 	_on_back_button_pressed()
-
-
-#func _on_noray_host_button_pressed() -> void:
-#	var theNickame:String = nickname_edit.text if nickname_edit.text else "Host"
-#	var theRelayServer:String = noray_relay_server_edit.text if !noray_relay_server_edit.text.is_empty() else Network.NORAY_SERVER
-#	
-#	var ipPort := Util.separateIPPort(theRelayServer)
-#	if(ipPort.size() == 1):
-#		ipPort.append(Network.NORAY_PORT)
-#	
-#	GM.hostNoray(theNickame, "res://Maps/Prison/prison.tscn", GameMode.Sandbox, [], ipPort[0], ipPort[1])
-
-#func _on_noray_join_button_pressed() -> void:
-#	var theNickame:String = nickname_edit.text if !nickname_edit.text.is_empty() else "Client"
-#	var theRoomID:String = noray_room_edit.text if !noray_room_edit.text.is_empty() else ""
-#	var theRelayServer:String = noray_relay_server_edit.text if !noray_relay_server_edit.text.is_empty() else Network.NORAY_SERVER
-#	
-#	var ipPort := Util.separateIPPort(theRelayServer)
-#	if(ipPort.size() == 1):
-#		ipPort.append(Network.NORAY_PORT)
-#	if(theRoomID.is_empty()):
-#		return
-#	GM.joinNorayGame(theNickame, theRoomID, ipPort[0], ipPort[1], true, noray_server_password.text)
-
-#func _on_noray_tunnel_button_pressed() -> void:
-#	setScreen(SCREEN_MULT_NORAY)
 
 func _on_start_game_ui_on_cancel_pressed() -> void:
 	setScreen(SCREEN_MAIN)
@@ -178,7 +136,9 @@ func _on_net_var_list_on_var_change(_id: String, value: Variant) -> void:
 func _on_join_button_pressed() -> void:
 	if(!currentConnector):
 		return
+	setScreen(SCREEN_MULTIPLAYER)
 	GM.joinMultiplayerGame(currentConnector)
+	currentConnector = null
 
 func _on_profile_screen_on_confirm() -> void:
 	setScreen(SCREEN_MAIN)
