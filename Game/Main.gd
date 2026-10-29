@@ -44,6 +44,7 @@ var mapPath:String = ""
 var prisonName:String = "BDCC"
 var timePlayedSaved:int = 0
 var timeGameStart:int = 0 # no save
+var timeLastSave:int = 0 # no save
 var gameSavePath:String = ""
 
 const GAME_INFO_KEY:String = "___info"
@@ -87,6 +88,7 @@ func saveGame() -> String:
 	
 	#theFile.store_string(JSON.stringify(theData, "\t", false))
 	theFile.store_string(var_to_str(theData))
+	timeLastSave = Util.getGlobalTimeSeconds()
 	return ""
 
 func saveData() -> Dictionary:
@@ -117,6 +119,7 @@ func loadData(_data:Dictionary) -> bool:
 		return false
 	GI.loadFullData(theGIData)
 	gameMode.afterGameLoad()
+	timeLastSave = Util.getGlobalTimeSeconds()
 	#GI.get_tree().paused = false
 	return true
 
@@ -279,8 +282,21 @@ func _process(_delta: float) -> void:
 					interact_menu.showBestTarget()
 					#showInteractMenuSpecific(GM.pcPawn)
 
+var rareTimer:float = 0.0
 func _physics_process(_dt: float) -> void:
 	interactionSystem.processInteractions(_dt)
+	rareTimer += _dt
+	if(rareTimer > 1.0):
+		processRare(rareTimer)
+		rareTimer = 0.0
+
+func processRare(_dt:float):
+	if(OPTIONS.game.autosaveEnabled && Network.isServer() && getSecondsSinceLastSave() > OPTIONS.game.autosaveEvery && canSaveGame()):
+		var _badReason:String = saveGame() # Autosave
+		if(!_badReason.is_empty()):
+			Log.Printerr("Autosave failed: "+_badReason)
+			GameChat.addChat("AUTOSAVE FAILED: "+_badReason)
+			timeLastSave = Util.getGlobalTimeSeconds()
 
 func toggleCharacterMenu():
 	if(character_menu.visible):
@@ -328,6 +344,11 @@ func hideWelcomeClientUI():
 	welcomeUI.queue_free()
 	welcomeUI = null
 
+func isWelcomeClientUIShowing() -> bool:
+	if(welcomeUI):
+		return true
+	return false
+
 func showCharacterCreator():
 	if(character_creator != null && is_instance_valid(character_creator)):
 		return
@@ -364,6 +385,11 @@ func isCharacterCreatorVisible() -> bool:
 
 func _on_in_game_menu_on_exit_button() -> void:
 	#get_tree().quit()
+	var _badReason:String = saveGame()
+	if(!_badReason.is_empty()):
+		Log.error(_badReason)
+		GameChat.addChat("SAVE FAILED: "+str(_badReason))
+		return
 	GM.startMainMenu()
 
 func getCharacterRegistry() -> CharacterRegistry:
@@ -432,3 +458,6 @@ func checkCanLean(_globalPos:Vector3, _globalRot:Vector3) -> bool:
 
 func getTimePlayedSeconds() -> int:
 	return timePlayedSaved + maxi(0, int(Time.get_unix_time_from_system())-timeGameStart)
+
+func getSecondsSinceLastSave() -> int:
+	return Util.getGlobalTimeSeconds() - timeLastSave

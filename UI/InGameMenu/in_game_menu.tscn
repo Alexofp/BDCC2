@@ -55,7 +55,17 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Save prison"
 
+[node name="LastSaveLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/SaveButton" unique_id=392675675]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 151.0
+offset_top = 5.0
+offset_right = 340.0
+offset_bottom = 28.0
+text = "Last save: 5 minutes ago"
+
 [node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=877833237]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
 

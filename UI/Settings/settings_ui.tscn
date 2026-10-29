@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dx63awl2m4mp1" path="res://UI/Settings/graphics_settings.tscn" id="1_eh5x6"]
 [ext_resource type="PackedScene" uid="uid://ckj0nceafvh2i" path="res://UI/Settings/control_settings.tscn" id="2_gf2j7"]
 [ext_resource type="PackedScene" uid="uid://crptnf04fy3x8" path="res://UI/Settings/sound_settings.tscn" id="2_mbliq"]
+[ext_resource type="PackedScene" uid="uid://cxbn1awqsl466" path="res://UI/Settings/GameSettings.tscn" id="5_vsh1u"]
 
 [node name="SettingsUI" type="VBoxContainer" unique_id=1466441638]
 anchors_preset = 15
@@ -38,6 +39,11 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="Game" parent="VBoxContainer/TabContainer" unique_id=1041713326 instance=ExtResource("5_vsh1u")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1548840290]
 layout_mode = 2

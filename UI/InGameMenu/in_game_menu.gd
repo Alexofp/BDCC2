@@ -13,6 +13,8 @@ signal onSandboxMenuButton
 @onready var room_id_line_edit: LineEdit = %RoomIDLineEdit
 @onready var save_button: Button = %SaveButton
 @onready var admin_panel_holder: PanelContainer = %AdminPanelHolder
+@onready var exit_button: Button = %ExitButton
+@onready var last_save_label: Label = %LastSaveLabel
 
 var settingsScene = preload("res://UI/Settings/in_game_settings.tscn")
 
@@ -76,10 +78,33 @@ func _on_copy_room_id_button_pressed() -> void:
 
 func updateInGameMenu():
 	save_button.visible = GM.main.canSaveGame()
-
+	exit_button.text = "Exit" if !GM.main.canSaveGame() else "Save and Exit"
+	updateLastSaveLabel()
+	
+func updateLastSaveLabel():
+	if(!GM.main.canSaveGame()):
+		last_save_label.visible = false
+		return
+	last_save_label.visible = true
+	var theLastTimeSaved:int = GM.main.timeLastSave
+	var theCurTime:int = Util.getGlobalTimeSeconds()
+	var theDiffTime:int = (theCurTime - theLastTimeSaved)
+	var theSaveText:String = "Last save: "
+	if(theDiffTime < 0):
+		theSaveText += "In the future??"
+	elif(theDiffTime < 5):
+		theSaveText += "Just now"
+	else:
+		theSaveText += Util.getTimeStringShort(theDiffTime)+" ago"
+	last_save_label.text = theSaveText
+	
 func _on_save_button_pressed() -> void:
-	GM.main.saveGame()
-
+	var _badReason:String = GM.main.saveGame()
+	if(!_badReason.is_empty()):
+		Log.error(_badReason)
+		GameChat.addChat("SAVE FAILED: "+str(_badReason))
+		return
+	updateLastSaveLabel()
 
 func _on_admin_panel_on_close_pressed() -> void:
 	admin_panel_holder.visible = false

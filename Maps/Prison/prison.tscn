@@ -94,6 +94,7 @@
 [ext_resource type="PackedScene" uid="uid://b7ucyorle2wop" path="res://Mapping/MainHall/MainHallSlopedWallMidEntrance32x4x6.tscn" id="112_g65be"]
 [ext_resource type="PackedScene" uid="uid://dfps3yn1v7occ" path="res://Mapping/MainHall/MainHallSlopedWall32x4x6.tscn" id="114_cq2pp"]
 [ext_resource type="PackedScene" uid="uid://bogc0jpddhtoj" path="res://Mapping/MainHall/MainHallTopLevelFloor54x54.tscn" id="116_xvs6m"]
+[ext_resource type="Script" uid="uid://w507e7ie4n1t" path="res://Game/Systems/Camera/WelcomeClientCamera.gd" id="117_gejdw"]
 [ext_resource type="PackedScene" uid="uid://boyynx0uggnl8" path="res://Mapping/MainHall/MainHallTopFloorArch9x1x8.tscn" id="117_ju0lk"]
 [ext_resource type="PackedScene" uid="uid://babbli21sq36o" path="res://Mapping/MainHall/MainHallTopFloorBorder6x05x1.tscn" id="118_nl5ak"]
 [ext_resource type="PackedScene" uid="uid://vxkgqyifk3u8" path="res://Mapping/MainHall/MainHallTopFloorTallCorner5x5x8.tscn" id="119_nl5ak"]
@@ -4506,3 +4507,10 @@ metadata/asset_placer_res_id = "uid://lud2p8ckgh7g"
 [node name="MainHallTopFloorBalconyMarkings" parent="MainHall" unique_id=1215644554 instance=ExtResource("135_uqf76")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 6, 0)
 metadata/asset_placer_res_id = "uid://j4fn8j8wxsbh"
+
+[node name="WelcomeClientCamera" type="Camera3D" parent="." unique_id=1311999599]
+transform = Transform3D(-0.62002873, 0.30519018, -0.7227886, 0, 0.9212437, 0.38898587, 0.7845791, 0.2411824, -0.57119757, -12.811865, 18.170639, 34.476738)
+script = ExtResource("117_gejdw")
+cameraActive = true
+cameraPriority = 1.0
+metadata/_custom_type_script = "uid://w507e7ie4n1t"

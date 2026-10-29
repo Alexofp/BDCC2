@@ -554,3 +554,6 @@ static func getIPAndPort(_str:String, _defaultPort:int = 12345, _defaultIP:Strin
 	if(theSplit.size() == 1):
 		return [theSplit[0], _defaultPort]
 	return [theSplit[0], int(theSplit[1])]
+
+static func getGlobalTimeSeconds() -> int:
+	return int(Time.get_unix_time_from_system())

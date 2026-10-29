@@ -82,6 +82,7 @@ func updateLayeredTexturesAlways(_delta:float):
 			curLayeredTextures = 0
 		
 		var theTexture:MyLayeredTexture = layeredTextures[curLayeredTextures]
+		var theCamera:Camera3D = theTexture.get_viewport().get_camera_3d()
 		curLayeredTextures += 1
 		didUpdate += 1
 		toUpdate -= 1
@@ -90,9 +91,9 @@ func updateLayeredTexturesAlways(_delta:float):
 		if(!theParent || !(theParent is Node3D)):
 			continue
 		#var camera:Camera3D = get_viewport().get_camera_3d()
-		if(!camera):
+		if(!theCamera):
 			continue
-		var distSqr:float = camera.global_position.distance_squared_to(theParent.global_position)
+		var distSqr:float = theCamera.global_position.distance_squared_to(theParent.global_position)
 		
 		if(distSqr < 1000.0):
 			theTexture.farTimer = 5.0
