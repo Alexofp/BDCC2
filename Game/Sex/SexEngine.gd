@@ -424,14 +424,17 @@ func start(sexTypeID:String, roles:Dictionary, args:Dictionary = {}):
 		participants[charID].onSexStart()
 	#process_timer.start(0.1)
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	LoadSpreader.register(self, 0.1)
+	
+func processScheduled(_dt:float, _key:int):
 	if(!Network.isServer()):
 		return
-	processTime += _delta
-	if(processTime >= 0.1):
-		doProcess(processTime)
-		dialogue.process(processTime)
-		processTime = 0.0
+	#processTime += _delta
+	#if(processTime >= 0.1):
+	doProcess(_dt)
+	dialogue.process(_dt)
+	#processTime = 0.0
 
 func addParticipant(theID:String, theRole:int) -> SexParticipantInfo:
 	var newInfo:SexParticipantInfo = SexParticipantInfo.new()

@@ -12,9 +12,6 @@ var thingToCachedPos:Dictionary[Node3D, Vector2i] # dict[node, vec2]
 var thingsDynamic:Array[Node3D]
 var thingsCheckOnce:Array[Node3D]
 
-func _ready() -> void:
-	GI.world = self
-
 func getChunkPos2(_pos:Vector3) -> Vector2i:
 	return Vector2i(int(round(_pos.x/CHUNK_SIZE)), int(round(_pos.z/CHUNK_SIZE)))
 
@@ -87,7 +84,11 @@ func onThingRemoved(_node:Node3D):
 	if(DEBUG_WORLD):
 		Log.Print("(World) thing removed "+str(thePos)+": "+str(_node))
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	GI.world = self
+	LoadSpreader.register(self)
+
+func processScheduled(_delta:float, _key:int):
 	for theNode:Node3D in thingsDynamic:
 		notifyThingMoved(theNode)
 	if(!thingsCheckOnce.is_empty()):

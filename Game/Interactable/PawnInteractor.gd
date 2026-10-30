@@ -34,7 +34,10 @@ var cachedActionsBig:Array[InteractQuickAction]
 #func onActionsBigSync(_newActionsRaw:Array[Array]):
 	#actionsBigSync = _newActionsRaw
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	LoadSpreader.register(self)
+	
+func processScheduled(_delta:float, _key:int):
 	if(Network.isServer()):
 		if(!pawn.isControlledByAnyPlayer()):
 			return

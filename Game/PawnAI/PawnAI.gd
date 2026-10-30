@@ -96,7 +96,10 @@ func lookTowardsRaw(_pos:Vector3):
 		theDoll.targetLookDir = _pos - theDoll.global_position
 
 func stopWalking():
-	goTowards(getPawn().global_position)
+	var thePawn:CharacterPawn = getPawn()
+	if(!thePawn):
+		return
+	goTowards(thePawn.global_position)
 	#pawn.getNavAgent().target_position = getPawn().global_position
 	#pawn.getNavAgent().set_velocity_forced(Vector3.ZERO)
 

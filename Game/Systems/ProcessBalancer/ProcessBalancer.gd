@@ -17,8 +17,20 @@ var wiggleModifiers:Array[DMWBWiggleRotationModifier3D] = []
 
 var updateTimer:float = 0.0
 
-func _process(_delta: float) -> void:
-	processThings(_delta)
+func _ready() -> void:
+	LoadSpreader.register(self)
+	LoadSpreader.register(self, 0.016, 1)
+
+#func processScheduled(_dt:float, _key:int):
+#	pass
+
+#func _process(_delta: float) -> void:
+#	processThings(_delta)
+	
+func processScheduled(_delta:float, _key:int):
+	if(_key == 1):
+		processThings(_delta)
+		return
 	
 	ticks += 1
 	var camera:Camera3D = get_viewport().get_camera_3d()

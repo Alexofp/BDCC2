@@ -3,13 +3,17 @@ class_name MemorySystem
 
 var rareUpdateTimer:float = 0.0
 
-func _physics_process(_delta: float) -> void:
-	rareUpdateTimer += _delta
-	if(rareUpdateTimer > 1.27):
-		processRare(rareUpdateTimer)
-		rareUpdateTimer = 0.0
+func _ready() -> void:
+	LoadSpreader.register(self, 1.27)
 
-func processRare(_dt:float):
+#func _physics_process(_delta: float) -> void:
+#	rareUpdateTimer += _delta
+#	if(rareUpdateTimer > 1.27):
+#		processRare(rareUpdateTimer)
+#		rareUpdateTimer = 0.0
+
+#func processRare(_dt:float):
+func processScheduled(_dt:float, _key:int):
 	var currentTime := GM.main.timeManager.getTimeFull()
 	
 	for charID in GM.main.characterRegistry.characters:

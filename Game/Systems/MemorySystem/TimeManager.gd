@@ -9,7 +9,10 @@ var day:int = 0 # how many days have passed
 var timeFloat:float = 0.0
 var syncTimeTimer:float = 0.0
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	LoadSpreader.register(self)
+
+func processScheduled(_delta:float, _key:int):
 	timeFloat += _delta
 	if(timeFloat >= 1.0):
 		var toAdd:int = int(timeFloat)

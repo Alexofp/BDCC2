@@ -14,14 +14,14 @@ signal onPawnListChanged
 const GRID_SIZE:float = 25
 var sparsePawnGrid:Dictionary[Vector2i, Array] = {}
 
-func _ready() -> void:
-	GI.pawnRegistry = self
-	pass
-
 func hasPawn(charID:String) -> bool:
 	return pawns.has(charID)
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	GI.pawnRegistry = self
+	LoadSpreader.register(self)
+
+func processScheduled(_delta:float, _key:int):
 	var pawnAm:int = pawnList.size()
 	if(pawnAm <= 0):
 		return

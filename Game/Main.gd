@@ -225,6 +225,7 @@ func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	pass
 
 func _ready() -> void:
+	loaderRegisters()
 	GameChat.clear()
 	#print("MEOW: "+str(Util.getResourcesFromFolderSmart("res://Sounds/", ["wav"], true, true, true, false)))
 	timeGameStart = int(Time.get_unix_time_from_system())
@@ -288,13 +289,24 @@ func _process(_delta: float) -> void:
 	if(Network.isServer()):
 		pawnSpawner.processSpawner(_delta)
 
-var rareTimer:float = 0.0
-func _physics_process(_dt: float) -> void:
-	interactionSystem.processInteractions(_dt)
-	rareTimer += _dt
-	if(rareTimer > 1.0):
-		processRare(rareTimer)
-		rareTimer = 0.0
+func loaderRegisters() -> void:
+	LoadSpreader.register(self)
+	LoadSpreader.register(self, 1.0, 1)
+
+func processScheduled(_delta:float, _key:int):
+	if(_key == 1):
+		processRare(_delta)
+		return
+	
+	interactionSystem.processInteractions(_delta)
+
+#var rareTimer:float = 0.0
+#func _physics_process(_dt: float) -> void:
+#	interactionSystem.processInteractions(_dt)
+#	rareTimer += _dt
+#	if(rareTimer > 1.0):
+#		processRare(rareTimer)
+#		rareTimer = 0.0
 
 func processRare(_dt:float):
 	if(OPTIONS.game.autosaveEnabled && Network.isServer() && getSecondsSinceLastSave() > OPTIONS.game.autosaveEvery && canSaveGame()):

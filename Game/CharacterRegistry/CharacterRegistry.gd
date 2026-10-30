@@ -7,11 +7,6 @@ var lastUniqueID:int = 0
 
 signal characterAdded(charID:String, character:BaseCharacter)
 signal characterRemoved(charID:String, character:BaseCharacter)
-
-func _ready():
-	GI.characterRegistry = self
-	#Network.playerConnected.connect(onPlayerConnected)
-	#set_multiplayer_authority(Network.getHostID())
 	
 
 #func onPlayerConnected(_id:int, _playerInfo:NetworkPlayerInfo):
@@ -379,7 +374,11 @@ var rareI:int = 0 # Index of a current character to call the processRare func fo
 var veryRareTimer:float = 0.0
 var veryRareI:int = 0
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	GI.characterRegistry = self
+	LoadSpreader.register(self)
+
+func processScheduled(_delta:float, _key:int):
 	if(true || Network.isServer()):
 		#for charID in characters: #TODO: process far-away npcs less often
 		for theCharacter:BaseCharacter in characterList:

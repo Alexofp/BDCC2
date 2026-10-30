@@ -353,7 +353,15 @@ func getActionCooldown(_charTarget:String, _charActor:String, _actionID:String) 
 
 var rareUpdateI:int = 0
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	LoadSpreader.register(self)
+	LoadSpreader.register(self, 60.0, 1)
+
+func processScheduled(_delta:float, _key:int):
+	if(_key == 1):
+		processVeryRare(_delta)
+		return
+	
 	var shortAm:int = shortTerm.size()
 	if(!shortTerm.is_empty()):
 		rareUpdateTimer += _delta
@@ -371,10 +379,10 @@ func _physics_process(_delta: float) -> void:
 			else:
 				rareUpdateI += 1
 	
-	veryRareUpdateTimer += _delta
-	while(veryRareUpdateTimer >= VERY_RARE_UPDATE_TIME):
-		processVeryRare(VERY_RARE_UPDATE_TIME)
-		veryRareUpdateTimer -= VERY_RARE_UPDATE_TIME
+	#veryRareUpdateTimer += _delta
+	#while(veryRareUpdateTimer >= VERY_RARE_UPDATE_TIME):
+	#	processVeryRare(VERY_RARE_UPDATE_TIME)
+	#	veryRareUpdateTimer -= VERY_RARE_UPDATE_TIME
 	
 	if(!toSyncEntries.is_empty()):
 		if(Network.isServerNotSingleplayer()):

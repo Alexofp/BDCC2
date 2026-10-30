@@ -75,6 +75,7 @@ var combatTimer:float = 0.0
 var howLongOut:float = 0.0 # How long is the pawn out there
 
 func _ready() -> void:
+	registerSpread()
 	combatMovePlayer.setPawn(self)
 	
 	poseHandler = PawnPoseHandler.new()
@@ -158,7 +159,10 @@ func _process(_delta: float) -> void:
 	$MeshInstance3D.visible = !isDollSpawned()
 	GM.pawnRegistry.checkPawnSparseGrid(self)
 
-func _physics_process(_dt: float) -> void:
+func registerSpread() -> void:
+	LoadSpreader.register(self)
+	
+func processScheduled(_dt:float, _key:int):
 	#if(!isControlledByUs()):
 	#	if(isDollSpawned()):
 	#		getDoll().reset_input()

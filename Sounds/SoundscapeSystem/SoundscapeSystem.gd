@@ -25,6 +25,7 @@ func _ready() -> void:
 	playRandomAmbient()
 	resetAmbienceTimer()
 	resetRandomSoundTimer()
+	LoadSpreader.register(self)
 
 class AmbientSoundEntry:
 	var sound:AudioStreamPlayer3D
@@ -135,7 +136,7 @@ func getCameraPosition() -> Vector3:
 		return Vector3(11110.0, -99999.9, -1230.0)
 	return theCam.global_position
 
-func _physics_process(_delta: float) -> void:
+func processScheduled(_delta:float, _key:int):
 	var thePos := getCameraPosition()
 	soundscape_detector.global_position = thePos
 

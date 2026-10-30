@@ -115,6 +115,7 @@ func stopGesture(stopFullBody:bool = true, stopPartical:bool = true):
 		#animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 
 func _ready() -> void:
+	registerSpread()
 	updateAnimPlayer()
 	if(disableInternalAnimPlayer):
 		animation_player.active = false
@@ -297,7 +298,11 @@ func doDollUpdate() -> float:
 		updatePartFromCharacter(theEntry[0], theEntry[1])
 	return 0.02
 
-func _physics_process(_delta: float) -> void:
+func registerSpread():
+	LoadSpreader.register(self)
+
+#func _physics_process(_delta: float) -> void:
+func processScheduled(_delta:float, _key:int):
 	if(holeDataDirty && partUpdateQueue.is_empty()):
 		updateDollHoleData()
 	

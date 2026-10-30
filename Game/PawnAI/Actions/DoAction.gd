@@ -34,7 +34,7 @@ func start(_args:Array):
 func isImpossible() -> bool:
 	#if(!getTargetPawn()):
 	#	return true
-	if(!target):
+	if(!target || target.is_queued_for_deletion()):
 		return true
 	return false
 
@@ -48,6 +48,9 @@ func think():
 			completeAction() # Some way to detect if the delayed action failed
 		return
 	
+	if(!theTargetPawn):
+		impossibleAction()
+		return
 	if(!goTo(theTargetPawn.global_position, true, "", 3.0, 5.0)):
 		return
 	if(hasSubAction() || isDoingDelayedActions()):

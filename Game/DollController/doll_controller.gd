@@ -156,6 +156,7 @@ func shouldCaptureMouse() -> bool:
 	return false
 
 func _ready():
+	registerSpread()
 	floor_snap_length = 1.0
 	floor_constant_speed = true
 	basis = Basis.IDENTITY
@@ -340,12 +341,18 @@ func setYankDir(_dir:Vector3, _run:float = 0.0):
 func doJump():
 	pawn.state.doJump(self)
 
-func _physics_process(_delta:float):
-	#var hasAuthority:bool = !isRemote()
-	var theIsControlledByUs:bool = isControlledByUs()
-	#if(theIsControlledByUs):
+func registerSpread():
+	LoadSpreader.register(self)
+	
+func processScheduled(_delta:float, _key:int):
+	#var theIsControlledByUs:bool = isControlledByUs()
 	processCameraBlindness()
 	processRandomLookAt(_delta)
+
+func _physics_process(_delta:float):
+	var theIsControlledByUs:bool = isControlledByUs()
+	#processCameraBlindness()
+	#processRandomLookAt(_delta)
 
 	if(theIsControlledByUs):
 		doll_controls.resetInput()

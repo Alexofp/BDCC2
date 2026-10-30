@@ -200,7 +200,10 @@ func onCharacterCreatorAppear():
 func onCharacterCreatorConfirm():
 	pass
 
-func _physics_process(_delta: float) -> void:
+func _ready() -> void:
+	LoadSpreader.register(self)
+	
+func processScheduled(_delta:float, _key:int):
 	if(Network.isServer()):
 		checkOutOfBoundsCharacters()
 
