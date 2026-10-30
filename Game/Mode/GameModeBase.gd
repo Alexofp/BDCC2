@@ -4,14 +4,37 @@ class_name GameModeBase
 var id:String = ""
 
 var playersData:Array[PlayerData]
+var charIDToData:Dictionary[String, PlayerData]
 var fallbackGID:String = "" # What player data should we use in case we can't find ours
+
+func onBaseCharacterDeleted(_char:BaseCharacter):
+	if(!_char):
+		return
+	var theID:String = _char.getID()
+	if(!charIDToData.has(theID)):
+		return
+	var theData:PlayerData = charIDToData[theID]
+	charIDToData.erase(theID)
+	playersData.erase(theData)
+	if(theData.gid == fallbackGID):
+		fallbackGID = ""
+
+func checkDataRemoveMissingChars():
+	var _am:int = playersData.size()
+	for _i:int in _am:
+		var _index:int = _am - 1 - _i
+		var theData:PlayerData = playersData[_index]
+		if(!GM.main.characterRegistry.hasCharacter(theData.charID)):
+			playersData.erase(theData)
+			charIDToData.erase(theData.charID)
+			if(theData.gid == fallbackGID):
+				fallbackGID = ""
 
 # Use a dict to optimize this?
 func getPlayerDataForCharID(_charID:String) -> PlayerData:
-	for theData:PlayerData in playersData:
-		if(theData.charID == _charID):
-			return theData
-	return null
+	if(!charIDToData.has(_charID)):
+		return null
+	return charIDToData[_charID]
 
 func findPlayerDataForProfile(_profile:PlayerProfile, _lookForFallbackInSinglePlayer:bool = true) -> PlayerData:
 	for _data:PlayerData in playersData:
@@ -37,6 +60,7 @@ func assignPlayerData(_char:BaseCharacter, _profile:PlayerProfile):
 	_newPlayerData.gid = _profile.gid
 	_newPlayerData.playerName = _profile.nickname
 	playersData.append(_newPlayerData)
+	charIDToData[_char.getID()] = _newPlayerData
 
 # Called after the game was loaded from a save. Only realistically gets called on the server
 func afterGameLoad():
@@ -281,8 +305,9 @@ func checkOutOfBoundsCharacters(_lowPoint:float = -200.0, _resetPoint:Vector3 = 
 func startNewGame(_holder:StartGameHolder):
 	loadFromDef(_holder.gameModeDef)
 	if(Network.isServer()):
-		createPopulationNewGame(_holder)
+		createPopulationNewGame(_holder, false)
 		createPlayerNewGame(_holder)
+	GM.main.pawnSpawner.spawnWave()
 
 func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
 	var _i:int = 0
@@ -339,6 +364,7 @@ func saveData() -> Dictionary:
 
 func loadData(_data:Dictionary):
 	playersData.clear()
+	charIDToData.clear()
 	
 	fallbackGID = SAVE.loadVar(_data, "fallbackGID", "")
 	
@@ -347,3 +373,6 @@ func loadData(_data:Dictionary):
 		var _newPlayerData:PlayerData = PlayerData.new()
 		_newPlayerData.loadData(thePlayerEntry)
 		playersData.append(_newPlayerData)
+		charIDToData[_newPlayerData.charID] = _newPlayerData
+	
+	checkDataRemoveMissingChars.call_deferred()

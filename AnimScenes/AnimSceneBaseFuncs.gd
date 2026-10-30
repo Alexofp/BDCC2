@@ -355,6 +355,28 @@ func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theI
 	onDollSwitch.emit(theID, _newDoll)
 	
 	if(_oldDoll):
+#E 0:06:13:404   AnimSceneBaseFuncs.gd:358 @ onSeatDollSwitchFunc(): Attempt to disconnect a nonexistent connection from '4:<CharacterBody3D#3188426023222>'. Signal: 'onGesturePlay', callable: 'Node3D(sit_anim_scene.gd)::onSitterGesturePlay'.
+#  <C++ Error>   Condition "signal_is_valid" is true. Returning: false
+#  <C++ Source>  core\object\object.cpp:1709 @ Object::_disconnect()
+#  <Stack Trace> AnimSceneBaseFuncs.gd:358 @ onSeatDollSwitchFunc()
+#                pose_spot.gd:66 @ dollUpdate()
+#                pose_spot.gd:115 @ onPawnChange()
+#                sit_manager.gd:156 @ unsit()
+#                sit_manager.gd:177 @ freeSeat()
+#                pose_spot.gd:74 @ unSit()
+#                AnimSceneBaseFuncs.gd:284 @ setSitter()
+#                anim_scene_spawner.gd:74 @ unsitToStandSpot()
+#                bench_anim_handler.gd:113 @ setSitter()
+#                SitProp.gd:41 @ doAction()
+#                character_pawn.gd:1810 @ doInteractEntryDo()
+#                GoTo.gd:59 @ think()
+#                AIActionBase.gd:151 @ processRareFinal()
+#                AIActionBase.gd:145 @ processRareFinal()
+#                AIActionBase.gd:145 @ processRareFinal()
+#                PawnAI.gd:171 @ processRare()
+#                character_pawn.gd:225 @ processRare()
+#                character_pawn.gd:192 @ processSemiOften()
+#                pawn_registry.gd:36 @ _physics_process()
 		_oldDoll.onGesturePlay.disconnect(onSitterGesturePlay.bind(theID))
 	if(_newDoll):
 		_newDoll.onGesturePlay.connect(onSitterGesturePlay.bind(theID))

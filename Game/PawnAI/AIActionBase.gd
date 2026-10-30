@@ -5,7 +5,7 @@ var id:String = ""
 var actionTag:String = ""
 var planAction:bool = false
 
-var groupBasicAI:bool = false
+var groupBasicAI:bool = false # Isn't really used anymore
 
 var ai:PawnAI
 

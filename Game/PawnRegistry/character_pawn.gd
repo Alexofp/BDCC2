@@ -72,6 +72,7 @@ const STATE_COUPLE = 5
 var rareUpdateTimer:float = 0.0
 var veryRareUpdateTimer:float = 0.0
 var combatTimer:float = 0.0
+var howLongOut:float = 0.0 # How long is the pawn out there
 
 func _ready() -> void:
 	combatMovePlayer.setPawn(self)
@@ -229,6 +230,7 @@ func processRare(_dt:float):
 # Gets called every 10 seconds or so (random between 9.0 and 11.0)
 func processVeryRare(_dt:float):
 	mood.processRare(_dt)
+	howLongOut += _dt
 
 func processPoseSpot():
 	var thePoseSpot:PoseSpot = getPoseSpot()
@@ -354,11 +356,12 @@ func saveData() -> Dictionary:
 		poseHandler = poseHandler.saveData(),
 		cds = cooldowns.saveData(),
 		ct = combatTimer,
+		hlo = howLongOut,
 		
-		sub = submission.saveData(),
-		mood = mood.saveData(),
-		comai = combatAI.saveData(),
-		ai = ai.saveData(),
+		sub = submission.saveData(), # late load needed
+		mood = mood.saveData(), # late
+		comai = combatAI.saveData(), # late
+		ai = ai.saveData(), # late
 	}
 
 func loadData(_data:Dictionary):
@@ -369,6 +372,7 @@ func loadData(_data:Dictionary):
 	state = states[pawnState] if states.has(pawnState) else stateEmpty
 	poseHandler.loadData(SAVE.loadVar(_data, "poseHandler", {}))
 	cooldowns.loadData(SAVE.loadVar(_data, "cds", {}))
+	howLongOut = SAVE.loadFloat(_data, "hlo")
 	
 	rareUpdateTimer = RNG.randfRange(0.0, 1.0)
 	veryRareUpdateTimer = RNG.randfRange(9.0, 11.0)

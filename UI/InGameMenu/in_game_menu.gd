@@ -90,7 +90,9 @@ func updateLastSaveLabel():
 	var theCurTime:int = Util.getGlobalTimeSeconds()
 	var theDiffTime:int = (theCurTime - theLastTimeSaved)
 	var theSaveText:String = "Last save: "
-	if(theDiffTime < 0):
+	if(theLastTimeSaved < 0):
+		theSaveText += "Never"
+	elif(theDiffTime < 0):
 		theSaveText += "In the future??"
 	elif(theDiffTime < 5):
 		theSaveText += "Just now"

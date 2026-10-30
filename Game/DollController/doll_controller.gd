@@ -279,7 +279,10 @@ func _process(delta:float):
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_2")):
 		#getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
 		#addKnockback(Vector3(11.0, 10.0, 0.0))
+		
 		getPawn().sendFlying(Vector3(10.0, 0.0, 0.0), 10.0)
+		#print(GM.world.getNearbyStocks(global_position, 10.0))
+		
 		#getPawn().doStagger()
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 	#if(theIsControlledByUs):

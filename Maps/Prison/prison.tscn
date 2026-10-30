@@ -96,6 +96,7 @@
 [ext_resource type="PackedScene" uid="uid://bogc0jpddhtoj" path="res://Mapping/MainHall/MainHallTopLevelFloor54x54.tscn" id="116_xvs6m"]
 [ext_resource type="Script" uid="uid://w507e7ie4n1t" path="res://Game/Systems/Camera/WelcomeClientCamera.gd" id="117_gejdw"]
 [ext_resource type="PackedScene" uid="uid://boyynx0uggnl8" path="res://Mapping/MainHall/MainHallTopFloorArch9x1x8.tscn" id="117_ju0lk"]
+[ext_resource type="Script" uid="uid://cq5k5rd3n07s5" path="res://Game/WorldThings/InmateSpawnPoint.gd" id="118_ju0lk"]
 [ext_resource type="PackedScene" uid="uid://babbli21sq36o" path="res://Mapping/MainHall/MainHallTopFloorBorder6x05x1.tscn" id="118_nl5ak"]
 [ext_resource type="PackedScene" uid="uid://vxkgqyifk3u8" path="res://Mapping/MainHall/MainHallTopFloorTallCorner5x5x8.tscn" id="119_nl5ak"]
 [ext_resource type="PackedScene" uid="uid://vdbs7d21pgkq" path="res://Mapping/MainHall/MainHallTopFloorWallEntrance12x05x15.tscn" id="120_46o6s"]
@@ -3805,38 +3806,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78906566, 1.185009, -3.859
 [node name="LeashAnchor2" parent="." unique_id=793720883 instance=ExtResource("76_22765")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -7.9090734, 1.8674967, 8.899645)
 
-[node name="AIWanderArea" parent="." unique_id=1983374654 instance=ExtResource("77_rvwk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.752273, 0.19999997, -1.2481117)
-radius = 2.2271352
-
-[node name="AIWanderArea3" parent="." unique_id=1166028200 instance=ExtResource("77_rvwk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7515774, 1.2, -9.454212)
-radius = 1.3729846
-
-[node name="AIWanderArea4" parent="." unique_id=574565620 instance=ExtResource("77_rvwk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5011401, 1.2, -9.50719)
-radius = 1.3729846
-
-[node name="AIWanderArea2" parent="." unique_id=598548140 instance=ExtResource("77_rvwk4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8151746, 0.20000003, 0.052530408)
-radius = 3.0
-
-[node name="AILeanLine" parent="." unique_id=322481802 instance=ExtResource("78_gd40n")]
-transform = Transform3D(-0.9999999, 0, -2.4716082e-06, 0, 1, 0, 2.4716082e-06, 0, -0.9999999, -3.9999874, 2.9802322e-08, 3.7484784)
-width = 0.6438544841473564
-
-[node name="AILeanLine4" parent="." unique_id=1319740925 instance=ExtResource("78_gd40n")]
-transform = Transform3D(2.698102e-06, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 2.698102e-06, 5.748478, 0.99999994, -9.286199)
-width = 0.6663192279963435
-
-[node name="AILeanLine2" parent="." unique_id=1462508487 instance=ExtResource("78_gd40n")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.3420725, 2.9802322e-08, 3.7484784)
-width = 0.9819058856597708
-
-[node name="AILeanLine3" parent="." unique_id=895889258 instance=ExtResource("78_gd40n")]
-transform = Transform3D(-4.0133926e-07, 0, 1, 0, 1, 0, -1, 0, -4.0133926e-07, -17.748478, 2.9802322e-08, 0.26845813)
-width = 2.8077895144794183
-
 [node name="MoreMap" type="Node3D" parent="." unique_id=1228457334 groups=["Navmesh"]]
 
 [node name="FloorTile4x4" parent="MoreMap" unique_id=2031372858 instance=ExtResource("3_lq5yv")]
@@ -4514,3 +4483,116 @@ script = ExtResource("117_gejdw")
 cameraActive = true
 cameraPriority = 1.0
 metadata/_custom_type_script = "uid://w507e7ie4n1t"
+
+[node name="Things" type="Node3D" parent="." unique_id=1010467261]
+
+[node name="AIWanderArea" parent="Things" unique_id=1983374654 instance=ExtResource("77_rvwk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.752273, 0.19999997, -1.2481117)
+radius = 2.2271352
+
+[node name="AIWanderArea3" parent="Things" unique_id=1166028200 instance=ExtResource("77_rvwk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7515774, 1.2, -9.454212)
+radius = 1.3729846
+
+[node name="AIWanderArea4" parent="Things" unique_id=574565620 instance=ExtResource("77_rvwk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5011401, 1.2, -9.50719)
+radius = 1.3729846
+
+[node name="AIWanderArea2" parent="Things" unique_id=598548140 instance=ExtResource("77_rvwk4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8151746, 0.20000003, 0.052530408)
+radius = 3.0
+
+[node name="AILeanLine" parent="Things" unique_id=322481802 instance=ExtResource("78_gd40n")]
+transform = Transform3D(-0.9999999, 0, -2.4716082e-06, 0, 1, 0, 2.4716082e-06, 0, -0.9999999, -3.9999874, 2.9802322e-08, 3.7484784)
+width = 0.6438544841473564
+
+[node name="AILeanLine4" parent="Things" unique_id=1319740925 instance=ExtResource("78_gd40n")]
+transform = Transform3D(2.698102e-06, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 2.698102e-06, 5.748478, 0.99999994, -9.286199)
+width = 0.6663192279963435
+
+[node name="AILeanLine2" parent="Things" unique_id=1462508487 instance=ExtResource("78_gd40n")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.3420725, 2.9802322e-08, 3.7484784)
+width = 0.9819058856597708
+
+[node name="AILeanLine3" parent="Things" unique_id=895889258 instance=ExtResource("78_gd40n")]
+transform = Transform3D(-4.0133926e-07, 0, 1, 0, 1, 0, -1, 0, -4.0133926e-07, -17.748478, 2.9802322e-08, 0.26845813)
+width = 2.8077895144794183
+
+[node name="InmateSpawnPoint" type="Node3D" parent="Things" unique_id=839898129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint2" type="Node3D" parent="Things" unique_id=682737173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint3" type="Node3D" parent="Things" unique_id=838437114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 2.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint4" type="Node3D" parent="Things" unique_id=1168696265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 2.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint5" type="Node3D" parent="Things" unique_id=1430110344]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 2.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint6" type="Node3D" parent="Things" unique_id=1040596500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint7" type="Node3D" parent="Things" unique_id=1162772238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint8" type="Node3D" parent="Things" unique_id=122879820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint9" type="Node3D" parent="Things" unique_id=717932743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint10" type="Node3D" parent="Things" unique_id=670014821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint11" type="Node3D" parent="Things" unique_id=1006423757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 5, 10.5)
+script = ExtResource("118_ju0lk")
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint12" type="Node3D" parent="Things" unique_id=366105566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 5, 57)
+script = ExtResource("118_ju0lk")
+canDespawn = false
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint13" type="Node3D" parent="Things" unique_id=20006694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 5, 44.5)
+script = ExtResource("118_ju0lk")
+canDespawn = false
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint14" type="Node3D" parent="Things" unique_id=2034686536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5, 44.5)
+script = ExtResource("118_ju0lk")
+canDespawn = false
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"
+
+[node name="InmateSpawnPoint15" type="Node3D" parent="Things" unique_id=1340794819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5, 58)
+script = ExtResource("118_ju0lk")
+canDespawn = false
+metadata/_custom_type_script = "uid://cq5k5rd3n07s5"

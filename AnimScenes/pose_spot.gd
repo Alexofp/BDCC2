@@ -62,7 +62,11 @@ func dollUpdate():
 	if(oldDoll == newDoll):
 		return
 	doll = newDoll
-	
+   # 0:06:06:429   pose_spot.gd:66 @ dollUpdate(): Error calling from signal 'onDollSwitch' to callable: 'Node3D(sit_anim_scene.gd)::onSeatDollSwitchFunc': Cannot convert argument 2 from Object to Object.
+  #<C++ Source>  core\object\object.cpp:1384 @ Object::emit_signalp()
+  #<Stack Trace> pose_spot.gd:66 @ dollUpdate()
+ #               pose_spot.gd:107 @ _process()
+
 	onDollSwitch.emit(doll, oldDoll)
 
 func doSit(theSitter:CharacterPawn):

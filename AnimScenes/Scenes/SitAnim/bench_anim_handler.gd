@@ -9,7 +9,7 @@ extends PropHandlerBase
 
 func _ready():
 	pawn_interactable.setTarget(self)
-	World.addSitSpot(self)
+	World.addThing(WorldThing.SittingSpot, self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()

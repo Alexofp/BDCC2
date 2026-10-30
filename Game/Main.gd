@@ -38,13 +38,14 @@ var character_creator:Node
 
 var interactionSystem:InteractionSystem
 var reactionSystem:ReactionSystem = ReactionSystem.new()
+var pawnSpawner:WorldPawnSpawner = WorldPawnSpawner.new()
 
 var gameMode:GameModeBase
 var mapPath:String = ""
 var prisonName:String = "BDCC"
 var timePlayedSaved:int = 0
 var timeGameStart:int = 0 # no save
-var timeLastSave:int = 0 # no save
+var timeLastSave:int = -1 # no save
 var gameSavePath:String = ""
 
 const GAME_INFO_KEY:String = "___info"
@@ -101,6 +102,7 @@ func saveData() -> Dictionary:
 		prisonName = prisonName,
 		timePlayed = getTimePlayedSeconds(),
 		gi = GI.saveFullData(),
+		pawnSpawner = pawnSpawner.saveData(),
 	}
 	return _data
 
@@ -113,6 +115,7 @@ func loadData(_data:Dictionary) -> bool:
 	var theGIData:Dictionary = SAVE.loadVar(_data, "gi", {})
 	prisonName = SAVE.loadStr(_data, "prisonName")
 	timePlayedSaved = SAVE.loadInt(_data, "timePlayed")
+	pawnSpawner.loadData(SAVE.loadDict(_data, "pawnSpawner"))
 	
 	var _succ:bool = await loadModeOnMap(theMapPath, theGameModeID, [], theGameModeData, false)
 	if(!_succ):
@@ -281,6 +284,9 @@ func _process(_delta: float) -> void:
 				if(interact_menu.isActuallyVisible()):
 					interact_menu.showBestTarget()
 					#showInteractMenuSpecific(GM.pcPawn)
+	
+	if(Network.isServer()):
+		pawnSpawner.processSpawner(_delta)
 
 var rareTimer:float = 0.0
 func _physics_process(_dt: float) -> void:
@@ -461,3 +467,21 @@ func getTimePlayedSeconds() -> int:
 
 func getSecondsSinceLastSave() -> int:
 	return Util.getGlobalTimeSeconds() - timeLastSave
+
+func doesPawnHavePlayerData(_pawn:CharacterPawn) -> bool:
+	if(_pawn && gameMode.getPlayerDataForCharID(_pawn.getID())):
+		return true
+	return false
+
+func doesCharIDHavePlayerData(_charID:String) -> bool:
+	if(gameMode.getPlayerDataForCharID(_charID)):
+		return true
+	return false
+
+func doesPawnHavePlayerDataAndPlayerIsGone(_pawn:CharacterPawn) -> bool:
+	if(!_pawn):
+		return false
+	var theData:PlayerData = gameMode.getPlayerDataForCharID(_pawn.getID())
+	if(theData && !theData.isPlayerConnected()):
+		return true
+	return false

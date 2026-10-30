@@ -10,7 +10,7 @@ func getRandomSpot() -> Vector3:
 func _enter_tree() -> void:
 	if(Engine.is_editor_hint()):
 		return
-	World.addPOI(self)
+	World.addThing(WorldThing.LeanLine, self)
 
 @export_tool_button("SNAP TO FLOOR", "Callable") var doSnapToFloor_action = doSnapToFloor
 func doSnapToFloor():

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://k4eolyomjw0s"]
+
+[ext_resource type="Script" uid="uid://cq5k5rd3n07s5" path="res://Game/WorldThings/InmateSpawnPoint.gd" id="1_bqpet"]
+
+[node name="InmateSpawnPoint" type="Node3D" unique_id=801174084]
+script = ExtResource("1_bqpet")

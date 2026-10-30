@@ -23,6 +23,7 @@ func doAction(_context:PawnActionContext) -> bool:
 	if(!theHandler):
 		return false
 	var newWallHandler:Node3D = theHandler.instantiate()
+	newWallHandler.transform = theTransform
 	GM.netNodes.add_child(newWallHandler)
 	newWallHandler.global_transform = theTransform
 	GM.netNodes.makeNodeNetDynamic(newWallHandler)

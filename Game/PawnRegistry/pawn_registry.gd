@@ -96,6 +96,13 @@ func getPawn(charID:String) -> CharacterPawn:
 		return null
 	return pawns[charID]
 
+func doPutPawnAway(_pawn:CharacterPawn):
+	if(!_pawn || _pawn.isControlledByAnyPlayer()):
+		return
+	deletePawn(_pawn.getID())
+	if(GM.main):
+		GM.main.pawnSpawner.onPawnWentHome(_pawn)
+
 func deletePawn(charID:String):
 	if(!Network.isServer()):
 		return null

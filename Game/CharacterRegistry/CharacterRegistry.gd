@@ -312,6 +312,7 @@ func removeCharacterID(theCharID:String):
 		return
 	GM.main.relationshipSystem.onCharacterIDRemoved(theCharID)
 	var theCharInfo:BaseCharacter = characters[theCharID]
+	GM.game.onBaseCharacterDeleted(theCharInfo)
 	characters.erase(theCharID)
 	characterList.erase(theCharInfo)
 	characterRemoved.emit(theCharID, theCharInfo)

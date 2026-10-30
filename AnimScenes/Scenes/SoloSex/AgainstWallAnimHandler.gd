@@ -17,7 +17,7 @@ const POSE_NAMES = [
 
 func _ready():
 	pawn_interactable.setTarget(self)
-	GM.world.addActiveLeaner.call_deferred(self)
+	World.addThing(WorldThing.Leaner, self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()

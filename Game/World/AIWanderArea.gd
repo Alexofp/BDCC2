@@ -10,7 +10,7 @@ func getRandomSpot() -> Vector3:
 func _enter_tree() -> void:
 	if(Engine.is_editor_hint()):
 		return
-	World.addPOI(self)
+	World.addThing(WorldThing.WanderArea, self)
 
 # Surface area
 func calcWeight() -> float:

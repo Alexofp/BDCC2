@@ -8,8 +8,7 @@ extends PropHandlerBase
 
 func _ready():
 	pawn_interactable.setTarget(self)
-	if(GM.world):
-		GM.world.addStocks.call_deferred(self)
+	World.addThing(WorldThing.Stocks, self)
 
 func getInteractCategory(_pawn:CharacterPawn) -> InteractCategory:
 	var category := InteractCategory.new()
