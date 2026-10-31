@@ -646,19 +646,25 @@ func sayAdvancedLocal(stuff:Array):
 	for theOtherPawn in nearbyPawns:
 		#if(theOtherPawn == self):
 		#	continue
-		theOtherPawn.hearAdvanced(self, stuff)
+		theOtherPawn.hearAdvanced(self, stuff, 20.0)
 		#theOtherPawn.addHoverText("I HEAR!")
 
-func hearAdvanced(otherPawn:CharacterPawn, stuff:Array):
+func hearAdvanced(otherPawn:CharacterPawn, stuff:Array, _sayDist:float = -1.0):
 	if(isControlledByUs()):
-		sendToChatLocal(sayArrayToChatTextSmart(otherPawn.getCharacter().getName(), stuff))
+		var theColor:Color = Color.WHITE
+		if(_sayDist > 3.0):
+			var ourDist:float = global_position.distance_to(otherPawn.global_position)
+			var theFactor:float = clampf(ourDist/_sayDist, 0.0, 1.0)
+			theColor = Color.WHITE.lerp(Color(0.187, 0.187, 0.187, 1.0), theFactor)
+		
+		sendToChatLocal(sayArrayToChatTextSmart(otherPawn.getCharacter().getName(), stuff), theColor)
 		var theText:String = sayArrayToText(stuff)
 		#otherPawn.addHoverText(theText)
 		otherPawn.sayHoverText(theText)
 		
-func sendToChatLocal(rawText:String):
+func sendToChatLocal(rawText:String, _color:Color = Color.WHITE):
 	if(isControlledByUs()):
-		GameChat.addChat(rawText)
+		GameChat.addChat(rawText, _color)
 
 func addHoverText(_text:String):
 	if(isDollSpawned()):

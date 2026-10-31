@@ -7,7 +7,7 @@ const PawnGoToSleepAfter:float = 300.0
 var nextSpawnTime:float = 3.0
 var spawnCD:Dictionary[String, float] # dict[charID, howMuchTime]
 
-func spawnWave(_shareMin:float = 0.5, _shareMax:float = 0.8, _countCurrent:bool = true):
+func spawnWave(_shareMin:float = 0.3, _shareMax:float = 0.5, _countCurrent:bool = true):
 	var theShare:float = RNG.randfRange(_shareMin, _shareMax)
 	var theAm:int = int(ceilf(float(getPawnPop())*theShare))
 	
@@ -44,14 +44,14 @@ func processSpawner(_dt:float):
 	nextSpawnTime -= _dt
 	if(nextSpawnTime <= 0.0):
 		var theFullness:float = getPawnPopFullness()
-		if(theFullness < 0.5):
+		if(theFullness < 0.3):
 			nextSpawnTime = RNG.randfRange(5.0, 15.0)
+		elif(theFullness < 0.5):
+			nextSpawnTime = RNG.randfRange(30.0, 60.0)
 		elif(theFullness < 0.7):
-			nextSpawnTime = RNG.randfRange(15.0, 30.0)
-		elif(theFullness < 0.9):
-			nextSpawnTime = RNG.randfRange(30.0, 120.0)
+			nextSpawnTime = RNG.randfRange(60.0, 120.0)
 		else:
-			nextSpawnTime = RNG.randfRange(120.0, 300.0)
+			nextSpawnTime = RNG.randfRange(180.0, 300.0)
 		
 		trySpawnPawn()
 	
@@ -101,10 +101,10 @@ func onPawnWentHome(_pawn:CharacterPawn):
 		return
 	spawnCD[_pawn.getID()] = PawnSleepCD
 	var theFullness:float = getPawnPopFullness()
-	if(theFullness < 0.5):
+	if(theFullness < 0.3):
 		nextSpawnTime = minf(RNG.randfRange(5.0, 15.0), nextSpawnTime)
-	elif(theFullness < 0.7):
-		nextSpawnTime = minf(RNG.randfRange(15.0, 30.0), nextSpawnTime)
+	elif(theFullness < 0.5):
+		nextSpawnTime = minf(RNG.randfRange(30.0, 60.0), nextSpawnTime)
 
 func saveData() -> Dictionary:
 	return {

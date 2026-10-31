@@ -514,6 +514,8 @@ static var ray_cast_space:PhysicsDirectSpaceState3D
 static func castRaySlow(_node:Node, start : Vector3, end : Vector3, mask : int = 0x7FFFFFFF, ignore_objects := [], collide_with_areas := false, hit_from_inside := false) -> Dictionary:
 	var global_world : World3D = _node.get_world_3d()
 	var space_state := global_world.direct_space_state
+	if(!ray_cast_query):
+		ray_cast_query = PhysicsRayQueryParameters3D.new()
 	ray_cast_query.collide_with_areas = collide_with_areas
 	ray_cast_query.hit_from_inside = hit_from_inside
 	ray_cast_query.from = start

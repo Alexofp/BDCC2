@@ -11,6 +11,7 @@ var thingToKinds:Dictionary[Node3D, Array] # dict[node, array[kind]]
 var thingToCachedPos:Dictionary[Node3D, Vector2i] # dict[node, vec2]
 var thingsDynamic:Array[Node3D]
 var thingsCheckOnce:Array[Node3D]
+var kindToThings:Dictionary[int, Array] # dict[kind, array[thing]]
 
 func getChunkPos2(_pos:Vector3) -> Vector2i:
 	return Vector2i(int(round(_pos.x/CHUNK_SIZE)), int(round(_pos.z/CHUNK_SIZE)))
@@ -54,6 +55,11 @@ func addThingToWorld(_kind:int, _node:Node3D, _dynamic:bool = false):
 		_node.tree_exiting.connect(onThingRemoved.bind(_node))
 	else:
 		thingToKinds[_node].append(_kind)
+	if(!kindToThings.has(_kind)):
+		var theAr:Array[Node3D] = [_node]
+		kindToThings[_kind] = theAr
+	else:
+		kindToThings[_kind].append(_node)
 	if(_dynamic):
 		thingsDynamic.append(_node)
 	else:
@@ -67,6 +73,8 @@ func onThingRemoved(_node:Node3D):
 	var thePos:Vector2i = thingToCachedPos[_node]
 	var theKinds:Array[int] = thingToKinds[_node]
 	for theKind:int in theKinds:
+		if(kindToThings.has(theKind)):
+			kindToThings[theKind].erase(_node)
 		if(!things.has(theKind)):
 			continue
 		var thePosToThings:Dictionary[Vector2i, Array] = things[theKind]
@@ -287,13 +295,9 @@ func getClosestPlayerDist(_pos:Vector3) -> float:
 	return sqrt(theDist)
 
 func getThings(_kind:int) -> Array[Node3D]:
-	if(!things.has(_kind)):
+	if(!kindToThings.has(_kind)):
 		return []
-	var result:Array[Node3D]
-	var theThings:Dictionary[Vector2i, Array] = things[_kind]
-	for thePos:Vector2i in theThings:
-		result.append_array(theThings[thePos])
-	return result
+	return kindToThings[_kind]
 
 const SafePlayerDistance:float = 10.0
 func getRandomInmateSpawn() -> InmateSpawnPoint:
@@ -315,4 +319,16 @@ func getClosestInmateDespawnPoint(_pos:Vector3) -> InmateSpawnPoint:
 	var theThing:Node3D = getClosest(getThingsRoughlyNear(WorldThing.InmateDespawn, _pos, 1.0), _pos)
 	if(theThing && (theThing is InmateSpawnPoint)):
 		return theThing
+	if(!theThing):
+		return getRandomOf(WorldThing.InmateDespawn)
 	return null
+
+func getAllOf(_kind:int) -> Array[Node3D]:
+	if(!kindToThings.has(_kind)):
+		return []
+	return kindToThings[_kind]
+
+func getRandomOf(_kind:int) -> Node3D:
+	if(!kindToThings.has(_kind)):
+		return null
+	return RNG.pick(kindToThings[_kind])

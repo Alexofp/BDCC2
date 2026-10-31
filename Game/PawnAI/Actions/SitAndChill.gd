@@ -41,7 +41,7 @@ func doSitStuff():
 		"SitProp", [RNG.pick(allFreeSpots)],
 	), propToSitAt)
 	
-	pushReplaceWithTimedEvent(5.0, "chill")
+	pushReplaceWithTimedEvent(RNG.randfRange(5.0, 180.0), "chill")
 
 func onSubEvent(_eventID:String, _args:Array):
 	if(_eventID == "chill"):

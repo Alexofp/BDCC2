@@ -20,7 +20,7 @@ func plan() -> AIPlan:
 	)
 
 func onPlanCompleted(_plan:AIPlan):
-	pushTimer(1.0)
+	pushTimer(RNG.randfRange(1.0, 20.0))
 	pushEvent("doEnd")
 
 func onSubEvent(_eventID:String, _args:Array):

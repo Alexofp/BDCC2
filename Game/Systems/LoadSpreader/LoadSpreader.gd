@@ -15,16 +15,28 @@ func register(_obj, _howOften:float = 0.05, _key:int = 0):
 	insertEntry(theEntry)
 
 # Use binary search?
-func insertEntry(_entry:LoadSpreaderEntry):
-	var theTimeUntil:float = _entry.timeUntil
-	
-	var queueAm:int = priorityQueue.size()
-	for _i:int in queueAm:
-		var theQTimeUntil:float = priorityQueue[_i].timeUntil
-		if(theTimeUntil < theQTimeUntil):
-			priorityQueue.insert(_i, _entry)
-			return
-	priorityQueue.append(_entry)
+#func insertEntry(_entry:LoadSpreaderEntry):
+#	var theTimeUntil:float = _entry.timeUntil
+#	
+#	var queueAm:int = priorityQueue.size()
+#	for _i:int in queueAm:
+#		var theQTimeUntil:float = priorityQueue[_i].timeUntil
+#		if(theTimeUntil < theQTimeUntil):
+#			priorityQueue.insert(_i, _entry)
+#			return
+#	priorityQueue.append(_entry)
+
+func insertEntry(_entry: LoadSpreaderEntry) -> void:
+	var timeUntil: float = _entry.timeUntil
+	var theLow: int = 0
+	var theHigh: int = priorityQueue.size()
+	while theLow < theHigh:
+		var mid: int = (theLow + theHigh) >> 1
+		if priorityQueue[mid].timeUntil > timeUntil:
+			theHigh = mid
+		else:
+			theLow = mid + 1
+	priorityQueue.insert(theLow, _entry)
 
 func _process(_delta: float) -> void:
 	if(priorityQueue.is_empty()):
