@@ -14,6 +14,10 @@ func getName() -> String:
 func getSlot() -> int:
 	return InventorySlot.Top
 
+func recolorForCharacterType(_type:CharacterTypeBase):
+	color2 = _type.colorMain.darkened(0.77)
+	color3 = _type.colorMain
+
 func getOptions() -> Dictionary:
 	return {
 		"color1": {

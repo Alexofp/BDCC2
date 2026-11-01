@@ -6,6 +6,7 @@ func _init() -> void:
 	inmate = false
 	staff = false
 	allowPickAsPlayer = false
+	scoreBase = 0.0
 
 func getName() -> String:
 	return "Generic"

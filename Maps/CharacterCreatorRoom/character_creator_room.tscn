@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://djn63ne4a2q6c"]
 
+[ext_resource type="Script" uid="uid://coikyoqbx6cwl" path="res://Maps/CharacterCreatorRoom/CharacterCreatorRoom.gd" id="1_w4fwf"]
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_y08rd"]
 [ext_resource type="Resource" uid="uid://dxmsugrnmgjga" path="res://Maps/window room.res" id="2_0fmwc"]
 [ext_resource type="PackedScene" uid="uid://bjc02adv4rin8" path="res://Mapping/Walls/WindowA8x4.tscn" id="3_sffmd"]
@@ -46,6 +47,7 @@ metallic = 1.0
 roughness = 0.0
 
 [node name="CharacterCreatorRoom" type="Node3D" unique_id=1450141424]
+script = ExtResource("1_w4fwf")
 
 [node name="PCSceneLoader" type="Node3D" parent="." unique_id=800498339 groups=["Navmesh"]]
 script = ExtResource("1_y08rd")

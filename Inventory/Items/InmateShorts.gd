@@ -105,3 +105,7 @@ func getItemValues() -> Array[ItemValue]:
 		ItemValue.baseValue(0.5),
 		ItemValue.itemValueTagBased(ItemValueTag.InmateClothing, 1.0),
 	]
+
+func recolorForCharacterType(_type:CharacterTypeBase):
+	color2 = _type.colorMain.darkened(0.77)
+	color3 = _type.colorMain

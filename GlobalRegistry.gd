@@ -69,6 +69,8 @@ var traitScores:Dictionary[TraitBase, float]
 var networkConnectors:Dictionary
 var networkConnectorRefs:Dictionary[String, ConnectorNetworkBase]
 var characterTypes:Dictionary[int, CharacterTypeBase]
+var characterTypeToScore:Dictionary[CharacterTypeBase, float]
+var mapDefs:Dictionary[String, MapDef]
 
 signal initialized
 
@@ -222,6 +224,7 @@ func doInit():
 	
 	registerGameModeDefFolder("res://Game/Mode/ModeDefs/")
 	registerCharacterTypeFolder("res://Game/Character/Type/Types/")
+	registerMapDefFolder("res://Maps/MapDefs/")
 	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
@@ -1555,6 +1558,7 @@ func registerCharacterType(path: String):
 	
 	if(object is CharacterTypeBase):
 		characterTypes[object.id] = object
+		characterTypeToScore[object] = object.scoreBase
 
 func registerCharacterTypeFolder(folder: String):
 	var scripts = Util.getScriptsInFolderSmart(folder)
@@ -1567,3 +1571,35 @@ func getCharacterType(id: int) -> CharacterTypeBase:
 	else:
 		Log.Printerr("ERROR: character type with the id "+str(id)+" wasn't found")
 		return null
+
+
+
+
+func registerMapDef(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is MapDef):
+		mapDefs[object.id] = object
+
+func registerMapDefFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerMapDef(scriptPath)
+
+func getMapDef(id: String) -> MapDef:
+	if(mapDefs.has(id)):
+		return mapDefs[id]
+	else:
+		Log.Printerr("ERROR: map def with the id "+str(id)+" wasn't found")
+		return null
+
+func getMapDefs() -> Dictionary[String, MapDef]:
+	return mapDefs
+
+func findMapDefByScenePath(_path:String) -> MapDef:
+	for theID:String in mapDefs:
+		var theMap:MapDef = mapDefs[theID]
+		if(theMap.getScenePath() == _path):
+			return theMap
+	return null

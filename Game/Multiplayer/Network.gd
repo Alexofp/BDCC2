@@ -602,7 +602,8 @@ func clientAskGameInfo_SERVERRPC():
 	Log.Print("Received ask for game info, sending it to "+str(multiplayer.get_remote_sender_id()))
 	
 	var gameState:Dictionary = { # save the gamemode's stuff?
-		map = GM.main.mapPath,
+		map = GM.main.mapDef.id if GM.main.mapDef else "",
+		mapData = GM.main.map.saveData() if GM.main.map else {},
 		mode = GM.main.gameMode.id,
 		modeData = GM.main.gameMode.saveData(),
 	}

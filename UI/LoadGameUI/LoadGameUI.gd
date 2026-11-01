@@ -40,15 +40,7 @@ func updateSelectedGame():
 		save_desc_label.text = "This save seems to be corrupted. You can not load it. Sorry.\n"+"Save name: "+info.savePath.get_file()
 		return
 	
-	var theLines:Array[String]
-	theLines.append("Name: "+info.prisonName)
-	theLines.append("Game mode: "+info.getGameModeName())
-	theLines.append("Player's character name: "+info.playerName)
-	theLines.append("")
-	theLines.append("Time played: "+str(Util.getTimeStringShort(info.timePlayed)))
-	theLines.append("Game version: "+info.gameVersion)
-	theLines.append("Save name: "+info.savePath.get_file())
-	
+	var theLines:Array[String] = info.getInfoLinesFull()
 	save_desc_label.text = Util.join(theLines, "\n")
 
 func _on_open_folder_button_pressed() -> void:

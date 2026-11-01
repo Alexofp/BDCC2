@@ -14,16 +14,13 @@ func getName() -> String:
 func giveDefaultClothes(_char:BaseCharacter):
 	if(_char.gender.getGender() != Gender.Male):
 		var theTop:ItemBase = GlobalRegistry.createItem("InmateTop")
-		theTop.color2 = colorMain.darkened(0.77)
-		theTop.color3 = colorMain
+		theTop.recolorForCharacterType(self)
 		_char.inventory.equipItem(theTop, InventorySlot.Top)
 	else:
 		var theTop:ItemBase = GlobalRegistry.createItem("InmateTankTop")
-		theTop.color2 = colorMain.darkened(0.77)
-		theTop.color3 = colorMain
+		theTop.recolorForCharacterType(self)
 		_char.inventory.equipItem(theTop, InventorySlot.Top)
 	var theShorts:ItemBase = GlobalRegistry.createItem("InmateShorts")
-	theShorts.color2 = colorMain.darkened(0.77)
-	theShorts.color3 = colorMain
+	theShorts.recolorForCharacterType(self)
 	_char.inventory.equipItem(theShorts, InventorySlot.Bottom)
 	_char.inventory.equipItem(GlobalRegistry.createItem("InmateCollar"), InventorySlot.Collar)

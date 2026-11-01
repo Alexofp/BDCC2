@@ -15,6 +15,7 @@ func _init() -> void:
 func checkPreset():
 	if(preset):
 		return
+	# Shouldn't really happen
 	preset = CharacterPreset.new()
 	preset.charName = "TEST"
 	preset.lastCharName = "MEW"
@@ -24,10 +25,13 @@ func checkPreset():
 func doRandomize():
 	checkPreset()
 	preset.doRandomize()
+	var pickedCharType:CharacterTypeBase = RNG.pickWeightedDict(GlobalRegistry.characterTypeToScore)
+	charType = pickedCharType.id if pickedCharType else CharacterType.InmateGeneral
 
 func doResetToDefaultPC():
 	checkPreset()
 	preset.doResetToDefaultPC()
+	charType = CharacterType.InmateGeneral
 
 func isReady() -> bool:
 	if(!preset):

@@ -21,15 +21,7 @@ func setInfo(_game:GameShortInfo):
 	updateInfo()
 
 func updateInfo():
-	var theLines:Array[String]
-	if(info.corrupted):
-		theLines.append(info.prisonName+" (!CORRUPTED!)")
-		theLines.append(info.savePath.get_file())
-		text_label.text = Util.join(theLines, "\n")
-		return
-	theLines.append(info.prisonName+" ("+info.getGameModeName()+")")
-	theLines.append(info.playerName+" (Time played: "+str(Util.getTimeStringShort(info.timePlayed))+")")
-	
+	var theLines:Array[String] = info.getInfoLinesSmall()
 	text_label.text = Util.join(theLines, "\n")
 
 func _on_presser_pressed() -> void:

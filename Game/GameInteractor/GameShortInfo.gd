@@ -4,9 +4,10 @@ class_name GameShortInfo
 var prisonName:String = "BDCC"
 var playerName:String = "Unknown"
 var gameModeID:String = GameMode.Sandbox
-var mapPath:String = ""
+var mapID:String = ""
 var timePlayed:int = 0 # Seconds
 var gameVersion:String = "0.0.0"
+var charAmount:int = 0
 
 var savePath:String = "" # no save
 var corrupted:bool = false # no save
@@ -16,18 +17,46 @@ func saveData() -> Dictionary:
 		prisonName = prisonName,
 		playerName = playerName,
 		gameModeID = gameModeID,
-		mapPath = mapPath,
+		mapID = mapID,
 		timePlayed = timePlayed,
 		gameVersion = gameVersion,
+		charAmount = charAmount,
 	}
 
 func loadData(_data:Dictionary):
 	prisonName = SAVE.loadStr(_data, "prisonName", "BDCC")
 	playerName = SAVE.loadStr(_data, "playerName", "Unknown")
 	gameModeID = SAVE.loadStr(_data, "gameModeID", GameMode.Sandbox)
-	mapPath = SAVE.loadStr(_data, "mapPath")
+	mapID = SAVE.loadStr(_data, "mapID")
 	timePlayed = SAVE.loadInt(_data, "timePlayed")
 	gameVersion = SAVE.loadStr(_data, "gameVersion", "0.0.0")
+	charAmount = SAVE.loadInt(_data, "charAmount", 0)
+
+func getInfoLinesSmall() -> Array[String]:
+	var theLines:Array[String]
+	if(corrupted):
+		theLines.append(prisonName+" (!CORRUPTED!)")
+		theLines.append(savePath.get_file())
+		return theLines
+	theLines.append(prisonName+" ("+getGameModeName()+")")
+	theLines.append(playerName+" (Time played: "+str(Util.getTimeStringShort(timePlayed))+")")
+	return theLines
+
+func getInfoLinesFull() -> Array[String]:
+	var theLines:Array[String]
+	if(corrupted):
+		theLines.append(prisonName+" (!CORRUPTED!)")
+		theLines.append(savePath.get_file())
+		return theLines
+	theLines.append("Name: "+prisonName)
+	theLines.append("Game mode: "+getGameModeName())
+	theLines.append("Player's character name: "+playerName)
+	theLines.append("Character amount: "+str(charAmount))
+	theLines.append("")
+	theLines.append("Time played: "+str(Util.getTimeStringShort(timePlayed)))
+	theLines.append("Game version: "+gameVersion)
+	theLines.append("Save name: "+savePath.get_file())
+	return theLines
 
 static func tryGetInfoFromSavePath(_path:String, _getCorruptOnError:bool = true) -> GameShortInfo:
 	var theFile:FileAccess = FileAccess.open(_path, FileAccess.READ)

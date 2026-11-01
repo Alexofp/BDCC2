@@ -450,6 +450,9 @@ func canGiftItemAtAll() -> bool:
 
 # GiveGift stuff end
 
+func recolorForCharacterType(_type:CharacterTypeBase):
+	pass
+
 # Just in case I need it later
 func getItemAmount() -> int:
 	return 1

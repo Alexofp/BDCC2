@@ -217,14 +217,16 @@ static func internal_joinGame(_connector:ConnectorNetworkBase, _nickname:String)
 	if(res.error):
 		errorOutToMainMenu(res.result if res.result is String else "Failed to get game info")
 		return
-	var mapToLoad:String = res.result["map"]
-	var modeToLoad:String = res.result["mode"]
-	var modeDataToLoad:Dictionary = res.result["modeData"]
+	var theRes:Dictionary = res.result
+	var mapToLoad:String = theRes.get("map", "")
+	var mapDataToLoad:Dictionary = theRes.get("mapData", {})
+	var modeToLoad:String = theRes["mode"]
+	var modeDataToLoad:Dictionary = theRes["modeData"]
 	var modeArgs:Array = []
 	LoadingScreen.setText("Loading map..")
 	GI.get_tree().change_scene_to_file("res://Game/Main.tscn")
 	await GI.get_tree().scene_changed
-	await GI.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs, modeDataToLoad)
+	await GI.get_tree().current_scene.loadModeOnMap(mapToLoad, modeToLoad, modeArgs, modeDataToLoad, true, mapDataToLoad)
 	LoadingScreen.setText("Loading game state..")
 	res = await Network.clientAskToJoin(_nickname)
 	if(res.error):

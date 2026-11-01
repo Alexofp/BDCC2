@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://1ggb6324gmpk"]
 
 [ext_resource type="Script" uid="uid://bpd4f6ganr5gx" path="res://Game/IngameEditor/PCSceneLoader.gd" id="1_lpt6m"]
+[ext_resource type="Script" uid="uid://bfb0ep1ncpdjp" path="res://Maps/Prison/Prison.gd" id="1_nl5ak"]
 [ext_resource type="Resource" uid="uid://jkf8vl2ogh26" path="res://Maps/genblock.res" id="2_87tbs"]
 [ext_resource type="PackedScene" uid="uid://c5qw6lii6gf8a" path="res://Mapping/Floors/FloorTile4x4.tscn" id="3_lq5yv"]
 [ext_resource type="PackedScene" uid="uid://db84vx235i5rn" path="res://Mapping/Walls/WindowBarsA4x3.tscn" id="4_vu5r7"]
@@ -665,6 +666,7 @@ script = ExtResource("71_g8u7c")
 metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 
 [node name="Prison" type="Node3D" unique_id=37942990]
+script = ExtResource("1_nl5ak")
 
 [node name="GenBlockMap" type="Node3D" parent="." unique_id=1855931951 groups=["Navmesh"]]
 script = ExtResource("1_lpt6m")

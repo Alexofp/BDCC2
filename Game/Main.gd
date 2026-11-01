@@ -41,7 +41,9 @@ var reactionSystem:ReactionSystem = ReactionSystem.new()
 var pawnSpawner:WorldPawnSpawner = WorldPawnSpawner.new()
 
 var gameMode:GameModeBase
-var mapPath:String = ""
+#var mapPath:String = ""
+var mapDef:MapDef
+var map:MapBase
 var prisonName:String = "BDCC"
 var timePlayedSaved:int = 0
 var timeGameStart:int = 0 # no save
@@ -54,10 +56,11 @@ func getGameShortInfo() -> GameShortInfo:
 	var theInfo:GameShortInfo = GameShortInfo.new()
 	theInfo.prisonName = prisonName
 	theInfo.gameModeID = gameMode.id
-	theInfo.mapPath = mapPath
+	theInfo.mapID = mapDef.id if mapDef else ""
 	theInfo.playerName = GM.pc.getFullName() if GM.pc else "Unknown"
 	theInfo.timePlayed = getTimePlayedSeconds()
 	theInfo.gameVersion = GM.getGameVersionStr()
+	theInfo.charAmount = characterRegistry.characterList.size()
 	return theInfo
 
 #func loadGameShortInfoFrom
@@ -96,9 +99,11 @@ func saveData() -> Dictionary:
 	var _data:Dictionary = {
 		saveVersion = 1,
 		gameVersion = GM.getGameVersionStr(),
+		mapID = mapDef.id,
+		map = map.saveData(),
 		gameModeID = gameMode.id,
 		gameMode = gameMode.saveData(),
-		mapPath = mapPath, # Save some kind of map data instead?
+		#mapPath = mapPath, # Save some kind of map data instead?
 		prisonName = prisonName,
 		timePlayed = getTimePlayedSeconds(),
 		gi = GI.saveFullData(),
@@ -112,13 +117,22 @@ func loadData(_data:Dictionary) -> bool:
 	#GI.get_tree().paused = true
 	var theGameModeID:String = SAVE.loadVar(_data, "gameModeID", "")
 	var theGameModeData:Dictionary = SAVE.loadVar(_data, "gameMode", {})
-	var theMapPath:String = SAVE.loadVar(_data, "mapPath", "")
 	var theGIData:Dictionary = SAVE.loadVar(_data, "gi", {})
 	prisonName = SAVE.loadStr(_data, "prisonName")
 	timePlayedSaved = SAVE.loadInt(_data, "timePlayed")
 	pawnSpawner.loadData(SAVE.loadDict(_data, "pawnSpawner"))
 	
-	var _succ:bool = await loadModeOnMap(theMapPath, theGameModeID, [], theGameModeData, false)
+	var theMapDefID:String = SAVE.loadStr(_data, "mapID")
+	if(theMapDefID.is_empty()):
+		var theMapPath:String = SAVE.loadStr(_data, "mapPath", "")
+		var theFoundMapDef:MapDef = GlobalRegistry.findMapDefByScenePath(theMapPath)
+		if(theFoundMapDef):
+			theMapDefID = theFoundMapDef.id
+
+	#mapDef = GlobalRegistry.getMapDef(theMapDefID)
+	#var theMapPathToLoad:String = mapDef.getScenePath() if mapDef else ""
+	
+	var _succ:bool = await loadModeOnMap(theMapDefID, theGameModeID, [], theGameModeData, false, SAVE.loadDict(_data, "map"))
 	if(!_succ):
 		return false
 	GI.loadFullData(theGIData)
@@ -129,14 +143,19 @@ func loadData(_data:Dictionary) -> bool:
 	return true
 
 func loadStartGameHolder(_holder:StartGameHolder):
-	await loadModeOnMap(_holder.gameModeDef.getMapScenePath(), _holder.gameModeDef.id, [], {})
+	await loadModeOnMap(_holder.gameModeDef.getMapID(), _holder.gameModeDef.id, [], {})
 	if(gameMode):
 		prisonName = _holder.gameModeDef.getPrisonName()
 		gameSavePath = _holder.gameModeDef.getSaveFinalPath()
 		gameMode.startNewGame(_holder)
 
-func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary, _doInit:bool = true) -> bool:
-	mapPath = _map
+func loadModeOnMap(_mapID:String, _mode:String, _args:Array, _modeData:Dictionary, _doInit:bool = true, _mapData:Dictionary = {}) -> bool:
+	var _mapDef:MapDef = GlobalRegistry.getMapDef(_mapID)
+	if(!_mapDef):
+		return false
+	var _map:String = _mapDef.getScenePath()
+	mapDef = _mapDef
+	#mapPath = _map
 	
 	var _gameModeDef:GameModeDef = GlobalRegistry.getGameModeDefRef(_mode)
 	if(!_gameModeDef):
@@ -159,8 +178,11 @@ func loadModeOnMap(_map:String, _mode:String, _args:Array, _modeData:Dictionary,
 		# Do something here? Load a placeholder map?
 		return false
 	var theMapNode:Node3D = theMap.instantiate()
+	map = theMapNode
 	theMapNode.name = "Map"
 	add_child(theMapNode, true)
+	if(!_mapData.is_empty()):
+		map.loadData(_mapData)
 	building_platform_8x_8.queue_free()
 	OPTIONS.graphics.updateDynamicGI()
 	

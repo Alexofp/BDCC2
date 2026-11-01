@@ -7,7 +7,8 @@ var playersData:Array[PlayerData]
 var charIDToData:Dictionary[String, PlayerData]
 var fallbackGID:String = "" # What player data should we use in case we can't find ours
 
-var population:int = 5 # Ideal population size. Probably need a separate one for each character type?
+var population:int = 5 # Saved just in case
+var startPopulation:Dictionary[int, int] # How many of each char type did we have when we started the game. Does not include the player
 
 func onBaseCharacterDeleted(_char:BaseCharacter):
 	if(!_char):
@@ -32,7 +33,6 @@ func checkDataRemoveMissingChars():
 			if(theData.gid == fallbackGID):
 				fallbackGID = ""
 
-# Use a dict to optimize this?
 func getPlayerDataForCharID(_charID:String) -> PlayerData:
 	if(!charIDToData.has(_charID)):
 		return null
@@ -318,6 +318,7 @@ func startNewGame(_holder:StartGameHolder):
 	GM.main.pawnSpawner.spawnWave()
 
 func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
+	startPopulation.clear()
 	var _i:int = 0
 	for theStartChar:StartGameCharHolder in _holder.population:
 		if(!theStartChar.preset):
@@ -330,6 +331,10 @@ func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
 		if(_spawnAsPawn):
 			var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(_theChar.getID())
 			_thePawn.position.x = 2.0 + _i*2.0
+		if(!startPopulation.has(theStartChar.charType)):
+			startPopulation[theStartChar.charType] = 1
+		else:
+			startPopulation[theStartChar.charType] += 1
 		_i += 1
 
 func createPlayerNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true) -> BaseCharacter:
@@ -368,10 +373,13 @@ func saveData() -> Dictionary:
 		playersData = _playerData,
 		fallbackGID = fallbackGID,
 		population = population,
+		startPopulation = startPopulation,
 	}
 
 func loadData(_data:Dictionary):
 	population = SAVE.loadInt(_data, "population", 5)
+	startPopulation.clear()
+	startPopulation.merge(SAVE.loadDict(_data, "startPopulation"))
 	
 	playersData.clear()
 	charIDToData.clear()

@@ -7,6 +7,7 @@ var staff:bool = false
 var colorMain:Color = Color.WHITE
 var allowPickAsPlayer:bool = false
 var allowPick:bool = true
+var scoreBase:float = 1.0
 
 func getName() -> String:
 	return "Error:"+str(id)
@@ -28,3 +29,7 @@ func canBePickedAsPlayer() -> bool:
 
 func canBePicked() -> bool:
 	return allowPick
+
+# Not used
+func calcScore(_char:BaseCharacter) -> float:
+	return scoreBase

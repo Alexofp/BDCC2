@@ -10,5 +10,5 @@ func getName() -> String:
 func getSettings() -> Dictionary:
 	return {}
 
-func getMapScenePath() -> String:
-	return "res://Maps/CharacterCreatorRoom/character_creator_room.tscn"
+func getMapID() -> String:
+	return "CharacterCreatorRoom"

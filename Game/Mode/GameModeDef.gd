@@ -27,8 +27,8 @@ func getPrisonName() -> String:
 func getSaveFinalPath() -> String:
 	return SAVE.findUniqueSaveFilepathFromName(getPrisonName())
 
-func getMapScenePath() -> String:
-	return "res://Maps/Prison/prison.tscn"
+func getMapID() -> String:
+	return "Prison"
 
 func isReadyGetReason() -> String:
 	return ""
