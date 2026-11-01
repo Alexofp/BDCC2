@@ -38,20 +38,22 @@ func getSettings() -> Dictionary:
 		},
 	}
 
+func setButVolume(_name:String, _val:float):
+	var sounds_index:int = AudioServer.get_bus_index(_name)
+	if(sounds_index < 0):
+		Log.error("Audio bus '"+_name+"' not found!")
+		return
+	AudioServer.set_bus_volume_db(sounds_index, linear_to_db(_val))
 
 func applySettingValue(_settingID:String, newVal:Variant):
 	match _settingID:
 		"masterVolume":
-			var sounds_index := AudioServer.get_bus_index("Master")
-			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
+			setButVolume("Master", newVal)
 		"soundVolume":
-			var sounds_index := AudioServer.get_bus_index("Sounds")
-			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
+			setButVolume("Sounds", newVal)
 		"voiceVolume":
-			var sounds_index := AudioServer.get_bus_index("Voice")
-			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
+			setButVolume("Voice", newVal)
+			setButVolume("VoiceGagged", newVal)
 		"ambientVolume":
-			var sounds_index := AudioServer.get_bus_index("Ambient")
-			AudioServer.set_bus_volume_db(sounds_index, linear_to_db(newVal))
-			var sounds_index2 := AudioServer.get_bus_index("AmbientSounds")
-			AudioServer.set_bus_volume_db(sounds_index2, linear_to_db(newVal))
+			setButVolume("Ambient", newVal)
+			setButVolume("AmbientSounds", newVal)

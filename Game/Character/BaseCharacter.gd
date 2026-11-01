@@ -870,6 +870,11 @@ func removeStatusEffect(_effectID:String):
 func hasStatusEffect(_effectID:String) -> bool:
 	return effectsHolder.hasEffect(_effectID)
 
+func shouldHaveGaggedVoice() -> bool:
+	if(buffsHolder.isSpeechGagged()):
+		return true
+	return false
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),

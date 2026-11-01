@@ -16,6 +16,8 @@ var socialExhaustionFade:float = 0.0 # Timer until the exhaustion starts ticking
 
 var veryRareTimer:float = 0.0 # 10 second timer, no sync
 
+signal onAutoMoanChange
+
 var syncState:SyncState = SyncState.new(self,
 	["arousal", "arousalFade", "autoMoan", "postOrgasm", "pain", "socialExhaustion", "socialExhaustionFade"],
 	[Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float, Bins.Float],
@@ -49,9 +51,11 @@ func addArousal(_howMuch:float):
 
 func setAutoMoan(_val:float):
 	autoMoan = _val
+	onAutoMoanChange.emit()
 
 func addAutoMoan(_val:float):
 	autoMoan += _val
+	onAutoMoanChange.emit()
 
 func addAutoMoanCappedMax(_val:float, maxAutomoan:float):
 	if(autoMoan >= maxAutomoan):

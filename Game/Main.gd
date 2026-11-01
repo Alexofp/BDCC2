@@ -103,6 +103,7 @@ func saveData() -> Dictionary:
 		timePlayed = getTimePlayedSeconds(),
 		gi = GI.saveFullData(),
 		pawnSpawner = pawnSpawner.saveData(),
+		lastUniqueItemID = GlobalRegistry.lastUniqueItemID,
 	}
 	return _data
 
@@ -121,6 +122,7 @@ func loadData(_data:Dictionary) -> bool:
 	if(!_succ):
 		return false
 	GI.loadFullData(theGIData)
+	GlobalRegistry.lastUniqueItemID = SAVE.loadInt(_data, "lastUniqueItemID", 1000)
 	gameMode.afterGameLoad()
 	timeLastSave = Util.getGlobalTimeSeconds()
 	#GI.get_tree().paused = false

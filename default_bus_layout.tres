@@ -1,5 +1,20 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://bpocxbhjwlrp6"]
 
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_n8wo2"]
+resource_name = "LowPassFilter"
+cutoff_hz = 1710.0
+resonance = 1.0
+
+[sub_resource type="AudioEffectBandPassFilter" id="AudioEffectBandPassFilter_j3pel"]
+resource_name = "BandPassFilter"
+cutoff_hz = 262.0
+resonance = 0.56
+db = 1
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
+resource_name = "Amplify"
+volume_db = 5.0
+
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_j3pel"]
 resource_name = "LowPassFilter"
 
@@ -20,35 +35,53 @@ feedback_level_db = -15.92
 
 [resource]
 bus/0/bypass_fx = true
-bus/1/name = &"Sounds"
+bus/1/name = &"Hearing"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
-bus/2/name = &"Voice"
+bus/2/name = &"Sounds"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
-bus/2/send = &"Master"
-bus/3/name = &"Ambient"
+bus/2/send = &"Hearing"
+bus/3/name = &"VoiceGagged"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
-bus/3/send = &"Master"
-bus/4/name = &"AmbientSounds"
+bus/3/send = &"Hearing"
+bus/3/effect/0/effect = SubResource("AudioEffectLowPassFilter_n8wo2")
+bus/3/effect/0/enabled = true
+bus/3/effect/1/effect = SubResource("AudioEffectBandPassFilter_j3pel")
+bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectAmplify_j3pel")
+bus/3/effect/2/enabled = true
+bus/4/name = &"Voice"
 bus/4/solo = false
 bus/4/mute = false
 bus/4/bypass_fx = false
 bus/4/volume_db = 0.0
-bus/4/send = &"Master"
-bus/4/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
-bus/4/effect/0/enabled = true
-bus/4/effect/1/effect = SubResource("AudioEffectReverb_j3pel")
-bus/4/effect/1/enabled = true
-bus/4/effect/2/effect = SubResource("AudioEffectHighPassFilter_j3pel")
-bus/4/effect/2/enabled = false
-bus/4/effect/3/effect = SubResource("AudioEffectDelay_j3pel")
-bus/4/effect/3/enabled = true
+bus/4/send = &"Hearing"
+bus/5/name = &"Ambient"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0
+bus/5/send = &"Hearing"
+bus/6/name = &"AmbientSounds"
+bus/6/solo = false
+bus/6/mute = false
+bus/6/bypass_fx = false
+bus/6/volume_db = 0.0
+bus/6/send = &"Hearing"
+bus/6/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
+bus/6/effect/0/enabled = true
+bus/6/effect/1/effect = SubResource("AudioEffectReverb_j3pel")
+bus/6/effect/1/enabled = true
+bus/6/effect/2/effect = SubResource("AudioEffectHighPassFilter_j3pel")
+bus/6/effect/2/enabled = false
+bus/6/effect/3/effect = SubResource("AudioEffectDelay_j3pel")
+bus/6/effect/3/enabled = true

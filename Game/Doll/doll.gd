@@ -133,7 +133,7 @@ func setCharacter(theChar:BaseCharacter):
 	if(!theChar):
 		characterRef = null
 		updateFromCharacter()
-		voice_handler.setCharID("")
+		voice_handler.setCharacter(null)
 		radial_doll_bars.setCharacter(null)
 		return
 	
@@ -143,7 +143,7 @@ func setCharacter(theChar:BaseCharacter):
 	theChar.onChange.connect(onCharChange)
 	theChar.getBodyMess().onChange.connect(onUpdateBodyMess)
 	
-	voice_handler.setCharID(theChar.getID() if theChar else "")
+	voice_handler.setCharacter(theChar)
 	radial_doll_bars.setCharacter(theChar)
 
 func onCharChange(_change:BaseCharChange):

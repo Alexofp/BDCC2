@@ -3,6 +3,7 @@ class_name Audio
 
 const BUS_SOUNDS = "Sounds"
 const BUS_VOICE = "Voice"
+const BUS_VOICE_GAGGED = "VoiceGagged"
 
 static var streamPool3D:Array[AudioStreamPlayer3D] = []
 

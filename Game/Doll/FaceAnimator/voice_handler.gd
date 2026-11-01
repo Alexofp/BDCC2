@@ -3,6 +3,7 @@ class_name VoiceHandler
 
 var voiceProfile: VoiceProfile = VoiceProfile.new()
 var charID:String = ""
+var charRef:WeakRef
 
 signal onSound(soundType, soundEntry)
 signal onEvent(eventID, args)
@@ -15,6 +16,7 @@ var autoMoanTimer:float = 0.0
 func pushToQueue(_theEntry:VoiceHandlerEntry):
 	popQueueFrontWithPriorityLessThan(_theEntry.priority)
 	noiseQueue.append(_theEntry)
+	checkShouldProcess()
 
 func popQueueFrontWithPriorityLessThan(_priority:int, _stopSounds:bool=true):
 	while(!noiseQueue.is_empty()):
@@ -49,8 +51,13 @@ func processQueue(_dt:float):
 		return
 	
 	if(!currentEntry.played):
+		var theChar:BaseCharacter = getChar()
+		var theBus:String = Audio.BUS_VOICE
+		if(theChar && theChar.shouldHaveGaggedVoice()):
+			theBus = Audio.BUS_VOICE_GAGGED
+		
 		var soundEntry:SexSoundEntry = currentEntry.sound
-		var audioStream := Audio.playSound3D(self, soundEntry.getAudioStream(), -1.0, Audio.BUS_VOICE)
+		var audioStream := Audio.playSound3D(self, soundEntry.getAudioStream(), -1.0, theBus)
 		audioStream.pitch_scale = voiceProfile.getVoicePitch()
 		runningSounds.append(audioStream)
 		audioStream.finished.connect(audioStreamFinished.bind(audioStream))
@@ -71,7 +78,17 @@ func _process(_delta: float) -> void:
 		processAutoMoan(_delta)
 	#else:
 	#	autoMoanTimer = 0.0
-	pass
+	checkShouldProcess()
+
+func checkShouldProcess():
+	if(!noiseQueue.is_empty()):
+		set_process(true)
+		return
+	var theChar:BaseCharacter = getChar()
+	if(theChar && theChar.getCharState().shouldAutoMoan()):
+		set_process(true)
+		return
+	set_process(false)
 
 func processAutoMoan(_delta: float) -> void:
 	autoMoanTimer -= _delta
@@ -89,13 +106,22 @@ func _ready() -> void:
 func setVoiceProfile(theVoiceProfile:VoiceProfile):
 	voiceProfile.loadData(theVoiceProfile.saveData().duplicate(true))
 
-func setCharID(theCharID:String):
-	charID = theCharID
+func setCharacter(theChar:BaseCharacter):
+	var theCurChar:BaseCharacter = getChar()
+	if(theCurChar):
+		theChar.charState.onAutoMoanChange.disconnect(onCharAutoMoanChange)
+	charRef = weakref(theChar) if theChar else null
+	charID = theChar.getID() if theChar else ""
+	if(theChar):
+		theChar.charState.onAutoMoanChange.connect(onCharAutoMoanChange)
+
+func onCharAutoMoanChange():
+	checkShouldProcess()
 
 func getChar() -> BaseCharacter:
-	if(!GM.characterRegistry):
+	if(!charRef):
 		return null
-	return GM.characterRegistry.getCharacter(charID)
+	return charRef.get_ref()
 
 func getSoundIntensity() -> int:
 	var theChar:BaseCharacter = getChar()
