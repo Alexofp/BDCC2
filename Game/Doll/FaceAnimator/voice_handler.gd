@@ -109,7 +109,7 @@ func setVoiceProfile(theVoiceProfile:VoiceProfile):
 func setCharacter(theChar:BaseCharacter):
 	var theCurChar:BaseCharacter = getChar()
 	if(theCurChar):
-		theChar.charState.onAutoMoanChange.disconnect(onCharAutoMoanChange)
+		theCurChar.charState.onAutoMoanChange.disconnect(onCharAutoMoanChange)
 	charRef = weakref(theChar) if theChar else null
 	charID = theChar.getID() if theChar else ""
 	if(theChar):

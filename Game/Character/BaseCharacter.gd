@@ -31,6 +31,7 @@ var traitHolder:TraitHolder = TraitHolder.new()
 var charState:CharState = CharState.new()
 var fluids:FluidsOnBodyProfile = FluidsOnBodyProfile.new()
 var combatAI:CombatAIProfile = CombatAIProfile.new()
+var charType:CharacterTypeBase = CharacterTypeBase.new()
 
 signal onChange(change:BaseCharChange)
 
@@ -875,9 +876,20 @@ func shouldHaveGaggedVoice() -> bool:
 		return true
 	return false
 
+func getCharTypeID() -> int:
+	if(!charType):
+		return CharacterType.Generic
+	return charType.id
+
+func setCharTypeID(_type:int):
+	charType = GlobalRegistry.getCharacterType(_type)
+	if(!charType): # Fallback
+		charType = CharacterTypeBase.new()
+
 func saveNetworkData() -> Bins:
 	var ar:Array = [
 		Bins.I8, bodyparts.size(),
+		Bins.U8, charType.id,
 	]
 	for bodypartSlot in bodyparts:
 		var theBodypart:BodypartBase = bodyparts[bodypartSlot]
@@ -902,6 +914,9 @@ func loadNetworkData(_data:Bins):
 	
 	clearBodyparts()
 	var theBodypartAm:int = _data.readI8()
+	var theCharType:int = _data.readU8()
+	setCharTypeID(theCharType)
+	
 	for _i in range(theBodypartAm):
 		var bodypartSlot:int = _data.readI8()
 		var bodypartID:String = _data.readStrShort()
@@ -943,6 +958,7 @@ func saveData() -> Dictionary:
 		charData[syncOption] = getSyncOptionValue(syncOption)
 	
 	return {
+		ct = charType.id,
 		presetPath = presetPath,
 		bodyparts = bodypartsData,
 		charData = charData,
@@ -955,6 +971,9 @@ func saveData() -> Dictionary:
 	}
 
 func loadData(_data:Dictionary):
+	var theCharType:int = SAVE.loadVar(_data, "ct", CharacterType.InmateGeneral)
+	setCharTypeID(theCharType)
+	
 	if(_data.has("bodyparts")):
 		clearBodyparts()
 		

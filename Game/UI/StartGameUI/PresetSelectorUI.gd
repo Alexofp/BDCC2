@@ -13,11 +13,13 @@ extends HBoxContainer
 @onready var confirm_button: Button = %ConfirmButton
 @onready var delete_preset_button: Button = %DeletePresetButton
 @onready var delete_preset_dialog: ConfirmationDialog = %DeletePresetDialog
+@onready var character_type_combo_box: CharacterTypeComboBox = %CharacterTypeComboBox
 
 @export var charCreatorNode:Control
 @export var charCreatorHide:Control
 @export var addGenerated:bool = true
 @export var addConfirm:bool = false
+@export var playerPickMode:bool = false
 
 var fullInfo:bool = false
 
@@ -34,6 +36,7 @@ func setCharHolder(_holder:StartGameCharHolder):
 	charHolder = _holder
 	updatePlayerPresetList()
 	player_preset_select.setSelectedPreset(charHolder.preset if charHolder else null, true, true)
+	character_type_combo_box.setSelectedType(_holder.charType, false)
 
 func updatePlayerPresetList():
 	if(!charHolder):
@@ -55,6 +58,7 @@ func _ready() -> void:
 	randomize_settings_panel.visible = false
 	delete_preset_button.visible = false
 	confirm_button.visible = addConfirm
+	character_type_combo_box.setPlayerChoice(playerPickMode)
 
 func showCharCreator(_preset:CharacterPreset = null):
 	if(charCreator):
@@ -147,6 +151,9 @@ func updateCharacterDescLabel():
 		return
 	var _preset:CharacterPreset = charHolder.preset
 	var theLines:Array[String] = _preset.getDescriptionLines(fullInfo)
+	var theCharType:CharacterTypeBase = GlobalRegistry.getCharacterType(charHolder.charType)
+	#theLines.push_front("")
+	theLines.push_front(""+str(theCharType.getName() if theCharType else "UNKNOWN char type"))
 	
 	character_desc_label.text = Util.join(theLines, "\n")
 
@@ -173,3 +180,7 @@ func _on_delete_preset_dialog_confirmed() -> void:
 	player_doll_display_ui.loadFromPreset(null)
 	updateSelectedPreset()
 	updatePlayerPresetList()
+
+func _on_character_type_combo_box_on_char_type_selected(_type: int) -> void:
+	if(charHolder):
+		charHolder.charType = _type

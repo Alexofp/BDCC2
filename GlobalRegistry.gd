@@ -68,6 +68,7 @@ var traits:Dictionary[String, TraitBase]
 var traitScores:Dictionary[TraitBase, float]
 var networkConnectors:Dictionary
 var networkConnectorRefs:Dictionary[String, ConnectorNetworkBase]
+var characterTypes:Dictionary[int, CharacterTypeBase]
 
 signal initialized
 
@@ -220,6 +221,7 @@ func doInit():
 	var start := Time.get_ticks_usec()
 	
 	registerGameModeDefFolder("res://Game/Mode/ModeDefs/")
+	registerCharacterTypeFolder("res://Game/Character/Type/Types/")
 	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
@@ -1543,3 +1545,25 @@ func createNetworkConnector(id: String) -> ConnectorNetworkBase:
 
 func getNetworkConnectorRefs() -> Dictionary[String, ConnectorNetworkBase]:
 	return networkConnectorRefs
+
+
+
+
+func registerCharacterType(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is CharacterTypeBase):
+		characterTypes[object.id] = object
+
+func registerCharacterTypeFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerCharacterType(scriptPath)
+
+func getCharacterType(id: int) -> CharacterTypeBase:
+	if(characterTypes.has(id)):
+		return characterTypes[id]
+	else:
+		Log.Printerr("ERROR: character type with the id "+str(id)+" wasn't found")
+		return null

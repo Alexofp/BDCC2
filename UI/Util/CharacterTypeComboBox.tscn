@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://f6btijbwk5j7"]
+
+[ext_resource type="Script" uid="uid://kje6rwymixmp" path="res://UI/Util/CharacterTypeComboBox.gd" id="1_xnbbn"]
+
+[node name="CharacterTypeComboBox" type="OptionButton" unique_id=723221551]
+offset_right = 40.0
+offset_bottom = 20.0
+script = ExtResource("1_xnbbn")

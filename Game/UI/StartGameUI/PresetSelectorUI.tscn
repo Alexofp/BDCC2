@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://6fgvihhvdqh1" path="res://Game/UI/StartGameUI/PresetSelectorUI.gd" id="1_dnik5"]
 [ext_resource type="PackedScene" uid="uid://c2hmfb1ww5ps8" path="res://Game/Character/Preset/UI/character_preset_selector.tscn" id="2_dnik5"]
 [ext_resource type="PackedScene" uid="uid://dh1lsikden6wt" path="res://Game/CharacterCreator/RandomizeUI/RandomizeSettingsList.tscn" id="3_mloxi"]
+[ext_resource type="Script" uid="uid://kje6rwymixmp" path="res://UI/Util/CharacterTypeComboBox.gd" id="5_m6teu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6teu"]
 content_margin_left = 0.0
@@ -126,6 +127,12 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="CharacterTypeComboBox" type="OptionButton" parent="VBoxContainer" unique_id=1460492777]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("5_m6teu")
+metadata/_custom_type_script = "uid://kje6rwymixmp"
+
 [node name="ConfirmButton" type="Button" parent="VBoxContainer" unique_id=807866037]
 unique_name_in_owner = true
 layout_mode = 2
@@ -146,5 +153,6 @@ dialog_text = "Are you sure?"
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/RandomizeHBox/RandomizeSettingsButton" to="." method="_on_randomize_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/RandomizeHBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="onPresetSelected" from="VBoxContainer/PlayerPresetSelect" to="." method="_on_player_preset_select_on_preset_selected"]
+[connection signal="onCharTypeSelected" from="VBoxContainer/CharacterTypeComboBox" to="." method="_on_character_type_combo_box_on_char_type_selected"]
 [connection signal="pressed" from="VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="confirmed" from="DeletePresetDialog" to="." method="_on_delete_preset_dialog_confirmed"]

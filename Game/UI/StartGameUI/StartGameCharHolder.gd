@@ -2,7 +2,7 @@ extends RefCounted
 class_name StartGameCharHolder
 
 var preset:CharacterPreset
-# Char type?
+var charType:int = CharacterType.InmateGeneral
 
 func _init() -> void:
 	checkPreset()

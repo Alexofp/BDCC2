@@ -52,6 +52,9 @@ func updateCharacterDescLabel():
 		return
 	var _preset:CharacterPreset = charHolder.preset
 	var theLines:Array[String] = _preset.getDescriptionLines(fullInfo)
+	var theCharType:CharacterTypeBase = GlobalRegistry.getCharacterType(charHolder.charType)
+	#theLines.push_front("")
+	theLines.push_front(""+str(theCharType.getName() if theCharType else "UNKNOWN char type"))
 	
 	character_desc_label.text = Util.join(theLines, "\n")
 

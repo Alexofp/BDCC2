@@ -7,6 +7,8 @@ var playersData:Array[PlayerData]
 var charIDToData:Dictionary[String, PlayerData]
 var fallbackGID:String = "" # What player data should we use in case we can't find ours
 
+var population:int = 5 # Ideal population size. Probably need a separate one for each character type?
+
 func onBaseCharacterDeleted(_char:BaseCharacter):
 	if(!_char):
 		return
@@ -113,14 +115,14 @@ func askToJoinAsMyCharacter_SERVERRPC():
 		closeWelcomeMenu_RPC.rpc_id(_player_info.id)
 		return
 
-func askToJoinWithPreset(_preset:CharacterPreset):
+func askToJoinWithPreset(_preset:CharacterPreset, _charType:int):
 	if(!Network.isClient()):
 		return
-	askToJoinWithPreset_SERVERRPC.rpc_id(1, _preset.saveData())
+	askToJoinWithPreset_SERVERRPC.rpc_id(1, _preset.saveData(), _charType)
 
 @rpc("any_peer", "call_remote", "reliable")
-func askToJoinWithPreset_SERVERRPC(_presetData:Dictionary):
-	if(!Network.isServer()):
+func askToJoinWithPreset_SERVERRPC(_presetData:Dictionary, _charType:int):
+	if(!Network.isServer() || !GlobalRegistry.getCharacterType(_charType)):
 		return
 	var _player_info:NetworkPlayerInfo = Network.getRPCPlayerInfo()
 	if(!_player_info || !_player_info.charID.is_empty()):
@@ -132,6 +134,8 @@ func askToJoinWithPreset_SERVERRPC(_presetData:Dictionary):
 	
 	# Make them a new character
 	var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+	#TODO: CHECK IF THIS CLIENT IS ALLOWED TO PICK THIS CHARACTER TYPE HERE
+	thePC.setCharTypeID(_charType)
 	#thePC.resetToDefaultPCCharacter()
 	thePreset.applyToCharacter(thePC)
 	giveDefaultStuff(thePC)
@@ -170,6 +174,7 @@ func onPlayerConnectedDoStuff(_peer_id:int, _player_info:NetworkPlayerInfo):
 	# Make them a new character
 	if(false):
 		var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+		thePC.setCharTypeID(CharacterType.InmateGeneral)
 		thePC.resetToDefaultPCCharacter()
 		giveDefaultStuff(thePC)
 		var _thePawn:CharacterPawn = GM.pawnRegistry.createPawn(thePC.getID())
@@ -319,6 +324,7 @@ func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
 			Log.Printerr("Bad preset!")
 			continue
 		var _theChar:BaseCharacter = GM.characterRegistry.createCharacter()
+		_theChar.setCharTypeID(theStartChar.charType)
 		theStartChar.preset.applyToCharacter(_theChar)
 		giveDefaultStuff(_theChar)
 		if(_spawnAsPawn):
@@ -328,6 +334,7 @@ func createPopulationNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true):
 
 func createPlayerNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true) -> BaseCharacter:
 	var thePC:BaseCharacter = GM.characterRegistry.createCharacter()
+	thePC.setCharTypeID(_holder.playerPreset.charType)
 	_holder.playerPreset.preset.applyToCharacter(thePC)
 	giveDefaultStuff(thePC)
 	#thePC.resetToDefaultPCCharacter()
@@ -342,15 +349,12 @@ func createPlayerNewGame(_holder:StartGameHolder, _spawnAsPawn:bool = true) -> B
 	return thePC
 
 func giveDefaultStuff(_char:BaseCharacter):
-	if(_char.gender.getGender() != Gender.Male):
-		_char.inventory.equipItem(GlobalRegistry.createItem("InmateTop"), InventorySlot.Top)
-	else:
-		_char.inventory.equipItem(GlobalRegistry.createItem("InmateTankTop"), InventorySlot.Top)
-	_char.inventory.equipItem(GlobalRegistry.createItem("InmateShorts"), InventorySlot.Bottom)
-	_char.inventory.equipItem(GlobalRegistry.createItem("InmateCollar"), InventorySlot.Collar)
+	if(!_char.charType):
+		return
+	_char.charType.giveDefaultClothes(_char)
 
 func loadFromDef(_modeRef:GameModeDef):
-	pass
+	population = _modeRef.getPopulationSize()
 
 func canSaveGame() -> bool:
 	return true
@@ -363,9 +367,12 @@ func saveData() -> Dictionary:
 	return {
 		playersData = _playerData,
 		fallbackGID = fallbackGID,
+		population = population,
 	}
 
 func loadData(_data:Dictionary):
+	population = SAVE.loadInt(_data, "population", 5)
+	
 	playersData.clear()
 	charIDToData.clear()
 	

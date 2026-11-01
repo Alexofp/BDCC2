@@ -80,6 +80,7 @@ unique_name_in_owner = true
 layout_mode = 2
 charCreatorNode = NodePath("../../../..")
 charCreatorHide = NodePath("../../..")
+playerPickMode = true
 
 [node name="Population" type="MarginContainer" parent="VBoxContainer/Tabs" unique_id=535128895]
 unique_name_in_owner = true

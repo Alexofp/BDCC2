@@ -71,6 +71,7 @@ layout_mode = 1
 charCreatorNode = NodePath("..")
 charCreatorHide = NodePath("../WelcomePanel")
 addConfirm = true
+playerPickMode = true
 
 [connection signal="meta_clicked" from="WelcomePanel/MarginContainer/VBoxContainer/MotdLabel" to="." method="_on_motd_label_meta_clicked"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/HBoxContainer/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
