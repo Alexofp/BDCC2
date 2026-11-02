@@ -11,3 +11,17 @@ surface_material_override/0 = ExtResource("2_lmq2f")
 [node name="MainHallConcreteMidPlatformFenceCol" parent="MainHallConcreteMidPlatformFence" index="0" unique_id=909637552]
 collision_layer = 2
 collision_mask = 2
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="1" unique_id=196794233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5684986, -2, -6.0620384)
+height = 3.26
+vertices = PackedVector3Array(-0.2, 0, 3, -0.20000005, 0, -3, 0.6, 0, -3, 0.6, 0, 3)
+affect_navigation_mesh = true
+avoidance_enabled = false
+
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="." index="2" unique_id=764312880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9691827, -2, -6.0620384)
+height = 3.26
+vertices = PackedVector3Array(-0.2, 0, 3, -0.20000005, 0, -3, 0.6, 0, -3, 0.6, 0, 3)
+affect_navigation_mesh = true
+avoidance_enabled = false

@@ -75,3 +75,10 @@ stocks = NodePath("..")
 [node name="AnimationPlayer" parent="." index="3" unique_id=1224920012]
 unique_name_in_owner = true
 autoplay = &"Stocks_Open"
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="4" unique_id=767429340 groups=["Navmesh"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+height = 2.0
+vertices = PackedVector3Array(-1, 0, -0.4, -1, 0, 0.4, 1, 0, 0.4, 1, 0, -0.4)
+affect_navigation_mesh = true
+avoidance_enabled = false

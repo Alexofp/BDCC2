@@ -20,3 +20,10 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FancyRailing2Stairs/StaticBody3D" index="0" unique_id=1677013637]
 shape = SubResource("ConvexPolygonShape3D_uvtv0")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="1" unique_id=1017444558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+height = 1.75
+vertices = PackedVector3Array(-0.2, 0, -0.6, -0.2, 0, 1.6, 0.2, 0, 1.6, 0.2, 0, -0.6)
+affect_navigation_mesh = true
+avoidance_enabled = false
