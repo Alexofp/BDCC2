@@ -14,7 +14,7 @@ var doll:DollController
 var character:BaseCharacter
 #var poseSpot:PoseSpot
 
-@onready var doll_node: SyncNode = %DollNode
+#@onready var doll_node: SyncNode = %DollNode
 #@onready var sit_node: SyncNode = %SitNode
 
 @onready var navigation_agent_3d: NavigationAgent3D = %NavigationAgent3D
@@ -29,11 +29,11 @@ var mood:MoodHandler
 var cooldowns:PawnCooldowns = PawnCooldowns.new()
 var interactionUIPawnIDs:Array[String] = []
 
-signal dollSpawned(doll)
-signal dollDespawned(doll)
-signal dollSwitched(newdoll, olddoll)
+signal dollSpawned(_doll:DollController)
+signal dollDespawned(_doll:DollController)
+signal dollSwitched(_newdoll:DollController, _olddoll:DollController)
 
-signal onPawnDelete
+signal onPawnDelete # Just use tree_exiting
 
 var gridPos:Vector2i
 
@@ -302,15 +302,17 @@ func spawnDoll():
 	#newDoll.tree_exiting.connect(dollOnDelete)
 	#doll_node.setNode(newDoll)
 
-func notifyDollSpawned(_doll:DollController):
+func notifyDollChanged(_doll:DollController):
+	var theOldDoll:DollController = doll
+	if(doll):
+		Log.Print("Doll despawned for "+getCharID())
+		dollDespawned.emit(doll)
 	doll = _doll
-	if(Network.isServer()):
-		doll_node.setNode(_doll)
-
-func notifyDollDespawned(_doll:DollController):
-	doll = null
-	if(Network.isServer()):
-		doll_node.setNode(null)
+	if(doll):
+		Log.Print("Doll spawned for "+getCharID())
+		doll.updatePoseSpot()
+		dollSpawned.emit(doll)
+	dollSwitched.emit(doll, theOldDoll)
 
 func despawnDoll():
 	if(!doll):
@@ -319,8 +321,8 @@ func despawnDoll():
 	GM.dollHolder.deleteDoll(doll)
 	#doll_node.setNode(null)
 
-func dollOnDelete():
-	doll_node.setNode(null)
+#func dollOnDelete():
+#	doll_node.setNode(null)
 
 func isControlledByUs() -> bool:
 	var myInfo:NetworkPlayerInfo = Network.getMyPlayerInfo()
@@ -391,23 +393,24 @@ func loadDataLate(_data:Dictionary):
 	
 	GM.pawnRegistry.checkPawnSparseGrid(self)
 
-var tempDoll
-func _on_doll_node_on_node_changed(newNode: Variant) -> void:
-	#var tempDoll = doll
-	doll = newNode
-	
-	if(!tempDoll && doll):
-		tempDoll = doll
-		Log.Print("Doll spawned for "+getCharID())
-		doll.updatePoseSpot()
-		dollSpawned.emit(doll)
-	elif(tempDoll && !doll):
-		tempDoll = null
-		Log.Print("Doll despawned for "+getCharID())
-		dollDespawned.emit(tempDoll)
-	if(doll != tempDoll):
-		tempDoll = doll
-		dollSwitched.emit(doll, tempDoll)
+#var tempDoll
+#var oldDoll
+#func _on_doll_node_on_node_changed(newNode: Variant) -> void:
+#	#var tempDoll = doll
+#	doll = newNode
+#	
+#	if(!tempDoll && doll):
+#		tempDoll = doll
+#		Log.Print("Doll spawned for "+getCharID())
+#		doll.updatePoseSpot()
+#		dollSpawned.emit(doll)
+#	elif(tempDoll && !doll):
+#		tempDoll = null
+#		Log.Print("Doll despawned for "+getCharID())
+#		dollDespawned.emit(tempDoll)
+#	if(doll != oldDoll):
+#		dollSwitched.emit(doll, oldDoll)
+#		oldDoll = doll
 
 #func _on_sit_node_on_node_changed(newNode: Variant) -> void:
 	#poseSpot = newNode

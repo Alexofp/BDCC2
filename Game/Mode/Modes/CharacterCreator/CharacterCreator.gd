@@ -28,3 +28,9 @@ func onCharacterCreatorConfirm():
 	
 func _on_hide_label_timer_timeout() -> void:
 	helpful_label.visible = false
+
+func canSaveGame() -> bool:
+	return false
+
+func doesSupportSaving() -> bool:
+	return false

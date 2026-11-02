@@ -20,6 +20,8 @@ func spawnWave(_shareMin:float = 0.3, _shareMax:float = 0.5, _countCurrent:bool 
 		trySpawnPawn()
 
 func getPawnPop() -> int:
+	if(!GM.game):
+		return GM.characterRegistry.characterList.size()
 	return GM.characterRegistry.characterList.size() - GM.game.playersData.size()
 
 func getCurrentPawnCount() -> int:

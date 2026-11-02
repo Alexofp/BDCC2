@@ -2,11 +2,12 @@ extends Marker3D
 class_name PoseSpot
 
 #var sitter:WeakRef
+var pawn:CharacterPawn
 var doll:DollController
 @export var hoverTextForward:float = 0.0
 
-signal onPawnSwitch(newPawn)
-signal onDollSwitch(newDoll, oldDoll)
+signal onPawnSwitch(_newPawn:CharacterPawn)
+signal onDollSwitch(_newDoll:DollController, _oldDoll:DollController)
 #@onready var sitter_node: SyncNode = %SitterNode
 
 var dollAnimKey:String = ""
@@ -56,8 +57,8 @@ func getSitterDoll() -> DollController:
 		#sitter_node.setNode(newPawn)
 
 func dollUpdate():
-	var oldDoll := doll
-	var newDoll := getSitterDoll()
+	var oldDoll:DollController = doll
+	var newDoll:DollController = getSitterDoll()
 	
 	if(oldDoll == newDoll):
 		return
@@ -107,16 +108,48 @@ func _exit_tree() -> void:
 	#onPawnSwitch.emit(newPawn)
 	#dollUpdate()
 
-func _process(_delta: float) -> void:
-	dollUpdate()
+#func _process(_delta: float) -> void:
+	#dollUpdate()
 	#if(!hasSitterPawn() && sitter):
 	#	setPawn(null)
 
 func onPawnChange(_newPawn:CharacterPawn):
+	var _theOldDoll:DollController = doll
 	#Log.Print("NEW POSE SEAT PAWN "+str(_newPawn))
+	if(pawn):
+		#pawn.tree_exiting.disconnect(onPawnDeleted)
+		pawn.dollSwitched.disconnect(onDollChanged)
+		pawn = null
+	if(doll):
+		doll = null
+		onDollSwitch.emit(doll, _theOldDoll)
+		print(doll, "  ", _theOldDoll)
+	pawn = _newPawn
+	if(pawn):
+		#pawn.tree_exiting.connect(onPawnDeleted)
+		pawn.dollSwitched.connect(onDollChanged)
+		doll = pawn.getDoll()
+		onDollSwitch.emit(doll, _theOldDoll)
+		print(doll, "  ", _theOldDoll)
 	
 	onPawnSwitch.emit(_newPawn)
-	dollUpdate()
+	#dollUpdate()
+
+func onPawnDeleted():
+	pawn = null
+	doll = null
+
+func onDollChanged(_newdoll:DollController, _olddoll:DollController):
+	internal_updateDoll()
+
+func internal_updateDoll():
+	var _theOldDoll:DollController = doll
+	if(!pawn):
+		doll = null
+	else:
+		doll = pawn.getDoll()
+	onDollSwitch.emit(doll, _theOldDoll)
+	print(doll, "  ", _theOldDoll)
 
 # Returns the node that this pose spot belongs to
 # Either a PropHandlerBase or a SexEngine

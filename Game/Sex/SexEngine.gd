@@ -158,7 +158,7 @@ func saveData() -> Dictionary:
 		sexType = {
 			id = sexType.id,
 			data = sexType.saveData(),
-		},
+		} if sexType else {},
 		sideActivities = theSexActivitiesData,
 		sexActivity = sexActivityData,
 		animPlayer = anim_scene_player.saveData(),
@@ -167,7 +167,7 @@ func saveData() -> Dictionary:
 		posy = tweaker.position.y,
 		posz = tweaker.position.z,
 		lauid = lastActivityUID,
-		dialogue = dialogue.saveData(),
+		dialogue = dialogue.saveData() if dialogue else {},
 		ses = sexEngineState,
 		sr = sexResult.saveData() if sexResult else {},
 		eost = endOfSexTimer,
@@ -231,9 +231,10 @@ func loadData(_data:Dictionary):
 		theProp.tree_exiting.connect(removeSex)
 	
 	var sexTypeData:Dictionary = SAVE.loadVar(_data, "sexType", {})
-	sexType = GlobalRegistry.createSexActivity(SAVE.loadVar(sexTypeData, "id", ""))
-	sexType.setSexEngine(self)
-	sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
+	if(!sexTypeData.is_empty()):
+		sexType = GlobalRegistry.createSexActivity(SAVE.loadVar(sexTypeData, "id", ""))
+		sexType.setSexEngine(self)
+		sexType.loadData(SAVE.loadVar(sexTypeData, "data", {}))
 	
 	var activityData = SAVE.loadVar(_data, "sexActivity", null)
 	if(activityData == null):
@@ -1052,7 +1053,7 @@ func _enter_tree() -> void:
 	GM.sexManager.addSexInternal(self)
 
 func _exit_tree() -> void:
-	GM.sexManager.removeSexInternal(self)
+	#GM.sexManager.removeSexInternal(self)
 	if(dialogue):
 		dialogue.setSex(null)
 		dialogue = null
@@ -1098,7 +1099,7 @@ func removeSex():
 	if(wasDeleted):
 		return
 	wasDeleted = true
-	GM.sexManager.removeSexInternal(self)
+	#GM.sexManager.removeSexInternal(self)
 	queue_free()
 	if(Network.isServer()):
 		deleteAllTemporaryItems()

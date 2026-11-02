@@ -427,11 +427,12 @@ func isCharacterCreatorVisible() -> bool:
 
 func _on_in_game_menu_on_exit_button() -> void:
 	#get_tree().quit()
-	var _badReason:String = saveGame()
-	if(!_badReason.is_empty()):
-		Log.error(_badReason)
-		GameChat.addChat("SAVE FAILED: "+str(_badReason))
-		return
+	if(!Network.isClient() && (gameMode && gameMode.doesSupportSaving())):
+		var _badReason:String = saveGame()
+		if(!_badReason.is_empty()):
+			Log.error(_badReason)
+			GameChat.addChat("SAVE FAILED: "+str(_badReason))
+			return
 	GM.startMainMenu()
 
 func getCharacterRegistry() -> CharacterRegistry:

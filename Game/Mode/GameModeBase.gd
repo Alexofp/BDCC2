@@ -186,8 +186,8 @@ func onPlayerConnectedDoStuff(_peer_id:int, _player_info:NetworkPlayerInfo):
 		
 func onPlayerDisconnected(_peer_id:int, _player_info:NetworkPlayerInfo):
 	#Log.Print("Player disconnected: "+_player_info.nickname+" (id="+str(_peer_id)+")")
-	if(Network.isServer() && GM.pawnRegistry):
-		GM.pawnRegistry.deletePawnOfNetworkPlayer(_player_info)
+	#if(Network.isServer() && GM.pawnRegistry):
+	#	GM.pawnRegistry.deletePawnOfNetworkPlayer(_player_info)
 	pass
 
 func showCharacterCreator():
@@ -362,6 +362,9 @@ func loadFromDef(_modeRef:GameModeDef):
 	population = _modeRef.getPopulationSize()
 
 func canSaveGame() -> bool:
+	return true
+
+func doesSupportSaving() -> bool:
 	return true
 
 func saveData() -> Dictionary:

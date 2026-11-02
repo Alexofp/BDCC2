@@ -32,7 +32,7 @@ func start():
 
 func setPawn(_pawn:CharacterPawn):
 	pawn = _pawn
-	pawn.onPawnDelete.connect(func():
+	pawn.tree_exiting.connect(func():
 		pawn = null
 	)
 

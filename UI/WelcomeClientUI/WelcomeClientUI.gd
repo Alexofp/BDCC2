@@ -19,7 +19,7 @@ func _on_make_character_button_pressed() -> void:
 func _on_preset_selector_ui_on_confirm(_preset:CharacterPreset) -> void:
 	if(!GM.main.gameMode):
 		return
-	GM.main.gameMode.askToJoinWithPreset(_preset, CharacterType.InmateGeneral)
+	GM.main.gameMode.askToJoinWithPreset(_preset, preset_selector_ui.charHolder.charType)
 
 func setMOTD(_text:String):
 	motd_label.text = _text

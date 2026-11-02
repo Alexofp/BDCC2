@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dvagu8gslisua" path="res://Game/PawnRegistry/character_pawn.gd" id="1_7fod6"]
 [ext_resource type="Script" uid="uid://dhdvxyoxg4m31" path="res://Game/Multiplayer/safe_multiplayer_synchronizer.gd" id="2_1pxof"]
-[ext_resource type="Script" uid="uid://624kjj0em1a2" path="res://Game/GameInteractor/SyncNode.gd" id="2_274nk"]
 [ext_resource type="Script" uid="uid://dii6wngkjc5wn" path="res://Game/Systems/LeashSystem/LeashPoint.gd" id="4_pbuf5"]
 [ext_resource type="PackedScene" uid="uid://q4bk8h61arww" path="res://Game/Interactable/PawnInteractor.tscn" id="5_1wd8s"]
 [ext_resource type="Script" uid="uid://ccjrs15c5nq4x" path="res://Game/Combat/CombatMovePlayer.gd" id="5_ve3wo"]
@@ -23,24 +22,21 @@ properties/0/replication_mode = 2
 properties/1/path = NodePath(".:id")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("DollNode:UID")
+properties/2/path = NodePath(".:progressBarsData")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath(".:progressBarsData")
+properties/3/path = NodePath("CombatMovePlayer:exhaustion")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("CombatMovePlayer:exhaustion")
+properties/4/path = NodePath("CombatMovePlayer:strain")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("CombatMovePlayer:strain")
+properties/5/path = NodePath(".:position")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath(".:position")
+properties/6/path = NodePath("CombatMovePlayer:blocking")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("CombatMovePlayer:blocking")
-properties/7/spawn = true
-properties/7/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1pxof"]
 properties/0/path = NodePath("CombatMovePlayer:defeatRecovery")
@@ -74,11 +70,6 @@ script = ExtResource("1_7fod6")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1206652010]
 transform = Transform3D(0.311408, 0, 0, 0, 0.311408, 0, 0, 0, 0.311408, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_7fod6")
-
-[node name="DollNode" type="Node" parent="." unique_id=1622404266]
-unique_name_in_owner = true
-script = ExtResource("2_274nk")
-metadata/_custom_type_script = "uid://624kjj0em1a2"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1527481973]
 unique_name_in_owner = true
@@ -141,5 +132,4 @@ unique_name_in_owner = true
 [node name="Couple" parent="." unique_id=1652541949 instance=ExtResource("13_fdnik")]
 unique_name_in_owner = true
 
-[connection signal="onNodeChanged" from="DollNode" to="." method="_on_doll_node_on_node_changed"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

@@ -48,7 +48,7 @@ func setPawn(_thePawn:CharacterPawn):
 	assert(!pawn, "Pawn already assigned!")
 	pawn = _thePawn
 	goalHandler.setAI(self)
-	pawn.onPawnDelete.connect(func():
+	pawn.tree_exiting.connect(func():
 		pawn = null
 	)
 	vision = PawnVision.new()

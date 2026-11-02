@@ -14,8 +14,16 @@ func addSexInternal(theNode:SexEngine):
 		return
 	sexEngines.append(theNode)
 
-func removeSexInternal(theNode:SexEngine):
+func internal_onSexDeleted(theNode:SexEngine):
 	sexEngines.erase(theNode)
+	if(Network.isServerNotSingleplayer()):
+		Network.rpcClients(internal_onSexDeleted_RPC.bind(GI.getUniqueIDOf(theNode)))
+
+@rpc("authority", "call_remote", "reliable")
+func internal_onSexDeleted_RPC(_as:Array):
+	var theNode:Node = GI.getNodeByUniqueID(_as)
+	if(theNode && (theNode is SexEngine)):
+		theNode.queue_free()
 
 #func startSex(sexTypeID:String, roles:Dictionary, args:Dictionary, thePos:Vector3, theAng:Vector3) -> SexEngine:
 func startSex(_conf:SexStartConf) -> SexEngine:
@@ -31,6 +39,7 @@ func startSex(_conf:SexStartConf) -> SexEngine:
 			stopAnySexWithCharIDInvolved(theInfo["id"])
 	var newSexEngine:SexEngine = sexEngineScene.instantiate()
 	add_child(newSexEngine, true)
+	newSexEngine.tree_exiting.connect(internal_onSexDeleted.bind(newSexEngine))
 	newSexEngine.global_position = _conf.pos
 	newSexEngine.global_rotation = _conf.ang
 	#sexEngines.append(newSexEngine)
@@ -52,19 +61,22 @@ func startSex(_conf:SexStartConf) -> SexEngine:
 		var theNode:Node3D = _conf.props[propID]
 		newSexEngine.addProp(propID, theNode)
 	
-	newSexEngine.start(_conf.sexType, roleToID, _conf.args)
-	
 	#GI.networkedNodes.notifySpawned(newSexEngine)
 	if(Network.isServerNotSingleplayer()):
-		Network.rpcClients(spawnSexEngine_RPC.bind(newSexEngine.saveData()))
+		Network.rpcClients(spawnSexEngine_RPC.bind(newSexEngine.saveData(), newSexEngine.global_transform))
+	
+	newSexEngine.start(_conf.sexType, roleToID, _conf.args)
+
 	return newSexEngine
 
 @rpc("authority", "call_remote", "reliable")
-func spawnSexEngine_RPC(theEntry:Dictionary):
+func spawnSexEngine_RPC(theEntry:Dictionary, _pos:Transform3D):
 	var newSexEngine:SexEngine = sexEngineScene.instantiate()
 	newSexEngine.name = SAVE.loadStr(theEntry, "name", "borke")
 	add_child(newSexEngine, true)
+	newSexEngine.global_transform = _pos
 	newSexEngine.loadData(theEntry)
+	newSexEngine.tree_exiting.connect(internal_onSexDeleted.bind(newSexEngine))
 	#if(newSexEngine.shouldBeRemoved):
 	#	newSexEngine.name += "_FAILED_TO_LOAD"
 	#	newSexEngine.queue_free()
@@ -187,6 +199,7 @@ func loadData(_data:Dictionary):
 		newSexEngine.name = SAVE.loadStr(theEntry, "name", "borke")
 		add_child(newSexEngine, true)
 		newSexEngine.loadData(theEntry)
+		newSexEngine.tree_exiting.connect(internal_onSexDeleted.bind(newSexEngine))
 		if(newSexEngine.shouldBeRemoved):
 			newSexEngine.name += "_FAILED_TO_LOAD"
 			newSexEngine.queue_free()

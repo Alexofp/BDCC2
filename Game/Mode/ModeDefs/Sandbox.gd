@@ -48,4 +48,4 @@ func getPrisonName() -> String:
 	return prisonName
 
 func getMapID() -> String:
-	return "map"
+	return map

@@ -47,7 +47,7 @@ func loadData(_data:Dictionary):
 		newSeen.rememberHostile = SAVE.loadBool(theEntry, "rh")
 		newSeen.seenThisFrame = SAVE.loadFloat(theEntry, "stf")
 		
-		thePawn.onPawnDelete.connect(newSeen.onPawnDelete.bind(thePawn))
+		thePawn.tree_exiting.connect(newSeen.onPawnDelete.bind(thePawn))
 		memory[thePawn] = newSeen
 		if(newSeen.seen):
 			seePawns.append(thePawn)
@@ -78,7 +78,7 @@ func onSeenPawnDeleted(_pawn:CharacterPawn):
 func setPawn(_thePawn:CharacterPawn):
 	assert(!pawn, "Pawn already assigned!")
 	pawn = _thePawn
-	pawn.onPawnDelete.connect(func():
+	pawn.tree_exiting.connect(func():
 		pawn = null
 	)
 
@@ -100,6 +100,7 @@ func processVision(_dt:float):
 		return
 	if(pawn.isControlledByAnyPlayer()): # Remove when its working?
 		memory.clear()
+		seePawns.clear()
 		checkHostileStatus()
 		return
 	checkHostileStatus()
@@ -138,7 +139,7 @@ func processVision(_dt:float):
 		newSeen.seenThisFrame = theVisionScore
 		newSeen.vision = weakref(self)
 		newSeen.rememberHostile = doesPawnRequireRaycast(_newPawn)
-		_newPawn.onPawnDelete.connect(newSeen.onPawnDelete.bind(_newPawn))
+		_newPawn.tree_exiting.connect(newSeen.onPawnDelete.bind(_newPawn))
 		memory[_newPawn] = newSeen
 	
 	for thePawn:CharacterPawn in memory:
@@ -284,7 +285,7 @@ func makeSeePawn(_newPawn:CharacterPawn):
 		newSeen.detection = 1.0
 		newSeen.vision = weakref(self)
 		newSeen.rememberHostile = doesPawnRequireRaycast(_newPawn)
-		_newPawn.onPawnDelete.connect(newSeen.onPawnDelete.bind(_newPawn))
+		_newPawn.tree_exiting.connect(newSeen.onPawnDelete.bind(_newPawn))
 		return
 	var theMem:MaybeSeenPawn = memory[_newPawn]
 	theMem.seenThisFrame = 1.0

@@ -70,10 +70,10 @@ func createDollControllerFor(pawn:CharacterPawn, character:BaseCharacter) -> Dol
 	return theDoll
 
 func onDollDeleted(doll:DollController):
+	doll.pawn.notifyDollChanged(null)
 	if(doll.is_inside_tree()):
 		doll.name += "_DELETED"
 	removeDollFromLists(doll)
-	doll.pawn.notifyDollDespawned(doll)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(deleteDoll_RPC.bind(doll.uniqueID))
 
@@ -104,11 +104,12 @@ func addExistingDollController(theDoll:DollController, _networkData:Bins = null)
 	theDoll.tree_exiting.connect(onDollDeleted.bind(theDoll))
 	#theDoll.pawn = GM.pawnRegistry.getPawn(SAVE.loadVar(dollData, "charID", ""))
 	#theDoll.uniqueID = SAVE.loadVar(dollData, "UID", theDoll.uniqueID)
-	dolls.add_child(theDoll)
+	dolls.add_child(theDoll, true)
+	theDoll.name = str(theDoll.uniqueID)
 	#theDoll.loadData(dollData)
 	addDollToLists(theDoll)
 	theDoll.afterAddedToDollHolder()
-	theDoll.pawn.notifyDollSpawned(theDoll)
+	theDoll.pawn.notifyDollChanged(theDoll)
 	if(Network.isServerNotSingleplayer()):
 		Network.rpcClients(createDollController_RPC.bind(theDoll.saveData()))
 

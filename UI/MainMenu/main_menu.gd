@@ -94,7 +94,7 @@ func _on_play_button_pressed() -> void:
 	setScreen(SCREEN_LOAD_GAME)
 
 func _on_char_editor_button_pressed() -> void:
-	GM.startGame_OLD("res://Maps/CharacterCreatorRoom/character_creator_room.tscn", GameMode.CharacterCreator)
+	GM.startGame_OLD("CharacterCreatorRoom", GameMode.CharacterCreator)
 
 func _on_editor_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Game/IngameEditor/build_test.tscn")
