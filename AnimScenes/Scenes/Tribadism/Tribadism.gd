@@ -10,36 +10,36 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/Tribadism.glb")
+	addAnimLibrary("Tribadism", "res://Anims/Raw/Tribadism.glb")
 	
 	addState("tease", {
-		dom = "sex/TribTease_1",
-		sub = "sex/TribTease_2",
+		dom = "Tribadism/TribTease_1",
+		sub = "Tribadism/TribTease_2",
 	})
 	addState("slow", {
-		dom = "sex/TribSlow_1",
-		sub = "sex/TribSlow_2",
+		dom = "Tribadism/TribSlow_1",
+		sub = "Tribadism/TribSlow_2",
 	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(35, "moan"),
 	])
 	addState("sex", {
-		dom = "sex/Trib_1",
-		sub = "sex/Trib_2",
+		dom = "Tribadism/Trib_1",
+		sub = "Tribadism/Trib_2",
 	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(5, "moan"),
 	])
 	addState("fast", {
-		dom = "sex/TribFast_1",
-		sub = "sex/TribFast_2",
+		dom = "Tribadism/TribFast_1",
+		sub = "Tribadism/TribFast_2",
 	}).setAnimEvents([
 			animEventOnFrame(2, "moanSub"),
 			animEventOnFrame(3, "moan"),
 	])
 	addState("orgasmBoth", {
-		dom = "sex/TribOrgasm_1",
-		sub = "sex/TribOrgasm_2",
+		dom = "Tribadism/TribOrgasm_1",
+		sub = "Tribadism/TribOrgasm_2",
 	}).setAnimEvents([
 			animEventOnFrame(1, "orgasmSub"),
 			animEventOnFrame(5, "orgasm"),
@@ -55,8 +55,8 @@ func setupScene() -> void:
 			animEventOnFrame(111, "squirt1"),
 	])
 	addState("orgasm1", {
-		dom = "sex/TribOrgasm_1",
-		sub = "sex/TribOrgasmIdle_2",
+		dom = "Tribadism/TribOrgasm_1",
+		sub = "Tribadism/TribOrgasmIdle_2",
 	}).setAnimEvents([
 			#animEventOnFrame(1, "orgasmSub"),
 			animEventOnFrame(1, "orgasm"),
@@ -67,8 +67,8 @@ func setupScene() -> void:
 			animEventOnFrame(111, "squirt1"),
 	])
 	addState("orgasm2", {
-		dom = "sex/TribOrgasmIdle_1",
-		sub = "sex/TribOrgasm_2",
+		dom = "Tribadism/TribOrgasmIdle_1",
+		sub = "Tribadism/TribOrgasm_2",
 	}).setAnimEvents([
 			animEventOnFrame(1, "orgasmSub"),
 			#animEventOnFrame(1, "orgasm"),

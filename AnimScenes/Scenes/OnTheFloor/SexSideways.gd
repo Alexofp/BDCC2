@@ -10,11 +10,11 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/SexSideways.glb")
+	addAnimLibrary("SexSideways", "res://Anims/Raw/SexSideways.glb")
 	
 	addState("tease", {
-		dom = "sex/Tease_1",
-		sub = "sex/Tease_2",
+		dom = "SexSideways/Tease_1",
+		sub = "SexSideways/Tease_2",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			#sub = [SexHideTag.ArmRestraint],
@@ -22,8 +22,8 @@ func setupScene() -> void:
 		#sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("slow", {
-		dom = "sex/Slow_1",
-		sub = "sex/Slow_2",
+		dom = "SexSideways/Slow_1",
+		sub = "SexSideways/Slow_2",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(17, "plap"),
 	]).setHideTags({
@@ -33,8 +33,8 @@ func setupScene() -> void:
 		#sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("sex", {
-		dom = "sex/Sex_1",
-		sub = "sex/Sex_2",
+		dom = "SexSideways/Sex_1",
+		sub = "SexSideways/Sex_2",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(9, "plap"),
 	]).setHideTags({
@@ -44,8 +44,8 @@ func setupScene() -> void:
 		#sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("fast", {
-		dom = "sex/Fast_1",
-		sub = "sex/Fast_2",
+		dom = "SexSideways/Fast_1",
+		sub = "SexSideways/Fast_2",
 	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
 	]).setHideTags({
@@ -55,8 +55,8 @@ func setupScene() -> void:
 		#sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("inside", {
-		dom = "sex/Inside_1",
-		sub = "sex/Inside_2",
+		dom = "SexSideways/Inside_1",
+		sub = "SexSideways/Inside_2",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			#sub = [SexHideTag.ArmRestraint],
@@ -64,8 +64,8 @@ func setupScene() -> void:
 		#sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("cum", {
-		dom = "sex/Cum_1",
-		sub = "sex/Cum_2",
+		dom = "SexSideways/Cum_1",
+		sub = "SexSideways/Cum_2",
 	}).setAnimEvents([
 			animEventOnFrame(9, "plap"),
 			animEventOnFrame(12, "cumInsideSound"),
@@ -98,11 +98,11 @@ func setupScene() -> void:
 	connectStates("cum", "inside", 1.0, true, true)
 	
 	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
-		dom = "sex/BottomCum_1",
-		sub = "sex/BottomCum_2",
+		dom = "SexSideways/BottomCum_1",
+		sub = "SexSideways/BottomCum_2",
 	}, {
-		dom = "sex/BottomCumBase_1",
-		sub = "sex/BottomCumBase_2",
+		dom = "SexSideways/BottomCumBase_1",
+		sub = "SexSideways/BottomCumBase_2",
 	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),
 			animEventOnFrame(5, "squirt"),

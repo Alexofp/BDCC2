@@ -143,6 +143,13 @@ func addLayersToTextureNew(layeredTexture:MyLayeredTextureNew, layers:Array):
 			else:
 				layeredTexture.addSimpleLayer(textureVariant.pathTexture, layerEntry["r"] if layerEntry.has("r") else Color.BLACK)
 
+func setMatTextureParamAsync(_mat:ShaderMaterial, _par:String, _texturePath:String):
+	if(_texturePath.is_empty()):
+		_mat.set_shader_parameter(_par, null)
+		return
+	var theTexture:Texture2D = await ThreadedResourceLoader.asyncLoadRequest(_texturePath)
+	_mat.set_shader_parameter(_par, theTexture)
+
 func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	if(!theMat):
 		return
@@ -150,7 +157,8 @@ func applyColormaskPatternToMyMat(theMat:ShaderMaterial, theValue:Dictionary):
 	if(textureVariant == null):
 		theMat.set_shader_parameter("texture_color_mask", null)
 	else:
-		theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+		#theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+		setMatTextureParamAsync(theMat, "texture_color_mask", textureVariant.pathColormask)
 	
 	theMat.set_shader_parameter("color_mask_r", theValue["r"] if theValue.has("r") else Color.WHITE)
 	theMat.set_shader_parameter("color_mask_g", theValue["g"] if theValue.has("g") else Color.WHITE)
@@ -298,7 +306,8 @@ func applyEyeOptions(eyesNode:MeshInstance3D, _optionID:String, theValue:Variant
 			if(textureVariant == null):
 				theMat.set_shader_parameter("texture_color_mask", null)
 			else:
-				theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+				#theMat.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+				setMatTextureParamAsync(theMat, "texture_color_mask", textureVariant.pathColormask)
 			
 			theMat.set_shader_parameter("colorR", theValue["r"] if theValue.has("r") else Color.WHITE)
 			theMat.set_shader_parameter("colorG", theValue["g"] if theValue.has("g") else Color.WHITE)
@@ -315,7 +324,8 @@ func applyEyeOptions(eyesNode:MeshInstance3D, _optionID:String, theValue:Variant
 				if(textureVariant == null):
 					theMat2.set_shader_parameter("texture_color_mask", null)
 				else:
-					theMat2.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+					#theMat2.set_shader_parameter("texture_color_mask", textureVariant.loadColormask())
+					setMatTextureParamAsync(theMat2, "texture_color_mask", textureVariant.pathColormask)
 				
 				theMat2.set_shader_parameter("colorR", theValue["r2"] if theValue.has("r2") else Color.WHITE)
 				theMat2.set_shader_parameter("colorG", theValue["g2"] if theValue.has("g2") else Color.WHITE)

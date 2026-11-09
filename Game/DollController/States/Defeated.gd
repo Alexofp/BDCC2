@@ -42,7 +42,7 @@ func processAnimation(_doll:DollController, _dt:float):
 	#var isOnFloor := _doll.is_on_floor()
 	var theDoll := _doll.getDoll()
 	
-	theDoll.animIdle("CollapseIdle")
+	theDoll.animIdle("CombatAnims/CollapseIdle", true)
 	
 	#rotateTowardsMoveDirection(_doll, _dt*0.1)
 	setTargetLookDirFromMovement(_doll)

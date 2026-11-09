@@ -8,16 +8,16 @@ func _init() -> void:
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	
-	addAnimLibrary("soloSex", "res://Anims/Raw/SoloSex.glb")
+	addAnimLibrary("SoloSex", "res://Anims/Raw/SoloSex.glb")
 	
 	addState("start", {
-		dom = "soloSex/Start_1",
+		dom = "SoloSex/Start_1",
 	})
 	addState("rubTease", {
-		dom = "soloSex/RubTease_1",
+		dom = "SoloSex/RubTease_1",
 	})
 	addState("rubSlow", {
-		dom = "soloSex/RubSlow_1",
+		dom = "SoloSex/RubSlow_1",
 	}).setAnimEvents([
 		animEventOnFrame(26, "moan"),
 	]).setHideTags({
@@ -25,21 +25,21 @@ func setupScene() -> void:
 	})
 
 	addState("rub", {
-		dom = "soloSex/Rub_1",
+		dom = "SoloSex/Rub_1",
 	}).setAnimEvents([
 		animEventOnFrame(17, "moan"),
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("rubFast", {
-		dom = "soloSex/RubFast_1",
+		dom = "SoloSex/RubFast_1",
 	}).setAnimEvents([
 		animEventOnFrame(13, "moan"),
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("rubOrgasm", {
-		dom = "soloSex/RubOrgasm_1",
+		dom = "SoloSex/RubOrgasm_1",
 	}).setAnimEvents([
 			animEventOnFrame(1, "orgasm"),
 			animEventOnFrame(10, "squirt"),
@@ -52,31 +52,31 @@ func setupScene() -> void:
 	})
 	
 	addState("strokeTease", {
-		dom = "soloSex/StrokeTease_1",
+		dom = "SoloSex/StrokeTease_1",
 	})
 	addState("strokeSlow", {
-		dom = "soloSex/StrokeSlow_1",
+		dom = "SoloSex/StrokeSlow_1",
 	}).setAnimEvents([
 		animEventOnFrame(26, "moanStroke"),
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("stroke", {
-		dom = "soloSex/Stroke_1",
+		dom = "SoloSex/Stroke_1",
 	}).setAnimEvents([
 		animEventOnFrame(17, "moanStroke"),
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("strokeFast", {
-		dom = "soloSex/StrokeFast_1",
+		dom = "SoloSex/StrokeFast_1",
 	}).setAnimEvents([
 		animEventOnFrame(13, "moanStroke"),
 	]).setHideTags({
 		dom = [SexHideTag.ArmRestraint],
 	})
 	addState("strokeOrgasm", {
-		dom = "soloSex/StrokeOrgasm_1",
+		dom = "SoloSex/StrokeOrgasm_1",
 	}).setAnimEvents([
 			animEventOnFrame(1, "shootcum"),
 			animEventOnFrame(7, "orgasm"),
@@ -88,11 +88,11 @@ func setupScene() -> void:
 	})
 	
 	addExtraLayer(AnimSceneExtraLayerAdd3.create("penisGirth", {
-		dom = "soloSex/StrokeHandBig_1",
+		dom = "SoloSex/StrokeHandBig_1",
 	}, {
-		dom = "soloSex/StrokeHandSmall_1",
+		dom = "SoloSex/StrokeHandSmall_1",
 	}, {
-		dom = "soloSex/StrokeHandNormal_1",
+		dom = "SoloSex/StrokeHandNormal_1",
 	}))
 	
 	setStartState("start")

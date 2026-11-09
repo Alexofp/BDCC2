@@ -694,20 +694,21 @@ func setZoneFilter(_zone:int):
 	var thePawn := GM.main.pawn_registry.getPawn(character.getID()) if character && GM.main else null
 	if(thePawn):
 		if(_zone == CharCreatorZone.Legs):
-			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "ShowFoot")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "Poses/PoseShowFoot")
 		else:
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_IDLE, "")
 		if(_zone == CharCreatorZone.Hands):
-			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "ShowHands")
+			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "Poses/ShowHands")
 		else:
 			GM.main.pawn_registry.askSetPoseOf(thePawn, PawnPoseHandler.POSE_ARMS, "")
 	elif(doll):
 		if(_zone == CharCreatorZone.Legs):
-			doll.overrideStandTemp("PoseShowFoot", 999999.9)
+			doll.overrideStandTemp("Poses/PoseShowFoot", 999999.9)
 		else:
 			doll.overrideStandTempClear()
 		if(_zone == CharCreatorZone.Hands):
-			doll.currentArmsPose = "ArmsShowHands"
+			#doll.currentArmsPose = "ArmsShowHands"
+			doll.currentArmsPose = "Poses/ShowHands"
 		else:
 			doll.currentArmsPose = ""
 		doll.updatePose()

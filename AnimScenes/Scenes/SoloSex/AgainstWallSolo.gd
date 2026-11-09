@@ -8,13 +8,13 @@ func _init() -> void:
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	
-	addAnimLibrary("soloSex", "res://Anims/Raw/AgainstWallSolo.glb")
+	addAnimLibrary("AgainstWallSolo", "res://Anims/Raw/AgainstWallSolo.glb")
 	
 	addState("backLegUp", {
-		dom = "soloSex/BackLegUp_1",
+		dom = "AgainstWallSolo/BackLegUp_1",
 	})
 	addState("stripSearch", {
-		dom = "soloSex/StripSearch_1",
+		dom = "AgainstWallSolo/StripSearch_1",
 	})
 	
 	setStartState("backLegUp")

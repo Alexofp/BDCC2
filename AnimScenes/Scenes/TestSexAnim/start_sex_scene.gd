@@ -10,15 +10,15 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sexStart", "res://Anims/Raw/SexStartAnims.glb")
+	addAnimLibrary("SexStartAnims", "res://Anims/Raw/SexStartAnims.glb")
 	
 	addState("start", {
-		dom = "sexStart/SexStart_1",
-		sub = "sexStart/SexStart_2",
+		dom = "SexStartAnims/SexStart_1",
+		sub = "SexStartAnims/SexStart_2",
 	})
 	addState("cuddle", {
-		dom = "sexStart/Cuddle_1",
-		sub = "sexStart/Cuddle_2",
+		dom = "SexStartAnims/Cuddle_1",
+		sub = "SexStartAnims/Cuddle_2",
 	})
 	
 	connectStates("start", "cuddle", 0.0)

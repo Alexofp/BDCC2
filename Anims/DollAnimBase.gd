@@ -95,3 +95,8 @@ func getAnimSpeed(_id:String) -> float:
 	if(anims.has(_id)):
 		return anims[_id].get("animSpeed", 1.0)
 	return 1.0
+
+func getAnimFinal(_id:String) -> String:
+	if(!animNameFinal.has(_id)):
+		return ""
+	return animNameFinal[_id]

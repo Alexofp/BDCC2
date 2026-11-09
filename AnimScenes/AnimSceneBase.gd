@@ -7,8 +7,12 @@ func calculateStateAnimData():
 	animData.clear()
 	
 	var seatID:String = sitters.keys()[0]
-	var seatInfo:Sitter = sitters[seatID]
-	var animPlayer:AnimationPlayer = seatInfo.anim
+	#var seatInfo:Sitter = sitters[seatID]
+	#var animPlayer:AnimationPlayer = seatInfo.anim
+	
+	var animPlayer:AnimationPlayer = AnimationPlayer.new()
+	for animLibraryID in animLibraries:
+		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
 	for stateID in states:
 		var stateInfo:AnimSceneState = states[stateID]
@@ -413,10 +417,11 @@ func updateAnimTreeFor(seatID:String, _mode:int):
 		
 		var finalFinalBlendTree:AnimationNodeBlendTree
 		if(_mode == UPDATE_SITTER):
-			finalFinalBlendTree = animTree.tree_root.duplicate(true)
-			finalFinalBlendTree.add_node("blendtree", finalBlendTree)
-			finalFinalBlendTree.get_node("LayeredAnimPlayerStart").add_input("SEX")
-			finalFinalBlendTree.connect_node("LayeredAnimPlayerStart", 0, "blendtree")
+			finalFinalBlendTree = finalBlendTree
+			#finalFinalBlendTree = animTree.tree_root.duplicate(true)
+			#finalFinalBlendTree.add_node("blendtree", finalBlendTree)
+			#finalFinalBlendTree.get_node("LayeredAnimPlayerStart").add_input("SEX")
+			#finalFinalBlendTree.connect_node("LayeredAnimPlayerStart", 0, "blendtree")
 		else:
 			finalFinalBlendTree = AnimationNodeBlendTree.new()
 			finalFinalBlendTree.add_node("blendtree", finalBlendTree)
@@ -427,15 +432,27 @@ func updateAnimTreeFor(seatID:String, _mode:int):
 			#GlobalRegistry.dollAnimTreeLayerCache[cacheKey] = extraLayersByID
 		
 		#animTree.tree_root = theStateMachine
-		animTree.tree_root = finalFinalBlendTree
+		
+		if(_mode == UPDATE_SITTER):
+			if(animTree is DollDynAnimTree):
+				animTree.setCustomStartNode(finalFinalBlendTree, "blendtree")
+		else:
+			animTree.tree_root = finalFinalBlendTree
 	else:
 		#print("REUSED ANIM TREE FOR CACHE KEY: "+str(cacheKey))
-		animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
+		if(_mode == UPDATE_SITTER):
+			if(animTree is DollDynAnimTree):
+				animTree.setCustomStartNode(GlobalRegistry.dollAnimTreeCache[cacheKey], "blendtree")
+		else:
+			animTree.tree_root = GlobalRegistry.dollAnimTreeCache[cacheKey]
 		#extraLayersByID = GlobalRegistry.dollAnimTreeLayerCache[cacheKey]
 	
+	if(!animTree):
+		return
+	
 	if(_mode != UPDATE_MAIN):
-		if(_mode == UPDATE_SITTER):
-			animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
+		#if(_mode == UPDATE_SITTER):
+		#	animTree["parameters/LayeredAnimPlayerStart/transition_request"] = "SEX"
 		for extraLayer in extraLayers:
 			var layerType:int = extraLayer.getType()
 			var layerID:String = extraLayer.id
@@ -501,11 +518,12 @@ func deferUpdateAnimSitter(sitterID:String):
 	var sitDoll:DollController = getSitterDoll(sitterID)
 	
 	if(sitDoll):
-		applyAnimPlayer(sitDoll, animTree)
-		animTree.active = true
+		#applyAnimPlayer(sitDoll, animTree)
+		#animTree.active = true
 		animTree["parameters/blendtree/statemachine/playback"].start(state, true)
 	else:
-		animTree.active = false
-		animTree.root_node = NodePath("")
+		#animTree.active = false
+		#animTree.root_node = NodePath("")
+		pass
 	
 	updatePenisTargetFor(sitterID)

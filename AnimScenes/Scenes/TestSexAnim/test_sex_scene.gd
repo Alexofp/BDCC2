@@ -10,11 +10,11 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/SexStandingAnims.glb")
+	addAnimLibrary("SexStandingAnims", "res://Anims/Raw/SexStandingAnims.glb")
 	
 	addState("tease", {
-		dom = "sex/SexStandingTease_1",
-		sub = "sex/SexStandingTease_2",
+		dom = "SexStandingAnims/SexStandingTease_1",
+		sub = "SexStandingAnims/SexStandingTease_2",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
@@ -22,8 +22,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("slow", {
-		dom = "sex/SexStandingSlow_1",
-		sub = "sex/SexStandingSlow_2",
+		dom = "SexStandingAnims/SexStandingSlow_1",
+		sub = "SexStandingAnims/SexStandingSlow_2",
 	}).setBaseSpeed(0.7).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
 	]).setHideTags({
@@ -33,8 +33,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("sex", {
-		dom = "sex/SexStanding_1",
-		sub = "sex/SexStanding_2",
+		dom = "SexStandingAnims/SexStanding_1",
+		sub = "SexStandingAnims/SexStanding_2",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
 	]).setHideTags({
@@ -44,8 +44,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("fast", {
-		dom = "sex/SexStandingFast_1",
-		sub = "sex/SexStandingFast_2",
+		dom = "SexStandingAnims/SexStandingFast_1",
+		sub = "SexStandingAnims/SexStandingFast_2",
 	}).setBaseSpeed(1.5).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
 	]).setHideTags({
@@ -55,8 +55,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("inside", {
-		dom = "sex/SexStandingInside_1",
-		sub = "sex/SexStandingInside_2",
+		dom = "SexStandingAnims/SexStandingInside_1",
+		sub = "SexStandingAnims/SexStandingInside_2",
 	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
@@ -64,8 +64,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("cum", {
-		dom = "sex/SexStandingCum_1",
-		sub = "sex/SexStandingCum_2",
+		dom = "SexStandingAnims/SexStandingCum_1",
+		sub = "SexStandingAnims/SexStandingCum_2",
 	}).setAnimEvents([
 			animEventOnFrame(7, "plap"),
 			animEventOnFrame(10, "cumInsideSound"),
@@ -97,11 +97,11 @@ func setupScene() -> void:
 	connectStates("cum", "inside", 1.0, true, true)
 	
 	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
-		dom = "sex/SexStandingBottomCum_1",
-		sub = "sex/SexStandingBottomCum_2",
+		dom = "SexStandingAnims/SexStandingBottomCum_1",
+		sub = "SexStandingAnims/SexStandingBottomCum_2",
 	}, {
-		dom = "sex/SexStandingIn_1",
-		sub = "sex/SexStandingIn_2",
+		dom = "SexStandingAnims/SexStandingIn_1",
+		sub = "SexStandingAnims/SexStandingIn_2",
 	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),
 			animEventOnFrame(5, "squirt"),

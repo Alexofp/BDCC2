@@ -10,42 +10,42 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/SexCowgirl.glb")
+	addAnimLibrary("SexCowgirl", "res://Anims/Raw/SexCowgirl.glb")
 	
 	addState("tease", {
-		dom = "sex/SexTease_1",
-		sub = "sex/SexTease_2",
+		dom = "SexCowgirl/SexTease_1",
+		sub = "SexCowgirl/SexTease_2",
 	})
 	
 	addState("slow", {
-		dom = "sex/SexSlow_1",
-		sub = "sex/SexSlow_2",
+		dom = "SexCowgirl/SexSlow_1",
+		sub = "SexCowgirl/SexSlow_2",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(12, "plap"),
 	])
 	
 	addState("sex", {
-		dom = "sex/Sex_1",
-		sub = "sex/Sex_2",
+		dom = "SexCowgirl/Sex_1",
+		sub = "SexCowgirl/Sex_2",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(11, "plap"),
 	])
 	
 	addState("fast", {
-		dom = "sex/SexFast_1",
-		sub = "sex/SexFast_2",
+		dom = "SexCowgirl/SexFast_1",
+		sub = "SexCowgirl/SexFast_2",
 	}).setBaseSpeed(1.5).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(8, "plap"),
 	])
 	
 	addState("inside", {
-		dom = "sex/SexInside_1",
-		sub = "sex/SexInside_2",
+		dom = "SexCowgirl/SexInside_1",
+		sub = "SexCowgirl/SexInside_2",
 	})
 	
 	addState("cum", {
-		dom = "sex/Orgasm_1",
-		sub = "sex/Orgasm_2",
+		dom = "SexCowgirl/Orgasm_1",
+		sub = "SexCowgirl/Orgasm_2",
 	}).setAnimEvents([
 		#animEventOnFrame(7, "plap"),
 		animEventOnFrame(10, "cumInsideSound"),
@@ -58,12 +58,12 @@ func setupScene() -> void:
 	])
 	
 	addState("teaseToSlow", {
-		dom = "sex/SexTeaseToSlow_1",
-		sub = "sex/SexTeaseToSlow_2",
+		dom = "SexCowgirl/SexTeaseToSlow_1",
+		sub = "SexCowgirl/SexTeaseToSlow_2",
 	})
 	addState("slowToTease", {
-		dom = "sex/SexSlowToTease_1",
-		sub = "sex/SexSlowToTease_2",
+		dom = "SexCowgirl/SexSlowToTease_1",
+		sub = "SexCowgirl/SexSlowToTease_2",
 	})
 	
 	connectStates("tease", "teaseToSlow", 0.2, true)
@@ -94,11 +94,11 @@ func setupScene() -> void:
 	connectStates("cum", "inside", 1.5, true, true)
 	
 	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
-		dom = "sex/FemOrgasm_1",
-		sub = "sex/FemOrgasm_2",
+		dom = "SexCowgirl/FemOrgasm_1",
+		sub = "SexCowgirl/FemOrgasm_2",
 	}, {
-		dom = "sex/FemOrgasmBase_1",
-		sub = "sex/FemOrgasmBase_2",
+		dom = "SexCowgirl/FemOrgasmBase_1",
+		sub = "SexCowgirl/FemOrgasmBase_2",
 	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),
 			animEventOnFrame(5, "squirt"),

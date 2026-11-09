@@ -67,6 +67,11 @@ var thread := Thread.new()
 
 ## Returns the sum of all values of an array (use as a parameter to `Array.reduce()`).
 var sum_func := func avg(accum: float, number: float) -> float: return accum + number
+func sumArray(_ar:Array[float]) -> float:
+	var _sum:float = 0.0
+	for theNum:float in _ar:
+		_sum += theNum
+	return _sum
 
 # History of the last `HISTORY_NUM_FRAMES` rendered frames.
 var frame_history_total: Array[float] = []
@@ -347,7 +352,7 @@ func _process(_delta: float) -> void:
 
 		# Frametimes are colored following FPS logic (red = 10 FPS, yellow = 60 FPS, green = 110 FPS, cyan = 160 FPS).
 		# This makes the color gradient non-linear.
-		frametime_avg = frame_history_total.reduce(sum_func) / frame_history_total.size()
+		frametime_avg = sumArray(frame_history_total) / frame_history_total.size()
 		frame_history_total_avg.text = str(frametime_avg).pad_decimals(2)
 		frame_history_total_avg.modulate = frame_time_gradient.sample(remap(1000.0 / frametime_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
 
@@ -369,7 +374,7 @@ func _process(_delta: float) -> void:
 		if frame_history_cpu.size() > HISTORY_NUM_FRAMES:
 			frame_history_cpu.pop_front()
 
-		frametime_cpu_avg = frame_history_cpu.reduce(sum_func) / frame_history_cpu.size()
+		frametime_cpu_avg = sumArray(frame_history_cpu) / frame_history_cpu.size()
 		frame_history_cpu_avg.text = str(frametime_cpu_avg).pad_decimals(2)
 		frame_history_cpu_avg.modulate = frame_time_gradient.sample(remap(1000.0 / frametime_cpu_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
 
@@ -389,7 +394,7 @@ func _process(_delta: float) -> void:
 		if frame_history_gpu.size() > HISTORY_NUM_FRAMES:
 			frame_history_gpu.pop_front()
 
-		frametime_gpu_avg = frame_history_gpu.reduce(sum_func) / frame_history_gpu.size()
+		frametime_gpu_avg = sumArray(frame_history_gpu) / frame_history_gpu.size()
 		frame_history_gpu_avg.text = str(frametime_gpu_avg).pad_decimals(2)
 		frame_history_gpu_avg.modulate = frame_time_gradient.sample(remap(1000.0 / frametime_gpu_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
 

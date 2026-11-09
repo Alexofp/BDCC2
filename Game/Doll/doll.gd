@@ -3,6 +3,7 @@ class_name Doll
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: LayeredAnimPlayer = %AnimationTree
+@onready var dollDynAnimTree: DollDynAnimTree = %DollDynAnimTree
 @onready var parts_node: Node3D = %Parts
 
 @onready var body_skeleton: BodySkeleton = %BodySkeleton
@@ -24,13 +25,6 @@ class_name Doll
 @onready var skeleton_hit_modifier: SkeletonHitModifier = %SkeletonHitModifier
 @onready var blindness_quad_effect: MeshInstance3D = %BlindnessQuadEffect
 
-const LOCOMOTION_OTHER = 0
-const LOCOMOTION_STAND = 1
-const LOCOMOTION_WALK = 2
-const LOCOMOTION_RUN = 3
-const LOCOMOTION_FALL = 4
-
-var locomotionState:int = LOCOMOTION_STAND
 var lookAtNode:Node3D = null
 var expressionState:int = DollExpressionState.Normal
 var characterRef:WeakRef
@@ -98,9 +92,11 @@ func playGestureRaw(_animTree:AnimationTree, _gestureID:String, _playFullBody:bo
 		return
 	if(_playFullBody && theGesture.playFullBody):
 		_animTree.playLayer(animation_tree.LAYER_GESTURE_FULLBODY, _gestureID)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE_FULLBODY).play(theGesture.getAnimName(), 1.0, 0.25, true, false)
 		pass
 	if(playPartialBody && theGesture.playPartial):
 		_animTree.playLayer(animation_tree.LAYER_GESTURE, _gestureID)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE).play(theGesture.getAnimName(), 1.0, 0.25, true, false)
 
 func playGesture(_gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
 	playGestureRaw(animation_tree, _gestureID, _playFullBody, playPartialBody)
@@ -108,10 +104,12 @@ func playGesture(_gestureID:String, _playFullBody:bool=true, playPartialBody:boo
 	
 func stopGesture(stopFullBody:bool = true, stopPartical:bool = true):
 	if(stopFullBody):
-		animation_tree.stopLayer(animation_tree.LAYER_GESTURE_FULLBODY)
+		#animation_tree.stopLayer(animation_tree.LAYER_GESTURE_FULLBODY)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE_FULLBODY).stop()
 		#animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 	if(stopPartical):
-		animation_tree.stopLayer(animation_tree.LAYER_GESTURE)
+		#animation_tree.stopLayer(animation_tree.LAYER_GESTURE)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE).stop()
 		#animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 
 func _ready() -> void:
@@ -303,6 +301,8 @@ func registerSpread():
 
 #func _physics_process(_delta: float) -> void:
 func processScheduled(_delta:float, _key:int):
+	if(locoBusyTimer > 0.0):
+		locoBusyTimer -= _delta
 	if(holeDataDirty && partUpdateQueue.is_empty()):
 		updateDollHoleData()
 	
@@ -581,6 +581,91 @@ func isFirstPerson() -> bool:
 func getCurrentLocomotionAnim() -> String:
 	return currentLocomotionAnim
 
+func setLocomotionAnimRaw(_type:int, _anim:String, _speed:float = 1.0, _fade:float = 0.25, _resetIfSame:bool = false, _playBackwards:bool = false):
+	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
+	theLocLayer.playAnim(_type, _anim, _speed, _fade, _resetIfSame, _playBackwards)
+
+const LOC_DISABLED:int = 0
+const LOC_NORMAL:int = 1
+const LOC_DODGE:int = 2
+const LOC_COMBAT:int = 3
+const LOC_COMBAT_BLOCKING:int = 4
+
+const LMOD_FALLING:int = 1
+const LMOD_OVERRIDES:int = 2
+
+var locoBusyTimer:float = 0.0
+func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int = 0):
+	if(locoBusyTimer > 0.0 && !(_modifiers & LMOD_OVERRIDES) && _type != LOC_DISABLED):
+		return
+	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
+	if(_type == LOC_DISABLED):
+		if(theLocLayer.enabled):
+			#stopGesture(true, false)
+			theLocLayer.stop(0.25)
+		return
+	theLocLayer.play(0.0)
+	if(!_pos.is_zero_approx()):
+		stopGesture(true, false)
+	if(_type == LOC_NORMAL):
+		_pos.x = 0.0
+		if(_modifiers & LMOD_FALLING):
+			theLocLayer.setPos(Vector2.ZERO, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
+		else:
+			theLocLayer.setPos(_pos, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, currentIdleAnim, currentIdleAnimSpeed)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, currentWalkAnim, currentWalkAnimSpeed)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, currentRunAnim, currentRunAnimSpeed)
+	elif(_type == LOC_COMBAT):
+		if(_modifiers & LMOD_FALLING):
+			theLocLayer.setPos(Vector2.ZERO, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
+		else:
+			theLocLayer.setPos(_pos, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "CombatAnims/CombatIdle")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, "CombatAnims/CombatForward")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, "CombatAnims/CombatForward")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_BACK, "CombatAnims/CombatForward", 1.0, 0.25, false, true)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RIGHT, "CombatAnims/CombatLeft")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_LEFT, "CombatAnims/CombatLeft", 1.0, 0.25, false, true)
+	elif(_type == LOC_COMBAT_BLOCKING):
+		if(_modifiers & LMOD_FALLING):
+			theLocLayer.setPos(Vector2.ZERO, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
+		else:
+			theLocLayer.setPos(_pos, false)
+			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "CombatAnims/CombatBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, "CombatAnims/CombatForwardBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, "CombatAnims/CombatForwardBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_BACK, "CombatAnims/CombatForwardBlock", 1.0, 0.25, false, true)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RIGHT, "CombatAnims/CombatLeftBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_LEFT, "CombatAnims/CombatLeftBlock", 1.0, 0.25, false, true)
+	elif(_type == LOC_DODGE):
+		locoBusyTimer = 0.6
+		theLocLayer.setPos(_pos, false)
+		const DODGE_SPEED:float = 1.5
+		const DODGE_FADE:float = 0.2
+		#theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "CombatAnims/CombatBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, "CombatAnims/DodgeForward", DODGE_SPEED, DODGE_FADE, true)
+		#theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, "CombatAnims/CombatForwardBlock")
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_BACK, "CombatAnims/DodgeBack", DODGE_SPEED, DODGE_FADE, true)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RIGHT, "CombatAnims/DodgeLeft", DODGE_SPEED, DODGE_FADE, true)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_LEFT, "CombatAnims/DodgeRight", DODGE_SPEED, DODGE_FADE, true)
+
+func playLocomotionCustom(_anim:String):
+	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
+	if(_anim.is_empty()):
+		theLocLayer.stop(0.25)
+		return
+	theLocLayer.play()
+	theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, _anim)
+	theLocLayer.setPos(Vector2.ZERO, false)
+
+func setLocomotionDirection(_dir:Vector2):
+	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
+	theLocLayer.setPos(_dir, false)
+
 var currentLocomotionAnim:String = ""
 var locomotionSupportsArmPoses:bool = true
 func travelLocomotion(_newState:String, _speed:float = 1.0, _resetIfSame:bool = false):
@@ -595,14 +680,11 @@ func travelLocomotion(_newState:String, _speed:float = 1.0, _resetIfSame:bool = 
 	else:
 		locomotionSupportsArmPoses = true
 	currentLocomotionAnim = _newState
+	
+	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
+	theLocLayer.setPos(Vector2(0.0, 0.0), true, 0.0)
 	animation_tree.playLayer(animation_tree.LAYER_LOCOMOTION, _newState, _speed, _resetIfSame)
 	#animTree.getLayer(XXX).getPoint(0.0).playPlayer(YYY, animID)
-
-func isWalking() -> bool:
-	return locomotionState == LOCOMOTION_WALK
-
-func isStanding() -> bool:
-	return locomotionState == LOCOMOTION_STAND
 
 func setWalkAnim(_walkAnim:String):
 	currentWalkAnim = _walkAnim
@@ -613,9 +695,8 @@ func setIdleAnim(_walkAnim:String):
 func setRunAnim(_walkAnim:String):
 	currentRunAnim = _walkAnim
 
-func animStand():
-	locomotionState = LOCOMOTION_STAND
-	travelLocomotion(currentIdleAnim if idleAnimOverride.is_empty() else idleAnimOverride, currentIdleAnimSpeed)
+func animStand(_pos:Vector2 = Vector2.ZERO, _mods:int=0):
+	playLocomotionType(LOC_NORMAL, _pos, _mods)
 
 func overrideStandTemp(_newStand:String, _time:float):
 	idleAnimOverride = _newStand
@@ -625,44 +706,37 @@ func overrideStandTempClear():
 	idleAnimOverride = ""
 	idleAnimOverrideTime = 0.0
 
-func animAttack():
-	locomotionState = LOCOMOTION_STAND
-	stopGesture(true, true)
-	travelLocomotion("punch", 1.0, true)
-
-func animCombat(_space:Vector2, _combatAnim:String = "combat"):
-	if(_space.length_squared() < 0.01):
-		locomotionState = LOCOMOTION_STAND
-	else:
-		locomotionState = LOCOMOTION_WALK
+func animCombat(_space:Vector2, _isBlock:bool = false, _mods:int = 0):
 	stopGesture(true, false)
-	travelLocomotion(_combatAnim, 1.0)
-	animation_tree.setBlend2DPos(animation_tree.LAYER_LOCOMOTION, _combatAnim, _space)
+	playLocomotionType(LOC_COMBAT if !_isBlock else LOC_COMBAT_BLOCKING, _space, _mods)
 
-func animWalk():
-	locomotionState = LOCOMOTION_WALK
+func animDodge(_space:Vector2):
 	stopGesture(true, false)
-	travelLocomotion(currentWalkAnim, currentWalkAnimSpeed)
+	dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COMBAT).stop(0.1)
+	playLocomotionType(LOC_DODGE, _space, LMOD_OVERRIDES)
 
-func animRun():
-	locomotionState = LOCOMOTION_RUN
-	stopGesture(true, false)
-	travelLocomotion(currentRunAnim, currentRunAnimSpeed)
+#func animWalk():
+#	stopGesture(true, false)
+#	travelLocomotion(currentWalkAnim, currentWalkAnimSpeed)
+#
+#func animRun():
+#	stopGesture(true, false)
+#	travelLocomotion(currentRunAnim, currentRunAnimSpeed)
 
+# UNUSED
 func animFall():
-	locomotionState = LOCOMOTION_FALL
 	stopGesture(true, false)
-	travelLocomotion("fall")
+	playLocomotionType(LOC_NORMAL, Vector2.ZERO, LMOD_FALLING)
 
-func animIdle(_anim:String):
-	locomotionState = LOCOMOTION_STAND
-	stopGesture(true, false)
-	travelLocomotion(_anim)
+func animIdle(_anim:String, _stopPartialGestures:bool = false):
+	stopGesture(true, _stopPartialGestures)
+	playLocomotionCustom(_anim)
 
 func setAnimPlayerEnabled(newEn:bool):
 	#animation_player.active = newEn
 	animation_player.active = false
-	animation_tree.active = newEn
+	dollDynAnimTree.active = newEn
+	#animation_tree.active = newEn
 
 var dollAlphaMaskDirty:bool = false
 func triggerAlphaMaskUpdate():
@@ -927,14 +1001,18 @@ func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 		theArmsPose = cachedPartFlags["ArmsPose"]
 	
 	if(!theArmsPose.is_empty()):
-		theAnimationTree.playLayer(animation_tree.LAYER_ARMS_OVERRIDE, theArmsPose)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_ARMS).play(theArmsPose)
+		#theAnimationTree.playLayer(animation_tree.LAYER_ARMS_OVERRIDE, theArmsPose)
 	else:
-		theAnimationTree.stopLayer(animation_tree.LAYER_ARMS_OVERRIDE)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_ARMS).stop(0.2)
+		#theAnimationTree.stopLayer(animation_tree.LAYER_ARMS_OVERRIDE)
 		
 	if(_isLocomotion && !rightArmPose.is_empty()):
-		theAnimationTree.playLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE, rightArmPose) #"holdLeash"
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_RIGHT_ARM).play(rightArmPose)
+		#theAnimationTree.playLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE, rightArmPose) #"holdLeash"
 	else:
-		theAnimationTree.stopLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE)
+		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_RIGHT_ARM).stop(0.25)
+		#theAnimationTree.stopLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE)
 	
 	#playSubAnims()
 	

@@ -30,14 +30,16 @@ func processAnimation(_doll:DollController, _dt:float):
 	#var isOnFloorVisually:bool = isOnFloor#(rememberFloorTimer > 0.0)
 	
 	if(!_doll.isOnFloorVisually):
-		theDoll.animFall()
+		theDoll.animStand(Vector2(0.0, 0.0), Doll.LMOD_FALLING)
 	elif _doll.velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
 		if _doll.isRunning:
-			theDoll.animRun()
+			#theDoll.animRun()
+			theDoll.animStand(Vector2(0.0, 2.0))
 		else:
 			#walkAnim = 1.0 - (1.0 - walkAnim)*0.9
 			#theDoll.animCombat(Vector2(0.0, walkAnim))
-			theDoll.animWalk()
+			#theDoll.animWalk()
+			theDoll.animStand(Vector2(0.0, 1.0))
 		#Log.Print(str(move_direction))
 	else:
 		#walkAnim *= 0.9

@@ -57,9 +57,9 @@ func processAnimation(_doll:DollController, _dt:float):
 		pawn.doCombatAnim("CollapseFlyingToFloor", true)
 	
 	if(_doll.isOnFloorVisually && _doll.knockbackVelocity.y <= 1.0):
-		theDoll.animIdle("CollapseIdle")
+		theDoll.animIdle("CombatAnims/CollapseIdle", true)
 	else:
-		theDoll.animIdle("CollapseFlyingIdle")
+		theDoll.animIdle("CombatAnims/CollapseFlyingIdle", true)
 	
 	if(_doll.is_on_floor()):
 		collapseMinTimer -= _dt

@@ -44,16 +44,17 @@ func processAnimation(_doll:DollController, _dt:float):
 		pass
 	else:
 		if(!_doll.isOnFloorVisually):
-			theDoll.animFall()
+			theDoll.animCombat(Vector2(0.0, 0.0), areWeBlocking, Doll.LMOD_FALLING)
 		elif _doll.velocity.length_squared() > 0.1: # A little buggy when you're pushing a prop
 			if _doll.isRunning:
-				theDoll.animRun()
+				#theDoll.animRun()
+				theDoll.animStand(Vector2(0.0, 2.0))
 			else:
 				walkAnim = localWalkVec - (localWalkVec - walkAnim)*0.9
-				theDoll.animCombat(walkAnim, "combat" if !areWeBlocking else "block")
+				theDoll.animCombat(walkAnim, areWeBlocking)
 		else:
 			walkAnim *= 0.9
-			theDoll.animCombat(walkAnim, "combat" if !areWeBlocking else "block")
+			theDoll.animCombat(walkAnim, areWeBlocking)
 	
 	if(_doll.isRunning || shouldFollowMoveDirection()): # && attacking <= 0.0
 		setTargetLookDirFromMovement(_doll)

@@ -9,10 +9,10 @@ func _init() -> void:
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	
-	addAnimLibrary("basic", "res://Anims/Raw/BasicAnims.glb")
+	addAnimLibrary("BasicAnims", "res://Anims/Raw/BasicAnims.glb")
 	
 	addState("sit", {
-		dom = "basic/Sit",
+		dom = "BasicAnims/Sit",
 	})
 	
 	setStartState("sit")

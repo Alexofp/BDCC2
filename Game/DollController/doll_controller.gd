@@ -238,19 +238,21 @@ func processChar(_delta:float):
 		return
 	#TODO: Make this work using signals rather than constant pulling?
 	if(pawn.poseHandler.hasLeashesInRightHand):
-		doll.rightArmPose = "holdLeash"
+		doll.rightArmPose = "Poses/HoldLeash"
 	else:
 		doll.rightArmPose = ""
-	doll.currentIdleAnim = pawn.poseHandler.idleEntry.id
+	doll.currentIdleAnim = pawn.poseHandler.idleEntry.finalAnim
 	doll.currentIdleAnimSpeed = pawn.poseHandler.idleEntry.animSpeed
-	doll.currentWalkAnim = pawn.poseHandler.walkEntry.id
+	doll.currentWalkAnim = pawn.poseHandler.walkEntry.finalAnim
 	doll.currentWalkAnimSpeed = pawn.poseHandler.walkEntry.animSpeed
-	doll.currentRunAnim = pawn.poseHandler.runEntry.id
+	doll.currentRunAnim = pawn.poseHandler.runEntry.finalAnim
 	doll.currentRunAnimSpeed = pawn.poseHandler.runEntry.animSpeed
 	
 	var theArms := pawn.poseHandler.getArms()
 	var theArmsPose:String = theArms.getAnimName() if theArms else ""
-	doll.currentArmsPose = theArmsPose
+	
+	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(theArmsPose) if !theArmsPose.is_empty() else null
+	doll.currentArmsPose = theAnim.getAnimFinal(theArmsPose) if theAnim else ""#theArmsPose
 	#if(_isLocomotion && !doll.locomotionSupportsArmPoses):
 	#	theArmsPose = ""
 
@@ -496,9 +498,10 @@ func updatePoseSpot():
 	
 	if(!theSpot):
 		doll.setAnimationPartFlags({})
-		doll.setAnimPlayerEnabled(true)
+		#doll.setAnimPlayerEnabled(true)
 		#if(getState() != STATE_NORMAL):
-		getBodySkeleton().resetBones()
+		#getBodySkeleton().resetBones()
+		doll.dollDynAnimTree.setCustomStartNode(null)
 		getDoll().alignPenisToVagina(null)
 		if(getState() != CharacterPawn.STATE_NORMAL):
 			# This prevents 2 dolls from occupying the same spot
@@ -511,7 +514,8 @@ func updatePoseSpot():
 		if(theChar):
 			theChar.triggerUpdatePartFilter()
 	else:
-		doll.setAnimPlayerEnabled(false)
+		#doll.setAnimPlayerEnabled(false)
+		pass
 		#if(getState() != STATE_SITTING):
 		
 #
@@ -609,6 +613,7 @@ func getCharacter() -> BaseCharacter:
 
 func onSeatChange(_newSpot:PoseSpot):
 	updatePoseSpot()
+	pass
 
 func setExpressionState(newExpr:int):
 	if(newExpr == DollExpressionState.IgnoreChange):
@@ -792,9 +797,13 @@ func doCombatAnimLocal(_animation:String, _speedMult:float = 1.0, _forceAnim:boo
 	if(_animation.is_empty()):
 		return
 	var theDoll := getDoll()
+	
+	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(_animation)
+	theDoll.dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COMBAT).play(theAnim.getAnimFinal(_animation), theAnim.getAnimSpeed(_animation)*_speedMult, 0.1, true)
+	
 	#theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT, true)
 	#await get_tree().process_frame
-	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
+	#theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
 
 func doDodgeAnimLocal(_dir:Vector2, _animation:String = "dodge", _speedMult:float = 1.0, _forceAnim:bool = true):
 	if(_animation.is_empty()):
@@ -802,12 +811,16 @@ func doDodgeAnimLocal(_dir:Vector2, _animation:String = "dodge", _speedMult:floa
 	var theDoll := getDoll()
 	#theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT, true)
 	#await get_tree().process_frame
-	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
-	theDoll.animation_tree.setBlend2DPos(theDoll.animation_tree.LAYER_COMBAT, _animation, _dir)
 	
-func stopCombatAnimLocal():
+	theDoll.animDodge(_dir)
+	
+	#theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COMBAT, _animation, _speedMult, _forceAnim)
+	#theDoll.animation_tree.setBlend2DPos(theDoll.animation_tree.LAYER_COMBAT, _animation, _dir)
+	
+func stopCombatAnimLocal(_fade:float = -1.0):
 	var theDoll := getDoll()
-	theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT)
+	theDoll.dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COMBAT).stop(_fade)
+	#theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COMBAT)
 
 func getBodyGlobalRotation() -> Vector3:
 	return model_root.global_rotation

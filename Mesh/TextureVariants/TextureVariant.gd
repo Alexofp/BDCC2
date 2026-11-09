@@ -74,7 +74,12 @@ func getFlag(flagID:String, defaultValue:Variant = null):
 func loadColormask() -> Texture2D:
 	if(pathColormask == ""):
 		return null
-	return load(pathColormask)
+	return load(pathColormask) #PERF: This could be done async?
+
+#func loadColormaskAsync() -> Texture2D:
+#	if(pathColormask == ""):
+#		return null
+#	return await ThreadedResourceLoader.asyncLoadRequest(pathColormask)
 
 func isCovering(_genCoverZone:int) -> bool:
 	return genCovers & _genCoverZone

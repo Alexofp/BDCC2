@@ -13,12 +13,12 @@ func setupScene() -> void:
 	addSeat("sub", sit_spot_2)
 	addPropSpot("stocks", prop_spot)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/Stocks/StocksSex_Doll.glb")
+	addAnimLibrary("StocksSex_Doll", "res://Anims/Raw/Stocks/StocksSex_Doll.glb")
 	addPropAnimLibrary("stocks", "stocks", "res://Anims/Raw/Stocks/StocksSolo_Stocks.glb")
 	
 	addState("tease", {
-		dom = "sex/Tease_1",
-		sub = "sex/Tease_2",
+		dom = "StocksSex_Doll/Tease_1",
+		sub = "StocksSex_Doll/Tease_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
@@ -27,8 +27,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("slow", {
-		dom = "sex/Slow_1",
-		sub = "sex/Slow_2",
+		dom = "StocksSex_Doll/Slow_1",
+		sub = "StocksSex_Doll/Slow_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(17, "plap"),
@@ -39,8 +39,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("sex", {
-		dom = "sex/Sex_1",
-		sub = "sex/Sex_2",
+		dom = "StocksSex_Doll/Sex_1",
+		sub = "StocksSex_Doll/Sex_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(9, "plap"),
@@ -51,8 +51,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("fast", {
-		dom = "sex/Fast_1",
-		sub = "sex/Fast_2",
+		dom = "StocksSex_Doll/Fast_1",
+		sub = "StocksSex_Doll/Fast_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
@@ -63,8 +63,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("inside", {
-		dom = "sex/Inside_1",
-		sub = "sex/Inside_2",
+		dom = "StocksSex_Doll/Inside_1",
+		sub = "StocksSex_Doll/Inside_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
@@ -73,8 +73,8 @@ func setupScene() -> void:
 		sub = TAIL_OUT_OF_THE_WAY_FLAGS,
 	})
 	addState("cum", {
-		dom = "sex/Cum_1",
-		sub = "sex/Cum_2",
+		dom = "StocksSex_Doll/Cum_1",
+		sub = "StocksSex_Doll/Cum_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setAnimEvents([
 			animEventOnFrame(6, "plap"),
@@ -106,12 +106,12 @@ func setupScene() -> void:
 	connectStates("cum", "inside", 1.0, true, true)
 	
 	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
-		dom = "sex/BottomCum_1",
-		sub = "sex/BottomCum_2",
+		dom = "StocksSex_Doll/BottomCum_1",
+		sub = "StocksSex_Doll/BottomCum_2",
 		stocks = "stocks/Stocks_Normal",
 	}, {
-		dom = "sex/BottomCumBase_1",
-		sub = "sex/BottomCumBase_2",
+		dom = "StocksSex_Doll/BottomCumBase_1",
+		sub = "StocksSex_Doll/BottomCumBase_2",
 		stocks = "stocks/Stocks_Normal",
 	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),

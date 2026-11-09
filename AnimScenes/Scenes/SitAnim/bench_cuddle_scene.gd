@@ -10,11 +10,11 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("cuddle", "res://Anims/Raw/BenchCuddleAnim.glb")
+	addAnimLibrary("BenchCuddleAnim", "res://Anims/Raw/BenchCuddleAnim.glb")
 	
 	addState("cuddle", {
-		dom = "cuddle/BenchCuddle_1",
-		sub = "cuddle/BenchCuddle_2",
+		dom = "BenchCuddleAnim/BenchCuddle_1",
+		sub = "BenchCuddleAnim/BenchCuddle_2",
 	})
 	
 	setStartState("cuddle")

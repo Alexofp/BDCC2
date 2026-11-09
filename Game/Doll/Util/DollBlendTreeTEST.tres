@@ -238,7 +238,6 @@ transitions = ["Start", "StateMachine", SubResource("AnimationNodeStateMachineTr
 graph_offset = Vector2(-63, -17)
 
 [resource]
-graph_offset = Vector2(1129.7408, -267.05444)
 nodes/output/position = Vector2(1980, -60)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yudco")
 nodes/Animation/position = Vector2(-120, 340)

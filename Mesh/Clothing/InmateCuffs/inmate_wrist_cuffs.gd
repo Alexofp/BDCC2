@@ -7,6 +7,8 @@ extends DollPart
 func gatherPartFlags(_theFlags:Dictionary):
 	_theFlags["CuffedBehindBackPose"] = true
 	_theFlags["ArmsPose"] = "ArmsCuffedBehindBack"
+	_theFlags["ArmsPose"] = "RestraintAnims/CuffedBehindBack"
+	#_theFlags["ArmsPose"] = "RestraintAnims/CuffedFront"
 	#_theFlags["ArmsPose"] = "ArmsCuffedFront"
 
 #func getSyncedBodypartSlots() -> Array:

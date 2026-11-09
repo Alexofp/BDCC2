@@ -23,6 +23,7 @@
 [ext_resource type="Animation" uid="uid://b50457a6bhah7" path="res://Anims/Raw/SavedTracks/Run.res" id="18_ce1cx"]
 [ext_resource type="Animation" uid="uid://c74bdp6883bex" path="res://Anims/Raw/SavedTracks/WalkUnisex.res" id="18_lws2c"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://c4lvl2loaq1pb" path="res://Game/Doll/Util/DollBlendTreeTEST.tres" id="19_l7aga"]
+[ext_resource type="Script" uid="uid://cf10qu3phjusb" path="res://Game/Doll/DollDynAnimTree.gd" id="23_nweep"]
 
 [sub_resource type="Resource" id="Resource_l2cwv"]
 script = ExtResource("4_avrwx")
@@ -46,13 +47,6 @@ linear_scale = 10.0
 swing_span = 0.17453292519943295
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ce1cx"]
-resource_local_to_scene = true
-direction = Vector3(0, 0, 1)
-spread = 1.0
-initial_velocity_max = 3.0
-scale_max = 2.0
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nweep"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
@@ -61,6 +55,13 @@ initial_velocity_max = 3.0
 scale_max = 2.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8y2xi"]
+resource_local_to_scene = true
+direction = Vector3(0, 0, 1)
+spread = 1.0
+initial_velocity_max = 3.0
+scale_max = 2.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gc4t1"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -226,6 +227,18 @@ nodes/10_armbinder/position = Vector2(1200, 320)
 nodes/10_armbinderMale/node = SubResource("AnimationNodeAnimation_llte3")
 nodes/10_armbinderMale/position = Vector2(1200, 480)
 node_connections = [&"output", 0, &"10_oneshot", &"0", 0, &"0_idle_normal1", &"0", 1, &"0_idle_normal2", &"0", 2, &"0_idle_sexy", &"0", 3, &"0_walk_unisex", &"0", 4, &"0_walk_hobbled", &"0", 5, &"0_walk_fem", &"0", 6, &"0_run", &"0", 7, &"0_fall", &"0_timescale", 0, &"0", &"0_oneshot", 0, &"LayeredAnimPlayerStart", &"0_oneshot", 1, &"0_timescale", &"10", 0, &"10_cuffedBehindBack", &"10", 1, &"10_cuffedFront", &"10", 2, &"10_armbinder", &"10", 3, &"10_armbinderMale", &"10_timescale", 0, &"10", &"10_oneshot", 0, &"0_oneshot", &"10_oneshot", 1, &"10_timescale"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_nweep"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_8y2xi"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ce1cx"]
+graph_offset = Vector2(-103.119965, -32.607376)
+nodes/Transition/node = SubResource("AnimationNodeTransition_8y2xi")
+nodes/Transition/position = Vector2(20, 120)
+"nodes/Transition 2/node" = SubResource("AnimationNodeTransition_nweep")
+"nodes/Transition 2/position" = Vector2(594, 140)
+node_connections = [&"output", 0, &"Transition"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5l1g8"]
 
@@ -441,13 +454,13 @@ script = ExtResource("7_olppk")
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
 
 [node name="SquirtParticles1" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="0" unique_id=1486787374]
-process_material = SubResource("ParticleProcessMaterial_ce1cx")
-
-[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_nweep")
 
-[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+[node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
 process_material = SubResource("ParticleProcessMaterial_8y2xi")
+
+[node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
+process_material = SubResource("ParticleProcessMaterial_gc4t1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
@@ -467,6 +480,7 @@ libraries/asd = SubResource("AnimationLibrary_gc4t1")
 
 [node name="AnimationTree" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=1452688011]
 unique_name_in_owner = true
+active = false
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeBlendTree_pj0q3")
 anim_player = NodePath("../AnimationPlayer")
@@ -544,6 +558,23 @@ parameters/BodyGesture_Selector/transition_request = ""
 parameters/BodyGesture_Selector/current_index = -1
 parameters/BodyGesture_Selector/observer = null
 parameters/ArmBinderMale_Blend/blend_amount = 0.0
+
+[node name="DollDynAnimTree" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=243907031 node_paths=PackedStringArray("skeleton")]
+unique_name_in_owner = true
+root_node = NodePath("%DollDynAnimTree/..")
+tree_root = SubResource("AnimationNodeBlendTree_ce1cx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Transition/current_state = ""
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = -1
+parameters/Transition/observer = null
+"parameters/Transition 2/current_state" = ""
+"parameters/Transition 2/transition_request" = ""
+"parameters/Transition 2/current_index" = -1
+"parameters/Transition 2/observer" = null
+script = ExtResource("23_nweep")
+skeleton = NodePath("../rig/Skeleton3D")
+metadata/_custom_type_script = "uid://cf10qu3phjusb"
 
 [node name="AlphaMaskTexture" parent="." unique_id=1493821731 instance=ExtResource("10_ehs3x")]
 unique_name_in_owner = true

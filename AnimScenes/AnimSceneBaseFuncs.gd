@@ -9,8 +9,9 @@ const TAIL_OUT_OF_THE_WAY_FLAGS = {
 
 class Sitter:
 	var spot:PoseSpot
-	var tree:DollLayeredAnimPlayer
+	var tree:DollDynAnimTree#DollLayeredAnimPlayer
 	var anim:AnimationPlayer
+	#var cachedBlendTree:AnimationNodeBlendTree
 
 var sitters:Dictionary[String, Sitter] = {}
 var penisTarget:Dictionary = {}
@@ -257,11 +258,16 @@ func updateAllAnimTrees():
 func updateAnimPlayerFor(seatID:String):
 	var seatInfo:Sitter = sitters[seatID]
 	var animPlayer:AnimationPlayer = seatInfo.anim
+	if(!animPlayer):
+		return
 	
 	for animLibraryID in animLibraries:
+		if(animPlayer.has_animation_library(animLibraryID)):
+			continue
 		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
-	Doll.updateAnimPlayerSpecific(animPlayer)
+	# Not needed?
+	#Doll.updateAnimPlayerSpecific(animPlayer)
 
 #func calculateStateAnimData():
 #	pass
@@ -329,19 +335,19 @@ func onSeatPropSwitchFunc(_newPawn:Node3D, _oldNode:Node3D, _theID:String):
 	pass
 
 func addSeat(theID:String, theSpot:PoseSpot):
-	var newAnimPlayer:AnimationPlayer = AnimationPlayer.new()
-	newAnimPlayer.active = false
-	add_child(newAnimPlayer)
+	#var newAnimPlayer:AnimationPlayer = AnimationPlayer.new()
+	#newAnimPlayer.active = false
+	#add_child(newAnimPlayer)
 	
-	var newTree:DollLayeredAnimPlayer = DollLayeredAnimPlayer.new()
-	add_child(newTree)
-	newTree.active = false
-	newTree.anim_player = newTree.get_path_to(newAnimPlayer)
+	#var newTree:DollDynAnimTree = DollLayeredAnimPlayer = DollLayeredAnimPlayer.new()
+	#add_child(newTree)
+	#newTree.active = false
+	#newTree.anim_player = newTree.get_path_to(newAnimPlayer)
 	
 	var newSitter:Sitter = Sitter.new()
 	newSitter.spot = theSpot
-	newSitter.tree = newTree
-	newSitter.anim = newAnimPlayer
+	newSitter.tree = null#newTree
+	newSitter.anim = null #newAnimPlayer
 	
 	sitters[theID] = newSitter
 	theSpot.onPawnSwitch.connect(onSeatPawnSwitchFunc.bind(theID))
@@ -350,37 +356,27 @@ func addSeat(theID:String, theSpot:PoseSpot):
 func onSeatPawnSwitchFunc(_newPawn:CharacterPawn, theID:String):
 	onPawnSwitch.emit(theID, _newPawn)
 
-func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theID:String):
+func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theID:String):	
+	if(!sitters.has(theID)):
+		Log.error("Something going wrong with the seats. ID="+str(theID))
+		return
+	var theSeat:Sitter = sitters[theID]
+	theSeat.tree = _newDoll.doll.dollDynAnimTree if _newDoll else null
+	theSeat.anim = _newDoll.doll.dollDynAnimTree.getAnimPlayer() if _newDoll else null
+	# Not needed anymore?
+	#if(_oldDoll):
+	#	_oldDoll.onGesturePlay.disconnect(onSitterGesturePlay.bind(theID))
+	#if(_newDoll):
+	#	_newDoll.onGesturePlay.connect(onSitterGesturePlay.bind(theID))
+
+	updateAnimPlayerFor(theID)
+	updateAnimTreeFor(theID, AnimSceneBase.UPDATE_SITTER)
 	updateAnim()
 	onDollSwitch.emit(theID, _newDoll)
-	
-	if(_oldDoll):
-#E 0:06:13:404   AnimSceneBaseFuncs.gd:358 @ onSeatDollSwitchFunc(): Attempt to disconnect a nonexistent connection from '4:<CharacterBody3D#3188426023222>'. Signal: 'onGesturePlay', callable: 'Node3D(sit_anim_scene.gd)::onSitterGesturePlay'.
-#  <C++ Error>   Condition "signal_is_valid" is true. Returning: false
-#  <C++ Source>  core\object\object.cpp:1709 @ Object::_disconnect()
-#  <Stack Trace> AnimSceneBaseFuncs.gd:358 @ onSeatDollSwitchFunc()
-#                pose_spot.gd:66 @ dollUpdate()
-#                pose_spot.gd:115 @ onPawnChange()
-#                sit_manager.gd:156 @ unsit()
-#                sit_manager.gd:177 @ freeSeat()
-#                pose_spot.gd:74 @ unSit()
-#                AnimSceneBaseFuncs.gd:284 @ setSitter()
-#                anim_scene_spawner.gd:74 @ unsitToStandSpot()
-#                bench_anim_handler.gd:113 @ setSitter()
-#                SitProp.gd:41 @ doAction()
-#                character_pawn.gd:1810 @ doInteractEntryDo()
-#                GoTo.gd:59 @ think()
-#                AIActionBase.gd:151 @ processRareFinal()
-#                AIActionBase.gd:145 @ processRareFinal()
-#                AIActionBase.gd:145 @ processRareFinal()
-#                PawnAI.gd:171 @ processRare()
-#                character_pawn.gd:225 @ processRare()
-#                character_pawn.gd:192 @ processSemiOften()
-#                pawn_registry.gd:36 @ _physics_process()
-		_oldDoll.onGesturePlay.disconnect(onSitterGesturePlay.bind(theID))
-	if(_newDoll):
-		_newDoll.onGesturePlay.connect(onSitterGesturePlay.bind(theID))
-	
+
+func updateAnimTreeFor(_seatID:String, _mode:int):
+	pass
+
 func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _id:String):
 	if(!sitters.has(_id)):
 		return
@@ -404,6 +400,8 @@ func deferUpdateAnimSitter(_sitterID:String):
 	pass
 
 func updateRestraintAnimsFor(sitterID:String):
+	if(true):
+		return
 	var sitDoll:DollController = getSitterDoll(sitterID)
 	if(!sitDoll):
 		return
@@ -417,6 +415,8 @@ func updateRestraintAnimsFor(sitterID:String):
 
 var checkTime:float = 0.0
 func _process(_delta: float) -> void:
+	if(true):
+		return
 	checkTime -= _delta
 	if(checkTime <= 0.0):
 		for sitterID in sitters:
@@ -469,7 +469,8 @@ func setStateSpeed(theState:String, theSpeed:float):
 		var sitterInfo:Sitter = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo.tree
 		
-		animTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"] = theSpeed * baseSpeed
+		if(animTree):
+			animTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"] = theSpeed * baseSpeed
 	mainAnimTree["parameters/blendtree/statemachine/"+theState+"/timeScale/scale"] = theSpeed * baseSpeed
 
 func getStateSpeed(theState:String) -> float:
@@ -527,8 +528,9 @@ func setAdd3Value(_id:String, _val:float):
 	for sitterID in sitters:
 		var sitterInfo:Sitter = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo.tree
-
-		animTree["parameters/blendtree/"+_id+"/add_amount"] = _val
+		
+		if(animTree):
+			animTree["parameters/blendtree/"+_id+"/add_amount"] = _val
 	mainAnimTree["parameters/blendtree/"+_id+"/add_amount"] = _val
 
 func playOneShot(oneshotID:String):
@@ -540,7 +542,8 @@ func playOneShot(oneshotID:String):
 		var sitterInfo:Sitter = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo.tree
 		
-		animTree["parameters/blendtree/"+oneshotID+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+		if(animTree):
+			animTree["parameters/blendtree/"+oneshotID+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	mainAnimTree["parameters/blendtree/"+oneshotID+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	onOneShot(oneshotID)
 
@@ -620,9 +623,10 @@ func getSpotProp(theID:String) -> PropSpot:
 		return null
 	return props[theID].spot
 
-func applyAnimPlayer(user: DollController, theAnimPlayer:AnimationMixer):
-	user.getBodySkeleton().resetBones()
-	theAnimPlayer.root_node = theAnimPlayer.get_path_to(user.getBodySkeleton())
+func applyAnimPlayer(_user: DollController, _theAnimPlayer:AnimationMixer):
+	#user.getBodySkeleton().resetBones()
+	#theAnimPlayer.root_node = theAnimPlayer.get_path_to(user.getBodySkeleton())
+	pass
 
 func getState() -> String:
 	return state

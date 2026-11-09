@@ -39,7 +39,7 @@ func processScheduled(_delta:float, _key:int):
 
 @rpc("authority", "call_remote", "reliable")
 func createPawnRPC(charID:String, data:Dictionary) -> CharacterPawn:
-	Log.Print("CREATEPAWN_RPC "+str(charID)+" "+str(data))
+	Log.Print("CREATEPAWN_RPC "+str(charID))#+" "+str(data)
 	var thePawn:CharacterPawn= pawnScene.instantiate()
 	thePawn.name = charID
 	thePawn.id = charID

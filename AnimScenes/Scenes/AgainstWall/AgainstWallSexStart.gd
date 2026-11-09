@@ -10,11 +10,11 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	
-	addAnimLibrary("sex", "res://Anims/Raw/AgainstWallSexStart.glb")
+	addAnimLibrary("AgainstWallSexStart", "res://Anims/Raw/AgainstWallSexStart.glb")
 	
 	addState("backLegUp", {
-		dom = "sex/BackLegUp_1",
-		sub = "sex/BackLegUp_2",
+		dom = "AgainstWallSexStart/BackLegUp_1",
+		sub = "AgainstWallSexStart/BackLegUp_2",
 	})
 	
 	setStartState("backLegUp")

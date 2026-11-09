@@ -11,15 +11,15 @@ func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addPropSpot("stocks", prop_spot)
 	
-	addAnimLibrary("stocks", "res://Anims/Raw/Stocks/StocksSolo_Doll.glb")
+	addAnimLibrary("StocksSolo_Doll", "res://Anims/Raw/Stocks/StocksSolo_Doll.glb")
 	addPropAnimLibrary("stocks", "stocks", "res://Anims/Raw/Stocks/StocksSolo_Stocks.glb")
 	
 	addState("bent", {
-		dom = "stocks/Normal_2",
+		dom = "StocksSolo_Doll/Normal_2",
 		stocks = "stocks/Stocks_Normal",
 	})
 	addState("standing", {
-		dom = "stocks/Standing_2",
+		dom = "StocksSolo_Doll/Standing_2",
 		stocks = "stocks/Stocks_Standing",
 	})
 	
