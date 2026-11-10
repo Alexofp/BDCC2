@@ -47,6 +47,8 @@ var anims:Dictionary = {
 #var id:String = ""
 #var animVisibleName:String = "FILL ME"
 
+const FLAG_BLOCKS_ARM_POSES:int = 1
+
 var animType:int = TYPE_GENERIC
 
 #var animName:String = ""
@@ -54,22 +56,25 @@ var animLibraryName:String = ""
 var animLibraryPath:String = ""
 
 var animCanPick:bool = false
-var animSupportsArmPoses:bool = true
+
+var flagsForAll:int = 0
 
 var animNameFinal:Dictionary[String, String]
+var flagsFinal:Dictionary[String, int]
 func calcFinalAnimName():
 	for _id in anims:
 		if(animLibraryName.is_empty()):
 			animNameFinal[_id] = anims[_id]["anim"]
 		animNameFinal[_id] = animLibraryName+"/"+anims[_id]["anim"]
+		if(anims[_id].has("flags")):
+			flagsFinal[_id] = anims[_id]["flags"] | flagsForAll
+		else:
+			flagsFinal[_id] = flagsForAll
 
 func getVisibleName(_id:String) -> String:
 	if(!anims.has(_id)):
 		return "ERROR!"
 	return anims[_id].get("name", "MISSING_NAME:"+_id)
-
-func doesAnimSupportArmPoses(_id:String) -> bool:
-	return animSupportsArmPoses
 
 const CLOSE_DISTANCE = 1.0
 
@@ -100,3 +105,8 @@ func getAnimFinal(_id:String) -> String:
 	if(!animNameFinal.has(_id)):
 		return ""
 	return animNameFinal[_id]
+
+func getAnimFlags(_id:String) -> int:
+	if(!flagsFinal.has(_id)):
+		return 0
+	return flagsFinal[_id]

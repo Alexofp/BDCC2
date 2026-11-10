@@ -241,12 +241,17 @@ func processChar(_delta:float):
 		doll.rightArmPose = "Poses/HoldLeash"
 	else:
 		doll.rightArmPose = ""
-	doll.currentIdleAnim = pawn.poseHandler.idleEntry.finalAnim
-	doll.currentIdleAnimSpeed = pawn.poseHandler.idleEntry.animSpeed
-	doll.currentWalkAnim = pawn.poseHandler.walkEntry.finalAnim
-	doll.currentWalkAnimSpeed = pawn.poseHandler.walkEntry.animSpeed
-	doll.currentRunAnim = pawn.poseHandler.runEntry.finalAnim
-	doll.currentRunAnimSpeed = pawn.poseHandler.runEntry.animSpeed
+	
+	doll.idleAnimEntry = pawn.poseHandler.idleEntry
+	doll.walkAnimEntry = pawn.poseHandler.walkEntry
+	doll.runAnimEntry = pawn.poseHandler.runEntry
+	
+	#doll.currentIdleAnim = pawn.poseHandler.idleEntry.finalAnim
+	#doll.currentIdleAnimSpeed = pawn.poseHandler.idleEntry.animSpeed
+	#doll.currentWalkAnim = pawn.poseHandler.walkEntry.finalAnim
+	#doll.currentWalkAnimSpeed = pawn.poseHandler.walkEntry.animSpeed
+	#doll.currentRunAnim = pawn.poseHandler.runEntry.finalAnim
+	#doll.currentRunAnimSpeed = pawn.poseHandler.runEntry.animSpeed
 	
 	var theArms := pawn.poseHandler.getArms()
 	var theArmsPose:String = theArms.getAnimName() if theArms else ""
@@ -259,7 +264,7 @@ func processChar(_delta:float):
 	#doll.setIdleAnim(pawn.poseHandler.idleAnim)
 	#doll.setWalkAnim(pawn.poseHandler.walkAnim)
 	#doll.setRunAnim(pawn.poseHandler.runAnim)
-	doll.updatePose() # Could technically be removed, this is called in updateFromCharacter
+	doll.updatePose()
 	#doll.setIdleAnim(theChar.getIdleAnim())
 
 func addKnockback(_vel:Vector3):
@@ -279,15 +284,20 @@ func _process(delta:float):
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_3")):
 		GlobalRegistry.reloadCombatMoves()
+		#getDoll().dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COUPLE).play("FriendlyAnims/Hug_1", 1.0, 0.25, true)
+		pass
 	if(theIsControlledByUs && OS.is_debug_build() && Input.is_action_just_pressed("debug_2")):
 		#getDoll().applyHitSpecific(4.0, Vector3(1.0, 0.0, 0.0))
 		#addKnockback(Vector3(11.0, 10.0, 0.0))
 		
 		getPawn().sendFlying(Vector3(10.0, 0.0, 0.0), 10.0)
+		#getDoll().dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COUPLE).stop(0.25)
+		
 		#print(GM.world.getNearbyStocks(global_position, 10.0))
 		
 		#getPawn().doStagger()
 		#print(GM.main.checkCanLean(global_position, model_root.global_rotation))
+		pass
 	#if(theIsControlledByUs):
 	#	print(GI.world.getNearbyWanderAreas(global_position, 5.0))
 	#end of debug stuff
@@ -435,31 +445,23 @@ func processCameraBlindness():
 func getCurrentGlobalAnimKey() -> String:
 	if(getState() == CharacterPawn.STATE_NORMAL):
 		var theDoll := getDoll()
-		if(!theDoll):
+		if(!theDoll || !theDoll.currentAnimEntry):
 			return ""
-		return theDoll.getCurrentLocomotionAnim()
+		return theDoll.currentAnimEntry.id
 	if(getState() == CharacterPawn.STATE_SITTING):
 		var _theSeat := GM.sitManager.getSeatOfDoll(self)
 		if(_theSeat):
 			return _theSeat.dollAnimKey
 	return ""
 
-func getCurrentLocomotionAnim() -> String:
-	if(getState() != CharacterPawn.STATE_NORMAL):
-		return ""
-	var theDoll := getDoll()
-	if(!theDoll):
-		return ""
-	return theDoll.getCurrentLocomotionAnim()
-
 func processDollPoseCamera() -> bool:
-	var theAnimID := getCurrentLocomotionAnim()
-	if(theAnimID.is_empty() || !GlobalRegistry.hasDollAnim(theAnimID)):
+	var theAnimEntry:DollAnimEntry = doll.currentAnimEntry
+	if(!theAnimEntry):
 		return false
-	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(theAnimID)
-	if(!theAnim.hasCustomCamera(theAnimID)):
+	var theAnim:DollAnimBase = theAnimEntry.anim
+	if(!theAnim.hasCustomCamera(theAnimEntry.id)):
 		return false
-	var theCameraOffset:Vector2 = theAnim.processCamera(theAnimID, SpringArm.spring_length)
+	var theCameraOffset:Vector2 = theAnim.processCamera(theAnimEntry.id, SpringArm.spring_length)
 	SpringArm.position.x = theCameraOffset.x
 	CameraPivot.position.y = theCameraOffset.y
 	return true
@@ -789,9 +791,14 @@ func _on_typing_status_reset_timer_timeout() -> void:
 func doCoupleAnimLocal(_animation:String):
 	var theDoll := getDoll()
 	if(_animation.is_empty()):
-		theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COUPLE)
+		#theDoll.animation_tree.stopLayer(theDoll.animation_tree.LAYER_COUPLE)
+		theDoll.dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COUPLE).stop(0.25)
 		return
-	theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COUPLE, _animation, 1.0, true)
+	var theDollAnim:DollAnimBase = GlobalRegistry.getDollAnim(_animation)
+	if(!theDollAnim):
+		return
+	theDoll.dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_COUPLE).play(theDollAnim.getAnimFinal(_animation), 1.0, 0.25, true)
+	#theDoll.animation_tree.playLayer(theDoll.animation_tree.LAYER_COUPLE, _animation, 1.0, true)
 
 func doCombatAnimLocal(_animation:String, _speedMult:float = 1.0, _forceAnim:bool = true):
 	if(_animation.is_empty()):

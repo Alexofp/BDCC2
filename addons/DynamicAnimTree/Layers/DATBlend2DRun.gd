@@ -20,6 +20,7 @@ func onCreated(_layer:DATLayer):
 			var theBlendpoint:DATBlend2D.BlendPoint = _layer.points[theIndex]
 			#theBlendpoint.
 			var newHandler:DynAnimHandlerAlt = DynAnimHandlerAlt.new()
+			newHandler.instantEnable = true
 			handlers[theIndex] = newHandler
 			
 			#var theCustomBlendTree:AnimationNodeBlendTree = AnimationNodeBlendTree.new()
@@ -38,7 +39,7 @@ func play(_fade:float = 0.25):
 	
 	#if(disableTimer > 0.0 || !tree["parameters/"+str(layerIndx)+"/active"]):
 	#	tree["parameters/"+str(layerIndx)+"/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	tree["parameters/"+str(layerIndx)+"/blend_amount"] = 1.0
+	#tree["parameters/"+str(layerIndx)+"/blend_amount"] = 1.0
 	
 	#transNode.xfade_time = _fade
 

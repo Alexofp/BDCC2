@@ -25,8 +25,10 @@ func clearCharacter():
 
 func _physics_process(_delta: float) -> void:
 	if(currentChar):
-		doll.currentIdleAnim = currentChar.idleAnim
-		doll.currentWalkAnim = currentChar.walkAnim
+		doll.idleAnimEntry = DollAnimEntry.create(currentChar.idleAnim)
+		doll.walkAnimEntry = DollAnimEntry.create(currentChar.walkAnim)
+		#doll.currentIdleAnim = currentChar.idleAnim
+		#doll.currentWalkAnim = currentChar.walkAnim
 	doll.animStand()
 
 func loadFromPreset(_preset:CharacterPreset):

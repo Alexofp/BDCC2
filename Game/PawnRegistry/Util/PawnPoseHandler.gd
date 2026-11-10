@@ -83,7 +83,7 @@ func process(_dt:float):
 	
 	gestureFullbodyBlocked = false
 	gesturePartialBlocked = false
-	if((theIdlePose && theIdlePose.doesPreventFullbodyGestures()) || (theArmsPose && theArmsPose.doesPreventFullbodyGestures())):
+	if(pawn.isSittingSomewhere() || (theIdlePose && theIdlePose.doesPreventFullbodyGestures()) || (theArmsPose && theArmsPose.doesPreventFullbodyGestures())):
 		gestureFullbodyBlocked = true
 	if((theIdlePose && theIdlePose.doesPreventPartialGestures()) || (theArmsPose && theArmsPose.doesPreventPartialGestures())):
 		gesturePartialBlocked = true

@@ -380,15 +380,6 @@ func updateAnimTreeFor(_seatID:String, _mode:int):
 func onSitterGesturePlay(_gestureID:String, _playFull:bool, _playPartial:bool, _id:String):
 	if(!sitters.has(_id)):
 		return
-	var sitterInfo:Sitter = sitters[_id]
-	var animTree:AnimationTree = sitterInfo.tree
-	var sitDoll:DollController = getSitterDoll(_id)
-	if(!sitDoll):
-		return
-	var theDoll:Doll = sitDoll.getDoll()
-	if(!theDoll):
-		return
-	theDoll.playGestureRaw(animTree, _gestureID, false, _playPartial)
 
 func updateAnim():
 	pass
@@ -399,29 +390,15 @@ func deferUpdateMainAnimTree():
 func deferUpdateAnimSitter(_sitterID:String):
 	pass
 
-func updateRestraintAnimsFor(sitterID:String):
-	if(true):
-		return
-	var sitDoll:DollController = getSitterDoll(sitterID)
-	if(!sitDoll):
-		return
-	var theDoll:Doll = sitDoll.getDoll()
-	if(!theDoll):
-		return
-	var sitterInfo:Sitter = sitters[sitterID]
-	var animTree:AnimationTree = sitterInfo.tree
-	
-	theDoll.updatePose(animTree)
-
-var checkTime:float = 0.0
-func _process(_delta: float) -> void:
-	if(true):
-		return
-	checkTime -= _delta
-	if(checkTime <= 0.0):
-		for sitterID in sitters:
-			updateRestraintAnimsFor(sitterID)
-		checkTime = 0.1
+#var checkTime:float = 0.0
+#func _process(_delta: float) -> void:
+#	if(true):
+#		return
+#	checkTime -= _delta
+#	if(checkTime <= 0.0):
+#		for sitterID in sitters:
+#			updateRestraintAnimsFor(sitterID)
+#		checkTime = 0.1
 
 func updatePenisTargetFor(sitterID:String):
 	var sitDoll:DollController = getSitterDoll(sitterID)

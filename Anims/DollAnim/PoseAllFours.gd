@@ -14,7 +14,7 @@ func _init() -> void:
 	
 	animType = TYPE_IDLE
 	animCanPick = false
-	animSupportsArmPoses = false
+	flagsForAll = FLAG_BLOCKS_ARM_POSES
 	
 	animLibraryName = POSES_ANIMS
 	animLibraryPath = POSES_ANIMS_PATH

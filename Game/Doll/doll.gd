@@ -2,7 +2,7 @@ extends Node3D
 class_name Doll
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var animation_tree: LayeredAnimPlayer = %AnimationTree
+#@onready var animation_tree: LayeredAnimPlayer = %AnimationTree
 @onready var dollDynAnimTree: DollDynAnimTree = %DollDynAnimTree
 @onready var parts_node: Node3D = %Parts
 
@@ -51,17 +51,26 @@ var lookModNeck:float = 1.0
 var lookModChest:float = 1.0
 
 # Anim stuff
-var currentWalkAnim:String = "WalkUnisex"
-var currentWalkAnimSpeed:float = 1.0
-var currentIdleAnim:String = "IdleUnisex"
-var currentIdleAnimSpeed:float = 1.0
-var currentRunAnim:String = "Run"
-var currentRunAnimSpeed:float = 1.0
+var idleAnimEntry:DollAnimEntry
+var walkAnimEntry:DollAnimEntry
+var runAnimEntry:DollAnimEntry
+
+#var currentWalkAnim:String = "LocomotionAnims/WalkUnisex"
+#var currentWalkAnimSpeed:float = 1.0
+#var currentIdleAnim:String = "LocomotionAnims/IdleUnisex" #LocomotionAnims/Idle
+#var currentIdleAnimSpeed:float = 1.0
+#var currentRunAnim:String = "LocomotionAnims/Run"
+#var currentRunAnimSpeed:float = 1.0
+
 var rightArmPose:String = ""
 var currentArmsPose:String = ""
+var locomotionSupportsArmPoses:bool = false
 
-var idleAnimOverride:String = ""
+var idleOverrideEntry:DollAnimEntry
+#var idleAnimOverride:String = ""
 var idleAnimOverrideTime:float = 0.0
+
+var currentAnimEntry:DollAnimEntry
 
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
@@ -84,40 +93,31 @@ static func updateAnimPlayerSpecific(_animPlayer:AnimationPlayer):
 		if(!_animPlayer.has_animation_library(libID)):
 			_animPlayer.add_animation_library(libID, load(libPath))
 		
-func playGestureRaw(_animTree:AnimationTree, _gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
-	if(!_animTree):
-		_animTree = animation_tree
-	var theGesture := GlobalRegistry.getDollGesture(_gestureID)
-	if(theGesture == null):
+func playGestureRaw(_gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
+	var theGesture:DollGestureBase = GlobalRegistry.getDollGesture(_gestureID)
+	if(!theGesture):
 		return
 	if(_playFullBody && theGesture.playFullBody):
-		_animTree.playLayer(animation_tree.LAYER_GESTURE_FULLBODY, _gestureID)
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE_FULLBODY).play(theGesture.getAnimName(), 1.0, 0.25, true, false)
-		pass
 	if(playPartialBody && theGesture.playPartial):
-		_animTree.playLayer(animation_tree.LAYER_GESTURE, _gestureID)
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE).play(theGesture.getAnimName(), 1.0, 0.25, true, false)
 
 func playGesture(_gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
-	playGestureRaw(animation_tree, _gestureID, _playFullBody, playPartialBody)
+	playGestureRaw(_gestureID, _playFullBody, playPartialBody)
 	onGesturePlay.emit(_gestureID, _playFullBody, playPartialBody)
 	
 func stopGesture(stopFullBody:bool = true, stopPartical:bool = true):
 	if(stopFullBody):
-		#animation_tree.stopLayer(animation_tree.LAYER_GESTURE_FULLBODY)
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE_FULLBODY).stop()
-		#animation_tree["parameters/Locomotion/Idle/FullBodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 	if(stopPartical):
-		#animation_tree.stopLayer(animation_tree.LAYER_GESTURE)
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_GESTURE).stop()
-		#animation_tree["parameters/BodyGesture/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 
 func _ready() -> void:
 	registerSpread()
 	updateAnimPlayer()
 	if(disableInternalAnimPlayer):
 		animation_player.active = false
-		animation_tree.active = false
+		dollDynAnimTree.active = false
 	
 	#setIdlePoseEnabled(true)
 	#setIdlePose("Kneel")
@@ -325,7 +325,8 @@ func processScheduled(_delta:float, _key:int):
 	if(idleAnimOverrideTime > 0.0):
 		idleAnimOverrideTime -= _delta
 		if(idleAnimOverrideTime <= 0.0):
-			idleAnimOverride = ""
+			overrideStandTempClear()
+			#idleAnimOverride = ""
 	
 	updateBodyStuff()
 
@@ -578,8 +579,15 @@ func getAttachPoint(pointName:String) -> DollAttachPoint:
 func isFirstPerson() -> bool:
 	return false
 
-func getCurrentLocomotionAnim() -> String:
-	return currentLocomotionAnim
+func getCurrentAnimEntry() -> DollAnimEntry:
+	return currentAnimEntry
+
+func setCurrentAnimEntry(_entry:DollAnimEntry):
+	currentAnimEntry = _entry
+	if(currentAnimEntry):
+		locomotionSupportsArmPoses = !(currentAnimEntry.flags & DollAnimBase.FLAG_BLOCKS_ARM_POSES)
+	else:
+		locomotionSupportsArmPoses = false
 
 func setLocomotionAnimRaw(_type:int, _anim:String, _speed:float = 1.0, _fade:float = 0.25, _resetIfSame:bool = false, _playBackwards:bool = false):
 	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
@@ -602,6 +610,7 @@ func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int =
 	if(_type == LOC_DISABLED):
 		if(theLocLayer.enabled):
 			#stopGesture(true, false)
+			setCurrentAnimEntry(null)
 			theLocLayer.stop(0.25)
 		return
 	theLocLayer.play(0.0)
@@ -609,15 +618,27 @@ func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int =
 		stopGesture(true, false)
 	if(_type == LOC_NORMAL):
 		_pos.x = 0.0
+		
+		if(_pos.is_zero_approx()):
+			setCurrentAnimEntry(idleOverrideEntry if idleOverrideEntry else idleAnimEntry)
+		elif(_pos.y >= 2.0):
+			setCurrentAnimEntry(runAnimEntry)
+		else:
+			setCurrentAnimEntry(walkAnimEntry)
+		
 		if(_modifiers & LMOD_FALLING):
 			theLocLayer.setPos(Vector2.ZERO, false)
 			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
 		else:
 			theLocLayer.setPos(_pos, false)
-			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, currentIdleAnim, currentIdleAnimSpeed)
-		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, currentWalkAnim, currentWalkAnimSpeed)
-		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, currentRunAnim, currentRunAnimSpeed)
+			if(idleOverrideEntry):
+				theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, idleOverrideEntry.finalAnim, idleOverrideEntry.animSpeed)
+			else:
+				theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, idleAnimEntry.finalAnim if idleAnimEntry else "LocomotionAnims/Idle", idleAnimEntry.animSpeed if idleAnimEntry else 1.0)#currentIdleAnim, currentIdleAnimSpeed)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_FORWARD, walkAnimEntry.finalAnim if walkAnimEntry else "LocomotionAnims/WalkUnisex", walkAnimEntry.animSpeed if idleAnimEntry else 1.0)#currentWalkAnim, currentWalkAnimSpeed)
+		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RUN, runAnimEntry.finalAnim if runAnimEntry else "LocomotionAnims/Run", runAnimEntry.animSpeed if runAnimEntry else 1.0)# currentRunAnim, currentRunAnimSpeed)
 	elif(_type == LOC_COMBAT):
+		setCurrentAnimEntry(null)
 		if(_modifiers & LMOD_FALLING):
 			theLocLayer.setPos(Vector2.ZERO, false)
 			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
@@ -630,6 +651,7 @@ func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int =
 		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RIGHT, "CombatAnims/CombatLeft")
 		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_LEFT, "CombatAnims/CombatLeft", 1.0, 0.25, false, true)
 	elif(_type == LOC_COMBAT_BLOCKING):
+		setCurrentAnimEntry(null)
 		if(_modifiers & LMOD_FALLING):
 			theLocLayer.setPos(Vector2.ZERO, false)
 			theLocLayer.playAnim(DollDynAnimTreeDef.LOC_IDLE, "LocomotionAnims/Fall", 1.0, 0.15)
@@ -642,6 +664,7 @@ func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int =
 		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_RIGHT, "CombatAnims/CombatLeftBlock")
 		theLocLayer.playAnim(DollDynAnimTreeDef.LOC_LEFT, "CombatAnims/CombatLeftBlock", 1.0, 0.25, false, true)
 	elif(_type == LOC_DODGE):
+		setCurrentAnimEntry(null)
 		locoBusyTimer = 0.6
 		theLocLayer.setPos(_pos, false)
 		const DODGE_SPEED:float = 1.5
@@ -666,44 +689,18 @@ func setLocomotionDirection(_dir:Vector2):
 	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
 	theLocLayer.setPos(_dir, false)
 
-var currentLocomotionAnim:String = ""
-var locomotionSupportsArmPoses:bool = true
-func travelLocomotion(_newState:String, _speed:float = 1.0, _resetIfSame:bool = false):
-	#if(_newState != "Idle"):
-	#	stopGesture(true, false)
-	#var state_machine:AnimationNodeStateMachinePlayback = animation_tree["parameters/Locomotion/playback"]
-	#if(state_machine.get_current_node() != _newState):
-	#	state_machine.travel(_newState)
-	if(GlobalRegistry.hasDollAnim(_newState)):
-		var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(_newState)
-		locomotionSupportsArmPoses = theAnim.doesAnimSupportArmPoses(_newState)
-	else:
-		locomotionSupportsArmPoses = true
-	currentLocomotionAnim = _newState
-	
-	var theLocLayer:DATBlend2DRun = dollDynAnimTree.getB2Layer(DollDynAnimTreeDef.LAYER_LOCOMOTION)
-	theLocLayer.setPos(Vector2(0.0, 0.0), true, 0.0)
-	animation_tree.playLayer(animation_tree.LAYER_LOCOMOTION, _newState, _speed, _resetIfSame)
-	#animTree.getLayer(XXX).getPoint(0.0).playPlayer(YYY, animID)
-
-func setWalkAnim(_walkAnim:String):
-	currentWalkAnim = _walkAnim
-
-func setIdleAnim(_walkAnim:String):
-	currentIdleAnim = _walkAnim
-
-func setRunAnim(_walkAnim:String):
-	currentRunAnim = _walkAnim
-
 func animStand(_pos:Vector2 = Vector2.ZERO, _mods:int=0):
 	playLocomotionType(LOC_NORMAL, _pos, _mods)
 
 func overrideStandTemp(_newStand:String, _time:float):
-	idleAnimOverride = _newStand
+	if(idleOverrideEntry && idleOverrideEntry.id == _newStand):
+		pass
+	else:
+		idleOverrideEntry = DollAnimEntry.create(_newStand)
 	idleAnimOverrideTime = _time
 
 func overrideStandTempClear():
-	idleAnimOverride = ""
+	idleOverrideEntry = null
 	idleAnimOverrideTime = 0.0
 
 func animCombat(_space:Vector2, _isBlock:bool = false, _mods:int = 0):
@@ -733,10 +730,8 @@ func animIdle(_anim:String, _stopPartialGestures:bool = false):
 	playLocomotionCustom(_anim)
 
 func setAnimPlayerEnabled(newEn:bool):
-	#animation_player.active = newEn
 	animation_player.active = false
 	dollDynAnimTree.active = newEn
-	#animation_tree.active = newEn
 
 var dollAlphaMaskDirty:bool = false
 func triggerAlphaMaskUpdate():
@@ -972,19 +967,11 @@ func updatePartFilter():
 				#updatePartFromCharacter(genericType, bodypartSlot)
 				updatePartFromCharacterDelayed(genericType, bodypartSlot)
 
-func updatePose(theAnimationTree:LayeredAnimPlayer = null):
+func updatePose():
 	var theChar:BaseCharacter = getChar()
 	if(!theChar):
-		#setIdleAnim("normal1")
 		return
-	#var thePawn := theChar.getPawn() #ANIM: Probably pretty slow
-	#if(!thePawn):
-	#	return
-	#setIdleAnim(theChar.getIdleAnim())
-	var _isLocomotion:bool = false
-	if(!theAnimationTree):
-		theAnimationTree = animation_tree
-		_isLocomotion = true
+	var _isLocomotion:bool = true
 	
 	#var theArms := thePawn.poseHandler.getArms()
 	var theArmsPose:String = currentArmsPose
@@ -1002,19 +989,13 @@ func updatePose(theAnimationTree:LayeredAnimPlayer = null):
 	
 	if(!theArmsPose.is_empty()):
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_ARMS).play(theArmsPose)
-		#theAnimationTree.playLayer(animation_tree.LAYER_ARMS_OVERRIDE, theArmsPose)
 	else:
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_ARMS).stop(0.2)
-		#theAnimationTree.stopLayer(animation_tree.LAYER_ARMS_OVERRIDE)
 		
 	if(_isLocomotion && !rightArmPose.is_empty()):
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_RIGHT_ARM).play(rightArmPose)
-		#theAnimationTree.playLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE, rightArmPose) #"holdLeash"
 	else:
 		dollDynAnimTree.getALayer(DollDynAnimTreeDef.LAYER_RIGHT_ARM).stop(0.25)
-		#theAnimationTree.stopLayer(animation_tree.LAYER_RIGHT_ARM_OVERRIDE)
-	
-	#playSubAnims()
 	
 func _on_visible_on_screen_enabler_3d_screen_entered() -> void:
 	parts_node.visible = true

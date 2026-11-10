@@ -8,6 +8,7 @@ var anim:DollAnimBase
 var moveSpeed:float = 1.0
 var animSpeed:float = 1.0
 var finalAnim:String = ""
+var flags:int = 0
 
 static func create(_id:String) -> DollAnimEntry:
 	var theEntry := DollAnimEntry.new()
@@ -23,5 +24,6 @@ func setID(_id:String):
 		moveSpeed = anim.getMoveSpeed(_id)
 		animSpeed = anim.getAnimSpeed(_id)
 		finalAnim = anim.animNameFinal[_id]
+		flags = anim.getAnimFlags(_id)
 	else:
 		assert(false, "FAILED TO FIND DOLL ANIM: "+str(_id))

@@ -17,6 +17,7 @@ var enableBlend:float = 0.0
 var playTime:float = -1.0
 var fadeInOut:float = 0.25
 var stopping:bool = false
+var playedSomething:bool = false
 
 var datAnimRun:DATLayerRun
 var customBlendTree:AnimationNodeBlendTree
@@ -60,6 +61,13 @@ func onEnable():
 		datAnimRun.connectNodes("", 1, "blend")
 		
 	enabled = true
+	if(instantEnable):
+		enableBlend = 1.0
+		if(customBlendTree):
+			pass
+		else:
+			datAnimRun.tree["parameters/"+str(datAnimRun.layerIndx)+"/blend_amount"] = 1.0
+
 
 func onDisable():
 	stopping = false
@@ -69,6 +77,7 @@ func onDisable():
 	currentAnim = ""
 	oldAnim = ""
 	switching = false
+	playedSomething = false
 
 func stop(_fade:float = -1.0):
 	if(enabled):
@@ -106,6 +115,8 @@ func play(_anim:String, _speed:float = 1.0, _fade:float = 0.25, _resetIfSame:boo
 		datAnimRun.setEnabled(true)
 	if(!wasEnabled && instantEnable):
 		fadeInOut = _fade
+		#enableBlend = 1.0
+		#datAnimRun.tree["parameters/"+str(datAnimRun.layerIndx)+"/blend_amount"] = 1.0
 	else:
 		fadeInOut = _fade
 	#if(!wasEnabled && instantEnable):
@@ -126,8 +137,9 @@ func play(_anim:String, _speed:float = 1.0, _fade:float = 0.25, _resetIfSame:boo
 	
 	if(!sameAsOld):
 		curPos = (1.0-float(curNode)) if wasEnabled else float(curNode)
-		if(!wasEnabled && instantEnable):
-			curPos = (1.0-float(curNode)) if !wasEnabled else float(curNode)
+		if(!playedSomething && instantEnable):
+			playedSomething = true
+			curPos = (1.0-float(curNode)) if !playedSomething else float(curNode)
 		
 	if(customBlendTree):
 		datAnimRun.tree["parameters/"+customParStr+"/blend/blend_position"] = DATLayerRun.SMOOTH.sample_baked(curPos)

@@ -144,8 +144,7 @@ func isStandingOrCanGetUpEasily() -> bool:
 
 # Vec3(head, neck, chest)
 func getTargetVecForLookAtModifiers(_doll:DollController) -> Vector3:
-	var theAnimID := _doll.getCurrentLocomotionAnim()
-	if(theAnimID.is_empty() || !GlobalRegistry.hasDollAnim(theAnimID)):
+	var theAnim:DollAnimEntry = _doll.doll.currentAnimEntry
+	if(!theAnim):
 		return Vector3(1.0, 1.0, 1.0)
-	var theAnim:DollAnimBase = GlobalRegistry.getDollAnim(theAnimID)
-	return theAnim.getLookAtMods(theAnimID)
+	return theAnim.anim.getLookAtMods(theAnim.id)
