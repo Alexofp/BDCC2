@@ -10,19 +10,22 @@ func calculateStateAnimData():
 	#var seatInfo:Sitter = sitters[seatID]
 	#var animPlayer:AnimationPlayer = seatInfo.anim
 	
-	var animPlayer:AnimationPlayer = AnimationPlayer.new()
-	for animLibraryID in animLibraries:
-		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
+	#var animPlayer:AnimationPlayer = AnimationPlayer.new()
+	#for animLibraryID in animLibraries:
+	#	animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
 	for stateID in states:
 		var stateInfo:AnimSceneState = states[stateID]
 		var animName:String = stateInfo.anims[seatID]
-		var theAnimation:Animation = animPlayer.get_animation(animName)
+		#var theAnimation:Animation = animPlayer.get_animation(animName)
+		var theAnimInfo:Array = GlobalRegistry.getDollLibAnimationInfo(animName)
+		if(theAnimInfo.size() < 4):
+			assert(false, "Something is wrong!")
 		
 		animData[stateID] = {
-			len = theAnimation.length,
-			loop = theAnimation.loop_mode,
-			step = theAnimation.step,
+			len = theAnimInfo[0],#theAnimation.length,
+			loop = theAnimInfo[3],#theAnimation.loop_mode,
+			step = theAnimInfo[2],#theAnimation.step,
 		}
 	
 	for extraLayer in extraLayers:
@@ -34,32 +37,94 @@ func calculateStateAnimData():
 			var oneshotData :AnimSceneExtraLayerOneshot= extraLayer
 			
 			var oneshotAnimName:String = oneshotData.anims[seatID]
-			var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
+			#var theAnimation:Animation = animPlayer.get_animation(oneshotAnimName)
+			var theAnimInfo:Array = GlobalRegistry.getDollLibAnimationInfo(oneshotAnimName)
+			if(theAnimInfo.size() < 4):
+				assert(false, "Something is wrong!")
 			
 			animData[oneshotID] = {
-				len = theAnimation.length,
-				loop = theAnimation.loop_mode,
-				step = theAnimation.step,
+				len = theAnimInfo[0],#theAnimation.length,
+				loop = theAnimInfo[3],#theAnimation.loop_mode,
+				step = theAnimInfo[2],#theAnimation.step,
 			}
 		elif(theType == LAYER_ADD3):
 			var theAnimName:String = extraLayer.animsPlus[seatID]
-			var theAnimation:Animation = animPlayer.get_animation(theAnimName)
+			#var theAnimation:Animation = animPlayer.get_animation(theAnimName)
+			var theAnimInfo:Array = GlobalRegistry.getDollLibAnimationInfo(theAnimName)
+			if(theAnimInfo.size() < 4):
+				assert(false, "Something is wrong!")
+			
 			animData[layerID] = {
-				len = theAnimation.length,
-				loop = theAnimation.loop_mode,
-				step = theAnimation.step,
+				len = theAnimInfo[0],#theAnimation.length,
+				loop = theAnimInfo[3],#theAnimation.loop_mode,
+				step = theAnimInfo[2],#theAnimation.step,
 			}
+
+func addAnimLibToPropAsync(_theAnimPlayer:AnimationPlayer, _theLib:DollAnimLib):
+	var theAnimLib:AnimationLibrary = await GlobalRegistry.loadThreaded(_theLib.libPath)
+	if(!theAnimLib):
+		Log.Printerr("Failed to load an anim lib for a prop for anim scene: "+id)
+		return
+	_theAnimPlayer.add_animation_library(_theLib.id, theAnimLib)
+	pass
+
+func addAnimLibToPropAsyncAlt(propID:String):
+	if(!propAnimLibs.has(propID) || !props.has(propID)):
+		return
+	var thePropInfo:PropSlot = props[propID]
+	var theAnimLibs:Array = propAnimLibs[propID]
+	var theProp := thePropInfo.spot.getProp()
+	if(!theProp):
+		return
+	for animLibraryID:String in theAnimLibs:
+		var theLib:DollAnimLib = GlobalRegistry.getAnimLib(animLibraryID)
+		if(!theLib):
+			continue
+		var theAnimLib:AnimationLibrary = await GlobalRegistry.loadThreaded(theLib.libPath)
+		if(!theAnimLib):
+			Log.Printerr("Failed to load an anim lib for a prop for anim scene: "+id)
+			continue
+		var theAnimPlayer:AnimationPlayer = thePropInfo.anim
+		theAnimPlayer.root_node = theAnimPlayer.get_path_to(theProp)
+		thePropInfo.tree.root_node = thePropInfo.tree.get_path_to(theProp)
+		if(!theAnimPlayer.has_animation_library(animLibraryID)):
+			theAnimPlayer.add_animation_library(animLibraryID, theAnimLib)
+		#print(theAnimPlayer.root_node, " ", theAnimPlayer.get_node(theAnimPlayer.root_node))
+		#print(thePropInfo.tree.root_node, " ", thePropInfo.tree.get_node(thePropInfo.tree.root_node))
+		pass
 
 func updateAllAnimTrees():
 	#Only needed for sitters (dolls)
-	for seatID in sitters:
-		updateAnimPlayerFor(seatID)
-	for propID in props:
-		var thePropInfo:PropSlot = props[propID]
-		var theAnimPlayer:AnimationPlayer = thePropInfo.anim
-		for animLibraryID in thePropInfo.animLibraries:
-			theAnimPlayer.add_animation_library(animLibraryID, load(thePropInfo.animLibraries[animLibraryID]))
+	#for seatID in sitters:
+	#	updateAnimPlayerFor(seatID)
 	
+	#for propID:String in props:
+	#	var propInfo:PropSlot = props[propID]
+	#	var theProp := propInfo.spot.getProp()
+	#	var animTree:AnimationTree = propInfo.tree
+	#	animTree.root_node = animTree.get_path_to(theProp)
+	#	propInfo.anim.root_node = propInfo.anim.get_path_to(theProp)
+	
+	if(false):
+		for propID in props:
+			addAnimLibToPropAsyncAlt(propID)
+	
+	if(false):
+		for propID in props:
+			var thePropInfo:PropSlot = props[propID]
+			var theAnimPlayer:AnimationPlayer = thePropInfo.anim
+			
+			if(!propAnimLibs.has(propID)):
+				continue
+			var theAnimLibs:Array = propAnimLibs[propID]
+			for animLibraryID:String in theAnimLibs:
+				var theLib:DollAnimLib = GlobalRegistry.getAnimLib(animLibraryID)
+				if(!theLib):
+					continue
+				#addAnimLibToPropAsync(theAnimPlayer, theLib)
+				#theAnimPlayer.add_animation_library(animLibraryID, load(thePropInfo.animLibraries[animLibraryID]))
+				theAnimPlayer.add_animation_library(animLibraryID, load(theLib.libPath))
+		
 	calculateStateAnimData()
 	updateMainAnimTree()
 	
@@ -196,12 +261,25 @@ func playState(newState:String, setToState:bool=false, theAnimArgs:Dictionary = 
 			theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
 		var sitterInfo:Sitter = sitters[sitterID]
 		var animTree:AnimationTree = sitterInfo.tree
-		
+		if(!animTree):
+			continue
 		var animTreePlayback:AnimationNodeStateMachinePlayback = animTree["parameters/blendtree/statemachine/playback"]
 		animTreePlayback.travel(newState)
 	for propID in props:
 		var propInfo:PropSlot = props[propID]
 		var animTree:AnimationTree = propInfo.tree
+		
+		var _theAnimPlayer:AnimationPlayer = animTree.get_node_or_null(animTree.anim_player)
+		#print(animTree.active)
+		#print(_theAnimPlayer.active)
+		#print(_theAnimPlayer.get_animation_list())
+		
+		#_theAnimPlayer.active = true
+		#var theAnimPLayer:AnimationPlayer = animTree.get_node(animTree.anim_player)
+		#print(theAnimPLayer.get_animation_library_list())
+		
+		#var theBlend:AnimationNodeBlendTree = animTree.tree_root
+		#ResourceSaver.save(theBlend, "user://atest.tres")
 		
 		var animTreePlayback:AnimationNodeStateMachinePlayback = animTree["parameters/blendtree/statemachine/playback"]
 		animTreePlayback.travel(newState)
@@ -480,6 +558,7 @@ func updateAnim():
 		#var theSpot := getSpotProp(propID)
 		#if(theSpot):
 		#	theSpot.dollAnimKey = id+"_"+state+"_"+sitterID
+		#deferUpdateAnimProp(propID)
 		deferUpdateAnimProp.call_deferred(propID)
 		
 	deferUpdateMainAnimTree.call_deferred()
@@ -494,6 +573,7 @@ func deferUpdateMainAnimTree():
 func deferUpdateAnimProp(propID:String):
 	var propInfo:PropSlot = props[propID]
 	var animTree:AnimationTree = propInfo.tree
+	var _animPlayer:AnimationPlayer = propInfo.anim
 	
 	var theProp := propInfo.spot.getProp()
 	
@@ -502,6 +582,7 @@ func deferUpdateAnimProp(propID:String):
 		var theSkeleton:Skeleton3D = theProp.getPropSkeleton()
 		theSkeleton.reset_bone_poses()
 		animTree.root_node = animTree.get_path_to(theProp)#animTree.get_path_to(theSkeleton)
+		_animPlayer.root_node = _animPlayer.get_path_to(theProp)#animTree.get_path_to(theSkeleton)
 		#user.getBodySkeleton().resetBones()
 		#theAnimPlayer.root_node = theAnimPlayer.get_path_to(user.getBodySkeleton())
 

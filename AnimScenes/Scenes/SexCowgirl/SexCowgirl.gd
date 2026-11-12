@@ -5,12 +5,12 @@ extends AnimSceneBase
 
 func _init() -> void:
 	id = "SexCowgirl"
+	
+	animLibs = ["SexCowgirl"]
 
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
-	
-	addAnimLibrary("SexCowgirl", "res://Anims/Raw/SexCowgirl.glb")
 	
 	addState("tease", {
 		dom = "SexCowgirl/SexTease_1",

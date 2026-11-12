@@ -2,6 +2,8 @@ extends Node3D
 class_name AnimSceneBaseFuncs
 
 var id:String = "" # Used for anim tree caching
+var animLibs:Array[String] # Ids of used animation libraries for dolls
+var propAnimLibs:Dictionary[String, Array] #Dict[propID, Array[Ids of anim libs]]
 
 const TAIL_OUT_OF_THE_WAY_FLAGS = {
 	TailSex = true,
@@ -21,9 +23,9 @@ class PropSlot:
 	var tree:AnimationTree
 	var anim:AnimationPlayer
 	
-	var animLibraries:Dictionary = {}
-	func addAnimLibrary(theID:String, thePath:String):
-		animLibraries[theID] = thePath
+	#var animLibraries:Array[String] = []
+	#func addAnimLibrary(theID:String):
+	#	animLibraries.append(theID)
 	
 var props:Dictionary[String, PropSlot] = {}
 
@@ -121,7 +123,7 @@ var extraLayersByID:Dictionary[String, AnimSceneExtraLayerBase] = {}
 var state:String = ""
 var currentStateSpeed:float = 1.0
 
-var animLibraries:Dictionary = {}
+#var animLibraries:Dictionary = {}
 var animData:Dictionary = {}
 
 const PENISTARGET_SITTER_HOLE = 0
@@ -220,13 +222,13 @@ func alignPenisReset(theID:String):
 	penisTarget.erase(theID)
 	updatePenisTargetFor(theID)
 
-func addAnimLibrary(theID:String, thePath:String):
-	animLibraries[theID] = thePath
+#func addAnimLibrary(theID:String, thePath:String):
+#	animLibraries[theID] = thePath
 
-func addPropAnimLibrary(propID:String, theID:String, thePath:String):
-	if(!props.has(propID)):
-		return
-	props[propID].addAnimLibrary(theID, thePath)
+#func addPropAnimLibrary(propID:String, theID:String):
+#	if(!props.has(propID)):
+#		return
+#	props[propID].addAnimLibrary(theID)
 
 func setStartState(stateID:String):
 	startState = stateID
@@ -255,19 +257,36 @@ func updateAllAnimTrees():
 	pass
 
 # Adds all doll poses animation libraries
-func updateAnimPlayerFor(seatID:String):
-	var seatInfo:Sitter = sitters[seatID]
-	var animPlayer:AnimationPlayer = seatInfo.anim
-	if(!animPlayer):
-		return
-	
-	for animLibraryID in animLibraries:
-		if(animPlayer.has_animation_library(animLibraryID)):
-			continue
-		animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
+func updateAnimPlayerFor(_seatID:String):
+	pass
+	#var seatInfo:Sitter = sitters[seatID]
+	#var animPlayer:AnimationPlayer = seatInfo.anim
+	#if(!animPlayer):
+	#	return
+	#
+	#for animLibraryID in animLibraries:
+	#	if(animPlayer.has_animation_library(animLibraryID)):
+	#		continue
+	#	animPlayer.add_animation_library(animLibraryID, load(animLibraries[animLibraryID]))
 	
 	# Not needed?
 	#Doll.updateAnimPlayerSpecific(animPlayer)
+
+func addAnimLibsForDoll(_doll:DollController):
+	if(!_doll):
+		return
+	#Log.Print("ADDING ANIM LIBS FOR "+str(_doll))
+	var theHandler:DollAnimLibHandler = _doll.getDoll().dollDynAnimTree.libHandler
+	for theAnimLibID:String in animLibs:
+		theHandler.addAnimLib(theAnimLibID)
+
+func removeAnimLibsForDoll(_doll:DollController):
+	if(!_doll):
+		return
+	#Log.Print("REMOVING ANIM LIBS FROM "+str(_doll))
+	var theHandler:DollAnimLibHandler = _doll.getDoll().dollDynAnimTree.libHandler
+	for theAnimLibID:String in animLibs:
+		theHandler.removeAnimLib(theAnimLibID)
 
 #func calculateStateAnimData():
 #	pass
@@ -328,10 +347,15 @@ func addPropSpot(_theID:String, _theSpot:PropSpot):
 	newSitter.anim = newAnimPlayer
 	
 	props[_theID] = newSitter
+	addAnimLibToPropAsyncAlt(_theID)
 	_theSpot.onPropSwitch.connect(onSeatPropSwitchFunc.bind(_theID))
-	
+
 func onSeatPropSwitchFunc(_newPawn:Node3D, _oldNode:Node3D, _theID:String):
 	updateAnim()
+	addAnimLibToPropAsyncAlt(_theID)
+	pass
+
+func addAnimLibToPropAsyncAlt(_id:String):
 	pass
 
 func addSeat(theID:String, theSpot:PoseSpot):
@@ -368,11 +392,26 @@ func onSeatDollSwitchFunc(_newDoll:DollController, _oldDoll:DollController, theI
 	#	_oldDoll.onGesturePlay.disconnect(onSitterGesturePlay.bind(theID))
 	#if(_newDoll):
 	#	_newDoll.onGesturePlay.connect(onSitterGesturePlay.bind(theID))
-
-	updateAnimPlayerFor(theID)
+	if(_oldDoll):
+		removeAnimLibsForDoll(_oldDoll)
+	if(_newDoll):
+		addAnimLibsForDoll(_newDoll)
+	
+	#updateAnimPlayerFor(theID)
 	updateAnimTreeFor(theID, AnimSceneBase.UPDATE_SITTER)
 	updateAnim()
 	onDollSwitch.emit(theID, _newDoll)
+
+func _exit_tree() -> void:
+	for _seatID:String in sitters:
+		var theSitter:Sitter = sitters[_seatID]
+		var thePawn:CharacterPawn = theSitter.spot.getSitterPawn()
+		if(!thePawn):
+			continue
+		var theDoll:DollController = thePawn.getDoll()
+		if(!theDoll):
+			continue
+		removeAnimLibsForDoll(theDoll)
 
 func updateAnimTreeFor(_seatID:String, _mode:int):
 	pass

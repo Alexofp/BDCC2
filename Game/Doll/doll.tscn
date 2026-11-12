@@ -5,19 +5,12 @@
 [ext_resource type="Script" uid="uid://1n0mqd1c34ui" path="res://addons/wigglebone/wiggle_rotation_modifier_3d.gd" id="3_ghp2k"]
 [ext_resource type="PackedScene" uid="uid://dyx0lcoi6r0tp" path="res://Game/Doll/FaceAnimator/voice_handler.tscn" id="3_l2cwv"]
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="4_avrwx"]
-[ext_resource type="AnimationLibrary" uid="uid://nn3cjmcfumow" path="res://Anims/Raw/BasicAnims.glb" id="5_avrwx"]
 [ext_resource type="PackedScene" uid="uid://dkb1debrkhae6" path="res://Game/Doll/Util/hover_text.tscn" id="6_yn8uc"]
-[ext_resource type="AnimationLibrary" uid="uid://dqms0sfsng4i8" path="res://Anims/Raw/GestureAnims.glb" id="7_5l1g8"]
-[ext_resource type="AnimationLibrary" uid="uid://cmuxw6uiifp2h" path="res://Anims/Raw/LocomotionAnims.glb" id="7_l2cwv"]
 [ext_resource type="Script" uid="uid://d0xtmwcqewrrd" path="res://Mesh/Skeleton/Modifiers/SkeletonHitModifier.gd" id="7_olppk"]
 [ext_resource type="PackedScene" uid="uid://cp6xjo2jexanl" path="res://UI/Util/ProgressBar3D/HoverTextAdvanced.tscn" id="7_p36ij"]
-[ext_resource type="AnimationLibrary" uid="uid://em4khdpq3sdg" path="res://Anims/Raw/ArmbinderAnimMale.glb" id="8_cpvxs"]
 [ext_resource type="PackedScene" uid="uid://gi8upsb163ri" path="res://Game/UI/CombatUI/RadialDollBars.tscn" id="8_doc38"]
 [ext_resource type="PackedScene" uid="uid://4uvyacycvxbs" path="res://Util/SomeTests/DepthFogTest/BlindnessQuadEffect.tscn" id="8_dr03u"]
-[ext_resource type="AnimationLibrary" uid="uid://b08i0engip1rw" path="res://Anims/Raw/RestraintAnims.glb" id="8_yudco"]
 [ext_resource type="PackedScene" uid="uid://bgux6rpndyvti" path="res://Mesh/Materials/MyLayeredTexture/my_layered_texture.tscn" id="10_ehs3x"]
-[ext_resource type="AnimationLibrary" uid="uid://dur376t66excq" path="res://Anims/Raw/CombatAnims.glb" id="12_l7aga"]
-[ext_resource type="AnimationLibrary" uid="uid://bigpaqbf8omql" path="res://Anims/Raw/Poses.glb" id="12_xxuld"]
 [ext_resource type="Script" uid="uid://cf10qu3phjusb" path="res://Game/Doll/DollDynAnimTree.gd" id="23_nweep"]
 
 [sub_resource type="Resource" id="Resource_l2cwv"]
@@ -42,21 +35,21 @@ linear_scale = 10.0
 swing_span = 0.17453292519943295
 metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nweep"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1pahp"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8y2xi"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5l1g8"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
 initial_velocity_max = 3.0
 scale_max = 2.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gc4t1"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yn8uc"]
 resource_local_to_scene = true
 direction = Vector3(0, 0, 1)
 spread = 1.0
@@ -85,56 +78,7 @@ unique_name_in_owner = true
 [node name="BodySkeleton" parent="Parts" unique_id=1490678536 instance=ExtResource("2_k7aqf")]
 unique_name_in_owner = true
 
-[node name="Skeleton3D" parent="Parts/BodySkeleton/rig" parent_id_path=PackedInt32Array(1490678536, 1619375476) index="0" unique_id=916782178]
-bones/2/rotation = Quaternion(0.008433379, 0.09200061, 0.9935516, -0.0657268)
-bones/4/rotation = Quaternion(0.62807715, -0.03421264, -0.045257114, 0.7760802)
-bones/8/rotation = Quaternion(-2.6543262e-08, -0.0005190402, 2.0032599e-07, 0.9999999)
-bones/11/rotation = Quaternion(-0.008433234, 0.0920006, 0.9935516, 0.0657268)
-bones/13/rotation = Quaternion(0.6280771, 0.034212705, 0.04525706, 0.77608025)
-bones/17/rotation = Quaternion(-8.616431e-08, 0.0005192031, -1.929374e-07, 0.9999999)
-bones/25/rotation = Quaternion(-0.5374649, -0.35257804, -0.42018282, 0.6405206)
-bones/26/rotation = Quaternion(-0.73044413, 0.46290627, -0.20229357, 0.45961568)
-bones/27/rotation = Quaternion(0.0917063, 1.3816869e-05, -0.0111225555, 0.995724)
-bones/28/rotation = Quaternion(0.086859785, 0.3428, 0.13116316, 0.9261424)
-bones/29/rotation = Quaternion(0.1424826, 0.64266247, -0.0058125705, 0.75276154)
-bones/30/rotation = Quaternion(0.08417183, -0.0037619483, 0.0009835563, 0.99644375)
-bones/31/rotation = Quaternion(0.02494724, -0.001622089, -0.00012252283, 0.9996875)
-bones/32/rotation = Quaternion(0.123376355, 0.67936826, -0.046711903, 0.72184145)
-bones/33/rotation = Quaternion(0.14813879, 0.0010666505, 0.0002878791, 0.9889659)
-bones/34/rotation = Quaternion(-0.012580701, 0.0010373605, 1.8792385e-05, 0.99992037)
-bones/35/rotation = Quaternion(0.12476009, 0.7227975, -0.09200956, 0.6734485)
-bones/36/rotation = Quaternion(0.082765244, -0.0015092661, 0.0003927867, 0.9965679)
-bones/37/rotation = Quaternion(0.05546773, -0.00094576355, 1.0806963e-05, 0.99846005)
-bones/38/rotation = Quaternion(0.09333957, 0.7568766, -0.1455525, 0.6302698)
-bones/39/rotation = Quaternion(0.0819992, 0.00024833583, 2.862417e-05, 0.9966324)
-bones/40/rotation = Quaternion(0.051881973, -0.0010128996, -3.056994e-07, 0.9986528)
-bones/41/rotation = Quaternion(0.12482551, 0.9510815, 0.15317567, 0.23748663)
-bones/45/rotation = Quaternion(5.7539154e-08, 0.10514706, 3.4552855e-07, 0.99445665)
-bones/46/rotation = Quaternion(5.2488907e-08, 0.34324756, 4.9452757e-07, 0.939245)
-bones/48/rotation = Quaternion(1.813431e-07, 0.08731741, 4.1996554e-08, 0.99618053)
-bones/50/rotation = Quaternion(-0.537465, 0.35257822, 0.4201829, 0.6405204)
-bones/51/rotation = Quaternion(-0.7304439, -0.46290606, 0.20229372, 0.4596161)
-bones/52/rotation = Quaternion(0.09170573, -1.3967045e-05, 0.0111225685, 0.995724)
-bones/53/rotation = Quaternion(0.08686023, -0.34280014, -0.13116293, 0.9261424)
-bones/54/rotation = Quaternion(0.14248237, -0.64266235, 0.005812414, 0.7527617)
-bones/55/rotation = Quaternion(0.084171906, 0.003761908, -0.0009836043, 0.99644375)
-bones/56/rotation = Quaternion(0.024947211, 0.0016221054, 0.00012252935, 0.9996875)
-bones/57/rotation = Quaternion(0.12337627, -0.6793682, 0.04671176, 0.7218415)
-bones/58/rotation = Quaternion(0.14813867, -0.0010666533, -0.00028786677, 0.98896605)
-bones/59/rotation = Quaternion(-0.012580975, -0.0010373619, -1.8777107e-05, 0.99992037)
-bones/60/rotation = Quaternion(0.12476005, -0.7227976, 0.09200946, 0.6734485)
-bones/61/rotation = Quaternion(0.082764894, 0.0015092867, -0.00039278128, 0.9965679)
-bones/62/rotation = Quaternion(0.055467617, 0.00094569987, -1.0795127e-05, 0.99846005)
-bones/63/rotation = Quaternion(0.09333952, -0.7568765, 0.14555229, 0.6302699)
-bones/64/rotation = Quaternion(0.08199922, -0.00024840696, -2.8536073e-05, 0.9966324)
-bones/65/rotation = Quaternion(0.05188194, 0.0010129927, 2.8667276e-07, 0.9986528)
-bones/66/rotation = Quaternion(-0.124825396, 0.9510815, 0.1531757, -0.23748663)
-bones/70/rotation = Quaternion(-5.935236e-08, -0.13813302, -7.467343e-09, 0.9904137)
-bones/71/rotation = Quaternion(1.7013498e-07, -0.3432475, -8.2655066e-07, 0.939245)
-bones/73/rotation = Quaternion(1.3883594e-07, -0.087317504, -1.6785457e-08, 0.9961806)
-bones/77/rotation = Quaternion(0.009472724, 0.09206041, 0.9935402, -0.065674715)
-
-[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="2" unique_id=1873600430]
+[node name="BreastLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="2" unique_id=1873600430]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -156,7 +100,7 @@ bone_name = "breast.L"
 properties = SubResource("Resource_l2cwv")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="3" unique_id=563262781]
+[node name="BreastRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="3" unique_id=563262781]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -178,7 +122,7 @@ bone_name = "breast.R"
 properties = SubResource("Resource_l2cwv")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="4" unique_id=412586149]
+[node name="ButtLWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="4" unique_id=412586149]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -200,7 +144,7 @@ bone_name = "butt.L"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="5" unique_id=1045547123]
+[node name="ButtRWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="5" unique_id=1045547123]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -222,7 +166,7 @@ bone_name = "butt.R"
 properties = SubResource("Resource_ghp2k")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="6" unique_id=932123868]
+[node name="VaginaWiggle" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="6" unique_id=932123868]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -268,7 +212,7 @@ transform = Transform3D(1, -2.4947767e-21, 2.5410988e-21, 7.940934e-22, 1, -1.11
 unique_name_in_owner = true
 visible = false
 
-[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="18" unique_id=1226392226]
+[node name="LookAtModifierChest" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="18" unique_id=1226392226]
 unique_name_in_owner = true
 influence = 0.5
 target_node = NodePath("../../../../../LookAtTarget")
@@ -283,7 +227,7 @@ symmetry_limitation = true
 primary_limit_angle = 1.5707964
 primary_damp_threshold = 1.0
 
-[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="19" unique_id=676757426]
+[node name="LookAtModifierNeck" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="19" unique_id=676757426]
 unique_name_in_owner = true
 influence = 0.75
 target_node = NodePath("../../../../../LookAtTarget")
@@ -299,7 +243,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.6981317
 secondary_damp_threshold = 1.0
 
-[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="20" unique_id=1796183666]
+[node name="LookAtModifierHead" type="LookAtModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="20" unique_id=1796183666]
 unique_name_in_owner = true
 target_node = NodePath("../../../../../LookAtTarget")
 bone_name = "head"
@@ -314,7 +258,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.5235988
 secondary_damp_threshold = 1.0
 
-[node name="SkeletonHitModifier" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" index="21" unique_id=939944890]
+[node name="SkeletonHitModifier" type="SkeletonModifier3D" parent="Parts/BodySkeleton/rig/Skeleton3D" parent_id_path=PackedInt32Array(1490678536, 916782178) index="21" unique_id=939944890]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -337,24 +281,17 @@ script = ExtResource("7_olppk")
 transform = Transform3D(1, -1.45787e-15, -1.45906e-15, 1.70219e-15, 0.982808, 0.184638, 1.16479e-15, -0.184638, 0.982808, -1.65712e-15, 0.127416, -0.0878506)
 
 [node name="SquirtParticles1" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="0" unique_id=1486787374]
-process_material = SubResource("ParticleProcessMaterial_nweep")
+process_material = SubResource("ParticleProcessMaterial_1pahp")
 
 [node name="SquirtParticles2" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="1" unique_id=180615130]
-process_material = SubResource("ParticleProcessMaterial_8y2xi")
+process_material = SubResource("ParticleProcessMaterial_5l1g8")
 
 [node name="SquirtParticles3" parent="Parts/BodySkeleton/rig/Skeleton3D/BoneAttachment3D2/SquirtNode" parent_id_path=PackedInt32Array(1490678536, 26717111) index="2" unique_id=1339676236]
-process_material = SubResource("ParticleProcessMaterial_gc4t1")
+process_material = SubResource("ParticleProcessMaterial_yn8uc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Parts/BodySkeleton" unique_id=1573222048]
 unique_name_in_owner = true
 active = false
-libraries/ArmbinderAnimMale = ExtResource("8_cpvxs")
-libraries/BasicAnims = ExtResource("5_avrwx")
-libraries/CombatAnims = ExtResource("12_l7aga")
-libraries/GestureAnims = ExtResource("7_5l1g8")
-libraries/LocomotionAnims = ExtResource("7_l2cwv")
-libraries/Poses = ExtResource("12_xxuld")
-libraries/RestraintAnims = ExtResource("8_yudco")
 autoplay = &"BodyAnims/Idle"
 
 [node name="DollDynAnimTree" type="AnimationTree" parent="Parts/BodySkeleton" unique_id=243907031 node_paths=PackedStringArray("skeleton")]

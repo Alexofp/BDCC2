@@ -5,12 +5,12 @@ extends AnimSceneBase
 
 func _init() -> void:
 	id = "AgainstWallSexStart"
+	
+	animLibs = ["AgainstWallSexStart"]
 
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
-	
-	addAnimLibrary("AgainstWallSexStart", "res://Anims/Raw/AgainstWallSexStart.glb")
 	
 	addState("backLegUp", {
 		dom = "AgainstWallSexStart/BackLegUp_1",

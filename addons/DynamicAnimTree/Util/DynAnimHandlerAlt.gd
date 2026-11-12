@@ -132,8 +132,11 @@ func play(_anim:String, _speed:float = 1.0, _fade:float = 0.25, _resetIfSame:boo
 	theAnimNode.animation = _anim
 	theAnimNode.play_mode = AnimationNodeAnimation.PLAY_MODE_BACKWARD if _backwards else AnimationNodeAnimation.PLAY_MODE_FORWARD
 	
-	var theAnim:Animation = datAnimRun.tree.getAnimation(_anim)
-	playTime = theAnim.length/_speed if theAnim.loop_mode == Animation.LoopMode.LOOP_NONE else -1.0
+	#var theAnim:Animation = datAnimRun.tree.getAnimation(_anim)
+	#playTime = theAnim.length/_speed if theAnim.loop_mode == Animation.LoopMode.LOOP_NONE else -1.0
+	var theAnimInfo:Array = datAnimRun.tree.getAnimationInfo(_anim)
+	playTime = theAnimInfo[0]/_speed if !theAnimInfo[1] else -1.0
+	#playTime = theAnim.length/_speed if theAnim.loop_mode == Animation.LoopMode.LOOP_NONE else -1.0
 	
 	if(!sameAsOld):
 		curPos = (1.0-float(curNode)) if wasEnabled else float(curNode)

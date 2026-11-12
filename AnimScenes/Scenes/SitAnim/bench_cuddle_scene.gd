@@ -5,12 +5,12 @@ extends AnimSceneBase
 
 func _init() -> void:
 	id = "bench_cuddle"
+	
+	animLibs = ["BenchCuddleAnim"]
 
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
-	
-	addAnimLibrary("BenchCuddleAnim", "res://Anims/Raw/BenchCuddleAnim.glb")
 	
 	addState("cuddle", {
 		dom = "BenchCuddleAnim/BenchCuddle_1",

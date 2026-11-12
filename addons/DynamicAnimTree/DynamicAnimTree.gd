@@ -218,6 +218,13 @@ func getAnimation(_name:String) -> Animation:
 		return null
 	return theAnimPlayer.get_animation(_name)
 
+func getAnimationInfo(_name:String) -> Array:
+	var theAnimPlayer:AnimationPlayer = getAnimPlayer()
+	if(!theAnimPlayer):
+		return [-1.0, true]
+	var theAnim:Animation = theAnimPlayer.get_animation(_name)
+	return [theAnim.length, theAnim.loop_mode != Animation.LOOP_NONE]
+
 func ensureAnimPlayerHasEmptyAnim():
 	var theAnimPlayer:AnimationPlayer = get_node(anim_player)
 	if(!theAnimPlayer):

@@ -74,24 +74,18 @@ var currentAnimEntry:DollAnimEntry
 
 signal onGesturePlay(gestureID, playFullBody, playPartial)
 
-func updateAnimPlayer():
-	updateAnimPlayerSpecific(animation_player)
-
-const DefaultAnimLibs = [
-	["GestureAnims", preload("res://Anims/Raw/GestureAnims.glb")],
-]
+#func updateAnimPlayer():
+#	updateAnimPlayerSpecific(animation_player)
 
 static func updateAnimPlayerSpecific(_animPlayer:AnimationPlayer):
-	for defaultEntry in DefaultAnimLibs:
-		var theAnimLibName:String = defaultEntry[0]
-		if(!_animPlayer.has_animation_library(theAnimLibName)):
-			_animPlayer.add_animation_library(theAnimLibName, defaultEntry[1])
-	
-	for libID in GlobalRegistry.dollAnimLibraries:
-		var libPath:String = GlobalRegistry.dollAnimLibraries[libID]
-
-		if(!_animPlayer.has_animation_library(libID)):
-			_animPlayer.add_animation_library(libID, load(libPath))
+	pass
+	#if(true):
+	#	return
+	#for libID in GlobalRegistry.dollAnimLibraries:
+	#	var libPath:String = GlobalRegistry.dollAnimLibraries[libID]
+#
+	#	if(!_animPlayer.has_animation_library(libID)):
+	#		_animPlayer.add_animation_library(libID, load(libPath))
 		
 func playGestureRaw(_gestureID:String, _playFullBody:bool=true, playPartialBody:bool=true):
 	var theGesture:DollGestureBase = GlobalRegistry.getDollGesture(_gestureID)
@@ -114,7 +108,7 @@ func stopGesture(stopFullBody:bool = true, stopPartical:bool = true):
 
 func _ready() -> void:
 	registerSpread()
-	updateAnimPlayer()
+	#updateAnimPlayer()
 	if(disableInternalAnimPlayer):
 		animation_player.active = false
 		dollDynAnimTree.active = false
@@ -621,7 +615,7 @@ func playLocomotionType(_type:int, _pos:Vector2 = Vector2.ZERO, _modifiers:int =
 		
 		if(_pos.is_zero_approx()):
 			setCurrentAnimEntry(idleOverrideEntry if idleOverrideEntry else idleAnimEntry)
-		elif(_pos.y >= 2.0):
+		elif(_pos.y >= 1.5):
 			setCurrentAnimEntry(runAnimEntry)
 		else:
 			setCurrentAnimEntry(walkAnimEntry)

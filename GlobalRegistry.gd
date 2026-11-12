@@ -71,6 +71,8 @@ var networkConnectorRefs:Dictionary[String, ConnectorNetworkBase]
 var characterTypes:Dictionary[int, CharacterTypeBase]
 var characterTypeToScore:Dictionary[CharacterTypeBase, float]
 var mapDefs:Dictionary[String, MapDef]
+var animLibs:Dictionary[String, DollAnimLib]
+var animLibsAlwaysAdd:Array[DollAnimLib]
 
 signal initialized
 
@@ -80,6 +82,54 @@ var dollAnimTreeCache:Dictionary[String, AnimationNode] = {}
 var dollAnimTreeLayerCache:Dictionary[String, Dictionary] = {}
 var mainSkeletonBoneData:MainSkeletonBoneData = MainSkeletonBoneData.new()
 var dollAnimLibraries:Dictionary[String, String] = {}
+
+var curInFlight:int = 0
+func loadThreaded(_path:String) -> Resource:
+	if(ResourceLoader.has_cached(_path)):
+		return ResourceLoader.load(_path)
+	
+	while(curInFlight >= 2):
+		await get_tree().process_frame
+	
+	curInFlight += 1
+	var err:= ResourceLoader.load_threaded_request(_path)
+	if(err != OK):
+		printerr("ERROR! "+error_string(err))
+		curInFlight -= 1
+		return null
+	
+	var loadStatus := ResourceLoader.load_threaded_get_status(_path)
+	while(loadStatus == ResourceLoader.THREAD_LOAD_IN_PROGRESS):
+		await get_tree().process_frame
+		loadStatus = ResourceLoader.load_threaded_get_status(_path)
+	
+	if(loadStatus != ResourceLoader.THREAD_LOAD_LOADED):
+		printerr("FAILED TO LOAD! loadStatus="+str(loadStatus))
+		curInFlight -= 1
+		return null
+	
+	curInFlight -= 1
+	return ResourceLoader.load_threaded_get(_path)
+
+func loadThreadedNoLimit(_path:String) -> Resource:
+	if(ResourceLoader.has_cached(_path)):
+		return ResourceLoader.load(_path)
+	
+	var err:= ResourceLoader.load_threaded_request(_path)
+	if(err != OK):
+		printerr("ERROR! "+error_string(err))
+		return null
+	
+	var loadStatus := ResourceLoader.load_threaded_get_status(_path)
+	while(loadStatus == ResourceLoader.THREAD_LOAD_IN_PROGRESS):
+		await get_tree().process_frame
+		loadStatus = ResourceLoader.load_threaded_get_status(_path)
+	
+	if(loadStatus != ResourceLoader.THREAD_LOAD_LOADED):
+		printerr("FAILED TO LOAD! loadStatus="+str(loadStatus))
+		return null
+	
+	return ResourceLoader.load_threaded_get(_path)
 
 func addBodypartRegistrationsToSpecies():
 	for speciesID in bodypartSpeciesRegistrations:
@@ -226,6 +276,8 @@ func doInit():
 	registerCharacterTypeFolder("res://Game/Character/Type/Types/")
 	registerMapDefFolder("res://Maps/MapDefs/")
 	
+	registerAnimLibFolder("res://Anims/AnimLibs/")
+	
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Body/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Head/")
 	registerBodypartsFolder("res://Game/Character/Bodyparts/Hair/")
@@ -302,6 +354,8 @@ func doInit():
 	
 	for actType in combatMoveByActivationType:
 		sortCombatMoveArrayByPriority(combatMoveByActivationType[actType])
+	
+	makeSureAllAnimLibsLoaded()
 	
 	var end := Time.get_ticks_usec()
 	var worker_time:float = (end-start)/1000000.0
@@ -467,6 +521,9 @@ func registerAnimScene(path: String):
 	
 	if(object is AnimDefBase):
 		animScenes[object.id] = object
+		if(object.shouldCache):
+			object.cachedScene = await loadThreaded(object.scenePath)
+			#Log.Print("Cached anim scene: "+str(object.id))
 
 func registerAnimSceneFolder(folder: String):
 	var scripts = Util.getScriptsInFolder(folder)
@@ -1603,3 +1660,64 @@ func findMapDefByScenePath(_path:String) -> MapDef:
 		if(theMap.getScenePath() == _path):
 			return theMap
 	return null
+
+
+
+
+func registerAnimLib(path: String):
+	var loadedClass = load(path)
+	var object = loadedClass.new()
+	
+	if(object is DollAnimLibMany):
+		object.registerLibs()
+		for theLib:DollAnimLib in object.animLibs:
+			animLibs[theLib.id] = theLib
+			if(theLib.alwaysAdd):
+				animLibsAlwaysAdd.append(theLib)
+				theLib.loadCached()
+			else:
+				theLib.loadUncached()
+	elif(object is DollAnimLib):
+		animLibs[object.id] = object
+		if(object.alwaysAdd):
+			animLibsAlwaysAdd.append(object)
+			object.loadCached()
+		else:
+			object.loadUncached()
+
+func registerAnimLibFolder(folder: String):
+	var scripts = Util.getScriptsInFolderSmart(folder)
+	for scriptPath in scripts:
+		registerAnimLib(scriptPath)
+
+func getAnimLib(id: String) -> DollAnimLib:
+	if(animLibs.has(id)):
+		return animLibs[id]
+	else:
+		Log.Printerr("ERROR: anim lib with the id "+str(id)+" wasn't found")
+		return null
+
+func getAnimLibs() -> Dictionary[String, DollAnimLib]:
+	return animLibs
+
+func getAnimLibsAlwaysAdd() -> Array[DollAnimLib]:
+	return animLibsAlwaysAdd
+
+func makeSureAllAnimLibsLoaded():
+	#for theAnimLib:DollAnimLib in animLibsAlwaysAdd:
+	for theID:String in animLibs:
+		var theAnimLib:DollAnimLib = animLibs[theID]
+		while(theAnimLib.cachedStatus == 0):
+			await get_tree().process_frame
+
+# returns [anim length, isLooped] or an empty array
+func getDollLibAnimationInfo(_name:String) -> Array:
+	var theSplit:Array[String] = Util.splitOnFirst(_name, "/")
+	if(theSplit.size() < 2):
+		return []
+	if(!animLibs.has(theSplit[0])):
+		return []
+	var theLib:DollAnimLib = animLibs[theSplit[0]]
+	if(!theLib.animToInfo.has(theSplit[1])):
+		return []
+	return theLib.animToInfo[theSplit[1]]

@@ -8,18 +8,20 @@ extends AnimSceneBase
 func _init() -> void:
 	id = "stocksSex"
 
+	propAnimLibs = {
+		"stocks": ["StocksSolo_Stocks"],
+	}
+	animLibs = ["StocksSex_Doll"]
+
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addSeat("sub", sit_spot_2)
 	addPropSpot("stocks", prop_spot)
 	
-	addAnimLibrary("StocksSex_Doll", "res://Anims/Raw/Stocks/StocksSex_Doll.glb")
-	addPropAnimLibrary("stocks", "stocks", "res://Anims/Raw/Stocks/StocksSolo_Stocks.glb")
-	
 	addState("tease", {
 		dom = "StocksSex_Doll/Tease_1",
 		sub = "StocksSex_Doll/Tease_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
@@ -29,7 +31,7 @@ func setupScene() -> void:
 	addState("slow", {
 		dom = "StocksSex_Doll/Slow_1",
 		sub = "StocksSex_Doll/Slow_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(17, "plap"),
 	]).setHideTags({
@@ -41,7 +43,7 @@ func setupScene() -> void:
 	addState("sex", {
 		dom = "StocksSex_Doll/Sex_1",
 		sub = "StocksSex_Doll/Sex_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.9, 1.1, 5.0, 10.0).setAnimEvents([
 		animEventOnFrame(9, "plap"),
 	]).setHideTags({
@@ -53,7 +55,7 @@ func setupScene() -> void:
 	addState("fast", {
 		dom = "StocksSex_Doll/Fast_1",
 		sub = "StocksSex_Doll/Fast_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setSpeedAutoSwitch(0.8, 1.1, 3.0, 10.0).setAnimEvents([
 		animEventOnFrame(7, "plap"),
 	]).setHideTags({
@@ -65,7 +67,7 @@ func setupScene() -> void:
 	addState("inside", {
 		dom = "StocksSex_Doll/Inside_1",
 		sub = "StocksSex_Doll/Inside_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setHideTags({
 			dom = [SexHideTag.ArmRestraint],
 			sub = [SexHideTag.ArmRestraint],
@@ -75,7 +77,7 @@ func setupScene() -> void:
 	addState("cum", {
 		dom = "StocksSex_Doll/Cum_1",
 		sub = "StocksSex_Doll/Cum_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setAnimEvents([
 			animEventOnFrame(6, "plap"),
 			animEventOnFrame(8, "cumInsideSound"),
@@ -108,11 +110,11 @@ func setupScene() -> void:
 	addExtraLayer(AnimSceneExtraLayerOneshot.create("bottomCum", {
 		dom = "StocksSex_Doll/BottomCum_1",
 		sub = "StocksSex_Doll/BottomCum_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}, {
 		dom = "StocksSex_Doll/BottomCumBase_1",
 		sub = "StocksSex_Doll/BottomCumBase_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	}).setAnimEvents([
 			animEventOnFrame(0, "squirt"),
 			animEventOnFrame(5, "squirt"),

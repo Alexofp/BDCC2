@@ -6,21 +6,23 @@ extends AnimSceneBase
 
 func _init() -> void:
 	id = "stocks"
+	
+	propAnimLibs = {
+		"stocks": ["StocksSolo_Stocks"],
+	}
+	animLibs = ["StocksSolo_Doll"]
 
 func setupScene() -> void:
 	addSeat("dom", sit_spot)
 	addPropSpot("stocks", prop_spot)
 	
-	addAnimLibrary("StocksSolo_Doll", "res://Anims/Raw/Stocks/StocksSolo_Doll.glb")
-	addPropAnimLibrary("stocks", "stocks", "res://Anims/Raw/Stocks/StocksSolo_Stocks.glb")
-	
 	addState("bent", {
 		dom = "StocksSolo_Doll/Normal_2",
-		stocks = "stocks/Stocks_Normal",
+		stocks = "StocksSolo_Stocks/Stocks_Normal",
 	})
 	addState("standing", {
 		dom = "StocksSolo_Doll/Standing_2",
-		stocks = "stocks/Stocks_Standing",
+		stocks = "StocksSolo_Stocks/Stocks_Standing",
 	})
 	
 	connectStates("bent", "standing")
