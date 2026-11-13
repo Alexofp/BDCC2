@@ -262,7 +262,12 @@ func internal_sortAnimTreesNeedProcessingFinishAscending(a:AnimTreeEntry, b:Anim
 
 func fallbackProcessAllAnimTrees(_delta:float):
 	for theTreeEntry:AnimTreeEntry in animTrees:
-		theTreeEntry.animTree.advance(_delta)
+		if(theTreeEntry.animTree):
+			theTreeEntry.animTree.advance(_delta)
+		if(theTreeEntry.skeleton):
+			theTreeEntry.skeleton.advance(_delta)
+		theTreeEntry.skippedDelta = 0.0
+		theTreeEntry.needProcessing = 0.0
 
 func internal_findPos(_node:Node) -> Vector3:
 	while(_node && !(_node is Node3D)):
