@@ -104,7 +104,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 var manualTurnOff:bool = false
 var influenceActualMax:float = 1.0
-func _process_modification() -> void:
+#func _process_modification() -> void:
+func _process_modification_with_delta(delta: float) -> void:
 	if _bone_idx < 0:
 		return
 	#if(true):
@@ -127,14 +128,14 @@ func _process_modification() -> void:
 	# END
 	
 	var skeleton := get_skeleton()
-	var delta := 0.0
+	#var delta := 0.0
 
-	match skeleton.modifier_callback_mode_process:
-		Skeleton3D.MODIFIER_CALLBACK_MODE_PROCESS_IDLE:
-			delta = get_process_delta_time()
-
-		Skeleton3D.MODIFIER_CALLBACK_MODE_PROCESS_PHYSICS:
-			delta = get_physics_process_delta_time()
+	#match skeleton.modifier_callback_mode_process:
+	#	Skeleton3D.MODIFIER_CALLBACK_MODE_PROCESS_IDLE:
+	#		delta = get_process_delta_time()
+#
+	#	Skeleton3D.MODIFIER_CALLBACK_MODE_PROCESS_PHYSICS:
+	#		delta = get_physics_process_delta_time()
 
 	# Limit delta.
 	delta = clampf(delta, 0.0001, 0.1)

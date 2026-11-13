@@ -48,7 +48,15 @@ script = ExtResource("2_mv6ag")
 attachPoint = "tail"
 
 [node name="Skeleton3D" parent="FluffyTailRig" index="0" unique_id=1786904004]
+unique_name_in_owner = true
 bones/0/rotation = Quaternion(-0.7071068, 0, 0, 0.7071068)
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+bones/3/skin_scale = Vector3(1, 1, 1)
+bones/4/skin_scale = Vector3(1, 1, 1)
+bones/5/skin_scale = Vector3(1, 1, 1)
+bones/6/skin_scale = Vector3(1, 1, 1)
 
 [node name="FluffyTail" parent="FluffyTailRig/Skeleton3D" index="0" unique_id=2075577462]
 unique_name_in_owner = true

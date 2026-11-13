@@ -5,6 +5,11 @@ var rubberBandMat:ShaderMaterial
 
 @onready var ponytails_back: MeshInstance3D = %PonytailsBack
 @onready var rubber_bands: MeshInstance3D = %RubberBands
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(null, skeleton_3d, ProcessBalancer.HAIR_PRIORITY)
 
 func grabMaterials():
 	hairMat = ponytails_back.get_surface_override_material(0)

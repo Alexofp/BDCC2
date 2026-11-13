@@ -7,6 +7,11 @@ extends DollPart
 var earMat:ShaderMaterial
 #var tasselsMat:ShaderMaterial
 var fluffMat:ShaderMaterial
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(null, skeleton_3d, ProcessBalancer.EAR_PRIORITY)
 
 func grabMaterials():
 	earMat = ear.get_surface_override_material(0)

@@ -26,6 +26,11 @@ var tailMat:ShaderMaterial
 @onready var lionTip: MeshInstance3D = %FelineTailLionTip
 @onready var tailSkeletonModifier: TailSkeletonModifier = %TailSkeletonModifier
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(animation_player, skeleton_3d, ProcessBalancer.TAIL_PRIORITY)
 
 func grabMaterials():
 	tailMat = fuzzyTail.get_surface_override_material(0)

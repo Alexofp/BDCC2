@@ -28,6 +28,11 @@ var bowMat:ShaderMaterial
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var bow: MeshInstance3D = %Bow
 @onready var band: MeshInstance3D = %Band
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(animation_player, skeleton_3d, ProcessBalancer.TAIL_PRIORITY)
 
 
 func grabMaterials():

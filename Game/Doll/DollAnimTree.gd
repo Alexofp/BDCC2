@@ -173,12 +173,7 @@ func defineLayers():
 		addLayer(LAYER_ARMS_OVERRIDE, ArmsLayer)
 
 func _enter_tree() -> void:
-	if(!Engine.is_editor_hint()):
-		ProcessBalancer.addAnimTree(self)
-
-func _exit_tree() -> void:
-	if(!Engine.is_editor_hint()):
-		ProcessBalancer.removeAnimTree(self)
+	ProcessBalancer.addAnimTree(self)
 
 class BoneFilterSimple:
 	var bones:Array[String] = []

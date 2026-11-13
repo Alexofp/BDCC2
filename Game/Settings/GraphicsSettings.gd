@@ -89,6 +89,15 @@ enum TEXTURESTREAMINGBUDGET {
 }
 var textureStreamingBudget:int
 
+enum ANIMATIONUPDATES {
+	STOPMOTION,
+	REDUCED,
+	NORMAL,
+	HIGH,
+	UNLIMITED,
+}
+var animationUpdates:int
+
 enum SSAO {
 	DISABLED,
 	ENABLED,
@@ -264,6 +273,18 @@ func getSettings() -> Dictionary:
 				[TEXTURESTREAMINGBUDGET.UNLIMITED, "Unlimited"],
 			],
 			default = TEXTURESTREAMINGBUDGET.NORMAL,
+		},
+		"animationUpdates": {
+			name = "Animation updates budget",
+			type = "selector",
+			values = [
+				[ANIMATIONUPDATES.STOPMOTION, "Stop-motion (fastest)"],
+				[ANIMATIONUPDATES.REDUCED, "Reduced"],
+				[ANIMATIONUPDATES.NORMAL, "Normal"],
+				[ANIMATIONUPDATES.HIGH, "High"],
+				[ANIMATIONUPDATES.UNLIMITED, "Unlimited (slowest)"],
+			],
+			default = ANIMATIONUPDATES.NORMAL,
 			addSeparator = true,
 		},
 		"ssaa": {
@@ -467,3 +488,16 @@ func getHiddenVars(_varList:VarList) -> Array[String]:
 	if(upscaler != UPSCALER.FSR1):
 		result.append("fsrSharpness")
 	return result
+
+func getAnimationBudgetMult() -> float:
+	if(animationUpdates == ANIMATIONUPDATES.STOPMOTION):
+		return 0.1
+	if(animationUpdates == ANIMATIONUPDATES.REDUCED):
+		return 0.5
+	if(animationUpdates == ANIMATIONUPDATES.NORMAL):
+		return 1.0
+	if(animationUpdates == ANIMATIONUPDATES.HIGH):
+		return 2.0
+	if(animationUpdates == ANIMATIONUPDATES.UNLIMITED):
+		return 9999.9
+	return 1.0

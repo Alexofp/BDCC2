@@ -65,10 +65,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_41o5j")
 attachPoint = "ear.R"
 
-[node name="RoundEar_001" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(1939313697) index="0" unique_id=1279872826]
+[node name="Skeleton3D" parent="RoundEarRig_001" index="0" unique_id=1939313697]
+unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+
+[node name="RoundEar_001" parent="RoundEarRig_001/Skeleton3D" index="0" unique_id=1279872826]
 surface_material_override/0 = SubResource("ShaderMaterial_nahli")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(1939313697) index="1" unique_id=1498311409]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="RoundEarRig_001/Skeleton3D" index="1" unique_id=1498311409]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -90,5 +96,5 @@ bone_name = "Ear.R"
 properties = SubResource("Resource_lebs8")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="RoundEarFluff_001" parent="RoundEarRig_001/Skeleton3D" parent_id_path=PackedInt32Array(1939313697) index="2" unique_id=273026880]
+[node name="RoundEarFluff_001" parent="RoundEarRig_001/Skeleton3D" index="2" unique_id=273026880]
 surface_material_override/0 = SubResource("ShaderMaterial_5me4g")

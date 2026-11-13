@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ckvefp2hmai0c" path="res://Mesh/SharedMaterials/Hair/Textures/AO_Depth_Roots_Alpha.png" id="6_wjyrk"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_27vx0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq8ma"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bxdto"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_bxdto")
@@ -44,15 +44,22 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="ShortHair" unique_id=10539453 instance=ExtResource("1_vkhs3")]
 script = ExtResource("2_ithp7")
 
-[node name="ShortHairRig" parent="." index="0" unique_id=2037262274]
+[node name="ShortHairRig" parent="." index="0" unique_id=322941358]
 script = ExtResource("3_qahxa")
 attachPoint = "hair"
 
-[node name="ShortHair" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="0" unique_id=1099132953]
+[node name="Skeleton3D" parent="ShortHairRig" index="0" unique_id=1778093945]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_bq8ma")
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+bones/3/skin_scale = Vector3(1, 1, 1)
 
-[node name="Wiggle1" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="1" unique_id=1168819174]
+[node name="ShortHair" parent="ShortHairRig/Skeleton3D" index="0" unique_id=289452694]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_bxdto")
+
+[node name="Wiggle1" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="1" unique_id=1168819174]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -74,7 +81,7 @@ bone_name = "WiggleBack"
 properties = SubResource("Resource_uoj1p")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="2" unique_id=28809206]
+[node name="Wiggle2" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="2" unique_id=28809206]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -96,7 +103,7 @@ bone_name = "WiggleL"
 properties = SubResource("Resource_uoj1p")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" parent_id_path=PackedInt32Array(2052849228) index="3" unique_id=607947213]
+[node name="Wiggle3" type="SkeletonModifier3D" parent="ShortHairRig/Skeleton3D" index="3" unique_id=607947213]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

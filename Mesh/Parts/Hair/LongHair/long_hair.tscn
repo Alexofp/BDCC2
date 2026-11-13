@@ -51,15 +51,21 @@ albedo_color = Color(1, 1, 1, 0.13333334)
 [node name="LongHair" unique_id=934040182 instance=ExtResource("1_3b5iq")]
 script = ExtResource("2_3b5iq")
 
-[node name="LongHairRig" parent="." index="0" unique_id=1667257657]
+[node name="LongHairRig" parent="." index="0" unique_id=2105262555]
 script = ExtResource("3_7kvhl")
 attachPoint = "hair"
 
-[node name="LongHair" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1030299831) index="0" unique_id=558670768]
+[node name="Skeleton3D" parent="LongHairRig" index="0" unique_id=150783875]
+unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+
+[node name="LongHair" parent="LongHairRig/Skeleton3D" index="0" unique_id=1522298934]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_0dcli")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1030299831) index="1" unique_id=746202202 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="1" unique_id=746202202 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -68,7 +74,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.9980923, 0.059556708, 0.016269602, 0.050411046, -0.9382915, 0.3421517, 0.035643052, -0.34067884, -0.93950385, 0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.99809587, 0.05949064, 0.016293675, 0.050355125, -0.9384329, 0.3417722, 0.03562276, -0.34030095, -0.93964154, 0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false
@@ -83,7 +89,7 @@ bone_name = "Back.L"
 properties = SubResource("Resource_7kvhl")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" parent_id_path=PackedInt32Array(1030299831) index="2" unique_id=1594384544 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="LongHairRig/Skeleton3D" index="2" unique_id=1594384544 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -92,7 +98,7 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
-transform = Transform3D(0.99809235, -0.05955672, -0.016269539, -0.05041108, -0.9382915, 0.34215173, -0.035643, -0.34067884, -0.93950385, -0.055657133, 0.017137887, -0.07070298)
+transform = Transform3D(0.99809587, -0.059490666, -0.016293615, -0.050355166, -0.93843275, 0.3417722, -0.035622712, -0.34030098, -0.93964154, -0.055657133, 0.017137887, -0.07070298)
 rotation_edit_mode = 0
 rotation_order = 2
 top_level = false

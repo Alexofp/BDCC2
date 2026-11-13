@@ -13,6 +13,9 @@ func _ready() -> void:
 	
 	#libHandler.addAnimLib("LocomotionAnims")
 
+func _enter_tree() -> void:
+	ProcessBalancer.addAnimTree(self, skeleton)
+
 func getAnimationInfo(_name:String) -> Array:
 	var theInfo:Array = libHandler.getAnimationInfo(_name)
 	if(!theInfo.is_empty()):

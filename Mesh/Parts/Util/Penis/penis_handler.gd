@@ -78,6 +78,9 @@ func _validate_property(property: Dictionary) -> void:
 			property.hint = PROPERTY_HINT_ENUM
 			property.hint_string = Util.join(animPlayer.get_animation_list(), ",")
 
+func _enter_tree() -> void:
+	ProcessBalancer.addAnimTree(animPlayer, skeleton, ProcessBalancer.PENIS_PRIORITY)
+
 func clearModifiers():
 	erection = 1.0
 	guiding = 0.0

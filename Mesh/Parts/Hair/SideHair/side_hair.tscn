@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dk8kgax5eyeng" path="res://addons/wigglebone/wiggle_rotation_properties_3d.gd" id="6_q3kuq"]
 [ext_resource type="Texture2D" uid="uid://c36t7vfra6lai" path="res://Mesh/SharedMaterials/Hair/Textures/ShiftTexture.png" id="7_hgwrh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nta5p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_to4g3"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_to4g3")
@@ -42,15 +42,21 @@ metadata/_custom_type_script = "uid://dk8kgax5eyeng"
 [node name="SideHair" unique_id=24833503 instance=ExtResource("1_ltlex")]
 script = ExtResource("2_ltlex")
 
-[node name="SideHairRig" parent="." index="0" unique_id=1272158181]
+[node name="SideHairRig" parent="." index="0" unique_id=859916816]
 script = ExtResource("2_tr3pq")
 attachPoint = "hair"
 
-[node name="SideHair" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(49041516) index="0" unique_id=1712920941]
+[node name="Skeleton3D" parent="SideHairRig" index="0" unique_id=2085160822]
 unique_name_in_owner = true
-surface_material_override/0 = SubResource("ShaderMaterial_nta5p")
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(49041516) index="1" unique_id=1946202714]
+[node name="SideHair" parent="SideHairRig/Skeleton3D" index="0" unique_id=918736188]
+unique_name_in_owner = true
+surface_material_override/0 = SubResource("ShaderMaterial_to4g3")
+
+[node name="TailWiggle" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" index="1" unique_id=1946202714]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -72,7 +78,7 @@ bone_name = "Tail1"
 properties = SubResource("Resource_l64sr")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" parent_id_path=PackedInt32Array(49041516) index="2" unique_id=1434147404]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="SideHairRig/Skeleton3D" index="2" unique_id=1434147404]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

@@ -65,15 +65,21 @@ metadata/_custom_type_script = "uid://bk8a3rmejmdn"
 [node name="Ponytail" unique_id=1734872151 instance=ExtResource("1_cb8oa")]
 script = ExtResource("2_xqaau")
 
-[node name="HairRig" parent="." index="0" unique_id=224123562]
+[node name="HairRig" parent="." index="0" unique_id=133710141]
 script = ExtResource("6_1k6or")
 attachPoint = "hair"
 
-[node name="Ponytail" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(1830018959) index="0" unique_id=722161516]
+[node name="Skeleton3D" parent="HairRig" index="0" unique_id=1265572379]
+unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+
+[node name="Ponytail" parent="HairRig/Skeleton3D" index="0" unique_id=1267208602]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_d3as3")
 
-[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(1830018959) index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="1" unique_id=1109810410 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -98,7 +104,7 @@ properties = SubResource("Resource_tj25j")
 enableGravityHelper = true
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(1830018959) index="2" unique_id=1646994683 node_paths=PackedStringArray("collider_nodes")]
+[node name="TailWiggle2" type="SkeletonModifier3D" parent="HairRig/Skeleton3D" index="2" unique_id=1646994683 node_paths=PackedStringArray("collider_nodes")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -122,7 +128,7 @@ bone_name = "Tail2"
 properties = SubResource("Resource_tj25j")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="Ponytail1Bow" parent="HairRig/Skeleton3D" parent_id_path=PackedInt32Array(1830018959) index="3" unique_id=1527647051]
+[node name="Ponytail1Bow" parent="HairRig/Skeleton3D" index="3" unique_id=1108354425]
 unique_name_in_owner = true
 surface_material_override/0 = SubResource("ShaderMaterial_uh53a")
 

@@ -5,6 +5,11 @@ var bowMat:ShaderMaterial
 
 @onready var long_hair_bow: MeshInstance3D = %LongHairBow
 @onready var bow: MeshInstance3D = %Bow
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(null, skeleton_3d, ProcessBalancer.HAIR_PRIORITY)
 
 func grabMaterials():
 	hairMat = long_hair_bow.get_surface_override_material(0)

@@ -48,12 +48,20 @@ script = ExtResource("3_ro6fy")
 attachPoint = "tail"
 
 [node name="Skeleton3D" parent="FelineTailRig" index="0" unique_id=1966467547]
+unique_name_in_owner = true
 bones/0/rotation = Quaternion(-0.8853029, -4.6661328e-17, 4.6661334e-17, 0.465015)
+bones/0/skin_scale = Vector3(1, 1, 1)
 bones/1/rotation = Quaternion(-0.29718843, -6.598909e-17, 2.5989661e-24, 0.95481884)
+bones/1/skin_scale = Vector3(1, 1, 1)
 bones/2/rotation = Quaternion(0.15822394, 3.5132766e-17, 3.6860264e-23, 0.9874033)
+bones/2/skin_scale = Vector3(1, 1, 1)
 bones/3/rotation = Quaternion(0.15822378, 3.513278e-17, 4.4818732e-23, 0.9874033)
+bones/3/skin_scale = Vector3(1, 1, 1)
 bones/4/rotation = Quaternion(0.1582243, 3.5132783e-17, 6.178284e-23, 0.9874032)
+bones/4/skin_scale = Vector3(1, 1, 1)
 bones/5/rotation = Quaternion(0.15822385, 3.513279e-17, 2.8692367e-23, 0.9874033)
+bones/5/skin_scale = Vector3(1, 1, 1)
+bones/6/skin_scale = Vector3(1, 1, 1)
 
 [node name="FelineTail" parent="FelineTailRig/Skeleton3D" index="0" unique_id=690055808]
 unique_name_in_owner = true

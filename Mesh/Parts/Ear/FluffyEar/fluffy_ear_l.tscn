@@ -104,10 +104,16 @@ tassels = NodePath("EarRigL/Skeleton3D/FelineEarTasselsL")
 script = ExtResource("3_5qpcy")
 attachPoint = "ear.L"
 
-[node name="FelineEarFluffL" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="0" unique_id=1621250625]
+[node name="Skeleton3D" parent="EarRigL" index="0" unique_id=1431873963]
+unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+bones/2/skin_scale = Vector3(1, 1, 1)
+
+[node name="FelineEarFluffL" parent="EarRigL/Skeleton3D" index="0" unique_id=1621250625]
 surface_material_override/0 = SubResource("ShaderMaterial_k4ogo")
 
-[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="1" unique_id=496649971]
+[node name="DMWBWiggleRotationModifier3D" type="SkeletonModifier3D" parent="EarRigL/Skeleton3D" index="1" unique_id=496649971]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -129,7 +135,7 @@ bone_name = "DEF-Ear.L"
 properties = SubResource("Resource_btijh")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="2" unique_id=1271483142]
+[node name="DMWBWiggleRotationModifier3D2" type="SkeletonModifier3D" parent="EarRigL/Skeleton3D" index="2" unique_id=1271483142]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -151,12 +157,12 @@ bone_name = "DEF-Root.L"
 properties = SubResource("Resource_btijh")
 metadata/_custom_type_script = "uid://1n0mqd1c34ui"
 
-[node name="FelineEarL" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="3" unique_id=1980729509]
+[node name="FelineEarL" parent="EarRigL/Skeleton3D" index="3" unique_id=1980729509]
 surface_material_override/0 = SubResource("ShaderMaterial_tfl45")
 
-[node name="FelineEarPiercedTwoRingsL" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="4" unique_id=1542105689]
+[node name="FelineEarPiercedTwoRingsL" parent="EarRigL/Skeleton3D" index="4" unique_id=1542105689]
 visibility_range_end = 10.0
 surface_material_override/0 = SubResource("ShaderMaterial_ta04k")
 
-[node name="FelineEarTasselsL" parent="EarRigL/Skeleton3D" parent_id_path=PackedInt32Array(1431873963) index="5" unique_id=1223016100]
+[node name="FelineEarTasselsL" parent="EarRigL/Skeleton3D" index="5" unique_id=1223016100]
 surface_material_override/0 = SubResource("ShaderMaterial_nwc67")

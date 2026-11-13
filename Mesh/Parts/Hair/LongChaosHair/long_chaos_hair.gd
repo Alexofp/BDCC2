@@ -3,6 +3,11 @@ extends DollPart
 var hairMat:ShaderMaterial
 
 @onready var long_chaos_hair: MeshInstance3D = %LongChaosHair
+@onready var skeleton_3d: Skeleton3D = %Skeleton3D
+
+func _ready():
+	super._ready()
+	ProcessBalancer.addAnimTree(null, skeleton_3d, ProcessBalancer.HAIR_PRIORITY)
 
 func grabMaterials():
 	hairMat = long_chaos_hair.get_surface_override_material(0)

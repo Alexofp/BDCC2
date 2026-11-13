@@ -85,16 +85,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_i7w7m")
 attachPoint = "ear.R"
 
-[node name="EarR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(555896887) index="0" unique_id=664288705]
+[node name="Skeleton3D" parent="SmallEarR" index="0" unique_id=555896887]
+unique_name_in_owner = true
+bones/0/skin_scale = Vector3(1, 1, 1)
+bones/1/skin_scale = Vector3(1, 1, 1)
+
+[node name="EarR" parent="SmallEarR/Skeleton3D" index="0" unique_id=664288705]
 surface_material_override/0 = SubResource("ShaderMaterial_nkw3c")
 
-[node name="InnerFluffR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(555896887) index="1" unique_id=1226442769]
+[node name="InnerFluffR" parent="SmallEarR/Skeleton3D" index="1" unique_id=1226442769]
 surface_material_override/0 = SubResource("ShaderMaterial_xuqlt")
 
-[node name="TasselsR" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(555896887) index="2" unique_id=268288915]
+[node name="TasselsR" parent="SmallEarR/Skeleton3D" index="2" unique_id=268288915]
 surface_material_override/0 = SubResource("ShaderMaterial_wximp")
 
-[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" parent_id_path=PackedInt32Array(555896887) index="3" unique_id=516388925]
+[node name="EarWiggle" type="SkeletonModifier3D" parent="SmallEarR/Skeleton3D" index="3" unique_id=516388925]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0

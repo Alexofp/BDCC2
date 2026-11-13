@@ -67,6 +67,7 @@ script = ExtResource("3_pobbw")
 attachPoint = "hair"
 
 [node name="Skeleton3D" parent="Ponytail2Rig" index="0" unique_id=2108035319]
+unique_name_in_owner = true
 bones/0/skin_scale = Vector3(1, 1, 1)
 bones/1/skin_scale = Vector3(1, 1, 1)
 bones/2/skin_scale = Vector3(1, 1, 1)

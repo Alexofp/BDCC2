@@ -8,8 +8,6 @@ const MAX_LAYERED_TEXTURE_UPDATES_PER_FRAME = 1
 var layeredTextures:Array[MyLayeredTexture] = []
 var curLayeredTextures:int = 0
 
-var animTrees:Array[AnimationTree] = []
-
 var dollsToUpdate:Array[Doll] = []
 var thingsToUpdate:Array[Node] = []
 
@@ -126,15 +124,152 @@ func addLayeredTexture(_texture:MyLayeredTexture):
 func removeLayeredTexture(_texture:MyLayeredTexture):
 	layeredTextures.erase(_texture)
 
-func addAnimTree(_tree:AnimationTree):
-	animTrees.append(_tree)
-	#_tree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+class AnimTreeEntry:
+	var animTree:AnimationMixer
+	var skeleton:Skeleton3D
+	var skippedDelta:float = 0.0
+	#var virtualFinishTime:float = 0.0 # lower = more overdue
+	var needProcessing:float = 0.0
+	var distance:float = 0.0
+	var priority:float = 1.0
+
+var animTrees:Array[AnimTreeEntry] = []
+
+# Skeleton only matters if it has skeletonModifiers attached to it.
+# Higher priority = updates more often against others
+func addAnimTree(_tree:AnimationMixer, _skeleton:Skeleton3D = null, _priority:float = 1.0):
+	if(Engine.is_editor_hint()):
+		return
+	if((!_tree || !_tree.is_inside_tree()) && (!_skeleton || !_skeleton.is_inside_tree())):
+		Log.Printerr("Bad addAnimTree() call. Tree:"+str(_tree)+" skeleton:"+str(_skeleton))
+		return
+	var newEntry:AnimTreeEntry = AnimTreeEntry.new()
+	newEntry.animTree = _tree
+	newEntry.skeleton = _skeleton
+	newEntry.priority = _priority
+	animTrees.append(newEntry)
+	if(_tree):
+		_tree.tree_exiting.connect(internal_removeAnimTree.bind(newEntry))
+		_tree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	if(_skeleton):
+		if(!_tree):
+			_skeleton.tree_exiting.connect(internal_removeAnimTree.bind(newEntry))
+		_skeleton.modifier_callback_mode_process = Skeleton3D.MODIFIER_CALLBACK_MODE_PROCESS_MANUAL
 	#var animPlayer:AnimationPlayer = _tree.get_node(_tree.anim_player)
 	#if(animPlayer):
 		#animPlayer.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		#
-func removeAnimTree(_tree:AnimationTree):
-	animTrees.erase(_tree)
+func internal_removeAnimTree(_entry:AnimTreeEntry):
+	animTrees.erase(_entry)
+	#treeToDist.erase(_entry)
+
+#const AMOUNT_FULL:int = 10
+#const AMOUNT_SKIP_1_FRAME:int = 6
+#const AMOUNT_SKIP_2_FRAMES:int = 6
+
+const HAIR_PRIORITY:float = 0.6
+const EAR_PRIORITY:float = 0.4
+const TAIL_PRIORITY:float = 0.8
+const PENIS_PRIORITY:float = 0.5
+const FACE_PRIORITY:float = 0.6
+
+const UPDATES_BUDGET: int = 20
+#const DIST_SCALE_SQ: float = 100.0
+const MIN_WEIGHT: float = 0.001
+
+#var treeToDist:Dictionary[AnimTreeEntry, float]
+#var processFrameCounter: int = 0
+func _process(_delta: float) -> void:
+	#processFrameCounter += 1
+	var theCamera:Camera3D = get_viewport().get_camera_3d()
+	if(!theCamera):
+		fallbackProcessAllAnimTrees(_delta)
+		return
+	var theCameraPos:Vector3 = theCamera.global_position
+	for theTree:AnimTreeEntry in animTrees:
+		var thePos:Vector3 = theTree.skeleton.global_position if (theTree.skeleton) else internal_findPos(theTree.animTree)
+		#treeToDist[theTree] = theCameraPos.distance_squared_to(thePos)
+		theTree.distance = theCameraPos.distance_squared_to(thePos)
+		theTree.skippedDelta += _delta
+		theTree.needProcessing += _delta / maxf(theTree.distance, MIN_WEIGHT) * theTree.priority
+	
+	#animTrees.sort_custom(internal_sortAnimTreesAscending)
+	#animTrees.sort_custom(internal_sortAnimTreesVirtFinishAscending)
+	animTrees.sort_custom(internal_sortAnimTreesNeedProcessingFinishAscending)
+	
+	var theBudget:int = int(float(UPDATES_BUDGET) * OPTIONS.graphics.getAnimationBudgetMult())
+	theBudget = maxi(theBudget, 1)
+	var theUpdateCount: int = mini(theBudget, animTrees.size())
+	for _i:int in theUpdateCount:
+		var theEntry:AnimTreeEntry = animTrees[_i]
+		#var theWeight: float = maxf(DIST_SCALE_SQ / (DIST_SCALE_SQ + theEntry.distance), MIN_WEIGHT)
+		
+		if(theEntry.animTree):
+			theEntry.animTree.advance(theEntry.skippedDelta)
+		if(theEntry.skeleton):
+			theEntry.skeleton.advance(theEntry.skippedDelta)
+		theEntry.skippedDelta = 0.0
+		#theEntry.virtualFinishTime += 1.0 / theWeight
+		theEntry.needProcessing = 0.0
+		
+	#var theTotal: int = animTrees.size()
+	#var theTier1End: int = mini(AMOUNT_FULL + AMOUNT_SKIP_1_FRAME, theTotal)
+	#var theTier2End: int = mini(theTier1End + AMOUNT_SKIP_2_FRAMES, theTotal)
+	#
+	#var _amProccessed:int = 0
+	#var _amSkipped:int = 0
+	#for _i:int in theTotal:
+	#	var theTreeEntry: AnimTreeEntry = animTrees[_i]
+	#	var theTree: AnimationMixer = theTreeEntry.animTree
+	#	var interval: int
+	#	if _i < AMOUNT_FULL:
+	#		interval = 1
+	#	elif _i < theTier1End:
+	#		interval = 2
+	#	elif _i < theTier2End:
+	#		interval = 3
+	#	else:
+	#		interval = 4
+#
+	#	if processFrameCounter % interval == 0:
+	#		var toProcess:float = theTreeEntry.skippedDelta + _delta
+	#		if(theTree):
+	#			theTree.advance(toProcess)
+	#		if(theTreeEntry.skeleton):
+	#			theTreeEntry.skeleton.advance(toProcess)
+	#		theTreeEntry.skippedDelta = 0.0
+	#		_amProccessed += 1
+	#	else:
+	#		_amSkipped += 1
+	#		theTreeEntry.skippedDelta += _delta
+	
+	#print(_amProccessed, "\t", _amSkipped)
+
+#func internal_sortAnimTreesAscending(a:AnimTreeEntry, b:AnimTreeEntry):
+#	if treeToDist[a] < treeToDist[b]:
+#		return true
+#	return false
+
+#func internal_sortAnimTreesVirtFinishAscending(a:AnimTreeEntry, b:AnimTreeEntry):
+#	if a.virtualFinishTime < b.virtualFinishTime:
+#		return true
+#	return false
+
+func internal_sortAnimTreesNeedProcessingFinishAscending(a:AnimTreeEntry, b:AnimTreeEntry):
+	if a.needProcessing > b.needProcessing:
+		return true
+	return false
+
+func fallbackProcessAllAnimTrees(_delta:float):
+	for theTreeEntry:AnimTreeEntry in animTrees:
+		theTreeEntry.animTree.advance(_delta)
+
+func internal_findPos(_node:Node) -> Vector3:
+	while(_node && !(_node is Node3D)):
+		_node = _node.get_parent()
+	if(_node && (_node is Node3D)):
+		return _node.global_position
+	return Vector3.ZERO
 
 func addWiggleModifier(_mod):
 	wiggleModifiers.append(_mod)

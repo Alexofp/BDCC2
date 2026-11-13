@@ -123,6 +123,7 @@ var gagMouthOverride:float = -1.0
 
 static var cachedGestures:Array = []
 func _ready() -> void:
+	ProcessBalancer.addAnimTree(animTree, null, ProcessBalancer.FACE_PRIORITY)
 	if(animPlayer):
 		animPlayer.active = false
 	updateAnimTree()
