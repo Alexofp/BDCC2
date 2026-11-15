@@ -15,6 +15,7 @@ func _post_import(scene:Node):
 	iterate(scene, 0, toDelete)
 	#print("TODELETE: ",toDelete)
 	for theNode in toDelete:
+		theNode.get_parent().remove_child(theNode)
 		theNode.queue_free()
 	
 	if(scene.name.ends_with("2") && !scene.name.ends_with("x2")):
