@@ -9,6 +9,7 @@ script = ExtResource("1_4ytng")
 [node name="HoverText" type="Label3D" parent="." unique_id=590944479]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+layers = 2
 pixel_size = 0.001
 billboard = 1
 render_priority = 3
@@ -22,3 +23,4 @@ width = 1200.0
 
 [node name="ProgressBar3DMesh" parent="." unique_id=918855967 instance=ExtResource("4_gjpgc")]
 unique_name_in_owner = true
+layers = 2

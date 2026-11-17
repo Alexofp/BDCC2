@@ -60,11 +60,13 @@ script = ExtResource("1_u84l8")
 
 [node name="PainBar" parent="." unique_id=330937144 instance=ExtResource("1_pjhqy")]
 unique_name_in_owner = true
+layers = 2
 surface_material_override/0 = SubResource("ShaderMaterial_u84l8")
 size = 0.1
 
 [node name="ExhaustionBar" parent="." unique_id=314307836 instance=ExtResource("1_pjhqy")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11288441, 0)
+layers = 2
 surface_material_override/0 = SubResource("ShaderMaterial_pdir5")
 size = 0.1
