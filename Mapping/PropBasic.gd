@@ -54,6 +54,7 @@ const EDITOR_OPTIONS_ID_SKYLINER = "skyliner"
 const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIG = "slopedwindowbig"
 const EDITOR_OPTIONS_ID_SLOPEDWINDOWBIGSIDE = "slopedwindowbigside"
 const EDITOR_OPTIONS_ID_MAINHALL = "mainhall"
+const EDITOR_OPTIONS_ID_MIRRORPLANE = "mirrorplane"
 
 func _ready() -> void:
 	applyAllEditorOptions()
